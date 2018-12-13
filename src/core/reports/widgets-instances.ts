@@ -299,7 +299,7 @@ export class AjfReportTableWidgetInstance extends AjfReportWidgetInstance {
       for (let j = 0; j < cellsNum; j++) {
         const cell = row[j];
         const value = cell.formula.evaluate(context);
-        const style = Object.assign({}, widget.cellStyles, cell.style);
+        const style = {...widget.cellStyles, ...cell.style};
         this._data[i].push(<AjfTableCell>{
           value,
           style,
@@ -312,7 +312,7 @@ export class AjfReportTableWidgetInstance extends AjfReportWidgetInstance {
     //   return row.map((cell: AjfTableDataset) => {
     //     return <AjfTableCell>{
     //       value: cell.formula.evaluate(context),
-    //       style: Object.assign({}, widget.cellStyles, cell.style),
+    //       style: {...widget.cellStyles, ...cell.style},
     //       rowspan: cell.rowspan,
     //       colspan: cell.colspan
     //     };
@@ -387,25 +387,25 @@ export class AjfReportChartWidgetInstance extends AjfReportDataWidgetInstance {
     }
 
     this._datasets = widget.dataset.map((d => {
-      let ds = Object.assign({}, d.options || {}, {
+      let ds = <any>{...d.options || {},
         data: d.aggregation.evaluate(d.formula, context)
-      });
+      };
       if (d.chartType != null) {
         const ct = chartToChartJsType(d.chartType);
-        ds = Object.assign(ds, {
+        ds = {...ds,
           chartType: ct,
           type: ct
-        });
+        };
       }
       if (d.options != null) {
-        ds = Object.assign(ds, {
+        ds = {...ds,
           options: d.options
-        });
+        };
       }
       if (d.label != null) {
-        ds = Object.assign(ds, {
+        ds = {...ds,
           label: d.label
-        });
+        };
       }
       if (d.datalabels != null) {
         ds.datalabels = deepCopy(d.datalabels);

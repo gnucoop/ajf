@@ -223,9 +223,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
       map((widget: AjfReportWidget | null) => {
         if (widget != null && (widget as AjfReportChartWidget).dataset != null) {
           const myObj = <AjfReportChartWidget>this.widget;
-          let dataset: any[] = [];
-          Object.assign(dataset, myObj.dataset);
-          return dataset;
+          return <any>myObj.dataset;
         } else {
           return [];
         }

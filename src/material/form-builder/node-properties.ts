@@ -389,9 +389,9 @@ export class AjfFbNodeProperties implements OnDestroy {
       .pipe(withLatestFrom(this.propertiesForm))
       .subscribe((r: [void, FormGroup]) => {
         const fg = r[1];
-        const val = Object.assign({}, fg.value, {
+        const val = {...fg.value,
           conditionalBranches: this._conditionalBranches
-        });
+        };
         this._service.saveNodeEntry(val);
       });
   }

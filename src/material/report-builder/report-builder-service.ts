@@ -328,7 +328,7 @@ export class AjfReportBuilderService {
 
     if (reportsConfig != null) {
       if (reportsConfig.icons != null) {
-        this._iconSets = Object.assign({}, this._iconSets, reportsConfig.icons);
+        this._iconSets = {...this._iconSets, ...reportsConfig.icons};
       }
     }
 
@@ -1634,7 +1634,7 @@ export class AjfReportBuilderService {
     this._updates[origin].next((widget: AjfReportWidgetsContainer): AjfReportWidgetsContainer => {
       widget.styles[label] = value;
 
-      widget.styles = <AjfReportStyles>Object.assign({}, widget.styles);
+      widget.styles = <AjfReportStyles>{...widget.styles};
 
       return widget;
     });
@@ -1654,7 +1654,7 @@ export class AjfReportBuilderService {
         styles = {};
       } else {
         styles[label] = value;
-        styles = <AjfReportStyles>Object.assign({}, styles);
+        styles = <AjfReportStyles>{...styles};
       }
       return styles;
     });

@@ -98,10 +98,14 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     if (this._chart == null) {
       this._rebuildChart();
     } else {
-      (<any>this._chart).options = Object.assign(
-        {}, deepCopy((<any>this._chart).options), deepCopy(this.options || {})
-      );
-      this._chart.data = Object.assign({}, deepCopy(this._chart.data), deepCopy(this.data));
+      (<any>this._chart).options = {
+        ...deepCopy((<any>this._chart).options),
+        ...deepCopy(this.options || {})
+      };
+      this._chart.data = {
+        ...deepCopy(this._chart.data),
+        ...deepCopy(this.data)
+      };
       this._chart.update();
     }
   }
