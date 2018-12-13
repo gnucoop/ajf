@@ -1,0 +1,43 @@
+<mat-toolbar>
+  <button mat-icon-button (click)="leftSidenav.toggle()">
+    <mat-icon>add_box</mat-icon>
+  </button>
+  <button mat-button [matMenuTriggerFor]="choicesMenu" translate>Choices</button>
+  <mat-menu #choicesMenu>
+    <button (click)="createChoicesOrigin()" mat-menu-item translate>New..</button>
+    <ng-container *ngIf="choicesOrigins|async as cos">
+      <button *ngFor="let choicesOrigin of cos"
+          (click)="editChoicesOrigin(choicesOrigin)" mat-menu-item>
+        {{ choicesOrigin.getLabel() || choicesOrigin.getName() }}
+      </button>
+    </ng-container>
+  </mat-menu>
+  <span class="ajf-spacer"></span>
+  <button mat-icon-button (click)="rightSidenav.toggle()">
+    <mat-icon>settings</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #leftSidenav align="start" mode="over">
+    <mat-list>
+      <mat-list-item *ngFor="let nodeType of nodeTypes">
+        <ajf-fb-node-type-entry
+          dnd-draggable
+          [dragEnabled]="true"
+          [dragData]="nodeType"
+          [dropZones]="nodeType.isSlide ? slideDropZones : dropZones"
+          (onDragStart)="leftSidenav.close()"
+          [nodeType]="nodeType"></ajf-fb-node-type-entry>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav #rightSidenav align="end" mode="side" [opened]="true">
+    <ajf-fb-node-properties></ajf-fb-node-properties>
+  </mat-sidenav>
+  <div #designer class="ajf-designer">
+    <ajf-fb-node-entry
+      *ngFor="let nodeEntry of (nodeEntriesTree|async); let isFirst = first"
+      [isFirst]="isFirst"
+      [nodeEntry]="nodeEntry"></ajf-fb-node-entry>
+  </div>
+</mat-sidenav-container>

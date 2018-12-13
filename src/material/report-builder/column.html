@@ -1,0 +1,28 @@
+<ng-template [ngIf]="column.content != null">
+  <div class="ajf-column"
+    [ngClass]="{'ajf-is-on-over': showActions}"
+    (mouseenter)="showActions = true"
+    (mouseleave)="showActions = false">
+    <mat-list>
+      <ng-template ngFor let-widget let-idx="index" [ngForOf]="column.content">
+
+        <ng-template [ngIf]="!onDragged">
+          <ajf-report-builder-widgets-row-buttons
+            dnd-draggable
+            [dragData]="{'fromColumn':column, 'fromIndex':idx, 'widget': widget }"
+            [dropZones]="['widget']"
+            [from]="'column'"
+            [fromWidget]="column"
+            [widget]="widget"
+            [position]="idx"
+            [child]="true"
+            (onDragStart)="onDragStartHandler();"
+            (onDragEnd)="onDragEndHandler();"
+            [dragEnabled]="true">
+          </ajf-report-builder-widgets-row-buttons>
+        </ng-template>
+        <ajf-report-builder-renderer-widget [widget]="widget"></ajf-report-builder-renderer-widget>
+      </ng-template>
+    </mat-list>
+  </div>
+</ng-template>

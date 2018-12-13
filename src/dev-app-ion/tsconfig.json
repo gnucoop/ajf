@@ -1,0 +1,17 @@
+// Configuration for IDEs only.
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    // Needed for Moment.js since it doesn't have a default export.
+    "allowSyntheticDefaultImports": true,
+    "rootDir": "..",
+    "baseUrl": ".",
+    "paths": {
+      "@ajf/core/*": ["../core/*"],
+      "@ajf/ionic/*": ["../ionic/*"],
+      "@ajf/ionic": ["../ionic/public-api.ts"],
+      "@ajf/ionic-examples": ["../../dist/packages/ionic-examples"]
+    }
+  },
+  "include": ["./**/*.ts"]
+}

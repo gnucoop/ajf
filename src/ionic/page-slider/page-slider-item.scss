@@ -1,0 +1,11 @@
+ajf-page-slider-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 24px 0;
+
+  ion-card {
+    flex: 0 0 auto;
+    overflow-y: hidden;
+  }
+}

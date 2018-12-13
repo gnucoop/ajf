@@ -1,0 +1,37 @@
+ajf-form-builder {
+  mat-toolbar {
+    mat-menu {
+      div[mat-menu-item] {
+        > button[mat-button] {
+          flex: 1 0 auto;
+        }
+        > button[mat-icon-button] {
+          flex: 0 0 auto;
+        }
+      }
+    }
+  }
+  mat-sidenav-container {
+    height: 700px;
+
+    mat-sidenav {
+      max-width: 20%;
+    }
+
+    .ajf-designer {
+      padding: 1em;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      overflow-y: auto;
+    }
+  }
+
+  mat-toolbar {
+    .ajf-spacer {
+      flex: 1 1 auto;
+    }
+  }
+}

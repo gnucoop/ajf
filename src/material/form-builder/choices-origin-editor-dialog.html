@@ -1,0 +1,9 @@
+<h3 matDialogTitle translate>Edit choices origin</h3>
+<mat-dialog-content>
+  <ajf-fb-choices-origin-editor
+      [choicesOrigin]="choicesOrigin|async"></ajf-fb-choices-origin-editor>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button translate (click)="saveChoicesOrigin()">Save</button>
+  <button mat-button translate (click)="cancelChoicesOriginEdit()">Close</button>
+</mat-dialog-actions>

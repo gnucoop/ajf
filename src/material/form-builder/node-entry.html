@@ -1,0 +1,56 @@
+<ng-template [ngIf]="nodeEntry != null">
+  <ng-template [ngIf]="isNodeEntry">
+    <ajf-fb-branch-line
+        *ngFor="let childNodeEntry of realNodeEntry.children; let idx = index"
+        [offset]="idx"
+        [color]="branchColors[idx]"></ajf-fb-branch-line>
+  </ng-template>
+  <div class="mat-card-container"
+      [class.ajf-highlight]="(currentEditedNode|async) == nodeEntry">
+    <div *ngIf="!isFirst"
+        class="ajf-origin-line"
+        [style.margin-left]="originLeftMargin"
+        [style.border-color]="firstBranchColor"></div>
+    <ng-template [ngIf]="isNodeEntry">
+      <mat-card>
+        <div class="ajf-title-row">
+          <ajf-node-icon [node]="realNodeEntry.node"></ajf-node-icon>
+          <span class="ajf-title" [innerHTML]="(realNodeEntry.node.label || realNodeEntry.node.name)  | translate"></span>
+          <span class="ajf-actions">
+            <button [disabled]="currentEditedNode|async" (click)="edit()" mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button [disabled]="currentEditedNode|async" (click)="delete()" mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </span>
+        </div>
+        <div *ngIf="hasContent">
+          <ajf-fb-node-entry
+              *ngFor="let contentEntry of realNodeEntry.content; let isFirstChild = first; let idx = index"
+              [isFirst]="isFirstChild"
+              [firstBranchColor]="branchColors[idx]"
+              [nodeEntry]="contentEntry"></ajf-fb-node-entry>
+          <mat-card class="ajf-empty"
+              *ngIf="realNodeEntry.content.length === 0"
+              dnd-droppable
+              [dropZones]="dropZones"
+              (onDropSuccess)="onDropSuccess($event, true)">&nbsp;</mat-card>
+        </div>
+      </mat-card>
+    </ng-template>
+    <ng-template [ngIf]="!isNodeEntry">
+      <mat-card class="ajf-empty"
+          dnd-droppable
+          [dropZones]="isSlide ? slideDropZones : dropZones"
+          (onDropSuccess)="onDropSuccess($event)">&nbsp;</mat-card>
+    </ng-template>
+  </div>
+  <ng-template [ngIf]="isNodeEntry">
+    <ajf-fb-node-entry
+        *ngFor="let childNodeEntry of realNodeEntry.children; let idx = index"
+        [originOffset]="idx"
+        [firstBranchColor]="branchColors[idx]"
+        [nodeEntry]="childNodeEntry"></ajf-fb-node-entry>
+  </ng-template>
+</ng-template>

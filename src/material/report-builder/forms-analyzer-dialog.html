@@ -1,0 +1,48 @@
+<h3 matDialogTitle> Formula editor </h3>
+<div mat-dialog-content #elem>
+  <ng-template [ngIf]="currentWidget != null && formsVariables != null">
+    <div class="ajf-left">
+      <mat-list>
+        <mat-list-item *ngFor="let operator of operators">
+          <button mat-button (click)="insertVariable(operator)">
+            <h4 matLine>{{operator}}</h4>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="ajf-main">
+      <mat-select *ngIf="!isFormula" placeholder="Select type of agregation" [(ngModel)]="aggregationType">
+          <mat-option [value]="idx" *ngFor="let ag of aggregationTypes; let idx = index"> {{ ag }} </mat-option>
+      </mat-select>
+      <mat-form-field *ngIf="!isFormula">
+        <textarea matInput placeholder="Name field" [(ngModel)]="label" ></textarea>
+      </mat-form-field>
+        <ajf-monaco-editor
+          (init)="onEditorInit()"
+          (valueChange)="formulaText = $event;checkValidation();"
+          [value]="condition" language="javascript">
+        </ajf-monaco-editor>
+    </div>
+    <div class="ajf-menu">
+      <form>
+        <mat-select placeholder="Select form" (change)="setCurrentId($event.value)">
+          <ng-template ngFor let-form let-id="index" [ngForOf]="formsVariables">
+            <mat-option [value]="id"> {{ id }} </mat-option>
+          </ng-template>
+        </mat-select>
+      </form>
+      <mat-list>
+        <h3 matSubheader>Field list</h3>
+        <mat-list-item *ngFor="let label of labels;let i = index">
+          <button mat-button (click)="setCurrent(currentId, label, i)">
+            <h4 matLine>{{label}}</h4>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="saveDataset()" [disabled]="!isValid">Save</button>
+</div>
+

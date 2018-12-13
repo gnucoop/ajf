@@ -1,0 +1,13 @@
+<mat-list>
+  <mat-list-item *ngFor="let t of widgetTypes">
+    <ajf-report-builder-widget-toolbar-button ng-if="t != 'Column'"
+        dnd-draggable
+        [dragEnabled]="true"
+        [dropZones]="['header','content','footer','column','widget']"
+        [dragData]="t"
+        [widgetType]="t"
+        (onDragStart)="onDragStartHandler();"
+        (onDragEnd)="onDragEndHandler();">
+    </ajf-report-builder-widget-toolbar-button>
+  </mat-list-item>
+</mat-list>

@@ -1,0 +1,39 @@
+package(default_visibility=["//visibility:public"])
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "chart",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/core/chart",
+  assets = [":chart.css"] + glob(["**/*.html"]),
+  deps = [
+    "@angular//packages/core",
+    "@angular//packages/forms",
+    "@ajfdeps//@types/chart.js",
+    "//src/core/utils"
+  ],
+)
+
+sass_binary(
+  name = "chart_scss",
+  src = "chart.scss",
+  deps = [],
+)
+
+ng_test_library(
+  name = "chart_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":chart"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [
+    ":chart_test_sources",
+  ],
+)

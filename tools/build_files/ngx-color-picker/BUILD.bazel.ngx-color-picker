@@ -1,0 +1,40 @@
+package(default_visibility = ["//visibility:public"])
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("@angular//:index.bzl", ng_module = "ng_module")
+
+genrule(
+  name = "ngx_color_picker_index",
+  srcs = [],
+  outs = ["index.ts"],
+  cmd = "echo \"export * from './src/lib/color-picker.module';\" > \"$@\""
+)
+
+genrule(
+  name = "color_picker_component_css",
+  srcs = ["src/lib/color-picker.component.css"],
+  outs = ["dist/lib/color-picker.component.css"],
+  cmd = "cat $(location src/lib/color-picker.component.css) > \"$@\"",
+)
+
+genrule(
+  name = "color_picker_component_html",
+  srcs = ["src/lib/color-picker.component.html"],
+  outs = ["dist/lib/color-picker.component.html"],
+  cmd = "cat $(location src/lib/color-picker.component.html) > \"$@\"",
+)
+
+ng_module(
+  tsconfig = "@ajf//tools/build_files/ngx-color-picker:tsconfig.json",
+  node_modules = "@ajfdeps//typescript:typescript__typings",
+  name = "ngx-color-picker",
+  module_name = "ngx-color-picker",
+  srcs = [":ngx_color_picker_index"] + glob(["src/lib/**/*.ts"], exclude=["**/*.spec.ts", "schematics/**/*.ts", "test*.ts"]),
+  assets = [":color_picker_component_css", ":color_picker_component_html"],
+  deps = [
+    "@ajf//src:module-typings",
+    "@ajfdeps//tslib",
+    "@angular//packages/common",
+    "@angular//packages/core",
+  ]
+)

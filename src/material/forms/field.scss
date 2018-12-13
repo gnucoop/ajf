@@ -1,0 +1,28 @@
+ajf-field {
+  .ajf-choices-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .ajf-item-container {
+    position: relative;
+  }
+
+  .ajf-errors {
+    font-style: italic;
+    padding: 5px;
+  }
+
+  tr.ajf-row-odd {
+      background-color: grey;
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

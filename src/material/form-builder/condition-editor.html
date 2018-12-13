@@ -1,0 +1,17 @@
+<div class="ajf-editor">
+  <ajf-monaco-editor
+      (init)="onEditorInit()"
+      (valueChange)="editedValue = $event"
+      [value]="condition" language="javascript"></ajf-monaco-editor>
+</div>
+<div class="ajf-editor-panel">
+  <mat-nav-list dense *ngIf="fields?.length > 0">
+    <a mat-list-item
+        (click)="insertVariable(field.name)"
+        [matTooltip]="field.label"
+        *ngFor="let field of fields">
+      <ajf-node-icon [node]="field"></ajf-node-icon>
+      {{ field.name }}
+    </a>
+  </mat-nav-list>
+</div>

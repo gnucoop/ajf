@@ -1,0 +1,58 @@
+ajf-fb-node-entry {
+  display: block;
+  position: relative;
+
+  .mat-card-container {
+    position: relative;
+
+    .ajf-origin-line {
+      position: absolute;
+      top: 0;
+      left: 25px;
+      width: 25px;
+      height: 25px;
+      border-bottom: 2px solid;
+      border-left: 2px solid;
+      border-bottom-left-radius: 0.5em;
+    }
+
+    mat-card {
+      margin-left: 50px;
+      padding: 0.5em 1em;
+      margin-top: 0.2em;
+      margin-bottom: 0.2em;
+
+      .ajf-title-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        > .ajf-title {
+          flex: 1 1 auto;
+        }
+
+        > .ajf-actions {
+          flex: 0 0 auto;
+          white-space: nowrap;
+        }
+      }
+
+      background-color: #ffffff;
+
+      &.ajf-empty {
+        line-height: 36px;
+        border: 2px dashed;
+        box-shadow: none;
+        box-sizing: border-box;
+
+        // &.dnd-drag-over {
+        //   background-color: #c5e1a5;
+        // }
+      }
+    }
+
+    &.ajf-highlight > mat-card {
+      background-color: #fff9c4;
+    }
+  }
+}

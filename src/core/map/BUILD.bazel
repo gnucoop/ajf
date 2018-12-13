@@ -1,0 +1,37 @@
+package(default_visibility=["//visibility:public"])
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "map",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/core/map",
+  assets = [":map.css"] + glob(["**/*.html"]),
+  deps = [
+    "@angular//packages/core",
+    "@ajfdeps//@types/leaflet"
+  ],
+)
+
+sass_binary(
+  name = "map_scss",
+  src = "map.scss",
+  deps = [],
+)
+
+ng_test_library(
+  name = "map_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":map"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [
+    ":map_test_sources",
+  ],
+)

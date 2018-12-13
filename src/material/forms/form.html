@@ -1,0 +1,141 @@
+<ng-template [ngIf]="formGroup|async">
+  <form novalidate [formGroup]="formGroup | async">
+    <div class="ajf-form-container">
+
+      <mat-toolbar *ngIf="showTopToolbar" class="ajf-btn-strip">
+        <ng-template ngFor let-slideInstance [ngForOf]="slides|async" [ngForTrackBy]="trackNodeById">
+          <button mat-button class="ajf-topbar-button"
+          *ngIf="topBar && slideInstance.slide && slideInstance.slide.label != null && slideInstance.slide.label.length > 0"
+              (click)="scrollToSlide(slideInstance)">{{slideInstance.slide.label | translate}}</button>
+        </ng-template>
+      </mat-toolbar>
+
+      <mat-toolbar *ngIf="showTopToolbar" [class.ajf-hidden]="!sliderReady">
+        {{ title }}
+        <span class="ajf-spacer"></span>
+        <button mat-button default (click)="onSave($event)"
+            *ngIf="permissions && permissions.write" translate>Save</button>
+        <button mat-button default (click)="onFormAction($event, 'send')"
+            translate
+            [disabled]="((errors | async) || 0) != 0"
+            *ngIf="permissions && permissions.change_state && permissions.change_state.send">Submit</button>
+        <button mat-button default (click)="onFormAction($event, 'approve')"
+            translate
+            [disabled]="((errors | async) || 0) != 0"
+            *ngIf="permissions && permissions.change_state && permissions.change_state.approve">Approve</button>
+        <button mat-button default (click)="onFormAction($event, 'deprecate')" [disabled]="((errors | async) || 0) != 0" *ngIf="permissions && permissions.change_state && permissions.change_state.deprecate">Deprecate</button>
+      </mat-toolbar>
+      <div class="ajf-slider-container">
+        <ajf-page-slider [showNavigationButtons]="showNavigationButtons"
+            (ready)="sliderReady = true" #formSlider>
+          <div page-slider-body>
+            <ng-container *ngIf="(slides|async) as curSlides">
+              <ng-container *ngIf="formIsInit|async">
+                <ng-template [ngIf]="curSlides.length > 0 && hasStartMessage">
+                  <ajf-page-slider-item>
+                    <ajf-page-slider-item-header>
+                      <h2>
+                        <span class="number">
+                          1 &rarr;
+                        </span>
+                        <span class="ajf-title">
+                          <ng-content select="ajf-form-start-message-title"></ng-content>
+                        </span>
+                      </h2>
+                    </ajf-page-slider-item-header>
+                    <ng-content select="ajf-form-start-message"></ng-content>
+                  </ajf-page-slider-item>
+                </ng-template>
+                <ng-template ngFor let-slideInstance [ngForOf]="curSlides" [ngForTrackBy]="trackNodeById">
+                  <!-- non repeating slides -->
+                  <ng-template [ngIf]="(!isRepeatingSlide(slideInstance)) && slideInstance.visible">
+                    <ajf-page-slider-item>
+                      <ajf-page-slider-item-header>
+                        <mat-icon class="ajf-warning" *ngIf="!slideInstance.valid">warning</mat-icon>
+                        <mat-icon class="ajf-success" *ngIf="slideInstance.valid">check</mat-icon>
+                        <h2>
+                          <span class="number">{{ slideInstance.position + hasStartMessage }} &rarr;</span>
+                          <span [innerHTML]="slideInstance.slide.label | translate"></span>
+                        </h2>
+                      </ajf-page-slider-item-header>
+                      <ng-template ngFor let-fieldInstance [ngForOf]="slideInstance.flatNodes" [ngForTrackBy]="trackNodeById">
+                        <div [ngClass]="'ajf-' + fieldInstance.field.size" class="ajf-field-entry" *ngIf="fieldInstance.visible">
+                          <i [class]="fieldInstance.field | fieldIcon" item-right></i>
+                          <p>{{ fieldInstance.field.description | translate }}</p>
+                          <label [innerHTML]="fieldInstance.field.label | translate"></label>
+                          <ajf-form-field [fieldInstance]="fieldInstance"></ajf-form-field>
+                        </div>
+                      </ng-template>
+                    </ajf-page-slider-item>
+                  </ng-template>
+                  <!-- repeating slides -->
+                  <ng-template [ngIf]="isRepeatingSlide(slideInstance) && slideInstance.visible">
+                    <ajf-page-slider-item *ngFor="let curRep of slideInstance.repsArr; let idx = index; let lastSlide = last">
+                      <ajf-page-slider-item-header>
+                        <mat-icon class="ajf-warning" *ngIf="!slideInstance.validSlide(idx)">warning</mat-icon>
+                        <mat-icon class="ajf-success" *ngIf="slideInstance.validSlide(idx)">check</mat-icon>
+                        <h2>
+                          <span class="number">{{ slideInstance.slidePosition(idx) }} &rarr;</span>
+                          <span [innerHTML]="slideInstance.slide.label | translate"></span>
+                        </h2>
+                      </ajf-page-slider-item-header>
+                      <div *ngIf="lastSlide" class="ajf-group-actions">
+                        <button (click)="addGroup(slideInstance)" [disabled]="!slideInstance.canAddGroup" mat-mini-fab>
+                          <mat-icon>add</mat-icon>
+                        </button>
+                        <button (click)="removeGroup(slideInstance)" [disabled]="!slideInstance.canRemoveGroup" mat-mini-fab>
+                          <mat-icon>remove</mat-icon>
+                        </button>
+                      </div>
+                      <ng-template ngFor let-fieldInstance [ngForOf]="slideInstance.slideNodes[idx]" [ngForTrackBy]="trackNodeById">
+                        <div [ngClass]="'ajf-' + fieldInstance.field.size" class="ajf-field-entry" *ngIf="fieldInstance.visible">
+                          <i [class]="fieldInstance.field | fieldIcon" item-right></i>
+                          <p>{{ fieldInstance.field.description | translate }}</p>
+                          <label [innerHTML]="fieldInstance.field.label | translate"></label>
+                          <ajf-form-field [fieldInstance]="fieldInstance"></ajf-form-field>
+                        </div>
+                      </ng-template>
+                    </ajf-page-slider-item>
+                  </ng-template>
+                </ng-template>
+                <ng-template [ngIf]="curSlides.length > 0 && hasEndMessage">
+                  <ajf-page-slider-item>
+                    <ajf-page-slider-item-header>
+                      <h2>
+                        <span *ngIf="(slidesNum|async) as snum" class="number">
+                          {{ snum + (hasStartMessage | boolToInt ) + 1 }} &rarr;
+                        </span>
+                        <span class="ajf-title">
+                          <ng-content select="ajf-form-end-message-title"></ng-content>
+                        </span>
+                      </h2>
+                    </ajf-page-slider-item-header>
+                    <ng-content select="ajf-form-end-message"></ng-content>
+                  </ajf-page-slider-item>
+                </ng-template>
+              </ng-container>
+            </ng-container>
+          </div>
+          <div ajfPageSliderBar *ngIf="showBottomToolbar">
+            <div class="ajf-left-bar">
+              <div class="ajf-errors" *ngIf="((errors | async) || 0) > 0">
+                <button mat-button (click)="goToPrevError()" danger>
+                  <mat-icon>arrow_upward</mat-icon>
+                </button>
+                <button mat-button (click)="goToNextError()" danger>
+                  <mat-icon>arrow_downward</mat-icon>
+                </button>
+              </div>
+              <div class="ajf-info-box ajf-error">
+                <div class="ajf-title" translate>Errors</div>
+                <div class="ajf-content">
+                  {{ errors | async }} / {{ slidesNum|async }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </ajf-page-slider>
+      </div>
+    </div>
+  </form>
+</ng-template>

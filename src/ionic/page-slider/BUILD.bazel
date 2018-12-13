@@ -1,0 +1,42 @@
+package(default_visibility=["//visibility:public"])
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "page-slider",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/ionic/page-slider",
+  assets = [":page-slider-item.css", ":page-slider.css"] + glob(["**/*.html"]),
+  deps = [
+    "@angular//packages/core",
+    "@ionic_angular//:angular",
+    "//src/core/page-slider",
+  ],
+)
+
+sass_binary(
+  name = "page_slider_item_scss",
+  src = "page-slider-item.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "page_slider_scss",
+  src = "page-slider.scss",
+  deps = [],
+)
+
+ng_test_library(
+  name = "page_slider_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":page-slider"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [":page_slider_test_sources"],
+)

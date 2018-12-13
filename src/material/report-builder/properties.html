@@ -1,0 +1,761 @@
+<ng-template [ngIf]="currentWidget != null">
+  <div class="ajf-content">
+    <button
+      mat-button
+      class="ajf-hide-menu"
+      matTooltip="hide-menu"
+      (click)="hideMenu()"
+      [matTooltipPosition]="'above'">
+      <mat-icon>remove_circle_outline</mat-icon>
+    </button>
+    <mat-button-toggle-group class="ajf-menu-css">
+      <mat-button-toggle
+        (click)="reportStyles = !reportStyles; sectionStyles = false; widgetStyles = false" value="left"
+        [ngClass]="{'ajf-selected': reportStyles}">
+        report
+        <ng-container translate>CSS style</ng-container>
+      </mat-button-toggle>
+      <mat-button-toggle
+        (click)="sectionStyles = !sectionStyles; reportStyles = false; widgetStyles = false"
+        [ngClass]="{'ajf-selected': sectionStyles}">
+        {{ origin }}
+        <ng-container translate>CSS style</ng-container>
+      </mat-button-toggle>
+      <mat-button-toggle
+        (click)="widgetStyles = !widgetStyles; sectionStyles = false; reportStyles = false"
+        [ngClass]="{'ajf-selected': widgetStyles}">
+        {{ widgetName }}
+        <ng-container translate>CSS style</ng-container>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="ajf-style-container" *ngIf="(reportStyles) ? true : false ">
+      <mat-tab-group>
+        <mat-tab label="Background Color">
+          <div class="ajf-style-panel">
+            <ajf-theme-color [section]="'report'" [label]="'color'"></ajf-theme-color>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div class="ajf-style-container" *ngIf="(sectionStyles) ? true : false ">
+      <mat-tab-group>
+        <mat-tab label="Background Color">
+          <div class="ajf-style-panel">
+            <ajf-theme-color [section]="'section'" [label]="'color'"></ajf-theme-color>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div class="ajf-style-container" *ngIf="(widgetStyles) ? true : false ">
+      <mat-tab-group *ngIf="(currentWidget.widgetType != 4)">
+        <mat-tab label="Color">
+          <div class="ajf-style-panel">
+            <ajf-theme-color [section]="'widget'" [label]="'color'" [init]="'icon'"></ajf-theme-color>
+          </div>
+        </mat-tab>
+        <mat-tab label="Background Color">
+          <div class="ajf-style-panel">
+            <ajf-theme-color [section]="'widget'" [label]="'background-color'"></ajf-theme-color>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+      <div class="properties-container" *ngIf="(currentWidget.widgetType !== 8)">
+        <div class="ajf-layout-preview">
+          <div class="ajf-vbottom">
+            <div translate>height</div>
+            <div>{{ getHeightWidget|async }}</div>
+          </div>
+          <div class="ajf-margin-box">
+            <div class="ajf-top-label" translate>margin</div>
+            <div class="ajf-vtop">{{ getMarginWidgetTop|async }}</div>
+            <div class="ajf-vright">{{ getMarginWidgetRight|async }}</div>
+            <div class="ajf-vbottom">{{ getMarginWidgetBottom|async }}</div>
+            <div class="ajf-vleft">{{ getMarginWidgetLeft|async }}</div>
+            <div class="ajf-border-box">
+              <div class="ajf-vtop">{{ getBorderWidthWidgetTop|async }}</div>
+              <div class="ajf-vright">{{ getBorderWidthWidgetRight|async }}</div>
+              <div class="ajf-vbottom">{{ getBorderWidthWidgetBottom|async }}</div>
+              <div class="ajf-vleft">{{ getBorderWidthWidgetLeft|async }}</div>
+              <div class="ajf-vtl">{{ getBorderRadiusWidgetTopLeft|async }}</div>
+              <div class="ajf-vtr">{{ getBorderRadiusWidgetTopRight|async }}</div>
+              <div class="ajf-vbr">{{ getBorderRadiusWidgetBottomRight|async }}</div>
+              <div class="ajf-vbl">{{ getBorderRadiusWidgetBottomLeft|async }}</div>
+              <div class="ajf-top-label" translate>border</div>
+              <div class="ajf-padding-box">
+                <div class="ajf-top-label" translate>padding</div>
+                <div class="ajf-vtop">{{ getPaddingWidgetTop|async }}</div>
+                <div class="ajf-vright">{{ getPaddingWidgetRight|async }}</div>
+                <div class="ajf-vbottom">{{ getPaddingWidgetBottom|async }}</div>
+                <div class="ajf-vleft">{{ getPaddingWidgetLeft|async }}</div>
+                <div class="ajf-content-box" translate>content</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <mat-grid-list rowHeight="2em" cols="12">
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile class="ajf-lal" colspan="4">
+            <span>height</span>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="7">
+            <mat-slider
+              (change)="setWidgetStyles('height', $event.value)"
+              min="0"
+              max="200"
+              step="1"
+              [value]="getHeightWidget|async"
+              tickInterval="1"
+              thumbLabel>
+            </mat-slider>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list cols="12">
+          <mat-grid-tile>
+            <mat-icon *ngIf="!marginExpanded"
+                (click)="marginExpanded = !marginExpanded">keyboard_arrow_right</mat-icon>
+            <mat-icon *ngIf="marginExpanded"
+                (click)="marginExpanded = !marginExpanded">keyboard_arrow_down</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile class="ajf-lal" colspan="4">
+            <span translate>margin</span>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="7">
+            <mat-slider
+              [disabled]="marginExpanded"
+              (change)="setWidgetStyles('margin', $event.value)"
+              min="-50"
+              max="50"
+              step="1"
+              [value]="getMarginWidgetTop|async"
+              tickInterval="auto"
+              thumbLabel>
+            </mat-slider>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <ng-template [ngIf]="marginExpanded">
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>margin top</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetMargin(0, $event.value)"
+                min="-50"
+                max="50"
+                step="1"
+                [value]="getMarginWidgetTop|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>margin right</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetMargin(1, $event.value)"
+                min="-50"
+                max="50"
+                step="1"
+                [value]="getMarginWidgetRight|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>margin bottom</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetMargin(2, $event.value)"
+                min="-50"
+                max="50"
+                step="1"
+                [value]="getMarginWidgetBottom|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>margin left</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetMargin(3, $event.value)"
+                min="-50"
+                max="50"
+                step="1"
+                [value]="getMarginWidgetLeft|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </ng-template>
+        <mat-grid-list cols="12">
+          <mat-grid-tile>
+            <mat-icon *ngIf="!paddingExpanded"
+                (click)="paddingExpanded = !paddingExpanded">keyboard_arrow_right</mat-icon>
+            <mat-icon *ngIf="paddingExpanded"
+                (click)="paddingExpanded = !paddingExpanded">keyboard_arrow_down</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile class="ajf-lal" colspan="4">
+            <span translate>padding</span>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="7">
+            <mat-slider
+              (change)="setWidgetStyles('padding', $event.value)"
+              min="-50"
+              max="50"
+              step="1"
+              [value]="getPaddingWidgetTop|async"
+              tickInterval="auto"
+              thumbLabel>
+            </mat-slider>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <ng-template [ngIf]="paddingExpanded">
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>padding top</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetPadding(0, $event.value)"
+                min="-50"
+                max="50"
+                step="1"
+                [value]="getPaddingWidgetTop|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>padding right</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetPadding(1, $event.value)"
+                min="-50"
+                max="50"
+                step="1"
+                [value]="getPaddingWidgetRight|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>padding bottom</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetPadding(2, $event.value)"
+                min="-50"
+                max="50"
+                step="1"
+                [value]="getPaddingWidgetBottom|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>padding left</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetPadding(3, $event.value)"
+                min="-50"
+                max="50"
+                step="1"
+                [value]="getPaddingWidgetLeft|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </ng-template>
+        <mat-grid-list cols="12">
+          <mat-grid-tile>
+            <mat-icon *ngIf="!borderWidthExpanded"
+                (click)="borderWidthExpanded = !borderWidthExpanded">keyboard_arrow_right</mat-icon>
+            <mat-icon *ngIf="borderWidthExpanded"
+                (click)="borderWidthExpanded = !borderWidthExpanded">keyboard_arrow_down</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile class="ajf-lal" colspan="4">
+            <span translate>border width</span>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="7">
+            <mat-slider
+              (change)="setWidgetStyles('border-width', $event.value)"
+              min="0"
+              max="10"
+              step="1"
+              [value]="getBorderWidthWidgetTop|async"
+              tickInterval="1"
+              thumbLabel>
+            </mat-slider>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <ng-template [ngIf]="borderWidthExpanded">
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>border width top</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetBorderWidth(0, $event.value)"
+                min="1"
+                max="10"
+                step="1"
+                [value]="getBorderWidthWidgetTop|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>border width right</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetBorderWidth(1, $event.value)"
+                min="1"
+                max="10"
+                step="1"
+                [value]="getBorderWidthWidgetRight|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>border width bottom</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetBorderWidth(2, $event.value)"
+                min="1"
+                max="10"
+                step="1"
+                [value]="getBorderWidthWidgetBottom|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>border width left</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetBorderWidth(3, $event.value)"
+                min="1"
+                max="10"
+                step="1"
+                [value]="getBorderWidthWidgetLeft|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </ng-template>
+        <mat-grid-list cols="12">
+          <mat-grid-tile>
+            <mat-icon *ngIf="!borderRadiusExpanded"
+                (click)="borderRadiusExpanded = !borderRadiusExpanded">keyboard_arrow_right</mat-icon>
+            <mat-icon *ngIf="borderRadiusExpanded"
+                (click)="borderRadiusExpanded = !borderRadiusExpanded">keyboard_arrow_down</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile class="ajf-lal" colspan="4">
+            <span translate>border radius</span>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="7">
+            <mat-slider
+              (change)="setWidgetStyles('border-radius', $event.value)"
+              min="0"
+              max="100"
+              step="1"
+              [value]="getBorderRadiusWidget|async"
+              tickInterval="10"
+              thumbLabel>
+            </mat-slider>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <ng-template [ngIf]="borderRadiusExpanded">
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>border radius top left</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetBorderRadius(0, $event.value)"
+                min="1"
+                max="100"
+                step="1"
+                [value]="getBorderRadiusWidgetTopLeft|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>border radius top right</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetBorderRadius(1, $event.value)"
+                min="1"
+                max="100"
+                step="1"
+                [value]="getBorderRadiusWidgetTopRight|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>border radius bottom left</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetBorderRadius(2, $event.value)"
+                min="1"
+                max="100"
+                step="1"
+                [value]="getBorderRadiusWidgetBottomLeft|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+          <mat-grid-list cols="12">
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile class="ajf-lal" colspan="4">
+              &nbsp;&nbsp;<span translate>border radius bottom right</span>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="7">
+              <mat-slider
+                (change)="setWidgetBorderRadius(3, $event.value)"
+                min="1"
+                max="100"
+                step="1"
+                [value]="getBorderRadiusWidgetBottomRight|async"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </ng-template>
+      </div>
+      <div class="properties-container" *ngIf="currentWidget.widgetType === 2">
+        <mat-grid-list cols="12">
+          <mat-grid-tile></mat-grid-tile>
+          <mat-grid-tile class="ajf-lal" colspan="3">
+            <span translate>font size</span>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="7">
+            <mat-slider
+              (change)="setWidgetStyles('font-size', $event.value);"
+              min="1"
+              max="150"
+              step="1"
+              [value]="getFontSizeWidget|async"
+              tickInterval="1"
+              thumbLabel>
+            </mat-slider>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+      <ng-template [ngIf]="currentWidget.widgetType === 5">
+        <br>
+        <form>
+          <mat-form-field>
+            <input
+              matInput
+              [placeholder]="'Font size' | translate"
+              [value]="getFontSizeWidget|async"
+              [(ngModel)]="fontSize"
+              [ngModelOptions]="{standalone: true}"
+              (change)="setWidgetStyles('font-size', fontSize)">
+          </mat-form-field>
+          <mat-select
+              (change)="setWidgetStyles('font-style', $event.value)"
+              [placeholder]="'Font style' | translate">
+            <mat-option translate value="normal">Normal</mat-option>
+            <mat-option translate value="italic">Italic</mat-option>
+            <mat-option translate value="oblique">Oblique</mat-option>
+          </mat-select>
+          <mat-select
+              (change)="setWidgetStyles('text-align', $event.value)"
+              [placeholder]="'Align' | translate">
+            <mat-option translate value="center">Center</mat-option>
+            <mat-option translate value="left">Left</mat-option>
+            <mat-option translate value="right">Right</mat-option>
+          </mat-select>
+        </form>
+      </ng-template>
+      <h1>
+        <ng-container translate>properties of</ng-container>
+        {{ widgetName }}
+      </h1>
+    </div>
+    <div [ngSwitch]="currentWidget.widgetType">
+      <ng-template [ngSwitchCase]="0">
+        <h1 translate>Column</h1>
+        <ng-template ngFor let-col [ngForOf]="currentLayoutWidget.columns" let-idx="index">
+          <mat-toolbar>
+              <mat-toolbar-row *ngIf="col !== -1">
+                <mat-grid-list cols="12">
+                  <mat-grid-tile colspan="1">
+                    {{idx + 1}}
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan="9">
+                    <mat-slider
+                      style="width:90%"
+                      min="0.1"
+                      max="1"
+                      step="0.01"
+                      value="{{col}}"
+                      thumb-label="true"
+                      tick-interval="true"
+                      (change)="instantColumnValue($event.value,idx)">
+                    </mat-slider>
+                    {{percent(col)}}%
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan="2">
+                    <button style="width:5%" mat-button (click)="fixedColumn(idx)">fixed</button>
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </mat-toolbar-row>
+              <mat-toolbar-row *ngIf="col == -1">
+                <mat-grid-list cols="12">
+                  <mat-grid-tile colspan="1">
+                    {{idx + 1}}
+                  </mat-grid-tile>
+                  <mat-grid-tile colspan="11">
+                    <button  style="width:90%" mat-button (click)="unfixedColumn(idx)">percent</button>
+                  </mat-grid-tile>
+                </mat-grid-list>
+              </mat-toolbar-row>
+          </mat-toolbar>
+        </ng-template>
+        <mat-toolbar>
+          <mat-toolbar-row>
+            <button mat-button
+                translate
+                (click)="addColumn()"
+                *ngIf="currentLayoutWidget.columns.length < 10">Add column</button>
+          </mat-toolbar-row>
+        </mat-toolbar>
+      </ng-template>
+      <ng-template [ngSwitchCase]="2">
+        <ajf-image-group (formulaClick)="openFormulaDialog($event)" [data]="iconSet"></ajf-image-group>
+        <ajf-image-group (formulaClick)="openFormulaDialog($event)" [data]="flagSet"></ajf-image-group>
+        <ajf-report-builder-forms-analyzer></ajf-report-builder-forms-analyzer>
+        <input
+            mat-input
+            [placeholder]="'paste a link' | translate"
+            style="width: 100%"
+            [(ngModel)]="imageUrl">
+        <button mat-button (click)="setImageUrl()"
+            translate>Set image</button>
+      </ng-template>
+      <ng-template [ngSwitchCase]="3">
+        <div style="width:500px">
+          <ajf-quill-editor
+            [(ngModel)]="currentTextWidget.htmlText"
+            [modules]="getModule()"
+            [maxLength]="200"
+            [theme]="bubble"
+            [initHTML]="(getHTML|async)"
+            (formulaClick)="openFormulaDialog($event)">
+          </ajf-quill-editor>
+        </div>
+      </ng-template>
+      <ng-template [ngSwitchCase]="4">
+        <h3 translate>Choose type of Chart</h3>
+        <mat-button-toggle-group class="ajf-chart-buttons">
+          <div class="ajf-row">
+            <mat-button-toggle
+              value="reportbuilder-linechart"
+              (click)="setChartType(0)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-linechart">
+              </mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle
+              value="reportbuilder-barchartvertical"
+              (click)="setChartType(1)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-barchartvertical">
+              </mat-icon>
+              </mat-button-toggle>
+            <mat-button-toggle
+                value="reportbuilder-bubblechart"
+                (click)="setChartType(8)">
+                <mat-icon
+                  fontSet="ajf-icon"
+                  fontIcon="reportbuilder-bubblechart">
+                </mat-icon>
+              </mat-button-toggle>
+          </div>
+          <div class=row>
+            <mat-button-toggle
+              value="reportbuilder-barcharthorizontal"
+              (click)="setChartType(2)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-barcharthorizontal">
+              </mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle
+              value="reportbuilder-radarchart"
+              (click)="setChartType(3)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-radarchart">
+              </mat-icon>
+            </mat-button-toggle>
+             <mat-button-toggle
+              value="reportbuilder-barchartvertical"
+              (click)="setChartType(1)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-barchartvertical">
+              </mat-icon>
+            </mat-button-toggle>
+          </div>
+          <div class="ajf-row">
+            <mat-button-toggle
+              value="reportbuilder-scatterchart"
+              (click)="setChartType(4)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-scatterchart">
+              </mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle
+              value="reportbuilder-polarareachart"
+              (click)="setChartType(5)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-polarareachart">
+              </mat-icon>
+            </mat-button-toggle>
+          </div>
+          <div class="ajf-row">
+            <mat-button-toggle
+              value="reportbuilder-piechart"
+              (click)="setChartType(6)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-piechart">
+              </mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle
+              value="reportbuilder-donoughtchart"
+              (click)="setChartType(7)">
+              <mat-icon
+                fontSet="ajf-icon"
+                fontIcon="reportbuilder-donoughtchart">
+              </mat-icon>
+            </mat-button-toggle>
+          </div>
+        </mat-button-toggle-group>
+        <h3 translate>Labels</h3>
+        <ajf-report-builder-forms-analyzer></ajf-report-builder-forms-analyzer>
+        <ajf-theme-color [section]="'chart'" [label]="tabValue"></ajf-theme-color>
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Border width</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <mat-slider
+                min="1"
+                max="100"
+                style="width:99%"
+                step="1"
+                (change)="setChartBorderColor($event.value)"
+                [value]="chartBorderWidth"
+                tickInterval="auto"
+                thumbLabel>
+              </mat-slider>
+            </mat-card-content>
+          </mat-card>
+          <mat-tab-group (selectChange)="setTab($event)">
+            <mat-tab label="Background">
+              <mat-list>
+                <ng-template ngFor let-color [ngForOf]="(getChartBackgroundColor|async)" let-idx="index">
+                  <mat-list-item>
+                    <span [style.background]="color">
+                      {{ color }}
+                    </span>
+                    <button mat-button translate
+                        (click)="removeChartBackgroundColor(idx)">Remove</button>
+                  </mat-list-item>
+                </ng-template>
+              </mat-list>
+            </mat-tab>
+            <mat-tab label="Border">
+              <mat-list>
+                <ng-template ngFor let-color [ngForOf]="(getChartBorderColor|async)" let-idx="index">
+                  <mat-list-item>
+                    <span [style.background]="color">
+                      {{ color }}
+                    </span>
+                    <button mat-button (click)="removeChartBorderColor(idx)">remove</button>
+                  </mat-list-item>
+                </ng-template>
+              </mat-list>
+            </mat-tab>
+          </mat-tab-group>
+      </ng-template>
+      <ng-template [ngSwitchCase]="5">
+        <ajf-report-builder-forms-analyzer></ajf-report-builder-forms-analyzer>
+      </ng-template>
+    </div>
+    <button mat-button
+        (click)="visibilitySection = !visibilitySection"
+        [ngClass]="{'ajf-selected': visibilitySection}">
+      {{ widgetName }}
+      <ng-container translate>Visibility</ng-container>
+    </button>
+    <div [style.display]="visibilitySection ? 'block' : 'none'">
+      <ajf-report-builder-condition-editor [visibility]="currentWidget.visibility"></ajf-report-builder-condition-editor>
+    </div>
+  </div>
+</ng-template>

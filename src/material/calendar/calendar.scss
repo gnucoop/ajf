@@ -1,0 +1,57 @@
+$ajf-calendar-row-height: 40px;
+$ajf-calendar-height: $ajf-calendar-row-height * 8;
+
+ajf-calendar {
+  display: flex;
+
+  box-sizing: border-box;
+
+  width: 100%;
+  height: $ajf-calendar-height;
+
+  flex-direction: column;
+
+  .ajf-calendar-header, .ajf-calendar-row {
+    display: flex;
+    box-sizing: border-box;
+
+    width: 100%;
+
+    flex-direction: row;
+  }
+
+  .ajf-calendar-header {
+    height: $ajf-calendar-row-height;
+
+    .ajf-calendar-header-title {
+      flex: 1;
+      margin: 0 10px;
+    }
+  }
+
+  .ajf-calendar-row {
+    flex: 1;
+
+    button, div {
+      flex: 1;
+      margin: 3px;
+    }
+
+    div {
+      line-height: $ajf-calendar-row-height;
+      text-align: center;
+    }
+
+    .ajf-calendar-partial-selection {
+      ::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+}

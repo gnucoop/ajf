@@ -1,0 +1,250 @@
+<div [style.display]="(enabled|async) ? 'none' : 'block'" class="ajf-disabled-overlay"></div>
+<div class="ajf-header">
+  <h3 translate>Properties</h3>
+  <mat-icon (click)="save()">save</mat-icon>
+  <mat-icon (click)="cancel()">cancel</mat-icon>
+</div>
+<ng-container *ngIf="nodeEntry|async as ne">
+  <ng-container *ngIf="propertiesForm|async as pf">
+    <form [formGroup]="pf" novalidate>
+      <div class="ajf-prop">
+        <mat-form-field>
+          <input matInput formControlName="name" [placeholder]="'Name' | translate">
+        </mat-form-field>
+      </div>
+      <div class="ajf-prop">
+        <mat-form-field>
+          <input matInput formControlName="label" [placeholder]="'Label' | translate">
+        </mat-form-field>
+      </div>
+      <div class="ajf-prop">
+        <div class="ajf-select-container">
+          <mat-select
+              formControlName="visibilityOpt" [placeholder]="'Visible' | translate">
+            <mat-option value="always" translate>Always</mat-option>
+            <mat-option value="never" translate>Never</mat-option>
+            <mat-option value="condition" translate>Condition...</mat-option>
+          </mat-select>
+          <button (click)="editVisibility()"
+              [disabled]="pf.value['visibilityOpt'] != 'condition'"
+              mat-raised-button [matTooltip]="curVisibility">
+            <div class="ajf-icon-cont">
+              <mat-icon>edit</mat-icon>
+              <span>{{ curVisibility }}</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="ajf-prop">
+        <div><label translate>Branches</label></div>
+        <div>
+          <mat-slider formControlName="conditionalBranchesNum"
+              thumbLabel tickInterval="auto" min="1" max="5" step="1"></mat-slider>
+        </div>
+        <div *ngFor="let branch of conditionalBranches; let idx = index">
+          <button (click)="editConditionalBranch(idx)" mat-raised-button [matTooltip]="branch">
+            <div class="ajf-icon-cont">
+              <mat-icon>edit</mat-icon>
+              <span>{{ branch }}</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <ng-template [ngIf]="isRepeatingContainerNode((ne)?.node)">
+        <div class="ajf-prop">
+          <div><label translate>Repetitions</label></div>
+          <div>
+            <button (click)="editFormulaReps()" mat-raised-button [matTooltip]="curFormulaReps">
+              <div class="ajf-icon-cont">
+                <mat-icon>edit</mat-icon>
+                <span>{{ curFormulaReps }}</span>
+              </div>
+            </button>
+          </div>
+          <div><label translate>Min repetitions</label></div>
+          <div>
+            <mat-slider formControlName="minReps"
+                thumbLabel tickInterval="auto" min="1" max="5" step="1"></mat-slider>
+          </div>
+          <div><label translate>Max repetitions</label></div>
+          <div>
+            <mat-slider formControlName="maxReps"
+                thumbLabel tickInterval="auto" min="1" max="5" step="1"></mat-slider>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="isField((ne)?.node)">
+        <div class="ajf-prop">
+          <div class="ajf-select-container">
+            <mat-select formControlName="size"
+                [placeholder]="'Size' | translate">
+              <mat-option *ngFor="let fieldSize of fieldSizes"
+                [value]="fieldSize.value">
+                {{ fieldSize.label }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="ajf-prop">
+          <mat-form-field>
+            <textarea matInput formControlName="description"
+                [placeholder]="'Description' | translate"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="ajf-prop">
+          <mat-form-field>
+            <input matInput formControlName="defaultValue"
+              [placeholder]="'Default value' | translate">
+          </mat-form-field>
+        </div>
+        <div class="ajf-prop">
+          <div><label translate>Formula</label></div>
+          <div>
+            <button (click)="editFormula()" mat-raised-button [matTooltip]="curFormula">
+              <div class="ajf-icon-cont">
+                <mat-icon>edit</mat-icon>
+                <span>{{ curFormula }}</span>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="ajf-prop">
+          <div><label translate>Force value</label></div>
+          <div>
+            <button (click)="editForceValue()" mat-raised-button [matTooltip]="curForceValue">
+              <div class="ajf-icon-cont">
+                <mat-icon>edit</mat-icon>
+                <span>{{ curForceValue }}</span>
+              </div>
+            </button>
+          </div>
+        </div>
+        <div class="ajf-prop">
+          <mat-checkbox formControlName="notEmpty" translate>Not empty</mat-checkbox>
+        </div>
+        <ng-template [ngIf]="isNumericField((ne)?.node)">
+          <div class="ajf-prop">
+            <mat-form-field>
+              <input matInput formControlName="minValue"
+                [placeholder]="'Min value' | translate">
+            </mat-form-field>
+          </div>
+          <div class="ajf-prop">
+            <mat-form-field>
+              <input matInput formControlName="maxValue"
+                [placeholder]="'Max value' | translate">
+            </mat-form-field>
+          </div>
+          <div class="ajf-prop">
+            <mat-form-field>
+              <input matInput formControlName="minDigits"
+                [placeholder]="'Min digits' | translate">
+            </mat-form-field>
+          </div>
+          <div class="ajf-prop">
+            <mat-form-field>
+              <input matInput formControlName="maxDigits"
+                [placeholder]="'Max digits' | translate">
+            </mat-form-field>
+          </div>
+        </ng-template>
+        <div class="ajf-prop">
+          <div class="ajf-header">
+            <label translate>Validation</label>
+            <mat-icon class="ajf-pointer" (click)="addValidationCondition()">add_circle_outline</mat-icon>
+          </div>
+          <div *ngIf="validationConditions == null || validationConditions.length == 0"
+              class="ajf-validation-row ajf-emph" translate>No conditions</div>
+          <div class="ajf-validation-row" *ngFor="let validationCondition of validationConditions; let idx = index">
+            <button (click)="editValidationCondition(idx)"
+                mat-raised-button [matTooltip]="validationCondition.condition">
+              <div class="ajf-icon-cont">
+                <mat-icon>edit</mat-icon>
+                <span>{{ validationCondition.condition }}</span>
+              </div>
+            </button>
+            <mat-icon class="ajf-pointer" (click)="removeValidationCondition(idx)">remove_circle_outline</mat-icon>
+          </div>
+        </div>
+        <div class="ajf-prop">
+          <mat-checkbox formControlName="notEmptyWarning" translate>Not empty warning</mat-checkbox>
+        </div>
+        <div class="ajf-prop">
+          <div class="ajf-header">
+            <label translate>Warnings</label>
+            <mat-icon class="ajf-pointer" (click)="addWarningCondition()">add_circle_outline</mat-icon>
+          </div>
+          <div  *ngIf="warningConditions == null || warningConditions.length == 0"
+              class="ajf-validation-row ajf-emph" translate>No warnings</div>
+          <div class="ajf-validation-row" *ngFor="let warningCondition of warningConditions; let idx = index">
+            <button (click)="editWarningCondition(idx)"
+                mat-raised-button [matTooltip]="warningCondition.condition">
+              <div class="ajf-icon-cont">
+                <mat-icon>edit</mat-icon>
+                <span>{{ warningCondition.condition }}</span>
+              </div>
+            </button>
+            <mat-icon class="ajf-pointer" (click)="removeWarningCondition(idx)">remove_circle_outline</mat-icon>
+          </div>
+        </div>
+        <div class="ajf-prop">
+          <div><label translate>Go to next slide condition</label></div>
+          <div>
+            <button (click)="editNextSlideCondition()" mat-raised-button [matTooltip]="nextSlideCondition">
+              <div class="ajf-icon-cont">
+                <mat-icon>edit</mat-icon>
+                <span>{{ nextSlideCondition }}</span>
+              </div>
+            </button>
+          </div>
+        </div>
+        <ng-template [ngIf]="isFieldWithChoices((ne)?.node)">
+          <div class="ajf-prop">
+            <div class="ajf-select-container">
+              <mat-select formControlName="choicesOrigin" [placeholder]="'Choices' | translate">
+                <mat-option *ngFor="let choicesOrigin of choicesOrigins" [value]="choicesOrigin.getName()">
+                  {{ choicesOrigin.getLabel() || choicesOrigin.getName() }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+          <div class="ajf-prop">
+            <div><label translate>Choices filter</label></div>
+            <div>
+              <button (click)="editChoicesFilter()" mat-raised-button [matTooltip]="curChoicesFilter">
+                <div class="ajf-icon-cont">
+                  <mat-icon>edit</mat-icon>
+                  <span>{{ curChoicesFilter }}</span>
+                </div>
+              </button>
+            </div>
+          </div>
+          <div class="ajf-prop">
+            <mat-checkbox formControlName="forceExpanded" translate>Force expanded selection</mat-checkbox>
+          </div>
+          <div class="ajf-prop">
+            <mat-checkbox formControlName="forceNarrow" translate>Force narrow selection</mat-checkbox>
+          </div>
+          <div class="ajf-prop">
+            <div class="ajf-header">
+              <label translate>Trigger selection</label>
+              <mat-icon class="ajf-pointer" (click)="addTriggerCondition()">add_circle_outline</mat-icon>
+            </div>
+            <div *ngIf="triggerConditions == null || triggerConditions.length == 0"
+                class="ajf-validation-row ajf-emph" translate>No trigger condition </div>
+            <div class="ajf-validation-row" *ngFor="let triggerCondition of triggerConditions; let idx = index">
+              <button (click)="editTriggerCondition(idx)"
+                  mat-raised-button [matTooltip]="triggerCondition">
+                <div class="ajf-icon-cont">
+                  <mat-icon>edit</mat-icon>
+                  <span>{{ triggerCondition }}</span>
+                </div>
+              </button>
+              <mat-icon class="pointer" (click)="removeTriggerCondition(idx)">remove_circle_outline</mat-icon>
+            </div>
+          </div>
+        </ng-template>
+      </ng-template>
+    </form>
+  </ng-container>
+</ng-container>

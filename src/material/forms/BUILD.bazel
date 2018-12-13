@@ -1,0 +1,55 @@
+package(default_visibility=["//visibility:public"])
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "forms",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/material/forms",
+  assets = [":field.css", ":form.css"] + glob(["**/*.html"]),
+  deps = [
+    "@angular//packages/core",
+    "@angular_material//src/lib/button",
+    "@angular_material//src/lib/dialog",
+    "@angular_material//src/lib/form-field",
+    "@angular_material//src/lib/icon",
+    "@angular_material//src/lib/input",
+    "@angular_material//src/lib/radio",
+    "@angular_material//src/lib/select",
+    "@angular_material//src/lib/slide-toggle",
+    "@angular_material//src/lib/toolbar",
+    "@ngx_translate_core//:core",
+    "//src/core/forms",
+    "//src/material/calendar",
+    "//src/material/checkbox-group",
+    "//src/material/page-slider",
+    "//src/material/time",
+  ],
+)
+
+sass_binary(
+  name = "field_scss",
+  src = "field.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "form_scss",
+  src = "form.scss",
+  deps = [],
+)
+
+ng_test_library(
+  name = "forms_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":forms"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [":forms_test_sources"],
+)

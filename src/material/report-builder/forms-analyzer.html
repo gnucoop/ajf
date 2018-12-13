@@ -1,0 +1,129 @@
+<ng-template [ngIf]="currentWidget != null && formsVariables != null">
+  <ng-template [ngIf]="currentWidget.widgetType == 4">
+    <ng-template  [ngIf]="needMainData()">
+      <mat-tab-group>
+        <mat-tab [label]="'Main Data' | translate">
+          <button mat-button (click)="openDialogAddMainData()" style="width:100%;">
+            Add Main Data
+          </button>
+          <mat-grid-list rowHeight="50px" cols="3">
+            <ng-template ngFor let-label [ngForOf]="getMainData()" let-idx="index">
+              <mat-grid-tile>
+                  {{ label }}
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button translate
+                    (click)="setCurrentIndex(idx);openDialogChartEditMainData()">Edit</button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button translate
+                    (click)="removeMainData(idx)">Remove</button>
+              </mat-grid-tile>
+            </ng-template>
+          </mat-grid-list>
+          <div class="ajf-ui ajf-divider"></div>
+        </mat-tab>
+      </mat-tab-group>
+    </ng-template>
+    <mat-tab-group>
+      <mat-tab label="dataset">
+        <button mat-button (click)="openDialogChartAddDataset()" style="width:100%">
+            add dataset
+        </button>
+        <mat-grid-list rowHeight="50px" cols="4">
+          <ng-template ngFor let-label [ngForOf]="getDataset()" let-idx="index">
+              <mat-grid-tile>
+                <button mat-button color="{{isSelected(idx)}}"(click)="setCurrentIndex(idx)">
+                  {{ label }}
+                </button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button (click)="setCurrentIndex(idx);openDialogChartAddDataOfDataset()" style="width:100%">
+                  add data
+                </button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+              <button mat-button translate
+                  (click)="setCurrentIndex(idx);openDialogChartEditDataset()">Edit</button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button translate
+                    (click)="removeDataset(idx)">Remove</button>
+              </mat-grid-tile>
+          </ng-template>
+        </mat-grid-list>
+      </mat-tab>
+      <mat-tab label="data">
+        <mat-grid-list rowHeight="50px" cols="3">
+          <ng-template ngFor let-label [ngForOf]="getRelatedData()" let-idx="index">
+            <mat-grid-tile>
+                {{ label }}
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <button mat-button translate
+                  (click)="openDialogChartEditDataOfDataset(idx)">Edit</button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+              <button mat-button translate
+                  (click)="removeRelatedData(idx)">Remove</button>
+            </mat-grid-tile>
+          </ng-template>
+        </mat-grid-list>
+        <div class="ajf-ui ajf-divider"></div>
+      </mat-tab>
+    </mat-tab-group>
+  </ng-template>
+  <ng-template [ngIf]="currentWidget.widgetType == 5">
+    <ng-template  [ngIf]="needMainData()">
+      <mat-tab-group>
+        <mat-tab [label]="'Main Data' | translate">
+          <button mat-button (click)="openDialogAddMainData()"
+              translate
+              style="width:100%;">Add Main Data</button>
+          <mat-grid-list rowHeight="50px" cols="4">
+            <ng-template ngFor let-label [ngForOf]="getTableHeader()" let-idx="index">
+              <mat-grid-tile>
+                <button mat-button color="{{isSelected(idx)}}"(click)="setCurrentIndex(idx)">
+                  {{ label }}
+                </button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button translate
+                    (click)="setCurrentIndex(idx);openDialogTableAddDataset()"
+                    style="width:100%">add data</button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button translate
+                    (click)="setCurrentIndex(idx);openDialogTableEditMainData()">Edit</button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button translate
+                    (click)="removeTableMainData(idx)">Remove</button>
+              </mat-grid-tile>
+            </ng-template>
+          </mat-grid-list>
+          <div class="ajf-ui ajf-divider"></div>
+        </mat-tab>
+        <mat-tab [label]="'data' | translate">
+          <mat-grid-list rowHeight="50px" cols="3">
+            <ng-template ngFor let-label [ngForOf]="getTableData()" let-idx="index">
+              <mat-grid-tile>
+                  {{ label }}
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button translate
+                    (click)="openDialogTableEditDataset(idx)">Edit</button>
+              </mat-grid-tile>
+              <mat-grid-tile>
+                <button mat-button translate
+                    (click)="removeData(currentMainDataIndex, idx + 1)">Remove</button>
+              </mat-grid-tile>
+            </ng-template>
+          </mat-grid-list>
+          <div class="ajf-ui ajf-divider"></div>
+      </mat-tab>
+      </mat-tab-group>
+    </ng-template>
+  </ng-template>
+</ng-template>
+

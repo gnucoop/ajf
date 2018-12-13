@@ -1,0 +1,11 @@
+<table *ngIf="data">
+  <tr *ngFor="let row of data">
+    <td *ngFor="let cell of row"
+        [applyStyles]="cell.style"
+        [ngStyle]="{'padding': cellpadding}"
+        [attr.colspan]="cell.colspan"
+        [attr.rowspan]="cell.rowspan"
+        [innerHTML]="cell.value">
+    </td>
+  </tr>
+</table>

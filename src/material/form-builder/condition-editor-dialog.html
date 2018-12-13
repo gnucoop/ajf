@@ -1,0 +1,10 @@
+<h3 matDialogTitle translate>Edit condition</h3>
+<mat-dialog-content>
+  <ajf-condition-editor
+      [fields]="fields|async"
+      [condition]="condition"></ajf-condition-editor>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button translate (click)="saveCondition()">Save</button>
+  <button mat-button translate matDialogClose>Close</button>
+</mat-dialog-actions>

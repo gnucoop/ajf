@@ -1,0 +1,44 @@
+<div class="ajf-container" *ngIf="onOver || onDragged">
+  <div class="ajf-button-row">
+    <ng-template [ngIf]="isColumn() && onDragged == false">
+      <span
+        (click)="changeColumn('forward')"
+        matTooltip="move right"
+        [matTooltipPosition]="'above'">
+        <i class="material-icons">arrow_forward</i>
+      </span>
+    </ng-template>
+    <ng-template [ngIf]="(isColumn()== false && onDragged == true) || true">
+      <span mat-button
+        [ngClass]="{'ajf-selected': onFocus()}"
+        matTooltip="{{label}}"
+        [matTooltipPosition]="'above'"
+        (click)="selectedWidget()">
+        <ng-template [ngIf]="isColumn()">
+        <i class="material-icons" >settings</i>
+        </ng-template>
+        <ng-template [ngIf]="(isColumn()) ? false : true">
+          <mat-icon
+            fontSet="ajf-icon"
+            fontIcon="{{ widgetIcon }}">
+          </mat-icon>
+        </ng-template>
+      </span>
+      <span
+        mat-button
+        matTooltip="remove"
+        (click)="remove()"
+        [matTooltipPosition]="'above'">
+        <mat-icon>remove_circle_outline</mat-icon>
+      </span>
+    </ng-template>
+    <ng-template [ngIf]="isColumn() && onDragged == false">
+      <span
+        (click)="changeColumn('back')"
+        matTooltip="move left"
+        [matTooltipPosition]="'above'">
+        <i class="material-icons">arrow_back</i>
+      </span>
+    </ng-template>
+  </div>
+</div>

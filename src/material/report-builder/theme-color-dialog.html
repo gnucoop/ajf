@@ -1,0 +1,16 @@
+<div mat-dialog-content #colorpic>
+   <input
+          [hidden]=false
+          [colorPicker]="currentColor"
+          [style.background]="currentColor"
+          [value]="currentColor"
+          [cpDialogDisplay]="'inline'"
+          [cpPosition]="'top'"
+          [cpToggle]="true"
+          [cpWidth]="'400px'"
+          [cpOutputFormat]="'rgba'"
+          (colorPickerChange)="setWidgetStyles($event)"/>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="addCustomColor()">Save color</button>
+</div>

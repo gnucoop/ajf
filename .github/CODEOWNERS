@@ -1,0 +1,87 @@
+# Ajf core
+/src/core/*                                        @trik
+/src/core/calendar/*                               @trik
+/src/core/chart/*                                  @trik
+/src/core/checkbox-group/*                         @trik
+/src/core/common/*                                 @trik
+/src/core/forms/*                                  @trik
+/src/core/image/*                                  @trik
+/src/core/map/*                                    @trik
+/src/core/models/*                                 @trik
+/src/core/node-icon/*                              @trik
+/src/core/page-break/*                             @trik
+/src/core/page-slider/*                            @trik
+/src/core/reports/*                                @trik
+/src/core/table/*                                  @trik
+/src/core/text/*                                   @trik
+/src/core/utils/*                                  @trik
+
+# Ajf material
+/src/material/*                                    @trik
+/src/material/calendar/*                           @trik
+/src/material/checkbox-group/*                     @trik
+/src/material/form-builder/*                       @trik
+/src/material/forms/*                              @trik
+/src/material/image/*                              @trik
+/src/material/monaco-editor/*                      @trik
+/src/material/node-icon/*                          @trik
+/src/material/page-slider/*                        @trik
+/src/material/report-builder/**/*                  @trik
+/src/material/reports/*                            @trik
+/src/material/time/*                               @trik
+
+# Ajf ionic
+/src/ionic/*                                       @trik
+/src/ionic/calendar/*                              @trik
+/src/ionic/checkbox-group/*                        @trik
+/src/ionic/forms/*                                 @trik
+/src/ionic/image/*                                 @trik
+/src/ionic/node-icon/*                             @trik
+/src/ionic/page-slider/*                           @trik
+/src/ionic/reports/*                               @trik
+
+# Docs examples & guides
+/guides/**                                         @trik
+/src/material-examples/**                          @trik
+/src/ionic-examples/**                             @trik
+
+# Dev app material
+/src/dev-app-mat/*                                 @trik
+/src/dev-app-mat/dev-app/**                        @trik
+/src/dev-app-mat/example/**                        @trik
+/src/dev-app-mat/examples-page/**                  @trik
+
+# Dev app ionic
+/src/dev-app-ion/*                                 @trik
+/src/dev-app-ion/dev-app/**                        @trik
+/src/dev-app-ion/example/**                        @trik
+/src/dev-app-ion/examples-page/**                  @trik
+
+# E2E app material
+/e2e-mat/*                                         @trik
+/e2e-mat/util/**                                   @trik
+/src/e2e-app-mat/*                                 @trik
+/src/e2e-app-mat/e2e-app/**                        @trik
+
+# E2E app ionic
+/e2e-ion/*                                         @trik
+/e2e-ion/util/**                                   @trik
+/src/e2e-app-ion/*                                 @trik
+/src/e2e-app-ion/e2e-app/**                        @trik
+
+# Universal app material
+/src/universal-app-mat/**                          @trik
+
+# Universal app ionic
+/src/universal-app-ion/**                          @trik
+
+# Tooling
+/.circleci/**                                      @trik
+/scripts/**                                        @trik
+/test/**                                           @trik
+/tools/**                                          @trik
+
+# Misc
+/*                                                 @trik
+/.github/**                                        @trik
+/src/*                                             @trik

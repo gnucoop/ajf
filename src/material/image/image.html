@@ -1,0 +1,12 @@
+<ng-container [ngSwitch]="imageType|async">
+  <ng-template [ngSwitchCase]="imageTypes.Image">
+    <img *ngIf="url|async as iu" [src]="iu" alt="">
+  </ng-template>
+  <ng-template [ngSwitchCase]="imageTypes.Icon">
+    <mat-icon *ngIf="iconObj|async as io"
+        [fontSet]="io.fontSet"
+        [fontIcon]="io.fontIcon">
+    </mat-icon>
+  </ng-template>
+  <span *ngSwitchCase="imageTypes.Flag" [class]="flagName|async"></span>
+</ng-container>

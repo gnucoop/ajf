@@ -1,0 +1,31 @@
+package(default_visibility=["//visibility:public"])
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "node-icon",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/core/node-icon",
+  assets = [],
+  deps = [
+    "@angular//packages/core",
+    "//src/core/forms",
+  ],
+)
+
+ng_test_library(
+  name = "node_icon_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":node-icon"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [
+    ":node_icon_test_sources",
+  ],
+)

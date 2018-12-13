@@ -1,0 +1,12 @@
+ajf-map {
+  position:relative;
+  width:100%;
+  min-height: 200px;
+
+  [mapContainer] {
+    position: absolute;
+    min-width:100px;
+    width: 100%;
+    height: 100%;
+  }
+}

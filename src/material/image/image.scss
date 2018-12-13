@@ -1,0 +1,27 @@
+ajf-image {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  position: relative;
+  font-size: inherit;
+  width: inherit;
+  height: inherit;
+
+  img {
+    vertical-align: middle;
+    position: relative;
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+  }
+
+  span {
+    height: inherit;
+    width: inherit;
+  }
+
+  .mat-icon {
+    font-size: inherit;
+  }
+}

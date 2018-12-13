@@ -1,0 +1,177 @@
+package(default_visibility=["//visibility:public"])
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "report-builder",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/material/report-builder",
+  assets = [
+    ":column.css",
+    ":condition-editor.css",
+    ":content.css",
+    ":custom-widget-toolbar-button.css",
+    ":custom-widgets-toolbar.css",
+    ":forms-analyzer-dialog.css",
+    ":forms-analyzer.css",
+    ":image-group.css",
+    ":properties.css",
+    ":quill-editor.css",
+    ":renderer-widget.css",
+    ":report-builder.css",
+    ":theme-color-dialog.css",
+    ":theme-color.css",
+    ":toolbar.css",
+    ":widget-toolbar-button.css",
+    ":widgets-row-buttons.css",
+  ] + glob(["**/*.html"]),
+  deps = [
+    "@angular//packages/common",
+    "@angular//packages/core",
+    "@angular_material//src/lib/button",
+    "@angular_material//src/lib/button-toggle",
+    "@angular_material//src/lib/card",
+    "@angular_material//src/lib/dialog",
+    "@angular_material//src/lib/grid-list",
+    "@angular_material//src/lib/icon",
+    "@angular_material//src/lib/list",
+    "@angular_material//src/lib/select",
+    "@angular_material//src/lib/sidenav",
+    "@angular_material//src/lib/slide-toggle",
+    "@angular_material//src/lib/slider",
+    "@angular_material//src/lib/tabs",
+    "@angular_material//src/lib/toolbar",
+    "@angular_material//src/lib/tooltip",
+    "@ngx_dnd//:ngx-dnd",
+    "@ngx_translate_core//:core",
+    "@ajfdeps//@types/quill",
+    "@ngx_color_picker//:ngx-color-picker",
+    "//src/core/common",
+    "//src/core/forms",
+    "//src/core/image",
+    "//src/core/map",
+    "//src/core/reports",
+    "//src/core/table",
+    "//src/core/text",
+    "//src/core/utils",
+    "//src/material/image",
+    "//src/material/monaco-editor",
+  ],
+)
+
+sass_binary(
+  name = "column_scss",
+  src = "column.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "condition_editor_scss",
+  src = "condition-editor.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "content_scss",
+  src = "content.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "custom_widget_toolbar_button_scss",
+  src = "custom-widget-toolbar-button.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "custom_widgets_toolbar_scss",
+  src = "custom-widgets-toolbar.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "forms_analyzer_dialog_scss",
+  src = "forms-analyzer-dialog.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "forms_analyzer_scss",
+  src = "forms-analyzer.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "image_group_scss",
+  src = "image-group.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "properties_scss",
+  src = "properties.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "quill_editor_scss",
+  src = "quill-editor.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "renderer_widget_scss",
+  src = "renderer-widget.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "report_builder_scss",
+  src = "report-builder.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "theme_color_dialog_scss",
+  src = "theme-color-dialog.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "theme_color_scss",
+  src = "theme-color.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "toolbar_scss",
+  src = "toolbar.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "widget_toolbar_button_scss",
+  src = "widget-toolbar-button.scss",
+  deps = [],
+)
+
+sass_binary(
+  name = "widgets_row_buttons_scss",
+  src = "widgets-row-buttons.scss",
+  deps = [],
+)
+
+ng_test_library(
+  name = "report_builder_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":report-builder"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [":report_builder_test_sources"],
+)

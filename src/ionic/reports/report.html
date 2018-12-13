@@ -1,0 +1,17 @@
+<ng-template [ngIf]="reportInstance">
+  <div *ngIf="reportInstance.header" @.disabled [applyStyles]="reportInstance.header.styles" class="afj-report-header">
+    <ng-template ngFor let-widgetInstance [ngForOf]="reportInstance.header.content">
+      <ajf-report-widget *ngIf="widgetInstance.visible" [widgetInstance]="widgetInstance"></ajf-report-widget>
+    </ng-template>
+  </div>
+  <div *ngIf="reportInstance.content" @.disabled [applyStyles]="reportInstance.content.styles" class="ajf-report-content">
+    <ng-template ngFor let-widgetInstance [ngForOf]="reportInstance.content.content">
+      <ajf-report-widget *ngIf="widgetInstance.visible" [widgetInstance]="widgetInstance"></ajf-report-widget>
+    </ng-template>
+  </div>
+  <div *ngIf="reportInstance.footer" @.disabled [applyStyles]="reportInstance.footer.styles" class="ajf-report-footer">
+    <ng-template ngFor let-widgetInstance [ngForOf]="reportInstance.footer.content">
+      <ajf-report-widget *ngIf="widgetInstance.visible" [widgetInstance]="widgetInstance"></ajf-report-widget>
+    </ng-template>
+  </div>
+</ng-template>

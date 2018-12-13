@@ -1,0 +1,66 @@
+forms-analyzer-dialog {
+  height: 512px;
+
+  h4[matLine] {
+    font-size: xx-small;
+  }
+
+  [mat-dialog-content] {
+    flex-direction: row;
+    display: flex;
+    align-items: stretch;
+    min-width: 1000px;
+
+
+    .ajf-left {
+      flex: 1 0 10%;
+      width: 10%;
+      overflow-y: auto;
+
+      form > mat-select {
+        width: 90%;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+
+    .ajf-main {
+      flex: 1 0 55%;
+      min-width: 512px;
+
+      monaco-editor {
+        height: 450px;
+        min-width: 300px;
+      }
+
+      mat-select {
+        width: 80%;
+      }
+
+      mat-form-field {
+        width: 80%;
+        textarea {
+          width: auto;
+          height: auto;
+        }
+      }
+
+      textarea {
+        width: 80%;
+        height: 75px;
+      }
+    }
+
+    .ajf-menu {
+      flex: 1 0 30%;
+      overflow-y: auto;
+      min-width: 350px;
+
+      form > mat-select {
+        width: 90%;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

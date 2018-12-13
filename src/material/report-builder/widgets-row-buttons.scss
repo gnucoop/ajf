@@ -1,0 +1,38 @@
+ajf-report-builder-widgets-row-buttons {
+  position: relative;
+  display: block;
+
+  .ajf-container {
+    height:30px;
+
+    .ajf-button-row {
+      margin:0;
+      width: 100% !important;
+      padding: 0;
+      position:absolute;
+      right:0;
+      display: flex;
+      flex-direction: row-reverse;
+      z-index: 50;
+      overflow-x: auto;
+      background-color: rgba(144, 238, 144, 0.6);
+      color: black !important;
+      border-radius: 16px;
+
+      button, span {
+        flex-flow: wrap row;
+        margin-right: 10px;
+        cursor:pointer;
+        mat-icon {
+          margin-top: 5px;
+          font-size: 20px;
+        }
+      }
+    }
+
+    .ajf-selected {
+      background-color: rgb(59, 98, 59);
+      color: #81d481;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+package(default_visibility=["//visibility:public"])
+
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "forms",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/core/forms",
+  assets = [],
+  deps = [
+    "@angular//packages/core",
+    "@angular//packages/forms",
+    "@ajfdeps//@types/esprima",
+    "@ajfdeps//date-fns",
+    "//src/core/models",
+    "//src/core/page-slider",
+    "//src/core/utils",
+  ],
+)
+
+ng_test_library(
+  name = "forms_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":forms"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [
+    ":forms_test_sources",
+  ],
+)

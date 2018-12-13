@@ -1,0 +1,136 @@
+<ng-container *ngIf="control|async as curControl">
+  <div [ngSwitch]="fieldInstance.field.fieldType">
+    <ion-input *ngSwitchCase="ajfFieldTypes.String"
+        type="text"
+        [formControl]="curControl"></ion-input>
+    <ng-container *ngSwitchCase="ajfFieldTypes.Text">
+      <ion-textarea
+          [formControl]="curControl"></ion-textarea>
+      <!-- <button (click)="onValueChanged()">Ok</button> -->
+    </ng-container>
+
+    <ion-input *ngSwitchCase="ajfFieldTypes.Number"
+        type="number"
+        [formControl]="curControl"></ion-input>
+
+    <ion-toggle *ngSwitchCase="ajfFieldTypes.Boolean"
+        [formControl]="curControl"></ion-toggle>
+
+    <ng-container *ngSwitchCase="ajfFieldTypes.SingleChoice">
+      <ng-container *ngIf="(!fwc.forceExpanded &&
+            fwcInst.filteredChoices && fwcInst.filteredChoices.length > searchTreshold) || fwc.forceNarrow">
+        <div class="ajf-item-container">
+          <ionic-selectable
+              #singleChoiceSelect
+              [canSearch]="hasSearch()"
+              [items]="fwcInst.filteredChoices"
+              itemValueField="value"
+              itemTextField="label"
+              [placeholder]="fieldInstance.field.label"
+              [formControl]="curControl">
+            <ng-template ionicSelectableItemTemplate let-choice="item">
+              {{ choice.label | translate }}
+            </ng-template>
+          </ionic-selectable>
+        </div>
+      </ng-container>
+      <div class="ajf-choices-container" *ngIf="!fwc.forceNarrow &&
+            (fwcInst.field.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
+        <ion-card radio-group
+            [formControl]="curControl">
+          <ion-item *ngFor="let choice of fwcInst.filteredChoices">
+            <ion-label>{{ choice.label | translate}}</ion-label>
+            <ion-radio [value]="choice.value"></ion-radio>
+          </ion-item>
+        </ion-card>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="ajfFieldTypes.MultipleChoice">
+        <ng-container *ngIf="(!fwc.forceExpanded &&
+            fwcInst.filteredChoices && fwcInst.filteredChoices.length > searchTreshold) || fwcInst.field.forceNarrow">
+        <div class="ajf-item-container">
+          <ionic-selectable
+              #multipleChoiceSelect
+              [isMultiple]="true"
+              [canSearch]="hasSearch()"
+              [items]="fwcInst.filteredChoices"
+              itemValueField="value"
+              itemTextField="label"
+              [placeholder]="fieldInstance.field.label"
+              [formControl]="curControl">
+            <ng-template ionicSelectableItemTemplate let-choice="item">
+              {{ choice.label | translate }}
+            </ng-template>
+          </ionic-selectable>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!fwc.forceNarrow &&
+          (fwcInst.field.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
+        <div ajf-checkbox-group
+            [formControl]="curControl"
+            class="ajf-choices-container">
+          <ion-card  *ngFor="let choice of fwcInst.filteredChoices">
+            <ajf-checkbox-group-item
+              [value]="choice.value">
+              {{ choice.label | translate }}
+            </ajf-checkbox-group-item>
+          </ion-card>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ion-input *ngSwitchCase="ajfFieldTypes.Formula"
+        [formControl]="curControl"
+        type="text"
+        readonly>
+    </ion-input>
+
+    <ion-item *ngSwitchCase="ajfFieldTypes.Date">
+      <ajf-calendar selectionMode="day"
+          dateOnlyForDay
+          [minDate]="datefInst.field.minDateValue"
+          [maxDate]="datefInst.field.maxDateValue"
+          [formControl]="curControl"></ajf-calendar>
+    </ion-item>
+
+    <ion-item *ngSwitchCase="ajfFieldTypes.DateInput">
+    <ion-input
+          type="date"
+          [formControl]="control | async"></ion-input>
+    </ion-item>
+
+    <ng-container *ngSwitchCase="ajfFieldTypes.Empty">
+      <div [innerHTML]="emptyfInst.field.HTML"></div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="ajfFieldTypes.Table">
+      <div class="ajf-table-container">
+        <table>
+          <ng-container *ngFor="let columns of tablefInst.visibleColumns; let i = index">
+            <tr [ngClass]="i | tableRowClass">
+              <td *ngFor="let cellValue of columns" >
+                {{ cellValue | translate }}
+              </td>
+            </tr>
+          </ng-container>
+        </table>
+      </div>
+     </ng-container>
+
+  </div>
+  <ng-container *ngIf="fieldInstance.field.hasAttachments">
+    <ng-container *ngFor="let attachment of fieldInstance.field.attachments">
+      <a [href]="attachment.value" target="_blank">{{attachment.label}}</a>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="fieldInstance.validationResults">
+    <div class="ajf-errors">
+      <ng-container *ngFor="let res of fieldInstance.validationResults">
+        <div class="error" *ngIf="!res.result">
+          {{ res.error | translate }}
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-container>

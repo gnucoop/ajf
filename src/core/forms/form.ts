@@ -1,0 +1,269 @@
+/**
+ * @license
+ * Copyright (C) 2018 Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+
+import {
+  AfterViewInit, AfterViewChecked, ChangeDetectorRef, EventEmitter, OnDestroy, QueryList
+} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+
+import {AjfPageSlider} from '@ajf/core/page-slider';
+import {coerceBooleanProperty} from '@ajf/core/utils';
+
+import {Observable, Subscription} from 'rxjs';
+import {delay, map, withLatestFrom} from 'rxjs/operators';
+
+import {AjfFormField} from './field';
+import {AjfFormInitStatus, AjfFormRendererService} from './form-renderer';
+import {AjfForm} from './forms';
+import {AjfFieldType} from './nodes';
+import {
+  AjfNodeGroupInstance, AjfNodeInstance, AjfRepeatingSlideInstance, IAjfSlideInstance
+} from './nodes-instances';
+
+export class AjfFormActionEvent {
+  source: AjfFormRenderer;
+  value: Object;
+  action: string;
+}
+
+export class AjfFormPermission {
+  'create': boolean;
+  'write': boolean;
+  'read': boolean;
+  'change_state': {
+    'send': boolean;
+    'approve': boolean;
+    'approve_with_comment': boolean;
+    'deprecate': boolean;
+  };
+}
+
+
+export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit, OnDestroy {
+  // formGroup is an Observable FormGroup type
+  readonly formGroup: Observable<FormGroup | null>;
+
+  //  slides is an observable AjfSlide array type
+  readonly slides: Observable<IAjfSlideInstance[]>;
+  readonly slidesNum: Observable<number>;
+  readonly errors: Observable<number>;
+  readonly formIsInit: Observable<boolean>;
+
+  // ajfFieldTypes [ Text, Number, Boolean, SingleChoice, MultipleChoice,
+  // Formula, Empty, Composed, LENGTH ]
+  readonly ajfFieldTypes = AjfFieldType;
+
+  saveAction = true;
+  submitAction = true;
+  sliderReady: boolean = false;
+
+  title: string;
+  permissions: AjfFormPermission;
+
+  private _hasStartMessage = false;
+  get hasStartMessage(): boolean { return this._hasStartMessage; }
+  set hasStartMessage(hasStartMessage: boolean) {
+    this._hasStartMessage = coerceBooleanProperty(hasStartMessage);
+  }
+
+  private _hasEndMessage = false;
+  get hasEndMessage(): boolean { return this._hasEndMessage; }
+  set hasEndMessage(hasEndMessage: boolean) {
+    this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
+  }
+
+  private _showTopToolbar = true;
+  get showTopToolbar(): boolean { return this._showTopToolbar; }
+  set showTopToolbar(showTopToolbar: boolean) {
+    this._showTopToolbar = coerceBooleanProperty(showTopToolbar);
+  }
+
+  private _showBottomToolbar = true;
+  get showBottompToolbar(): boolean { return this._showBottomToolbar; }
+  set showBottomToolbar(showBottomToolbar: boolean) {
+    this._showBottomToolbar = coerceBooleanProperty(showBottomToolbar);
+  }
+
+  private _showNavigationButtons = true;
+  get showNavigationButtons(): boolean { return this._showNavigationButtons; }
+  set showNavigationButtons(showNavigationButtons: boolean) {
+    this._showNavigationButtons = coerceBooleanProperty(showNavigationButtons);
+  }
+
+  formSlider: AjfPageSlider;
+  fields: QueryList<AjfFormField>;
+
+  private _errorMoveEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  // _errorPositions is a private subject structure that contains next and prev
+  private _errorPositions: Observable<number[]>;
+
+  // _form is a private ajFForm
+  private _form: AjfForm;
+  // _init is a private boolean
+  private _init = false;
+
+  private _nextSlideSubscription: Subscription = Subscription.EMPTY;
+  private _errorMoveSubscription: Subscription = Subscription.EMPTY;
+
+  private _formAction: EventEmitter<AjfFormActionEvent> = new EventEmitter<AjfFormActionEvent>();
+  readonly formAction: Observable<AjfFormActionEvent> = this._formAction.asObservable();
+
+  set form(form: AjfForm) {
+    this._form = form;
+
+    if (this._init) {
+      this._rendererService.setForm(this._form);
+    }
+  }
+
+  /**
+   * this constructor will init current formula by ajfBuilderService
+   */
+  constructor(
+    private _rendererService: AjfFormRendererService,
+    private _changeDetectorRef: ChangeDetectorRef
+  ) {
+    this.formGroup = _rendererService.formGroup;
+    this.slides = _rendererService.nodesTree;
+    this._errorPositions = _rendererService.errorPositions;
+    this.errors = _rendererService.errors;
+    this.slidesNum = _rendererService.slidesNum;
+    this.formIsInit = _rendererService.formInitEvent.pipe(
+      map(e => e === AjfFormInitStatus.Complete)
+    );
+  }
+
+  isRepeatingSlide(slide: IAjfSlideInstance): boolean {
+    return slide instanceof AjfRepeatingSlideInstance;
+  }
+
+  /**
+   * this method will scroll to next error received by subscribe
+   */
+  goToNextError(): void { this._errorMoveEvent.emit(true); }
+  /**
+   * this method will scroll to prev error received by subscribe
+   */
+  goToPrevError(): void { this._errorMoveEvent.emit(false); }
+
+  /**
+   * this method will add group
+   */
+  addGroup(nodeGroup: AjfNodeGroupInstance | AjfRepeatingSlideInstance): void {
+    let s = this._rendererService.addGroup(nodeGroup)
+      .pipe(delay(100))
+      .subscribe(
+        (r) => { if (r && this.formSlider != null) { this.formSlider.scrollTo(true); } },
+        (_e) => { if (s) { s.unsubscribe(); } },
+        () => { if (s) { s.unsubscribe(); } }
+      );
+  }
+
+  /**
+   * this method will remove group
+   */
+  removeGroup(nodeGroup: AjfNodeGroupInstance | AjfRepeatingSlideInstance): void {
+    let s = this._rendererService.removeGroup(nodeGroup)
+      .subscribe(
+        (r) => { if (r && this.formSlider != null) { this.formSlider.scrollTo(false); } },
+        (_e) => { if (s) { s.unsubscribe(); } },
+        () => { if (s) { s.unsubscribe(); } }
+      );
+  }
+
+  onSave(_evt: any): void {
+    this._formAction.emit({
+      source: this,
+      action: 'save',
+      value: this._rendererService.getFormValue()
+    });
+  }
+
+  onFormAction(_evt: any, action: string) {
+    this._formAction.emit({
+      source: this,
+      value: this._rendererService.getFormValue(),
+      action: action
+    });
+  }
+
+  /**
+   * this method will set current form in rederer service when init form
+   */
+  ngAfterViewInit(): void {
+    if (this._form != null) {
+      this._rendererService.setForm(this._form);
+      this._changeDetectorRef.detectChanges();
+    }
+  }
+
+  ngAfterViewChecked(): void {
+    if (!this._init && this.formSlider != null) {
+      this._init = true;
+
+      this._errorMoveSubscription = (<Observable<boolean>>this._errorMoveEvent).pipe(
+        withLatestFrom(this.formSlider.currentItemPosition, this._errorPositions)
+      ).subscribe((v: [boolean, number, number[]]) => {
+          const move = v[0];
+          const currentPosition = v[1] - (+this.hasStartMessage) + 1;
+          const errors = v[2];
+          if (errors == null) { return; }
+
+          let found = false;
+          let prevIdx = -1;
+          let nextIdx = -1;
+          let idx = 0;
+          let errorsLen = errors.length;
+          while (!found && idx < errorsLen) {
+            if (errors[idx] == currentPosition) {
+              found = true;
+              prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+              nextIdx = idx < errorsLen - 1 ? idx + 1 : 0;
+            } else if (errors[idx] > currentPosition) {
+              found = true;
+              prevIdx = idx > 0 ? idx - 1 : errorsLen - 1;
+              nextIdx = idx;
+            }
+            idx++;
+          }
+          if (!found) {
+            prevIdx = errorsLen - 1;
+            nextIdx = 0;
+          }
+
+          this.formSlider.scrollTo(undefined, move ? errors[nextIdx] - 1 : errors[prevIdx] - 1);
+          this._changeDetectorRef.detectChanges();
+        });
+
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._nextSlideSubscription.unsubscribe();
+    this._errorMoveSubscription.unsubscribe();
+  }
+
+  trackNodeById(_: number, node: AjfNodeInstance): string {
+    return node.completeName;
+  }
+}

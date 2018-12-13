@@ -1,0 +1,71 @@
+ajf-field {
+  ion-select {
+    position: relative;
+  }
+
+  ion-input {
+    border: dashed 2px #eeeeee;
+  }
+
+  .ajf-choices-container {
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: wrap;
+    display: flex;
+
+    > ion-card {
+      margin-top: 0;
+      width: 33%;
+      display: flex;
+      font-size: 13px;
+      flex-wrap: wrap;
+      flex-basis: 21% !important;
+      flex-shrink: 3 !important;
+
+      > ajf-checkbox-group-item {
+        width: 100%;
+      }
+
+      > ion-item {
+        font-size: 13px;
+        flex: 1 0 auto;
+        flex-shrink: 3 !important;
+        flex-basis: 21% !important;
+        margin: 0 10px;
+      }
+    }
+  }
+
+  .ajf-item-container {
+    position: relative;
+  }
+
+  .ajf-errors {
+    font-style: italic;
+    padding: 5px;
+  }
+
+  tr.ajf-row-odd {
+      background-color: grey;
+  }
+
+  .ajf-table-container {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+    }
+  }
+}
+
+// ion-datetime.datetime.datetime-md.ng-untouched.ng-pristine.ng-valid {
+//     border: dashed 2px #c0c0c0 !important;
+// }
+
+// .input-wrapper {
+//     min-width: 60px !important;
+// }
+
+// ion-radio.radio.radio-md {
+//     min-width: 15px !important;
+// }

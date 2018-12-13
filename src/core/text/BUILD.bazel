@@ -1,0 +1,39 @@
+package(default_visibility=["//visibility:public"])
+
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "text",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/core/text",
+  assets = [":text.css"] + glob(["**/*.html"]),
+  deps = [
+    "@angular//packages/common",
+    "@angular//packages/core",
+    "@angular//packages/platform-browser",
+    "@ngx_translate_core//:core",
+  ],
+)
+
+sass_binary(
+  name = "text_scss",
+  src = "text.scss",
+  deps = [],
+)
+
+ng_test_library(
+  name = "text_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":text"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [
+    ":text_test_sources",
+  ],
+)

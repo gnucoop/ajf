@@ -1,0 +1,21 @@
+<div class="ajf-page-slider-loading">
+  <div><mat-icon>alarm</mat-icon></div>
+</div>
+<div #sliderContent
+    (swipe)="swipeHandler($event)"
+    (mousewheel)="wheelHandler($event)"
+    class="ajf-page-slider-content">
+  <ng-content select=[pageSliderBody]></ng-content>
+</div>
+<mat-toolbar *ngIf="showNavigationButtons" class="ajf-toolbar">
+  <ng-content select=[ajfPageSliderBar]></ng-content>
+  <div class="ajf-spacer"></div>
+  <div>
+    <button mat-button (click)="scrollTo(false)" secondary>
+      <mat-icon>arrow_upward</mat-icon>
+    </button>
+    <button mat-button (click)="scrollTo()" secondary>
+      <mat-icon>arrow_downward</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

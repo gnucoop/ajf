@@ -1,0 +1,37 @@
+ajf-report-builder-forms-analyzer {
+  min-height: 512px;
+
+  .ajf-editor {
+    flex: 0.75 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+    monaco-editor {
+      flex: 1 0 auto;
+      min-width: 512px;
+      min-height: 256px;
+    }
+  }
+  mat-dialog-container {
+      flex: 1 0 auto;
+        min-width: 512px;
+        min-height: 256px;
+  }
+  .ajf-editor-panel {
+    flex: 0.25 0 auto;
+    overflow-y: auto;
+  }
+  .mat-list-item-content {
+    position: normal !important;
+    display: block !important;
+    height: 350px !important;
+  }
+  mat-tab-group {
+    .mat-tab-body-wrapper,.mat-list-item-content {
+      position: normal !important;
+      display: block !important;
+      height: 350px !important;
+    }
+  }
+}

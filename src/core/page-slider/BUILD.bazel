@@ -1,0 +1,28 @@
+package(default_visibility=["//visibility:public"])
+
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+
+ng_module(
+  name = "page-slider",
+  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
+  module_name = "@ajf/core/page-slider",
+  assets = [],
+  deps = [
+    "@angular//packages/core",
+    "//src/core/utils"
+  ],
+)
+
+ng_test_library(
+  name = "page_slider_test_sources",
+  srcs = glob(["**/*.spec.ts"]),
+  deps = [
+    "@angular//packages/platform-browser",
+    ":page-slider"
+  ]
+)
+
+ng_web_test_suite(
+  name = "unit_tests",
+  deps = [":page_slider_test_sources"],
+)
