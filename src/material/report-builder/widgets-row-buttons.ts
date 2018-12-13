@@ -49,7 +49,6 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   position: number;
   widget: AjfReportWidget;
   child: boolean;
-  currentWidgetSub: Subscription;
   currentWidget: AjfReportWidget | null = null;
   isClicked = false;
   color: string[] = [];
@@ -60,12 +59,14 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   label: string;
 
   // this boolean sign if is dragged a widget
-  onDraggedSub: Subscription;
   onDragged = false;
 
   // this boolean sign if is on over a widget
-  onOverSub: Subscription;
   onOver = false;
+
+  private _currentWidgetSub: Subscription = Subscription.EMPTY;
+  private _onDraggedSub: Subscription = Subscription.EMPTY;
+  private _onOverSub: Subscription = Subscription.EMPTY;
 
 
   /**
@@ -129,17 +130,17 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
     this.widgetIcon = widgetReportBuilderIconName(this.widget.widgetType);
     this.widgetLabel = ajfWidgetTypeToLabel(this.widget.widgetType);
 
-    this.onDraggedSub = this._service.onDragged
+    this._onDraggedSub = this._service.onDragged
       .subscribe(x => {
         this.onDragged = x;
       });
 
-    this.onOverSub = this._service.onOver
+    this._onOverSub = this._service.onOver
       .subscribe(x => {
         this.onOver = x;
       });
 
-    this.currentWidgetSub = this._service.currentWidget
+    this._currentWidgetSub = this._service.currentWidget
       .subscribe(
       x => {
         this.currentWidget = x;
@@ -150,8 +151,8 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
 
   }
   ngOnDestroy(): void {
-    if (this.onDraggedSub != null) { this.onDraggedSub.unsubscribe(); }
-    if (this.onOverSub != null) { this.onOverSub.unsubscribe(); }
-    if (this.currentWidgetSub != null) { this.currentWidgetSub.unsubscribe(); }
+    this._onDraggedSub.unsubscribe();
+    this._onOverSub.unsubscribe();
+    this._currentWidgetSub.unsubscribe();
   }
 }

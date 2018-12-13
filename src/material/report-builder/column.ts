@@ -59,7 +59,6 @@ export class AjfReportBuilderColumn implements OnDestroy, OnInit {
   layoutShow = false;
 
   // this boolean sign if is dragged a widget
-  onDraggedSub: Subscription;
   onDragged = false;
 
 
@@ -70,6 +69,8 @@ export class AjfReportBuilderColumn implements OnDestroy, OnInit {
    */
   @Input()
   column: AjfReportColumnWidget;
+
+  private _onDraggedSub: Subscription = Subscription.EMPTY;
 
   addToList(event: any, idx: number, toColumn: AjfReportColumnWidget) {
     this.onDragEndHandler();
@@ -109,14 +110,14 @@ export class AjfReportBuilderColumn implements OnDestroy, OnInit {
   ngOnInit() {
     // this.widget = changes.widget.currentValue;
 
-    this.onDraggedSub = this._service.onDragged
+    this._onDraggedSub = this._service.onDragged
       .subscribe(x => {
         this.onDragged = x;
       });
   }
 
   ngOnDestroy(): void {
-    if (this.onDraggedSub != null) { this.onDraggedSub.unsubscribe(); }
+    this._onDraggedSub.unsubscribe();
   }
 }
 

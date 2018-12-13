@@ -50,9 +50,7 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
   get fieldInstance(): AjfFieldInstance { return this._fieldInstance; }
   set fieldInstance(fieldInstance: AjfFieldInstance) {
     this._fieldInstance = fieldInstance;
-    if (this._fieldUpdateSubscription && !this._fieldUpdateSubscription.closed) {
-      this._fieldUpdateSubscription.unsubscribe();
-    }
+    this._fieldUpdateSubscription.unsubscribe();
     this._fieldUpdateSubscription = fieldInstance.updated.subscribe(() => {
       if (this._changeDetectionRef) {
         try {
@@ -82,9 +80,9 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
     return this._valueChanged.asObservable();
   }
 
-  private _triggerSelectionSubscription: Subscription;
-  private _triggerWarningSubscription: Subscription;
-  private _fieldUpdateSubscription: Subscription;
+  private _triggerSelectionSubscription: Subscription = Subscription.EMPTY;
+  private _triggerWarningSubscription: Subscription = Subscription.EMPTY;
+  private _fieldUpdateSubscription: Subscription = Subscription.EMPTY;
 
   /**
    * this constructor will init _rendererService _changeDetectionRef _alertCtrl
@@ -132,12 +130,9 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this._triggerSelectionSubscription) {
-      this._triggerSelectionSubscription.unsubscribe();
-    }
-    if (this._triggerWarningSubscription) {
-      this._triggerWarningSubscription.unsubscribe();
-    }
+    this._triggerSelectionSubscription.unsubscribe();
+    this._triggerWarningSubscription.unsubscribe();
+    this._fieldUpdateSubscription.unsubscribe();
   }
 
   private _triggerSelection(): void {

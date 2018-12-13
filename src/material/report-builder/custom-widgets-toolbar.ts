@@ -58,7 +58,8 @@ export interface CustomWidgets {
  */
 export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
   customWidgets: CustomWidget[] = [];
-  customWidgetsSub: Subscription;
+
+  private _customWidgetsSub: Subscription = Subscription.EMPTY;
 
   private _dialogRef: MatDialogRef<AjfReportBuilderCustomWidgetDialog>;
 
@@ -129,7 +130,7 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
     this.service.dragLeave();
   }
   ngOnInit(): void {
-    this.customWidgetsSub = this.service.customWidgets
+    this._customWidgetsSub = this.service.customWidgets
       .subscribe(x => {
         this.customWidgets = x;
         if (
@@ -150,7 +151,7 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.customWidgetsSub != null) { this.customWidgetsSub.unsubscribe(); }
+    this._customWidgetsSub.unsubscribe();
     this.service.resetCustomWidgets();
   }
 }

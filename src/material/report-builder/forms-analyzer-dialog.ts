@@ -83,14 +83,11 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   currentId: number = 0;
   currentIndex: number = 0;
   labels: string[] = [];
-  formAnalyzerSub: Subscription;
-  currentWidgetSub: Subscription;
   currentWidget: AjfReportWidget | null = null;
   formsVariables: AjfFormVariables[];
   formsVariablesName: string[] = [];
   formsVariablesType: string[] = [];
   isValid: boolean;
-  private _first: boolean = true;
 
   @Input()
   formula: string;
@@ -123,6 +120,10 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   @ViewChild('errorMessage') errorMessage: any;
   @ViewChild(AjfMonacoEditor) monacoEditor: AjfMonacoEditor;
 
+  private _formAnalyzerSub: Subscription = Subscription.EMPTY;
+  private _currentWidgetSub: Subscription = Subscription.EMPTY;
+  private _first: boolean = true;
+
   constructor(
     private _service: AjfReportBuilderService,
     private _dialogRef: MatDialogRef<AjfReportBuilderFormsAnalyzerDialog>,
@@ -132,7 +133,7 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
       this.formulaText = '';
       this.aggregationType = AjfAggregationType.Sum;
     }
-    this.currentWidgetSub = this._service.currentWidget
+    this._currentWidgetSub = this._service.currentWidget
       .subscribe(x => {
         if (x != null) {
 
@@ -150,7 +151,7 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
         }
       });
 
-    this.formAnalyzerSub = this._service.formsVariables
+    this._formAnalyzerSub = this._service.formsVariables
       .subscribe((x) => {
         if (x != null) {
           this.formsVariables = x;
@@ -404,6 +405,7 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   }
 
   ngOnDestroy(): void {
-    if (this.formAnalyzerSub != null) { this.formAnalyzerSub.unsubscribe(); }
+    this._formAnalyzerSub.unsubscribe();
+    this._currentWidgetSub.unsubscribe();
   }
 }

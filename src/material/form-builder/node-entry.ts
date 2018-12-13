@@ -131,8 +131,8 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return this._currentEditedNode;
   }
 
-  private _branchLinesSubscription: Subscription;
-  private _childEntriesSubscription: Subscription;
+  private _branchLinesSubscription: Subscription = Subscription.EMPTY;
+  private _childEntriesSubscription: Subscription = Subscription.EMPTY;
 
   constructor(private _service: AjfFormBuilderService) {
     this._currentEditedNode = this._service.editedNodeEntry;
@@ -160,8 +160,8 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this._branchLinesSubscription != null) { this._branchLinesSubscription.unsubscribe(); }
-    if (this._childEntriesSubscription != null) { this._childEntriesSubscription.unsubscribe(); }
+    this._branchLinesSubscription.unsubscribe();
+    this._childEntriesSubscription.unsubscribe();
   }
 
   onDropSuccess(data: DragDropData, content = false): void {

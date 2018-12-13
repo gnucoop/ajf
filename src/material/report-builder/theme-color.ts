@@ -53,13 +53,6 @@ import {AjfReportBuilderService} from './report-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
-  colorsSub: Subscription;
-  currentWidgetSub: Subscription;
-  originSub: Subscription;
-  headerStyleSub: Subscription;
-  contentStylesSub: Subscription;
-  footerStylesSub: Subscription;
-
   currentWidget: AjfReportWidget | null = null;
 
   alphaColor: number = 1;
@@ -88,6 +81,13 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
    * @memberOf AjfReportBuilderProperties
    */
   origin: string;
+
+  private _colorsSub: Subscription = Subscription.EMPTY;
+  private _currentWidgetSub: Subscription = Subscription.EMPTY;
+  private _originSub: Subscription = Subscription.EMPTY;
+  private _headerStyleSub: Subscription = Subscription.EMPTY;
+  private _contentStylesSub: Subscription = Subscription.EMPTY;
+  private _footerStylesSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private _service: AjfReportBuilderService,
@@ -205,13 +205,13 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.colorsSub = this._service.colors
+    this._colorsSub = this._service.colors
       .subscribe(x => {
         this.colors = x;
       }
       );
 
-    this.currentWidgetSub = this._service.currentWidget
+    this._currentWidgetSub = this._service.currentWidget
       .subscribe(x => {
         if (x != null) {
           if (this.currentWidget !== x) {
@@ -231,21 +231,21 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
       distinctUntilChanged()
     );
 
-    this.originSub = this._service.origin.subscribe(s => {
+    this._originSub = this._service.origin.subscribe(s => {
       this.origin = s;
     });
 
-    this.headerStyleSub = this._service.headerStyles.subscribe(s => {
+    this._headerStyleSub = this._service.headerStyles.subscribe(s => {
       if (s['background-color'] != null) {
         this.styleBackgroundColor = s['background-color'];
       }
     });
-    this.contentStylesSub = this._service.contentStyles.subscribe(s => {
+    this._contentStylesSub = this._service.contentStyles.subscribe(s => {
       if (s['background-color'] != null) {
         this.styleBackgroundColor = s['background-color'];
       }
     });
-    this.footerStylesSub = this._service.footerStyles.subscribe(s => {
+    this._footerStylesSub = this._service.footerStyles.subscribe(s => {
       if (s['background-color'] != null) {
         this.styleBackgroundColor = s['background-color'];
       }
@@ -253,12 +253,12 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.colorsSub != null) { this.colorsSub.unsubscribe(); }
-    if (this.currentWidgetSub != null) { this.currentWidgetSub.unsubscribe(); }
-    if (this.originSub != null) { this.originSub.unsubscribe(); }
-    if (this.headerStyleSub != null) { this.headerStyleSub.unsubscribe(); }
-    if (this.contentStylesSub != null) { this.contentStylesSub.unsubscribe(); }
-    if (this.footerStylesSub != null) { this.footerStylesSub.unsubscribe(); }
+    this._colorsSub.unsubscribe();
+    this._currentWidgetSub.unsubscribe();
+    this._originSub.unsubscribe();
+    this._headerStyleSub.unsubscribe();
+    this._contentStylesSub.unsubscribe();
+    this._footerStylesSub.unsubscribe();
   }
 }
 

@@ -24,7 +24,7 @@ import {
   ChangeDetectionStrategy, Component, EventEmitter, ViewEncapsulation
 } from '@angular/core';
 
-import {Observable, Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
 
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
@@ -51,7 +51,6 @@ export class AjfReportBuilderToolbar {
   dialogRef: MatDialogRef<AjfReportBuilderToolbarDialog>;
   zoom = false;
 
-  lastJsonSub: Subscription;
   lastJson: string;
 
   emptyContent: Observable<boolean>;

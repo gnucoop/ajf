@@ -170,13 +170,11 @@ export class AjfQuillEditor
   @Output() formulaClick: EventEmitter<any> = new EventEmitter<any>();
 
 
-  formulaTextSub: Subscription;
-
-
   onModelChange: Function = () => { };
   onModelTouched: Function = () => { };
 
   private _formulas: { formula: any, unlisten: Function | null }[] = [];
+  private _formulaTextSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private elementRef: ElementRef,
@@ -185,7 +183,7 @@ export class AjfQuillEditor
     this.font.whitelist = this.fonts;
     this.font.whitelist.push('regular');
 
-    this.formulaTextSub =
+    this._formulaTextSub =
       this._service.getFormulaToHtmlEvent()
         .subscribe((event: any) => {
 
@@ -427,6 +425,6 @@ export class AjfQuillEditor
         unlisten();
       }
     }
-    this.formulaTextSub.unsubscribe();
+    this._formulaTextSub.unsubscribe();
   }
 }

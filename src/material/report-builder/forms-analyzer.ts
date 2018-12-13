@@ -60,10 +60,8 @@ import {AjfReportBuilderService} from './report-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
-  currentWidgetSub: Subscription;
   currentWidget: AjfReportWidget | null = null;
 
-  formAnalyzerSub: Subscription;
   forms: AjfForm[] = [];
 
   formsVariables: AjfFormVariables[];
@@ -73,12 +71,14 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
 
   currentMainDataIndex: number = -1;
   private _dataset: AjfDataset[][] = [];
+  private _currentWidgetSub: Subscription = Subscription.EMPTY;
+  private _formAnalyzerSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private _service: AjfReportBuilderService,
     public dialog: MatDialog
   ) {
-    this.currentWidgetSub = this._service.currentWidget
+    this._currentWidgetSub = this._service.currentWidget
       .subscribe(x => {
         if (x != null) {
           this.currentWidget = x;
@@ -89,7 +89,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
       });
 
 
-    this.formAnalyzerSub = this._service.formsVariables
+    this._formAnalyzerSub = this._service.formsVariables
       .subscribe((x) => {
         if (x != null) {
           this.formsVariables = x;
@@ -311,8 +311,8 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.currentWidgetSub != null) { this.currentWidgetSub.unsubscribe(); }
-    if (this.formAnalyzerSub != null) { this.formAnalyzerSub.unsubscribe(); }
+    this._currentWidgetSub.unsubscribe();
+    this._formAnalyzerSub.unsubscribe();
   }
 
 }

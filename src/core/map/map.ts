@@ -70,7 +70,7 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
   private _map: L.Map;
   get map(): L.Map { return this._map; }
 
-  private _columnWidthChanged: Subscription;
+  private _columnWidthChanged: Subscription = Subscription.EMPTY;
 
   ngAfterViewInit(): void {
     if (this.mapContainer) {
@@ -88,7 +88,7 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this._columnWidthChanged != null) { this._columnWidthChanged.unsubscribe(); }
+    this._columnWidthChanged.unsubscribe();
   }
 
   private _initMap(): void {

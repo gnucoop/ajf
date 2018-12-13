@@ -64,7 +64,6 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   reportStyles: Observable<AjfReportStyles>;
 
   // this boolean sign if is dragged a widget
-  onDraggedSub: Subscription;
   onDragged = false;
 
 
@@ -73,11 +72,9 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    *
    * @memberOf AjfReportBuilderContent
    */
-  fixedZoomSub: Subscription;
   fixedZoom = false;
 
   // this boolean sign if widget is in drag enter status
-  onDragEnterSub: Subscription;
   onDragEnter: any = {};
 
 
@@ -86,7 +83,6 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
 
   // this array contains all widget locate in header zone
   headerWidgets: AjfReportWidget[] = [];
-  headerWidgetsSub: Subscription;
   /**
    * observe the css style of header
    *
@@ -96,7 +92,6 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
 
   // this array contains all widget locate in content zone
   contentWidgets: AjfReportWidget[] = [];
-  contentWidgetsSub: Subscription;
 
   /**
    * observe the css style of content
@@ -107,11 +102,9 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
 
   // this array contains all widget locate in footer zone
   footerWidgets: AjfReportWidget[] = [];
-  footerWidgetsSub: Subscription;
 
 
-  onOver: Boolean = false;
-  onOverSub: Subscription;
+  onOver: boolean = false;
   /**
    * observe the css style of footer
    *
@@ -122,7 +115,6 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
 
   // this is the current widget
   currentWidget: AjfReportWidget | null = null;
-  currentWidgetSub: Subscription;
 
 
   /**
@@ -131,6 +123,15 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    * @memberOf AjfReportBuilderContent
    */
   showActions = false;
+
+  private _onDraggedSub: Subscription = Subscription.EMPTY;
+  private _fixedZoomSub: Subscription = Subscription.EMPTY;
+  private _onDragEnterSub: Subscription = Subscription.EMPTY;
+  private _headerWidgetsSub: Subscription = Subscription.EMPTY;
+  private _contentWidgetsSub: Subscription = Subscription.EMPTY;
+  private _footerWidgetsSub: Subscription = Subscription.EMPTY;
+  private _onOverSub: Subscription = Subscription.EMPTY;
+  private _currentWidgetSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private service: AjfReportBuilderService,
@@ -263,31 +264,31 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   }
 
   ngOnInit(): void {
-    this.headerWidgetsSub = this.service.headerWidgets
+    this._headerWidgetsSub = this.service.headerWidgets
       .subscribe(x => {
         this.headerWidgets = x.widgets;
       });
-    this.contentWidgetsSub = this.service.contentWidgets
+    this._contentWidgetsSub = this.service.contentWidgets
       .subscribe(x => {
         this.contentWidgets = x.widgets;
       });
-    this.footerWidgetsSub = this.service.footerWidgets
+    this._footerWidgetsSub = this.service.footerWidgets
       .subscribe(x => {
         this.footerWidgets = x.widgets;
       });
-    this.onDraggedSub = this.service.onDragged
+    this._onDraggedSub = this.service.onDragged
       .subscribe(x => {
         this.onDragged = x;
       });
-    this.fixedZoomSub = this.service.fixedZoom
+    this._fixedZoomSub = this.service.fixedZoom
       .subscribe(bool => {
         this.fixedZoom = bool;
       });
-    this.onDragEnterSub = this.service.onDragEnter
+    this._onDragEnterSub = this.service.onDragEnter
       .subscribe(x => {
         this.onDragEnter = x;
       });
-    this.onOverSub = this.service.onOver
+    this._onOverSub = this.service.onOver
       .subscribe(x => {
         this.onOver = x;
       });
@@ -299,9 +300,9 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
 
   ngOnDestroy(): void {
     [
-      this.headerWidgetsSub, this.contentWidgetsSub, this.footerWidgetsSub,
-      this.currentWidgetSub, this.onDraggedSub, this.fixedZoomSub,
-      this.onOverSub
-    ].forEach(s => { if (s != null) { s.unsubscribe(); } });
+      this._headerWidgetsSub, this._contentWidgetsSub, this._footerWidgetsSub,
+      this._currentWidgetSub, this._onDraggedSub, this._fixedZoomSub,
+      this._onOverSub, this._onDragEnterSub
+    ].forEach(s => { s.unsubscribe(); });
   }
 }

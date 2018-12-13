@@ -72,7 +72,6 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   @Input()
   section: string;
 
-  onDraggedSub: Subscription;
   // this boolean sign if is dragged a widget
   onDragged = false;
 
@@ -90,6 +89,8 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   getChartBorderWidth: Observable<number>;
 
   layoutShow: boolean;
+
+  private _onDraggedSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private service: AjfReportBuilderService
@@ -204,7 +205,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   }
 
   ngOnInit(): void {
-    this.onDraggedSub = this.service.onDragged
+    this._onDraggedSub = this.service.onDragged
       .subscribe(x => {
         this.onDragged = x;
       });
@@ -292,6 +293,6 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   }
 
   ngOnDestroy(): void {
-    if (this.onDraggedSub != null) { this.onDraggedSub.unsubscribe(); }
+    this._onDraggedSub.unsubscribe();
   }
 }

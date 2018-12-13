@@ -118,7 +118,7 @@ export class AjfFormRendererService {
   private _errorPositions: Observable<number[]>;
   private _errors: Observable<number>;
 
-  private _formGroupSubscription: Subscription;
+  private _formGroupSubscription: Subscription = Subscription.EMPTY;
   private _valueChanged: Subject<void> = new Subject<void>();
 
   private _nodesMaps: Observable<IAjfRendererUpdateMap>[];
@@ -564,7 +564,7 @@ export class AjfFormRendererService {
   }
 
   private _initFormGroupStreams(formGroup: FormGroup): FormGroup {
-    if (this._formGroupSubscription) { this._formGroupSubscription.unsubscribe(); }
+    this._formGroupSubscription.unsubscribe();
     let init = true;
     let initForm = true;
     this._formInitEvent.emit(AjfFormInitStatus.Initializing);

@@ -57,7 +57,6 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
   visibility: AjfCondition;
 
   formsVariables: AjfFormVariables[];
-  conditionNamesSub: Subscription;
   isValid = false;
   names: string[] = [];
   currentId: number;
@@ -80,6 +79,8 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
     '+', '-', '*', '/', '%',
     'true', 'false'
   ];
+
+  private _conditionNamesSub: Subscription = Subscription.EMPTY;
 
   /**
    * this constructor will init current condition by ajfBuilderservice
@@ -185,7 +186,7 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
       this.conditionText = '';
     }
 
-    this.conditionNamesSub = this._service.conditionNames
+    this._conditionNamesSub = this._service.conditionNames
       .subscribe((x) => {
         this.formsVariables = x;
         if (x != null) {
@@ -198,6 +199,6 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
    * this method will destroy a conditionSubscriptions
    */
   ngOnDestroy(): void {
-    if (this.conditionNamesSub != null) { this.conditionNamesSub.unsubscribe(); }
+    this._conditionNamesSub.unsubscribe();
   }
 }

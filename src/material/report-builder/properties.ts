@@ -67,7 +67,6 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
   get currentTextWidget(): AjfReportTextWidget {
     return this.currentWidget as AjfReportTextWidget;
   }
-  currentWidgetSub: Subscription;
 
   /**
    * this array contains the forms exploited for generate data labels
@@ -75,11 +74,9 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
    * @memberOf AjfReportBuilderProperties
    */
   forms: AjfForm[] = [];
-  formsSub: Subscription;
 
 
   colors: string[] = [];
-  colorSub: Subscription;
 
   /**
    * the name of the section that contains the currentWidget
@@ -529,12 +526,15 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     ]
   };
 
-  headerStyleSub: Subscription;
-  contentStylesSub: Subscription;
-  footerStylesSub: Subscription;
-  originSub: Subscription;
+  private _currentWidgetSub: Subscription = Subscription.EMPTY;
+  private _formsSub: Subscription = Subscription.EMPTY;
+  private _colorSub: Subscription = Subscription.EMPTY;
+  private _headerStyleSub: Subscription = Subscription.EMPTY;
+  private _contentStylesSub: Subscription = Subscription.EMPTY;
+  private _footerStylesSub: Subscription = Subscription.EMPTY;
+  private _originSub: Subscription = Subscription.EMPTY;
+  private _stylesUpdatesSubs: Subscription = Subscription.EMPTY;
 
-  private _stylesUpdatesSubs: Subscription;
   private _updateWidgetMarginEvt: EventEmitter<{ idx: number, value: any }> =
   new EventEmitter<{ idx: number, value: any }>();
   private _updateWidgetPaddingEvt: EventEmitter<{ idx: number, value: any }> =
@@ -554,22 +554,22 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
       return { name: i, icons: service.iconSets[i] };
     });
 
-    this.headerStyleSub = this.service.headerStyles.subscribe(s => {
+    this._headerStyleSub = this.service.headerStyles.subscribe(s => {
       if (s['background-color'] != null) {
         this.styleBackgroundColor = s['background-color'];
       }
     });
-    this.contentStylesSub = this.service.contentStyles.subscribe(s => {
+    this._contentStylesSub = this.service.contentStyles.subscribe(s => {
       if (s['background-color'] != null) {
         this.styleBackgroundColor = s['background-color'];
       }
     });
-    this.footerStylesSub = this.service.footerStyles.subscribe(s => {
+    this._footerStylesSub = this.service.footerStyles.subscribe(s => {
       if (s['background-color'] != null) {
         this.styleBackgroundColor = s['background-color'];
       }
     });
-    this.originSub = this.service.origin.subscribe(s => {
+    this._originSub = this.service.origin.subscribe(s => {
       this.origin = s;
     });
   }
@@ -900,12 +900,12 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
   }
 
   ngOnInit(): void {
-    this.formsSub = this.service.reportForms
+    this._formsSub = this.service.reportForms
       .subscribe(x => {
         this.forms = x || [];
       });
 
-    this.currentWidgetSub = this.service.currentWidget
+    this._currentWidgetSub = this.service.currentWidget
       .subscribe(x => {
         if (x != null) {
           if (this.currentWidget !== x) {
@@ -923,7 +923,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
           this.widgetName = '';
         }
       });
-    this.colorSub = this.service.colors
+    this._colorSub = this.service.colors
       .subscribe(x => {
         if (x && x.length > 0) {
           this.colors = x;
@@ -1180,14 +1180,14 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
   }
 
   ngOnDestroy(): void {
-    if (this.currentWidgetSub != null) { this.currentWidgetSub.unsubscribe(); }
-    if (this.formsSub != null) { this.formsSub.unsubscribe(); }
-    if (this.colorSub != null) { this.colorSub.unsubscribe(); }
-    if (this.headerStyleSub != null) { this.headerStyleSub.unsubscribe(); }
-    if (this.contentStylesSub != null) { this.contentStylesSub.unsubscribe(); }
-    if (this.footerStylesSub != null) { this.footerStylesSub.unsubscribe(); }
-    if (this.originSub != null) { this.originSub.unsubscribe(); }
-    if (this._stylesUpdatesSubs != null) { this._stylesUpdatesSubs.unsubscribe(); }
+    this._currentWidgetSub.unsubscribe();
+    this._formsSub.unsubscribe();
+    this._colorSub.unsubscribe();
+    this._headerStyleSub.unsubscribe();
+    this._contentStylesSub.unsubscribe();
+    this._footerStylesSub.unsubscribe();
+    this._originSub.unsubscribe();
+    this._stylesUpdatesSubs.unsubscribe();
   }
 
 }

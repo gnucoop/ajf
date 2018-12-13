@@ -48,11 +48,12 @@ export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit,
   @ViewChild('colorpic')
   elem: any;
 
-  currentWidgetSub: Subscription;
   currentWidget: AjfReportWidget | null = null;
 
   currentColor = 'rgb(255,255,255,0)';
   section: string = 'color';
+
+  private _currentWidgetSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private _service: AjfReportBuilderService,
@@ -81,7 +82,7 @@ export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit,
     this._dialogRef.close();
   }
   ngOnInit() {
-    this.currentWidgetSub = this._service.currentWidget
+    this._currentWidgetSub = this._service.currentWidget
       .subscribe(x => {
         if (x !== null) {
           if (this.currentWidget !== x) {
@@ -98,6 +99,6 @@ export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit,
   }
 
   ngOnDestroy() {
-    if (this.currentWidgetSub != null) { this.currentWidgetSub.unsubscribe(); }
+    this._currentWidgetSub.unsubscribe();
   }
 }
