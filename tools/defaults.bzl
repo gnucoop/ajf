@@ -89,7 +89,7 @@ def ts_web_test_suite(srcs = [], **kwargs):
     **kwargs
   )
 
-def ng_web_test_suite(deps = [], static_css = [], bootstrap = [], **kwargs):
+def ng_web_test_suite(deps = [], static_files = [], static_css = [], bootstrap = [], **kwargs):
   # Workaround for https://github.com/bazelbuild/rules_typescript/issues/301
   # Since some of our tests depend on CSS files which are not part of the `ng_module` rule,
   # we need to somehow load static CSS files within Karma (e.g. overlay prebuilt). Those styles
@@ -119,11 +119,19 @@ def ng_web_test_suite(deps = [], static_css = [], bootstrap = [], **kwargs):
 
   ts_web_test_suite(
     # Depend on our custom test initialization script. This needs to be the first dependency.
-    deps = ["//test:angular_test_init"] + deps,
+    deps = ["//test:requirejs_init", "//test:angular_test_init"] + deps,
     bootstrap = [
       "@ajfdeps//node_modules/zone.js:dist/zone-testing-bundle.js",
       "@ajfdeps//node_modules/reflect-metadata:Reflect.js",
       "@ajfdeps//node_modules/hammerjs:hammer.js",
     ] + bootstrap,
+    static_files = [
+      "@ajfdeps//node_modules/date-fns:index.js",
+      "@ajfdeps//node_modules/date-fns:add_days/index.js",
+      "@ajfdeps//node_modules/esprima:esprima.js",
+      "@ajfdeps//node_modules/numeral:min/numeral.min.js",
+      "//test:debug_bundle.umd.js",
+      "//test:date_fns_bundle.umd.js",
+    ] + static_files,
     **kwargs
   )

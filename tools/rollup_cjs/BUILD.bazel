@@ -1,0 +1,18 @@
+package(default_visibility=["//visibility:public"])
+
+load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+
+exports_files([
+  "rollup.config.js",
+])
+
+nodejs_binary(
+  name = "rollup",
+  # Allow --define=ROLLUP_BUNDLE_FIXED_CHUNK_NAMES=1 to be passed as
+  # process.env so we can give predictable chunk names in CI
+  configuration_env_vars = ["ROLLUP_BUNDLE_FIXED_CHUNK_NAMES"],
+  entry_point = "ajfdeps/node_modules/rollup/bin/rollup",
+  install_source_map_support = False,
+  node_modules = "@ajfdeps//:node_modules",
+  visibility = ["//visibility:public"],
+)

@@ -159,6 +159,7 @@
     "resolve-bin": "^0.4.0",
     "rollup": "^0.67.0",
     "rollup-plugin-alias": "^1.4.0",
+    "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^3.0.3",
     "run-sequence": "^2.2.1",
     "scss-bundle": "^2.4.0",

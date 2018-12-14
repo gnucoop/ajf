@@ -1,5 +1,6 @@
 package(default_visibility=["//visibility:public"])
 
+load("//tools/rollup_cjs:rollup_bundle.bzl", "rollup_bundle")
 load("//tools:defaults.bzl", "ts_library")
 
 # Common set-up for all Ajf tests.
@@ -13,4 +14,29 @@ ts_library(
   ],
   # This file *must* end with "spec" in order for ts_web_test to load it.
   srcs = ["angular-test-init-spec.ts"],
+)
+
+rollup_bundle(
+  name = "debug_bundle",
+  deps = [
+    "@ajfdeps//debug",
+  ],
+  entry_point = "external/ajfdeps/node_modules/debug/src/browser.js",
+)
+
+rollup_bundle(
+  name = "date_fns_bundle",
+  deps = [
+    "@ajfdeps//date-fns",
+  ],
+  entry_point = "external/ajfdeps/node_modules/date-fns/index.js",
+)
+
+# Common set-up for all Ajf tests.
+ts_library(
+  name = "requirejs_init",
+  testonly = True,
+  deps = [],
+  # This file *must* end with "spec" in order for ts_web_test to load it.
+  srcs = ["requirejs-init.ts"],
 )
