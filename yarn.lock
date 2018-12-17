@@ -650,20 +650,20 @@
   dependencies:
     "@types/cordova" latest
 
-"@ionic/angular@^4.0.0-beta.17":
-  version "4.0.0-beta.17"
-  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.0.0-beta.17.tgz#27e50c703d8e29c53120a5ce3f96afb3d1609b09"
-  integrity sha512-9pKIl9XZkzEte01ifIaOpGspgcDA3ZPrfyIv27o5z1Dch53D9NxeKqIlnzwpG6H6INzyVXrTaU+XVZO1IoSA8w==
+"@ionic/angular@^4.0.0-beta.19":
+  version "4.0.0-beta.19"
+  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.0.0-beta.19.tgz#19ee30282f983b057aa1e5f30254a1d8d6309e83"
+  integrity sha512-yDXx6tduSW9DliplVQv0xnTrxyCFltk3PcKkQDWKCcIwd5nsfPg/5ZcoM3CHKNmmp5mkDljdz8IxCR3VEvdcgQ==
   dependencies:
-    "@ionic/core" "4.0.0-beta.17"
+    "@ionic/core" "4.0.0-beta.19"
+    tslib "^1.9.3"
 
-"@ionic/core@4.0.0-beta.17":
-  version "4.0.0-beta.17"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-4.0.0-beta.17.tgz#a817ba7193dbae92c9e0a65df9481f9c9e767c50"
-  integrity sha512-8O45+35M/Kx2Rk/RILakLjiV6INyl8o4PodeFA4TJAHQyqA8cNrSg6HWQk44piM0jXNPiABSBaH9s/cQG9Lcsw==
+"@ionic/core@4.0.0-beta.19":
+  version "4.0.0-beta.19"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-4.0.0-beta.19.tgz#aff0c4835a07819ca3f7da227e963a394e75300d"
+  integrity sha512-v9Bddlws7+1zpiPblgNQBzCFBrEMtkii+AUPJ+/fSb0uIuDTGlRKPfHrRscxnSgGOch+leOArFQ4N3WBrZZmFQ==
   dependencies:
-    "@types/node" "10.11.0"
-    ionicons "4.4.8"
+    ionicons "4.5.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -6187,10 +6187,10 @@ invert-kv@^1.0.0:
   dependencies:
     tslib "^1.9.0"
 
-ionicons@4.4.8:
-  version "4.4.8"
-  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-4.4.8.tgz#68982aa789eba3b47949d857ae458d10988a43bb"
-  integrity sha512-S6pp6txWe5lQopg9Ql+w1gTA83jnVs/eXsCCC3b4tYteDPAmlfdqdFMyK+kq8xho428676+QZhIGbHE8pB2oGA==
+ionicons@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-4.5.0.tgz#f648aedb4220aa08f44791b01e6467b9de27b609"
+  integrity sha512-nNkS/0wmPcW4Lbg+NqivlOl14BGKKpaZZzZVQzH63MuZZvuu5u8F/JCwcUYiPOAYGp02w0UaDL/slz+HZOuB3Q==
 
 ip@^1.1.2, ip@^1.1.5:
   version "1.1.5"
