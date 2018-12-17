@@ -23,6 +23,8 @@ ng_test_library(
   srcs = glob(["**/*.spec.ts"]),
   deps = [
     "@angular//packages/platform-browser",
+    "@rxjs",
+    "//src/core/models",
     ":forms"
   ]
 )
