@@ -19,8 +19,8 @@ http_archive(
 # Add Angular source and Bazel rules.
 http_archive(
   name = "angular",
-  url = "https://github.com/angular/angular/archive/7.1.1.zip",
-  strip_prefix = "angular-7.1.1",
+  url = "https://github.com/angular/angular/archive/7.1.3.zip",
+  strip_prefix = "angular-7.1.3",
 )
 
 http_archive(
