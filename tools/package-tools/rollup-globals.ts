@@ -42,6 +42,7 @@ export const rollupGlobals = {
   '@angular/cdk/collections': 'ng.cdk.collections',
   '@angular/common': 'ng.common',
   '@angular/core': 'ng.core',
+  '@angular/core/testing': 'ng.core.testing',
   '@angular/forms': 'ng.forms',
   '@angular/material/button': 'ng.material.button',
   '@angular/material/button-toggle': 'ng.material.buttonToggle',

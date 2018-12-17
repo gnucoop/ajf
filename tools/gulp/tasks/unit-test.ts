@@ -16,7 +16,8 @@ const defaultOptions = {
 task(':test:build', sequenceTask(
   'clean',
   'core:build-no-bundles',
-  'material:build-no-bundles'
+  'ionic:build-no-bundles',
+  'material:build-no-bundles',
 ));
 
 /**
