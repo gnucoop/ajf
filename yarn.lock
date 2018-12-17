@@ -302,15 +302,15 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@bazel/ibazel@^0.8.0":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@bazel/ibazel/-/ibazel-0.8.2.tgz#a837d93922c0d273361ed4f141c792384c0e10bb"
-  integrity sha512-5lbqeoqv2sIRybV9s4CIRNBR68wdv22wfpNY1qmO3AsPrLx4zICPXyW8YOiLaLvYPzvezPznfhD7Is13jU/jsQ==
+"@bazel/ibazel@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@bazel/ibazel/-/ibazel-0.9.0.tgz#fd60023acd36313d304cc2f8c2e181b88b5445cd"
+  integrity sha512-E31cefDcdJsx/oii6p/gqKZXSVw0kEg1O73DD2McFcSvnf/p1GYWcQtVgdRQmlviBEytJkJgdX8rtThitRvcow==
 
-"@bazel/karma@0.21.0":
-  version "0.21.0"
-  resolved "https://registry.yarnpkg.com/@bazel/karma/-/karma-0.21.0.tgz#c5ed4c141f44d0e7e18586ad4cff5bd54f70f3cc"
-  integrity sha512-V5kxijZ7j/6x7+yNxPhhPrjO0APtNrlr5Gg/I9JRy3/SE3Y88yrPNIiEApLkfYWYWGQuoJO2LifUZA8BOXwLEA==
+"@bazel/karma@0.22.0":
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/@bazel/karma/-/karma-0.22.0.tgz#d2688ed05ea7e0be320802847ccc936da2688c70"
+  integrity sha512-ZhdkVR92UEOdON7hNjBJPdAUEFzibc/RC3TqBWupowl2+YsMZmxk8AsGjAmc9FaMkhCX9SDQC0OzGkUkuC6r3w==
   dependencies:
     jasmine-core "2.8.0"
     karma alexeagle/karma#fa1a84ac881485b5657cb669e9b4e5da77b79f0a
@@ -323,7 +323,16 @@
     requirejs "2.3.5"
     tmp "0.0.33"
 
-"@bazel/typescript@0.21.0", "@bazel/typescript@^0.21.0":
+"@bazel/typescript@0.22.0":
+  version "0.22.0"
+  resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.22.0.tgz#8b38183125c3f25e6023b12a371561d9b54182d8"
+  integrity sha512-2oKxPHlt3TNJx2RVVvC00ahcYNuIg1pQPjKQO7qyMNGGme3fqqzv5gRUDa5be/B01FxQDFpuBCHoavH7PilPRA==
+  dependencies:
+    protobufjs "5.0.3"
+    source-map-support "0.5.9"
+    tsutils "2.27.2"
+
+"@bazel/typescript@^0.21.0":
   version "0.21.0"
   resolved "https://registry.yarnpkg.com/@bazel/typescript/-/typescript-0.21.0.tgz#41c304f77a42c6a016280d0f4c20e0749c3f4b2a"
   integrity sha512-ASXj0RFybmqoa3LwqkTU3gNkX9bY9wL/VDNo5hlp9pynYWl4RMpe9V3m/qDIdtSuLJ+qD+Z3FKT/OcpWQHMlYA==
@@ -9312,7 +9321,7 @@ prompt@1.0.0:
     utile "0.3.x"
     winston "2.1.x"
 
-protobufjs@5.0.3, protobufjs@^5.0.3:
+protobufjs@5.0.3:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/protobufjs/-/protobufjs-5.0.3.tgz#e4dfe9fb67c90b2630d15868249bcc4961467a17"
   integrity sha512-55Kcx1MhPZX0zTbVosMQEO5R6/rikNXd9b6RQK4KSPcrSIIwoXTtebIczUrXlwaSrbz4x8XUVThGPob1n8I4QA==

@@ -5,15 +5,15 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Add NodeJS rules (explicitly used for sass bundle rules)
 http_archive(
   name = "build_bazel_rules_nodejs",
-  url = "https://github.com/bazelbuild/rules_nodejs/archive/0.16.1.zip",
-  strip_prefix = "rules_nodejs-0.16.1",
+  url = "https://github.com/bazelbuild/rules_nodejs/archive/0.16.3.zip",
+  strip_prefix = "rules_nodejs-0.16.3",
 )
 
 # Add TypeScript rules
 http_archive(
   name = "build_bazel_rules_typescript",
-  url = "https://github.com/bazelbuild/rules_typescript/archive/0.21.0.zip",
-  strip_prefix = "rules_typescript-0.21.0",
+  url = "https://github.com/bazelbuild/rules_typescript/archive/0.22.0.zip",
+  strip_prefix = "rules_typescript-0.22.0",
 )
 
 # Add Angular source and Bazel rules.
@@ -25,8 +25,8 @@ http_archive(
 
 http_archive(
   name = "angular_material",
-  url = "https://github.com/angular/material2/archive/903a884e2dd37fadffce4ef65a2b83282080ab5e.zip",
-  strip_prefix = "material2-903a884e2dd37fadffce4ef65a2b83282080ab5e",
+  url = "https://github.com/angular/material2/archive/bc8fc75bf8af82378077d7c2277e31a1dcd6aac9.zip",
+  strip_prefix = "material2-bc8fc75bf8af82378077d7c2277e31a1dcd6aac9",
 )
 
 # Add RxJS as repository because those are needed in order to build Angular from source.
@@ -84,8 +84,8 @@ http_archive(
 # Add sass rules
 http_archive(
   name = "io_bazel_rules_sass",
-  url = "https://github.com/bazelbuild/rules_sass/archive/1.15.1.zip",
-  strip_prefix = "rules_sass-1.15.1",
+  url = "https://github.com/bazelbuild/rules_sass/archive/1.15.2.zip",
+  strip_prefix = "rules_sass-1.15.2",
 )
 
 # Since we are explitly fetching @build_bazel_rules_typescript, we should explicitly ask for
