@@ -31,10 +31,16 @@ System.config({
   map: {
     'plugin-babel': 'node:systemjs-plugin-babel/plugin-babel.js',
     'systemjs-babel-build': 'node:systemjs-plugin-babel/systemjs-babel-browser.js',
-    'rxjs': 'node:rxjs',
+
     'main': 'main.js',
-    'tslib': 'node:tslib/tslib.js',
+
     'date-fns': 'node:date-fns/index.js',
+    'debug': 'node:debug/src/browser.js',
+    'esprima': 'node:esprima/esprima.js',
+    'ms': 'node:ms/index.js',
+    'numeral': 'node:numeral/numeral.js',
+    'rxjs': 'node:rxjs',
+    'tslib': 'node:tslib/tslib.js',
     'url-parse': 'node:url-parse/dist/url-parse.min.js',
 
     // Angular specific mappings.
@@ -103,11 +109,15 @@ System.config({
 
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
+    '@ajf/core/models': 'dist/packages/core/models/index.js',
+    '@ajf/core/node-icon': 'dist/packages/core/node-icon/index.js',
+    '@ajf/core/forms': 'dist/packages/core/forms/index.js',
     '@ajf/core/image': 'dist/packages/core/image/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/material/calendar': 'dist/packages/material/calendar/index.js',
     '@ajf/material/checkbox-group': 'dist/packages/material/checkbox-group/index.js',
     '@ajf/material/image': 'dist/packages/material/image/index.js',
+    '@ajf/material/node-icon': 'dist/packages/material/node-icon/index.js',
   },
   packages: {
     // Thirdparty barrels.

@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@ajfr/icons@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@ajfr/icons/-/icons-1.0.0.tgz#e88c136c36c77a097f6b07e463863ae81620ccf7"
+  integrity sha512-k+iyQwVx7zHr1jIx6O+03Zcn+TuYje4icHBtGQfm/sMleKNy7drHFMHOAT3CiHOinWg3KT1b8ITlN4bXy0+vlg==
+
 "@angular-devkit/architect@^0.10.6":
   version "0.10.7"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.10.7.tgz#c74b9f6b7f1b4261ada2d24c832328aa4c394464"

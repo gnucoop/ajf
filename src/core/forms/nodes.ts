@@ -1022,7 +1022,7 @@ export class AjfSingleChoiceField extends AjfFieldWithChoices {
 export class AjfMultipleChoiceField extends AjfSingleChoiceField {
   constructor(obj?: any) {
     let defaultValue = obj && obj.defaultValue || [];
-    obj.defaultValue = defaultValue;
+    obj = {...obj || {}, defaultValue};
     super(obj);
   }
 

@@ -40,6 +40,7 @@ export class DevAppComponent {
     {name: 'Calendar', route: '/calendar'},
     {name: 'Checkbox Group', route: '/checkbox-group'},
     {name: 'Image', route: '/image'},
+    {name: 'Node Icon', route: '/node-icon'},
   ];
 
   constructor(
