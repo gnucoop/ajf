@@ -25,6 +25,7 @@ import {Injector, NgModule} from '@angular/core';
 import {createCustomElement} from '@angular/elements';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
+import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -42,6 +43,7 @@ import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
 import {DevAppComponent, DevAppHome} from './dev-app';
 import {ExamplePageModule} from './example/example-module';
 import {ExamplesPage} from './examples-page/examples-page';
+import {FormsDemo} from './forms/forms-demo';
 import {ImageDemo} from './image/image-demo';
 import {NodeIconDemo} from './node-icon/node-icon-demo';
 import {PageSliderDemo} from './page-slider/page-slider-demo';
@@ -62,6 +64,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     HttpClientModule,
     MatButtonModule,
+    MatGridListModule,
     MatIconModule,
     MatListModule,
     MatSidenavModule,
@@ -84,6 +87,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     DevAppComponent,
     DevAppHome,
     ExamplesPage,
+    FormsDemo,
     ImageDemo,
     NodeIconDemo,
     PageSliderDemo,

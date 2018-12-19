@@ -20,28 +20,40 @@
  *
  */
 
-import {NgModule} from '@angular/core';
+import {Component} from '@angular/core';
 
-import {AjfCalendarModule} from '@ajf/material/calendar';
-import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
-import {AjfFormsModule} from '@ajf/material/forms';
-import {AjfImageModule} from '@ajf/material/image';
-import {AjfNodeIconModule} from '@ajf/material/node-icon';
-import {AjfPageSliderModule} from '@ajf/material/page-slider';
-import {AjfTimeModule} from '@ajf/material/time';
+import {AjfForm} from '@ajf/core/forms';
 
-/**
- * NgModule that includes all Ajf modules that are required to serve the demo-app.
- */
-@NgModule({
-  exports: [
-    AjfCalendarModule,
-    AjfCheckboxGroupModule,
-    AjfFormsModule,
-    AjfImageModule,
-    AjfNodeIconModule,
-    AjfPageSliderModule,
-    AjfTimeModule,
-  ]
+import {formSchema} from './form';
+
+
+@Component({
+  moduleId: module.id,
+  selector: 'forms-demo',
+  templateUrl: 'forms-demo.html',
+  styleUrls: ['forms-demo.css'],
 })
-export class DevAppAjfModule {}
+export class FormsDemo {
+  formSchema: string = JSON.stringify(formSchema);
+  form: AjfForm = AjfForm.fromJson(formSchema);
+  context: string = '{}';
+
+  setSchema(): void {
+    if (this.formSchema == null) {
+      return;
+    }
+
+    try {
+      let schema = JSON.parse(this.formSchema);
+      let context: any;
+      if (this.context != null && this.context.length > 0) {
+        context = JSON.parse(this.context);
+      } else {
+        context = {};
+      }
+      this.form = AjfForm.fromJson(schema, context);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<div class="demo-forms">
+  <h4 class="demo-section-header">Form</h4>
+  <section>
+    <mat-grid-list [cols]="2" rowHeight="200px">
+      <mat-grid-tile>
+        <div class="demo-forms-header-box">
+          <h5>Schema</h5>
+          <textarea [(ngModel)]="formSchema"></textarea>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="demo-forms-header-box">
+          <h5>Context</h5>
+          <textarea [(ngModel)]="context"></textarea>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <button (click)="setSchema()" mat-raised-button
+        color="primary">Set schema</button>
+    <div class="demo-form-container">
+      <ajf-form [form]="form" [showTopToolbar]="false"></ajf-form>
+    </div>
+  </section>
+</div>
