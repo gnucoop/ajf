@@ -59,16 +59,16 @@ http_archive(
 
 http_archive(
   name = "ionic_selectable",
-  url = "https://github.com/gnucoop/ionic-selectable/archive/d32d1ad7d71ce452b18445a97ca849dcab019799.zip",
-  strip_prefix = "ionic-selectable-d32d1ad7d71ce452b18445a97ca849dcab019799/src/app/components/ionic-selectable",
+  url = "https://github.com/gnucoop/ionic-selectable/archive/fcc48d28406a88466c2351db93f364b03600e069.zip",
+  strip_prefix = "ionic-selectable-fcc48d28406a88466c2351db93f364b03600e069",
   build_file="//tools/build_files/ionic-selectable:BUILD.bazel.ionic-selectable",
   workspace_file="//tools/build_files/ionic-selectable:WORKSPACE.ionic-selectable"
 )
 
 http_archive(
   name = "ngx_dnd",
-  url = "https://github.com/gnucoop/ng2-dnd/archive/56adf9265e01b2f468ce97abbcb4a1e48da0faf4.zip",
-  strip_prefix = "ng2-dnd-56adf9265e01b2f468ce97abbcb4a1e48da0faf4/src/lib",
+  url = "https://github.com/gnucoop/ng2-dnd/archive/78c230d254ba1c2eb8fdc8b6be9fe57ab27085d4.zip",
+  strip_prefix = "ng2-dnd-78c230d254ba1c2eb8fdc8b6be9fe57ab27085d4/src/lib",
   build_file="//tools/build_files/ngx-dnd:BUILD.bazel.ngx-dnd",
   workspace_file="//tools/build_files/ngx-dnd:WORKSPACE.ngx-dnd"
 )

@@ -41,6 +41,17 @@ System.config({
     '@angular/platform-browser-dynamic/testing':
       'node:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.min.js',
     '@angular/router': 'node:@angular/router/bundles/router.umd.min.js',
+
+    '@angular/cdk/a11y': 'node:@angular/cdk/bundles/cdk-a11y.umd.min.js',
+    '@angular/cdk/bidi': 'node:@angular/cdk/bundles/cdk-bidi.umd.min.js',
+    '@angular/cdk/coercion': 'node:@angular/cdk/bundles/cdk-coercion.umd.min.js',
+    '@angular/cdk/keycodes': 'node:@angular/cdk/bundles/cdk-keycodes.umd.min.js',
+    '@angular/cdk/observers': 'node:@angular/cdk/bundles/cdk-observers.umd.min.js',
+    '@angular/cdk/platform': 'node:@angular/cdk/bundles/cdk-platform.umd.min.js',
+    '@angular/material/core': 'node:@angular/material/bundles/material-core.umd.min.js',
+    '@angular/material/card': 'node:@angular/material/bundles/material-card.umd.min.js',
+    '@angular/material/icon': 'node:@angular/material/bundles/material-icon.umd.min.js',
+    '@angular/material/toolbar': 'node:@angular/material/bundles/material-toolbar.umd.min.js',
     
     '@ngx-translate/core': 'node:@ngx-translate/core/bundles/ngx-translate-core.umd.js',
     '@ngx-translate/http-loader':

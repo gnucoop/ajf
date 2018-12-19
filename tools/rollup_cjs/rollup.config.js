@@ -4,6 +4,7 @@
 const rollup = require('rollup');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
+const svgo = require('rollup-plugin-svgo');
 const isBuiltinModule = require('is-builtin-module');
 const path = require('path');
 const fs = require('fs');
@@ -165,6 +166,7 @@ const config = {
   plugins: [TMPL_additional_plugins].concat([
     nodeResolve({jsnext: true, module: true}),
     commonjs(),
+    svgo({raw: true}),
   ])
 }
 

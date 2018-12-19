@@ -54,7 +54,7 @@
     "chart.js": "^2.7.3",
     "core-js": "^2.5.7",
     "date-fns": "^1.30.1",
-    "ionic-selectable": "https://github.com/gnucoop/ionic-selectable/releases/download/4.1.3/ionic-selectable-4.1.3.tgz",
+    "ionic-selectable": "https://github.com/gnucoop/ionic-selectable/releases/download/4.1.4/ionic-selectable-4.1.4.tgz",
     "leaflet": "^1.3.4",
     "ngx-color-picker": "^7.2.0",
     "ngx-dnd": "^2.0.0",

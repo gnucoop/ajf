@@ -6,7 +6,7 @@ load("@angular//:index.bzl", ng_module = "ng_module")
 genrule(
   name = "ngx_color_picker_index",
   srcs = [],
-  outs = ["index.ts"],
+  outs = ["index.d.ts"],
   cmd = "echo \"export * from './src/lib/color-picker.module';\" > \"$@\""
 )
 
@@ -29,7 +29,7 @@ ng_module(
   node_modules = "@ajfdeps//typescript:typescript__typings",
   name = "ngx-color-picker",
   module_name = "ngx-color-picker",
-  srcs = [":ngx_color_picker_index"] + glob(["src/lib/**/*.ts"], exclude=["**/*.spec.ts", "schematics/**/*.ts", "test*.ts"]),
+  srcs = [":ngx_color_picker_index"] + glob(["src/lib/**/*.ts"]),
   assets = [":color_picker_component_css", ":color_picker_component_html"],
   deps = [
     "@ajf//src:module-typings",

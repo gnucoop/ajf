@@ -77,6 +77,7 @@ ROLLUP_GLOBALS = {
   'esprima': 'esprima',
   'ionic-selectable': 'ionicSelectable',
   'leaflet': 'leaflet',
+  'ngx-dnd': 'ngxDnd',
   'numeral': 'numeral',
   'tslib': 'tslib',
   'url-parse': 'url-parse',

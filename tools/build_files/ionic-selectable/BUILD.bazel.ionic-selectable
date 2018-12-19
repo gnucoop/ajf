@@ -3,19 +3,12 @@ package(default_visibility = ["//visibility:public"])
 load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
 load("@angular//:index.bzl", ng_module = "ng_module")
 
-genrule(
-  name = "ionic_selectable_index",
-  srcs = [],
-  outs = ["index.ts"],
-  cmd = "echo \"export * from './ionic-selectable.module';\" > \"$@\""
-)
-
 ng_module(
   tsconfig = "@ajf//tools/build_files/ionic-selectable:tsconfig.json",
   node_modules = "@ajfdeps//typescript:typescript__typings",
   name = "ionic-selectable",
   module_name = "ionic-selectable",
-  srcs = [":ionic_selectable_index"] + glob(["**/*.ts"]),
+  srcs = ["index.ts"] + glob(["src/app/components/ionic-selectable/**/*.ts"]),
   deps = [
     "@ajf//src:module-typings",
     "@angular//packages/common",
