@@ -38,6 +38,7 @@ export class DevAppComponent {
   navItems = [
     {name: 'Examples', route: '/examples'},
     {name: 'Calendar', route: '/calendar'},
+    {name: 'Checkbox Group', route: '/checkbox-group'},
   ];
 
   constructor(

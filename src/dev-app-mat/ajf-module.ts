@@ -23,6 +23,7 @@
 import {NgModule} from '@angular/core';
 
 import {AjfCalendarModule} from '@ajf/material/calendar';
+import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 
 /**
  * NgModule that includes all Ajf modules that are required to serve the demo-app.
@@ -30,6 +31,7 @@ import {AjfCalendarModule} from '@ajf/material/calendar';
 @NgModule({
   exports: [
     AjfCalendarModule,
+    AjfCheckboxGroupModule,
   ]
 })
 export class DevAppAjfModule {}

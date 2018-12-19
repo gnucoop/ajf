@@ -20,16 +20,18 @@
  *
  */
 
-import {Routes} from '@angular/router';
+import {Component} from '@angular/core';
 
-import {CalendarDemo} from './calendar/calendar-demo';
-import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
-import {DevAppHome} from './dev-app';
-import {ExamplesPage} from './examples-page/examples-page';
 
-export const DEV_APP_ROUTES: Routes = [
-  {path: '', component: DevAppHome},
-  {path: 'calendar', component: CalendarDemo},
-  {path: 'checkbox-group', component: CheckboxGroupDemo},
-  {path: 'examples', component: ExamplesPage},
-];
+@Component({
+  moduleId: module.id,
+  selector: 'checkbox-group-demo',
+  templateUrl: 'checkbox-group-demo.html',
+  styleUrls: ['checkbox-group-demo.css'],
+})
+export class CheckboxGroupDemo {
+  value: any[];
+  get valueStr(): string {
+    return JSON.stringify(this.value);
+  }
+}

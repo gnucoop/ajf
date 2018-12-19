@@ -24,6 +24,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {Injector, NgModule} from '@angular/core';
 import {createCustomElement} from '@angular/elements';
 import {MatButtonModule} from '@angular/material/button';
+import {FormsModule} from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
@@ -37,6 +38,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {EXAMPLE_COMPONENTS, ExampleModule} from '@ajf/material-examples';
 import {CalendarDemo} from './calendar/calendar-demo';
+import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
 import {DevAppComponent, DevAppHome} from './dev-app';
 import {ExamplePageModule} from './example/example-module';
 import {ExamplesPage} from './examples-page/examples-page';
@@ -53,6 +55,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
     MatButtonModule,
     MatIconModule,
@@ -73,6 +76,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   ],
   declarations: [
     CalendarDemo,
+    CheckboxGroupDemo,
     DevAppComponent,
     DevAppHome,
     ExamplesPage,
