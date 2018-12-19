@@ -21,7 +21,7 @@
         <ajf-page-slider [showNavigationButtons]="showNavigationButtons"
             (pageScrollFinish)="bubblePageScrollFinish($event)"
             (ready)="sliderReady = true" #formSlider>
-          <div ajf-page-slider-body>
+          <div ajfPageSliderBody>
             <ng-container *ngIf="(slides|async) as curSlides">
               <ng-container *ngIf="curSlides.length > 0 && hasStartMessage">
                 <ajf-page-slider-item>
