@@ -51,12 +51,12 @@
                   <ng-template [ngIf]="(!isRepeatingSlide(slideInstance)) && slideInstance.visible">
                     <ajf-page-slider-item>
                       <ajf-page-slider-item-header>
-                        <mat-icon class="ajf-warning" *ngIf="!slideInstance.valid">warning</mat-icon>
-                        <mat-icon class="ajf-success" *ngIf="slideInstance.valid">check</mat-icon>
                         <h2>
-                          <span class="number">{{ slideInstance.position + hasStartMessage }} &rarr;</span>
+                          <span class="ajf-form-header-number">{{ slideInstance.position + hasStartMessage }} &rarr;</span>
                           <span [innerHTML]="slideInstance.slide.label | translate"></span>
                         </h2>
+                        <mat-icon class="ajf-warning" *ngIf="!slideInstance.valid">warning</mat-icon>
+                        <mat-icon class="ajf-success" *ngIf="slideInstance.valid">check</mat-icon>
                       </ajf-page-slider-item-header>
                       <ng-template ngFor let-fieldInstance [ngForOf]="slideInstance.flatNodes" [ngForTrackBy]="trackNodeById">
                         <div [ngClass]="'ajf-' + fieldInstance.field.size" class="ajf-field-entry" *ngIf="fieldInstance.visible">

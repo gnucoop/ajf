@@ -35,12 +35,12 @@ ajf-form {
       flex: 1;
       position: relative;
 
-      > page-slider {
+      > ajf-page-slider {
         i[item-right] {
           float: right;
         }
 
-        page-slider-item {
+        ajf-page-slider-item {
           > mat-card {
             flex:1;
             > mat-card-content {
@@ -74,13 +74,20 @@ ajf-form {
           }
         }
 
-        page-slider-item {
+        ajf-page-slider-item {
           align-items: inherit;
         }
 
-        page-slider-item-header {
-          > mat-icon {
-            float: right;
+        ajf-page-slider-item-header {
+          display: flex;
+          align-items: center;
+          width: 100%;
+
+          > h2 {
+            flex: 1;
+            > .ajf-form-header-number {
+              margin-right: 0.5em;
+            }
           }
 
           mat-icon.ajf-warning {
