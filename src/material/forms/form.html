@@ -28,7 +28,7 @@
       <div class="ajf-slider-container">
         <ajf-page-slider [showNavigationButtons]="showNavigationButtons"
             (ready)="sliderReady = true" #formSlider>
-          <div page-slider-body>
+          <div ajfPageSliderBody>
             <ng-container *ngIf="(slides|async) as curSlides">
               <ng-container *ngIf="formIsInit|async">
                 <ng-template [ngIf]="curSlides.length > 0 && hasStartMessage">
