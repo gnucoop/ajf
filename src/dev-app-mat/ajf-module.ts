@@ -22,11 +22,14 @@
 
 import {NgModule} from '@angular/core';
 
+import {AjfCalendarModule} from '@ajf/material/calendar';
+
 /**
  * NgModule that includes all Ajf modules that are required to serve the demo-app.
  */
 @NgModule({
   exports: [
+    AjfCalendarModule,
   ]
 })
 export class DevAppAjfModule {}

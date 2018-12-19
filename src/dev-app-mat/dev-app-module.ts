@@ -36,13 +36,11 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {EXAMPLE_COMPONENTS, ExampleModule} from '@ajf/material-examples';
-import {AdminEditDemo} from './admin-edit/admin-edit-demo';
 import {CalendarDemo} from './calendar/calendar-demo';
 import {DevAppComponent, DevAppHome} from './dev-app';
 import {ExamplePageModule} from './example/example-module';
 import {ExamplesPage} from './examples-page/examples-page';
 import {DevAppAjfModule} from './ajf-module';
-import {LoginDemo} from './login/login-demo';
 import {DEV_APP_ROUTES} from './routes';
 
 
@@ -74,12 +72,10 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ExamplePageModule,
   ],
   declarations: [
-    AdminEditDemo,
     CalendarDemo,
     DevAppComponent,
     DevAppHome,
     ExamplesPage,
-    LoginDemo,
   ],
   bootstrap: [
     DevAppComponent,

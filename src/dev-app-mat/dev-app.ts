@@ -23,7 +23,6 @@
 import {OverlayContainer} from '@angular/cdk/overlay';
 import {Component, ElementRef, ViewEncapsulation} from '@angular/core';
 
-
 /**
  * DevApp with toolbar and sidenav.
  */
@@ -38,9 +37,7 @@ export class DevAppComponent {
   dark = false;
   navItems = [
     {name: 'Examples', route: '/examples'},
-    {name: 'Admin Edit', route: '/admin-edit'},
     {name: 'Calendar', route: '/calendar'},
-    {name: 'Login', route: '/login'},
   ];
 
   constructor(

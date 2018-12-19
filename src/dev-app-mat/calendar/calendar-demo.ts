@@ -20,14 +20,14 @@
  *
  */
 
-import {Routes} from '@angular/router';
+import {Component} from '@angular/core';
 
-import {CalendarDemo} from './calendar/calendar-demo';
-import {DevAppHome} from './dev-app';
-import {ExamplesPage} from './examples-page/examples-page';
 
-export const DEV_APP_ROUTES: Routes = [
-  {path: '', component: DevAppHome},
-  {path: 'calendar', component: CalendarDemo},
-  {path: 'examples', component: ExamplesPage},
-];
+@Component({
+  moduleId: module.id,
+  selector: 'calendar-demo',
+  templateUrl: 'calendar-demo.html',
+  styleUrls: ['calendar-demo.css'],
+})
+export class CalendarDemo {
+}

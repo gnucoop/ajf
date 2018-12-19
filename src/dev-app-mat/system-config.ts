@@ -100,6 +100,9 @@ System.config({
     '@ajf/core': 'dist/packages/core/index.js',
     '@ajf/material': 'dist/packages/material/index.js',
     '@ajf/material-examples': 'dist/packages/material-examples/index.js',
+
+    '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
+    '@ajf/material/calendar': 'dist/packages/material/calendar/index.js',
   },
   packages: {
     // Thirdparty barrels.

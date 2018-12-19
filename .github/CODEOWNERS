@@ -47,6 +47,7 @@
 
 # Dev app material
 /src/dev-app-mat/*                                 @trik
+/src/dev-app-mat/calendar/**                       @trik
 /src/dev-app-mat/dev-app/**                        @trik
 /src/dev-app-mat/example/**                        @trik
 /src/dev-app-mat/examples-page/**                  @trik
