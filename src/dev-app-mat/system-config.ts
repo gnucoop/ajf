@@ -103,9 +103,11 @@ System.config({
 
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
+    '@ajf/core/image': 'dist/packages/core/image/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/material/calendar': 'dist/packages/material/calendar/index.js',
     '@ajf/material/checkbox-group': 'dist/packages/material/checkbox-group/index.js',
+    '@ajf/material/image': 'dist/packages/material/image/index.js',
   },
   packages: {
     // Thirdparty barrels.

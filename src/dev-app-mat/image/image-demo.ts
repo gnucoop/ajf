@@ -20,18 +20,16 @@
  *
  */
 
-import {Routes} from '@angular/router';
+import {Component} from '@angular/core';
 
-import {CalendarDemo} from './calendar/calendar-demo';
-import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
-import {DevAppHome} from './dev-app';
-import {ExamplesPage} from './examples-page/examples-page';
-import {ImageDemo} from './image/image-demo';
+import {AjfImageType} from '@ajf/core/image';
 
-export const DEV_APP_ROUTES: Routes = [
-  {path: '', component: DevAppHome},
-  {path: 'calendar', component: CalendarDemo},
-  {path: 'checkbox-group', component: CheckboxGroupDemo},
-  {path: 'examples', component: ExamplesPage},
-  {path: 'image', component: ImageDemo},
-];
+@Component({
+  moduleId: module.id,
+  selector: 'image-demo',
+  templateUrl: 'image-demo.html',
+  styleUrls: ['image-demo.css'],
+})
+export class ImageDemo {
+  imageTypes = AjfImageType;
+}
