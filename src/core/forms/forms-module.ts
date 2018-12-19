@@ -26,6 +26,7 @@ import {BoolToIntPipe} from './bool-to-int';
 import {FieldIconPipe} from './field-icon';
 import {AjfFormRendererService} from './form-renderer';
 import {TableRowClass} from './table-row-class';
+import {AjfValidationService} from './validation-service';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {TableRowClass} from './table-row-class';
     TableRowClass
   ],
   providers: [
-    AjfFormRendererService
+    AjfFormRendererService,
+    AjfValidationService
   ]
 })
 export class AjfFormsModule { }

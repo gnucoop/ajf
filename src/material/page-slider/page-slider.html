@@ -5,7 +5,7 @@
     (swipe)="swipeHandler($event)"
     (mousewheel)="wheelHandler($event)"
     class="ajf-page-slider-content">
-  <ng-content select=[pageSliderBody]></ng-content>
+  <ng-content select=[ajfPageSliderBody]></ng-content>
 </div>
 <mat-toolbar *ngIf="showNavigationButtons" class="ajf-toolbar">
   <ng-content select=[ajfPageSliderBar]></ng-content>

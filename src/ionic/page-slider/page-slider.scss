@@ -12,7 +12,7 @@ ajf-page-slider {
 
   z-index: 2;
 
-  .ajf-slider-content {
+  .ajf-page-slider-content {
     flex: 1;
 
     overflow-y: auto;
@@ -51,7 +51,7 @@ ajf-page-slider {
       display: none;
     }
 
-    .ajf-slider-content, .ajf-toolbar {
+    .ajf-page-slider-content, .ajf-toolbar {
       opacity: 1;
     }
   }

@@ -27,6 +27,8 @@ ng_test_library(
   srcs = glob(["**/*.spec.ts"]),
   deps = [
     "@angular//packages/platform-browser",
+    "@angular_material//src/lib/icon",
+    "//src/core/forms",
     ":node-icon"
   ]
 )

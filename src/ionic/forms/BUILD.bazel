@@ -1,7 +1,7 @@
 package(default_visibility=["//visibility:public"])
 
 load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
-load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ion_web_test_suite")
 
 ng_module(
   name = "forms",
@@ -38,12 +38,22 @@ ng_test_library(
   name = "forms_test_sources",
   srcs = glob(["**/*.spec.ts"]),
   deps = [
+    "@angular//packages/forms",
     "@angular//packages/platform-browser",
+    "@ionic_angular//:angular",
+    "@ngx_translate_core//:core",
+    "@ajfdeps//@ionic-native/keyboard",
+    "@rxjs",
+    "@rxjs//operators",
+    "//src/core/forms",
+    "//src/ionic/calendar",
+    "//src/ionic/checkbox-group",
+    "//src/ionic/page-slider",
     ":forms"
   ]
 )
 
-ng_web_test_suite(
+ion_web_test_suite(
   name = "unit_tests",
   deps = [":forms_test_sources"],
 )

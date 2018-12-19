@@ -4,17 +4,17 @@
       <ion-toolbar *ngIf="showTopToolbar" [class.ajf-hidden]="!sliderReady">
         {{ title | translate }}
         <ion-buttons right>
-            <button ion-button default (click)="onSave($event)"
-                *ngIf="permissions && permissions.write">{{ 'Save' | translate }}</button>
-            <button ion-button default (click)="onFormAction($event, 'send')"
+            <ion-button default (click)="onSave($event)"
+                *ngIf="permissions && permissions.write">{{ 'Save' | translate }}</ion-button>
+            <ion-button default (click)="onFormAction($event, 'send')"
                 [disabled]="((errors | async) || 0) != 0"
-                *ngIf="permissions && permissions.change_state && permissions.change_state.send">{{ 'Submit' | translate }}</button>
-            <button ion-button default (click)="onFormAction($event, 'approve')"
+                *ngIf="permissions && permissions.change_state && permissions.change_state.send">{{ 'Submit' | translate }}</ion-button>
+            <ion-button default (click)="onFormAction($event, 'approve')"
                 [disabled]="((errors | async) || 0) != 0"
-                *ngIf="permissions && permissions.change_state && permissions.change_state.approve">{{ 'Approve' | translate }}</button>
-            <button ion-button default (click)="onFormAction($event, 'deprecate')"
+                *ngIf="permissions && permissions.change_state && permissions.change_state.approve">{{ 'Approve' | translate }}</ion-button>
+            <ion-button default (click)="onFormAction($event, 'deprecate')"
                 [disabled]="((errors | async) || 0) != 0"
-                *ngIf="permissions && permissions.change_state && permissions.change_state.deprecate"> {{ 'Deprecate' | translate }}</button>
+                *ngIf="permissions && permissions.change_state && permissions.change_state.deprecate"> {{ 'Deprecate' | translate }}</ion-button>
             </ion-buttons>
       </ion-toolbar>
       <div class="ajf-slider-container">
@@ -110,14 +110,14 @@
           <div ajfPageSliderBar *ngIf="showBottomToolbar">
             <div class="ajf-left-bar">
               <ion-buttons class="ajf-errors" *ngIf="((errors | async) || 0) > 0">
-                <button ion-button (click)="goToPrevError()" color="danger">
+                <ion-button (click)="goToPrevError()" color="danger">
                   <ion-icon
                       name="arrow-up"></ion-icon>
-                </button>
-                <button ion-button (click)="goToNextError()" color="danger">
+                </ion-button>
+                <ion-button (click)="goToNextError()" color="danger">
                   <ion-icon
                       name="arrow-down"></ion-icon>
-                </button>
+                </ion-button>
               </ion-buttons>
               <div class="ajf-info-box ajf-error">
                 <div class="ajf-title" translate>

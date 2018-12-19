@@ -254,7 +254,10 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
       this.id = `ajf-checkbox-group-item-${_uniqueIdCounter++}`;
     }
 
-    if (this.checkboxGroup &&  this.checkboxGroup.value.indexOf(this._value) > -1) {
+    if (
+      this.checkboxGroup && this.checkboxGroup.value &&
+      this.checkboxGroup.value.indexOf(this._value) > -1
+    ) {
       this.checked = true;
     }
   }

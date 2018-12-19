@@ -4,8 +4,8 @@
 <div #sliderContent
     (swipe)="swipeHandler($event)"
     (mousewheel)="wheelHandler($event)"
-    class="ajf-slider-content">
-  <ng-content select="[pageSliderBody]"></ng-content>
+    class="ajf-page-slider-content">
+  <ng-content select="[ajfPageSliderBody]"></ng-content>
 </div>
 <ion-toolbar *ngIf="showNavigationButtons" class="ajf-toolbar">
   <ng-content select="[ajfPageSliderBar]"></ng-content>
