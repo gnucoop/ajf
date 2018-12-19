@@ -55,6 +55,7 @@
 /src/dev-app-mat/image/**                          @trik
 /src/dev-app-mat/node-icon/**                      @trik
 /src/dev-app-mat/page-slider/**                    @trik
+/src/dev-app-mat/time/**                           @trik
 
 # Dev app ionic
 /src/dev-app-ion/*                                 @trik

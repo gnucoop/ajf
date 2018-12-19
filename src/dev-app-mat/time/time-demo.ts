@@ -20,26 +20,13 @@
  *
  */
 
-import {NgModule} from '@angular/core';
+import {Component} from '@angular/core';
 
-import {AjfCalendarModule} from '@ajf/material/calendar';
-import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
-import {AjfImageModule} from '@ajf/material/image';
-import {AjfNodeIconModule} from '@ajf/material/node-icon';
-import {AjfPageSliderModule} from '@ajf/material/page-slider';
-import {AjfTimeModule} from '@ajf/material/time';
-
-/**
- * NgModule that includes all Ajf modules that are required to serve the demo-app.
- */
-@NgModule({
-  exports: [
-    AjfCalendarModule,
-    AjfCheckboxGroupModule,
-    AjfImageModule,
-    AjfNodeIconModule,
-    AjfPageSliderModule,
-    AjfTimeModule,
-  ]
+@Component({
+  moduleId: module.id,
+  selector: 'time-demo',
+  templateUrl: 'time-demo.html',
+  styleUrls: ['time-demo.css'],
 })
-export class DevAppAjfModule {}
+export class TimeDemo {
+}

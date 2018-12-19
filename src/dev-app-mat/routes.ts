@@ -29,6 +29,7 @@ import {ExamplesPage} from './examples-page/examples-page';
 import {ImageDemo} from './image/image-demo';
 import {NodeIconDemo} from './node-icon/node-icon-demo';
 import {PageSliderDemo} from './page-slider/page-slider-demo';
+import {TimeDemo} from './time/time-demo';
 
 export const DEV_APP_ROUTES: Routes = [
   {path: '', component: DevAppHome},
@@ -38,4 +39,5 @@ export const DEV_APP_ROUTES: Routes = [
   {path: 'image', component: ImageDemo},
   {path: 'node-icon', component: NodeIconDemo},
   {path: 'page-slider', component: PageSliderDemo},
+  {path: 'time', component: TimeDemo},
 ];

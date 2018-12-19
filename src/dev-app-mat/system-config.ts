@@ -120,6 +120,7 @@ System.config({
     '@ajf/material/image': 'dist/packages/material/image/index.js',
     '@ajf/material/node-icon': 'dist/packages/material/node-icon/index.js',
     '@ajf/material/page-slider': 'dist/packages/material/page-slider/index.js',
+    '@ajf/material/time': 'dist/packages/material/time/index.js',
   },
   packages: {
     // Thirdparty barrels.
