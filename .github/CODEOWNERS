@@ -54,6 +54,7 @@
 /src/dev-app-mat/examples-page/**                  @trik
 /src/dev-app-mat/image/**                          @trik
 /src/dev-app-mat/node-icon/**                      @trik
+/src/dev-app-mat/page-slider/**                    @trik
 
 # Dev app ionic
 /src/dev-app-ion/*                                 @trik

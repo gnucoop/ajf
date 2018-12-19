@@ -41,6 +41,7 @@ export class DevAppComponent {
     {name: 'Checkbox Group', route: '/checkbox-group'},
     {name: 'Image', route: '/image'},
     {name: 'Node Icon', route: '/node-icon'},
+    {name: 'Page Slider', route: '/page-slider'},
   ];
 
   constructor(
