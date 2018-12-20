@@ -68,6 +68,7 @@
 /src/dev-app-ion/dev-app/**                        @trik
 /src/dev-app-ion/example/**                        @trik
 /src/dev-app-ion/examples-page/**                  @trik
+/src/dev-app-ion/image/**                          @trik
 
 # E2E app material
 /e2e-mat/*                                         @trik

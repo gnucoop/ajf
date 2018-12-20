@@ -20,34 +20,16 @@
  *
  */
 
-import {Observable, of as obsOf, Subject} from 'rxjs';
+import {Component} from '@angular/core';
 
-export class AdminModel {
-  foo: string;
-  bar: string;
-  baz: number;
-}
+import {AjfImageType} from '@ajf/core/image';
 
-const demoObj: AdminModel = {
-  foo: 'demo foo',
-  bar: 'demo bar',
-  baz: 2
-};
-
-export class AdminModelMockService {
-  private _subject: Subject<AdminModel> = new Subject<AdminModel>();
-
-  get(_id: number): void {}
-
-  getGetObject(): Observable<AdminModel> {
-    return obsOf(demoObj);
-  }
-
-  getCreateSuccess(): Observable<AdminModel | null> {
-    return this._subject.asObservable();
-  }
-
-  getPatchSuccess(): Observable<AdminModel | null> {
-    return this._subject.asObservable();
-  }
+@Component({
+  moduleId: module.id,
+  selector: 'image-demo',
+  templateUrl: 'image-demo.html',
+  styleUrls: ['image-demo.css'],
+})
+export class ImageDemo {
+  imageTypes = AjfImageType;
 }

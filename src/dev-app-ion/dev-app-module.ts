@@ -39,6 +39,7 @@ import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
 import {DevAppComponent, DevAppHome} from './dev-app';
 import {ExamplePageModule} from './example/example-module';
 import {ExamplesPage} from './examples-page/examples-page';
+import {ImageDemo} from './image/image-demo';
 import {DevAppAjfModule} from './ajf-module';
 import {DEV_APP_ROUTES} from './routes';
 
@@ -70,6 +71,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   declarations: [
     CalendarDemo,
     CheckboxGroupDemo,
+    ImageDemo,
     DevAppComponent,
     DevAppHome,
     ExamplesPage,

@@ -74,9 +74,11 @@ System.config({
 
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
+    '@ajf/core/image': 'dist/packages/core/image/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
     '@ajf/ionic/checkbox-group': 'dist/packages/ionic/checkbox-group/index.js',
+    '@ajf/ionic/image': 'dist/packages/ionic/image/index.js',
   },
   packages: {
     // Thirdparty barrels.
