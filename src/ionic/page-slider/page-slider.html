@@ -1,4 +1,4 @@
-<div class="ajf-slider-loading">
+<div class="ajf-page-slider-loading">
   <div><ion-icon name="alarm"></ion-icon></div>
 </div>
 <div #sliderContent
@@ -9,7 +9,7 @@
 </div>
 <ion-toolbar *ngIf="showNavigationButtons" class="ajf-toolbar">
   <ng-content select="[ajfPageSliderBar]"></ng-content>
-  <ion-buttons align="end">
+  <ion-buttons position="end">
     <ion-button (click)="scrollTo(false)" fill="solid" color="secondary">
       <ion-icon
           name="arrow-up"></ion-icon>

@@ -20,22 +20,13 @@
  *
  */
 
-import {Routes} from '@angular/router';
+import {Component} from '@angular/core';
 
-import {DevAppHome} from './dev-app';
-import {CalendarDemo} from './calendar/calendar-demo';
-import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
-import {ImageDemo} from './image/image-demo';
-import {ExamplesPage} from './examples-page/examples-page';
-import {NodeIconDemo} from './node-icon/node-icon-demo';
-import {PageSliderDemo} from './page-slider/page-slider-demo';
-
-export const DEV_APP_ROUTES: Routes = [
-  {path: '', component: DevAppHome},
-  {path: 'calendar', component: CalendarDemo},
-  {path: 'checkbox-group', component: CheckboxGroupDemo},
-  {path: 'examples', component: ExamplesPage},
-  {path: 'image', component: ImageDemo},
-  {path: 'node-icon', component: NodeIconDemo},
-  {path: 'page-slider', component: PageSliderDemo},
-];
+@Component({
+  moduleId: module.id,
+  selector: 'page-slider-demo',
+  templateUrl: 'page-slider-demo.html',
+  styleUrls: ['page-slider-demo.css'],
+})
+export class PageSliderDemo {
+}

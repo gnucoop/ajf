@@ -22,9 +22,14 @@ ajf-page-slider {
 
   .ajf-toolbar {
     opacity: 0;
+    height: 64px;
+
+    .ajf-spacer {
+      flex: 1 0 auto;
+    }
   }
 
-  .ajf-slider-loading {
+  .ajf-page-slider-loading {
     position: absolute;
     top: 0;
     right: 0;
@@ -47,7 +52,7 @@ ajf-page-slider {
   }
 
   &.ajf-loaded {
-    .ajf-slider-loading {
+    .ajf-page-slider-loading {
       display: none;
     }
 

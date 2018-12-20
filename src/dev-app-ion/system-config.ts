@@ -83,11 +83,13 @@ System.config({
     '@ajf/core/image': 'dist/packages/core/image/index.js',
     '@ajf/core/models': 'dist/packages/core/models/index.js',
     '@ajf/core/node-icon': 'dist/packages/core/node-icon/index.js',
+    '@ajf/core/page-slider': 'dist/packages/core/page-slider/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
     '@ajf/ionic/checkbox-group': 'dist/packages/ionic/checkbox-group/index.js',
     '@ajf/ionic/image': 'dist/packages/ionic/image/index.js',
     '@ajf/ionic/node-icon': 'dist/packages/ionic/node-icon/index.js',
+    '@ajf/ionic/page-slider': 'dist/packages/ionic/page-slider/index.js',
   },
   packages: {
     // Thirdparty barrels.
