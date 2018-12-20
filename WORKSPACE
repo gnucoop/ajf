@@ -5,8 +5,8 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 # Add NodeJS rules (explicitly used for sass bundle rules)
 http_archive(
   name = "build_bazel_rules_nodejs",
-  url = "https://github.com/bazelbuild/rules_nodejs/archive/0.16.3.zip",
-  strip_prefix = "rules_nodejs-0.16.3",
+  url = "https://github.com/bazelbuild/rules_nodejs/archive/c40ceb960af4213164d4299d8fbc8220ebdd727f.zip",
+  strip_prefix = "rules_nodejs-c40ceb960af4213164d4299d8fbc8220ebdd727f",
 )
 
 # Add TypeScript rules
@@ -25,8 +25,8 @@ http_archive(
 
 http_archive(
   name = "angular_material",
-  url = "https://github.com/angular/material2/archive/bc8fc75bf8af82378077d7c2277e31a1dcd6aac9.zip",
-  strip_prefix = "material2-bc8fc75bf8af82378077d7c2277e31a1dcd6aac9",
+  url = "https://github.com/angular/material2/archive/7.2.0.zip",
+  strip_prefix = "material2-7.2.0",
 )
 
 # Add RxJS as repository because those are needed in order to build Angular from source.
