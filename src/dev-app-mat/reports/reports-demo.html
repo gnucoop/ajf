@@ -1,0 +1,24 @@
+<div class="demo-reports">
+  <h4 class="demo-section-header">Reports</h4>
+  <section>
+    <mat-grid-list [cols]="2" rowHeight="200px">
+      <mat-grid-tile>
+        <div class="demo-reports-header-box">
+          <h5>Schema</h5>
+          <textarea [(ngModel)]="reportStr"></textarea>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="demo-reports-header-box">
+          <h5>Context</h5>
+          <textarea [(ngModel)]="context"></textarea>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <button (click)="setReport()" mat-raised-button
+        color="primary">Set report</button>
+    <div class="demo-form-builder-container">
+      <ajf-report [reportInstance]="report"></ajf-report>
+    </div>
+  </section>
+</div>
