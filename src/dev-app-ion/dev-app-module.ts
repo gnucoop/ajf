@@ -24,22 +24,20 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {Injector, NgModule} from '@angular/core';
 import {createCustomElement} from '@angular/elements';
 import {BrowserModule} from '@angular/platform-browser';
-import {RouterModule, RouteReuseStrategy} from '@angular/router';
+import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {EXAMPLE_COMPONENTS, ExampleModule} from '@ajf/ionic-examples';
-import {AdminEditDemo} from './admin-edit/admin-edit-demo';
 import {CalendarDemo} from './calendar/calendar-demo';
 import {DevAppComponent, DevAppHome} from './dev-app';
 import {ExamplePageModule} from './example/example-module';
 import {ExamplesPage} from './examples-page/examples-page';
 import {DevAppAjfModule} from './ajf-module';
-import {LoginDemo} from './login/login-demo';
 import {DEV_APP_ROUTES} from './routes';
 
 
@@ -67,15 +65,10 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ExamplePageModule,
   ],
   declarations: [
-    AdminEditDemo,
     CalendarDemo,
     DevAppComponent,
     DevAppHome,
     ExamplesPage,
-    LoginDemo,
-  ],
-  providers: [
-    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
   ],
   bootstrap: [DevAppComponent]
 })

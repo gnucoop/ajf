@@ -62,6 +62,7 @@ System.config({
     '@ionic-native/core': 'node:@ionic-native/core',
     '@ionic-native/keyboard': 'node:@ionic-native/keyboard/index.js',
     '@ionic-native/keyboard/ngx': 'node:@ionic-native/keyboard/ngx/index.js',
+    '@ionic/core/dist/ionic/ionic.r9tjmy9m': 'node:@ionic/core/dist/ionic/ionic.pgbl19pn',
     'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.js',
     'ionicons': 'node:ionicons',
 

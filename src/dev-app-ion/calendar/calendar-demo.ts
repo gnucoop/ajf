@@ -20,16 +20,14 @@
  *
  */
 
-import {NgModule} from '@angular/core';
+import {Component} from '@angular/core';
 
-import {AjfCalendarModule} from '@ajf/ionic/calendar';
 
-/**
- * NgModule that includes all Ajf modules that are required to serve the demo-app.
- */
-@NgModule({
-  exports: [
-    AjfCalendarModule,
-  ]
+@Component({
+  moduleId: module.id,
+  selector: 'calendar-demo',
+  templateUrl: 'calendar-demo.html',
+  styleUrls: ['calendar-demo.css'],
 })
-export class DevAppAjfModule {}
+export class CalendarDemo {
+}

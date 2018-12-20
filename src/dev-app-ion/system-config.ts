@@ -31,6 +31,8 @@ System.config({
   map: {
     'plugin-babel': 'node:systemjs-plugin-babel/plugin-babel.js',
     'systemjs-babel-build': 'node:systemjs-plugin-babel/systemjs-babel-browser.js',
+    'text': 'node:systemjs-plugin-text/text.js',
+
     'rxjs': 'node:rxjs',
     'main': 'main.js',
     'tslib': 'node:tslib/tslib.js',
@@ -60,6 +62,7 @@ System.config({
     '@ionic/angular': 'node:@ionic/angular',
     '@ionic/angular/dist/directives': 'node:@ionic/angular/dist/directives',
     '@ionic/angular/dist/providers': 'node:@ionic/angular/dist/providers',
+    'ionicons': 'node:ionicons',
 
     '@ngx-translate/core': 'node:@ngx-translate/core/bundles/ngx-translate-core.umd.js',
     '@ngx-translate/http-loader':
@@ -91,6 +94,16 @@ System.config({
     '@ionic/angular': {main: 'dist/index'},
     '@ionic/angular/dist/directives': {main: 'index'},
     '@ionic/angular/dist/providers': {main: 'index'},
+    'ionicons': {main: 'dist/esm/index'},
+    'ionicons/icons': {main: 'index'},
+    'ionicons/dist/ionicons/svg': {
+      meta: {
+        '*.svg': {
+          defaultExtension: 'svg',
+          loader: 'text'
+        }
+      }
+    },
 
     // Set the default extension for the root package, because otherwise the dev-app-map can't
     // be built within the production mode. Due to missing file extensions.

@@ -23,9 +23,11 @@
 import {Routes} from '@angular/router';
 
 import {DevAppHome} from './dev-app';
+import {CalendarDemo} from './calendar/calendar-demo';
 import {ExamplesPage} from './examples-page/examples-page';
 
 export const DEV_APP_ROUTES: Routes = [
   {path: '', component: DevAppHome},
+  {path: 'calendar', component: CalendarDemo},
   {path: 'examples', component: ExamplesPage},
 ];
