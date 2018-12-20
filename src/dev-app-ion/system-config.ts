@@ -65,8 +65,9 @@ System.config({
     '@ionic/core/dist/ionic/svg': 'empty',
     '@ionic/core/loader': 'node:@ionic/core/loader',
     '@ionic/angular': 'node:@ionic/angular',
-    '@ionic/angular/dist/directives': 'node:@ionic/angular/dist/directives',
-    '@ionic/angular/dist/providers': 'node:@ionic/angular/dist/providers',
+    '@ionic-native/core': 'node:@ionic-native/core',
+    '@ionic-native/keyboard/ngx': 'node:@ionic-native/keyboard/ngx/index.js',
+    'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.js',
     'ionicons': 'node:ionicons',
 
     '@ngx-translate/core': 'node:@ngx-translate/core/bundles/ngx-translate-core.umd.js',
@@ -87,6 +88,7 @@ System.config({
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
     '@ajf/ionic/checkbox-group': 'dist/packages/ionic/checkbox-group/index.js',
+    '@ajf/ionic/forms': 'dist/packages/ionic/forms/index.js',
     '@ajf/ionic/image': 'dist/packages/ionic/image/index.js',
     '@ajf/ionic/node-icon': 'dist/packages/ionic/node-icon/index.js',
     '@ajf/ionic/page-slider': 'dist/packages/ionic/page-slider/index.js',
@@ -100,6 +102,7 @@ System.config({
     '@ionic/angular': {main: 'dist/index'},
     '@ionic/angular/dist/directives': {main: 'index'},
     '@ionic/angular/dist/providers': {main: 'index'},
+    '@ionic-native/core': {main: 'index'},
     'ionicons': {main: 'dist/esm/index'},
     'ionicons/icons': {main: 'index'},
     'ionicons/dist/ionicons/svg': {

@@ -1,0 +1,26 @@
+<div class="demo-forms">
+  <h4 class="demo-section-header">Form</h4>
+  <section>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="demo-forms-header-box">
+            <h5>Schema</h5>
+            <textarea [(ngModel)]="formSchema"></textarea>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="demo-forms-header-box">
+            <h5>Context</h5>
+            <textarea [(ngModel)]="context"></textarea>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <button (click)="setSchema()" mat-raised-button
+        color="primary">Set schema</button>
+    <div class="demo-form-container">
+      <ajf-form [form]="form" [showTopToolbar]="false"></ajf-form>
+    </div>
+  </section>
+</div>

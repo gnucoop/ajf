@@ -29,6 +29,7 @@ import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {IonicModule} from '@ionic/angular';
+import {Keyboard} from '@ionic-native/keyboard/ngx';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -39,6 +40,7 @@ import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
 import {DevAppComponent, DevAppHome} from './dev-app';
 import {ExamplePageModule} from './example/example-module';
 import {ExamplesPage} from './examples-page/examples-page';
+import {FormsDemo} from './forms/forms-demo';
 import {ImageDemo} from './image/image-demo';
 import {NodeIconDemo} from './node-icon/node-icon-demo';
 import {PageSliderDemo} from './page-slider/page-slider-demo';
@@ -73,6 +75,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   declarations: [
     CalendarDemo,
     CheckboxGroupDemo,
+    FormsDemo,
     ImageDemo,
     NodeIconDemo,
     PageSliderDemo,
@@ -80,7 +83,10 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     DevAppHome,
     ExamplesPage,
   ],
-  bootstrap: [DevAppComponent]
+  bootstrap: [DevAppComponent],
+  providers: [
+    Keyboard,
+  ]
 })
 export class DevAppModule {
   constructor(injector: Injector) {

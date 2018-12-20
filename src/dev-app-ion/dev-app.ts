@@ -38,6 +38,7 @@ export class DevAppComponent {
     {name: 'Examples', route: '/examples'},
     {name: 'Calendar', route: '/calendar'},
     {name: 'Checkbox Group', route: '/checkbox-group'},
+    {name: 'Forms', route: '/forms'},
     {name: 'Image', route: '/image'},
     {name: 'Node Icon', route: '/node-icon'},
     {name: 'Page Slider', route: '/page-slider'},
