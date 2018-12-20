@@ -35,9 +35,12 @@ System.config({
 
     'main': 'main.js',
 
+    'chart.js': 'node:chart.js/dist/Chart.bundle.js',
+    'chart.piecelabel.js': 'node:chart.piecelabel.js/build/Chart.PieceLabel.min.js',
     'date-fns': 'node:date-fns/index.js',
     'debug': 'node:debug/src/browser.js',
     'esprima': 'node:esprima/esprima.js',
+    'leaflet': 'node:leaflet/dist/leaflet.js',
     'ms': 'node:ms/index.js',
     'numeral': 'node:numeral/numeral.js',
     'tslib': 'node:tslib/tslib.js',
@@ -79,12 +82,19 @@ System.config({
     '@ajf/ionic-examples': 'dist/packages/ionic-examples/index.js',
 
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
+    '@ajf/core/chart': 'dist/packages/core/chart/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
+    '@ajf/core/common': 'dist/packages/core/common/index.js',
     '@ajf/core/forms': 'dist/packages/core/forms/index.js',
     '@ajf/core/image': 'dist/packages/core/image/index.js',
+    '@ajf/core/map': 'dist/packages/core/map/index.js',
     '@ajf/core/models': 'dist/packages/core/models/index.js',
     '@ajf/core/node-icon': 'dist/packages/core/node-icon/index.js',
+    '@ajf/core/page-break': 'dist/packages/core/page-break/index.js',
     '@ajf/core/page-slider': 'dist/packages/core/page-slider/index.js',
+    '@ajf/core/reports': 'dist/packages/core/reports/index.js',
+    '@ajf/core/table': 'dist/packages/core/table/index.js',
+    '@ajf/core/text': 'dist/packages/core/text/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
     '@ajf/ionic/checkbox-group': 'dist/packages/ionic/checkbox-group/index.js',
@@ -92,6 +102,7 @@ System.config({
     '@ajf/ionic/image': 'dist/packages/ionic/image/index.js',
     '@ajf/ionic/node-icon': 'dist/packages/ionic/node-icon/index.js',
     '@ajf/ionic/page-slider': 'dist/packages/ionic/page-slider/index.js',
+    '@ajf/ionic/reports': 'dist/packages/ionic/reports/index.js',
   },
   packages: {
     // Thirdparty barrels.

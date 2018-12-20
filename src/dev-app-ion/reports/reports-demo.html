@@ -1,0 +1,26 @@
+<div class="demo-reports">
+  <h4 class="demo-section-header">Reports</h4>
+  <section>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="demo-reports-header-box">
+            <h5>Schema</h5>
+            <textarea [(ngModel)]="reportStr"></textarea>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="demo-reports-header-box">
+            <h5>Context</h5>
+            <textarea [(ngModel)]="context"></textarea>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <button (click)="setReport()" mat-raised-button
+        color="primary">Set report</button>
+    <div class="demo-form-builder-container">
+      <ajf-report [reportInstance]="report"></ajf-report>
+    </div>
+  </section>
+</div>

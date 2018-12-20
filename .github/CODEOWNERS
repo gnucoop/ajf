@@ -72,6 +72,7 @@
 /src/dev-app-ion/image/**                          @trik
 /src/dev-app-ion/node-icon/**                      @trik
 /src/dev-app-ion/page-slider/**                    @trik
+/src/dev-app-ion/reports/**                        @trik
 
 # E2E app material
 /e2e-mat/*                                         @trik

@@ -28,6 +28,7 @@ import {AjfFormsModule} from '@ajf/ionic/forms';
 import {AjfImageModule} from '@ajf/ionic/image';
 import {AjfNodeIconModule} from '@ajf/ionic/node-icon';
 import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
+import {AjfReportsModule} from '@ajf/ionic/reports';
 
 /**
  * NgModule that includes all Ajf modules that are required to serve the demo-app.
@@ -40,6 +41,7 @@ import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
     AjfImageModule,
     AjfNodeIconModule,
     AjfPageSliderModule,
+    AjfReportsModule,
   ]
 })
 export class DevAppAjfModule {}
