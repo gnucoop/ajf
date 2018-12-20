@@ -71,6 +71,7 @@ import {AjfReportBuilderToolbar} from './toolbar';
 import {AjfReportBuilderWidgetToolbarButton} from './widget-toolbar-button';
 import {AjfReportBuilderWidgetsRowButtons} from './widgets-row-buttons';
 import {AjfReportBuilderWidgetsToolbar} from './widgets-toolbar';
+import {AjfReportBuilderService} from './report-builder-service';
 import {AjfReportBuilder} from './report-builder';
 
 @NgModule({
@@ -131,6 +132,9 @@ import {AjfReportBuilder} from './report-builder';
     AjfReportBuilderFormsAnalyzerDialog,
     AjfReportBuilderThemeColorDialog,
     AjfReportBuilderToolbarDialog,
+  ],
+  providers: [
+    AjfReportBuilderService,
   ]
 })
 export class AjfReportBuilderModule { }

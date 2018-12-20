@@ -31,6 +31,7 @@ import {FormsDemo} from './forms/forms-demo';
 import {ImageDemo} from './image/image-demo';
 import {NodeIconDemo} from './node-icon/node-icon-demo';
 import {PageSliderDemo} from './page-slider/page-slider-demo';
+import {ReportBuilderDemo} from './report-builder/report-builder-demo';
 import {ReportsDemo} from './reports/reports-demo';
 import {TimeDemo} from './time/time-demo';
 
@@ -44,6 +45,7 @@ export const DEV_APP_ROUTES: Routes = [
   {path: 'image', component: ImageDemo},
   {path: 'node-icon', component: NodeIconDemo},
   {path: 'page-slider', component: PageSliderDemo},
+  {path: 'report-builder', component: ReportBuilderDemo},
   {path: 'reports', component: ReportsDemo},
   {path: 'time', component: TimeDemo},
 ];

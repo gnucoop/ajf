@@ -1,0 +1,21 @@
+<div class="demo-report-builder">
+  <h4 class="demo-section-header">Report Builder</h4>
+  <section>
+    <mat-grid-list [cols]="2" rowHeight="200px">
+      <mat-grid-tile>
+        <div class="demo-forms-header-box">
+          <h5>Schema</h5>
+          <textarea [(ngModel)]="report"></textarea>
+          <button (click)="setReport()" mat-button>Set report</button>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="demo-forms-header-box">
+          <h5>Saved report</h5>
+          <button (click)="saveReport()" mat-button>Save report</button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <ajf-report-builder></ajf-report-builder>
+  </section>
+</div>

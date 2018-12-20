@@ -29,6 +29,7 @@ import {AjfFormsModule} from '@ajf/material/forms';
 import {AjfImageModule} from '@ajf/material/image';
 import {AjfNodeIconModule} from '@ajf/material/node-icon';
 import {AjfPageSliderModule} from '@ajf/material/page-slider';
+import {AjfReportBuilderModule} from '@ajf/material/report-builder';
 import {AjfReportsModule} from '@ajf/material/reports';
 import {AjfTimeModule} from '@ajf/material/time';
 
@@ -44,6 +45,7 @@ import {AjfTimeModule} from '@ajf/material/time';
     AjfImageModule,
     AjfNodeIconModule,
     AjfPageSliderModule,
+    AjfReportBuilderModule,
     AjfReportsModule,
     AjfTimeModule,
   ]

@@ -44,6 +44,7 @@ export class DevAppComponent {
     {name: 'Image', route: '/image'},
     {name: 'Node Icon', route: '/node-icon'},
     {name: 'Page Slider', route: '/page-slider'},
+    {name: 'Report Builder', route: '/report-builder'},
     {name: 'Reports', route: '/reports'},
     {name: 'Time', route: '/time'},
   ];

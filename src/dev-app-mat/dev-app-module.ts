@@ -50,6 +50,7 @@ import {FormsDemo} from './forms/forms-demo';
 import {ImageDemo} from './image/image-demo';
 import {NodeIconDemo} from './node-icon/node-icon-demo';
 import {PageSliderDemo} from './page-slider/page-slider-demo';
+import {ReportBuilderDemo} from './report-builder/report-builder-demo';
 import {ReportsDemo} from './reports/reports-demo';
 import {TimeDemo} from './time/time-demo';
 import {DevAppAjfModule} from './ajf-module';
@@ -97,6 +98,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ImageDemo,
     NodeIconDemo,
     PageSliderDemo,
+    ReportBuilderDemo,
     ReportsDemo,
     TimeDemo,
   ],

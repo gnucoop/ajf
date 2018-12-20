@@ -1,11 +1,11 @@
 <ajf-report-builder-toolbar (addClick)="start.toggle()"></ajf-report-builder-toolbar>
 <ajf-report-builder-custom-widgets-toolbar (addClick)="start.toggle()"></ajf-report-builder-custom-widgets-toolbar>
-<mat-sidenav-container>
-    <mat-sidenav #start mode="side" class="ajf-builder-sidebar">
+<mat-drawer-container>
+    <mat-drawer #start position="start" mode="side" class="ajf-builder-sidebar">
         <ajf-report-builder-widgets-toolbar></ajf-report-builder-widgets-toolbar>
-    </mat-sidenav>
+    </mat-drawer>
     <ajf-report-builder-content></ajf-report-builder-content>
-    <mat-sidenav #end align="end" mode="side" class="ajf-builder-prop" [opened]="true">
+    <mat-drawer #end position="end" mode="side" class="ajf-builder-prop" [opened]="true">
       <ajf-report-builder-properties></ajf-report-builder-properties>
-    </mat-sidenav>
-</mat-sidenav-container>
+    </mat-drawer>
+</mat-drawer-container>
