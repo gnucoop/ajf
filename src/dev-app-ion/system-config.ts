@@ -33,11 +33,16 @@ System.config({
     'systemjs-babel-build': 'node:systemjs-plugin-babel/systemjs-babel-browser.js',
     'text': 'node:systemjs-plugin-text/text.js',
 
-    'rxjs': 'node:rxjs',
     'main': 'main.js',
-    'tslib': 'node:tslib/tslib.js',
+
     'date-fns': 'node:date-fns/index.js',
+    'debug': 'node:debug/src/browser.js',
+    'esprima': 'node:esprima/esprima.js',
+    'ms': 'node:ms/index.js',
+    'numeral': 'node:numeral/numeral.js',
+    'tslib': 'node:tslib/tslib.js',
     'url-parse': 'node:url-parse/dist/url-parse.min.js',
+    'rxjs': 'node:rxjs',
 
     // Angular specific mappings.
     '@angular/core': 'node:@angular/core/bundles/core.umd.js',
@@ -74,11 +79,15 @@ System.config({
 
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
+    '@ajf/core/forms': 'dist/packages/core/forms/index.js',
     '@ajf/core/image': 'dist/packages/core/image/index.js',
+    '@ajf/core/models': 'dist/packages/core/models/index.js',
+    '@ajf/core/node-icon': 'dist/packages/core/node-icon/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
     '@ajf/ionic/checkbox-group': 'dist/packages/ionic/checkbox-group/index.js',
     '@ajf/ionic/image': 'dist/packages/ionic/image/index.js',
+    '@ajf/ionic/node-icon': 'dist/packages/ionic/node-icon/index.js',
   },
   packages: {
     // Thirdparty barrels.

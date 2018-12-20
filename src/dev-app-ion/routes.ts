@@ -27,6 +27,7 @@ import {CalendarDemo} from './calendar/calendar-demo';
 import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
 import {ImageDemo} from './image/image-demo';
 import {ExamplesPage} from './examples-page/examples-page';
+import {NodeIconDemo} from './node-icon/node-icon-demo';
 
 export const DEV_APP_ROUTES: Routes = [
   {path: '', component: DevAppHome},
@@ -34,4 +35,5 @@ export const DEV_APP_ROUTES: Routes = [
   {path: 'checkbox-group', component: CheckboxGroupDemo},
   {path: 'examples', component: ExamplesPage},
   {path: 'image', component: ImageDemo},
+  {path: 'node-icon', component: NodeIconDemo},
 ];

@@ -1,0 +1,9 @@
+<div class="demo-node-icon">
+  <h4 class="demo-section-header">Node Icon</h4>
+  <section>
+    <div *ngFor="let node of nodes">
+      <h5>{{ node.name }}</h5>
+      <ajf-node-icon [node]="node.node"></ajf-node-icon>
+    </div>
+  </section>
+</div>

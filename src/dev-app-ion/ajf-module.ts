@@ -25,6 +25,7 @@ import {NgModule} from '@angular/core';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 import {AjfImageModule} from '@ajf/ionic/image';
+import {AjfNodeIconModule} from '@ajf/ionic/node-icon';
 
 /**
  * NgModule that includes all Ajf modules that are required to serve the demo-app.
@@ -34,6 +35,7 @@ import {AjfImageModule} from '@ajf/ionic/image';
     AjfCalendarModule,
     AjfCheckboxGroupModule,
     AjfImageModule,
+    AjfNodeIconModule,
   ]
 })
 export class DevAppAjfModule {}
