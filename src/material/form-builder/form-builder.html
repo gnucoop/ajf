@@ -17,8 +17,8 @@
     <mat-icon>settings</mat-icon>
   </button>
 </mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav #leftSidenav align="start" mode="over">
+<mat-drawer-container>
+  <mat-drawer #leftSidenav position="start" mode="over">
     <mat-list>
       <mat-list-item *ngFor="let nodeType of nodeTypes">
         <ajf-fb-node-type-entry
@@ -30,14 +30,14 @@
           [nodeType]="nodeType"></ajf-fb-node-type-entry>
       </mat-list-item>
     </mat-list>
-  </mat-sidenav>
-  <mat-sidenav #rightSidenav align="end" mode="side" [opened]="true">
+  </mat-drawer>
+  <mat-drawer #rightSidenav position="end" mode="side" [opened]="true">
     <ajf-fb-node-properties></ajf-fb-node-properties>
-  </mat-sidenav>
+  </mat-drawer>
   <div #designer class="ajf-designer">
     <ajf-fb-node-entry
       *ngFor="let nodeEntry of (nodeEntriesTree|async); let isFirst = first"
       [isFirst]="isFirst"
       [nodeEntry]="nodeEntry"></ajf-fb-node-entry>
   </div>
-</mat-sidenav-container>
+</mat-drawer-container>

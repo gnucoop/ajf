@@ -24,6 +24,7 @@ import {NgModule} from '@angular/core';
 
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
+import {AjfFormBuilderModule} from '@ajf/material/form-builder';
 import {AjfFormsModule} from '@ajf/material/forms';
 import {AjfImageModule} from '@ajf/material/image';
 import {AjfNodeIconModule} from '@ajf/material/node-icon';
@@ -37,6 +38,7 @@ import {AjfTimeModule} from '@ajf/material/time';
   exports: [
     AjfCalendarModule,
     AjfCheckboxGroupModule,
+    AjfFormBuilderModule,
     AjfFormsModule,
     AjfImageModule,
     AjfNodeIconModule,

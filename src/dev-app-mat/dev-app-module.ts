@@ -37,12 +37,15 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+import {DndModule} from 'ngx-dnd';
+
 import {EXAMPLE_COMPONENTS, ExampleModule} from '@ajf/material-examples';
 import {CalendarDemo} from './calendar/calendar-demo';
 import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
 import {DevAppComponent, DevAppHome} from './dev-app';
 import {ExamplePageModule} from './example/example-module';
 import {ExamplesPage} from './examples-page/examples-page';
+import {FormBuilderDemo} from './form-builder/form-builder-demo';
 import {FormsDemo} from './forms/forms-demo';
 import {ImageDemo} from './image/image-demo';
 import {NodeIconDemo} from './node-icon/node-icon-demo';
@@ -77,6 +80,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
           deps: [HttpClient]
       }
     }),
+    DndModule.forRoot(),
     DevAppAjfModule,
     ExampleModule,
     ExamplePageModule,
@@ -87,6 +91,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     DevAppComponent,
     DevAppHome,
     ExamplesPage,
+    FormBuilderDemo,
     FormsDemo,
     ImageDemo,
     NodeIconDemo,

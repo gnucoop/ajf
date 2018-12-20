@@ -52,6 +52,7 @@
 /src/dev-app-mat/dev-app/**                        @trik
 /src/dev-app-mat/example/**                        @trik
 /src/dev-app-mat/examples-page/**                  @trik
+/src/dev-app-mat/form-builder/**                   @trik
 /src/dev-app-mat/forms/**                          @trik
 /src/dev-app-mat/image/**                          @trik
 /src/dev-app-mat/node-icon/**                      @trik
