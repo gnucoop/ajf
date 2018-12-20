@@ -72,18 +72,11 @@ System.config({
     '@ajf/ionic': 'dist/packages/ionic/index.js',
     '@ajf/ionic-examples': 'dist/packages/ionic-examples/index.js',
 
-    '@ajf/core/admin': 'dist/packages/core/admin/index.js',
-    '@ajf/core/auth': 'dist/packages/core/auth/index.js',
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
-    '@ajf/core/common': 'dist/packages/core/common/index.js',
-    '@ajf/core/model': 'dist/packages/core/model/index.js',
-    '@ajf/core/reducers': 'dist/packages/core/reducers/index.js',
-    '@ajf/core/translations': 'dist/packages/core/translations/index.js',
-
-    '@ajf/ionic/admin': 'dist/packages/ionic/admin/index.js',
-    '@ajf/ionic/auth': 'dist/packages/ionic/auth/index.js',
+    '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
+    '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
-    '@ajf/ionic/common': 'dist/packages/ionic/common/index.js',
+    '@ajf/ionic/checkbox-group': 'dist/packages/ionic/checkbox-group/index.js',
   },
   packages: {
     // Thirdparty barrels.

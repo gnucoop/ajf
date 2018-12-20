@@ -64,6 +64,7 @@
 # Dev app ionic
 /src/dev-app-ion/*                                 @trik
 /src/dev-app-ion/calendar/**                       @trik
+/src/dev-app-ion/checkbox-group/**                 @trik
 /src/dev-app-ion/dev-app/**                        @trik
 /src/dev-app-ion/example/**                        @trik
 /src/dev-app-ion/examples-page/**                  @trik

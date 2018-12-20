@@ -23,6 +23,7 @@
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {Injector, NgModule} from '@angular/core';
 import {createCustomElement} from '@angular/elements';
+import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -34,6 +35,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 import {EXAMPLE_COMPONENTS, ExampleModule} from '@ajf/ionic-examples';
 import {CalendarDemo} from './calendar/calendar-demo';
+import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
 import {DevAppComponent, DevAppHome} from './dev-app';
 import {ExamplePageModule} from './example/example-module';
 import {ExamplesPage} from './examples-page/examples-page';
@@ -50,6 +52,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
     IonicModule.forRoot(),
     RouterModule.forRoot(DEV_APP_ROUTES),
@@ -66,6 +69,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   ],
   declarations: [
     CalendarDemo,
+    CheckboxGroupDemo,
     DevAppComponent,
     DevAppHome,
     ExamplesPage,

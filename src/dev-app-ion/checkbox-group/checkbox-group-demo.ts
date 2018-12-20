@@ -20,18 +20,18 @@
  *
  */
 
-import {NgModule} from '@angular/core';
+import {Component} from '@angular/core';
 
-import {AjfCalendarModule} from '@ajf/ionic/calendar';
-import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 
-/**
- * NgModule that includes all Ajf modules that are required to serve the demo-app.
- */
-@NgModule({
-  exports: [
-    AjfCalendarModule,
-    AjfCheckboxGroupModule,
-  ]
+@Component({
+  moduleId: module.id,
+  selector: 'checkbox-group-demo',
+  templateUrl: 'checkbox-group-demo.html',
+  styleUrls: ['checkbox-group-demo.css'],
 })
-export class DevAppAjfModule {}
+export class CheckboxGroupDemo {
+  value: any[];
+  get valueStr(): string {
+    return JSON.stringify(this.value);
+  }
+}

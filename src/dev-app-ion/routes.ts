@@ -24,10 +24,12 @@ import {Routes} from '@angular/router';
 
 import {DevAppHome} from './dev-app';
 import {CalendarDemo} from './calendar/calendar-demo';
+import {CheckboxGroupDemo} from './checkbox-group/checkbox-group-demo';
 import {ExamplesPage} from './examples-page/examples-page';
 
 export const DEV_APP_ROUTES: Routes = [
   {path: '', component: DevAppHome},
   {path: 'calendar', component: CalendarDemo},
+  {path: 'checkbox-group', component: CheckboxGroupDemo},
   {path: 'examples', component: ExamplesPage},
 ];
