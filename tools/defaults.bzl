@@ -6,7 +6,6 @@ load("@build_bazel_rules_typescript//:defs.bzl", _ts_library = "ts_library",
   _ts_web_test_suite = "ts_web_test_suite")
 load("//tools/markdown-to-html:index.bzl", _markdown_to_html = "markdown_to_html")
 load("//:packages.bzl", "VERSION_PLACEHOLDER_REPLACEMENTS")
-load("//tools/build_files/ionic:defs.bzl", "IONIC_FILES", "IONIC_ENTRIES", "IONIC_CORE_FILES")
 
 _DEFAULT_TSCONFIG_BUILD = "//src:bazel-tsconfig-build.json"
 _DEFAULT_TSCONFIG_TEST = "//src:bazel-tsconfig-test.json"
@@ -146,8 +145,8 @@ def ng_web_test_suite(deps = [], static_files = [], static_css = [], bootstrap =
       "@ajfdeps//node_modules/esprima:esprima.js",
       "@ajfdeps//node_modules/numeral:min/numeral.min.js",
       "@ajfdeps//node_modules/@ngx-translate/core:bundles/ngx-translate-core.umd.js",
-      "//test:debug_bundle.umd.js",
-      "//test:date_fns_bundle.umd.js",
+      "//test:debug_bundle",
+      "//test:date_fns_bundle",
     ] + static_files,
     **kwargs
   )
@@ -180,12 +179,6 @@ def ion_web_test_suite(deps = [], static_files = [], static_css = [], bootstrap 
       """ % css_label
     )
   
-  ionic_files = ["//test:build/%s.js" % f for f in IONIC_FILES]
-  ionic_entries = ["//test:build/%s.entry.js" % f for f in IONIC_ENTRIES]
-  ionic_core_files = ["//test:ionic/%s.es5.js" % f for f in IONIC_FILES]
-  ionic_core_entries = ["//test:ionic/%s.es5.entry.js" % f for f in IONIC_ENTRIES]
-  ionic_core_main_files = ["//test:ionic/ionic.r9tjmy9m.js"] # % f for f in IONIC_CORE_FILES]
-
   ts_web_test_suite(
     # Depend on our custom test initialization script. This needs to be the first dependency.
     deps = ["//test:requirejs_init", "//test:angular_test_init"] + deps,
@@ -193,25 +186,19 @@ def ion_web_test_suite(deps = [], static_files = [], static_css = [], bootstrap 
       "@ajfdeps//node_modules/zone.js:dist/zone-testing-bundle.js",
       "@ajfdeps//node_modules/reflect-metadata:Reflect.js",
       "@ajfdeps//node_modules/hammerjs:hammer.js",
-      "//tools/build_files/ionic:init-resources-url.js",
-      "@ajfdeps//node_modules/@ionic/core:dist/ionic.js",
     ] + bootstrap,
     static_files = [
       "@ajfdeps//node_modules/esprima:esprima.js",
       "@ajfdeps//node_modules/numeral:min/numeral.min.js",
-      "@ajfdeps//node_modules/@ionic/core:loader/index.js",
-      "@ajfdeps//node_modules/@ionic/core:dist/ionic/svg/index.js",
       "@ajfdeps//node_modules/@ionic-native/keyboard:ngx/index.js",
       "@ajfdeps//node_modules/@ngx-translate/core:bundles/ngx-translate-core.umd.js",
-      "//test:debug_bundle.umd.js",
-      "//test:date_fns_bundle.umd.js",
-      "//test:ionic_core_loader_bundle.umd.js",
-      "//test:ionic_core_bundle.umd.js",
-      "//test:ionic_native_keyboard_bundle.umd.js",
-      "//test:ionicons_bundle.umd.js",
-      "//test:ionicons_icons_bundle.umd.js",
-    ] + ionic_files + ionic_entries
-    + ionic_core_files + ionic_core_entries + ionic_core_main_files
-    + static_files,
+      "//test:debug_bundle",
+      "//test:date_fns_bundle",
+      "//test:ionic_core_bundle",
+      "//test:ionic_core_loader_bundle",
+      "//test:ionic_native_keyboard_bundle",
+      "//test:ionicons_bundle",
+      "//test:ionicons_icons_bundle",
+    ] + static_files,
     **kwargs
   )

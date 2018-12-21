@@ -1,8 +1,7 @@
 package(default_visibility=["//visibility:public"])
 
-load("//tools/rollup_cjs:rollup_bundle.bzl", "rollup_bundle")
+load("//tools:webpack_bundle.bzl", "webpack_bundle")
 load("//tools:defaults.bzl", "ts_library")
-load("//tools/build_files/ionic:defs.bzl", "IONIC_FILES", "IONIC_ENTRIES", "IONIC_CORE_FILES")
 
 # Common set-up for all Ajf tests.
 ts_library(
@@ -17,115 +16,106 @@ ts_library(
   srcs = ["angular-test-init-spec.ts"],
 )
 
-rollup_bundle(
+webpack_bundle(
   name = "debug_bundle",
+  library = "debug",
+  library_target = "umd",
+  entry_point = "@ajfdeps//node_modules/debug:src/browser.js",
+  output_name = "debug.umd.js",
   deps = [
     "@ajfdeps//debug",
   ],
-  entry_point = "external/ajfdeps/node_modules/debug/src/browser.js",
 )
 
-rollup_bundle(
+webpack_bundle(
   name = "date_fns_bundle",
+  library = "date-fns",
+  library_target = "umd",
+  entry_point = "@ajfdeps//node_modules/date-fns:index.js",
+  output_name = "date-fns.umd.js",
   deps = [
     "@ajfdeps//date-fns",
   ],
-  entry_point = "external/ajfdeps/node_modules/date-fns/index.js",
 )
 
-rollup_bundle(
-  name = "ionic_core_loader_bundle",
-  deps = [
-    "@ajfdeps//@ionic/core",
-  ],
-  entry_point = "external/ajfdeps/node_modules/@ionic/core/loader/index.js",
-)
-
-rollup_bundle(
+webpack_bundle(
   name = "ionic_core_bundle",
+  library = "@ionic/core",
+  library_target = "umd",
+  entry_point = "@ajfdeps//node_modules/@ionic/core:dist/esm/es5/index.js",
+  output_name = "ionic-core.umd.js",
   deps = [
     "@ajfdeps//@ionic/core",
-  ],
-  entry_point = "external/ajfdeps/node_modules/@ionic/core/dist/esm/es5/index.js",
+  ]
 )
 
-rollup_bundle(
+webpack_bundle(
+  name = "ionic_core_loader_bundle",
+  library = "@ionic/core/loader",
+  library_target = "umd",
+  entry_point = "@ajfdeps//node_modules/@ionic/core:loader/index.js",
+  output_name = "ionic-core-loader.umd.js",
+  deps = [
+    "@ajfdeps//@ionic/core",
+  ]
+)
+
+webpack_bundle(
   name = "ionicons_bundle",
+  library = "ionicons",
+  library_target = "umd",
+  entry_point = "@ajfdeps//node_modules/ionicons:dist/esm/index.js",
+  output_name = "ionicons.umd.js",
   deps = [
     "@ajfdeps//ionicons",
-  ],
-  entry_point = "external/ajfdeps/node_modules/ionicons/dist/esm/index.js",
+  ]
 )
 
-rollup_bundle(
+webpack_bundle(
   name = "ionicons_icons_bundle",
+  library = "ionicons/icons",
+  library_target = "umd",
+  entry_point = "@ajfdeps//node_modules/ionicons:icons/index.js",
+  output_name = "ionicons-icons.umd.js",
   deps = [
     "@ajfdeps//ionicons",
-  ],
-  entry_point = "external/ajfdeps/node_modules/ionicons/icons/index.js",
+  ]
 )
 
-rollup_bundle(
+webpack_bundle(
+  name = "ionic_angular_bundle",
+  library = "@ionic/angular",
+  library_target = "umd",
+  externals = [
+    '@angular/core',
+    '@angular/common',
+    '@angular/forms',
+    '@angular/platform-browser',
+    '@angular/router',
+    'tslib',
+    'rxjs',
+  ],
+  entry_point = "@ajfdeps//node_modules/@ionic/angular:dist/index.js",
+  output_name = "ionic-angular.umd.js",
+  deps = [
+    "@ajfdeps//@ionic/angular",
+  ]
+)
+
+webpack_bundle(
   name = "ionic_native_keyboard_bundle",
+  library = "@ionic-native/keyboard/ngx",
+  library_target = "umd",
+  entry_point = "@ajfdeps//node_modules/@ionic-native/keyboard:ngx/index.js",
+  output_name = "ionic-native-keyboard.umd.js",
+  externals = [
+    '@angular/core',
+    'rxjs',
+  ],
   deps = [
     "@ajfdeps//@ionic-native/core",
     "@ajfdeps//@ionic-native/keyboard",
   ],
-  entry_point = "external/ajfdeps/node_modules/@ionic-native/keyboard/ngx/index.js",
-)
-
-[genrule(
-  name = "ionic_file_%s" % f,
-  srcs = ["@ajfdeps//node_modules/@ionic/core:dist/ionic/%s.es5.js" % f],
-  outs = ["build/%s.js" % f],
-  cmd = """
-    cp $(SRCS) $@
-  """
-) for f in IONIC_FILES]
-
-[genrule(
-  name = "ionic_entry_%s" % f,
-  srcs = ["@ajfdeps//node_modules/@ionic/core:dist/ionic/%s.es5.entry.js" % f],
-  outs = ["build/%s.entry.js" % f],
-  cmd = """
-    cp $(SRCS) $@
-  """
-) for f in IONIC_ENTRIES]
-
-[genrule(
-  name = "ionic_core_file_%s" % f,
-  srcs = ["@ajfdeps//node_modules/@ionic/core:dist/ionic/%s.es5.js" % f],
-  outs = ["ionic/%s.es5.js" % f],
-  cmd = """
-    cp $(SRCS) $@
-  """
-) for f in IONIC_FILES]
-
-[genrule(
-  name = "ionic_core_entry_%s" % f,
-  srcs = ["@ajfdeps//node_modules/@ionic/core:dist/ionic/%s.es5.entry.js" % f],
-  outs = ["ionic/%s.es5.entry.js" % f],
-  cmd = """
-    cp $(SRCS) $@
-  """
-) for f in IONIC_ENTRIES]
-
-# [genrule(
-#   name = "ionic_core_maim_file_%s" % f,
-#   srcs = ["@ajfdeps//node_modules/@ionic/core:dist/ionic/%s.js" % f],
-#   outs = ["ionic/%s.js" % f],
-#   cmd = """
-#     cp $(SRCS) $@
-#   """
-# ) for f in IONIC_CORE_FILES]
-
-genrule(
-  name = "ionic_core_main_file",
-  srcs = ["@ajfdeps//node_modules/@ionic/core:dist/ionic/ionic.pgbl19pn.js"],
-  outs = ["ionic/ionic.r9tjmy9m.js"],
-  cmd = """
-    cp $(SRCS) $@
-  """
 )
 
 # Common set-up for all Ajf tests.

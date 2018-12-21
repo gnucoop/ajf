@@ -4,5 +4,4 @@ exports_files([
   "BUILD.bazel.ionic",
   "tsconfig.json",
   "WORKSPACE.ionic",
-  "init-resources-url.js",
 ])

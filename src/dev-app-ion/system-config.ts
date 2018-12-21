@@ -26,12 +26,11 @@ declare const System: any;
 // Configure the base path and map the different node packages.
 System.config({
   paths: {
-    'node:*': 'node_modules/*'
+    'node:*': 'node_modules/*',
+    'bundles:*': 'bundles/*'
   },
   map: {
-    'plugin-babel': 'node:systemjs-plugin-babel/plugin-babel.js',
-    'systemjs-babel-build': 'node:systemjs-plugin-babel/systemjs-babel-browser.js',
-    'text': 'node:systemjs-plugin-text/text.js',
+    'traceur': 'node:traceur/bin/traceur.js',
 
     'main': 'main.js',
 
@@ -48,13 +47,13 @@ System.config({
     'rxjs': 'node:rxjs',
 
     // Angular specific mappings.
+    '@angular/animations': 'node:@angular/animations/bundles/animations.umd.js',
     '@angular/core': 'node:@angular/core/bundles/core.umd.js',
     '@angular/common': 'node:@angular/common/bundles/common.umd.js',
     '@angular/common/http': 'node:@angular/common/bundles/common-http.umd.js',
     '@angular/compiler': 'node:@angular/compiler/bundles/compiler.umd.js',
-    '@angular/forms': 'node:@angular/forms/bundles/forms.umd.js',
-    '@angular/animations': 'node:@angular/animations/bundles/animations.umd.js',
     '@angular/elements': 'node:@angular/elements/bundles/elements.umd.js',
+    '@angular/forms': 'node:@angular/forms/bundles/forms.umd.js',
     '@angular/router': 'node:@angular/router/bundles/router.umd.js',
     '@angular/animations/browser': 'node:@angular/animations/bundles/animations-browser.umd.js',
     '@angular/platform-browser/animations':
@@ -64,14 +63,10 @@ System.config({
     '@angular/platform-browser-dynamic':
       'node:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
 
-    '@ionic/core': 'node:@ionic/core',
-    '@ionic/core/dist/ionic/svg': 'empty',
-    '@ionic/core/loader': 'node:@ionic/core/loader',
-    '@ionic/angular': 'node:@ionic/angular',
+    '@ionic/angular': 'bundles:ionic-angular.umd.js',
     '@ionic-native/core': 'node:@ionic-native/core',
     '@ionic-native/keyboard/ngx': 'node:@ionic-native/keyboard/ngx/index.js',
     'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.js',
-    'ionicons': 'node:ionicons',
 
     '@ngx-translate/core': 'node:@ngx-translate/core/bundles/ngx-translate-core.umd.js',
     '@ngx-translate/http-loader':
@@ -108,28 +103,12 @@ System.config({
     // Thirdparty barrels.
     'rxjs': {main: 'index'},
     'rxjs/operators': {main: 'index'},
-    '@ionic/core': {main: 'dist/esm/es5/index'},
-    '@ionic/core/loader': {main: 'index'},
-    '@ionic/angular': {main: 'dist/index'},
-    '@ionic/angular/dist/directives': {main: 'index'},
-    '@ionic/angular/dist/providers': {main: 'index'},
     '@ionic-native/core': {main: 'index'},
-    'ionicons': {main: 'dist/esm/index'},
-    'ionicons/icons': {main: 'index'},
-    'ionicons/dist/ionicons/svg': {
-      meta: {
-        '*.svg': {
-          defaultExtension: 'svg',
-          loader: 'text'
-        }
-      }
-    },
 
     // Set the default extension for the root package, because otherwise the dev-app-map can't
     // be built within the production mode. Due to missing file extensions.
     '.': {
       defaultExtension: 'js'
     }
-  },
-  transpiler: 'plugin-babel'
+  }
 });

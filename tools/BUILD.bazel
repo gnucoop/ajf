@@ -1,7 +1,9 @@
 package(default_visibility=["//visibility:public"])
 load("@build_bazel_rules_typescript//:defs.bzl", "ts_library")
 load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+load("//tools:webpack_bundle.bzl", "webpack_bundle")
 
+exports_files(["webpack.bundle.config.js"])
 
 ts_library(
   name = "sass_bundle_lib",
@@ -21,4 +23,15 @@ nodejs_binary(
     ":sass_bundle_lib",
   ],
   entry_point = "ajf/tools/sass_bundle.js",
+)
+
+nodejs_binary(
+  name = "webpack",
+  data = [
+    "@ajfdeps//babel-loader",
+    "@ajfdeps//webpack",
+    "@ajfdeps//webpack-cli",
+  ],
+  entry_point = "ajfdeps/node_modules/webpack/bin/webpack.js",
+  install_source_map_support = False,
 )

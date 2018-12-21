@@ -1,5 +1,7 @@
-import {task, dest} from 'gulp';
-import {copyFileSync, removeSync} from 'fs-extra';
+import {task, dest, src} from 'gulp';
+import {noop} from 'gulp-util';
+import {copyFileSync, existsSync, removeSync} from 'fs-extra';
+import * as webpack from 'webpack-stream';
 import {tsBuildTask, copyTask, serverTask} from '../util/task_helpers';
 import {join} from 'path';
 import {
@@ -61,6 +63,24 @@ task(':build:devapp-ion:assets', copyTask(assetsGlob, outDir));
 task(':build:devapp-ion:scss', () => buildScssPipeline(appDir).pipe(dest(outDir)));
 task(':build:devapp-ion:inline-resources', () => inlineResourcesForDirectory(outDir));
 
+task(':build:ionic-bundle', () => {
+  const config = require(join(projectDir, 'tools', 'webpack.ionic.config.js'));
+  const bundlesOutDir = join(projectDir, 'bundles');
+  const ionicEntry = join(projectDir, 'node_modules', '@ionic', 'angular', 'dist', 'index');
+  const ionicBundle = join(bundlesOutDir, 'ionic-angular.umd.js');
+  config.entry = ionicEntry;
+  config.output.filename = 'ionic-angular.umd.js';
+  let stream = src(ionicEntry);
+  if (existsSync(ionicBundle)) {
+    stream = stream.pipe(noop());
+  } else {
+    stream = stream
+      .pipe(webpack(config))
+      .pipe(dest(bundlesOutDir));
+  }
+  return stream;
+});
+
 task(':serve:devapp-ion', serverTask(outDir));
 
 task('build:devapp-ion', sequenceTask(
@@ -70,7 +90,10 @@ task('build:devapp-ion', sequenceTask(
   // The examples module needs to be manually built before building examples package because
   // when using the `no-bundles` task, the package-specific pre-build tasks won't be executed.
   'ionic-examples:build-no-bundles',
-  [':build:devapp-ion:assets', ':build:devapp-ion:scss', ':build:devapp-ion:ts'],
+  [
+    ':build:devapp-ion:assets', ':build:devapp-ion:scss',
+    ':build:devapp-ion:ts', ':build:ionic-bundle'
+  ],
   // Inline all component resources because otherwise SystemJS tries to load HTML, CSS and
   // JavaScript files which makes loading the dev-app-ion extremely slow.
   ':build:devapp-ion:inline-resources',
