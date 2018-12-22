@@ -33,7 +33,6 @@
   "version": "7.0.0-alpha.0",
   "requiredAngularVersion": ">=7.0.0",
   "requiredAngularMaterialVersion": ">=7.0.0",
-  "requiredNgrxVersion": ">=7.0.0-beta.0",
   "requiredNgxtVersion": ">=11.0.0",
   "requiredIonicVersion": ">=4.0.0-rc.0",
   "requiredIonicNativeVersion": ">=5.0.0-beta.22",

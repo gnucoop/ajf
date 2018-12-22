@@ -24,10 +24,10 @@ const ngVersionPlaceholderRegex = new RegExp(ngVersionPlaceholderText, 'g');
 /** RegExp that matches Angular Material version placeholders inside of a file. */
 const ngmVersionPlaceholderRegex = new RegExp(ngmVersionPlaceholderText, 'g');
 
-/** RegExp that matches Ngrx Platform version placeholders inside of a file. */
+/** RegExp that matches Ngx Translate Platform version placeholders inside of a file. */
 const ngxtVersionPlaceholderRegex = new RegExp(ngxtVersionPlaceholderText, 'g');
 
-/** RegExp that matches Ngrx Platform version placeholders inside of a file. */
+/** RegExp that matches Ionic Platform version placeholders inside of a file. */
 const ionicVersionPlaceholderRegex = new RegExp(ionicVersionPlaceholderText, 'g');
 
 /** Expression that matches version placeholders within a file. */
