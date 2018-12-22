@@ -29,8 +29,7 @@ System.config({
     'node:*': 'node_modules/*'
   },
   map: {
-    'plugin-babel': 'node:systemjs-plugin-babel/plugin-babel.js',
-    'systemjs-babel-build': 'node:systemjs-plugin-babel/systemjs-babel-browser.js',
+    'traceur': 'node:traceur/bin/traceur.js',
 
     'main': 'main.js',
 
@@ -159,5 +158,4 @@ System.config({
       defaultExtension: 'js'
     }
   },
-  transpiler: 'plugin-babel'
 });

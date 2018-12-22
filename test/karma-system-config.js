@@ -5,9 +5,7 @@ System.config({
     'node:*': 'node_modules/*'
   },
   map: {
-    'plugin-babel': 'node:systemjs-plugin-babel/plugin-babel.js',
-    'systemjs-babel-build': 'node:systemjs-plugin-babel/systemjs-babel-browser.js',
-    'text': 'node:systemjs-plugin-text/text.js',
+    'traceur': 'node:traceur/bin/traceur.js',
 
     'date-fns': 'node:date-fns/index.js',
     'debug': 'node:debug/src/browser.js',
@@ -57,10 +55,8 @@ System.config({
     '@ngx-translate/http-loader':
       'node:@ngx-translate/http-loader/bundles/ngx-translate-http-loader.umd.js',
     
-    '@ionic/angular': 'node:@ionic/angular',
-    '@ionic/core': 'node:@ionic/core',
+    '@ionic/angular': 'bundles:ionic-angular.umd.js',
     '@ionic-native/core': 'node:@ionic-native/core',
-    '@ionic-native/keyboard': 'node:@ionic-native/keyboard/index.js',
     '@ionic-native/keyboard/ngx': 'node:@ionic-native/keyboard/ngx/index.js',
     'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.js',
     'ionicons': 'node:ionicons',
@@ -104,28 +100,12 @@ System.config({
     // Thirdparty barrels.
     'rxjs': {main: 'index'},
     'rxjs/operators': {main: 'index'},
-    '@ionic/angular': {main: 'dist/index'},
-    '@ionic/angular/dist/directives': {main: 'index'},
-    '@ionic/angular/dist/providers': {main: 'index'},
-    '@ionic/core': {main: 'dist/esm/es5/index'},
-    '@ionic/core/loader': {main: 'index'},
     '@ionic-native/core': {main: 'index'},
-    'ionicons': {main: 'dist/esm/index'},
-    'ionicons/icons': {main: 'index'},
-    'ionicons/dist/ionicons/svg': {
-      meta: {
-        '*.svg': {
-          defaultExtension: 'svg',
-          loader: 'text'
-        }
-      }
-    },
 
     // Set the default extension for the root package, because otherwise the dev-app-mat can't
     // be built within the production mode. Due to missing file extensions.
     '.': {
       defaultExtension: 'js'
     }
-  },
-  transpiler: 'plugin-babel'
+  }
 });
