@@ -21,9 +21,9 @@
  */
 
 import {
-  AfterContentInit, ChangeDetectorRef, EventEmitter, forwardRef, OnInit
+  AfterContentInit, ChangeDetectorRef, EventEmitter, OnInit
 } from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {ControlValueAccessor} from '@angular/forms';
 
 import {Observable} from 'rxjs';
 
@@ -39,12 +39,6 @@ import {AjfCalendarPeriodType} from './calendar-period-type';
 import {AjfCalendarPeriod} from './calendar-period';
 import {AjfCalendarViewMode} from './calendar-view-mode';
 import {AjfCalendarWeekDay} from './calendar-week-day';
-
-export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => AjfCalendar),
-  multi: true
-};
 
 const weekDays: string[] = [
   '', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
