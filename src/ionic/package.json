@@ -25,6 +25,7 @@
     "@ionic/angular": "0.0.0-ION",
     "@ionic-native/core": "0.0.0-INAT",
     "@ionic-native/keyboard": "0.0.0-INAT",
+    "@ajf/core": "0.0.0-PLACEHOLDER",
     "flag-icon-css": "^3.2.1",
     "ionic-selectable": "^4.1.3"
   },
