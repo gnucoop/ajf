@@ -1,6 +1,8 @@
 import {task, dest, src} from 'gulp';
 import {noop} from 'gulp-util';
-import {copyFileSync, existsSync, removeSync} from 'fs-extra';
+import {
+  copyFileSync, existsSync, mkdirpSync, readFileSync, removeSync, writeFileSync
+} from 'fs-extra';
 import * as webpack from 'webpack-stream';
 import {tsBuildTask, copyTask, serverTask} from '../util/task_helpers';
 import {join} from 'path';
@@ -64,16 +66,39 @@ task(':build:devapp-ion:scss', () => buildScssPipeline(appDir).pipe(dest(outDir)
 task(':build:devapp-ion:inline-resources', () => inlineResourcesForDirectory(outDir));
 
 task(':build:ionic-bundle', () => {
-  const config = require(join(projectDir, 'tools', 'webpack.ionic.config.js'));
   const bundlesOutDir = join(projectDir, 'bundles');
-  const ionicEntry = join(projectDir, 'node_modules', '@ionic', 'angular', 'dist', 'index');
-  const ionicBundle = join(bundlesOutDir, 'ionic-angular.umd.js');
-  config.entry = ionicEntry;
-  config.output.filename = 'ionic-angular.umd.js';
-  let stream = src(ionicEntry);
+  const ionicEntry = join('node_modules', '@ionic', 'angular', 'dist', 'index.js');
+  const ionicBundleFile = 'ionic-angular.umd.js';
+  const ionicBundle = join(bundlesOutDir, ionicBundleFile);
+  let stream = src(join(projectDir, ionicEntry));
   if (existsSync(ionicBundle)) {
     stream = stream.pipe(noop());
   } else {
+    const nodeModulesDir = 'node_modules';
+    const externals = [
+      '@angular/core',
+      '@angular/common',
+      '@angular/forms',
+      '@angular/platform-browser',
+      '@angular/router',
+      'tslib',
+      'rxjs',
+    ].map(e => `"${e}"`);
+    const configSrc = readFileSync(join(projectDir, 'tools', 'webpack.bundle.config.js'))
+      .toString()
+      .replace('TMPL_entry', `"${ionicEntry}"`)
+      .replace('TMPL_library', '"@ionic/angular"')
+      .replace('TMPL_library_target', '"umd"')
+      .replace('TMPL_output_path', `"${bundlesOutDir}"`)
+      .replace('TMPL_output_filename', `"${ionicBundleFile}"`)
+      .replace('TMPL_externals', `[${externals.join(', ')}]`)
+      .replace('TMPL_node_modules_root', `"${nodeModulesDir}"`);
+    const configDst = join(bundlesOutDir, 'webpack.ionic.config.js');
+    if (!existsSync(bundlesOutDir)) {
+      mkdirpSync(bundlesOutDir);
+    }
+    writeFileSync(configDst, configSrc);
+    const config = require(configDst);
     stream = stream
       .pipe(webpack(config))
       .pipe(dest(bundlesOutDir));
