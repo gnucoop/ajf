@@ -42,7 +42,7 @@ module.exports = (config) => {
 
       {pattern: 'node_modules/date-fns/**/*.js', included: false, watched: false},
       {pattern: 'node_modules/debug/src/*.js', included: false, watched: false},
-      {pattern: 'node_modules/esprima/esprima.js', included: false, watched: false},
+      {pattern: 'node_modules/esprima/dist/esprima.js', included: false, watched: false},
       {pattern: 'node_modules/ionic-selectable/bundles/ionic-selectable.umd.js', included: false, watched: false},
       {pattern: 'node_modules/ionicons/**/*', included: false, watched: false},
       {pattern: 'node_modules/ms/index.js', included: false, watched: false},

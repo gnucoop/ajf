@@ -9,7 +9,7 @@ System.config({
 
     'date-fns': 'node:date-fns/index.js',
     'debug': 'node:debug/src/browser.js',
-    'esprima': 'node:esprima/esprima.js',
+    'esprima': 'node:esprima/dist/esprima.js',
     'ms': 'node:ms/index.js',
     'numeral': 'node:numeral/numeral.js',
     'rxjs': 'node:rxjs',
