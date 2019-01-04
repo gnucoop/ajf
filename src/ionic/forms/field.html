@@ -36,13 +36,13 @@
       </ng-container>
       <div class="ajf-choices-container" *ngIf="!fwc.forceNarrow &&
             (fwcInst.field.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
-        <ion-card radio-group
+        <ion-radio-group
             [formControl]="curControl">
           <ion-item *ngFor="let choice of fwcInst.filteredChoices">
             <ion-label>{{ choice.label | translate}}</ion-label>
             <ion-radio [value]="choice.value"></ion-radio>
           </ion-item>
-        </ion-card>
+        </ion-radio-group>
       </div>
     </ng-container>
 
