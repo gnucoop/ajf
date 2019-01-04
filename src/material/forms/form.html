@@ -35,15 +35,15 @@
                   <ajf-page-slider-item>
                     <ajf-page-slider-item-header>
                       <h2>
-                        <span class="number">
+                        <span class="ajf-form-header-number">
                           1 &rarr;
                         </span>
                         <span class="ajf-title">
-                          <ng-content select="ajf-form-start-message-title"></ng-content>
+                          <ng-content select="[ajfFormStartMessageTitle]"></ng-content>
                         </span>
                       </h2>
                     </ajf-page-slider-item-header>
-                    <ng-content select="ajf-form-start-message"></ng-content>
+                    <ng-content select="[ajfFormStartMessage]"></ng-content>
                   </ajf-page-slider-item>
                 </ng-template>
                 <ng-template ngFor let-slideInstance [ngForOf]="curSlides" [ngForTrackBy]="trackNodeById">
@@ -75,7 +75,7 @@
                         <mat-icon class="ajf-warning" *ngIf="!slideInstance.validSlide(idx)">warning</mat-icon>
                         <mat-icon class="ajf-success" *ngIf="slideInstance.validSlide(idx)">check</mat-icon>
                         <h2>
-                          <span class="number">{{ slideInstance.slidePosition(idx) }} &rarr;</span>
+                          <span class="ajf-form-header-number">{{ slideInstance.slidePosition(idx) }} &rarr;</span>
                           <span [innerHTML]="slideInstance.slide.label | translate"></span>
                         </h2>
                       </ajf-page-slider-item-header>
@@ -102,7 +102,7 @@
                   <ajf-page-slider-item>
                     <ajf-page-slider-item-header>
                       <h2>
-                        <span *ngIf="(slidesNum|async) as snum" class="number">
+                        <span *ngIf="(slidesNum|async) as snum" class="ajf-form-header-number">
                           {{ snum + (hasStartMessage | boolToInt ) + 1 }} &rarr;
                         </span>
                         <span class="ajf-title">
