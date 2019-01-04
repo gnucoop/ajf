@@ -98,11 +98,11 @@
                         {{ snum + (hasStartMessage | boolToInt) + 1 }} &rarr;
                       </span>
                       <span class="ajf-title">
-                        <ng-content select="ajf-form-end-message-title"></ng-content>
+                        <ng-content select="[ajfFormEndMessageTitle]"></ng-content>
                       </span>
                     </h2>
                   </ajf-page-slider-item-header>
-                  <ng-content select="ajf-form-end-message"></ng-content>
+                  <ng-content select="[ajfFormEndMessage]"></ng-content>
                 </ajf-page-slider-item>
               </ng-container>
             </ng-container>
