@@ -61,11 +61,17 @@ ajf-form {
             float: right;
           }
 
-          h2 > .ajf-title {
-            display: inline-block;
-            margin-right: 40px;
-            white-space: normal;
-            vertical-align: top;
+          > h2 {
+            flex: 1;
+            > .ajf-form-header-number {
+              margin-right: 0.5em;
+            }
+            > .ajf-title {
+              display: inline-block;
+              margin-right: 40px;
+              white-space: normal;
+              vertical-align: top;
+            }
           }
         }
 
