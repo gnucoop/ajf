@@ -1,9 +1,13 @@
 <ion-button (click)="onInputChange($event)" role="checkbox"
+    fill="clear"
     type="button"
     [id]="checkboxId|async"
     [attr.aria-checked]="checkedState|async"
     [attr.aria-disabled]="disabledState|async">
-  <ng-content></ng-content>
-  <ion-icon item-right
-      [name]="icon|async"></ion-icon>
+  <div class="ajf-checkbox-group-item-content">
+    <div>
+        <ng-content></ng-content>
+    </div>
+    <ion-icon item-right [name]="icon|async"></ion-icon>
+  </div>
 </ion-button>

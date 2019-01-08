@@ -22,11 +22,12 @@
 
 import {Component} from '@angular/core';
 
+import {Observable, timer} from 'rxjs';
+
 @Component({
   moduleId: module.id,
   selector: 'page-slider-demo',
   templateUrl: 'page-slider-demo.html',
   styleUrls: ['page-slider-demo.css'],
 })
-export class PageSliderDemo {
-}
+export class PageSliderDemo { }

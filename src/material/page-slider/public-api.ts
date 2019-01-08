@@ -20,6 +20,5 @@
  *
  */
 
-export * from './page-slider-item';
 export * from './page-slider';
 export * from './page-slider-module';

@@ -91,22 +91,22 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
   }
 
-  private _showTopToolbar = true;
-  get showTopToolbar(): boolean { return this._showTopToolbar; }
-  set showTopToolbar(showTopToolbar: boolean) {
-    this._showTopToolbar = coerceBooleanProperty(showTopToolbar);
+  private _hideTopToolbar = false;
+  get hideTopToolbar(): boolean { return this._hideTopToolbar; }
+  set hideTopToolbar(hideTopToolbar: boolean) {
+    this._hideTopToolbar = coerceBooleanProperty(hideTopToolbar);
   }
 
-  private _showBottomToolbar = true;
-  get showBottompToolbar(): boolean { return this._showBottomToolbar; }
-  set showBottomToolbar(showBottomToolbar: boolean) {
-    this._showBottomToolbar = coerceBooleanProperty(showBottomToolbar);
+  private _hideBottomToolbar = false;
+  get hideBottompToolbar(): boolean { return this._hideBottomToolbar; }
+  set hideBottomToolbar(hideBottomToolbar: boolean) {
+    this._hideBottomToolbar = coerceBooleanProperty(hideBottomToolbar);
   }
 
-  private _showNavigationButtons = true;
-  get showNavigationButtons(): boolean { return this._showNavigationButtons; }
-  set showNavigationButtons(showNavigationButtons: boolean) {
-    this._showNavigationButtons = coerceBooleanProperty(showNavigationButtons);
+  private _hideNavigationButtons = false;
+  get hideNavigationButtons(): boolean { return this._hideNavigationButtons; }
+  set hideNavigationButtons(hideNavigationButtons: boolean) {
+    this._hideNavigationButtons = coerceBooleanProperty(hideNavigationButtons);
   }
 
   formSlider: AjfPageSlider;
@@ -173,7 +173,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     let s = this._rendererService.addGroup(nodeGroup)
       .pipe(delay(100))
       .subscribe(
-        (r) => { if (r && this.formSlider != null) { this.formSlider.scrollTo(true); } },
+        (r) => { if (r && this.formSlider != null) { this.formSlider.slide({dir: 'down'}); } },
         (_e) => { if (s) { s.unsubscribe(); } },
         () => { if (s) { s.unsubscribe(); } }
       );
@@ -185,7 +185,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   removeGroup(nodeGroup: AjfNodeGroupInstance | AjfRepeatingSlideInstance): void {
     let s = this._rendererService.removeGroup(nodeGroup)
       .subscribe(
-        (r) => { if (r && this.formSlider != null) { this.formSlider.scrollTo(false); } },
+        (r) => { if (r && this.formSlider != null) { this.formSlider.slide({dir: 'up'}); } },
         (_e) => { if (s) { s.unsubscribe(); } },
         () => { if (s) { s.unsubscribe(); } }
       );
@@ -222,11 +222,11 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
       this._init = true;
 
       this._errorMoveSubscription = (<Observable<boolean>>this._errorMoveEvent).pipe(
-        withLatestFrom(this.formSlider.currentItemPosition, this._errorPositions)
-      ).subscribe((v: [boolean, number, number[]]) => {
+        withLatestFrom(this._errorPositions)
+      ).subscribe((v: [boolean, number[]]) => {
           const move = v[0];
-          const currentPosition = v[1] - (+this.hasStartMessage) + 1;
-          const errors = v[2];
+          const currentPosition = this.formSlider.currentPage - (+this.hasStartMessage) + 1;
+          const errors = v[1];
           if (errors == null) { return; }
 
           let found = false;
@@ -251,7 +251,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
             nextIdx = 0;
           }
 
-          this.formSlider.scrollTo(undefined, move ? errors[nextIdx] - 1 : errors[prevIdx] - 1);
+          this.formSlider.slide({to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1});
           this._changeDetectorRef.detectChanges();
         });
 

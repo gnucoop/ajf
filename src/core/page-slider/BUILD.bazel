@@ -1,16 +1,24 @@
 package(default_visibility=["//visibility:public"])
 
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
 load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
 
 ng_module(
   name = "page-slider",
   srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
   module_name = "@ajf/core/page-slider",
-  assets = [],
+  assets = [":page-slider-item.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/animations",
     "@angular//packages/core",
     "//src/core/utils"
   ],
+)
+
+sass_binary(
+  name = "page_slider_item_scss",
+  src = "page-slider-item.scss",
+  deps = [],
 )
 
 ng_test_library(

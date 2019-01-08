@@ -39,6 +39,7 @@ export const rollupGlobals = {
   'tslib': 'tslib',
 
   '@angular/animations': 'ng.animations',
+  '@angular/platform-browser/animations': 'ng.platformBrowser.animations',
   '@angular/cdk/collections': 'ng.cdk.collections',
   '@angular/common': 'ng.common',
   '@angular/core': 'ng.core',

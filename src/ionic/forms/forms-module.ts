@@ -36,6 +36,7 @@ import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
 
 import {AjfFormField} from './field';
+import {AjfFormPage} from './form-page';
 import {AjfFormRenderer} from './form';
 
 
@@ -53,6 +54,7 @@ import {AjfFormRenderer} from './form';
   ],
   declarations: [
     AjfFormField,
+    AjfFormPage,
     AjfFormRenderer,
   ],
   exports: [

@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {async, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {IonicModule} from '@ionic/angular';
 
@@ -10,7 +11,11 @@ import {AjfPageSlider, AjfPageSliderModule} from './index';
 describe('IonSlider', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [IonicModule.forRoot(), AjfPageSliderModule],
+      imports: [
+        BrowserAnimationsModule,
+        IonicModule.forRoot(),
+        AjfPageSliderModule,
+      ],
       declarations: [TestComponent],
     });
 
@@ -22,35 +27,31 @@ describe('IonSlider', () => {
     const slider = <AjfPageSlider>fixture.debugElement
       .query(By.directive(AjfPageSlider)).componentInstance;
 
-    let currentSlide: number = -1;
-
-    slider.currentItemPosition.subscribe(p => currentSlide = p);
-
     fixture.detectChanges();
     fixture.whenStable().then(() => {
-      expect(currentSlide).toBe(0);
+      expect(slider.currentPage).toBe(0);
 
       let s = slider.pageScrollFinish.subscribe(() => {
         s.unsubscribe();
-        expect(currentSlide).toBe(1);
+        expect(slider.currentPage).toBe(1);
 
         s = slider.pageScrollFinish.subscribe(() => {
           s.unsubscribe();
-          expect(currentSlide).toBe(0);
+          expect(slider.currentPage).toBe(0);
 
           s = slider.pageScrollFinish.subscribe(() => {
             s.unsubscribe();
-            expect(currentSlide).toBe(2);
+            expect(slider.currentPage).toBe(2);
 
             done();
           });
 
-          slider.scrollTo(undefined, 2);
+          slider.slide({to: 2});
         });
 
-        slider.scrollTo(false);
+        slider.slide({dir: 'up'});
       });
-      slider.scrollTo(true);
+      slider.slide({dir: 'down'});
     });
   });
 });
@@ -59,11 +60,9 @@ describe('IonSlider', () => {
 @Component({
   template: `
     <ajf-page-slider [ngStyle]="{'height': '400px'}">
-      <div ajfPageSliderBody>
-        <ajf-page-slider-item [ngStyle]="{'height': '300px'}">slide 1</ajf-page-slider-item>
-        <ajf-page-slider-item [ngStyle]="{'height': '300px'}">slide 2</ajf-page-slider-item>
-        <ajf-page-slider-item [ngStyle]="{'height': '300px'}">slide 3</ajf-page-slider-item>
-      </div>
+      <ajf-page-slider-item [ngStyle]="{'height': '300px'}">slide 1</ajf-page-slider-item>
+      <ajf-page-slider-item [ngStyle]="{'height': '300px'}">slide 2</ajf-page-slider-item>
+      <ajf-page-slider-item [ngStyle]="{'height': '300px'}">slide 3</ajf-page-slider-item>
     </ajf-page-slider>
   `,
   encapsulation: ViewEncapsulation.None,

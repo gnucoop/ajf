@@ -20,24 +20,9 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy, Component, ElementRef, Renderer2, ViewEncapsulation
-} from '@angular/core';
+export type AjfPageSliderSlideDirection = 'up' | 'down';
 
-import {AjfPageSliderItem as AjfCorePageSliderItem} from '@ajf/core/page-slider';
-
-
-@Component({
-  moduleId: module.id,
-  selector: 'ajf-page-slider-item',
-  styleUrls: ['page-slider-item.css'],
-  templateUrl: 'page-slider-item.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  outputs: ['parentScroll']
-})
-export class AjfPageSliderItem extends AjfCorePageSliderItem {
-  constructor(el: ElementRef, renderer: Renderer2) {
-    super(el, renderer);
-  }
+export interface AjfPageSliderSlideOptions {
+  dir?: AjfPageSliderSlideDirection;
+  to?: number;
 }

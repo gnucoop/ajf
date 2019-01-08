@@ -13,6 +13,18 @@ ajf-field {
     flex-wrap: wrap;
     display: flex;
 
+    > ion-radio-group {
+      display: flex;
+
+      ion-item {
+        --ion-item-border-color: transparent;
+
+        ion-label {
+          margin-right: 10px;
+        }
+      }
+    }
+
     > ion-card {
       margin-top: 0;
       width: 33%;
@@ -57,15 +69,3 @@ ajf-field {
     }
   }
 }
-
-// ion-datetime.datetime.datetime-md.ng-untouched.ng-pristine.ng-valid {
-//     border: dashed 2px #c0c0c0 !important;
-// }
-
-// .input-wrapper {
-//     min-width: 60px !important;
-// }
-
-// ion-radio.radio.radio-md {
-//     min-width: 15px !important;
-// }

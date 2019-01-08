@@ -26,6 +26,7 @@ import {
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   OnDestroy,
   Output,
@@ -36,14 +37,15 @@ import {
 } from '@angular/core';
 
 import {Observable, Subscription} from 'rxjs';
-import {delay, withLatestFrom} from 'rxjs/operators';
+import {delay} from 'rxjs/operators';
 
 import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
 
 import {Keyboard} from '@ionic-native/keyboard/ngx';
 
-import {AjfPageSliderItem} from '@ajf/ionic/page-slider';
+import {AjfPageSliderItem} from '@ajf/core/page-slider';
 import {AjfFormField} from './field';
+import {AjfFormPage} from './form-page';
 
 declare const document: any;
 declare const window: any;
@@ -75,8 +77,7 @@ declare const window: any;
   ],
   queries: {
     formSlider: new ViewChild('formSlider'),
-    fields: new ViewChildren(AjfFormField),
-    formSlides: new ViewChildren(AjfPageSliderItem)
+    fields: new ViewChildren(AjfFormField)
   }
 })
 /**
@@ -89,8 +90,7 @@ export class AjfFormRenderer extends AjfCoreFormRenderer
   private _pageScrollFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
   private _pageScrollFinishObs: Observable<boolean> = this._pageScrollFinish.asObservable();
   @Output() get pageScrollFinish(): Observable<boolean> { return this._pageScrollFinishObs; }
-
-  formSlides: QueryList<AjfPageSliderItem>;
+  @ViewChildren(AjfFormPage, {read: ElementRef}) formPages: QueryList<ElementRef>;
 
   private _keyboardShowSub: Subscription = Subscription.EMPTY;
   private _keyboardHideSub: Subscription = Subscription.EMPTY;
@@ -116,23 +116,20 @@ export class AjfFormRenderer extends AjfCoreFormRenderer
     super.ngAfterViewInit();
 
     this._keyboardShowSub = this._keyboard.onKeyboardShow()
-      .pipe(
-        withLatestFrom(this.formSlider.currentItemPosition),
-        delay(200)
-      )
-      .subscribe((r) => {
+      .pipe(delay(200))
+      .subscribe(() => {
         if (
           typeof document === 'undefined' || document.activeElement == null ||
-          this.formSlides == null
+          this.formPages == null
         ) {
           return;
         }
-        const slides = this.formSlides.toArray();
-        const pos = <number>r[1];
+        const pages = this.formPages.toArray();
+        const pos = this.formSlider.currentPage;
 
-        if (pos < 0 || pos >= slides.length) { return; }
+        if (pos < 0 || pos >= pages.length) { return; }
 
-        const slide = slides[pos];
+        const page = pages[pos];
         const contHeight = window.innerHeight;
         const target = document.activeElement;
         const targetRect = target.getBoundingClientRect();
@@ -140,7 +137,7 @@ export class AjfFormRenderer extends AjfCoreFormRenderer
         const vpos = targetRect.top + targetRect.height + 80;
         if (vpos > contHeight) {
           const scrollBy = vpos - contHeight;
-          slide.el.nativeElement.firstElementChild.scrollBy(0, scrollBy);
+          page.nativeElement.scrollBy(0, scrollBy);
           this._currentKeyboardScroll = [pos, scrollBy];
         } else {
           this._currentKeyboardScroll = null;
@@ -149,16 +146,16 @@ export class AjfFormRenderer extends AjfCoreFormRenderer
 
     this._keyboardHideSub = this._keyboard.onKeyboardHide()
       .subscribe(() => {
-        if (this.formSlides == null || this._currentKeyboardScroll == null) { return; }
+        if (this.formPages == null || this._currentKeyboardScroll == null) { return; }
 
-        const slides = this.formSlides.toArray();
+        const pages = this.formPages.toArray();
         const pos = this._currentKeyboardScroll[0];
 
-        if (pos < 0 || pos >= slides.length) { return; }
+        if (pos < 0 || pos >= pages.length) { return; }
 
-        const slide = slides[pos];
+        const page = pages[pos];
         const scrollBy = this._currentKeyboardScroll[1];
-        slide.el.nativeElement.firstElementChild.scrollBy(0, -scrollBy);
+        page.nativeElement.scrollBy(0, -scrollBy);
         this._currentKeyboardScroll = null;
       });
   }

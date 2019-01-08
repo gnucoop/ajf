@@ -16,50 +16,57 @@ ajf-form {
       flex: 1;
       position: relative;
 
-      > ion-slider {
-        i[item-right] {
-          float: right;
-        }
+      > ajf-page-slider {
+        height: 100%;
 
-        ion-slider-item {
-          > ion-card {
-            flex:1;
-            > ion-card-content {
-              display: flex;
-              flex-wrap: wrap;
-              flex-direction: row;
-              align-content: flex-start;
-              position: relative;
+        ajf-page-slider-item {
+          .ajf-page-slider-item-content {
+            padding: 16px;
 
-              .ajf-group-actions {
-                position: absolute;
-                right: 0;
-                bottom: -30px;
-                padding: 15px;
-                z-index: 10;
-              }
+            .ajf-form-page {
+              flex: 1;
+              max-height: 100%;
 
-              > .ajf-field-entry {
-                flex: 1 0 auto;
-                padding-left: 10px;
-                padding-right: 10px;
-                width: 100%;
-                box-sizing: border-box;
+              > ion-card {
+                flex:1;
+                > ion-card-content {
+                  display: flex;
+                  flex-wrap: wrap;
+                  flex-direction: row;
+                  align-content: flex-start;
+                  position: relative;
 
-                &.ajf-normal { width: 100%; }
-                &.ajf-small { width: 50%; }
-                &.ajf-smaller { width: 33%; }
-                &.ajf-tiny { width: 25%; }
-                &.ajf-mini { width: 20%; }
+                  .ajf-group-actions {
+                    position: absolute;
+                    right: 0;
+                    bottom: -30px;
+                    padding: 15px;
+                    z-index: 10;
+                  }
+
+                  > .ajf-field-entry {
+                    flex: 1 0 auto;
+                    padding-left: 10px;
+                    padding-right: 10px;
+                    width: 100%;
+                    box-sizing: border-box;
+
+                    &.ajf-normal { width: 100%; }
+                    &.ajf-small { width: 50%; }
+                    &.ajf-smaller { width: 33%; }
+                    &.ajf-tiny { width: 25%; }
+                    &.ajf-mini { width: 20%; }
+                  }
+                }
               }
             }
           }
         }
 
-        ion-slider-item-header {
-          > ion-icon {
-            float: right;
-          }
+        .ajf-page-slider-item-header {
+          display: flex;
+          align-items: center;
+          width: 100%;
 
           > h2 {
             flex: 1;
@@ -121,11 +128,6 @@ ajf-form {
               }
             }
           }
-        }
-        [end] {
-          position:fixed;
-          right:0;
-          color: blue;
         }
       }
     }

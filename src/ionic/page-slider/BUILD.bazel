@@ -7,18 +7,12 @@ ng_module(
   name = "page-slider",
   srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
   module_name = "@ajf/ionic/page-slider",
-  assets = [":page-slider-item.css", ":page-slider.css"] + glob(["**/*.html"]),
+  assets = [":page-slider.css"] + glob(["**/*.html"]),
   deps = [
     "@angular//packages/core",
     "@ionic_angular//:angular",
     "//src/core/page-slider",
   ],
-)
-
-sass_binary(
-  name = "page_slider_item_scss",
-  src = "page-slider-item.scss",
-  deps = [],
 )
 
 sass_binary(
@@ -32,6 +26,7 @@ ng_test_library(
   srcs = glob(["**/*.spec.ts"]),
   deps = [
     "@angular//packages/platform-browser",
+    "@angular//packages/platform-browser/animations",
     "@ionic_angular//:angular",
     ":page-slider"
   ]

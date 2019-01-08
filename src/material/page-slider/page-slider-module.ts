@@ -23,31 +23,26 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {AjfPageSliderModule as AjfCorePageSliderModule} from '@ajf/core/page-slider';
 
-import {AjfPageSliderItem} from './page-slider-item';
 import {AjfPageSlider} from './page-slider';
 
 @NgModule({
   imports: [
     CommonModule,
     MatButtonModule,
-    MatCardModule,
     MatIconModule,
     MatToolbarModule,
     AjfCorePageSliderModule
   ],
   declarations: [
-    AjfPageSliderItem,
     AjfPageSlider
   ],
   exports: [
     AjfCorePageSliderModule,
-    AjfPageSliderItem,
     AjfPageSlider
   ]
 })

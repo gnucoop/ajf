@@ -1,4 +1,8 @@
 .demo-page-slider-container {
   height: 300px;
   position: relative;
+
+  ajf-page-slider {
+    height: 100%;
+  }
 }

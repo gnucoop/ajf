@@ -20,275 +20,137 @@
  *
  */
 
-
+import {animate, AnimationBuilder, style} from '@angular/animations';
 import {
-  AfterContentInit, ElementRef, EventEmitter, OnDestroy, Renderer2, QueryList
+  AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2
 } from '@angular/core';
 
-import {BehaviorSubject, Observable, Subscription, timer} from 'rxjs';
-import {filter, map, scan} from 'rxjs/operators';
+import {Observable, Subscription} from 'rxjs';
 
 import {coerceBooleanProperty} from '@ajf/core/utils';
 
-import {IAjfEasingFunction} from './easing';
-import {AjfPageSliderConfig} from './page-slider-config';
 import {AjfPageSliderItem} from './page-slider-item';
+import {AjfPageSliderSlideOptions} from './page-slider-slide-options';
 
+export class AjfPageSlider implements AfterContentInit, OnDestroy {
+  body: ElementRef;
+  pages: QueryList<AjfPageSliderItem>;
 
-export abstract class AjfPageSlider implements AfterContentInit, OnDestroy {
-  pageScrollOffset: number;
-  pageScrollDuration: number;
-  pageScrollEasing: IAjfEasingFunction;
-  pageScrollInterruptible: boolean;
-  currentItem = 0;
+  private _pageScrollFinish: EventEmitter<void> = new EventEmitter<void>();
+  pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
 
-  items: QueryList<AjfPageSliderItem>;
-  sliderContentChild: ElementRef;
+  duration = 300;
 
-  private _currentItemPosition: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  readonly currentItemPosition: Observable<number> = this._currentItemPosition.asObservable();
-
-  private _itemsNum: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  readonly itemsNum: Observable<number> = this._itemsNum.asObservable();
-
-  private _pageScrollFinish: EventEmitter<boolean> = new EventEmitter<boolean>();
-  readonly pageScrollFinish: Observable<boolean> = this._pageScrollFinish.asObservable();
-
-  private _ready: EventEmitter<boolean> = new EventEmitter<boolean>();
-  readonly ready: Observable<boolean> = this._ready.asObservable();
-
-  private _showNavigationButtons = true;
-  get showNavigationButtons(): boolean { return this._showNavigationButtons; }
-  set showNavigationButtons(showNavigationButtons: boolean) {
-    this._showNavigationButtons = coerceBooleanProperty(showNavigationButtons);
+  private _currentPage = -1;
+  get currentPage(): number { return this._currentPage; }
+  set currentPage(currentPage: number) {
+    if (this.pages == null || currentPage < 0 || currentPage >= this.pages.length) { return; }
+    this._currentPage = currentPage;
+    this._doSlide();
   }
 
-  private _timer: Subscription = Subscription.EMPTY;
-  private _itemsSubscription: Subscription = Subscription.EMPTY;
-
-  private _scrolling = false;
-
-  private _mouseWheel: EventEmitter<number> = new EventEmitter<number>();
-  private _mouseWheelSubscription: Subscription = Subscription.EMPTY;
-  private _parentScrollSubscriptions: {[counter: number]: Subscription} = {};
-  private _sliderContent: HTMLElement;
-
-  private getHeight(): number {
-    if (this._sliderContent != null) {
-      return this._sliderContent.offsetHeight - this._sliderContent.offsetTop;
-    }
-    return 0;
+  private _hideNavigationButtons: boolean;
+  get hideNavigationButtons(): boolean { return this._hideNavigationButtons; }
+  set hideNavigationButtons(hnb: boolean) {
+    this._hideNavigationButtons = coerceBooleanProperty(hnb);
+    this._cdr.markForCheck();
   }
 
-  constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {
-    const scrollLimit = 150;
-    this._mouseWheelSubscription = (<Observable<number>>this._mouseWheel).pipe(
-      scan((curSum, curValue) => {
-        curSum = curSum % scrollLimit;
-        if ((curSum <= 0 && curValue < 0) || (curSum >= 0 && curValue > 0)) {
-          return curSum + curValue;
-        }
-        return 0;
-      }, 0),
-      filter(v => Math.abs(v) > scrollLimit),
-      map(v => v > 0)
-    ).subscribe(v => this.scrollTo(v));
-  }
+  private _animating = false;
+  private _pagesSub: Subscription = Subscription.EMPTY;
+  private _pagesScrollSub: Subscription = Subscription.EMPTY;
+
+  constructor(
+    private _animationBuilder: AnimationBuilder,
+    private _cdr: ChangeDetectorRef,
+    private _renderer: Renderer2
+  ) { }
 
   ngAfterContentInit(): void {
-    this._sliderContent = this.sliderContentChild.nativeElement;
-
-    this._itemsSubscription = this.items.changes.subscribe(() => {
-      this._itemsNum.next(this.items.length);
-      this._adjustItems();
-    });
-
-    setTimeout(() => {
-      this._adjustItems();
-    });
-
-    if (this.currentItem == null || this.currentItem >  this.items.length) {
-      this.currentItem = 0;
-    }
-    if (this.currentItem !== 0 && this.items.length > 0 && this.currentItem < this.items.length) {
-      const itemsArr = this.items.toArray();
-      const curItem = itemsArr[this.currentItem];
-      const anchorTarget = curItem.el ? curItem.el.nativeElement : null;
-      if (anchorTarget == null) { return; }
-      let pageScrollOffset: number = this.pageScrollOffset == null
-        ? AjfPageSliderConfig.defaultScrollOffset : this.pageScrollOffset * this.currentItem;
-      let targetScrollTop: number = anchorTarget.offsetTop - pageScrollOffset;
-      this._sliderContent.scrollTop = targetScrollTop;
-    }
-    this._renderer.addClass(this._elementRef.nativeElement, 'ajf-loaded');
-    this._ready.emit(true);
-  }
-
-  onResize(): void {
-    this._adjustItems();
+    this._onSlidesChange();
+    this._pagesSub = this.pages.changes.subscribe(() => this._onSlidesChange());
   }
 
   ngOnDestroy(): void {
-    this._timer.unsubscribe();
-    this._mouseWheelSubscription.unsubscribe();
-    this._itemsSubscription.unsubscribe();
-    Object.keys(this._parentScrollSubscriptions)
-      .forEach((k) => {
-        const s = this._parentScrollSubscriptions[parseInt(k, 10)];
-        s.unsubscribe();
-      });
+    this._pagesSub.unsubscribe();
   }
 
-  scrollTo(next?: boolean, nextId?: number): void {
-    let currentItems = this.items.toArray();
-
-    if ((next == null) && (nextId == null)) {
-      next = true;
-    }
-
-    if (nextId != null && (nextId >= currentItems.length || nextId && nextId < 0)) {
-      return;
-    }
-
-    const hasNext = this.currentItem + 1 < currentItems.length;
-    const hasPrevious = this.currentItem > 0;
-    if (this._scrolling || (next && !hasNext && nextId == null) ||
-      (!next && !hasPrevious && nextId == null )) {
-      return;
-    }
-
-    let anchorTarget;
-    if (nextId != undefined && nextId >= 0 && currentItems[nextId] && currentItems[nextId].el) {
-      anchorTarget = currentItems[nextId].el.nativeElement;
-    } else {
-      const elNum = this.currentItem + (next ? 1 : -1);
-      if (currentItems[elNum] && currentItems[elNum].el) {
-        anchorTarget = currentItems[elNum].el.nativeElement;
+  slide(opts: AjfPageSliderSlideOptions): void {
+    if (this.pages == null) { return; }
+    if (opts.dir) {
+      if (opts.dir === 'up') {
+        this._slideUp();
+      } else {
+        this._slideDown();
       }
+    } else if (opts.to) {
+      this._slideTo(opts.to);
     }
-
-    if (anchorTarget == null) {
-      // Target not found, so stop
-      return;
-    }
-
-    let nMoves = (nextId ? (this.currentItem + (nextId >= this.currentItem ?
-      this.currentItem - nextId : nextId - this.currentItem)) : 1);
-    let pageScrollOffset: number = this.pageScrollOffset == null
-      ? AjfPageSliderConfig.defaultScrollOffset : this.pageScrollOffset * nMoves;
-    let targetScrollTop: number = anchorTarget.offsetTop - pageScrollOffset;
-    let startScrollTop: number = this._sliderContent.scrollTop;
-
-    let distanceToScroll: number = targetScrollTop - startScrollTop;
-    if (distanceToScroll === 0) {
-      // We're at the final destination already, so stop
-      return;
-    }
-    let startTime: number = new Date().getTime();
-
-    let intervalConf: any = {
-      startScrollTop: startScrollTop,
-      targetScrollTop: targetScrollTop,
-      distanceToScroll: distanceToScroll,
-      startTime: startTime,
-      easing: this.pageScrollEasing == null
-        ? AjfPageSliderConfig.defaultEasingFunction
-        : this.pageScrollEasing
-    };
-    intervalConf.duration =
-      this.pageScrollDuration == null
-        ? AjfPageSliderConfig.defaultDuration : this.pageScrollDuration;
-    intervalConf.endTime = intervalConf.startTime + intervalConf.duration;
-
-    if (intervalConf.duration <= AjfPageSliderConfig._interval) {
-      // We should go there directly, as our "animation" would have one big step
-      // only anyway and this way we save the interval stuff
-      this._renderer.setProperty(
-        this._sliderContent, 'scrollTop', intervalConf.targetScrollTop
-      );
-      this._stopInterval(false, next, nextId);
-      return;
-    }
-
-    this._scrolling = true;
-
-    this._timer = timer(0, AjfPageSliderConfig._interval)
-      .subscribe(() => {
-        this._intervalAnimation(intervalConf, next, nextId);
-      });
   }
 
-  swipeHandler(evt: any): void {
-    this._scrollHandler(evt, -(evt.deltaY));
+  private _slideUp(): void {
+    if (this._currentPage <= 0) { return; }
+    this.currentPage = this._currentPage - 1;
   }
 
-  wheelHandler(evt: any): void {
-    this._scrollHandler(evt, evt.deltaY);
+  private _slideDown(): void {
+    if (this._currentPage >= this.pages.length) { return; }
+    this.currentPage = this._currentPage + 1;
   }
 
-  private _adjustItems(): void {
-    const height: number = this.getHeight() - 48;
-    const curSubscriberItems = Object.keys(this._parentScrollSubscriptions);
+  private _slideTo(page: number): void {
+    if (page >= 0 && page < this.pages.length) {
+      this.currentPage = page;
+    }
+  }
 
-    this.items.forEach((item, idx) => {
-      item.position = idx + 1;
-      if (curSubscriberItems.indexOf(`${item.counter}`) == -1) {
-        this._subscribeToParentScroll(item);
-      }
-      item.adjustMargin(height);
+  private _doSlide(): void {
+    if (this.body == null || this.pages == null || this._animating) { return; }
+    this._animating = true;
+    const slideSize = 100 / this.pages.length;
+    const position = this._currentPage === -1 ? 0 : this._currentPage * slideSize;
+    const animation = this._animationBuilder.build(animate(
+      this.duration,
+      style({transform: `translateY(-${position}%)`})
+    ));
+
+    const player = animation.create(this.body.nativeElement);
+    player.onDone(() => {
+      this._animating = false;
+      this._pageScrollFinish.emit();
     });
+    player.play();
   }
 
-  private _intervalAnimation(conf: any, nextSlide?: boolean, nextId?: number) {
-    let currentTime: number = new Date().getTime();
-    let newScrollTop: number;
+  private _onSlidesChange(): void {
+    this._updateHeight();
+    this._addSlidesScrollListeners();
+  }
 
-    if (conf.endTime <= currentTime) {
-      this._stopInterval(false, nextSlide, nextId);
-      newScrollTop = conf.targetScrollTop;
+  private _addSlidesScrollListeners(): void {
+    this._pagesScrollSub.unsubscribe();
+    let newSub: Subscription = Subscription.EMPTY;
+    this.pages.forEach((s, i) => {
+      if (i === 0) {
+        newSub = s.pageScroll.subscribe(dir => this.slide({dir}));
+      } else {
+        newSub.add(s.pageScroll.subscribe(dir => this.slide({dir})));
+      }
+    });
+    this._pagesScrollSub = newSub;
+  }
+
+  private _updateHeight(): void {
+    if (this.body == null || this.pages == null) { return; }
+    this._renderer.setStyle(this.body.nativeElement, 'height', `${this.pages.length * 100}%`);
+    if (this.pages.length === 0) {
+      this.currentPage = -1;
+    } else if (this._currentPage === -1) {
+      this.currentPage = 0;
+    } else if (this._currentPage >= this.pages.length) {
+      this.currentPage = this.pages.length - 1;
     } else {
-      newScrollTop = conf.easing(
-        currentTime - conf.startTime,
-        conf.startScrollTop,
-        conf.distanceToScroll,
-        conf.duration);
+      this.currentPage = this._currentPage;
     }
-    this._renderer.setProperty(this._sliderContent, 'scrollTop', newScrollTop);
-  }
-
-  private _stopInterval(interrupted: boolean, next = true, nextId: number | null = null): boolean {
-    if (this._timer && !this._timer.closed) {
-      this._scrolling = false;
-
-      this._timer.unsubscribe();
-
-      this.currentItem = (nextId != null ? nextId :
-        (next ? this.currentItem + 1 : this.currentItem - 1));
-      this._currentItemPosition.next(this.currentItem);
-
-      this._pageScrollFinish.emit(!interrupted);
-      return true;
-    }
-    return false;
-  }
-
-  private _scrollHandler(evt: any, delta: number): void {
-    if (evt.stopPropagation != null) {
-      evt.stopPropagation();
-    } else if (evt.srcEvent != null && evt.srcEvent.stopPropagation != null) {
-      evt.srcEvent.stopPropagation();
-    }
-    evt.preventDefault();
-
-    if (delta !== 0) {
-      this._mouseWheel.emit(delta);
-    }
-  }
-
-  private _subscribeToParentScroll(itm: AjfPageSliderItem): void {
-    this._parentScrollSubscriptions[itm.counter] = itm.parentScroll
-      .subscribe((dir) => {
-        this.scrollTo(dir);
-      });
   }
 }

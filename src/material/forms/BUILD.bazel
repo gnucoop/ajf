@@ -11,6 +11,7 @@ ng_module(
   deps = [
     "@angular//packages/core",
     "@angular_material//src/lib/button",
+    "@angular_material//src/lib/card",
     "@angular_material//src/lib/dialog",
     "@angular_material//src/lib/form-field",
     "@angular_material//src/lib/icon",

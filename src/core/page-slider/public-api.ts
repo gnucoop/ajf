@@ -20,9 +20,7 @@
  *
  */
 
-export * from './easing';
-export * from './page-slider-config';
 export * from './page-slider-item';
-export * from './page-slider-item-header';
+export * from './page-slider-slide-options';
 export * from './page-slider';
 export * from './page-slider-module';

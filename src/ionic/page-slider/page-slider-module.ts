@@ -27,7 +27,6 @@ import {IonicModule} from '@ionic/angular';
 
 import {AjfPageSliderModule as AjfCorePageSliderModule} from '@ajf/core/page-slider';
 
-import {AjfPageSliderItem} from './page-slider-item';
 import {AjfPageSlider} from './page-slider';
 
 @NgModule({
@@ -37,12 +36,10 @@ import {AjfPageSlider} from './page-slider';
     AjfCorePageSliderModule
   ],
   declarations: [
-    AjfPageSliderItem,
     AjfPageSlider
   ],
   exports: [
     AjfCorePageSliderModule,
-    AjfPageSliderItem,
     AjfPageSlider
   ]
 })

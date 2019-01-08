@@ -1,22 +1,16 @@
-<div class="ajf-page-slider-loading">
-  <div><ion-icon name="alarm"></ion-icon></div>
+<div class="ajf-page-slider-content">
+  <div #body class="ajf-page-slider-body">
+    <ng-content></ng-content>
+  </div>
 </div>
-<div #sliderContent
-    (swipe)="swipeHandler($event)"
-    (mousewheel)="wheelHandler($event)"
-    class="ajf-page-slider-content">
-  <ng-content select="[ajfPageSliderBody]"></ng-content>
-</div>
-<ion-toolbar *ngIf="showNavigationButtons" class="ajf-toolbar">
+<ion-toolbar *ngIf="!hideNavigationButtons" class="ajf-toolbar">
   <ng-content select="[ajfPageSliderBar]"></ng-content>
-  <ion-buttons position="end">
-    <ion-button (click)="scrollTo(false)" fill="solid" color="secondary">
-      <ion-icon
-          name="arrow-up"></ion-icon>
+  <ion-buttons slot="end">
+    <ion-button (click)="slide({dir: 'up'})" fill="solid" color="secondary">
+      <ion-icon name="arrow-up"></ion-icon>
     </ion-button>
-    <ion-button (click)="scrollTo()" fill="solid" color="secondary">
-      <ion-icon
-          name="arrow-down"></ion-icon>
+    <ion-button (click)="slide({dir: 'down'})" fill="solid" color="secondary">
+      <ion-icon name="arrow-down"></ion-icon>
     </ion-button>
   </ion-buttons>
 </ion-toolbar>

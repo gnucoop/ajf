@@ -20,69 +20,61 @@
  *
  */
 
-import {ElementRef, EventEmitter, Renderer2} from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+  EventEmitter, Output, Renderer2, ViewChild, ViewEncapsulation
+} from '@angular/core';
 
 import {Observable} from 'rxjs';
-import {filter, map, scan, share} from 'rxjs/operators';
+import {debounceTime, filter, map, scan} from 'rxjs/operators';
 
+import {AjfPageSliderSlideDirection} from './page-slider-slide-options';
 
-let _uniquePageSliderItemIdCounter = 0;
+@Component({
+  moduleId: module.id,
+  selector: 'ajf-page-slider-item',
+  templateUrl: 'page-slider-item.html',
+  styleUrls: ['page-slider-item.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfPageSliderItem {
+  @ViewChild('container') container: ElementRef;
+  @Output() pageScroll: Observable<AjfPageSliderSlideDirection>;
 
+  private _scrollEvt: EventEmitter<number> = new EventEmitter<number>();
+  private _panPosition: number;
 
-export abstract class AjfPageSliderItem {
-  itemId =  `ajf-slider-item-${_uniquePageSliderItemIdCounter++}`;
-  position: number = 0;
+  constructor(private _cdr: ChangeDetectorRef, private _renderer: Renderer2) {
+    const scrollLimit = 500;
 
-  readonly el: ElementRef = this._el;
-  readonly counter: number = _uniquePageSliderItemIdCounter;
-  readonly parentScroll: Observable<boolean>;
-
-  get height(): number {
-    if (this._el.nativeElement) {
-      return this._el.nativeElement.offsetHeight;
-    }
-    return 0;
-  }
-
-  private _mouseWheel: EventEmitter<number> = new EventEmitter<number>();
-  private _panPosition: number = 0;
-
-  constructor(private _el: ElementRef, private _renderer: Renderer2) {
-    _renderer.setAttribute(_el.nativeElement, 'id', this.itemId);
-
-    const scrollLimit = 150;
-    this.parentScroll = (<Observable<number>>this._mouseWheel).pipe(
-      scan((curSum, curValue) => {
-        curSum = curSum % scrollLimit;
-        if ((curSum <= 0 && curValue < 0) || (curSum >= 0 && curValue > 0)) {
-          return curSum + curValue;
+    this.pageScroll = this._scrollEvt.pipe(
+      scan((acc, cur) => {
+        acc = acc % scrollLimit;
+        if ((acc <= 0 && cur < 0 ) || (acc >= 0 && cur > 0)) {
+          return acc + cur;
         }
         return 0;
       }, 0),
       filter(v => Math.abs(v) > scrollLimit),
-      map(v => v > 0),
-      share()
+      map(v => (v > 0 ? 'down' : 'up') as AjfPageSliderSlideDirection),
+      debounceTime(100),
     );
   }
 
-  adjustMargin(height: number) {
-    this._renderer.setStyle(this._el.nativeElement, 'height', `${height}px`);
+  detach(): void {
+    this._cdr.detach();
   }
 
-  swipeHandler(evt: any): void {
-    this._scrollHandler(evt, -(evt.deltaY));
+  reattach(): void {
+    this._cdr.reattach();
   }
 
-  wheelHandler(evt: any): void {
+  mousewheelHandler(evt: MouseWheelEvent) {
     this._scrollHandler(evt, evt.deltaY);
   }
 
-  panStart(_evt: any): void {
-    const card = this._getCard();
-    this._panPosition = card.scrollTop;
-  }
-
-  panHandler(evt: any): void {
+  panMoveHandler(evt: any): void {
     if (evt.stopPropagation != null) {
       evt.stopPropagation();
     }
@@ -92,15 +84,22 @@ export abstract class AjfPageSliderItem {
     if (evt.preventDefault != null) {
       evt.preventDefault();
     }
-    const card = this._getCard();
+    if (this.container == null) { return; }
+    const container = this.container.nativeElement;
     const oldScroll = this._panPosition;
     const newScroll = oldScroll - evt.deltaY;
-    const maxScroll = card.scrollHeight - card.offsetHeight;
+    const maxScroll = container.scrollHeight - container.offsetHeight;
     if (newScroll > 0 && newScroll <= maxScroll) {
-      this._renderer.setProperty(card, 'scrollTop', newScroll);
+      this._renderer.setProperty(container, 'scrollTop', newScroll);
     } else if (newScroll <= 0 || newScroll >= maxScroll) {
       evt.preventDefault();
     }
+  }
+
+  panStartHandler(_evt: any): void {
+    if (this.container == null) { return; }
+    const container = this.container.nativeElement;
+    this._panPosition = container.scrollTop;
   }
 
   private _scrollHandler(evt: any, deltaY: number): void {
@@ -109,39 +108,34 @@ export abstract class AjfPageSliderItem {
     } else if (evt.gesture != null && evt.gesture.stopPropagation != null) {
       evt.gesture.stopPropagation();
     }
-    const card = this._getCard();
-    const oldScroll = card.scrollTop;
+    if (this.container == null) { return; }
+    const container = this.container.nativeElement;
+    const oldScroll = container.scrollTop;
     const newScroll = oldScroll + deltaY;
-    if (deltaY == 0 || this._el == null) {
-      return;
-    }
-    const positionReference = card.scrollHeight - oldScroll;
+    if (deltaY === 0) { return; }
+    const positionReference = container.scrollHeight - oldScroll;
     const endSlideTreshold = 10;
     if (newScroll <= endSlideTreshold && oldScroll > endSlideTreshold) {
-      this._renderer.setProperty(card, 'scrollTop', newScroll);
+      this._renderer.setProperty(container, 'scrollTop', newScroll);
       return;
     }
     if (newScroll <= endSlideTreshold) {
-      this._renderer.setProperty(card, 'scrollTop', 0);
+      this._renderer.setProperty(container, 'scrollTop', 0);
       evt.preventDefault();
-      this._mouseWheel.emit(newScroll);
+      this._scrollEvt.emit(newScroll);
       return;
     }
-    const maxScroll = card.scrollHeight - card.offsetHeight;
+    const maxScroll = container.scrollHeight - container.offsetHeight;
     if (newScroll >= maxScroll &&
-        (positionReference) > (card.offsetHeight + endSlideTreshold)) {
-      this._renderer.setProperty(card, 'scrollTop', newScroll);
+        (positionReference) > (container.offsetHeight + endSlideTreshold)) {
+      this._renderer.setProperty(container, 'scrollTop', newScroll);
       return;
     }
     if (newScroll >= maxScroll) {
-      this._renderer.setProperty(card, 'scrollTop', maxScroll);
+      this._renderer.setProperty(container, 'scrollTop', maxScroll);
       evt.preventDefault();
-      this._mouseWheel.emit(newScroll - maxScroll);
+      this._scrollEvt.emit(newScroll - maxScroll);
       return;
     }
-  }
-
-  private _getCard(): any {
-    return this._el.nativeElement.children[0];
   }
 }

@@ -46,9 +46,9 @@ import {AjfFormField} from './field';
     'formSchema',
     'permissions',
     'title',
-    'showTopToolbar',
-    'showBottomToolbar',
-    'showNavigationButtons'
+    'hideTopToolbar',
+    'hideBottomToolbar',
+    'hideNavigationButtons'
   ],
   outputs: [
     'formSave',
@@ -75,6 +75,6 @@ export class AjfFormRenderer extends AjfCoreFormRenderer {
   }
 
   scrollToSlide(slide: any): void {
-    this.formSlider.scrollTo(undefined, slide.position - 1);
+    this.formSlider.slide({to: slide.position - 1});
   }
 }

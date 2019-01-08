@@ -17,10 +17,10 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <button (click)="setSchema()" mat-raised-button
-        color="primary">Set schema</button>
+    <ion-button (click)="setSchema()"
+        color="primary">Set schema</ion-button>
     <div class="demo-form-container">
-      <ajf-form [form]="form" [showTopToolbar]="false"></ajf-form>
+      <ajf-form [form]="form" hideTopToolbar></ajf-form>
     </div>
   </section>
 </div>

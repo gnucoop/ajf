@@ -20,15 +20,13 @@
  *
  */
 
+import {AnimationBuilder} from '@angular/animations';
 import {
-  ChangeDetectionStrategy, Component, ContentChildren, ElementRef,
-  Renderer2, ViewChild, ViewEncapsulation
+  ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  ContentChildren, Renderer2, ViewChild, ViewEncapsulation
 } from '@angular/core';
 
-import {AjfPageSlider as AjfCorePageSlider} from '@ajf/core/page-slider';
-
-import {AjfPageSliderItem} from './page-slider-item';
-
+import {AjfPageSlider as AjfCorePageSlider, AjfPageSliderItem} from '@ajf/core/page-slider';
 
 @Component({
   moduleId: module.id,
@@ -37,23 +35,15 @@ import {AjfPageSliderItem} from './page-slider-item';
   styleUrls: ['page-slider.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'pageScrollOffset', 'pageScrollDuration', 'pageScrollEasing',
-    'pageScrollInterruptible', 'currentItem', 'showNavigationButtons'
-  ],
-  outputs: [
-    'pageScrollFinish', 'ready'
-  ],
+  inputs: ['duration', 'currentPage', 'hideNavigationButtons'],
+  outputs: ['pageScrollFinish'],
   queries: {
-    items: new ContentChildren(AjfPageSliderItem),
-    sliderContentChild: new ViewChild('sliderContent')
+    pages: new ContentChildren(AjfPageSliderItem),
+    body: new ViewChild('body')
   },
-  host: {
-    '(window:resize)': 'onResize()'
-  }
 })
 export class AjfPageSlider extends AjfCorePageSlider {
-  constructor(el: ElementRef, renderer: Renderer2) {
-    super(el, renderer);
+  constructor(animationBuilder: AnimationBuilder, cdr: ChangeDetectorRef, renderer: Renderer2) {
+    super(animationBuilder, cdr, renderer);
   }
 }

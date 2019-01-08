@@ -40,6 +40,7 @@ ng_test_library(
   deps = [
     "@angular//packages/forms",
     "@angular//packages/platform-browser",
+    "@angular//packages/platform-browser/animations",
     "@ionic_angular//:angular",
     "@ngx_translate_core//:core",
     "@ajfdeps//@ionic-native/keyboard",

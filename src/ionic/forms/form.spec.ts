@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {map} from 'rxjs/operators';
 
@@ -23,6 +24,7 @@ describe('AjfFormRenderer', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        BrowserAnimationsModule,
         IonicModule.forRoot(),
         TranslateModule.forRoot(),
         AjfFormsModule,

@@ -22,10 +22,14 @@
 
 import {NgModule} from '@angular/core';
 
-import {AjfPageSliderItemHeader} from './page-slider-item-header';
+import {AjfPageSliderItem} from './page-slider-item';
 
 @NgModule({
-  declarations: [AjfPageSliderItemHeader],
-  exports: [AjfPageSliderItemHeader]
+  declarations: [
+    AjfPageSliderItem,
+  ],
+  exports: [
+    AjfPageSliderItem,
+  ]
 })
 export class AjfPageSliderModule { }
