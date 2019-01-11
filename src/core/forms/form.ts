@@ -74,7 +74,6 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
 
   saveAction = true;
   submitAction = true;
-  sliderReady: boolean = false;
 
   title: string;
   permissions: AjfFormPermission;
