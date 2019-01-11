@@ -1,21 +1,21 @@
 <ng-container *ngIf="formGroup|async as currentFormGroup">
   <form novalidate [formGroup]="currentFormGroup">
     <div class="ajf-form-container">
-      <ion-toolbar *ngIf="!hideTopToolbar" [class.ajf-hidden]="!sliderReady">
+      <ion-toolbar *ngIf="!hideTopToolbar">
         {{ title | translate }}
-        <ion-buttons right>
-            <ion-button default (click)="onSave($event)"
-                *ngIf="permissions && permissions.write">{{ 'Save' | translate }}</ion-button>
-            <ion-button default (click)="onFormAction($event, 'send')"
-                [disabled]="((errors | async) || 0) != 0"
-                *ngIf="permissions && permissions.change_state && permissions.change_state.send">{{ 'Submit' | translate }}</ion-button>
-            <ion-button default (click)="onFormAction($event, 'approve')"
-                [disabled]="((errors | async) || 0) != 0"
-                *ngIf="permissions && permissions.change_state && permissions.change_state.approve">{{ 'Approve' | translate }}</ion-button>
-            <ion-button default (click)="onFormAction($event, 'deprecate')"
-                [disabled]="((errors | async) || 0) != 0"
-                *ngIf="permissions && permissions.change_state && permissions.change_state.deprecate"> {{ 'Deprecate' | translate }}</ion-button>
-            </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="onSave($event)"
+              *ngIf="permissions && permissions.write">{{ 'Save' | translate }}</ion-button>
+          <ion-button (click)="onFormAction($event, 'send')"
+              [disabled]="((errors | async) || 0) != 0"
+              *ngIf="permissions && permissions.change_state && permissions.change_state.send">{{ 'Submit' | translate }}</ion-button>
+          <ion-button (click)="onFormAction($event, 'approve')"
+              [disabled]="((errors | async) || 0) != 0"
+              *ngIf="permissions && permissions.change_state && permissions.change_state.approve">{{ 'Approve' | translate }}</ion-button>
+          <ion-button (click)="onFormAction($event, 'deprecate')"
+              [disabled]="((errors | async) || 0) != 0"
+              *ngIf="permissions && permissions.change_state && permissions.change_state.deprecate"> {{ 'Deprecate' | translate }}</ion-button>
+          </ion-buttons>
       </ion-toolbar>
       <div class="ajf-slider-container">
         <ajf-page-slider [hideNavigationButtons]="hideNavigationButtons"
