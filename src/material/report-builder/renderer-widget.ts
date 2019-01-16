@@ -34,6 +34,7 @@ import {
 } from '@angular/core';
 
 import {AjfImageType} from '@ajf/core/image';
+import {AjfFormula} from '@ajf/core/models';
 import {
   AjfDataset,
   AjfReportChartWidget,
@@ -159,7 +160,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
       AjfImageType.Image;
   }
 
-  getHtmlText() {
+  getHtmlText(): string {
     let myObj: AjfReportTextWidget;
     myObj = <AjfReportTextWidget>this.widget;
     if (myObj.htmlText === '') {
@@ -169,17 +170,17 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     }
   }
 
-  getCoordinate() {
+  getCoordinate(): number[] {
     let myObj: AjfReportMapWidget;
     myObj = <AjfReportMapWidget>this.widget;
     if (myObj.coordinate == null) {
       return [51.505, -0.09, 13];
     } else {
-      return myObj.coordinate;
+      return myObj.coordinate as any;
     }
   }
 
-  getTileLayer() {
+  getTileLayer(): string {
     let myObj: AjfReportMapWidget;
     myObj = <AjfReportMapWidget>this.widget;
     if (myObj.tileLayer === '') {
@@ -189,7 +190,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     }
   }
 
-  getAttribution() {
+  getAttribution(): string {
     let myObj: AjfReportMapWidget;
     myObj = <AjfReportMapWidget>this.widget;
     if (myObj.attribution === '') {
@@ -199,7 +200,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     }
   }
 
-  addToList(event: any, toColumn: AjfReportColumnWidget) {
+  addToList(event: any, toColumn: AjfReportColumnWidget): void {
     this.onDragEndHandler();
     this.service.addToColumn(event, toColumn);
   }
