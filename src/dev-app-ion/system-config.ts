@@ -64,8 +64,6 @@ System.config({
       'node:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
 
     '@ionic/angular': 'bundles:ionic-angular.umd.js',
-    '@ionic-native/core': 'node:@ionic-native/core',
-    '@ionic-native/keyboard/ngx': 'node:@ionic-native/keyboard/ngx/index.js',
     'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.js',
 
     '@ngx-translate/core': 'node:@ngx-translate/core/bundles/ngx-translate-core.umd.js',
@@ -103,7 +101,6 @@ System.config({
     // Thirdparty barrels.
     'rxjs': {main: 'index'},
     'rxjs/operators': {main: 'index'},
-    '@ionic-native/core': {main: 'index'},
 
     // Set the default extension for the root package, because otherwise the dev-app-map can't
     // be built within the production mode. Due to missing file extensions.

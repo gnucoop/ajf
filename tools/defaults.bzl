@@ -190,13 +190,11 @@ def ion_web_test_suite(deps = [], static_files = [], static_css = [], bootstrap 
     static_files = [
       "@ajfdeps//node_modules/esprima:esprima.js",
       "@ajfdeps//node_modules/numeral:min/numeral.min.js",
-      "@ajfdeps//node_modules/@ionic-native/keyboard:ngx/index.js",
       "@ajfdeps//node_modules/@ngx-translate/core:bundles/ngx-translate-core.umd.js",
       "//test:debug_bundle",
       "//test:date_fns_bundle",
       "//test:ionic_core_bundle",
       "//test:ionic_core_loader_bundle",
-      "//test:ionic_native_keyboard_bundle",
       "//test:ionicons_bundle",
       "//test:ionicons_icons_bundle",
     ] + static_files,

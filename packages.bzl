@@ -55,19 +55,16 @@ ANGULAR_PACKAGE_VERSION = ">=7.0.0"
 ANGULAR_MATERIAL_PACKAGE_VERSION = ">=7.1.0"
 NGXT_PACKAGE_VERSION = ">=11.0.0"
 IONIC_PACKAGE_VERSION = ">=4.0.0-beta.17"
-IONIC_NATIVE_PACKAGE_VERSION = ">=5.0.0-beta.22"
 VERSION_PLACEHOLDER_REPLACEMENTS = {
   "0.0.0-NGM": ANGULAR_MATERIAL_PACKAGE_VERSION,
   "0.0.0-NGXT": NGXT_PACKAGE_VERSION,
   "0.0.0-NG": ANGULAR_PACKAGE_VERSION,
   "0.0.0-ION": IONIC_PACKAGE_VERSION,
-  "0.0.0-INAT": IONIC_NATIVE_PACKAGE_VERSION
 }
 
 # Base rollup globals for everything in the repo.
 ROLLUP_GLOBALS = {
   '@ionic/angular': 'ionic.angular',
-  '@ionic-native/keyboard/ngx': 'ionicNative.keyboard.ngx',
   '@ngx-translate/core': 'ngxt.core',
   '@ngx-translate/http-loader': 'ngxt.httpLoader',
   'chart.js': 'chartJs',

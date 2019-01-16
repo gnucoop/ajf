@@ -69,7 +69,6 @@ export const rollupGlobals = {
   '@angular/router': 'ng.router',
 
   '@ionic/angular': 'ionic.angular',
-  '@ionic-native/keyboard/ngx': 'ionicNative.keyboard.ngx',
   'ionic-selectable': 'ionicSelectable',
 
   '@ngx-translate/core': 'ngxt.core',

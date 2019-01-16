@@ -1026,20 +1026,6 @@
     through2 "^3.0.0"
     xdg-basedir "^3.0.0"
 
-"@ionic-native/core@5.0.0-beta.22":
-  version "5.0.0-beta.22"
-  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-5.0.0-beta.22.tgz#fc649303717acb46ec014b45cc8d05a12f8ce36e"
-  integrity sha512-gjUmEqtkgF69TxsUGrExaXgin1W6Q1RnpJ2M14J7DgHJ69rytUFYi3JCYjJuo3RIR5p3ChAmtfzz8ShbUfCmKg==
-  dependencies:
-    "@types/cordova" latest
-
-"@ionic-native/keyboard@5.0.0-beta.22":
-  version "5.0.0-beta.22"
-  resolved "https://registry.yarnpkg.com/@ionic-native/keyboard/-/keyboard-5.0.0-beta.22.tgz#86c863e05871bc77f8ed0da39231288de972a5b4"
-  integrity sha512-dun+Yy96YlvqXGBZ159zjtCSKxZP+Dog1IUiwBJqEX1zcKRfG25c1CA5tt1KWobAqWm7nm20mHd75p1xRqaAkQ==
-  dependencies:
-    "@types/cordova" latest
-
 "@ionic/angular@^4.0.0-rc.0":
   version "4.0.0-rc.0"
   resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-4.0.0-rc.0.tgz#94aaa6a40fc90dd238a08d61facfa8b0bc9da8ea"
@@ -1143,16 +1129,6 @@
   dependencies:
     "@types/events" "*"
     "@types/node" "*"
-
-"@types/cordova@latest":
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/@types/cordova/-/cordova-0.0.34.tgz#ea7addf74ecec3d7629827a0c39e2c9addc73d04"
-  integrity sha1-6nrd907Ow9dimCegw54smt3HPQQ=
-
-"@types/crypto-js@^3.1.43":
-  version "3.1.43"
-  resolved "https://registry.yarnpkg.com/@types/crypto-js/-/crypto-js-3.1.43.tgz#b859347d6289ba13e347c335a4c9efa63337a748"
-  integrity sha512-EHe/YKctU3IYNBsDmSOPX/7jLHPRlx8WaiDKSY9JCTnJ8XJeM4c0ZJvx+9Gxmr2s2ihI92R+3U/gNL1sq5oRuQ==
 
 "@types/debug@^0.0.31":
   version "0.0.31"
@@ -4110,11 +4086,6 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
-
-crypto-js@^3.1.9-1:
-  version "3.1.9-1"
-  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.1.9-1.tgz#fda19e761fc077e01ffbfdc6e9fdfc59e8806cd8"
-  integrity sha1-/aGedh/Ad+Af+/3G6f38WeiAbNg=
 
 crypto-random-string@^1.0.0:
   version "1.0.0"

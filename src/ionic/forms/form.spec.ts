@@ -6,7 +6,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {map} from 'rxjs/operators';
 
 import {IonButton, IonicModule} from '@ionic/angular';
-import {Keyboard} from '@ionic-native/keyboard/ngx';
 
 import {TranslateModule} from '@ngx-translate/core';
 
@@ -16,9 +15,7 @@ import {AjfCalendarModule} from '@ajf/ionic/calendar';
 
 import {AjfFormField, AjfFormRenderer, AjfFormsModule} from './public-api';
 
-import {KeyboardMock} from './mocks.spec';
 import * as testData from './test-data.spec';
-
 
 describe('AjfFormRenderer', () => {
   beforeEach(async(() => {
@@ -33,9 +30,6 @@ describe('AjfFormRenderer', () => {
       declarations: [
         TestComponent
       ],
-      providers: [
-        {provide: Keyboard, useClass: KeyboardMock}
-      ]
     });
     TestBed.compileComponents();
   }));

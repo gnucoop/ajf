@@ -24,9 +24,6 @@ import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 
 import {Observable, of as obsOf} from 'rxjs';
 
-import {Keyboard} from '@ionic-native/keyboard/ngx';
-
-
 export class AjfFormRendererServiceMock {
   form: FormGroup;
 
@@ -38,41 +35,4 @@ export class AjfFormRendererServiceMock {
     const ctrl = this.form.controls['question_single_choice'];
     return obsOf(ctrl);
   }
-}
-
-export class KeyboardMock extends Keyboard {
-    /**
-     * Hide the keyboard accessory bar with the next, previous and done buttons.
-     * @param hide {boolean}
-     */
-    hideKeyboardAccessoryBar(_hide: boolean): void {}
-    /**
-     * Force keyboard to be shown.
-     */
-    show(): void {}
-    /**
-     * Close the keyboard if open.
-     */
-    close(): void {}
-    /**
-     * Prevents the native UIScrollView from moving when an input is focused.
-     * @param disable {boolean}
-     */
-    disableScroll(_disable: boolean): void {}
-    /**
-     * Creates an observable that notifies you when the keyboard is shown.
-     * Unsubscribe to observable to cancel event watch.
-     * @returns {Observable}
-     */
-    onKeyboardShow(): Observable<any> {
-      return obsOf('');
-    }
-    /**
-     * Creates an observable that notifies you when the keyboard is hidden.
-     * Unsubscribe to observable to cancel event watch.
-     * @returns {Observable}
-     */
-    onKeyboardHide(): Observable<any> {
-      return obsOf('');
-    }
 }

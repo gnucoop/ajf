@@ -102,22 +102,6 @@ webpack_bundle(
   ]
 )
 
-webpack_bundle(
-  name = "ionic_native_keyboard_bundle",
-  library = "@ionic-native/keyboard/ngx",
-  library_target = "umd",
-  entry_point = "@ajfdeps//node_modules/@ionic-native/keyboard:ngx/index.js",
-  output_name = "ionic-native-keyboard.umd.js",
-  externals = [
-    '@angular/core',
-    'rxjs',
-  ],
-  deps = [
-    "@ajfdeps//@ionic-native/core",
-    "@ajfdeps//@ionic-native/keyboard",
-  ],
-)
-
 # Common set-up for all Ajf tests.
 ts_library(
   name = "requirejs_init",

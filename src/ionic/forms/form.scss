@@ -1,139 +1,153 @@
 ajf-form {
-  .ajf-form-container {
-    display: flex;
-    flex-direction: column;
+  display: block;
+  position: relative;
+
+  form {
+    display: block;
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
 
-    ion-toolbar.ajf-hidden {
-      opacity: 0;
-    }
+    .ajf-form-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
 
-    > .ajf-slider-container {
-      flex: 1;
-      position: relative;
+      ion-toolbar {
+        flex: 0 0 auto;
+        height: 56px;
 
-      > ajf-page-slider {
-        height: 100%;
+        &.ajf-hidden {
+          opacity: 0;
+        }
+      }
 
-        ajf-page-slider-item {
-          .ajf-page-slider-item-content {
-            padding: 16px;
+      > .ajf-slider-container {
+        flex: 1 1 auto;
+        position: relative;
+        height: calc(100% - 56px);
 
-            .ajf-form-page {
-              flex: 1;
-              max-height: 100%;
+        > ajf-page-slider {
+          height: 100%;
 
-              > ion-card {
-                flex:1;
-                > ion-card-content {
-                  display: flex;
-                  flex-wrap: wrap;
-                  flex-direction: row;
-                  align-content: flex-start;
-                  position: relative;
+          ajf-page-slider-item {
+            .ajf-page-slider-item-content {
+              padding: 16px;
 
-                  .ajf-group-actions {
-                    position: absolute;
-                    right: 0;
-                    bottom: -30px;
-                    padding: 15px;
-                    z-index: 10;
-                  }
+              .ajf-form-page {
+                flex: 1;
+                max-height: 100%;
 
-                  > .ajf-field-entry {
-                    flex: 1 0 auto;
-                    padding-left: 10px;
-                    padding-right: 10px;
-                    width: 100%;
-                    box-sizing: border-box;
+                > ion-card {
+                  flex:1;
+                  > ion-card-content {
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: row;
+                    align-content: flex-start;
+                    position: relative;
 
-                    &.ajf-normal { width: 100%; }
-                    &.ajf-small { width: 50%; }
-                    &.ajf-smaller { width: 33%; }
-                    &.ajf-tiny { width: 25%; }
-                    &.ajf-mini { width: 20%; }
+                    .ajf-group-actions {
+                      position: absolute;
+                      right: 0;
+                      bottom: -30px;
+                      padding: 15px;
+                      z-index: 10;
+                    }
+
+                    > .ajf-field-entry {
+                      flex: 1 0 auto;
+                      padding-left: 10px;
+                      padding-right: 10px;
+                      width: 100%;
+                      box-sizing: border-box;
+
+                      &.ajf-normal { width: 100%; }
+                      &.ajf-small { width: 50%; }
+                      &.ajf-smaller { width: 33%; }
+                      &.ajf-tiny { width: 25%; }
+                      &.ajf-mini { width: 20%; }
+                    }
                   }
                 }
               }
             }
           }
-        }
 
-        .ajf-page-slider-item-header {
-          display: flex;
-          align-items: center;
-          width: 100%;
-
-          > h2 {
-            flex: 1;
-            > .ajf-form-header-number {
-              margin-right: 0.5em;
-            }
-            > .ajf-title {
-              display: inline-block;
-              margin-right: 40px;
-              white-space: normal;
-              vertical-align: top;
-            }
-          }
-        }
-
-        [ajfPageSliderBar] {
-          .ajf-left-bar {
+          .ajf-page-slider-item-header {
             display: flex;
-            align-items: flex-start;
-            flex-direction: row;
-            position: absolute;
-            bottom: 0;
+            align-items: center;
+            width: 100%;
 
-            .ajf-right-button {
-              float: right;
+            > h2 {
+              flex: 1;
+              > .ajf-form-header-number {
+                margin-right: 0.5em;
+              }
+              > .ajf-title {
+                display: inline-block;
+                margin-right: 40px;
+                white-space: normal;
+                vertical-align: top;
+              }
             }
+          }
 
-            .ajf-button-icon-only ion-icon {
-              padding: 0 0.1em;
-            }
+          [ajfPageSliderBar] {
+            .ajf-left-bar {
+              display: flex;
+              align-items: flex-start;
+              flex-direction: row;
+              position: absolute;
+              bottom: 0;
 
-            ion-buttons.ajf-errors {
-              order: 1;
-              color: red;
-            }
-
-            ion-buttons.ajf-group {
-              order: 3;
-              color: #32db64;
-              padding-left: 100px;
-            }
-
-            .ajf-info-box {
-              height: 40px;
-              padding: 4px;
-
-              > div {
-                height: 16px;
-                line-height: 16px;
-
-                &.ajf-content {
-                  font-weight: bold;
-                }
+              .ajf-right-button {
+                float: right;
               }
 
-              &.ajf-error {
-                order: 2;
+              .ajf-button-icon-only ion-icon {
+                padding: 0 0.1em;
+              }
+
+              ion-buttons.ajf-errors {
+                order: 1;
                 color: red;
+              }
+
+              ion-buttons.ajf-group {
+                order: 3;
+                color: #32db64;
+                padding-left: 100px;
+              }
+
+              .ajf-info-box {
+                height: 40px;
+                padding: 4px;
+
+                > div {
+                  height: 16px;
+                  line-height: 16px;
+
+                  &.ajf-content {
+                    font-weight: bold;
+                  }
+                }
+
+                &.ajf-error {
+                  order: 2;
+                  color: red;
+                }
               }
             }
           }
         }
       }
-    }
 
-    .ajf-spacer {
-      flex: 1 0 auto;
+      .ajf-spacer {
+        flex: 1 0 auto;
+      }
     }
   }
 }

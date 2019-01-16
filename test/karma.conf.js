@@ -30,15 +30,10 @@ module.exports = (config) => {
       {pattern: 'node_modules/@angular/**/*', included: false, watched: false},
       {pattern: 'node_modules/@ionic/angular/**/*', included: false, watched: false},
       {pattern: 'node_modules/@ionic/core/**/*', included: false, watched: false},
-      {pattern: 'node_modules/@ionic-native/**/*', included: false, watched: false},
       {pattern: 'node_modules/@ngx-translate/**/*', included: false, watched: false},
       {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},
       {pattern: 'node_modules/systemjs-plugin-babel/**/*.js', included: false, watched: false},
       {pattern: 'node_modules/systemjs-plugin-text/text.js', included: false, watched: false},
-
-      {pattern: 'node_modules/crypto-js/crypto-js.js', included: true, watched: false},
-      {pattern: 'node_modules/crypto-js/index.js', included: true, watched: false},
-      {pattern: 'node_modules/crypto-js/*.js', included: false, watched: false},
 
       {pattern: 'node_modules/date-fns/**/*.js', included: false, watched: false},
       {pattern: 'node_modules/debug/src/*.js', included: false, watched: false},

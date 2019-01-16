@@ -29,7 +29,6 @@ import {RouterModule} from '@angular/router';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {IonicModule} from '@ionic/angular';
-import {Keyboard} from '@ionic-native/keyboard/ngx';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -86,9 +85,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     ExamplesPage,
   ],
   bootstrap: [DevAppComponent],
-  providers: [
-    Keyboard,
-  ]
 })
 export class DevAppModule {
   constructor(injector: Injector) {
