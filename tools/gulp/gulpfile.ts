@@ -13,6 +13,7 @@ createPackageBuildTasks(matExamplesPackage, ['build-mat-examples-module']);
 createPackageBuildTasks(ionicPackage);
 createPackageBuildTasks(ionExamplesPackage, ['build-ion-examples-module']);
 
+import './tasks/ajf-release';
 import './tasks/all-packages';
 import './tasks/aot-ion';
 import './tasks/aot-mat';
@@ -28,7 +29,7 @@ import './tasks/e2e-mat';
 import './tasks/example-module-mat';
 import './tasks/example-module-ion';
 import './tasks/lint';
-import './tasks/ajf-release';
+import './tasks/monaco';
 import './tasks/unit-test';
 import './tasks/universal-ion';
 import './tasks/universal-mat';
