@@ -37,7 +37,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   pages: QueryList<AjfPageSliderItem>;
 
   private _pageScrollFinish: EventEmitter<void> = new EventEmitter<void>();
-  pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
+  readonly pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
 
   duration = 300;
 
@@ -58,7 +58,6 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   private _animating = false;
   private _pagesSub: Subscription = Subscription.EMPTY;
-  private _pagesScrollSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private _animationBuilder: AnimationBuilder,
@@ -124,20 +123,6 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   private _onSlidesChange(): void {
     this._updateHeight();
-    this._addSlidesScrollListeners();
-  }
-
-  private _addSlidesScrollListeners(): void {
-    this._pagesScrollSub.unsubscribe();
-    let newSub: Subscription = Subscription.EMPTY;
-    this.pages.forEach((s, i) => {
-      if (i === 0) {
-        newSub = s.pageScroll.subscribe(dir => this.slide({dir}));
-      } else {
-        newSub.add(s.pageScroll.subscribe(dir => this.slide({dir})));
-      }
-    });
-    this._pagesScrollSub = newSub;
   }
 
   private _updateHeight(): void {

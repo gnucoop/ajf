@@ -22,9 +22,12 @@
 
 import {AnimationBuilder} from '@angular/animations';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  ContentChildren, Renderer2, ViewChild, ViewEncapsulation
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren,
+  ElementRef, EventEmitter, NgZone, OnDestroy, Renderer2, ViewChild, ViewEncapsulation
 } from '@angular/core';
+
+import {Subscription} from 'rxjs';
+import {filter, throttleTime} from 'rxjs/operators';
 
 import {AjfPageSlider as AjfCorePageSlider, AjfPageSliderItem} from '@ajf/core/page-slider';
 
@@ -39,11 +42,89 @@ import {AjfPageSlider as AjfCorePageSlider, AjfPageSliderItem} from '@ajf/core/p
   outputs: ['pageScrollFinish'],
   queries: {
     pages: new ContentChildren(AjfPageSliderItem),
-    body: new ViewChild('body')
+    body: new ViewChild('body'),
+    content: new ViewChild('content')
   },
 })
-export class AjfPageSlider extends AjfCorePageSlider {
-  constructor(animationBuilder: AnimationBuilder, cdr: ChangeDetectorRef, renderer: Renderer2) {
+export class AjfPageSlider extends AjfCorePageSlider implements AfterViewInit, OnDestroy {
+  content: ElementRef;
+
+  private _hammerManager: any;
+  private _panRecognizer: any;
+  private _panEvt: EventEmitter<any> = new EventEmitter<any>();
+  private _panSub: Subscription = Subscription.EMPTY;
+
+  constructor(
+    animationBuilder: AnimationBuilder,
+    cdr: ChangeDetectorRef,
+    renderer: Renderer2,
+    private _zone: NgZone,
+  ) {
     super(animationBuilder, cdr, renderer);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.content == null) { return; }
+    const hammerLib = this._checkHasHammer();
+    if (hammerLib != null) {
+      this._hammerManager = this._zone.run(_ => {
+        const el = this.content.nativeElement;
+        const manager = new hammerLib.Manager(el, {
+          touchAction: 'pan',
+        });
+
+        this._panRecognizer = new hammerLib.Pan({direction: hammerLib.DIRECTION_VERTICAL});
+        manager.add(this._panRecognizer);
+
+        manager.on('pan', (evt: any) => this._onPan(evt));
+
+        return manager;
+      });
+
+      this._panSub = this._panEvt.pipe(
+        filter(evt => {
+          if (evt.isFinal && evt.velocityY != null) {
+            const absVelocity = Math.abs(evt.velocityY);
+            if (absVelocity > 0.25) {
+              return true;
+            }
+          }
+          return false;
+        }),
+        throttleTime(500),
+      ).subscribe(evt => {
+        const dir = evt.velocityY < 0 ? 'down' : 'up';
+        this._panRecognizer.reset();
+        this.slide({dir});
+        evt.preventDefault();
+        if (evt.srcEvent && evt.srcEvent.stopPropagation) {
+          evt.srcEvent.stopPropagation();
+        }
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    if (this._hammerManager) { this._hammerManager.destroy(); }
+    this._panEvt.complete();
+    this._panSub.unsubscribe();
+  }
+
+  private _onPan(evt: any): void {
+    this._panEvt.emit(evt);
+  }
+
+  private _checkHasHammer(): any {
+    const hammer = typeof window !== 'undefined' ? (window as any).Hammer : null;
+    if (hammer == null) { this._printHammerError(); }
+    return hammer;
+  }
+
+  private _printHammerError(): any {
+    const winConsole = typeof window !== 'undefined' ? (window as any).console : null;
+    if (winConsole != null) {
+      winConsole.warn('HammerJS not included, Plage Slider won\'t work as expected!');
+    }
   }
 }
