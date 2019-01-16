@@ -54,16 +54,19 @@ task('ajf:build-release-material', ['ajf:prepare-release-material'], () => {
  * - Bundling theming scss into a single theming file
  */
 task('ajf:prepare-release', sequenceTask(
+  ['clean'],
   ['core:build-no-deps'],
   ['ionic:build-no-deps'],
   ['material:build-no-deps'],
   // ['material:copy-prebuilt-themes', 'material:bundle-theming-scss'],
 ));
 task('ajf:prepare-release-ionic', sequenceTask(
+  ['clean'],
   ['core:build-no-deps'],
   ['ionic:build-no-deps'],
 ));
 task('ajf:prepare-release-material', sequenceTask(
+  ['clean'],
   ['core:build-no-deps'],
   ['material:build-no-deps'],
 ));
