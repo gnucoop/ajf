@@ -58,7 +58,7 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterViewInit, O
     animationBuilder: AnimationBuilder,
     cdr: ChangeDetectorRef,
     renderer: Renderer2,
-    private _zone: NgZone,
+    private _zone: NgZone
   ) {
     super(animationBuilder, cdr, renderer);
   }

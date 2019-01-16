@@ -72,7 +72,7 @@ import {AjfFormField} from './field';
 export class AjfFormRenderer extends AjfCoreFormRenderer {
   constructor(
     rendererService: AjfFormRendererService,
-    cdr: ChangeDetectorRef,
+    cdr: ChangeDetectorRef
   ) {
     super(rendererService, cdr);
   }
