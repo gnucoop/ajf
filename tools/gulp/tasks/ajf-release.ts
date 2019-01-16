@@ -39,6 +39,14 @@ task('ajf:build-release', ['ajf:prepare-release'], () => {
   composeRelease(ionicPackage);
   composeRelease(materialPackage);
 });
+task('ajf:build-release-ionic', ['ajf:prepare-release-ionic'], () => {
+  composeRelease(corePackage);
+  composeRelease(ionicPackage);
+});
+task('ajf:build-release-material', ['ajf:prepare-release-material'], () => {
+  composeRelease(corePackage);
+  composeRelease(materialPackage);
+});
 
 /**
  * Task that will build the material package. Special treatment for this package includes:
@@ -50,6 +58,14 @@ task('ajf:prepare-release', sequenceTask(
   ['ionic:build-no-deps'],
   ['material:build-no-deps'],
   // ['material:copy-prebuilt-themes', 'material:bundle-theming-scss'],
+));
+task('ajf:prepare-release-ionic', sequenceTask(
+  ['core:build-no-deps'],
+  ['ionic:build-no-deps'],
+));
+task('ajf:prepare-release-material', sequenceTask(
+  ['core:build-no-deps'],
+  ['material:build-no-deps'],
 ));
 
 /** Copies all prebuilt themes into the release package under `prebuilt-themes/` */
