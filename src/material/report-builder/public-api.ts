@@ -20,6 +20,8 @@
  *
  */
 
+export {AjfReportsConfig} from './models';
 export * from './report-builder-module';
 export * from './report-builder-service';
 export * from './report-builder';
+export * from './tokens';
