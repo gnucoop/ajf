@@ -8,7 +8,7 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "flatModuleOutFile": "index.js",
-    "flatModuleId": "@ajf/core/time",
+    "flatModuleId": "@ajf/material/time",
     "skipTemplateCodegen": true,
     "fullTemplateTypeCheck": true
   }
