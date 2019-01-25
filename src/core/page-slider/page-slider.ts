@@ -32,6 +32,8 @@ import {coerceBooleanProperty} from '@ajf/core/utils';
 import {AjfPageSliderItem} from './page-slider-item';
 import {AjfPageSliderSlideOptions} from './page-slider-slide-options';
 
+export type AjfPageSliderOrientation = 'horizontal' | 'vertical';
+
 export class AjfPageSlider implements AfterContentInit, OnDestroy {
   body: ElementRef;
   pages: QueryList<AjfPageSliderItem>;
@@ -40,6 +42,18 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   readonly pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
 
   duration = 300;
+
+  private _orientation: AjfPageSliderOrientation = 'horizontal';
+  get orientation(): AjfPageSliderOrientation { return this._orientation; }
+  set orientation(orientation: AjfPageSliderOrientation) {
+    if (this._orientation !== orientation) {
+      this._orientation = orientation;
+      this._cdr.markForCheck();
+      this._updateSize();
+      this._restoreCurrentPage();
+      this._restoreGestures();
+    }
+  }
 
   private _currentPage = -1;
   get currentPage(): number { return this._currentPage; }
@@ -57,6 +71,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   private _animating = false;
+  protected get animating(): boolean { return this._animating; }
   private _pagesSub: Subscription = Subscription.EMPTY;
 
   constructor(
@@ -77,22 +92,24 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   slide(opts: AjfPageSliderSlideOptions): void {
     if (this.pages == null) { return; }
     if (opts.dir) {
-      if (opts.dir === 'up') {
-        this._slideUp();
-      } else {
-        this._slideDown();
+      if (opts.dir === 'back' || opts.dir === 'up' || opts.dir === 'left') {
+        this._slideBack();
+      } else if (opts.dir === 'forward' || opts.dir === 'down' || opts.dir === 'right') {
+        this._slideForward();
       }
     } else if (opts.to) {
       this._slideTo(opts.to);
     }
   }
 
-  private _slideUp(): void {
+  protected _restoreGestures(): void { }
+
+  private _slideBack(): void {
     if (this._currentPage <= 0) { return; }
     this.currentPage = this._currentPage - 1;
   }
 
-  private _slideDown(): void {
+  private _slideForward(): void {
     if (this._currentPage >= this.pages.length) { return; }
     this.currentPage = this._currentPage + 1;
   }
@@ -106,11 +123,9 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   private _doSlide(): void {
     if (this.body == null || this.pages == null || this._animating) { return; }
     this._animating = true;
-    const slideSize = 100 / this.pages.length;
-    const position = this._currentPage === -1 ? 0 : this._currentPage * slideSize;
     const animation = this._animationBuilder.build(animate(
       this.duration,
-      style({transform: `translateY(-${position}%)`})
+      style({transform: this._getCurrentTranslation()})
     ));
 
     const player = animation.create(this.body.nativeElement);
@@ -121,13 +136,29 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     player.play();
   }
 
-  private _onSlidesChange(): void {
-    this._updateHeight();
+  private _getCurrentTranslation(): string {
+    const slideSize = 100 / this.pages.length;
+    const position = this._currentPage === -1 ? 0 : this._currentPage * slideSize;
+    const translation = this._orientation === 'vertical' ? 'Y' : 'X';
+    return `translate${translation}(-${position}%)`;
   }
 
-  private _updateHeight(): void {
+  private _getProps(): {prop: string, removeProp: string} {
+    if (this._orientation === 'vertical') {
+      return {prop: 'height', removeProp: 'width'};
+    }
+    return {prop: 'width', removeProp: 'height'};
+  }
+
+  private _onSlidesChange(): void {
+    this._updateSize();
+  }
+
+  private _updateSize(): void {
     if (this.body == null || this.pages == null) { return; }
-    this._renderer.setStyle(this.body.nativeElement, 'height', `${this.pages.length * 100}%`);
+    const {prop, removeProp} = this._getProps();
+    this._renderer.setStyle(this.body.nativeElement, prop, `${this.pages.length * 100}%`);
+    this._renderer.setStyle(this.body.nativeElement, removeProp, null);
     if (this.pages.length === 0) {
       this.currentPage = -1;
     } else if (this._currentPage === -1) {
@@ -137,5 +168,10 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     } else {
       this.currentPage = this._currentPage;
     }
+  }
+
+  private _restoreCurrentPage(): void {
+    if (this.body == null || this.pages == null) { return; }
+    this._renderer.setStyle(this.body.nativeElement, 'transform', this._getCurrentTranslation());
   }
 }

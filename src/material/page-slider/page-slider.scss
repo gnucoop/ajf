@@ -10,8 +10,17 @@ ajf-page-slider {
 
     > .ajf-page-slider-body {
       display: flex;
-      flex-direction: column;
       align-items: stretch;
+
+      &.vertical {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      &.horizontal {
+        flex-direction: row;
+        height: 100%;
+      }
 
       > ajf-page-slider-item {
         flex: 1 0 auto;

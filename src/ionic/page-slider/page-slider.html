@@ -1,5 +1,5 @@
 <div #content class="ajf-page-slider-content">
-  <div #body class="ajf-page-slider-body">
+  <div #body [ngClass]="orientation" class="ajf-page-slider-body">
     <ng-content></ng-content>
   </div>
 </div>
@@ -7,10 +7,12 @@
   <ng-content select="[ajfPageSliderBar]"></ng-content>
   <ion-buttons slot="end">
     <ion-button (click)="slide({dir: 'up'})" fill="solid" color="secondary">
-      <ion-icon name="arrow-up"></ion-icon>
+      <ion-icon *ngIf="orientation == 'horizontal'" name="arrow-back"></ion-icon>
+      <ion-icon *ngIf="orientation == 'vertical'" name="arrow-up"></ion-icon>
     </ion-button>
     <ion-button (click)="slide({dir: 'down'})" fill="solid" color="secondary">
-      <ion-icon name="arrow-down"></ion-icon>
+      <ion-icon *ngIf="orientation == 'horizontal'" name="arrow-forward"></ion-icon>
+      <ion-icon *ngIf="orientation == 'vertical'" name="arrow-down"></ion-icon>
     </ion-button>
   </ion-buttons>
 </ion-toolbar>

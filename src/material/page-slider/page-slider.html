@@ -1,5 +1,5 @@
 <div class="ajf-page-slider-content">
-  <div #body class="ajf-page-slider-body">
+  <div #body [ngClass]="orientation" class="ajf-page-slider-body">
     <ng-content></ng-content>
   </div>
 </div>
@@ -8,10 +8,12 @@
   <div class="ajf-spacer"></div>
   <div>
     <button mat-button (click)="slide({dir: 'up'})" secondary>
-      <mat-icon>arrow_upward</mat-icon>
+      <mat-icon *ngIf="orientation == 'horizontal'">arrow_backward</mat-icon>
+      <mat-icon *ngIf="orientation == 'vertical'">arrow_upward</mat-icon>
     </button>
     <button mat-button (click)="slide({dir: 'down'})" secondary>
-      <mat-icon>arrow_downward</mat-icon>
+      <mat-icon *ngIf="orientation == 'horizontal'">arrow_forward</mat-icon>
+      <mat-icon *ngIf="orientation == 'vertical'">arrow_downward</mat-icon>
     </button>
   </div>
 </mat-toolbar>
