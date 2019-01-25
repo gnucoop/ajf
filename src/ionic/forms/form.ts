@@ -53,7 +53,9 @@ import {AjfFormField} from './field';
     'title',
     'showTopToolbar',
     'showBottomToolbar',
-    'showNavigationButtons'
+    'showNavigationButtons',
+    'orientation',
+    'fixedOrientation',
   ],
   outputs: [
     'formSave',

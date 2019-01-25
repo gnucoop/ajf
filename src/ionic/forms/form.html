@@ -18,7 +18,10 @@
           </ion-buttons>
       </ion-toolbar>
       <div class="ajf-slider-container">
-        <ajf-page-slider [hideNavigationButtons]="hideNavigationButtons" #formSlider>
+        <ajf-page-slider [hideNavigationButtons]="hideNavigationButtons"
+            [fixedOrientation]="fixedOrientation"
+            [orientation]="orientation"
+            #formSlider>
           <ng-container *ngIf="(slides|async) as curSlides">
             <ng-container *ngIf="curSlides.length > 0 && hasStartMessage">
               <ajf-page-slider-item>
@@ -139,12 +142,10 @@
             <div class="ajf-left-bar">
               <ion-buttons class="ajf-errors" *ngIf="((errors | async) || 0) > 0">
                 <ion-button (click)="goToPrevError()" color="danger">
-                  <ion-icon
-                      name="arrow-up"></ion-icon>
+                  <ion-icon name="arrow-up"></ion-icon>
                 </ion-button>
                 <ion-button (click)="goToNextError()" color="danger">
-                  <ion-icon
-                      name="arrow-down"></ion-icon>
+                  <ion-icon name="arrow-down"></ion-icon>
                 </ion-button>
               </ion-buttons>
               <div class="ajf-info-box ajf-error">

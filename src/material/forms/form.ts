@@ -48,7 +48,9 @@ import {AjfFormField} from './field';
     'title',
     'hideTopToolbar',
     'hideBottomToolbar',
-    'hideNavigationButtons'
+    'hideNavigationButtons',
+    'orientation',
+    'fixedOrientation',
   ],
   outputs: [
     'formSave',

@@ -25,7 +25,7 @@ import {
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
 
-import {AjfPageSlider} from '@ajf/core/page-slider';
+import {AjfPageSlider, AjfPageSliderOrientation} from '@ajf/core/page-slider';
 import {coerceBooleanProperty} from '@ajf/core/utils';
 
 import {Observable, Subscription} from 'rxjs';
@@ -82,30 +82,52 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   get hasStartMessage(): boolean { return this._hasStartMessage; }
   set hasStartMessage(hasStartMessage: boolean) {
     this._hasStartMessage = coerceBooleanProperty(hasStartMessage);
+    this._changeDetectorRef.markForCheck();
   }
 
   private _hasEndMessage = false;
   get hasEndMessage(): boolean { return this._hasEndMessage; }
   set hasEndMessage(hasEndMessage: boolean) {
     this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
+    this._changeDetectorRef.markForCheck();
   }
 
   private _hideTopToolbar = false;
   get hideTopToolbar(): boolean { return this._hideTopToolbar; }
   set hideTopToolbar(hideTopToolbar: boolean) {
     this._hideTopToolbar = coerceBooleanProperty(hideTopToolbar);
+    this._changeDetectorRef.markForCheck();
   }
 
   private _hideBottomToolbar = false;
   get hideBottompToolbar(): boolean { return this._hideBottomToolbar; }
   set hideBottomToolbar(hideBottomToolbar: boolean) {
     this._hideBottomToolbar = coerceBooleanProperty(hideBottomToolbar);
+    this._changeDetectorRef.markForCheck();
   }
 
   private _hideNavigationButtons = false;
   get hideNavigationButtons(): boolean { return this._hideNavigationButtons; }
   set hideNavigationButtons(hideNavigationButtons: boolean) {
     this._hideNavigationButtons = coerceBooleanProperty(hideNavigationButtons);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  private _fixedOrientation = false;
+  get fixedOrientation(): boolean { return this._fixedOrientation; }
+  set fixedOrientation(fixedOrientation: boolean) {
+    this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  private _orientation: AjfPageSliderOrientation = 'horizontal';
+  get orientation(): AjfPageSliderOrientation { return this._orientation; }
+  set orientation(orientation: AjfPageSliderOrientation) {
+    if (orientation !== 'horizontal' && orientation !== 'vertical') { return; }
+    if (orientation !== this._orientation) {
+      this._orientation = orientation;
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   formSlider: AjfPageSlider;

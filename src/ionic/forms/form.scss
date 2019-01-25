@@ -103,23 +103,9 @@ ajf-form {
               position: absolute;
               bottom: 0;
 
-              .ajf-right-button {
-                float: right;
-              }
-
-              .ajf-button-icon-only ion-icon {
-                padding: 0 0.1em;
-              }
-
               ion-buttons.ajf-errors {
                 order: 1;
                 color: red;
-              }
-
-              ion-buttons.ajf-group {
-                order: 3;
-                color: #32db64;
-                padding-left: 100px;
               }
 
               .ajf-info-box {
