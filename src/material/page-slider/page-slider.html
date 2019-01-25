@@ -11,6 +11,9 @@
   <ng-content select=[ajfPageSliderBar]></ng-content>
   <div class="ajf-spacer"></div>
   <div>
+    <button mat-button *ngIf="!fixedOrientation" (click)="switchOrientation()">
+      <mat-icon>{{ orientation == 'vertical' ? 'swap_horiz' : 'swap_vert' }}</mat-icon>
+    </button>
     <button mat-button (click)="slide({dir: 'up'})" secondary>
       <mat-icon *ngIf="orientation == 'horizontal'">arrow_backward</mat-icon>
       <mat-icon *ngIf="orientation == 'vertical'">arrow_upward</mat-icon>

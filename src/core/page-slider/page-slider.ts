@@ -73,6 +73,13 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     }
   }
 
+  private _fixedOrientation = false;
+  get fixedOrientation(): boolean { return this._fixedOrientation; }
+  set fixedOrientation(fixedOrientation: boolean) {
+    this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+    this._cdr.markForCheck();
+  }
+
   private _currentPage = -1;
   get currentPage(): number { return this._currentPage; }
   set currentPage(currentPage: number) {
@@ -136,6 +143,14 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     this._pagesSub.unsubscribe();
     this._mouseWheelEvt.complete();
     this._mouseWheelSub.unsubscribe();
+  }
+
+  switchOrientation(): void {
+    if (this._orientation === 'horizontal') {
+      this.orientation = 'vertical';
+    } else {
+      this.orientation = 'horizontal';
+    }
   }
 
   slide(opts: AjfPageSliderSlideOptions): void {
