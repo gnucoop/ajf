@@ -1,7 +1,11 @@
 <div class="demo-page-slider">
   <h4 class="demo-section-header">Page Slider</h4>
   <section class="demo-page-slider-container">
-    <ajf-page-slider>
+    <mat-radio-group [(ngModel)]="orientation">
+      <mat-radio-button value="horizontal">Horizontal</mat-radio-button>
+      <mat-radio-button value="vertical">Vertical</mat-radio-button>
+    </mat-radio-group>
+    <ajf-page-slider [orientation]="orientation">
       <ajf-page-slider-item>
         Slide 1
       </ajf-page-slider-item>

@@ -1,7 +1,13 @@
 <div class="demo-page-slider">
   <h4 class="demo-section-header">Page Slider</h4>
   <section class="demo-page-slider-container">
-    <ajf-page-slider>
+    <ion-radio-group [(ngModel)]="orientation">
+      <ion-radio value="horizontal"></ion-radio>
+      <ion-label>Horizontal</ion-label>
+      <ion-radio value="vertical"></ion-radio>
+      <ion-label>Vertical</ion-label>
+    </ion-radio-group>
+    <ajf-page-slider [orientation]="orientation">
       <ajf-page-slider-item>
         Slide 1
       </ajf-page-slider-item>

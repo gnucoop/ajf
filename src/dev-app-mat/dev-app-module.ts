@@ -28,6 +28,7 @@ import {FormsModule} from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
+import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {BrowserModule} from '@angular/platform-browser';
@@ -61,7 +62,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -72,6 +72,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     MatGridListModule,
     MatIconModule,
     MatListModule,
+    MatRadioModule,
     MatSidenavModule,
     MatToolbarModule,
     RouterModule.forRoot(DEV_APP_ROUTES),

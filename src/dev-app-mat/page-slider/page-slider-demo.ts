@@ -22,7 +22,7 @@
 
 import {Component} from '@angular/core';
 
-import {Observable, timer} from 'rxjs';
+import {AjfPageSliderOrientation} from '@ajf/core/page-slider';
 
 @Component({
   moduleId: module.id,
@@ -30,4 +30,6 @@ import {Observable, timer} from 'rxjs';
   templateUrl: 'page-slider-demo.html',
   styleUrls: ['page-slider-demo.css'],
 })
-export class PageSliderDemo { }
+export class PageSliderDemo {
+  orientation: AjfPageSliderOrientation = 'horizontal';
+}

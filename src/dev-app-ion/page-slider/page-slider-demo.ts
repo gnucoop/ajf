@@ -22,6 +22,8 @@
 
 import {Component} from '@angular/core';
 
+import {AjfPageSliderOrientation} from '@ajf/core/page-slider';
+
 @Component({
   moduleId: module.id,
   selector: 'page-slider-demo',
@@ -29,4 +31,5 @@ import {Component} from '@angular/core';
   styleUrls: ['page-slider-demo.css'],
 })
 export class PageSliderDemo {
+  orientation: AjfPageSliderOrientation = 'vertical';
 }
