@@ -15,6 +15,7 @@ ajf-field {
 
     > ion-radio-group {
       display: flex;
+      flex-wrap: wrap;
 
       ion-item {
         --ion-item-border-color: transparent;
