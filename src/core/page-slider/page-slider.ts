@@ -26,6 +26,7 @@ import {
 } from '@angular/core';
 
 import {Observable, Subscription} from 'rxjs';
+import {filter, map, scan, throttleTime} from 'rxjs/operators';
 
 import {coerceBooleanProperty} from '@ajf/core/utils';
 
@@ -33,6 +34,24 @@ import {AjfPageSliderItem} from './page-slider-item';
 import {AjfPageSliderSlideOptions} from './page-slider-slide-options';
 
 export type AjfPageSliderOrientation = 'horizontal' | 'vertical';
+
+interface Point {
+  x: number;
+  y: number;
+  time: number;
+}
+
+interface Movement {
+  velocityX: number;
+  velocityY: number;
+  deltaX: number;
+  deltaY: number;
+}
+
+interface MousheWheelMove {
+  dir: 'x' | 'y';
+  amount: number;
+}
 
 export class AjfPageSlider implements AfterContentInit, OnDestroy {
   body: ElementRef;
@@ -51,7 +70,6 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
       this._cdr.markForCheck();
       this._updateSize();
       this._restoreCurrentPage();
-      this._restoreGestures();
     }
   }
 
@@ -71,14 +89,43 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   private _animating = false;
-  protected get animating(): boolean { return this._animating; }
   private _pagesSub: Subscription = Subscription.EMPTY;
+
+  private _currentOrigin: Point | null;
+  private _mouseWheelEvt: EventEmitter<MousheWheelMove> = new EventEmitter<MousheWheelMove>();
+  private _mouseWheelSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private _animationBuilder: AnimationBuilder,
     private _cdr: ChangeDetectorRef,
     private _renderer: Renderer2
-  ) { }
+  ) {
+    this._mouseWheelSub = this._mouseWheelEvt.pipe(
+      map(evt => {
+        const page = this._getCurrentPage();
+        if (page == null) { return null; }
+        return {evt, res: page.setScroll(evt.dir, evt.amount, 0)};
+      }),
+      filter(r => r != null
+        && r.res === false
+        && (
+          (r.evt.dir === 'x' && this.orientation === 'horizontal')
+          || (r.evt.dir === 'y' && this.orientation === 'vertical')
+        )
+      ),
+      map(r => r!.evt.amount),
+      scan((acc, val) => {
+        if (acc === 0) { return val; }
+        if (acc / Math.abs(acc) !== val / Math.abs(val)) {return 0; }
+        return acc + val;
+      }, 0),
+      filter(val => !this._animating && Math.abs(val) > 150),
+      throttleTime(1500),
+    ).subscribe(val => {
+      this._mouseWheelEvt.emit({dir: 'x', amount: val > 0 ? -1 : + 1});
+      this.slide({dir: val > 0 ? 'back' : 'forward'});
+    });
+  }
 
   ngAfterContentInit(): void {
     this._onSlidesChange();
@@ -87,6 +134,8 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._pagesSub.unsubscribe();
+    this._mouseWheelEvt.complete();
+    this._mouseWheelSub.unsubscribe();
   }
 
   slide(opts: AjfPageSliderSlideOptions): void {
@@ -102,7 +151,95 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     }
   }
 
-  protected _restoreGestures(): void { }
+  onMouseWheel(evt: WheelEvent): void {
+    const absDeltaX = Math.abs(evt.deltaX);
+    const absDeltaY = Math.abs(evt.deltaY);
+    if (absDeltaX === 0 && absDeltaY === 0) { return; }
+    if (absDeltaX > absDeltaY) {
+      this._mouseWheelEvt.emit({dir: 'x', amount: -evt.deltaX});
+    } else {
+      this._mouseWheelEvt.emit({dir: 'y', amount: -evt.deltaY});
+    }
+  }
+
+  onTouchStart(evt: TouchEvent): void {
+    if (evt.touches == null || evt.touches.length === 0 || this._animating) { return; }
+    this._currentOrigin = {
+      x: evt.touches[0].clientX,
+      y: evt.touches[0].clientY,
+      time: + new Date()
+    };
+  }
+
+  onTouchMove(evt: TouchEvent): void {
+    if (
+      evt.touches == null || evt.touches.length === 0
+      || this._currentOrigin == null || this._animating
+    ) { return; }
+    const point: Point = {
+      x: evt.touches[0].clientX,
+      y: evt.touches[0].clientY,
+      time: + new Date()
+    };
+    const movement = this._calculateMovement(point);
+    this._currentOrigin = point;
+
+    if (movement.velocityX === 0 && movement.velocityY === 0) { return; }
+    const absVelocityX = Math.abs(movement.velocityX);
+    const absVelocityY = Math.abs(movement.velocityY);
+    if (absVelocityX > absVelocityY) {
+      if (
+        this.orientation === 'horizontal' && absVelocityX > 1.5 && Math.abs(movement.deltaX) > 50
+      ) {
+        this._resetCurrentOrigin();
+        this.slide({dir: movement.velocityX < 0 ? 'forward' : 'back'});
+      } else {
+        const page = this._getCurrentPage();
+        if (page != null) {
+          page.setScroll('x', movement.deltaX, movement.velocityX);
+        }
+      }
+    } else {
+      if (
+        this.orientation === 'vertical' && absVelocityY > 1.5 && Math.abs(movement.deltaY) > 50
+      ) {
+        this._resetCurrentOrigin();
+        this.slide({dir: movement.velocityY < 0 ? 'forward' : 'back'});
+      } else {
+        const page = this._getCurrentPage();
+        if (page != null) {
+          page.setScroll('y', movement.deltaY, movement.velocityY);
+        }
+      }
+    }
+  }
+
+  onTouchEnd(): void {
+    this._resetCurrentOrigin();
+  }
+
+  private _resetCurrentOrigin(): void {
+    this._currentOrigin = null;
+  }
+
+  private _getCurrentPage(): AjfPageSliderItem | null {
+    if (this.pages == null || this.currentPage < 0 || this.currentPage >= this.pages.length) {
+      return null;
+    }
+    return this.pages.toArray()[this.currentPage];
+  }
+
+  private _calculateMovement(point: Point): Movement {
+    const deltaX = point.x - this._currentOrigin!.x;
+    const deltaY = point.y - this._currentOrigin!.y;
+    const deltaTime = point.time - this._currentOrigin!.time;
+    return {
+      velocityX: deltaX / deltaTime,
+      deltaX,
+      velocityY: deltaY / deltaTime,
+      deltaY,
+    };
+  }
 
   private _slideBack(): void {
     if (this._currentPage <= 0) { return; }

@@ -1,5 +1,8 @@
 <div #content class="ajf-page-slider-content">
-  <div #body [ngClass]="orientation" class="ajf-page-slider-body">
+  <div #body [ngClass]="orientation"
+      (touchstart)="onTouchStart($event)"
+      (touchmove)="onTouchMove($event)"
+      (touchend)="onTouchEnd()" class="ajf-page-slider-body">
     <ng-content></ng-content>
   </div>
 </div>

@@ -20,8 +20,4 @@
  *
  */
 
-export * from './page-slider-item';
-export * from './page-slider-item-scroll-direction';
-export * from './page-slider-slide-options';
-export * from './page-slider';
-export * from './page-slider-module';
+export type AjfPageSliderItemScrollDirection = 'x' | 'y';

@@ -20,7 +20,12 @@
  *
  */
 
-import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
+import {AnimationBuilder, AnimationPlayer} from '@angular/animations';
+import {
+  ChangeDetectionStrategy, Component, ElementRef, Renderer2, ViewChild, ViewEncapsulation
+} from '@angular/core';
+
+import {AjfPageSliderItemScrollDirection} from './page-slider-item-scroll-direction';
 
 @Component({
   moduleId: module.id,
@@ -30,4 +35,70 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfPageSliderItem { }
+export class AjfPageSliderItem {
+  @ViewChild('wrapper') wrapper: ElementRef;
+
+  private _scrollX = 0;
+  private _scrollY = 0;
+  private _player: AnimationPlayer | null;
+
+  constructor(
+    private _el: ElementRef,
+    private _animationBuilder: AnimationBuilder,
+    private _renderer: Renderer2,
+  ) { }
+
+  setScroll(dir: AjfPageSliderItemScrollDirection,  amount: number, _velocity: number): boolean {
+    if (this._el == null || this.wrapper == null || amount === 0) { return false; }
+    const el = this._el.nativeElement;
+    const wrapper = this.wrapper.nativeElement;
+    let containerSize, wrapperSize, currentScroll;
+    if (dir === 'x') {
+      containerSize = el.clientWidth;
+      wrapperSize = wrapper.clientWidth;
+      currentScroll = this._scrollX;
+    } else {
+      containerSize = el.clientHeight;
+      wrapperSize = wrapper.clientHeight;
+      currentScroll = this._scrollY;
+    }
+    const maxScroll = containerSize - wrapperSize;
+    if (
+      wrapperSize <= containerSize
+      || (currentScroll === maxScroll && amount < 0)
+      || (currentScroll === 0 && amount > 0)
+    ) { return false; }
+    if (amount < 0) {
+      if (dir === 'x') {
+        this._scrollX = Math.max(maxScroll, this._scrollX + amount);
+      } else {
+        this._scrollY = Math.max(maxScroll, this._scrollY + amount);
+      }
+    } else {
+      if (dir === 'x') {
+        this._scrollX = Math.min(0, this._scrollX + amount);
+      } else {
+        this._scrollY = Math.min(0, this._scrollY + amount);
+      }
+    }
+    this._renderer.setStyle(
+      wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
+    );
+    return true;
+    // this._animateScroll(duration);
+  }
+
+  // private _animateScroll(duration: number): void {
+  //   const animation = this._animationBuilder.build(animate(
+  //     duration,
+  //     style({transform: `translate(${this._scrollX}px, ${this._scrollY}px)`})
+  //   ));
+  //   this._player = animation.create(this.wrapper.nativeElement);
+  //   this._player.onDone(() => {
+  //     if (this._player == null) { return null; }
+  //     this._player.destroy();
+  //     this._player = null;
+  //   });
+  //   this._player.play();
+  // }
+}

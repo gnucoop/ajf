@@ -11,9 +11,18 @@ ajf-page-slider-item {
     padding: 0;
     margin: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden;
     box-sizing: border-box;
+
+    .ajf-page-slider-item-content-wrapper {
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 100%;
+      min-height: 100%;
+    }
   }
 }
