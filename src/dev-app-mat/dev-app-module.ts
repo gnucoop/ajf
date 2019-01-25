@@ -28,8 +28,8 @@ import {FormsModule} from '@angular/forms';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
-import {MatRadioModule} from '@angular/material/radio';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
@@ -72,8 +72,8 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     MatGridListModule,
     MatIconModule,
     MatListModule,
-    MatRadioModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     MatToolbarModule,
     RouterModule.forRoot(DEV_APP_ROUTES),
     TranslateModule.forRoot({

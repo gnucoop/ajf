@@ -1,40 +1,13 @@
 <div class="demo-page-slider">
   <h4 class="demo-section-header">Page Slider</h4>
   <section class="demo-page-slider-container">
-    <mat-radio-group [(ngModel)]="orientation">
-      <mat-radio-button value="horizontal">Horizontal</mat-radio-button>
-      <mat-radio-button value="vertical">Vertical</mat-radio-button>
-    </mat-radio-group>
-    <ajf-page-slider [orientation]="orientation">
-      <ajf-page-slider-item>
-        <div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-          <div>Slide 1</div>
-        </div>
-      </ajf-page-slider-item>
-      <ajf-page-slider-item>
-        Slide 2
-      </ajf-page-slider-item>
-      <ajf-page-slider-item>
-        Slide 3
-      </ajf-page-slider-item>
+    <mat-slide-toggle [(ngModel)]="fixedOrientation">
+      Fixed orientation
+    </mat-slide-toggle>
+    <ajf-page-slider [fixedOrientation]="fixedOrientation">
+      <ajf-page-slider-item>Slide 1</ajf-page-slider-item>
+      <ajf-page-slider-item>Slide 2</ajf-page-slider-item>
+      <ajf-page-slider-item>Slide 3</ajf-page-slider-item>
     </ajf-page-slider>
   </section>
 </div>
