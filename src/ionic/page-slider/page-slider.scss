@@ -17,12 +17,12 @@ ajf-page-slider {
       display: flex;
       align-items: stretch;
 
-      &.vertical {
+      &.ajf-page-slider-vertical {
         flex-direction: column;
         width: 100%;
       }
 
-      &.horizontal {
+      &.ajf-page-slider-horizontal {
         flex-direction: row;
         height: 100%;
       }

@@ -1,6 +1,7 @@
 ajf-checkbox-group-item {
   ion-button {
     display: block;
+    /* stylelint-disable-next-line */
     height: fit-content;
     margin: 0;
     font-size: 0.9em;
@@ -15,6 +16,7 @@ ajf-checkbox-group-item {
     display: flex;
     align-items: center;
     width: 100%;
+    /* stylelint-disable-next-line */
     height: fit-content;
     padding: 10px 0;
 

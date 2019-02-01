@@ -21,8 +21,6 @@
  */
 
 import {
-  AfterViewChecked,
-  AfterViewInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,

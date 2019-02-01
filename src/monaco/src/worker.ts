@@ -121,7 +121,7 @@ export class TypeScriptWorker implements ts.LanguageServiceHost {
     return Promise.as(diagnostics);
   }
 
-  getCompilerOptionsDiagnostics(fileName: string): Promise<ts.Diagnostic[]> {
+  getCompilerOptionsDiagnostics(_fileName: string): Promise<ts.Diagnostic[]> {
     const diagnostics = this._languageService.getCompilerOptionsDiagnostics();
     diagnostics.forEach(diag => diag.file = undefined); // diag.file cannot be JSON'yfied
     return Promise.as(diagnostics);

@@ -25,7 +25,6 @@ import {
   Component, ElementRef, EventEmitter, Input, OnDestroy,
   ViewChild, ViewEncapsulation
 } from '@angular/core';
-import {CdkDrag} from '@angular/cdk/drag-drop';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 import {Observable, Subscription} from 'rxjs';
@@ -149,7 +148,7 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   }
 
   disableDropPredicate(): boolean {
-    return false; 
+    return false;
   }
 
   editChoicesOrigin(choicesOrigin: IAjfChoicesOrigin): void {

@@ -40,6 +40,11 @@
 /src/ionic/page-slider/*                           @trik
 /src/ionic/reports/*                               @trik
 
+# Ajf monaco
+/src/monaco/*                                      @trik
+/src/monaco/lib/*                                  @trik
+/src/monaco/src/*                                  @trik
+
 # Docs examples & guides
 /guides/**                                         @trik
 /src/material-examples/**                          @trik

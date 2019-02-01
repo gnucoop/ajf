@@ -20,7 +20,7 @@
  *
  */
 
-import {AnimationBuilder, AnimationPlayer} from '@angular/animations';
+// import {AnimationBuilder, AnimationPlayer} from '@angular/animations';
 import {
   ChangeDetectionStrategy, Component, ElementRef, Renderer2, ViewChild, ViewEncapsulation
 } from '@angular/core';
@@ -40,11 +40,11 @@ export class AjfPageSliderItem {
 
   private _scrollX = 0;
   private _scrollY = 0;
-  private _player: AnimationPlayer | null;
+  // private _player: AnimationPlayer | null;
 
   constructor(
     private _el: ElementRef,
-    private _animationBuilder: AnimationBuilder,
+    // private _animationBuilder: AnimationBuilder,
     private _renderer: Renderer2,
   ) { }
 
