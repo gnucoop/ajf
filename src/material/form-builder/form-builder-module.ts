@@ -23,6 +23,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -40,8 +41,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 import {TranslateModule} from '@ngx-translate/core';
-
-import {DndModule} from 'ngx-dnd';
 
 import {AjfMonacoEditorModule} from '@ajf/material/monaco-editor';
 import {AjfNodeIconModule} from '@ajf/material/node-icon';
@@ -64,6 +63,7 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -80,7 +80,6 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
     MatToolbarModule,
     MatTooltipModule,
     TranslateModule,
-    DndModule,
     AjfMonacoEditorModule,
     AjfNodeIconModule,
   ],

@@ -23,6 +23,7 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
@@ -39,8 +40,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 import {TranslateModule} from '@ngx-translate/core';
-
-import {DndModule} from 'ngx-dnd';
 
 import {ColorPickerModule} from 'ngx-color-picker';
 
@@ -78,6 +77,7 @@ import {AjfReportBuilder} from './report-builder';
   imports: [
     CommonModule,
     FormsModule,
+    DragDropModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
@@ -93,7 +93,6 @@ import {AjfReportBuilder} from './report-builder';
     MatToolbarModule,
     MatTooltipModule,
     TranslateModule,
-    DndModule,
     ColorPickerModule,
     AjfCommonModule,
     AjfImageModule,

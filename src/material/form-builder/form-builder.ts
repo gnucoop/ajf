@@ -25,6 +25,7 @@ import {
   Component, ElementRef, EventEmitter, Input, OnDestroy,
   ViewChild, ViewEncapsulation
 } from '@angular/core';
+import {CdkDrag} from '@angular/cdk/drag-drop';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 import {Observable, Subscription} from 'rxjs';
@@ -38,7 +39,6 @@ import {
 
 import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {AjfFbChoicesOriginEditorDialog} from './choices-origin-editor-dialog';
-
 
 @Component({
   moduleId: module.id,
@@ -61,12 +61,6 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       }
     }
   }
-
-  private _dropZones: string[] = ['fbdz-node'];
-  get dropZones(): string[] { return this._dropZones; }
-
-  private _slideDropZones: string[] = ['fbdz-slide'];
-  get slideDropZones(): string[] { return this._slideDropZones; }
 
   private _nodeTypes: AjfFormBuilderNodeTypeEntry[];
   get nodeTypes(): AjfFormBuilderNodeTypeEntry[] { return this._nodeTypes; }
@@ -152,6 +146,10 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
 
   createChoicesOrigin(): void {
     this._service.createChoicesOrigin();
+  }
+
+  disableDropPredicate(): boolean {
+    return false; 
   }
 
   editChoicesOrigin(choicesOrigin: IAjfChoicesOrigin): void {

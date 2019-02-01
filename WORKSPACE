@@ -66,14 +66,6 @@ http_archive(
 )
 
 http_archive(
-  name = "ngx_dnd",
-  url = "https://github.com/gnucoop/ng2-dnd/archive/78c230d254ba1c2eb8fdc8b6be9fe57ab27085d4.zip",
-  strip_prefix = "ng2-dnd-78c230d254ba1c2eb8fdc8b6be9fe57ab27085d4/src/lib",
-  build_file="//tools/build_files/ngx-dnd:BUILD.bazel.ngx-dnd",
-  workspace_file="//tools/build_files/ngx-dnd:WORKSPACE.ngx-dnd"
-)
-
-http_archive(
   name = "ngx_color_picker",
   url = "https://github.com/zefoy/ngx-color-picker/archive/v7.2.0.zip",
   strip_prefix = "ngx-color-picker-7.2.0",

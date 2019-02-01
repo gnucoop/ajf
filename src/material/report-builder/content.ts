@@ -24,6 +24,7 @@ import {
   AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component,
   OnInit, OnDestroy, ViewEncapsulation
 } from '@angular/core';
+import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 
 import {Observable, Subscription, timer} from 'rxjs';
 
@@ -31,6 +32,7 @@ import {
   AjfReportLayoutWidget, AjfReportStyles, AjfReportWidget, AjfReportWidgetType
 } from '@ajf/core/reports';
 import {deepCopy} from '@ajf/core/utils';
+import {AjfReportBuilderDragData} from './report-builder-drag-data';
 import {AjfReportBuilderService} from './report-builder-service';
 
 /**
@@ -59,6 +61,17 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   onMouseLeave(): void {
     this.showActions = false;
     this.service.overEnded();
+  }
+
+  canDropPredicate(
+    dropZones: string[]
+  ): (item: CdkDrag<AjfReportBuilderDragData>) => boolean {
+    return item => {
+      item.data.dropZones.forEach(d => {
+        if (dropZones.indexOf(d) > -1) { return true; }
+      });
+      return false;
+    };
   }
 
   reportStyles: Observable<AjfReportStyles>;
@@ -229,20 +242,21 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    *
    * @memberOf AjfReportBuilderContent
    */
-  addToList(arrayTo: string, event: any, to?: number) {
+  addToList(arrayTo: string, event: CdkDragDrop<AjfReportBuilderDragData>, to?: number) {
     this.onDragEndHandler();
     this.service.setOrigin(arrayTo);
-    if (event.dragData.fromColumn != null) {
-        this.service.removeWidgetToColumn(event.dragData.fromColumn, event.dragData.fromIndex);
-        this.currentWidget = event.dragData.widget;
-    } else if (event.dragData.widget != null) {
-      this.remove(event.dragData.arrayFrom, event.dragData.from);
-      this.currentWidget = event.dragData.widget;
-    } else if (event.dragData.json != null && event.dragData.json !== '') {
-      this.currentWidget = AjfReportWidget.fromJson(JSON.parse(deepCopy(event.dragData.json)));
+    const itemData = event.item.data as AjfReportBuilderDragData;
+    if (itemData.fromColumn != null) {
+        this.service.removeWidgetToColumn(itemData.fromColumn, itemData.fromIndex!);
+        this.currentWidget = itemData.widget!;
+    } else if (itemData.widget != null) {
+      this.remove(itemData.arrayFrom!, itemData.from!);
+      this.currentWidget = itemData.widget;
+    } else if (itemData.json != null && itemData.json !== '') {
+      this.currentWidget = AjfReportWidget.fromJson(JSON.parse(deepCopy(itemData.json)));
     } else {
       let obj = {
-        'widgetType': AjfReportWidgetType[event.dragData]
+        'widgetType': (AjfReportWidgetType as any)[itemData.widgetType!]
       };
       this.currentWidget = AjfReportWidget.fromJson(obj);
     }

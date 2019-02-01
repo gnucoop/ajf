@@ -23,6 +23,7 @@ ng_module(
   deps = [
     "@angular//packages/core",
     "@angular//packages/forms",
+    "@angular_material//src/cdk/drag-drop",
     "@angular_material//src/lib/button",
     "@angular_material//src/lib/card",
     "@angular_material//src/lib/checkbox",
@@ -39,7 +40,6 @@ ng_module(
     "@angular_material//src/lib/tooltip",
     "@angular_material//src/lib/table",
     "@ngx_translate_core//:core",
-    "@ngx_dnd//:ngx-dnd",
     "//src/core/forms",
     "//src/core/models",
     "//src/core/reports",

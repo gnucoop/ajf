@@ -33,17 +33,17 @@
               [nodeEntry]="contentEntry"></ajf-fb-node-entry>
           <mat-card class="ajf-empty"
               *ngIf="realNodeEntry.content.length === 0"
-              dnd-droppable
-              [dropZones]="dropZones"
-              (onDropSuccess)="onDropSuccess($event, true)">&nbsp;</mat-card>
+              cdkDropList
+              [cdkDropListEnterPredicate]="disableSlideDropPredicate"
+              (cdkDropListDropped)="onDropSuccess($event, true)">&nbsp;</mat-card>
         </div>
       </mat-card>
     </ng-template>
     <ng-template [ngIf]="!isNodeEntry">
       <mat-card class="ajf-empty"
-          dnd-droppable
-          [dropZones]="isSlide ? slideDropZones : dropZones"
-          (onDropSuccess)="onDropSuccess($event)">&nbsp;</mat-card>
+          cdkDropList
+          [cdkDropListEnterPredicate]="emptyAreaDropPredicate"
+          (cdkDropListDropped)="onDropSuccess($event)">&nbsp;</mat-card>
     </ng-template>
   </div>
   <ng-template [ngIf]="isNodeEntry">

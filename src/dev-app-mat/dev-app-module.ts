@@ -25,6 +25,7 @@ import {Injector, NgModule} from '@angular/core';
 import {createCustomElement} from '@angular/elements';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule} from '@angular/forms';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
@@ -37,8 +38,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-
-import {DndModule} from 'ngx-dnd';
 
 import {EXAMPLE_COMPONENTS, ExampleModule} from '@ajf/material-examples';
 import {CalendarDemo} from './calendar/calendar-demo';
@@ -69,6 +68,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
     FormsModule,
     HttpClientModule,
     MatButtonModule,
+    MatExpansionModule,
     MatGridListModule,
     MatIconModule,
     MatListModule,
@@ -83,7 +83,6 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
           deps: [HttpClient]
       }
     }),
-    DndModule.forRoot(),
     DevAppAjfModule,
     ExampleModule,
     ExamplePageModule,

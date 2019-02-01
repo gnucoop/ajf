@@ -41,7 +41,6 @@ System.config({
     'leaflet': 'node:leaflet/dist/leaflet.js',
     'ms': 'node:ms/index.js',
     'ngx-color-picker': 'node:ngx-color-picker/bundles/ngx-color-picker.umd.js',
-    'ngx-dnd': 'node:ngx-dnd/bundles/ngx-dnd.umd.js',
     'numeral': 'node:numeral/numeral.js',
     'quill': 'node:quill/dist/quill.js',
     'rxjs': 'node:rxjs',

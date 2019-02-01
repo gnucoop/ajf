@@ -20,29 +20,15 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation
-} from '@angular/core';
+import {AjfReportColumnWidget, AjfReportWidget} from '@ajf/core/reports';
 
-import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
-
-
-@Component({
-  moduleId: module.id,
-  selector: 'ajf-fb-node-type-entry',
-  templateUrl: 'node-type-entry.html',
-  styleUrls: ['node-type-entry.css'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class AjfFbNodeTypeEntry {
-  private _nodeType: AjfFormBuilderNodeTypeEntry;
-  get nodeType(): AjfFormBuilderNodeTypeEntry { return this._nodeType; }
-  @Input()
-  set nodeType(nodeType: AjfFormBuilderNodeTypeEntry) {
-    this._nodeType = nodeType;
-    this._cdr.markForCheck();
-  }
-
-  constructor(private _cdr: ChangeDetectorRef) { }
+export interface AjfReportBuilderDragData {
+  widgetType: string;
+  widget?: AjfReportWidget;
+  fromIndex?: number;
+  fromColumn?: AjfReportColumnWidget;
+  from?: number;
+  json?: any;
+  arrayFrom?: 'header' | 'content' | 'footer';
+  dropZones: string[];
 }

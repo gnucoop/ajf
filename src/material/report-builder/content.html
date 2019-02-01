@@ -9,33 +9,31 @@
     [ngClass]="{'ajf-is-on-over': onDragged || show}"
     [applyStyles]="(headerStyles|async)">
     <mat-list *ngFor="let t of headerWidgets; let i = index">
-      <div dnd-droppable
+      <div cdkDropList
           class="ajf-drop-zone"
           [ngClass]="{'ajf-show': true}"
-          [dropZones]="['widget','column']"
-          (onDropSuccess)="addToList('header', $event, i);"
+          [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
+          (cdkDropListDropped)="addToList('header', $event, i);"
           (dragenter)="onDragEnterHandler('header', i)"
           (dragleave)="onDragLeaveHandler()">
       </div>
       <ajf-report-builder-widgets-row-buttons
-          dnd-draggable
-          [dragData]="{'widget':t,'fromIndex':i,'arrayFrom':'header'}"
-          [dropZones]="['widget','column']"
+          cdkDrag
+          [cdkDragData]="{widget: t,fromIndex: i,arrayFrom: 'header', dropZones: ['widget','column']}"
           [style.display]="(showActions || onDragged)? 'block' : 'none'"
           [from]="'header'"
           [widget]="t"
           [position]="i"
-          (onDragStart)="onDragStartHandler();"
-          (onDragEnd)="onDragEndHandler();"
-          [dragEnabled]="true">
+          (cdkDragStarted)="onDragStartHandler();"
+          (cdkDragEnded)="onDragEndHandler()">
       </ajf-report-builder-widgets-row-buttons>
       <ajf-report-builder-renderer-widget [widget]="t" [position]="i" [section]="'header'" (currentWidget)="currentWidget"></ajf-report-builder-renderer-widget>
     </mat-list>
-    <div dnd-droppable
+    <div cdkDropList
         class="ajf-drop-zone-container"
         [ngClass]="{'ajf-show': true}"
-        [dropZones]="['header','widget','column']"
-        (onDropSuccess)="addToList('header', $event)"
+        [cdkDropListEnterPredicate]="canDropPredicate(['header','widget','column'])"
+        (cdkDropListDropped)="addToList('header', $event)"
         (dragenter)="onDragEnterHandler('header', headerWidgets?.length)"
         (dragleave)="onDragLeaveHandler()">
     </div>
@@ -45,33 +43,31 @@
     [ngClass]="{'ajf-is-on-over': onDragged || show}"
     [applyStyles]="contentStyles|async">
     <mat-list *ngFor="let t of contentWidgets; let i = index">
-      <div dnd-droppable
+      <div cdkDropList
           class="ajf-drop-zone"
           [ngClass]="{'ajf-show': true}"
-          [dropZones]="['widget','column']"
-          (onDropSuccess)="addToList('content', $event, i)"
+          [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
+          (cdkDropListDropped)="addToList('content', $event, i)"
           (dragenter)="onDragEnterHandler('content', i)"
           (dragleave)="onDragLeaveHandler()">
       </div>
       <ajf-report-builder-widgets-row-buttons
-          dnd-draggable
-          [dragData]="{'widget':t,'fromIndex':i,'arrayFrom':'content'}"
-          [dropZones]="['widget','column']"
+          cdkDrag
+          [cdkDragData]="{widget: t, fromIndex: i, arrayFrom: 'content', dropZones: ['widget','column']}"
           [style.display]="showActions ? 'block' : 'none'"
           [from]="'content'"
           [widget]="t"
           [position]="i"
-          (onDragStart)="onDragStartHandler();"
-          (onDragEnd)="onDragEndHandler();"
-          [dragEnabled]="true">
+          (cdkDragStarted)="onDragStartHandler()"
+          (cdkDragEnded)="onDragEndHandler();">
       </ajf-report-builder-widgets-row-buttons>
       <ajf-report-builder-renderer-widget [widget]="t" [position]="i" [section]="'content'" (currentWidget)="currentWidget"></ajf-report-builder-renderer-widget>
     </mat-list>
-    <div dnd-droppable
+    <div cdkDropList
         class="ajf-drop-zone-container"
         [ngClass]="{'ajf-show': onDragged}"
-        [dropZones]="['content','widget','column']"
-        (onDropSuccess)="addToList('content', $event)"
+        [cdkDropListEnterPredicate]="canDropPredicate(['content','widget','column'])"
+        (cdkDropListDropped)="addToList('content', $event)"
         (dragenter)="onDragEnterHandler('content', contentWidgets?.length)"
         (dragleave)="onDragLeaveHandler()">
       <label translate>Drop here</label>
@@ -82,33 +78,31 @@
     [ngClass]="{'ajf-is-on-over': onDragged || show}"
     [applyStyles]="footerStyles|async">
     <mat-list *ngFor="let t of footerWidgets; let i = index">
-      <div dnd-droppable
+      <div cdkDropList
           class="ajf-drop-zone"
           [ngClass]="{'ajf-show': true}"
-          [dropZones]="['widget','column']"
-          (onDropSuccess)="addToList('footer', $event, i)"
+          [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
+          (cdkDropListDropped)="addToList('footer', $event, i)"
           (dragenter)="onDragEnterHandler('footer', i)"
           (dragleave)="onDragLeaveHandler()">
       </div>
       <ajf-report-builder-widgets-row-buttons
-          dnd-draggable
-          [dragData]="{'widget':t,'fromIndex':i,'arrayFrom':'footer'}"
-          [dropZones]="['widget','column']"
+          cdkDrag
+          [cdkDragData]="{widget: t, fromIndex: i, arrayFrom: 'footer', dropZones: ['widget','column']}"
           [style.display]="showActions ? 'block' : 'none'"
           [from]="'footer'"
           [widget]="t"
           [position]="i"
-          (onDragStart)="onDragStartHandler();"
-          (onDragEnd)="onDragEndHandler();"
-          [dragEnabled]="true">
+          (cdkDragStarted)="onDragStartHandler()"
+          (cdkDragEnded)="onDragEndHandler()">
       </ajf-report-builder-widgets-row-buttons>
       <ajf-report-builder-renderer-widget [widget]="t" [position]="i" [section]="'footer'" (currentWidget)="currentWidget"></ajf-report-builder-renderer-widget>
     </mat-list>
-    <div dnd-droppable
+    <div cdkDropList
         class="ajf-drop-zone-container"
         [ngClass]="{'ajf-show': onDragged}"
-        [dropZones]="['footer','widget','column']"
-        (onDropSuccess)="addToList('footer', $event)"
+        [cdkDropListEnterPredicate]="canDropPredicate(['footer','widget','column'])"
+        (cdkDropListDropped)="addToList('footer', $event)"
         (dragenter)="onDragEnterHandler('footer', headerWidgets?.length)"
         (dragleave)="onDragLeaveHandler()">
       <label translate>Drop here</label>

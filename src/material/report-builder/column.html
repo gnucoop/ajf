@@ -8,17 +8,15 @@
 
         <ng-template [ngIf]="!onDragged">
           <ajf-report-builder-widgets-row-buttons
-            dnd-draggable
-            [dragData]="{'fromColumn':column, 'fromIndex':idx, 'widget': widget }"
-            [dropZones]="['widget']"
-            [from]="'column'"
-            [fromWidget]="column"
-            [widget]="widget"
-            [position]="idx"
-            [child]="true"
-            (onDragStart)="onDragStartHandler();"
-            (onDragEnd)="onDragEndHandler();"
-            [dragEnabled]="true">
+              cdkDrag
+              [cdkDragData]="{fromColumn: column, fromIndex: idx, widget: widget, dropZones: ['widget']}"
+              [from]="'column'"
+              [fromWidget]="column"
+              [widget]="widget"
+              [position]="idx"
+              [child]="true"
+              (cdkDragStarted)="onDragStartHandler()"
+              (cdkDragEnded)="onDragEndHandler()">
           </ajf-report-builder-widgets-row-buttons>
         </ng-template>
         <ajf-report-builder-renderer-widget [widget]="widget"></ajf-report-builder-renderer-widget>

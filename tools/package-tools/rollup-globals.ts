@@ -40,6 +40,7 @@ export const rollupGlobals = {
 
   '@angular/animations': 'ng.animations',
   '@angular/platform-browser/animations': 'ng.platformBrowser.animations',
+  '@angular/cdk/drag-drop': 'ng.cdk.dragDrop',
   '@angular/cdk/collections': 'ng.cdk.collections',
   '@angular/common': 'ng.common',
   '@angular/core': 'ng.core',
@@ -80,7 +81,6 @@ export const rollupGlobals = {
   'debug': 'debug',
   'esprima': 'esprima',
   'leaflet': 'leaflet',
-  'ngx-dnd': 'ngxDnd',
   'ngx-color-picker': 'ngxColorPicker',
   'numeral': 'numeral',
   'quill': 'quill',

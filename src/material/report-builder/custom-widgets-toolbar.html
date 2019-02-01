@@ -1,14 +1,12 @@
 <mat-toolbar>
   <ng-template ngFor let-t [ngForOf]="customWidgets" let-i="index">
     <ajf-report-builder-custom-widget-toolbar-button
-          dnd-draggable
-          [dragEnabled]="true"
-          [dropZones]="['header','content','footer','column','widget']"
-          [dragData]="t"
+          cdkDrag
+          [cdkDragData]="t"
           [widgetType]="t.type"
           [position]="i"
-          (onDragStart)="onDragStartHandler();"
-          (onDragEnd)="onDragEndHandler();"
+          (cdkDragStarted)="onDragStartHandler()"
+          (cdkDragEnded)="onDragEndHandler();"
           (click)="openDialog(i)">
     </ajf-report-builder-custom-widget-toolbar-button>
    </ng-template>

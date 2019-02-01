@@ -32,9 +32,9 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
+import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 
 import {AjfImageType} from '@ajf/core/image';
-import {AjfFormula} from '@ajf/core/models';
 import {
   AjfDataset,
   AjfReportChartWidget,
@@ -47,6 +47,8 @@ import {
   AjfReportWidget,
   AjfReportWidgetType,
 } from '@ajf/core/reports';
+
+import {AjfReportBuilderDragData} from './report-builder-drag-data';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
@@ -97,6 +99,14 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     private service: AjfReportBuilderService
   ) { }
 
+  canDropPredicate(item: CdkDrag<AjfReportBuilderDragData>): boolean {
+    item.data.dropZones.forEach(d => {
+      if (['header', 'widget'].indexOf(d) > -1) {
+        return true;
+      }
+    });
+    return false;
+  }
 
   /**
    *  sign the start of mouse drag with 200 ms of delay
@@ -200,7 +210,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     }
   }
 
-  addToList(event: any, toColumn: AjfReportColumnWidget): void {
+  addToList(event: CdkDragDrop<AjfReportBuilderDragData>, toColumn: AjfReportColumnWidget): void {
     this.onDragEndHandler();
     this.service.addToColumn(event, toColumn);
   }

@@ -9426,11 +9426,6 @@ ngx-color-picker@^7.2.0:
   resolved "https://registry.yarnpkg.com/ngx-color-picker/-/ngx-color-picker-7.2.0.tgz#97cb3f31641762ec8e28c819efa9cc503e09f60a"
   integrity sha512-n+PBgc5T37Gi84UFY0EUbgBwQe+rU3dj+azH87BW49flpTmF0G5nDQg/NaXS1hthzQPGXGwT4lsxsZ70Z3kZ5Q==
 
-ngx-dnd@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ngx-dnd/-/ngx-dnd-2.0.0.tgz#0a00a178be0b515a2de299c71a52d0062b3eb3de"
-  integrity sha512-aAkfsBz0PkI2Zk1IbNng8hqEyY+h2VUZL0N/LV1g/QTnLhTvv521AoYjwsW+CzPHlGYhdAhqudFfCW9S2Aep6A==
-
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

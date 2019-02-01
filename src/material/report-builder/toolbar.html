@@ -21,9 +21,9 @@
 
   <button mat-button
     class="ajf-custom-widget-drop-zone"
-    dnd-droppable
-    [dropZones]="['widget']"
-    (onDropSuccess)="addToList($event);"
+    cdkDropList
+    [cdkDropListEnterPredicate]="canDropPredicate"
+    (cdkDropListDropped)="addToList($event);"
     matTooltip="add custom widget on toolbar"
     [matTooltipPosition]="'above'">
     add custom widget here

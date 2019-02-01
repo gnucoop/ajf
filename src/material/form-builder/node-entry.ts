@@ -24,10 +24,9 @@ import {
   AfterViewInit, ChangeDetectionStrategy, Component, ElementRef,
   Input, OnDestroy, QueryList, ViewChildren, ViewEncapsulation
 } from '@angular/core';
+import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 
 import {Observable, Subscription} from 'rxjs';
-
-import {DragDropData} from 'ngx-dnd';
 
 import {isContainerNode} from '@ajf/core/forms';
 import {AjfFbBranchLine} from './branch-line';
@@ -70,9 +69,6 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
 
   private _isNodeEntry = false;
   get isNodeEntry(): boolean { return this._isNodeEntry; }
-
-  private _isSlide = false;
-  get isSlide(): boolean { return this._isSlide; }
 
   private _nodeEntry: AjfFormBuilderNode;
   get nodeEntry(): AjfFormBuilderNode { return this._nodeEntry; }
@@ -131,6 +127,7 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return this._currentEditedNode;
   }
 
+  private _isSlide = false;
   private _branchLinesSubscription: Subscription = Subscription.EMPTY;
   private _childEntriesSubscription: Subscription = Subscription.EMPTY;
 
@@ -164,9 +161,9 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     this._childEntriesSubscription.unsubscribe();
   }
 
-  onDropSuccess(data: DragDropData, content = false): void {
+  onDropSuccess(evt: CdkDragDrop<AjfFormBuilderNodeTypeEntry>, content = false): void {
     if (this._nodeEntry == null) { return; }
-    const dd = data.dragData;
+    const dd = evt.item.data as AjfFormBuilderNodeTypeEntry;
     if (dd.nodeType !== void 0 && (!this.isNodeEntry || (this.isNodeEntry && content))) {
       const emptySlot = content ?
         {parent: (<AjfFormBuilderNodeEntry>this.nodeEntry).node, parentNode: 0} :
@@ -178,6 +175,17 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
         content
       );
     }
+  }
+
+  disableSlideDropPredicate(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
+    return !item.data.isSlide;
+  }
+
+  emptyAreaDropPredicate(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
+    if (this._isSlide) {
+      return item.data.isSlide || false;
+    }
+    return !item.data.isSlide;
   }
 
   private _updateBranchHeights(): void {

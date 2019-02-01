@@ -44,6 +44,9 @@ export class AjfReportBuilderCustomWidgetToolbarButton implements OnInit {
   widgetIcon: string;
   widgetLabel: string;
   position: number;
+  customWidgets: any[] = [];
+
+  // {...t, dropZones: ['header','content','footer','column','widget']}
 
   /**
    * this constructor will init icon registry

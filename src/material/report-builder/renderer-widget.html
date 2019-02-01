@@ -23,10 +23,10 @@
               [applyStyles]="widget.styles">
             </ajf-column>
             <ng-template [ngIf]="onDragged === true">
-              <div dnd-droppable
-                [dropZones]="['header','widget']"
+              <div cdkDropList
+                [cdkDropListEnterPredicate]="canDropPredicate"
                 [style.display]="onDragged ? 'block' : 'none'"
-                (onDropSuccess)="addToList($event, clm)"
+                (cdkDropListDropped)="addToList($event, clm)"
                 class="ajf-column-drop-zone"
                 (dragover)="layoutShow = true;"
                 (dragleave)="layoutShow = false;">

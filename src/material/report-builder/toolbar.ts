@@ -23,12 +23,14 @@
 import {
   ChangeDetectionStrategy, Component, EventEmitter, ViewEncapsulation
 } from '@angular/core';
+import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 
 import {Observable} from 'rxjs';
 
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
 import {AjfReport} from '@ajf/core/reports';
+import {AjfReportBuilderDragData} from './report-builder-drag-data';
 import {AjfReportBuilderService} from './report-builder-service';
 import {AjfReportBuilderToolbarDialog} from './toolbar-dialog';
 
@@ -61,6 +63,10 @@ export class AjfReportBuilderToolbar {
       this.emptyContent = this._service.emptyContent;
   }
 
+  canDropPredicate(item: CdkDrag<AjfReportBuilderDragData>): boolean {
+    return item.data.dropZones.indexOf('widget') > -1;
+  }
+
   JSONRequest() {
   }
   /**
@@ -70,10 +76,10 @@ export class AjfReportBuilderToolbar {
     this.addClick.emit(event);
   }
 
-  addToList(event: any) {
-    if (event.dragData.widget != null) {
+  addToList(event: CdkDragDrop<AjfReportBuilderDragData>) {
+    if (event.item.data.widget != null) {
       this._service.addCustomWidgets({
-        json: JSON.stringify(event.dragData.widget.toJson()),
+        json: JSON.stringify(event.item.data.widget.toJson()),
         type: ''
       });
     }
