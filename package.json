@@ -35,7 +35,6 @@
   "requiredAngularMaterialVersion": ">=7.0.0",
   "requiredNgxtVersion": ">=11.0.0",
   "requiredIonicVersion": ">=4.0.0",
-  "requiredIonicNativeVersion": ">=5.0.0",
   "dependencies": {
     "@ajfr/icons": "^1.0.0",
     "@angular/animations": "^7.2.1",
@@ -55,7 +54,7 @@
     "core-js": "^2.6.3",
     "date-fns": "^1.30.1",
     "flag-icon-css": "^3.2.1",
-    "ionic-selectable": "https://github.com/gnucoop/ionic-selectable/releases/download/4.1.4/ionic-selectable-4.1.4.tgz",
+    "ionic-selectable": "^4.2.0",
     "leaflet": "^1.4.0",
     "ngx-color-picker": "^7.3.0",
     "numeral": "^2.0.6",

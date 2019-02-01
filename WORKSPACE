@@ -59,8 +59,8 @@ http_archive(
 
 http_archive(
   name = "ionic_selectable",
-  url = "https://github.com/gnucoop/ionic-selectable/archive/fcc48d28406a88466c2351db93f364b03600e069.zip",
-  strip_prefix = "ionic-selectable-fcc48d28406a88466c2351db93f364b03600e069",
+  url = "https://github.com/gnucoop/ionic-selectable/archive/2e2e32baacca01d72dfff22647c37917d4eeb73a.zip",
+  strip_prefix = "ionic-selectable-2e2e32baacca01d72dfff22647c37917d4eeb73a",
   build_file="//tools/build_files/ionic-selectable:BUILD.bazel.ionic-selectable",
   workspace_file="//tools/build_files/ionic-selectable:WORKSPACE.ionic-selectable"
 )
