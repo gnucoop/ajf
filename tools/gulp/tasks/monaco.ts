@@ -5,7 +5,7 @@ import {readFileSync, writeFileSync} from 'fs';
 import {copyTask} from '../util/task_helpers';
 import {escapeText} from '../util/text';
 
-const tsb = require('gulp-tsb');
+const tsb = require('gulp-typescript');
 const merge = require('merge2');
 const rjs = require('gulp-requirejs');
 const gulpUglify = require('gulp-uglify');
@@ -79,17 +79,19 @@ task('monaco:build-lib', ['monaco:copy-lib'], () => {
   const srcDir = join(packagesDir, 'monaco');
   const outDir = join(outputDir, 'packages', 'monaco', 'out', 'src');
   return src([
-      join(packagesDir, '..', 'node_modules', 'monaco-editor-core', 'monaco.d.ts'),
+      join(packagesDir, '..', 'node_modules', 'monaco-editor', 'monaco.d.ts'),
       join(srcDir, 'lib', 'lib-ts.d.ts'),
       join(srcDir, 'lib', 'lib-es6-ts.d.ts'),
       join(srcDir, 'lib', 'typescriptServices.d.ts'),
       join(srcDir, 'src', 'worker.ts')
     ])
-    .pipe(tsb.create({
+    .pipe(tsb({
       module: 'amd',
       outDir: join(outputDir, 'packages', 'monaco', 'out'),
+      lib: ['es2015', 'dom'],
+      skipLibCheck: true,
       target: 'es5'
-    })())
+    }))
     .pipe(dest(outDir));
 });
 

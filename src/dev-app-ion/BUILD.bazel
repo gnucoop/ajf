@@ -6,12 +6,12 @@ load("//tools:defaults.bzl", "ng_module")
 load("//tools:sass_generate_binaries.bzl", "sass_generate_binaries")
 
 # Generate sass binaries for all nested SCSS files.
-sass_generate_binaries("dev_app_scss", glob(["**/*.scss"]))
+sass_generate_binaries("dev_app_ion_scss", glob(["**/*.scss"]))
 
 ng_module(
-  name = "dev-app",
+  name = "dev-app-ion",
   srcs = glob(["**/*.ts"], exclude = ["system-config.ts", "system-rxjs-operators.ts"]),
-  assets = glob(["**/*.html"]) + [":dev_app_scss"],
+  assets = glob(["**/*.html"]) + [":dev_app_ion_scss"],
   deps = [
     "@angular//packages/common",
     "@angular//packages/common/http",
