@@ -149,23 +149,35 @@ export function extractArraySum(source: any[], properties: string[]): any[] {
   }
 
   const res: any[] = [];
-  for (let weekI = 0; weekI < arrays.length; weekI ++ ) {
-    let sumVal = 0;
-    for (let propI = 0; propI < properties.length ; propI++) {
-      sumVal = sumVal + arrays[propI][weekI];
+  if (arrays.length > 0) {
+    for (let weekI = 0; weekI < arrays[0].length; weekI ++ ) {
+      let sumVal = 0;
+      for (let propI = 0; propI < properties.length ; propI++) {
+        sumVal = sumVal + arrays[propI][weekI];
+      }
+      res.push(sumVal);
     }
-    res.push(sumVal);
   }
   return res;
 }
 
-export function drawThreshold(source: any[], property: string, treshold: any): any[] {
+export function drawThreshold(source: any[], property: string, treshold: any[]): any[] {
   source = (source || []).slice(0);
+  treshold = treshold || [0];
+  if (!(treshold instanceof Array)) {
+    treshold = [treshold];
+  }
   const l = source.length;
   const res: any[] = [];
+  let count = 0;
   for (let i = 0; i < l ; i++) {
     if (source[i][property] != null) {
-      res.push(treshold);
+      if (treshold.length > count) {
+        res.push(treshold[count]);
+      } else {
+        res.push(treshold[0]);
+      }
+      count++;
     }
   }
   return res;
@@ -249,12 +261,25 @@ export function calculateTrendProperty(source: any[], property: string): string 
   }
 }
 
+export function calculateTrendByProperties(source: any[], properties: string[]): string {
+  const arraysum = extractArraySum(source, properties);
+
+  const lastProp =  arraysum.length > 0 ? (arraysum[arraysum.length -1] || 0) : 0;
+  const lastLastProp = arraysum.length > 1 ? (arraysum[arraysum.length -2] || 0) : lastProp;
+
+  if (lastProp == lastLastProp) {
+    return '<p><i class="material-icons" style="color:blue">trending_flat</i></p>';
+  } else if (lastProp > lastLastProp) {
+    return '<p><i class="material-icons" style="color:green">trending_up</i></p>';
+  } else {
+    return '<p><i class="material-icons" style="color:red">trending_down</i></p>';
+  }
+}
+
 export function calculateAvgProperty(
   source: any[], property: string, range: number, coefficient: number
 ): number {
   source = (source || []).slice(0);
-
-  source.pop();
 
   coefficient = coefficient || 1;
   range = range || 12;
@@ -269,8 +294,8 @@ export function calculateAvgProperty(
   }
 
   while (range != 0) {
-    counter++;
     if (source[l - 1][property] != null) {
+      counter++;
       res += source[l - 1][property];
 
       if (source[l - 1][property] > 0) {
@@ -284,8 +309,57 @@ export function calculateAvgProperty(
   if (coefficient == 0) {
     return noZero;
   } else {
-    return (res / counter) * coefficient || 0;
+    return round((res / counter) * coefficient, 2) || 0;
   }
+}
+
+export function calculateAvgPropertyArray(
+  source: any[], properties: string[], range: number, coefficient: number
+): number[] {
+  source = (source || []).slice(0);
+  const resArr: any[] = [];
+
+  if (properties && properties.length > 0) {
+    let avg = 0;
+
+    coefficient = coefficient || 1;
+    range = range || 12;
+
+    const sourceArr = properties.length > 1 ? extractArraySum(source, properties) : extractArray(source, properties[0]);
+
+    let l = sourceArr.length;
+
+    for (let len = l; len > 0 ; len--) {
+      let res = 0;
+      let counter = 0;
+      let noZero = 0;
+
+      if (len < range) {
+        range = len;
+      }
+
+      for (let r = 1; r <= range ; r++) {
+        let val = sourceArr[len - r];
+        if (val != null) {
+          counter++;
+          res += val;
+          if (val > 0) {
+            noZero++;
+          }
+        }
+      }
+
+      if (counter > 0) {
+        if (coefficient == 0) {
+          avg = noZero;
+        } else {
+          avg = (res / counter) * coefficient || 0;
+        }
+        resArr.push(round(avg, 2));
+      }
+    }
+  }
+  return resArr.reverse();
 }
 
 export function alert(source: any[], property: string, treshold: number): string {
