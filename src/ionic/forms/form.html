@@ -4,18 +4,8 @@
       <ion-toolbar *ngIf="!hideTopToolbar">
         {{ title | translate }}
         <ion-buttons slot="end">
-          <ion-button (click)="onSave($event)"
-              *ngIf="permissions && permissions.write">{{ 'Save' | translate }}</ion-button>
-          <ion-button (click)="onFormAction($event, 'send')"
-              [disabled]="((errors | async) || 0) != 0"
-              *ngIf="permissions && permissions.change_state && permissions.change_state.send">{{ 'Submit' | translate }}</ion-button>
-          <ion-button (click)="onFormAction($event, 'approve')"
-              [disabled]="((errors | async) || 0) != 0"
-              *ngIf="permissions && permissions.change_state && permissions.change_state.approve">{{ 'Approve' | translate }}</ion-button>
-          <ion-button (click)="onFormAction($event, 'deprecate')"
-              [disabled]="((errors | async) || 0) != 0"
-              *ngIf="permissions && permissions.change_state && permissions.change_state.deprecate"> {{ 'Deprecate' | translate }}</ion-button>
-          </ion-buttons>
+          <ion-button *ngIf="!saveDisabled" (click)="onSave($event)">{{ 'Save' | translate }}</ion-button>
+        </ion-buttons>
       </ion-toolbar>
       <div class="ajf-slider-container">
         <ajf-page-slider [hideNavigationButtons]="hideNavigationButtons"
