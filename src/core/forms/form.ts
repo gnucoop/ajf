@@ -45,19 +45,6 @@ export class AjfFormActionEvent {
   action: string;
 }
 
-export class AjfFormPermission {
-  'create': boolean;
-  'write': boolean;
-  'read': boolean;
-  'change_state': {
-    'send': boolean;
-    'approve': boolean;
-    'approve_with_comment': boolean;
-    'deprecate': boolean;
-  };
-}
-
-
 export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit, OnDestroy {
   // formGroup is an Observable FormGroup type
   readonly formGroup: Observable<FormGroup | null>;
@@ -72,11 +59,14 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   // Formula, Empty, Composed, LENGTH ]
   readonly ajfFieldTypes = AjfFieldType;
 
-  saveAction = true;
-  submitAction = true;
-
   title: string;
-  permissions: AjfFormPermission;
+
+  private _saveDisabled: boolean = false;
+  get saveDisabled(): boolean { return this._saveDisabled; }
+  set saveDisabled(saveDisabled: boolean) {
+    this._saveDisabled = coerceBooleanProperty(saveDisabled);
+    this._changeDetectorRef.markForCheck();
+  }
 
   private _hasStartMessage = false;
   get hasStartMessage(): boolean { return this._hasStartMessage; }
