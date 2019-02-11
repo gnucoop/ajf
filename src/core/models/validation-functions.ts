@@ -132,7 +132,7 @@ export function extractSum(source: any[], properties: string[]): number {
   for (let i = 0; i < l ; i++) {
     const array = extractArray(source, properties[i]);
     const leng = array.length;
-    for (let j = 0; j < leng; i++) {
+    for (let j = 0; j < leng; j++) {
       sumVal += array[j];
     }
   }
@@ -385,7 +385,7 @@ export function formatDate(date: Date, fmt?: string): string {
 export function isoMonth(date: Date, fmt?: string): string {
   fmt = fmt || 'MM';
   const du = dateUtils;
-  return du.format(du.addDays(du.startOfMonth(date), 4), fmt);
+  return du.format(du.addDays(date, 4), fmt);
 }
 
 export function getCoordinate(source: any, zoom?: number): [number, number, number] {
