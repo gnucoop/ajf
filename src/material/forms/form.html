@@ -13,17 +13,8 @@
       <mat-toolbar *ngIf="!hideTopToolbar">
         {{ title }}
         <span class="ajf-spacer"></span>
-        <button mat-button default (click)="onSave($event)"
-            *ngIf="permissions && permissions.write" translate>Save</button>
-        <button mat-button default (click)="onFormAction($event, 'send')"
-            translate
-            [disabled]="((errors | async) || 0) != 0"
-            *ngIf="permissions && permissions.change_state && permissions.change_state.send">Submit</button>
-        <button mat-button default (click)="onFormAction($event, 'approve')"
-            translate
-            [disabled]="((errors | async) || 0) != 0"
-            *ngIf="permissions && permissions.change_state && permissions.change_state.approve">Approve</button>
-        <button mat-button default (click)="onFormAction($event, 'deprecate')" [disabled]="((errors | async) || 0) != 0" *ngIf="permissions && permissions.change_state && permissions.change_state.deprecate">Deprecate</button>
+        <button mat-button default *ngIf="!saveDisabled" (click)="onSave($event)"
+            translate>Save</button>
       </mat-toolbar>
       <div class="ajf-slider-container">
         <ajf-page-slider [hideNavigationButtons]="hideNavigationButtons" #formSlider>
