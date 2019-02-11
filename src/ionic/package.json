@@ -24,7 +24,7 @@
     "@ionic/angular": "0.0.0-ION",
     "@ajf/core": "0.0.0-PLACEHOLDER",
     "flag-icon-css": "^3.2.1",
-    "ionic-selectable": "^4.2.0"
+    "ionic-selectable": "https://github.com/gnucoop/ionic-selectable/releases/download/4.2.0/ionic-selectable-4.2.0.tgz"
   },
   "dependencies": {
     "tslib": "^1.7.1"
