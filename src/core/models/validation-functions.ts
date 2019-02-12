@@ -132,7 +132,7 @@ export function extractSum(source: any[], properties: string[]): number {
   for (let i = 0; i < l ; i++) {
     const array = extractArray(source, properties[i]);
     const leng = array.length;
-    for (let j = 0; j < leng; i++) {
+    for (let j = 0; j < leng; j++) {
       sumVal += array[j];
     }
   }
