@@ -20,10 +20,14 @@
  *
  */
 
-import {addDays, addMonths, addYears, format, parse, startOfMonth} from 'date-fns';
+import {
+  addDays, addMonths, addYears, endOfISOWeek, format, getDay, parse, startOfMonth, startOfISOWeek
+} from 'date-fns';
 import * as numeral from 'numeral';
 
-export const dateUtils = {addDays, addMonths, addYears, format, parse, startOfMonth};
+export const dateUtils = {
+  addDays, addMonths, addYears, endOfISOWeek, format, getDay, parse, startOfMonth, startOfISOWeek
+};
 
 const numeralConstructor: (value?: any) => any = (<any>numeral).default || numeral;
 
@@ -264,8 +268,8 @@ export function calculateTrendProperty(source: any[], property: string): string 
 export function calculateTrendByProperties(source: any[], properties: string[]): string {
   const arraysum = extractArraySum(source, properties);
 
-  const lastProp =  arraysum.length > 0 ? (arraysum[arraysum.length -1] || 0) : 0;
-  const lastLastProp = arraysum.length > 1 ? (arraysum[arraysum.length -2] || 0) : lastProp;
+  const lastProp =  arraysum.length > 0 ? (arraysum[arraysum.length - 1] || 0) : 0;
+  const lastLastProp = arraysum.length > 1 ? (arraysum[arraysum.length - 2] || 0) : lastProp;
 
   if (lastProp == lastLastProp) {
     return '<p><i class="material-icons" style="color:blue">trending_flat</i></p>';
@@ -325,7 +329,9 @@ export function calculateAvgPropertyArray(
     coefficient = coefficient || 1;
     range = range || 12;
 
-    const sourceArr = properties.length > 1 ? extractArraySum(source, properties) : extractArray(source, properties[0]);
+    const sourceArr = properties.length > 1
+      ? extractArraySum(source, properties)
+      : extractArray(source, properties[0]);
 
     let l = sourceArr.length;
 
@@ -385,7 +391,11 @@ export function formatDate(date: Date, fmt?: string): string {
 export function isoMonth(date: Date, fmt?: string): string {
   fmt = fmt || 'MM';
   const du = dateUtils;
-  return du.format(du.addDays(du.startOfMonth(date), 4), fmt);
+  const weekday = du.getDay(date);
+  if (weekday < 4) {
+    date = startOfISOWeek(date);
+  }
+  return du.format(date, fmt);
 }
 
 export function getCoordinate(source: any, zoom?: number): [number, number, number] {
