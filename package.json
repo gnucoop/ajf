@@ -52,6 +52,7 @@
     "chart.js": "^2.7.3",
     "chart.piecelabel.js": "^0.15.0",
     "core-js": "^2.6.4",
+    "css-element-queries": "^1.1.1",
     "date-fns": "^1.30.1",
     "flag-icon-css": "^3.2.1",
     "ionic-selectable": "https://github.com/gnucoop/ionic-selectable/releases/download/4.2.0/ionic-selectable-4.2.0.tgz",

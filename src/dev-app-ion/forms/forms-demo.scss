@@ -12,5 +12,9 @@
   .demo-form-container {
     height: 500px;
     position: relative;
+
+    ajf-form {
+      height: 100%;
+    }
   }
 }

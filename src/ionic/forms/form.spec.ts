@@ -74,17 +74,7 @@ describe('AjfFormRenderer', () => {
     const formRenderer = <AjfFormRenderer>fixture.componentInstance;
 
     formRenderer.form = form;
-    formRenderer.permissions = {
-      write: true,
-      create: true,
-      read: true,
-      change_state: {
-        send: true,
-        approve: true,
-        approve_with_comment: true,
-        deprecate: true
-      }
-    };
+    formRenderer.saveDisabled = false;
 
     fixture.detectChanges();
     tick();
@@ -112,17 +102,7 @@ describe('AjfFormRenderer', () => {
       const formRenderer = <AjfFormRenderer>fixture.componentInstance;
 
       formRenderer.form = form;
-      formRenderer.permissions = {
-        write: true,
-        create: true,
-        read: true,
-        change_state: {
-          send: true,
-          approve: true,
-          approve_with_comment: true,
-          deprecate: true
-        }
-      };
+      formRenderer.saveDisabled = false;
 
       fixture.detectChanges();
       tick();
@@ -167,17 +147,7 @@ describe('AjfFormRenderer', () => {
     const formRenderer = <AjfFormRenderer>fixture.componentInstance;
 
     formRenderer.form = form;
-    formRenderer.permissions = {
-      write: true,
-      create: true,
-      read: true,
-      change_state: {
-        send: true,
-        approve: true,
-        approve_with_comment: true,
-        deprecate: true
-      }
-    };
+    formRenderer.saveDisabled = false;
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {

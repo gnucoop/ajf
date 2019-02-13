@@ -82,12 +82,12 @@
                       </ion-card-header>
                       <ion-card-content>
                         <div *ngIf="lastSlide" class="ajf-group-actions">
-                          <button ion-fab mini (click)="addGroup(slideInstance)" [disabled]="!slideInstance.canAddGroup" mat-mini-fab>
+                          <ion-fab-button size="small" (click)="addGroup(slideInstance)" [disabled]="!slideInstance.canAddGroup">
                             <ion-icon name="add"></ion-icon>
-                          </button>
-                          <button ion-fab mini (click)="removeGroup(slideInstance)" [disabled]="!slideInstance.canRemoveGroup" mat-mini-fab>
+                          </ion-fab-button>
+                          <ion-fab-button size="small" (click)="removeGroup(slideInstance)" [disabled]="!slideInstance.canRemoveGroup">
                             <ion-icon name="remove"></ion-icon>
-                          </button>
+                          </ion-fab-button>
                         </div>
                         <ng-container *ngFor="let fieldInstance of slideInstance.slideNodes[idx]; trackBy: trackNodeById">
                           <div [ngClass]="'ajf-' + fieldInstance.field.size" class="ajf-field-entry"
@@ -98,6 +98,14 @@
                             <ajf-field [fieldInstance]="fieldInstance"></ajf-field>
                           </div>
                         </ng-container>
+                        <div *ngIf="lastSlide" class="ajf-group-actions bottom">
+                          <ion-fab-button size="small" (click)="addGroup(slideInstance)" [disabled]="!slideInstance.canAddGroup" mat-mini-fab>
+                            <ion-icon name="add"></ion-icon>
+                          </ion-fab-button>
+                          <ion-fab-button size="small" (click)="removeGroup(slideInstance)" [disabled]="!slideInstance.canRemoveGroup" mat-mini-fab>
+                            <ion-icon name="remove"></ion-icon>
+                          </ion-fab-button>
+                        </div>
                       </ion-card-content>
                     </ion-card>
                   </div>
