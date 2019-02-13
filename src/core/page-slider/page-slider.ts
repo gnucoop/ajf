@@ -272,11 +272,11 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     }
   }
 
-  private _doSlide(): void {
+  private _doSlide(immediate = false): void {
     if (this.body == null || this.pages == null || this._animating) { return; }
     this._animating = true;
     const animation = this._animationBuilder.build(animate(
-      this.duration,
+      immediate ? 0 : this.duration,
       style({transform: this._getCurrentTranslation()})
     ));
 
@@ -311,15 +311,18 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     const {prop, removeProp} = this._getProps();
     this._renderer.setStyle(this.body.nativeElement, prop, `${this.pages.length * 100}%`);
     this._renderer.setStyle(this.body.nativeElement, removeProp, null);
+    let curPage: number;
     if (this.pages.length === 0) {
-      this.currentPage = -1;
+      curPage = -1;
     } else if (this._currentPage === -1) {
-      this.currentPage = 0;
+      curPage = 0;
     } else if (this._currentPage >= this.pages.length) {
-      this.currentPage = this.pages.length - 1;
+      curPage = this.pages.length - 1;
     } else {
-      this.currentPage = this._currentPage;
+      curPage = this._currentPage;
     }
+    this._currentPage = curPage;
+    this._restoreCurrentPage();
   }
 
   private _restoreCurrentPage(): void {
