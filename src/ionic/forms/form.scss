@@ -42,6 +42,7 @@ ajf-form {
 
                 > ion-card {
                   flex:1;
+
                   > ion-card-content {
                     display: flex;
                     flex-wrap: wrap;
@@ -51,10 +52,22 @@ ajf-form {
 
                     .ajf-group-actions {
                       position: absolute;
-                      right: 0;
-                      bottom: -30px;
+                      left: calc(100vw - 13em);
+                      margin-top: -3em;
                       padding: 15px;
                       z-index: 10;
+                      white-space: nowrap;
+
+                      ion-fab-button {
+                        display: inline-block;
+                      }
+
+                      &.bottom {
+                        position: initial;
+                        margin: 0;
+                        flex: 1;
+                        text-align: right;
+                      }
                     }
 
                     > .ajf-field-entry {
