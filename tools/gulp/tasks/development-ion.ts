@@ -67,7 +67,7 @@ task(':build:devapp-ion:inline-resources', () => inlineResourcesForDirectory(out
 
 task(':build:ionic-bundle', () => {
   const bundlesOutDir = join(projectDir, 'bundles');
-  const ionicEntry = join('node_modules', '@ionic', 'angular', 'dist', 'index.js');
+  const ionicEntry = join('node_modules', '@ionic', 'angular', 'dist', 'fesm5.js');
   const ionicBundleFile = 'ionic-angular.umd.js';
   const ionicBundle = join(bundlesOutDir, ionicBundleFile);
   let stream = src(join(projectDir, ionicEntry));
