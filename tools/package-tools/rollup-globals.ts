@@ -77,6 +77,7 @@ export const rollupGlobals = {
 
   'chart.js': 'chartJs',
   'chart.piecelabel.js': 'chartPiecelabel',
+  'css-element-queries': 'cssElementQueries',
   'date-fns': 'dateFns',
   'debug': 'debug',
   'esprima': 'esprima',

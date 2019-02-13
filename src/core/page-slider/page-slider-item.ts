@@ -22,8 +22,14 @@
 
 // import {AnimationBuilder, AnimationPlayer} from '@angular/animations';
 import {
-  ChangeDetectionStrategy, Component, ElementRef, Renderer2, ViewChild, ViewEncapsulation
+  ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
+  OnDestroy, Renderer2, ViewChild, ViewEncapsulation
 } from '@angular/core';
+
+import {Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
+
+import {ResizeSensor} from 'css-element-queries';
 
 import {AjfPageSliderItemScrollDirection} from './page-slider-item-scroll-direction';
 
@@ -35,18 +41,34 @@ import {AjfPageSliderItemScrollDirection} from './page-slider-item-scroll-direct
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfPageSliderItem {
+export class AjfPageSliderItem implements OnDestroy {
   @ViewChild('wrapper') wrapper: ElementRef;
+  @ViewChild('content') content: ElementRef;
 
   private _scrollX = 0;
   private _scrollY = 0;
+  private _resizeSensor: ResizeSensor;
+  private _resizeEvent: EventEmitter<void> = new EventEmitter<void>();
+  private _resizeSub: Subscription;
   // private _player: AnimationPlayer | null;
 
   constructor(
     private _el: ElementRef,
     // private _animationBuilder: AnimationBuilder,
     private _renderer: Renderer2,
-  ) { }
+  ) {
+    this._resizeSensor = new ResizeSensor(_el.nativeElement, () => this._onResize());
+
+    this._resizeSub = this._resizeEvent.pipe(
+      debounceTime(200),
+    ).subscribe(() => this._fixScrollOnResize());
+  }
+
+  ngOnDestroy(): void {
+    if (this._resizeSensor) { this._resizeSensor.detach(); }
+    this._resizeSub.unsubscribe();
+    this._resizeEvent.complete();
+  }
 
   setScroll(dir: AjfPageSliderItemScrollDirection,  amount: number, _velocity: number): boolean {
     if (this._el == null || this.wrapper == null || amount === 0) { return false; }
@@ -86,6 +108,27 @@ export class AjfPageSliderItem {
     );
     return true;
     // this._animateScroll(duration);
+  }
+
+  private _onResize(): void {
+    this._resizeEvent.emit();
+  }
+
+  private _fixScrollOnResize(): void {
+    if (this.content == null || this.wrapper == null) { return; }
+    const content = this.content.nativeElement;
+    const wrapper = this.wrapper.nativeElement;
+    if (
+      (content.scrollLeft != null && content.scrollLeft !== 0)
+      || (content.scrollTop != null && content.scrollTop !== 0)
+     ) {
+      this._scrollX += content.scrollLeft != null ? content.scrollLeft : 0;
+      this._scrollY += content.scrollTop != null ? content.scrollTop : 0;
+      content.scrollTop = content.scrollLeft = 0;
+      this._renderer.setStyle(
+        wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
+      );
+    }
   }
 
   // private _animateScroll(duration: number): void {
