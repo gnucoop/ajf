@@ -2,14 +2,15 @@
 System.config({
   baseURL: '/base',
   paths: {
-    'node:*': 'node_modules/*'
+    'node:*': 'node_modules/*',
+    'bundles:*': 'bundles/*'
   },
   map: {
     'traceur': 'node:traceur/bin/traceur.js',
-
+    'css-element-queries': 'node:css-element-queries/index.js',
     'date-fns': 'node:date-fns/index.js',
     'debug': 'node:debug/src/browser.js',
-    'esprima': 'node:esprima/dist/esprima.js',
+    'esprima': 'node:esprima/esprima.js',
     'ms': 'node:ms/index.js',
     'numeral': 'node:numeral/numeral.js',
     'rxjs': 'node:rxjs',
@@ -39,6 +40,8 @@ System.config({
     '@angular/platform-browser-dynamic/testing':
       'node:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.min.js',
     '@angular/router': 'node:@angular/router/bundles/router.umd.min.js',
+
+    '@angular/material/button': 'node:@angular/material/bundles/material-button.umd.js',
 
     '@angular/cdk/a11y': 'node:@angular/cdk/bundles/cdk-a11y.umd.min.js',
     '@angular/cdk/bidi': 'node:@angular/cdk/bundles/cdk-bidi.umd.min.js',

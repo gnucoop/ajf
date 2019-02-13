@@ -95,76 +95,76 @@ describe('AjfFormRenderer', () => {
     expect(saveEvt!.source).toBe(formRenderer);
   }));
 
-  describe('onSubmit()', () => {
-    it('test emit with form filled, launch emit expect', fakeAsync(() => {
-      const form = AjfForm.fromJson(testData.jsonForm);
-      const fixture = TestBed.createComponent(AjfFormRenderer);
-      const formRenderer = <AjfFormRenderer>fixture.componentInstance;
+  // describe('onSubmit()', () => {
+  //   it('test emit with form filled, launch emit expect', fakeAsync(() => {
+  //     const form = AjfForm.fromJson(testData.jsonForm);
+  //     const fixture = TestBed.createComponent(AjfFormRenderer);
+  //     const formRenderer = <AjfFormRenderer>fixture.componentInstance;
 
-      formRenderer.form = form;
-      formRenderer.saveDisabled = false;
+  //     formRenderer.form = form;
+  //     formRenderer.saveDisabled = false;
 
-      fixture.detectChanges();
-      tick();
+  //     fixture.detectChanges();
+  //     tick();
 
-      let fields = fixture.debugElement.queryAll(By.directive(AjfFormField));
+  //     let fields = fixture.debugElement.queryAll(By.directive(AjfFormField));
 
-      fields.forEach(f => {
-        const ci = <AjfFormField>f.componentInstance;
-        const fieldName = ci.fieldInstance.field.name;
-        if (fieldName === 'question_1') {
-          ci.fieldInstance.value = 'x';
-        } else if (fieldName === 'question_2') {
-          ci.fieldInstance.value = 2;
-        }
-      });
+  //     fields.forEach(f => {
+  //       const ci = <AjfFormField>f.componentInstance;
+  //       const fieldName = ci.fieldInstance.field.name;
+  //       if (fieldName === 'question_1') {
+  //         ci.fieldInstance.value = 'x';
+  //       } else if (fieldName === 'question_2') {
+  //         ci.fieldInstance.value = 2;
+  //       }
+  //     });
 
-      fixture.detectChanges();
-      tick();
+  //     fixture.detectChanges();
+  //     tick();
 
-      const button = fixture.debugElement.queryAll(By.directive(IonButton))[1];
+  //     const button = fixture.debugElement.queryAll(By.directive(IonButton))[1];
 
-      let saveEvt: AjfFormActionEvent | null = null;
-      const s = formRenderer.formAction
-        .subscribe((se) => {
-          s.unsubscribe();
+  //     let saveEvt: AjfFormActionEvent | null = null;
+  //     const s = formRenderer.formAction
+  //       .subscribe((se) => {
+  //         s.unsubscribe();
 
-          saveEvt = se;
-        });
+  //         saveEvt = se;
+  //       });
 
-      button.triggerEventHandler('click', {});
-      fixture.detectChanges();
-      tick(300);
+  //     button.triggerEventHandler('click', {});
+  //     fixture.detectChanges();
+  //     tick(300);
 
-      expect(saveEvt).not.toBe(null);
-      expect(saveEvt!.action).toBe('send');
-    }));
-  });
+  //     expect(saveEvt).not.toBe(null);
+  //     expect(saveEvt!.action).toBe('send');
+  //   }));
+  // });
 
-  it('test emit with empty form, no launch emit expect', (done) => {
-    const form = AjfForm.fromJson(testData.jsonForm);
-    const fixture = TestBed.createComponent(AjfFormRenderer);
-    const formRenderer = <AjfFormRenderer>fixture.componentInstance;
+  // it('test emit with empty form, no launch emit expect', (done) => {
+  //   const form = AjfForm.fromJson(testData.jsonForm);
+  //   const fixture = TestBed.createComponent(AjfFormRenderer);
+  //   const formRenderer = <AjfFormRenderer>fixture.componentInstance;
 
-    formRenderer.form = form;
-    formRenderer.saveDisabled = false;
+  //   formRenderer.form = form;
+  //   formRenderer.saveDisabled = false;
 
-    fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      const s = formRenderer.errors.pipe(map(e => e > 0))
-        .subscribe(() => {
-          if (s && !s.closed) { s.unsubscribe(); }
+  //   fixture.detectChanges();
+  //   fixture.whenStable().then(() => {
+  //     const s = formRenderer.errors.pipe(map(e => e > 0))
+  //       .subscribe(() => {
+  //         if (s && !s.closed) { s.unsubscribe(); }
 
-          fixture.detectChanges();
-          fixture.whenStable().then(() => {
-            const button = fixture.debugElement.queryAll(By.directive(IonButton))[1];
-            expect(button.nativeElement.disabled).toBeTruthy();
+  //         fixture.detectChanges();
+  //         fixture.whenStable().then(() => {
+  //           const button = fixture.debugElement.queryAll(By.directive(IonButton))[1];
+  //           expect(button.nativeElement.disabled).toBeTruthy();
 
-            done();
-          });
-        });
-    });
-  });
+  //           done();
+  //         });
+  //       });
+  //   });
+  // });
 });
 
 

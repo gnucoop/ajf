@@ -15,6 +15,7 @@ const defaultOptions = {
 /** Builds everything that is necessary for karma. */
 task(':test:build', sequenceTask(
   'clean',
+  ':build:ionic-bundle',
   'core:build-no-bundles',
   'ionic:build-no-bundles',
   'material:build-no-bundles',
