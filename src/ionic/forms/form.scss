@@ -63,8 +63,8 @@ ajf-form {
                         display: inline-block;
                       }
 
-                      &.bottom {
-                        position: initial;
+                      &.ajf-group-actions-bottom {
+                        position: unset;
                         margin: 0;
                         flex: 1;
                         text-align: right;
