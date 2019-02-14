@@ -36,6 +36,7 @@ System.config({
 
     'chart.js': 'node:chart.js/dist/Chart.bundle.js',
     'chart.piecelabel.js': 'node:chart.piecelabel.js/build/Chart.PieceLabel.min.js',
+    'css-element-queries': 'node:css-element-queries/index.js',
     'date-fns': 'node:date-fns/index.js',
     'debug': 'node:debug/src/browser.js',
     'esprima': 'node:esprima/esprima.js',
