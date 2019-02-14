@@ -3,7 +3,7 @@ import {async, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {map} from 'rxjs/operators';
+// import {map} from 'rxjs/operators';
 
 import {IonButton, IonicModule} from '@ionic/angular';
 
@@ -13,7 +13,7 @@ import {AjfForm, AjfFormActionEvent} from '@ajf/core/forms';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 // import {AjfPageSlider, AjfPageSliderItem} from '@ajf/ionic/page-slider';
 
-import {AjfFormField, AjfFormRenderer, AjfFormsModule} from './public-api';
+import {AjfFormRenderer, AjfFormsModule} from './public-api';
 
 import * as testData from './test-data.spec';
 
