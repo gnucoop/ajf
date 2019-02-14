@@ -23,7 +23,7 @@
 import {animate, AnimationBuilder, AnimationPlayer, style} from '@angular/animations';
 import {
   ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
-  OnDestroy, Renderer2, ViewChild, ViewEncapsulation
+  OnDestroy, /* Renderer2, */ ViewChild, ViewEncapsulation
 } from '@angular/core';
 
 import {Subscription} from 'rxjs';
@@ -55,7 +55,7 @@ export class AjfPageSliderItem implements OnDestroy {
   constructor(
     private _el: ElementRef,
     private _animationBuilder: AnimationBuilder,
-    private _renderer: Renderer2,
+    // private _renderer: Renderer2,
   ) {
     this._resizeSensor = new ResizeSensor(_el.nativeElement, () => this._onResize());
 
