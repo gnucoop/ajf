@@ -35,8 +35,8 @@ declare var monaco: any;
 @Component({
   moduleId: module.id,
   selector: 'ajf-condition-editor',
-  templateUrl: 'condition-editor.html',
-  styleUrls: ['condition-editor.css'],
+  templateUrl: 'fb-condition-editor.html',
+  styleUrls: ['fb-condition-editor.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
