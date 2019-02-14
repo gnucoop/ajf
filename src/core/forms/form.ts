@@ -29,7 +29,7 @@ import {AjfPageSlider, AjfPageSliderOrientation} from '@ajf/core/page-slider';
 import {coerceBooleanProperty} from '@ajf/core/utils';
 
 import {Observable, Subscription} from 'rxjs';
-import {delay, map, withLatestFrom} from 'rxjs/operators';
+import {delay, delayWhen, map, withLatestFrom} from 'rxjs/operators';
 
 import {AjfFormField} from './field';
 import {AjfFormInitStatus, AjfFormRendererService} from './form-renderer';
@@ -152,7 +152,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
    */
   constructor(
     private _rendererService: AjfFormRendererService,
-    private _changeDetectorRef: ChangeDetectorRef
+    protected _changeDetectorRef: ChangeDetectorRef
   ) {
     this.formGroup = _rendererService.formGroup;
     this.slides = _rendererService.nodesTree;
@@ -181,9 +181,10 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
    * this method will add group
    */
   addGroup(nodeGroup: AjfNodeGroupInstance | AjfRepeatingSlideInstance): void {
-    let s = this._rendererService.addGroup(nodeGroup)
-      .pipe(delay(100))
-      .subscribe(
+    let s = this._rendererService.addGroup(nodeGroup).pipe(
+      delayWhen(() => this._rendererService.nodesTree),
+      delay(100),
+    ).subscribe(
         (r) => { if (r && this.formSlider != null) { this.formSlider.slide({dir: 'down'}); } },
         (_e) => { if (s) { s.unsubscribe(); } },
         () => { if (s) { s.unsubscribe(); } }
@@ -194,8 +195,10 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
    * this method will remove group
    */
   removeGroup(nodeGroup: AjfNodeGroupInstance | AjfRepeatingSlideInstance): void {
-    let s = this._rendererService.removeGroup(nodeGroup)
-      .subscribe(
+    let s = this._rendererService.removeGroup(nodeGroup).pipe(
+      delayWhen(() => this._rendererService.nodesTree),
+      delay(100),
+    ).subscribe(
         (r) => { if (r && this.formSlider != null) { this.formSlider.slide({dir: 'up'}); } },
         (_e) => { if (s) { s.unsubscribe(); } },
         () => { if (s) { s.unsubscribe(); } }
