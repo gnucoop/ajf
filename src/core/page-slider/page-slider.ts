@@ -46,6 +46,7 @@ interface Movement {
   velocityY: number;
   deltaX: number;
   deltaY: number;
+  deltaTime: number;
 }
 
 interface MousheWheelMove {
@@ -211,7 +212,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
       } else {
         const page = this._getCurrentPage();
         if (page != null) {
-          page.setScroll('x', movement.deltaX, movement.velocityX);
+          page.setScroll('x', movement.deltaX, movement.deltaTime);
         }
       }
     } else {
@@ -223,7 +224,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
       } else {
         const page = this._getCurrentPage();
         if (page != null) {
-          page.setScroll('y', movement.deltaY, movement.velocityY);
+          page.setScroll('y', movement.deltaY, movement.deltaTime);
         }
       }
     }
@@ -231,6 +232,12 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   onTouchEnd(): void {
     this._resetCurrentOrigin();
+  }
+
+  isCurrentPageLong(): boolean {
+    const curPage = this._getCurrentPage();
+    if (curPage == null) { return false; }
+    return curPage.wrapper.nativeElement.clientHeight > curPage.content.nativeElement.clientHeight;
   }
 
   private _resetCurrentOrigin(): void {
@@ -253,6 +260,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
       deltaX,
       velocityY: deltaY / deltaTime,
       deltaY,
+      deltaTime,
     };
   }
 
@@ -276,7 +284,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     if (this.body == null || this.pages == null || this._animating) { return; }
     this._animating = true;
     const animation = this._animationBuilder.build(animate(
-      immediate ? 0 : this.duration,
+      immediate ? 10 : this.duration,
       style({transform: this._getCurrentTranslation()})
     ));
 
@@ -326,7 +334,6 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   private _restoreCurrentPage(): void {
-    if (this.body == null || this.pages == null) { return; }
-    this._renderer.setStyle(this.body.nativeElement, 'transform', this._getCurrentTranslation());
+    this._doSlide(true);
   }
 }

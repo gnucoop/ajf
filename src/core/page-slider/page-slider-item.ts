@@ -20,7 +20,7 @@
  *
  */
 
-// import {AnimationBuilder, AnimationPlayer} from '@angular/animations';
+import {animate, AnimationBuilder, AnimationPlayer, style} from '@angular/animations';
 import {
   ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
   OnDestroy, Renderer2, ViewChild, ViewEncapsulation
@@ -50,11 +50,11 @@ export class AjfPageSliderItem implements OnDestroy {
   private _resizeSensor: ResizeSensor;
   private _resizeEvent: EventEmitter<void> = new EventEmitter<void>();
   private _resizeSub: Subscription;
-  // private _player: AnimationPlayer | null;
+  private _player: AnimationPlayer | null;
 
   constructor(
     private _el: ElementRef,
-    // private _animationBuilder: AnimationBuilder,
+    private _animationBuilder: AnimationBuilder,
     private _renderer: Renderer2,
   ) {
     this._resizeSensor = new ResizeSensor(_el.nativeElement, () => this._onResize());
@@ -70,7 +70,7 @@ export class AjfPageSliderItem implements OnDestroy {
     this._resizeEvent.complete();
   }
 
-  setScroll(dir: AjfPageSliderItemScrollDirection,  amount: number, _velocity: number): boolean {
+  setScroll(dir: AjfPageSliderItemScrollDirection,  amount: number, duration: number): boolean {
     if (this._el == null || this.wrapper == null || amount === 0) { return false; }
     const el = this._el.nativeElement;
     const wrapper = this.wrapper.nativeElement;
@@ -103,11 +103,11 @@ export class AjfPageSliderItem implements OnDestroy {
         this._scrollY = Math.min(0, this._scrollY + amount);
       }
     }
-    this._renderer.setStyle(
-      wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
-    );
+    // this._renderer.setStyle(
+    //   wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
+    // );
+    this._animateScroll(duration);
     return true;
-    // this._animateScroll(duration);
   }
 
   private _onResize(): void {
@@ -117,7 +117,7 @@ export class AjfPageSliderItem implements OnDestroy {
   private _fixScrollOnResize(): void {
     if (this.content == null || this.wrapper == null) { return; }
     const content = this.content.nativeElement;
-    const wrapper = this.wrapper.nativeElement;
+    // const wrapper = this.wrapper.nativeElement;
     if (
       (content.scrollLeft != null && content.scrollLeft !== 0)
       || (content.scrollTop != null && content.scrollTop !== 0)
@@ -125,23 +125,27 @@ export class AjfPageSliderItem implements OnDestroy {
       this._scrollX += content.scrollLeft != null ? content.scrollLeft : 0;
       this._scrollY += content.scrollTop != null ? content.scrollTop : 0;
       content.scrollTop = content.scrollLeft = 0;
-      this._renderer.setStyle(
-        wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
-      );
+      // this._renderer.setStyle(
+      //   wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
+      // );
+      this._animateScroll(0);
     }
   }
 
-  // private _animateScroll(duration: number): void {
-  //   const animation = this._animationBuilder.build(animate(
-  //     duration,
-  //     style({transform: `translate(${this._scrollX}px, ${this._scrollY}px)`})
-  //   ));
-  //   this._player = animation.create(this.wrapper.nativeElement);
-  //   this._player.onDone(() => {
-  //     if (this._player == null) { return null; }
-  //     this._player.destroy();
-  //     this._player = null;
-  //   });
-  //   this._player.play();
-  // }
+  private _animateScroll(duration: number): void {
+    if (duration === 0) {
+      duration = 10;
+    }
+    const animation = this._animationBuilder.build(animate(
+      duration,
+      style({transform: `translate(${this._scrollX}px, ${this._scrollY}px)`})
+    ));
+    this._player = animation.create(this.wrapper.nativeElement);
+    this._player.onDone(() => {
+      if (this._player == null) { return null; }
+      this._player.destroy();
+      this._player = null;
+    });
+    this._player.play();
+  }
 }
