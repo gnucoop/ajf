@@ -79,8 +79,6 @@
                           <ion-icon color="danger" name="ajf-warning" *ngIf="!slideInstance.validSlide(idx)"></ion-icon>
                           <ion-icon color="secondary" name="checkmark" *ngIf="slideInstance.validSlide(idx)"></ion-icon>
                         </div>
-                      </ion-card-header>
-                      <ion-card-content>
                         <div *ngIf="lastSlide" class="ajf-group-actions">
                           <ion-fab-button size="small" (click)="addGroup(slideInstance)" [disabled]="!slideInstance.canAddGroup">
                             <ion-icon name="add"></ion-icon>
@@ -89,6 +87,8 @@
                             <ion-icon name="remove"></ion-icon>
                           </ion-fab-button>
                         </div>
+                      </ion-card-header>
+                      <ion-card-content>
                         <ng-container *ngFor="let fieldInstance of slideInstance.slideNodes[idx]; trackBy: trackNodeById">
                           <div [ngClass]="'ajf-' + fieldInstance.field.size" class="ajf-field-entry"
                               *ngIf="fieldInstance.visible">
@@ -98,7 +98,7 @@
                             <ajf-field [fieldInstance]="fieldInstance"></ajf-field>
                           </div>
                         </ng-container>
-                        <div *ngIf="lastSlide" class="ajf-group-actions ajf-group-actions-bottom">
+                        <div *ngIf="lastSlide && longSlide" class="ajf-group-actions ajf-group-actions-bottom">
                           <ion-fab-button size="small" (click)="addGroup(slideInstance)" [disabled]="!slideInstance.canAddGroup" mat-mini-fab>
                             <ion-icon name="add"></ion-icon>
                           </ion-fab-button>

@@ -21,13 +21,19 @@
  */
 
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
+  OnDestroy,
   ViewChild,
   ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
+
+import {Subscription} from 'rxjs';
+import {delayWhen, switchMap} from 'rxjs/operators';
 
 import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
 
@@ -67,11 +73,40 @@ import {AjfFormField} from './field';
  * @implements : AfterViewInit
  * @implements : AfterViewInit
  */
-export class AjfFormRenderer extends AjfCoreFormRenderer {
+export class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewInit, OnDestroy {
+  private _longSlide = false;
+  get longSlide(): boolean { return this._longSlide; }
+
+  private _viewInitEvt: EventEmitter<void> = new EventEmitter<void>();
+  private _scrollFinishSub: Subscription = Subscription.EMPTY;
+
   constructor(
     rendererService: AjfFormRendererService,
     cdr: ChangeDetectorRef
   ) {
     super(rendererService, cdr);
+
+    this._scrollFinishSub = this._viewInitEvt.pipe(
+      delayWhen(() => this.formGroup),
+      switchMap(() => this.formSlider.pageScrollFinish),
+    ).subscribe(_ => this._updateLongSlide());
+  }
+
+  ngAfterViewInit(): void {
+    super.ngAfterViewInit();
+    this._viewInitEvt.emit();
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this._scrollFinishSub.unsubscribe();
+  }
+
+  private _updateLongSlide(): void {
+    const longSlide = this.formSlider.isCurrentPageLong();
+    if (longSlide !== this._longSlide) {
+      this._longSlide = longSlide;
+      this._changeDetectorRef.markForCheck();
+    }
   }
 }

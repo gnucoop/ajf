@@ -44,6 +44,26 @@ ajf-form {
                   flex:1;
                   margin-bottom: 2em;
 
+                  > ion-card-header {
+                    overflow: visible !important;
+
+                    .ajf-group-actions {
+                      position: absolute;
+                      left: calc(100vw - 160px - 6em);
+                      width: 160px;
+                      margin-top: -2em;
+                      padding: 15px;
+                      z-index: 10;
+                      white-space: nowrap;
+                      overflow: visible !important;
+
+                      ion-fab-button {
+                        display: inline-block;
+                        overflow: visible !important;
+                      }
+                    }
+                  }
+
                   > ion-card-content {
                     display: flex;
                     flex-wrap: wrap;
@@ -51,23 +71,14 @@ ajf-form {
                     align-content: flex-start;
                     position: relative;
 
-                    .ajf-group-actions {
-                      position: absolute;
-                      left: calc(100vw - 13em);
-                      margin-top: -3em;
-                      padding: 15px;
-                      z-index: 10;
-                      white-space: nowrap;
+                    .ajf-group-actions-bottom {
+                      width: 100%;
+                      text-align: right;
+                      overflow: visible !important;
 
                       ion-fab-button {
+                        overflow: visible !important;
                         display: inline-block;
-                      }
-
-                      &.ajf-group-actions-bottom {
-                        position: unset;
-                        margin: 0;
-                        flex: 1;
-                        text-align: right;
                       }
                     }
 
