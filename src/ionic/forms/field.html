@@ -20,16 +20,17 @@
       <ng-container *ngIf="(!fwc.forceExpanded &&
             fwcInst.filteredChoices && fwcInst.filteredChoices.length > searchTreshold) || fwc.forceNarrow">
         <div class="ajf-item-container">
-          <ionic-selectable
+          <ionic-selectable *ngIf="fwcInst.filteredChoices|ajfChoicesMap as cm"
               #singleChoiceSelect
               [canSearch]="hasSearch()"
-              [items]="fwcInst.filteredChoices"
-              itemValueField="value"
-              itemTextField="label"
+              [items]="cm.array"
               [placeholder]="fieldInstance.field.label"
               [formControl]="curControl">
             <ng-template ionicSelectableItemTemplate let-choice="item">
-              {{ choice.label | translate }}
+              {{ cm.map[choice] | translate }}
+            </ng-template>
+            <ng-template ionicSelectableValueTemplate let-selChoice="value">
+              {{ cm.map[selChoice] | translate }}
             </ng-template>
           </ionic-selectable>
         </div>
@@ -50,17 +51,20 @@
         <ng-container *ngIf="(!fwc.forceExpanded &&
             fwcInst.filteredChoices && fwcInst.filteredChoices.length > searchTreshold) || fwcInst.field.forceNarrow">
         <div class="ajf-item-container">
-          <ionic-selectable
+          <ionic-selectable *ngIf="fwcInst.filteredChoices|ajfChoicesMap as cm"
               #multipleChoiceSelect
               [isMultiple]="true"
               [canSearch]="hasSearch()"
-              [items]="fwcInst.filteredChoices"
-              itemValueField="value"
-              itemTextField="label"
+              [items]="cm.array"
               [placeholder]="fieldInstance.field.label"
               [formControl]="curControl">
             <ng-template ionicSelectableItemTemplate let-choice="item">
-              {{ choice.label | translate }}
+              {{ cm.map[choice] | translate }}
+            </ng-template>
+            <ng-template ionicSelectableValueTemplate let-selChoices="value">
+              <div class="ionic-selectable-value-item" *ngFor="let selChoice of selChoices">
+                {{ cm.map[selChoice] | translate }}
+              </div>
             </ng-template>
           </ionic-selectable>
         </div>
