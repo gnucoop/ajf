@@ -284,7 +284,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     if (this.body == null || this.pages == null || this._animating) { return; }
     this._animating = true;
     const animation = this._animationBuilder.build(animate(
-      immediate ? 10 : this.duration,
+      immediate ? 0 : this.duration,
       style({transform: this._getCurrentTranslation()})
     ));
 
