@@ -391,11 +391,7 @@ export function formatDate(date: Date, fmt?: string): string {
 export function isoMonth(date: Date, fmt?: string): string {
   fmt = fmt || 'MM';
   const du = dateUtils;
-  const weekday = du.getDay(date);
-  if (weekday < 4) {
-    date = startOfISOWeek(date);
-  }
-  return du.format(date, fmt);
+  return du.format(du.addDays(du.startOfISOWeek(date), 3), fmt);
 }
 
 export function getCoordinate(source: any, zoom?: number): [number, number, number] {
