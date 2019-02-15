@@ -30,7 +30,7 @@
     "preinstall": "node ./tools/npm/check-npm.js",
     "postinstall": "rm -rf ./bundles"
   },
-  "version": "7.0.0-alpha.11",
+  "version": "7.0.0-alpha.12",
   "requiredAngularVersion": ">=7.0.0",
   "requiredAngularMaterialVersion": ">=7.0.0",
   "requiredNgxtVersion": ">=11.0.0",
