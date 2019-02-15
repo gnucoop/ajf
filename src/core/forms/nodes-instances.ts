@@ -167,8 +167,15 @@ export class AjfFieldInstance extends AjfNodeInstance {
 
   constructor(params: IAjfNodeInstance, context?: any) {
     super(params, context);
-    this.value = this.node && context && this.node.name in context
-      && context[this.node.name] || null;
+    if (this.node != null && context != null) {
+      if (context[this.node.name] != null) {
+        this.value = context[this.node.name];
+      } else if (context[this.completeName] != null) {
+        this.value = context[this.completeName];
+      } else {
+        this.value = null;
+      }
+    }
     const defVal = (<AjfField>this.node).defaultValue;
     this._defaultValue = this.node && defVal != null ? defVal : null;
   }
