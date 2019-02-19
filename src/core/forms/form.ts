@@ -279,6 +279,8 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     this._nextSlideSubscription.unsubscribe();
     this._errorMoveSubscription.unsubscribe();
     this._orientationChange.complete();
+    this._errorMoveEvent.complete();
+    this._formAction.complete();
   }
 
   trackNodeById(_: number, node: AjfNodeInstance): string {
