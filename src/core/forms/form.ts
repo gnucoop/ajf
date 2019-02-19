@@ -122,6 +122,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     if (orientation !== this._orientation) {
       this._orientation = orientation;
       this._changeDetectorRef.markForCheck();
+      this._orientationChange.emit(this._orientation);
     }
   }
 
