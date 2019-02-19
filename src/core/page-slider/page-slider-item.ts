@@ -60,7 +60,7 @@ export class AjfPageSliderItem implements OnDestroy {
     this._resizeSensor = new ResizeSensor(_el.nativeElement, () => this._onResize());
 
     this._resizeSub = this._resizeEvent.pipe(
-      debounceTime(200),
+      debounceTime(300),
     ).subscribe(() => this._fixScrollOnResize());
   }
 
@@ -118,12 +118,17 @@ export class AjfPageSliderItem implements OnDestroy {
     if (this.content == null || this.wrapper == null) { return; }
     const content = this.content.nativeElement;
     const wrapper = this.wrapper.nativeElement;
+    const maxScrollX = Math.min(0, content.clientWidth - wrapper.clientWidth);
+    const maxScrollY = Math.min(0, content.clientHeight - wrapper.clientHeight);
     if (
-      (content.scrollLeft != null && content.scrollLeft !== 0)
-      || (content.scrollTop != null && content.scrollTop !== 0)
-     ) {
-      this._scrollX += content.scrollLeft != null ? content.scrollLeft : 0;
-      this._scrollY += content.scrollTop != null ? content.scrollTop : 0;
+      maxScrollX !== 0 || maxScrollY !== 0
+      || (maxScrollX === 0 && this._scrollX !== 0)
+      || (maxScrollY === 0 && this._scrollY !== 0)
+    ) {
+      this._scrollX = Math.max(
+        maxScrollX, this._scrollX - (content.scrollLeft != null ? content.scrollLeft : 0));
+      this._scrollY = Math.max(
+        maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
       content.scrollTop = content.scrollLeft = 0;
       this._renderer.setStyle(
         wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
