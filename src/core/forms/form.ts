@@ -284,6 +284,10 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     this._formAction.complete();
   }
 
+  orientationChangeHandler(orientation: AjfPageSliderOrientation): void {
+    this.orientation = orientation;
+  }
+
   trackNodeById(_: number, node: AjfNodeInstance): string {
     return node.completeName;
   }

@@ -8,7 +8,8 @@
         </ion-buttons>
       </ion-toolbar>
       <div class="ajf-slider-container">
-        <ajf-page-slider [hideNavigationButtons]="hideNavigationButtons"
+        <ajf-page-slider (orientationChange)="orientationChangeHandler($event)"
+            [hideNavigationButtons]="hideNavigationButtons"
             [fixedOrientation]="fixedOrientation"
             [orientation]="orientation"
             #formSlider>
