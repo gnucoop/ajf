@@ -61,6 +61,11 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   private _pageScrollFinish: EventEmitter<void> = new EventEmitter<void>();
   readonly pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
 
+  private _orientationChange: EventEmitter<AjfPageSliderOrientation>
+    = new EventEmitter<AjfPageSliderOrientation>();
+  readonly orientationChange: Observable<AjfPageSliderOrientation> =
+    this._orientationChange.asObservable();
+
   duration = 300;
 
   private _orientation: AjfPageSliderOrientation = 'horizontal';
@@ -71,6 +76,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
       this._cdr.markForCheck();
       this._updateSize();
       this._restoreCurrentPage();
+      this._orientationChange.emit(this._orientation);
     }
   }
 
@@ -144,6 +150,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     this._pagesSub.unsubscribe();
     this._mouseWheelEvt.complete();
     this._mouseWheelSub.unsubscribe();
+    this._orientationChange.complete();
   }
 
   switchOrientation(): void {

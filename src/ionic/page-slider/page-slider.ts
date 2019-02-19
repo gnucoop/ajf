@@ -36,7 +36,7 @@ import {AjfPageSlider as AjfCorePageSlider, AjfPageSliderItem} from '@ajf/core/p
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: ['duration', 'currentPage', 'hideNavigationButtons', 'orientation', 'fixedOrientation'],
-  outputs: ['pageScrollFinish'],
+  outputs: ['pageScrollFinish', 'orientationChange'],
   queries: {
     pages: new ContentChildren(AjfPageSliderItem),
     body: new ViewChild('body'),
