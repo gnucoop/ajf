@@ -52,7 +52,8 @@ import {AjfFormField} from './field';
   ],
   outputs: [
     'formSave',
-    'formAction'
+    'formAction',
+    'orientationChange',
   ],
   queries: {
     formSlider: new ViewChild('formSlider'),

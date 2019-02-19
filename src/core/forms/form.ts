@@ -61,6 +61,11 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
 
   title: string;
 
+  private _orientationChange: EventEmitter<AjfPageSliderOrientation>
+    = new EventEmitter<AjfPageSliderOrientation>();
+  readonly orientationChange: Observable<AjfPageSliderOrientation> =
+    this._orientationChange.asObservable();
+
   private _saveDisabled: boolean = false;
   get saveDisabled(): boolean { return this._saveDisabled; }
   set saveDisabled(saveDisabled: boolean) {
@@ -273,6 +278,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   ngOnDestroy(): void {
     this._nextSlideSubscription.unsubscribe();
     this._errorMoveSubscription.unsubscribe();
+    this._orientationChange.complete();
   }
 
   trackNodeById(_: number, node: AjfNodeInstance): string {
