@@ -110,7 +110,6 @@ export class AjfFormRendererService {
   private _form: BehaviorSubject<{form: AjfForm | null, context?: any} | null> =
     new BehaviorSubject<{form: AjfForm | null, context?: any} | null>(null);
   private _nodes: Observable<AjfNodeInstance[]>;
-  private _currentNodes: AjfNodeInstance[];
   private _flatNodes: Observable<IAjfNodeInstance[]>;
   private _flatNodesTree: Observable<IAjfSlideInstance[]>;
   private _nodesUpdates: Subject<IAjfNodesInstancesOperation>
@@ -166,18 +165,6 @@ export class AjfFormRendererService {
     const formGroup = this._formGroup.getValue();
     if (formGroup == null) { return {}; }
     let res = deepCopy(formGroup.value);
-    // TODO daniel controlla sta roba...
-    if (this._currentNodes != null) {
-      Object.keys(res).forEach(k => {
-        const n = this._currentNodes.filter(x => x.completeName === k);
-        if (n.length && n[0].visibility!) {
-          delete res[k];
-        }
-      });
-    }
-    Object.keys(this._currentTablesContext).forEach(k => {
-      res[k] = this._currentTablesContext[k];
-    });
     return res;
   }
 
