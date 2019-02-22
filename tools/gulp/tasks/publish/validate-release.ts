@@ -1,5 +1,5 @@
 import {default as chalk} from 'chalk';
-import {existsSync, readFileSync} from 'fs';
+import {readFileSync} from 'fs';
 import {sync as glob} from 'glob';
 import {task} from 'gulp';
 import {buildConfig, sequenceTask} from 'ajf-build-tools';
@@ -51,7 +51,7 @@ function checkReleasePackage(packageName: string): string[] {
  * Checks an ES2015 bundle inside of a release package. Secondary entry-point bundles will be
  * checked as well.
  */
-function checkEs2015ReleaseBundle(packageName: string, bundlePath: string): string[] {
+function checkEs2015ReleaseBundle(_packageName: string, bundlePath: string): string[] {
   const bundleContent = readFileSync(bundlePath, 'utf8');
   let failures: string[] = [];
 
@@ -61,28 +61,6 @@ function checkEs2015ReleaseBundle(packageName: string, bundlePath: string): stri
 
   if (externalReferencesRegex.exec(bundleContent) !== null) {
     failures.push('Bundles are including references to external resources (templates or styles)');
-  }
-
-  if (packageName === 'material') {
-    failures = failures.concat(checkMaterialPackage());
-  }
-
-  return failures;
-}
-
-/** Function that includes special checks for the Material package. */
-function checkMaterialPackage(): string[] {
-  const packagePath = join(releasesDir, 'material');
-  const prebuiltThemesPath = join(packagePath, 'prebuilt-themes');
-  const themingFilePath = join(packagePath, '_theming.scss');
-  const failures: string[] = [];
-
-  if (glob('*.css', {cwd: prebuiltThemesPath}).length === 0) {
-    failures.push('Prebuilt themes are not present in the Material release output.');
-  }
-
-  if (!existsSync(themingFilePath)) {
-    failures.push('The theming SCSS file is not present in the Material release output.');
   }
 
   return failures;

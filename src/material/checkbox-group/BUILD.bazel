@@ -9,6 +9,7 @@ ng_module(
   module_name = "@ajf/material/checkbox-group",
   assets = [":checkbox-group-item.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
     "@angular_material//src/lib/button",
     "@angular_material//src/lib/icon",

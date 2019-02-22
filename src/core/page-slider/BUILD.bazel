@@ -11,7 +11,8 @@ ng_module(
   deps = [
     "@angular//packages/animations",
     "@angular//packages/core",
-    "//src/core/utils"
+    "//src/core/utils",
+    "//src/core:css-element-queries-typings"
   ],
 )
 

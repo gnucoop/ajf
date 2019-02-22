@@ -1,7 +1,6 @@
 package(default_visibility=["//visibility:public"])
 
-load("//tools:sass_bundle.bzl", "sass_bundle")
-load("//:packages.bzl", "MATERIAL_PACKAGES", "MATERIAL_TARGETS", "ROLLUP_GLOBALS")
+load("//:packages.bzl", "MATERIAL_TARGETS", "ROLLUP_GLOBALS")
 load("//tools:defaults.bzl", "ng_module", "ng_package")
 
 # Root "@ajf/material" entry-point.
@@ -9,7 +8,9 @@ ng_module(
   name = "material",
   srcs = glob(["*.ts"], exclude=["**/*.spec.ts"]),
   module_name = "@ajf/material",
-  deps = ["//src/material/%s" % p for p in MATERIAL_PACKAGES],
+  deps = [
+    "@angular//packages/core",
+  ],
 )
 
 # Creates the @angular/material package published to npm.

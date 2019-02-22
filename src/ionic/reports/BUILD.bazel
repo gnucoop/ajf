@@ -9,6 +9,7 @@ ng_module(
   module_name = "@ajf/ionic/reports",
   assets = [":report.css", ":widget.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/animations",
     "@angular//packages/common",
     "@angular//packages/core",
     "@ngx_translate_core//:core",

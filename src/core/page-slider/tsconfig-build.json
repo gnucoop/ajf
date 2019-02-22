@@ -2,6 +2,7 @@
   "extends": "../tsconfig-build",
   "files": [
     "public-api.ts",
+    "../css-element-queries-typings.d.ts",
     "../typings.d.ts"
   ],
   "angularCompilerOptions": {

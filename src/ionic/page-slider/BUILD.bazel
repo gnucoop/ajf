@@ -9,6 +9,7 @@ ng_module(
   module_name = "@ajf/ionic/page-slider",
   assets = [":page-slider.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
     "@ionic_angular//:angular",
     "//src/core/page-slider",

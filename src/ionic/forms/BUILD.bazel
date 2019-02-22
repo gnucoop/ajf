@@ -9,7 +9,9 @@ ng_module(
   module_name = "@ajf/ionic/forms",
   assets = [":field.css", ":form.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
+    "@angular//packages/forms",
     "@ionic_angular//:angular",
     "@ionic_selectable//:ionic-selectable",
     "@ngx_translate_core//:core",

@@ -12,7 +12,7 @@ ng_module(
     ":choices-origin-editor-dialog.css",
     ":choices-origin-editor.css",
     ":condition-editor-dialog.css",
-    ":condition-editor.css",
+    ":fb-condition-editor.css",
     ":form-builder.css",
     ":node-entry.css",
     ":node-properties.css",
@@ -21,6 +21,7 @@ ng_module(
     ":warning-condition-editor-dialog.css",
   ] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
     "@angular//packages/forms",
     "@angular_material//src/cdk/drag-drop",
@@ -73,8 +74,8 @@ sass_binary(
 )
 
 sass_binary(
-  name = "condition_editor_scss",
-  src = "condition-editor.scss",
+  name = "fb_condition_editor_scss",
+  src = "fb-condition-editor.scss",
   deps = [],
 )
 

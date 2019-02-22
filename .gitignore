@@ -48,5 +48,5 @@ node_env.sh
 firebase.json
 
 # schematics
-/src/lib/schematics/**/*.js
-/src/lib/schematics/**/*.map
+/src/core/schematics/**/*.js
+/src/core/schematics/**/*.map

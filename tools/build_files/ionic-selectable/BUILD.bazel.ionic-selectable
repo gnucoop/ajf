@@ -9,6 +9,7 @@ ng_module(
   name = "ionic-selectable",
   module_name = "ionic-selectable",
   srcs = ["index.ts"] + glob(["src/app/components/ionic-selectable/**/*.ts"]),
+  assets = glob(["**/*.html"]) + glob(["**/*.css"]),
   deps = [
     "@ajf//src:module-typings",
     "@angular//packages/common",

@@ -9,6 +9,7 @@ ng_module(
   module_name = "@ajf/ionic/checkbox-group",
   assets = [":checkbox-group-item.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
     "@ionic_angular//:angular",
     "//src/core/checkbox-group",
