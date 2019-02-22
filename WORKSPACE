@@ -51,10 +51,11 @@ http_archive(
 
 http_archive(
   name = "ionic_angular",
-  url = "https://github.com/ionic-team/ionic/archive/v4.0.0.zip",
-  strip_prefix = "ionic-4.0.0/angular/src",
+  url = "https://github.com/ionic-team/ionic/archive/v4.0.2.zip",
+  strip_prefix = "ionic-4.0.2/angular/src",
   build_file="//tools/build_files/ionic:BUILD.bazel.ionic",
-  workspace_file="//tools/build_files/ionic:WORKSPACE.ionic"
+  workspace_file="//tools/build_files/ionic:WORKSPACE.ionic",
+  sha256="d0476ac06327e2230bff0570f6fe6b81002fb6917bcef9405604a72a7abc9f99"
 )
 
 http_archive(
