@@ -1,6 +1,6 @@
 package(default_visibility=["//visibility:public"])
 
-load("//tools:defaults.bzl", "ng_module", "ng_test_library", "jasmine_node_test")
+load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
 
 ng_module(
   name = "utils",
@@ -21,7 +21,7 @@ ng_test_library(
   ]
 )
 
-jasmine_node_test(
+ng_web_test_suite(
   name = "unit_tests",
   deps = [":utils_test_sources"],
 )

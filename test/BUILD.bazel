@@ -17,6 +17,17 @@ ts_library(
 )
 
 webpack_bundle(
+  name = "css_element_queries_bundle",
+  library = "css-element-queries",
+  library_target = "umd",
+  entry_point = "@ajfdeps//node_modules/css-element-queries:index.js",
+  output_name = "css-element-queries.umd.js",
+  deps = [
+    "@ajfdeps//css-element-queries",
+  ],
+)
+
+webpack_bundle(
   name = "debug_bundle",
   library = "debug",
   library_target = "umd",

@@ -7,10 +7,13 @@ System.config({
   },
   map: {
     'traceur': 'node:traceur/bin/traceur.js',
+    'chart.js': 'node:chart.js/dist/Chart.js',
+    'chart.piecelabel.js': 'node:chart.piecelabel.js/build/Chart.PieceLabel.min.js',
     'css-element-queries': 'node:css-element-queries/index.js',
     'date-fns': 'node:date-fns/index.js',
     'debug': 'node:debug/src/browser.js',
     'esprima': 'node:esprima/esprima.js',
+    'leaflet': 'node:leaflet/dist/leaflet.js',
     'ms': 'node:ms/index.js',
     'numeral': 'node:numeral/numeral.js',
     'rxjs': 'node:rxjs',
