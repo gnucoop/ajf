@@ -9,7 +9,9 @@ ng_module(
   module_name = "@ajf/material/forms",
   assets = [":field.css", ":form.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
+    "@angular//packages/forms",
     "@angular_material//src/lib/button",
     "@angular_material//src/lib/card",
     "@angular_material//src/lib/dialog",

@@ -1,17 +1,18 @@
+import * as OctokitApi from '@octokit/rest';
 import {default as chalk} from 'chalk';
-import {existsSync, readFileSync, writeFileSync} from 'fs';
-import {prompt} from 'inquirer';
+import {readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
+import {BaseReleaseTask} from './base-release-task';
 import {promptAndGenerateChangelog} from './changelog';
 import {GitClient} from './git/git-client';
+import {getGithubBranchCommitsUrl} from './git/github-urls';
 import {promptForNewVersion} from './prompt/new-version-prompt';
 import {parseVersionName, Version} from './version-name/parse-version';
-import {getExpectedPublishBranch} from './version-name/publish-branch';
 
 const {bold, cyan, green, italic, red, yellow} = chalk;
 
 /** Default filename for the changelog. */
-const CHANGELOG_FILE_NAME = 'CHANGELOG.md';
+export const CHANGELOG_FILE_NAME = 'CHANGELOG.md';
 
 /**
  * Class that can be instantiated in order to stage a new release. The tasks requires user
@@ -21,15 +22,18 @@ const CHANGELOG_FILE_NAME = 'CHANGELOG.md';
  *
  *  1) Prompt for release type (with version suggestion)
  *  2) Prompt for version name if no suggestions has been selected
- *  3) Assert that the proper publish branch is checked out (e.g. 6.4.x for patches)
- *  4) Assert that there are no local changes which are uncommitted.
- *  5) Assert that the local branch is up to date with the remote branch.
- *  6) Creates a new branch for the release staging (release-stage/{VERSION})
- *  7) Switches to the staging branch and updates the package.json
- *  8) Waits for the user to continue (users can generate the changelog in the meanwhile)
- *  9) Create a commit that includes all changes in the staging branch.
+ *  3) Assert that there are no local changes which are uncommitted.
+ *  4) Assert that the proper publish branch is checked out. (e.g. 6.4.x for patches)
+ *     If a different branch is used, try switching to the publish branch automatically
+ *  5) Assert that the Github status checks pass for the publish branch.
+ *  6) Assert that the local branch is up to date with the remote branch.
+ *  7) Creates a new branch for the release staging (release-stage/{VERSION})
+ *  8) Switches to the staging branch and updates the package.json
+ *  9) Prompt for release name and generate changelog
+ *  10) Wait for the user to continue (users can customize generated changelog)
+ *  11) Create a commit that includes all changes in the staging branch.
  */
-class StageReleaseTask {
+class StageReleaseTask extends BaseReleaseTask {
 
   /** Path to the project package JSON. */
   packageJsonPath: string;
@@ -43,17 +47,16 @@ class StageReleaseTask {
   /** Instance of a wrapper that can execute Git commands. */
   git: GitClient;
 
-  constructor(public projectDir: string) {
+  /** Octokit API instance that can be used to make Github API calls. */
+  githubApi: OctokitApi;
+
+  constructor(public projectDir: string,
+              public repositoryOwner: string,
+              public repositoryName: string) {
+    super(new GitClient(projectDir,
+      `https://github.com/${repositoryOwner}/${repositoryName}.git`));
+
     this.packageJsonPath = join(projectDir, 'package.json');
-
-    console.log(this.projectDir);
-
-    if (!existsSync(this.packageJsonPath)) {
-      console.error(red(`The specified directory is not referring to a project directory. ` +
-        `There must be a ${italic('package.json')} file in the project directory.`));
-      process.exit(1);
-    }
-
     this.packageJson = JSON.parse(readFileSync(this.packageJsonPath, 'utf-8'));
     this.currentVersion = parseVersionName(this.packageJson.version);
 
@@ -63,7 +66,7 @@ class StageReleaseTask {
       process.exit(1);
     }
 
-    this.git = new GitClient(projectDir, this.packageJson.repository.url);
+    this.githubApi = new OctokitApi();
   }
 
   async run() {
@@ -74,7 +77,8 @@ class StageReleaseTask {
     console.log();
 
     const newVersion = await promptForNewVersion(this.currentVersion);
-    const expectedPublishBranch = getExpectedPublishBranch(newVersion);
+    const newVersionName = newVersion.format();
+    const stagingBranch = `release-stage/${newVersionName}`;
 
     // After the prompt for the new version, we print a new line because we want the
     // new log messages to be more in the foreground.

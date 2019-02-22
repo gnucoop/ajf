@@ -9,6 +9,7 @@ ng_module(
   module_name = "@ajf/core/table",
   assets = [":table.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
     "@angular//packages/platform-browser",
     "//src/core/common",

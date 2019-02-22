@@ -9,6 +9,7 @@ ng_module(
   module_name = "@ajf/material/image",
   assets = [":image.css"] + glob(["**/*.html"]),
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
     "@angular_material//src/lib/icon",
     "//src/core/image",

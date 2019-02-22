@@ -29,6 +29,7 @@ ng_module(
   deps = [
     "@angular//packages/common",
     "@angular//packages/core",
+    "@angular//packages/forms",
     "@angular_material//src/cdk/drag-drop",
     "@angular_material//src/lib/button",
     "@angular_material//src/lib/button-toggle",
