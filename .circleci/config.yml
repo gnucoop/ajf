@@ -120,7 +120,7 @@ jobs:
       - *checkout_code
       - *restore_cache
       - *copy_bazel_config
-      # - *setup_bazel_remote_execution
+      - *setup_bazel_remote_execution
 
       - run: bazel build src/... --build_tag_filters=-docs-package
       - run: bazel test src/... --build_tag_filters=-docs-package
@@ -142,7 +142,7 @@ jobs:
     - *checkout_code
     - *restore_cache
     - *copy_bazel_config
-    # - *setup_bazel_remote_execution
+    - *setup_bazel_remote_execution
 
     - run: bazel test tools/public_api_guard/...
 
@@ -158,7 +158,7 @@ jobs:
       - *checkout_code
       - *restore_cache
       - *copy_bazel_config
-      # - *setup_bazel_remote_execution
+      - *setup_bazel_remote_execution
 
       - run: bazel test e2e-mat/...
   
@@ -171,7 +171,7 @@ jobs:
       - *checkout_code
       - *restore_cache
       - *copy_bazel_config
-      # - *setup_bazel_remote_execution
+      - *setup_bazel_remote_execution
 
       - run: bazel test e2e-ion/...
 
@@ -329,7 +329,7 @@ jobs:
       - *restore_cache
       - *attach_release_output
       - *copy_bazel_config
-      # - *setup_bazel_remote_execution
+      - *setup_bazel_remote_execution
 
       # CircleCI has a config setting to enforce SSH for all github connections.
       # This is not compatible with our mechanism of using a Personal Access Token
