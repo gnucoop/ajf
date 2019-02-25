@@ -98,7 +98,6 @@ export class AjfFormRendererService {
   private _formInitEvent: EventEmitter<AjfFormInitStatus> = new EventEmitter<AjfFormInitStatus>();
   readonly formInitEvent: Observable<AjfFormInitStatus> = this._formInitEvent.asObservable();
 
-  private _currentTablesContext: any = {};
   private _tablesContextMap: Observable<IAjfRendererTableMap>;
   private _tablesContextMapUpdates: Subject<IAjfRendererUpdateMapOperation>
     = new Subject<IAjfRendererUpdateMapOperation>();

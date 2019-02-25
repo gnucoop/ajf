@@ -1,5 +1,4 @@
 import {existsSync, readFileSync} from 'fs';
-import {sync as glob} from 'glob';
 import {dirname, isAbsolute, join} from 'path';
 import * as ts from 'typescript';
 
