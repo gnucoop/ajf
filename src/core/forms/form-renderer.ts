@@ -406,10 +406,6 @@ export class AjfFormRendererService {
         };
       }))
       .subscribe(this._nodesUpdates);
-    this._tablesContextMap
-      .subscribe(x => {
-        this._currentTablesContext = x;
-      });
   }
 
   private _initNodeInstance(
