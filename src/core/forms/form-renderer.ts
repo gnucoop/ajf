@@ -40,7 +40,7 @@ import {
 } from './nodes-instances';
 import {
   IAjfNodesInstancesOperation, IAjfRendererUpdateMap, IAjfRendererUpdateMapOperation,
-  IAjfRendererTableMap, IAjfRendererUpdateTableMapOperation
+  IAjfRendererUpdateTableMapOperation
 } from './form-renderer-operations';
 import {
   flattenNodes, flattenNodesTree, flattenNodesInstances, isContainerNode,
@@ -98,10 +98,6 @@ export class AjfFormRendererService {
   private _formInitEvent: EventEmitter<AjfFormInitStatus> = new EventEmitter<AjfFormInitStatus>();
   readonly formInitEvent: Observable<AjfFormInitStatus> = this._formInitEvent.asObservable();
 
-  private _tablesContextMap: Observable<IAjfRendererTableMap>;
-  private _tablesContextMapUpdates: Subject<IAjfRendererUpdateMapOperation>
-    = new Subject<IAjfRendererUpdateMapOperation>();
-
   private _formGroup: BehaviorSubject<FormGroup | null> =
     new BehaviorSubject<FormGroup | null>(null);
   readonly formGroup: Observable<FormGroup | null> = this._formGroup.asObservable();
@@ -143,7 +139,6 @@ export class AjfFormRendererService {
   }
 
   setForm(form: AjfForm | null, context: any = {}) {
-    this._resetTableContext();
     this._initUpdateMapStreams();
     if (
       form != null && Object.keys(context).length === 0 &&
@@ -340,14 +335,6 @@ export class AjfFormRendererService {
           startWith<IAjfRendererUpdateMap>({}),
           share()
         );
-    this._tablesContextMap =
-      (<Observable<IAjfRendererUpdateMapOperation>>this._tablesContextMapUpdates).pipe(
-        scan((rmap: IAjfRendererUpdateMap, op: IAjfRendererUpdateMapOperation) => {
-          return op(rmap);
-        }, {}),
-        startWith<IAjfRendererUpdateMap>({}),
-        share()
-      );
     this._nextSlideConditionsNodesMap =
       (<Observable<IAjfRendererUpdateMapOperation>>this._nextSlideConditionsNodesMapUpdates).pipe(
         scan((rmap: IAjfRendererUpdateMap, op: IAjfRendererUpdateMapOperation) => {
@@ -1021,10 +1008,6 @@ export class AjfFormRendererService {
       }
     }
 
-    if (fieldInstance instanceof AjfTableFieldInstance) {
-      this._addTableContext(fieldInstance.context);
-    }
-
     return fieldInstance;
   }
 
@@ -1234,23 +1217,5 @@ export class AjfFormRendererService {
         return vmap;
       });
     }
-  }
-
-  private _addTableContext(ctxToAdd: any) {
-    this._tablesContextMapUpdates
-      .next((oldCtxtL: any): any => {
-        let result = deepCopy(oldCtxtL);
-        Object.keys(ctxToAdd).forEach((k) => {
-          result[k] = ctxToAdd[k];
-        });
-        return result;
-      });
-  }
-
-  private _resetTableContext() {
-    this._tablesContextMapUpdates
-      .next((_oldCtxtL: any): any => {
-        return {};
-      });
   }
 }
