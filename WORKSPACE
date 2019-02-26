@@ -46,7 +46,8 @@ http_archive(
   url = "https://github.com/gnucoop/core/archive/23bf3e5eaa6a2aac24a9e709821f636483e070aa.zip",
   strip_prefix = "core-23bf3e5eaa6a2aac24a9e709821f636483e070aa/projects/ngx-translate/core/src",
   build_file="//tools/build_files/ngx-translate-core:BUILD.bazel.ngxtc",
-  workspace_file="//tools/build_files/ngx-translate-core:WORKSPACE.ngxtc"
+  workspace_file="//tools/build_files/ngx-translate-core:WORKSPACE.ngxtc",
+  sha256 = "02fb5f14c55a21e4c18bb1f4399a30249d3c1ba4c6a5033a9d9efcb8b91b3af5"
 )
 
 http_archive(
@@ -71,7 +72,8 @@ http_archive(
   url = "https://github.com/zefoy/ngx-color-picker/archive/v7.3.0.zip",
   strip_prefix = "ngx-color-picker-7.3.0",
   build_file="//tools/build_files/ngx-color-picker:BUILD.bazel.ngx-color-picker",
-  workspace_file="//tools/build_files/ngx-color-picker:WORKSPACE.ngx-color-picker"
+  workspace_file="//tools/build_files/ngx-color-picker:WORKSPACE.ngx-color-picker",
+  sha256="084ffa0fdb016b4b46ea7b0fe7ff63022e78628b3d8f21c61ec345af0ae6f898"
 )
 
 # We need to create a local repository called "npm" because currently Angular Material

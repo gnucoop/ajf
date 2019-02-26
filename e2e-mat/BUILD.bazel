@@ -9,21 +9,21 @@ ts_library(
   tsconfig = ":tsconfig.json",
   deps = [
     "@ajfdeps//@types/jasmine",
-    "@ajfdeps//protractor"
+    "@ajfdeps//protractor",
   ]
 )
 
 # For each spec file in the "components/" folder, we declare a Bazel target
 # that builds the JavaScript outputs for the e2e spec file.
 [ts_library(
-   name = "%s_specs_lib" % spec_file,
-   srcs = [spec_file],
-   tsconfig = ":tsconfig.json",
-   deps = [
-     "@ajfdeps//@types/jasmine",
-     "@ajfdeps//protractor",
-     ":e2e_utils_lib",
-   ]
+  name = "%s_specs_lib" % spec_file,
+  srcs = [spec_file],
+  tsconfig = ":tsconfig.json",
+  deps = [
+    "@ajfdeps//@types/jasmine",
+    "@ajfdeps//protractor",
+    ":e2e_utils_lib",
+  ]
  ) for spec_file in glob(["components/**/*.spec.ts"])]
 
 # For each spec file in the "components/" folder, we declare a Protractor web test
@@ -32,7 +32,7 @@ ts_library(
   name = "%s_e2e" % spec_file,
   configuration = ":protractor.conf.js",
   on_prepare = ":start-devserver.js",
-  server = "//src/e2e-app:devserver",
+  server = "//src/e2e-app-mat:devserver",
   deps = [
     "@ajfdeps//protractor",
     ":%s_specs_lib" % spec_file,

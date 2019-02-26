@@ -32,7 +32,7 @@ ts_library(
   name = "%s_e2e" % spec_file,
   configuration = ":protractor.conf.js",
   on_prepare = ":start-devserver.js",
-  server = "//src/e2e-app:devserver",
+  server = "//src/e2e-app-ion:devserver",
   deps = [
     "@ajfdeps//protractor",
     ":%s_specs_lib" % spec_file,

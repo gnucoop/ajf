@@ -1,5 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
+import {Router} from '@angular/router';
 
+import {NavController} from '@ionic/angular';
 
 @Component({
   selector: 'home',
@@ -15,4 +17,11 @@ export class Home {}
 })
 export class E2EApp {
   showLinks: boolean = false;
+
+  constructor(private _navCtrl: NavController, private _router: Router) { }
+
+  navTo(route: string) {
+    this._navCtrl.setDirection('forward');
+    this._router.navigateByUrl(route);
+  }
 }

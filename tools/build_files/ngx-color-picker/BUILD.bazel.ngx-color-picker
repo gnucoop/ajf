@@ -7,7 +7,7 @@ genrule(
   name = "ngx_color_picker_index",
   srcs = [],
   outs = ["index.d.ts"],
-  cmd = "echo \"export * from './src/lib/color-picker.module';\" > \"$@\""
+  cmd = "echo \"export * from 'ngx-color-picker/src/lib/color-picker.module';\" > \"$@\""
 )
 
 genrule(

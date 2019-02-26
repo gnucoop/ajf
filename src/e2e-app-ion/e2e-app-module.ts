@@ -10,7 +10,9 @@ import {IonicModule} from '@ionic/angular';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {ExampleModule} from '@ajf/ionic-examples';
+import {CalendarE2E} from './calendar/calendar-e2e';
 import {E2EApp, Home} from './e2e-app/e2e-app';
 import {E2E_APP_ROUTES} from './e2e-app/routes';
 
@@ -45,11 +47,12 @@ export class E2eIonicModule {}
           deps: [HttpClient]
       }
     }),
+    AjfCalendarModule,
   ],
   declarations: [
+    CalendarE2E,
     E2EApp,
     Home,
-    LoginE2E,
   ],
   bootstrap: [E2EApp],
   entryComponents: []

@@ -106,7 +106,7 @@ webpack_bundle(
     'tslib',
     'rxjs',
   ],
-  entry_point = "@ajfdeps//node_modules/@ionic/angular:dist/index.js",
+  entry_point = "@ajfdeps//node_modules/@ionic/angular:dist/fesm5.js",
   output_name = "ionic-angular.umd.js",
   deps = [
     "@ajfdeps//@ionic/angular",

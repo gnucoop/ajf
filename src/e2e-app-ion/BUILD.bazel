@@ -1,0 +1,60 @@
+package(default_visibility=["//visibility:public"])
+
+load("@build_bazel_rules_typescript//:defs.bzl", "ts_devserver")
+load("//tools:defaults.bzl", "ng_module")
+
+ng_module(
+  name = "e2e-app-ion",
+  srcs = glob(["**/*.ts"]),
+  assets = glob(["**/*.html", "**/*.css"], exclude = ["index.html"]),
+  deps = [
+    "@angular//packages/common/http",
+    "@angular//packages/core",
+    "@angular//packages/forms",
+    "@angular//packages/platform-browser",
+    "@angular//packages/platform-browser/animations",
+    "@angular//packages/router",
+    "@ionic_angular//:angular",
+    "@ngx_translate_core//:core",
+    "@ajfdeps//@ngx-translate/http-loader",
+    "//src/ionic/calendar",
+    "//src/ionic-examples:examples",
+  ],
+)
+
+ts_devserver(
+    name = "devserver",
+    port = 4200,
+    # Name of the AMD module that should be required on page load.
+    entry_module = "ajf/src/e2e-app-ion/main",
+    # Serving path of the bundle that serves all files specified in "deps" and "scripts".
+    serving_path = "/bundle.js",
+    # Root paths can be used simplify the loading of files from external Bazel repositories
+    # (such as the Bazel managed deps repository called "ajfdeps")
+    additional_root_paths = [
+      "ajfdeps/node_modules",
+      "test"
+    ],
+    # Files which should be provided by Bazel when running the devserver. These are not
+    # automatically served, but can be loaded manually through HTTP requests.
+    static_files = [
+      "@ajfdeps//zone.js",
+      "@ajfdeps//core-js",
+      "@ajfdeps//hammerjs",
+      "@ajfdeps//@ngx-translate/core",
+      "//test:date_fns_bundle",
+      "//test:ionic_angular_bundle",
+      "//test:ionic_core_bundle",
+      "//test:ionic_core_loader_bundle",
+      ":index.html",
+    ],
+    # Scripts which will be included in the serving_path bundle after "require.js" has been
+    # loaded.
+    scripts = [
+      ":devserver-configure.js",
+      "@ajfdeps//node_modules/tslib:tslib.js",
+    ],
+    # Dependencies that produce JavaScript output will be automatically included in the
+    # serving_path bundle
+    deps = [":e2e-app-ion"],
+)

@@ -8,7 +8,7 @@ genrule(
   srcs = [],
   outs = ["index.d.ts"],
   cmd = """
-    echo "export * from './public_api';" >> "$@"
+    echo "export * from '@ngx-translate/core/public_api';" >> "$@"
   """,
   output_to_bindir = 1
 )
