@@ -73,9 +73,9 @@ if (require.main === module) {
         const entryPointPath = `${packageName}/${entryPointName}`;
         // For the entry point path we temporarily want to replace "material" with "lib", as
         // our package source folder does not align with the entry-point name.
-        const entryPointIndexPath = `${entryPointPath.replace('material', 'lib')}/index.ts`;
+        const entryPointIndexPath = `${entryPointPath}/index.ts`;
 
-        tsParser.options.paths![`@angular/${entryPointPath}`] = [entryPointIndexPath];
+        tsParser.options.paths![`@ajf/${entryPointPath}`] = [entryPointIndexPath];
         readTypeScriptModules.sourceFiles.push(entryPointIndexPath);
       });
     }

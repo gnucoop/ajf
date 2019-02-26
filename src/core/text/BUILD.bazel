@@ -37,3 +37,8 @@ ng_web_test_suite(
     ":text_test_sources",
   ],
 )
+
+filegroup(
+  name = "source-files",
+  srcs = glob(["**/*.ts"]),
+)

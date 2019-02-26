@@ -28,7 +28,7 @@ const typescriptPackage = require('dgeni-packages/typescript');
  * Similar to AngularJS, there is also a `config` lifecycle hook, that can be used to
  * configure specific processors, services before the procession begins.
  */
-export const apiDocsPackage = new Package('material2-api-docs', [
+export const apiDocsPackage = new Package('ajf-api-docs', [
   jsdocPackage,
   nunjucksPackage,
   typescriptPackage,
@@ -80,7 +80,7 @@ apiDocsPackage.config((parseTagsProcessor: any) => {
 
 apiDocsPackage.config((checkAnchorLinksProcessor: any) => {
   // This ensures that Dgeni will fail if we generate links that don't follow this format.
-  checkAnchorLinksProcessor.ignoredLinks.push(/(components|cdk)\/[\w-]+\/api#\w+/);
+  checkAnchorLinksProcessor.ignoredLinks.push(/(components|core)\/[\w-]+\/api#\w+/);
 });
 
 // Configure the processor for understanding TypeScript.

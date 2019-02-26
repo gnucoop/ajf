@@ -158,7 +158,7 @@ function getModulePackageInfo(doc: Document): ModuleInfo {
 
   return {
     name: moduleName,
-    packageName: pathSegments[0] === 'lib' ? 'material' : pathSegments[0],
+    packageName: pathSegments[0],
     entryPointName: pathSegments[1],
   };
 }

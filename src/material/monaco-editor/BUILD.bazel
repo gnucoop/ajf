@@ -32,3 +32,8 @@ ng_web_test_suite(
   name = "unit_tests",
   deps = [":monaco_editor_test_sources"],
 )
+
+filegroup(
+  name = "source-files",
+  srcs = glob(["**/*.ts"]),
+)

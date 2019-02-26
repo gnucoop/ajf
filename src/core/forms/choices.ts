@@ -43,9 +43,6 @@ export interface IAjfChoicesOrigin {
   setLabel(label: string): void;
 }
 
-/**
- * This class will define an ajf choice
- */
 export class AjfChoice<T> extends AjfJsonSerializable {
   label: string;
   value: T;
@@ -58,21 +55,12 @@ export class AjfChoice<T> extends AjfJsonSerializable {
   }
 }
 
-/**
- * This abstract class will define Ajf choices origin
- * @implemets : IAjfChoicesOrigin
- */
 export abstract class AjfChoicesOrigin<T> extends AjfJsonSerializable implements
     IAjfChoicesOrigin {
   private _name: string;
   private _label: string;
   private _choicesType: string;
-  /**
-   * this static method will create AjfChoicesOrigin
-   * @param type : string - type of choice
-   * @param obj  : any - choice obj
-   * @return AjfChoicesFixedOrigin
-   */
+
   static create(type: string, obj?: any): any {
     switch (type) {
     case 'string':
@@ -83,11 +71,7 @@ export abstract class AjfChoicesOrigin<T> extends AjfJsonSerializable implements
       return null;
     }
   }
-  /**
-   * this method will load an AjfChoicesOrigin  from json
-   * @param obj                : any - object AjfChoicesOrigin
-   * @return AjfChoicesObservable
-   */
+
   static fromJson(obj: any): AjfChoicesOrigin<any> {
     obj = deepCopy(obj);
     let keys: string[] = Object.keys(obj);
@@ -167,9 +151,7 @@ export class AjfChoicesFixedOrigin<T> extends AjfChoicesOrigin<T> {
 
   setChoices(choices: AjfChoice<T>[]) { this._choices = choices.slice(0); }
 }
-/**
- * This class will define an Ajf choices function origin
- */
+
 export class AjfChoicesFunctionOrigin<T> extends AjfChoicesOrigin<T> {
   private _generator: IAjfChoicesFunction<T>;
   get generator(): IAjfChoicesFunction<T> { return this._generator; }
@@ -186,9 +168,7 @@ export class AjfChoicesFunctionOrigin<T> extends AjfChoicesOrigin<T> {
 
   getChoices(): AjfChoice<T>[] { return this._generator(); }
 }
-/**
- * This class will define an Ajf choices observable origin
- */
+
 export class AjfChoicesObservableOrigin<T> extends AjfChoicesOrigin<T> {
   private _currentChoices: AjfChoice<T>[] = [];
   private _subscription: Subscription = Subscription.EMPTY;
@@ -215,9 +195,7 @@ export class AjfChoicesObservableOrigin<T> extends AjfChoicesOrigin<T> {
     this._subscription.unsubscribe();
   }
 }
-/**
- * This class will define an Ajf choices observable array origin
- */
+
 export class AjfChoicesObservableArrayOrigin<T> extends AjfChoicesOrigin<T> {
   private _currentChoices: AjfChoice<T>[] = [];
   private _subscription: Subscription = Subscription.EMPTY;
@@ -244,9 +222,7 @@ export class AjfChoicesObservableArrayOrigin<T> extends AjfChoicesOrigin<T> {
     this._subscription.unsubscribe();
   }
 }
-/**
- * This class will define an Ajf choices promise origin
- */
+
 export class AjfChoicesPromiseOrigin<T> extends AjfChoicesOrigin<T> {
   private _choices: AjfChoice<T>[] = [];
 

@@ -58,3 +58,8 @@ ion_web_test_suite(
   name = "unit_tests",
   deps = [":forms_test_sources"],
 )
+
+filegroup(
+  name = "source-files",
+  srcs = glob(["**/*.ts"]),
+)

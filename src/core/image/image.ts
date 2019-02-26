@@ -35,7 +35,6 @@ export abstract class AjfImage implements OnDestroy, OnInit {
    * if 1 take image by icon
    * if 2 take image by class
    *
-   * @memberof ImageComponent
    */
   set type(type: AjfImageType) {
     this._imageType.next(type);

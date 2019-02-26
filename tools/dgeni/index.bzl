@@ -46,10 +46,10 @@ def _dgeni_api_docs(ctx):
     # Small workaround that ensures that the "ripple" API doc is properly exposed as an output
     # of the packaging rule. Technically Dgeni should not output the "ripple" directory as
     # it's own entry-point. TODO(devversion): Support sub API docs for entry-points
-    if package_name == "material":
-      expected_outputs += [
-        ctx.actions.declare_file("%s/%s-%s.html" % (output_dir_name, package_name, "ripple"))
-      ]
+    # if package_name == "material":
+    #   expected_outputs += [
+    #     ctx.actions.declare_file("%s/%s-%s.html" % (output_dir_name, package_name, "ripple"))
+    #   ]
 
   # Run the Dgeni bazel executable which builds the documentation output based on the
   # configured rule attributes.

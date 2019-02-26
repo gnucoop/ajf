@@ -33,6 +33,9 @@ export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+/**
+ * Ajf calendar component.
+ */
 @Component({
   moduleId: module.id,
   selector: 'ajf-calendar',
