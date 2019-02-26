@@ -33,4 +33,4 @@ build:remote --remote_instance_name=main
 build:remote --remote_accept_cached=false
 
 startup --host_jvm_args="-Xmx4096m"
-build --jobs=3
+build --jobs=2
