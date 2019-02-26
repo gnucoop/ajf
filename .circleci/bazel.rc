@@ -32,5 +32,5 @@ build:remote --remote_instance_name=main
 # issues. Enable this once we investigated this further and talked to the RBE team.
 build:remote --remote_accept_cached=false
 
-setup --host_jvm_args="-Xms256m -Xmx4096m"
+startup --host_jvm_args="-Xmx4096m"
 build --jobs=5
