@@ -113,7 +113,7 @@ jobs:
   # -----------------------------------
   bazel_build_test:
     <<: *job_defaults
-    resource_class: xlarge
+    resource_class: large
     # environment:
     #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
@@ -135,7 +135,7 @@ jobs:
   # --------------------------------------------------------------------------------------------
   api_golden_checks:
     <<: *job_defaults
-    resource_class: xlarge
+    resource_class: large
     # environment:
     #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
@@ -151,7 +151,7 @@ jobs:
   # -----------------------------------------------------------------
   e2e_material_tests:
     <<: *job_defaults
-    resource_class: xlarge
+    resource_class: large
     # environment:
     #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
@@ -164,7 +164,7 @@ jobs:
   
   e2e_ionic_tests:
     <<: *job_defaults
-    resource_class: xlarge
+    resource_class: large
     # environment:
     #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
@@ -181,7 +181,7 @@ jobs:
   # ------------------------------------------------------------------------------------------
   tests_local_browsers:
     docker: *docker-firefox-image
-    resource_class: xlarge
+    resource_class: large
     steps:
     - *checkout_code
     - *restore_cache
@@ -195,7 +195,7 @@ jobs:
   # ----------------------------------------------------------------------------
   tests_browserstack:
     <<: *job_defaults
-    resource_class: xlarge
+    resource_class: large
     environment:
       BROWSER_STACK_USERNAME: "gnucoop"
       BROWSER_STACK_ACCESS_KEY: "gnucoop"
@@ -212,7 +212,7 @@ jobs:
   # ----------------------------------------------------------------------------
   tests_saucelabs:
     <<: *job_defaults
-    resource_class: xlarge
+    resource_class: large
     environment:
       SAUCE_USERNAME: "gnucoop"
       SAUCE_ACCESS_KEY: "gnucoop"
@@ -271,7 +271,7 @@ jobs:
   # -------------------------------------------------------------------------------------------
   build_release_packages:
     <<: *job_defaults
-    resource_class: xlarge
+    resource_class: large
     steps:
       - *checkout_code
       - *restore_cache
@@ -321,7 +321,7 @@ jobs:
   # ----------------------------------------
   publish_snapshots:
     <<: *job_defaults
-    resource_class: xlarge
+    resource_class: large
     # environment:
     #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
@@ -349,7 +349,7 @@ jobs:
   # ----------------------------------------------------------------------------
   snapshot_tests_local_browsers:
     docker: *docker-firefox-image
-    resource_class: xlarge
+    resource_class: large
     steps:
     - *checkout_code
     - *restore_cache
