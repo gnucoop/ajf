@@ -23,14 +23,10 @@ build:remote --platforms=@angular//tools:rbe_ubuntu1604-angular
 # number of parallel jobs, but our build and testing should be parallelizable.
 build:remote --jobs=150
 
-# Use the Angular team internal GCP instance for remote execution.
-# build:remote --remote_instance_name=projects/internal-200822/instances/default_instance
-build:remote --remote_instance_name=main
+# Use the Ajf internal GCP instance for remote execution.
+build:remote --remote_instance_name=projects/advanced-json-forms/instances/default_instance
 
 # We want to accept remote cached build artifacts to speed up our builds incrementally.
 # TODO(devversion): Temporary disabled since we don't have much insight on possible security
 # issues. Enable this once we investigated this further and talked to the RBE team.
 build:remote --remote_accept_cached=false
-
-startup --host_jvm_args="-Xmx4096m"
-build --jobs=2

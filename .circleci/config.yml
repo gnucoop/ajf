@@ -40,7 +40,7 @@ var_6: &save_cache
       - "~/bazel_repository_cache"
 
 # Decryption token that is used to decode the GCP credentials file in ".circleci/gcp_token".
-var_7: &gcp_decrypt_token "gnucoop"
+# var_7: &gcp_decrypt_token "gnucoop"
 
 # Job step that ensures that the node module dependencies are installed and up-to-date. We use
 # Yarn with the frozen lockfile option in order to make sure that lock file and package.json are
@@ -114,13 +114,13 @@ jobs:
   bazel_build_test:
     <<: *job_defaults
     resource_class: xlarge
-    environment:
-      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    # environment:
+    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
       - *checkout_code
       - *restore_cache
       - *copy_bazel_config
-      # - *setup_bazel_remote_execution
+      - *setup_bazel_remote_execution
 
       - run: bazel build src/... --build_tag_filters=-docs-package
       - run: bazel test src/... --build_tag_filters=-docs-package
@@ -136,13 +136,13 @@ jobs:
   api_golden_checks:
     <<: *job_defaults
     resource_class: xlarge
-    environment:
-      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    # environment:
+    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
     - *checkout_code
     - *restore_cache
     - *copy_bazel_config
-    # - *setup_bazel_remote_execution
+    - *setup_bazel_remote_execution
 
     - run: bazel test tools/public_api_guard/...
 
@@ -152,26 +152,26 @@ jobs:
   e2e_material_tests:
     <<: *job_defaults
     resource_class: xlarge
-    environment:
-      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    # environment:
+    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
       - *checkout_code
       - *restore_cache
       - *copy_bazel_config
-      # - *setup_bazel_remote_execution
+      - *setup_bazel_remote_execution
 
       - run: bazel test e2e-mat/...
   
   e2e_ionic_tests:
     <<: *job_defaults
     resource_class: xlarge
-    environment:
-      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    # environment:
+    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
       - *checkout_code
       - *restore_cache
       - *copy_bazel_config
-      # - *setup_bazel_remote_execution
+      - *setup_bazel_remote_execution
 
       - run: bazel test e2e-ion/...
 
@@ -322,14 +322,14 @@ jobs:
   publish_snapshots:
     <<: *job_defaults
     resource_class: xlarge
-    environment:
-      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    # environment:
+    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
       - *checkout_code
       - *restore_cache
       - *attach_release_output
       - *copy_bazel_config
-      # - *setup_bazel_remote_execution
+      - *setup_bazel_remote_execution
 
       # CircleCI has a config setting to enforce SSH for all github connections.
       # This is not compatible with our mechanism of using a Personal Access Token

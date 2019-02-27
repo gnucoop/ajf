@@ -50,3 +50,4 @@ firebase.json
 # schematics
 /src/core/schematics/**/*.js
 /src/core/schematics/**/*.map
+\.circleci/\.gcp_credentials
