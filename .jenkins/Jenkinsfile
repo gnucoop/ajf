@@ -1,5 +1,6 @@
 node {
   stage('Setup') {
+    checkout scm
     sh 'yarn install'
     sh 'yarn add puppeteer'
   }
