@@ -11,14 +11,6 @@ exports.config = {
       // Runs the axe-core accessibility checks each time the e2e page changes and
       // Angular is ready.
       path: require.resolve('ajf/tools/axe-protractor'),
-
-      rules: [
-        // Exclude mat-menu elements because those are empty if not active.
-        {id: 'aria-required-children', selector: '*:not(mat-menu)'},
-
-        // Disable color contrast checks since the final colors will vary based on the theme.
-        {id: 'color-contrast', enabled: false},
-      ]
     }
   ],
 

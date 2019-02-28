@@ -7,7 +7,7 @@ describe('calendar', () => {
     beforeEach(async () => await browser.get('/calendar'));
 
     it('test', async () => {
-      expect(element(by.id('calendar'))).toBeDefined();
+      expect(await element(by.id('calendar'))).toBeDefined();
     });
   });
 });
