@@ -2,7 +2,6 @@ node {
   stage('Setup') {
     checkout scm
     sh 'yarn install'
-    sh 'yarn add puppeteer'
   }
   stage('Lint') {
     sh 'yarn gulp ci:lint'
