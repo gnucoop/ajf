@@ -45,6 +45,7 @@ http_archive(
   name = "ngx_translate_core",
   url = "https://github.com/gnucoop/core/archive/23bf3e5eaa6a2aac24a9e709821f636483e070aa.zip",
   strip_prefix = "core-23bf3e5eaa6a2aac24a9e709821f636483e070aa/projects/ngx-translate/core/src",
+  patches = ["@ajf//tools/build_files/ngx-translate-core:index.patch"],
   build_file="//tools/build_files/ngx-translate-core:BUILD.bazel.ngxtc",
   workspace_file="//tools/build_files/ngx-translate-core:WORKSPACE.ngxtc",
   sha256 = "02fb5f14c55a21e4c18bb1f4399a30249d3c1ba4c6a5033a9d9efcb8b91b3af5"
@@ -61,23 +62,26 @@ http_archive(
 
 http_archive(
   name = "ionic_selectable",
-  url = "https://github.com/gnucoop/ionic-selectable/archive/2e2e32baacca01d72dfff22647c37917d4eeb73a.zip",
-  strip_prefix = "ionic-selectable-2e2e32baacca01d72dfff22647c37917d4eeb73a",
-  build_file="//tools/build_files/ionic-selectable:BUILD.bazel.ionic-selectable",
-  workspace_file="//tools/build_files/ionic-selectable:WORKSPACE.ionic-selectable"
+  url = "https://github.com/eakoriakin/ionic-selectable/archive/4.4.0.zip",
+  strip_prefix = "ionic-selectable-4.4.0/src/app/components/ionic-selectable",
+  build_file = "//tools/build_files/ionic-selectable:BUILD.bazel.ionic-selectable",
+  workspace_file = "//tools/build_files/ionic-selectable:WORKSPACE.ionic-selectable",
+  patches = ["@ajf//tools/build_files/ionic-selectable:ionic-selectable.patch"],
+  sha256 = "addc8077a9526031cdcf4328a37bb76e6b6d828dc6853c50bef2dd4adfd09e12",
 )
 
 http_archive(
   name = "ngx_color_picker",
-  url = "https://github.com/zefoy/ngx-color-picker/archive/v7.3.0.zip",
-  strip_prefix = "ngx-color-picker-7.3.0",
-  build_file="//tools/build_files/ngx-color-picker:BUILD.bazel.ngx-color-picker",
-  workspace_file="//tools/build_files/ngx-color-picker:WORKSPACE.ngx-color-picker",
-  sha256="084ffa0fdb016b4b46ea7b0fe7ff63022e78628b3d8f21c61ec345af0ae6f898"
+  url = "https://github.com/zefoy/ngx-color-picker/archive/v7.3.1.zip",
+  strip_prefix = "ngx-color-picker-7.3.1/src",
+  build_file = "//tools/build_files/ngx-color-picker:BUILD.bazel.ngx-color-picker",
+  workspace_file = "//tools/build_files/ngx-color-picker:WORKSPACE.ngx-color-picker",
+  patches = ["@ajf//tools/build_files/ngx-color-picker:color-picker.patch"],
+  sha256="613c28723b49f780a0f5a7194fa23beb039100f5e62323808cc4270f7cab8eec"
 )
 
 # We need to create a local repository called "npm" because currently Angular Material
-# stores all of it's NPM dependencies in the "@matdeps" repository. This is necessary because
+# stores all of it's NPM dependencies in the "@ajfdeps" repository. This is necessary because
 # we don't want to reserve the "npm" repository that is commonly used by downstream projects.
 # Since we still need the "npm" repository in order to use the Angular or TypeScript Bazel
 # rules, we create a local repository that is just defined in **this** workspace and is not

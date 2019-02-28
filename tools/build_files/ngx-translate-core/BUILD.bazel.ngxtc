@@ -3,23 +3,12 @@ package(default_visibility = ["//visibility:public"])
 load("@angular//:index.bzl", ng_module = "ng_module")
 
 
-genrule(
-  name = "core_index",
-  srcs = [],
-  outs = ["index.d.ts"],
-  cmd = """
-    echo "export * from '@ngx-translate/core/public_api';" >> "$@"
-  """,
-  output_to_bindir = 1
-)
-
 ng_module(
   tsconfig = "@ajf//tools/build_files/ngx-translate-core:tsconfig.json",
   node_modules = "@ajfdeps//typescript:typescript__typings",
   name = "core",
   module_name = "@ngx-translate/core",
-  srcs = glob(["**/*.ts"]) + [":core_index"],
-  entry_point = "public_api.ts",
+  srcs = glob(["**/*.ts"]),
   deps = [
     "@ajf//src:module-typings",
     "@ajfdeps//tslib",
