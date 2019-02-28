@@ -65,45 +65,34 @@ task(':build:devapp-ion:assets', copyTask(assetsGlob, outDir));
 task(':build:devapp-ion:scss', () => buildScssPipeline(appDir).pipe(dest(outDir)));
 task(':build:devapp-ion:inline-resources', () => inlineResourcesForDirectory(outDir));
 
-task(':build:ionic-bundle', () => {
-  const bundlesOutDir = join(projectDir, 'bundles');
-  const ionicEntry = join('node_modules', '@ionic', 'angular', 'dist', 'fesm5.js');
-  const ionicBundleFile = 'ionic-angular.umd.js';
-  const ionicBundle = join(bundlesOutDir, ionicBundleFile);
-  let stream = src(join(projectDir, ionicEntry));
-  if (existsSync(ionicBundle)) {
-    stream = stream.pipe(noop());
-  } else {
-    const nodeModulesDir = 'node_modules';
-    const externals = [
-      '@angular/core',
-      '@angular/common',
-      '@angular/forms',
-      '@angular/platform-browser',
-      '@angular/router',
-      'tslib',
-      'rxjs',
-    ].map(e => `"${e}"`);
-    const configSrc = readFileSync(join(projectDir, 'tools', 'webpack.bundle.config.js'))
-      .toString()
-      .replace('TMPL_entry', `"${ionicEntry}"`)
-      .replace('TMPL_library', '"@ionic/angular"')
-      .replace('TMPL_library_target', '"umd"')
-      .replace('TMPL_output_path', `"${bundlesOutDir}"`)
-      .replace('TMPL_output_filename', `"${ionicBundleFile}"`)
-      .replace('TMPL_externals', `[${externals.join(', ')}]`)
-      .replace('TMPL_node_modules_root', `"${nodeModulesDir}"`);
-    const configDst = join(bundlesOutDir, 'webpack.ionic.config.js');
-    if (!existsSync(bundlesOutDir)) {
-      mkdirpSync(bundlesOutDir);
-    }
-    writeFileSync(configDst, configSrc);
-    const config = require(configDst);
-    stream = stream
-      .pipe(webpack(config))
-      .pipe(dest(bundlesOutDir));
-  }
-  return stream;
+task(':build:ionic-bundle', [
+  ':build:ionic-core-bundle',
+  ':build:ionic-core-loader-bundle',
+  ':build:ionic-angular-bundle'
+]);
+
+task(':build:ionic-core-bundle', () => {
+  return makeBundle(
+    join('node_modules', '@ionic', 'core', 'dist', 'esm', 'es5', 'index.js'),
+    'ionic-core.umd.js',
+    '@ionic/core'
+  );
+});
+
+task(':build:ionic-core-loader-bundle', () => {
+  return makeBundle(
+    join('node_modules', '@ionic', 'core', 'loader', 'index.js'),
+    'ionic-core-loader.umd.js',
+    '@ionic/core/loader'
+  );
+});
+
+task(':build:ionic-angular-bundle', () => {
+  return makeBundle(
+    join('node_modules', '@ionic', 'angular', 'dist', 'fesm5.js'),
+    'ionic-angular.umd.js',
+    '@ionic/angular'
+  );
 });
 
 task(':serve:devapp-ion', serverTask(outDir));
@@ -207,3 +196,42 @@ task(':watch:devapp-ion:rebuild-scss',
 task(':watch:devapp-ion:rebuild-html',
   sequenceTask([':build:devapp-ion:assets', ':build:devapp-ion:ts'],
     ':build:devapp-ion:inline-resources'));
+
+function makeBundle(entry: string, bundleFile: string, moduleName: string): NodeJS.ReadWriteStream {
+  const bundlesOutDir = join(projectDir, 'bundles');
+  const ionicBundle = join(bundlesOutDir, bundleFile);
+  let stream = src(join(projectDir, entry));
+  if (existsSync(ionicBundle)) {
+    stream = stream.pipe(noop());
+  } else {
+    const nodeModulesDir = 'node_modules';
+    const externals = [
+      '@angular/core',
+      '@angular/common',
+      '@angular/forms',
+      '@angular/platform-browser',
+      '@angular/router',
+      'tslib',
+      'rxjs',
+    ].map(e => `"${e}"`);
+    const configSrc = readFileSync(join(projectDir, 'tools', 'webpack.bundle.config.js'))
+      .toString()
+      .replace('TMPL_entry', `"${entry}"`)
+      .replace('TMPL_library', `"${moduleName}"`)
+      .replace('TMPL_library_target', '"umd"')
+      .replace('TMPL_output_path', `"${bundlesOutDir}"`)
+      .replace('TMPL_output_filename', `"${bundleFile}"`)
+      .replace('TMPL_externals', `[${externals.join(', ')}]`)
+      .replace('TMPL_node_modules_root', `"${nodeModulesDir}"`);
+    const configDst = join(bundlesOutDir, `webpack.${bundleFile}.config.js`);
+    if (!existsSync(bundlesOutDir)) {
+      mkdirpSync(bundlesOutDir);
+    }
+    writeFileSync(configDst, configSrc);
+    const config = require(configDst);
+    stream = stream
+      .pipe(webpack(config))
+      .pipe(dest(bundlesOutDir));
+  }
+  return stream;
+}
