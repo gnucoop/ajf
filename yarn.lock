@@ -7618,10 +7618,11 @@ invert-kv@^2.0.0:
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-2.0.0.tgz#7393f5afa59ec9ff5f67a27620d11c226e3eec02"
   integrity sha512-wPVv/y/QQ/Uiirj/vh3oP+1Ww+AWehmi1g5fFWGPF6IpCBCDVrhgHRMvrLfdYcwDh3QJbGXDW4JAuzxElLSqKA==
 
-ionic-selectable@^4.4.0:
+"ionic-selectable@https://github.com/trik/ionic-selectable/releases/download/4.4.0/ionic-selectable-4.4.0.tgz":
   version "4.4.0"
-  resolved "https://registry.yarnpkg.com/ionic-selectable/-/ionic-selectable-4.4.0.tgz#20c3279e67eabe35ac0d92981e5cd764d0b54ee9"
-  integrity sha512-1ET0wbw6t2Vap1YoPS6BIrnt5oJrGMU4dSVnyzxJWZCiqmoOPlXr+RN8vpq4ULSA6kyh2ZWZpMt5eTLczkun0g==
+  resolved "https://github.com/trik/ionic-selectable/releases/download/4.4.0/ionic-selectable-4.4.0.tgz#807f4d0699cb7165d30d697659f660ba73498939"
+  dependencies:
+    tslib "^1.9.0"
 
 ionicons@4.5.5:
   version "4.5.5"

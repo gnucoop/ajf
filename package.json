@@ -58,7 +58,7 @@
     "css-element-queries": "^1.1.1",
     "date-fns": "^1.30.1",
     "flag-icon-css": "^3.2.1",
-    "ionic-selectable": "^4.4.0",
+    "ionic-selectable": "https://github.com/trik/ionic-selectable/releases/download/4.4.0/ionic-selectable-4.4.0.tgz",
     "leaflet": "^1.4.0",
     "ngx-color-picker": "^7.3.1",
     "numeral": "^2.0.6",
