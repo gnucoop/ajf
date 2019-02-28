@@ -64,6 +64,8 @@ System.config({
     '@angular/platform-browser-dynamic':
       'node:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
 
+    '@ionic/core': 'bundles:ionic-core.umd.js',
+    '@ionic/core/loader': 'bundles:ionic-core-loader.umd.js',
     '@ionic/angular': 'bundles:ionic-angular.umd.js',
     'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.js',
 

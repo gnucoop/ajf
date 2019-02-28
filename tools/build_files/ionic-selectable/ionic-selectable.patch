@@ -1,0 +1,154 @@
+diff -Naur index.ts index.ts
+--- index.ts	1970-01-01 01:00:00.000000000 +0100
++++ index.ts	2019-02-28 10:36:34.000000000 +0100
+@@ -0,0 +1,2 @@
++export * from './ionic-selectable.module';
++
+diff -Naur ionic-selectable-modal.component.html ionic-selectable-modal.component.html
+--- ionic-selectable-modal.component.html	2019-02-25 15:11:28.000000000 +0100
++++ ionic-selectable-modal.component.html	2019-02-28 11:00:00.000000000 +0100
+@@ -119,7 +119,7 @@
+   </div>
+   <ion-infinite-scroll *ngIf="!selectComponent.hasVirtualScroll"
+     [disabled]="!selectComponent.hasInfiniteScroll"
+-    (ionInfinite)="selectComponent._getMoreItems($event)">
++    (ionInfinite)="selectComponent._getMoreItems()">
+     <ion-infinite-scroll-content></ion-infinite-scroll-content>
+   </ion-infinite-scroll>
+   <ion-virtual-scroll no-margin
+diff -Naur ionic-selectable-modal.component.ts ionic-selectable-modal.component.ts
+--- ionic-selectable-modal.component.ts	2019-02-25 15:11:28.000000000 +0100
++++ ionic-selectable-modal.component.ts	2019-02-28 11:05:52.000000000 +0100
+@@ -12,36 +12,36 @@
+   _header: HTMLElement;
+   selectComponent: IonicSelectableComponent;
+   @ViewChild('searchbarComponent')
+-  private _searchbarComponent: IonSearchbar;
++  _searchbarComponent: IonSearchbar;
+   @ViewChild(IonInfiniteScroll)
+   _infiniteScroll: IonInfiniteScroll;
+   @HostBinding('class.ionic-selectable-modal')
+-  private _cssClass = true;
++  _cssClass = true;
+   @HostBinding('class.ionic-selectable-modal-can-clear')
+-  private get _canClearCssClass(): boolean {
++  get _canClearCssClass(): boolean {
+     return this.selectComponent.canClear;
+   }
+   @HostBinding('class.ionic-selectable-modal-is-multiple')
+-  private get _isMultipleCssClass(): boolean {
++  get _isMultipleCssClass(): boolean {
+     return this.selectComponent.isMultiple;
+   }
+   @HostBinding('class.ionic-selectable-modal-is-searching')
+-  private get _isSearchingCssClass(): boolean {
++  get _isSearchingCssClass(): boolean {
+     return this.selectComponent._isSearching;
+   }
+   @HostBinding('class.ionic-selectable-modal-ios')
+-  private get _isIos(): boolean {
++  get _isIos(): boolean {
+     return this.selectComponent._isIos;
+   }
+   @HostBinding('class.ionic-selectable-modal-md')
+-  private _isMD(): boolean {
++  _isMD(): boolean {
+     return this.selectComponent._isMD;
+   }
+   @HostBinding('class.ionic-selectable-modal-is-add-item-template-visible')
+-  private get _isAddItemTemplateVisibleCssClass(): boolean {
++  get _isAddItemTemplateVisibleCssClass(): boolean {
+     return this.selectComponent._isAddItemTemplateVisible;
+   }
+-  @HostListener('window:resize', ['$event'])
++  @HostListener('window:resize')
+   onResize() {
+     // ion-footer inside the template might change its height when
+     // device orientation changes.
+diff -Naur ionic-selectable.component.scss ionic-selectable.component.scss
+--- ionic-selectable.component.scss	2019-02-25 15:11:28.000000000 +0100
++++ ionic-selectable.component.scss	2019-02-28 10:56:15.000000000 +0100
+@@ -129,11 +129,6 @@
+     /*Occupy 100% of width when there's no label.*/
+     max-width: 100%;
+     width: 100%;
+-    &-value {
+-      &-item {
+-        text-align: right;
+-      }
+-    }
+   }
+   &-label-stacked,
+   &-label-floating {
+diff -Naur ionic-selectable.component.ts ionic-selectable.component.ts
+--- ionic-selectable.component.ts	2019-02-25 15:11:28.000000000 +0100
++++ ionic-selectable.component.ts	2019-02-28 10:57:09.000000000 +0100
+@@ -23,7 +23,7 @@
+ @Component({
+   selector: 'ionic-selectable',
+   templateUrl: './ionic-selectable.component.html',
+-  styleUrls: ['./ionic-selectable.component.scss'],
++  styleUrls: ['./ionic-selectable.component.css'],
+   encapsulation: ViewEncapsulation.None,
+   providers: [{
+     provide: NG_VALUE_ACCESSOR,
+@@ -33,41 +33,41 @@
+ })
+ export class IonicSelectableComponent implements ControlValueAccessor, OnInit, DoCheck {
+   @HostBinding('class.ionic-selectable')
+-  private _cssClass = true;
++  _cssClass = true;
+   @HostBinding('class.ionic-selectable-ios')
+   _isIos: boolean;
+   @HostBinding('class.ionic-selectable-md')
+   _isMD: boolean;
+   @HostBinding('class.ionic-selectable-is-multiple')
+-  private get _isMultipleCssClass(): boolean {
++  get _isMultipleCssClass(): boolean {
+     return this.isMultiple;
+   }
+   @HostBinding('class.ionic-selectable-has-value')
+-  private get _hasValueCssClass(): boolean {
++  get _hasValueCssClass(): boolean {
+     return this.hasValue();
+   }
+   @HostBinding('class.ionic-selectable-has-placeholder')
+-  private get _hasPlaceholderCssClass(): boolean {
++  get _hasPlaceholderCssClass(): boolean {
+     return this._hasPlaceholder;
+   }
+   @HostBinding('class.ionic-selectable-has-label')
+-  private get _hasIonLabelCssClass(): boolean {
++  get _hasIonLabelCssClass(): boolean {
+     return this._hasIonLabel;
+   }
+   @HostBinding('class.ionic-selectable-label-default')
+-  private get _hasDefaultIonLabelCssClass(): boolean {
++  get _hasDefaultIonLabelCssClass(): boolean {
+     return this._ionLabelPosition === 'default';
+   }
+   @HostBinding('class.ionic-selectable-label-fixed')
+-  private get _hasFixedIonLabelCssClass(): boolean {
++  get _hasFixedIonLabelCssClass(): boolean {
+     return this._ionLabelPosition === 'fixed';
+   }
+   @HostBinding('class.ionic-selectable-label-stacked')
+-  private get _hasStackedIonLabelCssClass(): boolean {
++  get _hasStackedIonLabelCssClass(): boolean {
+     return this._ionLabelPosition === 'stacked';
+   }
+   @HostBinding('class.ionic-selectable-label-floating')
+-  private get _hasFloatingIonLabelCssClass(): boolean {
++  get _hasFloatingIonLabelCssClass(): boolean {
+     return this._ionLabelPosition === 'floating';
+   }
+   private _isOnSearchEnabled = true;
+@@ -1235,7 +1235,7 @@
+     this._hasFilteredItems = !this._areGroupsEmpty(this._filteredGroups);
+   }
+ 
+-  private _formatValueItem(item: any): string {
++  _formatValueItem(item: any): string {
+     if (this._shouldStoreItemValue) {
+       // Get item text from the list as we store it's value only.
+       const selectedItem = this.items.find(_item => {

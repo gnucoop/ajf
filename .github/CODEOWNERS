@@ -103,6 +103,7 @@
 
 # Tooling
 /.circleci/**                                      @trik
+/.jenkins/**                                       @trik
 /scripts/**                                        @trik
 /test/**                                           @trik
 /tools/**                                          @trik

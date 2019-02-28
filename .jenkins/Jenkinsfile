@@ -1,7 +1,8 @@
 node {
   stage('Setup') {
+    scmInfo = checkout scm
+    gitBranch = scmInfo.GIT_BRANCH.replace("origin/", "")
     sh 'yarn install'
-    sh 'yarn add puppeteer'
   }
   stage('Lint') {
     sh 'yarn gulp ci:lint'
@@ -23,5 +24,12 @@ node {
     sh 'yarn gulp ci:build-release-packages'
     sh 'yarn check-release-output'
     sh 'yarn gulp ci:aot'
+  }
+  stage('Publish snapshots') {
+    if (gitBranch == 'master') {
+      sh './scripts/circleci/publish-snapshots.sh'
+    } else {
+      sh 'echo "Skipping..."'
+    }
   }
 }
