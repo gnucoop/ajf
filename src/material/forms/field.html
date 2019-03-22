@@ -84,7 +84,7 @@
         <ng-template ngFor let-columns let-i="index" [ngForOf]="tablefInst.visibleColumns">
           <tr [ngClass]="i | tableRowClass">
             <td *ngFor="let cellValue of columns" >
-              {{ cellValue }}
+              {{ cellValue | translate }}
             </td>
           </tr>
         </ng-template>
