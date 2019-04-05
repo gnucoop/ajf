@@ -1,4 +1,7 @@
 node {
+  agent {
+    label 'bazel-build'
+  }
   stage('Setup') {
     scmInfo = checkout scm
     gitBranch = scmInfo.GIT_BRANCH.replace("origin/", "")
