@@ -44,23 +44,21 @@ pipeline {
       }
     }
     stage('Publish snapshots') {
+      when {
+        expression {
+          return gitBranch == 'master'
+        }
+      }
       steps {
-        when {
-          expression {
-            return gitBranch == 'master'
-          }
+        sh './scripts/circleci/publish-snapshots.sh'
+      }
+      when {
+        expression {
+          return gitBranch != 'master'
         }
-        steps {
-          sh './scripts/circleci/publish-snapshots.sh'
-        }
-        when {
-          expression {
-            return gitBranch != 'master'
-          }
-        }
-        steps {
-          sh 'echo "Skipping..."'
-        }
+      }
+      steps {
+        sh 'echo "Skipping..."'
       }
     }
   }
