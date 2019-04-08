@@ -68,7 +68,7 @@
                             <div [ngClass]="'ajf-' + fieldInstance.field.size" class="ajf-field-entry" *ngIf="fieldInstance.visible">
                               <i [class]="fieldInstance.field | fieldIcon" item-right></i>
                               <p>{{ fieldInstance.field.description | translate }}</p>
-                              <label [innerHTML]="fieldInstance.field.label | translate"></label>
+                              <label *ngIf="fieldInstance.field.fieldType !== 7" [innerHTML]="fieldInstance.field.label | translate"></label>
                               <ajf-form-field [fieldInstance]="fieldInstance"></ajf-form-field>
                             </div>
                           </ng-template>
