@@ -52,14 +52,6 @@ pipeline {
       steps {
         sh './scripts/circleci/publish-snapshots.sh'
       }
-      when {
-        expression {
-          return gitBranch != 'master'
-        }
-      }
-      steps {
-        sh 'echo "Skipping..."'
-      }
     }
   }
 }
