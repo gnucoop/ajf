@@ -18,6 +18,50 @@ ajf-field {
   tr.ajf-row-odd {
       background-color: grey;
   }
+
+}
+
+.cell {
+  -webkit-appearance: textfield;
+  background-color: white;
+  -webkit-rtl-ordering: logical;
+  cursor: text;
+  padding: 1px;
+  border-width: 2px;
+  border-style: inset;
+  border-color: initial;
+  border-image: initial;
+  width: 100%;
+  box-sizing: border-box;
+}
+table {
+  border-collapse: collapse;
+  table-layout: auto;
+
+  input {
+      outline: none;
+  }
+
+  td:first-child {
+    max-width:100%;
+      font-size: 1.5vh;
+      padding-right: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      margin: 2px;
+  }
+  td:not(:first-child) {
+    position: relative;
+    span, input {
+      position: absolute;
+      width: 100%;
+      box-sizing: border-box;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
 }
 
 input::-webkit-outer-spin-button,

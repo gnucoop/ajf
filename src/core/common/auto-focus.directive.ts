@@ -19,20 +19,18 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+import {AfterContentInit, Directive, ElementRef, Input} from '@angular/core';
 
-import {NgModule} from '@angular/core';
+@Directive({selector: '[autoFocus]' })
+export class AutofocusDirective implements AfterContentInit {
 
-import {ApplyStylesDirective} from './apply-styles-directive';
-import {AutofocusDirective} from './auto-focus.directive';
+    @Input()
+    appAutoFocus: boolean;
 
-@NgModule({
-  declarations: [
-    ApplyStylesDirective,
-    AutofocusDirective
-  ],
-  exports: [
-    ApplyStylesDirective,
-    AutofocusDirective
-  ]
-})
-export class AjfCommonModule { }
+    constructor(private _el: ElementRef) {
+    }
+
+    ngAfterContentInit() {
+        this._el.nativeElement.focus();
+    }
+}
