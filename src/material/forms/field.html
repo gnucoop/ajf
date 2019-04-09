@@ -95,7 +95,7 @@
             <td *ngFor="let contr of columns; let indexColums = index">
               <ng-template [ngIf]="indexColums != 0 && indexRows != 0">
                 <input *ngIf="contr.show" type="number" [formControl]="contr" autoFocus>
-                <span *ngIf="!contr.show" class="cell" (click)="contr.show ? contr.show = false : contr.show = true;">{{ contr.value }}</span>
+                <span *ngIf="!contr.show" class="ajf-table-cell" (click)="contr.show ? contr.show = false : contr.show = true;">{{ contr.value }}</span>
               </ng-template>
               <ng-template [ngIf]="indexColums == 0 || indexRows == 0">
                 {{ contr | translate }}

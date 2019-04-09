@@ -21,16 +21,16 @@ ajf-field {
 
 }
 
-.cell {
+.ajf-table-cell {
   -webkit-appearance: textfield;
-  background-color: white;
+  background-color: #ffffff;
   -webkit-rtl-ordering: logical;
   cursor: text;
   padding: 1px;
   border-width: 2px;
   border-style: inset;
-  border-color: initial;
-  border-image: initial;
+  border-color: transparent;
+  border-image: none;
   width: 100%;
   box-sizing: border-box;
 }
