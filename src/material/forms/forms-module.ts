@@ -37,6 +37,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfCommonModule} from '@ajf/core/common';
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/material/page-slider';
@@ -66,7 +67,8 @@ import {AjfFormRenderer} from './form';
     AjfCalendarModule,
     AjfCheckboxGroupModule,
     AjfPageSliderModule,
-    AjfTimeModule
+    AjfTimeModule,
+    AjfCommonModule
   ],
   declarations: [
     AjfFormField,

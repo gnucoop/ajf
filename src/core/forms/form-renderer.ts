@@ -136,6 +136,7 @@ export class AjfFormRendererService {
     this._initNodesStreams();
     this._initErrorsStreams();
     this._initFormStreams();
+    this._updateFormValueAndValidity();
   }
 
   setForm(form: AjfForm | null, context: any = {}) {
@@ -492,6 +493,18 @@ export class AjfFormRendererService {
       instance.slideNodes = slideNodes;
     }
     return result;
+  }
+
+  private _updateFormValueAndValidity(): void {
+    this._nodesUpdates.asObservable()
+    .pipe(
+      withLatestFrom(this._formGroup),
+      filter(( values: [IAjfNodesInstancesOperation, FormGroup | null ]) => values[1] !== null)
+    )
+    .subscribe(( values: [IAjfNodesInstancesOperation, FormGroup | null ]) => {
+      const form: FormGroup = <FormGroup>values[1];
+      form.updateValueAndValidity();
+    });
   }
 
   private _explodeRepeatingNode(
@@ -929,7 +942,7 @@ export class AjfFormRendererService {
     if (formGroup != null && !formGroup.contains(fieldInstanceName)) {
       const control = new FormControl();
       control.setValue(fieldInstance.value);
-      formGroup.addControl(fieldInstanceName, control);
+      formGroup.registerControl(fieldInstanceName, control);
     }
     if (
       formGroup != null && fieldInstance instanceof AjfTableFieldInstance
@@ -942,7 +955,7 @@ export class AjfFormRendererService {
         row.forEach((k) => {
           const control = new FormControl();
           control.setValue(fieldInstance.context[k]);
-          formGroup!.addControl(k, control);
+          formGroup!.registerControl(k, control);
           r.push(control);
         });
         value.push(r);
@@ -1043,7 +1056,7 @@ export class AjfFormRendererService {
       if (formGroup != null && !formGroup.contains(nodeGroupInstanceName)) {
         const control = new FormControl();
         control.setValue(nodeGroupInstance.reps);
-        formGroup.addControl(nodeGroupInstanceName, control);
+        formGroup.registerControl(nodeGroupInstanceName, control);
       }
     }
     return nodeGroupInstance;
