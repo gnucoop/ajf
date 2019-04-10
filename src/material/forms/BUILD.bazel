@@ -23,6 +23,7 @@ ng_module(
     "@angular_material//src/lib/slide-toggle",
     "@angular_material//src/lib/toolbar",
     "@ngx_translate_core//:core",
+    "//src/core/common",
     "//src/core/forms",
     "//src/material/calendar",
     "//src/material/checkbox-group",
