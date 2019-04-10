@@ -8,7 +8,9 @@ ng_module(
   module_name = "@ajf/core/common",
   assets = [],
   deps = [
+    "@angular//packages/common",
     "@angular//packages/core",
+    "@ngx_translate_core//:core",
   ],
 )
 

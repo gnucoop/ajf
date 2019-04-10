@@ -30,6 +30,7 @@ import {IonicSelectableModule} from 'ionic-selectable';
 
 import {TranslateModule} from '@ngx-translate/core';
 
+import {AjfCommonModule} from '@ajf/core/common';
 import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
@@ -48,6 +49,7 @@ import {AjfFormRenderer} from './form';
     IonicModule,
     IonicSelectableModule,
     TranslateModule,
+    AjfCommonModule,
     AjfCoreFormsModule,
     AjfCalendarModule,
     AjfCheckboxGroupModule,

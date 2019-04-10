@@ -84,7 +84,7 @@
         <ng-template ngFor let-columns let-i="index" [ngForOf]="tablefInst.visibleColumns">
           <tr [ngClass]="i | tableRowClass">
             <td *ngFor="let cellValue of columns" >
-              {{ cellValue | translate }}
+              {{ cellValue | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
             </td>
           </tr>
         </ng-template>
@@ -98,7 +98,7 @@
                 <span *ngIf="!contr.show" class="ajf-table-cell" (click)="contr.show ? contr.show = false : contr.show = true;">{{ contr.value }}</span>
               </ng-template>
               <ng-template [ngIf]="indexColums == 0 || indexRows == 0">
-                {{ contr | translate }}
+                {{ contr.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
               </ng-template>
             </td>
           </tr>

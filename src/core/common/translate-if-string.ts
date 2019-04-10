@@ -20,29 +20,17 @@
  *
  */
 
-import {NgModule} from '@angular/core';
-
-import {BoolToIntPipe} from './bool-to-int';
-import {FieldIconPipe} from './field-icon';
-import {AjfFormRendererService} from './form-renderer';
-import {TableRowClass} from './table-row-class';
-import {AjfValidationService} from './validation-service';
+import {Pipe} from '@angular/core';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
-@NgModule({
-  declarations: [
-    BoolToIntPipe,
-    FieldIconPipe,
-    TableRowClass,
-  ],
-  exports: [
-    BoolToIntPipe,
-    FieldIconPipe,
-    TableRowClass,
-  ],
-  providers: [
-    AjfFormRendererService,
-    AjfValidationService
-  ]
-})
-export class AjfFormsModule { }
+@Pipe({name: 'ajfTranslateIfString'})
+export class TranslateIfString extends TranslatePipe {
+    transform(query: string, ...args: any[]): any {
+        if (typeof query === 'string') {
+            return super.transform(query, ...args);
+        } else {
+            return query;
+        }
+    }
+}

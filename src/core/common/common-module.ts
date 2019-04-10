@@ -24,15 +24,21 @@ import {NgModule} from '@angular/core';
 
 import {ApplyStylesDirective} from './apply-styles-directive';
 import {AutofocusDirective} from './auto-focus.directive';
+import {FormatIfNumber} from './format-if-number';
+import {TranslateIfString} from './translate-if-string';
 
 @NgModule({
   declarations: [
     ApplyStylesDirective,
-    AutofocusDirective
+    AutofocusDirective,
+    FormatIfNumber,
+    TranslateIfString,
   ],
   exports: [
     ApplyStylesDirective,
-    AutofocusDirective
-  ]
+    AutofocusDirective,
+    FormatIfNumber,
+    TranslateIfString,
+  ],
 })
 export class AjfCommonModule { }

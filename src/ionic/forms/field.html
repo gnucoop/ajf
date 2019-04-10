@@ -114,7 +114,7 @@
           <ng-container *ngFor="let columns of tablefInst.visibleColumns; let i = index">
             <tr [ngClass]="i | tableRowClass">
               <td *ngFor="let cellValue of columns" >
-                {{ cellValue | translate }}
+                {{ cellValue | ajfTranslateIfString | ajfFormatIfNumber: '.2' }}
               </td>
             </tr>
           </ng-container>

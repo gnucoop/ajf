@@ -16,6 +16,7 @@ ng_module(
     "@ionic_selectable//:ionic-selectable",
     "@ngx_translate_core//:core",
     "@ajfdeps//@ionic/core",
+    "//src/core/common",
     "//src/core/forms",
     "//src/ionic/calendar",
     "//src/ionic/checkbox-group",
