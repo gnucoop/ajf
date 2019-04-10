@@ -20,4 +20,8 @@
  *
  */
 
+export * from './apply-styles-directive';
+export * from './auto-focus.directive';
 export * from './common-module';
+export * from './format-if-number';
+export * from './translate-if-string';
