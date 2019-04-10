@@ -14,7 +14,10 @@
     ],
     "paths": {
       "@ajf/core/*": ["../../dist/packages/core/*"]
-    }
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "files": [
     "public-api.ts",

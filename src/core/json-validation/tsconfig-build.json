@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig-build",
+    "files": [
+      "public-api.ts"
+    ],
+  "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "@ajf/core/json-validation",
+    "skipTemplateCodegen": true,
+    "fullTemplateTypeCheck": true
+  },
+  "compilerOptions": {
+    "resolveJsonModule": true
+  }
+}

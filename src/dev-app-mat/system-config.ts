@@ -46,6 +46,7 @@ System.config({
     'rxjs/operators': 'system-rxjs-operators.js',
     'tslib': 'node:tslib/tslib.js',
     'url-parse': 'node:url-parse/dist/url-parse.min.js',
+    'ajv': 'node:ajv/dist/ajv.bundle.js',
 
     // Angular specific mappings.
     '@angular/cdk': 'node:@angular/cdk/bundles/cdk.umd.js',
@@ -127,6 +128,7 @@ System.config({
     '@ajf/core/models': 'dist/packages/core/models/index.js',
     '@ajf/core/node-icon': 'dist/packages/core/node-icon/index.js',
     '@ajf/core/forms': 'dist/packages/core/forms/index.js',
+    '@ajf/core/json-validation': 'dist/packages/core/json-validation/index.js',
     '@ajf/core/image': 'dist/packages/core/image/index.js',
     '@ajf/core/map': 'dist/packages/core/map/index.js',
     '@ajf/core/barcode': 'dist/packages/core/barcode/index.js',
