@@ -22,10 +22,10 @@
 
 import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
+import {AjfJsonValidator} from '@ajf/core/json-validation';
 import {Component} from '@angular/core';
 
 import {formSchema} from './form';
-
 
 @Component({
   moduleId: module.id,
@@ -46,6 +46,7 @@ export class FormsDemo {
     try {
       let schema = JSON.parse(this.formSchema);
       let context: AjfContext;
+      let valid = new AjfJsonValidator().validate(schema);
       if (this.context != null && this.context.length > 0) {
         context = JSON.parse(this.context);
       } else {
