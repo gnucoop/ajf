@@ -13,4 +13,17 @@
     height: 500px;
     position: relative;
   }
+
+  .demo-error-container {
+    border: 2px solid #D08080;
+    background-color: #ffe0e0;
+    padding: 1em;
+    margin: 0.5em;
+    color: #800000;
+
+    .demo-error-item {
+      padding: 0.5em;
+      font-size:80%
+    }
+  }
 }

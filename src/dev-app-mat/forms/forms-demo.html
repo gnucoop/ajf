@@ -17,7 +17,13 @@
     </mat-grid-list>
     <button (click)="setSchema()" mat-raised-button
         color="primary">Set schema</button>
-    <div class="demo-form-container">
+    <div class="demo-error-container" *ngIf="!formIsVisible && messages.length">
+      Problems with given schema:
+      <ol>
+        <li class="demo-error-item" *ngFor="let m of messages">{{m}}</li>
+      </ol>
+    </div>
+    <div class="demo-form-container" *ngIf="formIsVisible">
       <ajf-form [form]="form" hasStartMessage hasEndMessage hideTopToolbar></ajf-form>
     </div>
   </section>
