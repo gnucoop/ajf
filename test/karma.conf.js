@@ -37,16 +37,22 @@ module.exports = (config) => {
       {pattern: 'node_modules/@ngx-translate/**/*', included: false, watched: false},
       {pattern: 'node_modules/@zxing/library/umd/index.min.js', included: false, watched: false},
 
+      {pattern: 'node_modules/ajv/dist/*', included: false, watched: false},
       {pattern: 'node_modules/chart.js/Chart.umd.js', included: false, watched: false},
       {pattern: 'node_modules/chart.piecelabel.js/build/Chart.PieceLabel.min.js', included: false, watched: false},
       {pattern: 'node_modules/css-element-queries/css-element-queries.umd.js', included: false, watched: false},
       {pattern: 'node_modules/date-fns/date-fns.umd.js', included: false, watched: false},
       {pattern: 'node_modules/debug/debug.umd.js', included: false, watched: false},
       {pattern: 'node_modules/esprima/esprima.umd.js', included: false, watched: false},
+      {pattern: 'node_modules/ionic-selectable/bundles/ionic-selectable.umd.js', included: false, watched: false},
+      {pattern: 'node_modules/ionicons/**/*', included: false, watched: false},
       {pattern: 'node_modules/leaflet/leaflet.umd.js', included: false, watched: false},
+      {pattern: 'node_modules/ms/index.js', included: false, watched: false},
       {pattern: 'node_modules/moment/min/moment.min.js', included: false, watched: false},
       {pattern: 'node_modules/numeral/numeral.umd.js', included: false, watched: false},
       {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},
+
+      {pattern: 'bundles/*.js', included: false, watched: false},
 
       {pattern: 'test/karma-system-config.js', included: true, watched: false},
       {pattern: 'test/karma-test-shim.js', included: true, watched: false},

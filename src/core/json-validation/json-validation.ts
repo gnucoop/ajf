@@ -50,6 +50,10 @@ export class AjfJsonValidator {
         return AjfJsonValidator.ajv.errors;
     }
 
+    static getSchema(schemakey: string) {
+        return AjfJsonValidator.ajv.getSchema(schemakey);
+    }
+
     constructor() {
     }
 
