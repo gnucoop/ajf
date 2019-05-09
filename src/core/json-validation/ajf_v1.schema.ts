@@ -33,7 +33,7 @@ export const JSONSCHEMA: Object = {
                 'parentNode': {
                     '$comment': '#node/properties/parentNode',
                     'type': 'integer'
-                }, 
+                },
                 'name': {
                     '$comment': '#node/properties/name',
                     'type': 'string',
@@ -138,7 +138,6 @@ export const JSONSCHEMA: Object = {
                                     'condition': {
                                         '$comment': '#fieldnode/properties/conditionalBranches/items/properties/condition',
                                         'type': 'string',
-                                        
                                         'examples': [
                                             'true'
                                         ]
@@ -228,7 +227,6 @@ export const JSONSCHEMA: Object = {
             'minItems': 1
         }
     },
-    
     'type': 'object',
 
     'required': [
@@ -252,7 +250,7 @@ export const JSONSCHEMA: Object = {
                         'type': 'array',
                         'items': {
                             '$comment': '#/properties/stringIdentifier/items/properties/value/items',
-                            'type': 'string',  
+                            'type': 'string',
                             'examples': [
                                 'opd_age_group'
                             ]
@@ -260,7 +258,7 @@ export const JSONSCHEMA: Object = {
                     },
                     'label': {
                         '$comment': '#/properties/stringIdentifier/items/properties/label',
-                        'type': 'string',                 
+                        'type': 'string',
                         'examples': [
                             'Age'
                         ]
@@ -290,7 +288,6 @@ export const JSONSCHEMA: Object = {
                                 'value': {
                                     '$comment': '#/properties/choicesOrigins/items/properties/choices/items/properties/value',
                                     'type': 'string',
-                                    
                                     'examples': [
                                         'Acetylsalicylic acid (ASA)=Aspirin'
                                     ]
@@ -298,7 +295,6 @@ export const JSONSCHEMA: Object = {
                                 'label': {
                                     '$comment': '#/properties/choicesOrigins/items/properties/choices/items/properties/label',
                                     'type': 'string',
-                                    
                                     'examples': [
                                         'Acetylsalicylic acid (ASA)=Aspirin'
                                     ]
@@ -310,7 +306,6 @@ export const JSONSCHEMA: Object = {
                     'label': {
                         '$comment': '#/properties/choicesOrigins/items/properties/label',
                         'type': 'string',
-                        
                         'examples': [
                             'Generic Drug Name'
                         ]
@@ -318,7 +313,6 @@ export const JSONSCHEMA: Object = {
                     'name': {
                         '$comment': '#/properties/choicesOrigins/items/properties/name',
                         'type': 'string',
-                        
                         'examples': [
                             'opd_inn_name'
                         ]
@@ -326,7 +320,6 @@ export const JSONSCHEMA: Object = {
                     'choicesType': {
                         '$comment': '#/properties/choicesOrigins/items/properties/choicesType',
                         'type': 'string',
-                        
                         'examples': [
                             'string'
                         ]
@@ -348,7 +341,7 @@ export const JSONSCHEMA: Object = {
         'nodes': {
             '$comment': '#/properties/nodes',
             'type': 'array',
-            'items':{ '$ref': '#containernode' }
+            'items': { '$ref': '#containernode' }
         },
         'attachmentsOrigins': {
             '$comment': '#/properties/attachmentsOrigins',
@@ -377,7 +370,6 @@ export const JSONSCHEMA: Object = {
                                 'value': {
                                     '$comment': '#/properties/attachmentsOrigins/items/properties/attachments/items/properties/value',
                                     'type': 'string',
-                                    
                                     'examples': [
                                         'https://drive.google.com/drive/u/0/folders/0BwOelqY6iF-bMm1TU2pzUzMwenM'
                                     ]
@@ -385,7 +377,6 @@ export const JSONSCHEMA: Object = {
                                 'label': {
                                     '$comment': '#/properties/attachmentsOrigins/items/properties/attachments/items/properties/label',
                                     'type': 'string',
-                                    
                                     'examples': [
                                         'Clinical Protocol Google DOC'
                                     ]
@@ -401,7 +392,6 @@ export const JSONSCHEMA: Object = {
                     'name': {
                         '$comment': '#/properties/attachmentsOrigins/items/properties/name',
                         'type': 'string',
-                        
                         'examples': [
                             'opd_clin_prot'
                         ]
@@ -409,7 +399,6 @@ export const JSONSCHEMA: Object = {
                     'type': {
                         '$comment': '#/properties/attachmentsOrigins/items/properties/type',
                         'type': 'string',
-                        
                         'examples': [
                             'fixed'
                         ]
@@ -419,4 +408,4 @@ export const JSONSCHEMA: Object = {
         }
     },
     'additionalProperties': false
-}
+};

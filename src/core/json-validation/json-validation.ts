@@ -21,13 +21,12 @@
  */
 
 
-import Ajv from 'ajv';
+import Ajv, { ErrorObject } from 'ajv';
 
 // import * as JSONSCHEMA_v1 from './ajf_v1.schema.json';
 import {JSONSCHEMA as JSONSCHEMA_AJF_V1} from './ajf_v1.schema';
 
 const DEFAULT_SCHEMA_KEY: unique symbol = Symbol('default');
-
 
 let knownSchemas: {[key: string]: object} = {
     'ajf_v1': JSONSCHEMA_AJF_V1
@@ -44,17 +43,20 @@ export class AjfJsonValidator {
 
     private static ajv = new Ajv();
 
-    static logger = {log: console.log};
+    static log(..._stuff: any[]) {
+        return;
+    }
 
     static getErrors() {
         return AjfJsonValidator.ajv.errors;
     }
 
-    static getSchema(schemakey: string) {
-        return AjfJsonValidator.ajv.getSchema(schemakey);
+    static getKnownSchema(schemakey: string | symbol = DEFAULT_SCHEMA_KEY) {
+        // @ts-ignore
+        return knownSchemas[schemakey];
     }
 
-    constructor() {
+    private constructor() {
     }
 
     static validateWithSchema(jsondocument: object | string, schema: object ): boolean {
@@ -64,10 +66,10 @@ export class AjfJsonValidator {
             valid = Boolean(AjfJsonValidator.ajv.validate(schema, jsondocument));
         }
 
-        this.logger.log('... validation result: ', valid);
+        this.log('... validation result:', valid);
 
         if (!valid) {
-            this.logger.log(this.ajv.errors);
+            this.log('Errors:' , this.ajv.errors);
         }
         return valid;
     }
@@ -76,19 +78,19 @@ export class AjfJsonValidator {
     static validate(jsondocument: object | string, schemakey: string | symbol = DEFAULT_SCHEMA_KEY): boolean {
         let keyLabel = schemakey === DEFAULT_SCHEMA_KEY ? 'default' : schemakey.toString();
 
-        this.logger.log(`Validation according to schema "${keyLabel}"...`);
+        this.log(`Validation according to schema "${keyLabel}"...`);
 
         // NB: TS not supporting symbol indexing means we have to suppress the compiler error.
         //     see: https://github.com/Microsoft/TypeScript/issues/1863
         //
         // @ts-ignore
-        let schema = knownSchemas[schemakey];
+        let schema = this.getKnownSchema(schemakey);
 
         if (schema !== undefined) {
             return this.validateWithSchema(jsondocument, schema);
         }
 
-        this.logger.log(`Error: unknown schema "${keyLabel}"...`);
+        this.log(`Error: unknown schema "${keyLabel}"...`);
         return false;
     }
 }
