@@ -61,8 +61,14 @@ export function decimalCount(x: string|number): number {
   return parts.length > 1 ? parts[1].length : 0;
 }
 
-export function isInt(x: string): boolean {
-  return !/[,.]/.test(x);
+export function isInt(x: string|number): boolean {
+  if (typeof(x) === 'string') {
+    return /^-?\d+$/.test(x);
+  }
+  if (typeof (x) === 'number') {
+    return Math.round(x) === x;
+  }
+  return false;
 }
 
 export function notEmpty(x: any): boolean {

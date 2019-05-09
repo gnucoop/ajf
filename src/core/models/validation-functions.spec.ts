@@ -81,4 +81,44 @@ describe('Validation Function', () => {
         msg = '"0.4200" string has two decimal digits';
         expect(funcs.decimalCount('0.4200')).toBe(2, msg);
     });
+    it('isInt should recognize integers given their string representation', () => {
+        let msg = '';
+
+        msg = 'null should not be seen as integer';
+        expect(funcs.isInt(<any>null)).toBe(false, msg);
+
+        msg = 'undefined should not be seen as integer';
+        expect(funcs.isInt(<any>undefined)).toBe(false, msg);
+
+        msg = 'NaN should not be seen as integer';
+        expect(funcs.isInt(NaN)).toBe(false, msg);
+
+        msg = 'wrong typed value should not be seen as integer';
+        expect(funcs.isInt(<any>[])).toBe(false, msg);
+        expect(funcs.isInt(<any>{})).toBe(false, msg);
+
+        msg = 'empty string should not be seen as integer';
+        expect(funcs.isInt('')).toBe(false, msg);
+
+        msg = '"foo" string should not be seen as integer';
+        expect(funcs.isInt('foo')).toBe(false, msg);
+
+        msg = 'string of float should not be seen as integer';
+        expect(funcs.isInt('0.42')).toBe(false, msg);
+
+        msg = 'string of integer should be seen as integer';
+        expect(funcs.isInt('42')).toBe(true, msg);
+
+        msg = 'string of negative integer should be seen as integer';
+        expect(funcs.isInt('-42')).toBe(true, msg);
+
+        msg = 'float should not be seen as integer';
+        expect(funcs.isInt(0.42)).toBe(false, msg);
+
+        msg = 'integer should be seen as integer';
+        expect(funcs.isInt(42)).toBe(true, msg);
+
+        msg = 'negative integer should be seen as integer';
+        expect(funcs.isInt(-42)).toBe(true, msg);
+    });
 });
