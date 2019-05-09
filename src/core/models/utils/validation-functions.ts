@@ -51,13 +51,10 @@ export function digitCount(x: number): number {
 }
 
 export function decimalCount(x: string|number): number {
-  if (x == null) {
-    return 0;
-  }
   if (typeof x === 'string') {
     x = parseFloat(x);
   }
-  if (isNaN(x)) {
+  if (typeof x !== 'number' || isNaN(x)) {
     return 0;
   }
   const parts = x.toString().split('.');
