@@ -41,10 +41,13 @@ export const dateUtils = {
 };
 
 export function digitCount(x: number): number {
-  if (x == null) {
+  if ( isNaN(x) || typeof(x) !== 'number') {
     return 0;
   }
-  return x.toString().length;
+  if ( !isFinite(x)) {
+    return Infinity;
+  }
+  return x.toString().replace(/[^0-9]/g, '').length;
 }
 
 export function decimalCount(x: string|number): number {
