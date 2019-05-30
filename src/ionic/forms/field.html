@@ -1,5 +1,7 @@
 <ng-container *ngIf="control|async as curControl">
-  <div [ngSwitch]="fieldInstance.field.fieldType">
+  <div [ngSwitch]="fieldInstance.field.fieldType"
+      [ngClass]="'ajf-field-' + fieldInstance.completeName"
+      [class.ajf-validated]="fieldInstance|ajfFieldIsValid">
     <ion-input *ngSwitchCase="ajfFieldTypes.String"
         type="text"
         [formControl]="curControl"></ion-input>
