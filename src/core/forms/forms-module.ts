@@ -24,6 +24,7 @@ import {NgModule} from '@angular/core';
 
 import {BoolToIntPipe} from './bool-to-int';
 import {FieldIconPipe} from './field-icon';
+import {AjfFieldIsValidPipe} from './field-is-valid';
 import {AjfFormRendererService} from './form-renderer';
 import {TableRowClass} from './table-row-class';
 import {AjfValidationService} from './validation-service';
@@ -31,11 +32,13 @@ import {AjfValidationService} from './validation-service';
 
 @NgModule({
   declarations: [
+    AjfFieldIsValidPipe,
     BoolToIntPipe,
     FieldIconPipe,
     TableRowClass,
   ],
   exports: [
+    AjfFieldIsValidPipe,
     BoolToIntPipe,
     FieldIconPipe,
     TableRowClass,

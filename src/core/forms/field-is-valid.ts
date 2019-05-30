@@ -21,7 +21,7 @@
  */
 
 import {Pipe} from '@angular/core';
-import {AjfFieldInstance} from '../forms';
+import {AjfFieldInstance} from './nodes-instances';
 
 @Pipe({ name: 'ajfFieldIsValid' })
 export class AjfFieldIsValidPipe {
