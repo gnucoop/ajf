@@ -22,13 +22,15 @@
 
 
 import Ajv, { ErrorObject } from 'ajv';
+import debug from 'debug';
 
 // import * as JSONSCHEMA_v1 from './ajf_v1.schema.json';
 import {JSONSCHEMA as JSONSCHEMA_AJF_V1} from './ajf_v1.schema';
 
+
 const DEFAULT_SCHEMA_KEY: unique symbol = Symbol('default');
 
-let knownSchemas: {[key: string]: object} = {
+const knownSchemas: {[key: string]: object} = {
     'ajf_v1': JSONSCHEMA_AJF_V1
 };
 
@@ -38,14 +40,14 @@ let knownSchemas: {[key: string]: object} = {
 // @ts-ignore
 knownSchemas[DEFAULT_SCHEMA_KEY] = JSONSCHEMA_AJF_V1;
 
+const debugConstructor: (value?: any) => debug.IDebugger =
+    (<any>debug).default || debug;
+
+const dbg = debugConstructor('ajf:json-validation');
 
 export class AjfJsonValidator {
 
     private static ajv = new Ajv();
-
-    static log(..._stuff: any[]) {
-        return;
-    }
 
     static getErrors() {
         return AjfJsonValidator.ajv.errors;
@@ -66,10 +68,10 @@ export class AjfJsonValidator {
             valid = Boolean(AjfJsonValidator.ajv.validate(schema, jsondocument));
         }
 
-        this.log('... validation result:', valid);
+        dbg(`... validation result: %s`, valid);
 
         if (!valid) {
-            this.log('Errors:' , this.ajv.errors);
+            dbg(`Errors: %j`, this.ajv.errors);
         }
         return valid;
     }
@@ -78,7 +80,7 @@ export class AjfJsonValidator {
     static validate(jsondocument: object | string, schemakey: string | symbol = DEFAULT_SCHEMA_KEY): boolean {
         let keyLabel = schemakey === DEFAULT_SCHEMA_KEY ? 'default' : schemakey.toString();
 
-        this.log(`Validation according to schema "${keyLabel}"...`);
+        dbg(`Validation according to schema "%s"...`, keyLabel);
 
         // NB: TS not supporting symbol indexing means we have to suppress the compiler error.
         //     see: https://github.com/Microsoft/TypeScript/issues/1863
@@ -90,7 +92,7 @@ export class AjfJsonValidator {
             return this.validateWithSchema(jsondocument, schema);
         }
 
-        this.log(`Error: unknown schema "${keyLabel}"...`);
+        dbg(`Error: unknown schema "%s"...`, keyLabel);
         return false;
     }
 }
