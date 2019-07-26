@@ -1,11 +1,11 @@
 var cjs = require('rollup-plugin-commonjs');
 
 module.exports = {
-  input: 'node_modules/date-fns/index.js',
+  input: 'node_modules/esprima/dist/esprima.js',
   output: {
-    amd: {id: 'date-fns'},
-    name: 'date-fns',
-    file: 'node_modules/date-fns/date-fns.umd.js',
+    amd: {id: 'esprima'},
+    name: 'esprima',
+    file: 'node_modules/esprima/esprima.umd.js',
     format: 'umd',
     exports: 'named'
   },

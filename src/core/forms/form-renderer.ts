@@ -48,7 +48,9 @@ import {
 } from './form-renderer-utils';
 import {AjfValidationService} from './validation-service';
 
-import {tokenize, Token} from 'esprima';
+import * as esprima from 'esprima';
+const esprimaMod: any = (esprima as any).default || esprima;
+const {tokenize} = esprimaMod;
 
 
 export enum AjfFormInitStatus {
@@ -1154,10 +1156,10 @@ export class AjfFormRendererService {
     formula: string
   ): void {
     let tokens = tokenize(formula)
-      .filter((token: Token) => token.type == 'Identifier' && token.value != '$value');
+      .filter((token: any) => token.type == 'Identifier' && token.value != '$value');
     if (tokens.length > 0) {
       nodesMap.next((vmap: IAjfRendererUpdateMap): IAjfRendererUpdateMap => {
-        tokens.forEach((token: Token) => {
+        tokens.forEach((token: any) => {
           let tokenName = token.value;
           if (vmap[tokenName] != null) {
             const idx = vmap[tokenName].indexOf(nodeInstance);
@@ -1215,10 +1217,10 @@ export class AjfFormRendererService {
     formula: string
   ): void {
     let tokens = tokenize(formula)
-      .filter((token: Token) => token.type == 'Identifier' && token.value != '$value');
+      .filter((token: any) => token.type == 'Identifier' && token.value != '$value');
     if (tokens.length > 0) {
       nodesMap.next((vmap: IAjfRendererUpdateMap): IAjfRendererUpdateMap => {
-        tokens.forEach((token: Token) => {
+        tokens.forEach((token: any) => {
           let tokenName = token.value;
           if (vmap[tokenName] == null) {
             vmap[tokenName] = [];

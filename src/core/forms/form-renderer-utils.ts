@@ -20,7 +20,9 @@
  *
  */
 
-import {tokenize, Token} from 'esprima';
+import * as esprima from 'esprima';
+const esprimaMod: any = (esprima as any).default || esprima;
+const {tokenize} = esprimaMod;
 
 import {AjfCondition, AjfFormula} from '@ajf/core/models';
 
@@ -155,9 +157,9 @@ export function normalizeFormula(
 ): string {
   const ancestorsNameStrings = Object.keys(ancestorsNames);
   const tokens = tokenize(formula)
-    .filter((token: Token) => token.type == 'Identifier' && token.value != '$value')
-    .map((token: Token) => token.value);
-  tokens.forEach((t) => {
+    .filter((token: any) => token.type == 'Identifier' && token.value != '$value')
+    .map((token: any) => token.value);
+  tokens.forEach((t: any) => {
     if (ancestorsNameStrings.indexOf(t) > -1) {
       formula = formula.replace(
         new RegExp(`\\b${t}\\b`, 'g'),

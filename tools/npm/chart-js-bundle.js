@@ -2,11 +2,11 @@ var cjs = require('rollup-plugin-commonjs');
 var node = require('rollup-plugin-node-resolve');
 
 module.exports = {
-  input: 'node_modules/debug/src/browser.js',
+  input: 'node_modules/chart.js/dist/Chart.bundle.js',
   output: {
-    amd: {id: 'debug'},
-    name: 'debug',
-    file: 'node_modules/debug/debug.umd.js',
+    amd: {id: 'chart.js'},
+    name: 'chart.js',
+    file: 'node_modules/chart.js/Chart.umd.js',
     format: 'umd',
     exports: 'named'
   },

@@ -118,3 +118,18 @@ ANGULAR_LIBRARY_UMDS = [
     "@npm//:node_modules/@angular/platform-browser/bundles/platform-browser.umd.js",
     "@npm//:node_modules/@angular/router/bundles/router.umd.js",
 ]
+
+LIBRARIES_UMDS = [
+    "@npm//:node_modules/@ionic/angular/angular.umd.js",
+    "@npm//:node_modules/@ionic/core/core.umd.js",
+    "@npm//:node_modules/@ionic/core/core-loader.umd.js",
+    "@npm//:node_modules/chart.js/Chart.umd.js",
+    "@npm//:node_modules/chart.piecelabel.js/build/Chart.PieceLabel.min.js",
+    "@npm//:node_modules/css-element-queries/css-element-queries.umd.js",
+    "@npm//:node_modules/date-fns/date-fns.umd.js",
+    "@npm//:node_modules/debug/debug.umd.js",
+    "@npm//:node_modules/esprima/esprima.umd.js",
+    "@npm//:node_modules/ionic-selectable/bundles/ionic-selectable.umd.min.js",
+    "@npm//:node_modules/leaflet/leaflet.umd.js",
+    "@npm//:node_modules/numeral/numeral.umd.js",
+]

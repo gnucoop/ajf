@@ -15,7 +15,7 @@
   "scripts": {
     "postinstall": "ngc -p angular-tsconfig.json && yarn -s build-libraries-bundles",
     "build": "gulp build-release-packages",
-    "build-libraries-bundles": "rollup -c tools/npm/date-fns-bundle.js && rollup -c tools/npm/debug-bundle.js && rollup -c tools/npm/css-element-queries-bundle.js && rollup -c tools/npm/ngx-color-picker-bundle.js && rollup -c tools/npm/ionic-core-bundle.js && rollup -c tools/npm/ionic-core-loader-bundle.js && rollup -c tools/npm/ionic-angular-bundle.js",
+    "build-libraries-bundles": "rollup -c tools/npm/date-fns-bundle.js && rollup -c tools/npm/debug-bundle.js && rollup -c tools/npm/esprima-bundle.js && rollup -c tools/npm/numeral-bundle.js && rollup -c tools/npm/leaflet-bundle.js && rollup -c tools/npm/chart-js-bundle.js && rollup -c tools/npm/css-element-queries-bundle.js && rollup -c tools/npm/ngx-color-picker-bundle.js && rollup -c tools/npm/ionic-core-bundle.js && rollup -c tools/npm/ionic-core-loader-bundle.js && rollup -c tools/npm/ionic-angular-bundle.js",
     "bazel:buildifier": "find . -type f \\( -name \"*.bzl\" -or -name WORKSPACE -or -name BUILD -or -name BUILD.bazel \\) ! -path \"*/node_modules/*\" | xargs buildifier -v --warnings=attr-cfg,attr-license,attr-non-empty,attr-output-default,attr-single-file,constant-glob,ctx-args,depset-iteration,depset-union,dict-concatenation,duplicated-name,filetype,git-repository,http-archive,integer-division,load,load-on-top,native-build,native-package,output-group,package-name,package-on-top,redefined-variable,repository-name,same-origin-load,string-iteration,unused-variable",
     "bazel:format-lint": "yarn -s bazel:buildifier --lint=warn --mode=check",
     "dev-app-mat": "gulp serve:devapp-mat",
@@ -60,6 +60,7 @@
     "core-js": "^2.6.5",
     "css-element-queries": "^1.1.1",
     "date-fns": "^1.30.1",
+    "esprima": "^4.0.1",
     "flag-icon-css": "^3.2.1",
     "ionic-selectable": "^4.4.1",
     "leaflet": "^1.4.0",

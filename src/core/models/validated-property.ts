@@ -22,7 +22,9 @@
 
 import * as debug from 'debug';
 
-import {tokenize} from 'esprima';
+import * as esprima from 'esprima';
+const esprimaMod: any = (esprima as any).default || esprima;
+const {tokenize} = esprimaMod;
 
 import {AjfJsonSerializable} from './json';
 
@@ -127,10 +129,10 @@ export abstract class AjfValidatedProperty extends AjfJsonSerializable {
       return formula.replace(/^"+|"+$/g, '');
     }
     const identifiers = tokenize(formula)
-      .filter(t => t.type === 'Identifier')
-      .map(t => t.value);
+      .filter((t: any) => t.type === 'Identifier')
+      .map((t: any) => t.value);
     const ctx: any[] = [];
-    identifiers.forEach(key => {
+    identifiers.forEach((key: string) => {
       let val: any = null;
       if (context != null && context[key] !== undefined) {
         val = context[key];

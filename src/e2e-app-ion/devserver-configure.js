@@ -1,13 +1,22 @@
 // We need to configure AMD modules which are not named because otherwise "require.js" is not
 // able to resolve AMD imports to such modules.
+
+const nodeModulesBasePath = '/base/npm/node_modules/';
+
 require.config({
   paths: {
-    '@ionic/angular': 'ionic-angular.umd',
-    '@ionic/core': 'ionic-core.umd',
-    '@ionic/core/loader': 'ionic-core-loader.umd',
-    '@ngx-translate/core': '@ngx-translate/core/bundles/ngx-translate-core.umd',
-    '@ngx-translate/http-loader': '@ngx-translate/http-loader/bundles/ngx-translate-http-loader.umd',
-    'date-fns': 'date-fns.umd',
+    '@ionic/angular': `${nodeModulesBasePath}@ionic/angular/angular.umd`,
+    '@ionic/core': `${nodeModulesBasePath}@ionic/core/core.umd`,
+    '@ionic/core/loader': `${nodeModulesBasePath}@ionic/core/core-loader.umd`,
+    'chart': `${nodeModulesBasePath}chart.js/Chart.umd`,
+    'chart.piecelabel': `${nodeModulesBasePath}chart.piecelabel.js/build/Chart.PieceLabel.min`,
+    'css-element-queries': `${nodeModulesBasePath}css-element-queries/css-element-queries.umd`,
+    'date-fns': `${nodeModulesBasePath}date-fns/date-fns.umd`,
+    'debug': `${nodeModulesBasePath}debug/debug.umd`,
+    'esprima': `${nodeModulesBasePath}esprima/esprima.umd`,
+    'ionic-selectable': `${nodeModulesBasePath}ionic-selectable/bundles/ionic-selectable.umd.min`,
+    'leaflet': `${nodeModulesBasePath}leaflet/leaflet.umd`,
+    'numeral': `${nodeModulesBasePath}numeral/numeral.umd`,
   }
 });
 

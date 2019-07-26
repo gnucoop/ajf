@@ -5,7 +5,7 @@ load("@npm_bazel_jasmine//:index.bzl", _jasmine_node_test = "jasmine_node_test")
 load("@npm_bazel_typescript//:defs.bzl", _ts_library = "ts_library")
 load("@npm_bazel_karma//:defs.bzl", _ts_web_test_suite = "ts_web_test_suite")
 load("//tools/markdown-to-html:index.bzl", _markdown_to_html = "markdown_to_html")
-load("//:packages.bzl", "ANGULAR_LIBRARY_UMDS", "VERSION_PLACEHOLDER_REPLACEMENTS")
+load("//:packages.bzl", "ANGULAR_LIBRARY_UMDS", "LIBRARIES_UMDS", "VERSION_PLACEHOLDER_REPLACEMENTS")
 
 _DEFAULT_TSCONFIG_BUILD = "//src:bazel-tsconfig-build.json"
 _DEFAULT_TSCONFIG_TEST = "//src:bazel-tsconfig-test.json"
@@ -115,7 +115,7 @@ def ts_web_test_suite(deps = [], srcs = [], **kwargs):
         # TODO(jelbourn): remove UMDs from here once we don't have to manually include them
         srcs = [
             "@npm//:node_modules/tslib/tslib.js",
-        ] + ANGULAR_LIBRARY_UMDS + srcs,
+        ] + ANGULAR_LIBRARY_UMDS + LIBRARIES_UMDS + srcs,
         **kwargs
     )
 
@@ -177,19 +177,5 @@ def ng_web_test_suite(deps = [], static_css = [], bootstrap = [], **kwargs):
             "@npm//:node_modules/reflect-metadata/Reflect.js",
             "@npm//:node_modules/hammerjs/hammer.js",
         ] + bootstrap,
-        static_files = [
-            "@npm//:node_modules/@ionic/angular/angular.umd.js",
-            "@npm//:node_modules/@ionic/core/core.umd.js",
-            "@npm//:node_modules/@ionic/core/core-loader.umd.js",
-            "@npm//:node_modules/chart.js/dist/Chart.bundle.js",
-            "@npm//:node_modules/chart.piecelabel.js/build/Chart.PieceLabel.min.js",
-            "@npm//:node_modules/css-element-queries/css-element-queries.umd.js",
-            "@npm//:node_modules/date-fns/date-fns.umd.js",
-            "@npm//:node_modules/debug/debug.umd.js",
-            "@npm//:node_modules/esprima/esprima.js",
-            "@npm//:node_modules/ionic-selectable/bundles/ionic-selectable.umd.min.js",
-            "@npm//:node_modules/leaflet/dist/leaflet.js",
-            "@npm//:node_modules/numeral/min/numeral.min.js",
-        ],
         **kwargs
     )

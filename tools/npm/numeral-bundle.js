@@ -1,11 +1,11 @@
 var cjs = require('rollup-plugin-commonjs');
 
 module.exports = {
-  input: 'node_modules/date-fns/index.js',
+  input: 'node_modules/numeral/min/numeral.min.js',
   output: {
-    amd: {id: 'date-fns'},
-    name: 'date-fns',
-    file: 'node_modules/date-fns/date-fns.umd.js',
+    amd: {id: 'numeral'},
+    name: 'numeral',
+    file: 'node_modules/numeral/numeral.umd.js',
     format: 'umd',
     exports: 'named'
   },
