@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'bazel-build'
+    label 'bazel-build-28'
   }
   environment {
     scmInfo = checkout scm
