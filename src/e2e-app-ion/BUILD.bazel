@@ -23,7 +23,7 @@ ng_module(
     deps = [
         "//src/ionic-examples:examples",
         "//src/ionic/calendar",
-        "@npm//@angular/common/http",
+        "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@angular/platform-browser",
