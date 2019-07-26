@@ -51,10 +51,10 @@ IONIC_TARGETS = ["//src/ionic"] + ["//src/ionic/%s" % p for p in IONIC_PACKAGES]
 # Each individual package uses a placeholder for the version of Angular to ensure they're
 # all in-sync. This map is passed to each ng_package rule to stamp out the appropriate
 # version for the placeholders.
-ANGULAR_PACKAGE_VERSION = ">=7.0.0"
-ANGULAR_MATERIAL_PACKAGE_VERSION = ">=7.1.0"
-NGXT_PACKAGE_VERSION = ">=11.0.0"
-IONIC_PACKAGE_VERSION = ">=4.0.0-beta.17"
+ANGULAR_PACKAGE_VERSION = "^8.0.0"
+ANGULAR_MATERIAL_PACKAGE_VERSION = "^8.0.0"
+NGXT_PACKAGE_VERSION = "^11.0.0"
+IONIC_PACKAGE_VERSION = "^4.7.0"
 VERSION_PLACEHOLDER_REPLACEMENTS = {
   "0.0.0-NGM": ANGULAR_MATERIAL_PACKAGE_VERSION,
   "0.0.0-NGXT": NGXT_PACKAGE_VERSION,
@@ -96,3 +96,25 @@ ROLLUP_GLOBALS.update({
 ROLLUP_GLOBALS.update({
   "@ajf/ionic/%s" % p: "ajf.ionic.%s" % p for p in IONIC_PACKAGES
 })
+
+# UMD bundles for Angular packages and subpackges we depend on for development and testing.
+ANGULAR_LIBRARY_UMDS = [
+    "@npm//:node_modules/@angular/animations/bundles/animations-browser.umd.js",
+    "@npm//:node_modules/@angular/animations/bundles/animations.umd.js",
+    "@npm//:node_modules/@angular/common/bundles/common-http-testing.umd.js",
+    "@npm//:node_modules/@angular/common/bundles/common-http.umd.js",
+    "@npm//:node_modules/@angular/common/bundles/common-testing.umd.js",
+    "@npm//:node_modules/@angular/common/bundles/common.umd.js",
+    "@npm//:node_modules/@angular/compiler/bundles/compiler-testing.umd.js",
+    "@npm//:node_modules/@angular/compiler/bundles/compiler.umd.js",
+    "@npm//:node_modules/@angular/core/bundles/core-testing.umd.js",
+    "@npm//:node_modules/@angular/core/bundles/core.umd.js",
+    "@npm//:node_modules/@angular/elements/bundles/elements.umd.js",
+    "@npm//:node_modules/@angular/forms/bundles/forms.umd.js",
+    "@npm//:node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js",
+    "@npm//:node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js",
+    "@npm//:node_modules/@angular/platform-browser/bundles/platform-browser-animations.umd.js",
+    "@npm//:node_modules/@angular/platform-browser/bundles/platform-browser-testing.umd.js",
+    "@npm//:node_modules/@angular/platform-browser/bundles/platform-browser.umd.js",
+    "@npm//:node_modules/@angular/router/bundles/router.umd.js",
+]

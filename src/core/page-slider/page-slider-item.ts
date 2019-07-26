@@ -42,8 +42,8 @@ import {AjfPageSliderItemScrollDirection} from './page-slider-item-scroll-direct
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfPageSliderItem implements OnDestroy {
-  @ViewChild('wrapper') wrapper: ElementRef;
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('wrapper', {static: true}) wrapper: ElementRef;
+  @ViewChild('content', {static: true}) content: ElementRef;
 
   private _scrollX = 0;
   private _scrollY = 0;

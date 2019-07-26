@@ -1,44 +1,58 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
-load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+)
 
 ng_module(
-  name = "text",
-  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
-  module_name = "@ajf/core/text",
-  assets = [":text.css"] + glob(["**/*.html"]),
-  deps = [
-    "@angular//packages/common",
-    "@angular//packages/core",
-    "@angular//packages/platform-browser",
-    "@ngx_translate_core//:core",
-  ],
+    name = "text",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [":text.css"] + glob(["**/*.html"]),
+    module_name = "@ajf/core/text",
+    deps = [
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+        "@npm//@ngx-translate/core",
+    ],
 )
 
 sass_binary(
-  name = "text_scss",
-  src = "text.scss",
-  deps = [],
+    name = "text_scss",
+    src = "text.scss",
+    deps = [],
 )
 
 ng_test_library(
-  name = "text_test_sources",
-  srcs = glob(["**/*.spec.ts"]),
-  deps = [
-    "@angular//packages/platform-browser",
-    ":text"
-  ]
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":text",
+        "@npm//@angular/platform-browser",
+    ],
 )
 
 ng_web_test_suite(
-  name = "unit_tests",
-  deps = [
-    ":text_test_sources",
-  ],
+    name = "unit_tests",
+    deps = [
+        ":unit_test_sources",
+    ],
+)
+
+markdown_to_html(
+  name = "overview",
+  srcs = ["text.md"],
 )
 
 filegroup(
-  name = "source-files",
-  srcs = glob(["**/*.ts"]),
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
 )

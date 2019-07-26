@@ -177,8 +177,8 @@ export class AjfQuillEditor
   private _formulaTextSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2,
+    private _elementRef: ElementRef,
+    private _renderer: Renderer2,
     private _service: AjfReportBuilderService) {
     this.font.whitelist = this.fonts;
     this.font.whitelist.push('regular');
@@ -190,7 +190,7 @@ export class AjfQuillEditor
           // reference is defined only when the user want to edit the formula
           if (event.reference !== undefined) {
             event.reference.innerHTML = event.formula;
-            this.renderer.setAttribute(event.reference, 'formula', event.formula);
+            this._renderer.setAttribute(event.reference, 'formula', event.formula);
             const efs = this._formulas.filter(f => f.formula === event.reference);
             let formulaEntry;
             let unlisten;
@@ -204,7 +204,7 @@ export class AjfQuillEditor
               formulaEntry = { formula: event.reference, unlisten: null };
               this._formulas.push(formulaEntry);
             }
-            formulaEntry.unlisten = this.renderer.listen(
+            formulaEntry.unlisten = this._renderer.listen(
               event.reference, 'click', () => {
                 let obj = {
                   'formula': event.formula,
@@ -214,15 +214,15 @@ export class AjfQuillEditor
               }
             );
           } else {
-            const quillEditor = this.elementRef.nativeElement.querySelector('.ajf-ql-editor');
-            const link = this.renderer.createElement('a');
-            this.renderer.setAttribute(link, 'href', 'javascript:void(0)');
-            this.renderer.setStyle(link, 'cursor', 'pointer');
-            this.renderer.setAttribute(link, 'formula', this.check(event.formula));
-            const linkLabel = this.renderer.createText(event.formula);
-            this.renderer.appendChild(link, linkLabel);
+            const quillEditor = this._elementRef.nativeElement.querySelector('.ajf-ql-editor');
+            const link = this._renderer.createElement('a');
+            this._renderer.setAttribute(link, 'href', 'javascript:void(0)');
+            this._renderer.setStyle(link, 'cursor', 'pointer');
+            this._renderer.setAttribute(link, 'formula', this.check(event.formula));
+            const linkLabel = this._renderer.createText(event.formula);
+            this._renderer.appendChild(link, linkLabel);
             // add listener related on the click event of the new formula
-            const unlisten = this.renderer.listen(
+            const unlisten = this._renderer.listen(
               link, 'click', (_) => {
                 let obj = {
                   'formula': this.check(event.formula),
@@ -231,7 +231,7 @@ export class AjfQuillEditor
                 this.formulaClick.emit(obj);
               }
             );
-            this.renderer.appendChild(quillEditor, link);
+            this._renderer.appendChild(quillEditor, link);
             this._formulas.push({ unlisten, formula: link });
           }
         });
@@ -256,7 +256,7 @@ export class AjfQuillEditor
   }
 
   ngAfterViewInit() {
-    const toolbarElem = this.elementRef.nativeElement.querySelector('[ajf-quill-editor-toolbar]');
+    const toolbarElem = this._elementRef.nativeElement.querySelector('[ajf-quill-editor-toolbar]');
     let modules: any = this.modules || this.defaultModules;
 
     Quill.register(this.font, true);
@@ -265,11 +265,11 @@ export class AjfQuillEditor
       modules['toolbar'] = toolbarElem;
       modules['formula'] = true;
     }
-    this.elementRef.nativeElement.insertAdjacentHTML(
+    this._elementRef.nativeElement.insertAdjacentHTML(
       'beforeend', '<div quill-editor-element></div>'
     );
 
-    this.editorElem = this.elementRef.nativeElement.querySelector('[quill-editor-element]');
+    this.editorElem = this._elementRef.nativeElement.querySelector('[quill-editor-element]');
 
     this.quillEditor = new Quill(this.editorElem, {
       modules: modules,
@@ -318,8 +318,8 @@ export class AjfQuillEditor
       });
     });
 
-    let elem = this.elementRef.nativeElement.querySelector('.ajf-ql-formula');
-    this.listenFunc = this.renderer.listen(elem, 'click', (_) => {
+    let elem = this._elementRef.nativeElement.querySelector('.ajf-ql-formula');
+    this.listenFunc = this._renderer.listen(elem, 'click', (_) => {
       this.formulaClick.emit();
 
     });
@@ -332,11 +332,11 @@ export class AjfQuillEditor
     if (this.quillEditor) {
       if (currentValue) {
         if (currentValue == this.initHTML && !this._init) {
-          let editor = this.elementRef.nativeElement.querySelector('.ajf-ql-editor');
+          let editor = this._elementRef.nativeElement.querySelector('.ajf-ql-editor');
           editor.innerHTML = this.initHTML;
-          let allFormulas = this.elementRef.nativeElement.querySelectorAll('[formula]');
+          let allFormulas = this._elementRef.nativeElement.querySelectorAll('[formula]');
           allFormulas.forEach((elem: any) => {
-            const unlisten = this.renderer.listen(
+            const unlisten = this._renderer.listen(
               elem, 'click', (_) => {
                 let obj = {
                   'formula': this.check(elem.innerText),
@@ -345,7 +345,7 @@ export class AjfQuillEditor
                 this.formulaClick.emit(obj);
               }
             );
-            this.renderer.setStyle(elem, 'cursor', 'pointer');
+            this._renderer.setStyle(elem, 'cursor', 'pointer');
             this._formulas.push({ unlisten, formula: elem });
             this._init = true;
           });
@@ -415,7 +415,7 @@ export class AjfQuillEditor
         theme: this.theme || 'snow',
         formats: this.formats
       });
-      this.elementRef.nativeElement.children[0].remove();
+      this._elementRef.nativeElement.children[0].remove();
     }
   }
   ngOnDestroy() {

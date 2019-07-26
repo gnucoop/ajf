@@ -48,7 +48,7 @@ import {AjfFbChoicesOriginEditorDialog} from './choices-origin-editor-dialog';
   encapsulation: ViewEncapsulation.None
 })
 export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDestroy {
-  @ViewChild('designer') designerCont: ElementRef;
+  @ViewChild('designer', {static: true}) designerCont: ElementRef;
 
   private _form: AjfForm;
   get form(): AjfForm { return this._form; }

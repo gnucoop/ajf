@@ -120,10 +120,10 @@ export abstract class AjfChoicesOrigin<T> extends AjfJsonSerializable implements
   abstract getChoices(): Array<AjfChoice<T>>;
 
   getChoicesType(): string {
-    return this._choicesType || this.guessChoicesType();
+    return this._choicesType || this._guessChoicesType();
   }
 
-  private guessChoicesType(): string {
+  private _guessChoicesType(): string {
     let cs = this.getChoices();
     if (cs && cs.length > 0) {
       this._choicesType = getTypeName(cs[0].value);

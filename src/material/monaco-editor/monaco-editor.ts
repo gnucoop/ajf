@@ -116,7 +116,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
 
       if (this._valueToCompare === void 0 || !this._valueToCompare || !this._editor) {
         if (this._editor && this._editor.getEditorType() !== 'vs.editor.ICodeEditor') {
-          this.initEditor();
+          this._initEditor();
           return;
         }
 
@@ -128,7 +128,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
       }
 
       if (this._editor.getEditorType() === 'vs.editor.ICodeEditor') {
-        this.initEditor();
+        this._initEditor();
         return;
       }
     }
@@ -143,7 +143,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
         }
 
         if (this._editor.getEditorType() !== 'vs.editor.ICodeEditor') {
-          this.initEditor();
+          this._initEditor();
           return;
         }
 
@@ -155,7 +155,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
     @Output() valueToCompareChange = new EventEmitter();
     @Output() init = new EventEmitter();
 
-    @ViewChild('editor') editorContent: ElementRef;
+    @ViewChild('editor', {static: true}) editorContent: ElementRef;
 
     private _editor: any;
     get editor(): any { return this._editor; }
@@ -173,7 +173,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
         let onGotAmdLoader = () => {
             // Load monaco
             (<any>window).require(['vs/editor/editor.main'], () => {
-                this.initMonaco();
+                this._initMonaco();
             });
         };
 
@@ -199,7 +199,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
 
     ngOnChanges(_changes: {[propKey: string]: SimpleChange}) {
         if (this._editor) {
-            this._editor.updateOptions(this.getOptions());
+            this._editor.updateOptions(this._getOptions());
         }
     }
 
@@ -234,20 +234,20 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
      * Init editor
      * Is called once monaco library is available
      */
-    private initMonaco() {
-        this.initEditor();
+    private _initMonaco() {
+        this._initEditor();
         this.init.emit();
     }
 
-    private initEditor() {
+    private _initEditor() {
         let myDiv: HTMLDivElement = this.editorContent.nativeElement;
-        let options = this.getOptions();
+        let options = this._getOptions();
         this.dispose();
 
         if (!this._valueToCompare) {
-            this._editor = this.initSimpleEditor(myDiv, options);
+            this._editor = this._initSimpleEditor(myDiv, options);
         } else {
-            this._editor = this.initDiffEditor(myDiv, options);
+            this._editor = this._initDiffEditor(myDiv, options);
         }
 
         // Manually set monaco size because MonacoEditor doesn't work with Flexbox css
@@ -271,19 +271,19 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
         // });
 
         // Trigger on change event for simple editor
-        this.getOriginalModel().onDidChangeContent((_e: any) => {
-            let newVal: string = this.getOriginalModel().getValue();
+        this._getOriginalModel().onDidChangeContent((_e: any) => {
+            let newVal: string = this._getOriginalModel().getValue();
             if (this._value !== newVal) {
-                this.updateValue(newVal);
+                this._updateValue(newVal);
             }
         });
 
         // Trigger on change event for diff editor
-        if (this.getModifiedModel()) {
-            this.getModifiedModel().onDidChangeContent((_e: any) => {
-                let newVal: string = this.getModifiedModel().getValue();
+        if (this._getModifiedModel()) {
+            this._getModifiedModel().onDidChangeContent((_e: any) => {
+                let newVal: string = this._getModifiedModel().getValue();
                 if (this._valueToCompare !== newVal) {
-                    this.updateValueToCompare(newVal);
+                    this._updateValueToCompare(newVal);
                 }
             });
         }
@@ -294,7 +294,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
      * @param div
      * @param options
      */
-    private initSimpleEditor(div: HTMLDivElement, options: any) {
+    private _initSimpleEditor(div: HTMLDivElement, options: any) {
         return monaco.editor.create(div, options);
     }
 
@@ -302,7 +302,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
      * Create a diff editor to compare two string (_value and _valueToCompare)
      * @param div
      */
-    private initDiffEditor(div: HTMLDivElement, options: any) {
+    private _initDiffEditor(div: HTMLDivElement, options: any) {
         let originalModel = monaco.editor.createModel(this._value, this.language);
         let modifiedModel = monaco.editor.createModel(this._valueToCompare, this.language);
 
@@ -315,7 +315,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
         return diffEditor;
     }
 
-    private getOptions(): IEditorOptions {
+    private _getOptions(): IEditorOptions {
         let options: IEditorOptions = new IEditorOptions();
         options.experimentalScreenReader = this.experimentalScreenReader;
         options.ariaLabel = this.ariaLabel;
@@ -392,7 +392,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
      *
      * @param value
      */
-    private updateValue(value: string) {
+    private _updateValue(value: string) {
         this.value = value;
         this._value = value;
         this.valueChange.emit(value);
@@ -403,20 +403,20 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
      *
      * @param value
      */
-    private updateValueToCompare(value: string) {
+    private _updateValueToCompare(value: string) {
         this.valueToCompare = value;
         this._valueToCompare = value;
         this.valueToCompareChange.emit(value);
     }
 
-    private getOriginalModel() {
+    private _getOriginalModel() {
         if (this._editor) {
             let model = this._editor.getModel();
             return model.original ? model.original : model;
         }
     }
 
-    private getModifiedModel() {
+    private _getModifiedModel() {
         if (this._editor) {
             let model = this._editor.getModel();
             return model.modified ? model.modified : null;

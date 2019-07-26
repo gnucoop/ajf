@@ -2,7 +2,7 @@ import {dest, task, src} from 'gulp';
 import {join} from 'path';
 import {buildConfig} from 'ajf-build-tools';
 import {readFileSync, writeFileSync} from 'fs';
-import {copyTask} from '../util/task_helpers';
+import {copyTask} from '../util/task-helpers';
 import {escapeText} from '../util/text';
 
 const tsb = require('gulp-typescript');

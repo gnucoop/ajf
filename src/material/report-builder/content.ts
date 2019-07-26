@@ -55,12 +55,12 @@ import {AjfReportBuilderService} from './report-builder-service';
 export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDestroy {
   onMouseOver(): void {
     this.showActions = true;
-    this.service.overStarted();
+    this._service.overStarted();
   }
 
   onMouseLeave(): void {
     this.showActions = false;
-    this.service.overEnded();
+    this._service.overEnded();
   }
 
   canDropPredicate(
@@ -147,11 +147,11 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   private _currentWidgetSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    private service: AjfReportBuilderService,
-    private cdRef: ChangeDetectorRef) {
-    this.headerStyles = this.service.headerStyles;
-    this.contentStyles = this.service.contentStyles;
-    this.footerStyles = this.service.footerStyles;
+    private _service: AjfReportBuilderService,
+    private _cdRef: ChangeDetectorRef) {
+    this.headerStyles = this._service.headerStyles;
+    this.contentStyles = this._service.contentStyles;
+    this.footerStyles = this._service.footerStyles;
   }
 
   isLayout(widget: AjfReportWidget): boolean {
@@ -171,7 +171,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
     let s = timer(200)
       .subscribe(() => {
         if (s != null) { s.unsubscribe(); }
-        this.service.dragStarted();
+        this._service.dragStarted();
       });
   }
 
@@ -181,7 +181,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    * @memberOf AjfReportBuilderContent
    */
   onDragEndHandler(): void {
-    this.service.dragEnded();
+    this._service.dragEnded();
   }
 
   /**
@@ -190,7 +190,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    * @memberOf AjfReportBuilderContent
    */
   onDragEnterHandler(array: string, index: number): void {
-    this.service.dragEnter(array, index);
+    this._service.dragEnter(array, index);
   }
 
   /**
@@ -199,7 +199,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    * @memberOf AjfReportBuilderContent
    */
   onDragLeaveHandler(): void {
-    this.service.dragLeave();
+    this._service.dragLeave();
   }
 
 
@@ -231,7 +231,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    * @memberOf AjfReportBuilderContent
    */
   remove(type: string, idx: number) {
-    this.service.remove(type, idx);
+    this._service.remove(type, idx);
   }
 
   /**
@@ -244,10 +244,10 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    */
   addToList(arrayTo: string, event: CdkDragDrop<AjfReportBuilderDragData>, to?: number) {
     this.onDragEndHandler();
-    this.service.setOrigin(arrayTo);
+    this._service.setOrigin(arrayTo);
     const itemData = event.item.data as AjfReportBuilderDragData;
     if (itemData.fromColumn != null) {
-        this.service.removeWidgetToColumn(itemData.fromColumn, itemData.fromIndex!);
+        this._service.removeWidgetToColumn(itemData.fromColumn, itemData.fromIndex!);
         this.currentWidget = itemData.widget!;
     } else if (itemData.widget != null) {
       this.remove(itemData.arrayFrom!, itemData.from!);
@@ -264,13 +264,13 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
     if (this.currentWidget != null) {
       switch (arrayTo) {
         case 'header':
-          this.service.addHeaderWidget(this.currentWidget, to);
+          this._service.addHeaderWidget(this.currentWidget, to);
           break;
         case 'content':
-          this.service.addContentWidget(this.currentWidget, to);
+          this._service.addContentWidget(this.currentWidget, to);
           break;
         case 'footer':
-          this.service.addfooterWidget(this.currentWidget, to);
+          this._service.addfooterWidget(this.currentWidget, to);
           break;
       }
     }
@@ -278,38 +278,38 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   }
 
   ngOnInit(): void {
-    this._headerWidgetsSub = this.service.headerWidgets
+    this._headerWidgetsSub = this._service.headerWidgets
       .subscribe(x => {
         this.headerWidgets = x.widgets;
       });
-    this._contentWidgetsSub = this.service.contentWidgets
+    this._contentWidgetsSub = this._service.contentWidgets
       .subscribe(x => {
         this.contentWidgets = x.widgets;
       });
-    this._footerWidgetsSub = this.service.footerWidgets
+    this._footerWidgetsSub = this._service.footerWidgets
       .subscribe(x => {
         this.footerWidgets = x.widgets;
       });
-    this._onDraggedSub = this.service.onDragged
+    this._onDraggedSub = this._service.onDragged
       .subscribe(x => {
         this.onDragged = x;
       });
-    this._fixedZoomSub = this.service.fixedZoom
+    this._fixedZoomSub = this._service.fixedZoom
       .subscribe(bool => {
         this.fixedZoom = bool;
       });
-    this._onDragEnterSub = this.service.onDragEnter
+    this._onDragEnterSub = this._service.onDragEnter
       .subscribe(x => {
         this.onDragEnter = x;
       });
-    this._onOverSub = this.service.onOver
+    this._onOverSub = this._service.onOver
       .subscribe(x => {
         this.onOver = x;
       });
   }
 
   ngAfterViewChecked() {
-    this.cdRef.detectChanges();
+    this._cdRef.detectChanges();
   }
 
   ngOnDestroy(): void {

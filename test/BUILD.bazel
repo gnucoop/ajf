@@ -1,124 +1,26 @@
 package(default_visibility=["//visibility:public"])
 
-load("//tools:webpack_bundle.bzl", "webpack_bundle")
 load("//tools:defaults.bzl", "ts_library")
 
 # Common set-up for all Ajf tests.
 ts_library(
-  name = "angular_test_init",
-  testonly = True,
-  deps = [
-    "@angular//packages/core/testing",
-    "@angular//packages/platform-browser-dynamic/testing",
-    "@ajfdeps//@types/jasmine",
-  ],
-  # This file *must* end with "spec" in order for ts_web_test to load it.
-  srcs = ["angular-test-init-spec.ts"],
+    name = "angular_test_init",
+    testonly = True,
+    # This file *must* end with "spec" in order for ts_web_test to load it.
+    srcs = ["angular-test-init-spec.ts"],
+    deps = [
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser-dynamic",
+        "@npm//@types/jasmine",
+    ],
 )
 
-webpack_bundle(
-  name = "css_element_queries_bundle",
-  library = "css-element-queries",
-  library_target = "umd",
-  entry_point = "@ajfdeps//node_modules/css-element-queries:index.js",
-  output_name = "css-element-queries.umd.js",
-  deps = [
-    "@ajfdeps//css-element-queries",
-  ],
-)
-
-webpack_bundle(
-  name = "debug_bundle",
-  library = "debug",
-  library_target = "umd",
-  entry_point = "@ajfdeps//node_modules/debug:src/browser.js",
-  output_name = "debug.umd.js",
-  deps = [
-    "@ajfdeps//debug",
-  ],
-)
-
-webpack_bundle(
-  name = "date_fns_bundle",
-  library = "date-fns",
-  library_target = "umd",
-  entry_point = "@ajfdeps//node_modules/date-fns:index.js",
-  output_name = "date-fns.umd.js",
-  deps = [
-    "@ajfdeps//date-fns",
-  ],
-)
-
-webpack_bundle(
-  name = "ionic_core_bundle",
-  library = "@ionic/core",
-  library_target = "umd",
-  entry_point = "@ajfdeps//node_modules/@ionic/core:dist/esm/es5/index.js",
-  output_name = "ionic-core.umd.js",
-  deps = [
-    "@ajfdeps//@ionic/core",
-  ]
-)
-
-webpack_bundle(
-  name = "ionic_core_loader_bundle",
-  library = "@ionic/core/loader",
-  library_target = "umd",
-  entry_point = "@ajfdeps//node_modules/@ionic/core:loader/index.js",
-  output_name = "ionic-core-loader.umd.js",
-  deps = [
-    "@ajfdeps//@ionic/core",
-  ]
-)
-
-webpack_bundle(
-  name = "ionicons_bundle",
-  library = "ionicons",
-  library_target = "umd",
-  entry_point = "@ajfdeps//node_modules/ionicons:dist/esm/index.js",
-  output_name = "ionicons.umd.js",
-  deps = [
-    "@ajfdeps//ionicons",
-  ]
-)
-
-webpack_bundle(
-  name = "ionicons_icons_bundle",
-  library = "ionicons/icons",
-  library_target = "umd",
-  entry_point = "@ajfdeps//node_modules/ionicons:icons/index.js",
-  output_name = "ionicons-icons.umd.js",
-  deps = [
-    "@ajfdeps//ionicons",
-  ]
-)
-
-webpack_bundle(
-  name = "ionic_angular_bundle",
-  library = "@ionic/angular",
-  library_target = "umd",
-  externals = [
-    '@angular/core',
-    '@angular/common',
-    '@angular/forms',
-    '@angular/platform-browser',
-    '@angular/router',
-    'tslib',
-    'rxjs',
-  ],
-  entry_point = "@ajfdeps//node_modules/@ionic/angular:dist/fesm5.js",
-  output_name = "ionic-angular.umd.js",
-  deps = [
-    "@ajfdeps//@ionic/angular",
-  ]
-)
-
-# Common set-up for all Ajf tests.
+# # Common set-up for all Ajf tests.
 ts_library(
   name = "requirejs_init",
   testonly = True,
   deps = [
-    "@ajfdeps//@types/jasmine",
+    "@npm//@types/jasmine",
   ],
   # This file *must* end with "spec" in order for ts_web_test to load it.
   srcs = ["requirejs-init.ts"],

@@ -70,12 +70,22 @@ function buildPlaceholderFindCommand(packageDir: string) {
   if (platform() === 'win32') {
     return {
       binary: 'findstr',
-      args: ['/msi', `${ngVersionPlaceholderText} ${versionPlaceholderText}`, `${packageDir}\\*`]
+      args: [
+        '/msi',
+        `${ngVersionPlaceholderText} ${versionPlaceholderText} ${ngmVersionPlaceholderText}`
+        + `${ngxtVersionPlaceholderText} ${ionicVersionPlaceholderText}`,
+        `${packageDir}\\*`
+      ]
     };
   } else {
     return {
       binary: 'grep',
-      args: ['-ril', `${ngVersionPlaceholderText}\\|${versionPlaceholderText}`, packageDir]
+      args: [
+        '-ril',
+        `${ngVersionPlaceholderText}\\|${versionPlaceholderText}\\|${ngmVersionPlaceholderText}`
+        + `|${ngxtVersionPlaceholderText}|${ionicVersionPlaceholderText}`,
+        packageDir
+      ]
     };
   }
 }

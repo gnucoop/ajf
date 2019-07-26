@@ -33,17 +33,17 @@ export class AutoCompleteSingleton {
      * We use a singleton, because this class can be call from all the Monaco Editor Components
      */
     static getInstance() {
-        if (!AutoCompleteSingleton.instance) {
-            AutoCompleteSingleton.instance = new AutoCompleteSingleton();
+        if (!AutoCompleteSingleton._instance) {
+            AutoCompleteSingleton._instance = new AutoCompleteSingleton();
         }
-        return AutoCompleteSingleton.instance;
+        return AutoCompleteSingleton._instance;
     }
 
     get autoCompleteValues(): {[p: string]: AutoCompleteItem[]} {
         return this._autoCompleteValues;
     }
 
-    private static instance: AutoCompleteSingleton | null = null;
+    private static _instance: AutoCompleteSingleton | null = null;
     private _autoCompleteValues: { [key: string]: AutoCompleteItem[]; } = {};
 
     private constructor() {
@@ -80,9 +80,9 @@ export class AutoCompleteSingleton {
     parseAutoCompleteValues(language: IEditorLanguage, content: string): AutoCompleteItem[] {
         switch (language) {
             case IEditorLanguage.XML:
-                return this.parseXmlAutoComplete(content);
+                return this._parseXmlAutoComplete(content);
             case IEditorLanguage.JSON:
-                return this.parseJsonAutoComplete(content);
+                return this._parseJsonAutoComplete(content);
             default:
                 return [];
         }
@@ -92,7 +92,7 @@ export class AutoCompleteSingleton {
      * Parse the XML content and add all tags in AutoComplete for XML Language
      * @param content
      */
-    private parseXmlAutoComplete(content: string): AutoCompleteItem[] {
+    private _parseXmlAutoComplete(content: string): AutoCompleteItem[] {
         let tempList: AutoCompleteItem [] = [];
         let parser = new DOMParser();
         let tags = parser.parseFromString(content, 'text/xml').getElementsByTagName('*');
@@ -125,7 +125,7 @@ export class AutoCompleteSingleton {
         return tempList;
     }
 
-    private parseJsonAutoComplete(content: string): AutoCompleteItem[] {
+    private _parseJsonAutoComplete(content: string): AutoCompleteItem[] {
         /* tslint:disable-next-line */
         const regex = /(?:\'|\')([^']*)(?:\'|\')(?=:)(?:\:\s*)(?:\'|\')?(true|false|[0-9a-zA-Z\+\-\,\.\$]*)/g;
         let tempList: AutoCompleteItem [] = [];

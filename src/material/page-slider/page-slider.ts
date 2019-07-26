@@ -39,7 +39,7 @@ import {AjfPageSlider as AjfCorePageSlider, AjfPageSliderItem} from '@ajf/core/p
   outputs: ['pageScrollFinish', 'orientationChange'],
   queries: {
     pages: new ContentChildren(AjfPageSliderItem),
-    body: new ViewChild('body')
+    body: new ViewChild('body', {static: true})
   },
 })
 export class AjfPageSlider extends AjfCorePageSlider {

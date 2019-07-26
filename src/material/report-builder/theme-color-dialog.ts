@@ -45,7 +45,7 @@ import {AjfReportBuilderService} from './report-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit, OnDestroy {
-  @ViewChild('colorpic')
+  @ViewChild('colorpic', {static: true})
   elem: any;
 
   currentWidget: AjfReportWidget | null = null;

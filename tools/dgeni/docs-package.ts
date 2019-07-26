@@ -8,7 +8,7 @@ import {FilterDuplicateExports} from './processors/filter-duplicate-exports';
 import {MergeInheritedProperties} from './processors/merge-inherited-properties';
 import {EntryPointGrouper} from './processors/entry-point-grouper';
 import {ReadTypeScriptModules} from 'dgeni-packages/typescript/processors/readTypeScriptModules';
-import {TypeFormatFlags} from 'dgeni-packages/node_modules/typescript';
+import {TypeFormatFlags} from 'typescript';
 
 // Dgeni packages that the Material docs package depends on.
 const jsdocPackage = require('dgeni-packages/jsdoc');
@@ -28,7 +28,7 @@ const typescriptPackage = require('dgeni-packages/typescript');
  * Similar to AngularJS, there is also a `config` lifecycle hook, that can be used to
  * configure specific processors, services before the procession begins.
  */
-export const apiDocsPackage = new Package('ajf-api-docs', [
+export const apiDocsPackage = new Package('material2-api-docs', [
   jsdocPackage,
   nunjucksPackage,
   typescriptPackage,
@@ -50,19 +50,23 @@ apiDocsPackage.processor(new Categorizer());
 apiDocsPackage.processor(new EntryPointGrouper());
 
 // Configure the log level of the API docs dgeni package.
-apiDocsPackage.config((log: any) => log.level = 'info');
+apiDocsPackage.config(function(log: any) {
+  return log.level = 'warning';
+});
 
 // Configure the processor for reading files from the file system.
-apiDocsPackage.config((readFilesProcessor: any) => {
+apiDocsPackage.config(function(readFilesProcessor: any) {
   // Disable we currently only use the "readTypeScriptModules" processor
   readFilesProcessor.$enabled = false;
 });
 
 // Patches Dgeni's log service to not print warnings about unresolved mixin base symbols.
-apiDocsPackage.config((log: any) => patchLogService(log));
+apiDocsPackage.config(function(log: any) {
+  return patchLogService(log);
+});
 
 // Configure the output path for written files (i.e., file names).
-apiDocsPackage.config((computePathsProcessor: any) => {
+apiDocsPackage.config(function(computePathsProcessor: any) {
   computePathsProcessor.pathTemplates = [{
     docTypes: ['entry-point'],
     pathTemplate: '${name}',
@@ -71,25 +75,26 @@ apiDocsPackage.config((computePathsProcessor: any) => {
 });
 
 // Configure custom JsDoc tags.
-apiDocsPackage.config((parseTagsProcessor: any) => {
+apiDocsPackage.config(function(parseTagsProcessor: any) {
   parseTagsProcessor.tagDefinitions = parseTagsProcessor.tagDefinitions.concat([
     {name: 'docs-private'},
-    {name: 'breaking-change'}
+    {name: 'docs-public'},
+    {name: 'docs-primary-module'},
+    {name: 'breaking-change'},
   ]);
 });
 
-apiDocsPackage.config((checkAnchorLinksProcessor: any) => {
+apiDocsPackage.config(function(checkAnchorLinksProcessor: any) {
   // This ensures that Dgeni will fail if we generate links that don't follow this format.
-  checkAnchorLinksProcessor.ignoredLinks.push(/(components|core)\/[\w-]+\/api#\w+/);
+  checkAnchorLinksProcessor.ignoredLinks.push(/(components|cdk)\/[\w-]+\/api#\w+/);
 });
 
 // Configure the processor for understanding TypeScript.
-apiDocsPackage.config((readTypeScriptModules: ReadTypeScriptModules) => {
-  readTypeScriptModules.ignoreExportsMatching = [/^_/];
+apiDocsPackage.config(function(readTypeScriptModules: ReadTypeScriptModules) {
   readTypeScriptModules.hidePrivateMembers = true;
 });
 
-apiDocsPackage.config((tsHost: Host) => {
+apiDocsPackage.config(function(tsHost: Host) {
   // Disable concatenation of multiple leading comments for a TypeScript node. Since all shipped
   // source files have a license banner at top, the license banner comment would be incorrectly
   // considered as "comment" for the first TypeScript node of a given file. Since there are
@@ -104,7 +109,7 @@ apiDocsPackage.config((tsHost: Host) => {
 });
 
 // Configure processor for finding nunjucks templates.
-apiDocsPackage.config((templateFinder: any, templateEngine: any) => {
+apiDocsPackage.config(function(templateFinder: any, templateEngine: any) {
   // Standard patterns for matching docs to templates
   templateFinder.templatePatterns = [
     '${ doc.template }',
@@ -117,7 +122,7 @@ apiDocsPackage.config((templateFinder: any, templateEngine: any) => {
     '${ doc.id }.${ doc.docType }.template.json',
     '${ doc.id }.template.json',
     '${ doc.docType }.template.json',
-    'common.template.html'
+    'common.template.html',
   ];
 
   // Dgeni disables autoescape by default, but we want this turned on.
@@ -126,7 +131,7 @@ apiDocsPackage.config((templateFinder: any, templateEngine: any) => {
   // Nunjucks and Angular conflict in their template bindings so change Nunjucks
   templateEngine.config.tags = {
     variableStart: '{$',
-    variableEnd: '$}'
+    variableEnd: '$}',
   };
 
   templateEngine.tags.push(new HighlightNunjucksExtension());

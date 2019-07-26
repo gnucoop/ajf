@@ -51,8 +51,8 @@ import {AJF_SEARCH_ALERT_TRESHOLD} from './tokens';
     'valueChanged'
   ],
   queries: {
-    singleChoiceSelect: new ViewChild('singleChoiceSelect'),
-    multipleChoiceSelect: new ViewChild('multipleChoiceSelect')
+    singleChoiceSelect: new ViewChild('singleChoiceSelect', {static: false}),
+    multipleChoiceSelect: new ViewChild('multipleChoiceSelect', {static: false})
   }
 })
 export class AjfFormField extends AjfCoreFormField implements OnDestroy, OnInit {

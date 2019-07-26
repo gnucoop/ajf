@@ -1,6 +1,6 @@
 import {task, dest} from 'gulp';
 import {copyFileSync, removeSync} from 'fs-extra';
-import {tsBuildTask, copyTask, serverTask} from '../util/task_helpers';
+import {tsBuildTask, copyTask, serverTask} from '../util/task-helpers';
 import {join} from 'path';
 import {
   buildConfig,

@@ -40,7 +40,7 @@ import {AjfMapContainerDirective} from './map-container-directive';
   encapsulation: ViewEncapsulation.None
 })
 export class AjfMapComponent implements AfterViewInit, OnDestroy {
-  @ViewChild(AjfMapContainerDirective) mapContainer: AjfMapContainerDirective;
+  @ViewChild(AjfMapContainerDirective, {static: true}) mapContainer: AjfMapContainerDirective;
 
   private _coordinate: number[];
   @Input() set coordinate(coordinate: number[]) {

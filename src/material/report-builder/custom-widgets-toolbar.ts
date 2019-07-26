@@ -79,7 +79,7 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
   '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]}]}';
 
   constructor(
-    private service: AjfReportBuilderService,
+    private _service: AjfReportBuilderService,
     public dialog: MatDialog) {
   }
 
@@ -99,7 +99,7 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
     let s = timer(200)
       .subscribe(() => {
         if (s != null) { s.unsubscribe(); }
-        this.service.dragStarted();
+        this._service.dragStarted();
       });
   }
 
@@ -109,7 +109,7 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
    * @memberOf AjfReportBuilderContent
    */
   onDragEndHandler(): void {
-    this.service.dragEnded();
+    this._service.dragEnded();
   }
 
   /**
@@ -118,7 +118,7 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
    * @memberOf AjfReportBuilderContent
    */
   onDragEnterHandler(array: string, index: number): void {
-    this.service.dragEnter(array, index);
+    this._service.dragEnter(array, index);
   }
 
   /**
@@ -127,10 +127,10 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
    * @memberOf AjfReportBuilderContent
    */
   onDragLeaveHandler(): void {
-    this.service.dragLeave();
+    this._service.dragLeave();
   }
   ngOnInit(): void {
-    this._customWidgetsSub = this.service.customWidgets
+    this._customWidgetsSub = this._service.customWidgets
       .subscribe(x => {
         this.customWidgets = x;
         if (
@@ -140,11 +140,11 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
           this.openDialog(this.customWidgets.length - 1);
         }
       });
-    this.service.addCustomWidgets({
+    this._service.addCustomWidgets({
       json: this._threeColumnsLayout,
       type: 'LayoutWidgetWith3Columns',
     });
-    this.service.addCustomWidgets({
+    this._service.addCustomWidgets({
       json: this._fourColumnsLayout,
       type: 'LayoutWidgetWith4Columns'
     });
@@ -152,6 +152,6 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this._customWidgetsSub.unsubscribe();
-    this.service.resetCustomWidgets();
+    this._service.resetCustomWidgets();
   }
 }

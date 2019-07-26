@@ -39,12 +39,12 @@ export class AjfReportBuilderCustomWidgetDialog {
   position: number;
 
   constructor(
-    private service: AjfReportBuilderService,
+    private _service: AjfReportBuilderService,
     private _dialogRef: MatDialogRef<AjfReportBuilderCustomWidgetDialog>
   ) { }
 
   changeLabel() {
-    this.service.changeLabelCustomWidget(this.label, this.position);
+    this._service.changeLabelCustomWidget(this.label, this.position);
     this._dialogRef.close();
   }
 }

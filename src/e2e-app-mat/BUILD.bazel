@@ -1,56 +1,68 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
-load("@build_bazel_rules_typescript//:defs.bzl", "ts_devserver")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("@npm_bazel_typescript//:defs.bzl", "ts_devserver")
 load("//tools:defaults.bzl", "ng_module")
+load("//:packages.bzl", "ANGULAR_LIBRARY_UMDS")
+
+exports_files([
+    "protractor.conf.js",
+    "start-devserver.js",
+])
 
 ng_module(
-  name = "e2e-app-mat",
-  srcs = glob(["**/*.ts"]),
-  assets = glob(["**/*.html", "**/*.css"], exclude = ["index.html"]),
-  deps = [
-    "@angular//packages/common/http",
-    "@angular//packages/core",
-    "@angular//packages/forms",
-    "@angular//packages/platform-browser",
-    "@angular//packages/platform-browser/animations",
-    "@angular//packages/router",
-    "@angular_material//src/lib/button",
-    "@angular_material//src/lib/list",
-    "@ngx_translate_core//:core",
-    "@ajfdeps//@ngx-translate/http-loader",
-    "//src/material/calendar:calendar",
-    "//src/material-examples:examples",
-  ]
+    name = "e2e-app-mat",
+    srcs = glob(["**/*.ts"]),
+    assets = glob(
+        [
+            "**/*.html",
+            "**/*.css",
+        ],
+        exclude = ["index.html"],
+    ),
+    deps = [
+        "//src/material-examples:examples",
+        "//src/material/calendar",
+        "@npm//@angular/common/http",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/platform-browser/animations",
+        "@npm//@angular/router",
+        "@npm//@ngx-translate/core",
+        "@npm//@ngx-translate/http-loader",
+    ],
 )
 
 ts_devserver(
     name = "devserver",
-    port = 4200,
+    # Root paths can be used simplify the loading of files from external Bazel repositories
+    # (such as the Bazel managed deps repository called "npm")
+    additional_root_paths = [
+        "npm/node_modules",
+        "test",
+    ],
     # Name of the AMD module that should be required on page load.
     entry_module = "ajf/src/e2e-app-mat/main",
-    # Serving path of the bundle that serves all files specified in "deps" and "scripts".
-    serving_path = "/bundle.js",
-    # Root paths can be used simplify the loading of files from external Bazel repositories
-    # (such as the Bazel managed deps repository called "ajfdeps")
-    additional_root_paths = [
-      "ajfdeps/node_modules",
-      "test",
-    ],
-    # Files which should be provided by Bazel when running the devserver. These are not
-    # automatically served, but can be loaded manually through HTTP requests.
-    static_files = [
-      "@ajfdeps//zone.js",
-      "@ajfdeps//core-js",
-      "@ajfdeps//hammerjs",
-      "@ajfdeps//@ngx-translate/core",
-      "//test:date_fns_bundle",
-      ":index.html",
-    ],
+    port = 4200,
     # Scripts which will be included in the serving_path bundle after "require.js" has been
     # loaded.
     scripts = [
-      ":devserver-configure.js",
-      "@ajfdeps//node_modules/tslib:tslib.js",
+        ":devserver-configure.js",
+        "@npm//node_modules/tslib:tslib.js",
+    ],
+    # Serving path of the bundle that serves all files specified in "deps" and "scripts".
+    serving_path = "/bundle.js",
+    # Files which should be provided by Bazel when running the devserver. These are not
+    # automatically served, but can be loaded manually through HTTP requests.
+    static_files = [
+        "@npm//zone.js",
+        "@npm//core-js",
+        "@npm//hammerjs",
+        "@npm//@ngx-translate/core",
+        "//test:date_fns_bundle",
+        ":index.html",
     ],
     # Dependencies that produce JavaScript output will be automatically included in the
     # serving_path bundle

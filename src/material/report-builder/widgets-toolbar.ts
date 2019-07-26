@@ -49,7 +49,7 @@ export class AjfReportBuilderWidgetsToolbar {
    *
    * @param private _afjBuilderService: AjfBuilderService
    */
-  constructor(private service: AjfReportBuilderService) {
+  constructor(private _service: AjfReportBuilderService) {
     // delete Column widget
     let pos = this.widgetTypes.indexOf('Column');
     if (pos !== -1) {
@@ -65,7 +65,7 @@ export class AjfReportBuilderWidgetsToolbar {
     let s = timer(200)
       .subscribe(() => {
         if (s != null) { s.unsubscribe(); }
-        this.service.dragStarted();
+        this._service.dragStarted();
       });
   }
 
@@ -75,6 +75,6 @@ export class AjfReportBuilderWidgetsToolbar {
    * @memberOf AjfReportBuilderContent
    */
   onDragEndHandler(): void {
-    this.service.dragEnded();
+    this._service.dragEnded();
   }
 }

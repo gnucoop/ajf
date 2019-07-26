@@ -1,6 +1,12 @@
 package(default_visibility=["//visibility:public"])
 
-load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+)
 
 ng_module(
   name = "reports",
@@ -8,9 +14,10 @@ ng_module(
   module_name = "@ajf/core/reports",
   assets = [],
   deps = [
-    "@angular//packages/core",
-    "@ajfdeps//@types/chart.js",
-    "@ngx_translate_core//:core",
+    "@npm//@angular/common",
+    "@npm//@angular/core",
+    "@npm//@types/chart.js",
+    "@npm//@ngx-translate/core",
     "//src/core/chart",
     "//src/core/forms",
     "//src/core/image",
@@ -21,17 +28,22 @@ ng_module(
 )
 
 ng_test_library(
-  name = "reports_test_sources",
+  name = "unit_test_sources",
   srcs = glob(["**/*.spec.ts"]),
   deps = [
-    "@angular//packages/platform-browser",
+    "@npm//@angular/platform-browser",
     ":reports"
   ]
 )
 
 ng_web_test_suite(
   name = "unit_tests",
-  deps = [":reports_test_sources"],
+  deps = [":unit_test_sources"],
+)
+
+markdown_to_html(
+  name = "overview",
+  srcs = ["reports.md"],
 )
 
 filegroup(

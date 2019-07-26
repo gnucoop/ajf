@@ -49,8 +49,8 @@ import {AjfFormFieldWarningDialog} from './field-warning-dialog';
     'valueChanged'
   ],
   queries: {
-    singleChoiceSelect: new ViewChild('singleChoiceSelect'),
-    multipleChoiceSelect: new ViewChild('multipleChoiceSelect')
+    singleChoiceSelect: new ViewChild('singleChoiceSelect', {static: false}),
+    multipleChoiceSelect: new ViewChild('multipleChoiceSelect', {static: false})
   },
   changeDetection: ChangeDetectionStrategy.OnPush
 })

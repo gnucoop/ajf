@@ -7,8 +7,9 @@ import {ModuleInfo} from '../processors/entry-point-grouper';
  */
 export function computeApiDocumentUrl(apiDoc: Document, moduleInfo: ModuleInfo): string {
   // Base URL for the given package. This is currently either:
-  //   1) material.angular.io/cdk
-  //   2) material.angular.io/components
-  const baseUrl = moduleInfo.packageName === 'cdk' ? 'cdk' : 'components';
+  //   1) ajf.rocks/core
+  //   2) ajf.rocks/ionic
+  //   3) ajf.rocks/material
+  const baseUrl = moduleInfo.packageName;
   return `${baseUrl}/${moduleInfo.entryPointName}/api#${apiDoc.name}`;
 }

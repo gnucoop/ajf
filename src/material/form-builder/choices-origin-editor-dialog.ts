@@ -40,7 +40,7 @@ import {AjfFormBuilderService} from './form-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfFbChoicesOriginEditorDialog {
-  @ViewChild(AjfFbChoicesOriginEditor) editor: AjfFbChoicesOriginEditor;
+  @ViewChild(AjfFbChoicesOriginEditor, {static: true}) editor: AjfFbChoicesOriginEditor;
 
   private _choicesOrigin: Observable<IAjfChoicesOrigin>;
   get choicesOrigin(): Observable<IAjfChoicesOrigin> { return this._choicesOrigin; }

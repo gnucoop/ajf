@@ -7,8 +7,8 @@ ts_library(
   name = "sources",
   srcs = glob(["**/*.ts"]),
   deps = [
-    "@ajfdeps//@types/node",
-    "@ajfdeps//highlight.js",
+    "@npm//@types/node",
+    "@npm//highlight.js",
   ],
   tsconfig = ":tsconfig.json",
 )
@@ -17,7 +17,7 @@ nodejs_binary(
   name = "highlight-files",
   entry_point = "ajf/tools/highlight-files/highlight-files.js",
   data = [
-    "@ajfdeps//source-map-support",
+    "@npm//source-map-support",
     ":sources",
   ],
 )

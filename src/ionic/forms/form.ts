@@ -65,7 +65,7 @@ import {AjfFormField} from './field';
     'orientationChange',
   ],
   queries: {
-    formSlider: new ViewChild('formSlider'),
+    formSlider: new ViewChild('formSlider', {static: false}),
     fields: new ViewChildren(AjfFormField)
   }
 })

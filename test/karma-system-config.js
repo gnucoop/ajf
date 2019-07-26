@@ -3,19 +3,18 @@ System.config({
   baseURL: '/base',
   paths: {
     'node:*': 'node_modules/*',
-    'bundles:*': 'bundles/*'
   },
   map: {
     'traceur': 'node:traceur/bin/traceur.js',
     'chart.js': 'node:chart.js/dist/Chart.js',
     'chart.piecelabel.js': 'node:chart.piecelabel.js/build/Chart.PieceLabel.min.js',
-    'css-element-queries': 'node:css-element-queries/index.js',
-    'date-fns': 'node:date-fns/index.js',
-    'debug': 'node:debug/src/browser.js',
+    'css-element-queries': 'node:css-element-queries/css-element-queries.umd.js',
+    'date-fns': 'node:date-fns/date-fns.umd.js',
+    'debug': 'node:debug/debug.umd.js',
     'esprima': 'node:esprima/esprima.js',
     'leaflet': 'node:leaflet/dist/leaflet.js',
-    'ms': 'node:ms/index.js',
-    'numeral': 'node:numeral/numeral.js',
+    'moment': 'node:moment/min/moment.min.js',
+    'numeral': 'node:numeral/min/numeral.min.js',
     'rxjs': 'node:rxjs',
     'tslib': 'node:tslib/tslib.js',
 
@@ -44,6 +43,7 @@ System.config({
       'node:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.min.js',
     '@angular/router': 'node:@angular/router/bundles/router.umd.min.js',
 
+    '@angular/cdk': 'node:@angular/cdk/bundles/cdk.umd.js',
     '@angular/material/button': 'node:@angular/material/bundles/material-button.umd.js',
 
     '@angular/cdk/a11y': 'node:@angular/cdk/bundles/cdk-a11y.umd.min.js',
@@ -66,11 +66,10 @@ System.config({
     '@ngx-translate/http-loader':
       'node:@ngx-translate/http-loader/bundles/ngx-translate-http-loader.umd.js',
     
-    '@ionic/core': 'bundles:ionic-core.umd.js',
-    '@ionic/core/loader': 'bundles:ionic-core-loader.umd.js',
-    '@ionic/angular': 'bundles:ionic-angular.umd.js',
-    'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.js',
-    'ionicons': 'node:ionicons',
+    '@ionic/core': 'node:@ionic/core/core.umd.js',
+    '@ionic/core/loader': 'node:@ionic/core/core-loader.umd.js',
+    '@ionic/angular': 'node:@ionic/angular/angular.umd.js',
+    'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.min.js',
 
     '@ajf/core': 'dist/packages/core/index.js',
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',

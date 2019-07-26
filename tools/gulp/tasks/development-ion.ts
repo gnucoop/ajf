@@ -4,7 +4,7 @@ import {
   copyFileSync, existsSync, mkdirpSync, readFileSync, removeSync, writeFileSync
 } from 'fs-extra';
 import * as webpack from 'webpack-stream';
-import {tsBuildTask, copyTask, serverTask} from '../util/task_helpers';
+import {tsBuildTask, copyTask, serverTask} from '../util/task-helpers';
 import {join} from 'path';
 import {
   buildConfig,
@@ -65,36 +65,6 @@ task(':build:devapp-ion:assets', copyTask(assetsGlob, outDir));
 task(':build:devapp-ion:scss', () => buildScssPipeline(appDir).pipe(dest(outDir)));
 task(':build:devapp-ion:inline-resources', () => inlineResourcesForDirectory(outDir));
 
-task(':build:ionic-bundle', [
-  ':build:ionic-core-bundle',
-  ':build:ionic-core-loader-bundle',
-  ':build:ionic-angular-bundle'
-]);
-
-task(':build:ionic-core-bundle', () => {
-  return makeBundle(
-    join('node_modules', '@ionic', 'core', 'dist', 'esm', 'es5', 'index.js'),
-    'ionic-core.umd.js',
-    '@ionic/core'
-  );
-});
-
-task(':build:ionic-core-loader-bundle', () => {
-  return makeBundle(
-    join('node_modules', '@ionic', 'core', 'loader', 'index.js'),
-    'ionic-core-loader.umd.js',
-    '@ionic/core/loader'
-  );
-});
-
-task(':build:ionic-angular-bundle', () => {
-  return makeBundle(
-    join('node_modules', '@ionic', 'angular', 'dist', 'fesm5.js'),
-    'ionic-angular.umd.js',
-    '@ionic/angular'
-  );
-});
-
 task(':serve:devapp-ion', serverTask(outDir));
 
 task('build:devapp-ion', sequenceTask(
@@ -106,7 +76,7 @@ task('build:devapp-ion', sequenceTask(
   'ionic-examples:build-no-bundles',
   [
     ':build:devapp-ion:assets', ':build:devapp-ion:scss',
-    ':build:devapp-ion:ts', ':build:ionic-bundle'
+    ':build:devapp-ion:ts'
   ],
   // Inline all component resources because otherwise SystemJS tries to load HTML, CSS and
   // JavaScript files which makes loading the dev-app-ion extremely slow.

@@ -68,8 +68,8 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
   b: any;
 
 
-  @ViewChild('conditionTextArea') conditionTextArea: any;
-  @ViewChild('errorMessage') errorMessage: any;
+  @ViewChild('conditionTextArea', {static: false}) conditionTextArea: any;
+  @ViewChild('errorMessage', {static: false}) errorMessage: any;
 
   //  operators is an array of any type that contains all allow operators
   operators: string[] = [

@@ -14,8 +14,6 @@ createPackageBuildTasks(ionicPackage);
 createPackageBuildTasks(ionExamplesPackage, ['build-ion-examples-module']);
 
 import './tasks/ajf-release';
-import './tasks/all-packages';
-import './tasks/aot';
 import './tasks/aot-ion';
 import './tasks/aot-mat';
 import './tasks/breaking-changes';
@@ -31,7 +29,3 @@ import './tasks/monaco';
 import './tasks/unit-test';
 import './tasks/universal-ion';
 import './tasks/universal-mat';
-
-import './tasks/publish/publish-task';
-import './tasks/publish/sanity-checks';
-import './tasks/publish/validate-release';

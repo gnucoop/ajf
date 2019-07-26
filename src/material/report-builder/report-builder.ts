@@ -40,7 +40,7 @@ import {AjfReportBuilderService} from './report-builder-service';
  * This class will define an ajf form builderx
  */
 export class AjfReportBuilder implements AfterContentInit {
-  @ViewChild(MatSidenav) startSidenav: MatSidenav;
+  @ViewChild(MatSidenav, {static: true}) startSidenav: MatSidenav;
 
   private _init: boolean = false;
 

@@ -41,7 +41,7 @@ import {AjfFormBuilderService} from './form-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfFbValidationConditionEditorDialog {
-  @ViewChild(AjfFbConditionEditor) editor: AjfFbConditionEditor;
+  @ViewChild(AjfFbConditionEditor, {static: true}) editor: AjfFbConditionEditor;
 
   private _fields: Observable<AjfField[]>;
   get fields(): Observable<AjfField[]> { return this._fields; }

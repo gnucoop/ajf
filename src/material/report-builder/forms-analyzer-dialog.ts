@@ -116,9 +116,9 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   @Input()
   reference: any;
 
-  @ViewChild('formulaTextArea') formulaTextArea: any;
-  @ViewChild('errorMessage') errorMessage: any;
-  @ViewChild(AjfMonacoEditor) monacoEditor: AjfMonacoEditor;
+  @ViewChild('formulaTextArea', {static: true}) formulaTextArea: any;
+  @ViewChild('errorMessage', {static: true}) errorMessage: any;
+  @ViewChild(AjfMonacoEditor, {static: false}) monacoEditor: AjfMonacoEditor;
 
   private _formAnalyzerSub: Subscription = Subscription.EMPTY;
   private _currentWidgetSub: Subscription = Subscription.EMPTY;
@@ -301,6 +301,7 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
       switch (this.currentWidget.widgetType) {
         case 2:
           this.saveImageFormula();
+          break;
         case 3:
           this.saveFormulaHtml();
           break;

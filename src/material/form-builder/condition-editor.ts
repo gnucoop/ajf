@@ -41,7 +41,7 @@ declare var monaco: any;
   encapsulation: ViewEncapsulation.None
 })
 export class AjfFbConditionEditor {
-  @ViewChild(AjfMonacoEditor) monacoEditor: AjfMonacoEditor;
+  @ViewChild(AjfMonacoEditor, {static: true}) monacoEditor: AjfMonacoEditor;
 
   private _fields: AjfField[];
   get fields(): AjfField[] { return this._fields; }

@@ -96,7 +96,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   private _onDraggedSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    private service: AjfReportBuilderService
+    private _service: AjfReportBuilderService
   ) { }
 
   canDropPredicate(item: CdkDrag<AjfReportBuilderDragData>): boolean {
@@ -117,7 +117,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     let s = timer(200)
       .subscribe(() => {
         s.unsubscribe();
-        this.service.dragStarted();
+        this._service.dragStarted();
       });
   }
 
@@ -127,7 +127,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
    * @memberOf AjfReportBuilderContent
    */
   onDragEndHandler(): void {
-    this.service.dragEnded();
+    this._service.dragEnded();
   }
 
   getColumnContent(): AjfReportColumnWidget[] {
@@ -212,16 +212,16 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
 
   addToList(event: CdkDragDrop<AjfReportBuilderDragData>, toColumn: AjfReportColumnWidget): void {
     this.onDragEndHandler();
-    this.service.addToColumn(event, toColumn);
+    this._service.addToColumn(event, toColumn);
   }
 
   ngOnInit(): void {
-    this._onDraggedSub = this.service.onDragged
+    this._onDraggedSub = this._service.onDragged
       .subscribe(x => {
         this.onDragged = x;
       });
 
-    this.getChartType = this.service.currentWidget.pipe(
+    this.getChartType = this._service.currentWidget.pipe(
       map((widget: AjfReportWidget | null) => {
         if (widget == null) { return 0; }
         const myObj = <AjfReportChartWidget>this.widget;
@@ -231,7 +231,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
       startWith(0)
     );
 
-    this.getDataset = this.service.currentWidget.pipe(
+    this.getDataset = this._service.currentWidget.pipe(
       map((widget: AjfReportWidget | null) => {
         if (widget != null && (widget as AjfReportChartWidget).dataset != null) {
           const myObj = <AjfReportChartWidget>this.widget;
@@ -243,7 +243,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
       distinctUntilChanged()
     );
 
-    this.getTableTitles = this.service.currentWidget.pipe(
+    this.getTableTitles = this._service.currentWidget.pipe(
       map((widget: AjfReportWidget | null) => {
         if (widget == null) { return []; }
 
@@ -264,7 +264,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
       })
     );
 
-    this.getTableContent = this.service.currentWidget.pipe(
+    this.getTableContent = this._service.currentWidget.pipe(
       map((widget: AjfReportWidget | null) => {
         if (widget == null) { return []; }
 
@@ -294,7 +294,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
       })
     );
 
-    this.service.updateCurrentWidget(this.widget);
+    this._service.updateCurrentWidget(this.widget);
   }
 
   ngOnChanges(changes: any) {

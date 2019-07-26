@@ -1,39 +1,53 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
-load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+)
 
 ng_module(
-  name = "models",
-  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
-  module_name = "@ajf/core/models",
-  assets = [],
-  deps = [
-    "@angular//packages/core",
-    "@ajfdeps//@types/debug",
-    "@ajfdeps//@types/esprima",
-    "@ajfdeps//@types/numeral",
-    "@ajfdeps//date-fns",
-    "//src/core/utils",
-  ],
+    name = "models",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [],
+    module_name = "@ajf/core/models",
+    deps = [
+        "//src/core/utils",
+        "@npm//@angular/core",
+        "@npm//@types/debug",
+        "@npm//@types/esprima",
+        "@npm//@types/numeral",
+        "@npm//date-fns",
+    ],
 )
 
 ng_test_library(
-  name = "models_test_sources",
-  srcs = glob(["**/*.spec.ts"]),
-  deps = [
-    "@angular//packages/platform-browser",
-    ":models"
-  ]
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":models",
+        "@npm//@angular/platform-browser",
+    ],
 )
 
 ng_web_test_suite(
-  name = "unit_tests",
-  deps = [
-    ":models_test_sources",
-  ],
+    name = "unit_tests",
+    deps = [
+        ":unit_test_sources",
+    ],
+)
+
+markdown_to_html(
+  name = "overview",
+  srcs = ["models.md"],
 )
 
 filegroup(
-  name = "source-files",
-  srcs = glob(["**/*.ts"]),
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
 )

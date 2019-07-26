@@ -1,7 +1,13 @@
 package(default_visibility=["//visibility:public"])
 
 load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
-load("//tools:defaults.bzl", "ng_module", "ng_test_library", "ng_web_test_suite")
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+)
 
 ng_module(
   name = "form-builder",
@@ -21,26 +27,11 @@ ng_module(
     ":warning-condition-editor-dialog.css",
   ] + glob(["**/*.html"]),
   deps = [
-    "@angular//packages/common",
-    "@angular//packages/core",
-    "@angular//packages/forms",
-    "@angular_material//src/cdk/drag-drop",
-    "@angular_material//src/lib/button",
-    "@angular_material//src/lib/card",
-    "@angular_material//src/lib/checkbox",
-    "@angular_material//src/lib/dialog",
-    "@angular_material//src/lib/form-field",
-    "@angular_material//src/lib/icon",
-    "@angular_material//src/lib/input",
-    "@angular_material//src/lib/list",
-    "@angular_material//src/lib/menu",
-    "@angular_material//src/lib/select",
-    "@angular_material//src/lib/sidenav",
-    "@angular_material//src/lib/slider",
-    "@angular_material//src/lib/toolbar",
-    "@angular_material//src/lib/tooltip",
-    "@angular_material//src/lib/table",
-    "@ngx_translate_core//:core",
+    "@npm//@angular/common",
+    "@npm//@angular/core",
+    "@npm//@angular/forms",
+    "@npm//@angular/material",
+    "@npm//@ngx-translate/core",
     "//src/core/forms",
     "//src/core/models",
     "//src/core/reports",
@@ -116,17 +107,22 @@ sass_binary(
 )
 
 ng_test_library(
-  name = "form_builder_test_sources",
+  name = "unit_test_sources",
   srcs = glob(["**/*.spec.ts"]),
   deps = [
-    "@angular//packages/platform-browser",
+    "@npm//@angular/platform-browser",
     ":form-builder"
   ]
 )
 
 ng_web_test_suite(
   name = "unit_tests",
-  deps = [":form_builder_test_sources"],
+  deps = [":unit_test_sources"],
+)
+
+markdown_to_html(
+  name = "overview",
+  srcs = ["form-builder.md"],
 )
 
 filegroup(
