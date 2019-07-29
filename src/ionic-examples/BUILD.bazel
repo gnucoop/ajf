@@ -6,18 +6,21 @@ load("//tools/highlight-files:index.bzl", "highlight_files")
 load("//tools/package-docs-content:index.bzl", "package_docs_content")
 
 ng_module(
-  name = "examples",
-  srcs = glob(["**/*.ts"]) + [":example-module"],
-  module_name = "@ajf/ionic-examples",
-  assets = glob(["**/*.html", "**/*.css"]),
-  deps = [
-    "@npm//@angular/common",
-    "@npm//@angular/core",
-    "@npm//@angular/forms",
-  ] + CORE_TARGETS + IONIC_TARGETS,
-  # Specify the tsconfig that is also used by Gulp. We need to explicitly use this tsconfig
-  # because in order to import Moment with TypeScript, some specific options need to be set.
-  tsconfig = ":tsconfig-build.json",
+    name = "examples",
+    srcs = glob(["**/*.ts"]) + [":example-module"],
+    assets = glob([
+        "**/*.html",
+        "**/*.css",
+    ]),
+    module_name = "@ajf/ionic-examples",
+    # Specify the tsconfig that is also used by Gulp. We need to explicitly use this tsconfig
+    # because in order to import Moment with TypeScript, some specific options need to be set.
+    tsconfig = ":tsconfig-build.json",
+    deps = [
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+    ] + CORE_TARGETS + IONIC_TARGETS,
 )
 
 filegroup(

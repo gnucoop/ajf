@@ -1,6 +1,6 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -10,172 +10,175 @@ load(
 )
 
 ng_module(
-  name = "report-builder",
-  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
-  module_name = "@ajf/material/report-builder",
-  assets = [
-    ":column.css",
-    ":condition-editor.css",
-    ":content.css",
-    ":custom-widget-toolbar-button.css",
-    ":custom-widgets-toolbar.css",
-    ":forms-analyzer-dialog.css",
-    ":forms-analyzer.css",
-    ":image-group.css",
-    ":properties.css",
-    ":quill-editor.css",
-    ":renderer-widget.css",
-    ":report-builder.css",
-    ":theme-color-dialog.css",
-    ":theme-color.css",
-    ":toolbar.css",
-    ":widget-toolbar-button.css",
-    ":widgets-row-buttons.css",
-  ] + glob(["**/*.html"]),
-  deps = [
-    "@npm//@angular/cdk",
-    "@npm//@angular/common",
-    "@npm//@angular/core",
-    "@npm//@angular/forms",
-    "@npm//@angular/material",
-    "@npm//@ngx-translate/core",
-    "@npm//@types/quill",
-    "@npm//ngx-color-picker",
-    "//src/core/common",
-    "//src/core/forms",
-    "//src/core/image",
-    "//src/core/map",
-    "//src/core/reports",
-    "//src/core/table",
-    "//src/core/text",
-    "//src/core/utils",
-    "//src/material/image",
-    "//src/material/monaco-editor",
-  ],
+    name = "report-builder",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [
+        ":column.css",
+        ":condition-editor.css",
+        ":content.css",
+        ":custom-widget-toolbar-button.css",
+        ":custom-widgets-toolbar.css",
+        ":forms-analyzer-dialog.css",
+        ":forms-analyzer.css",
+        ":image-group.css",
+        ":properties.css",
+        ":quill-editor.css",
+        ":renderer-widget.css",
+        ":report-builder.css",
+        ":theme-color-dialog.css",
+        ":theme-color.css",
+        ":toolbar.css",
+        ":widget-toolbar-button.css",
+        ":widgets-row-buttons.css",
+    ] + glob(["**/*.html"]),
+    module_name = "@ajf/material/report-builder",
+    deps = [
+        "//src/core/common",
+        "//src/core/forms",
+        "//src/core/image",
+        "//src/core/map",
+        "//src/core/reports",
+        "//src/core/table",
+        "//src/core/text",
+        "//src/core/utils",
+        "//src/material/image",
+        "//src/material/monaco-editor",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//@ngx-translate/core",
+        "@npm//@types/quill",
+        "@npm//ngx-color-picker",
+    ],
 )
 
 sass_binary(
-  name = "column_scss",
-  src = "column.scss",
-  deps = [],
+    name = "column_scss",
+    src = "column.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "condition_editor_scss",
-  src = "condition-editor.scss",
-  deps = [],
+    name = "condition_editor_scss",
+    src = "condition-editor.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "content_scss",
-  src = "content.scss",
-  deps = [],
+    name = "content_scss",
+    src = "content.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "custom_widget_toolbar_button_scss",
-  src = "custom-widget-toolbar-button.scss",
-  deps = [],
+    name = "custom_widget_toolbar_button_scss",
+    src = "custom-widget-toolbar-button.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "custom_widgets_toolbar_scss",
-  src = "custom-widgets-toolbar.scss",
-  deps = [],
+    name = "custom_widgets_toolbar_scss",
+    src = "custom-widgets-toolbar.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "forms_analyzer_dialog_scss",
-  src = "forms-analyzer-dialog.scss",
-  deps = [],
+    name = "forms_analyzer_dialog_scss",
+    src = "forms-analyzer-dialog.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "forms_analyzer_scss",
-  src = "forms-analyzer.scss",
-  deps = [],
+    name = "forms_analyzer_scss",
+    src = "forms-analyzer.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "image_group_scss",
-  src = "image-group.scss",
-  deps = [],
+    name = "image_group_scss",
+    src = "image-group.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "properties_scss",
-  src = "properties.scss",
-  deps = [],
+    name = "properties_scss",
+    src = "properties.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "quill_editor_scss",
-  src = "quill-editor.scss",
-  deps = [],
+    name = "quill_editor_scss",
+    src = "quill-editor.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "renderer_widget_scss",
-  src = "renderer-widget.scss",
-  deps = [],
+    name = "renderer_widget_scss",
+    src = "renderer-widget.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "report_builder_scss",
-  src = "report-builder.scss",
-  deps = [],
+    name = "report_builder_scss",
+    src = "report-builder.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "theme_color_dialog_scss",
-  src = "theme-color-dialog.scss",
-  deps = [],
+    name = "theme_color_dialog_scss",
+    src = "theme-color-dialog.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "theme_color_scss",
-  src = "theme-color.scss",
-  deps = [],
+    name = "theme_color_scss",
+    src = "theme-color.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "toolbar_scss",
-  src = "toolbar.scss",
-  deps = [],
+    name = "toolbar_scss",
+    src = "toolbar.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "widget_toolbar_button_scss",
-  src = "widget-toolbar-button.scss",
-  deps = [],
+    name = "widget_toolbar_button_scss",
+    src = "widget-toolbar-button.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "widgets_row_buttons_scss",
-  src = "widgets-row-buttons.scss",
-  deps = [],
+    name = "widgets_row_buttons_scss",
+    src = "widgets-row-buttons.scss",
+    deps = [],
 )
 
 ng_test_library(
-  name = "unit_test_sources",
-  srcs = glob(["**/*.spec.ts"]),
-  deps = [
-    "@npm//@angular/platform-browser",
-    ":report-builder"
-  ]
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":report-builder",
+        "@npm//@angular/platform-browser",
+    ],
 )
 
 ng_web_test_suite(
-  name = "unit_tests",
-  deps = [":unit_test_sources"],
+    name = "unit_tests",
+    deps = [":unit_test_sources"],
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["report-builder.md"],
+    name = "overview",
+    srcs = ["report-builder.md"],
 )
 
 filegroup(
-  name = "source-files",
-  srcs = glob(["**/*.ts"]),
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
 )

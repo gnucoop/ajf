@@ -21,7 +21,7 @@ projectPath="$(pwd)"
 docsDistPath="${projectPath}/dist/docs"
 
 # Path to the cloned docs-content repository.
-docsContentPath="${projectPath}/tmp/material2-docs-content"
+docsContentPath="${projectPath}/tmp/ajf-docs-content"
 
 # Path to the release output of the Bazel "@ajf/material-examples" NPM package.
 examplesPackagePath="$(bazel info bazel-bin)/src/material-examples/npm_package"

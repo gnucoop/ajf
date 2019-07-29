@@ -1,6 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -48,8 +48,8 @@ ng_web_test_suite(
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["text.md"],
+    name = "overview",
+    srcs = ["text.md"],
 )
 
 filegroup(

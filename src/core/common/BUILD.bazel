@@ -1,4 +1,4 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
 load(
     "//tools:defaults.bzl",
@@ -12,10 +12,10 @@ ng_module(
     name = "common",
     srcs = glob(
         ["**/*.ts"],
-        exclude=["**/*.spec.ts"],
+        exclude = ["**/*.spec.ts"],
     ),
-    module_name = "@ajf/core/common",
     assets = [],
+    module_name = "@ajf/core/common",
     deps = [
         "@npm//@angular/common",
         "@npm//@angular/core",
@@ -27,9 +27,9 @@ ng_test_library(
     name = "unit_test_sources",
     srcs = glob(["**/*.spec.ts"]),
     deps = [
+        ":common",
         "@npm//@angular/platform-browser",
-        ":common"
-    ]
+    ],
 )
 
 ng_web_test_suite(
@@ -38,8 +38,8 @@ ng_web_test_suite(
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["common.md"],
+    name = "overview",
+    srcs = ["common.md"],
 )
 
 filegroup(

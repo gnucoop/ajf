@@ -36,8 +36,8 @@ yarn_install(
     # Ensure that the script is available when running `postinstall` in the Bazel sandbox.
     data = [
         "//:angular-tsconfig.json",
-        "//:tools/npm/check-npm.js",
         "//:tools/npm/chart-js-bundle.js",
+        "//:tools/npm/check-npm.js",
         "//:tools/npm/css-element-queries-bundle.js",
         "//:tools/npm/date-fns-bundle.js",
         "//:tools/npm/debug-bundle.js",
@@ -46,8 +46,8 @@ yarn_install(
         "//:tools/npm/ionic-core-bundle.js",
         "//:tools/npm/ionic-core-loader-bundle.js",
         "//:tools/npm/leaflet-bundle.js",
-        "//:tools/npm/numeral-bundle.js",
         "//:tools/npm/ngx-color-picker-bundle.js",
+        "//:tools/npm/numeral-bundle.js",
     ],
     package_json = "//:package.json",
     # Temporarily disable node_modules symlinking until the fix for

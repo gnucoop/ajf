@@ -1,6 +1,6 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -10,122 +10,125 @@ load(
 )
 
 ng_module(
-  name = "form-builder",
-  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
-  module_name = "@ajf/material/form-builder",
-  assets = [
-    ":branch-line.css",
-    ":choices-origin-editor-dialog.css",
-    ":choices-origin-editor.css",
-    ":condition-editor-dialog.css",
-    ":fb-condition-editor.css",
-    ":form-builder.css",
-    ":node-entry.css",
-    ":node-properties.css",
-    ":node-type-entry.css",
-    ":validation-condition-editor-dialog.css",
-    ":warning-condition-editor-dialog.css",
-  ] + glob(["**/*.html"]),
-  deps = [
-    "@npm//@angular/common",
-    "@npm//@angular/core",
-    "@npm//@angular/forms",
-    "@npm//@angular/material",
-    "@npm//@ngx-translate/core",
-    "//src/core/forms",
-    "//src/core/models",
-    "//src/core/reports",
-    "//src/material/node-icon",
-    "//src/material/monaco-editor",
-  ],
+    name = "form-builder",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [
+        ":branch-line.css",
+        ":choices-origin-editor-dialog.css",
+        ":choices-origin-editor.css",
+        ":condition-editor-dialog.css",
+        ":fb-condition-editor.css",
+        ":form-builder.css",
+        ":node-entry.css",
+        ":node-properties.css",
+        ":node-type-entry.css",
+        ":validation-condition-editor-dialog.css",
+        ":warning-condition-editor-dialog.css",
+    ] + glob(["**/*.html"]),
+    module_name = "@ajf/material/form-builder",
+    deps = [
+        "//src/core/forms",
+        "//src/core/models",
+        "//src/core/reports",
+        "//src/material/monaco-editor",
+        "//src/material/node-icon",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//@ngx-translate/core",
+    ],
 )
 
 sass_binary(
-  name = "branch_line_item_scss",
-  src = "branch-line.scss",
-  deps = [],
+    name = "branch_line_item_scss",
+    src = "branch-line.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "choices_origin_editor_dialog_scss",
-  src = "choices-origin-editor-dialog.scss",
-  deps = [],
+    name = "choices_origin_editor_dialog_scss",
+    src = "choices-origin-editor-dialog.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "choices_origin_editor_scss",
-  src = "choices-origin-editor.scss",
-  deps = [],
+    name = "choices_origin_editor_scss",
+    src = "choices-origin-editor.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "condition_editor_dialog_scss",
-  src = "condition-editor-dialog.scss",
-  deps = [],
+    name = "condition_editor_dialog_scss",
+    src = "condition-editor-dialog.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "fb_condition_editor_scss",
-  src = "fb-condition-editor.scss",
-  deps = [],
+    name = "fb_condition_editor_scss",
+    src = "fb-condition-editor.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "form_builder_scss",
-  src = "form-builder.scss",
-  deps = [],
+    name = "form_builder_scss",
+    src = "form-builder.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "node_entry_scss",
-  src = "node-entry.scss",
-  deps = [],
+    name = "node_entry_scss",
+    src = "node-entry.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "node_properties_scss",
-  src = "node-properties.scss",
-  deps = [],
+    name = "node_properties_scss",
+    src = "node-properties.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "node_type_entry_scss",
-  src = "node-type-entry.scss",
-  deps = [],
+    name = "node_type_entry_scss",
+    src = "node-type-entry.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "validation_condition_editor_dialog_scss",
-  src = "validation-condition-editor-dialog.scss",
-  deps = [],
+    name = "validation_condition_editor_dialog_scss",
+    src = "validation-condition-editor-dialog.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "warning_condition_editor_dialog_scss",
-  src = "warning-condition-editor-dialog.scss",
-  deps = [],
+    name = "warning_condition_editor_dialog_scss",
+    src = "warning-condition-editor-dialog.scss",
+    deps = [],
 )
 
 ng_test_library(
-  name = "unit_test_sources",
-  srcs = glob(["**/*.spec.ts"]),
-  deps = [
-    "@npm//@angular/platform-browser",
-    ":form-builder"
-  ]
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":form-builder",
+        "@npm//@angular/platform-browser",
+    ],
 )
 
 ng_web_test_suite(
-  name = "unit_tests",
-  deps = [":unit_test_sources"],
+    name = "unit_tests",
+    deps = [":unit_test_sources"],
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["form-builder.md"],
+    name = "overview",
+    srcs = ["form-builder.md"],
 )
 
 filegroup(
-  name = "source-files",
-  srcs = glob(["**/*.ts"]),
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
 )

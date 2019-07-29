@@ -1,11 +1,11 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
 load("//tools:defaults.bzl", "ng_module", "ng_package")
 load(
-  "//:packages.bzl",
-  "IONIC_PACKAGES",
-  "IONIC_TARGETS",
-  "ROLLUP_GLOBALS",
+    "//:packages.bzl",
+    "IONIC_PACKAGES",
+    "IONIC_TARGETS",
+    "ROLLUP_GLOBALS",
 )
 
 filegroup(

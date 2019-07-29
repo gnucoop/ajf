@@ -1,6 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//:defs.bzl", "sass_library", "sass_binary")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -15,13 +15,13 @@ ng_module(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
     ),
-    module_name = "@ajf/core/table",
     assets = [":table.css"] + glob(["**/*.html"]),
+    module_name = "@ajf/core/table",
     deps = [
+        "//src/core/common",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
-        "//src/core/common",
     ],
 )
 
@@ -46,8 +46,8 @@ ng_web_test_suite(
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["table.md"],
+    name = "overview",
+    srcs = ["table.md"],
 )
 
 filegroup(

@@ -1,6 +1,6 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -12,16 +12,16 @@ load(
 ng_module(
     name = "chart",
     srcs = glob(
-      ["**/*.ts"],
-      exclude=["**/*.spec.ts"]
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
     ),
-    module_name = "@ajf/core/chart",
     assets = [":chart.css"] + glob(["**/*.html"]),
+    module_name = "@ajf/core/chart",
     deps = [
+        "//src/core/utils",
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@types/chart.js",
-        "//src/core/utils"
     ],
 )
 
@@ -34,12 +34,12 @@ sass_binary(
 ng_test_library(
     name = "unit_test_sources",
     srcs = glob(
-      ["**/*.spec.ts"],
+        ["**/*.spec.ts"],
     ),
     deps = [
+        ":chart",
         "@npm//@angular/platform-browser",
-        ":chart"
-    ]
+    ],
 )
 
 ng_web_test_suite(
@@ -50,8 +50,8 @@ ng_web_test_suite(
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["chart.md"],
+    name = "overview",
+    srcs = ["chart.md"],
 )
 
 filegroup(

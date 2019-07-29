@@ -1,6 +1,6 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -10,66 +10,72 @@ load(
 )
 
 ng_module(
-  name = "forms",
-  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
-  module_name = "@ajf/ionic/forms",
-  assets = [":field.css", ":form.css"] + glob(["**/*.html"]),
-  deps = [
-    "@npm//@angular/common",
-    "@npm//@angular/core",
-    "@npm//@angular/forms",
-    "@npm//@ionic/angular",
-    "@npm//ionic-selectable",
-    "@npm//@ngx-translate/core",
-    "@npm//@ionic/core",
-    "//src/core/common",
-    "//src/core/forms",
-    "//src/ionic/calendar",
-    "//src/ionic/checkbox-group",
-    "//src/ionic/page-slider",
-  ],
+    name = "forms",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [
+        ":field.css",
+        ":form.css",
+    ] + glob(["**/*.html"]),
+    module_name = "@ajf/ionic/forms",
+    deps = [
+        "//src/core/common",
+        "//src/core/forms",
+        "//src/ionic/calendar",
+        "//src/ionic/checkbox-group",
+        "//src/ionic/page-slider",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@ionic/angular",
+        "@npm//@ionic/core",
+        "@npm//@ngx-translate/core",
+        "@npm//ionic-selectable",
+    ],
 )
 
 sass_binary(
-  name = "field_scss",
-  src = "field.scss",
-  deps = [],
+    name = "field_scss",
+    src = "field.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "form_scss",
-  src = "form.scss",
-  deps = [],
+    name = "form_scss",
+    src = "form.scss",
+    deps = [],
 )
 
 ng_test_library(
-  name = "unit_test_sources",
-  srcs = glob(["**/*.spec.ts"]),
-  deps = [
-    "@npm//@angular/forms",
-    "@npm//@angular/platform-browser",
-    "@npm//@ionic/angular",
-    "@npm//@ngx-translate/core",
-    "@npm//rxjs",
-    "//src/core/forms",
-    "//src/ionic/calendar",
-    "//src/ionic/checkbox-group",
-    "//src/ionic/page-slider",
-    ":forms"
-  ]
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":forms",
+        "//src/core/forms",
+        "//src/ionic/calendar",
+        "//src/ionic/checkbox-group",
+        "//src/ionic/page-slider",
+        "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
+        "@npm//@ionic/angular",
+        "@npm//@ngx-translate/core",
+        "@npm//rxjs",
+    ],
 )
 
 ng_web_test_suite(
-  name = "unit_tests",
-  deps = [":unit_test_sources"],
+    name = "unit_tests",
+    deps = [":unit_test_sources"],
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["forms.md"],
+    name = "overview",
+    srcs = ["forms.md"],
 )
 
 filegroup(
-  name = "source-files",
-  srcs = glob(["**/*.ts"]),
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
 )

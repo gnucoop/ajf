@@ -43,8 +43,8 @@ ng_web_test_suite(
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["models.md"],
+    name = "overview",
+    srcs = ["models.md"],
 )
 
 filegroup(

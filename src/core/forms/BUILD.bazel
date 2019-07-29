@@ -46,8 +46,8 @@ ng_web_test_suite(
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["forms.md"],
+    name = "overview",
+    srcs = ["forms.md"],
 )
 
 filegroup(

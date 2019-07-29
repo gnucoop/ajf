@@ -1,6 +1,6 @@
-package(default_visibility=["//visibility:public"])
+package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_library", "sass_binary")
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -10,57 +10,63 @@ load(
 )
 
 ng_module(
-  name = "forms",
-  srcs = glob(["**/*.ts"], exclude=["**/*.spec.ts"]),
-  module_name = "@ajf/material/forms",
-  assets = [":field.css", ":form.css"] + glob(["**/*.html"]),
-  deps = [
-    "@npm//@angular/common",
-    "@npm//@angular/core",
-    "@npm//@angular/forms",
-    "@npm//@angular/material",
-    "@npm//@ngx-translate/core",
-    "//src/core/common",
-    "//src/core/forms",
-    "//src/material/calendar",
-    "//src/material/checkbox-group",
-    "//src/material/page-slider",
-    "//src/material/time",
-  ],
+    name = "forms",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [
+        ":field.css",
+        ":form.css",
+    ] + glob(["**/*.html"]),
+    module_name = "@ajf/material/forms",
+    deps = [
+        "//src/core/common",
+        "//src/core/forms",
+        "//src/material/calendar",
+        "//src/material/checkbox-group",
+        "//src/material/page-slider",
+        "//src/material/time",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/material",
+        "@npm//@ngx-translate/core",
+    ],
 )
 
 sass_binary(
-  name = "field_scss",
-  src = "field.scss",
-  deps = [],
+    name = "field_scss",
+    src = "field.scss",
+    deps = [],
 )
 
 sass_binary(
-  name = "form_scss",
-  src = "form.scss",
-  deps = [],
+    name = "form_scss",
+    src = "form.scss",
+    deps = [],
 )
 
 ng_test_library(
-  name = "unit_test_sources",
-  srcs = glob(["**/*.spec.ts"]),
-  deps = [
-    "@npm//@angular/platform-browser",
-    ":forms"
-  ]
+    name = "unit_test_sources",
+    srcs = glob(["**/*.spec.ts"]),
+    deps = [
+        ":forms",
+        "@npm//@angular/platform-browser",
+    ],
 )
 
 ng_web_test_suite(
-  name = "unit_tests",
-  deps = [":unit_test_sources"],
+    name = "unit_tests",
+    deps = [":unit_test_sources"],
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["forms.md"],
+    name = "overview",
+    srcs = ["forms.md"],
 )
 
 filegroup(
-  name = "source-files",
-  srcs = glob(["**/*.ts"]),
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
 )

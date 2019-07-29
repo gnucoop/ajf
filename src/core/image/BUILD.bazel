@@ -36,8 +36,8 @@ ng_web_test_suite(
 )
 
 markdown_to_html(
-  name = "overview",
-  srcs = ["image.md"],
+    name = "overview",
+    srcs = ["image.md"],
 )
 
 filegroup(
