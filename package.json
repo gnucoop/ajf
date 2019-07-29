@@ -119,8 +119,6 @@
     "@types/quill": "^2.0.2",
     "@types/run-sequence": "^0.0.30",
     "@types/url-parse": "^1.4.3",
-    "@types/webpack": "^4.4.24",
-    "@types/webpack-stream": "^3.2.10",
     "autoprefixer": "^6.7.6",
     "axe-webdriverjs": "^2.1.0",
     "babel-plugin-remove-webpack": "^1.1.0",
