@@ -23,7 +23,10 @@ ng_module(
 
 ng_test_library(
     name = "unit_test_sources",
-    srcs = glob(["**/*.spec.ts"], exclude=["**/*.e2e.spec.ts"]),
+    srcs = glob(
+        ["**/*.spec.ts"],
+        exclude = ["**/*.e2e.spec.ts"],
+    ),
     deps = [
         ":image",
         "@npm//@angular/platform-browser",
