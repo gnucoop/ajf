@@ -84,6 +84,7 @@ export const rollupGlobals = {
   'leaflet': 'leaflet',
   'ngx-color-picker': 'ngxColorPicker',
   'numeral': 'numeral',
+  'protractor': 'protractor',
   'quill': 'quill',
   'url-parse': 'urlParse',
 

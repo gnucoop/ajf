@@ -192,8 +192,7 @@
     "tslint": "^5.18.0",
     "tsutils": "^3.8.0",
     "typescript": "~3.4",
-    "uglify-js": "^3.4.9",
-    "webpack-stream": "^5.2.1"
+    "uglify-js": "^3.4.9"
   },
   "resolutions": {
     "dgeni-packages/typescript": "~3.4"

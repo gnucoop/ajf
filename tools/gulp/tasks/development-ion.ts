@@ -1,9 +1,5 @@
-import {task, dest, src} from 'gulp';
-import {noop} from 'gulp-util';
-import {
-  copyFileSync, existsSync, mkdirpSync, readFileSync, removeSync, writeFileSync
-} from 'fs-extra';
-import * as webpack from 'webpack-stream';
+import {task, dest} from 'gulp';
+import {copyFileSync, removeSync} from 'fs-extra';
 import {tsBuildTask, copyTask, serverTask} from '../util/task-helpers';
 import {join} from 'path';
 import {
@@ -166,42 +162,3 @@ task(':watch:devapp-ion:rebuild-scss',
 task(':watch:devapp-ion:rebuild-html',
   sequenceTask([':build:devapp-ion:assets', ':build:devapp-ion:ts'],
     ':build:devapp-ion:inline-resources'));
-
-function makeBundle(entry: string, bundleFile: string, moduleName: string): NodeJS.ReadWriteStream {
-  const bundlesOutDir = join(projectDir, 'bundles');
-  const ionicBundle = join(bundlesOutDir, bundleFile);
-  let stream = src(join(projectDir, entry));
-  if (existsSync(ionicBundle)) {
-    stream = stream.pipe(noop());
-  } else {
-    const nodeModulesDir = 'node_modules';
-    const externals = [
-      '@angular/core',
-      '@angular/common',
-      '@angular/forms',
-      '@angular/platform-browser',
-      '@angular/router',
-      'tslib',
-      'rxjs',
-    ].map(e => `"${e}"`);
-    const configSrc = readFileSync(join(projectDir, 'tools', 'webpack.bundle.config.js'))
-      .toString()
-      .replace('TMPL_entry', `"${entry}"`)
-      .replace('TMPL_library', `"${moduleName}"`)
-      .replace('TMPL_library_target', '"umd"')
-      .replace('TMPL_output_path', `"${bundlesOutDir}"`)
-      .replace('TMPL_output_filename', `"${bundleFile}"`)
-      .replace('TMPL_externals', `[${externals.join(', ')}]`)
-      .replace('TMPL_node_modules_root', `"${nodeModulesDir}"`);
-    const configDst = join(bundlesOutDir, `webpack.${bundleFile}.config.js`);
-    if (!existsSync(bundlesOutDir)) {
-      mkdirpSync(bundlesOutDir);
-    }
-    writeFileSync(configDst, configSrc);
-    const config = require(configDst);
-    stream = stream
-      .pipe(webpack(config))
-      .pipe(dest(bundlesOutDir));
-  }
-  return stream;
-}
