@@ -46,11 +46,12 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
   styles: [`
     mat-expansion-panel {
       box-shadow: none !important;
+      border-radius: 0 !important;
       background: transparent;
       border-top: 1px solid #CCC;
     }
 
-    .ajf-header {
+    .header {
       display: flex;
       justify-content: space-between;
       width: 100%;

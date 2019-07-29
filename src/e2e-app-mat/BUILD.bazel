@@ -11,7 +11,7 @@ exports_files([
 ])
 
 ng_module(
-    name = "e2e-app-mat",
+    name = "e2e-app-ion",
     srcs = glob(["**/*.ts"]),
     assets = glob(
         [
@@ -25,8 +25,8 @@ ng_module(
         "//src/material/calendar",
         "@npm//@angular/common",
         "@npm//@angular/core",
+        "@npm//@angular/elements",
         "@npm//@angular/forms",
-        "@npm//@angular/material",
         "@npm//@angular/platform-browser",
         "@npm//@angular/router",
         "@npm//@ngx-translate/core",
@@ -64,5 +64,5 @@ ts_devserver(
     ],
     # Dependencies that produce JavaScript output will be automatically included in the
     # serving_path bundle
-    deps = [":e2e-app-mat"],
+    deps = [":e2e-app-ion"],
 )

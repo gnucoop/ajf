@@ -48,6 +48,14 @@ System.config({
 
     // Angular specific mappings.
     '@angular/animations': 'node:@angular/animations/bundles/animations.umd.js',
+    '@angular/cdk/bidi': 'node:@angular/cdk/bundles/cdk-bidi.umd.js',
+    '@angular/cdk/coercion': 'node:@angular/cdk/bundles/cdk-coercion.umd.js',
+    '@angular/cdk/collections': 'node:@angular/cdk/bundles/cdk-collections.umd.js',
+    '@angular/cdk/keycodes': 'node:@angular/cdk/bundles/cdk-keycodes.umd.js',
+    '@angular/cdk/overlay': 'node:@angular/cdk/bundles/cdk-overlay.umd.js',
+    '@angular/cdk/platform': 'node:@angular/cdk/bundles/cdk-platform.umd.js',
+    '@angular/cdk/portal': 'node:@angular/cdk/bundles/cdk-portal.umd.js',
+    '@angular/cdk/scrolling': 'node:@angular/cdk/bundles/cdk-scrolling.umd.js',
     '@angular/core': 'node:@angular/core/bundles/core.umd.js',
     '@angular/common': 'node:@angular/common/bundles/common.umd.js',
     '@angular/common/http': 'node:@angular/common/bundles/common-http.umd.js',
@@ -63,10 +71,10 @@ System.config({
     '@angular/platform-browser-dynamic':
       'node:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
 
-    '@ionic/core': 'bundles:ionic-core.umd.js',
-    '@ionic/core/loader': 'bundles:ionic-core-loader.umd.js',
-    '@ionic/angular': 'bundles:ionic-angular.umd.js',
-    'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.js',
+    '@ionic/core': 'node:@ionic/core/core.umd.js',
+    '@ionic/core/loader': 'node:@ionic/core/core-loader.umd.js',
+    '@ionic/angular': 'node:@ionic/angular/angular.umd.js',
+    'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.min.js',
 
     '@ngx-translate/core': 'node:@ngx-translate/core/bundles/ngx-translate-core.umd.js',
     '@ngx-translate/http-loader':

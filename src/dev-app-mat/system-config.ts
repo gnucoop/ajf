@@ -43,11 +43,13 @@ System.config({
     'ngx-color-picker': 'node:ngx-color-picker/bundles/ngx-color-picker.umd.js',
     'numeral': 'node:numeral/numeral.umd.js',
     'quill': 'node:quill/dist/quill.js',
-    'rxjs': 'node:rxjs',
+    'rxjs': 'node_modules/rxjs/bundles/rxjs.umd.min.js',
+    'rxjs/operators': 'system-rxjs-operators.js',
     'tslib': 'node:tslib/tslib.js',
     'url-parse': 'node:url-parse/dist/url-parse.min.js',
 
     // Angular specific mappings.
+    '@angular/cdk': 'node:@angular/cdk/bundles/cdk.umd.js',
     '@angular/core': 'node:@angular/core/bundles/core.umd.js',
     '@angular/common': 'node:@angular/common/bundles/common.umd.js',
     '@angular/common/http': 'node:@angular/common/bundles/common-http.umd.js',
@@ -147,14 +149,8 @@ System.config({
     '@ajf/material/time': 'dist/packages/material/time/index.js',
   },
   packages: {
-    // Thirdparty barrels.
-    'rxjs': {main: 'index'},
-    'rxjs/operators': {main: 'index'},
-
-    // Set the default extension for the root package, because otherwise the dev-app-mat can't
+    // Set the default extension for the root package, because otherwise the dev-app can't
     // be built within the production mode. Due to missing file extensions.
-    '.': {
-      defaultExtension: 'js'
-    }
-  },
+    '.': {defaultExtension: 'js'}
+  }
 });

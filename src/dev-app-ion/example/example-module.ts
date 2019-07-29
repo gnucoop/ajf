@@ -22,15 +22,17 @@
 
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-
-import {IonicModule} from '@ionic/angular';
-
-import {ExampleList} from './example-list';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {ExampleModule as ExampleDataModule} from '@ajf/ionic-examples';
 import {Example} from './example';
 
+
+import {ExampleList} from './example-list';
+
 @NgModule({
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, ExampleDataModule, MatExpansionModule],
   declarations: [Example, ExampleList],
   exports: [Example, ExampleList]
 })
-export class ExamplePageModule {}
+export class ExampleModule {
+}
