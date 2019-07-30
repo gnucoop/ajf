@@ -23,11 +23,11 @@
     "@angular/router": "0.0.0-NG",
     "@ionic/angular": "0.0.0-ION",
     "@ajf/core": "0.0.0-PLACEHOLDER",
-    "flag-icon-css": "^3.2.1",
-    "ionic-selectable": "^4.4.0"
+    "flag-icon-css": "^3.3.0",
+    "ionic-selectable": "^4.4.1"
   },
   "dependencies": {
-    "tslib": "^1.7.1"
+    "tslib": "^1.9.3"
   },
   "schematics": "./schematics/collection.json",
   "ng-update": {
