@@ -29,22 +29,32 @@ const outDir = join(outputDir, 'packages', 'dev-app-mat');
 
 /** Array of vendors that are required to serve the dev-app-mat. */
 const appVendors = [
+  '@ajf',
   '@angular',
   '@ngx-translate',
   'systemjs',
-  'systemjs-plugin-babel',
   'zone.js',
   'rxjs',
   'hammerjs',
+  'chart.js',
+  'chart.piecelabel.js',
   'core-js',
+  'css-element-queries',
   'date-fns',
+  'debug',
+  'esprima',
+  'flag-icon-css',
+  'leaflet',
+  'ngx-color-picker',
+  'numeral',
+  'quill',
   'tslib',
   'url-parse',
   '@webcomponents',
 ];
 
 /** Glob that matches all required vendors for the dev-app-mat. */
-const vendorGlob = `+(${appVendors.join('|')})/**/*.+(html|css|js|map)`;
+const vendorGlob = `+(${appVendors.join('|')})/**/*.+(html|css|js|map|woff|ttf|svg|eot)`;
 
 /** Glob that matches all assets that need to be copied to the output. */
 const assetsGlob = join(appDir, `**/*.+(html|css|svg|ico)`);

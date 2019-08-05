@@ -50,6 +50,7 @@ pipeline {
       }
       steps {
         sh './scripts/circleci/publish-snapshots.sh'
+        sh './scripts/deploy/deploy-dev-apps.sh'
       }
     }
   }
