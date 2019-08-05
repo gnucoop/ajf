@@ -25,8 +25,7 @@ import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {IonicModule} from '@ionic/angular';
-
-import {IonicSelectableModule} from 'ionic-selectable';
+import {GicModule} from '@gic/angular';
 
 import {TranslateModule} from '@ngx-translate/core';
 
@@ -36,18 +35,18 @@ import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
 
-import {AjfChoicesMapPipe} from './choices-map';
 import {AjfFormField} from './field';
 import {AjfFormPage} from './form-page';
 import {AjfFormRenderer} from './form';
-
+import {AjfSelectHasSearchBarPipe} from './select-has-search-bar.pipe';
+import {AjfSelectUseVirtualScroll} from './select-use-virtual-scroll.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     IonicModule,
-    IonicSelectableModule,
+    GicModule,
     TranslateModule,
     AjfCommonModule,
     AjfCoreFormsModule,
@@ -56,14 +55,15 @@ import {AjfFormRenderer} from './form';
     AjfPageSliderModule,
   ],
   declarations: [
-    AjfChoicesMapPipe,
     AjfFormField,
     AjfFormPage,
     AjfFormRenderer,
+    AjfSelectHasSearchBarPipe,
+    AjfSelectUseVirtualScroll,
   ],
   exports: [
     AjfFormField,
-    AjfFormRenderer
+    AjfFormRenderer,
   ]
 })
 export class AjfFormsModule { }

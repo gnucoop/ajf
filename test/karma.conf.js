@@ -28,11 +28,13 @@ module.exports = (config) => {
 
       // Include all Ajf dependencies
       {pattern: 'node_modules/@angular/**/*', included: false, watched: false},
+      {pattern: 'node_modules/@gic/angular/angular.umd.js', included: false, watched: false},
+      {pattern: 'node_modules/@gic/core/core.umd.js', included: false, watched: false},
+      {pattern: 'node_modules/@gic/core/core-loader.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ionic/angular/angular.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ionic/core/core.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ionic/core/core-loader.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ngx-translate/**/*', included: false, watched: false},
-      {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},
 
       {pattern: 'node_modules/chart.js/Chart.umd.js', included: false, watched: false},
       {pattern: 'node_modules/chart.piecelabel.js/build/Chart.PieceLabel.min.js', included: false, watched: false},
@@ -40,10 +42,10 @@ module.exports = (config) => {
       {pattern: 'node_modules/date-fns/date-fns.umd.js', included: false, watched: false},
       {pattern: 'node_modules/debug/debug.umd.js', included: false, watched: false},
       {pattern: 'node_modules/esprima/esprima.umd.js', included: false, watched: false},
-      {pattern: 'node_modules/ionic-selectable/bundles/ionic-selectable.umd.min.js', included: false, watched: false},
       {pattern: 'node_modules/leaflet/leaflet.umd.js', included: false, watched: false},
       {pattern: 'node_modules/moment/min/moment.min.js', included: false, watched: false},
       {pattern: 'node_modules/numeral/numeral.umd.js', included: false, watched: false},
+      {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},
 
       {pattern: 'test/karma-system-config.js', included: true, watched: false},
       {pattern: 'test/karma-test-shim.js', included: true, watched: false},

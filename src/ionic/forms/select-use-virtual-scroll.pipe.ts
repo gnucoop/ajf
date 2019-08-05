@@ -22,16 +22,11 @@
 
 import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({name: 'ajfChoicesMap'})
-export class AjfChoicesMapPipe implements PipeTransform {
-  transform(value: {label: string, value: string}[])
-      : {array: string[], map: {[value: string]: string}} {
-    if (value == null || value.length === 0) { return {array: [], map: {}}; }
-    const choicesMap = value.reduce((p, c) => {
-      p[c.value] = c.label;
-      return p;
-    }, {} as {[value: string]: string});
-    const choicesArr = Object.keys(choicesMap);
-    return {array: choicesArr, map: choicesMap};
+import {AjfFieldWithChoicesInstance} from '@ajf/core/forms';
+
+@Pipe({name: 'ajfSelectUseVirtualScroll'})
+export class AjfSelectUseVirtualScroll implements PipeTransform {
+  transform(instance: AjfFieldWithChoicesInstance, vsTreshold: number): boolean {
+    return instance.filteredChoices && instance.filteredChoices.length > vsTreshold;
   }
 }

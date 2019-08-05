@@ -21,10 +21,10 @@
     "@angular/core": "0.0.0-NG",
     "@angular/common": "0.0.0-NG",
     "@angular/router": "0.0.0-NG",
+    "@gic/angular": "0.0.0-GIC",
     "@ionic/angular": "0.0.0-ION",
     "@ajf/core": "0.0.0-PLACEHOLDER",
-    "flag-icon-css": "^3.3.0",
-    "ionic-selectable": "^4.4.1"
+    "flag-icon-css": "^3.3.0"
   },
   "dependencies": {
     "tslib": "^1.9.3"

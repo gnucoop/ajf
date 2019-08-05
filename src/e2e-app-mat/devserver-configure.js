@@ -14,7 +14,6 @@ require.config({
     'date-fns': `${nodeModulesBasePath}date-fns/date-fns.umd`,
     'debug': `${nodeModulesBasePath}debug/debug.umd`,
     'esprima': `${nodeModulesBasePath}esprima/esprima.umd`,
-    'ionic-selectable': `${nodeModulesBasePath}ionic-selectable/bundles/ionic-selectable.umd.min`,
     'leaflet': `${nodeModulesBasePath}leaflet/leaflet.umd`,
     'numeral': `${nodeModulesBasePath}numeral/numeral.umd`,
   }

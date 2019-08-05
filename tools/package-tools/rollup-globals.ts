@@ -69,8 +69,8 @@ export const rollupGlobals = {
   '@angular/platform-browser': 'ng.platformBrowser',
   '@angular/router': 'ng.router',
 
+  '@gic/angular': 'gic.angular',
   '@ionic/angular': 'ionic.angular',
-  'ionic-selectable': 'ionicSelectable',
 
   '@ngx-translate/core': 'ngxt.core',
   '@ngx-translate/http-loader': 'ngxt.httpLoader',

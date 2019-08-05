@@ -55,15 +55,20 @@ ANGULAR_PACKAGE_VERSION = "^8.0.0"
 ANGULAR_MATERIAL_PACKAGE_VERSION = "^8.0.0"
 NGXT_PACKAGE_VERSION = "^11.0.0"
 IONIC_PACKAGE_VERSION = "^4.7.0"
+GIC_PACKAGE_VERSION = "^4.7.1"
 VERSION_PLACEHOLDER_REPLACEMENTS = {
     "0.0.0-NGM": ANGULAR_MATERIAL_PACKAGE_VERSION,
     "0.0.0-NGXT": NGXT_PACKAGE_VERSION,
     "0.0.0-NG": ANGULAR_PACKAGE_VERSION,
+    "0.0.0-GIC": GIC_PACKAGE_VERSION,
     "0.0.0-ION": IONIC_PACKAGE_VERSION,
 }
 
 # Base rollup globals for everything in the repo.
 ROLLUP_GLOBALS = {
+    "@gic/core": "gic.core",
+    "@gic/angular": "gic.angular",
+    "@ionic/core": "ionic.core",
     "@ionic/angular": "ionic.angular",
     "@ngx-translate/core": "ngxt.core",
     "@ngx-translate/http-loader": "ngxt.httpLoader",
@@ -72,7 +77,6 @@ ROLLUP_GLOBALS = {
     "date-fns": "date-fns",
     "debug": "debug",
     "esprima": "esprima",
-    "ionic-selectable": "ionicSelectable",
     "leaflet": "leaflet",
     "numeral": "numeral",
     "tslib": "tslib",
@@ -123,6 +127,9 @@ ANGULAR_LIBRARY_UMDS = [
 ]
 
 LIBRARIES_UMDS = [
+    "@npm//:node_modules/@gic/angular/angular.umd.js",
+    "@npm//:node_modules/@gic/core/core.umd.js",
+    "@npm//:node_modules/@gic/core/core-loader.umd.js",
     "@npm//:node_modules/@ionic/angular/angular.umd.js",
     "@npm//:node_modules/@ionic/core/core.umd.js",
     "@npm//:node_modules/@ionic/core/core-loader.umd.js",
@@ -132,7 +139,6 @@ LIBRARIES_UMDS = [
     "@npm//:node_modules/date-fns/date-fns.umd.js",
     "@npm//:node_modules/debug/debug.umd.js",
     "@npm//:node_modules/esprima/esprima.umd.js",
-    "@npm//:node_modules/ionic-selectable/bundles/ionic-selectable.umd.min.js",
     "@npm//:node_modules/leaflet/leaflet.umd.js",
     "@npm//:node_modules/numeral/numeral.umd.js",
 ]

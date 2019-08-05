@@ -15,6 +15,9 @@ const ngmVersionPlaceholderText = '0.0.0-NGM';
 /** Placeholder that will be replaced with the required Ngx Tanslate version. */
 const ngxtVersionPlaceholderText = '0.0.0-NGXT';
 
+/** Placeholder that will be replaced with the required Gic version. */
+const gicVersionPlaceholderText = '0.0.0-GIC';
+
 /** Placeholder that will be replaced with the required Ionic version. */
 const ionicVersionPlaceholderText = '0.0.0-ION';
 
@@ -48,6 +51,7 @@ export function replaceVersionPlaceholders(packageDir: string) {
     const fileContent = readFileSync(filePath, 'utf-8')
       .replace(ngxtVersionPlaceholderRegex, buildConfig.ngxtVersion)
       .replace(ngmVersionPlaceholderRegex, buildConfig.angularMaterialVersion)
+      .replace(gicVersionPlaceholderText, buildConfig.gicVersion)
       .replace(ionicVersionPlaceholderRegex, buildConfig.ionicVersion)
       .replace(ngVersionPlaceholderRegex, buildConfig.angularVersion)
       .replace(versionPlaceholderRegex, buildConfig.projectVersion);
@@ -73,7 +77,8 @@ function buildPlaceholderFindCommand(packageDir: string) {
       args: [
         '/msi',
         `${ngVersionPlaceholderText} ${versionPlaceholderText} ${ngmVersionPlaceholderText}`
-        + `${ngxtVersionPlaceholderText} ${ionicVersionPlaceholderText}`,
+        + ` ${ngxtVersionPlaceholderText} ${gicVersionPlaceholderText}`
+        + ` ${ionicVersionPlaceholderText}`,
         `${packageDir}\\*`
       ]
     };
@@ -83,7 +88,8 @@ function buildPlaceholderFindCommand(packageDir: string) {
       args: [
         '-ril',
         `${ngVersionPlaceholderText}\\|${versionPlaceholderText}\\|${ngmVersionPlaceholderText}`
-        + `|${ngxtVersionPlaceholderText}|${ionicVersionPlaceholderText}`,
+        + `|${ngxtVersionPlaceholderText}|${gicVersionPlaceholderText}`
+        + `|${ionicVersionPlaceholderText}`,
         packageDir
       ]
     };

@@ -27,6 +27,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
+import {GicModule} from '@gic/angular';
 import {IonicModule} from '@ionic/angular';
 import {DevAppComponent} from './dev-app';
 import {DevAppDirectionality} from './dev-app/dev-app-directionality';
@@ -39,6 +40,7 @@ import {DEV_APP_ROUTES} from './dev-app/routes';
     BrowserModule,
     DevAppModule,
     HttpClientModule,
+    GicModule.forRoot(),
     IonicModule.forRoot(),
     RouterModule.forRoot(DEV_APP_ROUTES),
   ],

@@ -9,6 +9,8 @@ export interface BuildConfig {
   angularMaterialVersion: string;
   /** Required Ngx Translate version for the project. */
   ngxtVersion: string;
+  /** Required Gic version for the project. */
+  gicVersion: string;
   /** Required Ionic version for the project. */
   ionicVersion: string;
   /** Required Ionic Native version for the project. */

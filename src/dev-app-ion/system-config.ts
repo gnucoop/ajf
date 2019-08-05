@@ -71,10 +71,12 @@ System.config({
     '@angular/platform-browser-dynamic':
       'node:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
 
+    '@gic/core': 'node:@ionic/core/core.umd.js',
+    '@gic/core/loader': 'node:@gic/core/core-loader.umd.js',
+    '@gic/angular': 'node:@gic/angular/angular.umd.js',
     '@ionic/core': 'node:@ionic/core/core.umd.js',
     '@ionic/core/loader': 'node:@ionic/core/core-loader.umd.js',
     '@ionic/angular': 'node:@ionic/angular/angular.umd.js',
-    'ionic-selectable': 'node:ionic-selectable/bundles/ionic-selectable.umd.min.js',
 
     '@ngx-translate/core': 'node:@ngx-translate/core/bundles/ngx-translate-core.umd.js',
     '@ngx-translate/http-loader':

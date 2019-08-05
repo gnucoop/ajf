@@ -17,6 +17,7 @@ const angularVersion = packageJson.requiredAngularVersion;
 
 const angularMaterialVersion = packageJson.requiredAngularMaterialVersion;
 const ngxtVersion = packageJson.requiredNgxtVersion;
+const gicVersion = packageJson.requiredGicVersion;
 const ionicVersion = packageJson.requiredIonicVersion;
 const ionicNativeVersion = packageJson.requiredIonicNativeVersion;
 
@@ -48,6 +49,7 @@ module.exports = {
   angularVersion: angularVersion,
   angularMaterialVersion: angularMaterialVersion,
   ngxtVersion: ngxtVersion,
+  gicVersion: gicVersion,
   ionicVersion: ionicVersion,
   ionicNativeVersion: ionicNativeVersion,
   projectDir: __dirname,
