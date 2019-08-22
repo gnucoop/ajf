@@ -20,25 +20,18 @@
  *
  */
 
+import {AjfWidget} from '@ajf/core/reports';
+import {deepCopy} from '@ajf/core/utils';
+import {
+  ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewEncapsulation
+} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {distinctUntilChanged, map} from 'rxjs/operators';
 
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  ViewEncapsulation,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
-
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-
-import {AjfReportWidget} from '@ajf/core/reports';
-import {deepCopy} from '@ajf/core/utils';
-
-import {AjfReportBuilderThemeColorDialog} from './theme-color-dialog';
 import {AjfReportBuilderService} from './report-builder-service';
+import {AjfReportBuilderThemeColorDialog} from './theme-color-dialog';
+
 /**
  * this component manages the report text
  *
@@ -53,7 +46,7 @@ import {AjfReportBuilderService} from './report-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
-  currentWidget: AjfReportWidget | null = null;
+  currentWidget: AjfWidget|null = null;
 
   alphaColor: number = 1;
   colors: string[];
@@ -223,13 +216,12 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
       });
 
     this.getColorWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null) {
-          return myObj.styles['color'] || '';
-        }
-      }),
-      distinctUntilChanged()
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null) {
+            return myObj.styles['color'] || '';
+          }
+        }),
+        distinctUntilChanged());
 
     this._originSub = this._service.origin.subscribe(s => {
       this.origin = s;

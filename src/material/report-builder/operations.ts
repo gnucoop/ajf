@@ -21,33 +21,33 @@
  */
 
 import {AjfForm} from '@ajf/core/forms';
-import {AjfReportCustomWidget, AjfReportStyles, AjfReportWidget} from '@ajf/core/reports';
-import {AjfFormVariables, AjfReportWidgetsContainer} from './models';
+import {AjfCustomWidget, AjfStyles, AjfWidget} from '@ajf/core/reports';
+import {AjfFormVariables, AjfWidgetsContainer} from './models';
 
-export interface IAjfReportWidgetsOperation {
-  (widgets: AjfReportWidgetsContainer): AjfReportWidgetsContainer;
+export interface AjfWidgetsOperation {
+  (widgets: AjfWidgetsContainer): AjfWidgetsContainer;
 }
 
-export interface IAjfReportCustomWidgetsOperation {
-  (widgets: AjfReportCustomWidget[]): AjfReportCustomWidget[];
+export interface AjfCustomWidgetsOperation {
+  (widgets: AjfCustomWidget[]): AjfCustomWidget[];
 }
 
-export interface IAjfReportStylesOperation {
-  (styles: AjfReportStyles): AjfReportStyles;
+export interface AjfStylesOperation {
+  (styles: AjfStyles): AjfStyles;
 }
 
-export interface IAjfReportWidgetOperation {
-  (widget: AjfReportWidget | null): AjfReportWidget | null;
+export interface AjfWidgetOperation {
+  (widget: AjfWidget|null): AjfWidget|null;
 }
 
-export interface IAjfColorOperation {
+export interface AjfColorOperation {
   (colors: string[]): string[];
 }
 
-export interface IAjfFormVariablesOperation {
+export interface AjfFormVariablesOperation {
   (variables: AjfFormVariables[]): AjfFormVariables[];
 }
 
-export interface IAjfReportFormsOperation {
+export interface AjfReportFormsOperation {
   (forms: AjfForm[]): AjfForm[];
 }

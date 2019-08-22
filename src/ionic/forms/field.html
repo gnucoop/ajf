@@ -1,6 +1,6 @@
 <ng-container *ngIf="control|async as curControl">
-  <div [ngSwitch]="fieldInstance.field.fieldType"
-      [ngClass]="'ajf-field-' + fieldInstance.completeName"
+  <div [ngSwitch]="fieldInstance.node.fieldType"
+      [ngClass]="'ajf-field-' + (fieldInstance|ajfNodeCompleteName)"
       [class.ajf-validated]="fieldInstance|ajfFieldIsValid">
     <ion-input *ngSwitchCase="ajfFieldTypes.String"
         type="text"
@@ -26,7 +26,7 @@
               #singleChoiceSelect
               [searchBar]="fwcInst|ajfSelectHasSearchBar:searchTreshold"
               [useVirtualScroll]="fwcInst|ajfSelectUseVirtualScroll:100"
-              [placeholder]="fieldInstance.field.label"
+              [placeholder]="fieldInstance.node.label"
               [formControl]="curControl">
             <ion-virtual-scroll [items]="cs">
               <gic-select-option *virtualItem="let item"
@@ -36,7 +36,7 @@
         </div>
       </ng-container>
       <div class="ajf-choices-container" *ngIf="!fwc.forceNarrow &&
-            (fwcInst.field.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
+            (fwcInst.node.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
         <ion-radio-group
             [formControl]="curControl">
           <ion-item *ngFor="let choice of fwcInst.filteredChoices">
@@ -49,14 +49,14 @@
 
     <ng-container *ngSwitchCase="ajfFieldTypes.MultipleChoice">
         <ng-container *ngIf="(!fwc.forceExpanded &&
-            fwcInst.filteredChoices && fwcInst.filteredChoices.length > searchTreshold) || fwcInst.field.forceNarrow">
+            fwcInst.filteredChoices && fwcInst.filteredChoices.length > searchTreshold) || fwcInst.node.forceNarrow">
         <div class="ajf-item-container">
           <gic-select *ngIf="fwcInst.filteredChoices as cs"
               #multipleChoiceSelect
               multiple
               [searchBar]="fwcInst|ajfSelectHasSearchBar:searchTreshold"
               [useVirtualScroll]="fwcInst|ajfSelectUseVirtualScroll:100"
-              [placeholder]="fieldInstance.field.label"
+              [placeholder]="fieldInstance.node.label"
               [formControl]="curControl">
             <gic-select-option *ngFor="let item of cs"
                 [value]="item.value">{{ item.label|translate }}</gic-select-option>
@@ -64,7 +64,7 @@
         </div>
       </ng-container>
       <ng-container *ngIf="!fwc.forceNarrow &&
-          (fwcInst.field.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
+          (fwcInst.node.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
         <div ajf-checkbox-group
             [formControl]="curControl"
             class="ajf-choices-container">
@@ -87,8 +87,8 @@
     <ion-item *ngSwitchCase="ajfFieldTypes.Date">
       <ajf-calendar selectionMode="day"
           dateOnlyForDay
-          [minDate]="datefInst.field.minDateValue"
-          [maxDate]="datefInst.field.maxDateValue"
+          [minDate]="datefInst.node.minDate|ajfDateValue"
+          [maxDate]="datefInst.node.maxDate|ajfDateValue"
           [formControl]="curControl"></ajf-calendar>
     </ion-item>
 
@@ -99,14 +99,14 @@
     </ion-item>
 
     <ng-container *ngSwitchCase="ajfFieldTypes.Empty">
-      <div [innerHTML]="emptyfInst.field.HTML"></div>
+      <div [innerHTML]="emptyfInst.node.HTML"></div>
     </ng-container>
 
     <ng-container *ngSwitchCase="ajfFieldTypes.Table">
       <div class="ajf-table-container">
         <table>
-          <ng-container *ngFor="let columns of tablefInst.visibleColumns; let i = index">
-            <tr [ngClass]="i | tableRowClass">
+          <ng-container *ngFor="let columns of tablefInst|ajfTableVisibleColumns; let i = index">
+            <tr [ngClass]="i | ajfTableRowClass">
               <td *ngFor="let cellValue of columns" >
                 {{ cellValue | ajfTranslateIfString | ajfFormatIfNumber: '.2' }}
               </td>
@@ -117,8 +117,8 @@
      </ng-container>
 
   </div>
-  <ng-container *ngIf="fieldInstance.field.hasAttachments">
-    <ng-container *ngFor="let attachment of fieldInstance.field.attachments">
+  <ng-container *ngIf="fieldInstance.node.attachments">
+    <ng-container *ngFor="let attachment of fieldInstance.node.attachments">
       <a [href]="attachment.value" target="_blank">{{attachment.label}}</a>
     </ng-container>
   </ng-container>

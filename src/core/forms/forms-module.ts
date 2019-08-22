@@ -22,30 +22,48 @@
 
 import {NgModule} from '@angular/core';
 
-import {BoolToIntPipe} from './bool-to-int';
-import {FieldIconPipe} from './field-icon';
+import {AjfBoolToIntPipe} from './bool-to-int';
+import {AjfDateValuePipe} from './date-value';
+import {AjfFieldIconPipe} from './field-icon';
 import {AjfFieldIsValidPipe} from './field-is-valid';
 import {AjfFormRendererService} from './form-renderer';
-import {TableRowClass} from './table-row-class';
+import {AjfIncrementPipe} from './increment';
+import {AjfIsRepeatingSlideInstancePipe} from './is-repeating-slide';
+import {AjfNodeCompleteNamePipe} from './node-complete-name';
+import {AjfRangePipe} from './range';
+import {AjfTableRowClass} from './table-row-class';
+import {AjfTableVisibleColumnsPipe} from './table-visible-columns';
 import {AjfValidationService} from './validation-service';
-
+import {AjfValidSlidePipe} from './valid-slide';
 
 @NgModule({
   declarations: [
+    AjfBoolToIntPipe,
+    AjfDateValuePipe,
+    AjfFieldIconPipe,
     AjfFieldIsValidPipe,
-    BoolToIntPipe,
-    FieldIconPipe,
-    TableRowClass,
+    AjfIncrementPipe,
+    AjfIsRepeatingSlideInstancePipe,
+    AjfNodeCompleteNamePipe,
+    AjfRangePipe,
+    AjfTableRowClass,
+    AjfTableVisibleColumnsPipe,
+    AjfValidSlidePipe,
   ],
   exports: [
+    AjfBoolToIntPipe,
+    AjfDateValuePipe,
+    AjfFieldIconPipe,
     AjfFieldIsValidPipe,
-    BoolToIntPipe,
-    FieldIconPipe,
-    TableRowClass,
+    AjfIncrementPipe,
+    AjfIsRepeatingSlideInstancePipe,
+    AjfNodeCompleteNamePipe,
+    AjfRangePipe,
+    AjfTableRowClass,
+    AjfTableVisibleColumnsPipe,
+    AjfValidSlidePipe,
   ],
-  providers: [
-    AjfFormRendererService,
-    AjfValidationService
-  ]
+  providers: [AjfFormRendererService, AjfValidationService]
 })
-export class AjfFormsModule { }
+export class AjfFormsModule {
+}

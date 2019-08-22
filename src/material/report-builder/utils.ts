@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfReportWidgetType} from '@ajf/core/reports';
+import {AjfWidgetType} from '@ajf/core/reports';
 
 export function ajfReportBuilderWidgetToString(widgetType: string): string {
   return `reportbuilder-${widgetType.toLowerCase()}`;
@@ -30,20 +30,20 @@ export function ajfWidgetTypeStringToIcon(widgetType: string): string {
   return `widget-${widgetType.toLowerCase()}`;
 }
 
-export function ajfWidgetTypeToIcon(widgetType: AjfReportWidgetType): string {
-  return ajfWidgetTypeStringToIcon(AjfReportWidgetType[widgetType]);
+export function ajfWidgetTypeToIcon(widgetType: AjfWidgetType): string {
+  return ajfWidgetTypeStringToIcon(AjfWidgetType[widgetType]);
 }
 
 export function ajfWidgetTypeStringToLabel(widgetType: string): string {
   return `widgetType.${widgetType}`;
 }
 
-export function ajfWidgetTypeToLabel(type: AjfReportWidgetType): string {
-  return ajfWidgetTypeStringToLabel(AjfReportWidgetType[type]);
+export function ajfWidgetTypeToLabel(type: AjfWidgetType): string {
+  return ajfWidgetTypeStringToLabel(AjfWidgetType[type]);
 }
 
-export function widgetReportBuilderIconName(type: AjfReportWidgetType): string {
-  return `reportbuilder-${AjfReportWidgetType[type].toLowerCase()}`;
+export function widgetReportBuilderIconName(type: AjfWidgetType): string {
+  return `reportbuilder-${AjfWidgetType[type].toLowerCase()}`;
 }
 
 export function sanitizeConditionString(str: string): string {

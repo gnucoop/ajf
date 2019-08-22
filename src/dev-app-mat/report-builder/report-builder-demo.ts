@@ -20,13 +20,12 @@
  *
  */
 
+import {AjfReportSerializer} from '@ajf/core/reports';
+import {AjfReportBuilderService} from '@ajf/material/report-builder';
 import {Component} from '@angular/core';
-
 import {Observable} from 'rxjs';
 import {delay, map, startWith} from 'rxjs/operators';
 
-import {AjfReport} from '@ajf/core/reports';
-import {AjfReportBuilderService} from '@ajf/material/report-builder';
 import {testReport} from './report';
 
 @Component({
@@ -41,16 +40,13 @@ export class ReportBuilderDemo {
 
   constructor(private _service: AjfReportBuilderService) {
     this.reportSaved = _service.reportSaved.pipe(
-      map((r) => r != null ? JSON.stringify(r.toJson()) : ''),
-      delay(100),
-      startWith('')
-    );
+        map((r) => r != null ? JSON.stringify(r) : ''), delay(100), startWith(''));
   }
 
   setReport(): void {
     try {
       let myObj = JSON.parse(this.report);
-      this._service.setReport(AjfReport.fromJson(myObj));
+      this._service.setReport(AjfReportSerializer.fromJson(myObj));
     } catch (e) { console.log('Invalid report definition'); }
   }
 

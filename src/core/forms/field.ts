@@ -22,16 +22,20 @@
 
 import {AfterViewInit, ChangeDetectorRef, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl} from '@angular/forms';
-
 import {Observable, Subscription} from 'rxjs';
 import {filter, withLatestFrom} from 'rxjs/operators';
 
-import {AjfFieldType, AjfFieldWithChoices} from './nodes';
-import {
-  AjfDateFieldInstance, AjfEmptyFieldInstance, AjfFieldInstance,
-  AjfFieldWithChoicesInstance, AjfTableFieldInstance
-} from './nodes-instances';
 import {AjfFormRendererService} from './form-renderer';
+import {AjfDateFieldInstance} from './interface/fields-instances/date-field-instance';
+import {AjfEmptyFieldInstance} from './interface/fields-instances/empty-field-instance';
+import {AjfFieldInstance} from './interface/fields-instances/field-instance';
+import {
+  AjfFieldWithChoicesInstance
+} from './interface/fields-instances/field-with-choices-instance';
+import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
+import {AjfFieldType} from './interface/fields/field-type';
+import {AjfFieldWithChoices} from './interface/fields/field-with-choices';
+import {isFieldWithChoicesInstance} from './utils/fields-instances/is-field-with-choices-instance';
 
 export interface AjfFormFieldWarningAlertResult { result: boolean; }
 
@@ -60,10 +64,12 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
     });
   }
 
-  get fwcInst(): AjfFieldWithChoicesInstance {
-    return this._fieldInstance as AjfFieldWithChoicesInstance;
+  get fwcInst(): AjfFieldWithChoicesInstance<any> {
+    return this._fieldInstance as AjfFieldWithChoicesInstance<any>;
   }
-  get fwc(): AjfFieldWithChoices { return this._fieldInstance.field as AjfFieldWithChoices; }
+  get fwc(): AjfFieldWithChoices<any> {
+    return this._fieldInstance.node as AjfFieldWithChoices<any>;
+  }
   get datefInst(): AjfDateFieldInstance { return this._fieldInstance as AjfDateFieldInstance; }
   get tablefInst(): AjfTableFieldInstance { return this._fieldInstance  as AjfTableFieldInstance; }
   get emptyfInst(): AjfEmptyFieldInstance { return this._fieldInstance as AjfEmptyFieldInstance; }
@@ -101,31 +107,38 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
    */
   ngOnInit(): void {
     this.control = this._rendererService.getControl(this.fieldInstance);
-    this._triggerWarningSubscription = this.fieldInstance.triggerWarning
-      .pipe(
-        withLatestFrom(this.control),
-        filter(v => v[1] != null)
-      )
-      .subscribe((v: [void, AbstractControl | null]) => {
-        const control = v[1];
-        const s = this.showWarningAlertPrompt(
-          this.fieldInstance.warningResults.filter(w => w.result).map(w => w.warning)
-        ).subscribe(
-          (r: AjfFormFieldWarningAlertResult) => {
-            if (r.result) { control!.setValue(null); }
-          },
-          (_e: any) => { if (s) { s.unsubscribe(); }},
-          () => { if (s) { s.unsubscribe(); }}
-        );
-      });
+    this._triggerWarningSubscription =
+        this.fieldInstance.warningTrigger
+            .pipe(withLatestFrom(this.control), filter(v => v[1] != null))
+            .subscribe((v: [void, AbstractControl|null]) => {
+              const control = v[1];
+              const s = this.showWarningAlertPrompt((this.fieldInstance.warningResults || [])
+                                                        .filter(w => w.result)
+                                                        .map(w => w.warning))
+                            .subscribe(
+                                (r: AjfFormFieldWarningAlertResult) => {
+                                  if (r.result) {
+                                    control!.setValue(null);
+                                  }
+                                },
+                                (_e: any) => {
+                                  if (s) {
+                                    s.unsubscribe();
+                                  }
+                                },
+                                () => {
+                                  if (s) {
+                                    s.unsubscribe();
+                                  }
+                                });
+            });
   }
 
   ngAfterViewInit() {
-    if (this.fieldInstance instanceof AjfFieldWithChoicesInstance) {
-      this._triggerSelectionSubscription = this.fieldInstance.triggerSelection
-        .subscribe(() => {
-          this._triggerSelection();
-        });
+    if (isFieldWithChoicesInstance(this.fieldInstance)) {
+      this._triggerSelectionSubscription = this.fwcInst.selectionTrigger.subscribe(() => {
+        this._triggerSelection();
+      });
     }
   }
 

@@ -20,9 +20,8 @@
  *
  */
 
+import {AjfChoicesOrigin, isChoicesFixedOrigin} from '@ajf/core/forms';
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
-
-import {IAjfChoicesOrigin, AjfChoicesFixedOrigin} from '@ajf/core/forms';
 
 import {ChoicesOriginChoiceEntry, ChoicesOriginDataSource} from './choices-origin-data-source';
 
@@ -39,16 +38,18 @@ export class AjfFbChoicesOriginEditor {
   private _displayedColumns: string[] = ['label', 'value', 'delete'];
   get displayedColumns(): string[] { return this._displayedColumns; }
 
-  private _choicesOrigin: IAjfChoicesOrigin;
-  get choicesOrigin(): IAjfChoicesOrigin { return this._choicesOrigin; }
+  private _choicesOrigin: AjfChoicesOrigin<any>;
+  get choicesOrigin(): AjfChoicesOrigin<any> {
+    return this._choicesOrigin;
+  }
   @Input()
-  set choicesOrigin(choicesOrigin: IAjfChoicesOrigin) {
+  set choicesOrigin(choicesOrigin: AjfChoicesOrigin<any>) {
     this._choicesOrigin = choicesOrigin;
-    this.name = choicesOrigin.getName();
-    this.label = choicesOrigin.getLabel();
+    this.name = choicesOrigin.name;
+    this.label = choicesOrigin.label;
 
-    this.canEditChoices = choicesOrigin instanceof AjfChoicesFixedOrigin;
-    this._choicesArr = choicesOrigin.getChoices();
+    this.canEditChoices = isChoicesFixedOrigin(choicesOrigin);
+    this._choicesArr = choicesOrigin.choices;
     this._choices.updateChoices(this._choicesArr);
   }
 

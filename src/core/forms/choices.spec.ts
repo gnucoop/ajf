@@ -1,141 +1,143 @@
-import {Subject, timer} from 'rxjs';
+import {Subject} from 'rxjs';
 
 import {
-  AjfChoice,
-  AjfChoicesFixedOrigin,
-  AjfChoicesFunctionOrigin,
-  AjfChoicesObservableArrayOrigin,
-  AjfChoicesObservableOrigin,
-  AjfChoicesOrigin,
-  AjfChoicesPromiseOrigin
-} from './index';
+  AjfChoice, createChoicesOrigin, createChoicesFixedOrigin, createChoicesFunctionOrigin,
+  createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesPromiseOrigin,
+  initChoicesOrigin
+} from './public-api';
 
-describe('AjfChoicesOrigin', () => {
+describe('createChoicesOrigin', () => {
   it('should have a name, a label and a choices type', () => {
-    let choicesOrigin: AjfChoicesOrigin<string> =
-        AjfChoicesOrigin.create('string');
+    let choicesOrigin = createChoicesOrigin({type: 'fixed', name: 'foo'});
 
-    expect(choicesOrigin.getName()).toBeNull();
-    expect(choicesOrigin.getLabel()).toBeNull();
-    expect(choicesOrigin.getChoicesType()).toBeNull();
-    expect(choicesOrigin.getChoices()).toEqual([]);
+    expect(choicesOrigin.name).toEqual('foo');
+    expect(choicesOrigin.label).toEqual('');
+    expect(choicesOrigin.choices).toEqual([]);
 
-    choicesOrigin = AjfChoicesOrigin.create(
-        'string',
-        {'name' : 'foo', 'label' : 'bar', 'choices' : [ {label: 'baz', value: 'baz'}]});
+    choicesOrigin = createChoicesOrigin({type: 'fixed', name: 'foo', choices: [
+      {label: 'baz', value: 'baz'}
+    ]});
 
-    expect(choicesOrigin.getName()).toEqual('foo');
-    expect(choicesOrigin.getLabel()).toEqual('bar');
-    expect(choicesOrigin.getChoicesType()).toEqual('string');
-    let choices = choicesOrigin.getChoices();
+    let choices = choicesOrigin.choices;
     expect(choices.length).toEqual(1);
     expect(choices[0].value).toEqual('baz');
   });
 });
 
-describe('AjfChoicesFixedOrigin', () => {
+describe('createChoicesFixedOrigin', () => {
   it('should have choices from a given array', () => {
-    let choicesOrigin: AjfChoicesFixedOrigin<number> =
-        new AjfChoicesFixedOrigin<number>({'choices' : [
+    let choicesOrigin = createChoicesFixedOrigin({name: 'foo', choices: [
           {label: '3', value: 3},
           {label: '6', value: 6},
           {label: '9', value: 9}
         ]});
 
-    let choices = choicesOrigin.getChoices().map(c => c.value);
+    let choices = choicesOrigin.choices.map(c => c.value);
     expect(choices).toContain(3);
     expect(choices).toContain(6);
     expect(choices).toContain(9);
   });
 });
 
-describe('AjfChoicesFunctionOrigin', () => {
-  it('should have choices from a given function', () => {
-    let choicesOrigin: AjfChoicesFunctionOrigin<number> =
-        new AjfChoicesFunctionOrigin<number>((): AjfChoice<number>[] => {
-          return [
-            new AjfChoice<number>({label : '3', value : 3}),
-            new AjfChoice<number>({label : '6', value : 6}),
-            new AjfChoice<number>({label : '9', value : 9})
-          ];
-        });
+describe('createChoicesFunctionOrigin', () => {
+  it('should have choices from a given function', async () => {
+    let choicesOrigin = createChoicesFunctionOrigin({
+      name: 'foo',
+      generator: () => {
+        return [
+          {label : '3', value : 3},
+          {label : '6', value : 6},
+          {label : '9', value : 9}
+        ];
+      }
+    });
 
-    let choices = choicesOrigin.getChoices();
+    await initChoicesOrigin(choicesOrigin);
+
+    let choices = choicesOrigin.choices;
     expect(choices.filter((c: any) => c.value === 3).length).toBe(1);
     expect(choices.filter((c: any) => c.value === 6).length).toBe(1);
     expect(choices.filter((c: any) => c.value === 9).length).toBe(1);
   });
 });
 
-describe('AjfChoicesObservableOrigin', () => {
-  it('should have choices accumulated from a given observable', () => {
-    let subject: Subject<AjfChoice<number>> =
-        new Subject<AjfChoice<number>>();
-    let choicesOrigin: AjfChoicesObservableOrigin<number> =
-        new AjfChoicesObservableOrigin<number>(subject.asObservable());
+describe('createChoicesObservableArrayOrigin', () => {
+  it('should have choices from a given observable', (done) => {
+    let subject = new Subject<AjfChoice<number>[]>();
+    let choicesOrigin = createChoicesObservableArrayOrigin({
+      name: 'foo',
+      generator: subject.asObservable()
+    });
 
-    let choices = choicesOrigin.getChoices();
+    let choices = choicesOrigin.choices;
 
     expect(choices).toEqual([]);
 
-    subject.next(new AjfChoice<number>({label : '3', value : 3}));
-    subject.next(new AjfChoice<number>({label : '6', value : 6}));
-    subject.next(new AjfChoice<number>({label : '9', value : 9}));
+    initChoicesOrigin(choicesOrigin).then(() => {
 
-    choices = choicesOrigin.getChoices();
+      choices = choicesOrigin.choices;
 
-    expect(choices.filter((c: any) => c.value === 3).length).toBe(1);
-    expect(choices.filter((c: any) => c.value === 6).length).toBe(1);
-    expect(choices.filter((c: any) => c.value === 9).length).toBe(1);
-  });
-});
-
-describe('AjfChoicesObservableArrayOrigin', () => {
-  it('should have choices from a given observable', () => {
-    let subject: Subject<AjfChoice<number>[]> =
-        new Subject<AjfChoice<number>[]>();
-    let choicesOrigin: AjfChoicesObservableArrayOrigin<number> =
-        new AjfChoicesObservableArrayOrigin<number>(subject.asObservable());
-
-    subject.next([
-      new AjfChoice<number>({label : '3', value : 3}),
-      new AjfChoice<number>({label : '6', value : 6}),
-      new AjfChoice<number>({label : '6', value : 9})
-    ]);
-
-    let choices = choicesOrigin.getChoices();
-
-    expect(choices.filter((c: any) => c.value === 3).length).toBe(1);
-    expect(choices.filter((c: any) => c.value === 6).length).toBe(1);
-    expect(choices.filter((c: any) => c.value === 9).length).toBe(1);
-  });
-});
-
-describe('AjfChoicesPromiseOrigin', () => {
-  it('should have choices from a given promise', (done) => {
-    let promise: Promise<AjfChoice<number>[]> =
-        new Promise<AjfChoice<number>[]>((resolve) => {
-          resolve([
-            new AjfChoice<number>({label : '3', value : 3}),
-            new AjfChoice<number>({label : '6', value : 6}),
-            new AjfChoice<number>({label : '6', value : 9})
-          ]);
-        });
-    let choicesOrigin: AjfChoicesPromiseOrigin<number> =
-        new AjfChoicesPromiseOrigin<number>(promise);
-
-    let choices = choicesOrigin.getChoices();
-
-    expect(choices).toEqual([]);
-
-    timer(10).subscribe(() => {
-      choices = choicesOrigin.getChoices();
-
-      expect(choices.filter((c: any) => c.value === 3).length).toBe(1);
-      expect(choices.filter((c: any) => c.value === 6).length).toBe(1);
-      expect(choices.filter((c: any) => c.value === 9).length).toBe(1);
+      expect(choices.filter(c => c.value === 3).length).toBe(1);
+      expect(choices.filter(c => c.value === 6).length).toBe(1);
+      expect(choices.filter(c => c.value === 9).length).toBe(1);
 
       done();
     });
+
+    subject.next([
+      {label : '3', value : 3},
+      {label : '6', value : 6},
+      {label : '9', value : 9},
+    ]);
+  });
+});
+
+describe('createChoicesObservableOrigin', () => {
+  it('should have choices from a given observable', (done) => {
+    let subject = new Subject<AjfChoice<number>>();
+    let choicesOrigin = createChoicesObservableOrigin({
+      name: 'foo',
+      generator: subject.asObservable(),
+    });
+
+    initChoicesOrigin(choicesOrigin).then(() => {
+      let choices = choicesOrigin.choices;
+
+      expect(choices.filter(c => c.value === 3).length).toBe(1);
+      expect(choices.filter(c => c.value === 6).length).toBe(1);
+      expect(choices.filter(c => c.value === 9).length).toBe(1);
+
+      done();
+    });
+
+    subject.next({label : '3', value : 3});
+    subject.next({label : '6', value : 6});
+    subject.next({label : '9', value : 9});
+    subject.complete();
+  });
+});
+
+describe('createChoicesPromiseOrigin', () => {
+  it('should have choices from a given promise', async () => {
+    let promise = Promise.resolve([
+      {label : '3', value : 3},
+      {label : '6', value : 6},
+      {label : '9', value : 9}
+    ]);
+    let choicesOrigin = createChoicesPromiseOrigin({
+      name: 'foo',
+      generator: promise
+    });
+
+    let choices = choicesOrigin.choices;
+    expect(choices).toEqual([]);
+
+    await initChoicesOrigin(choicesOrigin);
+
+    choices = choicesOrigin.choices;
+
+    expect(choices.filter(c => c.value === 3).length).toBe(1);
+    expect(choices.filter(c => c.value === 6).length).toBe(1);
+    expect(choices.filter(c => c.value === 9).length).toBe(1);
   });
 });

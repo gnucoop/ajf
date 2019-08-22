@@ -4,14 +4,14 @@
 /src/core/chart/*                                  @trik
 /src/core/checkbox-group/*                         @trik
 /src/core/common/*                                 @trik
-/src/core/forms/*                                  @trik
+/src/core/forms/**/*                               @trik
 /src/core/image/*                                  @trik
 /src/core/map/*                                    @trik
-/src/core/models/*                                 @trik
+/src/core/models/**/*                              @trik
 /src/core/node-icon/*                              @trik
 /src/core/page-break/*                             @trik
 /src/core/page-slider/*                            @trik
-/src/core/reports/*                                @trik
+/src/core/reports/**/*                             @trik
 /src/core/table/*                                  @trik
 /src/core/text/*                                   @trik
 /src/core/utils/*                                  @trik

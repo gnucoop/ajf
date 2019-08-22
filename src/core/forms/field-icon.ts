@@ -23,11 +23,13 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 import {fieldIconName} from './field-utils';
-import {AjfField, AjfFieldType} from './nodes';
+import {AjfField} from './interface/fields/field';
+import {AjfFieldType} from './interface/fields/field-type';
 
-@Pipe({name: 'fieldIcon'})
-export class FieldIconPipe implements PipeTransform {
+@Pipe({name: 'ajfFieldIcon'})
+export class AjfFieldIconPipe implements PipeTransform {
   transform(field: AjfField | AjfFieldType): string {
-    return fieldIconName(field instanceof AjfField ? field.fieldType : field);
+    return fieldIconName(
+        (field as AjfField).fieldType ? (field as AjfField).fieldType : field as AjfFieldType);
   }
 }

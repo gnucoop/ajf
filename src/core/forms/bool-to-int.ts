@@ -23,8 +23,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 
-@Pipe({name: 'boolToInt'})
-export class BoolToIntPipe implements PipeTransform {
+@Pipe({name: 'ajfBoolToInt'})
+export class AjfBoolToIntPipe implements PipeTransform {
   transform(value: boolean): number {
     return value ? 1 : 0;
   }

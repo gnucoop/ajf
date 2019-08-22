@@ -20,21 +20,14 @@
  *
  */
 
+import {AjfWidget} from '@ajf/core/reports';
+import {deepCopy} from '@ajf/core/utils';
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
+  AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-
 import {Subscription} from 'rxjs';
 
-import {AjfReportWidget} from '@ajf/core/reports';
-import {deepCopy} from '@ajf/core/utils';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
@@ -48,7 +41,7 @@ export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit,
   @ViewChild('colorpic', {static: true})
   elem: any;
 
-  currentWidget: AjfReportWidget | null = null;
+  currentWidget: AjfWidget|null = null;
 
   currentColor = 'rgb(255,255,255,0)';
   section: string = 'color';

@@ -23,8 +23,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 
-@Pipe({name: 'tableRowClass'})
-export class TableRowClass implements PipeTransform {
+@Pipe({name: 'ajfTableRowClass'})
+export class AjfTableRowClass implements PipeTransform {
   transform(value: number): string {
     return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
   }

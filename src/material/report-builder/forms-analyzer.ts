@@ -20,27 +20,14 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  ViewEncapsulation
-} from '@angular/core';
-
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-
-import {Subscription} from 'rxjs';
-
 import {AjfForm} from '@ajf/core/forms';
 import {
-  AjfAggregationType,
-  AjfChartType,
-  AjfDataset,
-  AjfReportChartWidget,
-  AjfReportDataWidget,
-  AjfReportWidgetType,
-  AjfReportWidget,
+  AjfAggregationType, AjfChartType, AjfChartWidget, AjfDataset, AjfDataWidget, AjfWidget,
+  AjfWidgetType
 } from '@ajf/core/reports';
+import {ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {Subscription} from 'rxjs';
 
 import {AjfReportBuilderFormsAnalyzerDialog} from './forms-analyzer-dialog';
 import {AjfFormVariables} from './models';
@@ -60,7 +47,7 @@ import {AjfReportBuilderService} from './report-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
-  currentWidget: AjfReportWidget | null = null;
+  currentWidget: AjfWidget|null = null;
 
   forms: AjfForm[] = [];
 
@@ -123,7 +110,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
       let mainData: string[] = [];
 
       for (let i = 0; i < this._dataset[0].length; i++) {
-        mainData.push(this._dataset[0][i].label);
+        mainData.push(this._dataset[0][i].label || '');
       }
       return mainData;
     } else {
@@ -142,7 +129,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
     let dataset: string[] = [];
     if (this._dataset[0] != null) {
       for (let i = 1; i < this._dataset.length; i++) {
-        dataset.push(this._dataset[i][0].label);
+        dataset.push(this._dataset[i][0].label || '');
       }
       return dataset;
     } else {
@@ -162,7 +149,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
       let relatedData: string[] = [];
 
       for (let i = 1; i < this._dataset[this.currentMainDataIndex + 1].length; i++) {
-        relatedData.push(this._dataset[this.currentMainDataIndex + 1][i].label);
+        relatedData.push(this._dataset[this.currentMainDataIndex + 1][i].label || '');
       }
       return relatedData;
     } else {
@@ -175,7 +162,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
     if (this._dataset != null) {
       for (let i = 0; i < this._dataset.length; i++) {
         if (this._dataset[i][0] != null) {
-          mainData.push(this._dataset[i][0].label);
+          mainData.push(this._dataset[i][0].label || '');
         }
       }
     }
@@ -188,7 +175,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
 
       for (let i = 1; i < this._dataset[this.currentMainDataIndex].length; i++) {
         if (this._dataset[this.currentMainDataIndex][i] != null) {
-          tableData.push(this._dataset[this.currentMainDataIndex][i].label);
+          tableData.push(this._dataset[this.currentMainDataIndex][i].label || '');
         }
       }
       return tableData;
@@ -198,7 +185,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
   }
 
   needMainData(): boolean {
-    let myObj = <AjfReportChartWidget>this.currentWidget;
+    let myObj = <AjfChartWidget>this.currentWidget;
     if (
       myObj.chartType === AjfChartType.Scatter ||
       myObj.chartType === AjfChartType.Bubble
@@ -247,10 +234,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
         index = 0;
       }
       if (level === 1) {
-        if (
-          this.currentWidget != null &&
-          this.currentWidget.widgetType == AjfReportWidgetType.Chart
-        ) {
+        if (this.currentWidget != null && this.currentWidget.widgetType == AjfWidgetType.Chart) {
           mainIndex++;
         }
         index++;
@@ -272,7 +256,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
     }
 
     // this.dialogRef.componentInstance.formsVariables = this.formsVariables;
-    this.dialogRef.componentInstance.currentWidget = <AjfReportDataWidget>this.currentWidget;
+    this.dialogRef.componentInstance.currentWidget = <AjfDataWidget>this.currentWidget;
     this.dialogRef.componentInstance.level = level;
     this.dialogRef.componentInstance.mainIndex = mainIndex;
     this.dialogRef.componentInstance.index = index;

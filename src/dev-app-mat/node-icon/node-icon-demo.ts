@@ -20,22 +20,14 @@
  *
  */
 
+import {AjfField, AjfFieldType, createField} from '@ajf/core/forms';
 import {Component} from '@angular/core';
 
-import {
-  AjfBooleanField,
-  AjfDateField,
-  AjfDateInputField,
-  AjfFormulaField,
-  AjfNode,
-  AjfMultipleChoiceField,
-  AjfNumberField,
-  AjfSingleChoiceField,
-  AjfStringField,
-  AjfTableField,
-  AjfTextField,
-  AjfTimeField,
-} from '@ajf/core/forms';
+const baseField = {
+  id: 1,
+  name: '',
+  parent: 0
+};
 
 @Component({
   moduleId: module.id,
@@ -44,17 +36,26 @@ import {
   styleUrls: ['node-icon-demo.css'],
 })
 export class NodeIconDemo {
-  nodes: {name: string, node: AjfNode}[] = [
-    {name: 'Boolean field', node: new AjfBooleanField()},
-    {name: 'Date field', node: new AjfDateField()},
-    {name: 'Date input field', node: new AjfDateInputField()},
-    {name: 'Formula field', node: new AjfFormulaField()},
-    {name: 'Multiple choice field', node: new AjfMultipleChoiceField()},
-    {name: 'Number field', node: new AjfNumberField()},
-    {name: 'Single choice field', node: new AjfSingleChoiceField()},
-    {name: 'String field', node: new AjfStringField()},
-    {name: 'Table field', node: new AjfTableField()},
-    {name: 'Text field', node: new AjfTextField()},
-    {name: 'Time field', node: new AjfTimeField()},
+  nodes: {name: string, node: AjfField}[] = [
+    {name: 'Boolean field', node: createField({...baseField, fieldType: AjfFieldType.Boolean})},
+    {name: 'Date field', node: createField({...baseField, fieldType: AjfFieldType.Date})},
+    {
+      name: 'Date input field',
+      node: createField({...baseField, fieldType: AjfFieldType.DateInput})
+    },
+    {name: 'Formula field', node: createField({...baseField, fieldType: AjfFieldType.Formula})},
+    {
+      name: 'Multiple choice field',
+      node: createField({...baseField, fieldType: AjfFieldType.MultipleChoice})
+    },
+    {name: 'Number field', node: createField({...baseField, fieldType: AjfFieldType.Number})},
+    {
+      name: 'Single choice field',
+      node: createField({...baseField, fieldType: AjfFieldType.SingleChoice})
+    },
+    {name: 'String field', node: createField({...baseField, fieldType: AjfFieldType.String})},
+    {name: 'Table field', node: createField({...baseField, fieldType: AjfFieldType.Table})},
+    {name: 'Text field', node: createField({...baseField, fieldType: AjfFieldType.Text})},
+    {name: 'Time field', node: createField({...baseField, fieldType: AjfFieldType.Time})},
   ];
 }

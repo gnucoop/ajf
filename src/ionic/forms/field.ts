@@ -103,7 +103,7 @@ export class AjfFormField extends AjfCoreFormField implements OnDestroy, OnInit 
   }
 
   hasSearch(): boolean {
-    const fieldInstance = this.fieldInstance as AjfFieldWithChoicesInstance;
+    const fieldInstance = this.fieldInstance as AjfFieldWithChoicesInstance<any>;
     return fieldInstance.filteredChoices
       && fieldInstance.filteredChoices.length > this._searchTreshold;
   }

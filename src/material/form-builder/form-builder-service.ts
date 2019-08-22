@@ -20,48 +20,22 @@
  *
  */
 
-import {Injectable, EventEmitter} from '@angular/core';
-
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {
-  filter, map, publishReplay, refCount, scan, withLatestFrom
-} from 'rxjs/operators';
-
-import {
-  AjfCondition,
-  AjfFormula,
-} from '@ajf/core/models';
-import {
-  AjfAttachmentsOrigin,
-  AjfBooleanField,
-  AjfChoicesFixedOrigin,
-  AjfDateField,
-  AjfDateInputField,
-  AjfField,
-  AjfFieldWithChoices,
-  AjfForm,
-  AjfFormulaField,
-  AjfMultipleChoiceField,
-  AjfNode,
-  AjfNodeGroup,
-  AjfNumberField,
-  AjfRepeatingSlide,
-  AjfSingleChoiceField,
-  AjfSlide,
-  AjfStringField,
-  AjfTableField,
-  AjfTextField,
-  AjfTimeField,
-  AjfValidation,
-  AjfValidationGroup,
-  AjfWarning,
-  AjfWarningGroup,
-  IAjfChoicesOrigin,
-  IAjfNodesOperation,
+  AjfAttachmentsOrigin, AjfChoicesOrigin, AjfContainerNode, AjfField, AjfFieldType,
+  AjfFieldWithChoices, AjfForm, AjfNode, AjfNodeGroup, AjfNodesOperation, AjfNodeType,
+  AjfRepeatingContainerNode, AjfRepeatingSlide, AjfSlide, createChoicesFixedOrigin, createField,
+  createForm, createNode, createValidation, createValidationGroup, createWarning,
+  createWarningGroup, isChoicesFixedOrigin, isContainerNode, isField, isFieldWithChoices,
+  isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation,
+  minValidation, notEmptyValidation, notEmptyWarning
 } from '@ajf/core/forms';
-import {
-  IAjfAttachmentsOriginsOperation, IAjfChoicesOriginsOperation
-} from './operations';
+import {AjfCondition, alwaysCondition, createCondition, createFormula} from '@ajf/core/models';
+import {deepCopy} from '@ajf/core/utils';
+import {EventEmitter, Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {filter, map, publishReplay, refCount, scan, withLatestFrom} from 'rxjs/operators';
+
+import {AjfAttachmentsOriginsOperation, AjfChoicesOriginsOperation} from './operations';
 
 
 export interface AjfFormBuilderNodeTypeEntry {
@@ -70,7 +44,10 @@ export interface AjfFormBuilderNodeTypeEntry {
     fontSet: string;
     fontIcon: string;
   };
-  nodeType: typeof AjfNode;
+  nodeType: {
+    node: AjfNodeType;
+    field?: AjfFieldType,
+  };
   isSlide?: boolean;
 }
 
@@ -90,32 +67,7 @@ export interface AjfFormBuilderEmptySlot {
 
 
 export type AjfFormBuilderNode = AjfFormBuilderNodeEntry | AjfFormBuilderEmptySlot;
-
-
-export function isContainerNode(node: AjfNode): boolean {
-  return node != null && (
-    node instanceof AjfSlide ||
-    node instanceof AjfRepeatingSlide ||
-    node instanceof AjfNodeGroup
-  );
-}
 export type AjfContainerNode = AjfSlide | AjfRepeatingSlide | AjfNodeGroup;
-
-export function isRepeatingContainerNode(node: AjfNode): boolean {
-  return node != null && (
-    node instanceof AjfRepeatingSlide ||
-    node instanceof AjfNodeGroup
-  );
-}
-export type AjfRepeatingContainerNode = AjfRepeatingSlide | AjfNodeGroup;
-
-export function isSlideNode(node: AjfNode): boolean {
-  return node != null && (
-    node instanceof AjfSlide ||
-    node instanceof AjfRepeatingSlide
-  );
-}
-
 
 function getNodeContainer(c: {nodes: AjfNode[]}, node: AjfNode): {nodes: AjfNode[]} | null {
   if (c.nodes.indexOf(node) > -1) {
@@ -129,7 +81,6 @@ function getNodeContainer(c: {nodes: AjfNode[]}, node: AjfNode): {nodes: AjfNode
   }
   return null;
 }
-
 
 function buildFormBuilderNodesSubtree(
   nodes: AjfNode[], parent: AjfNode, ignoreConditionalBranches = false
@@ -167,7 +118,7 @@ function buildFormBuilderNodesTree(nodes: AjfNode[]): (AjfFormBuilderNode | null
   const rootNodes = nodes.filter(n => n.parent == null);
   if (rootNodes.length === 1) {
     const rootNode = rootNodes[0];
-    if (rootNode instanceof AjfRepeatingSlide || rootNode instanceof AjfSlide) {
+    if (isSlidesNode(rootNode)) {
       const tree: AjfFormBuilderNode[] = [];
       tree.push(<AjfFormBuilderNodeEntry>{
         node: rootNode,
@@ -236,32 +187,73 @@ let nodeUniqueId = 0;
 @Injectable()
 export class AjfFormBuilderService {
   private _availableNodeTypes: AjfFormBuilderNodeTypeEntry[] = [
-    { label: 'Slide', icon: {fontSet: 'ajf-icon', fontIcon: 'field-slide' }, nodeType: AjfSlide,
-      isSlide: true },
-    { label: 'Repeating slide', icon: { fontSet: 'ajf-icon', fontIcon: 'field-repeatingslide' },
-      nodeType: AjfRepeatingSlide, isSlide: true },
-    { label: 'String', icon: { fontSet: 'ajf-icon', fontIcon: 'field-string' },
-      nodeType: AjfStringField },
-    { label: 'Text', icon: { fontSet: 'ajf-icon', fontIcon: 'field-text' },
-      nodeType: AjfTextField },
-    { label: 'Number', icon: { fontSet: 'ajf-icon', fontIcon: 'field-number' },
-      nodeType: AjfNumberField },
-    { label: 'Boolean', icon: { fontSet: 'ajf-icon', fontIcon: 'field-boolean' },
-      nodeType: AjfBooleanField },
-    { label: 'Single choice', icon: { fontSet: 'ajf-icon', fontIcon: 'field-singlechoice' },
-      nodeType: AjfSingleChoiceField },
-    { label: 'Multiple choice', icon: { fontSet: 'ajf-icon', fontIcon: 'field-multiplechoice' },
-      nodeType: AjfMultipleChoiceField },
-    { label: 'Formula', icon: { fontSet: 'ajf-icon', fontIcon: 'field-formula' },
-      nodeType: AjfFormulaField },
-    { label: 'Date', icon: { fontSet: 'ajf-icon', fontIcon: 'field-date' },
-      nodeType: AjfDateField },
-    { label: 'Date input', icon: { fontSet: 'ajf-icon', fontIcon: 'field-dateinput' },
-      nodeType: AjfDateInputField },
-    { label: 'Time', icon: { fontSet: 'ajf-icon', fontIcon: 'field-time' },
-      nodeType: AjfTimeField },
-    { label: 'Table', icon: { fontSet: 'ajf-icon', fontIcon: 'field-table' },
-      nodeType: AjfTableField }
+    {
+      label: 'Slide',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-slide'},
+      nodeType: {node: AjfNodeType.AjfSlide},
+      isSlide: true
+    },
+    {
+      label: 'Repeating slide',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-repeatingslide'},
+      nodeType: {node: AjfNodeType.AjfRepeatingSlide},
+      isSlide: true
+    },
+    {
+      label: 'String',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-string'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.String}
+    },
+    {
+      label: 'Text',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-text'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Text}
+    },
+    {
+      label: 'Number',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-number'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Number}
+    },
+    {
+      label: 'Boolean',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-boolean'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Boolean}
+    },
+    {
+      label: 'Single choice',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-singlechoice'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.SingleChoice}
+    },
+    {
+      label: 'Multiple choice',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-multiplechoice'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.MultipleChoice}
+    },
+    {
+      label: 'Formula',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-formula'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Formula}
+    },
+    {
+      label: 'Date',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-date'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Date}
+    },
+    {
+      label: 'Date input',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-dateinput'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateInput}
+    },
+    {
+      label: 'Time',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-time'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Time}
+    },
+    {
+      label: 'Table',
+      icon: {fontSet: 'ajf-icon', fontIcon: 'field-table'},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Table}
+    }
   ];
   /**
    * Available node types
@@ -281,11 +273,15 @@ export class AjfFormBuilderService {
    */
   get form(): Observable<AjfForm | null> { return this._formObs; }
 
-  private _attachmentsOrigins: Observable<AjfAttachmentsOrigin[]>;
-  get attachmentsOrigins(): Observable<AjfAttachmentsOrigin[]> { return this._attachmentsOrigins; }
+  private _attachmentsOrigins: Observable<AjfAttachmentsOrigin<any>[]>;
+  get attachmentsOrigins(): Observable<AjfAttachmentsOrigin<any>[]> {
+    return this._attachmentsOrigins;
+  }
 
-  private _choicesOrigins: Observable<IAjfChoicesOrigin[]>;
-  get choicesOrigins(): Observable<IAjfChoicesOrigin[]> { return this._choicesOrigins; }
+  private _choicesOrigins: Observable<AjfChoicesOrigin<any>[]>;
+  get choicesOrigins(): Observable<AjfChoicesOrigin<any>[]> {
+    return this._choicesOrigins;
+  }
 
   private _nodes: Observable<AjfNode[]>;
   get nodes(): Observable<AjfNode[]> { return this._nodes; }
@@ -315,11 +311,11 @@ export class AjfFormBuilderService {
     this._editedCondition.asObservable();
   get editedCondition(): Observable<AjfCondition | null> { return this._editedConditionObs; }
 
-  private _editedChoicesOrigin: BehaviorSubject<IAjfChoicesOrigin | null> =
-    new BehaviorSubject<IAjfChoicesOrigin | null>(null);
-  private _editedChoicesOriginObs: Observable<IAjfChoicesOrigin | null> =
-    this._editedChoicesOrigin.asObservable();
-  get editedChoicesOrigin(): Observable<IAjfChoicesOrigin | null> {
+  private _editedChoicesOrigin: BehaviorSubject<AjfChoicesOrigin<any>|null> =
+      new BehaviorSubject<AjfChoicesOrigin<any>|null>(null);
+  private _editedChoicesOriginObs: Observable<AjfChoicesOrigin<any>|null> =
+      this._editedChoicesOrigin.asObservable();
+  get editedChoicesOrigin(): Observable<AjfChoicesOrigin<any>|null> {
     return this._editedChoicesOriginObs;
   }
 
@@ -330,11 +326,11 @@ export class AjfFormBuilderService {
   private _afterNodeUpdateObs: Observable<void> = this._afterNodeUpdate.asObservable();
   get afterNodeUpdate(): Observable<void> { return this._afterNodeUpdateObs; }
 
-  private _nodesUpdates: Subject<IAjfNodesOperation> = new Subject<IAjfNodesOperation>();
-  private _attachmentsOriginsUpdates: Subject<IAjfAttachmentsOriginsOperation> =
-    new Subject<IAjfAttachmentsOriginsOperation>();
-  private _choicesOriginsUpdates: Subject<IAjfChoicesOriginsOperation> =
-    new Subject<IAjfChoicesOriginsOperation>();
+  private _nodesUpdates: Subject<AjfNodesOperation> = new Subject<AjfNodesOperation>();
+  private _attachmentsOriginsUpdates: Subject<AjfAttachmentsOriginsOperation> =
+      new Subject<AjfAttachmentsOriginsOperation>();
+  private _choicesOriginsUpdates: Subject<AjfChoicesOriginsOperation> =
+      new Subject<AjfChoicesOriginsOperation>();
 
   private _saveNodeEntryEvent: EventEmitter<any> = new EventEmitter<any>();
   private _deleteNodeEntryEvent: EventEmitter<AjfFormBuilderNodeEntry> =
@@ -387,18 +383,34 @@ export class AjfFormBuilderService {
     parentNode: number,
     inContent = false
   ): void {
-    let node = new nodeType.nodeType({
-      id: ++nodeUniqueId,
-      parent: parent.id,
-      parentNode
-    });
+    let node: AjfNode|AjfField;
+    const id = ++nodeUniqueId;
+    const isFieldNode = nodeType.nodeType.field != null;
+    if (isFieldNode) {
+      node = createField({
+        id,
+        nodeType: AjfNodeType.AjfField,
+        fieldType: nodeType.nodeType.field!,
+        parent: parent.id,
+        parentNode,
+        name: '',
+      });
+    } else {
+      node = createNode({
+        id,
+        nodeType: nodeType.nodeType.node,
+        parent: parent.id,
+        parentNode,
+        name: '',
+      });
+    }
     this._beforeNodesUpdate.emit();
     this._nodesUpdates.next((nodes: AjfNode[]): AjfNode[] => {
       const cn = isContainerNode(parent) && inContent ?
         (<AjfContainerNode>parent) :
         getNodeContainer({nodes}, parent);
       if (cn != null) {
-        if (cn instanceof AjfNode) {
+        if (!isFieldNode) {
           const newNodes = cn.nodes.slice(0);
           newNodes.push(node);
           cn.nodes = newNodes;
@@ -429,22 +441,22 @@ export class AjfFormBuilderService {
       map((r: [AjfForm | null, AjfNode[]]) => {
         const form = r[0]!;
         const nodes = r[1];
-        return new AjfForm({
+        return createForm({
           choicesOrigins: form.choicesOrigins.slice(0),
           attachmentsOrigins: form.attachmentsOrigins.slice(0),
           stringIdentifier: form.stringIdentifier.slice(0),
-          nodes: nodes.slice(0)
+          nodes: nodes.slice(0) as AjfSlide[],
         });
       })
     );
   }
 
-  editChoicesOrigin(choicesOrigin: IAjfChoicesOrigin): void {
+  editChoicesOrigin(choicesOrigin: AjfChoicesOrigin<any>): void {
     this._editedChoicesOrigin.next(choicesOrigin);
   }
 
   createChoicesOrigin(): void {
-    this._editedChoicesOrigin.next(new AjfChoicesFixedOrigin<any>());
+    this._editedChoicesOrigin.next(createChoicesFixedOrigin<any>({name: ''}));
   }
 
   cancelChoicesOriginEdit(): void {
@@ -454,10 +466,10 @@ export class AjfFormBuilderService {
   saveChoicesOrigin(params: {label: string, name: string, choices: any[]}): void {
     const choicesOrigin = this._editedChoicesOrigin.getValue();
     if (choicesOrigin != null) {
-      choicesOrigin.setLabel(params.label);
-      choicesOrigin.setName(params.name);
-      if (choicesOrigin instanceof AjfChoicesFixedOrigin) {
-        choicesOrigin.setChoices(params.choices);
+      choicesOrigin.label = params.label;
+      choicesOrigin.name = params.name;
+      if (isChoicesFixedOrigin(choicesOrigin)) {
+        choicesOrigin.choices = params.choices;
       }
     }
     this._editedChoicesOrigin.next(null);
@@ -487,49 +499,46 @@ export class AjfFormBuilderService {
           }
         );
         this._attachmentsOriginsUpdates.next(
-          (_attachmentsOrigins: AjfAttachmentsOrigin[]): AjfAttachmentsOrigin[] => {
-            return form != null && form.attachmentsOrigins != null ?
-              form.attachmentsOrigins.slice(0) : [];
-          }
-        );
+            (_attachmentsOrigins: AjfAttachmentsOrigin<any>[]): AjfAttachmentsOrigin<any>[] => {
+              return form != null && form.attachmentsOrigins != null ?
+                  form.attachmentsOrigins.slice(0) :
+                  [];
+            });
         this._choicesOriginsUpdates.next(
-          (_choicesOrigins: IAjfChoicesOrigin[]): IAjfChoicesOrigin[] => {
-            return form != null && form.choicesOrigins != null ? form.choicesOrigins.slice(0) : [];
-          }
-        );
+            (_choicesOrigins: AjfChoicesOrigin<any>[]): AjfChoicesOrigin<any>[] => {
+              return form != null && form.choicesOrigins != null ? form.choicesOrigins.slice(0) :
+                                                                   [];
+            });
       });
   }
 
   private _initChoicesOriginsStreams(): void {
-    this._choicesOrigins = (<Observable<IAjfChoicesOriginsOperation>>this._choicesOriginsUpdates)
-      .pipe(
-        scan((choicesOrigins: IAjfChoicesOrigin[], op: IAjfChoicesOriginsOperation) => {
-          return op(choicesOrigins);
-        }, []),
-        publishReplay(1),
-        refCount()
-      );
+    this._choicesOrigins =
+        (<Observable<AjfChoicesOriginsOperation>>this._choicesOriginsUpdates)
+            .pipe(
+                scan((choicesOrigins: AjfChoicesOrigin<any>[], op: AjfChoicesOriginsOperation) => {
+                  return op(choicesOrigins);
+                }, []), publishReplay(1), refCount());
   }
 
   private _initAttachmentsOriginsStreams(): void {
     this._attachmentsOrigins =
-      (<Observable<IAjfAttachmentsOriginsOperation>>this._attachmentsOriginsUpdates).pipe(
-        scan((attachmentsOrigins: AjfAttachmentsOrigin[], op: IAjfAttachmentsOriginsOperation) => {
-          return op(attachmentsOrigins);
-        }, []),
-        publishReplay(1),
-        refCount()
-      );
+        (<Observable<AjfAttachmentsOriginsOperation>>this._attachmentsOriginsUpdates)
+            .pipe(
+                scan(
+                    (attachmentsOrigins: AjfAttachmentsOrigin<any>[],
+                     op: AjfAttachmentsOriginsOperation) => {
+                      return op(attachmentsOrigins);
+                    },
+                    []),
+                publishReplay(1), refCount());
   }
 
   private _initNodesStreams(): void {
-    this._nodes = (<Observable<IAjfNodesOperation>>this._nodesUpdates).pipe(
-      scan((nodes: AjfNode[], op: IAjfNodesOperation) => {
-        return op(nodes);
-      }, []),
-      publishReplay(1),
-      refCount()
-    );
+    this._nodes = (<Observable<AjfNodesOperation>>this._nodesUpdates)
+                      .pipe(scan((nodes: AjfNode[], op: AjfNodesOperation) => {
+                              return op(nodes);
+                            }, []), publishReplay(1), refCount());
 
     this._flatNodes = this._nodes.pipe(
       map((nodes: AjfNode[]) => flattenNodes(nodes)),
@@ -551,146 +560,162 @@ export class AjfFormBuilderService {
   }
 
   private _initSaveNode(): void {
-    this._saveNodeEntryEvent.pipe(
-      withLatestFrom(this.editedNodeEntry, this.choicesOrigins, this.attachmentsOrigins),
-      filter((r) => r[1] != null),
-      map((r: [
-        any, AjfFormBuilderNodeEntry | null, IAjfChoicesOrigin[], AjfAttachmentsOrigin[]
-      ]) => {
-        this._beforeNodesUpdate.emit();
-        const properties = r[0];
-        const nodeEntry = r[1]!;
-        const choicesOrigins = r[2];
-        const attachmentsOrigins = r[3];
-        const origNode = nodeEntry.node;
-        const node = AjfNode.fromJson(origNode.toJson(), choicesOrigins, attachmentsOrigins);
-        node.id = nodeEntry.node.id;
-        node.name = properties['name'];
-        node.label = properties['label'];
-        node.visibility = properties['visibility'] != null ?
-          new AjfCondition({ condition: properties['visibility'] }) : null;
+    this._saveNodeEntryEvent
+        .pipe(
+            withLatestFrom(this.editedNodeEntry, this.choicesOrigins, this.attachmentsOrigins),
+            filter((r) => r[1] != null),
+            map((r:
+                     [
+                       any, AjfFormBuilderNodeEntry|null, AjfChoicesOrigin<any>[],
+                       AjfAttachmentsOrigin<any>[]
+                     ]) => {
+              this._beforeNodesUpdate.emit();
+              const properties = r[0];
+              const nodeEntry = r[1]!;
+              const choicesOrigins = r[2];
+              // const attachmentsOrigins = r[3];
+              const origNode = nodeEntry.node;
+              const node = deepCopy(origNode);
+              node.id = nodeEntry.node.id;
+              node.name = properties.name;
+              node.label = properties.label;
+              node.visibility = properties.visibility != null ?
+                  createCondition({condition: properties.visibility}) :
+                  null;
 
-        const oldConditionalBranches = node.conditionalBranches.length;
-        node.conditionalBranches = properties['conditionalBranches'] != null
-          ? properties['conditionalBranches']
-            .map((condition: string) => new AjfCondition({condition}))
-          : [AjfCondition.alwaysCondition()];
-        const newConditionalBranches = node.conditionalBranches.length;
+              const oldConditionalBranches = node.conditionalBranches.length;
+              node.conditionalBranches = properties.conditionalBranches != null ?
+                  properties.conditionalBranches.map(
+                      (condition: string) => createCondition({condition})) :
+                  [alwaysCondition()];
+              const newConditionalBranches = node.conditionalBranches.length;
 
-        if (isRepeatingContainerNode(node)) {
-          const repNode = <AjfRepeatingContainerNode>node;
-          repNode.formulaReps = properties['formulaReps'] != null ?
-            new AjfFormula({formula: properties['formulaReps']}) : null;
-          repNode.minReps = properties['minReps'];
-          repNode.maxReps = properties['maxReps'];
-        }
-
-        if (nodeEntry.node instanceof AjfField) {
-          const field = <AjfField>nodeEntry.node;
-          field.description = properties['description'];
-          field.defaultValue = properties['defaultValue'];
-          field.formula = properties['formula'] != null ?
-            new AjfFormula({formula: properties['formula']}) : null;
-          const forceValue = properties['value'];
-          const notEmpty = properties['notEmpty'];
-          const validationConditions = properties['validationConditions'];
-          let minValue: number | null = parseInt(properties['minValue'], 10);
-          let maxValue: number | null = parseInt(properties['maxValue'], 10);
-          let minDigits: number | null = parseInt(properties['minDigits'], 10);
-          let maxDigits: number | null = parseInt(properties['maxDigits'], 10);
-          if (isNaN(minValue)) { minValue = null; }
-          if (isNaN(maxValue)) { maxValue = null; }
-          if (isNaN(minDigits)) { minDigits = null; }
-          if (isNaN(maxDigits)) { maxDigits = null; }
-          if (
-            forceValue != null || notEmpty != null ||
-            (validationConditions != null && validationConditions.length > 0) ||
-            minValue != null || maxValue != null || minDigits != null || maxDigits != null
-          ) {
-            const validation = field.validation || new AjfValidationGroup();
-            validation.forceValue = forceValue;
-            validation.notEmpty = notEmpty ? AjfValidation.getNotEmptyCondition() : null;
-            validation.minValue = minValue != null ? AjfValidation.getMinCondition(minValue) : null;
-            validation.maxValue = maxValue != null ? AjfValidation.getMaxCondition(maxValue) : null;
-            validation.minDigits = minDigits != null ?
-              AjfValidation.getMinDigitsCondition(minDigits) : null;
-            validation.maxDigits = maxDigits != null ?
-              AjfValidation.getMaxDigitsCondition(maxDigits) : null;
-            validation.conditions = (validationConditions || [])
-              .map((c: {condition: string, errorMessage: string}) => new AjfValidation({
-                condition: c.condition,
-                errorMessage: c.errorMessage
-              }));
-            field.validation = validation;
-          } else {
-            field.validation = null;
-          }
-          const notEmptyWarning = properties['notEmptyWarning'];
-          const warningConditions = properties['warningConditions'];
-          if (
-            notEmptyWarning != null ||
-            (warningConditions != null && warningConditions.length > 0)
-          ) {
-            const warning = field.warning || new AjfWarningGroup();
-            warning.notEmpty = notEmptyWarning ? AjfWarning.getNotEmptyWarning() : null;
-            warning.conditions = (warningConditions || [])
-              .map((w: {condition: string, warningMessage: string}) => new AjfWarning({
-                condition: w.condition, warningMessage: w.warningMessage
-              }));
-            field.warning = warning;
-          } else {
-            field.warning = null;
-          }
-          field.nextSlideCondition = properties['nextSlideCondition'] != null ?
-            new AjfCondition({ condition: properties['nextSlideCondition'] }) : null;
-
-          if (field instanceof AjfFieldWithChoices) {
-            const fwc = <AjfFieldWithChoices>field;
-            let choicesOrigin: IAjfChoicesOrigin | null = null;
-            let coIdx = 0;
-            const coNum: number = choicesOrigins.length;
-            while (choicesOrigin == null && coIdx < coNum) {
-              if (choicesOrigins[coIdx].getName() === properties['choicesOrigin']) {
-                choicesOrigin = choicesOrigins[coIdx];
+              if (isRepeatingContainerNode(node)) {
+                const repNode = <AjfRepeatingContainerNode>node;
+                repNode.formulaReps = properties.formulaReps != null ?
+                    createFormula({formula: properties.formulaReps}) :
+                    undefined;
+                repNode.minReps = properties.minReps;
+                repNode.maxReps = properties.maxReps;
               }
-              coIdx++;
-            }
-            if (choicesOrigin != null) {
-              fwc.choicesOrigin = choicesOrigin;
-            }
-            fwc.forceExpanded = properties['forceExpanded'];
-            fwc.forceNarrow = properties['forceNarrow'];
-            fwc.triggerConditions = (properties['triggerConditions'] || [])
-              .map((t: string) => new AjfCondition({condition: t}));
-          }
-        }
 
-        this._editedNodeEntry.next(null);
+              if (isField(nodeEntry.node)) {
+                const field = <AjfField>nodeEntry.node;
+                field.description = properties.description;
+                field.defaultValue = properties.defaultValue;
+                field.formula = properties.formula != null ?
+                    createFormula({formula: properties.formula}) :
+                    undefined;
+                const forceValue = properties.value;
+                const notEmpty = properties.notEmpty;
+                const validationConditions = properties.validationConditions;
+                let minValue: number|null = parseInt(properties.minValue, 10);
+                let maxValue: number|null = parseInt(properties.maxValue, 10);
+                let minDigits: number|null = parseInt(properties.minDigits, 10);
+                let maxDigits: number|null = parseInt(properties.maxDigits, 10);
+                if (isNaN(minValue)) {
+                  minValue = null;
+                }
+                if (isNaN(maxValue)) {
+                  maxValue = null;
+                }
+                if (isNaN(minDigits)) {
+                  minDigits = null;
+                }
+                if (isNaN(maxDigits)) {
+                  maxDigits = null;
+                }
+                if (forceValue != null || notEmpty != null ||
+                    (validationConditions != null && validationConditions.length > 0) ||
+                    minValue != null || maxValue != null || minDigits != null ||
+                    maxDigits != null) {
+                  const validation = field.validation || createValidationGroup({});
+                  validation.forceValue = forceValue;
+                  validation.notEmpty = notEmpty ? notEmptyValidation() : undefined;
+                  validation.minValue = minValue != null ? minValidation(minValue) : undefined;
+                  validation.maxValue = maxValue != null ? maxValidation(maxValue) : undefined;
+                  validation.minDigits =
+                      minDigits != null ? minDigitsValidation(minDigits) : undefined;
+                  validation.maxDigits =
+                      maxDigits != null ? maxDigitsValidation(maxDigits) : undefined;
+                  validation.conditions =
+                      (validationConditions ||
+                       []).map((c: {condition: string, errorMessage: string}) => createValidation({
+                                 condition: c.condition,
+                                 errorMessage: c.errorMessage
+                               }));
+                  field.validation = validation;
+                } else {
+                  field.validation = undefined;
+                }
+                const notEmptyWarn = properties.notEmptyWarning;
+                const warningConditions = properties.warningConditions;
+                if (notEmptyWarn != null ||
+                    (warningConditions != null && warningConditions.length > 0)) {
+                  const warning = field.warning || createWarningGroup({});
+                  warning.notEmpty = notEmptyWarn ? notEmptyWarning() : undefined;
+                  warning.conditions =
+                      (warningConditions ||
+                       []).map((w: {condition: string, warningMessage: string}) => createWarning({
+                                 condition: w.condition,
+                                 warningMessage: w.warningMessage
+                               }));
+                  field.warning = warning;
+                } else {
+                  field.warning = undefined;
+                }
+                field.nextSlideCondition = properties.nextSlideCondition != null ?
+                    createCondition({condition: properties.nextSlideCondition}) :
+                    undefined;
 
-        return (nodes: AjfNode[]): AjfNode[] => {
-          let cn = getNodeContainer({nodes}, origNode);
-          if (cn != null) {
-            if (cn instanceof AjfNode) {
-              const idx = cn.nodes.indexOf(origNode);
-              let newNodes = cn.nodes.slice(0, idx);
-              newNodes.push(node);
-              newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
-              cn.nodes = newNodes;
-              nodes = nodes.slice(0);
-            } else {
-              const idx = nodes.indexOf(origNode);
-              nodes = nodes.slice(0, idx).concat([node]).concat(nodes.slice(idx + 1));
-            }
-            if (newConditionalBranches < oldConditionalBranches) {
-              for (let i = newConditionalBranches ; i < oldConditionalBranches ; i++) {
-                nodes = deleteNodeSubtree(nodes, node, i);
+                if (isFieldWithChoices(field)) {
+                  const fwc = <AjfFieldWithChoices<any>>field;
+                  let choicesOrigin: AjfChoicesOrigin<any>|null = null;
+                  let coIdx = 0;
+                  const coNum: number = choicesOrigins.length;
+                  while (choicesOrigin == null && coIdx < coNum) {
+                    if (choicesOrigins[coIdx].name === properties.choicesOrigin) {
+                      choicesOrigin = choicesOrigins[coIdx];
+                    }
+                    coIdx++;
+                  }
+                  if (choicesOrigin != null) {
+                    fwc.choicesOrigin = choicesOrigin;
+                  }
+                  fwc.forceExpanded = properties.forceExpanded;
+                  fwc.forceNarrow = properties.forceNarrow;
+                  fwc.triggerConditions = (properties.triggerConditions ||
+                                           []).map((t: string) => createCondition({condition: t}));
+                }
               }
-            }
-          }
-          return nodes;
-        };
-      })
-    ).subscribe(this._nodesUpdates);
+
+              this._editedNodeEntry.next(null);
+
+              return (nodes: AjfNode[]): AjfNode[] => {
+                let cn = getNodeContainer({nodes}, origNode);
+                if (cn != null) {
+                  // TODO: @trik check this, was always true?
+                  // if (cn instanceof AjfNode) {
+                  const idx = cn.nodes.indexOf(origNode);
+                  let newNodes = cn.nodes.slice(0, idx);
+                  newNodes.push(node);
+                  newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
+                  cn.nodes = newNodes;
+                  nodes = nodes.slice(0);
+                  // } else {
+                  //   const idx = nodes.indexOf(origNode);
+                  //   nodes = nodes.slice(0, idx).concat([node]).concat(nodes.slice(idx + 1));
+                  // }
+                  if (newConditionalBranches < oldConditionalBranches) {
+                    for (let i = newConditionalBranches; i < oldConditionalBranches; i++) {
+                      nodes = deleteNodeSubtree(nodes, node, i);
+                    }
+                  }
+                }
+                return nodes;
+              };
+            }))
+        .subscribe(this._nodesUpdates);
   }
 
   private _initDeleteNode(): void {
@@ -701,16 +726,17 @@ export class AjfFormBuilderService {
           const node = nodeEntry.node;
           let cn = getNodeContainer({nodes}, node);
           if (cn != null) {
-            if (cn instanceof AjfNode) {
-              const idx = cn.nodes.indexOf(node);
-              let newNodes = cn.nodes.slice(0, idx);
-              newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
-              cn.nodes = newNodes;
-              nodes = nodes.slice(0);
-            } else {
-              const idx = nodes.indexOf(node);
-              nodes = nodes.slice(0, idx).concat(nodes.slice(idx + 1));
-            }
+            // TODO: @trik check this, was always true?
+            // if (cn instanceof AjfNode) {
+            const idx = cn.nodes.indexOf(node);
+            let newNodes = cn.nodes.slice(0, idx);
+            newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
+            cn.nodes = newNodes;
+            nodes = nodes.slice(0);
+            // } else {
+            //   const idx = nodes.indexOf(node);
+            //   nodes = nodes.slice(0, idx).concat(nodes.slice(idx + 1));
+            // }
             nodes = deleteNodeSubtree(nodes, node);
           }
           return nodes;

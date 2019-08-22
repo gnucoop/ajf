@@ -20,24 +20,21 @@
  *
  */
 
+import {AjfChoicesOrigin, AjfForm} from '@ajf/core/forms';
+import {AjfCondition} from '@ajf/core/models';
 import {
-  AfterViewChecked, AfterContentInit, ChangeDetectionStrategy,
-  Component, ElementRef, EventEmitter, Input, OnDestroy,
-  ViewChild, ViewEncapsulation
+  AfterContentInit, AfterViewChecked, ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
+  Input, OnDestroy, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-
 import {Observable, Subscription} from 'rxjs';
 import {sample} from 'rxjs/operators';
 
-import {AjfCondition} from '@ajf/core/models';
-import {AjfForm, IAjfChoicesOrigin} from '@ajf/core/forms';
+import {AjfFbChoicesOriginEditorDialog} from './choices-origin-editor-dialog';
+import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {
   AjfFormBuilderNodeEntry, AjfFormBuilderNodeTypeEntry, AjfFormBuilderService
 } from './form-builder-service';
-
-import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
-import {AjfFbChoicesOriginEditorDialog} from './choices-origin-editor-dialog';
 
 @Component({
   moduleId: module.id,
@@ -67,8 +64,10 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   private _nodeEntriesTree: Observable<AjfFormBuilderNodeEntry[]>;
   get nodeEntriesTree(): Observable<AjfFormBuilderNodeEntry[]> { return this._nodeEntriesTree; }
 
-  private _choicesOrigins: Observable<IAjfChoicesOrigin[]>;
-  get choicesOrigins(): Observable<IAjfChoicesOrigin[]> { return this._choicesOrigins; }
+  private _choicesOrigins: Observable<AjfChoicesOrigin<any>[]>;
+  get choicesOrigins(): Observable<AjfChoicesOrigin<any>[]> {
+    return this._choicesOrigins;
+  }
 
   private _vc: EventEmitter<void> = new EventEmitter<void>();
 
@@ -100,18 +99,17 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
           );
         }
       });
-    this._editChoicesOriginSub = this._service.editedChoicesOrigin
-      .subscribe((choicesOrigin: IAjfChoicesOrigin | null) => {
-        if (this._editChoicesOriginDialog != null) {
-          this._editChoicesOriginDialog.close();
-          this._editChoicesOriginDialog = null;
-        }
-        if (choicesOrigin != null) {
-          this._editChoicesOriginDialog = this._dialog.open(
-            AjfFbChoicesOriginEditorDialog, {disableClose: true}
-          );
-        }
-      });
+    this._editChoicesOriginSub =
+        this._service.editedChoicesOrigin.subscribe((choicesOrigin: AjfChoicesOrigin<any>|null) => {
+          if (this._editChoicesOriginDialog != null) {
+            this._editChoicesOriginDialog.close();
+            this._editChoicesOriginDialog = null;
+          }
+          if (choicesOrigin != null) {
+            this._editChoicesOriginDialog =
+                this._dialog.open(AjfFbChoicesOriginEditorDialog, {disableClose: true});
+          }
+        });
 
     this._beforeNodesUpdateSub = this._service.beforeNodesUpdate
       .subscribe(() => {
@@ -151,7 +149,7 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     return false;
   }
 
-  editChoicesOrigin(choicesOrigin: IAjfChoicesOrigin): void {
+  editChoicesOrigin(choicesOrigin: AjfChoicesOrigin<any>): void {
     this._service.editChoicesOrigin(choicesOrigin);
   }
 

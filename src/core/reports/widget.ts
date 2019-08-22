@@ -20,41 +20,44 @@
  *
  */
 
+import {AjfImageType} from '@ajf/core/image';
 import {ChangeDetectorRef} from '@angular/core';
 
-import {AjfImageType} from '@ajf/core/image';
+import {AjfChartWidgetInstance} from './interface/widgets-instances/chart-widget-instance';
+import {AjfColumnWidgetInstance} from './interface/widgets-instances/column-widget-instance';
+import {AjfFormulaWidgetInstance} from './interface/widgets-instances/formula-widget-instance';
 import {
-  AjfReportChartWidgetInstance,
-  AjfReportFormulaWidgetInstance,
-  AjfReportImageContainerWidgetInstance,
-  AjfReportImageWidgetInstance,
-  AjfReportLayoutWidgetInstance,
-  AjfReportMapWidgetInstance,
-  AjfReportTableWidgetInstance,
-  AjfReportTextWidgetInstance,
-  AjfReportWidgetInstance,
-} from './widgets-instances';
-import {
-  AjfReportChartWidget,
-  AjfReportImageWidget,
-  AjfReportLayoutWidget,
-  AjfReportMapWidget,
-  AjfReportWidget,
-  AjfReportWidgetType,
-} from './widgets';
+  AjfImageContainerWidgetInstance
+} from './interface/widgets-instances/image-container-widget-instance';
+import {AjfImageWidgetInstance} from './interface/widgets-instances/image-widget-instance';
+import {AjfLayoutWidgetInstance} from './interface/widgets-instances/layout-widget-instance';
+import {AjfMapWidgetInstance} from './interface/widgets-instances/map-widget-instance';
+import {AjfTableWidgetInstance} from './interface/widgets-instances/table-widget-instance';
+import {AjfTextWidgetInstance} from './interface/widgets-instances/text-widget-instance';
+import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
+import {AjfChartWidget} from './interface/widgets/chart-widget';
+import {AjfImageWidget} from './interface/widgets/image-widget';
+import {AjfLayoutWidget} from './interface/widgets/layout-widget';
+import {AjfMapWidget} from './interface/widgets/map-widget';
+import {AjfWidget} from './interface/widgets/widget';
+import {AjfWidgetType} from './interface/widgets/widget-type';
 
-export abstract class AjfReportWidgetRenderer {
-  readonly widgetTypes = AjfReportWidgetType;
+export abstract class AjfWidgetRenderer {
+  readonly widgetTypes = AjfWidgetType;
 
-  private _widget: AjfReportWidget | null;
-  get widget(): AjfReportWidget | null { return this._widget; }
+  private _widget: AjfWidget|null;
+  get widget(): AjfWidget|null {
+    return this._widget;
+  }
 
   private _imageTypes = AjfImageType;
   get imageTypes() { return this._imageTypes; }
 
-  private _widgetInstance: AjfReportWidgetInstance;
-  get widgetInstance(): AjfReportWidgetInstance { return this._widgetInstance; }
-  set widgetInstance(widgetInstance: AjfReportWidgetInstance) {
+  private _widgetInstance: AjfWidgetInstance;
+  get widgetInstance(): AjfWidgetInstance {
+    return this._widgetInstance;
+  }
+  set widgetInstance(widgetInstance: AjfWidgetInstance) {
     if (this._widgetInstance !== widgetInstance) {
       this._widgetInstance = widgetInstance;
       this._widget = this._widgetInstance != null ? this._widgetInstance.widget : null;
@@ -62,44 +65,47 @@ export abstract class AjfReportWidgetRenderer {
     }
   }
 
-  get imgwInst(): AjfReportImageWidgetInstance {
-    return this._widgetInstance as AjfReportImageWidgetInstance;
+  get columnInst(): AjfColumnWidgetInstance {
+    return this._widgetInstance as AjfColumnWidgetInstance;
   }
-  get imgw(): AjfReportImageWidget {
-    return this._widget as AjfReportImageWidget;
+  get imgwInst(): AjfImageWidgetInstance {
+    return this._widgetInstance as AjfImageWidgetInstance;
   }
-  get imgcwInst(): AjfReportImageContainerWidgetInstance {
-    return this._widgetInstance as AjfReportImageContainerWidgetInstance;
+  get imgw(): AjfImageWidget {
+    return this._widget as AjfImageWidget;
   }
-  get imgcw(): AjfReportImageWidget {
-    return this._widget as AjfReportImageWidget;
+  get imgcwInst(): AjfImageContainerWidgetInstance {
+    return this._widgetInstance as AjfImageContainerWidgetInstance;
   }
-  get layoutwInst(): AjfReportLayoutWidgetInstance {
-    return this._widgetInstance as AjfReportLayoutWidgetInstance;
+  get imgcw(): AjfImageWidget {
+    return this._widget as AjfImageWidget;
   }
-  get layoutw(): AjfReportLayoutWidget {
-    return this._widget as AjfReportLayoutWidget;
+  get layoutwInst(): AjfLayoutWidgetInstance {
+    return this._widgetInstance as AjfLayoutWidgetInstance;
   }
-  get chartwInst(): AjfReportChartWidgetInstance {
-    return this._widgetInstance as AjfReportChartWidgetInstance;
+  get layoutw(): AjfLayoutWidget {
+    return this._widget as AjfLayoutWidget;
   }
-  get chartw(): AjfReportChartWidget {
-    return this._widget as AjfReportChartWidget;
+  get chartwInst(): AjfChartWidgetInstance {
+    return this._widgetInstance as AjfChartWidgetInstance;
   }
-  get tablewInst(): AjfReportTableWidgetInstance {
-    return this._widgetInstance as AjfReportTableWidgetInstance;
+  get chartw(): AjfChartWidget {
+    return this._widget as AjfChartWidget;
   }
-  get textwInst(): AjfReportTextWidgetInstance {
-    return this._widgetInstance as AjfReportTextWidgetInstance;
+  get tablewInst(): AjfTableWidgetInstance {
+    return this._widgetInstance as AjfTableWidgetInstance;
   }
-  get mapwInst(): AjfReportMapWidgetInstance {
-    return this._widgetInstance as AjfReportMapWidgetInstance;
+  get textwInst(): AjfTextWidgetInstance {
+    return this._widgetInstance as AjfTextWidgetInstance;
   }
-  get mapw(): AjfReportMapWidget {
-    return this._widget as AjfReportMapWidget;
+  get mapwInst(): AjfMapWidgetInstance {
+    return this._widgetInstance as AjfMapWidgetInstance;
   }
-  get formulawInst(): AjfReportFormulaWidgetInstance {
-    return this._widgetInstance as AjfReportFormulaWidgetInstance;
+  get mapw(): AjfMapWidget {
+    return this._widget as AjfMapWidget;
+  }
+  get formulawInst(): AjfFormulaWidgetInstance {
+    return this._widgetInstance as AjfFormulaWidgetInstance;
   }
 
   constructor(private _cdr: ChangeDetectorRef) { }

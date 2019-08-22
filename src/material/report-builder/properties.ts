@@ -20,20 +20,18 @@
  *
  */
 
+import {AjfForm} from '@ajf/core/forms';
+import {AjfCondition} from '@ajf/core/models';
 import {
-  ChangeDetectionStrategy, Component, EventEmitter, OnInit, OnChanges, OnDestroy, ViewEncapsulation
+  AjfAggregationType, AjfChartWidget, AjfLayoutWidget, AjfTextWidget, AjfWidget, AjfWidgetType
+} from '@ajf/core/reports';
+import {deepCopy} from '@ajf/core/utils';
+import {
+  ChangeDetectionStrategy, Component, EventEmitter, OnChanges, OnDestroy, OnInit, ViewEncapsulation
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {distinctUntilChanged, filter, map, startWith, withLatestFrom} from 'rxjs/operators';
-
-import {
-  AjfAggregationType, AjfReportChartWidget, AjfReportTextWidget,
-  AjfReportWidget, AjfReportWidgetType, AjfReportLayoutWidget
-} from '@ajf/core/reports';
-import {AjfForm} from '@ajf/core/forms';
-import {AjfCondition} from '@ajf/core/models';
-import {deepCopy} from '@ajf/core/utils';
 
 import {AjfReportBuilderFormsAnalyzerDialog} from './forms-analyzer-dialog';
 import {AjfFormVariables} from './models';
@@ -60,12 +58,12 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
    *
    * @memberOf AjfReportBuilderProperties
    */
-  currentWidget: AjfReportWidget | null = null;
-  get currentLayoutWidget(): AjfReportLayoutWidget {
-    return this.currentWidget as AjfReportLayoutWidget;
+  currentWidget: AjfWidget|null = null;
+  get currentLayoutWidget(): AjfLayoutWidget {
+    return this.currentWidget as AjfLayoutWidget;
   }
-  get currentTextWidget(): AjfReportTextWidget {
-    return this.currentWidget as AjfReportTextWidget;
+  get currentTextWidget(): AjfTextWidget {
+    return this.currentWidget as AjfTextWidget;
   }
 
   /**
@@ -654,7 +652,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     let forms: AjfForm[] = [];
     try {
       for (let i = 0; i < this.formsJson.forms.length; i++) {
-        forms.push(AjfForm.fromJson(this.formsJson.forms[i]));
+        forms.push(deepCopy(this.formsJson.forms[i]));
       }
       this._service.setReportForms(forms);
     } catch (e) { }
@@ -775,7 +773,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     if (this.initChartType == false) {
       return false;
     }
-    const myObj = <AjfReportChartWidget>this.currentWidget;
+    const myObj = <AjfChartWidget>this.currentWidget;
     if (value === myObj.chartType) {
       return true;
     } else {
@@ -910,7 +908,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
         if (x != null) {
           if (this.currentWidget !== x) {
             this.currentWidget = x;
-            this.widgetName = AjfReportWidgetType[x.widgetType];
+            this.widgetName = AjfWidgetType[x.widgetType];
             this.reportStyles = false;
             this.sectionStyles = false;
             this.widgetStyles = false;
@@ -956,58 +954,50 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
 
 
     this.getHTML = this._service.currentWidget.pipe(
-      map((widget: AjfReportWidget | null) => {
-        if (widget != null) {
-          const myObj = <AjfReportTextWidget>this.currentWidget;
-          return myObj.htmlText;
-        }
-        return '';
-      }),
-      distinctUntilChanged(),
-      startWith('<p><br></p>')
-    );
+        map((widget: AjfWidget|null) => {
+          if (widget != null) {
+            const myObj = <AjfTextWidget>this.currentWidget;
+            return myObj.htmlText;
+          }
+          return '';
+        }),
+        distinctUntilChanged(), startWith('<p><br></p>'));
 
 
     this.getHeightWidget = this._service.currentWidget.pipe(
-      filter(x => x != null),
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null) {
-          let value = this.toNumber(myObj.styles['height']);
-          if (value != null || value != null) {
-            return value;
+        filter(x => x != null), map((myObj: AjfWidget|null) => {
+          if (myObj != null) {
+            let value = this.toNumber(myObj.styles['height']);
+            if (value != null || value != null) {
+              return value;
+            }
           }
-        }
-      }),
-      distinctUntilChanged()
-    );
+        }),
+        distinctUntilChanged());
 
     this.getFontSizeWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null) {
-          return (this.toNumber(myObj.styles['font-size']) || 12);
-        }
-      }),
-      distinctUntilChanged()
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null) {
+            return (this.toNumber(myObj.styles['font-size']) || 12);
+          }
+        }),
+        distinctUntilChanged());
 
     this.getFontAlignWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null) {
-          return ((myObj.styles['text-align']) || 'center');
-        }
-      }),
-      distinctUntilChanged()
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null) {
+            return ((myObj.styles['text-align']) || 'center');
+          }
+        }),
+        distinctUntilChanged());
 
     this.getBorderWidthWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null) {
-          return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-width']));
-        }
-      }),
-      distinctUntilChanged(),
-      startWith([0, 0, 0, 0])
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null) {
+            return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-width']));
+          }
+        }),
+        distinctUntilChanged(), startWith([0, 0, 0, 0]));
     this.getBorderWidthWidgetTop = this.getBorderWidthWidget.pipe(
       filter(m => m != null),
       map(m => m![0])
@@ -1026,14 +1016,12 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     );
 
     this.getBorderRadiusWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null) {
-          return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-radius']));
-        }
-      }),
-      distinctUntilChanged(),
-      startWith([0, 0, 0, 0])
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null) {
+            return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-radius']));
+          }
+        }),
+        distinctUntilChanged(), startWith([0, 0, 0, 0]));
     this.getBorderRadiusWidgetTopLeft = this.getBorderRadiusWidget.pipe(
       filter(m => m != null),
       map(m => m![0])
@@ -1052,14 +1040,12 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     );
 
     this.getMarginWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null && myObj.styles != null && myObj.styles['margin'] != null) {
-          return this.fillPxNumberArray(this.toNumberArray(myObj.styles['margin']));
-        }
-      }),
-      distinctUntilChanged(),
-      startWith([0, 0, 0, 0])
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null && myObj.styles != null && myObj.styles['margin'] != null) {
+            return this.fillPxNumberArray(this.toNumberArray(myObj.styles['margin']));
+          }
+        }),
+        distinctUntilChanged(), startWith([0, 0, 0, 0]));
     this.getMarginWidgetTop = this.getMarginWidget.pipe(
       filter(m => m != null),
       map(m => m![0])
@@ -1078,13 +1064,12 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     );
 
     this.getPaddingWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null && myObj.styles != null && myObj.styles['padding'] != null) {
-          return this.fillPxNumberArray(this.toNumberArray(myObj.styles['padding']));
-        }
-      }),
-      distinctUntilChanged()
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null && myObj.styles != null && myObj.styles['padding'] != null) {
+            return this.fillPxNumberArray(this.toNumberArray(myObj.styles['padding']));
+          }
+        }),
+        distinctUntilChanged());
     this.getPaddingWidgetTop = this.getPaddingWidget.pipe(
       filter(m => m != null),
       map(m => m![0])
@@ -1103,22 +1088,20 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     );
 
     this.getBackgroundColorWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null && myObj.styles != null) {
-          return myObj.styles['backgroundColor'] || '';
-        }
-      }),
-      distinctUntilChanged()
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null && myObj.styles != null) {
+            return myObj.styles['backgroundColor'] || '';
+          }
+        }),
+        distinctUntilChanged());
 
     this.getColorWidget = this._service.currentWidget.pipe(
-      map((myObj: AjfReportWidget | null) => {
-        if (myObj != null && myObj.styles != null) {
-          return myObj.styles['color'] || '';
-        }
-      }),
-      distinctUntilChanged()
-    );
+        map((myObj: AjfWidget|null) => {
+          if (myObj != null && myObj.styles != null) {
+            return myObj.styles['color'] || '';
+          }
+        }),
+        distinctUntilChanged());
 
     this._stylesUpdatesSubs = (<Observable<{idx: any; value: any}>>this._updateWidgetMarginEvt)
       .pipe(withLatestFrom(this.getMarginWidget))
@@ -1176,7 +1159,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
   ngOnChanges(changes: any) {
     this.currentWidget = changes.widget.currentValue;
     if (this.currentWidget == null) { return; }
-    this.widgetName = AjfReportWidgetType[this.currentWidget.widgetType];
+    this.widgetName = AjfWidgetType[this.currentWidget.widgetType];
   }
 
   ngOnDestroy(): void {

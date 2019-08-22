@@ -20,18 +20,12 @@
  *
  */
 
+import {AjfColumnWidget} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewEncapsulation
+} from '@angular/core';
 import {Subscription, timer} from 'rxjs';
 
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
-
-import {AjfReportColumnWidget} from '@ajf/core/reports';
 import {AjfReportBuilderService} from './report-builder-service';
 
 /**
@@ -67,12 +61,11 @@ export class AjfReportBuilderColumn implements OnDestroy, OnInit {
    *
    * @memberOf TableComponent
    */
-  @Input()
-  column: AjfReportColumnWidget;
+  @Input() column: AjfColumnWidget;
 
   private _onDraggedSub: Subscription = Subscription.EMPTY;
 
-  addToList(event: any, idx: number, toColumn: AjfReportColumnWidget) {
+  addToList(event: any, idx: number, toColumn: AjfColumnWidget) {
     this.onDragEndHandler();
     if (event.dragData.fromColumn) {
       this._service.changePositionOnColumn(event, toColumn, idx);

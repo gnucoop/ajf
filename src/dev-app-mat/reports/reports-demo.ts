@@ -20,11 +20,10 @@
  *
  */
 
+import {AjfReportInstance, AjfReportSerializer, createReportInstance} from '@ajf/core/reports';
 import {Component} from '@angular/core';
-
 import {TranslateService} from '@ngx-translate/core';
 
-import {AjfReport, AjfReportInstance} from '@ajf/core/reports';
 import {testReport} from './report';
 
 @Component({
@@ -49,9 +48,9 @@ export class ReportsDemo {
   private _populateReport(): void {
     try {
       const schema = JSON.parse(this.reportStr);
-      const report = AjfReport.fromJson(schema);
+      const report = AjfReportSerializer.fromJson(schema);
       const ctx = JSON.parse(this.context);
-      this.report = new AjfReportInstance(report, ctx, this._ts);
+      this.report = createReportInstance(report, ctx, this._ts);
     } catch (e) { }
   }
 }

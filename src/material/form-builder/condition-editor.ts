@@ -20,17 +20,14 @@
  *
  */
 
+import {AjfField, AjfFieldType, AjfValidationService} from '@ajf/core/forms';
+import {AjfExpressionUtils} from '@ajf/core/models';
+import {AjfMonacoEditor} from '@ajf/material/monaco-editor';
 import {
-  Component, ChangeDetectionStrategy, Input, ViewChild, ViewEncapsulation
+  ChangeDetectionStrategy, Component, Input, ViewChild, ViewEncapsulation
 } from '@angular/core';
 
-import {AjfValidatedProperty} from '@ajf/core/models';
-import {AjfField, AjfFieldType, AjfValidationService} from '@ajf/core/forms';
-import {AjfMonacoEditor} from '@ajf/material/monaco-editor';
-
-
 declare var monaco: any;
-
 
 @Component({
   moduleId: module.id,
@@ -123,8 +120,8 @@ export class AjfFbConditionEditor {
 
   private _updateFunctions(): void {
     try {
-      monaco.languages.typescript.javascriptDefaults
-        ._extraLibs['condition-editor-functions.d.ts'] = AjfValidatedProperty.UTIL_FUNCTIONS;
+      monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
+          AjfExpressionUtils.UTIL_FUNCTIONS;
     } catch (e) { }
   }
 

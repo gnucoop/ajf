@@ -20,17 +20,12 @@
  *
  */
 
+import {AjfLayoutWidget, AjfWidget, AjfWidgetType} from '@ajf/core/reports';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation
+  ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
 } from '@angular/core';
-
 import {Subscription} from 'rxjs';
 
-import {AjfReportLayoutWidget, AjfReportWidget, AjfReportWidgetType} from '@ajf/core/reports';
 import {AjfReportBuilderService} from './report-builder-service';
 import {ajfWidgetTypeToLabel, widgetReportBuilderIconName} from './utils';
 
@@ -45,11 +40,11 @@ import {ajfWidgetTypeToLabel, widgetReportBuilderIconName} from './utils';
 })
 export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   from: string;
-  fromWidget: AjfReportWidget;
+  fromWidget: AjfWidget;
   position: number;
-  widget: AjfReportWidget;
+  widget: AjfWidget;
   child: boolean;
-  currentWidget: AjfReportWidget | null = null;
+  currentWidget: AjfWidget|null = null;
   isClicked = false;
   color: string[] = [];
   isOver = false;
@@ -102,10 +97,10 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
 
     if (direction == 'back') {
       this._service.changeColumn(
-        this.position, this.position - 1, <AjfReportLayoutWidget>this.fromWidget);
+          this.position, this.position - 1, <AjfLayoutWidget>this.fromWidget);
     } else {
       this._service.changeColumn(
-        this.position, this.position + 1, <AjfReportLayoutWidget>this.fromWidget);
+          this.position, this.position + 1, <AjfLayoutWidget>this.fromWidget);
     }
   }
   isColumn(): boolean {
@@ -117,7 +112,7 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   }
 
   isOneColumn(): boolean {
-    let rootObj = <AjfReportLayoutWidget>this.fromWidget;
+    let rootObj = <AjfLayoutWidget>this.fromWidget;
     if (rootObj.columns.length > 1) {
       return false;
     } else {
@@ -126,7 +121,7 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.label = AjfReportWidgetType[this.widget.widgetType];
+    this.label = AjfWidgetType[this.widget.widgetType];
     this.widgetIcon = widgetReportBuilderIconName(this.widget.widgetType);
     this.widgetLabel = ajfWidgetTypeToLabel(this.widget.widgetType);
 

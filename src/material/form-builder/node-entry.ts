@@ -20,19 +20,18 @@
  *
  */
 
-import {
-  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef,
-  Input, OnDestroy, QueryList, ViewChildren, ViewEncapsulation
-} from '@angular/core';
+import {isContainerNode, isSlidesNode} from '@ajf/core/forms';
 import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
-
+import {
+  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, QueryList,
+  ViewChildren, ViewEncapsulation
+} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 
-import {isContainerNode} from '@ajf/core/forms';
 import {AjfFbBranchLine} from './branch-line';
 import {
   AjfFormBuilderEmptySlot, AjfFormBuilderNode, AjfFormBuilderNodeEntry,
-  AjfFormBuilderNodeTypeEntry, AjfFormBuilderService, isSlideNode
+  AjfFormBuilderNodeTypeEntry, AjfFormBuilderService
 } from './form-builder-service';
 
 
@@ -83,7 +82,7 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     } else {
       this._isNodeEntry = false;
       this._hasContent = false;
-      this._isSlide = isSlideNode((<AjfFormBuilderEmptySlot>nodeEntry).parent);
+      this._isSlide = isSlidesNode((<AjfFormBuilderEmptySlot>nodeEntry).parent);
     }
   }
 

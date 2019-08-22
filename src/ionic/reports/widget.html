@@ -4,7 +4,7 @@
       <div class="ajf-columns">
         <div *ngFor="let column of layoutw.columns; let idx = index" [ngStyle]="{'flex-grow': column > -1 ? 1 : null, 'flex-basis' : column > -1 ? (column * 100) + '%' : null}"
           class="ajf-column">
-          <ajf-report-widget [widgetInstance]="layoutwInst.getColumnContent(idx)">
+          <ajf-report-widget [widgetInstance]="layoutwInst|ajfGetColumnContent:idx">
           </ajf-report-widget>
         </div>
       </div>
@@ -49,7 +49,7 @@
     </ng-template>
     <ng-template [ngSwitchCase]="widgetTypes.Column">
       <div class="ajf-column-container" *ngIf="widgetInstance.visible">
-        <ng-container *ngFor="let w of widgetInstance.content">
+        <ng-container *ngFor="let w of columnInst.content">
           <ajf-report-widget [widgetInstance]="w">
           </ajf-report-widget>
         </ng-container>

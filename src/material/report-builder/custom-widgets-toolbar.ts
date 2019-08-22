@@ -30,7 +30,7 @@ import {Subscription, timer} from 'rxjs';
 import {AjfReportBuilderCustomWidgetDialog} from './custom-widget-dialog';
 import {AjfReportBuilderService} from './report-builder-service';
 
-export interface AjfReportStyles {
+export interface AjfStyles {
   [style: string]: any;
 }
 

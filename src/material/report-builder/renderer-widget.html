@@ -8,7 +8,7 @@
           <div class="ajf-column"
             [ngClass]="{'ajf-fixed': layoutWidget.columns[idx] == -1}"
             [style.width]=getPercent(idx)
-            [applyStyles]="widget.content[idx].styles">
+            [applyStyles]="layoutWidget.content[idx].styles">
             <ajf-report-builder-widgets-row-buttons
               [from]="'layout'"
               [fromWidget]="widget"

@@ -20,18 +20,15 @@
  *
  */
 
-import {
-  AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  OnInit, OnDestroy, ViewEncapsulation
-} from '@angular/core';
+import {AjfStyles, AjfWidget, AjfWidgetType} from '@ajf/core/reports';
+import {deepCopy} from '@ajf/core/utils';
 import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
-
+import {
+  AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import {Observable, Subscription, timer} from 'rxjs';
 
-import {
-  AjfReportLayoutWidget, AjfReportStyles, AjfReportWidget, AjfReportWidgetType
-} from '@ajf/core/reports';
-import {deepCopy} from '@ajf/core/utils';
 import {AjfReportBuilderDragData} from './report-builder-drag-data';
 import {AjfReportBuilderService} from './report-builder-service';
 
@@ -74,7 +71,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
     };
   }
 
-  reportStyles: Observable<AjfReportStyles>;
+  reportStyles: Observable<AjfStyles>;
 
   // this boolean sign if is dragged a widget
   onDragged = false;
@@ -95,26 +92,26 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
 
 
   // this array contains all widget locate in header zone
-  headerWidgets: AjfReportWidget[] = [];
+  headerWidgets: AjfWidget[] = [];
   /**
    * observe the css style of header
    *
    * @memberOf AjfReportBuilderContent
    */
-  headerStyles: Observable<AjfReportStyles>;
+  headerStyles: Observable<AjfStyles>;
 
   // this array contains all widget locate in content zone
-  contentWidgets: AjfReportWidget[] = [];
+  contentWidgets: AjfWidget[] = [];
 
   /**
    * observe the css style of content
    *
    * @memberOf AjfReportBuilderContent
    */
-  contentStyles: Observable<AjfReportStyles>;
+  contentStyles: Observable<AjfStyles>;
 
   // this array contains all widget locate in footer zone
-  footerWidgets: AjfReportWidget[] = [];
+  footerWidgets: AjfWidget[] = [];
 
 
   onOver: boolean = false;
@@ -123,11 +120,11 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    *
    * @memberOf AjfReportBuilderContent
    */
-  footerStyles: Observable<AjfReportStyles>;
+  footerStyles: Observable<AjfStyles>;
 
 
   // this is the current widget
-  currentWidget: AjfReportWidget | null = null;
+  currentWidget: AjfWidget|null = null;
 
 
   /**
@@ -154,12 +151,8 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
     this.footerStyles = this._service.footerStyles;
   }
 
-  isLayout(widget: AjfReportWidget): boolean {
-    if (widget instanceof AjfReportLayoutWidget) {
-      return true;
-    } else {
-      return false;
-    }
+  isLayout(widget: AjfWidget): boolean {
+    return widget.widgetType === AjfWidgetType.Layout;
   }
 
   /**
@@ -253,12 +246,10 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
       this.remove(itemData.arrayFrom!, itemData.from!);
       this.currentWidget = itemData.widget;
     } else if (itemData.json != null && itemData.json !== '') {
-      this.currentWidget = AjfReportWidget.fromJson(JSON.parse(deepCopy(itemData.json)));
+      this.currentWidget = deepCopy(itemData.json);
     } else {
-      let obj = {
-        'widgetType': (AjfReportWidgetType as any)[itemData.widgetType!]
-      };
-      this.currentWidget = AjfReportWidget.fromJson(obj);
+      let obj = {'widgetType': (AjfWidgetType as any)[itemData.widgetType!]};
+      this.currentWidget = deepCopy(obj);
     }
     this.onDragEndHandler();
     if (this.currentWidget != null) {

@@ -20,10 +20,10 @@
  *
  */
 
+import {AjfWidgetRenderer as AjfCoreReportWidgetRenderer} from '@ajf/core/reports';
 import {
-  ChangeDetectorRef, ChangeDetectionStrategy, Component, ViewEncapsulation
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
 } from '@angular/core';
-import {AjfReportWidgetRenderer as AjfCoreReportWidgetRenderer} from '@ajf/core/reports';
 
 @Component({
   moduleId: module.id,
@@ -32,11 +32,9 @@ import {AjfReportWidgetRenderer as AjfCoreReportWidgetRenderer} from '@ajf/core/
   styleUrls: ['widget.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'widgetInstance'
-  ],
+  inputs: ['widgetInstance'],
 })
-export class AjfReportWidgetRenderer extends AjfCoreReportWidgetRenderer {
+export class AjfWidgetRenderer extends AjfCoreReportWidgetRenderer {
   constructor(cdr: ChangeDetectorRef) {
     super(cdr);
   }

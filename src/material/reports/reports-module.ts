@@ -20,26 +20,26 @@
  *
  */
 
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-
-import {TranslateModule} from '@ngx-translate/core';
-
 import {AjfChartModule} from '@ajf/core/chart';
 import {AjfCommonModule} from '@ajf/core/common';
-import {AjfPageBreakModule} from '@ajf/core/page-break';
 import {AjfMapModule} from '@ajf/core/map';
+import {AjfPageBreakModule} from '@ajf/core/page-break';
+import {AjfReportsModule as CoreModule} from '@ajf/core/reports';
 import {AjfTableModule} from '@ajf/core/table';
 import {AjfTextModule} from '@ajf/core/text';
 import {AjfImageModule} from '@ajf/material/image';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfReportRenderer} from './report';
-import {AjfReportWidgetRenderer} from './widget';
+import {AjfWidgetRenderer} from './widget';
 
 @NgModule({
   imports: [
     CommonModule,
     TranslateModule,
+    CoreModule,
     AjfChartModule,
     AjfCommonModule,
     AjfImageModule,
@@ -50,11 +50,12 @@ import {AjfReportWidgetRenderer} from './widget';
   ],
   declarations: [
     AjfReportRenderer,
-    AjfReportWidgetRenderer,
+    AjfWidgetRenderer,
   ],
   exports: [
     AjfReportRenderer,
-    AjfReportWidgetRenderer,
+    AjfWidgetRenderer,
   ]
 })
-export class AjfReportsModule { }
+export class AjfReportsModule {
+}

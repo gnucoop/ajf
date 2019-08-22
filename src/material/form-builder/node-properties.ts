@@ -21,26 +21,23 @@
  */
 
 import {
+  AjfChoicesOrigin, AjfField, AjfFieldWithChoices, AjfNode, AjfNumberField,
+  AjfRepeatingContainerNode, isField, isFieldWithChoices, isNumberField,
+  isRepeatingContainerNode
+} from '@ajf/core/forms';
+import {AjfCondition, alwaysCondition, neverCondition} from '@ajf/core/models';
+import {
   ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, ViewEncapsulation
 } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-
 import {Observable, Subscription} from 'rxjs';
 import {
   distinctUntilChanged, filter, map, publishReplay, refCount, withLatestFrom
 } from 'rxjs/operators';
 
-import {AjfCondition} from '@ajf/core/models';
-import {
-  AjfField, AjfFieldWithChoices, AjfNode, AjfNumberField, IAjfChoicesOrigin,
-} from '@ajf/core/forms';
-
 import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
-import {
-  AjfFormBuilderNodeEntry, AjfFormBuilderService,
-  AjfRepeatingContainerNode, isRepeatingContainerNode
-} from './form-builder-service';
+import {AjfFormBuilderNodeEntry, AjfFormBuilderService} from './form-builder-service';
 import {AjfFbValidationConditionEditorDialog} from './validation-condition-editor-dialog';
 import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dialog';
 
@@ -110,8 +107,10 @@ export class AjfFbNodeProperties implements OnDestroy {
   private _nodeEntry: Observable<AjfFormBuilderNodeEntry | null>;
   get nodeEntry(): Observable<AjfFormBuilderNodeEntry | null> { return this._nodeEntry; }
 
-  private _choicesOrigins: IAjfChoicesOrigin[] = [];
-  get choicesOrigins(): IAjfChoicesOrigin[] { return this._choicesOrigins; }
+  private _choicesOrigins: AjfChoicesOrigin<any>[] = [];
+  get choicesOrigins(): AjfChoicesOrigin<any>[] {
+    return this._choicesOrigins;
+  }
 
   private _enabled: Observable<boolean>;
   get enabled(): Observable<boolean> { return this._enabled; }
@@ -327,15 +326,15 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   isField(node: AjfNode): boolean {
-    return node != null && node instanceof AjfField;
+    return isField(node);
   }
 
   isNumericField(node: AjfNode): boolean {
-    return node != null && node instanceof AjfNumberField;
+    return isField(node) && isNumberField(node as AjfField);
   }
 
   isFieldWithChoices(node: AjfNode): boolean {
-    return node != null && node instanceof AjfFieldWithChoices;
+    return isField(node) && isFieldWithChoices(node as AjfField);
   }
 
   save(): void {
@@ -516,12 +515,12 @@ export class AjfFbNodeProperties implements OnDestroy {
         }
 
         if (this.isFieldWithChoices(n.node)) {
-          const fieldWithChoices = <AjfFieldWithChoices>n.node;
+          const fieldWithChoices = <AjfFieldWithChoices<any>>n.node;
 
           let triggerConditions: string[] = (fieldWithChoices.triggerConditions || [])
             .map((c) => c.condition);
 
-          controls.choicesOrigin = fieldWithChoices.choicesOrigin.getName();
+          controls.choicesOrigin = fieldWithChoices.choicesOrigin.name;
           controls.choicesFilter = fieldWithChoices.choicesFilter != null ?
             fieldWithChoices.choicesFilter.formula : null;
           controls.forceExpanded = fieldWithChoices.forceExpanded;
@@ -970,7 +969,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (curCbNum < cbNum) {
           let newCbs: string[] = [];
           for (let i = curCbNum ; i < cbNum ; i++) {
-            newCbs.push(AjfCondition.alwaysCondition().condition);
+            newCbs.push(alwaysCondition().condition);
           }
           this._conditionalBranches = this._conditionalBranches.concat(newCbs);
         } else if (curCbNum > cbNum) {
@@ -987,11 +986,11 @@ export class AjfFbNodeProperties implements OnDestroy {
         let newCondition: string | null;
         switch (visibilityOpt) {
           case 'always':
-          newCondition = AjfCondition.alwaysCondition().condition;
-          break;
+            newCondition = alwaysCondition().condition;
+            break;
           case 'never':
-          newCondition = AjfCondition.neverCondition().condition;
-          break;
+            newCondition = neverCondition().condition;
+            break;
           default:
           newCondition = null;
         }
@@ -1001,10 +1000,10 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _guessVisibilityOpt(condition: AjfCondition): string {
-    if (condition.condition.localeCompare(AjfCondition.alwaysCondition().condition) === 0) {
+    if (condition.condition.localeCompare(alwaysCondition().condition) === 0) {
       return 'always';
     }
-    if (condition.condition.localeCompare(AjfCondition.neverCondition().condition) === 0) {
+    if (condition.condition.localeCompare(neverCondition().condition) === 0) {
       return 'never';
     }
     return 'condition';

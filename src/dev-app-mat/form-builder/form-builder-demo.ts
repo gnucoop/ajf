@@ -20,10 +20,10 @@
  *
  */
 
+import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
 import {Component} from '@angular/core';
 
-import {AjfForm} from '@ajf/core/forms';
-import {form} from './form';
+import {formSchema} from './form';
 
 
 @Component({
@@ -38,14 +38,15 @@ export class FormBuilderDemo {
   error: string | null;
 
   constructor() {
-    this.form = AjfForm.fromJson(form);
+    this.form = AjfFormSerializer.fromJson(formSchema);
+    this.formSchema = JSON.stringify(formSchema);
   }
 
   setForm(): void {
     this.error = null;
     try {
       const fs = JSON.parse(this.formSchema);
-      this.form = AjfForm.fromJson(fs);
+      this.form = AjfFormSerializer.fromJson(fs);
     } catch (e) {
       this.error = e.message;
     }

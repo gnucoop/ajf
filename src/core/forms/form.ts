@@ -20,24 +20,25 @@
  *
  */
 
-import {
-  AfterViewInit, AfterViewChecked, ChangeDetectorRef, EventEmitter, OnDestroy, QueryList
-} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-
 import {AjfPageSlider, AjfPageSliderOrientation} from '@ajf/core/page-slider';
 import {coerceBooleanProperty} from '@ajf/core/utils';
-
+import {
+  AfterViewChecked, AfterViewInit, ChangeDetectorRef, EventEmitter, OnDestroy, QueryList
+} from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {delayWhen, map, withLatestFrom} from 'rxjs/operators';
 
 import {AjfFormField} from './field';
 import {AjfFormInitStatus, AjfFormRendererService} from './form-renderer';
-import {AjfForm} from './forms';
-import {AjfFieldType} from './nodes';
-import {
-  AjfNodeGroupInstance, AjfNodeInstance, AjfRepeatingSlideInstance, IAjfSlideInstance
-} from './nodes-instances';
+import {AjfFieldType} from './interface/fields/field-type';
+import {AjfForm} from './interface/forms/form';
+import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-instance';
+import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
+import {AjfRepeatingSlideInstance} from './interface/slides-instances/repeating-slide-instance';
+import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
+import {isRepeatingSlideInstance} from './utils/nodes-instances/is-repeating-slide-instance';
+import {nodeInstanceCompleteName} from './utils/nodes-instances/node-instance-complete-name';
 
 export class AjfFormActionEvent {
   source: AjfFormRenderer;
@@ -50,7 +51,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   readonly formGroup: Observable<FormGroup | null>;
 
   //  slides is an observable AjfSlide array type
-  readonly slides: Observable<IAjfSlideInstance[]>;
+  readonly slides: Observable<AjfSlideInstance[]>;
   readonly slidesNum: Observable<number>;
   readonly errors: Observable<number>;
   readonly formIsInit: Observable<boolean>;
@@ -170,10 +171,6 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     );
   }
 
-  isRepeatingSlide(slide: IAjfSlideInstance): boolean {
-    return slide instanceof AjfRepeatingSlideInstance;
-  }
-
   /**
    * this method will scroll to next error received by subscribe
    */
@@ -289,6 +286,6 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   }
 
   trackNodeById(_: number, node: AjfNodeInstance): string {
-    return node.completeName;
+    return nodeInstanceCompleteName(node);
   }
 }

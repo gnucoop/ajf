@@ -20,10 +20,8 @@
  *
  */
 
+import {AjfExpressionUtils} from '@ajf/core/models';
 import {Injectable} from '@angular/core';
-
-import {AjfValidatedProperty} from '@ajf/core/models';
-
 
 @Injectable()
 export class AjfValidationService {
@@ -385,8 +383,8 @@ export class AjfValidationService {
   }
 
   addFunctionHandler(name: string, fn: any): void {
-    if (AjfValidatedProperty.utils[name] === undefined) {
-      AjfValidatedProperty.utils[name] = {fn};
+    if (AjfExpressionUtils.utils[name] === undefined) {
+      AjfExpressionUtils.utils[name] = {fn};
     }
   }
 
@@ -395,6 +393,6 @@ export class AjfValidationService {
       .map(f => typeof f === 'string' ? f : f.toString())
       .join('; ');
     this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
-    AjfValidatedProperty.UTIL_FUNCTIONS = this._functionsStr;
+    AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
   }
 }

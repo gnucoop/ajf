@@ -20,9 +20,9 @@
  *
  */
 
+import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
+import {AjfContext} from '@ajf/core/models';
 import {Component} from '@angular/core';
-
-import {AjfForm} from '@ajf/core/forms';
 
 import {formSchema} from './form';
 
@@ -35,7 +35,7 @@ import {formSchema} from './form';
 })
 export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
-  form: AjfForm = AjfForm.fromJson(formSchema);
+  form: AjfForm = AjfFormSerializer.fromJson(formSchema);
   context: string = '{}';
 
   setSchema(): void {
@@ -45,13 +45,13 @@ export class FormsDemo {
 
     try {
       let schema = JSON.parse(this.formSchema);
-      let context: any;
+      let context: AjfContext;
       if (this.context != null && this.context.length > 0) {
         context = JSON.parse(this.context);
       } else {
         context = {};
       }
-      this.form = AjfForm.fromJson(schema, context);
+      this.form = AjfFormSerializer.fromJson(schema, context);
     } catch (e) {
       console.log(e);
     }

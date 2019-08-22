@@ -20,12 +20,10 @@
  *
  */
 
+import {AjfChoicesOrigin} from '@ajf/core/forms';
 import {ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation} from '@angular/core';
-
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
-
-import {IAjfChoicesOrigin} from '@ajf/core/forms';
 
 import {AjfFbChoicesOriginEditor} from './choices-origin-editor';
 import {AjfFormBuilderService} from './form-builder-service';
@@ -42,8 +40,10 @@ import {AjfFormBuilderService} from './form-builder-service';
 export class AjfFbChoicesOriginEditorDialog {
   @ViewChild(AjfFbChoicesOriginEditor, {static: true}) editor: AjfFbChoicesOriginEditor;
 
-  private _choicesOrigin: Observable<IAjfChoicesOrigin>;
-  get choicesOrigin(): Observable<IAjfChoicesOrigin> { return this._choicesOrigin; }
+  private _choicesOrigin: Observable<AjfChoicesOrigin<any>>;
+  get choicesOrigin(): Observable<AjfChoicesOrigin<any>> {
+    return this._choicesOrigin;
+  }
 
   constructor(private _service: AjfFormBuilderService) {
     this._choicesOrigin = this._service.editedChoicesOrigin.pipe(

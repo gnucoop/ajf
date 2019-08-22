@@ -20,7 +20,7 @@
  *
  */
 
-export const formSchema = {
+export const formSchema: any = {
   choicesOrigins: [],
   nodes: [{
     id: 1,
@@ -29,42 +29,38 @@ export const formSchema = {
     nodeType: 3,
     name: 'slide_1',
     label: 'Slide 1',
-    nodes: [{
-      id: 2,
-      parent: 1,
-      parentNode: 0,
-      nodeType: 0,
-      fieldType: 2,
-      name: 'field_1',
-      label: 'Field 1',
-      visibility: {
-        condition: 'true'
-      }
-    }, {
-      id: 3,
-      parent: 2,
-      parentNode: 0,
-      nodeType: 0,
-      fieldType: 2,
-      name: 'field_2',
-      label: 'Field 2',
-      visibility: {
-        condition: 'field_1 == 1'
-      }
-    }, {
-      id: 4,
-      parent: 3,
-      parentNode: 0,
-      nodeType: 0,
-      fieldType: 2,
-      name: 'field_3',
-      label: 'Field 3',
-      visibility: {
-        condition: 'field_1 != 1'
+    nodes: [
+      {
+        id: 2,
+        parent: 1,
+        parentNode: 0,
+        nodeType: 0,
+        fieldType: 2,
+        name: 'field_1',
+        label: 'Field 1',
+        visibility: {condition: 'true'}
       },
-      formula: {
-        formula: 'field_1 * 2'
+      {
+        id: 3,
+        parent: 2,
+        parentNode: 0,
+        nodeType: 0,
+        fieldType: 2,
+        name: 'field_2',
+        label: 'Field 2',
+        visibility: {condition: 'field_1 == 1'}
+      },
+      {
+        id: 4,
+        parent: 3,
+        parentNode: 0,
+        nodeType: 0,
+        fieldType: 6,
+        name: 'field_3',
+        label: 'Field 3',
+        visibility: {condition: 'field_1 != 1'},
+        formula: {formula: 'field_1 * 2'}
       }
-    }]
+    ]
   }]
 };

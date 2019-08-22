@@ -74,7 +74,7 @@ function createChangelogWriterOptions(changelogPath: string) {
   return {
     // Specify a writer option that can be used to modify the content of a new changelog section.
     // See: conventional-changelog/tree/master/packages/conventional-changelog-writer
-    finalizeContext: (context: any) => {
+    finalizeContext: (context: AjfContext) => {
       context.commitGroups = context.commitGroups.filter((group: any) => {
         group.commits = group.commits.filter((commit: any) => {
 

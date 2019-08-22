@@ -8,7 +8,7 @@
     <ng-container *ngIf="choicesOrigins|async as cos">
       <button *ngFor="let choicesOrigin of cos"
           (click)="editChoicesOrigin(choicesOrigin)" mat-menu-item>
-        {{ choicesOrigin.getLabel() || choicesOrigin.getName() }}
+        {{ choicesOrigin.label || choicesOrigin.name }}
       </button>
     </ng-container>
   </mat-menu>

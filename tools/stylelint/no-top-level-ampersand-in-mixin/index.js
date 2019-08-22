@@ -26,7 +26,7 @@ const plugin = stylelint.createPlugin(ruleName, (isEnabled, options) => {
       }
 
       node.nodes.forEach(childNode => {
-        if (childNode.type === 'rule' && childNode.selector.indexOf('&') === 0) {
+        if (childNode.nodeType === 'rule' && childNode.selector.indexOf('&') === 0) {
           stylelint.utils.report({
             result,
             ruleName,

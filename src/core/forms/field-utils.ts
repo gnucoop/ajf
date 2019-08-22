@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfFieldType} from './nodes';
+import {AjfFieldType} from './interface/fields/field-type';
 
 export function fieldIconName(type: AjfFieldType): string {
   return `ajf-icon-field-${AjfFieldType[type].toLowerCase()}`;

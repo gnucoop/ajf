@@ -20,12 +20,11 @@
  *
  */
 
+import {AjfChartType, AjfWidgetType} from '@ajf/core/reports';
+import {sizedEnumToStringArray} from '@ajf/core/utils';
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-
 import {timer} from 'rxjs';
 
-import {AjfChartType, AjfReportWidgetType} from '@ajf/core/reports';
-import {sizedEnumToStringArray} from '@ajf/core/utils';
 import {AjfReportBuilderService} from './report-builder-service';
 
 
@@ -42,7 +41,7 @@ import {AjfReportBuilderService} from './report-builder-service';
 export class AjfReportBuilderWidgetsToolbar {
   // fieldTypes is an array string that contains the field options
   chartTypes: string[] = sizedEnumToStringArray(AjfChartType);
-  widgetTypes: string[] = sizedEnumToStringArray(AjfReportWidgetType);
+  widgetTypes: string[] = sizedEnumToStringArray(AjfWidgetType);
 
 
   /**

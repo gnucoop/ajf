@@ -20,28 +20,21 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ViewChild,
-  Input,
-  OnInit,
-  AfterViewChecked,
-  OnDestroy,
-  ViewEncapsulation
-} from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
-
-import {Subscription} from 'rxjs';
-
 import {AjfFieldType, AjfValidationService} from '@ajf/core/forms';
 import {AjfImageType} from '@ajf/core/image';
-import {AjfFormula, AjfValidatedProperty} from '@ajf/core/models';
+import {AjfExpressionUtils, createFormula, validateExpression} from '@ajf/core/models';
 import {
-  AjfAggregationType, AjfDataset, AjfReportDataWidget, AjfReportImageWidget, AjfReportWidget
+  AjfAggregationType, AjfDataset, AjfDataWidget, AjfImageWidget, AjfWidget
 } from '@ajf/core/reports';
 import {sizedEnumToStringArray} from '@ajf/core/utils';
 import {AjfMonacoEditor} from '@ajf/material/monaco-editor';
+import {
+  AfterViewChecked, ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {Subscription} from 'rxjs';
+
 import {AjfFormVariables} from './models';
 import {AjfReportBuilderService} from './report-builder-service';
 
@@ -83,7 +76,7 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   currentId: number = 0;
   currentIndex: number = 0;
   labels: string[] = [];
-  currentWidget: AjfReportWidget | null = null;
+  currentWidget: AjfWidget|null = null;
   formsVariables: AjfFormVariables[];
   formsVariablesName: string[] = [];
   formsVariablesType: string[] = [];
@@ -136,11 +129,10 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
     this._currentWidgetSub = this._service.currentWidget
       .subscribe(x => {
         if (x != null) {
-
-          this.currentWidget = <AjfReportDataWidget>x;
+          this.currentWidget = <AjfDataWidget>x;
 
           if (this.currentWidget.widgetType == 2) {
-            let myObj: AjfReportImageWidget = <AjfReportImageWidget>this.currentWidget;
+            let myObj: AjfImageWidget = <AjfImageWidget>this.currentWidget;
             if (myObj.imageType == AjfImageType.Flag) {
               this.formula = (myObj.flag) ? myObj.flag.formula : '';
             } else {
@@ -224,8 +216,8 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
 
   private _updateFunctions(): void {
     try {
-      monaco.languages.typescript.javascriptDefaults
-        ._extraLibs['condition-editor-functions.d.ts'] = AjfValidatedProperty.UTIL_FUNCTIONS;
+      monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
+          AjfExpressionUtils.UTIL_FUNCTIONS;
     } catch (e) { }
   }
 
@@ -292,7 +284,7 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
     if (this.formsVariables == null) {
       return false;
     } else {
-      return AjfFormula.validate(this.formulaText, this.formsVariablesName);
+      return validateExpression(this.formulaText, this.formsVariablesName);
     }
   }
 
@@ -317,7 +309,7 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   }
 
   saveImageFormula() {
-    this._service.saveImageFormula(new AjfFormula(this.formulaText));
+    this._service.saveImageFormula(createFormula({formula: this.formulaText}));
   }
 
   saveFormulaHtml() {

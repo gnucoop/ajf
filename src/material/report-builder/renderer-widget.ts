@@ -20,33 +20,18 @@
  *
  */
 
+import {AjfImageType} from '@ajf/core/image';
+import {evaluateExpression} from '@ajf/core/models';
+import {
+  AjfChartWidget, AjfColumnWidget, AjfDataset, AjfImageWidget, AjfLayoutWidget, AjfMapWidget,
+  AjfTableWidget, AjfTextWidget, AjfWidget, AjfWidgetType
+} from '@ajf/core/reports';
+import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
+import {
+  ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, ViewEncapsulation
+} from '@angular/core';
 import {Observable, Subscription, timer} from 'rxjs';
 import {distinctUntilChanged, map, startWith} from 'rxjs/operators';
-
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  OnChanges,
-  OnDestroy,
-  ViewEncapsulation
-} from '@angular/core';
-import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
-
-import {AjfImageType} from '@ajf/core/image';
-import {
-  AjfDataset,
-  AjfReportChartWidget,
-  AjfReportColumnWidget,
-  AjfReportImageWidget,
-  AjfReportLayoutWidget,
-  AjfReportMapWidget,
-  AjfReportTableWidget,
-  AjfReportTextWidget,
-  AjfReportWidget,
-  AjfReportWidgetType,
-} from '@ajf/core/reports';
 
 import {AjfReportBuilderDragData} from './report-builder-drag-data';
 import {AjfReportBuilderService} from './report-builder-service';
@@ -60,13 +45,14 @@ import {AjfReportBuilderService} from './report-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChanges {
-  get widgetTypes() { return AjfReportWidgetType; }
+  get widgetTypes() {
+    return AjfWidgetType;
+  }
 
-  @Input()
-  widget: AjfReportWidget;
+  @Input() widget: AjfWidget;
 
-  get layoutWidget(): AjfReportLayoutWidget {
-    return this.widget as AjfReportLayoutWidget;
+  get layoutWidget(): AjfLayoutWidget {
+    return this.widget as AjfLayoutWidget;
   }
 
   @Input()
@@ -78,7 +64,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   // this boolean sign if is dragged a widget
   onDragged = false;
 
-  currentContentWidget: AjfReportWidget | null = null;
+  currentContentWidget: AjfWidget|null = null;
   obj: any;
   fixedZoom: any;
 
@@ -130,28 +116,28 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     this._service.dragEnded();
   }
 
-  getColumnContent(): AjfReportColumnWidget[] {
-    const myObj: AjfReportLayoutWidget = <AjfReportLayoutWidget>this.widget;
+  getColumnContent(): AjfColumnWidget[] {
+    const myObj: AjfLayoutWidget = <AjfLayoutWidget>this.widget;
 
-    return <AjfReportColumnWidget[]>myObj.content;
+    return <AjfColumnWidget[]>myObj.content;
   }
 
   getIcon(): {fontSet: string, fontIcon: string} | null {
     const defVal = {fontSet: '', fontIcon: ''};
-    const myObj: AjfReportImageWidget = <AjfReportImageWidget>this.widget;
+    const myObj: AjfImageWidget = <AjfImageWidget>this.widget;
     if (myObj.icon == null) { return null; }
-    return myObj.icon.evaluate({}) || defVal;
+    return evaluateExpression(myObj.icon.formula) || defVal;
   }
 
   getFlag(): string | null {
     const defVal = 'ch';
-    const myObj: AjfReportImageWidget = <AjfReportImageWidget>this.widget;
+    const myObj: AjfImageWidget = <AjfImageWidget>this.widget;
     if (myObj.flag == null) { return null; }
-    return myObj.flag.evaluate({}) || defVal;
+    return evaluateExpression(myObj.flag.formula) || defVal;
   }
 
   getPercent(index: number): string {
-    const myObj: AjfReportLayoutWidget = <AjfReportLayoutWidget>this.widget;
+    const myObj: AjfLayoutWidget = <AjfLayoutWidget>this.widget;
     const percent = myObj.columns[index] * 100;
 
     return `${percent.toString()}%`;
@@ -159,20 +145,17 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
 
   getImageUrl(): string | null {
     const defVal = '';
-    const myObj: AjfReportImageWidget = <AjfReportImageWidget>this.widget;
+    const myObj: AjfImageWidget = <AjfImageWidget>this.widget;
     if (myObj.url == null) { return null; }
-    return myObj.url.evaluate({}) || defVal;
+    return evaluateExpression(myObj.url.formula) || defVal;
   }
 
   getImageType() {
-    return this.widget != null ?
-      (<AjfReportImageWidget>this.widget).imageType :
-      AjfImageType.Image;
+    return this.widget != null ? (<AjfImageWidget>this.widget).imageType : AjfImageType.Image;
   }
 
   getHtmlText(): string {
-    let myObj: AjfReportTextWidget;
-    myObj = <AjfReportTextWidget>this.widget;
+    const myObj: AjfTextWidget = this.widget as AjfTextWidget;
     if (myObj.htmlText === '') {
       return '...';
     } else {
@@ -181,8 +164,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   }
 
   getCoordinate(): number[] {
-    let myObj: AjfReportMapWidget;
-    myObj = <AjfReportMapWidget>this.widget;
+    const myObj: AjfMapWidget = this.widget as AjfMapWidget;
     if (myObj.coordinate == null) {
       return [51.505, -0.09, 13];
     } else {
@@ -191,26 +173,25 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   }
 
   getTileLayer(): string {
-    let myObj: AjfReportMapWidget;
-    myObj = <AjfReportMapWidget>this.widget;
+    const myObj: AjfMapWidget = this.widget as AjfMapWidget;
     if (myObj.tileLayer === '') {
       return 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     } else {
-      return myObj.tileLayerMap;
+      return myObj.tileLayer;
     }
   }
 
   getAttribution(): string {
-    let myObj: AjfReportMapWidget;
-    myObj = <AjfReportMapWidget>this.widget;
+    let myObj: AjfMapWidget;
+    myObj = <AjfMapWidget>this.widget;
     if (myObj.attribution === '') {
       return "&copy; <a href='http://osm.org/copyright'>O</a> contributors";
     } else {
-      return myObj.attributionMap;
+      return myObj.attribution;
     }
   }
 
-  addToList(event: CdkDragDrop<AjfReportBuilderDragData>, toColumn: AjfReportColumnWidget): void {
+  addToList(event: CdkDragDrop<AjfReportBuilderDragData>, toColumn: AjfColumnWidget): void {
     this.onDragEndHandler();
     this._service.addToColumn(event, toColumn);
   }
@@ -222,77 +203,73 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
       });
 
     this.getChartType = this._service.currentWidget.pipe(
-      map((widget: AjfReportWidget | null) => {
-        if (widget == null) { return 0; }
-        const myObj = <AjfReportChartWidget>this.widget;
-        return <number>(myObj.chartType);
-      }),
-      distinctUntilChanged(),
-      startWith(0)
-    );
+        map((widget: AjfWidget|null) => {
+          if (widget == null) {
+            return 0;
+          }
+          const myObj = <AjfChartWidget>this.widget;
+          return <number>(myObj.chartType);
+        }),
+        distinctUntilChanged(), startWith(0));
 
     this.getDataset = this._service.currentWidget.pipe(
-      map((widget: AjfReportWidget | null) => {
-        if (widget != null && (widget as AjfReportChartWidget).dataset != null) {
-          const myObj = <AjfReportChartWidget>this.widget;
-          return <any>myObj.dataset;
-        } else {
-          return [];
-        }
-      }),
-      distinctUntilChanged()
-    );
-
-    this.getTableTitles = this._service.currentWidget.pipe(
-      map((widget: AjfReportWidget | null) => {
-        if (widget == null) { return []; }
-
-        const myObj = <AjfReportTableWidget>this.widget;
-
-        if (myObj.dataset != null) {
-          let tableTitle: string[] = [];
-
-          for (let i = 0; i < myObj.dataset.length; i++) {
-            if (myObj.dataset[i][0] != null) {
-              tableTitle.push(myObj.dataset[i][0].label);
-            }
+        map((widget: AjfWidget|null) => {
+          if (widget != null && (widget as AjfChartWidget).dataset != null) {
+            const myObj = <AjfChartWidget>this.widget;
+            return <any>myObj.dataset;
+          } else {
+            return [];
           }
-          return tableTitle;
-        } else {
-          return [];
+        }),
+        distinctUntilChanged());
+
+    this.getTableTitles = this._service.currentWidget.pipe(map((widget: AjfWidget|null) => {
+      if (widget == null) {
+        return [];
+      }
+
+      const myObj = this.widget as AjfTableWidget;
+
+      if (myObj.dataset != null) {
+        let tableTitle: string[] = [];
+
+        for (let i = 0; i < myObj.dataset.length; i++) {
+          if (myObj.dataset[i][0] != null) {
+            tableTitle.push(myObj.dataset[i][0].label || '');
+          }
         }
-      })
-    );
+        return tableTitle;
+      } else {
+        return [];
+      }
+    }));
 
-    this.getTableContent = this._service.currentWidget.pipe(
-      map((widget: AjfReportWidget | null) => {
-        if (widget == null) { return []; }
+    this.getTableContent = this._service.currentWidget.pipe(map((widget: AjfWidget|null) => {
+      if (widget == null) {
+        return [];
+      }
 
-        const myObj = <AjfReportTableWidget>this.widget;
+      const myObj = <AjfTableWidget>this.widget;
 
-        if (myObj.dataset != null) {
-          let tableContent: string[][] = [];
+      if (myObj.dataset != null) {
+        let tableContent: string[][] = [];
 
-          for (let i = 0; i < myObj.dataset.length; i++) {
-            for (let j = 0; j < myObj.dataset[i].length; j++) {
-              if (
-                (myObj.dataset[i] != null) &&
-                (myObj.dataset[i][j + 1] != null)
-              ) {
-                if (tableContent[j] == null) {
-                  tableContent[j] = [];
-                }
-                if (tableContent[j][i] == null) {
-                  tableContent[j][i] = ' ';
-                }
-                tableContent[j].splice(i, 1, myObj.dataset[i][j + 1].label);
+        for (let i = 0; i < myObj.dataset.length; i++) {
+          for (let j = 0; j < myObj.dataset[i].length; j++) {
+            if ((myObj.dataset[i] != null) && (myObj.dataset[i][j + 1] != null)) {
+              if (tableContent[j] == null) {
+                tableContent[j] = [];
               }
+              if (tableContent[j][i] == null) {
+                tableContent[j][i] = ' ';
+              }
+              tableContent[j].splice(i, 1, myObj.dataset[i][j + 1].label || '');
             }
           }
-          return tableContent;
         }
-      })
-    );
+        return tableContent;
+      }
+    }));
 
     this._service.updateCurrentWidget(this.widget);
   }

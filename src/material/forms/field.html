@@ -1,6 +1,6 @@
 <ng-container *ngIf="control|async as curControl">
-  <div [ngSwitch]="fieldInstance.field.fieldType"
-      [ngClass]="'ajf-field-' + fieldInstance.completeName"
+  <div [ngSwitch]="fieldInstance.node.fieldType"
+      [ngClass]="'ajf-field-' + (fieldInstance|ajfNodeCompleteName)"
       [class.ajf-validated]="fieldInstance|ajfFieldIsValid">
     <mat-form-field *ngSwitchCase="ajfFieldTypes.String">
       <input matInput
@@ -21,8 +21,8 @@
         [formControl]="curControl">
     </mat-slide-toggle>
     <ng-container *ngSwitchCase="ajfFieldTypes.SingleChoice">
-      <ng-container *ngIf="(!fwcInst.field.forceExpanded &&
-          fwcInst.filteredChoices && fwcInst.filteredChoices.length > 6) || fwcInst.field.forceNarrow">
+      <ng-container *ngIf="(!fwcInst.node.forceExpanded &&
+          fwcInst.filteredChoices && fwcInst.filteredChoices.length > 6) || fwcInst.node.forceNarrow">
         <mat-select [formControl]="curControl">
           <mat-option [value]="choice.value"
               *ngFor="let choice of fwcInst.filteredChoices">
@@ -30,8 +30,8 @@
           </mat-option>
         </mat-select>
       </ng-container>
-      <ng-container *ngIf="!fwcInst.field.forceNarrow &&
-          (fwcInst.field.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= 6))">
+      <ng-container *ngIf="!fwcInst.node.forceNarrow &&
+          (fwcInst.node.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= 6))">
         <mat-radio-group class="ajf-choices-container"
             [formControl]="curControl">
           <mat-radio-button [value]="choice.value"
@@ -42,8 +42,8 @@
       </ng-container>
     </ng-container>
     <ng-container *ngSwitchCase="ajfFieldTypes.MultipleChoice">
-      <ng-container *ngIf="(!fwcInst.field.forceExpanded &&
-          fwcInst.filteredChoices && fwcInst.filteredChoices.length > 6) || fwcInst.field.forceNarrow">
+      <ng-container *ngIf="(!fwcInst.node.forceExpanded &&
+          fwcInst.filteredChoices && fwcInst.filteredChoices.length > 6) || fwcInst.node.forceNarrow">
          <mat-select [formControl]="curControl" [multiple]="true">
           <mat-option [value]="choice.value"
               *ngFor="let choice of fwcInst.filteredChoices">
@@ -51,8 +51,8 @@
           </mat-option>
         </mat-select>
       </ng-container>
-      <ng-container *ngIf="!fwcInst.field.forceNarrow &&
-          (fwcInst.field.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= 6))">
+      <ng-container *ngIf="!fwcInst.node.forceNarrow &&
+          (fwcInst.node.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= 6))">
         <ajf-checkbox-group class="ajf-choices-container"
             [formControl]="curControl">
           <ajf-checkbox-group-item *ngFor="let choice of fwcInst.filteredChoices"
@@ -71,8 +71,8 @@
     <ajf-calendar *ngSwitchCase="ajfFieldTypes.Date"
         selectionMode="date"
         dateOnlyForDay
-        [minDate]="datefInst.field.minDateValue"
-        [maxDate]="datefInst.field.maxDateValue"
+        [minDate]="datefInst.node.minDate|ajfDateValue"
+        [maxDate]="datefInst.node.maxDate|ajfDateValue"
         [formControl]="curControl"></ajf-calendar>
     <ajf-time *ngSwitchCase="ajfFieldTypes.Time"
         [formControl]="curControl"></ajf-time>
@@ -82,18 +82,18 @@
           [formControl]="curControl">
     </mat-form-field>
     <table *ngSwitchCase="ajfFieldTypes.Table" style="width:100%">
-      <ng-template [ngIf]="!tablefInst.field.editable">
-        <ng-template ngFor let-columns let-i="index" [ngForOf]="tablefInst.visibleColumns">
-          <tr [ngClass]="i | tableRowClass">
+      <ng-template [ngIf]="!tablefInst.node.editable">
+        <ng-template ngFor let-columns let-i="index" [ngForOf]="tablefInst|ajfTableVisibleColumns">
+          <tr [ngClass]="i | ajfTableRowClass">
             <td *ngFor="let cellValue of columns" >
               {{ cellValue | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
             </td>
           </tr>
         </ng-template>
       </ng-template>
-      <ng-template [ngIf]="fieldInstance.field.editable">
+      <ng-template [ngIf]="fieldInstance.node.editable">
         <ng-template ngFor let-columns let-indexRows="index" [ngForOf]="tablefInst.controlsWithLabels">
-          <tr [ngClass]="indexRows | tableRowClass">
+          <tr [ngClass]="indexRows | ajfTableRowClass">
             <td *ngFor="let contr of columns; let indexColums = index">
               <ng-container *ngIf="contr != null">
                 <ng-template [ngIf]="indexColums != 0 && indexRows != 0">
@@ -110,12 +110,12 @@
       </ng-template>
     </table>
     <ng-container *ngSwitchCase="ajfFieldTypes.Empty">
-      <h1 [innerHTML]="emptyfInst.field.label | translate"></h1>
-      <div [innerHTML]="emptyfInst.field.HTML | translate"></div>
+      <h1 [innerHTML]="emptyfInst.node.label | translate"></h1>
+      <div [innerHTML]="emptyfInst.node.HTML | translate"></div>
     </ng-container>
   </div>
-  <ng-container *ngIf="fieldInstance.field.hasAttachments">
-    <a *ngFor="let attachment of fieldInstance.field.attachments"
+  <ng-container *ngIf="fieldInstance.node.attachments">
+    <a *ngFor="let attachment of fieldInstance.node.attachments"
       [href]="attachment.value" target="_blank">{{attachment.label | translate}}</a>
   </ng-container>
   <div *ngIf="fieldInstance.validationResults" class="ajf-errors">

@@ -20,19 +20,12 @@
  *
  */
 
+import {AjfCondition, validateExpression} from '@ajf/core/models';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  ViewEncapsulation
+  ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation
 } from '@angular/core';
-
 import {Subscription, timer} from 'rxjs';
 
-import {AjfCondition} from '@ajf/core/models';
 import {AjfFormVariables} from './models';
 import {AjfReportBuilderService} from './report-builder-service';
 import {sanitizeConditionString} from './utils';
@@ -109,7 +102,7 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
    * @return boolean
    */
   validateCondition(): boolean {
-    return AjfCondition.validate(this.conditionText, this.names);
+    return validateExpression(this.conditionText, this.names);
   }
 
   // TODO complete the comment
