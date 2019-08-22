@@ -21,53 +21,50 @@
  */
 
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  OnDestroy, OnInit, ViewChild, ViewEncapsulation
-} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-
-import {
-  AjfFormField as AjfCoreFormField, AjfFormFieldWarningAlertResult, AjfFormRendererService
+  AjfFieldType, AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField
 } from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy, Component, ComponentFactoryResolver, ViewChild, ViewEncapsulation
+} from '@angular/core';
 
-import {AjfFormFieldWarningDialog} from './field-warning-dialog';
-
+import {AjfBooleanFieldComponent} from './boolean-field';
+import {AjfDateFieldComponent} from './date-field';
+import {AjfEmptyFieldComponent} from './empty-field';
+import {AjfInputFieldComponent} from './input-field';
+import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
+import {AjfSingleChoiceFieldComponent} from './single-choice-field';
+import {AjfTableFieldComponent} from './table-field';
+import {AjfTimeFieldComponent} from './time-field';
 
 @Component({
   moduleId: module.id,
-  selector: 'ajf-form-field',
+  selector: 'ajf-field,ajf-form-field',
   templateUrl: 'field.html',
   styleUrls: ['field.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  inputs: [
-    'fieldInstance'
-  ],
-  outputs: [
-    'valueChanged'
-  ],
+  inputs: ['instance'],
   queries: {
-    singleChoiceSelect: new ViewChild('singleChoiceSelect', {static: false}),
-    multipleChoiceSelect: new ViewChild('multipleChoiceSelect', {static: false})
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class AjfFormField extends AjfCoreFormField implements OnDestroy, OnInit {
-  constructor(
-    _rendererService: AjfFormRendererService,
-    _changeDetectionRef: ChangeDetectorRef,
-    private _dialog: MatDialog
-  ) {
-    super(_rendererService, _changeDetectionRef);
+    fieldHost: new ViewChild(AjfFieldHost, {static: true}),
   }
+})
+export class AjfFormField extends CoreFormField {
+  componentsMap: AjfFieldComponentsMap = {
+    [AjfFieldType.String]: {component: AjfInputFieldComponent},
+    [AjfFieldType.Text]: {component: AjfInputFieldComponent},
+    [AjfFieldType.Number]: {component: AjfInputFieldComponent, inputs: {type: 'number'}},
+    [AjfFieldType.Boolean]: {component: AjfBooleanFieldComponent},
+    [AjfFieldType.Formula]: {component: AjfInputFieldComponent, inputs: {readonly: true}},
+    [AjfFieldType.Date]: {component: AjfDateFieldComponent},
+    [AjfFieldType.DateInput]: {component: AjfInputFieldComponent, inputs: {type: 'date'}},
+    [AjfFieldType.Table]: {component: AjfTableFieldComponent},
+    [AjfFieldType.Empty]: {component: AjfEmptyFieldComponent},
+    [AjfFieldType.SingleChoice]: {component: AjfSingleChoiceFieldComponent},
+    [AjfFieldType.MultipleChoice]: {component: AjfMultipleChoiceFieldComponent},
+    [AjfFieldType.Time]: {component: AjfTimeFieldComponent},
+  };
 
-  showWarningAlertPrompt(messagesWarning: string[]): Observable<AjfFormFieldWarningAlertResult> {
-    const dialog = this._dialog.open(AjfFormFieldWarningDialog);
-    dialog.componentInstance.message = messagesWarning.join('<br>');
-    return dialog.afterClosed().pipe(
-      map((result: boolean) => ({result}))
-    );
+  constructor(cfr: ComponentFactoryResolver) {
+    super(cfr);
   }
 }

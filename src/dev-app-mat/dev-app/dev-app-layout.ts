@@ -39,6 +39,7 @@ export class DevAppLayout {
     {name: 'Examples', route: '/examples'},
     {name: 'Calendar', route: '/calendar'},
     {name: 'Checkbox group', route: '/checkbox-group'},
+    {name: 'Fields', route: '/fields'},
     {name: 'Form builder', route: '/form-builder'},
     {name: 'Forms', route: '/forms'},
     {name: 'Image', route: '/image'},

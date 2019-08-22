@@ -29,6 +29,7 @@ export const DEV_APP_ROUTES: Routes = [
   {path: 'calendar', loadChildren: 'calendar/calendar-demo-module#CalendarDemoModule'},
   {path: 'checkbox-group',
     loadChildren: 'checkbox-group/checkbox-group-demo-module#CheckboxGroupDemoModule'},
+  {path: 'fields', loadChildren: 'fields/fields-demo-module#FieldsDemoModule'},
   {path: 'form-builder',
     loadChildren: 'form-builder/form-builder-demo-module#FormBuilderDemoModule'},
   {path: 'forms', loadChildren: 'forms/forms-demo-module#FormsDemoModule'},

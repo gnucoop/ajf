@@ -16,7 +16,7 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":time.css"] + glob(["**/*.html"]),
-    module_name = "@ajf/material/time",
+    module_name = "@ajf/core/time",
     deps = [
         "@npm//@angular/core",
         "@npm//@angular/forms",

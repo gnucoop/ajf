@@ -20,140 +20,52 @@
  *
  */
 
-import {AfterViewInit, ChangeDetectorRef, EventEmitter, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl} from '@angular/forms';
-import {Observable, Subscription} from 'rxjs';
-import {filter, withLatestFrom} from 'rxjs/operators';
+import {ComponentFactoryResolver, OnInit} from '@angular/core';
 
-import {AjfFormRendererService} from './form-renderer';
-import {AjfDateFieldInstance} from './interface/fields-instances/date-field-instance';
-import {AjfEmptyFieldInstance} from './interface/fields-instances/empty-field-instance';
+import {AjfFieldComponentsMap} from './field-components-map';
+import {AjfFieldHost} from './field-host';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
-import {
-  AjfFieldWithChoicesInstance
-} from './interface/fields-instances/field-with-choices-instance';
-import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
-import {AjfFieldType} from './interface/fields/field-type';
-import {AjfFieldWithChoices} from './interface/fields/field-with-choices';
-import {isFieldWithChoicesInstance} from './utils/fields-instances/is-field-with-choices-instance';
 
-export interface AjfFormFieldWarningAlertResult { result: boolean; }
+export abstract class AjfFormField implements OnInit {
+  fieldHost: AjfFieldHost;
 
-export class AjfFormFieldValueChanged { field: AjfFormField; }
-
-
-export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
-  // AjfFieldType obj implement the type of field
-  // ( String, Text, Number, Boolean, SingleChoice, MultipleChoice,
-  // Formula, Empty, Composed )
-  ajfFieldTypes = AjfFieldType;
-  // this observable implement abstract control
-  control: Observable<AbstractControl | null>;
-
-  private _fieldInstance: AjfFieldInstance;
-  get fieldInstance(): AjfFieldInstance { return this._fieldInstance; }
-  set fieldInstance(fieldInstance: AjfFieldInstance) {
-    this._fieldInstance = fieldInstance;
-    this._fieldUpdateSubscription.unsubscribe();
-    this._fieldUpdateSubscription = fieldInstance.updated.subscribe(() => {
-      if (this._changeDetectionRef) {
-        try {
-          this._changeDetectionRef.detectChanges();
-        } catch (e) { }
-      }
-    });
+  private _instance: AjfFieldInstance;
+  get instance(): AjfFieldInstance { return this._instance; }
+  set instance(instance: AjfFieldInstance) {
+    if (this._instance !== instance) {
+      this._instance = instance;
+      this._loadComponent();
+    }
   }
 
-  get fwcInst(): AjfFieldWithChoicesInstance<any> {
-    return this._fieldInstance as AjfFieldWithChoicesInstance<any>;
-  }
-  get fwc(): AjfFieldWithChoices<any> {
-    return this._fieldInstance.node as AjfFieldWithChoices<any>;
-  }
-  get datefInst(): AjfDateFieldInstance { return this._fieldInstance as AjfDateFieldInstance; }
-  get tablefInst(): AjfTableFieldInstance { return this._fieldInstance  as AjfTableFieldInstance; }
-  get emptyfInst(): AjfEmptyFieldInstance { return this._fieldInstance as AjfEmptyFieldInstance; }
+  protected abstract componentsMap: AjfFieldComponentsMap;
 
-  singleChoiceSelect: any;
-  multipleChoiceSelect: any;
+  constructor(private _cfr: ComponentFactoryResolver) { }
 
-  // this private AjfFieldValueChanged event emitter emit an event when the
-  // field value is changed
-  private _valueChanged: EventEmitter<AjfFormFieldValueChanged> =
-      new EventEmitter<AjfFormFieldValueChanged>();
-  // this @output expose the value changed like an observable
-  get valueChanged(): Observable<AjfFormFieldValueChanged> {
-    return this._valueChanged.asObservable();
-  }
-
-  private _triggerSelectionSubscription: Subscription = Subscription.EMPTY;
-  private _triggerWarningSubscription: Subscription = Subscription.EMPTY;
-  private _fieldUpdateSubscription: Subscription = Subscription.EMPTY;
-
-  /**
-   * this constructor will init _rendererService _changeDetectionRef _alertCtrl
-   * and init the messagesWarning subscription
-   */
-  constructor(protected _rendererService: AjfFormRendererService,
-              protected _changeDetectionRef: ChangeDetectorRef) {}
-
-  abstract showWarningAlertPrompt(
-    messagesWarning: string[]
-  ): Observable<AjfFormFieldWarningAlertResult>;
-
-  /**
-   * this method will init the control, the filtere choices and the change
-   * detection reference
-   */
   ngOnInit(): void {
-    this.control = this._rendererService.getControl(this.fieldInstance);
-    this._triggerWarningSubscription =
-        this.fieldInstance.warningTrigger
-            .pipe(withLatestFrom(this.control), filter(v => v[1] != null))
-            .subscribe((v: [void, AbstractControl|null]) => {
-              const control = v[1];
-              const s = this.showWarningAlertPrompt((this.fieldInstance.warningResults || [])
-                                                        .filter(w => w.result)
-                                                        .map(w => w.warning))
-                            .subscribe(
-                                (r: AjfFormFieldWarningAlertResult) => {
-                                  if (r.result) {
-                                    control!.setValue(null);
-                                  }
-                                },
-                                (_e: any) => {
-                                  if (s) {
-                                    s.unsubscribe();
-                                  }
-                                },
-                                () => {
-                                  if (s) {
-                                    s.unsubscribe();
-                                  }
-                                });
-            });
+    this._loadComponent();
   }
 
-  ngAfterViewInit() {
-    if (isFieldWithChoicesInstance(this.fieldInstance)) {
-      this._triggerSelectionSubscription = this.fwcInst.selectionTrigger.subscribe(() => {
-        this._triggerSelection();
-      });
-    }
-  }
+  private _loadComponent(): void {
+    if (this._instance == null || this.fieldHost == null) { return; }
 
-  ngOnDestroy(): void {
-    this._triggerSelectionSubscription.unsubscribe();
-    this._triggerWarningSubscription.unsubscribe();
-    this._fieldUpdateSubscription.unsubscribe();
-  }
-
-  private _triggerSelection(): void {
-    if (this.singleChoiceSelect != null && !this.singleChoiceSelect._isOpen) {
-      this.singleChoiceSelect.open();
-    } else if (this.multipleChoiceSelect != null &&
-               !this.multipleChoiceSelect._isOpen) {
-      this.multipleChoiceSelect.open();
-    }
+    const vcr = this.fieldHost.viewContainerRef;
+    vcr.clear();
+    const componentDef = this.componentsMap[this._instance.node.fieldType];
+    if (componentDef == null) { return; }
+    const component = componentDef.component;
+    try {
+      const componentFactory = this._cfr.resolveComponentFactory(component);
+      const componentRef = vcr.createComponent(componentFactory);
+      const componentInstance = componentRef.instance;
+      componentInstance.instance = this._instance;
+      if (componentDef.inputs) {
+        Object.keys(componentDef.inputs).forEach(key => {
+          if (key in componentInstance) {
+            (componentInstance as any)[key] = componentDef.inputs![key];
+          }
+        });
+      }
+    } catch (e) { }
   }
 }

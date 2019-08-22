@@ -23,7 +23,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
-import {AjfTimeModule} from '@ajf/material/time';
+import {AjfTimeModule} from '@ajf/core/time';
 
 import {TimeDemo} from './time-demo';
 

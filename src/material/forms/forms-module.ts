@@ -38,15 +38,23 @@ import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {AjfCommonModule} from '@ajf/core/common';
+import {AjfTimeModule} from '@ajf/core/time';
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/material/page-slider';
-import {AjfTimeModule} from '@ajf/material/time';
 
+import {AjfBooleanFieldComponent} from './boolean-field';
+import {AjfDateFieldComponent} from './date-field';
+import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfFormField} from './field';
-import {AjfFormFieldWarningDialog} from './field-warning-dialog';
+import {AjfFieldWarningDialog} from './field-warning-dialog';
 import {AjfFormRenderer} from './form';
-
+import {AjfInputFieldComponent} from './input-field';
+import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
+import {AjfSingleChoiceFieldComponent} from './single-choice-field';
+import {AjfTableFieldComponent} from './table-field';
+import {AjfTimeFieldComponent} from './time-field';
+import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
   imports: [
@@ -66,21 +74,40 @@ import {AjfFormRenderer} from './form';
     AjfCoreFormsModule,
     AjfCalendarModule,
     AjfCheckboxGroupModule,
+    AjfCommonModule,
     AjfPageSliderModule,
-    AjfTimeModule,
-    AjfCommonModule
+    AjfTimeModule
   ],
   declarations: [
+    AjfBooleanFieldComponent,
+    AjfDateFieldComponent,
+    AjfEmptyFieldComponent,
     AjfFormField,
-    AjfFormFieldWarningDialog,
-    AjfFormRenderer
+    AjfFieldWarningDialog,
+    AjfFormRenderer,
+    AjfInputFieldComponent,
+    AjfMultipleChoiceFieldComponent,
+    AjfSingleChoiceFieldComponent,
+    AjfTableFieldComponent,
+    AjfTimeFieldComponent
   ],
   exports: [
     AjfFormField,
     AjfFormRenderer
   ],
   entryComponents: [
-    AjfFormFieldWarningDialog
-  ]
+    AjfBooleanFieldComponent,
+    AjfDateFieldComponent,
+    AjfEmptyFieldComponent,
+    AjfFieldWarningDialog,
+    AjfInputFieldComponent,
+    AjfMultipleChoiceFieldComponent,
+    AjfSingleChoiceFieldComponent,
+    AjfTableFieldComponent,
+    AjfTimeFieldComponent
+  ],
+  providers: [
+    AjfWarningAlertService,
+  ],
 })
 export class AjfFormsModule { }

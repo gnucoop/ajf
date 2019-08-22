@@ -1,0 +1,7 @@
+<ion-item>
+  <ajf-calendar selectionMode="day"
+      dateOnlyForDay
+      [minDate]="instance.node.minDate|ajfDateValue"
+      [maxDate]="instance.node.maxDate|ajfDateValue"
+      [formControl]="control|async"></ajf-calendar>
+</ion-item>

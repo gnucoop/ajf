@@ -69,7 +69,7 @@
                               <i [class]="fieldInstance.node.fieldType | ajfFieldIcon" item-right></i>
                               <p>{{ fieldInstance.node.description | translate }}</p>
                               <label *ngIf="fieldInstance.node.fieldType !== 7" [innerHTML]="fieldInstance.node.label | translate"></label>
-                              <ajf-form-field [fieldInstance]="fieldInstance"></ajf-form-field>
+                              <ajf-field [instance]="fieldInstance"></ajf-field>
                             </div>
                           </ng-template>
                         </mat-card-content>
@@ -85,7 +85,7 @@
                         <mat-card-header>
                           <div class="ajf-page-slider-item-header">
                             <h2>
-                              <span class="ajf-form-header-number">{{ slideInstance.position|ajfIncrement:idx }} &rarr;</span>
+                              <span class="ajf-form-header-number">{{ slideInstance.position|ajfIncrement:idx + hasStartMessage }} &rarr;</span>
                               <span [innerHTML]="slideInstance.node.label | translate"></span>
                             </h2>
                             <mat-icon class="ajf-warning" *ngIf="!(slideInstance|ajfValidSlide:idx)">warning</mat-icon>
@@ -106,7 +106,7 @@
                               <i [class]="fieldInstance.node.fieldType | ajfFieldIcon" item-right></i>
                               <p>{{ fieldInstance.node.description | translate }}</p>
                               <label [innerHTML]="fieldInstance.node.label | translate"></label>
-                              <ajf-form-field [fieldInstance]="fieldInstance"></ajf-form-field>
+                              <ajf-field [instance]="fieldInstance"></ajf-field>
                             </div>
                           </ng-template>
                         </mat-card-content>

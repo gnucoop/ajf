@@ -59,7 +59,7 @@
                             <i [class]="fieldInstance.node.fieldType | ajfFieldIcon" item-right></i>
                             <p>{{ fieldInstance.node.description }}</p>
                             <ion-label [innerHTML]="fieldInstance.node.label | translate"></ion-label>
-                            <ajf-field [fieldInstance]="fieldInstance"></ajf-field>
+                            <ajf-field [instance]="fieldInstance"></ajf-field>
                           </div>
                         </ng-container>
                       </ion-card-content>
@@ -96,7 +96,7 @@
                             <i [class]="fieldInstance.node.fieldType | ajfFieldIcon" item-right></i>
                             <p>{{ fieldInstance.node.description }}</p>
                             <ion-label [innerHTML]="fieldInstance.node.label | translate"></ion-label>
-                            <ajf-field [fieldInstance]="fieldInstance"></ajf-field>
+                            <ajf-field [instance]="fieldInstance"></ajf-field>
                           </div>
                         </ng-container>
                         <div *ngIf="lastSlide && longSlide" class="ajf-group-actions ajf-group-actions-bottom">

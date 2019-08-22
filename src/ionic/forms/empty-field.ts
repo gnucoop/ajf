@@ -20,6 +20,25 @@
  *
  */
 
-import {InjectionToken} from '@angular/core';
+import {
+  AjfBaseFieldComponent, AjfEmptyFieldInstance, AjfFormRendererService
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
+} from '@angular/core';
 
-export const AJF_SEARCH_ALERT_TRESHOLD = new InjectionToken<number>('AJF_SEARCH_ALERT_TRESHOLD');
+import {AjfWarningAlertService} from './warning-alert-service';
+
+@Component({
+  moduleId: module.id,
+  templateUrl: 'empty-field.html',
+  styleUrls: ['empty-field.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfEmptyFieldComponent extends AjfBaseFieldComponent<AjfEmptyFieldInstance> {
+  constructor(
+    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+    super(cdr, service, was);
+  }
+}

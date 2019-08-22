@@ -178,13 +178,13 @@ export class AjfValidationService {
         * @param  property the property on wich we want filter
         * @return array of dates
       */
-      var drawThreshold = function(source, property, treshold) {
+      var drawThreshold = function(source, property, threshold) {
         source = (source || []).slice(0);
         var l = source.length;
         var res = [];
         for (var i = 0; i < l ; i++) {
           if (source[i][property] != null) {
-            res.push(treshold);
+            res.push(threshold);
           }
         }
         return res;
@@ -287,7 +287,7 @@ export class AjfValidationService {
         * @param  source array of object wich contains property
         * @param  property the property on wich we want to calculate the average
         * @param  range the range on wich we want to calculate the average
-        * @param  coefficent the coefficent used for calculate the treshold
+        * @param  coefficent the coefficent used for calculate the threshold
                   if coefficent is 0 mean return the count of property > 0
         * @return the average value || the count of property > 0
       */
@@ -324,15 +324,15 @@ export class AjfValidationService {
         if (coefficient == 0) {
           return noZero;
         } else {
-          var treshold = (res/counter)*coefficient || 0;
-          return treshold;
+          var threshold = (res/counter)*coefficient || 0;
+          return threshold;
         }
       }`,
-    `var alert = function(source, property, treshold, fmt) {
+    `var alert = function(source, property, threshold, fmt) {
         source = (source || []).slice(0);
         var l = source.length;
 
-        if ( lastProperty(source, property)  > treshold ) {
+        if ( lastProperty(source, property)  > threshold ) {
           return '<p><i class="material-icons" style="color:red">warning</i></p>';
           } else {
             return '<p></p>';

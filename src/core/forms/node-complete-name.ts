@@ -27,6 +27,6 @@ import {nodeInstanceCompleteName} from './utils/nodes-instances/node-instance-co
 @Pipe({name: 'ajfNodeCompleteName'})
 export class AjfNodeCompleteNamePipe implements PipeTransform {
   transform(instance: AjfNodeInstance): string {
-    return nodeInstanceCompleteName(instance);
+    return instance ? nodeInstanceCompleteName(instance) : '';
   }
 }

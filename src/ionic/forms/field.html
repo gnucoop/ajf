@@ -1,134 +1,20 @@
-<ng-container *ngIf="control|async as curControl">
-  <div [ngSwitch]="fieldInstance.node.fieldType"
-      [ngClass]="'ajf-field-' + (fieldInstance|ajfNodeCompleteName)"
-      [class.ajf-validated]="fieldInstance|ajfFieldIsValid">
-    <ion-input *ngSwitchCase="ajfFieldTypes.String"
-        type="text"
-        [formControl]="curControl"></ion-input>
-    <ng-container *ngSwitchCase="ajfFieldTypes.Text">
-      <ion-textarea
-          [formControl]="curControl"></ion-textarea>
-      <!-- <button (click)="onValueChanged()">Ok</button> -->
-    </ng-container>
-
-    <ion-input *ngSwitchCase="ajfFieldTypes.Number"
-        type="number"
-        [formControl]="curControl"></ion-input>
-
-    <ion-toggle *ngSwitchCase="ajfFieldTypes.Boolean"
-        [formControl]="curControl"></ion-toggle>
-
-    <ng-container *ngSwitchCase="ajfFieldTypes.SingleChoice">
-      <ng-container *ngIf="(!fwc.forceExpanded &&
-            fwcInst.filteredChoices && fwcInst.filteredChoices.length > searchTreshold) || fwc.forceNarrow">
-        <div class="ajf-item-container">
-          <gic-select *ngIf="fwcInst.filteredChoices as cs"
-              #singleChoiceSelect
-              [searchBar]="fwcInst|ajfSelectHasSearchBar:searchTreshold"
-              [useVirtualScroll]="fwcInst|ajfSelectUseVirtualScroll:100"
-              [placeholder]="fieldInstance.node.label"
-              [formControl]="curControl">
-            <ion-virtual-scroll [items]="cs">
-              <gic-select-option *virtualItem="let item"
-                  [value]="item.value">{{ item.label|translate }}</gic-select-option>
-            </ion-virtual-scroll>
-          </gic-select>
-        </div>
-      </ng-container>
-      <div class="ajf-choices-container" *ngIf="!fwc.forceNarrow &&
-            (fwcInst.node.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
-        <ion-radio-group
-            [formControl]="curControl">
-          <ion-item *ngFor="let choice of fwcInst.filteredChoices">
-            <ion-label>{{ choice.label | translate}}</ion-label>
-            <ion-radio [value]="choice.value"></ion-radio>
-          </ion-item>
-        </ion-radio-group>
+<div
+    [ngClass]="'ajf-field-' + (instance|ajfNodeCompleteName)"
+    [class.ajf-validated]="instance|ajfFieldIsValid"
+>
+  <ng-template ajf-field-host></ng-template>
+</div>
+<ng-container *ngIf="instance.node.attachments">
+  <ng-container *ngFor="let attachment of instance.node.attachments">
+    <a [href]="attachment.value" target="_blank">{{attachment.label}}</a>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="instance.validationResults">
+  <div class="ajf-errors">
+    <ng-container *ngFor="let res of instance.validationResults">
+      <div class="error" *ngIf="!res.result">
+        {{ res.error | translate }}
       </div>
     </ng-container>
-
-    <ng-container *ngSwitchCase="ajfFieldTypes.MultipleChoice">
-        <ng-container *ngIf="(!fwc.forceExpanded &&
-            fwcInst.filteredChoices && fwcInst.filteredChoices.length > searchTreshold) || fwcInst.node.forceNarrow">
-        <div class="ajf-item-container">
-          <gic-select *ngIf="fwcInst.filteredChoices as cs"
-              #multipleChoiceSelect
-              multiple
-              [searchBar]="fwcInst|ajfSelectHasSearchBar:searchTreshold"
-              [useVirtualScroll]="fwcInst|ajfSelectUseVirtualScroll:100"
-              [placeholder]="fieldInstance.node.label"
-              [formControl]="curControl">
-            <gic-select-option *ngFor="let item of cs"
-                [value]="item.value">{{ item.label|translate }}</gic-select-option>
-          </gic-select>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="!fwc.forceNarrow &&
-          (fwcInst.node.forceExpanded || (fwcInst.filteredChoices && fwcInst.filteredChoices.length <= searchTreshold))">
-        <div ajf-checkbox-group
-            [formControl]="curControl"
-            class="ajf-choices-container">
-          <ion-card  *ngFor="let choice of fwcInst.filteredChoices">
-            <ajf-checkbox-group-item
-              [value]="choice.value">
-              {{ choice.label | translate }}
-            </ajf-checkbox-group-item>
-          </ion-card>
-        </div>
-      </ng-container>
-    </ng-container>
-
-    <ion-input *ngSwitchCase="ajfFieldTypes.Formula"
-        [formControl]="curControl"
-        type="text"
-        readonly>
-    </ion-input>
-
-    <ion-item *ngSwitchCase="ajfFieldTypes.Date">
-      <ajf-calendar selectionMode="day"
-          dateOnlyForDay
-          [minDate]="datefInst.node.minDate|ajfDateValue"
-          [maxDate]="datefInst.node.maxDate|ajfDateValue"
-          [formControl]="curControl"></ajf-calendar>
-    </ion-item>
-
-    <ion-item *ngSwitchCase="ajfFieldTypes.DateInput">
-    <ion-input
-          type="date"
-          [formControl]="control | async"></ion-input>
-    </ion-item>
-
-    <ng-container *ngSwitchCase="ajfFieldTypes.Empty">
-      <div [innerHTML]="emptyfInst.node.HTML"></div>
-    </ng-container>
-
-    <ng-container *ngSwitchCase="ajfFieldTypes.Table">
-      <div class="ajf-table-container">
-        <table>
-          <ng-container *ngFor="let columns of tablefInst|ajfTableVisibleColumns; let i = index">
-            <tr [ngClass]="i | ajfTableRowClass">
-              <td *ngFor="let cellValue of columns" >
-                {{ cellValue | ajfTranslateIfString | ajfFormatIfNumber: '.2' }}
-              </td>
-            </tr>
-          </ng-container>
-        </table>
-      </div>
-     </ng-container>
-
   </div>
-  <ng-container *ngIf="fieldInstance.node.attachments">
-    <ng-container *ngFor="let attachment of fieldInstance.node.attachments">
-      <a [href]="attachment.value" target="_blank">{{attachment.label}}</a>
-    </ng-container>
-  </ng-container>
-  <ng-container *ngIf="fieldInstance.validationResults">
-    <div class="ajf-errors">
-      <ng-container *ngFor="let res of fieldInstance.validationResults">
-        <div class="error" *ngIf="!res.result">
-          {{ res.error | translate }}
-        </div>
-      </ng-container>
-    </div>
-  </ng-container>
 </ng-container>

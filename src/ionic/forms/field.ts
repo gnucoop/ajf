@@ -21,90 +21,51 @@
  */
 
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject,
-  OnDestroy, OnInit, Optional, ViewChild, ViewEncapsulation
+  AjfFieldType, AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy, Component, ComponentFactoryResolver, ViewChild, ViewEncapsulation
 } from '@angular/core';
 
-import {Observable, Subscriber} from 'rxjs';
-
-import {AlertController} from '@ionic/angular';
-
-import {
-  AjfFieldWithChoicesInstance, AjfFormField as AjfCoreFormField,
-  AjfFormFieldWarningAlertResult, AjfFormRendererService
-} from '@ajf/core/forms';
-
-import {AJF_SEARCH_ALERT_TRESHOLD} from './tokens';
-
+import {AjfBooleanFieldComponent} from './boolean-field';
+import {AjfDateFieldComponent} from './date-field';
+import {AjfEmptyFieldComponent} from './empty-field';
+import {AjfInputFieldComponent} from './input-field';
+import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
+import {AjfSingleChoiceFieldComponent} from './single-choice-field';
+import {AjfTableFieldComponent} from './table-field';
+import {AjfTextareaFieldComponent} from './textarea-field';
+import {AjfTimeFieldComponent} from './time-field';
 
 @Component({
   moduleId: module.id,
-  selector: 'ajf-field',
+  selector: 'ajf-field,ajf-form-field',
   templateUrl: 'field.html',
   styleUrls: ['field.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'fieldInstance'
-  ],
-  outputs: [
-    'valueChanged'
-  ],
+  inputs: ['instance'],
   queries: {
-    singleChoiceSelect: new ViewChild('singleChoiceSelect', {static: false}),
-    multipleChoiceSelect: new ViewChild('multipleChoiceSelect', {static: false})
+    fieldHost: new ViewChild(AjfFieldHost, {static: true}),
   }
 })
-export class AjfFormField extends AjfCoreFormField implements OnDestroy, OnInit {
-  alert: HTMLIonAlertElement | null;
+export class AjfFormField extends CoreFormField {
+  componentsMap: AjfFieldComponentsMap = {
+    [AjfFieldType.String]: {component: AjfInputFieldComponent},
+    [AjfFieldType.Text]: {component: AjfTextareaFieldComponent},
+    [AjfFieldType.Number]: {component: AjfInputFieldComponent, inputs: {type: 'number'}},
+    [AjfFieldType.Boolean]: {component: AjfBooleanFieldComponent},
+    [AjfFieldType.Formula]: {component: AjfInputFieldComponent, inputs: {readonly: true}},
+    [AjfFieldType.Date]: {component: AjfDateFieldComponent},
+    [AjfFieldType.DateInput]: {component: AjfInputFieldComponent, inputs: {type: 'date'}},
+    [AjfFieldType.Table]: {component: AjfTableFieldComponent},
+    [AjfFieldType.Empty]: {component: AjfEmptyFieldComponent},
+    [AjfFieldType.SingleChoice]: {component: AjfSingleChoiceFieldComponent},
+    [AjfFieldType.MultipleChoice]: {component: AjfMultipleChoiceFieldComponent},
+    [AjfFieldType.Time]: {component: AjfTimeFieldComponent},
+  };
 
-  get searchTreshold(): number { return this._searchTreshold; }
-
-  constructor(
-    _rendererService: AjfFormRendererService,
-    _changeDetectionRef: ChangeDetectorRef,
-    private _alertCtrl: AlertController,
-    @Optional() @Inject(AJF_SEARCH_ALERT_TRESHOLD) private _searchTreshold: number
-  ) {
-    super(_rendererService, _changeDetectionRef);
-    if (this._searchTreshold == null) {
-      this._searchTreshold = 5;
-    }
-  }
-
-  showWarningAlertPrompt(messagesWarning: string[]): Observable<AjfFormFieldWarningAlertResult> {
-    return new Observable<AjfFormFieldWarningAlertResult>(
-      (subscriber: Subscriber<AjfFormFieldWarningAlertResult>) => {
-        this._alertCtrl.create({
-          header: 'Warning',
-          message: messagesWarning.join('\n'),
-          buttons: [
-            {
-              text: 'No',
-              handler: () => {
-                subscriber.next(<AjfFormFieldWarningAlertResult>{result: false});
-                subscriber.complete();
-              }
-            },
-            {
-              text: 'Yes',
-              handler: () => {
-                subscriber.next(<AjfFormFieldWarningAlertResult>{result: true});
-                subscriber.complete();
-              }
-            }
-          ]
-        }).then((alert) => {
-          this.alert = alert;
-          alert.onDidDismiss().then(() => { this.alert = null; });
-        });
-      }
-    );
-  }
-
-  hasSearch(): boolean {
-    const fieldInstance = this.fieldInstance as AjfFieldWithChoicesInstance<any>;
-    return fieldInstance.filteredChoices
-      && fieldInstance.filteredChoices.length > this._searchTreshold;
+  constructor(cfr: ComponentFactoryResolver) {
+    super(cfr);
   }
 }

@@ -176,21 +176,21 @@ export function extractArraySum(source: any[], properties: string[]): any[] {
   return res;
 }
 
-export function drawThreshold(source: any[], property: string, treshold: any[]): any[] {
+export function drawThreshold(source: any[], property: string, threshold: any[]): any[] {
   source = (source || []).slice(0);
-  treshold = treshold || [0];
-  if (!(treshold instanceof Array)) {
-    treshold = [treshold];
+  threshold = threshold || [0];
+  if (!(threshold instanceof Array)) {
+    threshold = [threshold];
   }
   const l = source.length;
   const res: any[] = [];
   let count = 0;
   for (let i = 0; i < l; i++) {
     if (source[i][property] != null) {
-      if (treshold.length > count) {
-        res.push(treshold[count]);
+      if (threshold.length > count) {
+        res.push(threshold[count]);
       } else {
-        res.push(treshold[0]);
+        res.push(threshold[0]);
       }
       count++;
     }
@@ -378,10 +378,10 @@ export function calculateAvgPropertyArray(
   return resArr.reverse();
 }
 
-export function alert(source: any[], property: string, treshold: number): string {
+export function alert(source: any[], property: string, threshold: number): string {
   source = (source || []).slice(0);
 
-  if (lastProperty(source, property) > treshold) {
+  if (lastProperty(source, property) > threshold) {
     return '<p><i class="material-icons" style="color:red">warning</i></p>';
   } else {
     return '<p></p>';

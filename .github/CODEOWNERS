@@ -14,6 +14,7 @@
 /src/core/reports/**/*                             @trik
 /src/core/table/*                                  @trik
 /src/core/text/*                                   @trik
+/src/core/time/*                                   @trik
 /src/core/utils/*                                  @trik
 
 # Ajf material
@@ -28,7 +29,6 @@
 /src/material/page-slider/*                        @trik
 /src/material/report-builder/**/*                  @trik
 /src/material/reports/*                            @trik
-/src/material/time/*                               @trik
 
 # Ajf ionic
 /src/ionic/*                                       @trik
@@ -58,6 +58,7 @@
 /src/dev-app-mat/example/**                        @trik
 /src/dev-app-mat/examples-page/**                  @trik
 /src/dev-app-mat/form-builder/**                   @trik
+/src/dev-app-mat/fields/**                         @trik
 /src/dev-app-mat/forms/**                          @trik
 /src/dev-app-mat/image/**                          @trik
 /src/dev-app-mat/node-icon/**                      @trik
@@ -73,6 +74,7 @@
 /src/dev-app-ion/dev-app/**                        @trik
 /src/dev-app-ion/example/**                        @trik
 /src/dev-app-ion/examples-page/**                  @trik
+/src/dev-app-ion/fields/**                         @trik
 /src/dev-app-ion/forms/**                          @trik
 /src/dev-app-ion/image/**                          @trik
 /src/dev-app-ion/node-icon/**                      @trik

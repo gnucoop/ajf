@@ -135,6 +135,7 @@ System.config({
     '@ajf/core/reports': 'dist/packages/core/reports/index.js',
     '@ajf/core/table': 'dist/packages/core/table/index.js',
     '@ajf/core/text': 'dist/packages/core/text/index.js',
+    '@ajf/core/time': 'dist/packages/core/time/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/material/calendar': 'dist/packages/material/calendar/index.js',
     '@ajf/material/checkbox-group': 'dist/packages/material/checkbox-group/index.js',
@@ -146,7 +147,6 @@ System.config({
     '@ajf/material/page-slider': 'dist/packages/material/page-slider/index.js',
     '@ajf/material/report-builder': 'dist/packages/material/report-builder/index.js',
     '@ajf/material/reports': 'dist/packages/material/reports/index.js',
-    '@ajf/material/time': 'dist/packages/material/time/index.js',
   },
   packages: {
     // Set the default extension for the root package, because otherwise the dev-app can't

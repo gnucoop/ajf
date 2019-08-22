@@ -26,7 +26,7 @@ import {AjfFieldWithChoicesInstance} from '@ajf/core/forms';
 
 @Pipe({name: 'ajfSelectUseVirtualScroll'})
 export class AjfSelectUseVirtualScroll implements PipeTransform {
-  transform(instance: AjfFieldWithChoicesInstance<any>, vsTreshold: number): boolean {
-    return instance.filteredChoices && instance.filteredChoices.length > vsTreshold;
+  transform(instance: AjfFieldWithChoicesInstance<any>, vsThreshold: number): boolean {
+    return instance.filteredChoices && instance.filteredChoices.length > vsThreshold;
   }
 }

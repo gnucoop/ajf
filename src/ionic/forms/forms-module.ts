@@ -31,15 +31,26 @@ import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfCommonModule} from '@ajf/core/common';
 import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfTimeModule} from '@ajf/core/time';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
 
+import {AjfBooleanFieldComponent} from './boolean-field';
+import {AjfDateFieldComponent} from './date-field';
+import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfFormField} from './field';
 import {AjfFormPage} from './form-page';
 import {AjfFormRenderer} from './form';
+import {AjfInputFieldComponent} from './input-field';
+import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSelectHasSearchBarPipe} from './select-has-search-bar.pipe';
 import {AjfSelectUseVirtualScroll} from './select-use-virtual-scroll.pipe';
+import {AjfSingleChoiceFieldComponent} from './single-choice-field';
+import {AjfTableFieldComponent} from './table-field';
+import {AjfTextareaFieldComponent} from './textarea-field';
+import {AjfTimeFieldComponent} from './time-field';
+import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
   imports: [
@@ -53,17 +64,41 @@ import {AjfSelectUseVirtualScroll} from './select-use-virtual-scroll.pipe';
     AjfCalendarModule,
     AjfCheckboxGroupModule,
     AjfPageSliderModule,
+    AjfTimeModule,
   ],
   declarations: [
+    AjfBooleanFieldComponent,
+    AjfDateFieldComponent,
+    AjfEmptyFieldComponent,
     AjfFormField,
     AjfFormPage,
     AjfFormRenderer,
+    AjfInputFieldComponent,
+    AjfMultipleChoiceFieldComponent,
     AjfSelectHasSearchBarPipe,
     AjfSelectUseVirtualScroll,
+    AjfSingleChoiceFieldComponent,
+    AjfTableFieldComponent,
+    AjfTextareaFieldComponent,
+    AjfTimeFieldComponent
   ],
   exports: [
     AjfFormField,
-    AjfFormRenderer,
-  ]
+    AjfFormRenderer
+  ],
+  entryComponents: [
+    AjfBooleanFieldComponent,
+    AjfDateFieldComponent,
+    AjfEmptyFieldComponent,
+    AjfInputFieldComponent,
+    AjfMultipleChoiceFieldComponent,
+    AjfSingleChoiceFieldComponent,
+    AjfTableFieldComponent,
+    AjfTextareaFieldComponent,
+    AjfTimeFieldComponent
+  ],
+  providers: [
+    AjfWarningAlertService,
+  ],
 })
 export class AjfFormsModule { }

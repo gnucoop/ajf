@@ -15,6 +15,7 @@ CORE_PACKAGES = [
     "reports",
     "table",
     "text",
+    "time",
     "utils",
 ]
 
@@ -31,7 +32,6 @@ MATERIAL_PACKAGES = [
     "page-slider",
     "report-builder",
     "reports",
-    "time",
 ]
 
 MATERIAL_TARGETS = ["//src/material"] + ["//src/material/%s" % p for p in MATERIAL_PACKAGES]

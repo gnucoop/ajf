@@ -1,0 +1,27 @@
+<ng-container *ngIf="!(instance|ajfExpandFieldWithChoices:searchThreshold); else expanded">
+  <div class="ajf-item-container">
+    <gic-select *ngIf="instance.filteredChoices as cs"
+        #multipleChoiceSelect
+        multiple
+        [searchBar]="instance|ajfSelectHasSearchBar:searchThreshold"
+        [useVirtualScroll]="instance|ajfSelectUseVirtualScroll:100"
+        [placeholder]="instance.node.label"
+        [formControl]="control|async">
+      <gic-select-option *ngFor="let item of cs"
+          [value]="item.value">{{ item.label|translate }}</gic-select-option>
+    </gic-select>
+  </div>
+</ng-container>
+<ng-template #expanded>
+  <div ajf-checkbox-group
+      [formControl]="control|async"
+      class="ajf-choices-container"
+  >
+    <ion-card  *ngFor="let choice of instance.filteredChoices">
+      <ajf-checkbox-group-item
+        [value]="choice.value">
+        {{ choice.label | translate }}
+      </ajf-checkbox-group-item>
+    </ion-card>
+  </div>
+</ng-template>

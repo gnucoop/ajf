@@ -26,7 +26,7 @@ import {AjfFieldWithChoicesInstance} from '@ajf/core/forms';
 
 @Pipe({name: 'ajfSelectHasSearchBar'})
 export class AjfSelectHasSearchBarPipe implements PipeTransform {
-  transform(instance: AjfFieldWithChoicesInstance<any>, searchTreshold: number): boolean {
-    return instance.filteredChoices && instance.filteredChoices.length > searchTreshold;
+  transform(instance: AjfFieldWithChoicesInstance<any>, searchThreshold: number): boolean {
+    return instance.filteredChoices && instance.filteredChoices.length > searchThreshold;
   }
 }
