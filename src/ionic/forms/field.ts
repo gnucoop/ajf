@@ -32,6 +32,7 @@ import {AjfDateFieldComponent} from './date-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
+import {AjfNumberFieldComponent} from './number-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTextareaFieldComponent} from './textarea-field';
@@ -53,7 +54,7 @@ export class AjfFormField extends CoreFormField {
   componentsMap: AjfFieldComponentsMap = {
     [AjfFieldType.String]: {component: AjfInputFieldComponent},
     [AjfFieldType.Text]: {component: AjfTextareaFieldComponent},
-    [AjfFieldType.Number]: {component: AjfInputFieldComponent, inputs: {type: 'number'}},
+    [AjfFieldType.Number]: {component: AjfNumberFieldComponent},
     [AjfFieldType.Boolean]: {component: AjfBooleanFieldComponent},
     [AjfFieldType.Formula]: {component: AjfInputFieldComponent, inputs: {readonly: true}},
     [AjfFieldType.Date]: {component: AjfDateFieldComponent},

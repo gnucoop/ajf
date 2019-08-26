@@ -23,6 +23,7 @@ ng_module(
         ":form.css",
         ":input-field.css",
         ":multiple-choice-field.css",
+        ":number-field.css",
         ":single-choice-field.css",
         ":table-field.css",
         ":textarea-field.css",
@@ -86,6 +87,12 @@ sass_binary(
 sass_binary(
     name = "multiple_choice_field_scss",
     src = "multiple-choice-field.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "number_field_scss",
+    src = "number-field.scss",
     deps = [],
 )
 

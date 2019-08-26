@@ -22,7 +22,7 @@
 
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {IonicModule} from '@ionic/angular';
 import {GicModule} from '@gic/angular';
@@ -44,6 +44,7 @@ import {AjfFormPage} from './form-page';
 import {AjfFormRenderer} from './form';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
+import {AjfNumberFieldComponent} from './number-field';
 import {AjfSelectHasSearchBarPipe} from './select-has-search-bar.pipe';
 import {AjfSelectUseVirtualScroll} from './select-use-virtual-scroll.pipe';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
@@ -55,6 +56,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     IonicModule,
     GicModule,
@@ -75,6 +77,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfFormRenderer,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
+    AjfNumberFieldComponent,
     AjfSelectHasSearchBarPipe,
     AjfSelectUseVirtualScroll,
     AjfSingleChoiceFieldComponent,
@@ -92,6 +95,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfEmptyFieldComponent,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
+    AjfNumberFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
     AjfTextareaFieldComponent,
