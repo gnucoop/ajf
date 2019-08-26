@@ -12,11 +12,9 @@ pipeline {
         sh 'gsutil cp gs://ajf-bazel-build-cache/ajf-node-modules.tar.gz .'
         sh 'tar xfz ajf-node-modules.tar.gz'
         sh 'rm ajf-node-modules.tar.gz'
-        dir('/home/jenkins') {
-          sh 'gsutil cp gs://ajf-bazel-build-cache/ajf-bazel-repository.tar.gz .'
-          sh 'tar xfz ajf-bazel-repository.tar.gz'
-          sh 'rm ajf-bazel-repository.tar.gz'
-        }
+        sh 'gsutil cp gs://ajf-bazel-build-cache/ajf-bazel-repository.tar.gz .'
+        sh 'tar xfz -C /home/jenkins ajf-bazel-repository.tar.gz'
+        sh 'rm ajf-bazel-repository.tar.gz'
         sh 'echo "build --experimental_repository_cache=/home/jenkins/bazel_repository_cache" >> .bazelrc'
       }
     }
@@ -60,11 +58,9 @@ pipeline {
         sh 'tar cfz ajf-node-modules.tar.gz node_modules'
         sh 'gsutil cp ajf-node-modules.tar.gz gs://ajf-bazel-build-cache/'
         sh 'rm ajf-node-modules.tar.gz'
-        dir('/home/jenkins') {
-          sh 'tar cfz ajf-bazel-repository.tar.gz bazel_repository_cache'
-          sh 'gsutil cp ajf-bazel-repository.tar.gz gs://ajf-bazel-build-cache/'
-          sh 'rm ajf-bazel-repository.tar.gz'
-        }
+        sh 'tar cfz -C /home/jenkins ajf-bazel-repository.tar.gz bazel_repository_cache'
+        sh 'gsutil cp ajf-bazel-repository.tar.gz gs://ajf-bazel-build-cache/'
+        sh 'rm ajf-bazel-repository.tar.gz'
       }
     }
     stage('Publish snapshots') {
