@@ -1,1 +1,1 @@
-build --remote_http_cache=https://storage.googleapis.com/ajf-bazel-remote-cache --experimental_repository_cache=/home/jenkins/bazel_repository_cache
+build --remote_http_cache=https://storage.googleapis.com/ajf-bazel-remote-cache --google_default_credentials --experimental_repository_cache=/home/jenkins/bazel_repository_cache
