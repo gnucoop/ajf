@@ -15,7 +15,7 @@ pipeline {
         sh 'gsutil cp gs://ajf-bazel-build-cache/ajf-bazel-repository.tar.gz .'
         sh 'tar xfz ajf-bazel-repository.tar.gz -C /home/jenkins'
         sh 'rm ajf-bazel-repository.tar.gz'
-        sh 'echo "build --experimental_repository_cache=/home/jenkins/bazel_repository_cache" >> .bazelrc'
+        sh 'cat .jenkins/bazelrc >> .bazelrc'
       }
     }
     stage('Setup') {
