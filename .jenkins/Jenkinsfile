@@ -28,16 +28,19 @@ pipeline {
         sh 'yarn -s lint'
       }
     }
-    stage('Bazel targets') {
+    stage('Build') {
       steps {
         sh 'bazel build src/... --build_tag_filters=-docs-package'
-        sh 'bazel test src/... --build_tag_filters=-e2e --test_tag_filters=-e2e'
-        sh 'bazel test tools/public_api_guard/...'
       }
     }
     stage('Unit tests') {
       steps {
-        sh './scripts/circleci/run-local-browser-tests.sh'
+        sh 'bazel test src/... --build_tag_filters=-e2e --test_tag_filters=-e2e'
+      }
+    }
+    stage('API guard tests') {
+      steps {
+        sh 'bazel test tools/public_api_guard/...'
       }
     }
     stage('Integration tests') {
