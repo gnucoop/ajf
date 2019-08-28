@@ -20,9 +20,13 @@
  *
  */
 
-import {AjfChoicesOrigin} from '../../interface/choices/choices-origin';
-import {isChoicesOrigin} from './is-choices-origin';
-
-export function isChoicesFixedOrigin(origin: AjfChoicesOrigin<any>): boolean {
-  return isChoicesOrigin(origin) && origin.type === 'fixed';
+export function isChoicesOrigin(co: any): boolean {
+  return co != null
+    && typeof co === 'object'
+    && co.name != null
+    && typeof co.name === 'string'
+    && co.label != null
+    && typeof co.label === 'string'
+    && ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1
+    && co.choices instanceof Array;
 }
