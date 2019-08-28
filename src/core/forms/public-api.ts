@@ -123,6 +123,7 @@ export * from './utils/choices/create-choices-observable-origin';
 export * from './utils/choices/create-choices-promise-origin';
 export * from './utils/choices/init-choices-origin';
 export * from './utils/choices/is-choices-fixed-origin';
+export * from './utils/choices/is-choices-origin';
 export * from './utils/fields/create-field';
 export * from './utils/fields/is-field-with-choices';
 export * from './utils/fields/is-number-field';
