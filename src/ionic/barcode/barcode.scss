@@ -1,6 +1,7 @@
 ajf-barcode {
   ion-segment {
-    width: fit-content !important;
+    /* stylelint-disable-next-line */
+    width: fit-content;
   }
 
   .ajf-code-container {
