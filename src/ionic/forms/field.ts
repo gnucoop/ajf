@@ -27,6 +27,7 @@ import {
   ChangeDetectionStrategy, Component, ComponentFactoryResolver, ViewChild, ViewEncapsulation
 } from '@angular/core';
 
+import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
 import {AjfDateFieldComponent} from './date-field';
 import {AjfEmptyFieldComponent} from './empty-field';
@@ -64,6 +65,7 @@ export class AjfFormField extends CoreFormField {
     [AjfFieldType.SingleChoice]: {component: AjfSingleChoiceFieldComponent},
     [AjfFieldType.MultipleChoice]: {component: AjfMultipleChoiceFieldComponent},
     [AjfFieldType.Time]: {component: AjfTimeFieldComponent},
+    [AjfFieldType.Barcode]: {component: AjfBarcodeFieldComponent},
   };
 
   constructor(cfr: ComponentFactoryResolver) {

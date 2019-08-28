@@ -30,10 +30,9 @@ System.config({
     'bundles:*': 'bundles/*'
   },
   map: {
-    'traceur': 'node:traceur/bin/traceur.js',
-
     'main': 'main.js',
 
+    '@zxing/library': 'node:@zxing/library/umd/index.min.js',
     'chart.js': 'node:chart.js/Chart.umd.js',
     'chart.piecelabel.js': 'node:chart.piecelabel.js/build/Chart.PieceLabel.min.js',
     'css-element-queries': 'node:css-element-queries/css-element-queries.umd.js',
@@ -87,6 +86,7 @@ System.config({
     '@ajf/ionic-examples': 'dist/packages/ionic-examples/index.js',
 
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
+    '@ajf/core/barcode': 'dist/packages/core/barcode/index.js',
     '@ajf/core/chart': 'dist/packages/core/chart/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
     '@ajf/core/common': 'dist/packages/core/common/index.js',
@@ -103,6 +103,7 @@ System.config({
     '@ajf/core/text': 'dist/packages/core/text/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
+    '@ajf/ionic/barcode': 'dist/packages/ionic/barcode/index.js',
     '@ajf/ionic/checkbox-group': 'dist/packages/ionic/checkbox-group/index.js',
     '@ajf/ionic/forms': 'dist/packages/ionic/forms/index.js',
     '@ajf/ionic/image': 'dist/packages/ionic/image/index.js',

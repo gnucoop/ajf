@@ -5,7 +5,7 @@ System.config({
     'node:*': 'node_modules/*',
   },
   map: {
-    'traceur': 'node:traceur/bin/traceur.js',
+    '@zxing/library': 'node:@zxing/library/umd/index.min.js',
     'chart.js': 'node:chart.js/Chart.umd.js',
     'chart.piecelabel.js': 'node:chart.piecelabel.js/build/Chart.PieceLabel.min.js',
     'css-element-queries': 'node:css-element-queries/css-element-queries.umd.js',
@@ -75,6 +75,7 @@ System.config({
 
     '@ajf/core': 'dist/packages/core/index.js',
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
+    '@ajf/core/barcode': 'dist/packages/core/barcode/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
     '@ajf/core/common': 'dist/packages/core/common/index.js',
     '@ajf/core/forms': 'dist/packages/core/forms/index.js',
@@ -90,6 +91,7 @@ System.config({
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic': 'dist/packages/ionic/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
+    '@ajf/ionic/barcode': 'dist/packages/ionic/barcode/index.js',
     '@ajf/ionic/checkbox-group': 'dist/packages/ionic/checkbox-group/index.js',
     '@ajf/ionic/forms': 'dist/packages/ionic/forms/index.js',
     '@ajf/ionic/image': 'dist/packages/ionic/image/index.js',
@@ -98,6 +100,7 @@ System.config({
     '@ajf/ionic/reports': 'dist/packages/ionic/reports/index.js',
     '@ajf/material': 'dist/packages/material/index.js',
     '@ajf/material/calendar': 'dist/packages/material/calendar/index.js',
+    '@ajf/material/barcode': 'dist/packages/material/barcode/index.js',
     '@ajf/material/checkbox-group': 'dist/packages/material/checkbox-group/index.js',
     '@ajf/material/form-builder': 'dist/packages/material/form-builder/index.js',
     '@ajf/material/forms': 'dist/packages/material/forms/index.js',

@@ -37,6 +37,7 @@ export class DevAppLayout {
   dark = false;
   navItems = [
     {name: 'Examples', route: '/examples'},
+    {name: 'Barcode', route: '/barcode'},
     {name: 'Calendar', route: '/calendar'},
     {name: 'Checkbox group', route: '/checkbox-group'},
     {name: 'Fields', route: '/fields'},

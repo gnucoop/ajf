@@ -16,6 +16,7 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [
+        ":barcode-field.css",
         ":boolean-field.css",
         ":date-field.css",
         ":empty-field.css",
@@ -34,6 +35,7 @@ ng_module(
         "//src/core/common",
         "//src/core/forms",
         "//src/core/time",
+        "//src/ionic/barcode",
         "//src/ionic/calendar",
         "//src/ionic/checkbox-group",
         "//src/ionic/page-slider",
@@ -46,6 +48,12 @@ ng_module(
         "@npm//@ionic/core",
         "@npm//@ngx-translate/core",
     ],
+)
+
+sass_binary(
+    name = "barcode_field_scss",
+    src = "barcode-field.scss",
+    deps = [],
 )
 
 sass_binary(

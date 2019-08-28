@@ -26,6 +26,7 @@ import {DevAppHome} from './dev-app-home';
 
 export const DEV_APP_ROUTES: Routes = [
   {path: '', component: DevAppHome},
+  {path: 'barcode', loadChildren: 'barcode/barcode-demo-module#BarcodeDemoModule'},
   {path: 'calendar', loadChildren: 'calendar/calendar-demo-module#CalendarDemoModule'},
   {path: 'checkbox-group',
     loadChildren: 'checkbox-group/checkbox-group-demo-module#CheckboxGroupDemoModule'},

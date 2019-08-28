@@ -21,7 +21,8 @@
  */
 
 import {AjfChoicesOrigin} from '../../interface/choices/choices-origin';
+import {isChoicesOrigin} from './is-choices-origin';
 
 export function isChoicesFixedOrigin(origin: AjfChoicesOrigin<any>): boolean {
-  return origin.type === 'fixed';
+  return isChoicesOrigin(origin) && origin.type === 'fixed';
 }
