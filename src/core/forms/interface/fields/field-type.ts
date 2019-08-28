@@ -33,5 +33,7 @@ export enum AjfFieldType {
   DateInput,
   Time,
   Table,
+  Geolocation,
+  Barcode,
   LENGTH
 }

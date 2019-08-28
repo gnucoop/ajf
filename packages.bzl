@@ -1,6 +1,7 @@
 # List of all components / subpackages.
 
 CORE_PACKAGES = [
+    "barcode",
     "calendar",
     "chart",
     "checkbox-group",
@@ -22,6 +23,7 @@ CORE_PACKAGES = [
 CORE_TARGETS = ["//src/core"] + ["//src/core/%s" % p for p in CORE_PACKAGES]
 
 MATERIAL_PACKAGES = [
+    "barcode",
     "calendar",
     "checkbox-group",
     "form-builder",
@@ -37,6 +39,7 @@ MATERIAL_PACKAGES = [
 MATERIAL_TARGETS = ["//src/material"] + ["//src/material/%s" % p for p in MATERIAL_PACKAGES]
 
 IONIC_PACKAGES = [
+    "barcode",
     "calendar",
     "checkbox-group",
     "forms",
@@ -133,6 +136,7 @@ LIBRARIES_UMDS = [
     "@npm//:node_modules/@ionic/angular/angular.umd.js",
     "@npm//:node_modules/@ionic/core/core.umd.js",
     "@npm//:node_modules/@ionic/core/core-loader.umd.js",
+    "@npm//:node_modules/@zxing/library/umd/index.min.js",
     "@npm//:node_modules/chart.js/Chart.umd.js",
     "@npm//:node_modules/chart.piecelabel.js/build/Chart.PieceLabel.min.js",
     "@npm//:node_modules/css-element-queries/css-element-queries.umd.js",

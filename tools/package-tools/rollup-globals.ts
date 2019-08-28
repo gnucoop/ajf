@@ -87,6 +87,7 @@ export const rollupGlobals = {
   'protractor': 'protractor',
   'quill': 'quill',
   'url-parse': 'urlParse',
+  '@zxing/library': 'zxing.library',
 
   // Some packages are not really needed for the UMD bundles, but for the missingRollupGlobals rule.
   '@ajf/core': 'ajf.core',

@@ -29,10 +29,9 @@ System.config({
     'node:*': 'node_modules/*'
   },
   map: {
-    'traceur': 'node:traceur/bin/traceur.js',
-
     'main': 'main.js',
 
+    '@zxing/library': 'node:@zxing/library/umd/index.min.js',
     'chart.js': 'node:chart.js/Chart.umd.js',
     'chart.piecelabel.js': 'node:chart.piecelabel.js/build/Chart.PieceLabel.min.js',
     'css-element-queries': 'node:css-element-queries/css-element-queries.umd.js',
@@ -130,6 +129,7 @@ System.config({
     '@ajf/core/forms': 'dist/packages/core/forms/index.js',
     '@ajf/core/image': 'dist/packages/core/image/index.js',
     '@ajf/core/map': 'dist/packages/core/map/index.js',
+    '@ajf/core/barcode': 'dist/packages/core/barcode/index.js',
     '@ajf/core/page-break': 'dist/packages/core/page-break/index.js',
     '@ajf/core/page-slider': 'dist/packages/core/page-slider/index.js',
     '@ajf/core/reports': 'dist/packages/core/reports/index.js',
@@ -137,6 +137,7 @@ System.config({
     '@ajf/core/text': 'dist/packages/core/text/index.js',
     '@ajf/core/time': 'dist/packages/core/time/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
+    '@ajf/material/barcode': 'dist/packages/material/barcode/index.js',
     '@ajf/material/calendar': 'dist/packages/material/calendar/index.js',
     '@ajf/material/checkbox-group': 'dist/packages/material/checkbox-group/index.js',
     '@ajf/material/form-builder': 'dist/packages/material/form-builder/index.js',
@@ -147,6 +148,7 @@ System.config({
     '@ajf/material/page-slider': 'dist/packages/material/page-slider/index.js',
     '@ajf/material/report-builder': 'dist/packages/material/report-builder/index.js',
     '@ajf/material/reports': 'dist/packages/material/reports/index.js',
+    '@ajf/material/time': 'dist/packages/material/time/index.js',
   },
   packages: {
     // Set the default extension for the root package, because otherwise the dev-app can't

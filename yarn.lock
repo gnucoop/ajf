@@ -1721,6 +1721,15 @@
   resolved "https://registry.yarnpkg.com/@webcomponents/custom-elements/-/custom-elements-1.2.4.tgz#7074543155396114617722724d6f6cb7b3800a14"
   integrity sha512-WiTlgz6/kuwajYIcgyq64rSlCtb2AvbxwwrExP3wr6rKbJ72I3hi/sb4KdGUumfC+isDn2F0btZGk4MnWpyO1Q==
 
+"@zxing/library@^0.15.1":
+  version "0.15.1"
+  resolved "https://registry.yarnpkg.com/@zxing/library/-/library-0.15.1.tgz#bf1404394b3f73f7c8d970f7b66475e6cf23fef8"
+  integrity sha512-YeQbmY2nWpIBgR9i74mDnoYxJPSvY7Zy0Zz6+KDCQ+wLb20++9dX2v1iH3Wt/kZ5pntqS0K0V5eZkuk4SibbEw==
+  dependencies:
+    ts-custom-error "^3.0.0"
+  optionalDependencies:
+    text-encoding "^0.7.0"
+
 JSONStream@^1.0.4, JSONStream@^1.2.1:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
@@ -11693,6 +11702,11 @@ test-exclude@^5.2.2:
     read-pkg-up "^4.0.0"
     require-main-filename "^2.0.0"
 
+text-encoding@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.7.0.tgz#f895e836e45990624086601798ea98e8f36ee643"
+  integrity sha512-oJQ3f1hrOnbRLOcwKz0Liq2IcrvDeZRHXhd9RgLrsT+DjWY/nty1Hi7v3dtkaEYbPYe0mUoOfzRrMwfXXwgPUA==
+
 text-extensions@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/text-extensions/-/text-extensions-2.0.0.tgz#43eabd1b495482fae4a2bf65e5f56c29f69220f6"
@@ -11958,6 +11972,11 @@ ts-api-guardian@^0.4.6:
     chalk "^2.3.1"
     diff "^3.5.0"
     minimist "^1.2.0"
+
+ts-custom-error@^3.0.0:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/ts-custom-error/-/ts-custom-error-3.1.1.tgz#d30c7415461dac93dc2cc9e9eb2dae92e6423901"
+  integrity sha512-f/syoy+pTE4z82qaiRuthEeZtCGNKzlfs0Zc8jpQFcz/CYMaFSwFSdfFt1sSFnPlDLOEm7RCROdIxZ44N8UlwA==
 
 ts-node@^8.0.2:
   version "8.3.0"

@@ -24,17 +24,23 @@ import {NgModule} from '@angular/core';
 
 import {ApplyStylesDirective} from './apply-styles-directive';
 import {AutofocusDirective} from './auto-focus.directive';
+import {AjfDndDirective} from './dnd.directive';
 import {FormatIfNumber} from './format-if-number';
 import {TranslateIfString} from './translate-if-string';
+import {AjfVideoDirective} from './video.directive';
 
 @NgModule({
   declarations: [
+    AjfDndDirective,
+    AjfVideoDirective,
     ApplyStylesDirective,
     AutofocusDirective,
     FormatIfNumber,
     TranslateIfString,
   ],
   exports: [
+    AjfDndDirective,
+    AjfVideoDirective,
     ApplyStylesDirective,
     AutofocusDirective,
     FormatIfNumber,

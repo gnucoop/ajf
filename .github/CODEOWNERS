@@ -16,9 +16,11 @@
 /src/core/text/*                                   @trik
 /src/core/time/*                                   @trik
 /src/core/utils/*                                  @trik
+/src/core/barcode/*                                @peppedeka
 
 # Ajf material
 /src/material/*                                    @trik
+/src/material/barcode/*                            @peppedeka
 /src/material/calendar/*                           @trik
 /src/material/checkbox-group/*                     @trik
 /src/material/form-builder/*                       @trik
@@ -32,6 +34,7 @@
 
 # Ajf ionic
 /src/ionic/*                                       @trik
+/src/ionic/barcode/*                               @peppedeka
 /src/ionic/calendar/*                              @trik
 /src/ionic/checkbox-group/*                        @trik
 /src/ionic/forms/*                                 @trik
@@ -52,6 +55,7 @@
 
 # Dev app material
 /src/dev-app-mat/*                                 @trik
+/src/dev-app-mat/barcode/**                        @peppedeka
 /src/dev-app-mat/calendar/**                       @trik
 /src/dev-app-mat/checkbox-group/**                 @trik
 /src/dev-app-mat/dev-app/**                        @trik
@@ -69,6 +73,7 @@
 
 # Dev app ionic
 /src/dev-app-ion/*                                 @trik
+/src/dev-app-ion/barcode/**                        @peppedeka
 /src/dev-app-ion/calendar/**                       @trik
 /src/dev-app-ion/checkbox-group/**                 @trik
 /src/dev-app-ion/dev-app/**                        @trik
