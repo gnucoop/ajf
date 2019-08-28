@@ -1,9 +1,9 @@
 import {Subject} from 'rxjs';
 
 import {
-  AjfChoice, createChoicesOrigin, createChoicesFixedOrigin, createChoicesFunctionOrigin,
-  createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesPromiseOrigin,
-  initChoicesOrigin
+    AjfChoice, createChoicesFixedOrigin, createChoicesFunctionOrigin,
+    createChoicesObservableArrayOrigin, createChoicesObservableOrigin, createChoicesOrigin,
+    createChoicesPromiseOrigin, initChoicesOrigin, isChoicesFixedOrigin
 } from './public-api';
 
 describe('createChoicesOrigin', () => {
@@ -14,9 +14,11 @@ describe('createChoicesOrigin', () => {
     expect(choicesOrigin.label).toEqual('');
     expect(choicesOrigin.choices).toEqual([]);
 
-    choicesOrigin = createChoicesOrigin({type: 'fixed', name: 'foo', choices: [
-      {label: 'baz', value: 'baz'}
-    ]});
+    choicesOrigin = createChoicesOrigin({
+      type: 'fixed', name: 'foo', choices: [
+        {label: 'baz', value: 'baz'}
+      ]
+    });
 
     let choices = choicesOrigin.choices;
     expect(choices.length).toEqual(1);
@@ -26,11 +28,13 @@ describe('createChoicesOrigin', () => {
 
 describe('createChoicesFixedOrigin', () => {
   it('should have choices from a given array', () => {
-    let choicesOrigin = createChoicesFixedOrigin({name: 'foo', choices: [
-          {label: '3', value: 3},
-          {label: '6', value: 6},
-          {label: '9', value: 9}
-        ]});
+    let choicesOrigin = createChoicesFixedOrigin({
+      name: 'foo', choices: [
+        {label: '3', value: 3},
+        {label: '6', value: 6},
+        {label: '9', value: 9}
+      ]
+    });
 
     let choices = choicesOrigin.choices.map(c => c.value);
     expect(choices).toContain(3);
@@ -45,9 +49,9 @@ describe('createChoicesFunctionOrigin', () => {
       name: 'foo',
       generator: () => {
         return [
-          {label : '3', value : 3},
-          {label : '6', value : 6},
-          {label : '9', value : 9}
+          {label: '3', value: 3},
+          {label: '6', value: 6},
+          {label: '9', value: 9}
         ];
       }
     });
@@ -85,9 +89,9 @@ describe('createChoicesObservableArrayOrigin', () => {
     });
 
     subject.next([
-      {label : '3', value : 3},
-      {label : '6', value : 6},
-      {label : '9', value : 9},
+      {label: '3', value: 3},
+      {label: '6', value: 6},
+      {label: '9', value: 9},
     ]);
   });
 });
@@ -110,9 +114,9 @@ describe('createChoicesObservableOrigin', () => {
       done();
     });
 
-    subject.next({label : '3', value : 3});
-    subject.next({label : '6', value : 6});
-    subject.next({label : '9', value : 9});
+    subject.next({label: '3', value: 3});
+    subject.next({label: '6', value: 6});
+    subject.next({label: '9', value: 9});
     subject.complete();
   });
 });
@@ -120,9 +124,9 @@ describe('createChoicesObservableOrigin', () => {
 describe('createChoicesPromiseOrigin', () => {
   it('should have choices from a given promise', async () => {
     let promise = Promise.resolve([
-      {label : '3', value : 3},
-      {label : '6', value : 6},
-      {label : '9', value : 9}
+      {label: '3', value: 3},
+      {label: '6', value: 6},
+      {label: '9', value: 9}
     ]);
     let choicesOrigin = createChoicesPromiseOrigin({
       name: 'foo',
@@ -139,5 +143,39 @@ describe('createChoicesPromiseOrigin', () => {
     expect(choices.filter(c => c.value === 3).length).toBe(1);
     expect(choices.filter(c => c.value === 6).length).toBe(1);
     expect(choices.filter(c => c.value === 9).length).toBe(1);
+  });
+});
+
+describe('isChoicesOrigin', () => {
+  it('should return true if parameter is AjfChoicesOrigin', () => {
+    let co = createChoicesFixedOrigin<any>({
+      name: 'puppa'
+    });
+
+    expect(isChoicesFixedOrigin(co)).toBe(true);
+
+    co = createChoicesFixedOrigin<any>({
+      name: ''
+    });
+    expect(isChoicesFixedOrigin(co)).toBe(true);
+  });
+
+  it('should return false if parameter is not an AjfChoicesOrigin', () => {
+    expect(isChoicesFixedOrigin('nosense' as any)).toBe(false);
+    expect(isChoicesFixedOrigin(1 as any)).toBe(false);
+    expect(isChoicesFixedOrigin({} as any)).toBe(false);
+    expect(isChoicesFixedOrigin(null as any)).toBe(false);
+    expect(isChoicesFixedOrigin(undefined as any)).toBe(false);
+  });
+});
+
+describe('isChoicesFixedOrigin', () => {
+  it('should return false if parameter is not an AjfChoicesOrigin of type "fixed"', () => {
+    const choicesNoFixedOrigin = createChoicesOrigin<any>({
+      name: 'puppa',
+      type: 'promise'
+    });
+
+    expect(isChoicesFixedOrigin(choicesNoFixedOrigin)).toBe(false);
   });
 });
