@@ -16,7 +16,17 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [
+        ":chart-widget.css",
+        ":column-widget.css",
+        ":formula-widget.css",
+        ":image-container-widget.css",
+        ":image-widget.css",
+        ":layout-widget.css",
+        ":map-widget.css",
+        ":page-break-widget.css",
         ":report.css",
+        ":table-widget.css",
+        ":text-widget.css",
         ":widget.css",
     ] + glob(["**/*.html"]),
     module_name = "@ajf/material/reports",
@@ -36,8 +46,68 @@ ng_module(
 )
 
 sass_binary(
+    name = "chart_widget_scss",
+    src = "chart-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "column_widget_scss",
+    src = "column-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "formula_widget_scss",
+    src = "formula-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "image_container_widget_scss",
+    src = "image-container-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "image_widget_scss",
+    src = "image-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "layout_widget_scss",
+    src = "layout-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "map_widget_scss",
+    src = "map-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "page_break_widget_scss",
+    src = "page-break-widget.scss",
+    deps = [],
+)
+
+sass_binary(
     name = "report_scss",
     src = "report.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "table_widget_scss",
+    src = "table-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "text_widget_scss",
+    src = "text-widget.scss",
     deps = [],
 )
 

@@ -35,7 +35,7 @@ import {AjfReportRenderer as AjfCoreReportRenderer} from '@ajf/core/reports';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: [
-    'reportInstance'
+    'instance'
   ],
 })
 export class AjfReportRenderer extends AjfCoreReportRenderer {

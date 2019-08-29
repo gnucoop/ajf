@@ -20,93 +20,52 @@
  *
  */
 
-import {AjfImageType} from '@ajf/core/image';
-import {ChangeDetectorRef} from '@angular/core';
+import {AfterViewInit, ComponentFactoryResolver} from '@angular/core';
 
-import {AjfChartWidgetInstance} from './interface/widgets-instances/chart-widget-instance';
-import {AjfColumnWidgetInstance} from './interface/widgets-instances/column-widget-instance';
-import {AjfFormulaWidgetInstance} from './interface/widgets-instances/formula-widget-instance';
-import {
-  AjfImageContainerWidgetInstance
-} from './interface/widgets-instances/image-container-widget-instance';
-import {AjfImageWidgetInstance} from './interface/widgets-instances/image-widget-instance';
-import {AjfLayoutWidgetInstance} from './interface/widgets-instances/layout-widget-instance';
-import {AjfMapWidgetInstance} from './interface/widgets-instances/map-widget-instance';
-import {AjfTableWidgetInstance} from './interface/widgets-instances/table-widget-instance';
-import {AjfTextWidgetInstance} from './interface/widgets-instances/text-widget-instance';
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
-import {AjfChartWidget} from './interface/widgets/chart-widget';
-import {AjfImageWidget} from './interface/widgets/image-widget';
-import {AjfLayoutWidget} from './interface/widgets/layout-widget';
-import {AjfMapWidget} from './interface/widgets/map-widget';
-import {AjfWidget} from './interface/widgets/widget';
-import {AjfWidgetType} from './interface/widgets/widget-type';
+import {AjfWidgetComponentsMap} from './widget-components-map';
+import {AjfWidgetHost} from './widget-host';
 
-export abstract class AjfWidgetRenderer {
-  readonly widgetTypes = AjfWidgetType;
+export abstract class AjfReportWidget implements AfterViewInit {
+  widgetHost: AjfWidgetHost;
 
-  private _widget: AjfWidget|null;
-  get widget(): AjfWidget|null {
-    return this._widget;
-  }
-
-  private _imageTypes = AjfImageType;
-  get imageTypes() { return this._imageTypes; }
-
-  private _widgetInstance: AjfWidgetInstance;
-  get widgetInstance(): AjfWidgetInstance {
-    return this._widgetInstance;
-  }
-  set widgetInstance(widgetInstance: AjfWidgetInstance) {
-    if (this._widgetInstance !== widgetInstance) {
-      this._widgetInstance = widgetInstance;
-      this._widget = this._widgetInstance != null ? this._widgetInstance.widget : null;
-      this._cdr.markForCheck();
+  private _instance: AjfWidgetInstance;
+  get instance(): AjfWidgetInstance { return this._instance; }
+  set instance(instance: AjfWidgetInstance) {
+    if (this._instance !== instance) {
+      this._instance = instance;
+      this._loadComponent();
     }
   }
 
-  get columnInst(): AjfColumnWidgetInstance {
-    return this._widgetInstance as AjfColumnWidgetInstance;
-  }
-  get imgwInst(): AjfImageWidgetInstance {
-    return this._widgetInstance as AjfImageWidgetInstance;
-  }
-  get imgw(): AjfImageWidget {
-    return this._widget as AjfImageWidget;
-  }
-  get imgcwInst(): AjfImageContainerWidgetInstance {
-    return this._widgetInstance as AjfImageContainerWidgetInstance;
-  }
-  get imgcw(): AjfImageWidget {
-    return this._widget as AjfImageWidget;
-  }
-  get layoutwInst(): AjfLayoutWidgetInstance {
-    return this._widgetInstance as AjfLayoutWidgetInstance;
-  }
-  get layoutw(): AjfLayoutWidget {
-    return this._widget as AjfLayoutWidget;
-  }
-  get chartwInst(): AjfChartWidgetInstance {
-    return this._widgetInstance as AjfChartWidgetInstance;
-  }
-  get chartw(): AjfChartWidget {
-    return this._widget as AjfChartWidget;
-  }
-  get tablewInst(): AjfTableWidgetInstance {
-    return this._widgetInstance as AjfTableWidgetInstance;
-  }
-  get textwInst(): AjfTextWidgetInstance {
-    return this._widgetInstance as AjfTextWidgetInstance;
-  }
-  get mapwInst(): AjfMapWidgetInstance {
-    return this._widgetInstance as AjfMapWidgetInstance;
-  }
-  get mapw(): AjfMapWidget {
-    return this._widget as AjfMapWidget;
-  }
-  get formulawInst(): AjfFormulaWidgetInstance {
-    return this._widgetInstance as AjfFormulaWidgetInstance;
+  protected abstract widgetsMap: AjfWidgetComponentsMap;
+
+  constructor(private _cfr: ComponentFactoryResolver) { }
+
+  ngAfterViewInit(): void {
+    this._loadComponent();
   }
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  private _loadComponent(): void {
+    if (this._instance == null || this.widgetHost == null) { return; }
+
+    const vcr = this.widgetHost.viewContainerRef;
+    vcr.clear();
+    const componentDef = this.widgetsMap[this._instance.widget.widgetType];
+    if (componentDef == null) { return; }
+    const component = componentDef.component;
+    try {
+      const componentFactory = this._cfr.resolveComponentFactory(component);
+      const componentRef = vcr.createComponent(componentFactory);
+      const componentInstance = componentRef.instance;
+      componentInstance.instance = this._instance;
+      if (componentDef.inputs) {
+        Object.keys(componentDef.inputs).forEach(key => {
+          if (key in componentInstance) {
+            (componentInstance as any)[key] = componentDef.inputs![key];
+          }
+        });
+      }
+    } catch (e) { }
+  }
 }

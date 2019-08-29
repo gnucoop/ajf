@@ -20,6 +20,7 @@
  *
  */
 
+export * from './base-widget';
 export * from './chart-utils';
 export * from './interface/aggregation/aggregation';
 export * from './interface/aggregation/aggregation-type';
@@ -69,7 +70,11 @@ export * from './serializers/report-container-serializer';
 export * from './serializers/report-serializer';
 export * from './serializers/widget-serializer';
 export * from './widget';
+export * from './widget-components-map';
+export * from './widget-host';
 
 export * from './utils/aggregation/create-aggregation';
 export * from './utils/reports-instances/create-report-instance';
 export * from './utils/widgets/create-widget';
+export * from './utils/widgets-instances/create-widget-instance';
+export * from './utils/widgets-instances/widget-to-widget-instance';

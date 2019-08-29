@@ -49,6 +49,7 @@ export class DevAppLayout {
     {name: 'Report builder', route: '/report-builder'},
     {name: 'Reports', route: '/reports'},
     {name: 'Time', route: '/time'},
+    {name: 'Widgets', route: '/widgets'},
   ];
 
   constructor(

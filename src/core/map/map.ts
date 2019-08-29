@@ -28,6 +28,7 @@ import {
 import {Subscription} from 'rxjs';
 
 import * as L from 'leaflet';
+const leafletLib = (L as any).default || L;
 
 import {AjfMapContainerDirective} from './map-container-directive';
 
@@ -97,7 +98,7 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
       attributionControl: false
     };
 
-    this._map = L.map(this.mapContainer.htmlElement, options);
+    this._map = leafletLib.map(this.mapContainer.htmlElement, options);
   }
 
   private _setMapView(): void {
@@ -119,7 +120,7 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
   private _addTileLayerToMap(): void {
     if (this._map == null || this._tileLayer == null) { return; }
     this._map.eachLayer((l) => this._map.removeLayer(l));
-    L.tileLayer(this._tileLayer, {
+    leafletLib.tileLayer(this._tileLayer, {
       attribution: this._attribution
     }).addTo(this._map);
   }

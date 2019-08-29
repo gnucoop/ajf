@@ -70,6 +70,7 @@
 /src/dev-app-mat/report-builder/**                 @trik
 /src/dev-app-mat/reports/**                        @trik
 /src/dev-app-mat/time/**                           @trik
+/src/dev-app-mat/widgets/**                        @trik
 
 # Dev app ionic
 /src/dev-app-ion/*                                 @trik
@@ -85,6 +86,7 @@
 /src/dev-app-ion/node-icon/**                      @trik
 /src/dev-app-ion/page-slider/**                    @trik
 /src/dev-app-ion/reports/**                        @trik
+/src/dev-app-ion/widgets/**                        @trik
 
 # E2E app material
 /src/e2e-app-mat/*                                 @trik

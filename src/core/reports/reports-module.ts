@@ -23,13 +23,16 @@
 import {NgModule} from '@angular/core';
 
 import {AjfGetColumnContentPipe} from './get-column-content';
+import {AjfWidgetHost} from './widget-host';
 
 @NgModule({
   declarations: [
     AjfGetColumnContentPipe,
+    AjfWidgetHost,
   ],
   exports: [
     AjfGetColumnContentPipe,
+    AjfWidgetHost,
   ],
 })
 export class AjfReportsModule {

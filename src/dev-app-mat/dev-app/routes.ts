@@ -41,6 +41,7 @@ export const DEV_APP_ROUTES: Routes = [
     loadChildren: 'report-builder/report-builder-demo-module#ReportBuilderDemoModule'},
   {path: 'reports', loadChildren: 'reports/reports-demo-module#ReportsDemoModule'},
   {path: 'time', loadChildren: 'time/time-demo-module#TimeDemoModule'},
+  {path: 'widgets', loadChildren: 'widgets/widgets-demo-module#WidgetsDemoModule'},
   {path: 'examples', loadChildren: 'examples-page/examples-page-module#ExamplesPageModule'},
   {path: '**', component: DevApp404},
 ];

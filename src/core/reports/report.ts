@@ -26,11 +26,11 @@ import {AjfReportInstance} from './interface/reports-instances/report-instance';
 import {AjfReport} from './interface/reports/report';
 
 export abstract class AjfReportRenderer {
-  private _reportInstance: AjfReportInstance;
-  get reportInstance(): AjfReportInstance { return this._reportInstance; }
-  set reportInstance(reportInstance: AjfReportInstance) {
-    this._reportInstance = reportInstance;
-    this._report = reportInstance != null ? reportInstance.report : null;
+  private _instance: AjfReportInstance;
+  get instance(): AjfReportInstance { return this._instance; }
+  set instance(instance: AjfReportInstance) {
+    this._instance = instance;
+    this._report = instance != null ? instance.report : null;
     this._cdr.markForCheck();
   }
 

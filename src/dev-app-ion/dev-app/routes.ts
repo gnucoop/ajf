@@ -36,6 +36,7 @@ export const DEV_APP_ROUTES: Routes = [
   {path: 'node-icon', loadChildren: 'node-icon/node-icon-demo-module#NodeIconDemoModule'},
   {path: 'page-slider', loadChildren: 'page-slider/page-slider-demo-module#PageSliderDemoModule'},
   {path: 'reports', loadChildren: 'reports/reports-demo-module#ReportsDemoModule'},
+  {path: 'widgets', loadChildren: 'widgets/widgets-demo-module#WidgetsDemoModule'},
   {path: 'examples', loadChildren: 'examples-page/examples-page-module#ExamplesPageModule'},
   {path: '**', component: DevApp404},
 ];

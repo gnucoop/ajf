@@ -46,6 +46,7 @@ export class DevAppLayout {
     {name: 'Node icon', route: '/node-icon'},
     {name: 'Page slider', route: '/page-slider'},
     {name: 'Reports', route: '/reports'},
+    {name: 'Widgets', route: '/widgets'},
   ];
 
   constructor(

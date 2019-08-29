@@ -1,0 +1,9 @@
+<div class="demo-widgets">
+  <h4 class="demo-section-header">Fields</h4>
+  <section>
+    <div *ngFor="let widget of widgets">
+      <h5>{{ widget.name }}</h5>
+      <ajf-widget [instance]="widget.instance"></ajf-widget>
+    </div>
+  </section>
+</div>

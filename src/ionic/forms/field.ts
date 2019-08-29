@@ -49,7 +49,7 @@ import {AjfTimeFieldComponent} from './time-field';
   inputs: ['instance'],
   queries: {
     fieldHost: new ViewChild(AjfFieldHost, {static: true}),
-  }
+  },
 })
 export class AjfFormField extends CoreFormField {
   componentsMap: AjfFieldComponentsMap = {
