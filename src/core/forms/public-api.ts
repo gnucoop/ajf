@@ -126,6 +126,8 @@ export * from './utils/choices/is-choices-fixed-origin';
 export * from './utils/choices/is-choices-origin';
 export * from './utils/fields/create-field';
 export * from './utils/fields/is-field-with-choices';
+export * from './utils/fields/is-formula-field';
+export * from './utils/fields/is-table-field';
 export * from './utils/fields/is-number-field';
 export * from './utils/fields-instances/create-field-instance';
 export * from './utils/forms/create-form';
