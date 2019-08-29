@@ -70,4 +70,19 @@ export class AjfFormField extends AjfCoreFormField implements OnDestroy, OnInit 
       map((result: boolean) => ({result}))
     );
   }
+
+  goToNextCell(ev: KeyboardEvent, indexColumn: number, indexRow: number) {
+    const rowLength = this.tablefInst.controlsWithLabels[indexRow].length;
+    const currentCell: any = this.tablefInst.controlsWithLabels[indexRow][indexColumn];
+    let nextCell: any = this.tablefInst.controlsWithLabels[indexRow][indexColumn + 1];
+
+    if (indexColumn + 1 >= rowLength) {
+      nextCell = this.tablefInst.controlsWithLabels[indexRow + 1][1];
+    }
+
+    currentCell.show = false;
+    nextCell.show = true;
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
 }

@@ -97,8 +97,8 @@
             <td *ngFor="let contr of columns; let indexColums = index">
               <ng-container *ngIf="contr != null">
                 <ng-template [ngIf]="indexColums != 0 && indexRows != 0">
-                  <input (focusout)="contr.show = false" *ngIf="contr.show" type="number" [formControl]="contr" autoFocus>
-                  <span *ngIf="!contr.show" class="ajf-table-cell" (click)="contr.show ? contr.show = false : contr.show = true;">{{ contr.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>
+                  <input (focusout)="contr.show = false" *ngIf="contr.show" type="number" [formControl]="contr" (keydown.tab)="goToNextCell($event, indexColums, indexRows)" autoFocus>
+                  <span *ngIf="!contr.show" class="ajf-table-cell" (click)="contr.show ? contr.show = false : contr.show = true;">{{ contr.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}  </span>
                 </ng-template>
                 <ng-template [ngIf]="indexColums == 0 || indexRows == 0">
                   {{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
