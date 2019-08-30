@@ -32,6 +32,7 @@ ng_test_library(
     deps = [
         ":calendar",
         "@npm//@angular/platform-browser",
+        "@npm//date-fns",
     ],
 )
 

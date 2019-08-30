@@ -265,20 +265,24 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   }
 
   private _getMonthStartEnd(date: Date): { start: Date, end: Date } {
-    let startDate = startOfMonth(date);
-    let endDate = endOfMonth(date);
-    if (this._isoMode) {
-      const startWeekDay = startDate.getDay();
-      const endWeekDay = endDate.getDay();
-      if (startWeekDay == 0 || startWeekDay > 4) {
-        startDate = addWeeks(startDate, 1);
-      }
-      if (endWeekDay > 0 && endWeekDay < 4) {
-        endDate = subWeeks(endDate, 1);
-      }
-      startDate = startOfISOWeek(startDate);
-      endDate = endOfISOWeek(endDate);
+    if (!this._isoMode) {
+      return {
+        start: startOfMonth(date),
+        end: endOfMonth(date),
+      };
     }
+    let startDate = startOfMonth(endOfISOWeek(date));
+    let endDate = endOfMonth(startDate);
+    const startWeekDay = startDate.getDay();
+    const endWeekDay = endDate.getDay();
+    if (startWeekDay == 0 || startWeekDay > 4) {
+      startDate = addWeeks(startDate, 1);
+    }
+    if (endWeekDay > 0 && endWeekDay < 4) {
+      endDate = subWeeks(endDate, 1);
+    }
+    startDate = startOfISOWeek(startDate);
+    endDate = endOfISOWeek(endDate);
     return { start: startDate, end: endDate };
   }
 
