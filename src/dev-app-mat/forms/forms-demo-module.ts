@@ -28,9 +28,11 @@ import {RouterModule} from '@angular/router';
 import {AjfFormsModule} from '@ajf/material/forms';
 
 import {FormsDemo} from './forms-demo';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
     AjfFormsModule,
     FormsModule,
     MatGridListModule,

@@ -20,7 +20,7 @@
  *
  */
 
-
+// @ts-ignore
 import Ajv, { ErrorObject } from 'ajv';
 import debug from 'debug';
 
@@ -47,10 +47,10 @@ const dbg = debugConstructor('ajf:json-validation');
 
 export class AjfJsonValidator {
 
-    private static ajv = new Ajv();
+    private static _ajv = new Ajv();
 
     static getErrors() {
-        return AjfJsonValidator.ajv.errors;
+        return AjfJsonValidator._ajv.errors;
     }
 
     static getKnownSchema(schemakey: string | symbol = DEFAULT_SCHEMA_KEY) {
@@ -65,13 +65,13 @@ export class AjfJsonValidator {
         let valid = false;
 
         if (schema) {
-            valid = Boolean(AjfJsonValidator.ajv.validate(schema, jsondocument));
+            valid = Boolean(AjfJsonValidator._ajv.validate(schema, jsondocument));
         }
 
         dbg(`... validation result: %s`, valid);
 
         if (!valid) {
-            dbg(`Errors: %j`, this.ajv.errors);
+            dbg(`Errors: %j`, this._ajv.errors);
         }
         return valid;
     }

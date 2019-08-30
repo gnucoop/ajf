@@ -48,9 +48,9 @@ export class FormsDemo {
     let formSchemaOb: object = {};
 
     this.messages = [];
+    let contextob: AjfContext | undefined = undefined;
+
     try {
-      let context: AjfContext;
-      
       formSchemaOb = JSON.parse(this.formSchema);
 
       let schemaIsValid =  AjfJsonValidator.validate(formSchemaOb);
@@ -67,9 +67,9 @@ export class FormsDemo {
         );
       } else {
         if (this.context != null && this.context.length > 0) {
-          context = JSON.parse(this.context);
+          contextob = JSON.parse(this.context);
         } else {
-          context = {};
+          contextob = {};
         }
       }
 
@@ -81,7 +81,7 @@ export class FormsDemo {
     }
 
     if (this.formIsVisible) {
-      this.form = AjfForm.fromJson(formSchemaOb, context);
+      this.form = AjfFormSerializer.fromJson(formSchemaOb, contextob);
     }
   }
 }
