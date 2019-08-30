@@ -171,7 +171,7 @@ export function widgetToWidgetInstance(
         htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
       });
     }
-    tewi.htmlText = ts.instant(htmlText);
+    tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.instant(htmlText) : htmlText;
   } else if (widget.widgetType === AjfWidgetType.Formula) {
     const fw = widget as AjfFormulaWidget;
     const fwi = wi as AjfFormulaWidgetInstance;
