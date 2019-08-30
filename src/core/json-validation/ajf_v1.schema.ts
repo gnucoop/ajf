@@ -184,7 +184,7 @@ export const JSONSCHEMA: Object = {
                         'fieldType': {
                             '$comment': '#fieldnode/properties/fieldType',
                             'type': 'integer',
-                            'enum': [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+                            'enum': [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
                         },
                         'hasChoices': {
                             '$comment': '#fieldnode/properties/hasChoices',
