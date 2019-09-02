@@ -63,7 +63,7 @@ export function widgetToWidgetInstance(
     const cw = widget as AjfChartWidget;
     const cwi = wi as AjfChartWidgetInstance;
     const labels = cw.labels instanceof Array ? cw.labels : [cw.labels];
-    cwi.labels = labels.map(l => {
+    const evLabels = labels.map(l => {
       let evf = evaluateExpression(l.formula, context);
       try {
         if (evf instanceof Array) {
@@ -75,7 +75,8 @@ export function widgetToWidgetInstance(
       }
       return evf;
     });
-    cwi.dataset = cw.dataset.map(d => {
+    cwi.labels = cw.labels instanceof Array ? evLabels : evLabels[0];
+    cwi.datasets = cw.dataset.map(d => {
       let ds: any = {
         ...d.options || {},
         data: evaluateAggregation(d.aggregation, d.formula, context),
