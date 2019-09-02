@@ -24,8 +24,8 @@
 import Ajv, { ErrorObject } from 'ajv';
 import debug from 'debug';
 
-// import * as JSONSCHEMA_v1 from './ajf_v1.schema.json';
-import {JSONSCHEMA as JSONSCHEMA_AJF_V1} from './ajf_v1.schema';
+// import * as JSONSCHEMA_v1 from './ajf-v1.schema.json';
+import {JSONSCHEMA as JSONSCHEMA_AJF_V1} from './ajf-v1.schema';
 
 
 const DEFAULT_SCHEMA_KEY: unique symbol = Symbol('default');
