@@ -97,6 +97,7 @@ export function widgetToWidgetInstance(
       return ds;
     });
     cwi.data = {labels: cwi.labels, datasets: cwi.datasets};
+    cwi.chartType = chartToChartJsType(cw.type || cw.chartType);
   } else if (widget.widgetType === AjfWidgetType.Table) {
     const tw = widget as AjfTableWidget;
     const twi = wi as AjfTableWidgetInstance;
