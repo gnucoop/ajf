@@ -21,8 +21,7 @@
  */
 
 import {
-  ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation,
-  ChangeDetectorRef, Renderer2, ViewChild, ElementRef
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Renderer2, ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
