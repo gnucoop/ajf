@@ -20,7 +20,7 @@
  *
  */
 
-import {ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectorRef, ElementRef} from '@angular/core';
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 
 export abstract class AjfBaseWidgetComponent<T extends AjfWidgetInstance = AjfWidgetInstance> {
@@ -33,5 +33,5 @@ export abstract class AjfBaseWidgetComponent<T extends AjfWidgetInstance = AjfWi
     }
   }
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  constructor(private _cdr: ChangeDetectorRef, readonly el: ElementRef) { }
 }

@@ -21,7 +21,8 @@
  */
 
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+  ViewEncapsulation} from '@angular/core';
 
 import {AjfBaseWidgetComponent, AjfFormulaWidgetInstance} from '@ajf/core/reports';
 
@@ -34,7 +35,7 @@ import {AjfBaseWidgetComponent, AjfFormulaWidgetInstance} from '@ajf/core/report
 })
 export class AjfFormulaWidgetComponent
     extends AjfBaseWidgetComponent<AjfFormulaWidgetInstance> {
-  constructor(cdr: ChangeDetectorRef) {
-    super(cdr);
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
   }
 }

@@ -20,7 +20,7 @@
  *
  */
 
-import {AfterViewInit, ComponentFactoryResolver} from '@angular/core';
+import {AfterViewInit, ComponentFactoryResolver, Renderer2} from '@angular/core';
 
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 import {AjfWidgetComponentsMap} from './widget-components-map';
@@ -40,7 +40,7 @@ export abstract class AjfReportWidget implements AfterViewInit {
 
   protected abstract widgetsMap: AjfWidgetComponentsMap;
 
-  constructor(private _cfr: ComponentFactoryResolver) { }
+  constructor(private _cfr: ComponentFactoryResolver, private _renderer: Renderer2) { }
 
   ngAfterViewInit(): void {
     this._loadComponent();
@@ -58,6 +58,17 @@ export abstract class AjfReportWidget implements AfterViewInit {
       const componentFactory = this._cfr.resolveComponentFactory(component);
       const componentRef = vcr.createComponent(componentFactory);
       const componentInstance = componentRef.instance;
+
+      Object.keys(this._instance.widget.styles).forEach((style: string) => {
+        try {
+          this._renderer.setStyle(
+            componentInstance.el.nativeElement,
+            style,
+            `${this._instance.widget.styles[style]}`
+          );
+        } catch (e) { }
+      });
+
       componentInstance.instance = this._instance;
       if (componentDef.inputs) {
         Object.keys(componentDef.inputs).forEach(key => {

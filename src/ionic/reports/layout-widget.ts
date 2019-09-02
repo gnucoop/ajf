@@ -21,7 +21,8 @@
  */
 
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+  ViewEncapsulation} from '@angular/core';
 
 import {AjfBaseWidgetComponent, AjfLayoutWidgetInstance} from '@ajf/core/reports';
 
@@ -33,7 +34,7 @@ import {AjfBaseWidgetComponent, AjfLayoutWidgetInstance} from '@ajf/core/reports
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfLayoutWidgetComponent extends AjfBaseWidgetComponent<AjfLayoutWidgetInstance> {
-  constructor(cdr: ChangeDetectorRef) {
-    super(cdr);
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
   }
 }

@@ -22,8 +22,8 @@
 
 import {AjfReportWidget as CoreComponent, AjfWidgetHost, AjfWidgetType} from '@ajf/core/reports';
 import {
-  ChangeDetectionStrategy, ComponentFactoryResolver, Component, ViewChild, ViewEncapsulation
-} from '@angular/core';
+  ChangeDetectionStrategy, ComponentFactoryResolver, Component, Renderer2, ViewChild,
+  ViewEncapsulation} from '@angular/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfColumnWidgetComponent} from './column-widget';
@@ -49,8 +49,8 @@ import {AjfTextWidgetComponent} from './text-widget';
   },
 })
 export class AjfReportWidget extends CoreComponent {
-  constructor(cfr: ComponentFactoryResolver) {
-    super(cfr);
+  constructor(cfr: ComponentFactoryResolver, renderer: Renderer2) {
+    super(cfr, renderer);
   }
 
   widgetsMap = {

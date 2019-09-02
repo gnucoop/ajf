@@ -20,8 +20,8 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+  ViewEncapsulation} from '@angular/core';
 
 import {AjfBaseWidgetComponent, AjfImageWidgetInstance} from '@ajf/core/reports';
 
@@ -33,7 +33,7 @@ import {AjfBaseWidgetComponent, AjfImageWidgetInstance} from '@ajf/core/reports'
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfImageWidgetComponent extends AjfBaseWidgetComponent<AjfImageWidgetInstance> {
-  constructor(cdr: ChangeDetectorRef) {
-    super(cdr);
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
   }
 }

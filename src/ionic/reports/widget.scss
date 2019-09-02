@@ -1,9 +1,9 @@
-ajf-report-widget {
+ajf-widget {
   display: flex;
   flex: 1 1 auto;
   box-sizing: border-box;
 
-  .ajf-report-widget-container {
+  > ng-component {
     flex: 1 1 auto;
     display: flex;
     align-items: center;

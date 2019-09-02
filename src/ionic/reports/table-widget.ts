@@ -21,7 +21,8 @@
  */
 
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+  ViewEncapsulation} from '@angular/core';
 
 import {AjfBaseWidgetComponent, AjfTableWidgetInstance} from '@ajf/core/reports';
 
@@ -34,7 +35,7 @@ import {AjfBaseWidgetComponent, AjfTableWidgetInstance} from '@ajf/core/reports'
 })
 export class AjfTableWidgetComponent
     extends AjfBaseWidgetComponent<AjfTableWidgetInstance> {
-  constructor(cdr: ChangeDetectorRef) {
-    super(cdr);
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
   }
 }

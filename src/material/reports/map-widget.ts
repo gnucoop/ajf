@@ -20,8 +20,8 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
+  ViewEncapsulation} from '@angular/core';
 
 import {AjfBaseWidgetComponent, AjfMapWidgetInstance} from '@ajf/core/reports';
 
@@ -34,7 +34,7 @@ import {AjfBaseWidgetComponent, AjfMapWidgetInstance} from '@ajf/core/reports';
 })
 export class AjfMapWidgetComponent
     extends AjfBaseWidgetComponent<AjfMapWidgetInstance> {
-  constructor(cdr: ChangeDetectorRef) {
-    super(cdr);
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
   }
 }
