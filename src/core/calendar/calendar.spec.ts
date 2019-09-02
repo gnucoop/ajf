@@ -1,7 +1,42 @@
-import {AjfCalendar} from './calendar';
+import {isSameDay} from 'date-fns';
 
-describe('dummy', () => {
-  it('test', () => {
-    expect(AjfCalendar).toBeDefined();
+import {AjfCalendar as Base} from './calendar';
+import {AjfCalendarPeriod} from './calendar-period';
+import {AjfCalendarEntry} from './calendar-entry';
+
+class MockCdr {
+  markForCheck = () => {};
+}
+
+class AjfCalendar extends Base {
+  constructor() {
+    super(new MockCdr() as any);
+  }
+}
+
+describe('AjfCalendar', () => {
+  describe('iso mode month selection mode', () => {
+    it('should select the iso month based on the selected entry', () => {
+      const calendar = new AjfCalendar();
+
+      calendar.isoMode = true;
+      calendar.selectionMode = 'month';
+      calendar.viewMode = 'month';
+
+      const entry = new AjfCalendarEntry({
+        type: 'day',
+        date: new Date(2019, 6, 29),
+        selected: 'none',
+      });
+
+      calendar.selectEntry(entry);
+
+      const value = calendar.value as AjfCalendarPeriod;
+      const startDate = new Date(2019, 6, 29);
+      const endDate = new Date(2019, 8, 1);
+      expect(value.type).toEqual('month');
+      expect(isSameDay(value.startDate, startDate)).toEqual(true);
+      expect(isSameDay(value.endDate, endDate)).toEqual(true);
+    });
   });
 });
