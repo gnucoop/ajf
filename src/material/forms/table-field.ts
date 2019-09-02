@@ -41,4 +41,19 @@ export class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldI
     cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
+
+  goToNextCell(ev: KeyboardEvent, indexColumn: number, indexRow: number): void {
+    const rowLength = this.instance.controlsWithLabels[indexRow].length;
+    const currentCell: any = this.instance.controlsWithLabels[indexRow][indexColumn];
+    let nextCell: any = this.instance.controlsWithLabels[indexRow][indexColumn + 1];
+
+    if (indexColumn + 1 >= rowLength) {
+      nextCell = this.instance.controlsWithLabels[indexRow + 1][1];
+    }
+
+    currentCell.show = false;
+    nextCell.show = true;
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
 }
