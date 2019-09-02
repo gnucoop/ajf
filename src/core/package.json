@@ -25,6 +25,7 @@
     "@angular/forms": "0.0.0-NG",
     "@angular/router": "0.0.0-NG",
     "@ngx-translate/core": "0.0.0-NGXT",
+    "@zxing/library": "^0.15.1",
     "chart.js": "^2.8.0",
     "chart.piecelabel.js": "^0.15.0",
     "css-element-queries": "^1.2.1",
