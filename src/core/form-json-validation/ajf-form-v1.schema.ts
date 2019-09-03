@@ -1,7 +1,7 @@
 // tslint:disable: max-line-length
 export const JSONSCHEMA: Object = {
     '$schema': 'http://json-schema.org/draft-07/schema#',
-    '$id': 'http://ajf.gnucoop.org/schemas/v1.json',
+    '$id': 'http://ajf.gnucoop.org/schemas/form/v1.json',
 
     'definitions': {
         'node': {

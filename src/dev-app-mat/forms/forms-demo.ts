@@ -20,9 +20,9 @@
  *
  */
 
+import {AjfFormJsonValidator} from '@ajf/core/form-json-validation';
 import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
-import {AjfJsonValidator} from '@ajf/core/json-validation';
 import {Component} from '@angular/core';
 
 import {formSchema} from './form';
@@ -53,11 +53,11 @@ export class FormsDemo {
     try {
       formSchemaOb = JSON.parse(this.formSchema);
 
-      let schemaIsValid =  AjfJsonValidator.validate(formSchemaOb);
+      let schemaIsValid =  AjfFormJsonValidator.validate(formSchemaOb);
 
       if (!schemaIsValid) {
         this.messages = this.messages.concat(
-          (AjfJsonValidator.getErrors() || [])
+          (AjfFormJsonValidator.getErrors() || [])
             .map((e) =>
               `${e.dataPath} ${e.message} (${Object.keys(e.params)
                 .map(k => `${k}=${Object(e.params)[k]}`)

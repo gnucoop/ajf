@@ -24,33 +24,33 @@
 import Ajv, { ErrorObject } from 'ajv';
 import debug from 'debug';
 
-// import * as JSONSCHEMA_v1 from './ajf-v1.schema.json';
-import {JSONSCHEMA as JSONSCHEMA_AJF_V1} from './ajf-v1.schema';
+// import * as JSONSCHEMA_v1 from './ajf-form-v1.schema.json';
+import {JSONSCHEMA as JSONSCHEMA_AJF_FORM_V1} from './ajf-form-v1.schema';
 
 
 const DEFAULT_SCHEMA_KEY: unique symbol = Symbol('default');
 
 const knownSchemas: {[key: string]: object} = {
-    'ajf_v1': JSONSCHEMA_AJF_V1
+    'ajf_v1': JSONSCHEMA_AJF_FORM_V1
 };
 
 // NB: TS not supporting symbol indexing means we have to suppress the compiler error.
 //     see: https://github.com/Microsoft/TypeScript/issues/1863
 //
 // @ts-ignore
-knownSchemas[DEFAULT_SCHEMA_KEY] = JSONSCHEMA_AJF_V1;
+knownSchemas[DEFAULT_SCHEMA_KEY] = JSONSCHEMA_AJF_FORM_V1;
 
 const debugConstructor: (value?: any) => debug.IDebugger =
     (<any>debug).default || debug;
 
 const dbg = debugConstructor('ajf:json-validation');
 
-export class AjfJsonValidator {
+export class AjfFormJsonValidator {
 
     private static _ajv = new Ajv();
 
     static getErrors() {
-        return AjfJsonValidator._ajv.errors;
+        return AjfFormJsonValidator._ajv.errors;
     }
 
     static getKnownSchema(schemakey: string | symbol = DEFAULT_SCHEMA_KEY) {
@@ -65,7 +65,7 @@ export class AjfJsonValidator {
         let valid = false;
 
         if (schema) {
-            valid = Boolean(AjfJsonValidator._ajv.validate(schema, jsondocument));
+            valid = Boolean(AjfFormJsonValidator._ajv.validate(schema, jsondocument));
         }
 
         dbg(`... validation result: %s`, valid);

@@ -20,4 +20,4 @@
  *
  */
 
-export * from './json-validation';
+export * from './form-json-validation';

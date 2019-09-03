@@ -1,37 +1,37 @@
-import {AjfJsonValidator} from './json-validation';
+import {AjfFormJsonValidator} from './form-json-validation';
 import {OPD_DATA} from './testdata/testdata.json';
 
-describe('JSON Validator', () => {
+describe('Form JSON Validator', () => {
 
   it('Should be defined', () => {
-    expect(AjfJsonValidator).toBeDefined();
+    expect(AjfFormJsonValidator).toBeDefined();
   });
 
   it('Should have v1 schema defined with given id', () => {
-    expect(AjfJsonValidator.getKnownSchema('ajf_v1')).toBeTruthy();
+    expect(AjfFormJsonValidator.getKnownSchema('ajf_v1')).toBeTruthy();
   });
 
   it('Should have a default schema defined', () => {
-    expect(AjfJsonValidator.getKnownSchema()).toBeTruthy();
+    expect(AjfFormJsonValidator.getKnownSchema()).toBeTruthy();
   });
 
   it('Should validate OPD test Data with default schema, provide no errors', () => {
-    let valid = AjfJsonValidator.validate(OPD_DATA);
+    let valid = AjfFormJsonValidator.validate(OPD_DATA);
     expect(valid).toEqual(true);
-    let errors = AjfJsonValidator.getErrors();
+    let errors = AjfFormJsonValidator.getErrors();
     expect(errors).toBeFalsy();
   });
 
   it('Should not validate OPD test Data with an unknown schema key', () => {
-    let valid = AjfJsonValidator.validate(OPD_DATA, '__fake_schema_key');
+    let valid = AjfFormJsonValidator.validate(OPD_DATA, '__fake_schema_key');
     expect(valid).toEqual(false);
   });
 
   it('Should not validate FAILING test Data with default schema, provide errors', () => {
     const FAIL_DATA = {};
-    let valid = AjfJsonValidator.validate(FAIL_DATA);
+    let valid = AjfFormJsonValidator.validate(FAIL_DATA);
     expect(valid).toEqual(false);
-    let errors = AjfJsonValidator.getErrors();
+    let errors = AjfFormJsonValidator.getErrors();
     expect(errors).toBeTruthy();
   });
 
