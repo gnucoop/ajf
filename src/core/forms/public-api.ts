@@ -128,6 +128,8 @@ export * from './utils/fields/create-field';
 export * from './utils/fields/is-field-with-choices';
 export * from './utils/fields/is-number-field';
 export * from './utils/fields-instances/create-field-instance';
+export * from './utils/fields-instances/is-field-with-choices-instance';
+export * from './utils/fields-instances/create-field-with-choices-instance';
 export * from './utils/forms/create-form';
 export * from './utils/nodes/create-node';
 export * from './utils/nodes/flatten-nodes';
