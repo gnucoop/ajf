@@ -51,7 +51,10 @@ export class AjfCalendarChange {
 
 export abstract class AjfCalendar implements AfterContentInit, ControlValueAccessor, OnInit {
   get viewDate(): Date { return this._viewDate; }
-  set viewDate(viewDate: Date) { this._setViewDate(viewDate); }
+  set viewDate(viewDate: Date) {
+    this._setViewDate(viewDate);
+    this._cdr.markForCheck();
+  }
 
   private _disabled = false;
   get disabled(): boolean { return this._disabled; }
@@ -67,6 +70,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   get dateOnlyForDay(): boolean { return this._disabled; }
   set dateOnlyForDay(dateOnlyForDay: boolean) {
     this._dateOnlyForDay = dateOnlyForDay != null && `${dateOnlyForDay}` !== 'false';
+    this._cdr.markForCheck();
   }
 
   private _viewMode: AjfCalendarViewMode = 'month';
@@ -74,12 +78,14 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   set viewMode(viewMode: AjfCalendarViewMode) {
     this._viewMode = viewMode;
     this._buildCalendar();
+    this._cdr.markForCheck();
   }
 
   private _selectionMode: AjfCalendarPeriodType = 'day';
   get selectionMode(): AjfCalendarPeriodType { return this._selectionMode; }
   set selectionMode(selectionMode: AjfCalendarPeriodType) {
     this._selectionMode = selectionMode;
+    this._cdr.markForCheck();
   }
 
   private _startOfWeekDay = 1;
@@ -92,23 +98,29 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     if (this._viewMode === 'month') {
       this._buildCalendar();
     }
+    this._cdr.markForCheck();
   }
 
   private _isoMode: boolean = false;
 
   get isoMode(): boolean { return this._isoMode; }
-  set isoMode(isoMode: boolean) { this._isoMode = isoMode; }
+  set isoMode(isoMode: boolean) {
+    this._isoMode = isoMode;
+    this._cdr.markForCheck();
+  }
 
   private _minDate: Date | null;
   get minDate(): Date | null { return this._minDate; }
   set minDate(minDate: Date | null) {
     this._minDate = minDate != null ? new Date(minDate.valueOf()) : null;
+    this._cdr.markForCheck();
   }
 
   private _maxDate: Date | null;
   get maxDate(): Date | null { return this._maxDate; }
   set maxDate(maxDate: Date | null) {
     this._maxDate = maxDate != null ? new Date(maxDate.valueOf()) : null;
+    this._cdr.markForCheck();
   }
 
   private _change: EventEmitter<AjfCalendarChange> = new EventEmitter<AjfCalendarChange>();
@@ -124,6 +136,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
       period: period
     });
     this._refreshSelection();
+    this._cdr.markForCheck();
   }
 
   get value(): AjfCalendarPeriod | Date | null {
@@ -147,6 +160,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
       this.selectedPeriod = <AjfCalendarPeriod>period;
       this._onChangeCallback(period);
     }
+    this._cdr.markForCheck();
   }
 
   get calendarRows(): AjfCalendarEntry[][] { return this._calendarRows; }
