@@ -31,6 +31,11 @@ export class AjfError extends Error {
    */
   constructor(message?: string) {
     super(message);
+
+    // Set the prototype explicitly. Workaround needed in TS >= 2.1 when extending built-ins
+    // See: https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md
+    Object.setPrototypeOf(this, AjfError.prototype);
+
     this._message = message || '';
   }
 }

@@ -41,28 +41,34 @@ export const dateUtils = {
 };
 
 export function digitCount(x: number): number {
-  if (x == null) {
+  if ( isNaN(x) || typeof(x) !== 'number') {
     return 0;
   }
-  return x.toString().length;
+  if ( !isFinite(x)) {
+    return Infinity;
+  }
+  return x.toString().replace(/[^0-9]/g, '').length;
 }
 
 export function decimalCount(x: string|number): number {
-  if (x == null) {
-    return 0;
-  }
   if (typeof x === 'string') {
     x = parseFloat(x);
   }
-  if (isNaN(x)) {
+  if (typeof x !== 'number' || isNaN(x)) {
     return 0;
   }
   const parts = x.toString().split('.');
   return parts.length > 1 ? parts[1].length : 0;
 }
 
-export function isInt(x: string): boolean {
-  return !/[,.]/.test(x);
+export function isInt(x: string|number): boolean {
+  if (typeof(x) === 'string') {
+    return /^-?\d+$/.test(x);
+  }
+  if (typeof (x) === 'number') {
+    return Math.round(x) === x;
+  }
+  return false;
 }
 
 export function notEmpty(x: any): boolean {
