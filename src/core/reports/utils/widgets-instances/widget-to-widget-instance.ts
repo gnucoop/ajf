@@ -67,9 +67,11 @@ export function widgetToWidgetInstance(
       let evf = evaluateExpression(l.formula, context);
       try {
         if (evf instanceof Array) {
-          evf = evf.map(v => ts.instant(v));
+          evf = evf.map(v => v != null && typeof v === 'string' && v.trim().length > 0
+            ? ts.instant(v) : v);
         } else {
-          evf = ts.instant(evf);
+          evf = evf != null && typeof evf === 'string' && evf.trim().length > 0
+            ? ts.instant(evf) : evf;
         }
       } catch (_e) {
       }
@@ -105,11 +107,14 @@ export function widgetToWidgetInstance(
       let formula = f.formula;
       if (formula.substr(0, 1) === '"') {
         const ft = formula.slice(1, -1);
+        const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
+          ? ts.instant(ft) : ft;
         if (ft.length > 0) {
-          formula = `"${ts.instant(ft)}"`;
+          formula = `"${transFt}"`;
         }
       } else {
-        formula = ts.instant(formula);
+        formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
+          ? ts.instant(formula) : formula;
       }
       return evaluateExpression(formula, context);
     };

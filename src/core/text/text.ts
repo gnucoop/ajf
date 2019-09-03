@@ -50,7 +50,7 @@ export class AjfTextComponent {
   set htmlText(htmlText: string) {
     // type checking and length checking for instant method
     const htmlTextToBeTranslate: string =
-      htmlText.length > 0 && typeof htmlText === 'string'
+      htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0
         ? this._ts.instant(htmlText) : htmlText;
     this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
     this._cdr.markForCheck();
