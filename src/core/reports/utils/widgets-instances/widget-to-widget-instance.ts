@@ -154,7 +154,7 @@ export function widgetToWidgetInstance(
   } else if (widget.widgetType === AjfWidgetType.Text) {
     const tew = widget as AjfTextWidget;
     const tewi = wi as AjfTextWidgetInstance;
-    const formulaRegEx: RegExp = /\[\[(.+?)\]\]/g;
+    const formulaRegEx: RegExp = /\[{2}(.+?)\]{2}/g;
     const matches: {idx: number, len: number, formula: AjfFormula}[] = [];
     let match: RegExpExecArray|null;
     let htmlText = tew.htmlText;
@@ -163,16 +163,16 @@ export function widgetToWidgetInstance(
       const len = match[0].length;
       const formula = createFormula({formula: match[1]});
       matches.push({idx, len, formula});
-      matches.reverse().forEach((m) => {
-        let calcValue;
-        try {
-          calcValue = evaluateExpression(m.formula.formula, context);
-        } catch (e) {
-          calcValue = '';
-        }
-        htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
-      });
     }
+    matches.reverse().forEach((m) => {
+      let calcValue;
+      try {
+        calcValue = evaluateExpression(m.formula.formula, context);
+      } catch (e) {
+        calcValue = '';
+      }
+      htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
+    });
     tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.instant(htmlText) : htmlText;
   } else if (widget.widgetType === AjfWidgetType.Formula) {
     const fw = widget as AjfFormulaWidget;
