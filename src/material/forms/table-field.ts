@@ -43,12 +43,12 @@ export class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldI
   }
 
   goToNextCell(ev: KeyboardEvent, indexColumn: number, indexRow: number): void {
-    const rowLength = this.instance.controlsWithLabels[indexRow].length;
-    const currentCell: any = this.instance.controlsWithLabels[indexRow][indexColumn];
-    let nextCell: any = this.instance.controlsWithLabels[indexRow][indexColumn + 1];
+    const rowLength = this.instance.controls[indexRow].length;
+    const currentCell: any = this.instance.controls[indexRow][indexColumn];
+    let nextCell: any = this.instance.controls[indexRow][indexColumn + 1];
 
     if (indexColumn + 1 >= rowLength) {
-      nextCell = this.instance.controlsWithLabels[indexRow + 1][1];
+      nextCell = this.instance.controls[indexRow + 1][1];
     }
 
     currentCell.show = false;

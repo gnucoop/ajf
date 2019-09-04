@@ -1,9 +1,9 @@
 <div class="ajf-table-container">
   <table>
-    <ng-container *ngFor="let columns of instance|ajfTableVisibleColumns; let i = index">
+    <ng-container *ngFor="let columns of (instance|ajfTableVisibleColumns); let i = index">
       <tr [ngClass]="i | ajfTableRowClass">
         <td *ngFor="let cellValue of columns" >
-          {{ cellValue | ajfTranslateIfString | ajfFormatIfNumber: '.2' }}
+          {{ cellValue | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
         </td>
       </tr>
     </ng-container>

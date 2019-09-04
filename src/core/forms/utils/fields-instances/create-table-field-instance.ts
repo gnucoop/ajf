@@ -36,6 +36,5 @@ export function createTableFieldInstance(
     context,
     hideEmptyRows: instance.hideEmptyRows || false,
     controls: [],
-    controlsWithLabels: []
   };
 }

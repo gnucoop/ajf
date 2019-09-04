@@ -39,7 +39,6 @@ import {AjfFormulaFieldInstance} from './interface/fields-instances/formula-fiel
 import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
 import {AjfEmptyField} from './interface/fields/empty-field';
 import {AjfFieldType} from './interface/fields/field-type';
-import {AjfTableField} from './interface/fields/table-field';
 import {AjfForm} from './interface/forms/form';
 import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-instance';
 import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
@@ -427,7 +426,41 @@ export class AjfFormRendererService {
         if (isFieldWithChoices(fInstance.node)) {
           updateFilteredChoices(fInstance as AjfFieldWithChoicesInstance<any>, context);
         } else {
-          fInstance.value = context[nodeInstanceCompleteName(instance)];
+          if (isTableFieldInstance(fInstance)) {
+            const tfInstance = fInstance as AjfTableFieldInstance;
+            const tNode = tfInstance.node;
+            tfInstance.context = {};
+            if (!tNode.editable) {
+              const value: [string, string[]][] = [];
+              value.push([tNode.label, tNode.columnLabels]);
+              tNode.rows.forEach((row, rowIndex) => {
+                value[rowIndex] = [tNode.rowLabels[rowIndex], row.map(k => {
+                  tfInstance.context[k] = context[k];
+                  return context[k];
+                })];
+              });
+              tfInstance.value = value;
+            } else {
+              const formGroup = this._formGroup.getValue();
+              let controlsWithLabels: [string, (string|FormControl)[]][] = [];
+              controlsWithLabels.push([node.label, tNode.columnLabels]);
+              tNode.rows.forEach((row, idx) => {
+                let r: FormControl[] = [];
+                row.forEach((k) => {
+                  const control = new FormControl();
+                  control.setValue(tfInstance.context[k]);
+                  if (formGroup != null) {
+                    formGroup.registerControl(k, control);
+                  }
+                  r.push(control);
+                });
+                controlsWithLabels.push([tNode.rowLabels[idx], r]);
+              });
+              tfInstance.controls = controlsWithLabels;
+            }
+          } else {
+            fInstance.value = context[nodeInstanceCompleteName(instance)];
+          }
           updateFieldInstanceState(fInstance, context);
         }
       }
@@ -959,24 +992,6 @@ export class AjfFormRendererService {
       const control = new FormControl();
       control.setValue(fieldInstance.value);
       formGroup.registerControl(fieldInstanceName, control);
-    }
-    if (formGroup != null && isTableFieldInstance(fieldInstance)) {
-      if ((fieldInstance.node as AjfTableField).editable) {
-        const tfInstance = fieldInstance as AjfTableFieldInstance;
-        let node = <AjfTableField>fieldInstance.node;
-        let value: FormControl[][] = [];
-        node.rows.forEach((row) => {
-          let r: FormControl[] = [];
-          row.forEach((k) => {
-            const control = new FormControl();
-            control.setValue(tfInstance.context[k]);
-            formGroup!.registerControl(k, control);
-            r.push(control);
-          });
-          value.push(r);
-        });
-        tfInstance.controls = value;
-      }
     }
     if (fieldInstance.validation != null) {
       this._validationNodesMapUpdates.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
