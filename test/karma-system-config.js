@@ -88,6 +88,7 @@ System.config({
     '@ajf/core/reports': 'dist/packages/core/reports/index.js',
     '@ajf/core/table': 'dist/packages/core/table/index.js',
     '@ajf/core/text': 'dist/packages/core/text/index.js',
+    '@ajf/core/time': 'dist/packages/core/time/index.js',
     '@ajf/core/utils': 'dist/packages/core/utils/index.js',
     '@ajf/ionic': 'dist/packages/ionic/index.js',
     '@ajf/ionic/calendar': 'dist/packages/ionic/calendar/index.js',
