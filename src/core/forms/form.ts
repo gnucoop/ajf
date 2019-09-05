@@ -37,7 +37,6 @@ import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-insta
 import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 import {AjfRepeatingSlideInstance} from './interface/slides-instances/repeating-slide-instance';
 import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
-import {isRepeatingSlideInstance} from './utils/nodes-instances/is-repeating-slide-instance';
 import {nodeInstanceCompleteName} from './utils/nodes-instances/node-instance-complete-name';
 
 export class AjfFormActionEvent {

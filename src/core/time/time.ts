@@ -72,7 +72,6 @@ export class AjfTime implements ControlValueAccessor {
 
 
   private _onChangeCallback: (_: any) => void = (_: any) => {};
-  // tslint:disable-next-line
   private _onTouchedCallback: () => void = () => {};
 
   constructor() {
@@ -92,5 +91,9 @@ export class AjfTime implements ControlValueAccessor {
 
   registerOnTouched(fn: any) {
     this._onTouchedCallback = fn;
+  }
+
+  focusHandler(): void {
+    this._onTouchedCallback();
   }
 }

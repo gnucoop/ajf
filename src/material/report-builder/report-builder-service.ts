@@ -544,8 +544,9 @@ export class AjfReportBuilderService {
                      AjfWidgetsContainer, AjfStyles
                    ]) => {
           let obj: any = {};
-          const curRo = r[0][1];
-          const forms = r[0][2] != null ? r[0][2] || [] : (curRo != null ? curRo.forms || [] : []);
+          // const curRo = r[0][1];
+          // const forms = r[0][2] != null ? r[0][2] || []
+          //     : (curRo != null ? curRo.forms || [] : []);
 
           obj.header = {content: r[1].widgets.map(w => deepCopy(w)), styles: r[1].styles} as
               AjfReportContainer;

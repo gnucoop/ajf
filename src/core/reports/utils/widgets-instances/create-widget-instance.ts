@@ -27,7 +27,7 @@ import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instan
 import {AjfWidget} from '../../interface/widgets/widget';
 
 export function createWidgetInstance(
-    widget: AjfWidget, context: AjfContext, ts: TranslateService): AjfWidgetInstance {
+    widget: AjfWidget, context: AjfContext, _ts: TranslateService): AjfWidgetInstance {
   return {
     widget,
     widgetType: widget.widgetType,

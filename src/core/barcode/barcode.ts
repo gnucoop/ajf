@@ -81,7 +81,7 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
               const data: string = this._getDataFromVideo(this.videoSource);
               return this._readBarcodeFromData(data);
           }),
-          catchError((e: Error) => {
+          catchError(() => {
               return of({} as Result);
           })
       )

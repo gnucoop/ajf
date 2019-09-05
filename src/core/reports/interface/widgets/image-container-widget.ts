@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfImageIcon, AjfImageType} from '@ajf/core/image';
+import {AjfImageType} from '@ajf/core/image';
 import {AjfFormula} from '@ajf/core/models';
 import {AjfWidget} from './widget';
 

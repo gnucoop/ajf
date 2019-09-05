@@ -244,6 +244,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     }
     this.value = newPeriod;
 
+    this._onTouchedCallback();
     this._cdr.markForCheck();
   }
 
@@ -271,8 +272,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   }
 
   private _onChangeCallback: (_: any) => void = (_: any) => { };
-  // tslint:disable-next-line
-  private _onTouchedCallback: (_: any) => void = (_: any) => { };
+  private _onTouchedCallback: () => void = () => { };
 
   private _setViewDate(date: Date): void {
     this._viewDate = date;
