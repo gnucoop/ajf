@@ -4,6 +4,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {CalendarE2eModule} from './calendar/calendar-e2e-module';
+import {TableFieldE2eModule} from './table-field/table-field-e2e-module';
 import {E2eApp} from './e2e-app';
 import {E2eAppModule} from './e2e-app/e2e-app-module';
 import {E2E_APP_ROUTES} from './e2e-app/routes';
@@ -18,6 +19,7 @@ import {E2E_APP_ROUTES} from './e2e-app/routes';
 
     // E2E demos
     CalendarE2eModule,
+    TableFieldE2eModule,
   ],
   declarations: [
     E2eApp,

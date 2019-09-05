@@ -48,7 +48,7 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
   private _instanceUpdateSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
+    protected _changeDetectorRef: ChangeDetectorRef,
     private _service: AjfFormRendererService,
     private _warningAlertService: AjfWarningAlertService,
   ) {
@@ -94,5 +94,6 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     } else {
       this._instanceUpdateSub = Subscription.EMPTY;
     }
+    this._changeDetectorRef.detectChanges();
   }
 }

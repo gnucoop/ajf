@@ -9,28 +9,31 @@
     </ng-container>
   </ng-container>
   <ng-template #editableTmpl>
-    <ng-container *ngFor="let columns of instance.controls; let indexRows = index">
-      <tr [ngClass]="indexRows | ajfTableRowClass">
+    <ng-container *ngFor="let columns of instance.controls; let row = index">
+      <tr [ngClass]="row | ajfTableRowClass">
         <td>
           <ng-container *ngIf="columns[0] != null">
             {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
           </ng-container>
         </td>
-        <td *ngFor="let contr of columns[1]; let indexColums = index">
+        <td *ngFor="let contr of columns[1]; let column = index">
           <ng-container *ngIf="contr != null">
             <input
-                *ngIf="contr.show"
+                *ngIf="row > 0 && contr.show; else plainTextCell"
                 (focusout)="contr.show = false"
                 type="number"
                 [formControl]="contr"
-                (keydown.tab)="goToNextCell($event, indexColums, indexRows)"
+                (keydown.tab)="goToNextCell($event, row, column)"
                 autoFocus
             >
-            <span
-                *ngIf="!contr.show"
-                class="ajf-table-cell"
-                (click)="contr.show ? contr.show = false : contr.show = true;"
-            >{{ contr.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>
+            <ng-template #plainTextCell>
+              <span *ngIf="row > 0; else labelCell"
+                  class="ajf-table-cell"
+                  (click)="goToCell(row, column)"
+              >{{ contr.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>
+              <ng-template #labelCell
+              >{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>
+            </ng-template>
           </ng-container>
         </td>
       </tr>

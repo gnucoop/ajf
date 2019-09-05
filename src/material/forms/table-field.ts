@@ -26,8 +26,13 @@ import {
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 import {AjfWarningAlertService} from './warning-alert-service';
+
+interface ExtFormControl extends FormControl {
+  show?: boolean;
+}
 
 @Component({
   moduleId: module.id,
@@ -42,18 +47,47 @@ export class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldI
     super(cdr, service, was);
   }
 
-  goToNextCell(ev: KeyboardEvent, indexColumn: number, indexRow: number): void {
-    const rowLength = this.instance.controls[indexRow].length;
-    const currentCell: any = this.instance.controls[indexRow][indexColumn];
-    let nextCell: any = this.instance.controls[indexRow][indexColumn + 1];
-
-    if (indexColumn + 1 >= rowLength) {
-      nextCell = this.instance.controls[indexRow + 1][1];
+  goToNextCell(ev: KeyboardEvent, row: number, column: number): void {
+    const rowLength = this.instance.controls[row][1].length;
+    const currentCell = this.instance.controls[row][1][column] as ExtFormControl;
+    if (column + 1 >= rowLength) {
+      column = 0;
+      if (row + 1 >= this.instance.controls.length) {
+        row = 1;
+      } else {
+        row += 1;
+      }
+    } else {
+      column += 1;
     }
-
-    currentCell.show = false;
-    nextCell.show = true;
+    if (typeof currentCell !== 'string') {
+      currentCell.show = false;
+    }
+    this._showCell(row, column);
     ev.preventDefault();
     ev.stopPropagation();
+  }
+
+  goToCell(row: number, column: number): void {
+    this._resetControls();
+    this._showCell(row, column);
+  }
+
+  private _resetControls(): void {
+    this.instance.controls.forEach(row => row[1].forEach(cell => {
+      if (typeof cell !== 'string') {
+        (cell as ExtFormControl).show = false;
+      }
+    }));
+  }
+
+  private _showCell(row: number, column: number): void {
+    if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
+      return;
+    }
+    const nextCell = this.instance.controls[row][1][column] as ExtFormControl;
+    if (typeof nextCell !== 'string') {
+      nextCell.show = true;
+    }
   }
 }

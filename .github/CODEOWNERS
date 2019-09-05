@@ -93,6 +93,7 @@
 /src/e2e-app-mat/calendar/*                        @trik
 /src/e2e-app-mat/e2e-app/**                        @trik
 /src/e2e-app-mat/example-viewer/**                 @trik
+/src/e2e-app-mat/table-field/*                     @trik
 
 # E2E app ionic
 /src/e2e-app-ion/*                                 @trik

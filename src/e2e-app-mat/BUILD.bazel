@@ -58,7 +58,9 @@ ts_devserver(
         "@npm//zone.js",
         "@npm//core-js",
         "@npm//hammerjs",
+        "@npm//@angular/material",
         "@npm//@ngx-translate/core",
+        "@npm//@zxing/library",
         ":index.html",
     ],
     # Dependencies that produce JavaScript output will be automatically included in the
