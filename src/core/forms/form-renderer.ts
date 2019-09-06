@@ -434,10 +434,10 @@ export class AjfFormRendererService {
               const value: [string, string[]][] = [];
               value.push([tNode.label, tNode.columnLabels]);
               tNode.rows.forEach((row, rowIndex) => {
-                value[rowIndex] = [tNode.rowLabels[rowIndex], row.map(k => {
+                value.push([tNode.rowLabels[rowIndex], row.map(k => {
                   tfInstance.context[k] = context[k];
                   return context[k];
-                })];
+                })]);
               });
               tfInstance.value = value;
             } else {
