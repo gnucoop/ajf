@@ -20,18 +20,15 @@
  *
  */
 
-export * from './boolean-field';
-export * from './date-field';
-export * from './date-input-field';
-export * from './empty-field';
-export * from './field';
-export * from './input-field';
-export * from './form';
-export * from './forms-module';
-export * from './multiple-choice-field';
-export * from './number-field';
-export * from './single-choice-field';
-export * from './table-field';
-export * from './textarea-field';
-export * from './time-field';
-export * from './warning-alert-service';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {format} from 'date-fns';
+
+@Injectable()
+@Pipe({name: 'ajfDateValueString'})
+export class AjfDateValueStringPipe implements PipeTransform {
+  transform(date: Date|'today'|undefined): string|undefined {
+    if (date == null) { return undefined; }
+    const dateObj = date === 'today' ? new Date() : date;
+    return format(dateObj, 'YYYY-MM-DD');
+  }
+}

@@ -21,6 +21,7 @@ ng_module(
         ":barcode-field.css",
         ":boolean-field.css",
         ":date-field.css",
+        ":date-input-field.css",
         ":empty-field.css",
         ":field.css",
         ":form.css",
@@ -62,6 +63,12 @@ sass_binary(
 sass_binary(
     name = "date_field_scss",
     src = "date-field.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "date_input_field_scss",
+    src = "date-input-field.scss",
     deps = [],
 )
 
@@ -133,6 +140,9 @@ ng_web_test_suite(
 ng_e2e_test_library(
     name = "e2e_test_sources",
     srcs = glob(["**/*.e2e.spec.ts"]),
+    deps = [
+        "@npm//date-fns",
+    ],
 )
 
 e2e_test_suite(

@@ -1,0 +1,5 @@
+<ion-input type="date"
+    [min]="instance.node.minDate|ajfDateValueString"
+    [max]="instance.node.maxDate|ajfDateValueString"
+    (ionChange)="onChange($event)"
+    [formControl]="control|async"></ion-input>

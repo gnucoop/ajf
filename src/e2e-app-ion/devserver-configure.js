@@ -11,6 +11,7 @@ require.config({
     '@ionic/angular': `${nodeModulesBasePath}@ionic/angular/angular.umd`,
     '@ionic/core': `${nodeModulesBasePath}@ionic/core/core.umd`,
     '@ionic/core/loader': `${nodeModulesBasePath}@ionic/core/core-loader.umd`,
+    '@zxing/library': `/@zxing/library/umd/index.min`,
     'chart': `${nodeModulesBasePath}chart.js/Chart.umd`,
     'chart.piecelabel': `${nodeModulesBasePath}chart.piecelabel.js/build/Chart.PieceLabel.min`,
     'css-element-queries': `${nodeModulesBasePath}css-element-queries/css-element-queries.umd`,

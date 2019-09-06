@@ -20,18 +20,9 @@
  *
  */
 
-export * from './boolean-field';
-export * from './date-field';
-export * from './date-input-field';
-export * from './empty-field';
-export * from './field';
-export * from './input-field';
-export * from './form';
-export * from './forms-module';
-export * from './multiple-choice-field';
-export * from './number-field';
-export * from './single-choice-field';
-export * from './table-field';
-export * from './textarea-field';
-export * from './time-field';
-export * from './warning-alert-service';
+import {AjfDateInputField} from '../fields/date-input-field';
+import {AjfFieldInstance} from './field-instance';
+
+export interface AjfDateInputFieldInstance extends AjfFieldInstance {
+  node: AjfDateInputField;
+}

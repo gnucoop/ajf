@@ -1,0 +1,8 @@
+<mat-form-field>
+  <input matInput type="date"
+      [attr.aria-label]="instance.node.label || (instance|ajfNodeCompleteName)"
+      [min]="instance.node.minDate|ajfDateValueString"
+      [max]="instance.node.maxDate|ajfDateValueString"
+      (change)="onChange()"
+      [formControl]="control|async">
+</mat-form-field>

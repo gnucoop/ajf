@@ -30,6 +30,7 @@ import {
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
 import {AjfDateFieldComponent} from './date-field';
+import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
@@ -57,7 +58,7 @@ export class AjfFormField extends CoreFormField {
     [AjfFieldType.Boolean]: {component: AjfBooleanFieldComponent},
     [AjfFieldType.Formula]: {component: AjfInputFieldComponent, inputs: {readonly: true}},
     [AjfFieldType.Date]: {component: AjfDateFieldComponent},
-    [AjfFieldType.DateInput]: {component: AjfInputFieldComponent, inputs: {type: 'date'}},
+    [AjfFieldType.DateInput]: {component: AjfDateInputFieldComponent},
     [AjfFieldType.Table]: {component: AjfTableFieldComponent},
     [AjfFieldType.Empty]: {component: AjfEmptyFieldComponent},
     [AjfFieldType.SingleChoice]: {component: AjfSingleChoiceFieldComponent},

@@ -40,6 +40,7 @@ import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
 import {AjfDateFieldComponent} from './date-field';
+import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfFormField} from './field';
 import {AjfFormPage} from './form-page';
@@ -75,6 +76,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfBarcodeFieldComponent,
     AjfBooleanFieldComponent,
     AjfDateFieldComponent,
+    AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
     AjfFormField,
     AjfFormPage,
@@ -97,6 +99,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfBarcodeFieldComponent,
     AjfBooleanFieldComponent,
     AjfDateFieldComponent,
+    AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,

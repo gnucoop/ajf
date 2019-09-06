@@ -4,10 +4,12 @@ load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
+    "ng_e2e_test_library",
     "ng_module",
     "ng_test_library",
     "ng_web_test_suite",
 )
+load("//src/e2e-app-ion:test_suite.bzl", "e2e_test_suite")
 
 ng_module(
     name = "forms",
@@ -19,6 +21,7 @@ ng_module(
         ":barcode-field.css",
         ":boolean-field.css",
         ":date-field.css",
+        ":date-input-field.css",
         ":empty-field.css",
         ":field.css",
         ":form.css",
@@ -65,6 +68,12 @@ sass_binary(
 sass_binary(
     name = "date_field_scss",
     src = "date-field.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "date_input_field_scss",
+    src = "date-input-field.scss",
     deps = [],
 )
 
@@ -151,6 +160,21 @@ ng_test_library(
 ng_web_test_suite(
     name = "unit_tests",
     deps = [":unit_test_sources"],
+)
+
+ng_e2e_test_library(
+    name = "e2e_test_sources",
+    srcs = glob(["**/*.e2e.spec.ts"]),
+    deps = [
+        "@npm//date-fns",
+    ],
+)
+
+e2e_test_suite(
+    name = "e2e_tests",
+    deps = [
+        ":e2e_test_sources",
+    ],
 )
 
 markdown_to_html(

@@ -20,18 +20,18 @@
  *
  */
 
-export * from './boolean-field';
-export * from './date-field';
-export * from './date-input-field';
-export * from './empty-field';
-export * from './field';
-export * from './input-field';
-export * from './form';
-export * from './forms-module';
-export * from './multiple-choice-field';
-export * from './number-field';
-export * from './single-choice-field';
-export * from './table-field';
-export * from './textarea-field';
-export * from './time-field';
-export * from './warning-alert-service';
+import {NgModule} from '@angular/core';
+import {AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
+import {AjfFormsModule} from '@ajf/material/forms';
+
+import {DateInputFieldE2E} from './date-input-field-e2e';
+
+@NgModule({
+  imports: [
+    CoreFormsModule,
+    AjfFormsModule,
+  ],
+  declarations: [DateInputFieldE2E],
+})
+export class DateInputFieldE2eModule {
+}

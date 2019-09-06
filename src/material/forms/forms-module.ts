@@ -47,6 +47,7 @@ import {AjfPageSliderModule} from '@ajf/material/page-slider';
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
 import {AjfDateFieldComponent} from './date-field';
+import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfFormField} from './field';
 import {AjfFieldWarningDialog} from './field-warning-dialog';
@@ -85,6 +86,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfBarcodeFieldComponent,
     AjfBooleanFieldComponent,
     AjfDateFieldComponent,
+    AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
     AjfFormField,
     AjfFieldWarningDialog,
@@ -103,6 +105,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfBarcodeFieldComponent,
     AjfBooleanFieldComponent,
     AjfDateFieldComponent,
+    AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
     AjfFieldWarningDialog,
     AjfInputFieldComponent,

@@ -24,6 +24,7 @@ import {NgModule} from '@angular/core';
 
 import {AjfBoolToIntPipe} from './bool-to-int';
 import {AjfDateValuePipe} from './date-value';
+import {AjfDateValueStringPipe} from './date-value-string';
 import {AjfExpandFieldWithChoicesPipe} from './expand-input-with-choices';
 import {AjfFieldHost} from './field-host';
 import {AjfFieldIconPipe} from './field-icon';
@@ -42,6 +43,7 @@ import {AjfValidSlidePipe} from './valid-slide';
   declarations: [
     AjfBoolToIntPipe,
     AjfDateValuePipe,
+    AjfDateValueStringPipe,
     AjfExpandFieldWithChoicesPipe,
     AjfFieldHost,
     AjfFieldIconPipe,
@@ -57,6 +59,7 @@ import {AjfValidSlidePipe} from './valid-slide';
   exports: [
     AjfBoolToIntPipe,
     AjfDateValuePipe,
+    AjfDateValueStringPipe,
     AjfExpandFieldWithChoicesPipe,
     AjfFieldHost,
     AjfFieldIconPipe,
@@ -69,7 +72,7 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
   ],
-  providers: [AjfFormRendererService, AjfValidationService]
+  providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
 })
 export class AjfFormsModule {
 }

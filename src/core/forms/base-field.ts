@@ -38,6 +38,7 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     if (instance !== this._instance) {
       this._instance = instance;
       this._setUpInstanceUpdate();
+      this._onInstanceChange();
     }
   }
 
@@ -80,6 +81,8 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     this._warningTriggerSub.unsubscribe();
     this._instanceUpdateSub.unsubscribe();
   }
+
+  protected _onInstanceChange(): void { }
 
   private _setUpInstanceUpdate(): void {
     this._instanceUpdateSub.unsubscribe();

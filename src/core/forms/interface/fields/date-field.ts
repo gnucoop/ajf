@@ -25,6 +25,6 @@ import {AjfFieldType} from './field-type';
 
 export interface AjfDateField extends AjfField {
   fieldType: AjfFieldType.Date;
-  minDate: Date|'today';
-  maxDate: Date|'today';
+  minDate?: Date|'today';
+  maxDate?: Date|'today';
 }
