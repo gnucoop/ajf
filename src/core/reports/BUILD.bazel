@@ -39,6 +39,7 @@ ng_test_library(
     deps = [
         ":reports",
         "@npm//@angular/platform-browser",
+        "@npm//@ngx-translate/core",
     ],
 )
 

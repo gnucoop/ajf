@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext} from '@ajf/core/models';
+import {AjfContext, evaluateExpression} from '@ajf/core/models';
 import {TranslateService} from '@ngx-translate/core';
 
 import {AjfReportInstance} from '../../interface/reports-instances/report-instance';
@@ -30,6 +30,9 @@ import {createReportContainerInstance} from './create-report-container-instance'
 
 export function createReportInstance(
     report: AjfReport, context: AjfContext, ts: TranslateService): AjfReportInstance {
+  (report.variables || []).forEach(variable => {
+    context[variable.name] = evaluateExpression(variable.formula.formula, context);
+  });
   return {
     report,
     header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
