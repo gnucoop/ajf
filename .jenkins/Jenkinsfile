@@ -46,7 +46,6 @@ pipeline {
     stage('Integration tests') {
       steps {
         sh 'bazel test src/... --build_tag_filters=e2e --test_tag_filters=e2e'
-        sh 'yarn gulp ci:prerender'
       }
     }
     stage('Release output') {
