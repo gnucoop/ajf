@@ -29,4 +29,5 @@ export interface AjfWidgetInstance {
   visible: boolean;
   styles: AjfStyles;
   widgetType: AjfWidgetType;
+  repetitions?: number;
 }

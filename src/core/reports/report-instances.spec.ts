@@ -23,7 +23,7 @@
 import {TestBed} from '@angular/core/testing';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
-import {AjfReportSerializer, AjfTextWidgetInstance, AjfWidgetType,
+import {AjfColumnWidgetInstance, AjfReportSerializer, AjfTextWidgetInstance, AjfWidgetType,
   createReportInstance} from './public-api';
 
 describe('createReportInstance', () => {
@@ -57,5 +57,41 @@ describe('createReportInstance', () => {
     const reportInstance = createReportInstance(report, {}, ts);
     const widget = reportInstance.content!.content[0] as AjfTextWidgetInstance;
     expect(widget.htmlText).toBe('3');
+  });
+
+  it('should support widget repetitions', () => {
+    const json = {
+      content: {
+        content: [
+          {
+            widgetType: AjfWidgetType.Column,
+            styles: {},
+            visibility: {condition: 'true'},
+            repetitions: {formula: '3'},
+            content: [
+              {
+                widgetType: AjfWidgetType.Text,
+                htmlText: '[[ foo[$repetition] ]]',
+                styles: {},
+                visibility: {condition: 'true'}
+              }
+            ]
+          }
+        ],
+        styles: {},
+      },
+      styles: {},
+    };
+    const ctx = {
+      foo: ['bar', 'baz', 'quz'],
+    };
+    const report = AjfReportSerializer.fromJson(json);
+    const reportInstance = createReportInstance(report, ctx, ts);
+    const column = reportInstance.content!.content[0] as AjfColumnWidgetInstance;
+    expect(column.content.length).toBe(3);
+    for (let i = 0 ; i < 3 ; i++) {
+      const text = column.content[i] as AjfTextWidgetInstance;
+      expect(text.htmlText).toBe(ctx.foo[i]);
+    }
   });
 });

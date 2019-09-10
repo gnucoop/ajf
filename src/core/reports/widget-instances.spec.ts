@@ -42,4 +42,21 @@ describe('widgetToWidgetInstance', () => {
 
     expect(instance.htmlText).toEqual('Test string quz - bar qux');
   });
+
+  it('should support widget repetitions', () => {
+    const tsMock = new TsMock() as any;
+    const widget = createWidget({
+      widgetType: AjfWidgetType.Text,
+      htmlText: '[[ foo[$repetition] ]]',
+    } as any);
+    const ctx = {
+      foo: ['bar', 'baz', 'quz'],
+      '$repetition': 0
+    };
+    for (let i = 0 ; i < 3 ; i++) {
+      ctx['$repetition'] = i;
+      const instance = widgetToWidgetInstance(widget, ctx, tsMock) as AjfTextWidgetInstance;
+      expect(instance.htmlText).toBe(ctx.foo[i]);
+    }
+  });
 });

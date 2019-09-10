@@ -58,7 +58,20 @@ export function widgetToWidgetInstance(
   if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
     const wwc = widget as AjfWidgetWithContent;
     const wwci = wi as AjfWidgetWithContentInstance;
-    wwci.content = wwc.content.map(c => widgetToWidgetInstance(c, context, ts));
+    let content = [] as AjfWidgetInstance[];
+    wwc.content.forEach(c => {
+      if (wwc.repetitions != null) {
+        wwci.repetitions = evaluateExpression(wwc.repetitions.formula, context);
+        if (typeof wwci.repetitions === 'number' && wwci.repetitions > 0) {
+          for (let i = 0 ; i < wwci.repetitions ; i++) {
+            content.push(widgetToWidgetInstance(c, {...context, '$repetition': i}, ts));
+          }
+        }
+      } else {
+        content.push(widgetToWidgetInstance(c, context, ts));
+      }
+      wwci.content = content;
+    });
   } else if (widget.widgetType === AjfWidgetType.Chart) {
     const cw = widget as AjfChartWidget;
     const cwi = wi as AjfChartWidgetInstance;
