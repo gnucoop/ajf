@@ -128,7 +128,10 @@ ng_test_library(
     ),
     deps = [
         ":forms",
+        "//src/core/forms",
         "@npm//@angular/platform-browser",
+        "@npm//@ngx-translate/core",
+        "@npm//rxjs",
     ],
 )
 

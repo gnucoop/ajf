@@ -793,7 +793,34 @@ export class AjfFormRendererService {
                   }
                 }
               });
-              updatedNodes.forEach(n => n.updatedEvt.emit());
+              updatedNodes.forEach(n => {
+                const nodeIdx = nodes.indexOf(n);
+                let idx = nodeIdx - 1;
+                while (idx >= 0) {
+                  const curNode = nodes[idx];
+                  if (isSlidesInstance(curNode)) {
+                    const slide = curNode as (AjfRepeatingSlideInstance | AjfSlideInstance);
+                    const subNodesNum = slide.flatNodes.length;
+                    let valid = true;
+                    for (let i = 0 ; i < subNodesNum ; i++) {
+                      const subNode = slide.flatNodes[i];
+                      if (
+                        subNode.visible && isFieldInstance(subNode)
+                        && !(subNode as AjfFieldInstance).valid
+                      ) {
+                        valid = false;
+                        break;
+                      }
+                    }
+                    if (slide.valid !== valid) {
+                      slide.valid = valid;
+                    }
+                    slide.updatedEvt.emit();
+                  }
+                  idx--;
+                }
+                n.updatedEvt.emit();
+              });
               if (initForm) {
                 initForm = false;
                 this._formInitEvent.emit(AjfFormInitStatus.Complete);
