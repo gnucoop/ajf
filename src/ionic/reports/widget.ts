@@ -45,7 +45,7 @@ import {AjfTextWidgetComponent} from './text-widget';
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: ['instance'],
   queries: {
-    widgetHost: new ViewChild(AjfWidgetHost, {static: false}),
+    widgetHost: new ViewChild(AjfWidgetHost, {static: true}),
   },
 })
 export class AjfReportWidget extends CoreComponent {

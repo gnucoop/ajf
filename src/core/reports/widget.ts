@@ -20,13 +20,13 @@
  *
  */
 
-import {AfterViewInit, ComponentFactoryResolver, Renderer2} from '@angular/core';
+import {ComponentFactoryResolver, OnInit, Renderer2} from '@angular/core';
 
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 import {AjfWidgetComponentsMap} from './widget-components-map';
 import {AjfWidgetHost} from './widget-host';
 
-export abstract class AjfReportWidget implements AfterViewInit {
+export abstract class AjfReportWidget implements OnInit {
   widgetHost: AjfWidgetHost;
 
   private _instance: AjfWidgetInstance;
@@ -34,20 +34,29 @@ export abstract class AjfReportWidget implements AfterViewInit {
   set instance(instance: AjfWidgetInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
-      this._loadComponent();
+      if (this._init) {
+        this._loadComponent();
+      }
     }
   }
 
   protected abstract widgetsMap: AjfWidgetComponentsMap;
 
+  private _init = false;
+
   constructor(private _cfr: ComponentFactoryResolver, private _renderer: Renderer2) { }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    this._init = true;
     this._loadComponent();
   }
 
   private _loadComponent(): void {
-    if (this._instance == null || this.widgetHost == null) { return; }
+    if (
+      !this._init || this._instance == null
+      || this.widgetHost == null || !this.instance.visible) {
+      return;
+    }
 
     const vcr = this.widgetHost.viewContainerRef;
     vcr.clear();
