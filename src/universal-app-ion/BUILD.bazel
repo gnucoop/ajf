@@ -1,7 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
 load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_test")
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("//:packages.bzl", "CORE_TARGETS", "IONIC_TARGETS")
 load("//tools:defaults.bzl", "ng_module", "ts_library")
 
