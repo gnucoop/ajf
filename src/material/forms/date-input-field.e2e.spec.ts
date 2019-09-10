@@ -10,7 +10,7 @@ describe('ajf-date-input-field', () => {
   });
 
   it('should prevent selecting dates before minDate and after maxDate', async () => {
-    const today = new Date();
+    const today = new Date(2019, 0, 5);
     const tomorrow = addDays(today, 1);
     const yesterday = subDays(today, 1);
     const input = await element(by.css('input[type=date]'));

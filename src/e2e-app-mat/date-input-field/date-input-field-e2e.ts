@@ -19,6 +19,7 @@ export class DateInputFieldE2E implements AfterViewInit {
     const componentFactory = this._cfr.resolveComponentFactory(AjfDateInputFieldComponent);
     const componentRef = vcr.createComponent(componentFactory);
     const componentInstance = componentRef.instance;
+    const dateLimit = new Date(2019, 0, 5);
     const node = {
       ...createField({
         id: 1,
@@ -26,8 +27,8 @@ export class DateInputFieldE2E implements AfterViewInit {
         fieldType: AjfFieldType.DateInput,
         name: 'date_input',
       }),
-      minDate: 'today',
-      maxDate: 'today'
+      minDate: dateLimit,
+      maxDate: dateLimit
     } as AjfDateField;
     componentInstance.instance = {
       ...createFieldInstance({node}, {}),
