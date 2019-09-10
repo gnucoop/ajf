@@ -42,7 +42,7 @@ export function evaluateValidationGroup(
   if (validation.maxValue) {
     const maxValue = evaluateValidationMaxValue(validation, value);
     if (maxValue != null) {
-      res.push();
+      res.push(maxValue);
     }
   }
   if (validation.minValue) {

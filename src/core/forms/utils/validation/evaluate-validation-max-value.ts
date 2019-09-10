@@ -20,6 +20,7 @@
  *
  */
 
+import {evaluateExpression} from '@ajf/core/models';
 import {AjfValidationGroup} from '../../interface/validation/validation-group';
 import {AjfValidationResult} from '../../interface/validation/validation-results';
 import {evaluateValidation} from './evaluate-validation';
@@ -28,6 +29,14 @@ export function evaluateValidationMaxValue(
     validation: AjfValidationGroup, value: any): AjfValidationResult|null {
   if (validation.maxValue == null) {
     return null;
+  }
+  const ctx = {'$value': value};
+  if (typeof validation.maxValue === 'number') {
+    return {
+      result: evaluateExpression(`$value.length <= ${validation.maxValue}`, ctx),
+      error: `Value must be <= ${validation.minValue}`,
+      clientValidation: false
+    };
   }
   return evaluateValidation(validation.maxValue, {'$value': value});
 }
