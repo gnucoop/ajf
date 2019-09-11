@@ -18,6 +18,7 @@ ng_module(
     module_name = "@ajf/core/image",
     deps = [
         "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
     ],
 )
 

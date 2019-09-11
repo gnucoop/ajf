@@ -21,6 +21,7 @@
  */
 
 import {ElementRef, OnDestroy, OnInit, Renderer2, RendererStyleFlags2} from '@angular/core';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 
 import {Observable, BehaviorSubject, Subscription} from 'rxjs';
 
@@ -41,7 +42,11 @@ export abstract class AjfImage implements OnDestroy, OnInit {
   }
 
   set imageUrl(imageUrl: string) {
-    this._url.next(imageUrl);
+    this._url.next(
+      (imageUrl || '').startsWith('data:image/svg+xml;base64,')
+      ? this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl)
+      : imageUrl
+    );
   }
 
   set icon(icon: AjfImageIcon) {
@@ -54,25 +59,22 @@ export abstract class AjfImage implements OnDestroy, OnInit {
 
   readonly imageTypes = AjfImageType;
 
-  private _imageType: BehaviorSubject<AjfImageType | null> =
-    new BehaviorSubject<AjfImageType | null>(null);
+  private _imageType = new BehaviorSubject<AjfImageType | null>(null);
   readonly imageType: Observable<AjfImageType | null> = this._imageType.asObservable();
 
-  private _url: BehaviorSubject<string | null> =
-    new BehaviorSubject<string | null>(null);
-  readonly url: Observable<string | null> = this._url.asObservable();
+  private _url = new BehaviorSubject<string | SafeResourceUrl | null>(null);
+  readonly url: Observable<string | SafeResourceUrl | null> = this._url.asObservable();
 
-  private _iconObj: BehaviorSubject<AjfImageIcon | null> =
-    new BehaviorSubject<AjfImageIcon | null>(null);
+  private _iconObj = new BehaviorSubject<AjfImageIcon | null>(null);
   readonly iconObj: Observable<AjfImageIcon | null> = this._iconObj.asObservable();
 
-  private _flagName: BehaviorSubject<string | null> =
-    new BehaviorSubject<string | null>(null);
+  private _flagName = new BehaviorSubject<string | null>(null);
   readonly flagName: Observable<string | null> = this._flagName.asObservable();
 
-  private _iconSub: Subscription = Subscription.EMPTY;
+  private _iconSub = Subscription.EMPTY;
 
-  constructor(private _el: ElementRef, private _renderer: Renderer2) {
+  constructor(
+      private _el: ElementRef, private _renderer: Renderer2, private _domSanitizer: DomSanitizer) {
     this._iconSub = this.iconObj.subscribe(() => this._updateIconSize());
   }
 

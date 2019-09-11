@@ -23,6 +23,7 @@
 import {
   ChangeDetectionStrategy, Component, ElementRef, Renderer2, ViewEncapsulation
 } from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 
 import {AjfImage as AjfCoreImage} from '@ajf/core/image';
 
@@ -41,7 +42,7 @@ import {AjfImage as AjfCoreImage} from '@ajf/core/image';
   ],
 })
 export class AjfImage extends AjfCoreImage {
-  constructor(el: ElementRef, renderer: Renderer2) {
-    super(el, renderer);
+  constructor(el: ElementRef, renderer: Renderer2, ds: DomSanitizer) {
+    super(el, renderer, ds);
   }
 }
