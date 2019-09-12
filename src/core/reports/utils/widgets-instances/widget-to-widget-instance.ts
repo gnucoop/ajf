@@ -158,16 +158,19 @@ export function widgetToWidgetInstance(
     const icw = widget as AjfImageContainerWidget;
     const icwi = wi as AjfImageContainerWidgetInstance;
     if (icw.flags) {
-      const flags = icw.flags instanceof Array ? icw.flags : [icw.flags];
-      icwi.flags = flags.map(f => evaluateExpression(f.formula, context));
+      icwi.flags = icw.flags instanceof Array
+        ? icw.flags.map(f => evaluateExpression(f.formula, context))
+        : evaluateExpression(icw.flags.formula, context);
     }
     if (icw.icons) {
-      const icons = icw.icons instanceof Array ? icw.icons : [icw.icons];
-      icwi.icons = icons.map(f => evaluateExpression(f.formula, context));
+      icwi.icons = icw.icons instanceof Array
+        ? icw.icons.map(f => evaluateExpression(f.formula, context))
+        : evaluateExpression(icw.icons.formula, context);
     }
     if (icw.urls) {
-      const urls = icw.urls instanceof Array ? icw.urls : [icw.urls];
-      icwi.urls = urls.map(f => evaluateExpression(f.formula, context));
+      icwi.urls = icw.urls instanceof Array
+        ? icw.urls.map(f => evaluateExpression(f.formula, context))
+        : evaluateExpression(icw.urls.formula, context);
     }
   } else if (widget.widgetType === AjfWidgetType.Text) {
     const tew = widget as AjfTextWidget;
