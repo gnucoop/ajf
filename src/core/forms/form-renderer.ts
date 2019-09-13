@@ -429,7 +429,7 @@ export class AjfFormRendererService {
           if (isTableFieldInstance(fInstance)) {
             const tfInstance = fInstance as AjfTableFieldInstance;
             const tNode = tfInstance.node;
-            tfInstance.context = {};
+            tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
             if (!tNode.editable) {
               const value: [string, string[]][] = [];
               value.push([tNode.label, tNode.columnLabels]);
@@ -448,6 +448,8 @@ export class AjfFormRendererService {
                 let r: FormControl[] = [];
                 row.forEach((k) => {
                   const control = new FormControl();
+                  console.log(k);
+                  console.log(tfInstance.context[k]);
                   control.setValue(tfInstance.context[k]);
                   if (formGroup != null) {
                     formGroup.registerControl(k, control);
