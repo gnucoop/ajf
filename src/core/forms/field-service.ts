@@ -20,29 +20,21 @@
  *
  */
 
-import {AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField} from '@ajf/core/forms';
-import {ChangeDetectionStrategy, Component, ComponentFactoryResolver, ViewChild,
-    ViewEncapsulation} from '@angular/core';
+import {Type} from '@angular/core';
 
-import {AjfFieldService} from './field-service';
+import {AjfBaseFieldComponent} from './base-field';
+import {AjfFieldComponentsMap} from './field-components-map';
 
-@Component({
-  moduleId: module.id,
-  selector: 'ajf-field,ajf-form-field',
-  templateUrl: 'field.html',
-  styleUrls: ['field.css'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ['instance'],
-  queries: {
-    fieldHost: new ViewChild(AjfFieldHost, {static: true}),
-  },
-})
-export class AjfFormField extends CoreFormField {
+export abstract class AjfFieldService {
   readonly componentsMap: AjfFieldComponentsMap;
 
-  constructor(cfr: ComponentFactoryResolver, fieldService: AjfFieldService) {
-    super(cfr);
-    this.componentsMap = fieldService.componentsMap;
+  registerCustomField(fieldType: number, component: Type<AjfBaseFieldComponent>): void {
+    if (fieldType < 100) {
+      throw new Error('Invalid custom field type, it must be greater than 100');
+    }
+    if (component == null) {
+      throw new Error('Invalid custom field component');
+    }
+    this.componentsMap[fieldType] = {component};
   }
 }

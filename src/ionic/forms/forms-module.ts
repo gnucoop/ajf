@@ -43,6 +43,7 @@ import {AjfDateFieldComponent} from './date-field';
 import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfFormField} from './field';
+import {AjfFieldService} from './field-service';
 import {AjfFormPage} from './form-page';
 import {AjfFormRenderer} from './form';
 import {AjfInputFieldComponent} from './input-field';
@@ -110,6 +111,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfTimeFieldComponent
   ],
   providers: [
+    AjfFieldService,
     AjfWarningAlertService,
   ],
 })

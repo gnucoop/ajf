@@ -21,22 +21,13 @@
  */
 
 import {
-  AjfFieldType, AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField
+  AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField
 } from '@ajf/core/forms';
 import {
   ChangeDetectionStrategy, Component, ComponentFactoryResolver, ViewChild, ViewEncapsulation
 } from '@angular/core';
 
-import {AjfBarcodeFieldComponent} from './barcode-field';
-import {AjfBooleanFieldComponent} from './boolean-field';
-import {AjfDateFieldComponent} from './date-field';
-import {AjfDateInputFieldComponent} from './date-input-field';
-import {AjfEmptyFieldComponent} from './empty-field';
-import {AjfInputFieldComponent} from './input-field';
-import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
-import {AjfSingleChoiceFieldComponent} from './single-choice-field';
-import {AjfTableFieldComponent} from './table-field';
-import {AjfTimeFieldComponent} from './time-field';
+import {AjfFieldService} from './field-service';
 
 @Component({
   moduleId: module.id,
@@ -51,23 +42,10 @@ import {AjfTimeFieldComponent} from './time-field';
   }
 })
 export class AjfFormField extends CoreFormField {
-  componentsMap: AjfFieldComponentsMap = {
-    [AjfFieldType.String]: {component: AjfInputFieldComponent},
-    [AjfFieldType.Text]: {component: AjfInputFieldComponent},
-    [AjfFieldType.Number]: {component: AjfInputFieldComponent, inputs: {type: 'number'}},
-    [AjfFieldType.Boolean]: {component: AjfBooleanFieldComponent},
-    [AjfFieldType.Formula]: {component: AjfInputFieldComponent, inputs: {readonly: true}},
-    [AjfFieldType.Date]: {component: AjfDateFieldComponent},
-    [AjfFieldType.DateInput]: {component: AjfDateInputFieldComponent},
-    [AjfFieldType.Table]: {component: AjfTableFieldComponent},
-    [AjfFieldType.Empty]: {component: AjfEmptyFieldComponent},
-    [AjfFieldType.SingleChoice]: {component: AjfSingleChoiceFieldComponent},
-    [AjfFieldType.MultipleChoice]: {component: AjfMultipleChoiceFieldComponent},
-    [AjfFieldType.Time]: {component: AjfTimeFieldComponent},
-    [AjfFieldType.Barcode]: {component: AjfBarcodeFieldComponent},
-  };
+  readonly componentsMap: AjfFieldComponentsMap;
 
-  constructor(cfr: ComponentFactoryResolver) {
+  constructor(cfr: ComponentFactoryResolver, fieldService: AjfFieldService) {
     super(cfr);
+    this.componentsMap = fieldService.componentsMap;
   }
 }

@@ -30,6 +30,7 @@ export * from './field-utils';
 export * from './field';
 export * from './field-components-map';
 export * from './field-host';
+export * from './field-service';
 export * from './field-with-choices';
 export * from './field-warning-alert-result';
 export * from './form-renderer';
