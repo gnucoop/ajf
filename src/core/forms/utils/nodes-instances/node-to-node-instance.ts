@@ -43,6 +43,7 @@ import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfRepeatingSlideInstance} from '../../interface/slides-instances/repeating-slide-instance';
 import {AjfRepeatingSlide} from '../../interface/slides/repeating-slide';
 import {AjfSlide} from '../../interface/slides/slide';
+import {componentsMap} from '../fields/fields-map';
 import {createFieldInstance} from '../fields-instances/create-field-instance';
 import {
   createFieldWithChoicesInstance
@@ -74,18 +75,30 @@ export function nodeToNodeInstance(
   switch (nodeType) {
     case AjfNodeType.AjfField:
       const field = node as AjfField;
-      switch (field.fieldType) {
-        case AjfFieldType.SingleChoice:
-        case AjfFieldType.MultipleChoice:
-          instance = createFieldWithChoicesInstance(
-              {node: node as AjfFieldWithChoices<any>, prefix}, context);
-          break;
-        case AjfFieldType.Table:
-          instance = createTableFieldInstance({node: node as AjfTableField, prefix}, context);
-          break;
-        default:
+      if (field.fieldType > 100) {
+        if (
+          componentsMap[field.fieldType] != null
+          && componentsMap[field.fieldType].createInstance != null
+        ) {
+          instance = componentsMap[field.fieldType].createInstance!(
+            {node: node as AjfField, prefix}, context);
+        } else {
           instance = createFieldInstance({node: node as AjfField, prefix}, context);
-          break;
+        }
+      } else {
+        switch (field.fieldType) {
+          case AjfFieldType.SingleChoice:
+          case AjfFieldType.MultipleChoice:
+            instance = createFieldWithChoicesInstance(
+                {node: node as AjfFieldWithChoices<any>, prefix}, context);
+            break;
+          case AjfFieldType.Table:
+            instance = createTableFieldInstance({node: node as AjfTableField, prefix}, context);
+            break;
+          default:
+            instance = createFieldInstance({node: node as AjfField, prefix}, context);
+            break;
+        }
       }
       break;
     case AjfNodeType.AjfNodeGroup:

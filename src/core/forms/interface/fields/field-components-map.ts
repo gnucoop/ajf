@@ -20,13 +20,18 @@
  *
  */
 
+import {AjfContext} from '@ajf/core/models';
 import {Type} from '@angular/core';
 
-import {AjfBaseFieldComponent} from './base-field';
+import {AjfBaseFieldComponent} from '../../base-field';
+import {AjfFieldInstance} from '../fields-instances/field-instance';
+import {AjfFieldInstanceCreate} from '../../utils/fields-instances/create-field-instance';
 
 export interface AjfFieldComponentsMap {
   [key: number]: {
     component: Type<AjfBaseFieldComponent>,
     inputs?: {[key: string]: any},
+    createInstance?: (instance: AjfFieldInstanceCreate, context: AjfContext) => AjfFieldInstance;
+    isFieldWithChoice?: boolean;
   };
 }

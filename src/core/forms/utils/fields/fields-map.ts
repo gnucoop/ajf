@@ -20,22 +20,6 @@
  *
  */
 
-import {Type} from '@angular/core';
+import {AjfFieldComponentsMap} from '../../interface/fields/field-components-map';
 
-import {AjfBaseFieldComponent} from './base-field';
-import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
-import {componentsMap} from './utils/fields/fields-map';
-
-export abstract class AjfFieldService {
-  readonly componentsMap: AjfFieldComponentsMap = componentsMap;
-
-  registerCustomField(fieldType: number, component: Type<AjfBaseFieldComponent>): void {
-    if (fieldType < 100) {
-      throw new Error('Invalid custom field type, it must be greater than 100');
-    }
-    if (component == null) {
-      throw new Error('Invalid custom field component');
-    }
-    this.componentsMap[fieldType] = {component};
-  }
-}
+export const componentsMap: AjfFieldComponentsMap = {};

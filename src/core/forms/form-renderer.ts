@@ -64,6 +64,7 @@ import {updateTriggerConditions} from './utils/fields-instances/update-trigger-c
 import {updateValidation} from './utils/fields-instances/update-validation';
 import {updateWarning} from './utils/fields-instances/update-warning';
 import {createField} from './utils/fields/create-field';
+import {componentsMap} from './utils/fields/fields-map';
 import {isFieldWithChoices} from './utils/fields/is-field-with-choices';
 import {flattenNodesInstances} from './utils/nodes-instances/flatten-nodes-instances';
 import {flattenNodesInstancesTree} from './utils/nodes-instances/flatten-nodes-instances-tree';
@@ -1071,7 +1072,11 @@ export class AjfFormRendererService {
       );
     }
 
-    if (isFieldWithChoicesInstance(fieldInstance)) {
+    const isCustomFieldWithChoice = fieldInstance.node.fieldType > 100
+      && componentsMap[fieldInstance.node.fieldType] != null
+      && componentsMap[fieldInstance.node.fieldType].isFieldWithChoice === true;
+
+    if (isCustomFieldWithChoice || isFieldWithChoicesInstance(fieldInstance)) {
       const fwcInstance = fieldInstance as AjfFieldWithChoicesInstance<any>;
       if (fwcInstance.choicesFilter != null) {
         this._addToNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);

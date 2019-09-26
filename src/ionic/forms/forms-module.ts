@@ -21,7 +21,7 @@
  */
 
 import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {IonicModule} from '@ionic/angular';
@@ -115,4 +115,13 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfWarningAlertService,
   ],
 })
-export class AjfFormsModule { }
+export class AjfFormsModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: AjfFormsModule,
+      providers: [
+        AjfFieldService,
+      ],
+    };
+  }
+}

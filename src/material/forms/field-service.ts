@@ -35,7 +35,7 @@ import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTimeFieldComponent} from './time-field';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AjfFieldService extends CoreService {
   readonly componentsMap: AjfFieldComponentsMap = {
     [AjfFieldType.String]: {component: AjfInputFieldComponent},
