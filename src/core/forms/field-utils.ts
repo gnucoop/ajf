@@ -23,5 +23,8 @@
 import {AjfFieldType} from './interface/fields/field-type';
 
 export function fieldIconName(type: AjfFieldType): string {
-  return `ajf-icon-field-${AjfFieldType[type].toLowerCase()}`;
+  return `ajf-icon-field-${
+    typeof AjfFieldType[type] === 'string'
+    ? AjfFieldType[type].toLowerCase()
+    : type}`;
 }
