@@ -36,6 +36,7 @@ import {AjfNodeType} from '../interface/nodes/node-type';
 import {AjfRepeatingNode} from '../interface/nodes/repeating-node';
 import {AjfRepeatingSlide} from '../interface/slides/repeating-slide';
 import {AjfSlide} from '../interface/slides/slide';
+import {componentsMap} from '../utils/fields/fields-map';
 import {AjfFieldCreate, createField} from '../utils/fields/create-field';
 import {createFieldWithChoices} from '../utils/fields/create-field-with-choices';
 import {createContainerNode} from '../utils/nodes/create-container-node';
@@ -129,6 +130,16 @@ export class AjfNodeSerializer {
     if (obj.nextSlideCondition) {
       obj.nextSlideCondition = AjfConditionSerializer.fromJson(obj.nextSlideCondition);
     }
+    const isCustomFieldWithChoice = obj.fieldType > 100
+      && componentsMap[obj.fieldType] != null
+      && componentsMap[obj.fieldType].isFieldWithChoice === true;
+    if (isCustomFieldWithChoice) {
+      return AjfNodeSerializer._fieldWithChoicesFromJson(
+        json as AjfFieldCreate & Partial<AjfFieldWithChoices<any>>,
+        choicesOrigins,
+    );
+    }
+
     switch (obj.fieldType) {
       case AjfFieldType.Formula:
         return AjfNodeSerializer._formulaFieldFromJson(
