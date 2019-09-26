@@ -45,6 +45,6 @@ export abstract class AjfFieldService {
     if (component == null) {
       throw new Error('Invalid custom field component');
     }
-    this.componentsMap[fieldType] = {component};
+    this.componentsMap[fieldType] = field;
   }
 }
