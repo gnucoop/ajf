@@ -20,8 +20,7 @@
  *
  */
 
-import {AjfFieldComponentsMap, AjfFieldService as CoreService,
-  AjfFieldType} from '@ajf/core/forms';
+import {AjfFieldService as CoreService, AjfFieldType} from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
