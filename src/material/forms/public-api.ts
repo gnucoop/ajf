@@ -25,6 +25,7 @@ export * from './date-field';
 export * from './date-input-field';
 export * from './empty-field';
 export * from './field';
+export * from './field-service';
 export * from './field-warning-dialog';
 export * from './input-field';
 export * from './form';

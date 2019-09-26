@@ -20,4 +20,5 @@
  *
  */
 
+export * from './barcode';
 export * from './barcode-module';
