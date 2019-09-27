@@ -385,6 +385,23 @@ export const formSchema: any = {
           fieldType: 2
         }
       ]
+    }, {
+      parent: 5,
+      id: 6,
+      name: 'custom',
+      label: 'Custom field',
+      nodeType: 4,
+      nodes: [
+        {
+          parent: 6,
+          id: 6001,
+          name: 'customfield',
+          label: 'Custom multiple choice field',
+          nodeType: 0,
+          fieldType: 101,
+          choicesOriginRef: 'mchoice3'
+        }
+      ]
     }
   ]
 };

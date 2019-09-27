@@ -133,6 +133,10 @@ export class AjfNodeSerializer {
     const isCustomFieldWithChoice = obj.fieldType > 100
       && componentsMap[obj.fieldType] != null
       && componentsMap[obj.fieldType].isFieldWithChoice === true;
+    if (obj.fieldType > 100) {
+      console.log(obj);
+      console.log(componentsMap[obj.fieldType]);
+    }
     if (isCustomFieldWithChoice) {
       return AjfNodeSerializer._fieldWithChoicesFromJson(
         json as AjfFieldCreate & Partial<AjfFieldWithChoices<any>>,

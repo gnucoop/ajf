@@ -54,6 +54,7 @@ import {AjfRendererUpdateMap} from './interface/renderer-maps/update-map';
 import {AjfBaseSlideInstance} from './interface/slides-instances/base-slide-instance';
 import {AjfRepeatingSlideInstance} from './interface/slides-instances/repeating-slide-instance';
 import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
+import {isCustomFieldWithChoices} from './utils/fields/is-custom-field-with-choices';
 import {isFieldWithChoicesInstance} from './utils/fields-instances/is-field-with-choices-instance';
 import {isTableFieldInstance} from './utils/fields-instances/is-table-field-instance';
 import {updateFieldInstanceState} from './utils/fields-instances/update-field-instance-state';
@@ -64,7 +65,6 @@ import {updateTriggerConditions} from './utils/fields-instances/update-trigger-c
 import {updateValidation} from './utils/fields-instances/update-validation';
 import {updateWarning} from './utils/fields-instances/update-warning';
 import {createField} from './utils/fields/create-field';
-import {componentsMap} from './utils/fields/fields-map';
 import {isFieldWithChoices} from './utils/fields/is-field-with-choices';
 import {flattenNodesInstances} from './utils/nodes-instances/flatten-nodes-instances';
 import {flattenNodesInstancesTree} from './utils/nodes-instances/flatten-nodes-instances-tree';
@@ -424,7 +424,8 @@ export class AjfFormRendererService {
       updateConditionalBranches(instance, context);
       if (nodeType === AjfNodeType.AjfField) {
         const fInstance = instance as AjfFieldInstance;
-        if (isFieldWithChoices(fInstance.node)) {
+
+        if (isCustomFieldWithChoices(fInstance.node) || isFieldWithChoices(fInstance.node)) {
           updateFilteredChoices(fInstance as AjfFieldWithChoicesInstance<any>, context);
         } else {
           if (isTableFieldInstance(fInstance)) {
@@ -1072,11 +1073,7 @@ export class AjfFormRendererService {
       );
     }
 
-    const isCustomFieldWithChoice = fieldInstance.node.fieldType > 100
-      && componentsMap[fieldInstance.node.fieldType] != null
-      && componentsMap[fieldInstance.node.fieldType].isFieldWithChoice === true;
-
-    if (isCustomFieldWithChoice || isFieldWithChoicesInstance(fieldInstance)) {
+    if (isCustomFieldWithChoices(fieldInstance.node) || isFieldWithChoicesInstance(fieldInstance)) {
       const fwcInstance = fieldInstance as AjfFieldWithChoicesInstance<any>;
       if (fwcInstance.choicesFilter != null) {
         this._addToNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
