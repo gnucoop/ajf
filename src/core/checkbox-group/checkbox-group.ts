@@ -20,9 +20,8 @@
  *
  */
 
-import {
-  AfterContentInit, Directive, EventEmitter, Input, forwardRef, OnInit, Output, QueryList
-} from '@angular/core';
+import {AfterContentInit, Directive, EventEmitter, Input, forwardRef, OnInit,
+  Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {combineLatest, BehaviorSubject, Observable} from 'rxjs';
@@ -55,8 +54,7 @@ let _uniqueIdCounter = 0;
   providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR]
 })
 export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccessor {
-  /** Child button toggle buttons. */
-  checkboxes: QueryList<AjfCheckboxGroupItem<T>>;
+  checkboxes: AjfCheckboxGroupItem<T>[] = [];
 
   /** The value for the button toggle group. Should match currently selected button toggle. */
   private _value: T[] = [];
@@ -152,12 +150,17 @@ export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccess
     this._updateSelectedCheckboxesFromValue();
   }
 
+  registerItem(item: AjfCheckboxGroupItem<T>): void {
+    this.checkboxes.push(item);
+  }
+
   /** The method to be called in order to update ngModel. */
   private _controlValueAccessorChangeFn: (value: any) => void = (_) => {};
 
   private _updateCheckboxesNames(): void {
     if (this.checkboxes == null) { return; }
     this.checkboxes.forEach((checkbox) => {
+      if (checkbox == null) { return; }
       checkbox.name = this._name;
     });
   }
@@ -165,6 +168,7 @@ export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccess
   private _updateSelectedCheckboxesFromValue(): void {
     if (this.checkboxes == null) { return; }
     this.checkboxes.forEach(checkbox => {
+      if (checkbox == null) { return; }
       if ((this._value || []).indexOf(checkbox.value) > -1) {
         checkbox.checked = true;
       } else {
@@ -246,6 +250,7 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
 
     if (checkboxGroup) {
       this.checkboxGroup = checkboxGroup;
+      this.checkboxGroup.registerItem(this);
     }
   }
 
