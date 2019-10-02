@@ -21,19 +21,13 @@
  */
 
 import {Pipe} from '@angular/core';
-import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 
-@Pipe({ name: 'ajfFieldIsValid' })
+import {AjfValidationResult} from './interface/validation/validation-results';
+
+@Pipe({name: 'ajfFieldIsValid'})
 export class AjfFieldIsValidPipe {
-    transform(fieldInstance: AjfFieldInstance): boolean {
-        if (
-            fieldInstance &&
-            fieldInstance.validationResults &&
-            fieldInstance.validationResults.length === 0
-        ) {
-            return true;
-        } else {
-            return false;
-        }
+    transform(validationResults?: AjfValidationResult[]): boolean {
+        return validationResults != null
+            && validationResults.filter((f) => !f.result).length === 0;
     }
 }
