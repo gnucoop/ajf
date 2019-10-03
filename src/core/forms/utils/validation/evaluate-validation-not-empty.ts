@@ -38,5 +38,5 @@ export function evaluateValidationNotEmpty(
       clientValidation: false
     };
   }
-  return evaluateValidation(validation.notEmpty, );
+  return evaluateValidation(validation.notEmpty, ctx);
 }
