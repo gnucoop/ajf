@@ -20,13 +20,14 @@
  *
  */
 
-import {ComponentFactoryResolver, OnInit} from '@angular/core';
+import {ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
 
 import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldHost} from './field-host';
 
-export abstract class AjfFormField implements OnInit {
+export abstract class AjfFormField implements OnDestroy, OnInit {
   fieldHost: AjfFieldHost;
 
   private _instance: AjfFieldInstance;
@@ -39,14 +40,24 @@ export abstract class AjfFormField implements OnInit {
   }
 
   protected abstract componentsMap: AjfFieldComponentsMap;
+  private _updatedSub = Subscription.EMPTY;
 
-  constructor(private _cfr: ComponentFactoryResolver) { }
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    private _cfr: ComponentFactoryResolver
+  ) { }
+
+  ngOnDestroy(): void {
+    this._updatedSub.unsubscribe();
+  }
 
   ngOnInit(): void {
     this._loadComponent();
   }
 
   private _loadComponent(): void {
+    this._updatedSub.unsubscribe();
+    this._updatedSub = Subscription.EMPTY;
     if (this._instance == null || this.fieldHost == null) { return; }
 
     const vcr = this.fieldHost.viewContainerRef;
@@ -66,6 +77,7 @@ export abstract class AjfFormField implements OnInit {
           }
         });
       }
+      this._updatedSub = this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
     } catch (e) { }
   }
 }

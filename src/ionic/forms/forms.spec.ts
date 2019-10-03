@@ -20,9 +20,11 @@
  *
  */
 
-import {AjfFieldType, AjfFormRendererService, AjfFormSerializer,
+import {AjfFieldType, AjfFieldWithChoices, AjfFormRendererService, AjfFormSerializer,
   AjfNodeType, AjfSlideInstance} from '@ajf/core/forms';
+import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
 import {timer} from 'rxjs';
@@ -39,6 +41,9 @@ describe('AjfFormRenderer', () => {
         AjfFormsModule,
         NoopAnimationsModule,
         TranslateModule.forRoot(),
+      ],
+      declarations: [
+        TestComponent,
       ],
     });
 
@@ -97,4 +102,64 @@ describe('AjfFormRenderer', () => {
 
     expect(nodesTree[0].valid).toBeTruthy();
   });
+
+  it('should show error messages for invalid fields', async () => {
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
+    expect(field).not.toHaveClass('ajf-validated');
+    const error = fixture.debugElement.query(By.css('.error'));
+    expect(error).not.toBeNull();
+    expect(error.nativeElement).not.toBeNull();
+  });
 });
+
+@Component({
+  template: '<ajf-form [form]="form"></ajf-form>'
+})
+class TestComponent {
+  form = AjfFormSerializer.fromJson({
+    choicesOrigins: [
+      {
+        name: 'choices',
+        label: 'choices',
+        type: 'fixed',
+        choices: [
+          {label: 'choice 1', value: 'choice 1'},
+          {label: 'choice 2', value: 'choice 2'},
+        ],
+      },
+    ],
+    nodes: [
+      {
+        id: 1,
+        parent: 0,
+        parentNode: 0,
+        nodeType: AjfNodeType.AjfSlide,
+        name: 'slide',
+        label: 'slide',
+        conditionalBranches: [{condition: 'true'}],
+        nodes: [
+          {
+            id: 2,
+            parent: 1,
+            parentNode: 0,
+            nodeType: AjfNodeType.AjfField,
+            name: 'field',
+            label: 'field',
+            conditionalBranches: [{condition: 'true'}],
+            fieldType: AjfFieldType.SingleChoice,
+            choicesOriginRef: 'choices',
+            validation: {
+              notEmpty: true
+            } as any
+          } as unknown as AjfFieldWithChoices<string>
+        ]
+      }
+    ],
+  });
+}
