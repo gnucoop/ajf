@@ -110,56 +110,70 @@ describe('AjfFormRenderer', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
+    let field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
     expect(field).not.toHaveClass('ajf-validated');
-    const error = fixture.debugElement.query(By.css('.error'));
+    let error = fixture.debugElement.query(By.css('.error'));
     expect(error).not.toBeNull();
-    expect(error.nativeElement).not.toBeNull();
+    expect(error.nativeElement).toBeDefined();
+
+    fixture.componentInstance.form = AjfFormSerializer.fromJson(testForm, {field: 'choice 1'});
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
+    expect(field).toHaveClass('ajf-validated');
+    error = fixture.debugElement.query(By.css('.error'));
+    expect(error).toBeNull();
   });
 });
+
+const testForm = {
+  choicesOrigins: [
+    {
+      name: 'choices',
+      label: 'choices',
+      type: 'fixed',
+      choices: [
+        {label: 'choice 1', value: 'choice 1'},
+        {label: 'choice 2', value: 'choice 2'},
+      ],
+    },
+  ],
+  nodes: [
+    {
+      id: 1,
+      parent: 0,
+      parentNode: 0,
+      nodeType: AjfNodeType.AjfSlide,
+      name: 'slide',
+      label: 'slide',
+      conditionalBranches: [{condition: 'true'}],
+      nodes: [
+        {
+          id: 2,
+          parent: 1,
+          parentNode: 0,
+          nodeType: AjfNodeType.AjfField,
+          name: 'field',
+          label: 'field',
+          conditionalBranches: [{condition: 'true'}],
+          fieldType: AjfFieldType.SingleChoice,
+          choicesOriginRef: 'choices',
+          validation: {
+            notEmpty: true
+          } as any
+        } as unknown as AjfFieldWithChoices<string>
+      ]
+    }
+  ],
+} as any;
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>'
 })
 class TestComponent {
-  form = AjfFormSerializer.fromJson({
-    choicesOrigins: [
-      {
-        name: 'choices',
-        label: 'choices',
-        type: 'fixed',
-        choices: [
-          {label: 'choice 1', value: 'choice 1'},
-          {label: 'choice 2', value: 'choice 2'},
-        ],
-      },
-    ],
-    nodes: [
-      {
-        id: 1,
-        parent: 0,
-        parentNode: 0,
-        nodeType: AjfNodeType.AjfSlide,
-        name: 'slide',
-        label: 'slide',
-        conditionalBranches: [{condition: 'true'}],
-        nodes: [
-          {
-            id: 2,
-            parent: 1,
-            parentNode: 0,
-            nodeType: AjfNodeType.AjfField,
-            name: 'field',
-            label: 'field',
-            conditionalBranches: [{condition: 'true'}],
-            fieldType: AjfFieldType.SingleChoice,
-            choicesOriginRef: 'choices',
-            validation: {
-              notEmpty: true
-            } as any
-          } as unknown as AjfFieldWithChoices<string>
-        ]
-      }
-    ],
-  });
+  form = AjfFormSerializer.fromJson(testForm);
 }
