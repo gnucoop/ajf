@@ -31,6 +31,7 @@ export function updateValidation(
     instance: AjfFieldInstance, context: AjfContext, supplementaryInformations?: any): void {
   const validation = instance.validation;
   if (validation == null) {
+    instance.valid = true;
     return;
   }
 
@@ -48,12 +49,8 @@ export function updateValidation(
     context.$value = instance.value;
   }
 
-  if (validation != null) {
-    instance.validationResults =
-        evaluateValidationGroup(validation, context[completeName], context);
-    instance.valid = instance.validationResults.reduce(
-        (prev: boolean, x: AjfValidationResult) => prev && x.result, true);
-  } else {
-    instance.valid = true;
-  }
+  instance.validationResults =
+      evaluateValidationGroup(validation, context[completeName], context);
+  instance.valid = instance.validationResults.reduce(
+      (prev: boolean, x: AjfValidationResult) => prev && x.result, true);
 }
