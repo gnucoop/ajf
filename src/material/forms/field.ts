@@ -23,9 +23,10 @@
 import {
   AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField
 } from '@ajf/core/forms';
+
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import {AjfFieldService} from './field-service';
@@ -49,5 +50,6 @@ export class AjfFormField extends CoreFormField {
       fieldService: AjfFieldService) {
     super(cdr, cfr);
     this.componentsMap = fieldService.componentsMap;
+    this.reloadFieldsSub = fieldService.realoadFields.subscribe((_: any) => this.loadComponent());
   }
 }

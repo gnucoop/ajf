@@ -20,11 +20,15 @@
  *
  */
 
-import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, Optional,
+  ViewEncapsulation, ChangeDetectorRef
+} from '@angular/core';
 
 import {
   AjfCheckboxGroup, AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem
 } from '@ajf/core/checkbox-group';
+import {coerceBooleanProperty} from '@ajf/core/utils';
 
 @Component({
   moduleId: module.id,
@@ -44,14 +48,24 @@ import {
     'checked',
     'value',
     'checkedIcon',
-    'notCheckedIcon'
+    'notCheckedIcon',
+    'readonly'
   ],
   outputs: [
     'change'
   ]
 })
 export class CheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T> {
-  constructor(@Optional() checkboxGroup: AjfCheckboxGroup<T>) {
+
+  private _readonly = false;
+  get readonly(): boolean {return this._readonly; }
+  set readonly(readonly: boolean) {
+    this._readonly = coerceBooleanProperty(readonly);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  constructor(
+    @Optional() checkboxGroup: AjfCheckboxGroup<T>, private _changeDetectorRef: ChangeDetectorRef) {
     super(checkboxGroup);
     this.checkedIcon = 'check_box';
     this.notCheckedIcon = 'check_box_outline_blank';

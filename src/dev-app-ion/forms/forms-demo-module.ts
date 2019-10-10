@@ -27,12 +27,13 @@ import {RouterModule} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 
 import {AjfFormsModule} from '@ajf/ionic/forms';
-
+import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {FormsDemo} from './forms-demo';
 
 @NgModule({
   imports: [
     AjfFormsModule,
+    AjfCoreFormsModule,
     FormsModule,
     RouterModule.forChild([{path: '', component: FormsDemo}]),
     IonicModule,

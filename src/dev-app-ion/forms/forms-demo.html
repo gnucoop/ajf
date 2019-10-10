@@ -1,5 +1,6 @@
 <div class="demo-forms">
   <h4 class="demo-section-header">Form</h4>
+  <ion-checkbox [(ngModel)]="readonly">readonly</ion-checkbox>
   <section>
     <ion-grid>
       <ion-row>
@@ -17,8 +18,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-button (click)="setSchema()"
-        color="primary">Set schema</ion-button>
+    <ion-button (click)="setSchema()" color="primary">Set schema</ion-button>
     <div class="demo-form-container">
       <ajf-form [form]="form" hideTopToolbar></ajf-form>
     </div>

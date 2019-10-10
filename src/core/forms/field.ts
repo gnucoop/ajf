@@ -21,11 +21,13 @@
  */
 
 import {ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
+
 import {Subscription} from 'rxjs';
 
-import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
-import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldHost} from './field-host';
+
+import {AjfFieldInstance} from './interface/fields-instances/field-instance';
+import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 
 export abstract class AjfFormField implements OnDestroy, OnInit {
   fieldHost: AjfFieldHost;
@@ -35,12 +37,13 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   set instance(instance: AjfFieldInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
-      this._loadComponent();
+      this.loadComponent();
     }
   }
 
   protected abstract componentsMap: AjfFieldComponentsMap;
   private _updatedSub = Subscription.EMPTY;
+  protected reloadFieldsSub = Subscription.EMPTY;
 
   constructor(
     private _cdr: ChangeDetectorRef,
@@ -49,13 +52,14 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this._updatedSub.unsubscribe();
+    this.reloadFieldsSub.unsubscribe();
   }
 
   ngOnInit(): void {
-    this._loadComponent();
+    this.loadComponent();
   }
 
-  private _loadComponent(): void {
+  loadComponent(): void {
     this._updatedSub.unsubscribe();
     this._updatedSub = Subscription.EMPTY;
     if (this._instance == null || this.fieldHost == null) { return; }

@@ -2,4 +2,5 @@
     [min]="instance.node.minDate|ajfDateValueString"
     [max]="instance.node.maxDate|ajfDateValueString"
     (ionChange)="onChange($event)"
+    [readonly]="readonly"
     [formControl]="control|async"></ion-input>

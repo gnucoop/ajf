@@ -39,19 +39,23 @@ export class AjfFieldService extends CoreService {
   constructor() {
     super();
     this.componentsMap[AjfFieldType.String] = {component: AjfInputFieldComponent},
-    this.componentsMap[AjfFieldType.Text] = {component: AjfInputFieldComponent},
-    this.componentsMap[AjfFieldType.Number] = {
-      component: AjfInputFieldComponent, inputs: {type: 'number'}},
-    this.componentsMap[AjfFieldType.Boolean] = {component: AjfBooleanFieldComponent},
-    this.componentsMap[AjfFieldType.Formula] = {
-      component: AjfInputFieldComponent, inputs: {readonly: true}},
-    this.componentsMap[AjfFieldType.Date] = {component: AjfDateFieldComponent},
-    this.componentsMap[AjfFieldType.DateInput] = {component: AjfDateInputFieldComponent},
-    this.componentsMap[AjfFieldType.Table] = {component: AjfTableFieldComponent},
-    this.componentsMap[AjfFieldType.Empty] = {component: AjfEmptyFieldComponent},
-    this.componentsMap[AjfFieldType.SingleChoice] = {component: AjfSingleChoiceFieldComponent},
-    this.componentsMap[AjfFieldType.MultipleChoice] = {component: AjfMultipleChoiceFieldComponent},
-    this.componentsMap[AjfFieldType.Time] = {component: AjfTimeFieldComponent},
-    this.componentsMap[AjfFieldType.Barcode] = {component: AjfBarcodeFieldComponent};
+      this.componentsMap[AjfFieldType.Text] = {component: AjfInputFieldComponent},
+      this.componentsMap[AjfFieldType.Number] = {
+        component: AjfInputFieldComponent, inputs: {type: 'number'}
+      },
+      this.componentsMap[AjfFieldType.Boolean] = {component: AjfBooleanFieldComponent},
+      this.componentsMap[AjfFieldType.Formula] = {
+        component: AjfInputFieldComponent, inputs: {readonly: true}
+      },
+      this.componentsMap[AjfFieldType.Date] = {component: AjfDateFieldComponent},
+      this.componentsMap[AjfFieldType.DateInput] = {component: AjfDateInputFieldComponent},
+      this.componentsMap[AjfFieldType.Table] = {component: AjfTableFieldComponent},
+      this.componentsMap[AjfFieldType.Empty] = {component: AjfEmptyFieldComponent},
+      this.componentsMap[AjfFieldType.SingleChoice] = {component: AjfSingleChoiceFieldComponent},
+      this.componentsMap[AjfFieldType.MultipleChoice] = {
+        component: AjfMultipleChoiceFieldComponent
+      },
+      this.componentsMap[AjfFieldType.Time] = {component: AjfTimeFieldComponent},
+      this.componentsMap[AjfFieldType.Barcode] = {component: AjfBarcodeFieldComponent};
   }
 }

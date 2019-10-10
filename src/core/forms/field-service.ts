@@ -21,16 +21,18 @@
  */
 
 import {AjfContext} from '@ajf/core/models';
-import {Type} from '@angular/core';
+import {Type, EventEmitter} from '@angular/core';
 
 import {AjfBaseFieldComponent} from './base-field';
 import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {componentsMap} from './utils/fields/fields-map';
 import {AjfFieldInstanceCreate} from './utils/fields-instances/create-field-instance';
+import {AjfFieldType} from './interface/fields/field-type';
 
 export abstract class AjfFieldService {
   readonly componentsMap: AjfFieldComponentsMap = componentsMap;
+  readonly realoadFields: EventEmitter<void> = new EventEmitter<void>();
 
   registerCustomField(field: {
     fieldType: number,
@@ -46,5 +48,16 @@ export abstract class AjfFieldService {
       throw new Error('Invalid custom field component');
     }
     this.componentsMap[fieldType] = field;
+  }
+
+  setReadOnly(readonly: boolean) {
+    const contentsMapKeys = Object.keys(this.componentsMap);
+    contentsMapKeys.forEach((key: string) => {
+      const oldInput = this.componentsMap[+key].inputs;
+      if (AjfFieldType.Formula !== +key) {
+        this.componentsMap[+key].inputs = {...oldInput, readonly};
+      }
+    });
+    this.realoadFields.emit();
   }
 }

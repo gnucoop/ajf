@@ -19,7 +19,7 @@
         [formControl]="control|async">
       <ion-item *ngFor="let choice of instance.filteredChoices">
         <ion-label>{{ choice.label | translate}}</ion-label>
-        <ion-radio [value]="choice.value"></ion-radio>
+        <ion-radio [value]="choice.value" [disabled]="readonly"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </div>

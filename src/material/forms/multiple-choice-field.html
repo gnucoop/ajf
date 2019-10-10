@@ -1,5 +1,5 @@
 <ng-container *ngIf="!(instance|ajfExpandFieldWithChoices:searchThreshold); else expanded">
-  <mat-select [formControl]="control|async" [multiple]="true">
+  <mat-select [formControl]="control|async" [multiple]="true" [disabled]="readonly">
     <mat-option [value]="choice.value"
         *ngFor="let choice of instance.filteredChoices">
       {{ choice.label | translate }}
@@ -9,7 +9,7 @@
 <ng-template #expanded>
   <ajf-checkbox-group class="ajf-choices-container"
       [formControl]="control|async">
-    <ajf-checkbox-group-item *ngFor="let choice of instance.filteredChoices"
+    <ajf-checkbox-group-item *ngFor="let choice of instance.filteredChoices" [readonly]="readonly"
         [value]="choice.value">
       {{ choice.label | translate }}
     </ajf-checkbox-group-item>

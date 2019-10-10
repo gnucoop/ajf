@@ -20,6 +20,11 @@
  *
  */
 
+
+export const formContext: any = {
+  'number': 10
+};
+
 export const formSchema: any = {
   choicesOrigins: [
     {

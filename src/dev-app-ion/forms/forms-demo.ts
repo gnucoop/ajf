@@ -22,10 +22,11 @@
 
 import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
-import {Component} from '@angular/core';
 
-import {formSchema} from './form';
+import {Component, ChangeDetectorRef} from '@angular/core';
 
+import {formSchema, formContext} from './form';
+import {AjfFieldService} from '@ajf/ionic/forms';
 
 @Component({
   moduleId: module.id,
@@ -36,7 +37,21 @@ import {formSchema} from './form';
 export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
   form: AjfForm = AjfFormSerializer.fromJson(formSchema);
-  context: string = '{}';
+  context: string = JSON.stringify(formContext);
+
+  get readonly() {
+    return this._readonly;
+  }
+  set readonly(value: boolean) {
+    this._readonly = value;
+    this._fieldService.setReadOnly(value);
+    this._cdr.markForCheck();
+  }
+  private _readonly = false;
+
+  constructor(private _fieldService: AjfFieldService, private _cdr: ChangeDetectorRef) {
+    this.form = AjfFormSerializer.fromJson(formSchema, formContext);
+  }
 
   setSchema(): void {
     if (this.formSchema == null) {

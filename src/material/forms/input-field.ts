@@ -21,6 +21,7 @@
  */
 
 import {AjfInputFieldComponent as CoreComponent, AjfFormRendererService} from '@ajf/core/forms';
+
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
 } from '@angular/core';
@@ -36,7 +37,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfInputFieldComponent extends CoreComponent {
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+    public cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
 }

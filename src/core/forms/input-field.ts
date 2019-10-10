@@ -20,15 +20,10 @@
  *
  */
 
-import {coerceBooleanProperty} from '@ajf/core/utils';
+
+
 import {AjfBaseFieldComponent} from './base-field';
 
 export abstract class AjfInputFieldComponent extends AjfBaseFieldComponent {
   type: 'text' | 'number' = 'text';
-
-  private _readonly = false;
-  get readonly(): boolean { return this._readonly; }
-  set readonly(readonly: boolean) {
-    this._readonly = coerceBooleanProperty(readonly);
-  }
 }

@@ -22,13 +22,17 @@
 
 import {ChangeDetectorRef, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl} from '@angular/forms';
+
+import {coerceBooleanProperty} from '@ajf/core/utils';
+
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, map, withLatestFrom} from 'rxjs/operators';
 
 import {AjfFieldWarningAlertResult} from './field-warning-alert-result';
 import {AjfFormRendererService} from './form-renderer';
-import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfWarningAlertService} from './warning-alert-service';
+
+import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 
 export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFieldInstance>
     implements OnDestroy, OnInit {
@@ -40,6 +44,13 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
       this._setUpInstanceUpdate();
       this._onInstanceChange();
     }
+  }
+
+  private _readonly = false;
+  get readonly(): boolean { return this._readonly; }
+  set readonly(readonly: boolean) {
+    this._readonly = coerceBooleanProperty(readonly);
+    this._changeDetectorRef.markForCheck();
   }
 
   private _control: Observable<AbstractControl | null>;
