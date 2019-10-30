@@ -34,6 +34,7 @@ const appVendors = [
   '@gic',
   '@ionic',
   '@ngx-translate',
+  '@zxing',
   'systemjs',
   'zone.js',
   'rxjs',
