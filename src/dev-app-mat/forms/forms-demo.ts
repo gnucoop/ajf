@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfForm, AjfFormSerializer,
+import {AjfForm, AjfFormSerializer, AjfFormRendererService,
   createFieldWithChoicesInstance} from '@ajf/core/forms';
 import {AjfFieldService} from '@ajf/material/forms';
 import {AjfContext} from '@ajf/core/models';
@@ -41,7 +41,10 @@ export class FormsDemo {
   form: AjfForm;
   context: string = '{}';
 
-  constructor(fieldService: AjfFieldService) {
+  constructor(
+    fieldService: AjfFieldService,
+    private _formRendererService: AjfFormRendererService,
+  ) {
     fieldService.registerCustomField({
       fieldType: 101,
       component: CustomSelectMultiple,
@@ -70,5 +73,9 @@ export class FormsDemo {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  getCurrentContext(): void {
+    this.context = JSON.stringify(this._formRendererService.getFormValue());
   }
 }

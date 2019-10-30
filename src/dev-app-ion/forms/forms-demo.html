@@ -8,17 +8,19 @@
             <h5>Schema</h5>
             <textarea [(ngModel)]="formSchema"></textarea>
           </div>
+          <ion-button (click)="setSchema()"
+              color="primary">Set schema</ion-button>
         </ion-col>
         <ion-col>
           <div class="demo-forms-header-box">
             <h5>Context</h5>
             <textarea [(ngModel)]="context"></textarea>
+            <ion-button (click)="getCurrentContext()"
+                color="primary">Get current context</ion-button>
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-button (click)="setSchema()"
-        color="primary">Set schema</ion-button>
     <div class="demo-form-container">
       <ajf-form [form]="form" hideTopToolbar></ajf-form>
     </div>

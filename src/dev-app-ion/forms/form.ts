@@ -162,7 +162,7 @@ export const formSchema: any = {
         {
           parent: 1,
           id: 1001,
-          name: 'number',
+          name: 'number1',
           label: '64-bit floating point number',
           nodeType: 0,
           fieldType: 2,
@@ -173,7 +173,7 @@ export const formSchema: any = {
         {
           parent: 1001,
           id: 1002,
-          name: 'number',
+          name: 'number2',
           label: 'A number with the added constraint of being an integer',
           nodeType: 0,
           fieldType: 2,
@@ -283,7 +283,7 @@ export const formSchema: any = {
       parent: 2,
       id: 3,
       name: 'relevant',
-      label: 'Hiiden fileds with Relevant',
+      label: 'Hidden fileds with Relevant',
       nodeType: 3,
       nodes: [
         {

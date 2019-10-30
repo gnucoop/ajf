@@ -1,22 +1,24 @@
 <div class="demo-forms">
   <h4 class="demo-section-header">Form</h4>
   <section>
-    <mat-grid-list [cols]="2" rowHeight="200px">
+    <mat-grid-list [cols]="2" rowHeight="230px">
       <mat-grid-tile>
         <div class="demo-forms-header-box">
           <h5>Schema</h5>
           <textarea [(ngModel)]="formSchema"></textarea>
+          <button (click)="setSchema()" mat-raised-button
+              color="primary">Set schema</button>
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="demo-forms-header-box">
           <h5>Context</h5>
           <textarea [(ngModel)]="context"></textarea>
+          <button (click)="getCurrentContext()" mat-raised-button
+              color="primary">Get current context</button>
         </div>
       </mat-grid-tile>
     </mat-grid-list>
-    <button (click)="setSchema()" mat-raised-button
-        color="primary">Set schema</button>
     <div class="demo-form-container">
       <ajf-form [form]="form" [hasStartMessage]="false" [hasEndMessage]="false" hideTopToolbar></ajf-form>
     </div>
