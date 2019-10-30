@@ -450,8 +450,6 @@ export class AjfFormRendererService {
                 let r: FormControl[] = [];
                 row.forEach((k) => {
                   const control = new FormControl();
-                  console.log(k);
-                  console.log(tfInstance.context[k]);
                   control.setValue(tfInstance.context[k]);
                   if (formGroup != null) {
                     formGroup.registerControl(k, control);
@@ -630,7 +628,6 @@ export class AjfFormRendererService {
               const triggerConditionsMap = v[9];
               const nodes = v[10];
 
-              (window as any).nodes = nodes;
               const delta = this._formValueDelta(oldFormValue, newFormValue);
               const deltaLen = delta.length;
               let updatedNodes: AjfNodeInstance[] = [];
