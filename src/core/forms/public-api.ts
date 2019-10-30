@@ -87,6 +87,7 @@ export * from './interface/fields-instances/empty-field-instance';
 export * from './interface/fields-instances/field-instance';
 export * from './interface/fields-instances/field-state';
 export * from './interface/fields-instances/field-with-choices-instance';
+export * from './interface/fields-instances/formula-field-instance';
 export * from './interface/fields-instances/table-field-instance';
 export * from './interface/forms/form';
 export * from './interface/forms/form-string-identifier';

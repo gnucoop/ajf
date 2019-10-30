@@ -25,6 +25,7 @@ ng_module(
         ":empty-field.css",
         ":field.css",
         ":form.css",
+        ":formula-field.css",
         ":input-field.css",
         ":multiple-choice-field.css",
         ":number-field.css",
@@ -92,6 +93,12 @@ sass_binary(
 sass_binary(
     name = "form_scss",
     src = "form.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "formula_field_scss",
+    src = "formula-field.scss",
     deps = [],
 )
 
