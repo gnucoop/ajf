@@ -121,4 +121,20 @@ describe('Validation Function', () => {
         msg = 'negative integer should be seen as integer';
         expect(funcs.isInt(-42)).toBe(true, msg);
     });
+    it('sumLastProperties should return the sum of the number not the concat string', () => {
+        let msg = '';
+        const src = [{'a': 3, 'b': 5, 'c': '', 'd': 10}];
+        const props = ['a', 'b', 'c', 'd'];
+
+        msg = 'empty string should not be sum as string';
+        expect(funcs.sumLastProperties(src, props)).toBe(18, msg);
+    });
+    it('extractArray should return the sum of the number not the concat string', () => {
+        let msg = '';
+        const src = [{'a': 3, 'b': ''}, {'a': 2, 'b': 6}, {'a': 2, 'b': null}];
+        const props = ['a', 'b'];
+
+        msg = 'empty string should not be sum as string';
+        expect(funcs.extractArray(src, props[0], props[1])).toEqual([3, 8, 2], msg);
+    });
 });
