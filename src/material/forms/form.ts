@@ -40,6 +40,7 @@ import {AjfFormField} from './field';
   inputs: [
     'hasStartMessage',
     'hasEndMessage',
+    'readonly',
     'form',
     'formSchema',
     'saveDisabled',

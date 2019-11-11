@@ -20,6 +20,10 @@
  *
  */
 
+export const formContext: any = {
+  'string': 'lorem ipsum'
+};
+
 export const formSchema: any = {
   choicesOrigins: [
     {
