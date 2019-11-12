@@ -17,9 +17,9 @@ ng_module(
     assets = [],
     module_name = "@ajf/core/barcode",
     deps = [
+        "//src/core/utils",
         "@npm//@angular/core",
         "@npm//@angular/forms",
-        "@npm//@angular/cdk",
         "@npm//@zxing/library",
     ],
 )

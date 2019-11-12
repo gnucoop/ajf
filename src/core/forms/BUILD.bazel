@@ -22,7 +22,6 @@ ng_module(
         "//src/core/utils",
         "@npm//@angular/core",
         "@npm//@angular/forms",
-        "@npm//@angular/cdk",
         "@npm//@types/esprima",
         "@npm//date-fns",
     ],
