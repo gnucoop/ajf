@@ -1,4 +1,4 @@
 <div>
-  <input min="0" max="24" (focus)="focusHandler()" [(ngModel)]="hours" type="number" (ngModelChange)="hours = $event">
-  <input min="0" max="60" (focus)="focusHandler()" [(ngModel)]="minutes" type="number" (ngModelChange)="minutes = $event">
+  <input min="0" max="24" (focus)="focusHandler()" [(ngModel)]="hours" type="number" (ngModelChange)="hours = $event" [readonly]="readonly">
+  <input min="0" max="60" (focus)="focusHandler()" [(ngModel)]="minutes" type="number" (ngModelChange)="minutes = $event" [readonly]="readonly">
 </div>

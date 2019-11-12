@@ -69,7 +69,7 @@
                               <i [class]="fieldInstance.node.fieldType | ajfFieldIcon" item-right></i>
                               <p>{{ fieldInstance.node.description | translate }}</p>
                               <label *ngIf="fieldInstance.node.fieldType !== 7" [innerHTML]="fieldInstance.node.label | translate"></label>
-                              <ajf-field [instance]="fieldInstance"></ajf-field>
+                              <ajf-field [instance]="fieldInstance" [readonly]="readonly"></ajf-field>
                             </div>
                           </ng-template>
                         </mat-card-content>
@@ -106,7 +106,7 @@
                               <i [class]="fieldInstance.node.fieldType | ajfFieldIcon" item-right></i>
                               <p>{{ fieldInstance.node.description | translate }}</p>
                               <label [innerHTML]="fieldInstance.node.label | translate"></label>
-                              <ajf-field [instance]="fieldInstance"></ajf-field>
+                              <ajf-field [instance]="fieldInstance" [readonly]="readonly"></ajf-field>
                             </div>
                           </ng-template>
                         </mat-card-content>

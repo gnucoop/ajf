@@ -20,12 +20,14 @@
  *
  */
 
+import {coerceBooleanProperty} from '@ajf/core/utils';
 import {ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldHost} from './field-host';
+import {AjfBaseFieldComponent} from '.';
 
 export abstract class AjfFormField implements OnDestroy, OnInit {
   fieldHost: AjfFieldHost;
@@ -38,6 +40,17 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
       this._loadComponent();
     }
   }
+
+  private _readonly: boolean;
+  get readonly(): boolean { return this._readonly; }
+  set readonly(readonly: boolean) {
+    this._readonly = coerceBooleanProperty(readonly);
+    this._componentInstance.readonly = this._readonly;
+    this._cdr.markForCheck();
+    console.log(readonly);
+  }
+
+  private _componentInstance: AjfBaseFieldComponent<AjfFieldInstance>;
 
   protected abstract componentsMap: AjfFieldComponentsMap;
   private _updatedSub = Subscription.EMPTY;
@@ -68,12 +81,14 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
     try {
       const componentFactory = this._cfr.resolveComponentFactory(component);
       const componentRef = vcr.createComponent(componentFactory);
-      const componentInstance = componentRef.instance;
-      componentInstance.instance = this._instance;
+      this._componentInstance = componentRef.instance;
+      this._componentInstance.instance = this._instance;
+      this._componentInstance.readonly = this._readonly;
+
       if (componentDef.inputs) {
         Object.keys(componentDef.inputs).forEach(key => {
-          if (key in componentInstance) {
-            (componentInstance as any)[key] = componentDef.inputs![key];
+          if (key in  this._componentInstance) {
+            ( this._componentInstance as any)[key] = componentDef.inputs![key];
           }
         });
       }

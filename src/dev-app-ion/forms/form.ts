@@ -19,6 +19,9 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+export const formContext: any = {
+  'string': 'lorem ipsum'
+};
 
 export const formSchema: any = {
   choicesOrigins: [

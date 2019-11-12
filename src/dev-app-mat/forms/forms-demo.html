@@ -1,5 +1,6 @@
 <div class="demo-forms">
   <h4 class="demo-section-header">Form</h4>
+  <mat-checkbox [(ngModel)]="readonly">readonly</mat-checkbox>
   <section>
     <mat-grid-list [cols]="2" rowHeight="230px">
       <mat-grid-tile>
@@ -20,7 +21,7 @@
       </mat-grid-tile>
     </mat-grid-list>
     <div class="demo-form-container">
-      <ajf-form [form]="form" [hasStartMessage]="false" [hasEndMessage]="false" hideTopToolbar></ajf-form>
+      <ajf-form [form]="form" [hasStartMessage]="false" [hasEndMessage]="false" hideTopToolbar [readonly]="readonly"></ajf-form>
     </div>
   </section>
 </div>

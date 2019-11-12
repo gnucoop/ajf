@@ -6,7 +6,8 @@
         [searchBar]="instance|ajfSelectHasSearchBar:searchThreshold"
         [useVirtualScroll]="instance|ajfSelectUseVirtualScroll:100"
         [placeholder]="instance.node.label"
-        [formControl]="control|async">
+        [formControl]="control|async"
+        [disabled]="readonly">
       <gic-select-option *ngFor="let item of cs"
           [value]="item.value">{{ item.label|translate }}</gic-select-option>
     </gic-select>

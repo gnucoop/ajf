@@ -22,9 +22,10 @@
 
 import {AjfForm, AjfFormSerializer, AjfFormRendererService} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
+
 import {Component} from '@angular/core';
 
-import {formSchema} from './form';
+import {formSchema, formContext} from './form';
 
 
 @Component({
@@ -36,10 +37,18 @@ import {formSchema} from './form';
 export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
   form: AjfForm;
-  context: string = '{}';
+  context: string = JSON.stringify(formContext);
+
+  get readonly() {
+    return this._readonly;
+  }
+  set readonly(value: boolean) {
+    this._readonly = value;
+  }
+  private _readonly = false;
 
   constructor(private _formRendererService: AjfFormRendererService) {
-    this.form = AjfFormSerializer.fromJson(formSchema);
+    this.form = AjfFormSerializer.fromJson(formSchema, formContext);
     console.log(this.form);
   }
 

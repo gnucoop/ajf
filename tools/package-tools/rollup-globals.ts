@@ -1,6 +1,7 @@
 import {join} from 'path';
-import {getSubdirectoryNames} from './secondary-entry-points';
+
 import {buildConfig} from './build-config';
+import {getSubdirectoryNames} from './secondary-entry-points';
 
 /** Method that converts dash-case strings to a camel-based string. */
 export const dashCaseToCamelCase =
@@ -42,6 +43,7 @@ export const rollupGlobals = {
   '@angular/platform-browser/animations': 'ng.platformBrowser.animations',
   '@angular/cdk/drag-drop': 'ng.cdk.dragDrop',
   '@angular/cdk/collections': 'ng.cdk.collections',
+  '@angular/cdk/coercion': 'ng.cdk.coercion',
   '@angular/common': 'ng.common',
   '@angular/core': 'ng.core',
   '@angular/core/testing': 'ng.core.testing',

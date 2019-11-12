@@ -20,7 +20,7 @@
  *
  */
 
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {coerceBooleanProperty} from '@ajf/core/utils';
 import {Component, ElementRef, Injector, Input, OnInit} from '@angular/core';
 import {EXAMPLE_COMPONENTS} from '@ajf/material-examples';
 
