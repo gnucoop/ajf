@@ -1,5 +1,6 @@
 <div class="demo-forms">
   <h4 class="demo-section-header">Form</h4>
+  <ion-checkbox [(ngModel)]="readonly">readonly</ion-checkbox>
   <section>
     <ion-grid>
       <ion-row>
@@ -22,7 +23,7 @@
       </ion-row>
     </ion-grid>
     <div class="demo-form-container">
-      <ajf-form [form]="form" hideTopToolbar></ajf-form>
+      <ajf-form [form]="form" [readonly]="readonly" hideTopToolbar></ajf-form>
     </div>
   </section>
 </div>

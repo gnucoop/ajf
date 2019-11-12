@@ -24,10 +24,10 @@ import {AfterContentInit, Directive, EventEmitter, Input, forwardRef, OnInit,
   Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
+import {coerceBooleanProperty} from '@ajf/core/utils';
+
 import {combineLatest, BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-
-import {coerceBooleanProperty} from '@ajf/core/utils';
 
 
 export const AJF_CHECKBOX_GROUP_VALUE_ACCESSOR: any = {
@@ -223,6 +223,12 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
     if (this._value !== value) {
       this._value = value;
     }
+  }
+
+  protected _readonly: boolean;
+  get readonly(): boolean { return this._readonly; }
+  set readonly(readonly: boolean) {
+    this._readonly = coerceBooleanProperty(readonly);
   }
 
   private _checkedIconVal: BehaviorSubject<string> = new BehaviorSubject<string>('');

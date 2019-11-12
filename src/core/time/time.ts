@@ -20,7 +20,10 @@
  *
  */
 
-import {ChangeDetectionStrategy, Component, forwardRef, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, forwardRef,
+  ViewEncapsulation, Input
+} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {AjfTimeModel} from './time-model';
@@ -41,6 +44,7 @@ export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfTime implements ControlValueAccessor {
+  @Input() readonly: boolean;
 
   private _value: AjfTimeModel = new AjfTimeModel();
   get time(): AjfTimeModel {
@@ -69,7 +73,6 @@ export class AjfTime implements ControlValueAccessor {
     this._value.minutes = minutes;
     this._onChangeCallback(this._value);
   }
-
 
   private _onChangeCallback: (_: any) => void = (_: any) => {};
   private _onTouchedCallback: () => void = () => {};

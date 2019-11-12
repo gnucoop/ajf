@@ -19,6 +19,7 @@ ng_module(
     deps = [
         "@npm//@angular/core",
         "@npm//@angular/forms",
+        "@npm//@angular/cdk",
         "@npm//@zxing/library",
     ],
 )

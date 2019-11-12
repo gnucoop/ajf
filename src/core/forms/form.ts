@@ -22,15 +22,18 @@
 
 import {AjfPageSlider, AjfPageSliderOrientation} from '@ajf/core/page-slider';
 import {coerceBooleanProperty} from '@ajf/core/utils';
+
 import {
   AfterViewChecked, AfterViewInit, ChangeDetectorRef, EventEmitter, OnDestroy, QueryList
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
+
 import {Observable, Subscription} from 'rxjs';
 import {delayWhen, map, withLatestFrom} from 'rxjs/operators';
 
 import {AjfFormField} from './field';
 import {AjfFormInitStatus, AjfFormRendererService} from './form-renderer';
+
 import {AjfFieldType} from './interface/fields/field-type';
 import {AjfForm} from './interface/forms/form';
 import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-instance';
@@ -112,6 +115,13 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   get fixedOrientation(): boolean { return this._fixedOrientation; }
   set fixedOrientation(fixedOrientation: boolean) {
     this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  private _readonly = false;
+  get readonly(): boolean { return this._readonly; }
+  set readonly(readonly: boolean) {
+    this._readonly = coerceBooleanProperty(readonly);
     this._changeDetectorRef.markForCheck();
   }
 
