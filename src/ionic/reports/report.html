@@ -1,5 +1,5 @@
 <ng-template [ngIf]="instance">
-  <div *ngIf="instance.header" @.disabled [applyStyles]="instance.header.styles" class="afj-report-header">
+  <div *ngIf="instance.header" @.disabled [applyStyles]="instance.header.styles" class="ajf-report-header">
     <ng-template ngFor let-instance [ngForOf]="instance.header.content">
       <ajf-widget *ngIf="instance.visible" [instance]="instance"></ajf-widget>
     </ng-template>
