@@ -47,7 +47,6 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
     this._readonly = coerceBooleanProperty(readonly);
     this._componentInstance.readonly = this._readonly;
     this._cdr.markForCheck();
-    console.log(readonly);
   }
 
   private _componentInstance: AjfBaseFieldComponent<AjfFieldInstance>;
