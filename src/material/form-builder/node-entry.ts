@@ -148,7 +148,7 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this._updateBranchHeights();
+    setTimeout(() => this._updateBranchHeights());
     this._childEntriesSubscription = this.childEntries.changes
       .subscribe(() => {
         this._updateBranchHeights();
@@ -188,7 +188,9 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   }
 
   private _updateBranchHeights(): void {
-    if (this.nodeEntry == null || !this.isNodeEntry) { return; }
+    if (
+      this.nodeEntry == null || !this.isNodeEntry
+      || this.branchLines == null || this.childEntries == null) { return; }
     const nodeEntry = <AjfFormBuilderNodeEntry>this.nodeEntry;
     const branchLines: AjfFbBranchLine[] = this.branchLines.toArray();
     const sliceIdx = nodeEntry.content != null ? nodeEntry.content.length : 0;
