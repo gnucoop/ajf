@@ -41,9 +41,11 @@ export abstract class AjfNodeIcon {
   private _getFontIcon(node: AjfNode): string {
     switch (node.nodeType) {
       case AjfNodeType.AjfField:
-      return `field-${AjfFieldType[(<AjfField>node).fieldType].toLowerCase()}`;
+      const fieldType = AjfFieldType[(<AjfField>node).fieldType];
+      return fieldType != null ? `field-${fieldType.toLowerCase()}` : '';
       default:
-      return `node-${AjfNodeType[node.nodeType].toLowerCase().replace('ajf', '')}`;
+      const nodeType = AjfNodeType[node.nodeType];
+      return nodeType != null ? `node-${nodeType.toLowerCase().replace('ajf', '')}` : '';
     }
   }
 }
