@@ -78,11 +78,11 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
       this._isNodeEntry = true;
       const node = ne.node;
       this._hasContent = node != null && isContainerNode(node);
-      this._isSlide = false;
+      this._isSlide = isSlidesNode((<AjfFormBuilderEmptySlot>nodeEntry).parent);
     } else {
       this._isNodeEntry = false;
       this._hasContent = false;
-      this._isSlide = isSlidesNode((<AjfFormBuilderEmptySlot>nodeEntry).parent);
+      this._isSlide = false;
     }
   }
 
