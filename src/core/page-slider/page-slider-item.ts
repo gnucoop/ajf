@@ -25,7 +25,7 @@ import {
   OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {ResizeSensor} from 'css-element-queries';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 
 import {AjfPageSliderItemScrollDirection} from './page-slider-item-scroll-direction';
@@ -44,7 +44,7 @@ export class AjfPageSliderItem implements OnDestroy {
 
   private _scrollEvt = new EventEmitter<{x: number, y: number}>();
   @Output()
-  readonly scroll = this._scrollEvt.asObservable();
+  readonly scroll: Observable<{x: number, y: number}> = this._scrollEvt.asObservable();
 
   private _scrollX = 0;
   private _scrollY = 0;
