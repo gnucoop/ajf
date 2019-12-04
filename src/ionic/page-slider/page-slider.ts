@@ -63,27 +63,47 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
       filter(pages => pages.length > 0),
       switchMap(pages => merge(...pages.map(page => page.scroll))),
     ).subscribe(() => {
-      try {
-        const el = this._el.nativeElement as HTMLElement;
-        const radioGroups = el.getElementsByTagName('ion-radio-group');
-        const radioGroup = radioGroups[0];
-        const items = radioGroup.getElementsByTagName('ion-item');
-        const item = items[0];
-        const ripples = item.shadowRoot!.firstElementChild!
-          .getElementsByTagName('ion-ripple-effect');
-        const ripple = ripples[0];
-        const orig = ripple.style.opacity;
-        ripple.style.opacity = '0';
-        ripple.addRipple(0, 0).then(remove => {
-          remove();
-          ripple.style.opacity = orig;
-        });
-      } catch (err) { }
+      this._fixRippleFromRadioButton();
+      this._fixToggleButtons();
     });
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this._scrollSub.unsubscribe();
+  }
+
+  private _fixRippleFromRadioButton(): void {
+    try {
+      const el = this._el.nativeElement as HTMLElement;
+      const radioGroups = el.getElementsByTagName('ion-radio-group');
+      const radioGroup = radioGroups[0];
+      const items = radioGroup.getElementsByTagName('ion-item');
+      const item = items[0];
+      const ripples = item.shadowRoot!.firstElementChild!
+        .getElementsByTagName('ion-ripple-effect');
+      const ripple = ripples.item(0) as HTMLIonRippleEffectElement;
+      const orig = ripple.style.opacity;
+      ripple.style.opacity = '0';
+      ripple.addRipple(0, 0).then(remove => {
+        remove();
+        ripple.style.opacity = orig;
+      });
+    } catch (e) { }
+  }
+
+  private _fixToggleButtons(): void {
+    try {
+      const el = this._el.nativeElement as HTMLElement;
+      const toggleButtons = el.getElementsByTagName('ion-toggle');
+      const toggleButtonsNum = toggleButtons.length;
+      for (let i = 0; i < toggleButtonsNum; i++) {
+        const toggleButton = toggleButtons.item(i) as HTMLIonToggleElement;
+        const inners = toggleButton.shadowRoot!.firstElementChild!
+          .getElementsByClassName('toggle-inner');
+        const inner = inners[0] as HTMLDivElement;
+        inner.style.willChange = 'auto';
+      }
+    } catch (e) { }
   }
 }
