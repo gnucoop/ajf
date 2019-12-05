@@ -2,6 +2,7 @@
   <div class="ajf-item-container">
     <gic-select *ngIf="instance.filteredChoices as cs"
         #singleChoiceSelect
+        [disabled]="readonly"
         [searchBar]="instance|ajfSelectHasSearchBar:searchThreshold"
         [useVirtualScroll]="instance|ajfSelectUseVirtualScroll:100"
         [placeholder]="instance.node.label"
@@ -18,10 +19,10 @@
 <ng-template #expanded>
   <div class="ajf-choices-container">
     <ion-radio-group
-        [formControl]="control|async">
+      [formControl]="control|async" >
       <ion-item *ngFor="let choice of instance.filteredChoices">
         <ion-label>{{ choice.label | translate}}</ion-label>
-        <ion-radio [value]="choice.value"></ion-radio>
+        <ion-radio [disabled]="readonly" [value]="choice.value"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </div>

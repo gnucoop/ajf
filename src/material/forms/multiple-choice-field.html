@@ -10,6 +10,7 @@
   <ajf-checkbox-group class="ajf-choices-container"
       [formControl]="control|async">
     <ajf-checkbox-group-item *ngFor="let choice of instance.filteredChoices"
+        [readonly]="readonly"
         [value]="choice.value">
       {{ choice.label | translate }}
     </ajf-checkbox-group-item>
