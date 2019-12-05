@@ -102,7 +102,12 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
         const inners = toggleButton.shadowRoot!.firstElementChild!
           .getElementsByClassName('toggle-inner');
         const inner = inners[0] as HTMLDivElement;
-        inner.style.willChange = 'auto';
+        inner.setAttribute('style', 'will-change: auto');
+        setTimeout(() => {
+          try {
+            inner.removeAttribute('style');
+          } catch (e) { }
+        }, 0);
       }
     } catch (e) { }
   }
