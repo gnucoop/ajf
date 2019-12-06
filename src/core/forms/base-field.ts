@@ -95,7 +95,7 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
   private _setUpInstanceUpdate(): void {
     this._instanceUpdateSub.unsubscribe();
     if (this._instance != null) {
-      this._instanceUpdateSub = this._instance.updated.subscribe(() => {
+      this._instanceUpdateSub = this._instance.updatedEvt.subscribe(() => {
         if (this._changeDetectorRef) {
           try {
             this._changeDetectorRef.detectChanges();

@@ -50,6 +50,5 @@ export function createFieldInstance(
     validationResults: instance.validationResults || [],
     warningResults: instance.warningResults || [],
     warningTrigger: new EventEmitter<void>(),
-    updated: new EventEmitter<void>(),
   };
 }
