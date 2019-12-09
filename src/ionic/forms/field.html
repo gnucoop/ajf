@@ -1,6 +1,6 @@
 <div
     [ngClass]="'ajf-field-' + (instance|ajfNodeCompleteName)"
-    [class.ajf-validated]="instance|ajfFieldIsValid"
+    [class.ajf-validated]="instance.validationResults|ajfFieldIsValid"
 >
   <ng-template ajf-field-host></ng-template>
 </div>

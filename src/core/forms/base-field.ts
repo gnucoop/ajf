@@ -20,6 +20,7 @@
  *
  */
 
+import {coerceBooleanProperty} from '@ajf/core/utils';
 import {ChangeDetectorRef, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
@@ -40,6 +41,13 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
       this._setUpInstanceUpdate();
       this._onInstanceChange();
     }
+  }
+
+  protected _readonly: boolean;
+  get readonly(): boolean { return this._readonly; }
+  set readonly(readonly: boolean) {
+    this._readonly = coerceBooleanProperty(readonly);
+    this._changeDetectorRef.markForCheck();
   }
 
   private _control: Observable<AbstractControl | null>;
@@ -87,7 +95,7 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
   private _setUpInstanceUpdate(): void {
     this._instanceUpdateSub.unsubscribe();
     if (this._instance != null) {
-      this._instanceUpdateSub = this._instance.updated.subscribe(() => {
+      this._instanceUpdateSub = this._instance.updatedEvt.subscribe(() => {
         if (this._changeDetectorRef) {
           try {
             this._changeDetectorRef.detectChanges();

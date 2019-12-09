@@ -21,7 +21,8 @@
  */
 
 import {AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField} from '@ajf/core/forms';
-import {ChangeDetectionStrategy, Component, ComponentFactoryResolver, ViewChild,
+
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ViewChild,
     ViewEncapsulation} from '@angular/core';
 
 import {AjfFieldService} from './field-service';
@@ -33,7 +34,7 @@ import {AjfFieldService} from './field-service';
   styleUrls: ['field.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ['instance'],
+  inputs: ['instance', 'readonly'],
   queries: {
     fieldHost: new ViewChild(AjfFieldHost, {static: true}),
   },
@@ -41,8 +42,9 @@ import {AjfFieldService} from './field-service';
 export class AjfFormField extends CoreFormField {
   readonly componentsMap: AjfFieldComponentsMap;
 
-  constructor(cfr: ComponentFactoryResolver, fieldService: AjfFieldService) {
-    super(cfr);
+  constructor(cdr: ChangeDetectorRef, cfr: ComponentFactoryResolver,
+      fieldService: AjfFieldService) {
+    super(cdr, cfr);
     this.componentsMap = fieldService.componentsMap;
   }
 }

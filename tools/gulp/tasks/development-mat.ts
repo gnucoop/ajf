@@ -32,6 +32,7 @@ const appVendors = [
   '@ajf',
   '@angular',
   '@ngx-translate',
+  '@zxing',
   'systemjs',
   'zone.js',
   'rxjs',

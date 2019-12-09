@@ -115,7 +115,7 @@ function buildFormBuilderNodesContent(_nodes: AjfNode[], node: AjfNode): AjfForm
 
 
 function buildFormBuilderNodesTree(nodes: AjfNode[]): (AjfFormBuilderNode | null)[] {
-  const rootNodes = nodes.filter(n => n.parent == null);
+  const rootNodes = nodes.filter(n => n.parent == null || n.parent === 0);
   if (rootNodes.length === 1) {
     const rootNode = rootNodes[0];
     if (isSlidesNode(rootNode)) {

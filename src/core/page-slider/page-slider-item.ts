@@ -20,16 +20,13 @@
  *
  */
 
-// import {animate, AnimationBuilder, AnimationPlayer, style} from '@angular/animations';
 import {
   ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
-  OnDestroy, Renderer2, ViewChild, ViewEncapsulation
+  OnDestroy, Output, Renderer2, ViewChild, ViewEncapsulation
 } from '@angular/core';
-
-import {Subscription} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
-
 import {ResizeSensor} from 'css-element-queries';
+import {Observable, Subscription} from 'rxjs';
+import {debounceTime} from 'rxjs/operators';
 
 import {AjfPageSliderItemScrollDirection} from './page-slider-item-scroll-direction';
 
@@ -45,16 +42,18 @@ export class AjfPageSliderItem implements OnDestroy {
   @ViewChild('wrapper', {static: true}) wrapper: ElementRef;
   @ViewChild('content', {static: true}) content: ElementRef;
 
+  private _scrollEvt = new EventEmitter<{x: number, y: number}>();
+  @Output()
+  readonly scroll: Observable<{x: number, y: number}> = this._scrollEvt.asObservable();
+
   private _scrollX = 0;
   private _scrollY = 0;
   private _resizeSensor: ResizeSensor;
   private _resizeEvent: EventEmitter<void> = new EventEmitter<void>();
-  private _resizeSub: Subscription;
-  // private _player: AnimationPlayer | null;
+  private _resizeSub: Subscription = Subscription.EMPTY;
 
   constructor(
     private _el: ElementRef,
-    // private _animationBuilder: AnimationBuilder,
     private _renderer: Renderer2,
   ) {
     this._resizeSensor = new ResizeSensor(_el.nativeElement, () => this._onResize());
@@ -106,7 +105,7 @@ export class AjfPageSliderItem implements OnDestroy {
     this._renderer.setStyle(
       wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
     );
-    // this._animateScroll(duration);
+    this._scrollEvt.emit({x: this._scrollX, y: this._scrollY});
     return true;
   }
 
@@ -133,24 +132,7 @@ export class AjfPageSliderItem implements OnDestroy {
       this._renderer.setStyle(
         wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`
       );
-      // this._animateScroll(0);
+      this._scrollEvt.emit({x: this._scrollX, y: this._scrollY});
     }
   }
-
-  // private _animateScroll(duration: number): void {
-  //   if (duration === 0) {
-  //     duration = 10;
-  //   }
-  //   const animation = this._animationBuilder.build(animate(
-  //     duration,
-  //     style({transform: `translate(${this._scrollX}px, ${this._scrollY}px)`})
-  //   ));
-  //   this._player = animation.create(this.wrapper.nativeElement);
-  //   this._player.onDone(() => {
-  //     if (this._player == null) { return null; }
-  //     this._player.destroy();
-  //     this._player = null;
-  //   });
-  //   this._player.play();
-  // }
 }

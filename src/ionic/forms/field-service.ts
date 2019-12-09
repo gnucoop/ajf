@@ -28,6 +28,7 @@ import {AjfBooleanFieldComponent} from './boolean-field';
 import {AjfDateFieldComponent} from './date-field';
 import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
+import {AjfFormulaFieldComponent} from './formula-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfNumberFieldComponent} from './number-field';
@@ -44,8 +45,7 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.Text] = {component: AjfTextareaFieldComponent};
     this.componentsMap[AjfFieldType.Number] = {component: AjfNumberFieldComponent};
     this.componentsMap[AjfFieldType.Boolean] = {component: AjfBooleanFieldComponent};
-    this.componentsMap[AjfFieldType.Formula] = {
-      component: AjfInputFieldComponent, inputs: {readonly: true}};
+    this.componentsMap[AjfFieldType.Formula] = {component: AjfFormulaFieldComponent};
     this.componentsMap[AjfFieldType.Date] = {component: AjfDateFieldComponent};
     this.componentsMap[AjfFieldType.DateInput] = {component: AjfDateInputFieldComponent};
     this.componentsMap[AjfFieldType.Table] = {component: AjfTableFieldComponent};

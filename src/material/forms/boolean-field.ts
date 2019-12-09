@@ -35,6 +35,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfBooleanFieldComponent extends AjfBaseFieldComponent {
+
   constructor(
     cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
     super(cdr, service, was);

@@ -30,6 +30,7 @@ export function updateFilteredChoices(
     instance: AjfFieldWithChoicesInstance<any>, context: AjfContext): void {
   if (instance.choicesFilter != null) {
     instance.filteredChoices = instance.node.choicesOrigin.choices.filter(c => {
+      context.$choice = c;
       context.$choiceValue = c.value;
       return evaluateExpression(instance.choicesFilter!.formula, context);
     });

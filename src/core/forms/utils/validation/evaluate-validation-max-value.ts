@@ -34,7 +34,7 @@ export function evaluateValidationMaxValue(
   if (typeof validation.maxValue === 'number') {
     return {
       result: evaluateExpression(`$value.length <= ${validation.maxValue}`, ctx),
-      error: `Value must be <= ${validation.minValue}`,
+      error: `Value must be <= ${validation.maxValue}`,
       clientValidation: false
     };
   }

@@ -20,13 +20,16 @@
  *
  */
 
-import {ComponentFactoryResolver, OnInit} from '@angular/core';
+import {coerceBooleanProperty} from '@ajf/core/utils';
+import {ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
 
 import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldHost} from './field-host';
+import {AjfBaseFieldComponent} from '.';
 
-export abstract class AjfFormField implements OnInit {
+export abstract class AjfFormField implements OnDestroy, OnInit {
   fieldHost: AjfFieldHost;
 
   private _instance: AjfFieldInstance;
@@ -38,15 +41,37 @@ export abstract class AjfFormField implements OnInit {
     }
   }
 
-  protected abstract componentsMap: AjfFieldComponentsMap;
+  private _readonly: boolean;
+  get readonly(): boolean { return this._readonly; }
+  set readonly(readonly: boolean) {
+    this._readonly = coerceBooleanProperty(readonly);
+    if (this._componentInstance != null) {
+      this._componentInstance.readonly = this._readonly;
+    }
+    this._cdr.markForCheck();
+  }
 
-  constructor(private _cfr: ComponentFactoryResolver) { }
+  private _componentInstance: AjfBaseFieldComponent<AjfFieldInstance>;
+
+  protected abstract componentsMap: AjfFieldComponentsMap;
+  private _updatedSub = Subscription.EMPTY;
+
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    private _cfr: ComponentFactoryResolver
+  ) { }
+
+  ngOnDestroy(): void {
+    this._updatedSub.unsubscribe();
+  }
 
   ngOnInit(): void {
     this._loadComponent();
   }
 
   private _loadComponent(): void {
+    this._updatedSub.unsubscribe();
+    this._updatedSub = Subscription.EMPTY;
     if (this._instance == null || this.fieldHost == null) { return; }
 
     const vcr = this.fieldHost.viewContainerRef;
@@ -57,15 +82,18 @@ export abstract class AjfFormField implements OnInit {
     try {
       const componentFactory = this._cfr.resolveComponentFactory(component);
       const componentRef = vcr.createComponent(componentFactory);
-      const componentInstance = componentRef.instance;
-      componentInstance.instance = this._instance;
+      this._componentInstance = componentRef.instance;
+      this._componentInstance.instance = this._instance;
+      this._componentInstance.readonly = this._readonly;
+
       if (componentDef.inputs) {
         Object.keys(componentDef.inputs).forEach(key => {
-          if (key in componentInstance) {
-            (componentInstance as any)[key] = componentDef.inputs![key];
+          if (key in  this._componentInstance) {
+            ( this._componentInstance as any)[key] = componentDef.inputs![key];
           }
         });
       }
+      this._updatedSub = this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
     } catch (e) { }
   }
 }

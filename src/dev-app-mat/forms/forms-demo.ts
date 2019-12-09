@@ -20,14 +20,15 @@
  *
  */
 
-import {AjfForm, AjfFormSerializer,
+import {AjfForm, AjfFormSerializer, AjfFormRendererService,
   createFieldWithChoicesInstance} from '@ajf/core/forms';
 import {AjfFieldService} from '@ajf/material/forms';
 import {AjfContext} from '@ajf/core/models';
+
 import {Component} from '@angular/core';
 
 import {CustomSelectMultiple} from './custom-select-multiple';
-import {formSchema} from './form';
+import {formSchema, formContext} from './form';
 
 
 @Component({
@@ -39,16 +40,27 @@ import {formSchema} from './form';
 export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
   form: AjfForm;
-  context: string = '{}';
+  context: string = JSON.stringify(formContext);
 
-  constructor(fieldService: AjfFieldService) {
+  get readonly() {
+    return this._readonly;
+  }
+  set readonly(value: boolean) {
+    this._readonly = value;
+  }
+  private _readonly = false;
+
+  constructor(
+    fieldService: AjfFieldService,
+    private _formRendererService: AjfFormRendererService,
+  ) {
     fieldService.registerCustomField({
       fieldType: 101,
       component: CustomSelectMultiple,
       createInstance: createFieldWithChoicesInstance as any,
       isFieldWithChoice: true,
     });
-    this.form = AjfFormSerializer.fromJson(formSchema);
+    this.form = AjfFormSerializer.fromJson(formSchema, formContext);
     console.log(this.form);
   }
 
@@ -70,5 +82,9 @@ export class FormsDemo {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  getCurrentContext(): void {
+    this.context = JSON.stringify(this._formRendererService.getFormValue());
   }
 }

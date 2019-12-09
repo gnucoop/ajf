@@ -44,7 +44,8 @@ import {
     'checked',
     'value',
     'checkedIcon',
-    'notCheckedIcon'
+    'notCheckedIcon',
+    'readonly'
   ],
   outputs: [
     'change'

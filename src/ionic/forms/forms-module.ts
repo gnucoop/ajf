@@ -46,6 +46,7 @@ import {AjfFormField} from './field';
 import {AjfFieldService} from './field-service';
 import {AjfFormPage} from './form-page';
 import {AjfFormRenderer} from './form';
+import {AjfFormulaFieldComponent} from './formula-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfNumberFieldComponent} from './number-field';
@@ -82,6 +83,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfFormField,
     AjfFormPage,
     AjfFormRenderer,
+    AjfFormulaFieldComponent,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
     AjfNumberFieldComponent,
@@ -102,6 +104,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfDateFieldComponent,
     AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
+    AjfFormulaFieldComponent,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
     AjfNumberFieldComponent,

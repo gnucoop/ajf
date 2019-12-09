@@ -20,10 +20,8 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, ViewEncapsulation
-} from '@angular/core';
-
+import {ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2,
+  ViewEncapsulation} from '@angular/core';
 
 @Component({
   moduleId: module.id,

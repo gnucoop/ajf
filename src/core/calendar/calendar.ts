@@ -368,7 +368,8 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     this._viewHeader = format(this._viewDate, 'MMM YYYY');
 
     this._buildMonthViewWeekDays();
-    const monthBounds = this._getMonthStartEnd(this._viewDate);
+    const monthDay = new Date(this._viewDate.getFullYear(), this._viewDate.getMonth(), 5);
+    const monthBounds = this._getMonthStartEnd(monthDay);
     let viewStartDate: Date = new Date(monthBounds.start);
     let viewEndDate: Date = new Date(monthBounds.end);
     if (!this._isoMode) {

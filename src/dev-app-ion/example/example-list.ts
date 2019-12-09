@@ -22,7 +22,7 @@
 
 import {Component, Input} from '@angular/core';
 import {EXAMPLE_COMPONENTS} from '@ajf/ionic-examples';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {coerceBooleanProperty} from '@ajf/core/utils';
 
 /** Displays a set of ajf examples in a mat-accordion. */
 @Component({

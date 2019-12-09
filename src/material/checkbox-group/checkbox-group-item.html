@@ -2,7 +2,8 @@
     type="button"
     [id]="checkboxId|async"
     [attr.aria-checked]="checkedState|async"
-    [attr.aria-disabled]="disabledState|async">
+    [attr.aria-disabled]="disabledState|async"
+    [disabled]="readonly">
   <span class="ajf-checkbox-group-content"><ng-content></ng-content></span>
   <mat-icon>{{ icon|async }}</mat-icon>
 </button>

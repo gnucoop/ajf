@@ -34,7 +34,7 @@ export function evaluateValidationMaxDigits(
   if (typeof validation.maxDigits === 'number') {
     return {
       result: evaluateExpression(`$value.toString().length <= ${validation.maxDigits}`, ctx),
-      error: `Digits count must be <= ${validation.minValue}`,
+      error: `Digits count must be <= ${validation.maxDigits}`,
       clientValidation: false
     };
   }
