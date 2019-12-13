@@ -1,14 +1,5 @@
 <table class="ajf-table-field">
-  <ng-container *ngIf="!instance.node.editable else editableTmpl">
-    <ng-container *ngFor="let columns of (instance|ajfTableVisibleColumns); let i = index">
-      <tr [ngClass]="i | ajfTableRowClass">
-        <td *ngFor="let cellValue of columns" >
-          {{ cellValue | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
-        </td>
-      </tr>
-    </ng-container>
-  </ng-container>
-  <ng-template #editableTmpl>
+  <ng-container *ngIf="instance.node as node">
     <ng-container *ngFor="let columns of instance.controls; let row = index">
       <tr [ngClass]="row | ajfTableRowClass">
         <td>
@@ -18,25 +9,17 @@
         </td>
         <td *ngFor="let contr of columns[1]; let column = index">
           <ng-container *ngIf="contr != null">
-            <input
-                *ngIf="row > 0 && contr.show; else plainTextCell"
-                (focusout)="contr.show = false"
-                type="number"
-                [formControl]="contr"
-                (keydown.tab)="goToNextCell($event, row, column)"
-                autoFocus
-            >
+            <input *ngIf="row > 0 && contr.show && node.rows[row-1][column]?.editable; else plainTextCell"
+              (focusout)="contr.show = false" type="number" [formControl]="contr"
+              (keydown.tab)="goToNextCell($event, row, column)" autoFocus>
             <ng-template #plainTextCell>
-              <span *ngIf="row > 0; else labelCell"
-                  class="ajf-table-cell"
-                  (click)="goToCell(row, column)"
-              >{{ contr.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>
-              <ng-template #labelCell
-              >{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>
+              <span *ngIf="row > 0; else labelCell" class="ajf-table-cell"
+                (click)="goToCell(row, column)">{{ contr.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>
+              <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>
             </ng-template>
           </ng-container>
         </td>
       </tr>
     </ng-container>
-  </ng-template>
+  </ng-container>
 </table>
