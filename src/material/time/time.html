@@ -1,0 +1,23 @@
+<div>
+  <mat-form-field>
+    <input
+        matInput
+        min="0"
+        max="23"
+        (focus)="focusHandler()"
+        [(ngModel)]="hours"
+        type="number"
+        [readonly]="readonly">
+  </mat-form-field>
+  :
+  <mat-form-field>
+    <input
+        matInput
+        min="0"
+        max="59"
+        (focus)="focusHandler()"
+        [(ngModel)]="minutes"
+        type="number"
+        [readonly]="readonly">
+  </mat-form-field>
+</div>

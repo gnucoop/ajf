@@ -34,6 +34,7 @@ MATERIAL_PACKAGES = [
     "page-slider",
     "report-builder",
     "reports",
+    "time",
 ]
 
 MATERIAL_TARGETS = ["//src/material"] + ["//src/material/%s" % p for p in MATERIAL_PACKAGES]
@@ -47,6 +48,7 @@ IONIC_PACKAGES = [
     "node-icon",
     "page-slider",
     "reports",
+    "time",
 ]
 
 IONIC_TARGETS = ["//src/ionic"] + ["//src/ionic/%s" % p for p in IONIC_PACKAGES]

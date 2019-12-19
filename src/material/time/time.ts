@@ -20,5 +20,32 @@
  *
  */
 
-export * from './time-model';
-export * from './time';
+import {ChangeDetectionStrategy, Component, forwardRef, OnDestroy,
+  ViewEncapsulation} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+
+import {AjfTime as Base} from '@ajf/core/time';
+
+export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => AjfTime),
+  multi: true
+};
+
+@Component({
+  moduleId: module.id,
+  selector: 'ajf-time',
+  templateUrl: 'time.html',
+  styleUrls: ['time.css'],
+  providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  inputs: [
+    'readonly',
+  ],
+})
+export class AjfTime extends Base implements ControlValueAccessor, OnDestroy {
+  constructor() {
+    super();
+  }
+}

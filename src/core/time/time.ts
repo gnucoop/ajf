@@ -20,37 +20,20 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy, Component, forwardRef,
-  ViewEncapsulation, Input
-} from '@angular/core';
-import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {OnDestroy} from '@angular/core';
+import {ControlValueAccessor} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 import {AjfTimeModel} from './time-model';
 
-export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => AjfTime),
-  multi: true
-};
+export abstract class AjfTime implements ControlValueAccessor, OnDestroy {
+  readonly: boolean;
 
-@Component({
-  moduleId: module.id,
-  selector: 'ajf-time',
-  templateUrl: 'time.html',
-  styleUrls: ['time.css'],
-  providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class AjfTime implements ControlValueAccessor {
-  @Input() readonly: boolean;
-
-  private _value: AjfTimeModel = new AjfTimeModel();
   get time(): AjfTimeModel {
     return this._value;
   }
 
+  private _value: AjfTimeModel = new AjfTimeModel();
   get value(): string {
     return this._value.toString();
   }
@@ -65,23 +48,28 @@ export class AjfTime implements ControlValueAccessor {
   get hours(): number { return this._value.hours; }
   set hours(hours: number) {
     this._value.hours = hours;
-    this._onChangeCallback(this._value);
+    this._onChangeCallback(this._value.toString());
   }
 
   get minutes(): number { return this._value.minutes; }
   set minutes(minutes: number) {
     this._value.minutes = minutes;
-    this._onChangeCallback(this._value);
+    this._onChangeCallback(this._value.toString());
   }
 
   private _onChangeCallback: (_: any) => void = (_: any) => {};
   private _onTouchedCallback: () => void = () => {};
+  private _valueChangeSub: Subscription = Subscription.EMPTY;
 
   constructor() {
-    this._value.changed
+    this._valueChangeSub = this._value.changed
       .subscribe((x: string) => {
         this._onChangeCallback(x);
       });
+  }
+
+  ngOnDestroy(): void {
+    this._valueChangeSub.unsubscribe();
   }
 
   writeValue(value: string) {

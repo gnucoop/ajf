@@ -119,6 +119,7 @@ System.config({
     '@ajf/material/page-slider': 'dist/packages/material/page-slider/index.js',
     '@ajf/material/report-builder': 'dist/packages/material/report-builder/index.js',
     '@ajf/material/reports': 'dist/packages/material/reports/index.js',
+    '@ajf/material/time': 'dist/packages/material/time/index.js',
   },
   packages: {
     // Thirdparty barrels.

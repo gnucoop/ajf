@@ -110,6 +110,7 @@ System.config({
     '@ajf/ionic/node-icon': 'dist/packages/ionic/node-icon/index.js',
     '@ajf/ionic/page-slider': 'dist/packages/ionic/page-slider/index.js',
     '@ajf/ionic/reports': 'dist/packages/ionic/reports/index.js',
+    '@ajf/ionic/time': 'dist/packages/ionic/time/index.js',
   },
   packages: {
     // Thirdparty barrels.

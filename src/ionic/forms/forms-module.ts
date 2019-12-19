@@ -31,11 +31,11 @@ import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfCommonModule} from '@ajf/core/common';
 import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
-import {AjfTimeModule} from '@ajf/core/time';
 import {AjfBarcodeModule} from '@ajf/ionic/barcode';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
+import {AjfTimeModule} from '@ajf/ionic/time';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';

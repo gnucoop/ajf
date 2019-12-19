@@ -20,5 +20,22 @@
  *
  */
 
-export * from './time-model';
-export * from './time';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {IonicModule} from '@ionic/angular';
+
+import {AjfTime} from './time';
+
+@NgModule({
+  imports: [
+    FormsModule,
+    IonicModule,
+  ],
+  declarations: [
+    AjfTime,
+  ],
+  exports: [
+    AjfTime,
+  ]
+})
+export class AjfTimeModule { }

@@ -20,5 +20,24 @@
  *
  */
 
-export * from './time-model';
-export * from './time';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+import {AjfTime} from './time';
+
+@NgModule({
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+  ],
+  declarations: [
+    AjfTime,
+  ],
+  exports: [
+    AjfTime,
+  ],
+})
+export class AjfTimeModule { }

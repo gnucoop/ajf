@@ -38,11 +38,11 @@ import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {AjfCommonModule} from '@ajf/core/common';
-import {AjfTimeModule} from '@ajf/core/time';
 import {AjfBarcodeModule} from '@ajf/material/barcode';
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/material/page-slider';
+import {AjfTimeModule} from '@ajf/material/time';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';

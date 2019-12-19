@@ -31,6 +31,7 @@
 /src/material/page-slider/*                        @trik
 /src/material/report-builder/**/*                  @trik
 /src/material/reports/*                            @trik
+/src/material/time/*                               @trik
 
 # Ajf ionic
 /src/ionic/*                                       @trik
@@ -42,6 +43,7 @@
 /src/ionic/node-icon/*                             @trik
 /src/ionic/page-slider/*                           @trik
 /src/ionic/reports/*                               @trik
+/src/ionic/time/*                                  @trik
 
 # Ajf monaco
 /src/monaco/*                                      @trik

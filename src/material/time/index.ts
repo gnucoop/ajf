@@ -20,5 +20,4 @@
  *
  */
 
-export * from './time-model';
-export * from './time';
+export * from './public-api';
