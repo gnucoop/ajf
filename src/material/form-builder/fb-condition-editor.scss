@@ -21,4 +21,8 @@ ajf-condition-editor {
     flex: 0.25 0 auto;
     overflow-y: auto;
   }
+
+  ajf-monaco-editor {
+    min-width: 400px;
+  }
 }

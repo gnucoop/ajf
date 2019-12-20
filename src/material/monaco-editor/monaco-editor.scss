@@ -1,6 +1,7 @@
 ajf-monaco-editor {
   display: flex;
   align-items: stretch;
+  overflow: hidden;
 
   .ajf-monaco-editor {
     flex: 1 0 auto;
