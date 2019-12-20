@@ -88,10 +88,16 @@ function buildFormBuilderNodesSubtree(
   const entries: AjfFormBuilderNode[] = nodes
     .filter(n => n.parent === parent.id)
     .sort((n1, n2) => n1.parentNode - n2.parentNode)
-    .map(n => <AjfFormBuilderNodeEntry>{
-      node: n,
-      children: buildFormBuilderNodesSubtree(nodes, n),
-      content: buildFormBuilderNodesContent(nodes, n)
+    .map(n => {
+      const children = buildFormBuilderNodesSubtree(nodes, n);
+      if (children.length === 0) {
+        children.push({parent: n, parentNode: 0});
+      }
+      return <AjfFormBuilderNodeEntry>{
+        node: n,
+        children,
+        content: buildFormBuilderNodesContent(nodes, n)
+      };
     });
   if (!ignoreConditionalBranches) {
     const entriesNum = entries.length;

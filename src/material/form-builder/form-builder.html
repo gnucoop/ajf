@@ -23,10 +23,10 @@
         [cdkDropListEnterPredicate]="disableDropPredicate"
         [cdkDropListData]="nodeTypes">
       <ajf-fb-node-type-entry *ngFor="let nodeType of nodeTypes"
-        cdkDrag
-        [cdkDragData]="nodeType"
-        (cdkDragStarted)="leftSidenav.close()"
-        [nodeType]="nodeType"></ajf-fb-node-type-entry>
+          cdkDrag
+          [cdkDragData]="nodeType"
+          (cdkDragStarted)="leftSidenav.close()"
+          [nodeType]="nodeType"></ajf-fb-node-type-entry>
     </div>
   </mat-drawer>
   <mat-drawer #rightSidenav position="end" mode="side" [opened]="true">

@@ -84,6 +84,10 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     }
   }
 
+  private _level = 0;
+  get level(): number { return this._level; }
+  @Input() set level(value: number) { this._level = value; }
+
   get realNodeEntry(): AjfFormBuilderNodeEntry {
     return this._nodeEntry as AjfFormBuilderNodeEntry;
   }
@@ -177,8 +181,13 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return !item.data.isSlide;
   }
 
-  emptyAreaDropPredicate(item: CdkDrag, _drop: CdkDropList): boolean {
-    return item.data.isSlide || false;
+  emptyAreaDropPredicate(): (item: CdkDrag, _drop: CdkDropList) => boolean {
+    return (item: CdkDrag, _drop: CdkDropList): boolean => {
+      if (this._level > 0) {
+        return !item.data.isSlide;
+      }
+      return item.data.isSlide || false;
+    };
   }
 
   private _updateBranchHeights(): void {

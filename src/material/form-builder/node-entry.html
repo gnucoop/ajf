@@ -28,6 +28,7 @@
         <div *ngIf="hasContent">
           <ajf-fb-node-entry
               *ngFor="let contentEntry of realNodeEntry.content; let isFirstChild = first; let idx = index"
+              [level]="level + 1"
               [isFirst]="isFirstChild"
               [firstBranchColor]="branchColors[idx]"
               [nodeEntry]="contentEntry"></ajf-fb-node-entry>
@@ -42,13 +43,14 @@
     <ng-template [ngIf]="!isNodeEntry">
       <mat-card class="ajf-empty"
           cdkDropList
-          [cdkDropListEnterPredicate]="emptyAreaDropPredicate"
+          [cdkDropListEnterPredicate]="emptyAreaDropPredicate()"
           (cdkDropListDropped)="onDropSuccess($event)">&nbsp;</mat-card>
     </ng-template>
   </div>
   <ng-template [ngIf]="isNodeEntry">
     <ajf-fb-node-entry
         *ngFor="let childNodeEntry of realNodeEntry.children; let idx = index"
+        [level]="level"
         [originOffset]="idx"
         [firstBranchColor]="branchColors[idx]"
         [nodeEntry]="childNodeEntry"></ajf-fb-node-entry>
