@@ -20,7 +20,7 @@
  *
  */
 
-import {ChangeDetectorRef, EventEmitter, Renderer2, OnDestroy, Input} from '@angular/core';
+import {ChangeDetectorRef, EventEmitter, Renderer2, OnDestroy} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
 import {coerceBooleanProperty} from '@ajf/core/utils';
 
@@ -32,7 +32,6 @@ import {catchError, switchMap, debounceTime} from 'rxjs/operators';
 export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   protected _readonly: boolean;
   get readonly(): boolean { return this._readonly; }
-  @Input()
   set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
     this._cdr.markForCheck();
