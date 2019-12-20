@@ -21,7 +21,10 @@
  */
 
 import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
-import {Component} from '@angular/core';
+import {AjfFormBuilderService} from '@ajf/material/form-builder';
+import {AfterViewInit, Component, OnDestroy} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {delay} from 'rxjs/operators';
 
 import {formSchema} from './form';
 
@@ -32,14 +35,27 @@ import {formSchema} from './form';
   templateUrl: 'form-builder-demo.html',
   styleUrls: ['form-builder-demo.css'],
 })
-export class FormBuilderDemo {
+export class FormBuilderDemo implements AfterViewInit, OnDestroy {
   form: AjfForm;
   formSchema: string;
   error: string | null;
 
-  constructor() {
-    this.form = AjfFormSerializer.fromJson(formSchema);
-    this.formSchema = JSON.stringify(formSchema);
+  private _currentFormSub: Subscription = Subscription.EMPTY;
+
+  constructor(private _service: AjfFormBuilderService) {
+    this._updateForm(formSchema);
+  }
+
+  ngOnDestroy(): void {
+    this._currentFormSub.unsubscribe();
+  }
+
+  ngAfterViewInit(): void {
+    this._currentFormSub = this._service.getCurrentForm().pipe(
+      delay(0),
+    ).subscribe(form => {
+      this.formSchema = JSON.stringify(form);
+    });
   }
 
   setForm(): void {
@@ -50,5 +66,10 @@ export class FormBuilderDemo {
     } catch (e) {
       this.error = e.message;
     }
+  }
+
+  private _updateForm(schema: any): void {
+    this.form = AjfFormSerializer.fromJson(schema);
+    this.formSchema = JSON.stringify(schema);
   }
 }

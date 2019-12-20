@@ -32,7 +32,7 @@ import {
 import {AjfCondition, alwaysCondition, createCondition, createFormula} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs';
 import {filter, map, publishReplay, refCount, scan, withLatestFrom} from 'rxjs/operators';
 
 import {AjfAttachmentsOriginsOperation, AjfChoicesOriginsOperation} from './operations';
@@ -440,17 +440,17 @@ export class AjfFormBuilderService {
   }
 
   getCurrentForm(): Observable<AjfForm> {
-    return this._form.pipe(
-      withLatestFrom(this._nodes),
-      filter((r) => r[0] != null),
-      map((r: [AjfForm | null, AjfNode[]]) => {
-        const form = r[0]!;
-        const nodes = r[1];
+    return combineLatest(
+      [this.form, this.nodes, this.attachmentsOrigins, this.choicesOrigins]
+    ).pipe(
+      filter(([form]) => form != null),
+      map(([form, nodes, attachmentsOrigins, choicesOrigins]) => {
         return createForm({
-          choicesOrigins: form.choicesOrigins.slice(0),
-          attachmentsOrigins: form.attachmentsOrigins.slice(0),
-          stringIdentifier: form.stringIdentifier.slice(0),
+          choicesOrigins: choicesOrigins.slice(0),
+          attachmentsOrigins: attachmentsOrigins.slice(0),
+          stringIdentifier: form!.stringIdentifier.slice(0),
           nodes: nodes.slice(0) as AjfSlide[],
+          supplementaryInformations: form!.supplementaryInformations,
         });
       })
     );
