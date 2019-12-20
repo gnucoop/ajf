@@ -24,7 +24,7 @@ import {
   AjfAttachmentsOrigin, AjfChoicesOrigin, AjfContainerNode, AjfField, AjfFieldType,
   AjfFieldWithChoices, AjfForm, AjfNode, AjfNodeGroup, AjfNodesOperation, AjfNodeType,
   AjfRepeatingContainerNode, AjfRepeatingSlide, AjfSlide, createChoicesFixedOrigin, createField,
-  createForm, createNode, createValidation, createValidationGroup, createWarning,
+  createForm, createContainerNode, createValidation, createValidationGroup, createWarning,
   createWarningGroup, isChoicesFixedOrigin, isContainerNode, isField, isFieldWithChoices,
   isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation,
   minValidation, notEmptyValidation, notEmptyWarning
@@ -396,12 +396,13 @@ export class AjfFormBuilderService {
         name: '',
       });
     } else {
-      node = createNode({
+      node = createContainerNode({
         id,
         nodeType: nodeType.nodeType.node,
         parent: parent.id,
         parentNode,
         name: '',
+        nodes: [],
       });
     }
     this._beforeNodesUpdate.emit();
@@ -411,9 +412,13 @@ export class AjfFormBuilderService {
         getNodeContainer({nodes}, parent);
       if (cn != null) {
         if (!isFieldNode) {
+          const replaceNodes = cn.nodes === nodes;
           const newNodes = cn.nodes.slice(0);
           newNodes.push(node);
           cn.nodes = newNodes;
+          if (replaceNodes) {
+            nodes = newNodes;
+          }
         } else {
           cn.nodes.push(node);
         }

@@ -20,8 +20,8 @@
  *
  */
 
-import {isContainerNode, isSlidesNode} from '@ajf/core/forms';
-import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
+import {isContainerNode} from '@ajf/core/forms';
+import {CdkDrag, CdkDragDrop, CdkDropList} from '@angular/cdk/drag-drop';
 import {
   AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, QueryList,
   ViewChildren, ViewEncapsulation
@@ -78,11 +78,9 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
       this._isNodeEntry = true;
       const node = ne.node;
       this._hasContent = node != null && isContainerNode(node);
-      this._isSlide = isSlidesNode((<AjfFormBuilderEmptySlot>nodeEntry).parent);
     } else {
       this._isNodeEntry = false;
       this._hasContent = false;
-      this._isSlide = false;
     }
   }
 
@@ -126,7 +124,6 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return this._currentEditedNode;
   }
 
-  private _isSlide = false;
   private _branchLinesSubscription: Subscription = Subscription.EMPTY;
   private _childEntriesSubscription: Subscription = Subscription.EMPTY;
 
@@ -180,11 +177,8 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return !item.data.isSlide;
   }
 
-  emptyAreaDropPredicate(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
-    if (this._isSlide) {
-      return item.data.isSlide || false;
-    }
-    return !item.data.isSlide;
+  emptyAreaDropPredicate(item: CdkDrag, _drop: CdkDropList): boolean {
+    return item.data.isSlide || false;
   }
 
   private _updateBranchHeights(): void {
