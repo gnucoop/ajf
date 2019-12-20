@@ -701,12 +701,17 @@ export class AjfFormBuilderService {
                 if (cn != null) {
                   // TODO: @trik check this, was always true?
                   // if (cn instanceof AjfNode) {
+                  const replaceNodes = cn.nodes === nodes;
                   const idx = cn.nodes.indexOf(origNode);
                   let newNodes = cn.nodes.slice(0, idx);
                   newNodes.push(node);
                   newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
                   cn.nodes = newNodes;
-                  nodes = nodes.slice(0);
+                  if (replaceNodes) {
+                    nodes = newNodes;
+                  } else {
+                    nodes = nodes.slice(0);
+                  }
                   // } else {
                   //   const idx = nodes.indexOf(origNode);
                   //   nodes = nodes.slice(0, idx).concat([node]).concat(nodes.slice(idx + 1));
@@ -731,17 +736,11 @@ export class AjfFormBuilderService {
           const node = nodeEntry.node;
           let cn = getNodeContainer({nodes}, node);
           if (cn != null) {
-            // TODO: @trik check this, was always true?
-            // if (cn instanceof AjfNode) {
             const idx = cn.nodes.indexOf(node);
             let newNodes = cn.nodes.slice(0, idx);
             newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
             cn.nodes = newNodes;
             nodes = nodes.slice(0);
-            // } else {
-            //   const idx = nodes.indexOf(node);
-            //   nodes = nodes.slice(0, idx).concat(nodes.slice(idx + 1));
-            // }
             nodes = deleteNodeSubtree(nodes, node);
           }
           return nodes;
