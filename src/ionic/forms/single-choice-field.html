@@ -7,12 +7,7 @@
         [useVirtualScroll]="instance|ajfSelectUseVirtualScroll:100"
         [placeholder]="instance.node.label"
         [formControl]="control|async">
-      <ion-content>
-        <ion-virtual-scroll [items]="cs">
-          <gic-select-option *virtualItem="let item"
-              [value]="item.value">{{ item.label|translate }}</gic-select-option>
-        </ion-virtual-scroll>
-      </ion-content>
+      <gic-select-option *ngFor="let item of cs" [value]="item.value">{{ item.label|translate }}</gic-select-option>
     </gic-select>
   </div>
 </ng-container>
@@ -21,7 +16,7 @@
     <ion-radio-group
       [formControl]="control|async" >
       <ion-item *ngFor="let choice of instance.filteredChoices">
-        <ion-label>{{ choice.label | translate}}</ion-label>
+        <ion-label>{{ choice.label | translate }}</ion-label>
         <ion-radio [disabled]="readonly" [value]="choice.value"></ion-radio>
       </ion-item>
     </ion-radio-group>
