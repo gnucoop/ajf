@@ -22,16 +22,15 @@
 
 import {AjfContext} from '@ajf/core/models';
 
-import {AjfTableFieldInstance} from '../../interface/fields-instances/table-field-instance';
 import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instance';
-import {AjfTableField, AjfTableCell} from '../..';
+import {AjfTableField, AjfTableCell} from '../../interface/fields/table-field';
+import {AjfTableFieldInstance} from '../../interface/fields-instances/table-field-instance';
 
 export type AjfTableFieldInstanceCreate = AjfFieldInstanceCreate&Partial<AjfTableFieldInstance>;
 /**
  * to mantain retrocompatibility with old string type convert string to AjfTableCell
  * check  node.rows: (string|AjfTableCell)[][];
  * if elem of map is string convert in to AjfTableCell object
- * @param {AjfTableField} node
  */
 function normalizeRows(node: AjfTableField): void {
   node.rows.forEach((row, rowIdx) => {

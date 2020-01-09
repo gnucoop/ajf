@@ -54,6 +54,7 @@ import {AjfRendererUpdateMap} from './interface/renderer-maps/update-map';
 import {AjfBaseSlideInstance} from './interface/slides-instances/base-slide-instance';
 import {AjfRepeatingSlideInstance} from './interface/slides-instances/repeating-slide-instance';
 import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
+import {AjfTableCell} from './interface/fields/table-field';
 import {isCustomFieldWithChoices} from './utils/fields/is-custom-field-with-choices';
 import {isFieldWithChoicesInstance} from './utils/fields-instances/is-field-with-choices-instance';
 import {isTableFieldInstance} from './utils/fields-instances/is-table-field-instance';
@@ -84,7 +85,6 @@ import {orderedNodes} from './utils/nodes/ordered-nodes';
 import {updateRepsNum} from './utils/slides-instances/update-reps-num';
 import {validSlide} from './utils/slides-instances/valid-slide';
 import {AjfValidationService} from './validation-service';
-import {AjfTableCell} from '.';
 
 const esprimaMod: any = (esprima as any).default || esprima;
 const {tokenize} = esprimaMod;

@@ -28,11 +28,6 @@ import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complet
 /**
  * update the relative instance value and the context
  * if !editable evaluate expression once one time and flag changed is false
- *
- * @export
- * @param {AjfFieldInstance} instance
- * @param {AjfContext} context
- * @returns {{changed: boolean, value: any}}
  */
 export function updateFormula(
     instance: AjfFieldInstance, context: AjfContext): {changed: boolean, value: any} {
