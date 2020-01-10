@@ -128,6 +128,69 @@ describe('AjfFormRenderer', () => {
     error = fixture.debugElement.query(By.css('.error'));
     expect(error).toBeNull();
   });
+
+  it ('should show the sum of first and second cell in the third cell', async () => {
+    const formulasForm: any = {
+      choicesOrigins: [],
+      nodes: [
+        {
+          parent: 0,
+          id: 7,
+          name: 'table1',
+          label: 'editable table with formulas',
+          nodeType: 3,
+          nodes: [
+            {
+              id: 701,
+              parent: 7,
+              name: 'row',
+              rows: [
+                [
+                  'value1',
+                  'value2',
+                  {
+                    formula: 'row__0__0+row__0__1',
+                    editable: false
+                  }
+                ]
+              ],
+              label: '2.1',
+              editable: true,
+              nodeType: 0,
+              fieldType: 11,
+              rowLabels: [
+                'row1'
+              ],
+              columnLabels: [
+                'value1',
+                'value2',
+                'sum'
+              ]
+            }
+          ]
+        }
+      ]
+    };
+    const context: any = { value1: 1, value2: 2};
+
+    const fixture = TestBed.createComponent(AjfFormRenderer);
+    const cmp = fixture.componentInstance;
+
+    const form = AjfFormSerializer.fromJson(formulasForm, context);
+    cmp.form = form;
+
+    fixture.detectChanges();
+    await fixture.whenRenderingDone();
+    await timer(500).pipe(first()).toPromise();
+
+    const formGroup = (await cmp.formGroup.pipe(first()).toPromise())!;
+    const ctx = service.getFormValue();
+
+    expect(formGroup).toBeDefined();
+    expect(ctx).toBeDefined();
+    expect(ctx['row__0__2']).toBeDefined();
+    expect(ctx['row__0__2']).toBe(3);
+  });
 });
 
 const testForm = {

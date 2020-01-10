@@ -21,7 +21,13 @@
  */
 
 export const formContext: any = {
-  'string': 'lorem ipsum'
+  'string': 'lorem ipsum',
+  'value1': 1,
+  'value2': 2,
+  'value3': 3,
+  'value4': 4,
+  'value5': 5,
+  'value6': 6
 };
 
 export const formSchema: any = {
@@ -389,7 +395,8 @@ export const formSchema: any = {
           fieldType: 2
         }
       ]
-    }, {
+    },
+    {
       parent: 5,
       id: 6,
       name: 'custom',
@@ -404,6 +411,60 @@ export const formSchema: any = {
           nodeType: 0,
           fieldType: 101,
           choicesOriginRef: 'mchoice3'
+        }
+      ]
+    },
+    {
+      parent: 6,
+      id: 7,
+      name: 'table1',
+      label: 'editable table with formulas',
+      nodeType: 3,
+      nodes: [
+        {
+          id: 701,
+          parent: 7,
+          name: 'row',
+          rows: [
+            [
+              'value1',
+              'value2',
+              {
+                formula: 'row__0__0+row__0__1',
+                editable: false
+              }
+            ],
+            [
+              'value3',
+              'value4',
+              {
+                formula: 'row__1__0+row__1__1',
+                editable: false
+              }
+            ],
+            [
+              'value5',
+              'value6',
+              {
+                formula: 'row__2__0+row__2__1',
+                editable: false
+              }
+            ]
+          ],
+          label: '2.1',
+          editable: true,
+          nodeType: 0,
+          fieldType: 11,
+          rowLabels: [
+            'row1',
+            'row2',
+            'row3'
+          ],
+          columnLabels: [
+            'value1',
+            'value2',
+            'sum'
+          ]
         }
       ]
     }

@@ -54,6 +54,7 @@ import {AjfRendererUpdateMap} from './interface/renderer-maps/update-map';
 import {AjfBaseSlideInstance} from './interface/slides-instances/base-slide-instance';
 import {AjfRepeatingSlideInstance} from './interface/slides-instances/repeating-slide-instance';
 import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
+import {AjfTableCell} from './interface/fields/table-field';
 import {isCustomFieldWithChoices} from './utils/fields/is-custom-field-with-choices';
 import {isFieldWithChoicesInstance} from './utils/fields-instances/is-field-with-choices-instance';
 import {isTableFieldInstance} from './utils/fields-instances/is-table-field-instance';
@@ -432,34 +433,44 @@ export class AjfFormRendererService {
             const tfInstance = fInstance as AjfTableFieldInstance;
             const tNode = tfInstance.node;
             tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
-            if (!tNode.editable) {
-              const value: [string, string[]][] = [];
-              value.push([tNode.label, tNode.columnLabels]);
-              tNode.rows.forEach((row, rowIndex) => {
-                value.push([tNode.rowLabels[rowIndex], row.map(k => {
-                  tfInstance.context[k] = context[k];
-                  return context[k];
-                })]);
-              });
-              tfInstance.value = value;
-            } else {
               const formGroup = this._formGroup.getValue();
               let controlsWithLabels: [string, (string|FormControl)[]][] = [];
               controlsWithLabels.push([node.label, tNode.columnLabels]);
-              tNode.rows.forEach((row, idx) => {
-                let r: FormControl[] = [];
-                row.forEach((k) => {
-                  const control = new FormControl();
-                  control.setValue(tfInstance.context[k]);
-                  if (formGroup != null) {
-                    formGroup.registerControl(k, control);
-                  }
-                  r.push(control);
+              if (formGroup != null) {
+                tNode.rows.forEach((row, rowIdx) => {
+                  let r: FormControl[] = [];
+                  (row as AjfTableCell[]).forEach((cell, idx) => {
+                    /*
+                    every control is registered with the cell position
+                    inside the form control matrix
+                    with this mask `${tNode.name}__${rowIdx}__${idx}`
+                    */
+                    const name = `${tNode.name}__${rowIdx}__${idx}`;
+                    const control = new FormControl();
+                    control.setValue(tfInstance.context[cell.formula]);
+                    formGroup
+                      .registerControl(name, control);
+                    r.push(control);
+                    /* create a object that respect the instance interface
+                    with the minimum defined properties to allow to run addToNodeFormula map*/
+                    const fakeInstance = {
+                      formula: {formula: cell.formula},
+                      node: {
+                        name,
+                        nodeType: 0,
+                        editable: false
+                      },
+                      visible: true,
+                      prefix: [],
+                      conditionalBranches: [],
+                      updatedEvt: new EventEmitter<void>()
+                    } as unknown as AjfNodeInstance;
+                    this._addToNodesFormulaMap(fakeInstance, cell.formula);
+                  });
+                  controlsWithLabels.push([tNode.rowLabels[rowIdx], r]);
                 });
-                controlsWithLabels.push([tNode.rowLabels[idx], r]);
-              });
-              tfInstance.controls = controlsWithLabels;
-            }
+                tfInstance.controls = controlsWithLabels;
+              }
           } else {
             fInstance.value = context[nodeInstanceCompleteName(instance)];
           }
@@ -628,10 +639,16 @@ export class AjfFormRendererService {
               const triggerConditionsMap = v[9];
               const nodes = v[10];
 
+              // takes the names of the fields that have changed
               const delta = this._formValueDelta(oldFormValue, newFormValue);
               const deltaLen = delta.length;
               let updatedNodes: AjfNodeInstance[] = [];
 
+              /*
+                for each field update all properties map
+                with the following rule  "if fieldname is in map update it" and
+                push on updateNodes the node instance that wrap field
+              */
               delta.forEach((fieldName) => {
                 updatedNodes = updatedNodes.concat(
                     nodes.filter(n => nodeInstanceCompleteName(n) === fieldName));
