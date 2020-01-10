@@ -978,19 +978,19 @@
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.3.10.tgz#8f6d24d80bf833622b53ed26eaa04cfa9dd0f2f3"
   integrity sha512-l+5BJtSQopalBXiY/YuSaB9KF9PnDj37FLV0Sx3qJjh5B3IthCuZbPc1Vpbbbee/QZgudl0G212BBsUMGHP+fQ==
 
-"@gic/angular@^4.11.2":
-  version "4.11.2"
-  resolved "https://registry.yarnpkg.com/@gic/angular/-/angular-4.11.2.tgz#e41fb4033b9cf35774d6a57f3ada9c1f56661b18"
-  integrity sha512-pjItALQ3sygGErxBX9ut/jv0ZBEzal+Ml9JpMTDdrpoitNEEzZMx0nm5zrx9nmllrdXldf8sPncfCZSpg/xW5Q==
+"@gic/angular@^4.11.3":
+  version "4.11.3"
+  resolved "https://registry.yarnpkg.com/@gic/angular/-/angular-4.11.3.tgz#edc3b23e4bff1e7321e605cbcbcaf013f4e030c2"
+  integrity sha512-BPbqiUnPs/kPb5rQ16AD2DHbc9C0Zt4i7JJOUF5IvVDYZ6TaqqdH/OugV/U6n4IxSwUtCza+pZFbQhhEKa7qNQ==
   dependencies:
-    "@gic/core" "4.11.2"
+    "@gic/core" "4.11.3"
     "@ionic/angular" "^4.11.7"
     tslib "^1.9.3"
 
-"@gic/core@4.11.2":
-  version "4.11.2"
-  resolved "https://registry.yarnpkg.com/@gic/core/-/core-4.11.2.tgz#608ee0c16bfa52d89fce609ef0f0812701744495"
-  integrity sha512-k4XH53Zhs5R4Gxd/Zi2/sH++mziGyPY+NEtpfpmsN6Gqms0pDqiR2a2k5ih1MQNgu0Jpqh30QvoHCLmwU+NrLA==
+"@gic/core@4.11.3":
+  version "4.11.3"
+  resolved "https://registry.yarnpkg.com/@gic/core/-/core-4.11.3.tgz#93be6c9eb22aec824a5a811e4aea7df628117299"
+  integrity sha512-QcCDEjhxp6C/xTjjb77D+KNkElEcCDcgWGmi9iUJ+YcbBSqZXgXtV7I9kYBhjwvQyox30Owuyu3VWGB+MYLCsQ==
   dependencies:
     "@ionic/core" "^4.11.7"
     ionicons "^4.6.3"
