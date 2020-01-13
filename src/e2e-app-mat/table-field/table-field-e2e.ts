@@ -1,48 +1,60 @@
-import {AjfFieldHost, AjfFieldType, AjfTableField, createField,
-    createFieldInstance} from '@ajf/core/forms';
-import {AjfTableFieldComponent} from '@ajf/material/forms';
-import {AfterViewInit, Component, ComponentFactoryResolver, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {Component} from '@angular/core';
+import {AjfForm,  AjfFormSerializer} from '@ajf/core/forms';
+
+const formSchema: any = {
+  nodes: [
+    {
+      parent: 0,
+      id: 7,
+      name: 'table1',
+      label: 'Table Field Example',
+      nodeType: 3,
+      nodes: [
+        {
+          id: 701,
+          parent: 7,
+          name: 'row',
+          rows: [
+            [
+              'value1',
+              'value2',
+              'value3'
+            ],
+            [
+              'value4',
+              'value5',
+              'value6'
+            ]
+          ],
+          label: '2.1',
+          editable: true,
+          nodeType: 0,
+          fieldType: 11,
+          rowLabels: [
+            'Row 1',
+            'Row 2',
+          ],
+          columnLabels: [
+            'Label 1',
+            'Label 2',
+            'Label 3'
+          ]
+        }
+      ]
+    }
+  ]
+};
 
 @Component({
   moduleId: module.id,
   selector: 'table-field-e2e',
   templateUrl: 'table-field-e2e.html',
 })
-export class TableFieldE2E implements AfterViewInit {
-  @ViewChild(AjfFieldHost, {static: true}) fieldHost: AjfFieldHost;
+export class TableFieldE2E {
+  formSchema: string = JSON.stringify(formSchema);
+  form: AjfForm;
 
-  constructor(private _cfr: ComponentFactoryResolver) { }
-
-  ngAfterViewInit(): void {
-    const vcr = this.fieldHost.viewContainerRef;
-    vcr.clear();
-    const componentFactory = this._cfr.resolveComponentFactory(AjfTableFieldComponent);
-    const componentRef = vcr.createComponent(componentFactory);
-    const componentInstance = componentRef.instance;
-    const node = {
-      ...createField({
-        id: 1,
-        parent: 0,
-        fieldType: AjfFieldType.Table,
-        name: 'table',
-        editable: true,
-      }),
-      rows: [],
-      columnLabels: [],
-      rowLabels: [],
-      hideEmptyRows: false
-    } as AjfTableField;
-    componentInstance.instance = {
-      ...createFieldInstance({node}, {}),
-      node,
-      hideEmptyRows: false,
-      controls: [
-        ['Labels', ['Label 1', 'Label 2', 'Label 3']],
-        ['Row 1', [new FormControl(), new FormControl(), new FormControl()]],
-        ['Row 2', [new FormControl(), new FormControl(), new FormControl()]],
-      ],
-      context: {}
-    };
+  constructor() {
+    this.form = AjfFormSerializer.fromJson(formSchema);
   }
 }
