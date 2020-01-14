@@ -640,8 +640,8 @@ export class AjfFormBuilderService {
                 repNode.maxReps = properties.maxReps;
               }
 
-              if (isField(nodeEntry.node)) {
-                const field = <AjfField>nodeEntry.node;
+              if (isField(node)) {
+                const field = node as AjfField;
                 field.description = properties.description;
                 field.defaultValue = properties.defaultValue;
                 field.formula = properties.formula != null ?

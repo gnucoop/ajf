@@ -384,8 +384,7 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initSave(): void {
-    this._saveSub = (<Observable<void>>this._saveEvt)
-      .pipe(withLatestFrom(this.propertiesForm))
+    this._saveSub = this._saveEvt.pipe(withLatestFrom(this.propertiesForm))
       .subscribe((r: [void, FormGroup]) => {
         const fg = r[1];
         const val = {...fg.value,
