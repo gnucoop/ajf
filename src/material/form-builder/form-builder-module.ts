@@ -24,9 +24,11 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
@@ -55,6 +57,7 @@ import {AjfFormBuilderService} from './form-builder-service';
 import {AjfFbNodeEntry} from './node-entry';
 import {AjfFbNodeProperties} from './node-properties';
 import {AjfFbNodeTypeEntry} from './node-type-entry';
+import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
 import {AjfFbValidationConditionEditorDialog} from './validation-condition-editor-dialog';
 import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dialog';
 
@@ -64,9 +67,11 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatChipsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
@@ -92,6 +97,7 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
     AjfFbNodeEntry,
     AjfFbNodeProperties,
     AjfFbNodeTypeEntry,
+    AjfFbStringIdentifierDialogComponent,
     AjfFbValidationConditionEditorDialog,
     AjfFbWarningConditionEditorDialog,
     AjfFormBuilder,
@@ -102,6 +108,7 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
   entryComponents: [
     AjfFbChoicesOriginEditorDialog,
     AjfFbConditionEditorDialog,
+    AjfFbStringIdentifierDialogComponent,
     AjfFbValidationConditionEditorDialog,
     AjfFbWarningConditionEditorDialog,
   ],

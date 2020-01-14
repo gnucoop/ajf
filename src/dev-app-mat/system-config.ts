@@ -83,11 +83,13 @@ System.config({
     '@angular/cdk/text-field': 'node:@angular/cdk/bundles/cdk-text-field.umd.js',
     '@angular/cdk/tree': 'node:@angular/cdk/bundles/cdk-tree.umd.js',
     '@angular/material': 'node:@angular/material/bundles/material.umd.js',
+    '@angular/material/autocomplete': 'node:@angular/material/bundles/material-autocomplete.umd.js',
     '@angular/material/button': 'node:@angular/material/bundles/material-button.umd.js',
     '@angular/material/button-toggle':
       'node:@angular/material/bundles/material-button-toggle.umd.js',
     '@angular/material/card': 'node:@angular/material/bundles/material-card.umd.js',
     '@angular/material/checkbox': 'node:@angular/material/bundles/material-checkbox.umd.js',
+    '@angular/material/chips': 'node:@angular/material/bundles/material-chips.umd.js',
     '@angular/material/core': 'node:@angular/material/bundles/material-core.umd.js',
     '@angular/material/dialog': 'node:@angular/material/bundles/material-dialog.umd.js',
     '@angular/material/divider': 'node:@angular/material/bundles/material-divider.umd.js',

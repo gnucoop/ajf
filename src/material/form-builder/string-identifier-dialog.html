@@ -1,0 +1,58 @@
+<h3 matDialogTitle translate>Edit identifier</h3>
+<mat-dialog-content>
+  <button (click)="addRow()" mat-button>
+    <mat-icon>add</mat-icon>
+    <span translate>Add value</span>
+  </button>
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="label">
+      <mat-header-cell *matHeaderCellDef translate>Label</mat-header-cell>
+      <mat-cell *matCellDef="let row; let idx = index">
+        <mat-form-field>
+          <input matInput [placeholder]="'Label'|translate" autofocus [(ngModel)]="row.label">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="value">
+      <mat-header-cell *matHeaderCellDef translate>Value</mat-header-cell>
+      <mat-cell *matCellDef="let row; let idx = index">
+        <mat-form-field>
+          <mat-chip-list #chipList>
+            <mat-chip
+                *ngFor="let field of row.value"
+                (removed)="removeValue(row, field)"
+            >
+              {{ field }}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+          </mat-chip-list>
+          <input
+              #valueInput
+              [ngModel]="row.value"
+              [matAutocomplete]="valueAc"
+              [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="true"
+              (matChipInputTokenEnd)="addValue(row, $event, valueInput)"
+              [placeholder]="'Value'|translate">
+          <mat-autocomplete #valueAc="matAutocomplete"
+              (optionSelected)="selected(row, $event)">
+            <mat-option *ngFor="let field of fields$ | async" [value]="field">{{field}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef translate>Delete</mat-header-cell>
+      <mat-cell *matCellDef="let row; let idx = index">
+          <mat-icon (click)="deleteRow(idx)">delete</mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button translate matDialogClose (click)="saveStringIdentifier()">Save</button>
+</mat-dialog-actions>

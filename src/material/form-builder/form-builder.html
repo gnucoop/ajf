@@ -3,6 +3,7 @@
     <mat-icon>add_box</mat-icon>
   </button>
   <button mat-button [matMenuTriggerFor]="choicesMenu" translate>Choices</button>
+  <button mat-button (click)="editStringIdentifier()" translate>Identifier</button>
   <mat-menu #choicesMenu>
     <button (click)="createChoicesOrigin()" mat-menu-item translate>New..</button>
     <ng-container *ngIf="choicesOrigins|async as cos">

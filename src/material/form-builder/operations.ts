@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfAttachmentsOrigin, AjfChoicesOrigin} from '@ajf/core/forms';
+import {AjfAttachmentsOrigin, AjfChoicesOrigin, AjfFormStringIdentifier} from '@ajf/core/forms';
 
 export interface AjfAttachmentsOriginsOperation {
   (attachmentOrigins: AjfAttachmentsOrigin<any>[]): AjfAttachmentsOrigin<any>[];
@@ -28,4 +28,8 @@ export interface AjfAttachmentsOriginsOperation {
 
 export interface AjfChoicesOriginsOperation {
   (choicesOrigins: AjfChoicesOrigin<any>[]): AjfChoicesOrigin<any>[];
+}
+
+export interface AjfFormStringIdentifierOperation {
+  (stringIdentifier: AjfFormStringIdentifier[]): AjfFormStringIdentifier[];
 }
