@@ -414,7 +414,7 @@ export class AjfFormBuilderService {
       node = createContainerNode({
         id,
         nodeType: nodeType.nodeType.node,
-        parent: parent.id,
+        parent: parent != null ? parent.id : 0,
         parentNode,
         name: '',
         nodes: [],
@@ -422,6 +422,9 @@ export class AjfFormBuilderService {
     }
     this._beforeNodesUpdate.emit();
     this._nodesUpdates.next((nodes: AjfNode[]): AjfNode[] => {
+      if (node.parent === 0) {
+        return [node];
+      }
       const cn = isContainerNode(parent) && inContent ?
         (<AjfContainerNode>parent) :
         getNodeContainer({nodes}, parent);

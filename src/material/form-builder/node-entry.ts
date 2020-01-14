@@ -162,8 +162,11 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   }
 
   onDropSuccess(evt: CdkDragDrop<AjfFormBuilderNodeTypeEntry>, content = false): void {
-    if (this._nodeEntry == null) { return; }
     const dd = evt.item.data as AjfFormBuilderNodeTypeEntry;
+    if (this._nodeEntry == null) {
+      this._service.insertNode(dd, null as any, 0, content);
+      return;
+    }
     if (dd.nodeType !== void 0 && (!this.isNodeEntry || (this.isNodeEntry && content))) {
       const emptySlot = content ?
         {parent: (<AjfFormBuilderNodeEntry>this.nodeEntry).node, parentNode: 0} :
