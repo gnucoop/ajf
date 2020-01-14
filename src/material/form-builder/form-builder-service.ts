@@ -491,6 +491,19 @@ export class AjfFormBuilderService {
       if (isChoicesFixedOrigin(choicesOrigin)) {
         choicesOrigin.choices = params.choices;
       }
+      this._choicesOriginsUpdates.next((choicesOrigins) => {
+        const idx = choicesOrigins.indexOf(choicesOrigin);
+        if (idx > -1) {
+          choicesOrigins = [
+            ...choicesOrigins.slice(0, idx),
+            choicesOrigin,
+            ...choicesOrigins.slice(idx + 1),
+          ];
+        } else {
+          choicesOrigins = [...choicesOrigins, choicesOrigin];
+        }
+        return choicesOrigins;
+      });
     }
     this._editedChoicesOrigin.next(null);
   }
