@@ -790,11 +790,16 @@ export class AjfFormBuilderService {
           const node = nodeEntry.node;
           let cn = getNodeContainer({nodes}, node);
           if (cn != null) {
+            const replaceNodes = cn.nodes === nodes;
             const idx = cn.nodes.indexOf(node);
             let newNodes = cn.nodes.slice(0, idx);
             newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
             cn.nodes = newNodes;
-            nodes = nodes.slice(0);
+            if (replaceNodes) {
+              nodes = newNodes;
+            } else {
+              nodes = nodes.slice(0);
+            }
             nodes = deleteNodeSubtree(nodes, node);
           }
           return nodes;
