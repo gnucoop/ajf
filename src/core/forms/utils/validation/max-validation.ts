@@ -25,7 +25,7 @@ import {createValidation} from './create-validation';
 
 export function maxValidation(maxValue: number): AjfValidation {
   return createValidation({
-    condition: '$value >= ' + maxValue.toString(),
-    errorMessage: 'Value must be >= ' + maxValue.toString()
+    condition: '$value <= ' + maxValue.toString(),
+    errorMessage: 'Value must be <= ' + maxValue.toString()
   });
 }
