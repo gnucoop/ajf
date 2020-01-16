@@ -620,17 +620,10 @@ export class AjfFormBuilderService {
     this._saveNodeEntryEvent
         .pipe(
             withLatestFrom(this.editedNodeEntry, this.choicesOrigins, this.attachmentsOrigins),
-            filter((r) => r[1] != null),
-            map((r:
-                     [
-                       any, AjfFormBuilderNodeEntry|null, AjfChoicesOrigin<any>[],
-                       AjfAttachmentsOrigin<any>[]
-                     ]) => {
+            filter(([_, nodeEntry]) => nodeEntry != null),
+            map(([properties, nodeEntry]) => {
               this._beforeNodesUpdate.emit();
-              const properties = r[0];
-              const nodeEntry = r[1]!;
-              const choicesOrigins = r[2];
-              // const attachmentsOrigins = r[3];
+              nodeEntry = nodeEntry!;
               const origNode = nodeEntry.node;
               const node = deepCopy(origNode);
               node.id = nodeEntry.node.id;
@@ -729,18 +722,7 @@ export class AjfFormBuilderService {
 
                 if (isFieldWithChoices(field)) {
                   const fwc = <AjfFieldWithChoices<any>>field;
-                  let choicesOrigin: AjfChoicesOrigin<any>|null = null;
-                  let coIdx = 0;
-                  const coNum: number = choicesOrigins.length;
-                  while (choicesOrigin == null && coIdx < coNum) {
-                    if (choicesOrigins[coIdx].name === properties.choicesOrigin) {
-                      choicesOrigin = choicesOrigins[coIdx];
-                    }
-                    coIdx++;
-                  }
-                  if (choicesOrigin != null) {
-                    fwc.choicesOrigin = choicesOrigin;
-                  }
+                  (fwc as any).choicesOriginRef = properties.choicesOriginRef;
                   fwc.forceExpanded = properties.forceExpanded;
                   fwc.forceNarrow = properties.forceNarrow;
                   fwc.triggerConditions = (properties.triggerConditions ||

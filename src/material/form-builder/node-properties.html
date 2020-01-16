@@ -204,7 +204,7 @@
           <div class="ajf-prop">
             <mat-form-field>
               <mat-label translate>Choices origins</mat-label>
-              <mat-select formControlName="choicesOrigin" [placeholder]="'Choices' | translate">
+              <mat-select formControlName="choicesOriginRef" [placeholder]="'Choices' | translate">
                 <mat-option *ngFor="let choicesOrigin of choicesOrigins" [value]="choicesOrigin.name">
                   {{ choicesOrigin.label || choicesOrigin.name }}
                 </mat-option>

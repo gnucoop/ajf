@@ -519,7 +519,7 @@ export class AjfFbNodeProperties implements OnDestroy {
           let triggerConditions: string[] = (fieldWithChoices.triggerConditions || [])
             .map((c) => c.condition);
 
-          controls.choicesOrigin = fieldWithChoices.choicesOrigin.name;
+          controls.choicesOriginRef = (fieldWithChoices as any).choicesOriginRef;
           controls.choicesFilter = fieldWithChoices.choicesFilter != null ?
             fieldWithChoices.choicesFilter.formula : null;
           controls.forceExpanded = fieldWithChoices.forceExpanded;
