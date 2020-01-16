@@ -724,6 +724,8 @@ export class AjfFormBuilderService {
                 field.nextSlideCondition = properties.nextSlideCondition != null ?
                     createCondition({condition: properties.nextSlideCondition}) :
                     undefined;
+                field.size = properties.size;
+                field.defaultValue = properties.defaultValue;
 
                 if (isFieldWithChoices(field)) {
                   const fwc = <AjfFieldWithChoices<any>>field;
