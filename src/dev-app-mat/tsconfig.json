@@ -7,6 +7,7 @@
     "rootDir": "..",
     "baseUrl": ".",
     "paths": {
+      "@ajf/calendars/*": ["../calendars/*"],
       "@ajf/core/*": ["../core/*"],
       "@ajf/material/*": ["../material/*"],
       "@ajf/material": ["../material/public-api.ts"],

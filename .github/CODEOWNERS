@@ -50,6 +50,10 @@
 /src/monaco/lib/*                                  @trik
 /src/monaco/src/*                                  @trik
 
+# Ajf calendars
+/src/calendars/*                                   @trik
+/src/calendars/ethiopian/*                         @trik
+
 # Docs examples & guides
 /guides/**                                         @trik
 /src/material-examples/**                          @trik
@@ -59,6 +63,7 @@
 /src/dev-app-mat/*                                 @trik
 /src/dev-app-mat/barcode/**                        @peppedeka
 /src/dev-app-mat/calendar/**                       @trik
+/src/dev-app-mat/calendar-ethiopian/**             @trik
 /src/dev-app-mat/checkbox-group/**                 @trik
 /src/dev-app-mat/dev-app/**                        @trik
 /src/dev-app-mat/example/**                        @trik

@@ -53,6 +53,12 @@ IONIC_PACKAGES = [
 
 IONIC_TARGETS = ["//src/ionic"] + ["//src/ionic/%s" % p for p in IONIC_PACKAGES]
 
+CALENDARS_PACKAGES = [
+    "ethiopian",
+]
+
+CALENDARS_TARGETS = ["//src/calendars"] + ["//src/calendars/%s" % p for p in CALENDARS_PACKAGES]
+
 # Each individual package uses a placeholder for the version of Angular to ensure they're
 # all in-sync. This map is passed to each ng_package rule to stamp out the appropriate
 # version for the placeholders.

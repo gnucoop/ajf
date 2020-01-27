@@ -31,6 +31,7 @@ ng_module(
         "@npm//@angular/router",
         "@npm//@ngx-translate/http-loader",
         "@npm//rxjs",
+        "//src/calendars/ethiopian",
         "//src/material-examples:examples",
     ] + CORE_TARGETS + MATERIAL_TARGETS,
 )

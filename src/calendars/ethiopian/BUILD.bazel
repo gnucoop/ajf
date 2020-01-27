@@ -1,0 +1,33 @@
+package(default_visibility = ["//visibility:public"])
+
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+)
+
+ng_module(
+    name = "ethiopian",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [],
+    module_name = "@ajf/calendars/ethiopian",
+    deps = [
+        "//src/core/calendar",
+        "@npm//@angular/core",
+    ],
+)
+
+markdown_to_html(
+    name = "overview",
+    srcs = ["ethiopian.md"],
+)
+
+filegroup(
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
+)

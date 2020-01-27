@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig-build",
+  "compilerOptions": {
+    "esModuleInterop": true
+  },
+  "files": [
+    "public-api.ts",
+    "../typings.d.ts"
+  ],
+  "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "strictMetadataEmit": true,
+    "flatModuleOutFile": "index.js",
+    "flatModuleId": "@ajf/calendars/ethiopian",
+    "skipTemplateCodegen": true,
+    "fullTemplateTypeCheck": true
+  }
+}

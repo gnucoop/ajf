@@ -4,7 +4,8 @@ import {
   matExamplesPackage,
   materialPackage,
   ionExamplesPackage,
-  ionicPackage
+  ionicPackage,
+  calendarsPackage,
 } from './packages';
 
 createPackageBuildTasks(corePackage);
@@ -12,6 +13,7 @@ createPackageBuildTasks(materialPackage);
 createPackageBuildTasks(matExamplesPackage, ['build-mat-examples-module']);
 createPackageBuildTasks(ionicPackage);
 createPackageBuildTasks(ionExamplesPackage, ['build-ion-examples-module']);
+createPackageBuildTasks(calendarsPackage);
 
 import './tasks/ajf-release';
 import './tasks/aot-ion';

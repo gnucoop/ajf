@@ -118,10 +118,12 @@ System.config({
     '@ngx-translate/http-loader':
       'node:@ngx-translate/http-loader/bundles/ngx-translate-http-loader.umd.js',
 
+    '@ajf/calendars': 'dist/packages/calendars/index.js',
     '@ajf/core': 'dist/packages/core/index.js',
     '@ajf/material': 'dist/packages/material/index.js',
     '@ajf/material-examples': 'dist/packages/material-examples/index.js',
 
+    '@ajf/calendars/ethiopian': 'dist/packages/calendars/ethiopian/index.js',
     '@ajf/core/calendar': 'dist/packages/core/calendar/index.js',
     '@ajf/core/chart': 'dist/packages/core/chart/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
