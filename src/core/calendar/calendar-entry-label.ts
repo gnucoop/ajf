@@ -20,30 +20,17 @@
  *
  */
 
-import {AjfCalendarModule as CoreModule} from '@ajf/core/calendar';
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
 
-import {TranslateModule} from '@ngx-translate/core';
+import {AjfCalendarEntry} from './calendar-entry';
+import {AjfCalendarService} from './calendar-service';
 
-import {IonicModule} from '@ionic/angular';
+@Injectable()
+@Pipe({name: 'ajfCalendarEntryLabel'})
+export class AjfCalendarEntryLabelPipe implements PipeTransform {
+  constructor(private _service: AjfCalendarService) { }
 
-import {AjfCalendarComponent} from './calendar';
-
-@NgModule({
-  imports: [
-    CommonModule,
-    CoreModule,
-    FormsModule,
-    IonicModule,
-    TranslateModule,
-  ],
-  declarations: [
-    AjfCalendarComponent,
-  ],
-  exports: [
-    AjfCalendarComponent,
-  ],
-})
-export class AjfCalendarModule {}
+  transform(entry: AjfCalendarEntry): string {
+    return this._service.entryLabel(entry);
+  }
+}

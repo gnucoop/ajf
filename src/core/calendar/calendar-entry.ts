@@ -20,57 +20,13 @@
  *
  */
 
-import {format, endOfMonth, endOfYear, startOfMonth, startOfYear} from 'date-fns';
-
 import {AjfCalendarEntrySelectedState} from './calendar-entry-selected-state';
 import {AjfCalendarEntryType} from './calendar-entry-type';
 
-export class AjfCalendarEntry {
+export interface AjfCalendarEntry {
   type: AjfCalendarEntryType;
   date: Date;
   selected: AjfCalendarEntrySelectedState;
-  disabled = false;
-  highlight = false;
-
-  constructor(params: {
-    type: AjfCalendarEntryType,
-    date: Date,
-    selected: AjfCalendarEntrySelectedState,
-    highlight?: boolean,
-    disabled?: boolean
-  }) {
-    let keys = Object.keys(params);
-
-    this.type = params.type;
-    this.date = params.date;
-    this.selected = params.selected;
-    if (keys.indexOf('disabled') > -1) {
-      this.disabled = params.disabled!;
-    }
-    if (keys.indexOf('highlight') > -1) {
-      this.highlight = params.highlight!;
-    }
-  }
-
-  toString(): string {
-    if (this.type === 'day') {
-      return `${this.date.getDate()}`;
-    }
-    if (this.type === 'month') {
-      return format(this.date, 'MMM');
-    }
-    return `${this.date.getFullYear()}`;
-  }
-
-  getRange(): { start: Date, end: Date } {
-    if (this.type === 'day') {
-      return { start: new Date(this.date), end: new Date(this.date) };
-    } else {
-      let curDate: Date = new Date(this.date);
-      return {
-        start: this.type === 'month' ? startOfMonth(curDate) : startOfYear(curDate),
-        end: this.type === 'month' ? endOfMonth(curDate) : endOfYear(curDate)
-      };
-    }
-  }
+  disabled?: boolean;
+  highlight?: boolean;
 }

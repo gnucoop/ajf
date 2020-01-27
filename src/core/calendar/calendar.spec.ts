@@ -1,8 +1,9 @@
 import {isSameDay} from 'date-fns';
 
 import {AjfCalendar as Base} from './calendar';
-import {AjfCalendarPeriod} from './calendar-period';
 import {AjfCalendarEntry} from './calendar-entry';
+import {AjfCalendarPeriod} from './calendar-period';
+import {AjfCalendarService} from './calendar-service';
 
 class MockCdr {
   markForCheck = () => {};
@@ -10,7 +11,7 @@ class MockCdr {
 
 class AjfCalendar extends Base {
   constructor() {
-    super(new MockCdr() as any);
+    super(new MockCdr() as any, new AjfCalendarService());
   }
 }
 
@@ -23,11 +24,11 @@ describe('AjfCalendar', () => {
       calendar.selectionMode = 'month';
       calendar.viewMode = 'month';
 
-      const entry = new AjfCalendarEntry({
+      const entry: AjfCalendarEntry = {
         type: 'day',
         date: new Date(2019, 6, 29),
         selected: 'none',
-      });
+      };
 
       calendar.selectEntry(entry);
 

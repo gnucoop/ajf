@@ -5,9 +5,9 @@
   </ion-button>
   <ion-fab-button mini right [disabled]="disabled" (click)="nextPage()">&#8594;</ion-fab-button>
 </div>
-<div class="ajf-calendar-row" *ngIf="viewMode == 'month'">
-  <div *ngFor="let weekDay of weekDays">
-    <div class="button-label">{{ weekDay | translate }}</div>
+<div class="ajf-calendar-row" *ngIf="calendarHeaders.length > 0">
+  <div *ngFor="let calendarHeader of calendarHeaders">
+    <div class="button-label">{{ calendarHeader | translate }}</div>
   </div>
 </div>
 <div class="ajf-calendar-row" *ngFor="let row of calendarRows">
@@ -18,6 +18,6 @@
       [class.ajf-calendar-highlight]="entry.selected === 'none' && entry.highlight"
       (click)="selectEntry(entry)"
       *ngFor="let entry of row">
-    {{ entry }}
+    {{ entry|ajfCalendarEntryLabel }}
   </ion-button>
 </div>

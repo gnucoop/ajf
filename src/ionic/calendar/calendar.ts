@@ -25,7 +25,7 @@ import {
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
-import {AjfCalendar} from '@ajf/core/calendar';
+import {AjfCalendar, AjfCalendarService} from '@ajf/core/calendar';
 
 export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -60,7 +60,7 @@ export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
   ]
 })
 export class AjfCalendarComponent extends AjfCalendar {
-  constructor(cdr: ChangeDetectorRef) {
-    super(cdr);
+  constructor(cdr: ChangeDetectorRef, service: AjfCalendarService) {
+    super(cdr, service);
   }
 }

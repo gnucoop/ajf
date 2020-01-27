@@ -20,11 +20,11 @@
  *
  */
 
+import {AjfCalendarModule as CoreModule} from '@ajf/core/calendar';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-
 import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfCalendarComponent} from './calendar';
@@ -32,9 +32,10 @@ import {AjfCalendarComponent} from './calendar';
 @NgModule({
   imports: [
     CommonModule,
+    CoreModule,
     FormsModule,
-    TranslateModule,
     MatButtonModule,
+    TranslateModule,
   ],
   declarations: [
     AjfCalendarComponent,

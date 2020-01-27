@@ -20,30 +20,10 @@
  *
  */
 
-import {AjfCalendarModule as CoreModule} from '@ajf/core/calendar';
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {AjfCalendarEntry} from './calendar-entry';
 
-import {TranslateModule} from '@ngx-translate/core';
-
-import {IonicModule} from '@ionic/angular';
-
-import {AjfCalendarComponent} from './calendar';
-
-@NgModule({
-  imports: [
-    CommonModule,
-    CoreModule,
-    FormsModule,
-    IonicModule,
-    TranslateModule,
-  ],
-  declarations: [
-    AjfCalendarComponent,
-  ],
-  exports: [
-    AjfCalendarComponent,
-  ],
-})
-export class AjfCalendarModule {}
+export interface AjfCalendarView {
+  header: string;
+  headerRow: string[];
+  rows: AjfCalendarEntry[][];
+}
