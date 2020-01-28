@@ -22,7 +22,7 @@
 
 import {Injectable} from '@angular/core';
 import {addDays, addMonths, addWeeks, addYears, endOfDay, endOfMonth, endOfISOWeek, endOfWeek,
-  endOfYear, format, isAfter, isBefore, isSameDay, setISODay, startOfDay, startOfISOWeek,
+  endOfYear, format, getISODay, isAfter, isBefore, isSameDay, setISODay, startOfDay, startOfISOWeek,
   startOfMonth, startOfWeek, startOfYear, subMonths, subWeeks, subYears} from 'date-fns';
 
 import {AjfCalendarEntry} from './calendar-entry';
@@ -91,7 +91,9 @@ export class AjfCalendarService {
         end: endOfMonth(date),
       };
     }
-    let startDate = startOfMonth(endOfISOWeek(date));
+    const isoDay = getISODay(date);
+    date = isoDay < 4 ? endOfISOWeek(date) : startOfISOWeek(date);
+    let startDate = startOfMonth(date);
     let endDate = endOfMonth(startDate);
     const startWeekDay = startDate.getDay();
     const endWeekDay = endDate.getDay();
