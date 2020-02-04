@@ -39,6 +39,7 @@ export class DevAppLayout {
     {name: 'Examples', route: '/examples'},
     {name: 'Barcode', route: '/barcode'},
     {name: 'Calendar', route: '/calendar'},
+    {name: 'Calendar - Ethiopian', route: '/calendar-ethiopian'},
     {name: 'Checkbox group', route: '/checkbox-group'},
     {name: 'Fields', route: '/fields'},
     {name: 'Form builder', route: '/form-builder'},

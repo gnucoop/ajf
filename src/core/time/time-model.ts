@@ -21,11 +21,14 @@
  */
 
 import {EventEmitter} from '@angular/core';
+import {Observable} from 'rxjs';
 
 export class AjfTimeModel {
+  private _changed: EventEmitter<string> = new EventEmitter<string>();
+  readonly changed: Observable<string> = this._changed.asObservable();
+
   private _hours = 0;
   private _minutes = 0;
-  changed: EventEmitter<string> = new EventEmitter<string>();
 
   get minutes() {
     return this._minutes;
@@ -33,7 +36,7 @@ export class AjfTimeModel {
   set minutes(value: number) {
     if (value > -1 && value < 61) {
       this._minutes = value;
-      this.changed.emit(this.toString());
+      this._changed.emit(this.toString());
     }
   }
 
@@ -43,7 +46,7 @@ export class AjfTimeModel {
   set hours(value: number) {
     if (value > -1 && value < 24) {
       this._hours = value;
-      this.changed.emit(this.toString());
+      this._changed.emit(this.toString());
     }
   }
 

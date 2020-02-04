@@ -38,11 +38,11 @@ ng_module(
     deps = [
         "//src/core/common",
         "//src/core/forms",
-        "//src/core/time",
         "//src/ionic/barcode",
         "//src/ionic/calendar",
         "//src/ionic/checkbox-group",
         "//src/ionic/page-slider",
+        "//src/ionic/time",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/forms",

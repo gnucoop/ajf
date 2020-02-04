@@ -27,10 +27,12 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@ajf/material/*": ["../../dist/packages/material/*"],
-      "@ajf/material": ["../../dist/packages/material"],
+      "@ajf/calendars/*": ["../../dist/packages/calendars/*"],
+      "@ajf/calendars": ["../../dist/packages/calendars"],
       "@ajf/core/*": ["../../dist/packages/core/*"],
       "@ajf/core": ["../../dist/packages/core"],
+      "@ajf/material/*": ["../../dist/packages/material/*"],
+      "@ajf/material": ["../../dist/packages/material"],
       "@ajf/material-examples": ["../../dist/packages/material-examples"]
     }
   },

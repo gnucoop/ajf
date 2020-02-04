@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfCalendarModule as CoreModule} from '@ajf/core/calendar';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
@@ -33,9 +34,10 @@ import {AjfCalendarComponent} from './calendar';
 @NgModule({
   imports: [
     CommonModule,
+    CoreModule,
     FormsModule,
-    TranslateModule,
     IonicModule,
+    TranslateModule,
   ],
   declarations: [
     AjfCalendarComponent,

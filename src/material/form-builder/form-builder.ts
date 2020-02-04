@@ -35,6 +35,7 @@ import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {
   AjfFormBuilderNodeEntry, AjfFormBuilderNodeTypeEntry, AjfFormBuilderService
 } from './form-builder-service';
+import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
 
 @Component({
   moduleId: module.id,
@@ -77,6 +78,8 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   private _beforeNodesUpdateSub: Subscription = Subscription.EMPTY;
   private _editChoicesOriginSub: Subscription = Subscription.EMPTY;
   private _editChoicesOriginDialog: MatDialogRef<AjfFbChoicesOriginEditorDialog> | null;
+  private _stringIdentifierDialog: MatDialogRef<AjfFbStringIdentifierDialogComponent> | null;
+  private _stringIdentifierSub: Subscription = Subscription.EMPTY;
 
   private _lastScrollTop: number;
 
@@ -123,6 +126,8 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
         if (this.designerCont == null) { return; }
         this.designerCont.nativeElement.scrollTop = this._lastScrollTop;
       });
+
+    this._stringIdentifierSub = this._service.stringIdentifier.subscribe(() => {});
   }
 
   ngAfterViewChecked(): void {
@@ -135,10 +140,11 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   }
 
   ngOnDestroy(): void {
-    this._service.setForm(null);
     this._editConditionSub.unsubscribe();
     this._beforeNodesUpdateSub.unsubscribe();
     this._editChoicesOriginSub.unsubscribe();
+    this._stringIdentifierSub.unsubscribe();
+    this._service.setForm(null);
   }
 
   createChoicesOrigin(): void {
@@ -151,6 +157,19 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
 
   editChoicesOrigin(choicesOrigin: AjfChoicesOrigin<any>): void {
     this._service.editChoicesOrigin(choicesOrigin);
+  }
+
+  editStringIdentifier(): void {
+    if (this._stringIdentifierDialog != null) {
+      this._stringIdentifierDialog.close();
+      this._stringIdentifierDialog = null;
+    }
+    this._stringIdentifierDialog =
+        this._dialog.open(AjfFbStringIdentifierDialogComponent, {
+          disableClose: true,
+          width: '60%',
+          height: '60%'
+        });
   }
 
   private _setCurrentForm(): void {

@@ -1,6 +1,5 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -15,18 +14,12 @@ ng_module(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
     ),
-    assets = [":time.css"] + glob(["**/*.html"]),
+    assets = [],
     module_name = "@ajf/core/time",
     deps = [
         "@npm//@angular/core",
         "@npm//@angular/forms",
     ],
-)
-
-sass_binary(
-    name = "time_scss",
-    src = "time.scss",
-    deps = [],
 )
 
 ng_test_library(

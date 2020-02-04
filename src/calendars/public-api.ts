@@ -20,20 +20,4 @@
  *
  */
 
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-
-import {AjfTime} from './time';
-
-@NgModule({
-  imports: [
-    FormsModule,
-  ],
-  declarations: [
-    AjfTime,
-  ],
-  exports: [
-    AjfTime,
-  ]
-})
-export class AjfTimeModule { }
+export * from './version';

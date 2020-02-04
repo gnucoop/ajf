@@ -5,9 +5,9 @@
   </button>
   <button (click)="nextPage()" mat-mini-fab>&#8594;</button>
 </div>
-<div class="ajf-calendar-row" *ngIf="viewMode == 'month'">
-  <div *ngFor="let weekDay of weekDays">
-    {{ weekDay | translate }}
+<div class="ajf-calendar-row" *ngIf="calendarHeaders.length > 0">
+  <div *ngFor="let calendarHeader of calendarHeaders">
+    {{ calendarHeader | translate }}
   </div>
 </div>
 <div class="ajf-calendar-row" *ngFor="let row of calendarRows">
@@ -18,5 +18,5 @@
       [disabled]="disabled || entry.disabled"
       [color]="entry.selected != 'none' ? 'warn' : null"
       (click)="selectEntry(entry)"
-  >{{ entry }}</button>
+  >{{ entry|ajfCalendarEntryLabel }}</button>
 </div>

@@ -135,6 +135,7 @@ export * from './utils/fields/is-number-field';
 export * from './utils/fields-instances/create-field-instance';
 export * from './utils/fields-instances/create-field-with-choices-instance';
 export * from './utils/forms/create-form';
+export * from './utils/nodes/create-container-node';
 export * from './utils/nodes/create-node';
 export * from './utils/nodes/flatten-nodes';
 export * from './utils/nodes/is-container-node';

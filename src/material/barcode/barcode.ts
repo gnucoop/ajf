@@ -43,7 +43,8 @@ export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   styleUrls: ['barcode.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [BARCODE_CONTROL_VALUE_ACCESSOR]
+  providers: [BARCODE_CONTROL_VALUE_ACCESSOR],
+  inputs: ['readonly'],
 })
 export class AjfBarcodeComponent extends AjfBarcode {
   constructor(cdr: ChangeDetectorRef, renderer: Renderer2) {

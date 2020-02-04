@@ -1,0 +1,11 @@
+ajf-time {
+  > div {
+    display: flex;
+    align-items: center;
+    width: 7em;
+
+    ion-input {
+      text-align: center;
+    }
+  }
+}

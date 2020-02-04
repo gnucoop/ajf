@@ -35,11 +35,11 @@ ng_module(
     deps = [
         "//src/core/common",
         "//src/core/forms",
-        "//src/core/time",
         "//src/material/barcode",
         "//src/material/calendar",
         "//src/material/checkbox-group",
         "//src/material/page-slider",
+        "//src/material/time",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/forms",

@@ -21,5 +21,4 @@
  */
 
 export * from './time-model';
-export * from './time-module';
 export * from './time';

@@ -18,22 +18,23 @@
         </mat-form-field>
       </div>
       <div class="ajf-prop">
-        <div class="ajf-select-container">
+        <mat-form-field>
+          <mat-label translate>Visibility</mat-label>
           <mat-select
               formControlName="visibilityOpt" [placeholder]="'Visible' | translate">
             <mat-option value="always" translate>Always</mat-option>
             <mat-option value="never" translate>Never</mat-option>
             <mat-option value="condition" translate>Condition...</mat-option>
           </mat-select>
-          <button (click)="editVisibility()"
-              [disabled]="pf.value['visibilityOpt'] != 'condition'"
-              mat-raised-button [matTooltip]="curVisibility">
-            <div class="ajf-icon-cont">
-              <mat-icon>edit</mat-icon>
-              <span>{{ curVisibility }}</span>
-            </div>
-          </button>
-        </div>
+        </mat-form-field>
+        <button (click)="editVisibility()"
+            [disabled]="pf.value['visibilityOpt'] != 'condition'"
+            mat-raised-button [matTooltip]="curVisibility">
+          <div class="ajf-icon-cont">
+            <mat-icon>edit</mat-icon>
+            <span>{{ curVisibility }}</span>
+          </div>
+        </button>
       </div>
       <div class="ajf-prop">
         <div><label translate>Branches</label></div>
@@ -75,7 +76,8 @@
       </ng-template>
       <ng-template [ngIf]="isField((ne)?.node)">
         <div class="ajf-prop">
-          <div class="ajf-select-container">
+          <mat-form-field>
+            <mat-label translate>Field size</mat-label>
             <mat-select formControlName="size"
                 [placeholder]="'Size' | translate">
               <mat-option *ngFor="let fieldSize of fieldSizes"
@@ -83,7 +85,7 @@
                 {{ fieldSize.label }}
               </mat-option>
             </mat-select>
-          </div>
+          </mat-form-field>
         </div>
         <div class="ajf-prop">
           <mat-form-field>
@@ -108,7 +110,7 @@
             </button>
           </div>
         </div>
-        <div class="ajf-prop">
+        <!-- <div class="ajf-prop">
           <div><label translate>Force value</label></div>
           <div>
             <button (click)="editForceValue()" mat-raised-button [matTooltip]="curForceValue">
@@ -118,7 +120,7 @@
               </div>
             </button>
           </div>
-        </div>
+        </div> -->
         <div class="ajf-prop">
           <mat-checkbox formControlName="notEmpty" translate>Not empty</mat-checkbox>
         </div>
@@ -200,13 +202,14 @@
         </div>
         <ng-template [ngIf]="isFieldWithChoices((ne)?.node)">
           <div class="ajf-prop">
-            <div class="ajf-select-container">
-              <mat-select formControlName="choicesOrigin" [placeholder]="'Choices' | translate">
+            <mat-form-field>
+              <mat-label translate>Choices origins</mat-label>
+              <mat-select formControlName="choicesOriginRef" [placeholder]="'Choices' | translate">
                 <mat-option *ngFor="let choicesOrigin of choicesOrigins" [value]="choicesOrigin.name">
                   {{ choicesOrigin.label || choicesOrigin.name }}
                 </mat-option>
               </mat-select>
-            </div>
+            </mat-form-field>
           </div>
           <div class="ajf-prop">
             <div><label translate>Choices filter</label></div>

@@ -31,6 +31,7 @@
 /src/material/page-slider/*                        @trik
 /src/material/report-builder/**/*                  @trik
 /src/material/reports/*                            @trik
+/src/material/time/*                               @trik
 
 # Ajf ionic
 /src/ionic/*                                       @trik
@@ -42,11 +43,16 @@
 /src/ionic/node-icon/*                             @trik
 /src/ionic/page-slider/*                           @trik
 /src/ionic/reports/*                               @trik
+/src/ionic/time/*                                  @trik
 
 # Ajf monaco
 /src/monaco/*                                      @trik
 /src/monaco/lib/*                                  @trik
 /src/monaco/src/*                                  @trik
+
+# Ajf calendars
+/src/calendars/*                                   @trik
+/src/calendars/ethiopian/*                         @trik
 
 # Docs examples & guides
 /guides/**                                         @trik
@@ -57,6 +63,7 @@
 /src/dev-app-mat/*                                 @trik
 /src/dev-app-mat/barcode/**                        @peppedeka
 /src/dev-app-mat/calendar/**                       @trik
+/src/dev-app-mat/calendar-ethiopian/**             @trik
 /src/dev-app-mat/checkbox-group/**                 @trik
 /src/dev-app-mat/dev-app/**                        @trik
 /src/dev-app-mat/example/**                        @trik

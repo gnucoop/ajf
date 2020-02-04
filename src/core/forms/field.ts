@@ -94,6 +94,8 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
         });
       }
       this._updatedSub = this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
-    } catch (e) { }
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

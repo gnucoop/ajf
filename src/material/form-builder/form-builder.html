@@ -3,6 +3,7 @@
     <mat-icon>add_box</mat-icon>
   </button>
   <button mat-button [matMenuTriggerFor]="choicesMenu" translate>Choices</button>
+  <button mat-button (click)="editStringIdentifier()" translate>Identifier</button>
   <mat-menu #choicesMenu>
     <button (click)="createChoicesOrigin()" mat-menu-item translate>New..</button>
     <ng-container *ngIf="choicesOrigins|async as cos">
@@ -23,10 +24,10 @@
         [cdkDropListEnterPredicate]="disableDropPredicate"
         [cdkDropListData]="nodeTypes">
       <ajf-fb-node-type-entry *ngFor="let nodeType of nodeTypes"
-        cdkDrag
-        [cdkDragData]="nodeType"
-        (cdkDragStarted)="leftSidenav.close()"
-        [nodeType]="nodeType"></ajf-fb-node-type-entry>
+          cdkDrag
+          [cdkDragData]="nodeType"
+          (cdkDragStarted)="leftSidenav.close()"
+          [nodeType]="nodeType"></ajf-fb-node-type-entry>
     </div>
   </mat-drawer>
   <mat-drawer #rightSidenav position="end" mode="side" [opened]="true">

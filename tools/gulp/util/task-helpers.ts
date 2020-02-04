@@ -135,6 +135,7 @@ export function serverTask(packagePath: string, rewrites?: {from: string, to: st
     // Rewrite the node_modules/ and dist/ folder to the real paths. This is a trick to
     // avoid that those folders will be rewritten to the specified package path.
     { from: '^/node_modules/(.*)$', to: '/node_modules/$1' },
+    { from: '^/vs/(.*)$', to: '/node_modules/monaco-editor/min/vs/$1' },
     { from: '^/dist/(.*)$', to: '/dist/$1' },
     // Rewrite every path that doesn't point to a specific file to the index.html file.
     // This is necessary for Angular's routing using the HTML5 History API.

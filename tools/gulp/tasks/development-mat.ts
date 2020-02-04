@@ -13,6 +13,7 @@ import {
   corePackage,
   materialPackage,
   matExamplesPackage,
+  calendarsPackage,
 } from '../packages';
 import {watchFilesAndReload} from '../util/watch-files-reload';
 
@@ -76,6 +77,7 @@ task(':serve:devapp-mat', serverTask(outDir));
 task('build:devapp-mat', sequenceTask(
   'core:build-no-bundles',
   'material:build-no-bundles',
+  'calendars:build-no-bundles',
   'build-mat-examples-module',
   // The examples module needs to be manually built before building examples package because
   // when using the `no-bundles` task, the package-specific pre-build tasks won't be executed.
@@ -106,6 +108,8 @@ task('stage-deploy:devapp-mat', ['build:devapp-mat'], () => {
       join(outDir, 'dist/packages/material'));
   copyFiles(matExamplesPackage.outputDir, '**/*.+(js|map)',
       join(outDir, 'dist/packages/material-examples'));
+  copyFiles(calendarsPackage.outputDir, '**/*.+(js|map)',
+      join(outDir, 'dist/packages/calendars'));
   copyFileSync(firebaseSrcConfig, firebaseDstConfig);
 });
 
@@ -154,6 +158,9 @@ task(':watch:devapp-mat', () => {
   watchFilesAndReload([
     join(materialPackage.sourceDir, '**/*-theme.scss'), materialCoreThemingGlob
   ], [':build:devapp-mat:scss']);
+
+  // Calendars package watchers.
+  watchFilesAndReload(join(calendarsPackage.sourceDir, '**/*'), ['calendars:build-no-bundles']);
 
   // Example package watchers.
   watchFilesAndReload(join(matExamplesPackage.sourceDir, '**/*'),

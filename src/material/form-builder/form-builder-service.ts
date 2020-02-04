@@ -22,20 +22,21 @@
 
 import {
   AjfAttachmentsOrigin, AjfChoicesOrigin, AjfContainerNode, AjfField, AjfFieldType,
-  AjfFieldWithChoices, AjfForm, AjfNode, AjfNodeGroup, AjfNodesOperation, AjfNodeType,
-  AjfRepeatingContainerNode, AjfRepeatingSlide, AjfSlide, createChoicesFixedOrigin, createField,
-  createForm, createNode, createValidation, createValidationGroup, createWarning,
-  createWarningGroup, isChoicesFixedOrigin, isContainerNode, isField, isFieldWithChoices,
-  isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation, minDigitsValidation,
-  minValidation, notEmptyValidation, notEmptyWarning
+  AjfFieldWithChoices, AjfForm, AjfFormStringIdentifier, AjfNode, AjfNodeGroup, AjfNodesOperation,
+  AjfNodeType, AjfRepeatingContainerNode, AjfRepeatingSlide, AjfSlide, createChoicesFixedOrigin,
+  createField, createForm, createContainerNode, createValidation, createValidationGroup,
+  createWarning, createWarningGroup, isChoicesFixedOrigin, isContainerNode, isField,
+  isFieldWithChoices, isRepeatingContainerNode, isSlidesNode, maxDigitsValidation, maxValidation,
+  minDigitsValidation, minValidation, notEmptyValidation, notEmptyWarning
 } from '@ajf/core/forms';
 import {AjfCondition, alwaysCondition, createCondition, createFormula} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs';
 import {filter, map, publishReplay, refCount, scan, withLatestFrom} from 'rxjs/operators';
 
-import {AjfAttachmentsOriginsOperation, AjfChoicesOriginsOperation} from './operations';
+import {AjfAttachmentsOriginsOperation, AjfChoicesOriginsOperation,
+  AjfFormStringIdentifierOperation} from './operations';
 
 
 export interface AjfFormBuilderNodeTypeEntry {
@@ -88,10 +89,16 @@ function buildFormBuilderNodesSubtree(
   const entries: AjfFormBuilderNode[] = nodes
     .filter(n => n.parent === parent.id)
     .sort((n1, n2) => n1.parentNode - n2.parentNode)
-    .map(n => <AjfFormBuilderNodeEntry>{
-      node: n,
-      children: buildFormBuilderNodesSubtree(nodes, n),
-      content: buildFormBuilderNodesContent(nodes, n)
+    .map(n => {
+      const children = buildFormBuilderNodesSubtree(nodes, n);
+      if (children.length === 0) {
+        children.push({parent: n, parentNode: 0});
+      }
+      return <AjfFormBuilderNodeEntry>{
+        node: n,
+        children,
+        content: buildFormBuilderNodesContent(nodes, n)
+      };
     });
   if (!ignoreConditionalBranches) {
     const entriesNum = entries.length;
@@ -283,6 +290,11 @@ export class AjfFormBuilderService {
     return this._choicesOrigins;
   }
 
+  private _stringIdentifier: Observable<AjfFormStringIdentifier[]>;
+  get stringIdentifier(): Observable<AjfFormStringIdentifier[]> {
+    return this._stringIdentifier;
+  }
+
   private _nodes: Observable<AjfNode[]>;
   get nodes(): Observable<AjfNode[]> { return this._nodes; }
 
@@ -331,6 +343,8 @@ export class AjfFormBuilderService {
       new Subject<AjfAttachmentsOriginsOperation>();
   private _choicesOriginsUpdates: Subject<AjfChoicesOriginsOperation> =
       new Subject<AjfChoicesOriginsOperation>();
+  private _stringIdentifierUpdates: Subject<AjfFormStringIdentifierOperation> =
+      new Subject<AjfFormStringIdentifierOperation>();
 
   private _saveNodeEntryEvent: EventEmitter<any> = new EventEmitter<any>();
   private _deleteNodeEntryEvent: EventEmitter<AjfFormBuilderNodeEntry> =
@@ -339,6 +353,7 @@ export class AjfFormBuilderService {
   constructor() {
     this._initChoicesOriginsStreams();
     this._initAttachmentsOriginsStreams();
+    this._initStringIdentifierStreams();
     this._initNodesStreams();
     this._initFormStreams();
     this._initSaveNode();
@@ -396,24 +411,32 @@ export class AjfFormBuilderService {
         name: '',
       });
     } else {
-      node = createNode({
+      node = createContainerNode({
         id,
         nodeType: nodeType.nodeType.node,
-        parent: parent.id,
+        parent: parent != null ? parent.id : 0,
         parentNode,
         name: '',
+        nodes: [],
       });
     }
     this._beforeNodesUpdate.emit();
     this._nodesUpdates.next((nodes: AjfNode[]): AjfNode[] => {
+      if (node.parent === 0) {
+        return [node];
+      }
       const cn = isContainerNode(parent) && inContent ?
         (<AjfContainerNode>parent) :
         getNodeContainer({nodes}, parent);
       if (cn != null) {
         if (!isFieldNode) {
+          const replaceNodes = cn.nodes === nodes;
           const newNodes = cn.nodes.slice(0);
           newNodes.push(node);
           cn.nodes = newNodes;
+          if (replaceNodes) {
+            nodes = newNodes;
+          }
         } else {
           cn.nodes.push(node);
         }
@@ -435,17 +458,17 @@ export class AjfFormBuilderService {
   }
 
   getCurrentForm(): Observable<AjfForm> {
-    return this._form.pipe(
-      withLatestFrom(this._nodes),
-      filter((r) => r[0] != null),
-      map((r: [AjfForm | null, AjfNode[]]) => {
-        const form = r[0]!;
-        const nodes = r[1];
+    return combineLatest(
+      [this.form, this.nodes, this.attachmentsOrigins, this.choicesOrigins, this.stringIdentifier]
+    ).pipe(
+      filter(([form]) => form != null),
+      map(([form, nodes, attachmentsOrigins, choicesOrigins, stringIdentifier]) => {
         return createForm({
-          choicesOrigins: form.choicesOrigins.slice(0),
-          attachmentsOrigins: form.attachmentsOrigins.slice(0),
-          stringIdentifier: form.stringIdentifier.slice(0),
+          choicesOrigins: choicesOrigins.slice(0),
+          attachmentsOrigins: attachmentsOrigins.slice(0),
+          stringIdentifier: (stringIdentifier || []).slice(0),
           nodes: nodes.slice(0) as AjfSlide[],
+          supplementaryInformations: form!.supplementaryInformations,
         });
       })
     );
@@ -471,8 +494,25 @@ export class AjfFormBuilderService {
       if (isChoicesFixedOrigin(choicesOrigin)) {
         choicesOrigin.choices = params.choices;
       }
+      this._choicesOriginsUpdates.next((choicesOrigins) => {
+        const idx = choicesOrigins.indexOf(choicesOrigin);
+        if (idx > -1) {
+          choicesOrigins = [
+            ...choicesOrigins.slice(0, idx),
+            choicesOrigin,
+            ...choicesOrigins.slice(idx + 1),
+          ];
+        } else {
+          choicesOrigins = [...choicesOrigins, choicesOrigin];
+        }
+        return choicesOrigins;
+      });
     }
     this._editedChoicesOrigin.next(null);
+  }
+
+  saveStringIdentifier(identifier: AjfFormStringIdentifier[]): void {
+    this._stringIdentifierUpdates.next(() => [...identifier]);
   }
 
   private _findMaxNodeId(nodes: AjfNode[], _curMaxId = 0): number {
@@ -509,6 +549,12 @@ export class AjfFormBuilderService {
               return form != null && form.choicesOrigins != null ? form.choicesOrigins.slice(0) :
                                                                    [];
             });
+        this._stringIdentifierUpdates.next(
+            (_: AjfFormStringIdentifier[]): AjfFormStringIdentifier[] => {
+              return form != null && form.stringIdentifier != null
+                ? form.stringIdentifier.slice(0)
+                : [];
+            });
       });
   }
 
@@ -522,16 +568,27 @@ export class AjfFormBuilderService {
   }
 
   private _initAttachmentsOriginsStreams(): void {
-    this._attachmentsOrigins =
-        (<Observable<AjfAttachmentsOriginsOperation>>this._attachmentsOriginsUpdates)
-            .pipe(
-                scan(
-                    (attachmentsOrigins: AjfAttachmentsOrigin<any>[],
-                     op: AjfAttachmentsOriginsOperation) => {
-                      return op(attachmentsOrigins);
-                    },
-                    []),
-                publishReplay(1), refCount());
+    this._attachmentsOrigins = this._attachmentsOriginsUpdates.pipe(
+      scan(
+        (attachmentsOrigins: AjfAttachmentsOrigin<any>[], op: AjfAttachmentsOriginsOperation) => {
+          return op(attachmentsOrigins);
+        }, []
+      ),
+      publishReplay(1),
+      refCount(),
+    );
+  }
+
+  private _initStringIdentifierStreams(): void {
+    this._stringIdentifier = this._stringIdentifierUpdates.pipe(
+      scan(
+        (stringIdentifier: AjfFormStringIdentifier[], op: AjfFormStringIdentifierOperation) => {
+          return op(stringIdentifier);
+        }, []
+      ),
+      publishReplay(1),
+      refCount(),
+    );
   }
 
   private _initNodesStreams(): void {
@@ -563,17 +620,10 @@ export class AjfFormBuilderService {
     this._saveNodeEntryEvent
         .pipe(
             withLatestFrom(this.editedNodeEntry, this.choicesOrigins, this.attachmentsOrigins),
-            filter((r) => r[1] != null),
-            map((r:
-                     [
-                       any, AjfFormBuilderNodeEntry|null, AjfChoicesOrigin<any>[],
-                       AjfAttachmentsOrigin<any>[]
-                     ]) => {
+            filter(([_, nodeEntry]) => nodeEntry != null),
+            map(([properties, nodeEntry]) => {
               this._beforeNodesUpdate.emit();
-              const properties = r[0];
-              const nodeEntry = r[1]!;
-              const choicesOrigins = r[2];
-              // const attachmentsOrigins = r[3];
+              nodeEntry = nodeEntry!;
               const origNode = nodeEntry.node;
               const node = deepCopy(origNode);
               node.id = nodeEntry.node.id;
@@ -599,8 +649,8 @@ export class AjfFormBuilderService {
                 repNode.maxReps = properties.maxReps;
               }
 
-              if (isField(nodeEntry.node)) {
-                const field = <AjfField>nodeEntry.node;
+              if (isField(node)) {
+                const field = node as AjfField;
                 field.description = properties.description;
                 field.defaultValue = properties.defaultValue;
                 field.formula = properties.formula != null ?
@@ -667,21 +717,12 @@ export class AjfFormBuilderService {
                 field.nextSlideCondition = properties.nextSlideCondition != null ?
                     createCondition({condition: properties.nextSlideCondition}) :
                     undefined;
+                field.size = properties.size;
+                field.defaultValue = properties.defaultValue;
 
                 if (isFieldWithChoices(field)) {
                   const fwc = <AjfFieldWithChoices<any>>field;
-                  let choicesOrigin: AjfChoicesOrigin<any>|null = null;
-                  let coIdx = 0;
-                  const coNum: number = choicesOrigins.length;
-                  while (choicesOrigin == null && coIdx < coNum) {
-                    if (choicesOrigins[coIdx].name === properties.choicesOrigin) {
-                      choicesOrigin = choicesOrigins[coIdx];
-                    }
-                    coIdx++;
-                  }
-                  if (choicesOrigin != null) {
-                    fwc.choicesOrigin = choicesOrigin;
-                  }
+                  (fwc as any).choicesOriginRef = properties.choicesOriginRef;
                   fwc.forceExpanded = properties.forceExpanded;
                   fwc.forceNarrow = properties.forceNarrow;
                   fwc.triggerConditions = (properties.triggerConditions ||
@@ -696,12 +737,17 @@ export class AjfFormBuilderService {
                 if (cn != null) {
                   // TODO: @trik check this, was always true?
                   // if (cn instanceof AjfNode) {
+                  const replaceNodes = cn.nodes === nodes;
                   const idx = cn.nodes.indexOf(origNode);
                   let newNodes = cn.nodes.slice(0, idx);
                   newNodes.push(node);
                   newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
                   cn.nodes = newNodes;
-                  nodes = nodes.slice(0);
+                  if (replaceNodes) {
+                    nodes = newNodes;
+                  } else {
+                    nodes = nodes.slice(0);
+                  }
                   // } else {
                   //   const idx = nodes.indexOf(origNode);
                   //   nodes = nodes.slice(0, idx).concat([node]).concat(nodes.slice(idx + 1));
@@ -726,17 +772,16 @@ export class AjfFormBuilderService {
           const node = nodeEntry.node;
           let cn = getNodeContainer({nodes}, node);
           if (cn != null) {
-            // TODO: @trik check this, was always true?
-            // if (cn instanceof AjfNode) {
+            const replaceNodes = cn.nodes === nodes;
             const idx = cn.nodes.indexOf(node);
             let newNodes = cn.nodes.slice(0, idx);
             newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
             cn.nodes = newNodes;
-            nodes = nodes.slice(0);
-            // } else {
-            //   const idx = nodes.indexOf(node);
-            //   nodes = nodes.slice(0, idx).concat(nodes.slice(idx + 1));
-            // }
+            if (replaceNodes) {
+              nodes = newNodes;
+            } else {
+              nodes = nodes.slice(0);
+            }
             nodes = deleteNodeSubtree(nodes, node);
           }
           return nodes;

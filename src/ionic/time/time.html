@@ -1,0 +1,18 @@
+<div>
+  <ion-input
+      min="0"
+      max="23" 
+      (focus)="focusHandler()"
+      [(ngModel)]="hours"
+      type="number"
+      [readonly]="readonly"
+  ></ion-input>
+  :
+  <ion-input
+      min="0"
+      max="59"
+      (focus)="focusHandler()"
+      [(ngModel)]="minutes" type="number"
+      [readonly]="readonly"
+  ></ion-input>
+</div>

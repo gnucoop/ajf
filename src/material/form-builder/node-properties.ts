@@ -384,8 +384,7 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initSave(): void {
-    this._saveSub = (<Observable<void>>this._saveEvt)
-      .pipe(withLatestFrom(this.propertiesForm))
+    this._saveSub = this._saveEvt.pipe(withLatestFrom(this.propertiesForm))
       .subscribe((r: [void, FormGroup]) => {
         const fg = r[1];
         const val = {...fg.value,
@@ -520,7 +519,7 @@ export class AjfFbNodeProperties implements OnDestroy {
           let triggerConditions: string[] = (fieldWithChoices.triggerConditions || [])
             .map((c) => c.condition);
 
-          controls.choicesOrigin = fieldWithChoices.choicesOrigin.name;
+          controls.choicesOriginRef = (fieldWithChoices as any).choicesOriginRef;
           controls.choicesFilter = fieldWithChoices.choicesFilter != null ?
             fieldWithChoices.choicesFilter.formula : null;
           controls.forceExpanded = fieldWithChoices.forceExpanded;

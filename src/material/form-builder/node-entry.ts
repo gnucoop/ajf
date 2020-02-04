@@ -20,8 +20,8 @@
  *
  */
 
-import {isContainerNode, isSlidesNode} from '@ajf/core/forms';
-import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
+import {isContainerNode} from '@ajf/core/forms';
+import {CdkDrag, CdkDragDrop, CdkDropList} from '@angular/cdk/drag-drop';
 import {
   AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, QueryList,
   ViewChildren, ViewEncapsulation
@@ -78,13 +78,15 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
       this._isNodeEntry = true;
       const node = ne.node;
       this._hasContent = node != null && isContainerNode(node);
-      this._isSlide = isSlidesNode((<AjfFormBuilderEmptySlot>nodeEntry).parent);
     } else {
       this._isNodeEntry = false;
       this._hasContent = false;
-      this._isSlide = false;
     }
   }
+
+  private _level = 0;
+  get level(): number { return this._level; }
+  @Input() set level(value: number) { this._level = value; }
 
   get realNodeEntry(): AjfFormBuilderNodeEntry {
     return this._nodeEntry as AjfFormBuilderNodeEntry;
@@ -126,7 +128,6 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return this._currentEditedNode;
   }
 
-  private _isSlide = false;
   private _branchLinesSubscription: Subscription = Subscription.EMPTY;
   private _childEntriesSubscription: Subscription = Subscription.EMPTY;
 
@@ -161,8 +162,11 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   }
 
   onDropSuccess(evt: CdkDragDrop<AjfFormBuilderNodeTypeEntry>, content = false): void {
-    if (this._nodeEntry == null) { return; }
     const dd = evt.item.data as AjfFormBuilderNodeTypeEntry;
+    if (this._nodeEntry == null) {
+      this._service.insertNode(dd, null as any, 0, content);
+      return;
+    }
     if (dd.nodeType !== void 0 && (!this.isNodeEntry || (this.isNodeEntry && content))) {
       const emptySlot = content ?
         {parent: (<AjfFormBuilderNodeEntry>this.nodeEntry).node, parentNode: 0} :
@@ -180,11 +184,13 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return !item.data.isSlide;
   }
 
-  emptyAreaDropPredicate(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
-    if (this._isSlide) {
+  emptyAreaDropPredicate(): (item: CdkDrag, _drop: CdkDropList) => boolean {
+    return (item: CdkDrag, _drop: CdkDropList): boolean => {
+      if (this._level > 0) {
+        return !item.data.isSlide;
+      }
       return item.data.isSlide || false;
-    }
-    return !item.data.isSlide;
+    };
   }
 
   private _updateBranchHeights(): void {

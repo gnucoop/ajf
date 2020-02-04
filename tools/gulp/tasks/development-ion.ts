@@ -13,6 +13,7 @@ import {
   corePackage,
   ionicPackage,
   ionExamplesPackage,
+  calendarsPackage,
 } from '../packages';
 import {watchFilesAndReload} from '../util/watch-files-reload';
 
@@ -112,6 +113,8 @@ task('stage-deploy:devapp-ion', ['build:devapp-ion'], () => {
       join(outDir, 'dist/packages/ionic'));
   copyFiles(ionExamplesPackage.outputDir, '**/*.+(js|map)',
       join(outDir, 'dist/packages/ionic-examples'));
+  copyFiles(calendarsPackage.outputDir, '**/*.+(js|map)',
+      join(outDir, 'dist/packages/calendars'));
   copyFileSync(firebaseSrcConfig, firebaseDstConfig);
 });
 
@@ -160,6 +163,9 @@ task(':watch:devapp-ion', () => {
   watchFilesAndReload([
     join(ionicPackage.sourceDir, '**/*-theme.scss'), ionicCoreThemingGlob
   ], [':build:devapp-ion:scss']);
+
+  // Calendars package watchers.
+  watchFilesAndReload(join(calendarsPackage.sourceDir, '**/*'), ['calendars:build-no-bundles']);
 
   // Example package watchers.
   watchFilesAndReload(join(ionExamplesPackage.sourceDir, '**/*'),

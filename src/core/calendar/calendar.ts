@@ -24,19 +24,14 @@ import {
   AfterContentInit, ChangeDetectorRef, EventEmitter, OnInit
 } from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
-
+import {endOfISOWeek, endOfWeek, endOfYear, parse, startOfISOWeek, startOfWeek,
+  startOfYear} from 'date-fns';
 import {Observable} from 'rxjs';
 
-import {
-  addDays, addMonths, addWeeks, addYears, endOfDay, endOfISOWeek, endOfMonth, endOfWeek, endOfYear,
-  format, isAfter, isBefore, isSameDay, parse, setISODay, startOfDay, startOfISOWeek,
-  startOfMonth, startOfWeek, startOfYear, subMonths, subWeeks, subYears
-} from 'date-fns';
-
-import {AjfCalendarEntrySelectedState} from './calendar-entry-selected-state';
 import {AjfCalendarEntry} from './calendar-entry';
 import {AjfCalendarPeriodType} from './calendar-period-type';
 import {AjfCalendarPeriod} from './calendar-period';
+import {AjfCalendarService} from './calendar-service';
 import {AjfCalendarViewMode} from './calendar-view-mode';
 import {AjfCalendarWeekDay} from './calendar-week-day';
 
@@ -146,16 +141,15 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     return this._selectedPeriod;
   }
   set value(period: AjfCalendarPeriod | Date | null) {
-    if (this._dateOnlyForDay && this.selectionMode === 'day') {
-      if (period instanceof Date &&
-        (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)) {
-        this.selectedPeriod = {
-          type: 'day',
-          startDate: period,
-          endDate: period
-        };
-        this._onChangeCallback(period);
-      }
+    if (
+      this._dateOnlyForDay && this.selectionMode === 'day' && period instanceof Date
+      && (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)
+    ) {
+      this.selectedPeriod = {
+        type: 'day',
+        startDate: period,
+        endDate: period
+      };
     } else if (period instanceof Object && period !== this._selectedPeriod) {
       this.selectedPeriod = <AjfCalendarPeriod>period;
       this._onChangeCallback(period);
@@ -163,33 +157,25 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     this._cdr.markForCheck();
   }
 
+  get calendarHeaders(): string[] { return this._calendarHeaders; }
   get calendarRows(): AjfCalendarEntry[][] { return this._calendarRows; }
   get viewHeader(): string { return this._viewHeader; }
-  get weekDays(): string[] { return this._weekDays; }
 
   private _viewDate: Date = new Date();
   private _viewHeader = '';
 
   private _calendarRows: AjfCalendarEntry[][] = [];
-  private _weekDays: string[] = [];
+  private _calendarHeaders: string[] = [];
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  constructor(private _cdr: ChangeDetectorRef, private _service: AjfCalendarService) { }
 
   prevPage(): void {
-    if (this._viewMode == 'month') {
-      this.viewDate = subMonths(this.viewDate, 1);
-    } else if (this._viewMode == 'year') {
-      this.viewDate = subYears(this.viewDate, 1);
-    }
+    this.viewDate = this._service.previousView(this._viewDate, this._viewMode);
     this._buildCalendar();
   }
 
   nextPage(): void {
-    if (this._viewMode == 'month') {
-      this.viewDate = addMonths(this.viewDate, 1);
-    } else if (this._viewMode == 'year') {
-      this.viewDate = addYears(this.viewDate, 1);
-    }
+    this.viewDate = this._service.nextView(this._viewDate, this._viewMode);
     this._buildCalendar();
   }
 
@@ -210,7 +196,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     }
 
     let newPeriod: AjfCalendarPeriod | null = null;
-    if (this._isEntrySelected(entry) == 'full') {
+    if (this._service.isEntrySelected(entry, this._selectedPeriod) == 'full') {
       newPeriod = null;
     } else if (this._selectionMode == 'day') {
       newPeriod = {
@@ -229,7 +215,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
           endOfWeek(entry.date, {weekStartsOn: this._startOfWeekDay})
       };
     } else if (this._selectionMode == 'month') {
-      const monthBounds = this._getMonthStartEnd(entry.date);
+      const monthBounds = this._service.monthBounds(entry.date, this._isoMode);
       newPeriod = {
         type: 'month',
         startDate: new Date(monthBounds.start),
@@ -278,190 +264,25 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     this._viewDate = date;
   }
 
-  private _getMonthStartEnd(date: Date): { start: Date, end: Date } {
-    if (!this._isoMode) {
-      return {
-        start: startOfMonth(date),
-        end: endOfMonth(date),
-      };
-    }
-    let startDate = startOfMonth(endOfISOWeek(date));
-    let endDate = endOfMonth(startDate);
-    const startWeekDay = startDate.getDay();
-    const endWeekDay = endDate.getDay();
-    if (startWeekDay == 0 || startWeekDay > 4) {
-      startDate = addWeeks(startDate, 1);
-    }
-    if (endWeekDay > 0 && endWeekDay < 4) {
-      endDate = subWeeks(endDate, 1);
-    }
-    startDate = startOfISOWeek(startDate);
-    endDate = endOfISOWeek(endDate);
-    return { start: startDate, end: endDate };
-  }
-
   private _buildCalendar(): void {
-    if (this._viewMode == 'month') {
-      this._buildMonthView();
-    } else if (this._viewMode == 'year') {
-      this._buildYearView();
-    } else if (this._viewMode == 'decade') {
-      this._buildDecadeView();
-    }
+    const calendarView = this._service.buildView({
+      viewMode: this._viewMode,
+      viewDate: this._viewDate,
+      selection: this._selectedPeriod,
+      isoMode: this._isoMode,
+      minDate: this._minDate == null ? null : new Date(this._minDate),
+      maxDate: this._maxDate == null ? null : new Date(this._maxDate),
+    });
+    this._viewHeader = calendarView.header;
+    this._calendarHeaders = calendarView.headerRow;
+    this._calendarRows = calendarView.rows;
     this._cdr.markForCheck();
-  }
-
-  private _buildDecadeView(): void {
-    let curYear: number = this._viewDate.getFullYear();
-    let firstYear = curYear - (curYear % 10) + 1;
-    let lastYear = firstYear + 11;
-
-    this._viewHeader = `${firstYear} - ${lastYear}`;
-
-    let curDate: Date = startOfYear(this._viewDate);
-    curDate.setFullYear(firstYear);
-
-    let rows: AjfCalendarEntry[][] = [];
-    for (let i = 0; i < 4; i++) {
-      let row: AjfCalendarEntry[] = [];
-      for (let j = 0; j < 3; j++) {
-        let date = new Date(curDate);
-        let newEntry = new AjfCalendarEntry({
-          type: 'year',
-          date: date,
-          selected: 'none'
-        });
-        newEntry.selected = this._isEntrySelected(newEntry);
-        row.push(newEntry);
-        curDate = addYears(curDate, 1);
-      }
-      rows.push(row);
-    }
-    this._calendarRows = rows;
-  }
-
-  private _buildYearView(): void {
-    this._viewHeader = `${this._viewDate.getFullYear()}`;
-
-    let curDate: Date = startOfYear(this._viewDate);
-
-    let rows: AjfCalendarEntry[][] = [];
-    for (let i = 0; i < 4; i++) {
-      let row: AjfCalendarEntry[] = [];
-      for (let j = 0; j < 3; j++) {
-        let date = new Date(curDate);
-        let newEntry = new AjfCalendarEntry({
-          type: 'month',
-          date: date,
-          selected: 'none'
-        });
-        newEntry.selected = this._isEntrySelected(newEntry);
-        row.push(newEntry);
-        curDate = addMonths(curDate, 1);
-      }
-      rows.push(row);
-    }
-    this._calendarRows = rows;
-  }
-
-  private _buildMonthView(): void {
-    this._viewHeader = format(this._viewDate, 'MMM YYYY');
-
-    this._buildMonthViewWeekDays();
-    const monthDay = new Date(this._viewDate.getFullYear(), this._viewDate.getMonth(), 5);
-    const monthBounds = this._getMonthStartEnd(monthDay);
-    let viewStartDate: Date = new Date(monthBounds.start);
-    let viewEndDate: Date = new Date(monthBounds.end);
-    if (!this._isoMode) {
-      viewStartDate = startOfWeek(viewStartDate);
-      viewEndDate = endOfWeek(viewEndDate);
-    }
-
-    let rows: AjfCalendarEntry[][] = [];
-    let todayDate = new Date();
-    let curDate = new Date(viewStartDate);
-    let minDate = this.minDate == null ? null : new Date(this.minDate);
-    let maxDate = this.maxDate == null ? null : new Date(this.maxDate);
-    while (curDate < viewEndDate) {
-      let row: AjfCalendarEntry[] = [];
-      for (let i = 0; i < 7; i++) {
-        let disabled = (minDate != null && isBefore(curDate, minDate)) ||
-          (maxDate != null && isAfter(curDate, maxDate));
-        let date = new Date(curDate);
-        let newEntry: AjfCalendarEntry = new AjfCalendarEntry({
-          type: 'day',
-          date: date,
-          selected: 'none',
-          highlight: format(todayDate, 'YYYY-MM-DD') === format(curDate, 'YYYY-MM-DD'),
-          disabled: disabled
-        });
-        newEntry.selected = this._isEntrySelected(newEntry);
-        row.push(newEntry);
-        curDate = addDays(curDate, 1);
-      }
-      rows.push(row);
-    }
-
-    this._calendarRows = rows;
-  }
-
-  private _buildMonthViewWeekDays(): void {
-    let curDate: Date;
-    if (this._isoMode) {
-      curDate = setISODay(startOfWeek(this._viewDate), 1);
-    } else {
-      curDate = startOfWeek(this._viewDate);
-    }
-    let weekDayNames: string[] = [];
-    for (let i = 0; i < 7; i++) {
-      weekDayNames.push(format(curDate, 'dddd'));
-      curDate = addDays(curDate, 1);
-    }
-    this._weekDays = weekDayNames;
-    this._cdr.markForCheck();
-  }
-
-  private _periodOrder(entryType: AjfCalendarPeriodType): number {
-    return ['day', 'week', 'month', 'year'].indexOf(entryType);
-  }
-
-  private _isEntrySelected(entry: AjfCalendarEntry): AjfCalendarEntrySelectedState {
-    if (
-      this._selectedPeriod != null && this._selectedPeriod.startDate != null &&
-      this._selectedPeriod.endDate != null
-    ) {
-      let selectionStart: Date = startOfDay(this._selectedPeriod.startDate);
-      let selectionEnd: Date = endOfDay(this._selectedPeriod.endDate);
-      let selectionPeriodOrder: number = this._periodOrder(this._selectedPeriod.type);
-
-      let entryPeriodOrder: number = this._periodOrder(entry.type);
-      let entryRange: { start: Date, end: Date } = entry.getRange();
-
-      if (entryPeriodOrder <= selectionPeriodOrder &&
-        this._isBetween(entryRange.start, selectionStart, selectionEnd) &&
-        this._isBetween(entryRange.end, selectionStart, selectionEnd)
-      ) {
-        return 'full';
-      } else if (entryPeriodOrder > selectionPeriodOrder &&
-        this._isBetween(selectionStart, entryRange.start, entryRange.end) &&
-        this._isBetween(selectionEnd, entryRange.start, entryRange.end)
-      ) {
-        return 'partial';
-      }
-    }
-
-    return 'none';
-  }
-
-  private _isBetween(date: Date, rangeLeft: Date, rangeRight: Date): boolean {
-    return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft))
-      && (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
   }
 
   private _refreshSelection(): void {
     for (let row of this._calendarRows) {
       for (let entry of row) {
-        entry.selected = this._isEntrySelected(entry);
+        entry.selected = this._service.isEntrySelected(entry, this._selectedPeriod);
       }
     }
   }
