@@ -87,3 +87,6 @@ export interface AjfCalendarView {
 export declare type AjfCalendarViewMode = ('month' | 'year' | 'decade');
 
 export declare type AjfCalendarWeekDay = ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
+
+export declare class AjfGregorianCalendarModule {
+}

@@ -27,7 +27,7 @@ import {addDays, addYears, setISODay, startOfWeek} from 'date-fns';
 
 import {EthiopianDate} from './ethiopian-date';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AjfEthiopianCalendarService extends AjfCalendarService {
   buildView(params: AjfCalendarParams): AjfCalendarView {
     const {viewMode} = params;

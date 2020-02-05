@@ -32,8 +32,12 @@ import {AjfCalendarService} from './calendar-service';
   exports: [
     AjfCalendarEntryLabelPipe,
   ],
+})
+export class AjfCalendarModule { }
+
+@NgModule({
   providers: [
     AjfCalendarService,
   ],
 })
-export class AjfCalendarModule { }
+export class AjfGregorianCalendarModule { }

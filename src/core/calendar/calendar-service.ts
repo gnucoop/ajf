@@ -50,7 +50,7 @@ function periodOrder(entryType: AjfCalendarPeriodType): number {
   return ['day', 'week', 'month', 'year'].indexOf(entryType);
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AjfCalendarService {
   buildView(params: AjfCalendarParams): AjfCalendarView {
     const {viewMode, viewDate} = params;
