@@ -30,4 +30,5 @@ import {Component} from '@angular/core';
   styleUrls: ['calendar-demo.css'],
 })
 export class CalendarDemo {
+  isoMode: boolean;
 }
