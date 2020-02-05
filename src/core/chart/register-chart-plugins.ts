@@ -20,7 +20,11 @@
  *
  */
 
-export * from './extended-chart-type';
-export * from './register-chart-plugins';
-export * from './chart';
-export * from './chart-module';
+import * as Chart from 'chart.js';
+const chartClass = (<any>Chart).default || Chart;
+
+export function registerChartPlugins(plugins: any[]) {
+  if (plugins != null && plugins.length > 0) {
+    plugins.forEach(plugin => chartClass.plugins.register(plugin));
+  }
+}
