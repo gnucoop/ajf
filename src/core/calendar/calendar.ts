@@ -101,7 +101,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   get isoMode(): boolean { return this._isoMode; }
   set isoMode(isoMode: boolean) {
     this._isoMode = isoMode;
-    this._cdr.markForCheck();
+    this._buildCalendar();
   }
 
   private _minDate: Date | null;

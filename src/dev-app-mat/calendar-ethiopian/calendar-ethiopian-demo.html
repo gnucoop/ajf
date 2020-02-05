@@ -1,6 +1,7 @@
 <div class="demo-calendar">
   <h4 class="demo-section-header">Ethiopian calendar</h4>
   <section>
-    <ajf-calendar></ajf-calendar>
+    <mat-checkbox [(ngModel)]="isoMode">Iso mode</mat-checkbox>
+    <ajf-calendar [isoMode]="isoMode"></ajf-calendar>
   </section>
 </div>

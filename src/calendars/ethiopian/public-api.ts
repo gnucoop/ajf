@@ -22,3 +22,5 @@
 
 export * from './calendar-module';
 export * from './calendar-service';
+export * from './ethiopian-date';
+export * from './ethiopian-date-pipe';

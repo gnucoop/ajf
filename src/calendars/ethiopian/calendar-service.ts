@@ -23,9 +23,19 @@
 import {AjfCalendarEntry, AjfCalendarService, AjfCalendarParams,
   AjfCalendarView, AjfCalendarViewMode} from '@ajf/core/calendar';
 import {Injectable} from '@angular/core';
-import {addDays, addYears, setISODay, startOfWeek} from 'date-fns';
+import {addDays, addWeeks, addYears, endOfISOWeek, getISODay, setISODay, startOfISOWeek,
+  startOfWeek, subWeeks} from 'date-fns';
 
 import {EthiopianDate} from './ethiopian-date';
+
+function getMonthBounds(date: EthiopianDate): {start: EthiopianDate, end: EthiopianDate} {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const start = new EthiopianDate(year, month, 1);
+  const endDay = month < 12 ? 30 : (year % 4 === 3 ? 6 : 5);
+  const end = new EthiopianDate(year, month, endDay);
+  return {start, end};
+}
 
 @Injectable({providedIn: 'root'})
 export class AjfEthiopianCalendarService extends AjfCalendarService {
@@ -73,17 +83,34 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
   monthBounds(date: Date, isoMode: boolean): {start: Date, end: Date} {
     if (!isoMode) {
       const ecDate = EthiopianDate.gregorianToEthiopian(date);
-      const year = ecDate.getFullYear();
-      const month = ecDate.getMonth();
-      const start = new EthiopianDate(year, month, 1);
-      const endDay = month < 12 ? 30 : (year % 4 === 3 ? 6 : 5);
-      const end = new EthiopianDate(year, month, endDay);
+      const {start, end} = getMonthBounds(ecDate);
       return {
         start: EthiopianDate.ethiopianToGregorian(start),
         end: EthiopianDate.ethiopianToGregorian(end),
       };
+    } else {
+      let isoDay = getISODay(date);
+      const ecDate = EthiopianDate.gregorianToEthiopian(date);
+      let {start, end} = getMonthBounds(ecDate);
+      if (ecDate.getMonth() === 12) {
+        start = EthiopianDate.gregorianToEthiopian(startOfISOWeek(start.getGregorianDate()));
+        end = EthiopianDate.gregorianToEthiopian(endOfISOWeek(end.getGregorianDate()));
+      } else {
+        date = isoDay < 4 ? endOfISOWeek(date) : startOfISOWeek(date);
+        const startWeekDay = start.getDay();
+        const endWeekDay = end.getDay();
+        if (startWeekDay == 0 || startWeekDay > 4) {
+          start = EthiopianDate.gregorianToEthiopian(addWeeks(start.getGregorianDate(), 1));
+        }
+        if (endWeekDay > 0 && endWeekDay < 4) {
+          end = EthiopianDate.gregorianToEthiopian(subWeeks(end.getGregorianDate(), 1));
+        }
+      }
+      return {
+        start: startOfISOWeek(start.getGregorianDate()),
+        end: endOfISOWeek(end.getGregorianDate()),
+      };
     }
-    return super.monthBounds(date, isoMode);
   }
 
   nextView(viewDate: Date, viewMode: AjfCalendarViewMode): Date {
@@ -159,7 +186,6 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
       }
       rows.push(row);
     }
-    console.log(rows);
 
     return rows;
   }

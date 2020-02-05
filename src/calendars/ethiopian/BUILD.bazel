@@ -17,6 +17,7 @@ ng_module(
     deps = [
         "//src/core/calendar",
         "@npm//@angular/core",
+        "@npm//date-fns",
     ],
 )
 

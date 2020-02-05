@@ -70,6 +70,10 @@ export class EthiopianDate {
     return this._date;
   }
 
+  getDay(): number {
+    return this._gc.getDay();
+  }
+
   getDayOfWeek() {
     const weekDay = this.getGCWeekDay();
     return WEEK_NAMES[weekDay];
@@ -103,7 +107,23 @@ export class EthiopianDate {
         : null;
   }
 
-  toString() {
+  getHours(): number {
+    return 0;
+  }
+
+  getMinutes(): number {
+    return 0;
+  }
+
+  getSeconds(): number {
+    return 0;
+  }
+
+  getMilliseconds(): number {
+    return 0;
+  }
+
+  toString(): string {
     return `${this._year}-${this._month + 1}-${this._date}`;
   }
 

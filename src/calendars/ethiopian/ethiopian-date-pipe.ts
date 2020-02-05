@@ -20,26 +20,20 @@
  *
  */
 
-import {AjfEthiopianCalendarModule} from '@ajf/calendars/ethiopian';
-import {AjfCalendarModule} from '@ajf/material/calendar';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {RouterModule} from '@angular/router';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {EthiopianDate} from './ethiopian-date';
 
-import {CalendarEthiopianDemo} from './calendar-ethiopian-demo';
-
-@NgModule({
-  imports: [
-    AjfCalendarModule,
-    AjfEthiopianCalendarModule,
-    FormsModule,
-    MatCheckboxModule,
-    RouterModule.forChild([{path: '', component: CalendarEthiopianDemo}]),
-  ],
-  declarations: [
-    CalendarEthiopianDemo,
-  ],
-})
-export class CalendarEthiopianDemoModule {
+@Injectable()
+@Pipe({name: 'ajfEthiopianDate'})
+export class AjfEthiopianDatePipe implements PipeTransform {
+  transform(value: any): string|null {
+    try {
+      const ed = EthiopianDate.gregorianToEthiopian(value);
+      const date = `0${ed.getDate()}`.slice(-2);
+      const month = `0${ed.getMonth()}`.slice(-2);
+      return `${date}/${month}/${ed.getFullYear()}`;
+    } catch (e) {
+      return null;
+    }
+  }
 }

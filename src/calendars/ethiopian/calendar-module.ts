@@ -23,9 +23,16 @@
 import {AjfCalendarService} from '@ajf/core/calendar';
 import {NgModule} from '@angular/core';
 
+import {AjfEthiopianDatePipe} from './ethiopian-date-pipe';
 import {AjfEthiopianCalendarService} from './calendar-service';
 
 @NgModule({
+  declarations: [
+    AjfEthiopianDatePipe,
+  ],
+  exports: [
+    AjfEthiopianDatePipe,
+  ],
   providers: [
     {provide: AjfCalendarService, useClass: AjfEthiopianCalendarService},
   ],

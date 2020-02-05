@@ -30,4 +30,5 @@ import {Component} from '@angular/core';
   styleUrls: ['calendar-ethiopian-demo.css'],
 })
 export class CalendarEthiopianDemo {
+  isoMode: boolean;
 }
