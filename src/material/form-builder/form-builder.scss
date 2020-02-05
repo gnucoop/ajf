@@ -1,4 +1,10 @@
 ajf-form-builder {
+  display: flex;
+  position: relative;
+  min-height: 300px;
+  flex-direction: column;
+  align-items: stretch;
+
   mat-toolbar {
     mat-menu {
       div[mat-menu-item] {
@@ -12,7 +18,7 @@ ajf-form-builder {
     }
   }
   mat-drawer-container {
-    height: 700px;
+    flex: 1;
 
     mat-drawer {
       max-width: 20%;
@@ -20,12 +26,6 @@ ajf-form-builder {
 
     .ajf-designer {
       padding: 1em;
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      overflow-y: auto;
     }
   }
 

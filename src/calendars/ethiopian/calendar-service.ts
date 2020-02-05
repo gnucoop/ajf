@@ -144,7 +144,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
     for (let i = 0; i <= 4; i++) {
       let row: AjfCalendarEntry[] = [];
       for (let j = 0; j < 3; j++) {
-        const curMonth = i * 4 + j;
+        const curMonth = i * 3 + j;
         if (curMonth < 13) {
           curDate = new EthiopianDate(year, curMonth, 1);
           let date = EthiopianDate.ethiopianToGregorian(curDate);
@@ -159,6 +159,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
       }
       rows.push(row);
     }
+    console.log(rows);
 
     return rows;
   }

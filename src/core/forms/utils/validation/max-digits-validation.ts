@@ -25,7 +25,7 @@ import {createValidation} from './create-validation';
 
 export function maxDigitsValidation(maxValue: number): AjfValidation {
   return createValidation({
-    condition: `$value ? $value.toString().length >= ${maxValue.toString()} : false`,
-    errorMessage: 'Digits count must be >= ' + maxValue.toString()
+    condition: `$value ? $value.toString().length <= ${maxValue.toString()} : false`,
+    errorMessage: 'Digits count must be <= ' + maxValue.toString()
   });
 }
