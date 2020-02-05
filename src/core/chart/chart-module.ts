@@ -20,9 +20,11 @@
  *
  */
 
-import {NgModule} from '@angular/core';
-
+import {NgModule, ModuleWithProviders} from '@angular/core';
+import * as Chart from 'chart.js';
 import {AjfChartComponent} from './chart';
+
+const chartClass = (<any>Chart).default || Chart;
 
 @NgModule({
   declarations: [
@@ -32,4 +34,13 @@ import {AjfChartComponent} from './chart';
     AjfChartComponent
   ]
 })
-export class AjfChartModule { }
+export class AjfChartModule {
+  static registerPlugins(plugins: any[]): ModuleWithProviders {
+    if (plugins != null && plugins.length > 0) {
+      plugins.forEach(plugin => chartClass.plugins.register(plugin));
+    }
+    return {
+      ngModule: AjfChartModule
+    };
+  }
+ }
