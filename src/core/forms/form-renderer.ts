@@ -1048,6 +1048,8 @@ export class AjfFormRendererService {
         }
         return vmap;
       });
+    } else {
+      fieldInstance.valid = true;
     }
 
     if (fieldInstance.visibility != null) {
