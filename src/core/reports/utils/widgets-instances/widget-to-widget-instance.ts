@@ -117,15 +117,16 @@ export function widgetToWidgetInstance(
       const plugins = cw.options.plugins;
       const pluginNames = Object.keys(plugins);
       pluginNames.forEach((pluginName) => {
-        const pluginOptions = Object.keys(plugins[pluginName]);
-        pluginOptions.forEach((pluginOptionLabel: string) => {
-          const pluginOption = plugins[pluginName][pluginOptionLabel];
+        const plugin = plugins[pluginName];
+        const pluginOptions = Object.keys(plugin);
+        pluginOptions.forEach((pluginOptionName: string) => {
+          const pluginOption = plugin[pluginOptionName];
           if (
             typeof pluginOption !== 'string' &&
             pluginOption != null &&
-            pluginOption.formula != null) {
-            plugins[pluginName][pluginOption] =
-            evaluateExpression(plugins[pluginName][pluginOption].formula, context);
+            pluginOption.formula != null
+          ) {
+            plugin[pluginOptionName] = evaluateExpression(pluginOption.formula, context);
           }
         });
       });
