@@ -113,6 +113,23 @@ export function widgetToWidgetInstance(
     });
     cwi.data = {labels: cwi.labels, datasets: cwi.datasets};
     cwi.chartType = chartToChartJsType(cw.type || cw.chartType);
+    if (cw.options != null && cw.options.plugins != null) {
+      const plugins = cw.options.plugins;
+      const pluginNames = Object.keys(plugins);
+      pluginNames.forEach((pluginName) => {
+        const pluginOptions = Object.keys(plugins[pluginName]);
+        pluginOptions.forEach((pluginOptionLabel: string) => {
+          const pluginOption = plugins[pluginName][pluginOptionLabel];
+          if (
+            typeof pluginOption !== 'string' &&
+            pluginOption != null &&
+            pluginOption.formula != null) {
+            plugins[pluginName][pluginOption] =
+            evaluateExpression(plugins[pluginName][pluginOption].formula, context);
+          }
+        });
+      });
+    }
   } else if (widget.widgetType === AjfWidgetType.Table) {
     const tw = widget as AjfTableWidget;
     const twi = wi as AjfTableWidgetInstance;
