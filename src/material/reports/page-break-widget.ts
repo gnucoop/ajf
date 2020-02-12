@@ -26,7 +26,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
 import {AjfBaseWidgetComponent} from '@ajf/core/reports';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'page-break-widget.html',
   styleUrls: ['page-break-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

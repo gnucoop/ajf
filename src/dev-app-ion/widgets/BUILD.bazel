@@ -1,0 +1,21 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+ng_module(
+    name = "widgets",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "widgets-demo.html",
+        ":widgets_demo_scss",
+    ],
+    deps = [
+        "//src/ionic/reports",
+        "@npm//@angular/router",
+    ],
+)
+
+sass_binary(
+    name = "widgets_demo_scss",
+    src = "widgets-demo.scss",
+)

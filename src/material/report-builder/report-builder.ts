@@ -29,7 +29,6 @@ import {AjfReport} from '@ajf/core/reports';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder',
   templateUrl: 'report-builder.html',
   styleUrls: ['report-builder.css'],

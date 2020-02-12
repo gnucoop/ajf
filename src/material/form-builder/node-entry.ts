@@ -45,7 +45,6 @@ const branchColors: string [] = [
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-node-entry',
   templateUrl: 'node-entry.html',
   styleUrls: ['node-entry.css'],

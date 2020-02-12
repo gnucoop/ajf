@@ -20,7 +20,7 @@
  *
  */
 
-import {coerceBooleanProperty} from '@ajf/core/utils';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 

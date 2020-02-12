@@ -37,11 +37,11 @@ export abstract class AjfImage implements OnDestroy, OnInit {
    * if 2 take image by class
    *
    */
-  set type(type: AjfImageType) {
+  set type(type: AjfImageType|null) {
     this._imageType.next(type);
   }
 
-  set imageUrl(imageUrl: string) {
+  set imageUrl(imageUrl: string|null) {
     imageUrl = typeof imageUrl === 'string' ? imageUrl : '';
     this._url.next(
       imageUrl.startsWith('data:image/svg+xml;base64,')
@@ -50,11 +50,11 @@ export abstract class AjfImage implements OnDestroy, OnInit {
     );
   }
 
-  set icon(icon: AjfImageIcon) {
+  set icon(icon: AjfImageIcon|null) {
     this._iconObj.next(icon);
   }
 
-  set flag(flag: string) {
+  set flag(flag: string|null) {
     this._flagName.next(flag);
   }
 

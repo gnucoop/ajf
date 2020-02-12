@@ -27,7 +27,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {testReport} from './report';
 
 @Component({
-  moduleId: module.id,
   selector: 'reports-demo',
   templateUrl: 'reports-demo.html',
   styleUrls: ['reports-demo.css'],

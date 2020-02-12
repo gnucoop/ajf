@@ -38,7 +38,6 @@ import {AjfReportBuilderThemeColorDialog} from './theme-color-dialog';
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-theme-color',
   templateUrl: 'theme-color.html',
   styleUrls: ['theme-color.css'],

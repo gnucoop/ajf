@@ -28,7 +28,6 @@ import {AjfReportRenderer as AjfCoreReportRenderer} from '@ajf/core/reports';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report',
   templateUrl: 'report.html',
   styleUrls: ['report.css'],

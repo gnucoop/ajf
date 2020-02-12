@@ -126,4 +126,5 @@
 # Misc
 /*                                                 @trik
 /.github/**                                        @trik
+/.vscode/**                                        @trik
 /src/*                                             @trik

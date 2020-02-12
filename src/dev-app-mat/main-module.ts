@@ -20,7 +20,6 @@
  *
  */
 
-import {AjfFormsModule} from '@ajf/material/forms';
 import {Directionality} from '@angular/cdk/bidi';
 import {FullscreenOverlayContainer, OverlayContainer} from '@angular/cdk/overlay';
 import {HttpClientModule} from '@angular/common/http';
@@ -35,7 +34,6 @@ import {DEV_APP_ROUTES} from './dev-app/routes';
 
 @NgModule({
   imports: [
-    AjfFormsModule.forRoot(),
     BrowserAnimationsModule,
     BrowserModule,
     DevAppModule,

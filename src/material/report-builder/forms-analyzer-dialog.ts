@@ -47,7 +47,6 @@ export enum AjfDataType {
 declare var monaco: any;
 
 @Component({
-  moduleId: module.id,
   selector: 'forms-analyzer-dialog',
   templateUrl: 'forms-analyzer-dialog.html',
   styleUrls: ['forms-analyzer-dialog.css'],
@@ -109,8 +108,6 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   @Input()
   reference: any;
 
-  @ViewChild('formulaTextArea', {static: true}) formulaTextArea: any;
-  @ViewChild('errorMessage', {static: true}) errorMessage: any;
   @ViewChild(AjfMonacoEditor, {static: false}) monacoEditor: AjfMonacoEditor;
 
   private _formAnalyzerSub: Subscription = Subscription.EMPTY;
@@ -333,12 +330,6 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
       this.formulaText,
       this.mainIndex,
       this.index);
-  }
-
-  hideErrorMessage(): void {
-    if (this.errorMessage == null) {
-      return;
-    }
   }
 
   insertVariable(variable: string): void {

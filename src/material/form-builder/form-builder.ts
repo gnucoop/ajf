@@ -38,7 +38,6 @@ import {
 import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-form-builder',
   templateUrl: 'form-builder.html',
   styleUrls: ['form-builder.css'],

@@ -27,7 +27,6 @@ import {
 import {AjfBaseWidgetComponent, AjfMapWidgetInstance} from '@ajf/core/reports';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'map-widget.html',
   styleUrls: ['map-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

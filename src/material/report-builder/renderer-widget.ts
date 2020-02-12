@@ -37,7 +37,6 @@ import {AjfReportBuilderDragData} from './report-builder-drag-data';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-renderer-widget',
   templateUrl: 'renderer-widget.html',
   styleUrls: ['renderer-widget.css'],
@@ -86,11 +85,11 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   ) { }
 
   canDropPredicate(item: CdkDrag<AjfReportBuilderDragData>): boolean {
-    item.data.dropZones.forEach(d => {
-      if (['header', 'widget'].indexOf(d) > -1) {
+    for (let i = 0 ; i < item.data.dropZones.length ; i++) {
+      if (['header', 'widget'].indexOf(item.data.dropZones[i]) > -1) {
         return true;
       }
-    });
+    }
     return false;
   }
 
@@ -269,6 +268,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
         }
         return tableContent;
       }
+      return [];
     }));
 
     this._service.updateCurrentWidget(this.widget);

@@ -25,7 +25,6 @@ import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@an
 import {ajfReportBuilderWidgetToString} from './utils';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-widget-toolbar-button',
   inputs: ['widgetType'],
   templateUrl: 'widget-toolbar-button.html',

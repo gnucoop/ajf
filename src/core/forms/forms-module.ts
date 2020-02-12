@@ -22,6 +22,8 @@
 
 import {NgModule} from '@angular/core';
 
+import {AjfAsFieldInstancePipe} from './as-field-instance';
+import {AjfAsRepeatingSlideInstancePipe} from './as-repeating-slide-instance';
 import {AjfBoolToIntPipe} from './bool-to-int';
 import {AjfDateValuePipe} from './date-value';
 import {AjfDateValueStringPipe} from './date-value-string';
@@ -41,6 +43,8 @@ import {AjfValidSlidePipe} from './valid-slide';
 
 @NgModule({
   declarations: [
+    AjfAsFieldInstancePipe,
+    AjfAsRepeatingSlideInstancePipe,
     AjfBoolToIntPipe,
     AjfDateValuePipe,
     AjfDateValueStringPipe,
@@ -57,6 +61,8 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfValidSlidePipe,
   ],
   exports: [
+    AjfAsFieldInstancePipe,
+    AjfAsRepeatingSlideInstancePipe,
     AjfBoolToIntPipe,
     AjfDateValuePipe,
     AjfDateValueStringPipe,

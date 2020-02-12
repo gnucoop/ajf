@@ -27,7 +27,6 @@ import {ajfWidgetTypeStringToIcon, ajfWidgetTypeStringToLabel} from './utils';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-custom-widget-toolbar-button',
   inputs: ['widgetType', 'position'],
   templateUrl: 'custom-widget-toolbar-button.html',

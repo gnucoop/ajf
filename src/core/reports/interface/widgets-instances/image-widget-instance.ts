@@ -20,12 +20,14 @@
  *
  */
 
+import {AjfImageIcon} from '@ajf/core/image';
+
 import {AjfImageWidget} from '../widgets/image-widget';
 import {AjfWidgetInstance} from './widget-instance';
 
 export interface AjfImageWidgetInstance extends AjfWidgetInstance {
   widget: AjfImageWidget;
-  icon: string;
+  icon: AjfImageIcon;
   flag: string;
   url: string;
 }

@@ -34,7 +34,6 @@ export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.css'],

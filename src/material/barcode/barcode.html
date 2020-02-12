@@ -11,7 +11,7 @@
     <mat-button-toggle value="drop" (click)="fileInput.click()" [disabled]="readonly">
       <span translate>Upload image</span>
       <mat-icon>add_circle_outline</mat-icon>
-      <input #fileInput type="file" (change)="onSelectFile($event?.target?.files)" multiple style="display:none;" [disabled]="readonly"/>
+      <input #fileInput type="file" (change)="onSelectFile($event)" multiple style="display:none;" [disabled]="readonly"/>
     </mat-button-toggle>
     <mat-button-toggle value="drop" [disabled]="readonly">
       <span translate>Drop image</span>

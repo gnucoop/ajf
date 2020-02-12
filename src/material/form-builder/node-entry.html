@@ -17,10 +17,10 @@
           <ajf-node-icon [node]="realNodeEntry.node"></ajf-node-icon>
           <span class="ajf-title" [innerHTML]="(realNodeEntry.node.label || realNodeEntry.node.name)  | translate"></span>
           <span class="ajf-actions">
-            <button [disabled]="currentEditedNode|async" (click)="edit()" mat-icon-button>
+            <button [disabled]="(currentEditedNode|async) == nodeEntry" (click)="edit()" mat-icon-button>
               <mat-icon>edit</mat-icon>
             </button>
-            <button [disabled]="currentEditedNode|async" (click)="delete()" mat-icon-button>
+            <button [disabled]="(currentEditedNode|async) == null" (click)="delete()" mat-icon-button>
               <mat-icon>delete</mat-icon>
             </button>
           </span>

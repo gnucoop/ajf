@@ -127,11 +127,6 @@ import {AjfReportBuilder} from './report-builder';
   exports: [
     AjfReportBuilder,
   ],
-  entryComponents: [
-    AjfReportBuilderFormsAnalyzerDialog,
-    AjfReportBuilderThemeColorDialog,
-    AjfReportBuilderToolbarDialog,
-  ],
   providers: [
     AjfReportBuilderService,
   ]

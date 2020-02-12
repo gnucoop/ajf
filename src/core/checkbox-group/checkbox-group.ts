@@ -20,12 +20,10 @@
  *
  */
 
+import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {AfterContentInit, Directive, EventEmitter, Input, forwardRef, OnInit,
   Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-
-import {coerceBooleanProperty} from '@ajf/core/utils';
-
 import {combineLatest, BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -185,6 +183,8 @@ export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccess
     this._controlValueAccessorChangeFn(event.value);
     this._change.emit(event);
   }
+
+  static ngAcceptInputType_disabled: BooleanInput;
 }
 
 export class AjfCheckboxGroupItem<T> implements OnInit {

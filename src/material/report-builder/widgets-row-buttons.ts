@@ -30,7 +30,6 @@ import {AjfReportBuilderService} from './report-builder-service';
 import {ajfWidgetTypeToLabel, widgetReportBuilderIconName} from './utils';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-widgets-row-buttons',
   inputs: ['from', 'fromWidget', 'position', 'widget', 'child', 'isOver'],
   templateUrl: 'widgets-row-buttons.html',

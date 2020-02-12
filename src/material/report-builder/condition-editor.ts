@@ -32,7 +32,6 @@ import {sanitizeConditionString} from './utils';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-condition-editor',
   templateUrl: 'condition-editor.html',
   styleUrls: ['condition-editor.css'],
@@ -62,7 +61,6 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
 
 
   @ViewChild('conditionTextArea', {static: false}) conditionTextArea: any;
-  @ViewChild('errorMessage', {static: false}) errorMessage: any;
 
   //  operators is an array of any type that contains all allow operators
   operators: string[] = [
@@ -160,15 +158,6 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
    */
   saveCondition(): void {
     this._service.saveCondition(this.conditionText);
-  }
-
-  /**
-   * this method will hide the error message
-   */
-  hideErrorMessage(): void {
-    if (this.errorMessage == null) {
-      return;
-    }
   }
 
   ngOnInit(): void {

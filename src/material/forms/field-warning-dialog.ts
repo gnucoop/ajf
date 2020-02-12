@@ -24,7 +24,6 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
 
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'field-warning-dialog.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

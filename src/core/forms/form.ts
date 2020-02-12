@@ -21,13 +21,11 @@
  */
 
 import {AjfPageSlider, AjfPageSliderOrientation} from '@ajf/core/page-slider';
-import {coerceBooleanProperty} from '@ajf/core/utils';
-
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {
   AfterViewChecked, AfterViewInit, ChangeDetectorRef, EventEmitter, OnDestroy, QueryList
 } from '@angular/core';
 import {FormGroup} from '@angular/forms';
-
 import {Observable, Subscription} from 'rxjs';
 import {delayWhen, map, withLatestFrom} from 'rxjs/operators';
 
@@ -192,8 +190,8 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   /**
    * this method will add group
    */
-  addGroup(nodeGroup: AjfNodeGroupInstance | AjfRepeatingSlideInstance): void {
-    let s = this._rendererService.addGroup(nodeGroup).pipe(
+  addGroup(nodeGroup: AjfNodeGroupInstance | AjfSlideInstance | AjfRepeatingSlideInstance): void {
+    let s = this._rendererService.addGroup(nodeGroup as AjfNodeGroupInstance).pipe(
       delayWhen(() => this.formSlider.pageScrollFinish),
     ).subscribe(
         (r) => { if (r && this.formSlider != null) { this.formSlider.slide({dir: 'down'}); } },
@@ -205,8 +203,10 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   /**
    * this method will remove group
    */
-  removeGroup(nodeGroup: AjfNodeGroupInstance | AjfRepeatingSlideInstance): void {
-    let s = this._rendererService.removeGroup(nodeGroup).pipe(
+  removeGroup(
+    nodeGroup: AjfNodeGroupInstance | AjfSlideInstance | AjfRepeatingSlideInstance
+  ): void {
+    let s = this._rendererService.removeGroup(nodeGroup as AjfNodeGroupInstance).pipe(
       delayWhen(() => this.formSlider.pageScrollFinish),
     ).subscribe(
         (r) => { if (r && this.formSlider != null) { this.formSlider.slide({dir: 'up'}); } },

@@ -4,7 +4,6 @@ import {AjfDateInputFieldComponent} from '@ajf/ionic/forms';
 import {AfterViewInit, Component, ComponentFactoryResolver, ViewChild} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'date-input-field-e2e',
   templateUrl: 'date-input-field-e2e.html',
 })

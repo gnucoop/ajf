@@ -23,7 +23,6 @@
 import {Component} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'time-demo',
   templateUrl: 'time-demo.html',
   styleUrls: ['time-demo.css'],

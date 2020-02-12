@@ -20,15 +20,13 @@
  *
  */
 
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {animate, AnimationBuilder, style} from '@angular/animations';
 import {
   AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2
 } from '@angular/core';
-
 import {Observable, Subscription} from 'rxjs';
 import {filter, map, scan, throttleTime} from 'rxjs/operators';
-
-import {coerceBooleanProperty} from '@ajf/core/utils';
 
 import {AjfPageSliderItem} from './page-slider-item';
 import {AjfPageSliderSlideOptions} from './page-slider-slide-options';
@@ -174,7 +172,9 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     }
   }
 
-  onMouseWheel(evt: WheelEvent): void {
+  onMouseWheel(event: Event): void {
+    const evt = event as WheelEvent;
+    if (evt.deltaX == null || evt.deltaY == null) { return; }
     const absDeltaX = Math.abs(evt.deltaX);
     const absDeltaY = Math.abs(evt.deltaY);
     if (absDeltaX === 0 && absDeltaY === 0) { return; }

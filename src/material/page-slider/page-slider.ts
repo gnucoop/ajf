@@ -21,6 +21,7 @@
  */
 
 import {AnimationBuilder} from '@angular/animations';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component,
   ContentChildren, Renderer2, ViewChild, ViewEncapsulation
@@ -29,7 +30,6 @@ import {
 import {AjfPageSlider as AjfCorePageSlider, AjfPageSliderItem} from '@ajf/core/page-slider';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-page-slider',
   templateUrl: 'page-slider.html',
   styleUrls: ['page-slider.css'],
@@ -38,7 +38,7 @@ import {AjfPageSlider as AjfCorePageSlider, AjfPageSliderItem} from '@ajf/core/p
   inputs: ['duration', 'currentPage', 'hideNavigationButtons', 'orientation', 'fixedOrientation'],
   outputs: ['pageScrollFinish', 'orientationChange'],
   queries: {
-    pages: new ContentChildren(AjfPageSliderItem),
+    pages: new ContentChildren(AjfPageSliderItem, {descendants: true}),
     body: new ViewChild('body', {static: true})
   },
 })
@@ -46,4 +46,7 @@ export class AjfPageSlider extends AjfCorePageSlider {
   constructor(animationBuilder: AnimationBuilder, cdr: ChangeDetectorRef, renderer: Renderer2) {
     super(animationBuilder, cdr, renderer);
   }
+
+  static ngAcceptInputType_hideNavigationButtons: BooleanInput;
+  static ngAcceptInputType_fixedOrientation: BooleanInput;
 }

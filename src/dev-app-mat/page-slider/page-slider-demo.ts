@@ -23,7 +23,6 @@
 import {Component} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'page-slider-demo',
   templateUrl: 'page-slider-demo.html',
   styleUrls: ['page-slider-demo.css'],

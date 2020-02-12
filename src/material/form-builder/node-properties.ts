@@ -87,7 +87,6 @@ export interface WarningCondition {
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-node-properties',
   templateUrl: 'node-properties.html',
   styleUrls: ['node-properties.css'],
@@ -151,7 +150,9 @@ export class AjfFbNodeProperties implements OnDestroy {
   private _triggerConditions: string[];
   get triggerConditions(): string[] { return this._triggerConditions; }
 
-  isRepeatingContainerNode: (node: AjfNode) => boolean = isRepeatingContainerNode;
+  isRepeatingContainerNode: (nodeEntry: AjfFormBuilderNodeEntry|null) => boolean = (nodeEntry) => {
+    return nodeEntry != null && isRepeatingContainerNode(nodeEntry.node);
+  }
 
   private _visibilitySub: Subscription = Subscription.EMPTY;
   private _conditionalBranchesSub = Subscription.EMPTY;
@@ -325,8 +326,8 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._removeTriggerConditionEvt.emit(idx);
   }
 
-  isField(node: AjfNode): boolean {
-    return isField(node);
+  isField(nodeEntry: AjfFormBuilderNodeEntry|null): boolean {
+    return nodeEntry != null && isField(nodeEntry.node);
   }
 
   isNumericField(node: AjfNode): boolean {
@@ -429,7 +430,7 @@ export class AjfFbNodeProperties implements OnDestroy {
           validators.push(checkRepsValidity);
         }
 
-        if (this.isField(n.node)) {
+        if (this.isField(n)) {
           const field = <AjfField>n.node;
 
           let forceValue: string | null = null;

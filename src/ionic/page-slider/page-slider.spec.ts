@@ -53,7 +53,6 @@ describe('AjfPageSlider', () => {
 });
 
 @Component({
-  moduleId: module.id,
   template: `
     <ajf-page-slider [ngStyle]="{'height': '400px'}">
       <ajf-page-slider-item [ngStyle]="{'height': '300px'}">slide 1</ajf-page-slider-item>

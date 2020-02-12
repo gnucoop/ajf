@@ -22,14 +22,12 @@
 
 import {AjfForm, AjfFormSerializer, AjfFormRendererService} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
-
 import {Component} from '@angular/core';
 
 import {formSchema, formContext} from './form';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'forms-demo',
   templateUrl: 'forms-demo.html',
   styleUrls: ['forms-demo.css'],

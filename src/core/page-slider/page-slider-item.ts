@@ -31,7 +31,6 @@ import {debounceTime} from 'rxjs/operators';
 import {AjfPageSliderItemScrollDirection} from './page-slider-item-scroll-direction';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-page-slider-item',
   templateUrl: 'page-slider-item.html',
   styleUrls: ['page-slider-item.css'],

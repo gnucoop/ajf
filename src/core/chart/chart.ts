@@ -36,7 +36,6 @@ import {ExtendedChartType} from './extended-chart-type';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-chart',
   templateUrl: 'chart.html',
   styleUrls: ['chart.css'],

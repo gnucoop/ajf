@@ -22,6 +22,7 @@
 
 import {AjfDateFieldInstance, AjfDateValueStringPipe, AjfBaseFieldComponent,
     AjfFormRendererService} from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild,
     ViewEncapsulation} from '@angular/core';
 import {MatInput} from '@angular/material/input';
@@ -29,7 +30,6 @@ import {MatInput} from '@angular/material/input';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'date-input-field.html',
   styleUrls: ['date-input-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,4 +64,6 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
     this._minDateStr = this._dvs.transform(this.instance.node.minDate);
     this._maxDateStr = this._dvs.transform(this.instance.node.maxDate);
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

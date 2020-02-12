@@ -29,7 +29,6 @@ import {AjfReportBuilderService} from './report-builder-service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-widgets-toolbar',
   templateUrl: 'widgets-toolbar.html',
   encapsulation: ViewEncapsulation.None,

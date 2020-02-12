@@ -26,6 +26,7 @@ import {
   AjfWidgetType
 } from '@ajf/core/reports';
 import {ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {ThemePalette} from '@angular/material/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
 
@@ -39,7 +40,6 @@ import {AjfReportBuilderService} from './report-builder-service';
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-forms-analyzer',
   templateUrl: 'forms-analyzer.html',
   styleUrls: ['forms-analyzer.css'],
@@ -90,11 +90,11 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
     this.currentMainDataIndex = index;
   }
 
-  isSelected(index: number): string {
+  isSelected(index: number): ThemePalette {
     if (index === this.currentMainDataIndex) {
       return 'primary';
     } else {
-      return '';
+      return undefined;
     }
   }
 

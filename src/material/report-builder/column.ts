@@ -34,7 +34,6 @@ import {AjfReportBuilderService} from './report-builder-service';
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-column',
   templateUrl: 'column.html',
   styleUrls: ['column.css'],

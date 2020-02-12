@@ -31,7 +31,6 @@ import {AjfReportBuilderService} from './report-builder-service';
 import {AjfReportBuilderToolbarDialog} from './toolbar-dialog';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-toolbar',
   outputs: ['addClick'],
   styleUrls: ['toolbar.css'],

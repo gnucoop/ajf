@@ -1,14 +1,12 @@
 // tslint:disable:no-eval
 
 import {dirname, join} from 'path';
-import {lstatSync, readFileSync, writeFileSync} from 'fs';
+import {readFileSync, writeFileSync} from 'fs';
 import {sync as glob} from 'glob';
 
 /** Finds all JavaScript files in a directory and inlines all resources of Angular components. */
 export function inlineResourcesForDirectory(folderPath: string) {
-  glob(join(folderPath, '**/*.js'))
-    .filter(filePath => lstatSync(filePath).isFile())
-    .forEach(filePath => inlineResources(filePath));
+  glob(join(folderPath, '**/*.js')).forEach(filePath => inlineResources(filePath));
 }
 
 /** Inlines the external resources of Angular components of a file. */

@@ -26,7 +26,6 @@ import {AjfNodeIcon as AjfCoreNodeIcon} from '@ajf/core/node-icon';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-node-icon',
   templateUrl: 'node-icon.html',
   styleUrls: ['node-icon.css'],

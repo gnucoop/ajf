@@ -28,7 +28,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {AjfImage as AjfCoreImage} from '@ajf/core/image';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-image',
   templateUrl: 'image.html',
   styleUrls: ['image.css'],

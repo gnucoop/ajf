@@ -22,7 +22,7 @@ const plugin = stylelint.createPlugin(ruleName, (isEnabled, options) => {
     // We use a regular `forEach`, instead of the PostCSS walker utils, because we only care
     // about the top-level nodes.
     root.nodes.forEach(node => {
-      if (node.nodeType === 'rule' || (node.nodeType === 'atrule' && node.name === 'include')) {
+      if (node.type === 'rule' || (node.type === 'atrule' && node.name === 'include')) {
         stylelint.utils.report({
           result,
           ruleName,

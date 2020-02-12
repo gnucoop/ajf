@@ -56,9 +56,6 @@ import {FormsDemo} from './forms-demo';
     CustomSelectMultiple,
     FormsDemo,
   ],
-  entryComponents: [
-    CustomSelectMultiple,
-  ],
 })
 export class FormsDemoModule {
 }

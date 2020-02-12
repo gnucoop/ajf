@@ -34,7 +34,6 @@ declare const monaco: any;
 
 
 @Component({
-  moduleId: module.id,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'ajf-monaco-editor',

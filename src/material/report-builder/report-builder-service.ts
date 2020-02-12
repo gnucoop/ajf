@@ -398,11 +398,15 @@ export class AjfReportBuilderService {
                               return op(color);
                             }, this._defaultColor), share(), startWith(this._defaultColor));
 
-    this._currentWidget =
-        (<Observable<AjfWidgetOperation>>this._currentWidgetUpdate)
-            .pipe(filter(s => s != null), scan((widget: AjfWidget|null, op: AjfWidgetOperation) => {
-                    return op(widget);
-                  }, undefined), publishReplay(1), refCount());
+    this._currentWidget = this._currentWidgetUpdate.pipe(
+      filter(s => s != null),
+      map(s => s!),
+      scan((widget: AjfWidget|null, op: AjfWidgetOperation) => {
+        return op(widget);
+      }, null as unknown as AjfWidget),
+      publishReplay(1),
+      refCount(),
+    );
 
     this._reportForms.pipe(
       filter(f => f.length != 0),
@@ -689,11 +693,11 @@ export class AjfReportBuilderService {
   }
 
   isNumberArray(value: any[]): boolean {
-    value.forEach((v) => {
-      if (!this.isNumber(v)) {
+    for (let i = 0; i < value.length; i++) {
+      if (!this.isNumber(value[i])) {
         return false;
       }
-    });
+    }
     return true;
   }
 

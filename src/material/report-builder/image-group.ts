@@ -47,7 +47,6 @@ import {AjfReportBuilderService} from './report-builder-service';
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-image-group',
   templateUrl: 'image-group.html',
   styleUrls: ['image-group.css'],

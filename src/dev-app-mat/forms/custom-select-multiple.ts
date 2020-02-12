@@ -22,10 +22,10 @@
 
 import {AjfFormRendererService, AJF_SEARCH_ALERT_THRESHOLD} from '@ajf/core/forms';
 import {AjfMultipleChoiceFieldComponent, AjfWarningAlertService} from '@ajf/material/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'custom-select-multiple.html',
   styleUrls: ['custom-select-multiple.css'],
 })
@@ -38,4 +38,6 @@ export class CustomSelectMultiple extends AjfMultipleChoiceFieldComponent<any> {
   ) {
     super(changeDetectorRef, service, warningAlertService, searchThreshold);
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

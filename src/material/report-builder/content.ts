@@ -38,7 +38,6 @@ import {AjfReportBuilderService} from './report-builder-service';
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-content',
   templateUrl: 'content.html',
   styleUrls: ['content.css'],
@@ -64,9 +63,9 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
     dropZones: string[]
   ): (item: CdkDrag<AjfReportBuilderDragData>) => boolean {
     return item => {
-      item.data.dropZones.forEach(d => {
-        if (dropZones.indexOf(d) > -1) { return true; }
-      });
+      for (let i = 0; i < item.data.dropZones.length ; i++) {
+        if (dropZones.indexOf(item.data.dropZones[i]) > -1) { return true; }
+      }
       return false;
     };
   }
@@ -182,7 +181,8 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    *
    * @memberOf AjfReportBuilderContent
    */
-  onDragEnterHandler(array: string, index: number): void {
+  onDragEnterHandler(array: string, index: number|undefined): void {
+    if (index == null) { return; }
     this._service.dragEnter(array, index);
   }
 

@@ -24,7 +24,6 @@ import {ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2,
   ViewEncapsulation} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-branch-line',
   templateUrl: 'branch-line.html',
   styleUrls: ['branch-line.css'],

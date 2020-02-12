@@ -37,7 +37,6 @@ import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-widget',
   templateUrl: 'widget.html',
   styleUrls: ['widget.css'],

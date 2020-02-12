@@ -33,7 +33,6 @@ export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-time',
   templateUrl: 'time.html',
   styleUrls: ['time.css'],

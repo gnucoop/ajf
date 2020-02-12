@@ -20,15 +20,14 @@
  *
  */
 
-import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@angular/core';
-
 import {
   AjfCheckboxGroup, AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem
 } from '@ajf/core/checkbox-group';
+import {BooleanInput} from '@angular/cdk/coercion';
+import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@angular/core';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-checkbox-group-item',
   templateUrl: 'checkbox-group-item.html',
   styleUrls: ['checkbox-group-item.css'],
@@ -58,4 +57,6 @@ export class AjfCheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T> {
     this.checkedIcon = 'checkmark';
     this.notCheckedIcon = 'close';
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

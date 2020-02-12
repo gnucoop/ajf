@@ -23,6 +23,7 @@
 import {
   AjfFieldWithChoicesComponent, AjfFormRendererService, AJF_SEARCH_ALERT_THRESHOLD
 } from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Optional, ViewEncapsulation
 } from '@angular/core';
@@ -30,7 +31,6 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'single-choice-field.html',
   styleUrls: ['single-choice-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,4 +45,6 @@ export class AjfSingleChoiceFieldComponent<T> extends AjfFieldWithChoicesCompone
   ) {
     super(cdr, service, was, searchThreshold);
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

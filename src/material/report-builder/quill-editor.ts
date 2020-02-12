@@ -52,7 +52,6 @@ import {default as Quill} from 'quill';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-quill-editor',
   template: `
     <ng-content select="[ajf-quill-editor-toolbar]"></ng-content>
@@ -238,11 +237,11 @@ export class AjfQuillEditor
   }
 
   check(value: string): string {
-    this.dateFormats.forEach((elem: any) => {
-      if (elem.value == value) {
-        return <string>elem.validator;
+    for (let i = 0 ; i < this.dateFormats.length ; i++) {
+      if (this.dateFormats[i].value == value) {
+        return this.dateFormats[i].validator;
       }
-    });
+    }
     return <string>value;
   }
   /**

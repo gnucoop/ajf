@@ -27,7 +27,6 @@ import {
 import {AjfBaseWidgetComponent, AjfTextWidgetInstance} from '@ajf/core/reports';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'text-widget.html',
   styleUrls: ['text-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

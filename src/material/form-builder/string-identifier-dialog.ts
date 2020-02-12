@@ -33,7 +33,6 @@ import {map, shareReplay} from 'rxjs/operators';
 import {AjfFormBuilderService} from './form-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-string-identifier-dialog',
   templateUrl: 'string-identifier-dialog.html',
   styleUrls: ['./string-identifier-dialog.css'],

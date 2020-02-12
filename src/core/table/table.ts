@@ -28,7 +28,6 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {AjfTableCell} from './table-cell';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-table',
   templateUrl: 'table.html',
   styleUrls: ['table.css'],

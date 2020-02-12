@@ -1,1 +1,1 @@
-<ion-input [type]="type" [formControl]="control|async" [attr.disabled]="readonly"></ion-input>
+<ion-input *ngIf="control|async as ctrl" [type]="type" [formControl]="ctrl!" [attr.disabled]="readonly"></ion-input>

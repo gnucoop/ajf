@@ -20,12 +20,12 @@
  *
  */
 
+import {AjfBarcode} from '@ajf/core/barcode';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Renderer2, ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
-
-import {AjfBarcode} from '@ajf/core/barcode';
 
 export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -37,7 +37,6 @@ export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
  * Ajf barcode component.
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-barcode',
   templateUrl: 'barcode.html',
   styleUrls: ['barcode.css'],
@@ -50,4 +49,6 @@ export class AjfBarcodeComponent extends AjfBarcode {
   constructor(cdr: ChangeDetectorRef, renderer: Renderer2) {
     super(cdr, renderer);
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

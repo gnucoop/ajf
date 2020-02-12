@@ -30,7 +30,6 @@ import {
 declare var monaco: any;
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-condition-editor',
   templateUrl: 'fb-condition-editor.html',
   styleUrls: ['fb-condition-editor.css'],

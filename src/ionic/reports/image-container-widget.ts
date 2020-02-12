@@ -28,7 +28,6 @@ import {AjfImageType} from '@ajf/core/image';
 import {AjfBaseWidgetComponent, AjfImageContainerWidgetInstance} from '@ajf/core/reports';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'image-container-widget.html',
   styleUrls: ['image-container-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

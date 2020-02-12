@@ -1,12 +1,13 @@
 package(default_visibility = ["//visibility:public"])
 
-load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
     "ng_module",
     "ng_test_library",
     "ng_web_test_suite",
+    "sass_binary",
+    "sass_library",
 )
 
 ng_module(
@@ -21,8 +22,15 @@ ng_module(
         "//src/core:css-element-queries-typings",
         "//src/core/utils",
         "@npm//@angular/animations",
+        "@npm//@angular/cdk",
         "@npm//@angular/core",
     ],
+)
+
+sass_library(
+    name = "page_slider_scss_lib",
+    srcs = glob(["**/_*.scss"]),
+    deps = [],
 )
 
 sass_binary(

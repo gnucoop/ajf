@@ -21,7 +21,7 @@
  */
 
 import {
-  AjfAttachmentsOrigin, AjfChoicesOrigin, AjfContainerNode, AjfField, AjfFieldType,
+  AjfAttachmentsOrigin, AjfChoicesOrigin, AjfField, AjfFieldType,
   AjfFieldWithChoices, AjfForm, AjfFormStringIdentifier, AjfNode, AjfNodeGroup, AjfNodesOperation,
   AjfNodeType, AjfRepeatingContainerNode, AjfRepeatingSlide, AjfSlide, createChoicesFixedOrigin,
   createField, createForm, createContainerNode, createValidation, createValidationGroup,

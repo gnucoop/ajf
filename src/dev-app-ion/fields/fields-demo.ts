@@ -25,7 +25,6 @@ import {Component} from '@angular/core';
 import {fields} from './fields';
 
 @Component({
-  moduleId: module.id,
   selector: 'fields-demo',
   templateUrl: 'fields-demo.html',
   styleUrls: ['fields-demo.css'],

@@ -30,7 +30,6 @@
         <ng-container translate>Invalid condition! Please check syntax.</ng-container>
       </ng-template>
       <textarea
-          (focus)="hideErrorMessage()"
           #conditionTextArea
           [(ngModel)]="conditionText"
           (keyup)="checkValidation()">

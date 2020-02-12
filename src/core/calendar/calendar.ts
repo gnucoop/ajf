@@ -24,7 +24,7 @@ import {
   AfterContentInit, ChangeDetectorRef, EventEmitter, OnInit
 } from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
-import {endOfISOWeek, endOfWeek, endOfYear, parse, startOfISOWeek, startOfWeek,
+import {endOfISOWeek, endOfWeek, endOfYear, parseISO as parse, startOfISOWeek, startOfWeek,
   startOfYear} from 'date-fns';
 import {Observable} from 'rxjs';
 
@@ -209,10 +209,10 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
         type: 'week',
         startDate: this._isoMode ?
           startOfISOWeek(entry.date) :
-          startOfWeek(entry.date, {weekStartsOn: this._startOfWeekDay}),
+          startOfWeek(entry.date, {weekStartsOn: this._startOfWeekDay as 0|1|2|3|4|5|6}),
         endDate: this._isoMode ?
           endOfISOWeek(entry.date) :
-          endOfWeek(entry.date, {weekStartsOn: this._startOfWeekDay})
+          endOfWeek(entry.date, {weekStartsOn: this._startOfWeekDay as 0|1|2|3|4|5|6})
       };
     } else if (this._selectionMode == 'month') {
       const monthBounds = this._service.monthBounds(entry.date, this._isoMode);

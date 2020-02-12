@@ -32,7 +32,6 @@ import {formSchema, formContext} from './form';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'forms-demo',
   templateUrl: 'forms-demo.html',
   styleUrls: ['forms-demo.css'],

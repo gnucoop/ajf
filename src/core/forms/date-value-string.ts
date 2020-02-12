@@ -29,6 +29,6 @@ export class AjfDateValueStringPipe implements PipeTransform {
   transform(date: Date|'today'|undefined): string|undefined {
     if (date == null) { return undefined; }
     const dateObj = date === 'today' ? new Date() : date;
-    return format(dateObj, 'YYYY-MM-DD');
+    return format(dateObj, 'yyyy-MM-dd');
   }
 }

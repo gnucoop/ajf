@@ -28,7 +28,6 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-page-break',
   templateUrl: 'page-break.html',
   styleUrls: ['page-break.css'],

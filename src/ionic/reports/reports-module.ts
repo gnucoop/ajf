@@ -76,18 +76,6 @@ import {AjfReportWidget} from './widget';
     AjfReportRenderer,
     AjfReportWidget,
   ],
-  entryComponents: [
-    AjfChartWidgetComponent,
-    AjfColumnWidgetComponent,
-    AjfFormulaWidgetComponent,
-    AjfImageContainerWidgetComponent,
-    AjfImageWidgetComponent,
-    AjfLayoutWidgetComponent,
-    AjfMapWidgetComponent,
-    AjfPageBreakWidgetComponent,
-    AjfTableWidgetComponent,
-    AjfTextWidgetComponent,
-  ],
 })
 export class AjfReportsModule {
 }
