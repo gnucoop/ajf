@@ -20,8 +20,10 @@
  *
  */
 
-import {AjfRepeatingSlideInstance, AjfSlideInstance} from '@ajf/core/forms';
 import {Pipe, PipeTransform} from '@angular/core';
+
+import {AjfRepeatingSlideInstance} from './interface/slides-instances/repeating-slide-instance';
+import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
 
 @Pipe({name: 'ajfAsRepeatingSlideInstance'})
 export class AjfAsRepeatingSlideInstancePipe implements PipeTransform {
