@@ -103,7 +103,7 @@ devmode_js_sources(
 # Target that builds a static web package of the dev-app. The web package can be
 # deployed on static hosting services (such as firebase).
 pkg_web(
-    name = "web_package_ion",
+    name = "web_package",
     srcs = [
         ":dev_app_ion_js_sources",
         ":dev_app_ion_static_files",
