@@ -39,9 +39,6 @@ export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
   providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'readonly',
-  ],
 })
 export class AjfTime extends Base implements ControlValueAccessor, OnDestroy {
   constructor() {

@@ -21,9 +21,8 @@
  */
 
 import {AjfLayoutWidget, AjfWidget, AjfWidgetType} from '@ajf/core/reports';
-import {
-  ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit,
+  ViewEncapsulation} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {AjfReportBuilderService} from './report-builder-service';
@@ -31,22 +30,21 @@ import {ajfWidgetTypeToLabel, widgetReportBuilderIconName} from './utils';
 
 @Component({
   selector: 'ajf-report-builder-widgets-row-buttons',
-  inputs: ['from', 'fromWidget', 'position', 'widget', 'child', 'isOver'],
   templateUrl: 'widgets-row-buttons.html',
   styleUrls: ['widgets-row-buttons.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
-  from: string;
-  fromWidget: AjfWidget;
-  position: number;
-  widget: AjfWidget;
-  child: boolean;
+  @Input() from: string;
+  @Input() fromWidget: AjfWidget;
+  @Input() position: number;
+  @Input() widget: AjfWidget;
+  @Input() child: boolean;
+  @Input() isOver = false;
   currentWidget: AjfWidget|null = null;
   isClicked = false;
   color: string[] = [];
-  isOver = false;
 
   widgetIcon: string;
   widgetLabel: string;

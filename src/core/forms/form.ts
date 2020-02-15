@@ -22,9 +22,8 @@
 
 import {AjfPageSlider, AjfPageSliderOrientation} from '@ajf/core/page-slider';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {
-  AfterViewChecked, AfterViewInit, ChangeDetectorRef, EventEmitter, OnDestroy, QueryList
-} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, Input,
+  OnDestroy, Output, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {delayWhen, map, withLatestFrom} from 'rxjs/operators';
@@ -46,6 +45,7 @@ export class AjfFormActionEvent {
   action: string;
 }
 
+@Directive()
 export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit, OnDestroy {
   // formGroup is an Observable FormGroup type
   readonly formGroup: Observable<FormGroup | null>;
@@ -60,72 +60,72 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   // Formula, Empty, Composed, LENGTH ]
   readonly ajfFieldTypes = AjfFieldType;
 
-  title: string;
+  @Input() title: string;
 
   private _orientationChange: EventEmitter<AjfPageSliderOrientation>
     = new EventEmitter<AjfPageSliderOrientation>();
-  readonly orientationChange: Observable<AjfPageSliderOrientation> =
+  @Output() readonly orientationChange: Observable<AjfPageSliderOrientation> =
     this._orientationChange.asObservable();
 
   private _saveDisabled: boolean = false;
   get saveDisabled(): boolean { return this._saveDisabled; }
-  set saveDisabled(saveDisabled: boolean) {
+  @Input() set saveDisabled(saveDisabled: boolean) {
     this._saveDisabled = coerceBooleanProperty(saveDisabled);
     this._changeDetectorRef.markForCheck();
   }
 
   private _hasStartMessage = false;
   get hasStartMessage(): boolean { return this._hasStartMessage; }
-  set hasStartMessage(hasStartMessage: boolean) {
+  @Input() set hasStartMessage(hasStartMessage: boolean) {
     this._hasStartMessage = coerceBooleanProperty(hasStartMessage);
     this._changeDetectorRef.markForCheck();
   }
 
   private _hasEndMessage = false;
   get hasEndMessage(): boolean { return this._hasEndMessage; }
-  set hasEndMessage(hasEndMessage: boolean) {
+  @Input() set hasEndMessage(hasEndMessage: boolean) {
     this._hasEndMessage = coerceBooleanProperty(hasEndMessage);
     this._changeDetectorRef.markForCheck();
   }
 
   private _hideTopToolbar = false;
   get hideTopToolbar(): boolean { return this._hideTopToolbar; }
-  set hideTopToolbar(hideTopToolbar: boolean) {
+  @Input() set hideTopToolbar(hideTopToolbar: boolean) {
     this._hideTopToolbar = coerceBooleanProperty(hideTopToolbar);
     this._changeDetectorRef.markForCheck();
   }
 
   private _hideBottomToolbar = false;
   get hideBottompToolbar(): boolean { return this._hideBottomToolbar; }
-  set hideBottomToolbar(hideBottomToolbar: boolean) {
+  @Input() set hideBottomToolbar(hideBottomToolbar: boolean) {
     this._hideBottomToolbar = coerceBooleanProperty(hideBottomToolbar);
     this._changeDetectorRef.markForCheck();
   }
 
   private _hideNavigationButtons = false;
   get hideNavigationButtons(): boolean { return this._hideNavigationButtons; }
-  set hideNavigationButtons(hideNavigationButtons: boolean) {
+  @Input() set hideNavigationButtons(hideNavigationButtons: boolean) {
     this._hideNavigationButtons = coerceBooleanProperty(hideNavigationButtons);
     this._changeDetectorRef.markForCheck();
   }
 
   private _fixedOrientation = false;
   get fixedOrientation(): boolean { return this._fixedOrientation; }
-  set fixedOrientation(fixedOrientation: boolean) {
+  @Input() set fixedOrientation(fixedOrientation: boolean) {
     this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
     this._changeDetectorRef.markForCheck();
   }
 
   private _readonly = false;
   get readonly(): boolean { return this._readonly; }
-  set readonly(readonly: boolean) {
+  @Input() set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
     this._changeDetectorRef.markForCheck();
   }
 
   private _orientation: AjfPageSliderOrientation = 'horizontal';
   get orientation(): AjfPageSliderOrientation { return this._orientation; }
-  set orientation(orientation: AjfPageSliderOrientation) {
+  @Input() set orientation(orientation: AjfPageSliderOrientation) {
     if (orientation !== 'horizontal' && orientation !== 'vertical') { return; }
     if (orientation !== this._orientation) {
       this._orientation = orientation;
@@ -134,8 +134,8 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     }
   }
 
-  formSlider: AjfPageSlider;
-  fields: QueryList<AjfFormField>;
+  @ViewChild('formSlider', {static: false}) formSlider: AjfPageSlider;
+  @ViewChildren(AjfFormField) fields: QueryList<AjfFormField>;
 
   private _errorMoveEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -151,9 +151,9 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   private _errorMoveSubscription: Subscription = Subscription.EMPTY;
 
   private _formAction: EventEmitter<AjfFormActionEvent> = new EventEmitter<AjfFormActionEvent>();
-  readonly formAction: Observable<AjfFormActionEvent> = this._formAction.asObservable();
+  @Output() readonly formAction: Observable<AjfFormActionEvent> = this._formAction.asObservable();
 
-  set form(form: AjfForm) {
+  @Input() set form(form: AjfForm) {
     this._form = form;
 
     if (this._init) {

@@ -21,16 +21,18 @@
  */
 
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {ChangeDetectorRef, EventEmitter, Renderer2, OnDestroy} from '@angular/core';
+import {ChangeDetectorRef, Directive, EventEmitter, Input, Renderer2,
+  OnDestroy} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
 import {BrowserBarcodeReader, Result} from '@zxing/library';
 import {Observable, from, of, Subscription} from 'rxjs';
 import {catchError, switchMap, debounceTime} from 'rxjs/operators';
 
+@Directive()
 export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   protected _readonly: boolean;
   get readonly(): boolean { return this._readonly; }
-  set readonly(readonly: boolean) {
+  @Input() set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
     this._cdr.markForCheck();
   }

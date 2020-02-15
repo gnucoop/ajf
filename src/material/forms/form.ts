@@ -20,15 +20,10 @@
  *
  */
 
-import {
-  ChangeDetectorRef, ChangeDetectionStrategy, Component, Input,
-  ViewChild, ViewChildren, ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectorRef, ChangeDetectionStrategy, Component, Input,
+  ViewEncapsulation} from '@angular/core';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
-
-import {AjfFormField} from './field';
-
 
 @Component({
   selector: 'ajf-form',
@@ -36,29 +31,6 @@ import {AjfFormField} from './field';
   styleUrls: ['form.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'hasStartMessage',
-    'hasEndMessage',
-    'readonly',
-    'form',
-    'formSchema',
-    'saveDisabled',
-    'title',
-    'hideTopToolbar',
-    'hideBottomToolbar',
-    'hideNavigationButtons',
-    'orientation',
-    'fixedOrientation',
-  ],
-  outputs: [
-    'formSave',
-    'formAction',
-    'orientationChange',
-  ],
-  queries: {
-    formSlider: new ViewChild('formSlider', {static: false}),
-    fields: new ViewChildren(AjfFormField)
-  }
 })
 export class AjfFormRenderer extends AjfCoreFormRenderer {
   @Input() topBar: boolean = false;

@@ -20,13 +20,11 @@
  *
  */
 
-import {AjfPageSlider as AjfCorePageSlider, AjfPageSliderItem} from '@ajf/core/page-slider';
+import {AjfPageSlider as AjfCorePageSlider} from '@ajf/core/page-slider';
 import {AnimationBuilder} from '@angular/animations';
 import {BooleanInput} from '@angular/cdk/coercion';
-import {
-  AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  ContentChildren, ElementRef, OnDestroy, Renderer2, ViewChild, ViewEncapsulation
-} from '@angular/core';
+import {AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component,
+  ElementRef, OnDestroy, Renderer2, ViewEncapsulation} from '@angular/core';
 import {merge, Subscription} from 'rxjs';
 import {filter, map, startWith, switchMap} from 'rxjs/operators';
 
@@ -36,12 +34,6 @@ import {filter, map, startWith, switchMap} from 'rxjs/operators';
   styleUrls: ['page-slider.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ['duration', 'currentPage', 'hideNavigationButtons', 'orientation', 'fixedOrientation'],
-  outputs: ['pageScrollFinish', 'orientationChange'],
-  queries: {
-    pages: new ContentChildren(AjfPageSliderItem, {descendants: true}),
-    body: new ViewChild('body', {static: true}),
-  },
 })
 export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit, OnDestroy {
   private _scrollSub = Subscription.EMPTY;

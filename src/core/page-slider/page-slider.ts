@@ -22,9 +22,8 @@
 
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {animate, AnimationBuilder, style} from '@angular/animations';
-import {
-  AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2
-} from '@angular/core';
+import {AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, ElementRef, EventEmitter,
+  Input, OnDestroy, Output, QueryList, Renderer2, ViewChild} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {filter, map, scan, throttleTime} from 'rxjs/operators';
 
@@ -52,23 +51,24 @@ interface MousheWheelMove {
   amount: number;
 }
 
+@Directive()
 export class AjfPageSlider implements AfterContentInit, OnDestroy {
-  body: ElementRef;
-  pages: QueryList<AjfPageSliderItem>;
+  @ViewChild('body', {static: true}) body: ElementRef;
+  @ContentChildren(AjfPageSliderItem, {descendants: true}) pages: QueryList<AjfPageSliderItem>;
 
   private _pageScrollFinish: EventEmitter<void> = new EventEmitter<void>();
-  readonly pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
+  @Output() readonly pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
 
   private _orientationChange: EventEmitter<AjfPageSliderOrientation>
     = new EventEmitter<AjfPageSliderOrientation>();
-  readonly orientationChange: Observable<AjfPageSliderOrientation> =
+  @Output() readonly orientationChange: Observable<AjfPageSliderOrientation> =
     this._orientationChange.asObservable();
 
-  duration = 300;
+  @Input() duration = 300;
 
   private _orientation: AjfPageSliderOrientation = 'horizontal';
   get orientation(): AjfPageSliderOrientation { return this._orientation; }
-  set orientation(orientation: AjfPageSliderOrientation) {
+  @Input() set orientation(orientation: AjfPageSliderOrientation) {
     if (this._orientation !== orientation) {
       this._orientation = orientation;
       this._cdr.markForCheck();
@@ -80,14 +80,14 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   private _fixedOrientation = false;
   get fixedOrientation(): boolean { return this._fixedOrientation; }
-  set fixedOrientation(fixedOrientation: boolean) {
+  @Input() set fixedOrientation(fixedOrientation: boolean) {
     this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
     this._cdr.markForCheck();
   }
 
   private _currentPage = -1;
   get currentPage(): number { return this._currentPage; }
-  set currentPage(currentPage: number) {
+  @Input() set currentPage(currentPage: number) {
     if (this.pages == null || currentPage < 0 || currentPage >= this.pages.length) { return; }
     this._currentPage = currentPage;
     this._doSlide();
@@ -95,7 +95,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   private _hideNavigationButtons: boolean;
   get hideNavigationButtons(): boolean { return this._hideNavigationButtons; }
-  set hideNavigationButtons(hnb: boolean) {
+  @Input() set hideNavigationButtons(hnb: boolean) {
     this._hideNavigationButtons = coerceBooleanProperty(hnb);
     this._cdr.markForCheck();
   }

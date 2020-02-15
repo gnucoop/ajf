@@ -22,9 +22,8 @@
 
 import {AjfBarcode} from '@ajf/core/barcode';
 import {BooleanInput} from '@angular/cdk/coercion';
-import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Renderer2, ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Renderer2,
+  ViewEncapsulation} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
@@ -43,7 +42,6 @@ export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [BARCODE_CONTROL_VALUE_ACCESSOR],
-  inputs: ['readonly'],
 })
 export class AjfBarcodeComponent extends AjfBarcode {
   constructor(cdr: ChangeDetectorRef, renderer: Renderer2) {

@@ -37,10 +37,6 @@ import {AjfFieldService} from './field-service';
   styleUrls: ['field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  inputs: ['instance', 'readonly'],
-  queries: {
-    fieldHost: new ViewChild(AjfFieldHost, {static: true}),
-  }
 })
 export class AjfFormField extends CoreFormField {
   readonly componentsMap: AjfFieldComponentsMap;

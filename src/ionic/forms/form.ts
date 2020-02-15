@@ -29,15 +29,10 @@ import {
   Component,
   EventEmitter,
   OnDestroy,
-  ViewChild,
-  ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 import {delayWhen, switchMap} from 'rxjs/operators';
-
-
-import {AjfFormField} from './field';
 
 @Component({
   selector: 'ajf-form',
@@ -45,29 +40,6 @@ import {AjfFormField} from './field';
   styleUrls: ['form.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'hasStartMessage',
-    'hasEndMessage',
-    'readonly',
-    'form',
-    'formSchema',
-    'saveDisabled',
-    'title',
-    'showTopToolbar',
-    'showBottomToolbar',
-    'showNavigationButtons',
-    'orientation',
-    'fixedOrientation',
-  ],
-  outputs: [
-    'formSave',
-    'formAction',
-    'orientationChange',
-  ],
-  queries: {
-    formSlider: new ViewChild('formSlider', {static: false}),
-    fields: new ViewChildren(AjfFormField)
-  }
 })
 /**
  * This class will define an ajf form renderer

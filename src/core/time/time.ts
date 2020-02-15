@@ -20,14 +20,15 @@
  *
  */
 
-import {OnDestroy} from '@angular/core';
+import {Directive, Input, OnDestroy} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
 import {Subscription} from 'rxjs';
 
 import {AjfTimeModel} from './time-model';
 
+@Directive()
 export abstract class AjfTime implements ControlValueAccessor, OnDestroy {
-  readonly: boolean;
+  @Input() readonly: boolean;
 
   get time(): AjfTimeModel {
     return this._value;
