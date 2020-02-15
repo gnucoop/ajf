@@ -72,9 +72,6 @@ export function checkReleasePackage(
     addFailure('No "README.md" file found in package output.');
   }
 
-  checkPackageJsonMigrations(join(packagePath, 'package.json'), currentVersion)
-      .forEach(f => addFailure(f));
-
   // In case there are failures for this package, we want to print those
   // and return a value that implies that there were failures.
   if (failures.size) {
