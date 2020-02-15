@@ -29,8 +29,3 @@ filegroup(
     # which contain a slash are not in the top-level and do not have an overview.
     srcs = ["//src/core/%s:overview" % ep for ep in CORE_ENTRYPOINTS if not "/" in ep],
 )
-
-ts_library(
-    name = "css-element-queries-typings",
-    srcs = [":css-element-queries-typings.d.ts"],
-)

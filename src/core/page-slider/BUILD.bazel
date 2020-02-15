@@ -19,11 +19,11 @@ ng_module(
     assets = [":page-slider-item.css"] + glob(["**/*.html"]),
     module_name = "@ajf/core/page-slider",
     deps = [
-        "//src/core:css-element-queries-typings",
         "//src/core/utils",
         "@npm//@angular/animations",
         "@npm//@angular/cdk",
         "@npm//@angular/core",
+        "@npm//css-element-queries",
     ],
 )
 
