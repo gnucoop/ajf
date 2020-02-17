@@ -28,10 +28,8 @@
     "@gic/angular": "0.0.0-GIC",
     "@ionic/angular": "0.0.0-ION",
     "@ajf/core": "0.0.0-PLACEHOLDER",
-    "flag-icon-css": "^3.4.6"
-  },
-  "dependencies": {
-    "tslib": "^1.9.3"
+    "flag-icon-css": "^3.3.0",
+    "tslib": "0.0.0-TSLIB"
   },
   "schematics": "./schematics/collection.json",
   "ng-update": {

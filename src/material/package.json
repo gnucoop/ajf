@@ -31,10 +31,8 @@
     "@ajf/core": "0.0.0-PLACEHOLDER",
     "flag-icon-css": "^3.4.6",
     "ngx-color-picker": "^9.0.0",
-    "quill": "^1.3.7"
-  },
-  "dependencies": {
-    "tslib": "^1.10.0"
+    "quill": "^1.3.7",
+    "tslib": "0.0.0-TSLIB"
   },
   "schematics": "./schematics/collection.json",
   "ng-update": {
