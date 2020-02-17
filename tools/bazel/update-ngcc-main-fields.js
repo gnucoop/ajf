@@ -22,17 +22,26 @@ const fs = require('fs');
 const MAIN_FIELD_NAME = 'main';
 const NGCC_MAIN_FIELD_NAME = 'main_ivy_ngcc';
 
-shelljs.find('node_modules/@angular/**/package.json').forEach(filePath => {
-  // Do not update `package.json` files for deeply nested node modules (e.g. dependencies of
-  // the `@angular/compiler-cli` package).
-  if (filePath.lastIndexOf('node_modules/') !== 0) {
-    return;
-  }
-  const parsedJson = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  if (parsedJson[NGCC_MAIN_FIELD_NAME] &&
-      parsedJson[MAIN_FIELD_NAME] !== parsedJson[NGCC_MAIN_FIELD_NAME]) {
-    // Update the main field to point to the ngcc main script.
-    parsedJson[MAIN_FIELD_NAME] = parsedJson[NGCC_MAIN_FIELD_NAME];
-    fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, 2));
-  }
+const entries = [
+  'node_modules/@ajf/**/package.json',
+  'node_modules/@angular/**/package.json',
+  'node_modules/@gic/**/package.json',
+  'node_modules/@ionic/**/package.json',
+  'node_modules/ngx-color-picker/**/package.json',
+];
+entries.forEarch(entry => {
+  shelljs.find(entry).forEach(filePath => {
+    // Do not update `package.json` files for deeply nested node modules (e.g. dependencies of
+    // the `@angular/compiler-cli` package).
+    if (filePath.lastIndexOf('node_modules/') !== 0) {
+      return;
+    }
+    const parsedJson = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    if (parsedJson[NGCC_MAIN_FIELD_NAME] &&
+        parsedJson[MAIN_FIELD_NAME] !== parsedJson[NGCC_MAIN_FIELD_NAME]) {
+      // Update the main field to point to the ngcc main script.
+      parsedJson[MAIN_FIELD_NAME] = parsedJson[NGCC_MAIN_FIELD_NAME];
+      fs.writeFileSync(filePath, JSON.stringify(parsedJson, null, 2));
+    }
+  });
 });
