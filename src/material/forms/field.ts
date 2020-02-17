@@ -20,14 +20,10 @@
  *
  */
 
-import {
-  AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField
-} from '@ajf/core/forms';
+import {AjfFieldComponentsMap, AjfFormField as CoreFormField} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
-import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ViewChild,
-  ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver,
+  ViewEncapsulation} from '@angular/core';
 
 import {AjfFieldService} from './field-service';
 
