@@ -29,7 +29,7 @@ const entries = [
   'node_modules/@ionic/**/package.json',
   'node_modules/ngx-color-picker/**/package.json',
 ];
-entries.forEarch(entry => {
+entries.forEach(entry => {
   shelljs.find(entry).forEach(filePath => {
     // Do not update `package.json` files for deeply nested node modules (e.g. dependencies of
     // the `@angular/compiler-cli` package).
