@@ -56,7 +56,7 @@
     "@angular/forms": "^9.0.0",
     "@angular/material": "^9.0.0",
     "@angular/platform-browser": "^9.0.0",
-    "@gic/angular": "^5.0.0-beta.4",
+    "@gic/angular": "^5.0.1",
     "@ionic/angular": "^5.0.0",
     "@ngx-translate/core": "^12.0.0",
     "@webcomponents/custom-elements": "^1.3.2",
@@ -195,11 +195,7 @@
     "vrsource-tslint-rules": "5.1.1"
   },
   "resolutions": {
-    "@ionic/angular": "5.0.0",
-    "@ionic/core": "5.0.0",
     "dgeni-packages/typescript": "3.7.4",
-    "node-sass": "4.13.1",
-    "**/fsevents": "1.2.9",
     "**/graceful-fs": "4.2.2"
   }
 }

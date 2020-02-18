@@ -1086,20 +1086,20 @@
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.5.0.tgz#b9b51a37956ec166debc8784a2fb30b5ffc9e921"
   integrity sha512-8j+vCXTpAkYGcFk86mPZ90V6HMFmn196RIEW9Opi0PN+VrPFC1l/eW0gptM8v7VXaQhECOxws3TN2g+dDaeSYA==
 
-"@gic/angular@^5.0.0-beta.4":
-  version "5.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@gic/angular/-/angular-5.0.0-beta.4.tgz#3d6d5c824da1b2b03d4bd94d3161e97cd087eb03"
-  integrity sha512-d0z5kqS7nTX1QtnIy/fYGZI4gAWLnvq23+e90dyOWZ/nYDh1TeN7yCtsUJQqtixlXh6GKKwnGhhsczuJ7X8nCg==
+"@gic/angular@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@gic/angular/-/angular-5.0.1.tgz#830a196785868fff48d5d18383281fe3159a98c7"
+  integrity sha512-FCPioM7MsNrm8Jr3YU3gfu7LixpVnrex0jCiZcricw+K5o/LF/tVPBA47SNBuy3+sd0Z4xgQRZvmkDMhA1EcZg==
   dependencies:
-    "@gic/core" "5.0.0-beta.4"
+    "@gic/core" "5.0.0"
     tslib "^1.9.3"
 
-"@gic/core@5.0.0-beta.4":
-  version "5.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@gic/core/-/core-5.0.0-beta.4.tgz#8ac6fa3e5755f9eef3464719cb81d7939897ea00"
-  integrity sha512-Zm48QWAzhf1ZInXRvx8xOi9isYRiNh04BO6aPSVKyrRPzeKtH/e6ERDaCltxfFIvejMQ+ieagtAQYgoCvuahBg==
+"@gic/core@5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@gic/core/-/core-5.0.0.tgz#b42a13c4f230588b212137a510e84bbdd2fdbc58"
+  integrity sha512-A0KUmJ+PhzadcBnjpKR+HYg5lRLL220eMkfAgRgNto+RRfL42HVmUUXsmLukhRBqI+hkLkzuIKs6o6M7/VQyeA==
   dependencies:
-    "@ionic/core" "^5.0.0-beta.5"
+    "@ionic/core" "^5.0.0"
     tslib "^1.10.0"
 
 "@google-cloud/paginator@^2.0.0":
@@ -1161,7 +1161,7 @@
     lodash.camelcase "^4.3.0"
     protobufjs "^6.8.6"
 
-"@ionic/angular@5.0.0", "@ionic/angular@^5.0.0":
+"@ionic/angular@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-5.0.0.tgz#198bc0845c096f06e0363e82c234841fdf5dfea2"
   integrity sha512-LUcc3xj/yEminnMC4mRWcOVgXP0LjWS6MKA7GHHChsXHKvg7xhP39z2l88kmplTED3TH6bSD2HF060/jFkXaPg==
@@ -1169,7 +1169,7 @@
     "@ionic/core" "5.0.0"
     tslib "^1.9.3"
 
-"@ionic/core@5.0.0", "@ionic/core@^5.0.0-beta.5":
+"@ionic/core@5.0.0", "@ionic/core@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.0.0.tgz#c872c2658b174c6320761094b781557001f703d3"
   integrity sha512-F+qSeL6Icy34dgpWvXe2ImwtlXrz6KbAthVpy3VSzlbZ5Du8V7xfe4RXXE2TtFsfV1lLOmX1KAgxbYnlMMlYzw==
