@@ -54,7 +54,7 @@ build --config=ivy
 #######################
 # Remote HTTP Caching #
 #######################
-build --remote_http_cache=https://storage.googleapis.com/angular-team-cache
+build --remote_http_cache=https://storage.googleapis.com/ajf-bazel-remote-cache
 build --remote_accept_cached=true
 build --remote_upload_local_results=false
 
