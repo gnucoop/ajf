@@ -45,7 +45,7 @@
     "tslint": "tslint -c tslint.json --project ./tsconfig.json",
     "stylelint": "stylelint \"src/**/*.+(css|scss)\" --config .stylelintrc.json --syntax scss"
   },
-  "version": "9.0.0-rc.3",
+  "version": "9.0.0",
   "dependencies": {
     "@ajf/icons": "^1.0.0",
     "@angular/animations": "^9.0.0",
