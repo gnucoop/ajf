@@ -3,7 +3,7 @@ load("//src/calendars:config.bzl", "CALENDARS_ENTRYPOINTS", "CALENDARS_TESTING_E
 load("//src/core:config.bzl", "CORE_ENTRYPOINTS")
 load("//src/ionic:config.bzl", "IONIC_ENTRYPOINTS", "IONIC_TESTING_ENTRYPOINTS")
 load("//src/material:config.bzl", "MATERIAL_ENTRYPOINTS", "MATERIAL_TESTING_ENTRYPOINTS")
-load("//tools/bazel:expand_template.bzl", "expand_template")
+load("//tools:expand_template.bzl", "expand_template")
 
 """
   Macro that builds a SystemJS configuration for all packages and entry-points

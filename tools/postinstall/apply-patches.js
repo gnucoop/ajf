@@ -40,7 +40,7 @@ searchAndReplace(
 // that tsickle is available for esm5 output re-compilations.
 searchAndReplace(
     '@npm//@bazel/typescript/bin:tsc_wrapped',
-    '@ajf//tools/bazel:tsc_wrapped_with_tsickle',
+    '@ajf//tools:tsc_wrapped_with_tsickle',
     'node_modules/@angular/bazel/src/esm5.bzl');
 
 // Workaround for: https://github.com/angular/angular/issues/32651. We just do not
@@ -76,15 +76,15 @@ searchAndReplace(
   if ((filePath.includes('node_modules/') || !hasFlatModuleBundle) && $1`,
     'node_modules/@angular/compiler-cli/src/transformers/compiler_host.js');
 applyPatch(path.join(__dirname, './flat_module_factory_resolution.patch'));
-searchAndReplace(
-    /(TsCompilerAotCompilerTypeCheckHostAdapter\.prototype\.fromSummaryFileName = function \(fileName, referringLibFileName\) {)/,
-    `$1
-            var ext = /@angular\\/material|@angular\\/cdk|@gic\\/angular|@ionic\\/angular|ngx-color-picker/g;
-            if (ext.test(referringLibFileName)) {
-                fileName = fileName.replace('.ngfactory', '');
-            }`,
-    'node_modules/@angular/compiler-cli/src/transformers/compiler_host.js'
-);
+// searchAndReplace(
+//     /(TsCompilerAotCompilerTypeCheckHostAdapter\.prototype\.fromSummaryFileName = function \(fileName, referringLibFileName\) {)/,
+//     `$1
+//             var ext = /@angular\\/material|@angular\\/cdk|@gic\\/angular|@ionic\\/angular|ngx-color-picker/g;
+//             if (ext.test(referringLibFileName)) {
+//                 fileName = fileName.replace('.ngfactory', '');
+//             }`,
+//     'node_modules/@angular/compiler-cli/src/transformers/compiler_host.js'
+// );
 // The three replacements below ensure that metadata files can be read by NGC and
 // that metadata files are collected as Bazel action inputs.
 searchAndReplace(
