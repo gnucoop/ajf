@@ -9,10 +9,10 @@ pipeline {
   stages {
     stage('Restore cache') {
       steps {
-        sh 'gsutil cp gs://ajf-bazel-build-cache/ajf-node-modules.tar.gz .'
+        sh 'gsutil cp gs://ajf-bazel-remote-cache/ajf-node-modules.tar.gz .'
         sh 'tar xfz ajf-node-modules.tar.gz'
         sh 'rm ajf-node-modules.tar.gz'
-        sh 'gsutil cp gs://ajf-bazel-build-cache/ajf-bazel-repository.tar.gz .'
+        sh 'gsutil cp gs://ajf-bazel-remote-cache/ajf-bazel-repository.tar.gz .'
         sh 'tar xfz ajf-bazel-repository.tar.gz -C /home/jenkins'
         sh 'rm ajf-bazel-repository.tar.gz'
         sh 'cat .jenkins/bazelrc >> .bazelrc'
@@ -65,10 +65,10 @@ pipeline {
     stage('Save cache') {
       steps {
         sh 'tar cfz ajf-node-modules.tar.gz node_modules'
-        sh 'gsutil cp ajf-node-modules.tar.gz gs://ajf-bazel-build-cache/'
+        sh 'gsutil cp ajf-node-modules.tar.gz gs://ajf-bazel-remote-cache/'
         sh 'rm ajf-node-modules.tar.gz'
         sh 'tar cfz ajf-bazel-repository.tar.gz -C /home/jenkins bazel_repository_cache'
-        sh 'gsutil cp ajf-bazel-repository.tar.gz gs://ajf-bazel-build-cache/'
+        sh 'gsutil cp ajf-bazel-repository.tar.gz gs://ajf-bazel-remote-cache/'
         sh 'rm ajf-bazel-repository.tar.gz'
       }
     }
