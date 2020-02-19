@@ -105,13 +105,6 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
   exports: [
     AjfFormBuilder,
   ],
-  entryComponents: [
-    AjfFbChoicesOriginEditorDialog,
-    AjfFbConditionEditorDialog,
-    AjfFbStringIdentifierDialogComponent,
-    AjfFbValidationConditionEditorDialog,
-    AjfFbWarningConditionEditorDialog,
-  ],
   providers: [
     AjfFormBuilderService
   ]

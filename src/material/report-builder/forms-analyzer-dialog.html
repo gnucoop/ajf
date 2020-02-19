@@ -25,7 +25,7 @@
     </div>
     <div class="ajf-menu">
       <form>
-        <mat-select placeholder="Select form" (change)="setCurrentId($event.value)">
+        <mat-select placeholder="Select form" (selectionChange)="setCurrentId($event.value)">
           <ng-template ngFor let-form let-id="index" [ngForOf]="formsVariables">
             <mat-option [value]="id"> {{ id }} </mat-option>
           </ng-template>

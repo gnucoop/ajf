@@ -24,7 +24,6 @@ import {Component} from '@angular/core';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'barcode-demo',
   templateUrl: 'barcode-demo.html',
   styleUrls: ['barcode-demo.css'],

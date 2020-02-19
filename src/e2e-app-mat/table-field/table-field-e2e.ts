@@ -46,7 +46,6 @@ const formSchema: any = {
 };
 
 @Component({
-  moduleId: module.id,
   selector: 'table-field-e2e',
   templateUrl: 'table-field-e2e.html',
 })

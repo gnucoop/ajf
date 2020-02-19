@@ -20,23 +20,16 @@
  *
  */
 
-import {
-  ChangeDetectorRef, ChangeDetectionStrategy, Component, ViewEncapsulation
-} from '@angular/core';
-
 import {AjfReportRenderer as AjfCoreReportRenderer} from '@ajf/core/reports';
-
+import {ChangeDetectorRef, ChangeDetectionStrategy, Component,
+  ViewEncapsulation} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report',
   templateUrl: 'report.html',
   styleUrls: ['report.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'instance'
-  ],
 })
 export class AjfReportRenderer extends AjfCoreReportRenderer {
   constructor(cdr: ChangeDetectorRef) {

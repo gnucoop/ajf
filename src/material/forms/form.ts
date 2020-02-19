@@ -20,52 +20,18 @@
  *
  */
 
-import {
-  ChangeDetectorRef, ChangeDetectionStrategy, Component, Input,
-  ViewChild, ViewChildren, ViewEncapsulation
-} from '@angular/core';
-
+import {ChangeDetectorRef, ChangeDetectionStrategy, Component, Input,
+  ViewEncapsulation} from '@angular/core';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
 
-import {AjfFormField} from './field';
-
-
 @Component({
-  moduleId: module.id,
   selector: 'ajf-form',
   templateUrl: 'form.html',
   styleUrls: ['form.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'hasStartMessage',
-    'hasEndMessage',
-    'readonly',
-    'form',
-    'formSchema',
-    'saveDisabled',
-    'title',
-    'hideTopToolbar',
-    'hideBottomToolbar',
-    'hideNavigationButtons',
-    'orientation',
-    'fixedOrientation',
-  ],
-  outputs: [
-    'formSave',
-    'formAction',
-    'orientationChange',
-  ],
-  queries: {
-    formSlider: new ViewChild('formSlider', {static: false}),
-    fields: new ViewChildren(AjfFormField)
-  }
 })
-/**
- * This class will define an ajf form renderer
- * @implements : AfterViewInit
- * @implements : AfterViewInit
- */
 export class AjfFormRenderer extends AjfCoreFormRenderer {
   @Input() topBar: boolean = false;
 
@@ -79,4 +45,13 @@ export class AjfFormRenderer extends AjfCoreFormRenderer {
   scrollToSlide(slide: any): void {
     this.formSlider.slide({to: slide.position - 1});
   }
+
+  static ngAcceptInputType_fixedOrientation: BooleanInput;
+  static ngAcceptInputType_hasEndMessage: BooleanInput;
+  static ngAcceptInputType_hasStartMessage: BooleanInput;
+  static ngAcceptInputType_hideBottomToolbar: BooleanInput;
+  static ngAcceptInputType_hideNavigationButtons: BooleanInput;
+  static ngAcceptInputType_hideTopToolbar: BooleanInput;
+  static ngAcceptInputType_readonly: BooleanInput;
+  static ngAcceptInputType_saveDisabled: BooleanInput;
 }

@@ -1,6 +1,21 @@
 package(default_visibility = ["//visibility:public"])
 
+load("//src/calendars:config.bzl", "CALENDARS_ENTRYPOINTS", "CALENDARS_TESTING_ENTRYPOINTS")
+load("//src/core:config.bzl", "CORE_ENTRYPOINTS")
+load("//src/ionic:config.bzl", "IONIC_ENTRYPOINTS", "IONIC_TESTING_ENTRYPOINTS")
+load("//src/material:config.bzl", "MATERIAL_ENTRYPOINTS", "MATERIAL_TESTING_ENTRYPOINTS")
 load(":generate-guard-tests.bzl", "generate_test_targets")
 
+golden_files = ["calendars/%s.d.ts" % e for e in CALENDARS_ENTRYPOINTS + CALENDARS_TESTING_ENTRYPOINTS] + \
+               ["core/%s.d.ts" % e for e in CORE_ENTRYPOINTS] + \
+               ["ionic/%s.d.ts" % e for e in IONIC_ENTRYPOINTS + IONIC_TESTING_ENTRYPOINTS] + \
+               ["material/%s.d.ts" % e for e in MATERIAL_ENTRYPOINTS + MATERIAL_TESTING_ENTRYPOINTS] + [
+    # Primary entry-points.
+    "calendars/calendars.d.ts",
+    "core/core.d.ts",
+    "ionic/ionic.d.ts",
+    "material/material.d.ts",
+]
+
 # Generate the API guard test targets for each golden file in the current package.
-generate_test_targets(glob(["**/*.d.ts"]))
+generate_test_targets(golden_files)

@@ -28,7 +28,6 @@ import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-node-type-entry',
   templateUrl: 'node-type-entry.html',
   styleUrls: ['node-type-entry.css'],

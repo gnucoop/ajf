@@ -5,7 +5,8 @@
       [placeholder]="'Warning message' | translate">
   </mat-form-field>
   <ajf-condition-editor
-      [fields]="fields|async"
+      *ngIf="fields|async as curFields"
+      [fields]="curFields!"
       [condition]="condition"></ajf-condition-editor>
 </mat-dialog-content>
 <mat-dialog-actions>

@@ -24,7 +24,6 @@ import {Component} from '@angular/core';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'checkbox-group-demo',
   templateUrl: 'checkbox-group-demo.html',
   styleUrls: ['checkbox-group-demo.css'],

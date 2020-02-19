@@ -20,21 +20,23 @@
  *
  */
 
-import {coerceBooleanProperty} from '@ajf/core/utils';
-import {ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {ChangeDetectorRef, ComponentFactoryResolver, Directive, Input, OnDestroy, OnInit,
+  ViewChild} from '@angular/core';
 import {Subscription} from 'rxjs';
 
+import {AjfBaseFieldComponent} from './base-field';
 import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldHost} from './field-host';
-import {AjfBaseFieldComponent} from '.';
 
+@Directive()
 export abstract class AjfFormField implements OnDestroy, OnInit {
-  fieldHost: AjfFieldHost;
+  @ViewChild(AjfFieldHost, {static: true}) fieldHost: AjfFieldHost;
 
   private _instance: AjfFieldInstance;
   get instance(): AjfFieldInstance { return this._instance; }
-  set instance(instance: AjfFieldInstance) {
+  @Input() set instance(instance: AjfFieldInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
       this._loadComponent();
@@ -43,7 +45,7 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
 
   private _readonly: boolean;
   get readonly(): boolean { return this._readonly; }
-  set readonly(readonly: boolean) {
+  @Input() set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
     if (this._componentInstance != null) {
       this._componentInstance.readonly = this._readonly;

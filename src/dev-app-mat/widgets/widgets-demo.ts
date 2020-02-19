@@ -27,7 +27,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {demoWidgets} from './widgets';
 
 @Component({
-  moduleId: module.id,
   selector: 'widgets-demo',
   templateUrl: 'widgets-demo.html',
   styleUrls: ['widgets-demo.css'],

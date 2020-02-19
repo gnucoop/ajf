@@ -25,7 +25,6 @@ import {Component} from '@angular/core';
 import {AjfImageType} from '@ajf/core/image';
 
 @Component({
-  moduleId: module.id,
   selector: 'image-demo',
   templateUrl: 'image-demo.html',
   styleUrls: ['image-demo.css'],

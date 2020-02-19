@@ -20,19 +20,19 @@
  *
  */
 
-import {ChangeDetectorRef, EventEmitter, Renderer2, OnDestroy} from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {ChangeDetectorRef, Directive, EventEmitter, Input, Renderer2,
+  OnDestroy} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
-import {coerceBooleanProperty} from '@ajf/core/utils';
-
 import {BrowserBarcodeReader, Result} from '@zxing/library';
-
 import {Observable, from, of, Subscription} from 'rxjs';
 import {catchError, switchMap, debounceTime} from 'rxjs/operators';
 
+@Directive()
 export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   protected _readonly: boolean;
   get readonly(): boolean { return this._readonly; }
-  set readonly(readonly: boolean) {
+  @Input() set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
     this._cdr.markForCheck();
   }
@@ -76,6 +76,7 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   get toggle() { return this._toggle; }
   set toggle(val: string) {
     this._toggle = val;
+    this._cdr.markForCheck();
   }
 
   private _onChangeCallback = (_: any) => { };
@@ -126,7 +127,10 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     this.startDetection.emit();
   }
 
-  onSelectFile(files: FileList) {
+  onSelectFile(evt: Event): void {
+    if (evt == null || evt.target == null) { return; }
+    const target = evt.target as HTMLInputElement;
+    const files = target.files;
     if (files != null && files[0]) {
       let reader = new FileReader();
 

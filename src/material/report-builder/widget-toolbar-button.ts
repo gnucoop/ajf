@@ -20,14 +20,12 @@
  *
  */
 
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 
 import {ajfReportBuilderWidgetToString} from './utils';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-widget-toolbar-button',
-  inputs: ['widgetType'],
   templateUrl: 'widget-toolbar-button.html',
   styleUrls: ['widget-toolbar-button.css'],
   encapsulation: ViewEncapsulation.None,
@@ -38,7 +36,7 @@ import {ajfReportBuilderWidgetToString} from './utils';
  * @implements : OnInit
  */
 export class AjfReportBuilderWidgetToolbarButton implements OnInit {
-  widgetType: string;
+  @Input() widgetType: string;
   widgetIcon: string;
 
   constructor() { }

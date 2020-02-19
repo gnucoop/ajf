@@ -20,18 +20,20 @@
  *
  */
 
-import {ComponentFactoryResolver, OnInit, Renderer2} from '@angular/core';
+import {ComponentFactoryResolver, Directive, Input, OnInit, Renderer2,
+  ViewChild} from '@angular/core';
 
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 import {AjfWidgetComponentsMap} from './widget-components-map';
 import {AjfWidgetHost} from './widget-host';
 
+@Directive()
 export abstract class AjfReportWidget implements OnInit {
-  widgetHost: AjfWidgetHost;
+  @ViewChild(AjfWidgetHost, {static: true}) widgetHost: AjfWidgetHost;
 
   private _instance: AjfWidgetInstance;
   get instance(): AjfWidgetInstance { return this._instance; }
-  set instance(instance: AjfWidgetInstance) {
+  @Input() set instance(instance: AjfWidgetInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
       if (this._init) {

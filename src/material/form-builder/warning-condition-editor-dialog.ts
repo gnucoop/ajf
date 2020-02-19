@@ -33,7 +33,6 @@ import {AjfFormBuilderService} from './form-builder-service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-warning-condition-editor-dialog',
   templateUrl: 'warning-condition-editor-dialog.html',
   styleUrls: ['warning-condition-editor-dialog.css'],
@@ -41,7 +40,7 @@ import {AjfFormBuilderService} from './form-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfFbWarningConditionEditorDialog {
-  @ViewChild(AjfFbConditionEditor, {static: true}) editor: AjfFbConditionEditor;
+  @ViewChild(AjfFbConditionEditor, {static: false}) editor: AjfFbConditionEditor;
 
   private _fields: Observable<AjfField[]>;
   get fields(): Observable<AjfField[]> { return this._fields; }

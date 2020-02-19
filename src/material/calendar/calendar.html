@@ -15,8 +15,8 @@
       *ngFor="let entry of row"
       mat-raised-button
       [class.ajf-calendar-partial-selection]="entry.selected == 'partial'"
-      [disabled]="disabled || entry.disabled"
-      [color]="entry.selected != 'none' ? 'warn' : null"
+      [disabled]="disabled || (entry.disabled || false)"
+      [color]="entry.selected != 'none' ? 'warn' : undefined"
       (click)="selectEntry(entry)"
   >{{ entry|ajfCalendarEntryLabel }}</button>
 </div>

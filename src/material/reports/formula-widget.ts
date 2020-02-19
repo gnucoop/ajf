@@ -26,7 +26,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
 import {AjfBaseWidgetComponent, AjfFormulaWidgetInstance} from '@ajf/core/reports';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'formula-widget.html',
   styleUrls: ['formula-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

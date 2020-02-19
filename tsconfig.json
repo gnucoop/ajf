@@ -19,6 +19,7 @@
     "types": ["jasmine"],
     "baseUrl": ".",
     "paths": {
+      "@ajf/calendars/*": ["./src/calendars/*"],
       "@ajf/core": ["./src/core"],
       "@ajf/core/*": ["./src/core/*"],
       "@ajf/ionic/*": ["./src/ionic/*"],

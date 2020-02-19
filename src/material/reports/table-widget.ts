@@ -26,7 +26,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
 import {AjfBaseWidgetComponent, AjfTableWidgetInstance} from '@ajf/core/reports';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'table-widget.html',
   styleUrls: ['table-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

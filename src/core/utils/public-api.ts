@@ -20,6 +20,5 @@
  *
  */
 
-export * from './coerce-boolean-property';
 export * from './deep-copy';
 export * from './sized-enum-to-string-array';

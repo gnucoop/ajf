@@ -30,7 +30,6 @@ import {AjfFormBuilderService} from './form-builder-service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-choices-origin-editor-dialog',
   templateUrl: 'choices-origin-editor-dialog.html',
   styleUrls: ['choices-origin-editor-dialog.css'],
@@ -38,7 +37,7 @@ import {AjfFormBuilderService} from './form-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfFbChoicesOriginEditorDialog {
-  @ViewChild(AjfFbChoicesOriginEditor, {static: true}) editor: AjfFbChoicesOriginEditor;
+  @ViewChild(AjfFbChoicesOriginEditor, {static: false}) editor: AjfFbChoicesOriginEditor;
 
   private _choicesOrigin: Observable<AjfChoicesOrigin<any>>;
   get choicesOrigin(): Observable<AjfChoicesOrigin<any>> {

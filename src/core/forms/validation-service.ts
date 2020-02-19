@@ -73,7 +73,7 @@ export class AjfValidationService {
       */
     var sum = function(array) {return array.reduce(function(a, b){ return a + b; }, 0); }`,
     `var dateOperations = function(dString, period, operation, v) {
-        fmt = 'MM/DD/YYYY';
+        fmt = 'mm/dd/yyyy';
         var d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
         if (operation == 'remove') {
           v = -v;
@@ -207,7 +207,7 @@ export class AjfValidationService {
               case "WW":
                 prefix = "W";
                 break;
-              case "MM":
+              case "mm":
                 prefix = "M";
                 break;
               default:
@@ -343,11 +343,11 @@ export class AjfValidationService {
         return numeral(num).format(fmt);
       }`,
     `var formatDate = function(date, fmt) {
-        fmt = fmt || 'MM-DD-YYYY';
+        fmt = fmt || 'mm-dd-yyyy';
         return dateUtils.format(date, fmt);
       }`,
     `var isoMonth = function(date, fmt) {
-        fmt = fmt || 'MM';
+        fmt = fmt || 'mm';
         var du = dateUtils;
         return du.format(du.addDays(du.startOfMonth(date), 4),fmt)
       }`,

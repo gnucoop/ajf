@@ -20,8 +20,8 @@
  *
  */
 
-import {AjfReportWidget as CoreComponent, AjfWidgetHost, AjfWidgetType} from '@ajf/core/reports';
-import {ChangeDetectionStrategy, ComponentFactoryResolver, Component, Renderer2, ViewChild,
+import {AjfReportWidget as CoreComponent, AjfWidgetType} from '@ajf/core/reports';
+import {ChangeDetectionStrategy, ComponentFactoryResolver, Component, Renderer2,
   ViewEncapsulation} from '@angular/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
@@ -36,16 +36,11 @@ import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-widget',
   templateUrl: 'widget.html',
   styleUrls: ['widget.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ['instance'],
-  queries: {
-    widgetHost: new ViewChild(AjfWidgetHost, {static: true}),
-  },
 })
 export class AjfReportWidget extends CoreComponent {
   constructor(cfr: ComponentFactoryResolver, renderer: Renderer2) {

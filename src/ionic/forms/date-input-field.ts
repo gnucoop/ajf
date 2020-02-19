@@ -22,21 +22,22 @@
 
 import {AjfDateFieldInstance, AjfDateValueStringPipe, AjfBaseFieldComponent,
     AjfFormRendererService} from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild,
     ViewEncapsulation} from '@angular/core';
 import {IonInput} from '@ionic/angular';
+import {InputChangeEventDetail} from '@ionic/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'date-input-field.html',
   styleUrls: ['date-input-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFieldInstance> {
-  @ViewChild(IonInput, {static: true}) input: IonInput;
+  @ViewChild(IonInput, {static: false}) input: IonInput;
 
   private _minDateStr: string | undefined;
   private _maxDateStr: string | undefined;
@@ -47,8 +48,9 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
     super(cdr, service, was);
   }
 
-  onChange(evt: {detail: {value: string}}): void {
-    if (this.input == null) { return; }
+  onChange(event: Event): void {
+    const evt = event as CustomEvent<InputChangeEventDetail>;
+    if (this.input == null || evt.detail == null) { return; }
     const val = evt.detail.value || '';
     if (val.length > 0) {
       if (
@@ -64,4 +66,6 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
     this._minDateStr = this._dvs.transform(this.instance.node.minDate);
     this._maxDateStr = this._dvs.transform(this.instance.node.maxDate);
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

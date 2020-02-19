@@ -29,7 +29,6 @@ import {delay, map, startWith} from 'rxjs/operators';
 import {testReport} from './report';
 
 @Component({
-  moduleId: module.id,
   selector: 'report-builder-demo',
   templateUrl: 'report-builder-demo.html',
   styleUrls: ['report-builder-demo.css'],

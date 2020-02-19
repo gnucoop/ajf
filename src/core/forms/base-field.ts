@@ -20,7 +20,7 @@
  *
  */
 
-import {coerceBooleanProperty} from '@ajf/core/utils';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ChangeDetectorRef, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
@@ -50,8 +50,8 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     this._changeDetectorRef.markForCheck();
   }
 
-  private _control: Observable<AbstractControl | null>;
-  get control(): Observable<AbstractControl | null> { return this._control; }
+  private _control: Observable<FormControl | null>;
+  get control(): Observable<FormControl | null> { return this._control; }
 
   private _warningTriggerSub: Subscription = Subscription.EMPTY;
   private _instanceUpdateSub: Subscription = Subscription.EMPTY;
@@ -62,7 +62,7 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     private _warningAlertService: AjfWarningAlertService,
   ) {
     this._control = defer(() => this._service.getControl(this.instance).pipe(
-      map(ctrl => ctrl || new FormControl()),
+      map(ctrl => ctrl as FormControl || new FormControl()),
     ));
   }
 

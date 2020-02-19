@@ -53,7 +53,9 @@ import {AjfFormField} from './field';
 import {AjfFieldService} from './field-service';
 import {AjfFieldWarningDialog} from './field-warning-dialog';
 import {AjfFormRenderer} from './form';
+import {AjfGetTableCellControlPipe} from './get-table-cell-control';
 import {AjfInputFieldComponent} from './input-field';
+import {AjfIsCellEditablePipe} from './is-cell-editable';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
@@ -89,9 +91,23 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfDateFieldComponent,
     AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
-    AjfFormField,
     AjfFieldWarningDialog,
+    AjfFormField,
     AjfFormRenderer,
+    AjfGetTableCellControlPipe,
+    AjfInputFieldComponent,
+    AjfIsCellEditablePipe,
+    AjfMultipleChoiceFieldComponent,
+    AjfSingleChoiceFieldComponent,
+    AjfTableFieldComponent,
+    AjfTimeFieldComponent
+  ],
+  entryComponents: [
+    AjfBarcodeFieldComponent,
+    AjfBooleanFieldComponent,
+    AjfDateFieldComponent,
+    AjfDateInputFieldComponent,
+    AjfEmptyFieldComponent,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
@@ -101,19 +117,6 @@ import {AjfWarningAlertService} from './warning-alert-service';
   exports: [
     AjfFormField,
     AjfFormRenderer
-  ],
-  entryComponents: [
-    AjfBarcodeFieldComponent,
-    AjfBooleanFieldComponent,
-    AjfDateFieldComponent,
-    AjfDateInputFieldComponent,
-    AjfEmptyFieldComponent,
-    AjfFieldWarningDialog,
-    AjfInputFieldComponent,
-    AjfMultipleChoiceFieldComponent,
-    AjfSingleChoiceFieldComponent,
-    AjfTableFieldComponent,
-    AjfTimeFieldComponent
   ],
   providers: [
     AjfFieldService,

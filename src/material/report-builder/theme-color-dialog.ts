@@ -31,7 +31,6 @@ import {Subscription} from 'rxjs';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'theme-color-dialog',
   templateUrl: 'theme-color-dialog.html',
   encapsulation: ViewEncapsulation.None,

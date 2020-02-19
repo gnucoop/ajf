@@ -22,20 +22,21 @@
 
 import {AjfBaseFieldComponent, AjfFormulaFieldInstance,
   AjfFormRendererService} from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, ViewChild,
   ViewEncapsulation} from '@angular/core';
 import {IonInput} from '@ionic/angular';
+import {InputChangeEventDetail} from '@ionic/core';
 import {Observable, Subscription} from 'rxjs';
 import {filter, map, startWith, switchMap} from 'rxjs/operators';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-moduleId: module.id,
-templateUrl: 'formula-field.html',
-styleUrls: ['formula-field.css'],
-changeDetection: ChangeDetectionStrategy.OnPush,
-encapsulation: ViewEncapsulation.None,
+  templateUrl: 'formula-field.html',
+  styleUrls: ['formula-field.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFieldInstance>
     implements OnDestroy {
@@ -77,7 +78,11 @@ export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFi
     this._onChangeSub.unsubscribe();
   }
 
-  onChange(evt: {detail: {value: any}}): void {
+  onChange(event: Event): void {
+    const evt = event as CustomEvent<InputChangeEventDetail>;
+    if (evt.detail == null) { return; }
     this._onChangeEvt.emit(evt.detail.value);
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

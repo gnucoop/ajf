@@ -20,24 +20,19 @@
  *
  */
 
-import {AjfFieldComponentsMap, AjfFieldHost, AjfFormField as CoreFormField} from '@ajf/core/forms';
-
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ViewChild,
+import {AjfFieldComponentsMap, AjfFormField as CoreFormField} from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver,
     ViewEncapsulation} from '@angular/core';
 
 import {AjfFieldService} from './field-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-field,ajf-form-field',
   templateUrl: 'field.html',
   styleUrls: ['field.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ['instance', 'readonly'],
-  queries: {
-    fieldHost: new ViewChild(AjfFieldHost, {static: true}),
-  },
 })
 export class AjfFormField extends CoreFormField {
   readonly componentsMap: AjfFieldComponentsMap;
@@ -47,4 +42,6 @@ export class AjfFormField extends CoreFormField {
     super(cdr, cfr);
     this.componentsMap = fieldService.componentsMap;
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

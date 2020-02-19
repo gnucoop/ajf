@@ -30,7 +30,6 @@ import {formSchema} from './form';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'form-builder-demo',
   templateUrl: 'form-builder-demo.html',
   styleUrls: ['form-builder-demo.css'],

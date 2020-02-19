@@ -45,7 +45,6 @@ export interface CustomWidgets {
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-custom-widgets-toolbar',
   styleUrls: ['custom-widgets-toolbar.css'],
   templateUrl: 'custom-widgets-toolbar.html',

@@ -26,7 +26,6 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'custom-widget-dialog',
   templateUrl: 'custom-widget-dialog.html',
   encapsulation: ViewEncapsulation.None,

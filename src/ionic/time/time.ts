@@ -33,16 +33,12 @@ export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-time',
   templateUrl: 'time.html',
   styleUrls: ['time.css'],
   providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'readonly',
-  ],
 })
 export class AjfTime extends Base implements ControlValueAccessor, OnDestroy {
   constructor() {

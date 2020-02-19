@@ -28,11 +28,12 @@ import {AjfTableFieldInstance} from './interface/fields-instances/table-field-in
 export class AjfTableVisibleColumnsPipe implements PipeTransform {
   transform(instance: AjfTableFieldInstance): (string|number|FormControl)[][] {
     if (!instance.node.editable) {
+      const val = instance.value || [];
       return instance.hideEmptyRows
-        ? (instance.value || []).filter(col => col[1].reduce((prev: boolean, cur) => {
+        ? val.filter(col => col[1].reduce((prev: boolean, cur) => {
           return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
         }, false)).map(v => [v[0], ...v[1]])
-        : instance.value.map(v => [v[0], ...v[1]]);
+        : val.map(v => [v[0], ...v[1]]);
     }
     return (instance.controls || []).map(v => [v[0], ...v[1]]);
   }

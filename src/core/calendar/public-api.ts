@@ -20,6 +20,7 @@
  *
  */
 
+export * from './calendar-entry-label';
 export * from './calendar-entry-selected-state';
 export * from './calendar-entry-type';
 export * from './calendar-entry';

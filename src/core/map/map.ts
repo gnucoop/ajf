@@ -33,7 +33,6 @@ const leafletLib = (L as any).default || L;
 import {AjfMapContainerDirective} from './map-container-directive';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-map',
   templateUrl: 'map.html',
   styleUrls: ['map.css'],

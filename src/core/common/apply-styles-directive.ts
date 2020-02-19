@@ -27,8 +27,8 @@ import {Input, Directive, ElementRef, Renderer2} from '@angular/core';
 export class ApplyStylesDirective {
   private _cssStyles: { [style: string]: any; };
   @Input()
-  set applyStyles(cssStyles: { [style: string]: any; }) {
-    if (this._cssStyles !== cssStyles) {
+  set applyStyles(cssStyles: { [style: string]: any; }|null) {
+    if (cssStyles != null && this._cssStyles !== cssStyles) {
       this._cssStyles = cssStyles;
       this._updateStyles();
     }

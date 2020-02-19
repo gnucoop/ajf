@@ -6,6 +6,7 @@ load(
     "ng_module",
     "ng_test_library",
     "ng_web_test_suite",
+    "sass_library",
 )
 
 ng_module(
@@ -18,10 +19,17 @@ ng_module(
     module_name = "@ajf/core/barcode",
     deps = [
         "//src/core/utils",
+        "@npm//@angular/cdk",
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@zxing/library",
     ],
+)
+
+sass_library(
+    name = "barcode_scss_lib",
+    srcs = glob(["**/_*.scss"]),
+    deps = [],
 )
 
 ng_test_library(

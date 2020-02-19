@@ -20,15 +20,16 @@
  *
  */
 
-import {ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectorRef, Directive, Input} from '@angular/core';
 
 import {AjfReportInstance} from './interface/reports-instances/report-instance';
 import {AjfReport} from './interface/reports/report';
 
+@Directive()
 export abstract class AjfReportRenderer {
   private _instance: AjfReportInstance;
   get instance(): AjfReportInstance { return this._instance; }
-  set instance(instance: AjfReportInstance) {
+  @Input() set instance(instance: AjfReportInstance) {
     this._instance = instance;
     this._report = instance != null ? instance.report : null;
     this._cdr.markForCheck();

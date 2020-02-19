@@ -20,17 +20,13 @@
  *
  */
 
+import {AjfNodeIcon as AjfCoreNodeIcon} from '@ajf/core/node-icon';
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 
-import {AjfNodeIcon as AjfCoreNodeIcon} from '@ajf/core/node-icon';
-
-
 @Component({
-  moduleId: module.id,
   selector: 'ajf-node-icon',
   templateUrl: 'node-icon.html',
   styleUrls: ['node-icon.css'],
-  inputs: ['node'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

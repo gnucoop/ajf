@@ -6,7 +6,7 @@
 </div>
 <ng-container *ngIf="nodeEntry|async as ne">
   <ng-container *ngIf="propertiesForm|async as pf">
-    <form [formGroup]="pf" novalidate>
+    <form [formGroup]="pf!" novalidate>
       <div class="ajf-prop">
         <mat-form-field>
           <input matInput formControlName="name" [placeholder]="'Name' | translate">
@@ -28,8 +28,8 @@
           </mat-select>
         </mat-form-field>
         <button (click)="editVisibility()"
-            [disabled]="pf.value['visibilityOpt'] != 'condition'"
-            mat-raised-button [matTooltip]="curVisibility">
+            [disabled]="pf!.value.visibilityOpt != 'condition'"
+            mat-raised-button [matTooltip]="curVisibility || ''">
           <div class="ajf-icon-cont">
             <mat-icon>edit</mat-icon>
             <span>{{ curVisibility }}</span>
@@ -51,11 +51,11 @@
           </button>
         </div>
       </div>
-      <ng-template [ngIf]="isRepeatingContainerNode((ne)?.node)">
+      <ng-template [ngIf]="isRepeatingContainerNode(ne)">
         <div class="ajf-prop">
           <div><label translate>Repetitions</label></div>
           <div>
-            <button (click)="editFormulaReps()" mat-raised-button [matTooltip]="curFormulaReps">
+            <button (click)="editFormulaReps()" mat-raised-button [matTooltip]="curFormulaReps || ''">
               <div class="ajf-icon-cont">
                 <mat-icon>edit</mat-icon>
                 <span>{{ curFormulaReps }}</span>
@@ -74,7 +74,7 @@
           </div>
         </div>
       </ng-template>
-      <ng-template [ngIf]="isField((ne)?.node)">
+      <ng-template [ngIf]="isField(ne)">
         <div class="ajf-prop">
           <mat-form-field>
             <mat-label translate>Field size</mat-label>
@@ -102,7 +102,7 @@
         <div class="ajf-prop">
           <div><label translate>Formula</label></div>
           <div>
-            <button (click)="editFormula()" mat-raised-button [matTooltip]="curFormula">
+            <button (click)="editFormula()" mat-raised-button [matTooltip]="curFormula || ''">
               <div class="ajf-icon-cont">
                 <mat-icon>edit</mat-icon>
                 <span>{{ curFormula }}</span>
@@ -124,7 +124,7 @@
         <div class="ajf-prop">
           <mat-checkbox formControlName="notEmpty" translate>Not empty</mat-checkbox>
         </div>
-        <ng-template [ngIf]="isNumericField((ne)?.node)">
+        <ng-template [ngIf]="isNumericField(ne!.node)">
           <div class="ajf-prop">
             <mat-form-field>
               <input matInput formControlName="minValue"
@@ -200,7 +200,7 @@
             </button>
           </div>
         </div>
-        <ng-template [ngIf]="isFieldWithChoices((ne)?.node)">
+        <ng-template [ngIf]="isFieldWithChoices(ne!.node)">
           <div class="ajf-prop">
             <mat-form-field>
               <mat-label translate>Choices origins</mat-label>

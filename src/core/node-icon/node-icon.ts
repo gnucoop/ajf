@@ -21,8 +21,9 @@
  */
 
 import {AjfField, AjfFieldType, AjfNode, AjfNodeType} from '@ajf/core/forms';
+import {Directive, Input} from '@angular/core';
 
-
+@Directive()
 export abstract class AjfNodeIcon {
   private _fontSet: string;
   get fontSet(): string { return this._fontSet; }
@@ -32,7 +33,7 @@ export abstract class AjfNodeIcon {
 
   private _node: AjfNode;
   get node(): AjfNode { return this._node; }
-  set node(node: AjfNode) {
+  @Input() set node(node: AjfNode) {
     this._node = node;
     this._fontSet = 'ajf-icon';
     this._fontIcon = this._getFontIcon(node);

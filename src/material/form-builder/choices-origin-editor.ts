@@ -27,7 +27,6 @@ import {ChoicesOriginChoiceEntry, ChoicesOriginDataSource} from './choices-origi
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-choices-origin-editor',
   templateUrl: 'choices-origin-editor.html',
   styleUrls: ['choices-origin-editor.css'],

@@ -9,6 +9,6 @@
     <div>
         <ng-content></ng-content>
     </div>
-    <ion-icon item-right [name]="icon|async"></ion-icon>
+    <ion-icon *ngIf="icon|async as ic" item-right [name]="ic!"></ion-icon>
   </div>
 </ion-button>

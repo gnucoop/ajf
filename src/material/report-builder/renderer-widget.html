@@ -50,9 +50,9 @@
   </div>
   <div *ngSwitchCase="widgetTypes.Chart" class="ajf-row" [applyStyles]="widget.styles">
   </div>
-  <div *ngSwitchCase="widgetTypes.Table" class="ajf-row" [applyStyles]="widget.styles">
-    <ajf-table [data]="(getTableContent|async)" ></ajf-table>
-  </div>
+  <!-- <div *ngSwitchCase="widgetTypes.Table" class="ajf-row" [applyStyles]="widget.styles">
+    <ajf-table *ngIf="getTableContent|async as tc" [data]="tc!" ></ajf-table>
+  </div> -->
   <div *ngSwitchCase="widgetTypes.Map" class="ajf-row" [applyStyles]="widget.styles">
     <ajf-map [coordinate]="getCoordinate()" [tileLayer]="getTileLayer()" [attribution]="getAttribution()">
     </ajf-map>

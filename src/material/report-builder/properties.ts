@@ -38,7 +38,6 @@ import {AjfFormVariables} from './models';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-properties',
   templateUrl: 'properties.html',
   styleUrls: ['properties.css'],
@@ -666,7 +665,8 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
    *
    * @memberOf AjfReportBuilderProperties
    */
-  instantColumnValue(col: number, idx: number) {
+  instantColumnValue(col: number|null, idx: number) {
+    if (col === null) { return; }
     this._service.instantColumnValue(col, idx);
   }
 
@@ -847,7 +847,8 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     this._service.setChartType(type);
   }
 
-  setChartBorderColor(value: number) {
+  setChartBorderColor(value: number|null) {
+    if (value == null) { return; }
     this._service.setChartBorderWidth(value);
   }
 
@@ -972,6 +973,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
               return value;
             }
           }
+          return undefined;
         }),
         distinctUntilChanged());
 
@@ -980,6 +982,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
           if (myObj != null) {
             return (this.toNumber(myObj.styles['font-size']) || 12);
           }
+          return undefined;
         }),
         distinctUntilChanged());
 
@@ -988,6 +991,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
           if (myObj != null) {
             return ((myObj.styles['text-align']) || 'center');
           }
+          return undefined;
         }),
         distinctUntilChanged());
 
@@ -996,6 +1000,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
           if (myObj != null) {
             return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-width']));
           }
+          return undefined;
         }),
         distinctUntilChanged(), startWith([0, 0, 0, 0]));
     this.getBorderWidthWidgetTop = this.getBorderWidthWidget.pipe(
@@ -1020,6 +1025,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
           if (myObj != null) {
             return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-radius']));
           }
+          return undefined;
         }),
         distinctUntilChanged(), startWith([0, 0, 0, 0]));
     this.getBorderRadiusWidgetTopLeft = this.getBorderRadiusWidget.pipe(
@@ -1044,6 +1050,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
           if (myObj != null && myObj.styles != null && myObj.styles['margin'] != null) {
             return this.fillPxNumberArray(this.toNumberArray(myObj.styles['margin']));
           }
+          return undefined;
         }),
         distinctUntilChanged(), startWith([0, 0, 0, 0]));
     this.getMarginWidgetTop = this.getMarginWidget.pipe(
@@ -1068,6 +1075,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
           if (myObj != null && myObj.styles != null && myObj.styles['padding'] != null) {
             return this.fillPxNumberArray(this.toNumberArray(myObj.styles['padding']));
           }
+          return undefined;
         }),
         distinctUntilChanged());
     this.getPaddingWidgetTop = this.getPaddingWidget.pipe(

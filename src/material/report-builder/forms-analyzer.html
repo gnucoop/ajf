@@ -33,7 +33,7 @@
         <mat-grid-list rowHeight="50px" cols="4">
           <ng-template ngFor let-label [ngForOf]="getDataset()" let-idx="index">
               <mat-grid-tile>
-                <button mat-button color="{{isSelected(idx)}}"(click)="setCurrentIndex(idx)">
+                <button mat-button [color]="isSelected(idx)"(click)="setCurrentIndex(idx)">
                   {{ label }}
                 </button>
               </mat-grid-tile>
@@ -83,7 +83,7 @@
           <mat-grid-list rowHeight="50px" cols="4">
             <ng-template ngFor let-label [ngForOf]="getTableHeader()" let-idx="index">
               <mat-grid-tile>
-                <button mat-button color="{{isSelected(idx)}}"(click)="setCurrentIndex(idx)">
+                <button mat-button [color]="isSelected(idx)"(click)="setCurrentIndex(idx)">
                   {{ label }}
                 </button>
               </mat-grid-tile>

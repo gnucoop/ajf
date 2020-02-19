@@ -28,7 +28,7 @@ import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
 import {timer} from 'rxjs';
-import {first} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 
 import {AjfFormRenderer, AjfFormsModule} from './public-api';
 
@@ -85,12 +85,12 @@ describe('AjfFormRenderer', () => {
     cmp.form = form;
 
     let nodesTree: AjfSlideInstance[] = [];
-    service.nodesTree.pipe(first()).subscribe(r => nodesTree = r);
+    service.nodesTree.pipe(take(1)).subscribe(r => nodesTree = r);
 
     fixture.detectChanges();
     await fixture.whenRenderingDone();
 
-    const formGroup = (await cmp.formGroup.pipe(first()).toPromise())!;
+    const formGroup = (await cmp.formGroup.pipe(take(1)).toPromise())!;
     expect(formGroup).toBeDefined();
     expect(nodesTree[0].valid).toBeFalsy();
 
@@ -98,7 +98,7 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    await timer(500).pipe(first()).toPromise();
+    await timer(500).pipe(take(1)).toPromise();
 
     expect(nodesTree[0].valid).toBeTruthy();
   });
@@ -181,9 +181,9 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    await timer(500).pipe(first()).toPromise();
+    await timer(500).pipe(take(1)).toPromise();
 
-    const formGroup = (await cmp.formGroup.pipe(first()).toPromise())!;
+    const formGroup = (await cmp.formGroup.pipe(take(1)).toPromise())!;
     const ctx = service.getFormValue();
 
     expect(formGroup).toBeDefined();

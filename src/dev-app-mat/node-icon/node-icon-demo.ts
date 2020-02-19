@@ -30,7 +30,6 @@ const baseField = {
 };
 
 @Component({
-  moduleId: module.id,
   selector: 'node-icon-demo',
   templateUrl: 'node-icon-demo.html',
   styleUrls: ['node-icon-demo.css'],

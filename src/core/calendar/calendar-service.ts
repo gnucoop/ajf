@@ -72,7 +72,7 @@ export class AjfCalendarService {
         };
       case 'month':
         return {
-          header: format(viewDate, 'MMM YYYY'),
+          header: format(viewDate, 'MMM yyyy'),
           headerRow: this._monthHeaderRow(params),
           rows: this._monthCalendarRows(params),
         };
@@ -189,7 +189,7 @@ export class AjfCalendarService {
     }
     let weekDayNames: string[] = [];
     for (let i = 0; i < 7; i++) {
-      weekDayNames.push(format(curDate, 'dddd'));
+      weekDayNames.push(format(curDate, 'EEE'));
       curDate = addDays(curDate, 1);
     }
     return weekDayNames;
@@ -269,7 +269,7 @@ export class AjfCalendarService {
           type: 'day',
           date: date,
           selected: 'none',
-          highlight: format(todayDate, 'YYYY-MM-DD') === format(curDate, 'YYYY-MM-DD'),
+          highlight: format(todayDate, 'yyyy-MM-dd') === format(curDate, 'yyyy-MM-dd'),
           disabled: disabled
         };
         newEntry.selected = this.isEntrySelected(newEntry, selection);

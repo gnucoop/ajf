@@ -402,7 +402,6 @@
               min="0"
               max="100"
               step="1"
-              [value]="getBorderRadiusWidget|async"
               tickInterval="10"
               thumbLabel>
             </mat-slider>
@@ -511,14 +510,14 @@
               (change)="setWidgetStyles('font-size', fontSize)">
           </mat-form-field>
           <mat-select
-              (change)="setWidgetStyles('font-style', $event.value)"
+              (selectionChange)="setWidgetStyles('font-style', $event.value)"
               [placeholder]="'Font style' | translate">
             <mat-option translate value="normal">Normal</mat-option>
             <mat-option translate value="italic">Italic</mat-option>
             <mat-option translate value="oblique">Oblique</mat-option>
           </mat-select>
           <mat-select
-              (change)="setWidgetStyles('text-align', $event.value)"
+              (selectionChange)="setWidgetStyles('text-align', $event.value)"
               [placeholder]="'Align' | translate">
             <mat-option translate value="center">Center</mat-option>
             <mat-option translate value="left">Left</mat-option>
@@ -543,7 +542,7 @@
                   </mat-grid-tile>
                   <mat-grid-tile colspan="9">
                     <mat-slider
-                      style="width:90%"
+                      style="width: 90%;"
                       min="0.1"
                       max="1"
                       step="0.01"
@@ -555,7 +554,7 @@
                     {{percent(col)}}%
                   </mat-grid-tile>
                   <mat-grid-tile colspan="2">
-                    <button style="width:5%" mat-button (click)="fixedColumn(idx)">fixed</button>
+                    <button style="width: 5%;" mat-button (click)="fixedColumn(idx)">fixed</button>
                   </mat-grid-tile>
                 </mat-grid-list>
               </mat-toolbar-row>
@@ -565,7 +564,7 @@
                     {{idx + 1}}
                   </mat-grid-tile>
                   <mat-grid-tile colspan="11">
-                    <button  style="width:90%" mat-button (click)="unfixedColumn(idx)">percent</button>
+                    <button  style="width: 90%;" mat-button (click)="unfixedColumn(idx)">percent</button>
                   </mat-grid-tile>
                 </mat-grid-list>
               </mat-toolbar-row>
@@ -587,19 +586,19 @@
         <input
             mat-input
             [placeholder]="'paste a link' | translate"
-            style="width: 100%"
+            style="width: 100%;"
             [(ngModel)]="imageUrl">
         <button mat-button (click)="setImageUrl()"
             translate>Set image</button>
       </ng-template>
       <ng-template [ngSwitchCase]="3">
-        <div style="width:500px">
+        <div style="width:500px;">
           <ajf-quill-editor
             [(ngModel)]="currentTextWidget.htmlText"
             [modules]="getModule()"
             [maxLength]="200"
             [theme]="bubble"
-            [initHTML]="(getHTML|async)"
+            [initHTML]="(getHTML|async) || ''"
             (formulaClick)="openFormulaDialog($event)">
           </ajf-quill-editor>
         </div>
@@ -707,7 +706,7 @@
               <mat-slider
                 min="1"
                 max="100"
-                style="width:99%"
+                style="width:99%;"
                 step="1"
                 (change)="setChartBorderColor($event.value)"
                 [value]="chartBorderWidth"

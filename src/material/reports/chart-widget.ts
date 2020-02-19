@@ -26,7 +26,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
 import {AjfBaseWidgetComponent, AjfChartWidgetInstance} from '@ajf/core/reports';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'chart-widget.html',
   styleUrls: ['chart-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

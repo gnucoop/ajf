@@ -33,7 +33,6 @@ import {TranslateService} from '@ngx-translate/core';
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-text',
   templateUrl: 'text.html',
   styleUrls: ['text.css'],

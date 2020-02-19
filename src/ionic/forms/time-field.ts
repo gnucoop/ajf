@@ -21,6 +21,7 @@
  */
 
 import {AjfBaseFieldComponent, AjfFormRendererService} from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
 } from '@angular/core';
@@ -28,7 +29,6 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'time-field.html',
   styleUrls: ['time-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -39,4 +39,6 @@ export class AjfTimeFieldComponent extends AjfBaseFieldComponent {
     cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

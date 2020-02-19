@@ -23,6 +23,7 @@
 import {
   AjfBaseFieldComponent, AjfFormRendererService, AjfTableFieldInstance
 } from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
 } from '@angular/core';
@@ -35,7 +36,6 @@ interface ExtFormControl extends FormControl {
 }
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'table-field.html',
   styleUrls: ['table-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,7 +47,7 @@ export class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldI
     super(cdr, service, was);
   }
 
-  goToNextCell(ev: KeyboardEvent, row: number, column: number): void {
+  goToNextCell(ev: Event, row: number, column: number): void {
     const rowLength = this.instance.controls[row][1].length;
     const currentCell = this.instance.controls[row][1][column] as ExtFormControl;
     if (column + 1 >= rowLength) {
@@ -90,4 +90,6 @@ export class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldI
       nextCell.show = true;
     }
   }
+
+  static ngAcceptInputType_readonly: BooleanInput;
 }

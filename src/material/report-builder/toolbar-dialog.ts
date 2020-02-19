@@ -26,7 +26,6 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'toolbar-dialog',
   templateUrl: 'toolbar-dialog.html',
   encapsulation: ViewEncapsulation.None,

@@ -20,6 +20,8 @@
  *
  */
 
+import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -27,48 +29,17 @@ import {
   Component,
   EventEmitter,
   OnDestroy,
-  ViewChild,
-  ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
-
 import {Subscription} from 'rxjs';
 import {delayWhen, switchMap} from 'rxjs/operators';
 
-import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
-
-import {AjfFormField} from './field';
-
 @Component({
-  moduleId: module.id,
   selector: 'ajf-form',
   templateUrl: 'form.html',
   styleUrls: ['form.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'hasStartMessage',
-    'hasEndMessage',
-    'readonly',
-    'form',
-    'formSchema',
-    'saveDisabled',
-    'title',
-    'showTopToolbar',
-    'showBottomToolbar',
-    'showNavigationButtons',
-    'orientation',
-    'fixedOrientation',
-  ],
-  outputs: [
-    'formSave',
-    'formAction',
-    'orientationChange',
-  ],
-  queries: {
-    formSlider: new ViewChild('formSlider', {static: false}),
-    fields: new ViewChildren(AjfFormField)
-  }
 })
 /**
  * This class will define an ajf form renderer
@@ -111,4 +82,13 @@ export class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewIni
       this._changeDetectorRef.markForCheck();
     }
   }
+
+  static ngAcceptInputType_fixedOrientation: BooleanInput;
+  static ngAcceptInputType_hasEndMessage: BooleanInput;
+  static ngAcceptInputType_hasStartMessage: BooleanInput;
+  static ngAcceptInputType_hideBottomToolbar: BooleanInput;
+  static ngAcceptInputType_hideNavigationButtons: BooleanInput;
+  static ngAcceptInputType_hideTopToolbar: BooleanInput;
+  static ngAcceptInputType_saveDisabled: BooleanInput;
+  static ngAcceptInputType_readonly: BooleanInput;
 }

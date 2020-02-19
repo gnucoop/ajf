@@ -20,12 +20,10 @@
  *
  */
 
+import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {AfterContentInit, Directive, EventEmitter, Input, forwardRef, OnInit,
   Output} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
-
-import {coerceBooleanProperty} from '@ajf/core/utils';
-
 import {combineLatest, BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
@@ -185,16 +183,19 @@ export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccess
     this._controlValueAccessorChangeFn(event.value);
     this._change.emit(event);
   }
+
+  static ngAcceptInputType_disabled: BooleanInput;
 }
 
+@Directive()
 export class AjfCheckboxGroupItem<T> implements OnInit {
   /** The unique ID for this button toggle. */
   private _checkboxId: BehaviorSubject<string> = new BehaviorSubject<string>('');
   readonly checkboxId: Observable<string> = this._checkboxId.asObservable();
 
-  set id(id: string) { this._checkboxId.next(id); }
+  @Input() set id(id: string) { this._checkboxId.next(id); }
 
-  name: string;
+  @Input() name: string;
 
   /** The parent button toggle group (exclusive selection). Optional. */
   readonly checkboxGroup: AjfCheckboxGroup<T>;
@@ -203,7 +204,7 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
   private _checkedState: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   readonly checkedState: Observable<boolean> = this._checkedState.asObservable();
   get checked(): boolean { return this._checkedState.getValue(); }
-  set checked(checked: boolean) { this._checkedState.next(checked); }
+  @Input() set checked(checked: boolean) { this._checkedState.next(checked); }
 
   /** Whether or not this button toggle is disabled. */
   private _disabledState: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -212,14 +213,14 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
     const disabled = this._disabledState.getValue();
     return disabled || (this.checkboxGroup != null && this.checkboxGroup.disabled);
   }
-  set disabled(disabled: boolean) {
+  @Input() set disabled(disabled: boolean) {
     this._disabledState.next(disabled != null && disabled !== false);
   }
 
   /** Value assigned to this button toggle. */
   private _value: T;
   get value(): T { return this._value; }
-  set value(value: T) {
+  @Input() set value(value: T) {
     if (this._value !== value) {
       this._value = value;
     }
@@ -227,24 +228,25 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
 
   protected _readonly: boolean;
   get readonly(): boolean { return this._readonly; }
-  set readonly(readonly: boolean) {
+  @Input() set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
   }
 
   private _checkedIconVal: BehaviorSubject<string> = new BehaviorSubject<string>('');
   get checkedIcon(): string { return this._checkedIconVal.getValue(); }
-  set checkedIcon(icon: string) { this._checkedIconVal.next(icon); }
+  @Input() set checkedIcon(icon: string) { this._checkedIconVal.next(icon); }
 
   private _notCheckedIconVal: BehaviorSubject<string> =
       new BehaviorSubject<string>('');
   get notCheckedIcon(): string { return this._notCheckedIconVal.getValue(); }
-  set notCheckedIcon(icon: string) { this._notCheckedIconVal.next(icon); }
+  @Input() set notCheckedIcon(icon: string) { this._notCheckedIconVal.next(icon); }
 
   readonly icon: Observable<string>;
 
   /** Event emitted when the group value changes. */
   private _change: EventEmitter<AjfCheckboxGroupItemChange<T>>
     = new EventEmitter<AjfCheckboxGroupItemChange<T>>();
+  @Output()
   readonly change: Observable<AjfCheckboxGroupItemChange<T>> = this._change.asObservable();
 
   constructor(checkboxGroup?: AjfCheckboxGroup<T>) {

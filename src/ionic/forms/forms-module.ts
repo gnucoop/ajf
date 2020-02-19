@@ -94,10 +94,6 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfTextareaFieldComponent,
     AjfTimeFieldComponent
   ],
-  exports: [
-    AjfFormField,
-    AjfFormRenderer
-  ],
   entryComponents: [
     AjfBarcodeFieldComponent,
     AjfBooleanFieldComponent,
@@ -112,6 +108,10 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfTableFieldComponent,
     AjfTextareaFieldComponent,
     AjfTimeFieldComponent
+  ],
+  exports: [
+    AjfFormField,
+    AjfFormRenderer
   ],
   providers: [
     AjfFieldService,

@@ -20,14 +20,15 @@
  *
  */
 
-import {ElementRef, OnDestroy, OnInit, Renderer2, RendererStyleFlags2} from '@angular/core';
+import {Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2,
+  RendererStyleFlags2} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-
 import {Observable, BehaviorSubject, Subscription} from 'rxjs';
 
 import {AjfImageIcon} from './image-icon';
 import {AjfImageType} from './image-type';
 
+@Directive()
 export abstract class AjfImage implements OnDestroy, OnInit {
   iconComponent: ElementRef;
 
@@ -37,11 +38,11 @@ export abstract class AjfImage implements OnDestroy, OnInit {
    * if 2 take image by class
    *
    */
-  set type(type: AjfImageType) {
+  @Input() set type(type: AjfImageType|null) {
     this._imageType.next(type);
   }
 
-  set imageUrl(imageUrl: string) {
+  @Input() set imageUrl(imageUrl: string|null) {
     imageUrl = typeof imageUrl === 'string' ? imageUrl : '';
     this._url.next(
       imageUrl.startsWith('data:image/svg+xml;base64,')
@@ -50,11 +51,11 @@ export abstract class AjfImage implements OnDestroy, OnInit {
     );
   }
 
-  set icon(icon: AjfImageIcon) {
+  @Input() set icon(icon: AjfImageIcon|null) {
     this._iconObj.next(icon);
   }
 
-  set flag(flag: string) {
+  @Input() set flag(flag: string|null) {
     this._flagName.next(flag);
   }
 

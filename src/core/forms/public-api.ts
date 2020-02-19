@@ -20,10 +20,14 @@
  *
  */
 
+export * from './as-field-instance';
+export * from './as-repeating-slide-instance';
 export * from './base-field';
+export * from './bool-to-int';
 export * from './date-value';
 export * from './date-value-string';
 export * from './errors';
+export * from './expand-input-with-choices';
 export * from './field-icon';
 export * from './field-is-valid';
 export * from './field-utils';
@@ -36,8 +40,11 @@ export * from './form-renderer';
 export * from './form';
 export * from './forms-module';
 export * from './get-type-name';
+export * from './increment';
 export * from './input-field';
+export * from './is-repeating-slide';
 export * from './node-complete-name';
+export * from './range';
 export * from './search-alert-threshold';
 export * from './serializers/attachments-origin-serializer';
 export * from './serializers/choices-origin-serializer';
@@ -47,6 +54,7 @@ export * from './serializers/validation-group-serializer';
 export * from './serializers/warning-group-serializer';
 export * from './table-visible-columns';
 export * from './table-row-class';
+export * from './valid-slide';
 export * from './validation-service';
 export * from './warning-alert-service';
 
