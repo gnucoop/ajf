@@ -45,19 +45,19 @@ THIRD_PARTY_NGCC_BUNDLES = [
 ]
 
 THIRD_PARTY_NO_NGCC_BUNDLES = [
-    "@gic/core/core.umd.js",
-    "@gic/core/core-loader.umd.js",
-    "@ionic/core/core.umd.js",
-    "@ionic/core/core-loader.umd.js",
-    "@zxing/library/zxing-library.umd.js",
-    "chart.js/Chart.umd.js",
-    "chart.piecelabel.js/Chart.PieceLabel.umd.js",
-    "css-element-queries/css-element-queries.umd.js",
-    "date-fns/date-fns.umd.js",
-    "debug/debug.umd.js",
-    "esprima/esprima.umd.js",
-    "leaflet/leaflet.umd.js",
-    "numeral/numeral.umd.js",
+    ("@gic/core", "//tools/third-party-libs:gic-core-bundle.js"),
+    ("@gic/core/loader", "//tools/third-party-libs:gic-core-loader-bundle.js"),
+    ("@ionic/core", "//tools/third-party-libs:ionic-core-bundle.js"),
+    ("@ionic/core/loader", "//tools/third-party-libs:ionic-core-loader-bundle.js"),
+    ("@zxing/library", "//tools/third-party-libs:zxing-library-bundle.js"),
+    ("chart.js", "//tools/third-party-libs:chart.js-bundle.js"),
+    ("chart.piecelabel.js", "//tools/third-party-libs:chart.piecelabel.js-bundle.js"),
+    ("css-element-queries", "//tools/third-party-libs:css-element-queries-bundle.js"),
+    ("date-fns", "//tools/third-party-libs:date-fns-bundle.js"),
+    ("debug", "//tools/third-party-libs:debug-bundle.js"),
+    ("esprima", "//tools/third-party-libs:esprima-bundle.js"),
+    ("leaflet", "//tools/third-party-libs:leaflet-bundle.js"),
+    ("numeral", "//tools/third-party-libs:numeral-bundle.js"),
 ]
 
 """
@@ -77,6 +77,12 @@ def getFrameworkPackageBundles():
 def getThirdPartyPackageBundles():
     res = {}
     for pkgName, bundleName in THIRD_PARTY_NGCC_BUNDLES:
+        res[pkgName] = bundleName
+    return res
+
+def getThirdPartyNoNgccPackageBundles():
+    res = {}
+    for pkgName, bundleName in THIRD_PARTY_NO_NGCC_BUNDLES:
         res[pkgName] = bundleName
     return res
 
@@ -100,15 +106,16 @@ def getThirdPartyUmdFilePaths(packages, ngcc_artifacts):
     ]
 
 def getThirdPartyNoNgccUmdFilePaths(packages):
-    tmpl = "@npm//:node_modules/%s"
+    tmpl = "%s"
     return [
         tmpl % bundleName
-        for bundleName in packages
+        for _, bundleName in packages
     ]
 
 ANGULAR_PACKAGE_BUNDLES = getFrameworkPackageBundles()
 
 THIRD_PARTY_PACKAGE_BUNDLES = getThirdPartyPackageBundles()
+THIRD_PARTY_NO_NGCC_PACKAGE_BUNDLES = getThirdPartyNoNgccPackageBundles()
 
 ANGULAR_LIBRARY_VIEW_ENGINE_UMDS = getUmdFilePaths(ANGULAR_NO_NGCC_BUNDLES, False) + \
                                    getUmdFilePaths(ANGULAR_NGCC_BUNDLES, False) + \
