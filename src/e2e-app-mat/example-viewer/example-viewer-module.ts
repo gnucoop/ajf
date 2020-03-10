@@ -8,14 +8,14 @@
 
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {ExampleModule as ExampleDataModule} from '@ajf/material-examples';
 import {ExampleListViewer} from './example-list-viewer.component';
 import {ExampleViewer} from './example-viewer';
 
 @NgModule({
-  imports: [CommonModule, ExampleDataModule],
+  imports: [CommonModule],
   declarations: [ExampleViewer, ExampleListViewer],
   exports: [ExampleViewer, ExampleListViewer]
 })
 export class ExampleViewerModule {
 }
+ 

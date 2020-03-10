@@ -1,5 +1,8 @@
 require.config({
   paths: {
+    // Support for lazy-loading of component examples.
+    '@ajf/material-examples': 'ajf/src/material-examples',
+
     '@zxing/library': '/@zxing/library/umd/index.min',
     'chart': 'chart.js/Chart.umd',
     'chart.piecelabel': 'chart.piecelabel.js/build/Chart.PieceLabel.min',
