@@ -20,7 +20,8 @@
  *
  */
 
-import {EXAMPLE_COMPONENTS, loadExampleFactory} from '@ajf/ionic-examples';
+import {EXAMPLE_COMPONENTS} from '@ajf/ionic-examples';
+import {loadExampleFactory} from '@ajf/ionic-examples/private';
 import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Component, Injector, Input, OnInit, ViewContainerRef} from '@angular/core';
 

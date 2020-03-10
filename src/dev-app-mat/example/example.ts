@@ -20,7 +20,8 @@
  *
  */
 
-import {EXAMPLE_COMPONENTS, loadExampleFactory} from '@ajf/material-examples';
+import {EXAMPLE_COMPONENTS} from '@ajf/material-examples';
+import {loadExampleFactory} from '@ajf/material-examples/private';
 import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Component, Injector, Input, OnInit, ViewContainerRef} from '@angular/core';
 

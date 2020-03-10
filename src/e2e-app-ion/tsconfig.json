@@ -7,7 +7,7 @@
     "paths": {
       "@ajf/core/*": ["../core/*"],
       "@ajf/ionic/*": ["../ionic/*"],
-      "@ajf/ionic-examples": ["../ionic-examples/"]
+      "@ajf/ionic-examples/*": ["../ionic-examples/*"]
     }
   },
   "include": ["./**/*.ts"]

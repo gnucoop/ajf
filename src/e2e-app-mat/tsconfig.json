@@ -7,7 +7,7 @@
     "paths": {
       "@ajf/core/*": ["../core/*"],
       "@ajf/material/*": ["../material/*"],
-      "@ajf/material-examples": ["../material-examples/"]
+      "@ajf/material-examples/*": ["../material-examples/*"]
     }
   },
   "include": ["./**/*.ts"]
