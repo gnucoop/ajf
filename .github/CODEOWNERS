@@ -89,11 +89,13 @@
 /src/dev-app/mat-widgets/**                        @trik
 
 # E2E app
-/src/e2e-app/mat-*                                 @trik
+/src/e2e-app/*                                     @trik
+/src/e2e-app/e2e-app/*                             @trik
+/src/e2e-app/example-viewer/*                      @trik
+/src/e2e-app/ion-calendar/*                        @trik
+/src/e2e-app/ion-date-input-field/*                @trik
 /src/e2e-app/mat-calendar/*                        @trik
 /src/e2e-app/mat-date-input-field/*                @trik
-/src/e2e-app/mat-e2e-app/**                        @trik
-/src/e2e-app/mat-example-viewer/**                 @trik
 /src/e2e-app/mat-table-field/*                     @trik
 
 # Universal app
