@@ -1,0 +1,22 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+ng_module(
+    name = "mat-calendar-ethiopian",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "calendar-ethiopian-demo.html",
+        ":calendar_ethiopian_demo_scss",
+    ],
+    deps = [
+        "//src/calendars/ethiopian",
+        "//src/material/calendar",
+        "@npm//@angular/router",
+    ],
+)
+
+sass_binary(
+    name = "calendar_ethiopian_demo_scss",
+    src = "calendar-ethiopian-demo.scss",
+)

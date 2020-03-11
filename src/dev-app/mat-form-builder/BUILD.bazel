@@ -1,0 +1,21 @@
+package(default_visibility = ["//visibility:public"])
+
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+ng_module(
+    name = "mat-form-builder",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "form-builder-demo.html",
+        ":form_builder_demo_scss",
+    ],
+    deps = [
+        "//src/material/form-builder",
+        "@npm//@angular/router",
+    ],
+)
+
+sass_binary(
+    name = "form_builder_demo_scss",
+    src = "form-builder-demo.scss",
+)

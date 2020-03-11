@@ -1,7 +1,7 @@
 require.config({
   paths: {
     // Support for lazy-loading of component examples.
-    '@ajf/ionic-examples': 'ajf/src/ionic-examples',
+    '@ajf/ajf-examples': 'ajf/src/ajf-examples',
 
     '@gic/angular': '@gic/angular/angular.umd',
     '@gic/core': '@gic/core/core.umd',

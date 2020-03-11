@@ -5,9 +5,9 @@
     "rootDir": "..",
     "baseUrl": ".",
     "paths": {
+      "@ajf/ajf-examples/*": ["../ajf-examples/*"],
       "@ajf/core/*": ["../core/*"],
-      "@ajf/ionic/*": ["../ionic/*"],
-      "@ajf/ionic-examples/*": ["../ionic-examples/*"]
+      "@ajf/ionic/*": ["../ionic/*"]
     }
   },
   "include": ["./**/*.ts"]

@@ -21,13 +21,12 @@
     "types": ["jasmine"],
     "baseUrl": ".",
     "paths": {
+      "@ajf/ajf-examples": ["./src/packages/ajf-examples"],
       "@ajf/calendars/*": ["./src/calendars/*"],
       "@ajf/core": ["./src/core"],
       "@ajf/core/*": ["./src/core/*"],
       "@ajf/ionic/*": ["./src/ionic/*"],
-      "@ajf/ionic-examples": ["./src/packages/ionic-examples"],
-      "@ajf/material/*": ["./src/material/*"],
-      "@ajf/material-examples": ["./src/packages/material-examples"]
+      "@ajf/material/*": ["./src/material/*"]
     }
   },
   "include": [

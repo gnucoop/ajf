@@ -2,7 +2,7 @@
 # all in-sync. This map is passed to each ng_package rule to stamp out the appropriate
 # version for the placeholders.
 ANGULAR_PACKAGE_VERSION = "^9.0.0 || ^10.0.0"
-ANGULAR_MATERIAL_PACKAGE_VERSION = "^9.0.0-0 || ^10.0.0-0"
+ANGULAR_MATERIAL_PACKAGE_VERSION = "^9.0.0 || ^10.0.0"
 NGXT_PACKAGE_VERSION = "^12.0.0"
 IONIC_PACKAGE_VERSION = "^5.0.0"
 GIC_PACKAGE_VERSION = "^5.0.0"
@@ -45,19 +45,23 @@ THIRD_PARTY_NGCC_BUNDLES = [
 ]
 
 THIRD_PARTY_NO_NGCC_BUNDLES = [
-    ("@gic/core", "//tools/third-party-libs:gic-core-bundle.js"),
-    ("@gic/core/loader", "//tools/third-party-libs:gic-core-loader-bundle.js"),
-    ("@ionic/core", "//tools/third-party-libs:ionic-core-bundle.js"),
-    ("@ionic/core/loader", "//tools/third-party-libs:ionic-core-loader-bundle.js"),
-    ("@zxing/library", "//tools/third-party-libs:zxing-library-bundle.js"),
-    ("chart.js", "//tools/third-party-libs:chart.js-bundle.js"),
-    ("chart.piecelabel.js", "//tools/third-party-libs:chart.piecelabel.js-bundle.js"),
-    ("css-element-queries", "//tools/third-party-libs:css-element-queries-bundle.js"),
-    ("date-fns", "//tools/third-party-libs:date-fns-bundle.js"),
-    ("debug", "//tools/third-party-libs:debug-bundle.js"),
-    ("esprima", "//tools/third-party-libs:esprima-bundle.js"),
-    ("leaflet", "//tools/third-party-libs:leaflet-bundle.js"),
-    ("numeral", "//tools/third-party-libs:numeral-bundle.js"),
+]
+
+THIRD_PARTY_GEN_BUNDLES = [
+    ("@gic/core", "gic-core-bundle.js"),
+    ("@gic/core/loader", "gic-core-loader-bundle.js"),
+    ("@ionic/core", "ionic-core-bundle.js"),
+    ("@ionic/core/loader", "ionic-core-loader-bundle.js"),
+    ("@zxing/library", "zxing-library-bundle.js"),
+    ("chart.js", "chart.js-bundle.js"),
+    ("chart.piecelabel.js", "chart.piecelabel.js-bundle.js"),
+    ("css-element-queries", "css-element-queries-bundle.js"),
+    ("date-fns", "date-fns-bundle.js"),
+    ("debug", "debug-bundle.js"),
+    ("esprima", "esprima-bundle.js"),
+    ("leaflet", "leaflet-bundle.js"),
+    ("numeral", "numeral-bundle.js"),
+    ("quill", "quill-bundle.js"),
 ]
 
 """
@@ -86,6 +90,12 @@ def getThirdPartyNoNgccPackageBundles():
         res[pkgName] = bundleName
     return res
 
+def getThirdPartyGenPackageBundles():
+    res = {}
+    for pkgName, bundleName in THIRD_PARTY_GEN_BUNDLES:
+        res[pkgName] = bundleName
+    return res
+
 """
   Gets a list of labels which resolve to the UMD bundles of the given packages.
 """
@@ -106,7 +116,14 @@ def getThirdPartyUmdFilePaths(packages, ngcc_artifacts):
     ]
 
 def getThirdPartyNoNgccUmdFilePaths(packages):
-    tmpl = "%s"
+    tmpl = "@npm//:node_modules/%s/%s"
+    return [
+        tmpl % (package, bundleName)
+        for package, bundleName in packages
+    ]
+
+def getThirdPartyGenUmdFilePaths(packages):
+    tmpl = "//tools/third-party-libs:%s"
     return [
         tmpl % bundleName
         for _, bundleName in packages
@@ -116,16 +133,19 @@ ANGULAR_PACKAGE_BUNDLES = getFrameworkPackageBundles()
 
 THIRD_PARTY_PACKAGE_BUNDLES = getThirdPartyPackageBundles()
 THIRD_PARTY_NO_NGCC_PACKAGE_BUNDLES = getThirdPartyNoNgccPackageBundles()
+THIRD_PARTY_GEN_PACKAGE_BUNDLES = getThirdPartyGenPackageBundles()
 
 ANGULAR_LIBRARY_VIEW_ENGINE_UMDS = getUmdFilePaths(ANGULAR_NO_NGCC_BUNDLES, False) + \
                                    getUmdFilePaths(ANGULAR_NGCC_BUNDLES, False) + \
                                    getThirdPartyUmdFilePaths(THIRD_PARTY_NGCC_BUNDLES, False) + \
-                                   getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES)
+                                   getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES) + \
+                                   getThirdPartyGenUmdFilePaths(THIRD_PARTY_GEN_BUNDLES)
 
 ANGULAR_LIBRARY_IVY_UMDS = getUmdFilePaths(ANGULAR_NO_NGCC_BUNDLES, False) + \
                            getUmdFilePaths(ANGULAR_NGCC_BUNDLES, True) + \
                            getThirdPartyUmdFilePaths(THIRD_PARTY_NGCC_BUNDLES, True) + \
-                           getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES)
+                           getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES) + \
+                           getThirdPartyGenUmdFilePaths(THIRD_PARTY_GEN_BUNDLES)
 
 """
   Gets the list of targets for the Angular library UMD bundles. Conditionally

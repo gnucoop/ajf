@@ -1,0 +1,32 @@
+{
+  "name": "@ajf/ajf-examples",
+  "version": "0.0.0-PLACEHOLDER",
+  "description": "Ajf Ionic Examples",
+  "main": "./bundles/ajf-examples.umd.js",
+  "module": "./esm5/ajf-examples.es5.js",
+  "es2015": "./esm2015/ajf-examples.js",
+  "typings": "./ajf-examples.d.ts",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnucoop/ajf.git"
+  },
+  "keywords": [
+    "angular",
+    "ionic",
+    "material",
+    "components"
+  ],
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/gnucoop/ajf/issues"
+  },
+  "homepage": "https://github.com/gnucoop/ajf#readme",
+  "peerDependencies": {
+    "@angular/core": "0.0.0-NG",
+    "@angular/common": "0.0.0-NG",
+    "@ajf/core": "0.0.0-PLACEHOLDER",
+    "@ajf/ionic": "0.0.0-PLACEHOLDER",
+    "tslib": "0.0.0-TSLIB"
+  }
+}

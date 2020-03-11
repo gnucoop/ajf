@@ -27,7 +27,7 @@ pipeline {
       steps {
         sh 'yarn -s bazel build //:rollup_globals'
         sh 'yarn -s check-rollup-globals $(yarn -s bazel info bazel-bin)/rollup_globals.json'
-        sh 'bazel build //:entry_points_manifest'
+        sh 'yarn -s bazel build //:entry_points_manifest'
         sh 'yarn check-entry-point-setup $(yarn -s bazel info bazel-bin)/entry_points_manifest.json'
         sh 'yarn -s lint'
       }
@@ -80,8 +80,7 @@ pipeline {
       }
       steps {
         sh './scripts/circleci/publish-snapshots.sh'
-        sh 'node ./scripts/deploy-dev-app.js mat'
-        sh 'node ./scripts/deploy-dev-app.js ion'
+        sh 'node ./scripts/deploy-dev-app.js'
       }
     }
   }
