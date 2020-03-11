@@ -24,7 +24,7 @@ const ionicNativeVersion = packageJson.requiredIonicNativeVersion;
 /** License that will be placed inside of all created bundles. */
 const buildLicense = `/**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
