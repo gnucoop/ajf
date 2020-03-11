@@ -6,6 +6,7 @@ table.ajf-table-field {
   tr {
     td {
       position: relative;
+      min-width: 1em;
 
       span, input {
         cursor: text;

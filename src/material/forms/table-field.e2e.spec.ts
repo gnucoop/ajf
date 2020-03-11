@@ -2,7 +2,7 @@ import {browser, by, element, ExpectedConditions, Key} from 'protractor';
 
 describe('ajf-table-field', () => {
 
-  beforeEach(async () => await browser.get('/table-field'));
+  beforeEach(async () => await browser.get('/mat-table-field'));
 
   it('should show a table field', async () => {
     expect(await element(by.className('ajf-table-field'))).toBeDefined();

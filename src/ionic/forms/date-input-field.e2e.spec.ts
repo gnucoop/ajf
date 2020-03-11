@@ -3,7 +3,7 @@ import {browser, by, element} from 'protractor';
 
 describe('ajf-date-input-field', () => {
 
-  beforeEach(async () => await browser.get('/date-input-field'));
+  beforeEach(async () => await browser.get('/ion-date-input-field'));
 
   it('should show a date input field', async () => {
     expect(element(by.css('input[type=date]'))).toBeDefined();
