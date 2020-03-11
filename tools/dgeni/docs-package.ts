@@ -17,7 +17,7 @@ const nunjucksPackage = require('dgeni-packages/nunjucks');
 const typescriptPackage = require('dgeni-packages/typescript');
 
 /**
- * Dgeni package for the Angular Material docs. This just defines the package, but doesn't
+ * Dgeni package for the Ajf docs. This just defines the package, but doesn't
  * generate the docs yet.
  *
  * Dgeni packages are very similar to AngularJS modules. Those can contain:

@@ -29,7 +29,7 @@ examplesPackagePath="$(bazel info bazel-bin)/src/ajf-examples/npm_package"
 # Git clone URL for the ajf-docs-content repository.
 docsContentRepoUrl="https://github.com/gnucoop/ajf-docs-content"
 
-# Current version of Angular Material from the package.json file
+# Current version of Ajf from the package.json file
 buildVersion=$(node -pe "require('./package.json').version")
 
 # Name of the branch that is currently being deployed.

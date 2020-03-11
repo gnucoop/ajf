@@ -242,7 +242,7 @@ jobs:
 
   # -------------------------------------------------------------------------
   # Job that pre-render's the universal app with `@angular/platform-server`.
-  # This verifies that Angular Material can be rendered within Node.
+  # This verifies that Ajf can be rendered within Node.
   # -------------------------------------------------------------------------
   prerender_build:
     <<: *job_defaults
@@ -426,6 +426,6 @@ workflows:
             branches:
               only:
                 # We only want to run the "master" branch against the snapshot builds because
-                # it's not guaranteed that older versions of Angular Material always work
+                # it's not guaranteed that older versions of Ajf always work
                 # with the latest Angular version.
                 - master

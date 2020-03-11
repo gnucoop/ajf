@@ -9,7 +9,7 @@ const exampleCommentRegex = /<!--\W*example\(([^)]+)\)\W*-->/g;
 
 /**
  * Custom renderer for marked that will be used to transform markdown files to HTML
- * files that can be used in the Angular Material docs.
+ * files that can be used in the Ajf docs.
  */
 export class DocsMarkdownRenderer extends Renderer {
 
