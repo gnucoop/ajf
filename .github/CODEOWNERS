@@ -96,11 +96,8 @@
 /src/e2e-app/mat-example-viewer/**                 @trik
 /src/e2e-app/mat-table-field/*                     @trik
 
-# Universal app material
-/src/universal-app-mat/**                          @trik
-
-# Universal app ionic
-/src/universal-app-ion/**                          @trik
+# Universal app
+/src/universal-app/**                              @trik
 
 # Tooling
 /.circleci/**                                      @trik
