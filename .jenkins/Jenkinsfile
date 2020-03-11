@@ -79,6 +79,7 @@ pipeline {
         }
       }
       steps {
+        sh 'yarn -s bazel build src/ajf-examples:npm_package --config=release'
         sh './scripts/circleci/publish-snapshots.sh'
         sh 'node ./scripts/deploy-dev-app.js'
       }

@@ -24,7 +24,7 @@ docsDistPath="${projectPath}/dist/docs"
 docsContentPath="${projectPath}/tmp/ajf-docs-content"
 
 # Path to the release output of the Bazel "@ajf/ajf-examples" NPM package.
-examplesPackagePath="$(bazel info bazel-bin)/src/ajf-examples/npm_package"
+examplesPackagePath="$(yarn -s bazel info bazel-bin)/src/ajf-examples/npm_package"
 
 # Git clone URL for the ajf-docs-content repository.
 docsContentRepoUrl="https://github.com/gnucoop/ajf-docs-content"
@@ -102,9 +102,9 @@ escapedVersion=$(echo ${buildVersion} | sed 's/[.[\*^$]/\\&/g')
 sed -i "s/${escapedVersion}/${buildVersionName}/g" $(find . -type f -not -path '*\/.*')
 
 # Setup the Git configuration
-git config user.name "$commitAuthorName"
-git config user.email "$commitAuthorEmail"
-git config credential.helper "store --file=.git/credentials"
+# git config user.name "$commitAuthorName"
+# git config user.email "$commitAuthorEmail"
+# git config credential.helper "store --file=.git/credentials"
 
 echo "https://${AJF_BUILDS_TOKEN}:@github.com" > .git/credentials
 
