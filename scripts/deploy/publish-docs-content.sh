@@ -102,8 +102,8 @@ escapedVersion=$(echo ${buildVersion} | sed 's/[.[\*^$]/\\&/g')
 sed -i "s/${escapedVersion}/${buildVersionName}/g" $(find . -type f -not -path '*\/.*')
 
 # Setup the Git configuration
-# git config user.name "$commitAuthorName"
-# git config user.email "$commitAuthorEmail"
+git config user.name "$commitAuthorName"
+git config user.email "$commitAuthorEmail"
 # git config credential.helper "store --file=.git/credentials"
 
 echo "https://${AJF_BUILDS_TOKEN}:@github.com" > .git/credentials
