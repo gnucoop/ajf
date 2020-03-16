@@ -406,9 +406,10 @@ export function formatNumber(num: number, fmt?: string): string {
   return numeralConstructor(num).format(fmt);
 }
 
-export function formatDate(date: Date, fmt?: string): string {
-  fmt = fmt || 'mm-dd-yyyy';
-  return dateUtils.format(date, fmt);
+export function formatDate(date: Date|string, fmt?: string): string {
+  fmt = fmt || 'mm-DD-yyyy';
+  return dateUtils.format(
+    typeof date === 'string' ? dateUtils.parse(date) : date, fmt);
 }
 
 export function isoMonth(date: Date, fmt?: string): string {
