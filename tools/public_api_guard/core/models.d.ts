@@ -84,7 +84,7 @@ export declare function extractDates(source: any[], property: string, fmt: strin
 
 export declare function extractSum(source: any[], properties: string[]): number;
 
-export declare function formatDate(date: Date, fmt?: string): string;
+export declare function formatDate(date: Date | string, fmt?: string): string;
 
 export declare function formatNumber(num: number, fmt?: string): string;
 
