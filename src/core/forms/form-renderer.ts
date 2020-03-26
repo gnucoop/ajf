@@ -25,9 +25,10 @@ import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
 import * as esprima from 'esprima';
-import {BehaviorSubject, Observable, Subject, Subscriber, Subscription, timer} from 'rxjs';
+import {BehaviorSubject, from, Observable, of as obsOf, Subject, Subscriber, Subscription,
+  timer} from 'rxjs';
 import {
-  debounceTime, filter, map, pairwise, publishReplay, refCount, scan, share, startWith,
+  debounceTime, filter, map, pairwise, publishReplay, refCount, scan, share, startWith, switchMap,
   withLatestFrom
 } from 'rxjs/operators';
 
@@ -39,6 +40,7 @@ import {AjfFormulaFieldInstance} from './interface/fields-instances/formula-fiel
 import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
 import {AjfEmptyField} from './interface/fields/empty-field';
 import {AjfFieldType} from './interface/fields/field-type';
+import {AjfTableCell} from './interface/fields/table-field';
 import {AjfForm} from './interface/forms/form';
 import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-instance';
 import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
@@ -54,8 +56,7 @@ import {AjfRendererUpdateMap} from './interface/renderer-maps/update-map';
 import {AjfBaseSlideInstance} from './interface/slides-instances/base-slide-instance';
 import {AjfRepeatingSlideInstance} from './interface/slides-instances/repeating-slide-instance';
 import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
-import {AjfTableCell} from './interface/fields/table-field';
-import {isCustomFieldWithChoices} from './utils/fields/is-custom-field-with-choices';
+import {initChoicesOrigin} from './utils/choices/init-choices-origin';
 import {isFieldWithChoicesInstance} from './utils/fields-instances/is-field-with-choices-instance';
 import {isTableFieldInstance} from './utils/fields-instances/is-table-field-instance';
 import {updateFieldInstanceState} from './utils/fields-instances/update-field-instance-state';
@@ -66,6 +67,7 @@ import {updateTriggerConditions} from './utils/fields-instances/update-trigger-c
 import {updateValidation} from './utils/fields-instances/update-validation';
 import {updateWarning} from './utils/fields-instances/update-warning';
 import {createField} from './utils/fields/create-field';
+import {isCustomFieldWithChoices} from './utils/fields/is-custom-field-with-choices';
 import {isFieldWithChoices} from './utils/fields/is-field-with-choices';
 import {flattenNodesInstances} from './utils/nodes-instances/flatten-nodes-instances';
 import {flattenNodesInstancesTree} from './utils/nodes-instances/flatten-nodes-instances-tree';
@@ -374,36 +376,50 @@ export class AjfFormRendererService {
       }))
       .subscribe(this._formGroup);
     formObs
-        .pipe(map((form) => {
-          return (_nodesInstances: AjfNodeInstance[]): AjfNodeInstance[] => {
-            const nodes = form != null && form.form != null ?
-                this._orderedNodesInstancesTree(
-                    flattenNodes(form.form.nodes), form.form.nodes, undefined, [],
-                    form.context || {}) :
-                [];
-            let currentPosition = 0;
-            nodes.forEach((node) => {
-              if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-                const rsNode = node as AjfRepeatingSlideInstance;
-                for (let i = 0; i < rsNode.reps; i++) {
-                  if (node.visible) {
-                    currentPosition++;
-                    if (i == 0) {
-                      rsNode.position = currentPosition;
+        .pipe(
+          switchMap(form => {
+            if (form == null || form.form == null) {
+              return obsOf(form);
+            }
+            const choicesOrigins = form.form.choicesOrigins || [];
+            if (choicesOrigins.length === 0) {
+              return obsOf(form);
+            }
+            return from(Promise.all(choicesOrigins.map(co => initChoicesOrigin(co)))).pipe(
+              map(() => form),
+            );
+          }),
+          map((form) => {
+            return (_nodesInstances: AjfNodeInstance[]): AjfNodeInstance[] => {
+              const nodes = form != null && form.form != null ?
+                  this._orderedNodesInstancesTree(
+                      flattenNodes(form.form.nodes), form.form.nodes, undefined, [],
+                      form.context || {}) :
+                  [];
+              let currentPosition = 0;
+              nodes.forEach((node) => {
+                if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+                  const rsNode = node as AjfRepeatingSlideInstance;
+                  for (let i = 0; i < rsNode.reps; i++) {
+                    if (node.visible) {
+                      currentPosition++;
+                      if (i == 0) {
+                        rsNode.position = currentPosition;
+                      }
                     }
                   }
+                } else if (node.node.nodeType === AjfNodeType.AjfSlide) {
+                  const sNode = node as AjfSlideInstance;
+                  if (sNode.visible) {
+                    currentPosition++;
+                    sNode.position = currentPosition;
+                  }
                 }
-              } else if (node.node.nodeType === AjfNodeType.AjfSlide) {
-                const sNode = node as AjfSlideInstance;
-                if (sNode.visible) {
-                  currentPosition++;
-                  sNode.position = currentPosition;
-                }
-              }
-            });
-            return nodes;
-          };
-        }))
+              });
+              return nodes;
+            };
+          }),
+        )
         .subscribe(this._nodesUpdates);
   }
 
