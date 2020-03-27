@@ -10,7 +10,7 @@ exports.config = {
     {
       // Runs the axe-core accessibility checks each time the e2e page changes and
       // Angular is ready.
-      path: require.resolve('ajf/tools/axe-protractor'),
+      path: require.resolve('gc_ajf/tools/axe-protractor'),
 
       rules: [
         // Exclude mat-menu elements because those are empty if not active.

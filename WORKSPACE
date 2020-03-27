@@ -1,5 +1,5 @@
 workspace(
-    name = "ajf",
+    name = "gc_ajf",
     managed_directories = {"@npm": ["node_modules"]},
 )
 
