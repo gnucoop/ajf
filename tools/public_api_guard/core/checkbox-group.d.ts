@@ -21,7 +21,7 @@ export declare class AjfCheckboxGroup<T> implements AfterContentInit, ControlVal
     writeValue(value: T[]): void;
     static ngAcceptInputType_disabled: BooleanInput;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfCheckboxGroup<any>, "ajf-checkbox-group,[ajf-checkbox-group]", never, { "value": "value"; "name": "name"; "disabled": "disabled"; }, { "change": "change"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroup<any>>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroup<any>, never>;
 }
 
 export declare class AjfCheckboxGroupChange<T> {
@@ -55,7 +55,7 @@ export declare class AjfCheckboxGroupItem<T> implements OnInit {
     ngOnInit(): void;
     onInputChange(event: Event): void;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfCheckboxGroupItem<any>, never, never, { "id": "id"; "name": "name"; "checked": "checked"; "disabled": "disabled"; "value": "value"; "readonly": "readonly"; "checkedIcon": "checkedIcon"; "notCheckedIcon": "notCheckedIcon"; }, { "change": "change"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroupItem<any>>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroupItem<any>, never>;
 }
 
 export declare class AjfCheckboxGroupItemChange<T> {

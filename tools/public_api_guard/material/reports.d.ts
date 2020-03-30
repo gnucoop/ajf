@@ -1,56 +1,56 @@
 export declare class AjfChartWidgetComponent extends AjfBaseWidgetComponent<AjfChartWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfChartWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfChartWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfChartWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfChartWidgetComponent, never>;
 }
 
 export declare class AjfColumnWidgetComponent extends AjfBaseWidgetComponent<AjfColumnWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfColumnWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfColumnWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfColumnWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfColumnWidgetComponent, never>;
 }
 
 export declare class AjfFormulaWidgetComponent extends AjfBaseWidgetComponent<AjfFormulaWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFormulaWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFormulaWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFormulaWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfFormulaWidgetComponent, never>;
 }
 
 export declare class AjfImageContainerWidgetComponent extends AjfBaseWidgetComponent<AjfImageContainerWidgetInstance> {
     readonly imageTypes: typeof AjfImageType;
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfImageContainerWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfImageContainerWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfImageContainerWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfImageContainerWidgetComponent, never>;
 }
 
 export declare class AjfImageWidgetComponent extends AjfBaseWidgetComponent<AjfImageWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfImageWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfImageWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfImageWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfImageWidgetComponent, never>;
 }
 
 export declare class AjfLayoutWidgetComponent extends AjfBaseWidgetComponent<AjfLayoutWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfLayoutWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfLayoutWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfLayoutWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfLayoutWidgetComponent, never>;
 }
 
 export declare class AjfMapWidgetComponent extends AjfBaseWidgetComponent<AjfMapWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfMapWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfMapWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfMapWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfMapWidgetComponent, never>;
 }
 
 export declare class AjfPageBreakWidgetComponent extends AjfBaseWidgetComponent {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageBreakWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfPageBreakWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageBreakWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfPageBreakWidgetComponent, never>;
 }
 
 export declare class AjfReportRenderer extends AjfCoreReportRenderer {
     constructor(cdr: ChangeDetectorRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReportRenderer, "ajf-report", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportRenderer>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReportRenderer, "ajf-report", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportRenderer, never>;
 }
 
 export declare class AjfReportsModule {
@@ -92,18 +92,18 @@ export declare class AjfReportWidget extends CoreComponent {
         };
     };
     constructor(cfr: ComponentFactoryResolver, renderer: Renderer2);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReportWidget, "ajf-widget", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportWidget>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReportWidget, "ajf-widget", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportWidget, never>;
 }
 
 export declare class AjfTableWidgetComponent extends AjfBaseWidgetComponent<AjfTableWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTableWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfTableWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTableWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfTableWidgetComponent, never>;
 }
 
 export declare class AjfTextWidgetComponent extends AjfBaseWidgetComponent<AjfTextWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTextWidgetComponent, "ng-component", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfTextWidgetComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTextWidgetComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfTextWidgetComponent, never>;
 }

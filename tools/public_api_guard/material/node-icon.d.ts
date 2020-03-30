@@ -1,6 +1,6 @@
 export declare class AjfNodeIcon extends AjfCoreNodeIcon {
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfNodeIcon, "ajf-node-icon", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfNodeIcon>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfNodeIcon, "ajf-node-icon", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfNodeIcon, never>;
 }
 
 export declare class AjfNodeIconModule {

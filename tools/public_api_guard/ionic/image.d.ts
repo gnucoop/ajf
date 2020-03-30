@@ -1,7 +1,7 @@
 export declare class AjfImage extends AjfCoreImage {
     constructor(el: ElementRef, renderer: Renderer2, ds: DomSanitizer);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfImage, "ajf-image", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfImage>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfImage, "ajf-image", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfImage, never>;
 }
 
 export declare class AjfImageModule {

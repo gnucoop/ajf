@@ -130,7 +130,7 @@ export interface AjfFormulaWidgetInstance extends AjfWidgetInstance {
 
 export declare class AjfGetColumnContentPipe {
     transform(instance: AjfLayoutWidgetInstance, column: number): AjfWidgetInstance | null;
-    static ɵfac: i0.ɵɵFactoryDef<AjfGetColumnContentPipe>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfGetColumnContentPipe, never>;
     static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfGetColumnContentPipe, "ajfGetColumnContent">;
 }
 
@@ -226,7 +226,7 @@ export declare abstract class AjfReportRenderer {
     get report(): AjfReport | null;
     constructor(_cdr: ChangeDetectorRef);
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfReportRenderer, never, never, { "instance": "instance"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportRenderer>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportRenderer, never>;
 }
 
 export declare class AjfReportSerializer {
@@ -251,7 +251,7 @@ export declare abstract class AjfReportWidget implements OnInit {
     constructor(_cfr: ComponentFactoryResolver, _renderer: Renderer2);
     ngOnInit(): void;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfReportWidget, never, never, { "instance": "instance"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportWidget>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportWidget, never>;
 }
 
 export interface AjfStyles {
@@ -307,7 +307,7 @@ export declare class AjfWidgetHost {
     readonly viewContainerRef: ViewContainerRef;
     constructor(viewContainerRef: ViewContainerRef);
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfWidgetHost, "[ajf-widget-host]", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfWidgetHost>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfWidgetHost, never>;
 }
 
 export interface AjfWidgetInstance {

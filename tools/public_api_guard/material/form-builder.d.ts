@@ -15,8 +15,8 @@ export declare class AjfFormBuilder implements AfterViewChecked, AfterContentIni
     ngAfterContentInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFormBuilder, "ajf-form-builder", never, { "form": "form"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFormBuilder>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFormBuilder, "ajf-form-builder", never, { "form": "form"; }, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfFormBuilder, never>;
 }
 
 export interface AjfFormBuilderEmptySlot {
@@ -86,7 +86,7 @@ export declare class AjfFormBuilderService {
     saveNodeEntry(properties: any): void;
     saveStringIdentifier(identifier: AjfFormStringIdentifier[]): void;
     setForm(form: AjfForm | null): void;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFormBuilderService>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfFormBuilderService, never>;
     static ɵprov: i0.ɵɵInjectableDef<AjfFormBuilderService>;
 }
 

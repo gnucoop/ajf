@@ -1,7 +1,7 @@
 export declare class AjfCalendarComponent extends AjfCalendar {
     constructor(cdr: ChangeDetectorRef, service: AjfCalendarService);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfCalendarComponent, "ajf-calendar", never, {}, { "change": "change"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfCalendarComponent, "ajf-calendar", never, {}, { "change": "change"; }, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarComponent, never>;
 }
 
 export declare class AjfCalendarModule {

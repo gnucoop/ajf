@@ -1,6 +1,6 @@
 export declare class AjfPageBreakComponent {
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageBreakComponent, "ajf-page-break", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfPageBreakComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageBreakComponent, "ajf-page-break", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfPageBreakComponent, never>;
 }
 
 export declare class AjfPageBreakModule {

@@ -10,7 +10,7 @@ export declare class AjfDndDirective {
     onDragOver(evt: Event): void;
     onDrop(evt: any): void;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfDndDirective, "[ajfDnd]", never, {}, { "file": "file"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfDndDirective>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfDndDirective, never>;
 }
 
 export declare class AjfVideoDirective implements AfterViewInit {
@@ -20,7 +20,7 @@ export declare class AjfVideoDirective implements AfterViewInit {
     constructor(_el: ElementRef, _renderer: Renderer2);
     ngAfterViewInit(): void;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfVideoDirective, "[ajfVideoDirective]", never, { "source": "source"; }, { "isInit": "isInit"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfVideoDirective>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfVideoDirective, never>;
 }
 
 export declare class ApplyStylesDirective {
@@ -29,7 +29,7 @@ export declare class ApplyStylesDirective {
     } | null);
     constructor(_el: ElementRef, _renderer: Renderer2);
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<ApplyStylesDirective, "[applyStyles]", never, { "applyStyles": "applyStyles"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<ApplyStylesDirective>;
+    static ɵfac: i0.ɵɵFactoryDef<ApplyStylesDirective, never>;
 }
 
 export declare class AutofocusDirective implements AfterContentInit {
@@ -37,17 +37,17 @@ export declare class AutofocusDirective implements AfterContentInit {
     constructor(_el: ElementRef);
     ngAfterContentInit(): void;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AutofocusDirective, "[autoFocus]", never, { "appAutoFocus": "appAutoFocus"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AutofocusDirective>;
+    static ɵfac: i0.ɵɵFactoryDef<AutofocusDirective, never>;
 }
 
 export declare class FormatIfNumber extends DecimalPipe {
     transform(value: any, digitsInfo?: string, locale?: string): any;
-    static ɵfac: i0.ɵɵFactoryDef<FormatIfNumber>;
+    static ɵfac: i0.ɵɵFactoryDef<FormatIfNumber, never>;
     static ɵpipe: i0.ɵɵPipeDefWithMeta<FormatIfNumber, "ajfFormatIfNumber">;
 }
 
 export declare class TranslateIfString extends TranslatePipe {
     transform(query: any, ...args: any[]): any;
-    static ɵfac: i0.ɵɵFactoryDef<TranslateIfString>;
+    static ɵfac: i0.ɵɵFactoryDef<TranslateIfString, never>;
     static ɵpipe: i0.ɵɵPipeDefWithMeta<TranslateIfString, "ajfTranslateIfString">;
 }

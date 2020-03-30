@@ -4,8 +4,8 @@ export declare class AjfTable {
     get data(): AjfTableCell[][];
     set data(data: AjfTableCell[][]);
     constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTable, "ajf-table", never, { "data": "data"; "cellpadding": "cellpadding"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfTable>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTable, "ajf-table", never, { "data": "data"; "cellpadding": "cellpadding"; }, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfTable, never>;
 }
 
 export interface AjfTableCell {

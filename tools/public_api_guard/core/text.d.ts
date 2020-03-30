@@ -2,8 +2,8 @@ export declare class AjfTextComponent {
     set htmlText(htmlText: string);
     get innerHTML(): SafeHtml;
     constructor(_cdr: ChangeDetectorRef, _domSanitizer: DomSanitizer, _ts: TranslateService);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTextComponent, "ajf-text", never, { "htmlText": "htmlText"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfTextComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTextComponent, "ajf-text", never, { "htmlText": "htmlText"; }, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfTextComponent, never>;
 }
 
 export declare class AjfTextModule {

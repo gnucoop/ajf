@@ -6,8 +6,8 @@ export declare class AjfReportBuilder implements AfterContentInit {
     startSidenav: MatSidenav;
     constructor(_service: AjfReportBuilderService);
     ngAfterContentInit(): void;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReportBuilder, "ajf-report-builder", never, { "report": "report"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportBuilder>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReportBuilder, "ajf-report-builder", never, { "report": "report"; }, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportBuilder, never>;
 }
 
 export declare class AjfReportBuilderModule {
@@ -113,7 +113,7 @@ export declare class AjfReportBuilderService {
     unfixedColumn(idx: number): void;
     updateArrayWidgets(type: string, newWidget: AjfWidgetsContainer): void;
     updateCurrentWidget(newWidget: AjfWidget | null): void;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportBuilderService>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportBuilderService, [{ optional: true; }]>;
     static ɵprov: i0.ɵɵInjectableDef<AjfReportBuilderService>;
 }
 

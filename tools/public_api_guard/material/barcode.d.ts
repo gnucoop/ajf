@@ -1,8 +1,8 @@
 export declare class AjfBarcodeComponent extends AjfBarcode {
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2);
     static ngAcceptInputType_readonly: BooleanInput;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfBarcodeComponent, "ajf-barcode", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfBarcodeComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfBarcodeComponent, "ajf-barcode", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfBarcodeComponent, never>;
 }
 
 export declare class AjfBarcodeModule {

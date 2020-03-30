@@ -35,7 +35,7 @@ export declare abstract class AjfCalendar implements AfterContentInit, ControlVa
     selectEntry(entry: AjfCalendarEntry): void;
     writeValue(value: any): void;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfCalendar, never, never, { "viewDate": "viewDate"; "disabled": "disabled"; "dateOnlyForDay": "dateOnlyForDay"; "viewMode": "viewMode"; "selectionMode": "selectionMode"; "startOfWeekDay": "startOfWeekDay"; "isoMode": "isoMode"; "minDate": "minDate"; "maxDate": "maxDate"; "selectedPeriod": "selectedPeriod"; "value": "value"; }, { "change": "change"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCalendar>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfCalendar, never>;
 }
 
 export declare class AjfCalendarChange {
@@ -54,7 +54,7 @@ export interface AjfCalendarEntry {
 export declare class AjfCalendarEntryLabelPipe implements PipeTransform {
     constructor(_service: AjfCalendarService);
     transform(entry: AjfCalendarEntry): string;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarEntryLabelPipe>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarEntryLabelPipe, never>;
     static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfCalendarEntryLabelPipe, "ajfCalendarEntryLabel">;
     static ɵprov: i0.ɵɵInjectableDef<AjfCalendarEntryLabelPipe>;
 }
@@ -99,7 +99,7 @@ export declare class AjfCalendarService {
     };
     nextView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
     previousView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarService>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarService, never>;
     static ɵprov: i0.ɵɵInjectableDef<AjfCalendarService>;
 }
 

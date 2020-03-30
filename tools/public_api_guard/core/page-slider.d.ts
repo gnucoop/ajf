@@ -25,7 +25,7 @@ export declare class AjfPageSlider implements AfterContentInit, OnDestroy {
     slide(opts: AjfPageSliderSlideOptions): void;
     switchOrientation(): void;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfPageSlider, never, never, { "duration": "duration"; "orientation": "orientation"; "fixedOrientation": "fixedOrientation"; "currentPage": "currentPage"; "hideNavigationButtons": "hideNavigationButtons"; }, { "pageScrollFinish": "pageScrollFinish"; "orientationChange": "orientationChange"; }, ["pages"]>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfPageSlider>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfPageSlider, never>;
 }
 
 export declare class AjfPageSliderItem implements OnDestroy {
@@ -38,8 +38,8 @@ export declare class AjfPageSliderItem implements OnDestroy {
     constructor(_el: ElementRef, _renderer: Renderer2);
     ngOnDestroy(): void;
     setScroll(dir: AjfPageSliderItemScrollDirection, amount: number, _duration: number): boolean;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageSliderItem, "ajf-page-slider-item", never, {}, { "scroll": "scroll"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfPageSliderItem>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageSliderItem, "ajf-page-slider-item", never, {}, { "scroll": "scroll"; }, never, ["*"]>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfPageSliderItem, never>;
 }
 
 export declare type AjfPageSliderItemScrollDirection = 'x' | 'y';

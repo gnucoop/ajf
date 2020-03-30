@@ -4,8 +4,8 @@ export declare class AjfPageSlider extends AjfCorePageSlider implements AfterCon
     ngOnDestroy(): void;
     static ngAcceptInputType_fixedOrientation: BooleanInput;
     static ngAcceptInputType_hideNavigationButtons: BooleanInput;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageSlider, "ajf-page-slider", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfPageSlider>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageSlider, "ajf-page-slider", never, {}, {}, never, ["*", "[ajfPageSliderBar]"]>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfPageSlider, never>;
 }
 
 export declare class AjfPageSliderModule {

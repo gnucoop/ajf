@@ -8,8 +8,8 @@ export declare class AjfMapComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     redraw(): void;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfMapComponent, "ajf-map", never, { "coordinate": "coordinate"; "tileLayer": "tileLayer"; "attribution": "attribution"; "disabled": "disabled"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfMapComponent>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfMapComponent, "ajf-map", never, { "coordinate": "coordinate"; "tileLayer": "tileLayer"; "attribution": "attribution"; "disabled": "disabled"; }, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfMapComponent, never>;
 }
 
 export declare class AjfMapModule {
