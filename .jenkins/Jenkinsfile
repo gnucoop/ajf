@@ -30,6 +30,7 @@ pipeline {
         sh 'yarn -s bazel build //:entry_points_manifest'
         sh 'yarn check-entry-point-setup $(yarn -s bazel info bazel-bin)/entry_points_manifest.json'
         sh 'yarn -s lint'
+        sh 'yarn -s ts-circular-deps:check'
       }
     }
     stage('API guard tests') {
