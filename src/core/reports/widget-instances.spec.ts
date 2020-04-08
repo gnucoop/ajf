@@ -20,8 +20,8 @@
  *
  */
 
-import {AjfTextWidgetInstance, AjfWidgetType, createWidget,
-  widgetToWidgetInstance} from './public-api';
+import {AjfTableWidgetInstance, AjfTextWidgetInstance, AjfWidgetType,
+  createWidget, widgetToWidgetInstance} from './public-api';
 
 class TsMock {
   instant(str: string): string {
@@ -59,4 +59,56 @@ describe('widgetToWidgetInstance', () => {
       expect(instance.htmlText).toBe(ctx.foo[i]);
     }
   });
+
+  it('should load the row of the table in runtime', () => {
+    const tsMock = new TsMock() as any;
+    const widget = createWidget({
+      widgetType: AjfWidgetType.DynamicTable,
+      rowDefinition: {'formula': 'dynamicData'},
+      dataset: [
+        {
+          'label': '',
+          'formula': {
+            'formula': '"Girl"'
+          },
+          'style': {
+            'text-align': 'left',
+            'font-weight': 'bold'
+          },
+          'aggregation': {
+            'aggregation': 0
+          }
+        },
+        {
+          'label': '',
+          'formula': {
+            'formula': '"Name"'
+          },
+          'style': {
+            'text-align': 'left',
+            'font-weight': 'bold'
+          },
+          'aggregation': {
+            'aggregation': 0
+          }
+        }
+      ]
+    } as any);
+    const ctx = {
+      dynamicData: [
+        [
+          {
+            'value': 'foo'
+          },
+          {
+            'value': 'baz'
+          }
+        ]
+      ]
+    };
+
+    const instance = widgetToWidgetInstance(widget, ctx, tsMock) as AjfTableWidgetInstance;
+    expect(instance.data[1][0].value).toBe(ctx.dynamicData[0][0].value);
+  });
 });
+

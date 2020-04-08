@@ -333,7 +333,8 @@ export declare enum AjfWidgetType {
     Column = 7,
     Formula = 8,
     ImageContainer = 9,
-    LENGTH = 10
+    DynamicTable = 10,
+    LENGTH = 11
 }
 
 export interface AjfWidgetWithContent extends AjfWidget {
