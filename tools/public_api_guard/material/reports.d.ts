@@ -78,6 +78,9 @@ export declare class AjfReportWidget extends CoreComponent {
         5: {
             component: typeof AjfTableWidgetComponent;
         };
+        10: {
+            component: typeof AjfTableWidgetComponent;
+        };
         6: {
             component: typeof AjfMapWidgetComponent;
         };
