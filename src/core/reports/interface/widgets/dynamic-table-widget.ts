@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,17 +20,16 @@
  *
  */
 
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  LENGTH
+import {AjfFormula} from  '@ajf/core/models';
+
+import {AjfTableDataset} from '../dataset/table-dataset';
+import {AjfDataWidget} from './data-widget';
+
+export interface AjfDynamicTableWidget extends AjfDataWidget {
+  /**
+   * it should return a AjfTableCell[][]
+   */
+  rowDefinition: AjfFormula;
+  cellStyles: any;
+  dataset: AjfTableDataset[];
 }

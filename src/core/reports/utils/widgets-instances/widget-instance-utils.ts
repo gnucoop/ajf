@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,17 +20,21 @@
  *
  */
 
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  LENGTH
+import {AjfContext, AjfFormula, evaluateExpression} from '@ajf/core/models';
+import {TranslateService} from '@ngx-translate/core';
+
+export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslateService): any {
+  let formula = f.formula;
+  if (formula.substr(0, 1) === '"') {
+    const ft = formula.slice(1, -1);
+    const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
+      ? ts.instant(ft) : ft;
+    if (ft.length > 0) {
+      formula = `"${transFt}"`;
+    }
+  } else {
+    formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
+      ? ts.instant(formula) : formula;
+  }
+  return evaluateExpression(formula, context);
 }

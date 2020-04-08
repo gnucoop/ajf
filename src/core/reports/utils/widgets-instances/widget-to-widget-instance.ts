@@ -39,10 +39,12 @@ import {
   AjfWidgetWithContentInstance
 } from '../../interface/widgets-instances/widget-with-content-instance';
 import {AjfChartWidget} from '../../interface/widgets/chart-widget';
+import {AjfDynamicTableWidget} from '../../interface/widgets/dynamic-table-widget';
 import {AjfFormulaWidget} from '../../interface/widgets/formula-widget';
 import {AjfImageContainerWidget} from '../../interface/widgets/image-container-widget';
 import {AjfImageWidget} from '../../interface/widgets/image-widget';
 import {AjfMapWidget} from '../../interface/widgets/map-widget';
+import {AjfTableDataset} from '../../interface/dataset/table-dataset';
 import {AjfTableWidget} from '../../interface/widgets/table-widget';
 import {AjfTextWidget} from '../../interface/widgets/text-widget';
 import {AjfWidget} from '../../interface/widgets/widget';
@@ -51,10 +53,12 @@ import {AjfWidgetWithContent} from '../../interface/widgets/widget-with-content'
 import {evaluateAggregation} from '../aggregation/evaluate-aggregation';
 
 import {createWidgetInstance} from './create-widget-instance';
+import {trFormula} from './widget-instance-utils';
 
 export function widgetToWidgetInstance(
     widget: AjfWidget, context: AjfContext, ts: TranslateService): AjfWidgetInstance {
   const wi = createWidgetInstance(widget, context, ts);
+
   if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
     const wwc = widget as AjfWidgetWithContent;
     const wwci = wi as AjfWidgetWithContentInstance;
@@ -134,32 +138,38 @@ export function widgetToWidgetInstance(
   } else if (widget.widgetType === AjfWidgetType.Table) {
     const tw = widget as AjfTableWidget;
     const twi = wi as AjfTableWidgetInstance;
-    const trFormula = (f: AjfFormula) => {
-      let formula = f.formula;
-      if (formula.substr(0, 1) === '"') {
-        const ft = formula.slice(1, -1);
-        const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
-          ? ts.instant(ft) : ft;
-        if (ft.length > 0) {
-          formula = `"${transFt}"`;
-        }
-      } else {
-        formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
-          ? ts.instant(formula) : formula;
-      }
-      return evaluateExpression(formula, context);
-    };
+
     twi.dataset = tw.dataset.map(row => row.map(cell => {
-      return cell.formula instanceof Array ? cell.formula.map(f => trFormula(f as AjfFormula)) :
-                                             trFormula(cell.formula!);
+      return cell.formula instanceof Array ?
+        cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
+        trFormula(cell.formula!, context as AjfContext, ts);
     }));
-    twi.data = (tw.dataset ||
-                []).map(row => row.map(cell => ({
-                                         value: evaluateExpression(cell.formula.formula, context),
-                                         style: {...tw.cellStyles, ...cell.style},
-                                         rowspan: cell.rowspan,
-                                         colspan: cell.colspan,
-                                       })));
+
+    twi.data = (tw.dataset || [])
+      .map(row => row.map(cell => ({
+                                      value: evaluateExpression(cell.formula.formula, context),
+                                      style: {...tw.cellStyles, ...cell.style},
+                                      rowspan: cell.rowspan,
+                                      colspan: cell.colspan,
+                                    })));
+  } else if (widget.widgetType === AjfWidgetType.DynamicTable) {
+    const tdw = widget as AjfDynamicTableWidget;
+    const tdwi = wi as AjfTableWidgetInstance;
+
+    tdwi.dataset = tdw.dataset.map((cell: AjfTableDataset) => {
+      return cell.formula instanceof Array ?
+        cell.formula.map(f => trFormula(f as AjfFormula, context, ts)) :
+        trFormula(cell.formula!, context, ts);
+    });
+    const dataset = evaluateExpression(tdw.rowDefinition.formula, context) || [];
+
+    const header = (tdw.dataset || []).map(cell => ({
+      value: evaluateExpression(cell.formula.formula, context),
+      style: {...tdw.cellStyles, ...cell.style},
+      rowspan: cell.rowspan,
+      colspan: cell.colspan,
+    }));
+    tdwi.data = [[...header], ...dataset];
   } else if (widget.widgetType === AjfWidgetType.Image) {
     const iw = widget as AjfImageWidget;
     const iwi = wi as AjfImageWidgetInstance;
