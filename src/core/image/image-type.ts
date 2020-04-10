@@ -20,6 +20,7 @@
  *
  */
 
+// tslint:disable-next-line:prefer-const-enum
 export enum AjfImageType {
   Image,
   Flag,

@@ -29,7 +29,7 @@ export declare class AjfAttachmentsOriginSerializer {
     static fromJson(origin: Partial<AjfAttachmentsOrigin<any>>): AjfAttachmentsOrigin<any>;
 }
 
-export declare enum AjfAttachmentsType {
+export declare const enum AjfAttachmentsType {
     Link = 0,
     Pdf = 1,
     LENGTH = 2
@@ -123,7 +123,7 @@ export interface AjfChoicesPromiseOrigin<T> extends AjfChoicesOrigin<T> {
 
 export declare type AjfChoicesPromiseOriginCreate<T> = Omit<AjfChoicesOriginCreate<T>, 'type'> & Pick<AjfChoicesPromiseOrigin<T>, 'generator'> & Partial<AjfChoicesPromiseOrigin<T>>;
 
-export declare enum AjfChoicesType {
+export declare const enum AjfChoicesType {
     String = 0,
     Number = 1,
     LENGTH = 2
@@ -350,7 +350,7 @@ export declare abstract class AjfFormField implements OnDestroy, OnInit {
     static ɵfac: i0.ɵɵFactoryDef<AjfFormField, never>;
 }
 
-export declare enum AjfFormInitStatus {
+export declare const enum AjfFormInitStatus {
     Initializing = 0,
     Complete = 1
 }

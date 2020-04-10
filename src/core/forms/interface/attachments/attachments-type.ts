@@ -20,7 +20,7 @@
  *
  */
 
-export enum AjfAttachmentsType {
+export const enum AjfAttachmentsType {
   Link,
   Pdf,
   LENGTH

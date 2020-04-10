@@ -24,12 +24,22 @@ import {AjfFieldType, AjfValidationService} from '@ajf/core/forms';
 import {AjfImageType} from '@ajf/core/image';
 import {AjfExpressionUtils, createFormula, validateExpression} from '@ajf/core/models';
 import {
-  AjfAggregationType, AjfDataset, AjfDataWidget, AjfImageWidget, AjfWidget
+  AjfAggregationType,
+  AjfDataset,
+  AjfDataWidget,
+  AjfImageWidget,
+  AjfWidget
 } from '@ajf/core/reports';
 import {sizedEnumToStringArray} from '@ajf/core/utils';
 import {AjfMonacoEditor} from '@ajf/material/monaco-editor';
 import {
-  AfterViewChecked, ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewChild,
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
@@ -38,7 +48,7 @@ import {Subscription} from 'rxjs';
 import {AjfFormVariables} from './models';
 import {AjfReportBuilderService} from './report-builder-service';
 
-export enum AjfDataType {
+export const enum AjfDataType {
   MainData,
   Dataset,
   RelatedData,
@@ -54,15 +64,12 @@ declare var monaco: any;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChecked, OnDestroy {
-
   aggregationTypes: string[] = sizedEnumToStringArray(AjfAggregationType);
 
   //  operators is an array of any type that contains all allow operators
   operators: string[] = [
-    'true', 'false', '( )', '\' \'',
-    '<', '<=', '>=', '>', '!=', '!',
-    '&&', '||',
-    '+', '-', '*', '/', '%', '=='
+    'true', 'false', '( )', '\' \'', '<', '<=', '>=', '>', '!=', '!', '&&', '||', '+', '-', '*',
+    '/', '%', '=='
   ];
 
   formulaText: string = '';
@@ -81,32 +88,23 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   formsVariablesType: string[] = [];
   isValid: boolean;
 
-  @Input()
-  formula: string;
+  @Input() formula: string;
 
-  @Input()
-  isFormula: boolean;
+  @Input() isFormula: boolean;
 
-  @Input()
-  labelText: string;
+  @Input() labelText: string;
 
-  @Input()
-  aggregation: number;
+  @Input() aggregation: number;
 
-  @Input()
-  init: boolean;
+  @Input() init: boolean;
 
-  @Input()
-  level: number;
+  @Input() level: number;
 
-  @Input()
-  index: number;
+  @Input() index: number;
 
-  @Input()
-  mainIndex: number;
+  @Input() mainIndex: number;
 
-  @Input()
-  reference: any;
+  @Input() reference: any;
 
   @ViewChild(AjfMonacoEditor, {static: false}) monacoEditor: AjfMonacoEditor;
 
@@ -115,44 +113,38 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   private _first: boolean = true;
 
   constructor(
-    private _service: AjfReportBuilderService,
-    private _dialogRef: MatDialogRef<AjfReportBuilderFormsAnalyzerDialog>,
-    _: AjfValidationService
-  ) {
+      private _service: AjfReportBuilderService,
+      private _dialogRef: MatDialogRef<AjfReportBuilderFormsAnalyzerDialog>,
+      _: AjfValidationService) {
     if (this.init == false) {
       this.formulaText = '';
       this.aggregationType = AjfAggregationType.Sum;
     }
-    this._currentWidgetSub = this._service.currentWidget
-      .subscribe(x => {
-        if (x != null) {
-          this.currentWidget = <AjfDataWidget>x;
+    this._currentWidgetSub = this._service.currentWidget.subscribe(x => {
+      if (x != null) {
+        this.currentWidget = <AjfDataWidget>x;
 
-          if (this.currentWidget.widgetType == 2) {
-            let myObj: AjfImageWidget = <AjfImageWidget>this.currentWidget;
-            if (myObj.imageType == AjfImageType.Flag) {
-              this.formula = (myObj.flag) ? myObj.flag.formula : '';
-            } else {
-              this.formula = (myObj.icon) ? myObj.icon.formula : '';
-            }
+        if (this.currentWidget.widgetType == 2) {
+          let myObj: AjfImageWidget = <AjfImageWidget>this.currentWidget;
+          if (myObj.imageType == AjfImageType.Flag) {
+            this.formula = (myObj.flag) ? myObj.flag.formula : '';
+          } else {
+            this.formula = (myObj.icon) ? myObj.icon.formula : '';
           }
-
         }
-      });
+      }
+    });
 
-    this._formAnalyzerSub = this._service.formsVariables
-      .subscribe((x) => {
-        if (x != null) {
-          this.formsVariables = x;
-        }
-      });
+    this._formAnalyzerSub = this._service.formsVariables.subscribe((x) => {
+      if (x != null) {
+        this.formsVariables = x;
+      }
+    });
   }
 
   onEditorInit(): void {
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-      noSemanticValidation: false,
-      noSyntaxValidation: false
-    });
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions(
+        {noSemanticValidation: false, noSyntaxValidation: false});
 
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
       target: monaco.languages.typescript.ScriptTarget.ES2015,
@@ -163,19 +155,17 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
 
     try {
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
-        '', 'condition-editor-variables.d.ts'
-      );
+          '', 'condition-editor-variables.d.ts');
     } catch (e) {
-      monaco.languages.typescript.javascriptDefaults
-        ._extraLibs['condition-editor-variables.d.ts'] = '';
+      monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-variables.d.ts'] =
+          '';
     }
     try {
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
-        '', 'condition-editor-functions.d.ts'
-      );
+          '', 'condition-editor-functions.d.ts');
     } catch (e) {
-      monaco.languages.typescript.javascriptDefaults
-        ._extraLibs['condition-editor-functions.d.ts'] = '';
+      monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
+          '';
     }
 
     this._initFormsVariablesNames();
@@ -197,7 +187,9 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
 
 
   private _updateVariables(): void {
-    if (this.formsVariables == null) { return; }
+    if (this.formsVariables == null) {
+      return;
+    }
     try {
       let value: string = '';
 
@@ -206,19 +198,21 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
       }
 
       value += `\n`;
-      monaco.languages.typescript.javascriptDefaults
-        ._extraLibs['condition-editor-variables.d.ts'] = value;
-    } catch (e) { }
+      monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-variables.d.ts'] =
+          value;
+    } catch (e) {
+    }
   }
 
   private _updateFunctions(): void {
     try {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
           AjfExpressionUtils.UTIL_FUNCTIONS;
-    } catch (e) { }
+    } catch (e) {
+    }
   }
 
-  private _fieldVarType(fieldType: AjfFieldType): string | null {
+  private _fieldVarType(fieldType: AjfFieldType): string|null {
     switch (fieldType) {
       case AjfFieldType.Boolean:
         return 'boolean';
@@ -315,28 +309,19 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
 
   saveChartFormula(): void {
     this._service.saveChartFormula(
-      this.label,
-      this.level,
-      this.mainIndex,
-      this.index,
-      this.formulaText,
-      this.aggregationType);
+        this.label, this.level, this.mainIndex, this.index, this.formulaText, this.aggregationType);
   }
 
   saveTableFormula(): void {
     this._service.saveTableFormula(
-      this.label,
-      this.aggregationType,
-      this.formulaText,
-      this.mainIndex,
-      this.index);
+        this.label, this.aggregationType, this.formulaText, this.mainIndex, this.index);
   }
 
   insertVariable(variable: string): void {
     if (this.monacoEditor != null && this.monacoEditor.editor != null) {
       const editor = this.monacoEditor.editor;
       let value: string[] = editor.getValue().split('\n');
-      let position: { column: number, lineNumber: number } = editor.getPosition();
+      let position: {column: number, lineNumber: number} = editor.getPosition();
       const ln = position.lineNumber - 1;
       let line = value[ln];
       let col = position.column - 1;
@@ -378,7 +363,6 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
     } else {
       this.isValid = true;
     }
-
   }
 
   ngAfterViewChecked() {

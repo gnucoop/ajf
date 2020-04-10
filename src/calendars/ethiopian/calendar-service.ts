@@ -20,19 +20,40 @@
  *
  */
 
-import {AjfCalendarEntry, AjfCalendarService, AjfCalendarParams,
-  AjfCalendarView, AjfCalendarViewMode} from '@ajf/core/calendar';
+import {
+  AjfCalendarEntry,
+  AjfCalendarParams,
+  AjfCalendarService,
+  AjfCalendarView,
+  AjfCalendarViewMode
+} from '@ajf/core/calendar';
 import {Injectable} from '@angular/core';
-import {addDays, addWeeks, addYears, endOfISOWeek, getISODay, setISODay, startOfISOWeek,
-  startOfWeek, subWeeks} from 'date-fns';
+import {
+  addDays,
+  addWeeks,
+  addYears,
+  endOfISOWeek,
+  getISODay,
+  setISODay,
+  startOfISOWeek,
+  startOfWeek,
+  subWeeks
+} from 'date-fns';
 
 import {EthiopianDate} from './ethiopian-date';
+
+function getMonthDays(month: number, year: number): number {
+  if (month < 12) {
+    return 30;
+  }
+  return year % 4 === 3 ? 6 : 5;
+}
 
 function getMonthBounds(date: EthiopianDate): {start: EthiopianDate, end: EthiopianDate} {
   const year = date.getFullYear();
   const month = date.getMonth();
   const start = new EthiopianDate(year, month, 1);
-  const endDay = month < 12 ? 30 : (year % 4 === 3 ? 6 : 5);
+  const endDay = getMonthDays(month, year);
   const end = new EthiopianDate(year, month, endDay);
   return {start, end};
 }
@@ -175,11 +196,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
         if (curMonth < 13) {
           curDate = new EthiopianDate(year, curMonth, 1);
           let date = EthiopianDate.ethiopianToGregorian(curDate);
-          let newEntry: AjfCalendarEntry = {
-            type: 'month',
-            date,
-            selected: 'none'
-          };
+          let newEntry: AjfCalendarEntry = {type: 'month', date, selected: 'none'};
           newEntry.selected = this.isEntrySelected(newEntry, selection);
           row.push(newEntry);
         }
@@ -202,11 +219,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
       let row: AjfCalendarEntry[] = [];
       for (let j = 0; j < 3; j++) {
         let date = new Date(curDate);
-        let newEntry: AjfCalendarEntry = {
-          type: 'year',
-          date: date,
-          selected: 'none'
-        };
+        let newEntry: AjfCalendarEntry = {type: 'year', date: date, selected: 'none'};
         newEntry.selected = this.isEntrySelected(newEntry, selection);
         row.push(newEntry);
         curDate = addYears(curDate, 1);
