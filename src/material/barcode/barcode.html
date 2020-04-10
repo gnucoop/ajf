@@ -7,30 +7,40 @@
   </div>
 </ng-container>
 <ng-template #barcode>
-  <mat-button-toggle-group [(ngModel)]=toggle>
-    <mat-button-toggle value="drop" (click)="fileInput.click()" [disabled]="readonly">
+  <mat-button-toggle-group [value]=toggle>
+    <mat-button-toggle (click)="toggle = 'drop'; fileInput.click()" [disabled]="readonly">
       <span translate>Upload image</span>
       <mat-icon>add_circle_outline</mat-icon>
-      <input #fileInput type="file" (change)="onSelectFile($event)" multiple style="display:none;" [disabled]="readonly"/>
+      <input #fileInput type="file" (change)="onSelectFile($event)" multiple style="display:none;"
+        [disabled]="readonly" />
     </mat-button-toggle>
-    <mat-button-toggle value="drop" [disabled]="readonly">
+    <mat-button-toggle (click)="toggle = 'drop'" [disabled]="readonly">
       <span translate>Drop image</span>
     </mat-button-toggle>
-    <mat-button-toggle value="camera" [disabled]="readonly">
+    <mat-button-toggle (click)="toggle = 'camera'" [disabled]="readonly">
       <span translate>Camera</span>
     </mat-button-toggle>
   </mat-button-toggle-group>
   <ng-container [ngSwitch]="toggle">
     <ng-container *ngSwitchCase="'drop'">
       <div class="ajf-drop-container">
-        <div class="ajf-dropzone" [attr.ajfDnd]="!readonly" (file)="onSelectFile($event)">
-          <div class="ajf-text-wrapper">
-            <div class="ajf-centered" translate>Drop your image here!</div>
+        <ng-container *ngIf="readonly ; else activeDropZone">
+          <div class="ajf-dropzone">
+            <div class="ajf-text-wrapper">
+              <div class="ajf-centered" translate>Drop your image here!</div>
+            </div>
           </div>
-        </div>
+        </ng-container>
+        <ng-template #activeDropZone>
+          <div class="ajf-dropzone" ajfDnd (file)="onSelectFile($event)">
+            <div class="ajf-text-wrapper">
+              <div class="ajf-centered" translate>Drop your image here!</div>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </ng-container>
-    <ng-container *ngSwitchCase="'snapshot'">
+    <ng-container *ngSwitchCase="'camera'">
       <div ajfVideoDirective [source]="videoSource" class="left" (isInit)="takeSnapshot()"></div>
     </ng-container>
   </ng-container>
