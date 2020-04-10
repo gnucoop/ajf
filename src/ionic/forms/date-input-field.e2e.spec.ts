@@ -2,7 +2,6 @@ import {addDays, format, subDays} from 'date-fns';
 import {browser, by, element} from 'protractor';
 
 describe('ajf-date-input-field', () => {
-
   beforeEach(async () => await browser.get('/ion-date-input-field'));
 
   it('should show a date input field', async () => {
@@ -21,5 +20,4 @@ describe('ajf-date-input-field', () => {
     await input.sendKeys(format(yesterday, 'dd'));
     expect(await input.getAttribute('value')).toBe('');
   });
-
 });

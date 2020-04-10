@@ -39,4 +39,5 @@ import {AjfNodeIcon} from './node-icon';
     AjfNodeIcon,
   ],
 })
-export class AjfNodeIconModule {}
+export class AjfNodeIconModule {
+}

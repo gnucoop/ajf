@@ -20,11 +20,11 @@
  *
  */
 
-import {AjfForm, AjfFormSerializer, AjfFormRendererService} from '@ajf/core/forms';
+import {AjfForm, AjfFormRendererService, AjfFormSerializer} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
 import {Component} from '@angular/core';
 
-import {formSchema, formContext} from './form';
+import {formContext, formSchema} from './form';
 
 
 @Component({

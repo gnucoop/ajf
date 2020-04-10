@@ -39,4 +39,5 @@ import {AjfTextComponent} from './text';
     AjfTextComponent,
   ]
 })
-export class AjfTextModule { }
+export class AjfTextModule {
+}

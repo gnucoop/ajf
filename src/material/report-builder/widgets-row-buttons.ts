@@ -21,8 +21,14 @@
  */
 
 import {AjfLayoutWidget, AjfWidget, AjfWidgetType} from '@ajf/core/reports';
-import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit,
-  ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {AjfReportBuilderService} from './report-builder-service';
@@ -65,9 +71,7 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
    *
    * @param private _afjBuilderService: AjfBuilderService
    */
-  constructor(private _service: AjfReportBuilderService) {
-
-  }
+  constructor(private _service: AjfReportBuilderService) {}
 
   selectedWidget() {
     this.isClicked = !this.isClicked;
@@ -91,7 +95,6 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   }
 
   changeColumn(direction: string) {
-
     if (direction == 'back') {
       this._service.changeColumn(
           this.position, this.position - 1, <AjfLayoutWidget>this.fromWidget);
@@ -122,25 +125,20 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
     this.widgetIcon = widgetReportBuilderIconName(this.widget.widgetType);
     this.widgetLabel = ajfWidgetTypeToLabel(this.widget.widgetType);
 
-    this._onDraggedSub = this._service.onDragged
-      .subscribe(x => {
-        this.onDragged = x;
-      });
+    this._onDraggedSub = this._service.onDragged.subscribe(x => {
+      this.onDragged = x;
+    });
 
-    this._onOverSub = this._service.onOver
-      .subscribe(x => {
-        this.onOver = x;
-      });
+    this._onOverSub = this._service.onOver.subscribe(x => {
+      this.onOver = x;
+    });
 
-    this._currentWidgetSub = this._service.currentWidget
-      .subscribe(
-      x => {
-        this.currentWidget = x;
-        if (x !== this.widget) {
-          this.isClicked = false;
-        }
-      });
-
+    this._currentWidgetSub = this._service.currentWidget.subscribe(x => {
+      this.currentWidget = x;
+      if (x !== this.widget) {
+        this.isClicked = false;
+      }
+    });
   }
   ngOnDestroy(): void {
     this._onDraggedSub.unsubscribe();

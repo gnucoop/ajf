@@ -32,4 +32,5 @@ import {AjfMonacoEditor} from './monaco-editor';
     AjfMonacoEditor,
   ]
 })
-export class AjfMonacoEditorModule { }
+export class AjfMonacoEditorModule {
+}

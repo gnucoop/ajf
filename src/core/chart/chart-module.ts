@@ -26,10 +26,11 @@ import {AjfChartComponent} from './chart';
 
 @NgModule({
   declarations: [
-    AjfChartComponent
+    AjfChartComponent,
   ],
   exports: [
-    AjfChartComponent
-  ]
+    AjfChartComponent,
+  ],
 })
-export class AjfChartModule { }
+export class AjfChartModule {
+}

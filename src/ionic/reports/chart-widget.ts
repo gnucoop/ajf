@@ -20,10 +20,14 @@
  *
  */
 
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
-  ViewEncapsulation} from '@angular/core';
-
 import {AjfBaseWidgetComponent, AjfChartWidgetInstance} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   templateUrl: 'chart-widget.html',
@@ -31,8 +35,7 @@ import {AjfBaseWidgetComponent, AjfChartWidgetInstance} from '@ajf/core/reports'
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfChartWidgetComponent
-    extends AjfBaseWidgetComponent<AjfChartWidgetInstance> {
+export class AjfChartWidgetComponent extends AjfBaseWidgetComponent<AjfChartWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {
     super(cdr, el);
   }

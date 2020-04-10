@@ -20,10 +20,14 @@
  *
  */
 
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
-  ViewEncapsulation} from '@angular/core';
-
 import {AjfBaseWidgetComponent, AjfTextWidgetInstance} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   templateUrl: 'text-widget.html',
@@ -31,8 +35,7 @@ import {AjfBaseWidgetComponent, AjfTextWidgetInstance} from '@ajf/core/reports';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfTextWidgetComponent
-    extends AjfBaseWidgetComponent<AjfTextWidgetInstance> {
+export class AjfTextWidgetComponent extends AjfBaseWidgetComponent<AjfTextWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {
     super(cdr, el);
   }

@@ -48,10 +48,12 @@ import {DEV_APP_ROUTES} from './dev-app/routes';
     DevAppComponent,
   ],
   providers: [
-    {provide: OverlayContainer, useClass: FullscreenOverlayContainer},
     {provide: Directionality, useClass: DevAppDirectionality},
+    {provide: OverlayContainer, useClass: FullscreenOverlayContainer},
   ],
-  bootstrap: [DevAppComponent],
+  bootstrap: [
+    DevAppComponent,
+  ],
 })
 export class MainModule {
 }

@@ -20,13 +20,13 @@
  *
  */
 
-import {ElementRef, Directive} from '@angular/core';
+import {Directive, ElementRef} from '@angular/core';
 
-@Directive({
-  selector: '[mapContainer]'
-})
+@Directive({selector: '[mapContainer]'})
 export class AjfMapContainerDirective {
-  get htmlElement(): HTMLElement { return this._el.nativeElement; }
+  get htmlElement(): HTMLElement {
+    return this._el.nativeElement;
+  }
 
-  constructor(private _el: ElementRef) { }
+  constructor(private _el: ElementRef) {}
 }

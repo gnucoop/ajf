@@ -28,7 +28,7 @@ import {AjfCalendarService} from './calendar-service';
 @Injectable()
 @Pipe({name: 'ajfCalendarEntryLabel'})
 export class AjfCalendarEntryLabelPipe implements PipeTransform {
-  constructor(private _service: AjfCalendarService) { }
+  constructor(private _service: AjfCalendarService) {}
 
   transform(entry: AjfCalendarEntry): string {
     return this._service.entryLabel(entry);

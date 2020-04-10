@@ -24,8 +24,8 @@ import {AjfContext} from '@ajf/core/models';
 import {Type} from '@angular/core';
 
 import {AjfBaseFieldComponent} from '../../base-field';
-import {AjfFieldInstance} from '../fields-instances/field-instance';
 import {AjfFieldInstanceCreate} from '../../utils/fields-instances/create-field-instance';
+import {AjfFieldInstance} from '../fields-instances/field-instance';
 
 export interface AjfFieldComponentsMap {
   [key: number]: {

@@ -20,15 +20,18 @@
  *
  */
 
-import {NgModule} from '@angular/core';
 import {AjfCalendarModule} from '@ajf/material/calendar';
+import {NgModule} from '@angular/core';
+
 import {MaterialCalendarE2E} from './calendar-e2e';
 
 @NgModule({
   imports: [
     AjfCalendarModule,
   ],
-  declarations: [MaterialCalendarE2E],
+  declarations: [
+    MaterialCalendarE2E,
+  ],
 })
 export class MaterialCalendarE2eModule {
 }

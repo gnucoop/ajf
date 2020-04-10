@@ -22,7 +22,8 @@
 
 import {AjfAttachmentsOrigin} from '../interface/attachments/attachments-origin';
 import {
-  AjfAttachmentsOriginCreate, createAttachmentsOrigin
+  AjfAttachmentsOriginCreate,
+  createAttachmentsOrigin
 } from '../utils/attachments/create-attachments-origin';
 
 export class AjfAttachmentsOriginSerializer {

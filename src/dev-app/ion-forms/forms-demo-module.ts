@@ -20,13 +20,11 @@
  *
  */
 
+import {AjfFormsModule} from '@ajf/ionic/forms';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-
 import {IonicModule} from '@ionic/angular';
-
-import {AjfFormsModule} from '@ajf/ionic/forms';
 
 import {FormsDemo} from './forms-demo';
 
@@ -34,8 +32,8 @@ import {FormsDemo} from './forms-demo';
   imports: [
     AjfFormsModule,
     FormsModule,
-    RouterModule.forChild([{path: '', component: FormsDemo}]),
     IonicModule,
+    RouterModule.forChild([{path: '', component: FormsDemo}]),
   ],
   declarations: [
     FormsDemo,

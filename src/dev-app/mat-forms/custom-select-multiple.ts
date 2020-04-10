@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfFormRendererService, AJF_SEARCH_ALERT_THRESHOLD} from '@ajf/core/forms';
+import {AJF_SEARCH_ALERT_THRESHOLD, AjfFormRendererService} from '@ajf/core/forms';
 import {AjfMultipleChoiceFieldComponent, AjfWarningAlertService} from '@ajf/material/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
@@ -31,11 +31,9 @@ import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
 })
 export class CustomSelectMultiple extends AjfMultipleChoiceFieldComponent<any> {
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
-    service: AjfFormRendererService,
-    warningAlertService: AjfWarningAlertService,
-    @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number
-  ) {
+      changeDetectorRef: ChangeDetectorRef, service: AjfFormRendererService,
+      warningAlertService: AjfWarningAlertService,
+      @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number) {
     super(changeDetectorRef, service, warningAlertService, searchThreshold);
   }
 

@@ -21,22 +21,32 @@
  */
 
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {ChangeDetectorRef, ComponentFactoryResolver, Directive, Input, OnDestroy, OnInit,
-  ViewChild} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  ComponentFactoryResolver,
+  Directive,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {AjfBaseFieldComponent} from './base-field';
-import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
-import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldHost} from './field-host';
+import {AjfFieldInstance} from './interface/fields-instances/field-instance';
+import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 
 @Directive()
 export abstract class AjfFormField implements OnDestroy, OnInit {
   @ViewChild(AjfFieldHost, {static: true}) fieldHost: AjfFieldHost;
 
   private _instance: AjfFieldInstance;
-  get instance(): AjfFieldInstance { return this._instance; }
-  @Input() set instance(instance: AjfFieldInstance) {
+  get instance(): AjfFieldInstance {
+    return this._instance;
+  }
+  @Input()
+  set instance(instance: AjfFieldInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
       this._loadComponent();
@@ -44,8 +54,11 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   }
 
   private _readonly: boolean;
-  get readonly(): boolean { return this._readonly; }
-  @Input() set readonly(readonly: boolean) {
+  get readonly(): boolean {
+    return this._readonly;
+  }
+  @Input()
+  set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
     if (this._componentInstance != null) {
       this._componentInstance.readonly = this._readonly;
@@ -58,10 +71,7 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   protected abstract componentsMap: AjfFieldComponentsMap;
   private _updatedSub = Subscription.EMPTY;
 
-  constructor(
-    private _cdr: ChangeDetectorRef,
-    private _cfr: ComponentFactoryResolver
-  ) { }
+  constructor(private _cdr: ChangeDetectorRef, private _cfr: ComponentFactoryResolver) {}
 
   ngOnDestroy(): void {
     this._updatedSub.unsubscribe();
@@ -74,12 +84,16 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   private _loadComponent(): void {
     this._updatedSub.unsubscribe();
     this._updatedSub = Subscription.EMPTY;
-    if (this._instance == null || this.fieldHost == null) { return; }
+    if (this._instance == null || this.fieldHost == null) {
+      return;
+    }
 
     const vcr = this.fieldHost.viewContainerRef;
     vcr.clear();
     const componentDef = this.componentsMap[this._instance.node.fieldType];
-    if (componentDef == null) { return; }
+    if (componentDef == null) {
+      return;
+    }
     const component = componentDef.component;
     try {
       const componentFactory = this._cfr.resolveComponentFactory(component);
@@ -90,8 +104,8 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
 
       if (componentDef.inputs) {
         Object.keys(componentDef.inputs).forEach(key => {
-          if (key in  this._componentInstance) {
-            ( this._componentInstance as any)[key] = componentDef.inputs![key];
+          if (key in this._componentInstance) {
+            (this._componentInstance as any)[key] = componentDef.inputs![key];
           }
         });
       }

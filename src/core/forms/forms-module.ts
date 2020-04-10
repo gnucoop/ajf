@@ -38,8 +38,8 @@ import {AjfNodeCompleteNamePipe} from './node-complete-name';
 import {AjfRangePipe} from './range';
 import {AjfTableRowClass} from './table-row-class';
 import {AjfTableVisibleColumnsPipe} from './table-visible-columns';
-import {AjfValidationService} from './validation-service';
 import {AjfValidSlidePipe} from './valid-slide';
+import {AjfValidationService} from './validation-service';
 
 @NgModule({
   declarations: [
@@ -78,7 +78,11 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
   ],
-  providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
+  providers: [
+    AjfDateValueStringPipe,
+    AjfFormRendererService,
+    AjfValidationService,
+  ],
 })
 export class AjfFormsModule {
 }

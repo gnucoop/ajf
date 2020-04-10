@@ -20,9 +20,9 @@
  *
  */
 
-import {NgModule} from '@angular/core';
 import {AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
 import {AjfFormsModule} from '@ajf/ionic/forms';
+import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
 
 import {IonicDateInputFieldE2E} from './date-input-field-e2e';
@@ -33,7 +33,9 @@ import {IonicDateInputFieldE2E} from './date-input-field-e2e';
     AjfFormsModule,
     IonicModule,
   ],
-  declarations: [IonicDateInputFieldE2E],
+  declarations: [
+    IonicDateInputFieldE2E,
+  ],
 })
 export class IonicDateInputFieldE2eModule {
 }

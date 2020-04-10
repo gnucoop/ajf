@@ -20,11 +20,21 @@
  *
  */
 
-import {AjfBaseFieldComponent, AjfFormulaFieldInstance,
-  AjfFormRendererService} from '@ajf/core/forms';
+import {
+  AjfBaseFieldComponent,
+  AjfFormRendererService,
+  AjfFormulaFieldInstance
+} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, ViewChild,
-  ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {IonInput} from '@ionic/angular';
 import {InputChangeEventDetail} from '@ionic/core';
 import {Observable, Subscription} from 'rxjs';
@@ -38,8 +48,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFieldInstance>
-    implements OnDestroy {
+export class AjfFormulaFieldComponent extends
+    AjfBaseFieldComponent<AjfFormulaFieldInstance> implements OnDestroy {
   @ViewChild(IonInput, {static: true}) input: IonInput;
 
   readonly value: Observable<any>;
@@ -52,24 +62,29 @@ export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFi
     super(cdr, service, was);
 
     const control$ = this.control.pipe(
-      filter(control => control != null),
+        filter(control => control != null),
     );
 
-    this._onChangeSub = control$.pipe(
-      switchMap(control => this._onChangeEvt.pipe(map(value => ({control, value})))),
-    ).subscribe(({control, value}) => {
-      try {
-        const v = parseFloat(value);
-        value = v;
-      } catch (e) { }
-      control!.setValue(value);
-    });
+    this._onChangeSub =
+        control$
+            .pipe(
+                switchMap(control => this._onChangeEvt.pipe(map(value => ({control, value})))),
+                )
+            .subscribe(({control, value}) => {
+              try {
+                const v = parseFloat(value);
+                value = v;
+              } catch (e) {
+              }
+              control!.setValue(value);
+            });
 
     this.value = this.control.pipe(
-      filter(control => control != null),
-      switchMap(control => control!.valueChanges.pipe(
-        startWith(control!.value),
-      )),
+        filter(control => control != null),
+        switchMap(
+            control => control!.valueChanges.pipe(
+                startWith(control!.value),
+                )),
     );
   }
 
@@ -80,7 +95,9 @@ export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFi
 
   onChange(event: Event): void {
     const evt = event as CustomEvent<InputChangeEventDetail>;
-    if (evt.detail == null) { return; }
+    if (evt.detail == null) {
+      return;
+    }
     this._onChangeEvt.emit(evt.detail.value);
   }
 

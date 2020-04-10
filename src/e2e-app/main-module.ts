@@ -32,7 +32,9 @@ import {MaterialTableFieldE2eModule} from './mat-table-field/table-field-e2e-mod
   declarations: [
     E2eApp,
   ],
-  bootstrap: [E2eApp],
+  bootstrap: [
+    E2eApp,
+  ],
 })
 export class MainModule {
 }

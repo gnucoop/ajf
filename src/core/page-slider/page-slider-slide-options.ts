@@ -20,13 +20,10 @@
  *
  */
 
-export type AjfHorizontalPageSliderSlideDirection = 'left' | 'right';
-export type AjfVerticalPageSliderSlideDirection = 'up' | 'down';
+export type AjfHorizontalPageSliderSlideDirection = 'left'|'right';
+export type AjfVerticalPageSliderSlideDirection = 'up'|'down';
 export type AjfPageSliderSlideDirection =
-  'back'
-  | 'forward'
-  | AjfHorizontalPageSliderSlideDirection
-  | AjfVerticalPageSliderSlideDirection;
+    'back'|'forward'|AjfHorizontalPageSliderSlideDirection|AjfVerticalPageSliderSlideDirection;
 
 export interface AjfPageSliderSlideOptions {
   dir?: AjfPageSliderSlideDirection;

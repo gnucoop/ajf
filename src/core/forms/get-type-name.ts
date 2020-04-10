@@ -22,7 +22,5 @@
 
 export function getTypeName(v: any): string {
   let typeStr = typeof v;
-  return typeStr === 'object'
-    ? v.constructor.toString().match(/\w+/g)[1]
-    : typeStr;
+  return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;
 }

@@ -20,12 +20,12 @@
  *
  */
 
-import {Component} from '@angular/core';
 import {EXAMPLE_COMPONENTS} from '@ajf/ajf-examples';
+import {Component} from '@angular/core';
 
 /** Renders all ajf examples listed in the generated EXAMPLE_COMPONENTS. */
 @Component({
-  template: `<ajf-example-list [ids]="examples"></ajf-example-list>`
+  template: `<ajf-example-list [ids]="examples"></ajf-example-list>`,
 })
 export class ExamplesPage {
   examples = Object.keys(EXAMPLE_COMPONENTS);

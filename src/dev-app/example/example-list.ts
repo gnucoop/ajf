@@ -20,9 +20,9 @@
  *
  */
 
+import {EXAMPLE_COMPONENTS} from '@ajf/ajf-examples';
 import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {Component, Input} from '@angular/core';
-import {EXAMPLE_COMPONENTS} from '@ajf/ajf-examples';
 
 /** Displays a set of ajf examples in a mat-accordion. */
 @Component({
@@ -74,8 +74,12 @@ export class ExampleList {
   @Input() ids: string[];
 
   @Input()
-  get expandAll(): boolean { return this._expandAll; }
-  set expandAll(v: boolean) { this._expandAll = coerceBooleanProperty(v); }
+  get expandAll(): boolean {
+    return this._expandAll;
+  }
+  set expandAll(v: boolean) {
+    this._expandAll = coerceBooleanProperty(v);
+  }
   _expandAll: boolean;
 
   exampleComponents = EXAMPLE_COMPONENTS;

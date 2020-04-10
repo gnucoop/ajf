@@ -21,19 +21,35 @@
  */
 
 import {
-  AjfChoicesOrigin, AjfField, AjfFieldWithChoices, AjfNode, AjfNumberField,
-  AjfRepeatingContainerNode, isField, isFieldWithChoices, isNumberField,
+  AjfChoicesOrigin,
+  AjfField,
+  AjfFieldWithChoices,
+  AjfNode,
+  AjfNumberField,
+  AjfRepeatingContainerNode,
+  isField,
+  isFieldWithChoices,
+  isNumberField,
   isRepeatingContainerNode
 } from '@ajf/core/forms';
 import {AjfCondition, alwaysCondition, neverCondition} from '@ajf/core/models';
 import {
-  ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  ViewEncapsulation
 } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {
-  distinctUntilChanged, filter, map, publishReplay, refCount, withLatestFrom
+  distinctUntilChanged,
+  filter,
+  map,
+  publishReplay,
+  refCount,
+  withLatestFrom
 } from 'rxjs/operators';
 
 import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
@@ -42,35 +58,29 @@ import {AjfFbValidationConditionEditorDialog} from './validation-condition-edito
 import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dialog';
 
 
-function checkRepsValidity(c: AbstractControl): {[key: string]: any} | null {
+function checkRepsValidity(c: AbstractControl): {[key: string]: any}|null {
   const minReps = c.value.minReps;
   const maxReps = c.value.maxReps;
   if (minReps != null && maxReps != null && minReps > maxReps) {
-    return {
-      reps: 'Min repetions cannot be greater than max repetitions'
-    };
+    return {reps: 'Min repetions cannot be greater than max repetitions'};
   }
   return null;
 }
 
-function checkValueLimitsValidity(c: AbstractControl): {[key: string]: any} | null {
+function checkValueLimitsValidity(c: AbstractControl): {[key: string]: any}|null {
   const minValue = c.value.minValue;
   const maxValue = c.value.maxValue;
   if (minValue != null && maxValue != null && minValue > maxValue) {
-    return {
-      valueLimit: 'Min value cannot be greater than max value'
-    };
+    return {valueLimit: 'Min value cannot be greater than max value'};
   }
   return null;
 }
 
-function checkDigitsValidity(c: AbstractControl): {[key: string]: any} | null {
+function checkDigitsValidity(c: AbstractControl): {[key: string]: any}|null {
   const minDigits = c.value.minDigits;
   const maxDigits = c.value.maxDigits;
   if (minDigits != null && maxDigits != null && minDigits > maxDigits) {
-    return {
-      digits: 'Min digits cannot be greater than max digits'
-    };
+    return {digits: 'Min digits cannot be greater than max digits'};
   }
   return null;
 }
@@ -95,16 +105,18 @@ export interface WarningCondition {
 })
 export class AjfFbNodeProperties implements OnDestroy {
   private _fieldSizes: {label: string, value: string}[] = [
-    {label: 'Normal', value: 'normal'},
-    {label: 'Small', value: 'small'},
-    {label: 'Smaller', value: 'smaller'},
-    {label: 'Tiny', value: 'tiny'},
+    {label: 'Normal', value: 'normal'}, {label: 'Small', value: 'small'},
+    {label: 'Smaller', value: 'smaller'}, {label: 'Tiny', value: 'tiny'},
     {label: 'Mini', value: 'mini'}
   ];
-  get fieldSizes(): {label: string, value: string}[] { return this._fieldSizes; }
+  get fieldSizes(): {label: string, value: string}[] {
+    return this._fieldSizes;
+  }
 
-  private _nodeEntry: Observable<AjfFormBuilderNodeEntry | null>;
-  get nodeEntry(): Observable<AjfFormBuilderNodeEntry | null> { return this._nodeEntry; }
+  private _nodeEntry: Observable<AjfFormBuilderNodeEntry|null>;
+  get nodeEntry(): Observable<AjfFormBuilderNodeEntry|null> {
+    return this._nodeEntry;
+  }
 
   private _choicesOrigins: AjfChoicesOrigin<any>[] = [];
   get choicesOrigins(): AjfChoicesOrigin<any>[] {
@@ -112,47 +124,74 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _enabled: Observable<boolean>;
-  get enabled(): Observable<boolean> { return this._enabled; }
+  get enabled(): Observable<boolean> {
+    return this._enabled;
+  }
 
   private _propertiesForm: Observable<FormGroup>;
-  get propertiesForm(): Observable<FormGroup> { return this._propertiesForm; }
+  get propertiesForm(): Observable<FormGroup> {
+    return this._propertiesForm;
+  }
 
   private _hasChoices: Observable<boolean>;
-  get hasChoices(): Observable<boolean> { return this._hasChoices; }
+  get hasChoices(): Observable<boolean> {
+    return this._hasChoices;
+  }
 
-  private _curVisibility: string | null;
-  get curVisibility(): string | null { return this._curVisibility; }
+  private _curVisibility: string|null;
+  get curVisibility(): string|null {
+    return this._curVisibility;
+  }
 
-  private _curFormulaReps: string | null;
-  get curFormulaReps(): string | null { return this._curFormulaReps; }
+  private _curFormulaReps: string|null;
+  get curFormulaReps(): string|null {
+    return this._curFormulaReps;
+  }
 
   private _curChoicesFilter: string;
-  get curChoicesFilter(): string { return this._curChoicesFilter; }
+  get curChoicesFilter(): string {
+    return this._curChoicesFilter;
+  }
 
-  private _curForceValue: string | null;
-  get curForceValue(): string | null { return this._curForceValue; }
+  private _curForceValue: string|null;
+  get curForceValue(): string|null {
+    return this._curForceValue;
+  }
 
-  private _curFormula: string | null;
-  get curFormula(): string | null { return this._curFormula; }
+  private _curFormula: string|null;
+  get curFormula(): string|null {
+    return this._curFormula;
+  }
 
   private _conditionalBranches: string[] = [];
-  get conditionalBranches(): string[] { return this._conditionalBranches; }
+  get conditionalBranches(): string[] {
+    return this._conditionalBranches;
+  }
 
   private _validationConditions: ValidationCondition[] = [];
-  get validationConditions(): ValidationCondition[] { return this._validationConditions; }
+  get validationConditions(): ValidationCondition[] {
+    return this._validationConditions;
+  }
 
   private _warningConditions: WarningCondition[] = [];
-  get warningConditions(): WarningCondition[] { return this._warningConditions; }
+  get warningConditions(): WarningCondition[] {
+    return this._warningConditions;
+  }
 
   private _nextSlideCondition: string;
-  get nextSlideCondition(): string { return this._nextSlideCondition; }
+  get nextSlideCondition(): string {
+    return this._nextSlideCondition;
+  }
 
   private _triggerConditions: string[];
-  get triggerConditions(): string[] { return this._triggerConditions; }
-
-  isRepeatingContainerNode: (nodeEntry: AjfFormBuilderNodeEntry|null) => boolean = (nodeEntry) => {
-    return nodeEntry != null && isRepeatingContainerNode(nodeEntry.node);
+  get triggerConditions(): string[] {
+    return this._triggerConditions;
   }
+
+  isRepeatingContainerNode: (nodeEntry: AjfFormBuilderNodeEntry|null) => boolean =
+      (nodeEntry) => {
+        return nodeEntry != null && isRepeatingContainerNode(nodeEntry.node);
+      }
 
   private _visibilitySub: Subscription = Subscription.EMPTY;
   private _conditionalBranchesSub = Subscription.EMPTY;
@@ -166,11 +205,11 @@ export class AjfFbNodeProperties implements OnDestroy {
   private _choicesOriginsSub = Subscription.EMPTY;
   private _triggerConditionsSub = Subscription.EMPTY;
 
-  private _editConditionDialog: MatDialogRef<AjfFbConditionEditorDialog> | null;
+  private _editConditionDialog: MatDialogRef<AjfFbConditionEditorDialog>|null;
   private _editConditionDialogSub: Subscription = Subscription.EMPTY;
-  private _editValidationConditionDialog: MatDialogRef<AjfFbValidationConditionEditorDialog> | null;
+  private _editValidationConditionDialog: MatDialogRef<AjfFbValidationConditionEditorDialog>|null;
   private _editValidationConditionDialogSub: Subscription = Subscription.EMPTY;
-  private _editWarningConditionDialog: MatDialogRef<AjfFbWarningConditionEditorDialog> | null;
+  private _editWarningConditionDialog: MatDialogRef<AjfFbWarningConditionEditorDialog>|null;
   private _editWarningConditionDialogSub: Subscription = Subscription.EMPTY;
 
   private _editVisibilityEvt: EventEmitter<void> = new EventEmitter<void>();
@@ -225,13 +264,11 @@ export class AjfFbNodeProperties implements OnDestroy {
   private _saveSub = Subscription.EMPTY;
 
   constructor(
-    private _service: AjfFormBuilderService,
-    private _dialog: MatDialog,
-    private _fb: FormBuilder
-  ) {
+      private _service: AjfFormBuilderService, private _dialog: MatDialog,
+      private _fb: FormBuilder) {
     this._nodeEntry = _service.editedNodeEntry;
-    this._choicesOriginsSub = _service.choicesOrigins
-      .subscribe((c) => this._choicesOrigins = c || []);
+    this._choicesOriginsSub =
+        _service.choicesOrigins.subscribe((c) => this._choicesOrigins = c || []);
 
     this._enabled = this._nodeEntry.pipe(map((n) => n != null));
 
@@ -260,7 +297,9 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   editConditionalBranch(idx: number): void {
-    if (idx < 0 || idx >= this._conditionalBranches.length) { return; }
+    if (idx < 0 || idx >= this._conditionalBranches.length) {
+      return;
+    }
     this._editConditionalBranchEvt.emit(idx);
   }
 
@@ -281,7 +320,9 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   editValidationCondition(idx: number): void {
-    if (idx < 0 || idx >= this._validationConditions.length) { return; }
+    if (idx < 0 || idx >= this._validationConditions.length) {
+      return;
+    }
     this._editValidationConditionEvt.emit(idx);
   }
 
@@ -290,12 +331,16 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   removeValidationCondition(idx: number): void {
-    if (idx < 0 || idx >= this._validationConditions.length) { return; }
+    if (idx < 0 || idx >= this._validationConditions.length) {
+      return;
+    }
     this._removeValidationConditionEvt.emit(idx);
   }
 
   editWarningCondition(idx: number): void {
-    if (idx < 0 || idx >= this._warningConditions.length) { return; }
+    if (idx < 0 || idx >= this._warningConditions.length) {
+      return;
+    }
     this._editWarningConditionEvt.emit(idx);
   }
 
@@ -304,7 +349,9 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   removeWarningCondition(idx: number): void {
-    if (idx < 0 || idx >= this._warningConditions.length) { return; }
+    if (idx < 0 || idx >= this._warningConditions.length) {
+      return;
+    }
     this._removeWarningConditionEvt.emit(idx);
   }
 
@@ -313,7 +360,9 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   editTriggerCondition(idx: number): void {
-    if (idx < 0 || idx >= this._triggerConditions.length) { return; }
+    if (idx < 0 || idx >= this._triggerConditions.length) {
+      return;
+    }
     this._editTriggerConditionEvt.emit(idx);
   }
 
@@ -322,7 +371,9 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   removeTriggerCondition(idx: number): void {
-    if (idx < 0 || idx >= this._triggerConditions.length) { return; }
+    if (idx < 0 || idx >= this._triggerConditions.length) {
+      return;
+    }
     this._removeTriggerConditionEvt.emit(idx);
   }
 
@@ -386,172 +437,163 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initSave(): void {
     this._saveSub = this._saveEvt.pipe(withLatestFrom(this.propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        const fg = r[1];
-        const val = {...fg.value,
-          conditionalBranches: this._conditionalBranches
-        };
-        this._service.saveNodeEntry(val);
-      });
+                        .subscribe((r: [void, FormGroup]) => {
+                          const fg = r[1];
+                          const val = {...fg.value, conditionalBranches: this._conditionalBranches};
+                          this._service.saveNodeEntry(val);
+                        });
   }
 
   private _initForm(): void {
     this._propertiesForm = this._nodeEntry.pipe(
-      filter((n) => n != null),
-      map((n) => {
-        if (this._visibilitySub != null) { this._visibilitySub.unsubscribe(); }
-        if (this._conditionalBranchesSub != null) { this._conditionalBranchesSub.unsubscribe(); }
-        n = n!;
+        filter((n) => n != null), map((n) => {
+          if (this._visibilitySub != null) {
+            this._visibilitySub.unsubscribe();
+          }
+          if (this._conditionalBranchesSub != null) {
+            this._conditionalBranchesSub.unsubscribe();
+          }
+          n = n!;
 
-        const visibility = n.node.visibility != null ?
-          n.node.visibility.condition : null;
-        const visibilityOpt = n.node.visibility != null ?
-          this._guessVisibilityOpt(n.node.visibility) : null;
-        let controls: any = {
-          name: [n.node.name, Validators.required],
-          label: n.node.label,
-          visibilityOpt: [visibilityOpt, Validators.required],
-          visibility: [visibility, Validators.required],
-          conditionalBranchesNum: n.node.conditionalBranches.length
-        };
-        const validators: ValidatorFn[] = [];
+          const visibility = n.node.visibility != null ? n.node.visibility.condition : null;
+          const visibilityOpt =
+              n.node.visibility != null ? this._guessVisibilityOpt(n.node.visibility) : null;
+          let controls: any = {
+            name: [n.node.name, Validators.required],
+            label: n.node.label,
+            visibilityOpt: [visibilityOpt, Validators.required],
+            visibility: [visibility, Validators.required],
+            conditionalBranchesNum: n.node.conditionalBranches.length
+          };
+          const validators: ValidatorFn[] = [];
 
-        if (isRepeatingContainerNode(n.node)) {
-          const rn = <AjfRepeatingContainerNode>n.node;
+          if (isRepeatingContainerNode(n.node)) {
+            const rn = <AjfRepeatingContainerNode>n.node;
 
-          const formulaReps = rn.formulaReps != null ? rn.formulaReps.formula : null;
+            const formulaReps = rn.formulaReps != null ? rn.formulaReps.formula : null;
 
-          controls.formulaReps = [formulaReps, Validators.required];
-          controls.minReps = rn.minReps;
-          controls.maxReps = rn.maxReps;
+            controls.formulaReps = [formulaReps, Validators.required];
+            controls.minReps = rn.minReps;
+            controls.maxReps = rn.maxReps;
 
-          this._curFormulaReps = formulaReps;
+            this._curFormulaReps = formulaReps;
 
-          validators.push(checkRepsValidity);
-        }
+            validators.push(checkRepsValidity);
+          }
 
-        if (this.isField(n)) {
-          const field = <AjfField>n.node;
+          if (this.isField(n)) {
+            const field = <AjfField>n.node;
 
-          let forceValue: string | null = null;
-          let notEmpty: boolean = false;
-          let validationConditions: ValidationCondition[] = [];
-          if (field.validation != null) {
-            if (field.validation.forceValue != null) {
-              forceValue = field.validation.forceValue.condition;
-            }
-            notEmpty = field.validation.notEmpty != null;
-            validationConditions = (field.validation.conditions || [])
-              .map(c => {
-                return {
-                  condition: c.condition,
-                  errorMessage: c.errorMessage
-                };
+            let forceValue: string|null = null;
+            let notEmpty: boolean = false;
+            let validationConditions: ValidationCondition[] = [];
+            if (field.validation != null) {
+              if (field.validation.forceValue != null) {
+                forceValue = field.validation.forceValue.condition;
+              }
+              notEmpty = field.validation.notEmpty != null;
+              validationConditions = (field.validation.conditions || []).map(c => {
+                return {condition: c.condition, errorMessage: c.errorMessage};
               });
-          }
+            }
 
-          let notEmptyW: boolean = false;
-          let warningConditions: WarningCondition[] = [];
-          if (field.warning != null) {
-            notEmptyW = field.warning.notEmpty != null;
-            warningConditions = (field.warning.conditions || [])
-              .map(w => {
-                return {
-                  condition: w.condition,
-                  warningMessage: w.warningMessage
-                };
+            let notEmptyW: boolean = false;
+            let warningConditions: WarningCondition[] = [];
+            if (field.warning != null) {
+              notEmptyW = field.warning.notEmpty != null;
+              warningConditions = (field.warning.conditions || []).map(w => {
+                return {condition: w.condition, warningMessage: w.warningMessage};
               });
-          }
-          const formula = field.formula != null ? field.formula.formula : null;
-
-          controls.description = field.description;
-          controls.defaultValue = field.defaultValue;
-          controls.size = field.size;
-          controls.formula = formula;
-          controls.forceValue = forceValue;
-          controls.notEmpty = notEmpty;
-          controls.validationConditions = [validationConditions, []];
-          controls.notEmptyWarning = notEmptyW;
-          controls.warningConditions = [warningConditions, []];
-          controls.nextSlideCondition = [field.nextSlideCondition];
-
-          this._curForceValue = forceValue;
-          this._curFormula = formula;
-          this._validationConditions = validationConditions;
-          this._warningConditions = warningConditions;
-        }
-
-        if (this.isNumericField(n.node)) {
-          const numField = <AjfNumberField>n.node;
-
-          let minValue: any;
-          let maxValue: any;
-          let minDigits: any;
-          let maxDigits: any;
-          if (numField.validation != null) {
-            if (numField.validation.minValue != null) {
-              minValue = (numField.validation.minValue.condition || '').replace('$value >= ', '');
             }
-            if (numField.validation.maxValue != null) {
-              maxValue = (numField.validation.maxValue.condition || '').replace('$value <= ', '');
-            }
-            if (numField.validation.minDigits != null) {
-              minDigits = (numField.validation.minDigits.condition || '')
-                .replace('$value.toString().length >= ', '');
-            }
-            if (numField.validation.maxDigits != null) {
-              maxDigits = (numField.validation.maxDigits.condition || '')
-                .replace('$value.toString().length <= ', '');
-            }
+            const formula = field.formula != null ? field.formula.formula : null;
+
+            controls.description = field.description;
+            controls.defaultValue = field.defaultValue;
+            controls.size = field.size;
+            controls.formula = formula;
+            controls.forceValue = forceValue;
+            controls.notEmpty = notEmpty;
+            controls.validationConditions = [validationConditions, []];
+            controls.notEmptyWarning = notEmptyW;
+            controls.warningConditions = [warningConditions, []];
+            controls.nextSlideCondition = [field.nextSlideCondition];
+
+            this._curForceValue = forceValue;
+            this._curFormula = formula;
+            this._validationConditions = validationConditions;
+            this._warningConditions = warningConditions;
           }
 
-          controls.minValue = minValue;
-          controls.maxValue = maxValue;
-          controls.minDigits = minDigits;
-          controls.maxDigits = maxDigits;
+          if (this.isNumericField(n.node)) {
+            const numField = <AjfNumberField>n.node;
 
-          validators.push(checkValueLimitsValidity);
-          validators.push(checkDigitsValidity);
-        }
+            let minValue: any;
+            let maxValue: any;
+            let minDigits: any;
+            let maxDigits: any;
+            if (numField.validation != null) {
+              if (numField.validation.minValue != null) {
+                minValue = (numField.validation.minValue.condition || '').replace('$value >= ', '');
+              }
+              if (numField.validation.maxValue != null) {
+                maxValue = (numField.validation.maxValue.condition || '').replace('$value <= ', '');
+              }
+              if (numField.validation.minDigits != null) {
+                minDigits = (numField.validation.minDigits.condition ||
+                             '').replace('$value.toString().length >= ', '');
+              }
+              if (numField.validation.maxDigits != null) {
+                maxDigits = (numField.validation.maxDigits.condition ||
+                             '').replace('$value.toString().length <= ', '');
+              }
+            }
 
-        if (this.isFieldWithChoices(n.node)) {
-          const fieldWithChoices = <AjfFieldWithChoices<any>>n.node;
+            controls.minValue = minValue;
+            controls.maxValue = maxValue;
+            controls.minDigits = minDigits;
+            controls.maxDigits = maxDigits;
 
-          let triggerConditions: string[] = (fieldWithChoices.triggerConditions || [])
-            .map((c) => c.condition);
+            validators.push(checkValueLimitsValidity);
+            validators.push(checkDigitsValidity);
+          }
 
-          controls.choicesOriginRef = (fieldWithChoices as any).choicesOriginRef;
-          controls.choicesFilter = fieldWithChoices.choicesFilter != null ?
-            fieldWithChoices.choicesFilter.formula : null;
-          controls.forceExpanded = fieldWithChoices.forceExpanded;
-          controls.forceNarrow = fieldWithChoices.forceNarrow;
-          controls.triggerConditions = triggerConditions;
+          if (this.isFieldWithChoices(n.node)) {
+            const fieldWithChoices = <AjfFieldWithChoices<any>>n.node;
 
-          this._triggerConditions = triggerConditions;
-        }
+            let triggerConditions: string[] =
+                (fieldWithChoices.triggerConditions || []).map((c) => c.condition);
 
-        const fg = this._fb.group(controls);
-        fg.setValidators(validators);
+            controls.choicesOriginRef = (fieldWithChoices as any).choicesOriginRef;
+            controls.choicesFilter = fieldWithChoices.choicesFilter != null ?
+                fieldWithChoices.choicesFilter.formula :
+                null;
+            controls.forceExpanded = fieldWithChoices.forceExpanded;
+            controls.forceNarrow = fieldWithChoices.forceNarrow;
+            controls.triggerConditions = triggerConditions;
 
-        this._conditionalBranches = n.node.conditionalBranches.map(c => c.condition);
-        this._curVisibility = n.node.visibility != null ? n.node.visibility.condition : null;
+            this._triggerConditions = triggerConditions;
+          }
 
-        this._handleConditionalBranchesChange(fg);
-        this._handleVisibilityChange(fg);
-        this._handleFormulaRepsChange(fg);
-        this._handleChoicesFilterChange(fg);
-        this._handleFormulaChange(fg);
-        this._handleForceValueChange(fg);
-        this._handleValidationCondtionsChange(fg);
-        this._handleWarningCondtionsChange(fg);
-        this._handleNextSlideConditionChange(fg);
-        this._handleTriggerCondtionsChange(fg);
+          const fg = this._fb.group(controls);
+          fg.setValidators(validators);
 
-        return fg;
-      }),
-      publishReplay(1),
-      refCount()
-    );
+          this._conditionalBranches = n.node.conditionalBranches.map(c => c.condition);
+          this._curVisibility = n.node.visibility != null ? n.node.visibility.condition : null;
+
+          this._handleConditionalBranchesChange(fg);
+          this._handleVisibilityChange(fg);
+          this._handleFormulaRepsChange(fg);
+          this._handleChoicesFilterChange(fg);
+          this._handleFormulaChange(fg);
+          this._handleForceValueChange(fg);
+          this._handleValidationCondtionsChange(fg);
+          this._handleWarningCondtionsChange(fg);
+          this._handleNextSlideConditionChange(fg);
+          this._handleTriggerCondtionsChange(fg);
+
+          return fg;
+        }),
+        publishReplay(1), refCount());
   }
 
   private _destroyConditionDialog(): void {
@@ -589,414 +631,471 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initRemoveTriggerCondition(): void {
     this._removeTriggerConditionSub = (<Observable<number>>this._removeTriggerConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [number, FormGroup]) => {
-        const vcIdx = r[0];
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['triggerConditions'];
-        let vcs = (ctrl.value || []).slice(0);
-        if (vcIdx < 0 || vcIdx >= vcs.length) { return; }
-        vcs.splice(vcIdx, 1);
-        ctrl.setValue(vcs);
-      });
+                                          .pipe(withLatestFrom(this._propertiesForm))
+                                          .subscribe((r: [number, FormGroup]) => {
+                                            const vcIdx = r[0];
+                                            const fg = r[1];
+                                            if (fg == null) {
+                                              return;
+                                            }
+                                            const ctrl = fg.controls['triggerConditions'];
+                                            let vcs = (ctrl.value || []).slice(0);
+                                            if (vcIdx < 0 || vcIdx >= vcs.length) {
+                                              return;
+                                            }
+                                            vcs.splice(vcIdx, 1);
+                                            ctrl.setValue(vcs);
+                                          });
   }
 
   private _initAddTriggerCondition(): void {
     this._addTriggerConditionSub = (<Observable<void>>this._addTriggerConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['triggerConditions'];
-        let vcs = (ctrl.value || []).slice(0);
-        vcs.push('');
-        ctrl.setValue(vcs);
-      });
+                                       .pipe(withLatestFrom(this._propertiesForm))
+                                       .subscribe((r: [void, FormGroup]) => {
+                                         const fg = r[1];
+                                         if (fg == null) {
+                                           return;
+                                         }
+                                         const ctrl = fg.controls['triggerConditions'];
+                                         let vcs = (ctrl.value || []).slice(0);
+                                         vcs.push('');
+                                         ctrl.setValue(vcs);
+                                       });
   }
 
   private _initTriggerConditionEdit(): void {
-    this._editTriggerConditionSub = (<Observable<number>>this._editTriggerConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [number, FormGroup]) => {
-        this._destroyConditionDialog();
-        const vcIdx = r[0];
-        const fg = r[1];
-        if (vcIdx < 0 || vcIdx >= this._triggerConditions.length || fg == null) { return; }
-        this._editConditionDialog = this._dialog
-          .open(AjfFbConditionEditorDialog);
-        const cmp = this._editConditionDialog.componentInstance;
-        cmp.condition = this._triggerConditions[vcIdx];
-        this._editConditionDialogSub = this._editConditionDialog.afterClosed()
-          .subscribe((cond: string) => {
-            if (cond !== void 0) {
-              this._triggerConditions[vcIdx] = cond;
-            }
-            this._editConditionDialogSub.unsubscribe();
-            this._editConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editTriggerConditionSub =
+        (<Observable<number>>this._editTriggerConditionEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [number, FormGroup]) => {
+              this._destroyConditionDialog();
+              const vcIdx = r[0];
+              const fg = r[1];
+              if (vcIdx < 0 || vcIdx >= this._triggerConditions.length || fg == null) {
+                return;
+              }
+              this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
+              const cmp = this._editConditionDialog.componentInstance;
+              cmp.condition = this._triggerConditions[vcIdx];
+              this._editConditionDialogSub =
+                  this._editConditionDialog.afterClosed().subscribe((cond: string) => {
+                    if (cond !== void 0) {
+                      this._triggerConditions[vcIdx] = cond;
+                    }
+                    this._editConditionDialogSub.unsubscribe();
+                    this._editConditionDialogSub = Subscription.EMPTY;
+                  });
+            });
   }
 
   private _initRemoveWarningCondition(): void {
     this._removeWarningConditionSub = (<Observable<number>>this._removeWarningConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [number, FormGroup]) => {
-        const vcIdx = r[0];
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['warningConditions'];
-        let vcs = (ctrl.value || []).slice(0);
-        if (vcIdx < 0 || vcIdx >= vcs.length) { return; }
-        vcs.splice(vcIdx, 1);
-        ctrl.setValue(vcs);
-      });
+                                          .pipe(withLatestFrom(this._propertiesForm))
+                                          .subscribe((r: [number, FormGroup]) => {
+                                            const vcIdx = r[0];
+                                            const fg = r[1];
+                                            if (fg == null) {
+                                              return;
+                                            }
+                                            const ctrl = fg.controls['warningConditions'];
+                                            let vcs = (ctrl.value || []).slice(0);
+                                            if (vcIdx < 0 || vcIdx >= vcs.length) {
+                                              return;
+                                            }
+                                            vcs.splice(vcIdx, 1);
+                                            ctrl.setValue(vcs);
+                                          });
   }
 
   private _initAddWarningCondition(): void {
     this._addWarningConditionSub = (<Observable<void>>this._addWarningConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['warningConditions'];
-        let vcs = (ctrl.value || []).slice(0);
-        vcs.push({condition: '', errorMessage: ''});
-        ctrl.setValue(vcs);
-      });
+                                       .pipe(withLatestFrom(this._propertiesForm))
+                                       .subscribe((r: [void, FormGroup]) => {
+                                         const fg = r[1];
+                                         if (fg == null) {
+                                           return;
+                                         }
+                                         const ctrl = fg.controls['warningConditions'];
+                                         let vcs = (ctrl.value || []).slice(0);
+                                         vcs.push({condition: '', errorMessage: ''});
+                                         ctrl.setValue(vcs);
+                                       });
   }
 
   private _initWarningConditionEdit(): void {
-    this._editWarningConditionSub = (<Observable<number>>this._editWarningConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [number, FormGroup]) => {
-        this._destroyWarningConditionDialog();
-        const vcIdx = r[0];
-        const fg = r[1];
-        if (vcIdx < 0 || vcIdx >= this._warningConditions.length || fg == null) { return; }
-        this._editWarningConditionDialog = this._dialog
-          .open(AjfFbWarningConditionEditorDialog);
-        const cmp = this._editWarningConditionDialog.componentInstance;
-        const w = this._warningConditions[vcIdx];
-        cmp.condition = w.condition;
-        cmp.warningMessage = w.warningMessage;
-        this._editWarningConditionDialogSub = this._editWarningConditionDialog.afterClosed()
-          .subscribe((cond: WarningCondition) => {
-            if (cond !== void 0) {
-              this._warningConditions[vcIdx] = cond;
-            }
-            this._editWarningConditionDialogSub.unsubscribe();
-            this._editWarningConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editWarningConditionSub =
+        (<Observable<number>>this._editWarningConditionEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [number, FormGroup]) => {
+              this._destroyWarningConditionDialog();
+              const vcIdx = r[0];
+              const fg = r[1];
+              if (vcIdx < 0 || vcIdx >= this._warningConditions.length || fg == null) {
+                return;
+              }
+              this._editWarningConditionDialog =
+                  this._dialog.open(AjfFbWarningConditionEditorDialog);
+              const cmp = this._editWarningConditionDialog.componentInstance;
+              const w = this._warningConditions[vcIdx];
+              cmp.condition = w.condition;
+              cmp.warningMessage = w.warningMessage;
+              this._editWarningConditionDialogSub =
+                  this._editWarningConditionDialog.afterClosed().subscribe(
+                      (cond: WarningCondition) => {
+                        if (cond !== void 0) {
+                          this._warningConditions[vcIdx] = cond;
+                        }
+                        this._editWarningConditionDialogSub.unsubscribe();
+                        this._editWarningConditionDialogSub = Subscription.EMPTY;
+                      });
+            });
   }
 
   private _initRemoveValidationCondition(): void {
     this._removeValidationConditionSub = (<Observable<number>>this._removeValidationConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [number, FormGroup]) => {
-        const vcIdx = r[0];
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['validationConditions'];
-        let vcs = (ctrl.value || []).slice(0);
-        if (vcIdx < 0 || vcIdx >= vcs.length) { return; }
-        vcs.splice(vcIdx, 1);
-        ctrl.setValue(vcs);
-      });
+                                             .pipe(withLatestFrom(this._propertiesForm))
+                                             .subscribe((r: [number, FormGroup]) => {
+                                               const vcIdx = r[0];
+                                               const fg = r[1];
+                                               if (fg == null) {
+                                                 return;
+                                               }
+                                               const ctrl = fg.controls['validationConditions'];
+                                               let vcs = (ctrl.value || []).slice(0);
+                                               if (vcIdx < 0 || vcIdx >= vcs.length) {
+                                                 return;
+                                               }
+                                               vcs.splice(vcIdx, 1);
+                                               ctrl.setValue(vcs);
+                                             });
   }
 
   private _initAddValidationCondition(): void {
     this._addValidationConditionSub = (<Observable<void>>this._addValidationConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['validationConditions'];
-        let vcs = (ctrl.value || []).slice(0);
-        vcs.push({condition: '', errorMessage: ''});
-        ctrl.setValue(vcs);
-      });
+                                          .pipe(withLatestFrom(this._propertiesForm))
+                                          .subscribe((r: [void, FormGroup]) => {
+                                            const fg = r[1];
+                                            if (fg == null) {
+                                              return;
+                                            }
+                                            const ctrl = fg.controls['validationConditions'];
+                                            let vcs = (ctrl.value || []).slice(0);
+                                            vcs.push({condition: '', errorMessage: ''});
+                                            ctrl.setValue(vcs);
+                                          });
   }
 
   private _initValidationConditionEdit(): void {
-    this._editValidationConditionSub = (<Observable<number>>this._editValidationConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [number, FormGroup]) => {
-        this._destroyValidationConditionDialog();
-        const vcIdx = r[0];
-        const fg = r[1];
-        if (vcIdx < 0 || vcIdx >= this._validationConditions.length || fg == null) { return; }
-        this._editValidationConditionDialog = this._dialog
-          .open(AjfFbValidationConditionEditorDialog);
-        const cmp = this._editValidationConditionDialog.componentInstance;
-        const v = this._validationConditions[vcIdx];
-        cmp.condition = v.condition;
-        cmp.errorMessage = v.errorMessage;
-        this._editValidationConditionDialogSub = this._editValidationConditionDialog.afterClosed()
-          .subscribe((cond: ValidationCondition) => {
-            if (cond !== void 0) {
-              this._validationConditions[vcIdx] = cond;
-            }
-            this._editValidationConditionDialogSub.unsubscribe();
-            this._editValidationConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editValidationConditionSub =
+        (<Observable<number>>this._editValidationConditionEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [number, FormGroup]) => {
+              this._destroyValidationConditionDialog();
+              const vcIdx = r[0];
+              const fg = r[1];
+              if (vcIdx < 0 || vcIdx >= this._validationConditions.length || fg == null) {
+                return;
+              }
+              this._editValidationConditionDialog =
+                  this._dialog.open(AjfFbValidationConditionEditorDialog);
+              const cmp = this._editValidationConditionDialog.componentInstance;
+              const v = this._validationConditions[vcIdx];
+              cmp.condition = v.condition;
+              cmp.errorMessage = v.errorMessage;
+              this._editValidationConditionDialogSub =
+                  this._editValidationConditionDialog.afterClosed().subscribe(
+                      (cond: ValidationCondition) => {
+                        if (cond !== void 0) {
+                          this._validationConditions[vcIdx] = cond;
+                        }
+                        this._editValidationConditionDialogSub.unsubscribe();
+                        this._editValidationConditionDialogSub = Subscription.EMPTY;
+                      });
+            });
   }
 
   private _initForceValueEdit(): void {
-    this._editForceValueSub = (<Observable<void>>this._editForceValueEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        this._destroyConditionDialog();
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['forceValue'];
-        this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
-        this._editConditionDialog.componentInstance.condition = ctrl.value;
-        this._editConditionDialogSub = this._editConditionDialog.afterClosed()
-          .subscribe((cond: string) => {
-            if (cond !== void 0) {
-              ctrl.setValue(cond);
-            }
-            this._editConditionDialogSub.unsubscribe();
-            this._editConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editForceValueSub =
+        (<Observable<void>>this._editForceValueEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [void, FormGroup]) => {
+              this._destroyConditionDialog();
+              const fg = r[1];
+              if (fg == null) {
+                return;
+              }
+              const ctrl = fg.controls['forceValue'];
+              this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
+              this._editConditionDialog.componentInstance.condition = ctrl.value;
+              this._editConditionDialogSub =
+                  this._editConditionDialog.afterClosed().subscribe((cond: string) => {
+                    if (cond !== void 0) {
+                      ctrl.setValue(cond);
+                    }
+                    this._editConditionDialogSub.unsubscribe();
+                    this._editConditionDialogSub = Subscription.EMPTY;
+                  });
+            });
   }
 
   private _initNextSlideConditionEdit(): void {
-    this._editNextSlideConditionSub = (<Observable<void>>this._editNextSlideConditionEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        this._destroyConditionDialog();
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['nextSlideCondition'];
-        this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
-        this._editConditionDialog.componentInstance.condition = ctrl.value;
-        this._editConditionDialogSub = this._editConditionDialog.afterClosed()
-          .subscribe((cond: string) => {
-            if (cond !== void 0) {
-              ctrl.setValue(cond);
-            }
-            this._editConditionDialogSub.unsubscribe();
-            this._editConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editNextSlideConditionSub =
+        (<Observable<void>>this._editNextSlideConditionEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [void, FormGroup]) => {
+              this._destroyConditionDialog();
+              const fg = r[1];
+              if (fg == null) {
+                return;
+              }
+              const ctrl = fg.controls['nextSlideCondition'];
+              this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
+              this._editConditionDialog.componentInstance.condition = ctrl.value;
+              this._editConditionDialogSub =
+                  this._editConditionDialog.afterClosed().subscribe((cond: string) => {
+                    if (cond !== void 0) {
+                      ctrl.setValue(cond);
+                    }
+                    this._editConditionDialogSub.unsubscribe();
+                    this._editConditionDialogSub = Subscription.EMPTY;
+                  });
+            });
   }
 
   private _initFormulaEdit(): void {
-    this._editFormulaSub = (<Observable<void>>this._editFormulaEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        this._destroyConditionDialog();
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['formula'];
-        this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
-        this._editConditionDialog.componentInstance.condition = ctrl.value;
-        this._editConditionDialogSub = this._editConditionDialog.afterClosed()
-          .subscribe((cond: string) => {
-            if (cond !== void 0) {
-              ctrl.setValue(cond);
-            }
-            this._editConditionDialogSub.unsubscribe();
-            this._editConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editFormulaSub =
+        (<Observable<void>>this._editFormulaEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [void, FormGroup]) => {
+              this._destroyConditionDialog();
+              const fg = r[1];
+              if (fg == null) {
+                return;
+              }
+              const ctrl = fg.controls['formula'];
+              this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
+              this._editConditionDialog.componentInstance.condition = ctrl.value;
+              this._editConditionDialogSub =
+                  this._editConditionDialog.afterClosed().subscribe((cond: string) => {
+                    if (cond !== void 0) {
+                      ctrl.setValue(cond);
+                    }
+                    this._editConditionDialogSub.unsubscribe();
+                    this._editConditionDialogSub = Subscription.EMPTY;
+                  });
+            });
   }
 
   private _initFormulaRepsEdit(): void {
-    this._editFormulaRepsSub = (<Observable<void>>this._editFormulaRepsEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        this._destroyConditionDialog();
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['formulaReps'];
-        this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
-        this._editConditionDialog.componentInstance.condition = ctrl.value;
-        this._editConditionDialogSub = this._editConditionDialog.afterClosed()
-          .subscribe((cond: string) => {
-            if (cond !== void 0) {
-              ctrl.setValue(cond);
-            }
-            this._editConditionDialogSub.unsubscribe();
-            this._editConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editFormulaRepsSub =
+        (<Observable<void>>this._editFormulaRepsEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [void, FormGroup]) => {
+              this._destroyConditionDialog();
+              const fg = r[1];
+              if (fg == null) {
+                return;
+              }
+              const ctrl = fg.controls['formulaReps'];
+              this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
+              this._editConditionDialog.componentInstance.condition = ctrl.value;
+              this._editConditionDialogSub =
+                  this._editConditionDialog.afterClosed().subscribe((cond: string) => {
+                    if (cond !== void 0) {
+                      ctrl.setValue(cond);
+                    }
+                    this._editConditionDialogSub.unsubscribe();
+                    this._editConditionDialogSub = Subscription.EMPTY;
+                  });
+            });
   }
 
   private _initChoicesFilterEdit(): void {
-    this._editChoicesFilterSub = (<Observable<void>>this._editChoicesFilterEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        this._destroyConditionDialog();
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['choicesFilter'];
-        this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
-        this._editConditionDialog.componentInstance.condition = ctrl.value;
-        this._editConditionDialogSub = this._editConditionDialog.afterClosed()
-          .subscribe((cond: string) => {
-            if (cond !== void 0) {
-              ctrl.setValue(cond);
-            }
-            this._editConditionDialogSub.unsubscribe();
-            this._editConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editChoicesFilterSub =
+        (<Observable<void>>this._editChoicesFilterEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [void, FormGroup]) => {
+              this._destroyConditionDialog();
+              const fg = r[1];
+              if (fg == null) {
+                return;
+              }
+              const ctrl = fg.controls['choicesFilter'];
+              this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
+              this._editConditionDialog.componentInstance.condition = ctrl.value;
+              this._editConditionDialogSub =
+                  this._editConditionDialog.afterClosed().subscribe((cond: string) => {
+                    if (cond !== void 0) {
+                      ctrl.setValue(cond);
+                    }
+                    this._editConditionDialogSub.unsubscribe();
+                    this._editConditionDialogSub = Subscription.EMPTY;
+                  });
+            });
   }
 
   private _initConditionalBranchEdit(): void {
-    this._editConditionalBranchSub = (<Observable<number>>this._editConditionalBranchEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [number, FormGroup]) => {
-        this._destroyConditionDialog();
-        const cbIdx = r[0];
-        const fg = r[1];
-        if (cbIdx < 0 || cbIdx >= this._conditionalBranches.length || fg == null) { return; }
-        this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
-        this._editConditionDialog.componentInstance.condition = this._conditionalBranches[cbIdx];
-        this._editConditionDialogSub = this._editConditionDialog.afterClosed()
-          .subscribe((cond: string) => {
-            if (cond !== void 0) {
-              this._conditionalBranches[cbIdx] = cond;
-            }
-            this._editConditionDialogSub.unsubscribe();
-            this._editConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editConditionalBranchSub =
+        (<Observable<number>>this._editConditionalBranchEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [number, FormGroup]) => {
+              this._destroyConditionDialog();
+              const cbIdx = r[0];
+              const fg = r[1];
+              if (cbIdx < 0 || cbIdx >= this._conditionalBranches.length || fg == null) {
+                return;
+              }
+              this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
+              this._editConditionDialog.componentInstance.condition =
+                  this._conditionalBranches[cbIdx];
+              this._editConditionDialogSub =
+                  this._editConditionDialog.afterClosed().subscribe((cond: string) => {
+                    if (cond !== void 0) {
+                      this._conditionalBranches[cbIdx] = cond;
+                    }
+                    this._editConditionDialogSub.unsubscribe();
+                    this._editConditionDialogSub = Subscription.EMPTY;
+                  });
+            });
   }
 
   private _initVisibilityEdit(): void {
-    this._editVisibilitySub = (<Observable<void>>this._editVisibilityEvt)
-      .pipe(withLatestFrom(this._propertiesForm))
-      .subscribe((r: [void, FormGroup]) => {
-        this._destroyConditionDialog();
-        const fg = r[1];
-        if (fg == null) { return; }
-        const ctrl = fg.controls['visibility'];
-        const condition = ctrl.value;
-        this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
-        this._editConditionDialog.componentInstance.condition = condition;
-        this._editConditionDialogSub = this._editConditionDialog.afterClosed()
-          .subscribe((cond: string) => {
-            if (cond !== void 0) {
-              ctrl.setValue(cond);
-            }
-            this._editConditionDialogSub.unsubscribe();
-            this._editConditionDialogSub = Subscription.EMPTY;
-          });
-      });
+    this._editVisibilitySub =
+        (<Observable<void>>this._editVisibilityEvt)
+            .pipe(withLatestFrom(this._propertiesForm))
+            .subscribe((r: [void, FormGroup]) => {
+              this._destroyConditionDialog();
+              const fg = r[1];
+              if (fg == null) {
+                return;
+              }
+              const ctrl = fg.controls['visibility'];
+              const condition = ctrl.value;
+              this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
+              this._editConditionDialog.componentInstance.condition = condition;
+              this._editConditionDialogSub =
+                  this._editConditionDialog.afterClosed().subscribe((cond: string) => {
+                    if (cond !== void 0) {
+                      ctrl.setValue(cond);
+                    }
+                    this._editConditionDialogSub.unsubscribe();
+                    this._editConditionDialogSub = Subscription.EMPTY;
+                  });
+            });
   }
 
   private _handleTriggerCondtionsChange(fg: FormGroup): void {
     this._triggerConditionsSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) =>
-        JSON.stringify(v1.triggerConditions) === JSON.stringify(v2.triggerConditions)))
-      .subscribe((v: any) => {
-        this._triggerConditions = v.triggerConditions;
-      });
+                                     .pipe(distinctUntilChanged(
+                                         (v1, v2) => JSON.stringify(v1.triggerConditions) ===
+                                             JSON.stringify(v2.triggerConditions)))
+                                     .subscribe((v: any) => {
+                                       this._triggerConditions = v.triggerConditions;
+                                     });
   }
 
   private _handleWarningCondtionsChange(fg: FormGroup): void {
     this._warningConditionsSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) =>
-        JSON.stringify(v1.warningConditions) === JSON.stringify(v2.warningConditions)))
-      .subscribe((v: any) => {
-        this._warningConditions = v.warningConditions;
-      });
+                                     .pipe(distinctUntilChanged(
+                                         (v1, v2) => JSON.stringify(v1.warningConditions) ===
+                                             JSON.stringify(v2.warningConditions)))
+                                     .subscribe((v: any) => {
+                                       this._warningConditions = v.warningConditions;
+                                     });
   }
 
   private _handleValidationCondtionsChange(fg: FormGroup): void {
     this._validationConditionsSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) =>
-        JSON.stringify(v1.validationConditions) === JSON.stringify(v2.validationConditions)))
-      .subscribe((v: any) => {
-        this._validationConditions = v.validationConditions;
-      });
+                                        .pipe(distinctUntilChanged(
+                                            (v1, v2) => JSON.stringify(v1.validationConditions) ===
+                                                JSON.stringify(v2.validationConditions)))
+                                        .subscribe((v: any) => {
+                                          this._validationConditions = v.validationConditions;
+                                        });
   }
 
   private _handleForceValueChange(fg: FormGroup): void {
-    this._forceValueSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) => v1.forceValue === v2.forceValue))
-      .subscribe((v: any) => {
-        this._curForceValue = v.forceValue;
-      });
+    this._forceValueSub =
+        fg.valueChanges.pipe(distinctUntilChanged((v1, v2) => v1.forceValue === v2.forceValue))
+            .subscribe((v: any) => {
+              this._curForceValue = v.forceValue;
+            });
   }
 
   private _handleNextSlideConditionChange(fg: FormGroup): void {
-    this._formulaSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) => v1.nextSlideCondition === v2.nextSlideCondition))
-      .subscribe((v: any) => {
-        this._nextSlideCondition = v.nextSlideCondition;
-      });
+    this._formulaSub =
+        fg.valueChanges
+            .pipe(distinctUntilChanged((v1, v2) => v1.nextSlideCondition === v2.nextSlideCondition))
+            .subscribe((v: any) => {
+              this._nextSlideCondition = v.nextSlideCondition;
+            });
   }
 
   private _handleFormulaChange(fg: FormGroup): void {
-    this._formulaSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) => v1.formula === v2.formula))
-      .subscribe((v: any) => {
-        this._curFormula = v.formula;
-      });
+    this._formulaSub =
+        fg.valueChanges.pipe(distinctUntilChanged((v1, v2) => v1.formula === v2.formula))
+            .subscribe((v: any) => {
+              this._curFormula = v.formula;
+            });
   }
 
   private _handleFormulaRepsChange(fg: FormGroup): void {
-    this._formulaRepsSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) => v1.formulaReps === v2.formulaReps))
-      .subscribe((v: any) => {
-        this._curFormulaReps = v.formulaReps;
-      });
+    this._formulaRepsSub =
+        fg.valueChanges.pipe(distinctUntilChanged((v1, v2) => v1.formulaReps === v2.formulaReps))
+            .subscribe((v: any) => {
+              this._curFormulaReps = v.formulaReps;
+            });
   }
 
   private _handleChoicesFilterChange(fg: FormGroup): void {
-    this._choicesFilterSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) => v1.choicesFilter === v2.choicesFilter))
-      .subscribe((v: any) => {
-        this._curChoicesFilter = v.choicesFilter;
-      });
+    this._choicesFilterSub =
+        fg.valueChanges
+            .pipe(distinctUntilChanged((v1, v2) => v1.choicesFilter === v2.choicesFilter))
+            .subscribe((v: any) => {
+              this._curChoicesFilter = v.choicesFilter;
+            });
   }
 
   private _handleConditionalBranchesChange(fg: FormGroup): void {
-    this._conditionalBranchesSub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) =>
-          v1.conditionalBranchesNum === v2.conditionalBranchesNum))
-      .subscribe((v: any) => {
-        const cbNum: number = v.conditionalBranchesNum;
-        const curCbNum = this._conditionalBranches.length;
-        if (curCbNum < cbNum) {
-          let newCbs: string[] = [];
-          for (let i = curCbNum ; i < cbNum ; i++) {
-            newCbs.push(alwaysCondition().condition);
-          }
-          this._conditionalBranches = this._conditionalBranches.concat(newCbs);
-        } else if (curCbNum > cbNum) {
-          this._conditionalBranches.splice(0, curCbNum - cbNum);
-        }
-      });
+    this._conditionalBranchesSub =
+        fg.valueChanges
+            .pipe(distinctUntilChanged(
+                (v1, v2) => v1.conditionalBranchesNum === v2.conditionalBranchesNum))
+            .subscribe((v: any) => {
+              const cbNum: number = v.conditionalBranchesNum;
+              const curCbNum = this._conditionalBranches.length;
+              if (curCbNum < cbNum) {
+                let newCbs: string[] = [];
+                for (let i = curCbNum; i < cbNum; i++) {
+                  newCbs.push(alwaysCondition().condition);
+                }
+                this._conditionalBranches = this._conditionalBranches.concat(newCbs);
+              } else if (curCbNum > cbNum) {
+                this._conditionalBranches.splice(0, curCbNum - cbNum);
+              }
+            });
   }
 
   private _handleVisibilityChange(fg: FormGroup): void {
-    this._visibilitySub = fg.valueChanges
-      .pipe(distinctUntilChanged((v1, v2) => v1.visibilityOpt === v2.visibilityOpt))
-      .subscribe((v) => {
-        const visibilityOpt = v.visibilityOpt;
-        let newCondition: string | null;
-        switch (visibilityOpt) {
-          case 'always':
-            newCondition = alwaysCondition().condition;
-            break;
-          case 'never':
-            newCondition = neverCondition().condition;
-            break;
-          default:
-          newCondition = null;
-        }
-        this._curVisibility = newCondition;
-        fg.controls['visibility'].setValue(newCondition);
-      });
+    this._visibilitySub =
+        fg.valueChanges
+            .pipe(distinctUntilChanged((v1, v2) => v1.visibilityOpt === v2.visibilityOpt))
+            .subscribe((v) => {
+              const visibilityOpt = v.visibilityOpt;
+              let newCondition: string|null;
+              switch (visibilityOpt) {
+                case 'always':
+                  newCondition = alwaysCondition().condition;
+                  break;
+                case 'never':
+                  newCondition = neverCondition().condition;
+                  break;
+                default:
+                  newCondition = null;
+              }
+              this._curVisibility = newCondition;
+              fg.controls['visibility'].setValue(newCondition);
+            });
   }
 
   private _guessVisibilityOpt(condition: AjfCondition): string {

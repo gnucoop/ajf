@@ -20,8 +20,10 @@
  *
  */
 
-import {AjfCheckboxGroup,
-  AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem} from '@ajf/core/checkbox-group';
+import {
+  AjfCheckboxGroup,
+  AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem
+} from '@ajf/core/checkbox-group';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@angular/core';
 

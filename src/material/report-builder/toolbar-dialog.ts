@@ -33,15 +33,14 @@ import {AjfReportBuilderService} from './report-builder-service';
 })
 export class AjfReportBuilderToolbarDialog {
   constructor(
-    private _service: AjfReportBuilderService,
-    private _dialogRef: MatDialogRef<AjfReportBuilderToolbarDialog>
-  ) { }
+      private _service: AjfReportBuilderService,
+      private _dialogRef: MatDialogRef<AjfReportBuilderToolbarDialog>) {}
 
   resetReport() {
     let emptyReport: any = {
-      'header': { 'content': [], 'styles': {} },
-      'content': { 'content': [], 'styles': {} },
-      'footer': { 'content': [], 'styles': {} },
+      'header': {'content': [], 'styles': {}},
+      'content': {'content': [], 'styles': {}},
+      'footer': {'content': [], 'styles': {}},
       'styles': {}
     };
     this._service.setReport(emptyReport);

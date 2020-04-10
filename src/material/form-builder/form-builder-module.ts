@@ -20,10 +20,12 @@
  *
  */
 
+import {AjfMonacoEditorModule} from '@ajf/material/monaco-editor';
+import {AjfNodeIconModule} from '@ajf/material/node-icon';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -41,17 +43,13 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
 import {TranslateModule} from '@ngx-translate/core';
 
-import {AjfMonacoEditorModule} from '@ajf/material/monaco-editor';
-import {AjfNodeIconModule} from '@ajf/material/node-icon';
-
 import {AjfFbBranchLine} from './branch-line';
-import {AjfFbChoicesOriginEditorDialog} from './choices-origin-editor-dialog';
 import {AjfFbChoicesOriginEditor} from './choices-origin-editor';
-import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
+import {AjfFbChoicesOriginEditorDialog} from './choices-origin-editor-dialog';
 import {AjfFbConditionEditor} from './condition-editor';
+import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {AjfFormBuilder} from './form-builder';
 import {AjfFormBuilderService} from './form-builder-service';
 import {AjfFbNodeEntry} from './node-entry';
@@ -63,37 +61,19 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DragDropModule,
-    MatAutocompleteModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatChipsModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSliderModule,
-    MatTableModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    TranslateModule,
-    AjfMonacoEditorModule,
-    AjfNodeIconModule,
+    AjfMonacoEditorModule, AjfNodeIconModule,     CommonModule,        DragDropModule,
+    FormsModule,           MatAutocompleteModule, MatButtonModule,     MatCardModule,
+    MatCheckboxModule,     MatChipsModule,        MatDialogModule,     MatFormFieldModule,
+    MatIconModule,         MatInputModule,        MatListModule,       MatMenuModule,
+    MatSelectModule,       MatSidenavModule,      MatSliderModule,     MatTableModule,
+    MatToolbarModule,      MatTooltipModule,      ReactiveFormsModule, TranslateModule,
   ],
   declarations: [
     AjfFbBranchLine,
-    AjfFbChoicesOriginEditorDialog,
     AjfFbChoicesOriginEditor,
-    AjfFbConditionEditorDialog,
+    AjfFbChoicesOriginEditorDialog,
     AjfFbConditionEditor,
+    AjfFbConditionEditorDialog,
     AjfFbNodeEntry,
     AjfFbNodeProperties,
     AjfFbNodeTypeEntry,
@@ -106,7 +86,8 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
     AjfFormBuilder,
   ],
   providers: [
-    AjfFormBuilderService
-  ]
+    AjfFormBuilderService,
+  ],
 })
-export class AjfFormBuilderModule { }
+export class AjfFormBuilderModule {
+}

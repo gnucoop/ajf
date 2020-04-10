@@ -29,7 +29,7 @@ import {AjfFieldInstance} from './field-instance';
 export interface AjfTableFieldInstance extends AjfFieldInstance {
   node: AjfTableField;
   hideEmptyRows: boolean;
-  value: [string, (string|number)[]][];
-  controls: [string, (string|FormControl)[]][];
+  value: [string, (string | number)[]][];
+  controls: [string, (string | FormControl)[]][];
   context: AjfContext;
 }

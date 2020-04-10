@@ -20,21 +20,21 @@
  *
  */
 
-import {Input, Directive, ElementRef, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
 
 
-@Directive({ selector: '[applyStyles]' })
+@Directive({selector: '[applyStyles]'})
 export class ApplyStylesDirective {
-  private _cssStyles: { [style: string]: any; };
+  private _cssStyles: {[style: string]: any};
   @Input()
-  set applyStyles(cssStyles: { [style: string]: any; }|null) {
+  set applyStyles(cssStyles: {[style: string]: any}|null) {
     if (cssStyles != null && this._cssStyles !== cssStyles) {
       this._cssStyles = cssStyles;
       this._updateStyles();
     }
   }
 
-  constructor(private _el: ElementRef, private _renderer: Renderer2) { }
+  constructor(private _el: ElementRef, private _renderer: Renderer2) {}
 
   private _updateStyles(): void {
     if (this._cssStyles == null) {
@@ -43,12 +43,9 @@ export class ApplyStylesDirective {
 
     Object.keys(this._cssStyles).forEach((style: string) => {
       try {
-        this._renderer.setStyle(
-          this._el.nativeElement,
-          style,
-          `${this._cssStyles[style]}`
-        );
-      } catch (e) { }
+        this._renderer.setStyle(this._el.nativeElement, style, `${this._cssStyles[style]}`);
+      } catch (e) {
+      }
     });
   }
 }

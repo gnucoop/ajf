@@ -21,7 +21,8 @@
  */
 
 import {
-  AjfFieldWarningAlertResult, AjfWarningAlertService as CoreWarningAlertService
+  AjfFieldWarningAlertResult,
+  AjfWarningAlertService as CoreWarningAlertService
 } from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 import {AlertController} from '@ionic/angular';
@@ -29,32 +30,34 @@ import {Observable} from 'rxjs';
 
 @Injectable()
 export class AjfWarningAlertService implements CoreWarningAlertService {
-  constructor(private _alertCtrl: AlertController) { }
+  constructor(private _alertCtrl: AlertController) {}
 
   showWarningAlertPrompt(warnings: string[]): Observable<AjfFieldWarningAlertResult> {
     return new Observable<AjfFieldWarningAlertResult>(subscriber => {
-      this._alertCtrl.create({
-        header: 'Warning',
-        message: warnings.join('\n'),
-        buttons: [
-          {
-            text: 'No',
-            handler: () => {
-              subscriber.next(<AjfFieldWarningAlertResult>{result: false});
-              subscriber.complete();
-            }
-          },
-          {
-            text: 'Yes',
-            handler: () => {
-              subscriber.next(<AjfFieldWarningAlertResult>{result: true});
-              subscriber.complete();
-            }
-          }
-        ]
-      }).then((alert) => {
-        alert.present();
-      });
+      this._alertCtrl
+          .create({
+            header: 'Warning',
+            message: warnings.join('\n'),
+            buttons: [
+              {
+                text: 'No',
+                handler: () => {
+                  subscriber.next(<AjfFieldWarningAlertResult>{result: false});
+                  subscriber.complete();
+                }
+              },
+              {
+                text: 'Yes',
+                handler: () => {
+                  subscriber.next(<AjfFieldWarningAlertResult>{result: true});
+                  subscriber.complete();
+                }
+              }
+            ]
+          })
+          .then((alert) => {
+            alert.present();
+          });
     });
   }
 }

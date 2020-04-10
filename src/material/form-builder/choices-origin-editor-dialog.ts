@@ -45,18 +45,13 @@ export class AjfFbChoicesOriginEditorDialog {
   }
 
   constructor(private _service: AjfFormBuilderService) {
-    this._choicesOrigin = this._service.editedChoicesOrigin.pipe(
-      filter(c => c != null),
-      map(c => c!)
-    );
+    this._choicesOrigin =
+        this._service.editedChoicesOrigin.pipe(filter(c => c != null), map(c => c!));
   }
 
   saveChoicesOrigin(): void {
-    this._service.saveChoicesOrigin({
-      label: this.editor.label,
-      name: this.editor.name,
-      choices: this.editor.choicesArr
-    });
+    this._service.saveChoicesOrigin(
+        {label: this.editor.label, name: this.editor.name, choices: this.editor.choicesArr});
   }
 
   cancelChoicesOriginEdit(): void {

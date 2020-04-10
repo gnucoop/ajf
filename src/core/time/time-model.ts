@@ -64,7 +64,6 @@ export class AjfTimeModel {
         this.minutes = parseInt(splitted[1]);
       }
     } catch (e) {
-
     }
   }
 }

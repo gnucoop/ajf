@@ -7,5 +7,5 @@ export declare class AjfCheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T>
 
 export declare class AjfCheckboxGroupModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfCheckboxGroupModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCheckboxGroupModule, [typeof i1.AjfCheckboxGroupItem], [typeof i2.CommonModule, typeof i3.IonicModule, typeof i4.AjfCheckboxGroupModule], [typeof i4.AjfCheckboxGroupModule, typeof i1.AjfCheckboxGroupItem]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCheckboxGroupModule, [typeof i1.AjfCheckboxGroupItem], [typeof i2.AjfCheckboxGroupModule, typeof i3.CommonModule, typeof i4.IonicModule], [typeof i1.AjfCheckboxGroupItem, typeof i2.AjfCheckboxGroupModule]>;
 }

@@ -21,34 +21,41 @@
  */
 
 import {
-  Directive, Renderer2, ElementRef, Input,
-  AfterViewInit, Output, EventEmitter
+  AfterViewInit,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2
 } from '@angular/core';
 
-@Directive({ selector: '[ajfVideoDirective]' })
+@Directive({selector: '[ajfVideoDirective]'})
 export class AjfVideoDirective implements AfterViewInit {
-
   private _source: HTMLVideoElement;
-  get source() { return this._source; }
-  @Input() set source(source: HTMLVideoElement) {
+  get source() {
+    return this._source;
+  }
+  @Input()
+  set source(source: HTMLVideoElement) {
     this._source = source;
     this._initCam();
   }
 
   @Output() isInit: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private _el: ElementRef, private _renderer: Renderer2) { }
+  constructor(private _el: ElementRef, private _renderer: Renderer2) {}
 
   private _initCam() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia(<MediaStreamConstraints>{ video: true })
-        .then((stream: MediaStream) => {
-          (this._source as any).srcObject = stream;
-          (this._source as any).play();
-        })
-        .catch((err: MediaStreamError) => {
-          console.log(err);
-        });
+      navigator.mediaDevices.getUserMedia(<MediaStreamConstraints>{video: true})
+          .then((stream: MediaStream) => {
+            (this._source as any).srcObject = stream;
+            (this._source as any).play();
+          })
+          .catch((err: MediaStreamError) => {
+            console.log(err);
+          });
     }
   }
 

@@ -48,10 +48,7 @@ export class AjfReportBuilderCustomWidgetToolbarButton implements OnInit {
   /**
    * this constructor will init icon registry
    */
-  constructor(
-    private _service: AjfReportBuilderService
-  ) {
-  }
+  constructor(private _service: AjfReportBuilderService) {}
 
   /**
    * this method call a service method for remove custom widget

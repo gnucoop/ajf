@@ -27,7 +27,9 @@ import {format} from 'date-fns';
 @Pipe({name: 'ajfDateValueString'})
 export class AjfDateValueStringPipe implements PipeTransform {
   transform(date: Date|'today'|undefined): string|undefined {
-    if (date == null) { return undefined; }
+    if (date == null) {
+      return undefined;
+    }
     const dateObj = date === 'today' ? new Date() : date;
     return format(dateObj, 'yyyy-MM-dd');
   }

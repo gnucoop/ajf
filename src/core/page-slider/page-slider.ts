@@ -20,17 +20,29 @@
  *
  */
 
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {animate, AnimationBuilder, style} from '@angular/animations';
-import {AfterContentInit, ChangeDetectorRef, ContentChildren, Directive, ElementRef, EventEmitter,
-  Input, OnDestroy, Output, QueryList, Renderer2, ViewChild} from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {
+  AfterContentInit,
+  ChangeDetectorRef,
+  ContentChildren,
+  Directive,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  QueryList,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {filter, map, scan, throttleTime} from 'rxjs/operators';
 
 import {AjfPageSliderItem} from './page-slider-item';
 import {AjfPageSliderSlideOptions} from './page-slider-slide-options';
 
-export type AjfPageSliderOrientation = 'horizontal' | 'vertical';
+export type AjfPageSliderOrientation = 'horizontal'|'vertical';
 
 interface Point {
   x: number;
@@ -47,7 +59,7 @@ interface Movement {
 }
 
 interface MousheWheelMove {
-  dir: 'x' | 'y';
+  dir: 'x'|'y';
   amount: number;
 }
 
@@ -59,16 +71,20 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   private _pageScrollFinish: EventEmitter<void> = new EventEmitter<void>();
   @Output() readonly pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
 
-  private _orientationChange: EventEmitter<AjfPageSliderOrientation>
-    = new EventEmitter<AjfPageSliderOrientation>();
-  @Output() readonly orientationChange: Observable<AjfPageSliderOrientation> =
-    this._orientationChange.asObservable();
+  private _orientationChange: EventEmitter<AjfPageSliderOrientation> =
+      new EventEmitter<AjfPageSliderOrientation>();
+  @Output()
+  readonly orientationChange: Observable<AjfPageSliderOrientation> =
+      this._orientationChange.asObservable();
 
   @Input() duration = 300;
 
   private _orientation: AjfPageSliderOrientation = 'horizontal';
-  get orientation(): AjfPageSliderOrientation { return this._orientation; }
-  @Input() set orientation(orientation: AjfPageSliderOrientation) {
+  get orientation(): AjfPageSliderOrientation {
+    return this._orientation;
+  }
+  @Input()
+  set orientation(orientation: AjfPageSliderOrientation) {
     if (this._orientation !== orientation) {
       this._orientation = orientation;
       this._cdr.markForCheck();
@@ -79,23 +95,34 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   private _fixedOrientation = false;
-  get fixedOrientation(): boolean { return this._fixedOrientation; }
-  @Input() set fixedOrientation(fixedOrientation: boolean) {
+  get fixedOrientation(): boolean {
+    return this._fixedOrientation;
+  }
+  @Input()
+  set fixedOrientation(fixedOrientation: boolean) {
     this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
     this._cdr.markForCheck();
   }
 
   private _currentPage = -1;
-  get currentPage(): number { return this._currentPage; }
-  @Input() set currentPage(currentPage: number) {
-    if (this.pages == null || currentPage < 0 || currentPage >= this.pages.length) { return; }
+  get currentPage(): number {
+    return this._currentPage;
+  }
+  @Input()
+  set currentPage(currentPage: number) {
+    if (this.pages == null || currentPage < 0 || currentPage >= this.pages.length) {
+      return;
+    }
     this._currentPage = currentPage;
     this._doSlide();
   }
 
   private _hideNavigationButtons: boolean;
-  get hideNavigationButtons(): boolean { return this._hideNavigationButtons; }
-  @Input() set hideNavigationButtons(hnb: boolean) {
+  get hideNavigationButtons(): boolean {
+    return this._hideNavigationButtons;
+  }
+  @Input()
+  set hideNavigationButtons(hnb: boolean) {
     this._hideNavigationButtons = coerceBooleanProperty(hnb);
     this._cdr.markForCheck();
   }
@@ -103,40 +130,46 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   private _animating = false;
   private _pagesSub: Subscription = Subscription.EMPTY;
 
-  private _currentOrigin: Point | null;
+  private _currentOrigin: Point|null;
   private _mouseWheelEvt: EventEmitter<MousheWheelMove> = new EventEmitter<MousheWheelMove>();
   private _mouseWheelSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    private _animationBuilder: AnimationBuilder,
-    private _cdr: ChangeDetectorRef,
-    private _renderer: Renderer2
-  ) {
-    this._mouseWheelSub = this._mouseWheelEvt.pipe(
-      map(evt => {
-        const page = this._getCurrentPage();
-        if (page == null) { return null; }
-        return {evt, res: page.setScroll(evt.dir, evt.amount, 0)};
-      }),
-      filter(r => r != null
-        && r.res === false
-        && (
-          (r.evt.dir === 'x' && this.orientation === 'horizontal')
-          || (r.evt.dir === 'y' && this.orientation === 'vertical')
-        )
-      ),
-      map(r => r!.evt.amount),
-      scan((acc, val) => {
-        if (acc === 0) { return val; }
-        if (acc / Math.abs(acc) !== val / Math.abs(val)) {return 0; }
-        return acc + val;
-      }, 0),
-      filter(val => !this._animating && Math.abs(val) > 150),
-      throttleTime(1500),
-    ).subscribe(val => {
-      this._mouseWheelEvt.emit({dir: 'x', amount: val > 0 ? -1 : + 1});
-      this.slide({dir: val > 0 ? 'back' : 'forward'});
-    });
+      private _animationBuilder: AnimationBuilder, private _cdr: ChangeDetectorRef,
+      private _renderer: Renderer2) {
+    this._mouseWheelSub =
+        this._mouseWheelEvt
+            .pipe(
+                map(evt => {
+                  const page = this._getCurrentPage();
+                  if (page == null) {
+                    return null;
+                  }
+                  return {evt, res: page.setScroll(evt.dir, evt.amount, 0)};
+                }),
+                filter(
+                    r => r != null && r.res === false &&
+                        ((r.evt.dir === 'x' && this.orientation === 'horizontal') ||
+                         (r.evt.dir === 'y' && this.orientation === 'vertical'))),
+                map(r => r!.evt.amount),
+                scan(
+                    (acc, val) => {
+                      if (acc === 0) {
+                        return val;
+                      }
+                      if (acc / Math.abs(acc) !== val / Math.abs(val)) {
+                        return 0;
+                      }
+                      return acc + val;
+                    },
+                    0),
+                filter(val => !this._animating && Math.abs(val) > 150),
+                throttleTime(1500),
+                )
+            .subscribe(val => {
+              this._mouseWheelEvt.emit({dir: 'x', amount: val > 0 ? -1 : +1});
+              this.slide({dir: val > 0 ? 'back' : 'forward'});
+            });
   }
 
   ngAfterContentInit(): void {
@@ -160,7 +193,9 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   slide(opts: AjfPageSliderSlideOptions): void {
-    if (this.pages == null) { return; }
+    if (this.pages == null) {
+      return;
+    }
     if (opts.dir) {
       if (opts.dir === 'back' || opts.dir === 'up' || opts.dir === 'left') {
         this._slideBack();
@@ -174,10 +209,14 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   onMouseWheel(event: Event): void {
     const evt = event as WheelEvent;
-    if (evt.deltaX == null || evt.deltaY == null) { return; }
+    if (evt.deltaX == null || evt.deltaY == null) {
+      return;
+    }
     const absDeltaX = Math.abs(evt.deltaX);
     const absDeltaY = Math.abs(evt.deltaY);
-    if (absDeltaX === 0 && absDeltaY === 0) { return; }
+    if (absDeltaX === 0 && absDeltaY === 0) {
+      return;
+    }
     if (absDeltaX > absDeltaY) {
       this._mouseWheelEvt.emit({dir: 'x', amount: -evt.deltaX});
     } else {
@@ -186,34 +225,29 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   onTouchStart(evt: TouchEvent): void {
-    if (evt.touches == null || evt.touches.length === 0 || this._animating) { return; }
-    this._currentOrigin = {
-      x: evt.touches[0].clientX,
-      y: evt.touches[0].clientY,
-      time: + new Date()
-    };
+    if (evt.touches == null || evt.touches.length === 0 || this._animating) {
+      return;
+    }
+    this._currentOrigin = {x: evt.touches[0].clientX, y: evt.touches[0].clientY, time: +new Date()};
   }
 
   onTouchMove(evt: TouchEvent): void {
-    if (
-      evt.touches == null || evt.touches.length === 0
-      || this._currentOrigin == null || this._animating
-    ) { return; }
-    const point: Point = {
-      x: evt.touches[0].clientX,
-      y: evt.touches[0].clientY,
-      time: + new Date()
-    };
+    if (evt.touches == null || evt.touches.length === 0 || this._currentOrigin == null ||
+        this._animating) {
+      return;
+    }
+    const point: Point = {x: evt.touches[0].clientX, y: evt.touches[0].clientY, time: +new Date()};
     const movement = this._calculateMovement(point);
     this._currentOrigin = point;
 
-    if (movement.velocityX === 0 && movement.velocityY === 0) { return; }
+    if (movement.velocityX === 0 && movement.velocityY === 0) {
+      return;
+    }
     const absVelocityX = Math.abs(movement.velocityX);
     const absVelocityY = Math.abs(movement.velocityY);
     if (absVelocityX > absVelocityY) {
-      if (
-        this.orientation === 'horizontal' && absVelocityX > 1.5 && Math.abs(movement.deltaX) > 50
-      ) {
+      if (this.orientation === 'horizontal' && absVelocityX > 1.5 &&
+          Math.abs(movement.deltaX) > 50) {
         this._resetCurrentOrigin();
         this.slide({dir: movement.velocityX < 0 ? 'forward' : 'back'});
       } else {
@@ -223,9 +257,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
         }
       }
     } else {
-      if (
-        this.orientation === 'vertical' && absVelocityY > 1.5 && Math.abs(movement.deltaY) > 50
-      ) {
+      if (this.orientation === 'vertical' && absVelocityY > 1.5 && Math.abs(movement.deltaY) > 50) {
         this._resetCurrentOrigin();
         this.slide({dir: movement.velocityY < 0 ? 'forward' : 'back'});
       } else {
@@ -243,7 +275,9 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   isCurrentPageLong(): boolean {
     const curPage = this._getCurrentPage();
-    if (curPage == null) { return false; }
+    if (curPage == null) {
+      return false;
+    }
     return curPage.wrapper.nativeElement.clientHeight > curPage.content.nativeElement.clientHeight;
   }
 
@@ -251,7 +285,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     this._currentOrigin = null;
   }
 
-  private _getCurrentPage(): AjfPageSliderItem | null {
+  private _getCurrentPage(): AjfPageSliderItem|null {
     if (this.pages == null || this.currentPage < 0 || this.currentPage >= this.pages.length) {
       return null;
     }
@@ -272,12 +306,16 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   private _slideBack(): void {
-    if (this._currentPage <= 0) { return; }
+    if (this._currentPage <= 0) {
+      return;
+    }
     this.currentPage = this._currentPage - 1;
   }
 
   private _slideForward(): void {
-    if (this._currentPage >= this.pages.length) { return; }
+    if (this._currentPage >= this.pages.length) {
+      return;
+    }
     this.currentPage = this._currentPage + 1;
   }
 
@@ -288,12 +326,12 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   private _doSlide(immediate = false): void {
-    if (this.body == null || this.pages == null || this._animating) { return; }
+    if (this.body == null || this.pages == null || this._animating) {
+      return;
+    }
     this._animating = true;
-    const animation = this._animationBuilder.build(animate(
-      immediate ? 0 : this.duration,
-      style({transform: this._getCurrentTranslation()})
-    ));
+    const animation = this._animationBuilder.build(
+        animate(immediate ? 0 : this.duration, style({transform: this._getCurrentTranslation()})));
 
     const player = animation.create(this.body.nativeElement);
     player.onDone(() => {
@@ -322,7 +360,9 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   private _updateSize(): void {
-    if (this.body == null || this.pages == null) { return; }
+    if (this.body == null || this.pages == null) {
+      return;
+    }
     const {prop, removeProp} = this._getProps();
     this._renderer.setStyle(this.body.nativeElement, prop, `${this.pages.length * 100}%`);
     this._renderer.setStyle(this.body.nativeElement, removeProp, null);

@@ -44,4 +44,5 @@ import {AjfCalendarComponent} from './calendar';
     AjfCalendarComponent,
   ],
 })
-export class AjfCalendarModule {}
+export class AjfCalendarModule {
+}

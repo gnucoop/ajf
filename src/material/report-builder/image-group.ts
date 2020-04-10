@@ -21,7 +21,12 @@
  */
 
 import {
-  ChangeDetectionStrategy, Component, Input, Output, EventEmitter, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {AjfReportBuilderService} from './report-builder-service';
@@ -53,19 +58,21 @@ import {AjfReportBuilderService} from './report-builder-service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AjfReportBuilderImageGroup  {
-
-  private _icon: {fontSet: string, fontIcon: string} | null = null;
+export class AjfReportBuilderImageGroup {
+  private _icon: {fontSet: string, fontIcon: string}|null = null;
   private _classes: string = '';
 
-  get icon(): {fontSet: string, fontIcon: string} | null { return this._icon; }
-  get classes(): string { return this._classes; }
+  get icon(): {fontSet: string, fontIcon: string}|null {
+    return this._icon;
+  }
+  get classes(): string {
+    return this._classes;
+  }
 
   open: boolean = false;
   valueToSearch: string = '';
 
-  @Input()
-  data: any;
+  @Input() data: any;
 
   /**
    * this event is fired when the user click on formula button on quill editor rool barƒ
@@ -74,7 +81,7 @@ export class AjfReportBuilderImageGroup  {
    */
   @Output() formulaClick: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private _service: AjfReportBuilderService) { }
+  constructor(private _service: AjfReportBuilderService) {}
 
 
   setIcon(fontSet: string, fontIcon: string) {
@@ -109,5 +116,4 @@ export class AjfReportBuilderImageGroup  {
   toggle() {
     this.open = !this.open;
   }
-
 }

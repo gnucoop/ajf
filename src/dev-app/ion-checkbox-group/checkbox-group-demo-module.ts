@@ -20,11 +20,10 @@
  *
  */
 
+import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-
-import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 
 import {CheckboxGroupDemo} from './checkbox-group-demo';
 

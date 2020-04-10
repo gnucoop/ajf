@@ -20,11 +20,15 @@
  *
  */
 
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
-  ViewEncapsulation} from '@angular/core';
-
 import {AjfImageType} from '@ajf/core/image';
 import {AjfBaseWidgetComponent, AjfImageContainerWidgetInstance} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   templateUrl: 'image-container-widget.html',
@@ -32,8 +36,8 @@ import {AjfBaseWidgetComponent, AjfImageContainerWidgetInstance} from '@ajf/core
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfImageContainerWidgetComponent
-    extends AjfBaseWidgetComponent<AjfImageContainerWidgetInstance> {
+export class AjfImageContainerWidgetComponent extends
+    AjfBaseWidgetComponent<AjfImageContainerWidgetInstance> {
   readonly imageTypes = AjfImageType;
 
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

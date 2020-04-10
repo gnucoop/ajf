@@ -20,13 +20,11 @@
  *
  */
 
+import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-
 import {IonicModule} from '@ionic/angular';
-
-import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
 
 import {PageSliderDemo} from './page-slider-demo';
 

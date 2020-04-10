@@ -60,11 +60,12 @@ export class AjfReportBuilderWidgetsToolbar {
    * @memberOf AjfReportBuilderContent
    */
   onDragStartHandler(): void {
-    let s = timer(200)
-      .subscribe(() => {
-        if (s != null) { s.unsubscribe(); }
-        this._service.dragStarted();
-      });
+    let s = timer(200).subscribe(() => {
+      if (s != null) {
+        s.unsubscribe();
+      }
+      this._service.dragStarted();
+    });
   }
 
   /**

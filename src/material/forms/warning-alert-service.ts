@@ -21,7 +21,8 @@
  */
 
 import {
-  AjfFieldWarningAlertResult, AjfWarningAlertService as CoreWarningAlertService
+  AjfFieldWarningAlertResult,
+  AjfWarningAlertService as CoreWarningAlertService
 } from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
@@ -32,13 +33,11 @@ import {AjfFieldWarningDialog} from './field-warning-dialog';
 
 @Injectable()
 export class AjfWarningAlertService implements CoreWarningAlertService {
-  constructor(private _dialog: MatDialog) { }
+  constructor(private _dialog: MatDialog) {}
 
   showWarningAlertPrompt(warnings: string[]): Observable<AjfFieldWarningAlertResult> {
     const dialog = this._dialog.open(AjfFieldWarningDialog);
     dialog.componentInstance.message = warnings.join('<br>');
-    return dialog.afterClosed().pipe(
-      map((result: boolean) => ({result}))
-    );
+    return dialog.afterClosed().pipe(map((result: boolean) => ({result})));
   }
 }

@@ -20,15 +20,18 @@
  *
  */
 
-import {NgModule} from '@angular/core';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
+import {NgModule} from '@angular/core';
+
 import {IonicCalendarE2E} from './calendar-e2e';
 
 @NgModule({
   imports: [
     AjfCalendarModule,
   ],
-  declarations: [IonicCalendarE2E],
+  declarations: [
+    IonicCalendarE2E,
+  ],
 })
 export class IonicCalendarE2eModule {
 }

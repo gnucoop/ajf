@@ -21,9 +21,8 @@
  */
 
 import {AjfImageType} from '@ajf/core/image';
-import {
-  AjfWidgetInstance, AjfWidgetType, createWidgetInstance} from '@ajf/core/reports';
-  import {TranslateService} from '@ngx-translate/core';
+import {AjfWidgetInstance, AjfWidgetType, createWidgetInstance} from '@ajf/core/reports';
+import {TranslateService} from '@ngx-translate/core';
 
 const baseWidget = {
   styles: {},
@@ -35,64 +34,81 @@ export function demoWidgets(ts: TranslateService): {name: string, instance: AjfW
     {
       name: 'Layout',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.Layout,
-          columns: [1, 2],
-        } as any, {}, ts),
-        content: [{
-          ...createWidgetInstance({
-            ...baseWidget,
-            widgetType: AjfWidgetType.Text,
-          }, {}, ts),
-          htmlText: 'Column 1'
-        }, {
-          ...createWidgetInstance({
-            ...baseWidget,
-            widgetType: AjfWidgetType.Text,
-          }, {}, ts),
-          htmlText: 'Column 2'
-        }]
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Layout,
+              columns: [1, 2],
+            } as any,
+            {}, ts),
+        content: [
+          {
+            ...createWidgetInstance(
+                {
+                  ...baseWidget,
+                  widgetType: AjfWidgetType.Text,
+                },
+                {}, ts),
+            htmlText: 'Column 1'
+          },
+          {
+            ...createWidgetInstance(
+                {
+                  ...baseWidget,
+                  widgetType: AjfWidgetType.Text,
+                },
+                {}, ts),
+            htmlText: 'Column 2'
+          }
+        ]
       } as any,
     },
     {
       name: 'Page break',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.PageBreak,
-        }, {}, ts),
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.PageBreak,
+            },
+            {}, ts),
       },
     },
     {
       name: 'Image',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.Image,
-          imageType: AjfImageType.Image,
-        } as any, {}, ts),
-        url: 'http://icons.iconarchive.com/icons/designbolts/'
-          + 'smurfs-movie/256/grouchy-smurf-icon.png'
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Image,
+              imageType: AjfImageType.Image,
+            } as any,
+            {}, ts),
+        url: 'http://icons.iconarchive.com/icons/designbolts/' +
+            'smurfs-movie/256/grouchy-smurf-icon.png'
       },
     },
     {
       name: 'Text',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.Text,
-        }, {}, ts),
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Text,
+            },
+            {}, ts),
         htmlText: 'Sample text'
       } as any,
     },
     {
       name: 'Chart',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.Chart,
-        }, {}, ts),
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Chart,
+            },
+            {}, ts),
         chartType: 'line',
         data: {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -109,10 +125,12 @@ export function demoWidgets(ts: TranslateService): {name: string, instance: AjfW
     {
       name: 'Table',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.Table,
-        }, {}, ts),
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Table,
+            },
+            {}, ts),
         data: [
           [{value: 'a'}, {value: 'b'}, {value: 'c'}],
           [{value: 'd'}, {value: 'e'}, {value: 'f'}],
@@ -123,26 +141,27 @@ export function demoWidgets(ts: TranslateService): {name: string, instance: AjfW
     {
       name: 'Map',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.Map,
-          tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-        } as any, {}, ts),
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Map,
+              tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+            } as any,
+            {}, ts),
         coordinate: [51.508530, -0.076132],
       } as any,
     },
     {
       name: 'Column',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.Column
-        }, {}, ts),
+        ...createWidgetInstance({...baseWidget, widgetType: AjfWidgetType.Column}, {}, ts),
         content: [{
-          ...createWidgetInstance({
-            ...baseWidget,
-            widgetType: AjfWidgetType.Text,
-          }, {}, ts),
+          ...createWidgetInstance(
+              {
+                ...baseWidget,
+                widgetType: AjfWidgetType.Text,
+              },
+              {}, ts),
           htmlText: 'Sample column'
         }],
       } as any,
@@ -150,21 +169,25 @@ export function demoWidgets(ts: TranslateService): {name: string, instance: AjfW
     {
       name: 'Formula',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.Formula,
-        }, {}, ts),
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Formula,
+            },
+            {}, ts),
         formula: 'Sample formula'
       },
     },
     {
       name: 'Image container',
       instance: {
-        ...createWidgetInstance({
-          ...baseWidget,
-          widgetType: AjfWidgetType.ImageContainer,
-          imageType: AjfImageType.Image,
-        } as any, {}, ts),
+        ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.ImageContainer,
+              imageType: AjfImageType.Image,
+            } as any,
+            {}, ts),
         urls: [
           'http://icons.iconarchive.com/icons/designbolts/smurfs-movie/256/grouchy-smurf-icon.png',
           'http://www.iconarchive.com/download/i78313/designbolts/smurfs-movie/brainy-smurf.ico',

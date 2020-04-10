@@ -20,6 +20,5 @@
  *
  */
 
-export type AjfCalendarWeekDay = (
-  'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday'
-);
+export type AjfCalendarWeekDay =
+    ('monday'|'tuesday'|'wednesday'|'thursday'|'friday'|'saturday'|'sunday');

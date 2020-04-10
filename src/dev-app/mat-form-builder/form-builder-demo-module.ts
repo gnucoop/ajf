@@ -20,12 +20,11 @@
  *
  */
 
-import {NgModule} from '@angular/core';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {FormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
-
 import {AjfFormBuilderModule} from '@ajf/material/form-builder';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {RouterModule} from '@angular/router';
 
 import {FormBuilderDemo} from './form-builder-demo';
 

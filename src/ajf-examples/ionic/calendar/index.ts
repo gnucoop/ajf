@@ -4,11 +4,11 @@ import {NgModule} from '@angular/core';
 import {IonicCalendarSimpleExample} from './calendar-simple/calendar-simple-example';
 
 export {
-  IonicCalendarSimpleExample
+  IonicCalendarSimpleExample,
 };
 
 const EXAMPLES = [
-  IonicCalendarSimpleExample
+  IonicCalendarSimpleExample,
 ];
 
 @NgModule({

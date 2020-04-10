@@ -21,12 +21,8 @@
  */
 
 export function isChoicesOrigin(co: any): boolean {
-  return co != null
-    && typeof co === 'object'
-    && co.name != null
-    && typeof co.name === 'string'
-    && co.label != null
-    && typeof co.label === 'string'
-    && ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1
-    && co.choices instanceof Array;
+  return co != null && typeof co === 'object' && co.name != null && typeof co.name === 'string' &&
+      co.label != null && typeof co.label === 'string' &&
+      ['fixed', 'promise', 'observable', 'observableArray', 'function'].indexOf(co.type) > -1 &&
+      co.choices instanceof Array;
 }

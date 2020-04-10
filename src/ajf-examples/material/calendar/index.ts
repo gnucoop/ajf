@@ -4,11 +4,11 @@ import {NgModule} from '@angular/core';
 import {MaterialCalendarSimpleExample} from './calendar-simple/calendar-simple-example';
 
 export {
-  MaterialCalendarSimpleExample
+  MaterialCalendarSimpleExample,
 };
 
 const EXAMPLES = [
-  MaterialCalendarSimpleExample
+  MaterialCalendarSimpleExample,
 ];
 
 @NgModule({

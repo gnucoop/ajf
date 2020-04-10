@@ -22,13 +22,22 @@
 
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+
 import {ExampleListViewer} from './example-list-viewer.component';
 import {ExampleViewer} from './example-viewer';
 
 @NgModule({
-  imports: [CommonModule],
-  declarations: [ExampleViewer, ExampleListViewer],
-  exports: [ExampleViewer, ExampleListViewer]
+  imports: [
+    CommonModule,
+  ],
+  declarations: [
+    ExampleListViewer,
+    ExampleViewer,
+  ],
+  exports: [
+    ExampleListViewer,
+    ExampleViewer,
+  ]
 })
 export class ExampleViewerModule {
 }

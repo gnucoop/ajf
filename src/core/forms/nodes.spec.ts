@@ -9,17 +9,11 @@ describe('createNode', () => {
     expect(node.parent).toBe(0);
     expect(node.parentNode).toEqual(0);
   });
-
 });
 
 describe('createField', () => {
   it('should create a valid field', () => {
-    let field = createField({
-      id: 1,
-      name: 'foo',
-      parent: 0,
-      fieldType: AjfFieldType.String
-    });
+    let field = createField({id: 1, name: 'foo', parent: 0, fieldType: AjfFieldType.String});
 
     expect(field.fieldType).toEqual(AjfFieldType.String);
     expect(field.id).toEqual(1);
@@ -34,19 +28,16 @@ describe('createField', () => {
     expect(field.editable).toBeTruthy();
 
     field = createField({
-      id : 1,
+      id: 1,
       fieldType: AjfFieldType.Number,
       parent: 0,
-      name : 'foo',
-      label : 'bar',
-      description : 'baz',
-      visibility : neverCondition(),
-      conditionalBranches : [
-        createCondition({condition : 'a > 2'}),
-        alwaysCondition()
-      ],
-      formula : createFormula({formula : '3 * 4'}),
-      defaultValue : 4
+      name: 'foo',
+      label: 'bar',
+      description: 'baz',
+      visibility: neverCondition(),
+      conditionalBranches: [createCondition({condition: 'a > 2'}), alwaysCondition()],
+      formula: createFormula({formula: '3 * 4'}),
+      defaultValue: 4
     });
 
     expect(field.fieldType).toEqual(AjfFieldType.Number);

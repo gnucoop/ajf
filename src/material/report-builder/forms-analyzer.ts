@@ -22,7 +22,12 @@
 
 import {AjfForm} from '@ajf/core/forms';
 import {
-  AjfAggregationType, AjfChartType, AjfChartWidget, AjfDataset, AjfDataWidget, AjfWidget,
+  AjfAggregationType,
+  AjfChartType,
+  AjfChartWidget,
+  AjfDataset,
+  AjfDataWidget,
+  AjfWidget,
   AjfWidgetType
 } from '@ajf/core/reports';
 import {ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
@@ -61,29 +66,22 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
   private _currentWidgetSub: Subscription = Subscription.EMPTY;
   private _formAnalyzerSub: Subscription = Subscription.EMPTY;
 
-  constructor(
-    private _service: AjfReportBuilderService,
-    public dialog: MatDialog
-  ) {
-    this._currentWidgetSub = this._service.currentWidget
-      .subscribe(x => {
-        if (x != null) {
-          this.currentWidget = x;
-          // this._dataset = myObj.dataset;
-        } else {
-          this.currentWidget = null;
-        }
-      });
+  constructor(private _service: AjfReportBuilderService, public dialog: MatDialog) {
+    this._currentWidgetSub = this._service.currentWidget.subscribe(x => {
+      if (x != null) {
+        this.currentWidget = x;
+        // this._dataset = myObj.dataset;
+      } else {
+        this.currentWidget = null;
+      }
+    });
 
 
-    this._formAnalyzerSub = this._service.formsVariables
-      .subscribe((x) => {
-        if (x != null) {
-          this.formsVariables = x;
-        }
-      });
-
-
+    this._formAnalyzerSub = this._service.formsVariables.subscribe((x) => {
+      if (x != null) {
+        this.formsVariables = x;
+      }
+    });
   }
 
   setCurrentIndex(index: number) {
@@ -186,10 +184,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
 
   needMainData(): boolean {
     let myObj = <AjfChartWidget>this.currentWidget;
-    if (
-      myObj.chartType === AjfChartType.Scatter ||
-      myObj.chartType === AjfChartType.Bubble
-    ) {
+    if (myObj.chartType === AjfChartType.Scatter || myObj.chartType === AjfChartType.Bubble) {
       return false;
     } else {
       return true;
@@ -226,7 +221,6 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
    * @memberof AjfReportBuilderFormsAnalyzer
    */
   openDialog(level: number, mainIndex: number, index: number, editMode: boolean) {
-
     this.dialogRef = this.dialog.open(AjfReportBuilderFormsAnalyzerDialog);
 
     if (editMode) {
@@ -241,14 +235,13 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
       }
 
       this.dialogRef.componentInstance.labelText =
-        this._dataset[mainIndex] &&
-        this._dataset[mainIndex][index].label || '';
+          this._dataset[mainIndex] && this._dataset[mainIndex][index].label || '';
       /* this.dialogRef.componentInstance.formula =
         this._dataset[mainIndex] &&
         this._dataset[mainIndex][index].formula.formula || ''; */
       this.dialogRef.componentInstance.aggregation =
-        this._dataset[mainIndex] &&
-        this._dataset[mainIndex][index].aggregation.aggregation || AjfAggregationType.None;
+          this._dataset[mainIndex] && this._dataset[mainIndex][index].aggregation.aggregation ||
+          AjfAggregationType.None;
     } else {
       this.dialogRef.componentInstance.labelText = '';
       this.dialogRef.componentInstance.formula = '';
@@ -298,5 +291,4 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
     this._currentWidgetSub.unsubscribe();
     this._formAnalyzerSub.unsubscribe();
   }
-
 }

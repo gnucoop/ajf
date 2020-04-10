@@ -27,14 +27,15 @@ export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslateServi
   let formula = f.formula;
   if (formula.substr(0, 1) === '"') {
     const ft = formula.slice(1, -1);
-    const transFt = ft != null && typeof ft === 'string' && ft.trim().length > 0
-      ? ts.instant(ft) : ft;
+    const transFt =
+        ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.instant(ft) : ft;
     if (ft.length > 0) {
       formula = `"${transFt}"`;
     }
   } else {
-    formula = formula != null && typeof formula === 'string' && formula.trim().length > 0
-      ? ts.instant(formula) : formula;
+    formula = formula != null && typeof formula === 'string' && formula.trim().length > 0 ?
+        ts.instant(formula) :
+        formula;
   }
   return evaluateExpression(formula, context);
 }

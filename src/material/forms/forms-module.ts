@@ -20,6 +20,13 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
+import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfBarcodeModule} from '@ajf/material/barcode';
+import {AjfCalendarModule} from '@ajf/material/calendar';
+import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
+import {AjfPageSliderModule} from '@ajf/material/page-slider';
+import {AjfTimeModule} from '@ajf/material/time';
 import {CommonModule} from '@angular/common';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -33,16 +40,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
 import {TranslateModule} from '@ngx-translate/core';
-
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
-import {AjfCommonModule} from '@ajf/core/common';
-import {AjfBarcodeModule} from '@ajf/material/barcode';
-import {AjfCalendarModule} from '@ajf/material/calendar';
-import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
-import {AjfPageSliderModule} from '@ajf/material/page-slider';
-import {AjfTimeModule} from '@ajf/material/time';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
@@ -64,26 +62,11 @@ import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatToolbarModule,
-    TranslateModule,
-    AjfCoreFormsModule,
-    AjfCalendarModule,
-    AjfBarcodeModule,
-    AjfCheckboxGroupModule,
-    AjfCommonModule,
-    AjfPageSliderModule,
-    AjfTimeModule
+    AjfBarcodeModule,       AjfCalendarModule,   AjfCommonModule,     AjfCoreFormsModule,
+    AjfCheckboxGroupModule, AjfPageSliderModule, AjfTimeModule,       CommonModule,
+    MatButtonModule,        MatCardModule,       MatDialogModule,     MatFormFieldModule,
+    MatIconModule,          MatInputModule,      MatRadioModule,      MatSelectModule,
+    MatSlideToggleModule,   MatToolbarModule,    ReactiveFormsModule, TranslateModule,
   ],
   declarations: [
     AjfBarcodeFieldComponent,
@@ -100,7 +83,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
-    AjfTimeFieldComponent
+    AjfTimeFieldComponent,
   ],
   entryComponents: [
     AjfBarcodeFieldComponent,
@@ -112,11 +95,11 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
-    AjfTimeFieldComponent
+    AjfTimeFieldComponent,
   ],
   exports: [
     AjfFormField,
-    AjfFormRenderer
+    AjfFormRenderer,
   ],
   providers: [
     AjfFieldService,

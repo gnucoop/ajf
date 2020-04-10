@@ -21,18 +21,27 @@
  */
 
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {ChangeDetectorRef, Directive, EventEmitter, Input, Renderer2,
-  OnDestroy} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Directive,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Renderer2
+} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
 import {BrowserBarcodeReader, Result} from '@zxing/library';
-import {Observable, from, of, Subscription} from 'rxjs';
-import {catchError, switchMap, debounceTime} from 'rxjs/operators';
+import {from, Observable, of, Subscription} from 'rxjs';
+import {catchError, debounceTime, switchMap} from 'rxjs/operators';
 
 @Directive()
 export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   protected _readonly: boolean;
-  get readonly(): boolean { return this._readonly; }
-  @Input() set readonly(readonly: boolean) {
+  get readonly(): boolean {
+    return this._readonly;
+  }
+  @Input()
+  set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
     this._cdr.markForCheck();
   }
@@ -46,7 +55,9 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   readonly _startCalculationSub: Subscription = Subscription.EMPTY;
 
   private _canvas: HTMLCanvasElement;
-  get canvasCtx() {return this._canvas.getContext('2d')!; }
+  get canvasCtx() {
+    return this._canvas.getContext('2d')!;
+  }
 
   /**
    * A html video element created at runtime
@@ -54,7 +65,9 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
    * @memberof AjfBarcode
    */
   private _video: HTMLVideoElement;
-  get videoSource(): HTMLVideoElement {return this._video; }
+  get videoSource(): HTMLVideoElement {
+    return this._video;
+  }
 
   /**
    * implement the control form value.
@@ -63,7 +76,9 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
    * @memberof AjfBarcode
    */
   private _barcodeValue = '';
-  get value(): string { return this._barcodeValue; }
+  get value(): string {
+    return this._barcodeValue;
+  }
   set value(value: string) {
     if (this._barcodeValue !== value) {
       this._barcodeValue = value;
@@ -73,49 +88,49 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   }
 
   private _toggle = 'drop';
-  get toggle() { return this._toggle; }
+  get toggle() {
+    return this._toggle;
+  }
   set toggle(val: string) {
     this._toggle = val;
     this._cdr.markForCheck();
   }
 
-  private _onChangeCallback = (_: any) => { };
+  private _onChangeCallback = (_: any) => {};
   private _onTouchedCallback = () => {};
 
   constructor(private _cdr: ChangeDetectorRef, private _renderer: Renderer2) {
     this._init();
 
     this._startDetectionSub = this.startDetection.asObservable()
-      .pipe(
-          debounceTime(300),
-          switchMap(() => {
-              const data: string = this._getDataFromVideo(this.videoSource);
-              return this._readBarcodeFromData(data);
-          }),
-          catchError(() => {
-              return of({} as Result);
-          })
-      )
-      .subscribe((result: any) => {
-          if (!result.text) {
-              this.startDetection.emit();
-          } else {
-              this.toggle = 'drop';
-              this.value = result.text;
-          }
-      });
+                                  .pipe(
+                                      debounceTime(300), switchMap(() => {
+                                        const data: string =
+                                            this._getDataFromVideo(this.videoSource);
+                                        return this._readBarcodeFromData(data);
+                                      }),
+                                      catchError(() => {
+                                        return of({} as Result);
+                                      }))
+                                  .subscribe((result: any) => {
+                                    if (!result.text) {
+                                      this.startDetection.emit();
+                                    } else {
+                                      this.toggle = 'drop';
+                                      this.value = result.text;
+                                    }
+                                  });
 
     this._startCalculationSub = this.startCalculation.asObservable()
-      .pipe(
-          switchMap((data: string) => {
-              return this._readBarcodeFromData(data);
-          })
-      ).subscribe((result: any) => {
-          if (result.text) {
-              this.toggle = 'drop';
-              this.value = result.text;
-          }
-      });
+                                    .pipe(switchMap((data: string) => {
+                                      return this._readBarcodeFromData(data);
+                                    }))
+                                    .subscribe((result: any) => {
+                                      if (result.text) {
+                                        this.toggle = 'drop';
+                                        this.value = result.text;
+                                      }
+                                    });
   }
 
   reset(): void {
@@ -128,7 +143,9 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   }
 
   onSelectFile(evt: Event): void {
-    if (evt == null || evt.target == null) { return; }
+    if (evt == null || evt.target == null) {
+      return;
+    }
     const target = evt.target as HTMLInputElement;
     const files = target.files;
     if (files != null && files[0]) {
@@ -197,8 +214,7 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
    * @memberof AjfBarcode
    */
   private _readBarcodeFromImage(img: HTMLImageElement): Observable<Result> {
-    return from(this.codeReader.decodeFromImage(img))
-        .pipe(catchError(e => of(e as Result)));
+    return from(this.codeReader.decodeFromImage(img)).pipe(catchError(e => of(e as Result)));
   }
 
   /**

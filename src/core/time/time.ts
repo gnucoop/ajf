@@ -41,18 +41,22 @@ export abstract class AjfTime implements ControlValueAccessor, OnDestroy {
 
   set value(value: string) {
     if (value !== this._value.toString()) {
-        this._value.fromString(value);
-        this._onChangeCallback(value);
+      this._value.fromString(value);
+      this._onChangeCallback(value);
     }
   }
 
-  get hours(): number { return this._value.hours; }
+  get hours(): number {
+    return this._value.hours;
+  }
   set hours(hours: number) {
     this._value.hours = hours;
     this._onChangeCallback(this._value.toString());
   }
 
-  get minutes(): number { return this._value.minutes; }
+  get minutes(): number {
+    return this._value.minutes;
+  }
   set minutes(minutes: number) {
     this._value.minutes = minutes;
     this._onChangeCallback(this._value.toString());
@@ -63,10 +67,9 @@ export abstract class AjfTime implements ControlValueAccessor, OnDestroy {
   private _valueChangeSub: Subscription = Subscription.EMPTY;
 
   constructor() {
-    this._valueChangeSub = this._value.changed
-      .subscribe((x: string) => {
-        this._onChangeCallback(x);
-      });
+    this._valueChangeSub = this._value.changed.subscribe((x: string) => {
+      this._onChangeCallback(x);
+    });
   }
 
   ngOnDestroy(): void {

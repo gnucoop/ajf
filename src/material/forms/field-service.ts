@@ -41,10 +41,14 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.String] = {component: AjfInputFieldComponent},
     this.componentsMap[AjfFieldType.Text] = {component: AjfInputFieldComponent},
     this.componentsMap[AjfFieldType.Number] = {
-      component: AjfInputFieldComponent, inputs: {type: 'number'}},
+      component: AjfInputFieldComponent,
+      inputs: {type: 'number'}
+    },
     this.componentsMap[AjfFieldType.Boolean] = {component: AjfBooleanFieldComponent},
     this.componentsMap[AjfFieldType.Formula] = {
-      component: AjfInputFieldComponent, inputs: {readonly: true}},
+      component: AjfInputFieldComponent,
+      inputs: {readonly: true}
+    },
     this.componentsMap[AjfFieldType.Date] = {component: AjfDateFieldComponent},
     this.componentsMap[AjfFieldType.DateInput] = {component: AjfDateInputFieldComponent},
     this.componentsMap[AjfFieldType.Table] = {component: AjfTableFieldComponent},

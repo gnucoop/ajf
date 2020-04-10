@@ -39,7 +39,7 @@ export class AjfReportBuilderWidgetToolbarButton implements OnInit {
   @Input() widgetType: string;
   widgetIcon: string;
 
-  constructor() { }
+  constructor() {}
   ngOnInit(): void {
     this.widgetIcon = ajfReportBuilderWidgetToString(this.widgetType);
   }

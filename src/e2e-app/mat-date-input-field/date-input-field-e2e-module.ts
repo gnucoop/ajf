@@ -20,18 +20,20 @@
  *
  */
 
-import {NgModule} from '@angular/core';
 import {AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
 import {AjfFormsModule} from '@ajf/material/forms';
+import {NgModule} from '@angular/core';
 
 import {MaterialDateInputFieldE2E} from './date-input-field-e2e';
 
 @NgModule({
   imports: [
-    CoreFormsModule,
     AjfFormsModule,
+    CoreFormsModule,
   ],
-  declarations: [MaterialDateInputFieldE2E],
+  declarations: [
+    MaterialDateInputFieldE2E,
+  ],
 })
 export class MaterialDateInputFieldE2eModule {
 }

@@ -20,12 +20,11 @@
  *
  */
 
+import {AjfPageSliderModule} from '@ajf/material/page-slider';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {RouterModule} from '@angular/router';
-
-import {AjfPageSliderModule} from '@ajf/material/page-slider';
 
 import {PageSliderDemo} from './page-slider-demo';
 

@@ -24,32 +24,30 @@
  * Representation of AutoCompleteItem
  */
 export class AutoCompleteItem {
-    label: string;
-    kind: number;
-    documentation: string;
-    insertText: string;
+  label: string;
+  kind: number;
+  documentation: string;
+  insertText: string;
 
-    constructor() {
+  constructor() {}
 
-    }
+  setLabel(label: string): AutoCompleteItem {
+    this.label = label;
+    return this;
+  }
 
-    setLabel(label: string): AutoCompleteItem {
-        this.label = label;
-        return this;
-    }
+  setKind(kind: number): AutoCompleteItem {
+    this.kind = kind;
+    return this;
+  }
 
-    setKind(kind: number): AutoCompleteItem {
-        this.kind = kind;
-        return this;
-    }
+  setDocumentation(documentation: string): AutoCompleteItem {
+    this.documentation = documentation;
+    return this;
+  }
 
-    setDocumentation(documentation: string): AutoCompleteItem {
-        this.documentation = documentation;
-        return this;
-    }
-
-    setInsertText(insertText: string): AutoCompleteItem {
-        this.insertText = insertText;
-        return this;
-    }
+  setInsertText(insertText: string): AutoCompleteItem {
+    this.insertText = insertText;
+    return this;
+  }
 }

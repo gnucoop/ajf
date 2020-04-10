@@ -20,18 +20,14 @@
  *
  */
 
-import {
-  AjfChoicesPromiseOrigin
-} from '../../interface/choices/choices-promise-origin';
+import {AjfChoicesPromiseOrigin} from '../../interface/choices/choices-promise-origin';
 import {AjfChoicesOriginCreate} from './create-choices-origin';
 
-export type AjfChoicesPromiseOriginCreate<T> =
-  Omit<AjfChoicesOriginCreate<T>, 'type'>&Pick<AjfChoicesPromiseOrigin<T>, 'generator'>
-  &Partial<AjfChoicesPromiseOrigin<T>>;
+export type AjfChoicesPromiseOriginCreate<T> = Omit<AjfChoicesOriginCreate<T>, 'type'>&
+    Pick<AjfChoicesPromiseOrigin<T>, 'generator'>&Partial<AjfChoicesPromiseOrigin<T>>;
 
-export function createChoicesPromiseOrigin<T>(
-  origin: AjfChoicesPromiseOriginCreate<T>
-): AjfChoicesPromiseOrigin<T> {
+export function createChoicesPromiseOrigin<T>(origin: AjfChoicesPromiseOriginCreate<T>):
+    AjfChoicesPromiseOrigin<T> {
   return {
     ...origin,
     type: 'promise',

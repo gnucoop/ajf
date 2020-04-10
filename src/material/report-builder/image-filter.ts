@@ -22,13 +22,11 @@
 
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({
-  name: 'ajfImageFilter'
-})
+@Pipe({name: 'ajfImageFilter'})
 @Injectable()
 export class AjfImageFilterPipe implements PipeTransform {
   transform(items: any[], args: any): any {
-    return items.filter(item =>
-      (args.length === 0) || item.info.toLowerCase().includes(args.toLowerCase()));
+    return items.filter(
+        item => (args.length === 0) || item.info.toLowerCase().includes(args.toLowerCase()));
   }
 }

@@ -26,7 +26,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 @Pipe({name: 'ajfIsCellEditable'})
 export class AjfIsCellEditablePipe implements PipeTransform {
   transform(cell: string|AjfTableCell): boolean {
-    if (cell == null || typeof cell === 'string') { return false; }
+    if (cell == null || typeof cell === 'string') {
+      return false;
+    }
     return cell.editable === true;
   }
 }

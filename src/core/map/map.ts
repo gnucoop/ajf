@@ -21,13 +21,17 @@
  */
 
 import {
-  AfterViewInit, ChangeDetectionStrategy, Component, Input,
-  OnDestroy, ViewChild, ViewEncapsulation
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
-
+import * as L from 'leaflet';
 import {Subscription} from 'rxjs';
 
-import * as L from 'leaflet';
 const leafletLib = (L as any).default || L;
 
 import {AjfMapContainerDirective} from './map-container-directive';
@@ -43,32 +47,38 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
   @ViewChild(AjfMapContainerDirective, {static: true}) mapContainer: AjfMapContainerDirective;
 
   private _coordinate: number[];
-  @Input() set coordinate(coordinate: number[]) {
+  @Input()
+  set coordinate(coordinate: number[]) {
     this._coordinate = coordinate.slice(0);
     this._setMapView();
   }
 
   private _tileLayer: string;
-  @Input() set tileLayer(tileLayer: string) {
+  @Input()
+  set tileLayer(tileLayer: string) {
     this._tileLayer = tileLayer;
     this._addTileLayerToMap();
   }
 
   private _attribution: string;
-  @Input() set attribution(attribution: string) {
+  @Input()
+  set attribution(attribution: string) {
     this._attribution = attribution;
     this._addTileLayerToMap();
   }
 
   private _disabled: boolean;
-  @Input() set disabled(disabled: boolean) {
+  @Input()
+  set disabled(disabled: boolean) {
     this._disabled = disabled;
     this._disableMap();
   }
 
 
   private _map: L.Map;
-  get map(): L.Map { return this._map; }
+  get map(): L.Map {
+    return this._map;
+  }
 
   private _columnWidthChanged: Subscription = Subscription.EMPTY;
 
@@ -92,16 +102,15 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private _initMap(): void {
-    const options = {
-      zoomControl: false,
-      attributionControl: false
-    };
+    const options = {zoomControl: false, attributionControl: false};
 
     this._map = leafletLib.map(this.mapContainer.htmlElement, options);
   }
 
   private _setMapView(): void {
-    if (this._map == null) { return; }
+    if (this._map == null) {
+      return;
+    }
 
     let x, y, z;
     if (this._coordinate != null && this._coordinate.length === 3) {
@@ -117,15 +126,17 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private _addTileLayerToMap(): void {
-    if (this._map == null || this._tileLayer == null) { return; }
+    if (this._map == null || this._tileLayer == null) {
+      return;
+    }
     this._map.eachLayer((l) => this._map.removeLayer(l));
-    leafletLib.tileLayer(this._tileLayer, {
-      attribution: this._attribution
-    }).addTo(this._map);
+    leafletLib.tileLayer(this._tileLayer, {attribution: this._attribution}).addTo(this._map);
   }
 
   private _disableMap(): void {
-    if (this._map == null) { return; }
+    if (this._map == null) {
+      return;
+    }
 
     if (this._disabled) {
       this._map.dragging.disable();

@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfFormula} from  '@ajf/core/models';
+import {AjfFormula} from '@ajf/core/models';
 
 import {AjfTableDataset} from '../dataset/table-dataset';
 import {AjfDataWidget} from './data-widget';

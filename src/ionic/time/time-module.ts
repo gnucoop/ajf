@@ -38,4 +38,5 @@ import {AjfTime} from './time';
     AjfTime,
   ]
 })
-export class AjfTimeModule { }
+export class AjfTimeModule {
+}

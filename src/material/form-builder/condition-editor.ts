@@ -24,7 +24,11 @@ import {AjfField, AjfFieldType, AjfValidationService} from '@ajf/core/forms';
 import {AjfExpressionUtils} from '@ajf/core/models';
 import {AjfMonacoEditor} from '@ajf/material/monaco-editor';
 import {
-  ChangeDetectionStrategy, Component, Input, ViewChild, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 
 declare var monaco: any;
@@ -40,8 +44,11 @@ export class AjfFbConditionEditor {
   @ViewChild(AjfMonacoEditor, {static: true}) monacoEditor: AjfMonacoEditor;
 
   private _fields: AjfField[];
-  get fields(): AjfField[] { return this._fields; }
-  @Input() set fields(fields: AjfField[]) {
+  get fields(): AjfField[] {
+    return this._fields;
+  }
+  @Input()
+  set fields(fields: AjfField[]) {
     this._fields = fields;
     this._updateVariables();
   }
@@ -49,7 +56,7 @@ export class AjfFbConditionEditor {
 
   editedValue: string;
 
-  constructor(_: AjfValidationService) { }
+  constructor(_: AjfValidationService) {}
 
   insertVariable(variable: string): void {
     if (this.monacoEditor != null && this.monacoEditor.editor != null) {
@@ -70,10 +77,8 @@ export class AjfFbConditionEditor {
   }
 
   onEditorInit(): void {
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-      noSemanticValidation: false,
-      noSyntaxValidation: false
-    });
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions(
+        {noSemanticValidation: false, noSyntaxValidation: false});
 
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
       target: monaco.languages.typescript.ScriptTarget.ES2015,
@@ -84,20 +89,18 @@ export class AjfFbConditionEditor {
 
     try {
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
-        '', 'condition-editor-variables.d.ts'
-      );
+          '', 'condition-editor-variables.d.ts');
     } catch (e) {
-      monaco.languages.typescript.javascriptDefaults
-          ._extraLibs['condition-editor-variables.d.ts'] = '';
+      monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-variables.d.ts'] =
+          '';
     }
 
     try {
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
-        '', 'condition-editor-functions.d.ts'
-      );
+          '', 'condition-editor-functions.d.ts');
     } catch (e) {
-      monaco.languages.typescript.javascriptDefaults
-          ._extraLibs['condition-editor-functions.d.ts'] = '';
+      monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
+          '';
     }
 
     this._updateVariables();
@@ -105,47 +108,50 @@ export class AjfFbConditionEditor {
   }
 
   private _updateVariables(): void {
-    if (this._fields == null) { return; }
+    if (this._fields == null) {
+      return;
+    }
     try {
-      monaco.languages.typescript.javascriptDefaults
-        ._extraLibs['condition-editor-variables.d.ts'] =
+      monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-variables.d.ts'] =
           this._fields
-            .map((field: AjfField) => {
-              return `declare const ${field.name}: ${this._fieldVarType(field.fieldType)};`;
-            })
-            .join('\n');
-    } catch (e) { }
+              .map((field: AjfField) => {
+                return `declare const ${field.name}: ${this._fieldVarType(field.fieldType)};`;
+              })
+              .join('\n');
+    } catch (e) {
+    }
   }
 
   private _updateFunctions(): void {
     try {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
           AjfExpressionUtils.UTIL_FUNCTIONS;
-    } catch (e) { }
+    } catch (e) {
+    }
   }
 
-  private _fieldVarType(fieldType: AjfFieldType): string | null {
+  private _fieldVarType(fieldType: AjfFieldType): string|null {
     switch (fieldType) {
       case AjfFieldType.Boolean:
-      return 'boolean';
+        return 'boolean';
       case AjfFieldType.Date:
       case AjfFieldType.DateInput:
       case AjfFieldType.Time:
-      return 'Date';
+        return 'Date';
       case AjfFieldType.Empty:
-      return 'void';
+        return 'void';
       case AjfFieldType.Formula:
-      return 'number';
+        return 'number';
       case AjfFieldType.MultipleChoice:
       case AjfFieldType.SingleChoice:
-      return 'any';
+        return 'any';
       case AjfFieldType.Number:
-      return 'number';
+        return 'number';
       case AjfFieldType.Table:
-      return 'Array';
+        return 'Array';
       case AjfFieldType.String:
       case AjfFieldType.Text:
-      return 'string';
+        return 'string';
     }
     return null;
   }

@@ -22,8 +22,13 @@
 
 import {AjfFormStringIdentifier} from '@ajf/core/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy,
-  ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  ViewEncapsulation
+} from '@angular/core';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatTableDataSource} from '@angular/material/table';
@@ -40,8 +45,8 @@ import {AjfFormBuilderService} from './form-builder-service';
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
-  readonly dataSource: MatTableDataSource<AjfFormStringIdentifier>
-      = new MatTableDataSource<AjfFormStringIdentifier>();
+  readonly dataSource: MatTableDataSource<AjfFormStringIdentifier> =
+      new MatTableDataSource<AjfFormStringIdentifier>();
   readonly displayedColumns = ['label', 'value', 'delete'];
   readonly fields$: Observable<string[]>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -53,10 +58,10 @@ export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
       this.dataSource.data = [...identifier];
     });
     this.fields$ = _service.flatFields.pipe(
-      map(fields =>
-        fields.sort((f1, f2) => f1.name.localeCompare(f2.name)).map(f => f.name)
-          .filter(f => f.length > 0)),
-      shareReplay(1),
+        map(fields => fields.sort((f1, f2) => f1.name.localeCompare(f2.name))
+                          .map(f => f.name)
+                          .filter(f => f.length > 0)),
+        shareReplay(1),
     );
   }
 
@@ -71,10 +76,11 @@ export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
     ];
   }
 
-  addValue(
-    row: AjfFormStringIdentifier, evt: MatChipInputEvent, valueInput: HTMLInputElement
-  ): void {
-    if (evt.value.length === 0) { return; }
+  addValue(row: AjfFormStringIdentifier, evt: MatChipInputEvent, valueInput: HTMLInputElement):
+      void {
+    if (evt.value.length === 0) {
+      return;
+    }
     row.value = [...row.value, evt.value];
     valueInput.value = '';
     this._cdr.markForCheck();
@@ -99,9 +105,7 @@ export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
     this._service.saveStringIdentifier(this.dataSource.data);
   }
 
-  selected(
-    row: AjfFormStringIdentifier, evt: MatAutocompleteSelectedEvent
-  ): void {
+  selected(row: AjfFormStringIdentifier, evt: MatAutocompleteSelectedEvent): void {
     row.value = [...row.value, evt.option.value];
     this._cdr.markForCheck();
   }

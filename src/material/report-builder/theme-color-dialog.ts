@@ -23,7 +23,13 @@
 import {AjfWidget} from '@ajf/core/reports';
 import {deepCopy} from '@ajf/core/utils';
 import {
-  AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
@@ -36,9 +42,8 @@ import {AjfReportBuilderService} from './report-builder-service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit, OnDestroy {
-  @ViewChild('colorpic', {static: true})
-  elem: any;
+export class AjfReportBuilderThemeColorDialog implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('colorpic', {static: true}) elem: any;
 
   currentWidget: AjfWidget|null = null;
 
@@ -48,9 +53,8 @@ export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit,
   private _currentWidgetSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    private _service: AjfReportBuilderService,
-    private _dialogRef: MatDialogRef<AjfReportBuilderThemeColorDialog>
-  ) { }
+      private _service: AjfReportBuilderService,
+      private _dialogRef: MatDialogRef<AjfReportBuilderThemeColorDialog>) {}
 
   setWidgetStyles(value: any) {
     this._service.setWidgetStyles(this.section, value);
@@ -59,7 +63,9 @@ export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit,
   }
 
   setStyle() {
-    if (this.currentWidget == null) { return; }
+    if (this.currentWidget == null) {
+      return;
+    }
     this.currentWidget.styles = deepCopy(this.currentWidget.styles);
     this._service.updateCurrentWidget(this.currentWidget);
   }
@@ -74,16 +80,15 @@ export class AjfReportBuilderThemeColorDialog implements OnInit , AfterViewInit,
     this._dialogRef.close();
   }
   ngOnInit() {
-    this._currentWidgetSub = this._service.currentWidget
-      .subscribe(x => {
-        if (x !== null) {
-          if (this.currentWidget !== x) {
-            this.currentWidget = x;
-          }
-        } else {
-          this.currentWidget = null;
+    this._currentWidgetSub = this._service.currentWidget.subscribe(x => {
+      if (x !== null) {
+        if (this.currentWidget !== x) {
+          this.currentWidget = x;
         }
-      });
+      } else {
+        this.currentWidget = null;
+      }
+    });
   }
 
   ngAfterViewInit() {

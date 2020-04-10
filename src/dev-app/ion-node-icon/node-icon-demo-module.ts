@@ -20,11 +20,10 @@
  *
  */
 
+import {AjfNodeIconModule} from '@ajf/ionic/node-icon';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-
-import {AjfNodeIconModule} from '@ajf/ionic/node-icon';
 
 import {NodeIconDemo} from './node-icon-demo';
 

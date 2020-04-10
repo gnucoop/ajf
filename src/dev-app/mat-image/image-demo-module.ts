@@ -20,10 +20,9 @@
  *
  */
 
+import {AjfImageModule} from '@ajf/material/image';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-
-import {AjfImageModule} from '@ajf/material/image';
 
 import {ImageDemo} from './image-demo';
 

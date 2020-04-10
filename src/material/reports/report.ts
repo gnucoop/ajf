@@ -21,8 +21,12 @@
  */
 
 import {AjfReportRenderer as AjfCoreReportRenderer} from '@ajf/core/reports';
-import {ChangeDetectorRef, ChangeDetectionStrategy, Component,
-  ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ViewEncapsulation
+} from '@angular/core';
 
 
 @Component({

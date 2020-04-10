@@ -20,9 +20,8 @@
  *
  */
 
-import {Component} from '@angular/core';
-
 import {AjfImageType} from '@ajf/core/image';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'image-demo',

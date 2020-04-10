@@ -20,4 +20,4 @@
  *
  */
 
-export type AjfCalendarEntryType = ('day' | 'month' | 'year');
+export type AjfCalendarEntryType = ('day'|'month'|'year');

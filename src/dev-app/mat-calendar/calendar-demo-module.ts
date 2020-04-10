@@ -20,12 +20,11 @@
  *
  */
 
+import {AjfCalendarModule} from '@ajf/material/calendar';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {RouterModule} from '@angular/router';
-
-import {AjfCalendarModule} from '@ajf/material/calendar';
 
 import {CalendarDemo} from './calendar-demo';
 

@@ -33,11 +33,13 @@ import {AjfCalendarService} from './calendar-service';
     AjfCalendarEntryLabelPipe,
   ],
 })
-export class AjfCalendarModule { }
+export class AjfCalendarModule {
+}
 
 @NgModule({
   providers: [
     AjfCalendarService,
   ],
 })
-export class AjfGregorianCalendarModule { }
+export class AjfGregorianCalendarModule {
+}

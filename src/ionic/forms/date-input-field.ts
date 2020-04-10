@@ -20,11 +20,20 @@
  *
  */
 
-import {AjfDateFieldInstance, AjfDateValueStringPipe, AjfBaseFieldComponent,
-    AjfFormRendererService} from '@ajf/core/forms';
+import {
+  AjfBaseFieldComponent,
+  AjfDateFieldInstance,
+  AjfDateValueStringPipe,
+  AjfFormRendererService
+} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild,
-    ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {IonInput} from '@ionic/angular';
 import {InputChangeEventDetail} from '@ionic/core';
 
@@ -39,8 +48,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
 export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFieldInstance> {
   @ViewChild(IonInput, {static: false}) input: IonInput;
 
-  private _minDateStr: string | undefined;
-  private _maxDateStr: string | undefined;
+  private _minDateStr: string|undefined;
+  private _maxDateStr: string|undefined;
 
   constructor(
       cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService,
@@ -50,13 +59,13 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
 
   onChange(event: Event): void {
     const evt = event as CustomEvent<InputChangeEventDetail>;
-    if (this.input == null || evt.detail == null) { return; }
+    if (this.input == null || evt.detail == null) {
+      return;
+    }
     const val = evt.detail.value || '';
     if (val.length > 0) {
-      if (
-        (this._minDateStr != null && val < this._minDateStr)
-        || (this._maxDateStr != null && val > this._maxDateStr)
-      ) {
+      if ((this._minDateStr != null && val < this._minDateStr) ||
+          (this._maxDateStr != null && val > this._maxDateStr)) {
         this.input.value = '';
       }
     }

@@ -24,5 +24,5 @@ import {Directive, ViewContainerRef} from '@angular/core';
 
 @Directive({selector: '[ajf-widget-host]'})
 export class AjfWidgetHost {
-  constructor(readonly viewContainerRef: ViewContainerRef) { }
+  constructor(readonly viewContainerRef: ViewContainerRef) {}
 }

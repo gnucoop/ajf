@@ -23,8 +23,16 @@
 import {AjfChoicesOrigin, AjfForm} from '@ajf/core/forms';
 import {AjfCondition} from '@ajf/core/models';
 import {
-  AfterContentInit, AfterViewChecked, ChangeDetectionStrategy, Component, ElementRef, EventEmitter,
-  Input, OnDestroy, ViewChild, ViewEncapsulation
+  AfterContentInit,
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
@@ -33,7 +41,9 @@ import {sample} from 'rxjs/operators';
 import {AjfFbChoicesOriginEditorDialog} from './choices-origin-editor-dialog';
 import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {
-  AjfFormBuilderNodeEntry, AjfFormBuilderNodeTypeEntry, AjfFormBuilderService
+  AjfFormBuilderNodeEntry,
+  AjfFormBuilderNodeTypeEntry,
+  AjfFormBuilderService
 } from './form-builder-service';
 import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
 
@@ -48,8 +58,11 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   @ViewChild('designer', {static: true}) designerCont: ElementRef;
 
   private _form: AjfForm;
-  get form(): AjfForm { return this._form; }
-  @Input() set form(form: AjfForm) {
+  get form(): AjfForm {
+    return this._form;
+  }
+  @Input()
+  set form(form: AjfForm) {
     if (this._form !== form) {
       this._form = form;
       if (this._init) {
@@ -59,10 +72,14 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   }
 
   private _nodeTypes: AjfFormBuilderNodeTypeEntry[];
-  get nodeTypes(): AjfFormBuilderNodeTypeEntry[] { return this._nodeTypes; }
+  get nodeTypes(): AjfFormBuilderNodeTypeEntry[] {
+    return this._nodeTypes;
+  }
 
   private _nodeEntriesTree: Observable<AjfFormBuilderNodeEntry[]>;
-  get nodeEntriesTree(): Observable<AjfFormBuilderNodeEntry[]> { return this._nodeEntriesTree; }
+  get nodeEntriesTree(): Observable<AjfFormBuilderNodeEntry[]> {
+    return this._nodeEntriesTree;
+  }
 
   private _choicesOrigins: Observable<AjfChoicesOrigin<any>[]>;
   get choicesOrigins(): Observable<AjfChoicesOrigin<any>[]> {
@@ -73,34 +90,30 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
 
   private _init = false;
   private _editConditionSub: Subscription = Subscription.EMPTY;
-  private _editConditionDialog: MatDialogRef<AjfFbConditionEditorDialog> | null;
+  private _editConditionDialog: MatDialogRef<AjfFbConditionEditorDialog>|null;
   private _beforeNodesUpdateSub: Subscription = Subscription.EMPTY;
   private _editChoicesOriginSub: Subscription = Subscription.EMPTY;
-  private _editChoicesOriginDialog: MatDialogRef<AjfFbChoicesOriginEditorDialog> | null;
-  private _stringIdentifierDialog: MatDialogRef<AjfFbStringIdentifierDialogComponent> | null;
+  private _editChoicesOriginDialog: MatDialogRef<AjfFbChoicesOriginEditorDialog>|null;
+  private _stringIdentifierDialog: MatDialogRef<AjfFbStringIdentifierDialogComponent>|null;
   private _stringIdentifierSub: Subscription = Subscription.EMPTY;
 
   private _lastScrollTop: number;
 
-  constructor(
-    private _service: AjfFormBuilderService,
-    private _dialog: MatDialog
-  ) {
+  constructor(private _service: AjfFormBuilderService, private _dialog: MatDialog) {
     this._nodeTypes = _service.availableNodeTypes;
     this._nodeEntriesTree = _service.nodeEntriesTree;
     this._choicesOrigins = _service.choicesOrigins;
-    this._editConditionSub = this._service.editedCondition
-      .subscribe((condition: AjfCondition | null) => {
-        if (this._editConditionDialog != null) {
-          this._editConditionDialog.close();
-          this._editConditionDialog = null;
-        }
-        if (condition != null) {
-          this._editConditionDialog = this._dialog.open(
-            AjfFbConditionEditorDialog, {disableClose: true}
-          );
-        }
-      });
+    this._editConditionSub =
+        this._service.editedCondition.subscribe((condition: AjfCondition|null) => {
+          if (this._editConditionDialog != null) {
+            this._editConditionDialog.close();
+            this._editConditionDialog = null;
+          }
+          if (condition != null) {
+            this._editConditionDialog =
+                this._dialog.open(AjfFbConditionEditorDialog, {disableClose: true});
+          }
+        });
     this._editChoicesOriginSub =
         this._service.editedChoicesOrigin.subscribe((choicesOrigin: AjfChoicesOrigin<any>|null) => {
           if (this._editChoicesOriginDialog != null) {
@@ -113,18 +126,19 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
           }
         });
 
-    this._beforeNodesUpdateSub = this._service.beforeNodesUpdate
-      .subscribe(() => {
-        if (this.designerCont == null) { return; }
-        this._lastScrollTop = this.designerCont.nativeElement.scrollTop;
-      });
+    this._beforeNodesUpdateSub = this._service.beforeNodesUpdate.subscribe(() => {
+      if (this.designerCont == null) {
+        return;
+      }
+      this._lastScrollTop = this.designerCont.nativeElement.scrollTop;
+    });
 
-    this.nodeEntriesTree
-      .pipe(sample((<Observable<void>>this._vc)))
-      .subscribe(() => {
-        if (this.designerCont == null) { return; }
-        this.designerCont.nativeElement.scrollTop = this._lastScrollTop;
-      });
+    this.nodeEntriesTree.pipe(sample((<Observable<void>>this._vc))).subscribe(() => {
+      if (this.designerCont == null) {
+        return;
+      }
+      this.designerCont.nativeElement.scrollTop = this._lastScrollTop;
+    });
 
     this._stringIdentifierSub = this._service.stringIdentifier.subscribe(() => {});
   }
@@ -163,12 +177,8 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       this._stringIdentifierDialog.close();
       this._stringIdentifierDialog = null;
     }
-    this._stringIdentifierDialog =
-        this._dialog.open(AjfFbStringIdentifierDialogComponent, {
-          disableClose: true,
-          width: '60%',
-          height: '60%'
-        });
+    this._stringIdentifierDialog = this._dialog.open(
+        AjfFbStringIdentifierDialogComponent, {disableClose: true, width: '60%', height: '60%'});
   }
 
   private _setCurrentForm(): void {

@@ -20,10 +20,9 @@
  *
  */
 
+import {AjfImageModule} from '@ajf/ionic/image';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-
-import {AjfImageModule} from '@ajf/ionic/image';
 
 import {ImageDemo} from './image-demo';
 

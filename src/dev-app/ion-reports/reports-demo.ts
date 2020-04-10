@@ -50,6 +50,7 @@ export class ReportsDemo {
       const report = AjfReportSerializer.fromJson(schema);
       const ctx = JSON.parse(this.context);
       this.report = createReportInstance(report, ctx, this._ts);
-    } catch (e) { }
+    } catch (e) {
+    }
   }
 }

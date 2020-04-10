@@ -47,9 +47,6 @@ import {AjfReportWidget} from './widget';
 
 @NgModule({
   imports: [
-    CommonModule,
-    TranslateModule,
-    CoreModule,
     AjfChartModule,
     AjfCommonModule,
     AjfImageModule,
@@ -57,6 +54,9 @@ import {AjfReportWidget} from './widget';
     AjfPageBreakModule,
     AjfTableModule,
     AjfTextModule,
+    CommonModule,
+    CoreModule,
+    TranslateModule,
   ],
   declarations: [
     AjfChartWidgetComponent,

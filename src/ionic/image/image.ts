@@ -21,8 +21,13 @@
  */
 
 import {AjfImage as AjfCoreImage} from '@ajf/core/image';
-import {ChangeDetectionStrategy, Component, ElementRef, Renderer2,
-  ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Renderer2,
+  ViewEncapsulation
+} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({

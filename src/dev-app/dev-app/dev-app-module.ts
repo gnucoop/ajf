@@ -30,7 +30,6 @@ import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterModule} from '@angular/router';
-
 import {TranslateModule} from '@ngx-translate/core';
 
 import {DevApp404} from './dev-app-404';
@@ -50,8 +49,14 @@ import {DevAppLayout} from './dev-app-layout';
     RouterModule,
     TranslateModule.forRoot(),
   ],
-  declarations: [DevAppLayout, DevAppHome, DevApp404],
-  exports: [DevAppLayout],
+  declarations: [
+    DevApp404,
+    DevAppLayout,
+    DevAppHome,
+  ],
+  exports: [
+    DevAppLayout,
+  ],
 })
 export class DevAppModule {
 }

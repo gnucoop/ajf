@@ -21,9 +21,31 @@
  */
 
 import {Injectable} from '@angular/core';
-import {addDays, addMonths, addWeeks, addYears, endOfDay, endOfMonth, endOfISOWeek, endOfWeek,
-  endOfYear, format, getISODay, isAfter, isBefore, isSameDay, setISODay, startOfDay, startOfISOWeek,
-  startOfMonth, startOfWeek, startOfYear, subMonths, subWeeks, subYears} from 'date-fns';
+import {
+  addDays,
+  addMonths,
+  addWeeks,
+  addYears,
+  endOfDay,
+  endOfISOWeek,
+  endOfMonth,
+  endOfWeek,
+  endOfYear,
+  format,
+  getISODay,
+  isAfter,
+  isBefore,
+  isSameDay,
+  setISODay,
+  startOfDay,
+  startOfISOWeek,
+  startOfMonth,
+  startOfWeek,
+  startOfYear,
+  subMonths,
+  subWeeks,
+  subYears
+} from 'date-fns';
 
 import {AjfCalendarEntry} from './calendar-entry';
 import {AjfCalendarEntrySelectedState} from './calendar-entry-selected-state';
@@ -42,8 +64,8 @@ export interface AjfCalendarParams {
 }
 
 function isBetween(date: Date, rangeLeft: Date, rangeRight: Date): boolean {
-  return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft))
-      && (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
+  return (isAfter(date, rangeLeft) || isSameDay(date, rangeLeft)) &&
+      (isBefore(date, rangeRight) || isSameDay(date, rangeRight));
 }
 
 function periodOrder(entryType: AjfCalendarPeriodType): number {
@@ -105,12 +127,12 @@ export class AjfCalendarService {
     }
     startDate = startOfISOWeek(startDate);
     endDate = endOfISOWeek(endDate);
-    return { start: startDate, end: endDate };
+    return {start: startDate, end: endDate};
   }
 
   getEntryRange(entry: AjfCalendarEntry): {start: Date, end: Date} {
     if (entry.type === 'day') {
-      return { start: new Date(entry.date), end: new Date(entry.date) };
+      return {start: new Date(entry.date), end: new Date(entry.date)};
     } else {
       let curDate: Date = new Date(entry.date);
       return {
@@ -120,26 +142,24 @@ export class AjfCalendarService {
     }
   }
 
-  isEntrySelected(
-    entry: AjfCalendarEntry, selection: AjfCalendarPeriod|null
-  ): AjfCalendarEntrySelectedState {
+  isEntrySelected(entry: AjfCalendarEntry, selection: AjfCalendarPeriod|null):
+      AjfCalendarEntrySelectedState {
     if (selection != null && selection.startDate != null && selection.endDate != null) {
       let selectionStart: Date = startOfDay(selection.startDate);
       let selectionEnd: Date = endOfDay(selection.endDate);
       let selectionPeriodOrder: number = periodOrder(selection.type);
 
       let entryPeriodOrder: number = periodOrder(entry.type);
-      let entryRange: { start: Date, end: Date } = this.getEntryRange(entry);
+      let entryRange: {start: Date, end: Date} = this.getEntryRange(entry);
 
       if (entryPeriodOrder <= selectionPeriodOrder &&
-        isBetween(entryRange.start, selectionStart, selectionEnd) &&
-        isBetween(entryRange.end, selectionStart, selectionEnd)
-      ) {
+          isBetween(entryRange.start, selectionStart, selectionEnd) &&
+          isBetween(entryRange.end, selectionStart, selectionEnd)) {
         return 'full';
-      } else if (entryPeriodOrder > selectionPeriodOrder &&
-        isBetween(selectionStart, entryRange.start, entryRange.end) &&
-        isBetween(selectionEnd, entryRange.start, entryRange.end)
-      ) {
+      } else if (
+          entryPeriodOrder > selectionPeriodOrder &&
+          isBetween(selectionStart, entryRange.start, entryRange.end) &&
+          isBetween(selectionEnd, entryRange.start, entryRange.end)) {
         return 'partial';
       }
     }
@@ -207,11 +227,7 @@ export class AjfCalendarService {
       let row: AjfCalendarEntry[] = [];
       for (let j = 0; j < 3; j++) {
         let date = new Date(curDate);
-        let newEntry: AjfCalendarEntry = {
-          type: 'year',
-          date: date,
-          selected: 'none'
-        };
+        let newEntry: AjfCalendarEntry = {type: 'year', date: date, selected: 'none'};
         newEntry.selected = this.isEntrySelected(newEntry, selection);
         row.push(newEntry);
         curDate = addYears(curDate, 1);
@@ -231,11 +247,7 @@ export class AjfCalendarService {
       let row: AjfCalendarEntry[] = [];
       for (let j = 0; j < 3; j++) {
         let date = new Date(curDate);
-        let newEntry: AjfCalendarEntry = {
-          type: 'month',
-          date: date,
-          selected: 'none'
-        };
+        let newEntry: AjfCalendarEntry = {type: 'month', date: date, selected: 'none'};
         newEntry.selected = this.isEntrySelected(newEntry, selection);
         row.push(newEntry);
         curDate = addMonths(curDate, 1);
@@ -263,7 +275,7 @@ export class AjfCalendarService {
       let row: AjfCalendarEntry[] = [];
       for (let i = 0; i < 7; i++) {
         let disabled = (minDate != null && isBefore(curDate, minDate)) ||
-          (maxDate != null && isAfter(curDate, maxDate));
+            (maxDate != null && isAfter(curDate, maxDate));
         let date = new Date(curDate);
         let newEntry: AjfCalendarEntry = {
           type: 'day',

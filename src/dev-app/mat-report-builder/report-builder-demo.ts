@@ -46,7 +46,9 @@ export class ReportBuilderDemo {
     try {
       let myObj = JSON.parse(this.report);
       this._service.setReport(AjfReportSerializer.fromJson(myObj));
-    } catch (e) { console.log('Invalid report definition'); }
+    } catch (e) {
+      console.log('Invalid report definition');
+    }
   }
 
   saveReport(): void {

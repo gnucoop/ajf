@@ -20,6 +20,9 @@
  *
  */
 
+import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
+import {AjfFormsModule} from '@ajf/material/forms';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -29,10 +32,6 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
-
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
-import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
-import {AjfFormsModule} from '@ajf/material/forms';
 
 import {CustomSelectMultiple} from './custom-select-multiple';
 import {FormsDemo} from './forms-demo';

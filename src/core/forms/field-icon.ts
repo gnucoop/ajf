@@ -28,7 +28,7 @@ import {AjfFieldType} from './interface/fields/field-type';
 
 @Pipe({name: 'ajfFieldIcon'})
 export class AjfFieldIconPipe implements PipeTransform {
-  transform(field: AjfField | AjfFieldType): string {
+  transform(field: AjfField|AjfFieldType): string {
     return fieldIconName(
         (field as AjfField).fieldType ? (field as AjfField).fieldType : field as AjfFieldType);
   }

@@ -28,17 +28,20 @@ import {AjfReport} from './interface/reports/report';
 @Directive()
 export abstract class AjfReportRenderer {
   private _instance: AjfReportInstance;
-  get instance(): AjfReportInstance { return this._instance; }
-  @Input() set instance(instance: AjfReportInstance) {
+  get instance(): AjfReportInstance {
+    return this._instance;
+  }
+  @Input()
+  set instance(instance: AjfReportInstance) {
     this._instance = instance;
     this._report = instance != null ? instance.report : null;
     this._cdr.markForCheck();
   }
 
-  private _report: AjfReport | null;
-  get report(): AjfReport | null {
+  private _report: AjfReport|null;
+  get report(): AjfReport|null {
     return this._report;
   }
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  constructor(private _cdr: ChangeDetectorRef) {}
 }

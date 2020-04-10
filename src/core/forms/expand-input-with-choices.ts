@@ -29,9 +29,8 @@ import {
 @Pipe({name: 'ajfExpandFieldWithChoices'})
 export class AjfExpandFieldWithChoicesPipe implements PipeTransform {
   transform(instance: AjfFieldWithChoicesInstance<any>, threshold: number) {
-    return !instance.node.forceNarrow && (
-      instance.node.forceExpanded
-      || (instance.filteredChoices && instance.filteredChoices.length <= threshold)
-    );
+    return !instance.node.forceNarrow &&
+        (instance.node.forceExpanded ||
+         (instance.filteredChoices && instance.filteredChoices.length <= threshold));
   }
 }

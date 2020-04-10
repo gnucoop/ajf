@@ -20,13 +20,11 @@
  *
  */
 
+import {AjfReportsModule} from '@ajf/ionic/reports';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
-
 import {IonicModule} from '@ionic/angular';
-
-import {AjfReportsModule} from '@ajf/ionic/reports';
 
 import {ReportsDemo} from './reports-demo';
 

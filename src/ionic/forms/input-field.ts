@@ -20,10 +20,13 @@
  *
  */
 
-import {AjfInputFieldComponent as CoreComponent, AjfFormRendererService} from '@ajf/core/forms';
+import {AjfFormRendererService, AjfInputFieldComponent as CoreComponent} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
@@ -36,7 +39,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfInputFieldComponent extends CoreComponent {
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
 

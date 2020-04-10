@@ -22,7 +22,12 @@
 
 import {AjfColumnWidget} from '@ajf/core/reports';
 import {
-  ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
 } from '@angular/core';
 import {Subscription, timer} from 'rxjs';
 
@@ -41,7 +46,6 @@ import {AjfReportBuilderService} from './report-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderColumn implements OnDestroy, OnInit {
-
   /**
    * if true mouse event is on dragged status
    *
@@ -79,11 +83,10 @@ export class AjfReportBuilderColumn implements OnDestroy, OnInit {
    * @memberOf AjfReportBuilderContent
    */
   onDragStartHandler(): void {
-    let s = timer(200)
-      .subscribe(() => {
-        s.unsubscribe();
-        this._service.dragStarted();
-      });
+    let s = timer(200).subscribe(() => {
+      s.unsubscribe();
+      this._service.dragStarted();
+    });
   }
 
   /**
@@ -94,22 +97,17 @@ export class AjfReportBuilderColumn implements OnDestroy, OnInit {
   onDragEndHandler(): void {
     this._service.dragEnded();
   }
-  constructor(
-    private _service: AjfReportBuilderService
-  ) {
-  }
+  constructor(private _service: AjfReportBuilderService) {}
 
   ngOnInit() {
     // this.widget = changes.widget.currentValue;
 
-    this._onDraggedSub = this._service.onDragged
-      .subscribe(x => {
-        this.onDragged = x;
-      });
+    this._onDraggedSub = this._service.onDragged.subscribe(x => {
+      this.onDragged = x;
+    });
   }
 
   ngOnDestroy(): void {
     this._onDraggedSub.unsubscribe();
   }
 }
-

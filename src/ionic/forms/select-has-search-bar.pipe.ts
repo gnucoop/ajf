@@ -20,9 +20,8 @@
  *
  */
 
-import {Pipe, PipeTransform} from '@angular/core';
-
 import {AjfFieldWithChoicesInstance} from '@ajf/core/forms';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({name: 'ajfSelectHasSearchBar'})
 export class AjfSelectHasSearchBarPipe implements PipeTransform {

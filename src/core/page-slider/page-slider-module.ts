@@ -32,4 +32,5 @@ import {AjfPageSliderItem} from './page-slider-item';
     AjfPageSliderItem,
   ]
 })
-export class AjfPageSliderModule { }
+export class AjfPageSliderModule {
+}

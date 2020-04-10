@@ -21,8 +21,13 @@
  */
 
 import {AjfReportWidget as CoreComponent, AjfWidgetType} from '@ajf/core/reports';
-import {ChangeDetectionStrategy, ComponentFactoryResolver, Component, Renderer2,
-  ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ComponentFactoryResolver,
+  Renderer2,
+  ViewEncapsulation
+} from '@angular/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfColumnWidgetComponent} from './column-widget';

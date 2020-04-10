@@ -21,7 +21,11 @@
  */
 
 import {
-  AjfContext, createCondition, createFormula, normalizeExpression, alwaysCondition
+  AjfContext,
+  alwaysCondition,
+  createCondition,
+  createFormula,
+  normalizeExpression
 } from '@ajf/core/models';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
@@ -43,13 +47,13 @@ import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfRepeatingSlideInstance} from '../../interface/slides-instances/repeating-slide-instance';
 import {AjfRepeatingSlide} from '../../interface/slides/repeating-slide';
 import {AjfSlide} from '../../interface/slides/slide';
-import {componentsMap} from '../fields/fields-map';
 import {createFieldInstance} from '../fields-instances/create-field-instance';
 import {
   createFieldWithChoicesInstance
 } from '../fields-instances/create-field-with-choices-instance';
 import {createTableFieldInstance} from '../fields-instances/create-table-field-instance';
 import {isFieldWithChoicesInstance} from '../fields-instances/is-field-with-choices-instance';
+import {componentsMap} from '../fields/fields-map';
 import {isFieldWithChoices} from '../fields/is-field-with-choices';
 import {createNodeGroupInstance} from '../nodes-instances/create-node-group-instance';
 import {createRepeatingSlideInstance} from '../slides-instances/create-repeating-slide-instance';
@@ -76,12 +80,10 @@ export function nodeToNodeInstance(
     case AjfNodeType.AjfField:
       const field = node as AjfField;
       if (field.fieldType > 100) {
-        if (
-          componentsMap[field.fieldType] != null
-          && componentsMap[field.fieldType].createInstance != null
-        ) {
-          instance = componentsMap[field.fieldType].createInstance!(
-            {node: node as AjfField, prefix}, context);
+        if (componentsMap[field.fieldType] != null &&
+            componentsMap[field.fieldType].createInstance != null) {
+          instance = componentsMap[field.fieldType].createInstance!
+                     ({node: node as AjfField, prefix}, context);
         } else {
           instance = createFieldInstance({node: node as AjfField, prefix}, context);
         }
@@ -124,12 +126,12 @@ export function nodeToNodeInstance(
             node.visibility;
       }
 
-      const conditionalBranches = instance.node.conditionalBranches != null
-        && instance.node.conditionalBranches.length > 0
-        ? instance.node.conditionalBranches
-        : [alwaysCondition()];
-      instance.conditionalBranches = getInstanceConditions(
-        conditionalBranches, ancestorsNames, prefix);
+      const conditionalBranches = instance.node.conditionalBranches != null &&
+              instance.node.conditionalBranches.length > 0 ?
+          instance.node.conditionalBranches :
+          [alwaysCondition()];
+      instance.conditionalBranches =
+          getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
 
       if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
         const ngInstance = instance as AjfNodeGroupInstance | AjfRepeatingSlideInstance;
@@ -189,10 +191,10 @@ export function nodeToNodeInstance(
       }
     } else {
       instance.visibility = instance.node.visibility;
-      const conditionalBranches = instance.node.conditionalBranches != null
-        && instance.node.conditionalBranches.length > 0
-        ? instance.node.conditionalBranches
-        : [alwaysCondition()];
+      const conditionalBranches = instance.node.conditionalBranches != null &&
+              instance.node.conditionalBranches.length > 0 ?
+          instance.node.conditionalBranches :
+          [alwaysCondition()];
       instance.conditionalBranches = conditionalBranches;
       if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
         const rgInstance = instance as AjfRepeatingContainerNodeInstance;

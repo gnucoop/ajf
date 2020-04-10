@@ -21,7 +21,11 @@
  */
 
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
@@ -36,12 +40,14 @@ import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
 })
 export class AjfFbNodeTypeEntry {
   private _nodeType: AjfFormBuilderNodeTypeEntry;
-  get nodeType(): AjfFormBuilderNodeTypeEntry { return this._nodeType; }
+  get nodeType(): AjfFormBuilderNodeTypeEntry {
+    return this._nodeType;
+  }
   @Input()
   set nodeType(nodeType: AjfFormBuilderNodeTypeEntry) {
     this._nodeType = nodeType;
     this._cdr.markForCheck();
   }
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  constructor(private _cdr: ChangeDetectorRef) {}
 }

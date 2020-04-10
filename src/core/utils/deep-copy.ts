@@ -29,13 +29,9 @@ function functionSerializer(_: any, v: any): any {
 
 function functionDeserializer(_: any, v: any): any {
   if (typeof v === 'string' && /^function.*?\([^\0]*?\)\s*\{.*\}$/.test(v)) {
-    const argsMatch = v
-      .replace(/\/\/.*$|\/\*[\s\S]*?\*\//mg, '')
-      .match(/\(.*?\)/m);
+    const argsMatch = v.replace(/\/\/.*$|\/\*[\s\S]*?\*\//mg, '').match(/\(.*?\)/m);
     if (argsMatch != null && argsMatch.length > 0) {
-      const args = argsMatch[0]
-        .replace(/^\(|\)$/, '')
-        .match(/[^\s(),]+/g) || [];
+      const args = argsMatch[0].replace(/^\(|\)$/, '').match(/[^\s(),]+/g) || [];
       const bodyMatch = v.match(/\{(.*)\}/);
       if (bodyMatch != null && bodyMatch.length > 1) {
         const body = bodyMatch[1];
@@ -48,8 +44,5 @@ function functionDeserializer(_: any, v: any): any {
 }
 
 export function deepCopy(oldObj: any): any {
-  return JSON.parse(
-    JSON.stringify(oldObj, functionSerializer),
-    functionDeserializer
-  );
+  return JSON.parse(JSON.stringify(oldObj, functionSerializer), functionDeserializer);
 }

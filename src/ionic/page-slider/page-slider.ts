@@ -23,8 +23,16 @@
 import {AjfPageSlider as AjfCorePageSlider} from '@ajf/core/page-slider';
 import {AnimationBuilder} from '@angular/animations';
 import {BooleanInput} from '@angular/cdk/coercion';
-import {AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component,
-  ElementRef, OnDestroy, Renderer2, ViewEncapsulation} from '@angular/core';
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnDestroy,
+  Renderer2,
+  ViewEncapsulation
+} from '@angular/core';
 import {merge, Subscription} from 'rxjs';
 import {filter, map, startWith, switchMap} from 'rxjs/operators';
 
@@ -39,25 +47,27 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
   private _scrollSub = Subscription.EMPTY;
 
   constructor(
-    animationBuilder: AnimationBuilder,
-    cdr: ChangeDetectorRef,
-    renderer: Renderer2,
-    private _el: ElementRef,
+      animationBuilder: AnimationBuilder,
+      cdr: ChangeDetectorRef,
+      renderer: Renderer2,
+      private _el: ElementRef,
   ) {
     super(animationBuilder, cdr, renderer);
   }
 
   ngAfterContentInit(): void {
     super.ngAfterContentInit();
-    this._scrollSub = this.pages.changes.pipe(
-      map(() => this.pages.toArray()),
-      startWith(this.pages.toArray()),
-      filter(pages => pages.length > 0),
-      switchMap(pages => merge(...pages.map(page => page.scroll))),
-    ).subscribe(() => {
-      this._fixRippleFromRadioButton();
-      this._fixToggleButtons();
-    });
+    this._scrollSub = this.pages.changes
+                          .pipe(
+                              map(() => this.pages.toArray()),
+                              startWith(this.pages.toArray()),
+                              filter(pages => pages.length > 0),
+                              switchMap(pages => merge(...pages.map(page => page.scroll))),
+                              )
+                          .subscribe(() => {
+                            this._fixRippleFromRadioButton();
+                            this._fixToggleButtons();
+                          });
   }
 
   ngOnDestroy(): void {
@@ -72,8 +82,7 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
       const radioGroup = radioGroups[0];
       const items = radioGroup.getElementsByTagName('ion-item');
       const item = items[0];
-      const ripples = item.shadowRoot!.firstElementChild!
-        .getElementsByTagName('ion-ripple-effect');
+      const ripples = item.shadowRoot!.firstElementChild!.getElementsByTagName('ion-ripple-effect');
       const ripple = ripples.item(0) as HTMLIonRippleEffectElement;
       const orig = ripple.style.opacity;
       ripple.style.opacity = '0';
@@ -81,7 +90,8 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
         remove();
         ripple.style.opacity = orig;
       });
-    } catch (e) { }
+    } catch (e) {
+    }
   }
 
   private _fixToggleButtons(): void {
@@ -91,17 +101,19 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
       const toggleButtonsNum = toggleButtons.length;
       for (let i = 0; i < toggleButtonsNum; i++) {
         const toggleButton = toggleButtons.item(i) as HTMLIonToggleElement;
-        const inners = toggleButton.shadowRoot!.firstElementChild!
-          .getElementsByClassName('toggle-inner');
+        const inners =
+            toggleButton.shadowRoot!.firstElementChild!.getElementsByClassName('toggle-inner');
         const inner = inners[0] as HTMLDivElement;
         inner.setAttribute('style', 'will-change: auto');
         setTimeout(() => {
           try {
             inner.removeAttribute('style');
-          } catch (e) { }
+          } catch (e) {
+          }
         }, 0);
       }
-    } catch (e) { }
+    } catch (e) {
+    }
   }
 
   static ngAcceptInputType_fixedOrientation: BooleanInput;

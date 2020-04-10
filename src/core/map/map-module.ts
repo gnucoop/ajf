@@ -22,16 +22,17 @@
 
 import {NgModule} from '@angular/core';
 
-import {AjfMapContainerDirective} from './map-container-directive';
 import {AjfMapComponent} from './map';
+import {AjfMapContainerDirective} from './map-container-directive';
 
 @NgModule({
   declarations: [
     AjfMapComponent,
-    AjfMapContainerDirective
+    AjfMapContainerDirective,
   ],
   exports: [
-    AjfMapComponent
-  ]
+    AjfMapComponent,
+  ],
 })
-export class AjfMapModule { }
+export class AjfMapModule {
+}

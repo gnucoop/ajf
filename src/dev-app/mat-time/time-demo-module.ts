@@ -20,10 +20,9 @@
  *
  */
 
+import {AjfTimeModule} from '@ajf/material/time';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-
-import {AjfTimeModule} from '@ajf/material/time';
 
 import {TimeDemo} from './time-demo';
 

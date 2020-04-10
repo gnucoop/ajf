@@ -20,8 +20,14 @@
  *
  */
 
-import {ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2,
-  ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  Renderer2,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   selector: 'ajf-fb-branch-line',
@@ -32,24 +38,27 @@ import {ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2,
 })
 export class AjfFbBranchLine {
   private _offset = 0;
-  @Input() set offset(offset: number) {
+  @Input()
+  set offset(offset: number) {
     this._offset = offset;
     this._updateOffset();
   }
 
   private _color: string;
-  @Input() set color(color: string) {
+  @Input()
+  set color(color: string) {
     this._color = color;
     this._updateColor();
   }
 
   private _height = 0;
-  @Input() set height(height: number) {
+  @Input()
+  set height(height: number) {
     this._height = height;
     this._updateHeight();
   }
 
-  constructor(private _el: ElementRef, private _renderer: Renderer2) { }
+  constructor(private _el: ElementRef, private _renderer: Renderer2) {}
 
   private _updateHeight(): void {
     const height = `${Math.max(0, this._height - 25)}px`;

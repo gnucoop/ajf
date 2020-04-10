@@ -47,9 +47,9 @@ export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void> 
       obso.choices = [];
       return new Promise<void>(res => {
         obso.generator.subscribe(
-          c => obso.choices.push(c),
-          () => {},
-          () => res(),
+            c => obso.choices.push(c),
+            () => {},
+            () => res(),
         );
       });
     }
@@ -59,12 +59,10 @@ export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void> 
     if (aoo.generator != null) {
       aoo.choices = [];
       return new Promise<void>(res => {
-        aoo.generator.subscribe(
-          choices => {
-            aoo.choices = choices;
-            res();
-          }
-        );
+        aoo.generator.subscribe(choices => {
+          aoo.choices = choices;
+          res();
+        });
       });
     }
   }

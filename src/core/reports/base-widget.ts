@@ -25,7 +25,9 @@ import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 
 export abstract class AjfBaseWidgetComponent<T extends AjfWidgetInstance = AjfWidgetInstance> {
   private _instance: T;
-  get instance(): T { return this._instance; }
+  get instance(): T {
+    return this._instance;
+  }
   set instance(instance: T) {
     if (this._instance !== instance) {
       this._instance = instance;
@@ -33,5 +35,5 @@ export abstract class AjfBaseWidgetComponent<T extends AjfWidgetInstance = AjfWi
     }
   }
 
-  constructor(private _cdr: ChangeDetectorRef, readonly el: ElementRef) { }
+  constructor(private _cdr: ChangeDetectorRef, readonly el: ElementRef) {}
 }

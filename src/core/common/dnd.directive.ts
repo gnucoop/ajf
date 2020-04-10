@@ -20,7 +20,7 @@
  *
  */
 
-import {Directive, Output, EventEmitter} from '@angular/core';
+import {Directive, EventEmitter, Output} from '@angular/core';
 
 @Directive({
   selector: '[ajfDnd]',

@@ -20,13 +20,12 @@
  *
  */
 
+import {AjfReportBuilderModule} from '@ajf/material/report-builder';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {RouterModule} from '@angular/router';
-
-import {AjfReportBuilderModule} from '@ajf/material/report-builder';
 
 import {ReportBuilderDemo} from './report-builder-demo';
 

@@ -39,4 +39,5 @@ import {AjfImage} from './image';
     AjfImage,
   ],
 })
-export class AjfImageModule {}
+export class AjfImageModule {
+}

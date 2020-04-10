@@ -20,10 +20,9 @@
  *
  */
 
+import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-
-import {AjfCalendarModule} from '@ajf/ionic/calendar';
 
 import {CalendarDemo} from './calendar-demo';
 

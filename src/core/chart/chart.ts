@@ -21,8 +21,15 @@
  */
 
 import {
-  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, OnChanges,
-  Renderer2, SimpleChanges, ViewEncapsulation
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  Renderer2,
+  SimpleChanges,
+  ViewEncapsulation
 } from '@angular/core';
 
 import * as Chart from 'chart.js';
@@ -47,11 +54,11 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
   @Input() options: ChartOptions;
   @Input() chartType: ExtendedChartType;
 
-  private _chart: Chart | null;
+  private _chart: Chart|null;
   private _chartCanvasElement: any;
   private _chartTypesNeedPoints: ExtendedChartType[] = ['scatter', 'bubble'];
 
-  constructor(private _el: ElementRef, private _renderer: Renderer2) { }
+  constructor(private _el: ElementRef, private _renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
     this._rebuildChart();
@@ -77,7 +84,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
       if (this._chartTypesNeedPoints.indexOf(datasetType) > -1) {
         dataset.data = (<any[]>(dataset.data || [])).map((d, idx) => {
           if (typeof d === 'number') {
-            return <any>{ x: idx, y: d, r: d };
+            return <any>{x: idx, y: d, r: d};
           }
           return <ChartPoint>d;
         });
@@ -101,10 +108,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
         ...deepCopy((<any>this._chart).options),
         ...deepCopy(this.options || {})
       };
-      this._chart.data = {
-        ...deepCopy(this._chart.data),
-        ...deepCopy(this.data)
-      };
+      this._chart.data = {...deepCopy(this._chart.data), ...deepCopy(this.data)};
       this._chart.update();
     }
   }
@@ -135,7 +139,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
   private _fixChartOptions(options: ChartOptions): ChartOptions {
     options = options || {};
     if (options.scales == null) {
-      options.scales = { xAxes: [], yAxes: [] };
+      options.scales = {xAxes: [], yAxes: []};
     }
     if (options.scales.xAxes == null) {
       options.scales.xAxes = [];
@@ -146,7 +150,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     if (this.chartType == 'pie') {
       let newOptions = <any>options;
       newOptions.pieceLabel = {
-        render: function (args: any) {
+        render: function(args: any) {
           if (args.label) {
             return args.label + ':' + args.value;
           } else {

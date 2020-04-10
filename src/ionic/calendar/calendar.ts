@@ -21,8 +21,13 @@
  */
 
 import {AjfCalendar, AjfCalendarService} from '@ajf/core/calendar';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef,
-  ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  ViewEncapsulation
+} from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {

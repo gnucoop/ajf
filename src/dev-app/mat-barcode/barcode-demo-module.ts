@@ -20,10 +20,9 @@
  *
  */
 
+import {AjfBarcodeModule} from '@ajf/material/barcode';
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
-
-import {AjfBarcodeModule} from '@ajf/material/barcode';
 
 import {BarcodeDemo} from './barcode-demo';
 

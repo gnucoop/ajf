@@ -29,6 +29,6 @@ export interface AjfReportBuilderDragData {
   fromColumn?: AjfColumnWidget;
   from?: number;
   json?: any;
-  arrayFrom?: 'header' | 'content' | 'footer';
+  arrayFrom?: 'header'|'content'|'footer';
   dropZones: string[];
 }

@@ -22,8 +22,13 @@
 
 import {AjfFieldComponentsMap, AjfFormField as CoreFormField} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver,
-    ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ComponentFactoryResolver,
+  ViewEncapsulation
+} from '@angular/core';
 
 import {AjfFieldService} from './field-service';
 
@@ -37,8 +42,8 @@ import {AjfFieldService} from './field-service';
 export class AjfFormField extends CoreFormField {
   readonly componentsMap: AjfFieldComponentsMap;
 
-  constructor(cdr: ChangeDetectorRef, cfr: ComponentFactoryResolver,
-      fieldService: AjfFieldService) {
+  constructor(
+      cdr: ChangeDetectorRef, cfr: ComponentFactoryResolver, fieldService: AjfFieldService) {
     super(cdr, cfr);
     this.componentsMap = fieldService.componentsMap;
   }

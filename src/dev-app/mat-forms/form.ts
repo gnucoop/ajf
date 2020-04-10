@@ -36,42 +36,16 @@ export const formSchema: any = {
       type: 'fixed',
       name: 'animals',
       choicesType: 'string',
-      choices: [
-        {
-          value: 'dog',
-          label: 'Dog'
-        },
-        {
-          value: 'cat',
-          label: 'Cat'
-        }
-      ]
+      choices: [{value: 'dog', label: 'Dog'}, {value: 'cat', label: 'Cat'}]
     },
     {
       type: 'fixed',
       name: 'mchoice2',
       choicesType: 'string',
       choices: [
-        {
-          value: 'option1',
-          label: 'Option1'
-        },
-        {
-          value: 'option2',
-          label: 'Option2'
-        },
-        {
-          value: 'option3',
-          label: 'Option3'
-        },
-        {
-          value: 'option4',
-          label: 'Option4'
-        },
-        {
-          value: 'option5',
-          label: 'Option5'
-        }
+        {value: 'option1', label: 'Option1'}, {value: 'option2', label: 'Option2'},
+        {value: 'option3', label: 'Option3'}, {value: 'option4', label: 'Option4'},
+        {value: 'option5', label: 'Option5'}
       ]
     },
     {
@@ -79,66 +53,14 @@ export const formSchema: any = {
       name: 'mchoice3',
       choicesType: 'string',
       choices: [
-        {
-          value: 'option1',
-          label: 'Option1'
-        },
-        {
-          value: 'option2',
-          label: 'Option2'
-        },
-        {
-          value: 'option3',
-          label: 'Option3'
-        },
-        {
-          value: 'option4',
-          label: 'Option4'
-        },
-        {
-          value: 'option5',
-          label: 'Option5'
-        },
-        {
-          value: 'option6',
-          label: 'Option6'
-        },
-        {
-          value: 'option7',
-          label: 'Option7'
-        },
-        {
-          value: 'option8',
-          label: 'Option8'
-        },
-        {
-          value: 'option9',
-          label: 'Option9'
-        },
-        {
-          value: 'option10',
-          label: 'Option10'
-        },
-        {
-          value: 'option11',
-          label: 'Option11'
-        },
-        {
-          value: 'option12',
-          label: 'Option12'
-        },
-        {
-          value: 'option13',
-          label: 'Option13'
-        },
-        {
-          value: 'option14',
-          label: 'Option14'
-        },
-        {
-          value: 'option15',
-          label: 'Option15'
-        }
+        {value: 'option1', label: 'Option1'}, {value: 'option2', label: 'Option2'},
+        {value: 'option3', label: 'Option3'}, {value: 'option4', label: 'Option4'},
+        {value: 'option5', label: 'Option5'}, {value: 'option6', label: 'Option6'},
+        {value: 'option7', label: 'Option7'}, {value: 'option8', label: 'Option8'},
+        {value: 'option9', label: 'Option9'}, {value: 'option10', label: 'Option10'},
+        {value: 'option11', label: 'Option11'}, {value: 'option12', label: 'Option12'},
+        {value: 'option13', label: 'Option13'}, {value: 'option14', label: 'Option14'},
+        {value: 'option15', label: 'Option15'}
       ]
     },
     {
@@ -146,18 +68,8 @@ export const formSchema: any = {
       name: 'schoice',
       choicesType: 'string',
       choices: [
-        {
-          value: 'option1',
-          label: 'Option1'
-        },
-        {
-          value: 'option2',
-          label: 'Option2'
-        },
-        {
-          value: 'option3',
-          label: 'Option3'
-        }
+        {value: 'option1', label: 'Option1'}, {value: 'option2', label: 'Option2'},
+        {value: 'option3', label: 'Option3'}
       ]
     }
   ],
@@ -176,9 +88,7 @@ export const formSchema: any = {
           label: '64-bit floating point number',
           nodeType: 0,
           fieldType: 2,
-          validation: {
-            notEmpty: true
-          }
+          validation: {notEmpty: true}
         },
         {
           parent: 1001,
@@ -227,30 +137,9 @@ export const formSchema: any = {
           fieldType: 7,
           HTML: 'Inserts an HTML note in the form'
         },
-        {
-          parent: 1005,
-          id: 1006,
-          name: 'date input',
-          label: 'A date',
-          nodeType: 0,
-          fieldType: 9
-        },
-        {
-          parent: 1006,
-          id: 1007,
-          name: 'time',
-          label: 'Time',
-          nodeType: 0,
-          fieldType: 10
-        },
-        {
-          parent: 1007,
-          id: 1008,
-          name: 'barcode',
-          label: 'Barcode',
-          nodeType: 0,
-          fieldType: 13
-        }
+        {parent: 1005, id: 1006, name: 'date input', label: 'A date', nodeType: 0, fieldType: 9},
+        {parent: 1006, id: 1007, name: 'time', label: 'Time', nodeType: 0, fieldType: 10},
+        {parent: 1007, id: 1008, name: 'barcode', label: 'Barcode', nodeType: 0, fieldType: 13}
       ]
     },
     {
@@ -312,9 +201,7 @@ export const formSchema: any = {
           label: 'Name of your cat:',
           nodeType: 0,
           fieldType: 0,
-          'visibility': {
-            'condition': 'pet_type === \'cat\''
-          }
+          'visibility': {'condition': 'pet_type === \'cat\''}
         },
         {
           parent: 3002,
@@ -323,9 +210,7 @@ export const formSchema: any = {
           label: 'Name of your dog:',
           nodeType: 0,
           fieldType: 0,
-          'visibility': {
-            'condition': 'pet_type === \'dog\''
-          }
+          'visibility': {'condition': 'pet_type === \'dog\''}
         }
       ]
     },
@@ -343,9 +228,7 @@ export const formSchema: any = {
           label: 'Price of your meal:',
           nodeType: 0,
           fieldType: 2,
-          validation: {
-            notEmpty: true
-          }
+          validation: {notEmpty: true}
         },
         {
           parent: 4001,
@@ -354,9 +237,7 @@ export const formSchema: any = {
           label: '5% tip is:',
           nodeType: 0,
           fieldType: 6,
-          formula: {
-            formula: 'amount*0.05'
-          }
+          formula: {formula: 'amount*0.05'}
         },
         {
           parent: 4002,
@@ -365,9 +246,7 @@ export const formSchema: any = {
           label: 'Total is:',
           nodeType: 0,
           fieldType: 6,
-          formula: {
-            formula: 'amount + tip'
-          }
+          formula: {formula: 'amount + tip'}
         }
       ]
     },
@@ -378,15 +257,7 @@ export const formSchema: any = {
       label: 'Multiple Slide',
       nodeType: 4,
       nodes: [
-        {
-          parent: 5,
-          id: 5001,
-          name: name,
-          label: 'Child\'s name',
-          nodeType: 0,
-          fieldType: 0
-        },
-        {
+        {parent: 5, id: 5001, name: name, label: 'Child\'s name', nodeType: 0, fieldType: 0}, {
           parent: 5001,
           id: 5002,
           name: 'birthweight',
@@ -402,17 +273,15 @@ export const formSchema: any = {
       name: 'custom',
       label: 'Custom field',
       nodeType: 4,
-      nodes: [
-        {
-          parent: 6,
-          id: 6001,
-          name: 'customfield',
-          label: 'Custom multiple choice field',
-          nodeType: 0,
-          fieldType: 101,
-          choicesOriginRef: 'mchoice3'
-        }
-      ]
+      nodes: [{
+        parent: 6,
+        id: 6001,
+        name: 'customfield',
+        label: 'Custom multiple choice field',
+        nodeType: 0,
+        fieldType: 101,
+        choicesOriginRef: 'mchoice3'
+      }]
     },
     {
       parent: 6,
@@ -420,53 +289,22 @@ export const formSchema: any = {
       name: 'table1',
       label: 'editable table with formulas',
       nodeType: 3,
-      nodes: [
-        {
-          id: 701,
-          parent: 7,
-          name: 'row',
-          rows: [
-            [
-              'value1',
-              'value2',
-              {
-                formula: 'row__0__0+row__0__1',
-                editable: false
-              }
-            ],
-            [
-              'value3',
-              'value4',
-              {
-                formula: 'row__1__0+row__1__1',
-                editable: false
-              }
-            ],
-            [
-              'value5',
-              'value6',
-              {
-                formula: 'row__2__0+row__2__1',
-                editable: false
-              }
-            ]
-          ],
-          label: '2.1',
-          editable: true,
-          nodeType: 0,
-          fieldType: 11,
-          rowLabels: [
-            'row1',
-            'row2',
-            'row3'
-          ],
-          columnLabels: [
-            'value1',
-            'value2',
-            'sum'
-          ]
-        }
-      ]
+      nodes: [{
+        id: 701,
+        parent: 7,
+        name: 'row',
+        rows: [
+          ['value1', 'value2', {formula: 'row__0__0+row__0__1', editable: false}],
+          ['value3', 'value4', {formula: 'row__1__0+row__1__1', editable: false}],
+          ['value5', 'value6', {formula: 'row__2__0+row__2__1', editable: false}]
+        ],
+        label: '2.1',
+        editable: true,
+        nodeType: 0,
+        fieldType: 11,
+        rowLabels: ['row1', 'row2', 'row3'],
+        columnLabels: ['value1', 'value2', 'sum']
+      }]
     }
   ]
 };

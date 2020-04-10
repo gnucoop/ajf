@@ -35,7 +35,9 @@ import {ChoicesOriginChoiceEntry, ChoicesOriginDataSource} from './choices-origi
 })
 export class AjfFbChoicesOriginEditor {
   private _displayedColumns: string[] = ['label', 'value', 'delete'];
-  get displayedColumns(): string[] { return this._displayedColumns; }
+  get displayedColumns(): string[] {
+    return this._displayedColumns;
+  }
 
   private _choicesOrigin: AjfChoicesOrigin<any>;
   get choicesOrigin(): AjfChoicesOrigin<any> {
@@ -58,10 +60,14 @@ export class AjfFbChoicesOriginEditor {
   canEditChoices: boolean;
 
   private _choices: ChoicesOriginDataSource = new ChoicesOriginDataSource();
-  get choices(): ChoicesOriginDataSource { return this._choices; }
+  get choices(): ChoicesOriginDataSource {
+    return this._choices;
+  }
 
   private _choicesArr: ChoicesOriginChoiceEntry[] = [];
-  get choicesArr(): ChoicesOriginChoiceEntry[] { return this._choicesArr; }
+  get choicesArr(): ChoicesOriginChoiceEntry[] {
+    return this._choicesArr;
+  }
 
   updateValue(evt: any, cell: string, _value: any, rowIdx: number): void {
     this.editing[rowIdx + '-' + cell] = false;

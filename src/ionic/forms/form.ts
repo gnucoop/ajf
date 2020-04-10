@@ -24,8 +24,8 @@ import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@a
 import {BooleanInput} from '@angular/cdk/coercion';
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   OnDestroy,
@@ -48,21 +48,22 @@ import {delayWhen, switchMap} from 'rxjs/operators';
  */
 export class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewInit, OnDestroy {
   private _longSlide = false;
-  get longSlide(): boolean { return this._longSlide; }
+  get longSlide(): boolean {
+    return this._longSlide;
+  }
 
   private _viewInitEvt: EventEmitter<void> = new EventEmitter<void>();
   private _scrollFinishSub: Subscription = Subscription.EMPTY;
 
-  constructor(
-    rendererService: AjfFormRendererService,
-    cdr: ChangeDetectorRef
-  ) {
+  constructor(rendererService: AjfFormRendererService, cdr: ChangeDetectorRef) {
     super(rendererService, cdr);
 
-    this._scrollFinishSub = this._viewInitEvt.pipe(
-      delayWhen(() => this.formGroup),
-      switchMap(() => this.formSlider.pageScrollFinish),
-    ).subscribe(_ => this._updateLongSlide());
+    this._scrollFinishSub = this._viewInitEvt
+                                .pipe(
+                                    delayWhen(() => this.formGroup),
+                                    switchMap(() => this.formSlider.pageScrollFinish),
+                                    )
+                                .subscribe(_ => this._updateLongSlide());
   }
 
   ngAfterViewInit(): void {

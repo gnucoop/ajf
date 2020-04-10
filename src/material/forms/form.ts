@@ -20,10 +20,15 @@
  *
  */
 
-import {ChangeDetectorRef, ChangeDetectionStrategy, Component, Input,
-  ViewEncapsulation} from '@angular/core';
-import {BooleanInput} from '@angular/cdk/coercion';
 import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
+import {BooleanInput} from '@angular/cdk/coercion';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   selector: 'ajf-form',
@@ -35,10 +40,7 @@ import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@a
 export class AjfFormRenderer extends AjfCoreFormRenderer {
   @Input() topBar: boolean = false;
 
-  constructor(
-    rendererService: AjfFormRendererService,
-    changeDetectorRef: ChangeDetectorRef
-  ) {
+  constructor(rendererService: AjfFormRendererService, changeDetectorRef: ChangeDetectorRef) {
     super(rendererService, changeDetectorRef);
   }
 

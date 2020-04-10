@@ -23,15 +23,23 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatExpansionModule} from '@angular/material/expansion';
+
 import {Example} from './example';
-
-
 import {ExampleList} from './example-list';
 
 @NgModule({
-  imports: [CommonModule, MatExpansionModule],
-  declarations: [Example, ExampleList],
-  exports: [Example, ExampleList]
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+  ],
+  declarations: [
+    Example,
+    ExampleList,
+  ],
+  exports: [
+    Example,
+    ExampleList,
+  ]
 })
 export class ExampleModule {
 }

@@ -52,18 +52,15 @@ export class AjfReportBuilderToolbar {
 
   emptyContent: Observable<boolean>;
 
-  constructor(
-    private _service: AjfReportBuilderService,
-    public dialog: MatDialog) {
-      this.emptyContent = this._service.emptyContent;
+  constructor(private _service: AjfReportBuilderService, public dialog: MatDialog) {
+    this.emptyContent = this._service.emptyContent;
   }
 
   canDropPredicate(item: CdkDrag<AjfReportBuilderDragData>): boolean {
     return item.data.dropZones.indexOf('widget') > -1;
   }
 
-  JSONRequest() {
-  }
+  JSONRequest() {}
   /**
    * this method will pass event to event emitter
    */
@@ -73,10 +70,8 @@ export class AjfReportBuilderToolbar {
 
   addToList(event: CdkDragDrop<AjfReportBuilderDragData>) {
     if (event.item.data.widget != null) {
-      this._service.addCustomWidgets({
-        json: JSON.stringify(event.item.data.widget.toJson()),
-        type: ''
-      });
+      this._service.addCustomWidgets(
+          {json: JSON.stringify(event.item.data.widget.toJson()), type: ''});
     }
   }
 
@@ -84,7 +79,8 @@ export class AjfReportBuilderToolbar {
     try {
       let myObj = JSON.parse(this._service.popJsonStack() || '');
       this._service.setReport(deepCopy(myObj));
-    } catch (e) { }
+    } catch (e) {
+    }
   }
 
   isZoomed() {

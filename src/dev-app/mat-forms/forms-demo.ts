@@ -20,15 +20,18 @@
  *
  */
 
-import {AjfForm, AjfFormSerializer, AjfFormRendererService,
-  createFieldWithChoicesInstance} from '@ajf/core/forms';
-import {AjfFieldService} from '@ajf/material/forms';
+import {
+  AjfForm,
+  AjfFormRendererService,
+  AjfFormSerializer,
+  createFieldWithChoicesInstance
+} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
-
+import {AjfFieldService} from '@ajf/material/forms';
 import {Component} from '@angular/core';
 
 import {CustomSelectMultiple} from './custom-select-multiple';
-import {formSchema, formContext} from './form';
+import {formContext, formSchema} from './form';
 
 
 @Component({
@@ -50,8 +53,8 @@ export class FormsDemo {
   private _readonly = false;
 
   constructor(
-    fieldService: AjfFieldService,
-    private _formRendererService: AjfFormRendererService,
+      fieldService: AjfFieldService,
+      private _formRendererService: AjfFormRendererService,
   ) {
     fieldService.registerCustomField({
       fieldType: 101,

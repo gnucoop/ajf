@@ -30,7 +30,9 @@ import {ExamplesPage} from './examples-page';
     ExampleModule,
     RouterModule.forChild([{path: '', component: ExamplesPage}]),
   ],
-  declarations: [ExamplesPage],
+  declarations: [
+    ExamplesPage,
+  ],
 })
 export class ExamplesPageModule {
 }

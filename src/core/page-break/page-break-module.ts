@@ -32,4 +32,5 @@ import {AjfPageBreakComponent} from './page-break';
     AjfPageBreakComponent,
   ]
 })
-export class AjfPageBreakModule { }
+export class AjfPageBreakModule {
+}

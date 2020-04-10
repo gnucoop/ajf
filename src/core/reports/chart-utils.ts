@@ -24,26 +24,26 @@ import {ExtendedChartType} from '@ajf/core/chart';
 import {AjfChartType} from './interface/charts/chart-type';
 
 export function chartToChartJsType(chartType?: AjfChartType): ExtendedChartType {
-    switch (chartType) {
-      case AjfChartType.Line:
+  switch (chartType) {
+    case AjfChartType.Line:
       return 'line';
-      case AjfChartType.Bar:
+    case AjfChartType.Bar:
       return 'bar';
-      case AjfChartType.HorizontalBar:
+    case AjfChartType.HorizontalBar:
       return 'horizontalBar';
-      case AjfChartType.Radar:
+    case AjfChartType.Radar:
       return 'radar';
-      case AjfChartType.Scatter:
+    case AjfChartType.Scatter:
       return 'scatter';
-      case AjfChartType.Doughnut:
+    case AjfChartType.Doughnut:
       return 'doughnut';
-      case AjfChartType.Pie:
+    case AjfChartType.Pie:
       return 'pie';
-      case AjfChartType.PolarArea:
+    case AjfChartType.PolarArea:
       return 'polarArea';
-      case AjfChartType.Bubble:
+    case AjfChartType.Bubble:
       return 'bubble';
-      default:
+    default:
       return 'line';
-    }
   }
+}

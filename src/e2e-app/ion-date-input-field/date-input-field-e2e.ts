@@ -1,5 +1,10 @@
-import {AjfDateField, AjfFieldHost, AjfFieldType, createField,
-    createFieldInstance} from '@ajf/core/forms';
+import {
+  AjfDateField,
+  AjfFieldHost,
+  AjfFieldType,
+  createField,
+  createFieldInstance
+} from '@ajf/core/forms';
 import {AjfDateInputFieldComponent} from '@ajf/ionic/forms';
 import {AfterViewInit, Component, ComponentFactoryResolver, ViewChild} from '@angular/core';
 
@@ -10,7 +15,7 @@ import {AfterViewInit, Component, ComponentFactoryResolver, ViewChild} from '@an
 export class IonicDateInputFieldE2E implements AfterViewInit {
   @ViewChild(AjfFieldHost, {static: true}) fieldHost: AjfFieldHost;
 
-  constructor(private _cfr: ComponentFactoryResolver) { }
+  constructor(private _cfr: ComponentFactoryResolver) {}
 
   ngAfterViewInit(): void {
     const vcr = this.fieldHost.viewContainerRef;

@@ -23,13 +23,11 @@
 import {AjfChoicesObservableOrigin} from '../../interface/choices/choices-observable-origin';
 import {AjfChoicesOriginCreate} from './create-choices-origin';
 
-export type AjfChoicesObservableOriginCreate<T> =
-  Omit<AjfChoicesOriginCreate<T>, 'type'>&Pick<AjfChoicesObservableOrigin<T>, 'generator'>
-  &Partial<AjfChoicesObservableOrigin<T>>;
+export type AjfChoicesObservableOriginCreate<T> = Omit<AjfChoicesOriginCreate<T>, 'type'>&
+    Pick<AjfChoicesObservableOrigin<T>, 'generator'>&Partial<AjfChoicesObservableOrigin<T>>;
 
-export function createChoicesObservableOrigin<T>(
-  origin: AjfChoicesObservableOriginCreate<T>
-): AjfChoicesObservableOrigin<T> {
+export function createChoicesObservableOrigin<T>(origin: AjfChoicesObservableOriginCreate<T>):
+    AjfChoicesObservableOrigin<T> {
   return {
     ...origin,
     type: 'observable',

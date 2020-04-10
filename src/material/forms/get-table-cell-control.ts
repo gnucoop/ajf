@@ -30,7 +30,9 @@ export class FormControl extends BaseFormControl {
 @Pipe({name: 'ajfGetTableCellControl'})
 export class AjfGetTableCellControlPipe implements PipeTransform {
   transform(ctrl: null|string|BaseFormControl): FormControl|null {
-    if (ctrl == null || typeof ctrl === 'string') { return null; }
+    if (ctrl == null || typeof ctrl === 'string') {
+      return null;
+    }
     return ctrl as FormControl;
   }
 }

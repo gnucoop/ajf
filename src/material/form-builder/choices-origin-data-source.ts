@@ -25,10 +25,12 @@ import {DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 
-export type ChoicesOriginChoiceEntry = {label: string, value: string};
+export type ChoicesOriginChoiceEntry = {
+  label: string,
+  value: string
+};
 
-export class ChoicesOriginDataSource
-    extends DataSource<ChoicesOriginChoiceEntry> {
+export class ChoicesOriginDataSource extends DataSource<ChoicesOriginChoiceEntry> {
   private _choices: BehaviorSubject<ChoicesOriginChoiceEntry[]> =
       new BehaviorSubject<ChoicesOriginChoiceEntry[]>([]);
   private _choicesObs: Observable<ChoicesOriginChoiceEntry[]>;
