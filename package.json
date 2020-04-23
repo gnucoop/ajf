@@ -195,7 +195,9 @@
     "tsutils": "^3.17.1",
     "typescript": "~3.7.5",
     "uglify-js": "^3.7.6",
-    "vrsource-tslint-rules": "5.1.1"
+    "vrsource-tslint-rules": "5.1.1",
+    "yaml": "^1.7.2",
+    "yargs": "15.3.0"
   },
   "resolutions": {
     "dgeni-packages/typescript": "3.7.4",
