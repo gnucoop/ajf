@@ -30,5 +30,6 @@ echo "Release output"
 yarn build
 yarn check-release-output
 cp -R dist/releases/* node_modules/@ajf/
-yarn ngcc
+rm -f node_modules/__ngcc_entry_points__.json
+yarn ngcc --error-on-failed-entry-point --no-tsconfig
 rm -Rf node_modules/@ajf/{calendars,core,ionic,material}
