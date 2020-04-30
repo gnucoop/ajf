@@ -1,0 +1,27 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("//tools:defaults.bzl", "ts_library")
+
+package(default_visibility = ["//visibility:public"])
+
+exports_files([
+    "tsconfig-generation.json",
+])
+
+ts_library(
+    name = "sources",
+    srcs = glob(["**/*.ts"]),
+    tsconfig = ":tsconfig.json",
+    deps = [
+        "@npm//@types/node",
+        "@npm//ts-json-schema-generator",
+    ],
+)
+
+nodejs_binary(
+    name = "generate-json-schema",
+    data = [
+        ":sources",
+        "@npm//ts-json-schema-generator",
+    ],
+    entry_point = ":generate-json-schema.ts",
+)

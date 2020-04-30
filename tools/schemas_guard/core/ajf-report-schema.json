@@ -1,0 +1,462 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/AjfReportCreate",
+  "definitions": {
+    "AjfReportCreate": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "$ref": "#/definitions/AjfReportContainer"
+        },
+        "content": {
+          "$ref": "#/definitions/AjfReportContainer"
+        },
+        "footer": {
+          "$ref": "#/definitions/AjfReportContainer"
+        },
+        "styles": {
+          "$ref": "#/definitions/AjfStyles"
+        },
+        "forms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfForm"
+          }
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfReportVariable"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "AjfReportContainer": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfWidget"
+          }
+        },
+        "styles": {
+          "$ref": "#/definitions/AjfStyles"
+        }
+      },
+      "required": [
+        "content",
+        "styles"
+      ],
+      "additionalProperties": false
+    },
+    "AjfWidget": {
+      "type": "object",
+      "properties": {
+        "widgetType": {
+          "$ref": "#/definitions/AjfWidgetType"
+        },
+        "styles": {
+          "$ref": "#/definitions/AjfStyles"
+        },
+        "visibility": {
+          "$ref": "#/definitions/AjfCondition"
+        },
+        "repetitions": {
+          "$ref": "#/definitions/AjfFormula"
+        }
+      },
+      "required": [
+        "widgetType",
+        "styles",
+        "visibility"
+      ],
+      "additionalProperties": false
+    },
+    "AjfWidgetType": {
+      "type": "number",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "AjfStyles": {
+      "type": "object"
+    },
+    "AjfCondition": {
+      "type": "object",
+      "properties": {
+        "condition": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "condition"
+      ],
+      "additionalProperties": false
+    },
+    "AjfFormula": {
+      "type": "object",
+      "properties": {
+        "formula": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "formula"
+      ],
+      "additionalProperties": false
+    },
+    "AjfForm": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/AjfRepeatingSlide"
+              },
+              {
+                "$ref": "#/definitions/AjfSlide"
+              }
+            ]
+          }
+        },
+        "choicesOrigins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfChoicesOrigin%3Cany%3E"
+          }
+        },
+        "attachmentsOrigins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfAttachmentsOrigin%3Cany%3E"
+          }
+        },
+        "stringIdentifier": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfFormStringIdentifier"
+          }
+        },
+        "initContext": {},
+        "supplementaryInformations": {},
+        "valid": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "nodes",
+        "choicesOrigins",
+        "attachmentsOrigins",
+        "stringIdentifier"
+      ],
+      "additionalProperties": false
+    },
+    "AjfRepeatingSlide": {
+      "type": "object",
+      "properties": {
+        "nodeType": {
+          "type": "number",
+          "enum": [
+            4
+          ]
+        },
+        "id": {
+          "type": "number"
+        },
+        "parent": {
+          "type": "number"
+        },
+        "parentNode": {
+          "type": "number"
+        },
+        "conditionalBranches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfCondition"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/definitions/AjfCondition"
+        },
+        "formulaReps": {
+          "$ref": "#/definitions/AjfFormula"
+        },
+        "maxReps": {
+          "type": "number"
+        },
+        "minReps": {
+          "type": "number"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfNode"
+          }
+        }
+      },
+      "required": [
+        "conditionalBranches",
+        "id",
+        "label",
+        "maxReps",
+        "minReps",
+        "name",
+        "nodeType",
+        "nodes",
+        "parent",
+        "parentNode"
+      ],
+      "additionalProperties": false
+    },
+    "AjfNode": {
+      "type": "object",
+      "properties": {
+        "nodeType": {
+          "$ref": "#/definitions/AjfNodeType"
+        },
+        "id": {
+          "type": "number"
+        },
+        "parent": {
+          "type": "number"
+        },
+        "parentNode": {
+          "type": "number"
+        },
+        "conditionalBranches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfCondition"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/definitions/AjfCondition"
+        }
+      },
+      "required": [
+        "nodeType",
+        "id",
+        "parent",
+        "parentNode",
+        "conditionalBranches",
+        "name",
+        "label"
+      ],
+      "additionalProperties": false
+    },
+    "AjfNodeType": {
+      "type": "number",
+      "enum": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "AjfSlide": {
+      "type": "object",
+      "properties": {
+        "nodeType": {
+          "type": "number",
+          "enum": [
+            3
+          ]
+        },
+        "id": {
+          "type": "number"
+        },
+        "parent": {
+          "type": "number"
+        },
+        "parentNode": {
+          "type": "number"
+        },
+        "conditionalBranches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfCondition"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "visibility": {
+          "$ref": "#/definitions/AjfCondition"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfNode"
+          }
+        }
+      },
+      "required": [
+        "conditionalBranches",
+        "id",
+        "label",
+        "name",
+        "nodeType",
+        "nodes",
+        "parent",
+        "parentNode"
+      ],
+      "additionalProperties": false
+    },
+    "AjfChoicesOrigin<any>": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "$ref": "#/definitions/AjfChoicesOriginType"
+        },
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfChoice%3Cany%3E"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "name",
+        "label",
+        "choices"
+      ],
+      "additionalProperties": false
+    },
+    "AjfChoicesOriginType": {
+      "type": "string",
+      "enum": [
+        "fixed",
+        "function",
+        "observable",
+        "observableArray",
+        "promise"
+      ]
+    },
+    "AjfChoice<any>": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {}
+      },
+      "required": [
+        "label",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "AjfAttachmentsOrigin<any>": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AjfAttachment%3Cany%3E"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "attachments"
+      ],
+      "additionalProperties": false
+    },
+    "AjfAttachment<any>": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {},
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "value",
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "AjfFormStringIdentifier": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "label",
+        "value"
+      ],
+      "additionalProperties": false
+    },
+    "AjfReportVariable": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "formula": {
+          "$ref": "#/definitions/AjfFormula"
+        }
+      },
+      "required": [
+        "name",
+        "formula"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$id": "https://ajf.rocks/schemas/ajf-report-schema-v1.0.json"
+}

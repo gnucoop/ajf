@@ -47,6 +47,11 @@ pipeline {
         sh 'yarn -s bazel test tools/public_api_guard/...'
       }
     }
+    stage('JSON schema guard tests') {
+      steps {
+        sh 'yarn -s bazel test tools/schemas_guard/...'
+      }
+    }
     stage('Integration tests') {
       steps {
         sh 'yarn -s bazel test src/... --build_tag_filters=e2e --test_tag_filters=e2e --build_tests_only'

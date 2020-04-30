@@ -1,0 +1,11 @@
+load("//src/core:config.bzl", "CORE_SCHEMAS")
+load(":generate-guard-tests.bzl", "generate_test_targets")
+
+package(default_visibility = ["//visibility:public"])
+
+SCHEMAS = [{
+    "name": s,
+    "package": "core",
+} for s in CORE_SCHEMAS]
+
+generate_test_targets(schemas = SCHEMAS)

@@ -20,7 +20,7 @@ filegroup(
     srcs = ["//src/material/%s:overview" % name for name in MATERIAL_ENTRYPOINTS],
 )
 
-# Creates the @angular/material package published to npm.
+# Creates the @ajf/material package published to npm.
 ng_package(
     name = "npm_package",
     srcs = [

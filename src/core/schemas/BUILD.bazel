@@ -1,0 +1,67 @@
+load("//tools/json-schema:index.bzl", "interface_to_json_schema")
+
+package(default_visibility = ["//visibility:public"])
+
+SCHEMA_BASE_URL = "https://ajf.rocks/schemas/"
+
+FORM_SCHEMA_VERSION = "1.0"
+
+REPORT_SCHEMA_VERSION = "1.0"
+
+FORMS_DEPS = [
+    "//src/core/forms:source-files",
+    "//src/core/models:source-files",
+    "@npm//@types/debug",
+    "@npm//@types/esprima",
+    "@npm//@types/estree",
+    "@npm//@types/numeral",
+    "@npm//date-fns",
+]
+
+REPORTS_DEPS = FORMS_DEPS + [
+    "//src/core/page-slider:source-files",
+    "//src/core/utils:source-files",
+    "//src/core/reports:source-files",
+    "@npm//@angular/animations",
+    "@npm//@angular/cdk",
+    "@npm//@angular/core",
+    "@npm//@angular/forms",
+    "@npm//css-element-queries",
+    "@npm//rxjs",
+]
+
+interface_to_json_schema(
+    name = "ajf-form-schema",
+    src = "//src/core/forms:utils/forms/create-form.ts",
+    schema_base_url = SCHEMA_BASE_URL,
+    type = "AjfFormCreate",
+    version = FORM_SCHEMA_VERSION,
+    deps = FORMS_DEPS,
+)
+
+interface_to_json_schema(
+    name = "ajf-form-strict-schema",
+    src = "//src/core/forms:interface/forms/form.ts",
+    schema_base_url = SCHEMA_BASE_URL,
+    type = "AjfForm",
+    version = FORM_SCHEMA_VERSION,
+    deps = FORMS_DEPS,
+)
+
+interface_to_json_schema(
+    name = "ajf-report-schema",
+    src = "//src/core/reports:utils/reports/create-report.ts",
+    schema_base_url = SCHEMA_BASE_URL,
+    type = "AjfReportCreate",
+    version = REPORT_SCHEMA_VERSION,
+    deps = REPORTS_DEPS,
+)
+
+interface_to_json_schema(
+    name = "ajf-report-strict-schema",
+    src = "//src/core/reports:interface/reports/report.ts",
+    schema_base_url = SCHEMA_BASE_URL,
+    type = "AjfReport",
+    version = REPORT_SCHEMA_VERSION,
+    deps = REPORTS_DEPS,
+)

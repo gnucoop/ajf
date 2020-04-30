@@ -16,6 +16,9 @@ yarn -s ts-circular-deps:check
 echo "API guard tests"
 yarn -s bazel test tools/public_api_guard/...
 
+echo "JSON schema guard tests"
+yarn -s bazel test tools/schemas_guard/...
+
 echo "Build"
 yarn -s bazel build src/... --build_tag_filters=-docs-package,-release-package
 

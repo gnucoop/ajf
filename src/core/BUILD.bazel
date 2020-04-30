@@ -1,4 +1,4 @@
-load("//src/core:config.bzl", "CORE_ENTRYPOINTS", "CORE_SCSS_LIBS", "CORE_TARGETS")
+load("//src/core:config.bzl", "CORE_ASSETS", "CORE_ENTRYPOINTS", "CORE_SCSS_LIBS", "CORE_TARGETS")
 load("//tools:defaults.bzl", "ng_package", "ts_library")
 
 package(default_visibility = ["//visibility:public"])
@@ -13,11 +13,11 @@ ts_library(
     deps = ["@npm//@angular/core"],
 )
 
-# Creates the @angular/cdk package published to npm.
+# Creates the @ajf/core package published to npm.
 ng_package(
     name = "npm_package",
     srcs = ["package.json"],
-    data = CORE_SCSS_LIBS,
+    data = CORE_SCSS_LIBS + CORE_ASSETS,
     entry_point = ":public-api.ts",
     tags = ["release-package"],
     deps = CORE_TARGETS,
