@@ -4,7 +4,6 @@ load(
     "ng_module",
     "ng_test_library",
     "ng_web_test_suite",
-    "sass_library",
 )
 
 package(default_visibility = ["//visibility:public"])
@@ -24,12 +23,6 @@ ng_module(
         "@npm//@angular/forms",
         "@npm//@zxing/library",
     ],
-)
-
-sass_library(
-    name = "barcode_scss_lib",
-    srcs = glob(["**/_*.scss"]),
-    deps = [],
 )
 
 ng_test_library(

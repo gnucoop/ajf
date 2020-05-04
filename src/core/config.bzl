@@ -19,12 +19,25 @@ CORE_ENTRYPOINTS = [
     "utils",
 ]
 
+# Within the core, only a few targets have sass libraries which need to be
+# part of the release package. This list declares all CDK targets with sass
+# libraries that need to be included and re-exported at the package root.
+CORE_ENTRYPOINTS_WITH_STYLES = [
+    "chart",
+    "forms",
+    "map",
+    "page-break",
+    "page-slider",
+    "table",
+    "text",
+]
+
 # List of all entry-point targets of the Ajf core package.
 CORE_TARGETS = ["//src/core"] + ["//src/core/%s" % ep for ep in CORE_ENTRYPOINTS]
 
 CORE_SCSS_LIBS = [
     "//src/core/%s:%s_scss_lib" % (p, p.replace("-", "_"))
-    for p in CORE_ENTRYPOINTS
+    for p in CORE_ENTRYPOINTS_WITH_STYLES
 ]
 
 CORE_SCHEMAS = [
