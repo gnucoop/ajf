@@ -20,30 +20,14 @@
  *
  */
 
-import {AjfJsonValidationModule} from '@ajf/core/json-validation';
-import {AjfReportsModule} from '@ajf/ionic/reports';
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {RouterModule} from '@angular/router';
-import {IonicModule} from '@ionic/angular';
+import {ErrorObject} from 'ajv';
 
-import {ReportsDemo} from './reports-demo';
+export interface AjfJsonValidatorError {
+  error: ErrorObject;
+  message: string;
+}
 
-@NgModule({
-  imports: [
-    AjfJsonValidationModule,
-    AjfReportsModule,
-    CommonModule,
-    FormsModule,
-    MatExpansionModule,
-    RouterModule.forChild([{path: '', component: ReportsDemo}]),
-    IonicModule,
-  ],
-  declarations: [
-    ReportsDemo,
-  ],
-})
-export class ReportsDemoModule {
+export interface AjfJsonValidatorResult {
+  valid: boolean;
+  errors?: AjfJsonValidatorError[];
 }

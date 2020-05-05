@@ -63,6 +63,7 @@ ROLLUP_GLOBALS = {
     "@ionic/core": "ionic.core",
     "@zxing/library": "zxing",
     "@ngx-translate/core": "ngxTranslate.core",
+    "ajv": "ajv",
     "chart.js": "Chart",
     "chart.piecelabel.js": "Chart.piecelabel",
     "css-element-queries": "cssElementQueries",

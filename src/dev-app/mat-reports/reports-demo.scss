@@ -2,10 +2,22 @@
   .demo-reports-header-box {
     flex: 1;
     padding: 0 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
     textarea {
       width: 100%;
       height: 120px;
     }
+
+    .demo-form-errors {
+      flex: 1;
+      overflow-y: auto;
+    }
+  }
+
+  .demo-form-error {
+    color: #800000;
   }
 }

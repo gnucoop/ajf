@@ -14,8 +14,7 @@
     "type": "git",
     "url": "https://github.com/gnucoop/ajf.git"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/gnucoop/ajf/issues"
@@ -30,6 +29,7 @@
     "@angular/router": "0.0.0-NG",
     "@ngx-translate/core": "0.0.0-ANGXT",
     "@zxing/library": "^0.15.2",
+    "ajv": "^6.2.2",
     "chart.js": "^2.9.3",
     "chart.piecelabel.js": "^0.15.0",
     "css-element-queries": "^1.2.3",

@@ -7,6 +7,16 @@ exports_files([
 ])
 
 third_party_bundle(
+    name = "ajv",
+    entry_point = "@npm//:node_modules/ajv/lib/ajv.js",
+    module_name = "ajv",
+    exports = "default",
+    deps = [
+        "@npm//ajv",
+    ],
+)
+
+third_party_bundle(
     name = "chart.js",
     entry_point = "@npm//:node_modules/chart.js/dist/Chart.js",
     module_name = "chart.js",

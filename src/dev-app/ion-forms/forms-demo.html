@@ -1,27 +1,41 @@
 <div class="demo-forms">
-  <h4 class="demo-section-header">Form</h4>
-  <ion-checkbox [(ngModel)]="readonly">readonly</ion-checkbox>
+  <h4 class="demo-section-header">
+    Form
+    <div class="demo-spacer"></div>
+    <ion-checkbox [(ngModel)]="readonly"></ion-checkbox>&nbsp;readonly
+  </h4>
   <section>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <div class="demo-forms-header-box">
-            <h5>Schema</h5>
-            <textarea [(ngModel)]="formSchema"></textarea>
-          </div>
-          <ion-button (click)="setSchema()"
-              color="primary">Set schema</ion-button>
-        </ion-col>
-        <ion-col>
-          <div class="demo-forms-header-box">
-            <h5>Context</h5>
-            <textarea [(ngModel)]="context"></textarea>
-            <ion-button (click)="getCurrentContext()"
-                color="primary">Get current context</ion-button>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Definition</mat-panel-title>
+      </mat-expansion-panel-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="demo-forms-header-box">
+              <h5>Schema</h5>
+              <textarea [(ngModel)]="formSchema"></textarea>
+              <ion-button (click)="setSchema()" color="primary">Set schema</ion-button>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="demo-forms-header-box">
+              <h5>Context</h5>
+              <textarea [(ngModel)]="context"></textarea>
+              <ion-button (click)="getCurrentContext()" color="primary">Get current context</ion-button>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="demo-forms-header-box">
+              <h5>Validation</h5>
+              <div class="demo-form-errors">
+                <div *ngFor="let message of messages" class="demo-form-error">{{ message }}</div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </mat-expansion-panel>
     <div class="demo-form-container">
       <ajf-form [form]="form" [readonly]="readonly" hideTopToolbar></ajf-form>
     </div>

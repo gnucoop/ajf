@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfJsonValidator} from '@ajf/core/json-validation';
 import {AjfReportInstance, AjfReportSerializer, createReportInstance} from '@ajf/core/reports';
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
@@ -35,8 +36,12 @@ export class ReportsDemo {
   report: AjfReportInstance;
   reportStr: string = JSON.stringify(testReport);
   context: string = '{}';
+  messages: string[] = [];
 
-  constructor(private _ts: TranslateService) {
+  constructor(
+      private _ts: TranslateService,
+      private _jsonValidator: AjfJsonValidator,
+  ) {
     this._populateReport();
   }
 
@@ -50,7 +55,12 @@ export class ReportsDemo {
       const report = AjfReportSerializer.fromJson(schema);
       const ctx = JSON.parse(this.context);
       this.report = createReportInstance(report, ctx, this._ts);
+      const validation = this._jsonValidator.validate('form', report);
+      if (!validation.valid) {
+        this.messages = (validation.errors || []).map(error => error.message || '');
+      }
     } catch (e) {
+      this.messages = [(e as Error).message];
     }
   }
 }

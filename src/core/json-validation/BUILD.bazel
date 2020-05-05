@@ -1,0 +1,82 @@
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+)
+load("//tools/json-schema:index.bzl", "json_schema_to_ts")
+
+package(default_visibility = ["//visibility:public"])
+
+json_schema_to_ts(
+    name = "ajf-form-schema",
+    src = "//src/core/schemas:ajf-form-schema",
+)
+
+json_schema_to_ts(
+    name = "ajf-form-strict-schema",
+    src = "//src/core/schemas:ajf-form-strict-schema",
+)
+
+json_schema_to_ts(
+    name = "ajf-report-schema",
+    src = "//src/core/schemas:ajf-report-schema",
+)
+
+json_schema_to_ts(
+    name = "ajf-report-strict-schema",
+    src = "//src/core/schemas:ajf-report-strict-schema",
+)
+
+filegroup(
+    name = "schemas",
+    srcs = [
+        ":ajf-form-schema",
+        ":ajf-form-strict-schema",
+        ":ajf-report-schema",
+        ":ajf-report-strict-schema",
+    ],
+)
+
+ng_module(
+    name = "json-validation",
+    srcs = [":schemas"] + glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [
+    ],
+    module_name = "@ajf/core/json-validation",
+    deps = [
+        "//src/core/schemas",
+        "@npm//@types/debug",
+        "@npm//ajv",
+    ],
+)
+
+ng_test_library(
+    name = "unit_test_sources",
+    srcs = glob(
+        ["**/*.spec.ts"],
+        exclude = ["**/*.e2e.spec.ts"],
+    ),
+    deps = [
+        ":json-validation",
+    ],
+)
+
+ng_web_test_suite(
+    name = "unit_tests",
+    deps = [":unit_test_sources"],
+)
+
+markdown_to_html(
+    name = "overview",
+    srcs = ["json-validation.md"],
+)
+
+filegroup(
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
+)

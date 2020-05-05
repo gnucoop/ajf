@@ -8,8 +8,8 @@ exports_files([
 ])
 
 ts_library(
-    name = "sources",
-    srcs = glob(["**/*.ts"]),
+    name = "generate-json-schema-source",
+    srcs = ["generate-json-schema.ts"],
     tsconfig = ":tsconfig.json",
     deps = [
         "@npm//@types/node",
@@ -17,11 +17,28 @@ ts_library(
     ],
 )
 
+ts_library(
+    name = "json-schema-to-ts-source",
+    srcs = ["json-schema-to-ts.ts"],
+    tsconfig = ":tsconfig.json",
+    deps = [
+        "@npm//@types/node",
+    ],
+)
+
 nodejs_binary(
     name = "generate-json-schema",
     data = [
-        ":sources",
+        ":generate-json-schema-source",
         "@npm//ts-json-schema-generator",
     ],
     entry_point = ":generate-json-schema.ts",
+)
+
+nodejs_binary(
+    name = "json-schema-to-ts",
+    data = [
+        ":json-schema-to-ts-source",
+    ],
+    entry_point = ":json-schema-to-ts.ts",
 )

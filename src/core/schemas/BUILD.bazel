@@ -1,3 +1,8 @@
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+)
 load("//tools/json-schema:index.bzl", "interface_to_json_schema")
 
 package(default_visibility = ["//visibility:public"])
@@ -64,4 +69,36 @@ interface_to_json_schema(
     type = "AjfReport",
     version = REPORT_SCHEMA_VERSION,
     deps = REPORTS_DEPS,
+)
+
+genrule(
+    name = "schema-version",
+    srcs = [],
+    outs = ["schema-version.ts"],
+    cmd = """echo \"export const AJF_FORM_SCHEMA_VERSION = '%s';\nexport const AJF_REPORT_SCHEMA_VERSION = '%s';\"> \"$@\"""" % (
+        FORM_SCHEMA_VERSION,
+        REPORT_SCHEMA_VERSION,
+    ),
+)
+
+ng_module(
+    name = "schemas",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ) + [":schema-version"],
+    assets = [],
+    data = [":ajf-form-schema"],
+    module_name = "@ajf/core/schemas",
+    deps = [],
+)
+
+markdown_to_html(
+    name = "overview",
+    srcs = ["schemas.md"],
+)
+
+filegroup(
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
 )

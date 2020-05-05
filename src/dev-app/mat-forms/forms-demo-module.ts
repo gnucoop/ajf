@@ -21,6 +21,7 @@
  */
 
 import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfJsonValidationModule} from '@ajf/core/json-validation';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 import {AjfFormsModule} from '@ajf/material/forms';
 import {CommonModule} from '@angular/common';
@@ -28,6 +29,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {RouterModule} from '@angular/router';
@@ -41,10 +43,12 @@ import {FormsDemo} from './forms-demo';
     AjfCheckboxGroupModule,
     AjfCoreFormsModule,
     AjfFormsModule,
+    AjfJsonValidationModule,
     CommonModule,
     FormsModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatExpansionModule,
     MatGridListModule,
     MatSelectModule,
     ReactiveFormsModule,

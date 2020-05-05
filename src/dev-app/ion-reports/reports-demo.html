@@ -1,24 +1,36 @@
 <div class="demo-reports">
   <h4 class="demo-section-header">Reports</h4>
   <section>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <div class="demo-reports-header-box">
-            <h5>Schema</h5>
-            <textarea [(ngModel)]="reportStr"></textarea>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="demo-reports-header-box">
-            <h5>Context</h5>
-            <textarea [(ngModel)]="context"></textarea>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <button (click)="setReport()" mat-raised-button
-        color="primary">Set report</button>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Definition</mat-panel-title>
+      </mat-expansion-panel-header>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div class="demo-reports-header-box">
+              <h5>Schema</h5>
+              <textarea [(ngModel)]="reportStr"></textarea>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="demo-reports-header-box">
+              <h5>Context</h5>
+              <textarea [(ngModel)]="context"></textarea>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="demo-reports-header-box">
+              <h5>Validation</h5>
+              <div class="demo-form-errors">
+                <div *ngFor="let message of messages" class="demo-form-error">{{ message }}</div>
+              </div>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-button (click)="setReport()" color="primary">Set report</ion-button>
+    </mat-expansion-panel>
     <div class="demo-form-builder-container">
       <ajf-report [instance]="report"></ajf-report>
     </div>

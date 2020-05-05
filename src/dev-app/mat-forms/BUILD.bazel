@@ -11,7 +11,11 @@ ng_module(
         ":forms_demo_scss",
     ],
     deps = [
+        "//src/core/forms",
+        "//src/core/json-validation",
+        "//src/core/models",
         "//src/material/forms",
+        "@npm//@angular/material",
         "@npm//@angular/router",
     ],
 )
