@@ -20,7 +20,12 @@
  *
  */
 
-import {AjfFieldService as CoreService, AjfFieldType} from '@ajf/core/forms';
+import {
+  AjfFieldService as CoreService,
+  AjfFieldType,
+  AjfReadOnlyFieldComponent,
+  AjfReadOnlyTableFieldComponent
+} from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
@@ -41,18 +46,57 @@ import {AjfTimeFieldComponent} from './time-field';
 export class AjfFieldService extends CoreService {
   constructor() {
     super();
-    this.componentsMap[AjfFieldType.String] = {component: AjfInputFieldComponent};
-    this.componentsMap[AjfFieldType.Text] = {component: AjfTextareaFieldComponent};
-    this.componentsMap[AjfFieldType.Number] = {component: AjfNumberFieldComponent};
-    this.componentsMap[AjfFieldType.Boolean] = {component: AjfBooleanFieldComponent};
-    this.componentsMap[AjfFieldType.Formula] = {component: AjfFormulaFieldComponent};
-    this.componentsMap[AjfFieldType.Date] = {component: AjfDateFieldComponent};
-    this.componentsMap[AjfFieldType.DateInput] = {component: AjfDateInputFieldComponent};
-    this.componentsMap[AjfFieldType.Table] = {component: AjfTableFieldComponent};
-    this.componentsMap[AjfFieldType.Empty] = {component: AjfEmptyFieldComponent};
-    this.componentsMap[AjfFieldType.SingleChoice] = {component: AjfSingleChoiceFieldComponent};
-    this.componentsMap[AjfFieldType.MultipleChoice] = {component: AjfMultipleChoiceFieldComponent};
-    this.componentsMap[AjfFieldType.Time] = {component: AjfTimeFieldComponent};
-    this.componentsMap[AjfFieldType.Barcode] = {component: AjfBarcodeFieldComponent};
+    this.componentsMap[AjfFieldType.String] = {
+      component: AjfInputFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Text] = {
+      component: AjfTextareaFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Number] = {
+      component: AjfNumberFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Boolean] = {
+      component: AjfBooleanFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Formula] = {
+      component: AjfFormulaFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Date] = {
+      component: AjfDateFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.DateInput] = {
+      component: AjfDateInputFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Table] = {
+      component: AjfTableFieldComponent,
+      readOnlyComponent: AjfReadOnlyTableFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Empty] = {
+      component: AjfEmptyFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.SingleChoice] = {
+      component: AjfSingleChoiceFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.MultipleChoice] = {
+      component: AjfMultipleChoiceFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Time] = {
+      component: AjfTimeFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Barcode] = {
+      component: AjfBarcodeFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
+    };
   }
 }

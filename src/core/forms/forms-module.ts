@@ -20,6 +20,8 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
 import {AjfAsFieldInstancePipe} from './as-field-instance';
@@ -32,10 +34,14 @@ import {AjfFieldHost} from './field-host';
 import {AjfFieldIconPipe} from './field-icon';
 import {AjfFieldIsValidPipe} from './field-is-valid';
 import {AjfFormRendererService} from './form-renderer';
+import {AjfGetTableCellControlPipe} from './get-table-cell-control';
 import {AjfIncrementPipe} from './increment';
+import {AjfIsCellEditablePipe} from './is-cell-editable';
 import {AjfIsRepeatingSlideInstancePipe} from './is-repeating-slide';
 import {AjfNodeCompleteNamePipe} from './node-complete-name';
 import {AjfRangePipe} from './range';
+import {AjfReadOnlyFieldComponent} from './read-only-field';
+import {AjfReadOnlyTableFieldComponent} from './read-only-table-field';
 import {AjfTableRowClass} from './table-row-class';
 import {AjfTableVisibleColumnsPipe} from './table-visible-columns';
 import {AjfValidSlidePipe} from './valid-slide';
@@ -52,14 +58,19 @@ import {AjfValidationService} from './validation-service';
     AjfFieldHost,
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
+    AjfGetTableCellControlPipe,
     AjfIncrementPipe,
+    AjfIsCellEditablePipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,
     AjfRangePipe,
+    AjfReadOnlyFieldComponent,
+    AjfReadOnlyTableFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
   ],
+  imports: [AjfCommonModule, CommonModule],
   exports: [
     AjfAsFieldInstancePipe,
     AjfAsRepeatingSlideInstancePipe,
@@ -70,10 +81,14 @@ import {AjfValidationService} from './validation-service';
     AjfFieldHost,
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
+    AjfGetTableCellControlPipe,
     AjfIncrementPipe,
+    AjfIsCellEditablePipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,
     AjfRangePipe,
+    AjfReadOnlyFieldComponent,
+    AjfReadOnlyTableFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,

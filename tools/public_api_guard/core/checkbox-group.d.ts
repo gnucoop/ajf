@@ -30,7 +30,6 @@ export declare class AjfCheckboxGroupChange<T> {
 }
 
 export declare class AjfCheckboxGroupItem<T> implements OnInit {
-    protected _readonly: boolean;
     readonly change: Observable<AjfCheckboxGroupItemChange<T>>;
     readonly checkboxGroup: AjfCheckboxGroup<T>;
     readonly checkboxId: Observable<string>;
@@ -47,14 +46,12 @@ export declare class AjfCheckboxGroupItem<T> implements OnInit {
     name: string;
     get notCheckedIcon(): string;
     set notCheckedIcon(icon: string);
-    get readonly(): boolean;
-    set readonly(readonly: boolean);
     get value(): T;
     set value(value: T);
     constructor(checkboxGroup?: AjfCheckboxGroup<T>);
     ngOnInit(): void;
     onInputChange(event: Event): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfCheckboxGroupItem<any>, never, never, { "id": "id"; "name": "name"; "checked": "checked"; "disabled": "disabled"; "value": "value"; "readonly": "readonly"; "checkedIcon": "checkedIcon"; "notCheckedIcon": "notCheckedIcon"; }, { "change": "change"; }, never>;
+    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfCheckboxGroupItem<any>, never, never, { "id": "id"; "name": "name"; "checked": "checked"; "disabled": "disabled"; "value": "value"; "checkedIcon": "checkedIcon"; "notCheckedIcon": "notCheckedIcon"; }, { "change": "change"; }, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroupItem<any>, never>;
 }
 

@@ -21,15 +21,15 @@
  */
 
 import {AjfContext} from '@ajf/core/models';
-import {FormControl} from '@angular/forms';
 
 import {AjfTableField} from '../fields/table-field';
+import {AjfTableFormControl} from '../forms/table-form-control';
 import {AjfFieldInstance} from './field-instance';
 
 export interface AjfTableFieldInstance extends AjfFieldInstance {
   node: AjfTableField;
   hideEmptyRows: boolean;
   value: [string, (string | number)[]][];
-  controls: [string, (string | FormControl)[]][];
+  controls: [string, (string | AjfTableFormControl)[]][];
   context: AjfContext;
 }

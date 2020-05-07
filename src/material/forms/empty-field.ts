@@ -21,15 +21,16 @@
  */
 
 import {
+  AJF_WARNING_ALERT_SERVICE,
   AjfBaseFieldComponent,
   AjfEmptyFieldInstance,
   AjfFormRendererService
 } from '@ajf/core/forms';
-import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -43,9 +44,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfEmptyFieldComponent extends AjfBaseFieldComponent<AjfEmptyFieldInstance> {
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
-
-  static ngAcceptInputType_readonly: BooleanInput;
 }

@@ -9,7 +9,7 @@
     <a [href]="attachment.value" target="_blank">{{attachment.label}}</a>
   </ng-container>
 </ng-container>
-<ng-container *ngIf="instance.validationResults">
+<ng-container *ngIf="!readonly && instance.validationResults">
   <div class="ajf-errors">
     <ng-container *ngFor="let res of instance.validationResults">
       <div class="error" *ngIf="!res.result">

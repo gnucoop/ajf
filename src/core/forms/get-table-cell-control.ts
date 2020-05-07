@@ -21,18 +21,15 @@
  */
 
 import {Pipe, PipeTransform} from '@angular/core';
-import {FormControl as BaseFormControl} from '@angular/forms';
 
-export class FormControl extends BaseFormControl {
-  show: boolean;
-}
+import {AjfTableFormControl} from './interface/forms/table-form-control';
 
 @Pipe({name: 'ajfGetTableCellControl'})
 export class AjfGetTableCellControlPipe implements PipeTransform {
-  transform(ctrl: null|string|BaseFormControl): FormControl|null {
+  transform(ctrl: null|string|AjfTableFormControl): AjfTableFormControl|null {
     if (ctrl == null || typeof ctrl === 'string') {
       return null;
     }
-    return ctrl as FormControl;
+    return ctrl as AjfTableFormControl;
   }
 }

@@ -59,6 +59,7 @@ import {AjfEmptyField} from './interface/fields/empty-field';
 import {AjfFieldType} from './interface/fields/field-type';
 import {AjfTableCell} from './interface/fields/table-field';
 import {AjfForm} from './interface/forms/form';
+import {AjfTableFormControl} from './interface/forms/table-form-control';
 import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-instance';
 import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 import {
@@ -462,11 +463,11 @@ export class AjfFormRendererService {
             const tNode = tfInstance.node;
             tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
             const formGroup = this._formGroup.getValue();
-            let controlsWithLabels: [string, (string | FormControl)[]][] = [];
+            let controlsWithLabels: [string, (string | AjfTableFormControl)[]][] = [];
             controlsWithLabels.push([node.label, tNode.columnLabels]);
             if (formGroup != null) {
               tNode.rows.forEach((row, rowIdx) => {
-                let r: FormControl[] = [];
+                let r: AjfTableFormControl[] = [];
                 (row as AjfTableCell[]).forEach((cell, idx) => {
                   /*
                   every control is registered with the cell position
@@ -474,10 +475,11 @@ export class AjfFormRendererService {
                   with this mask `${tNode.name}__${rowIdx}__${idx}`
                   */
                   const name = `${tNode.name}__${rowIdx}__${idx}`;
-                  const control = new FormControl();
-                  control.setValue(tfInstance.context[cell.formula]);
-                  formGroup.registerControl(name, control);
-                  r.push(control);
+                  const tableFormControl:
+                      AjfTableFormControl = {control: new FormControl(), show: false};
+                  tableFormControl.control.setValue(tfInstance.context[cell.formula]);
+                  formGroup.registerControl(name, tableFormControl.control);
+                  r.push(tableFormControl);
                   /* create a object that respect the instance interface
                   with the minimum defined properties to allow to run addToNodeFormula map*/
                   const fakeInstance = {

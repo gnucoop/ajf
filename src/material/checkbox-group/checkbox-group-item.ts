@@ -24,7 +24,6 @@ import {
   AjfCheckboxGroup,
   AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem
 } from '@ajf/core/checkbox-group';
-import {BooleanInput} from '@angular/cdk/coercion';
 import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@angular/core';
 
 @Component({
@@ -45,6 +44,4 @@ export class CheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T> {
     this.checkedIcon = 'check_box';
     this.notCheckedIcon = 'check_box_outline_blank';
   }
-
-  static ngAcceptInputType_readonly: BooleanInput;
 }

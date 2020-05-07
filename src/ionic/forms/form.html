@@ -80,7 +80,7 @@
                           <ion-icon color="danger" name="ajf-warning" *ngIf="!(slideInstance|ajfValidSlide:idx)"></ion-icon>
                           <ion-icon color="secondary" name="checkmark" *ngIf="(slideInstance|ajfValidSlide:idx)"></ion-icon>
                         </div>
-                        <div *ngIf="lastSlide" class="ajf-group-actions">
+                        <div *ngIf="lastSlide && !readonly" class="ajf-group-actions">
                           <ion-fab-button size="small" (click)="addGroup(slideInstance)" [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd">
                             <ion-icon name="add"></ion-icon>
                           </ion-fab-button>

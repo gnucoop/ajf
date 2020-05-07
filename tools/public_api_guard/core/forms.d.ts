@@ -1,5 +1,7 @@
 export declare const AJF_SEARCH_ALERT_THRESHOLD: InjectionToken<number>;
 
+export declare const AJF_WARNING_ALERT_SERVICE: InjectionToken<AjfWarningAlertService>;
+
 export declare class AjfAsFieldInstancePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): AjfFieldInstance;
     static ɵfac: i0.ɵɵFactoryDef<AjfAsFieldInstancePipe, never>;
@@ -37,12 +39,9 @@ export declare const enum AjfAttachmentsType {
 
 export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFieldInstance> implements OnDestroy, OnInit {
     protected _changeDetectorRef: ChangeDetectorRef;
-    protected _readonly: boolean;
     get control(): Observable<FormControl | null>;
     get instance(): T;
     set instance(instance: T);
-    get readonly(): boolean;
-    set readonly(readonly: boolean);
     constructor(_changeDetectorRef: ChangeDetectorRef, _service: AjfFormRendererService, _warningAlertService: AjfWarningAlertService);
     protected _onInstanceChange(): void;
     ngOnDestroy(): void;
@@ -205,6 +204,7 @@ export interface AjfField extends AjfNode {
 export interface AjfFieldComponentsMap {
     [key: number]: {
         component: Type<AjfBaseFieldComponent>;
+        readOnlyComponent?: Type<AjfBaseFieldComponent>;
         inputs?: {
             [key: string]: any;
         };
@@ -259,6 +259,7 @@ export declare abstract class AjfFieldService {
     registerCustomField(field: {
         fieldType: number;
         component: Type<AjfBaseFieldComponent>;
+        readOnlyComponent?: Type<AjfBaseFieldComponent>;
         createInstance?: (instance: AjfFieldInstanceCreate, context: AjfContext) => AjfFieldInstance;
         isFieldWithChoice?: boolean;
     }): void;
@@ -428,7 +429,7 @@ export declare class AjfFormSerializer {
 
 export declare class AjfFormsModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfFormsModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfIncrementPipe, typeof i11.AjfIsRepeatingSlideInstancePipe, typeof i12.AjfNodeCompleteNamePipe, typeof i13.AjfRangePipe, typeof i14.AjfTableRowClass, typeof i15.AjfTableVisibleColumnsPipe, typeof i16.AjfValidSlidePipe], never, [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfIncrementPipe, typeof i11.AjfIsRepeatingSlideInstancePipe, typeof i12.AjfNodeCompleteNamePipe, typeof i13.AjfRangePipe, typeof i14.AjfTableRowClass, typeof i15.AjfTableVisibleColumnsPipe, typeof i16.AjfValidSlidePipe]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfGetTableCellControlPipe, typeof i11.AjfIncrementPipe, typeof i12.AjfIsCellEditablePipe, typeof i13.AjfIsRepeatingSlideInstancePipe, typeof i14.AjfNodeCompleteNamePipe, typeof i15.AjfRangePipe, typeof i16.AjfReadOnlyFieldComponent, typeof i17.AjfReadOnlyTableFieldComponent, typeof i18.AjfTableRowClass, typeof i19.AjfTableVisibleColumnsPipe, typeof i20.AjfValidSlidePipe], [typeof i21.AjfCommonModule, typeof i22.CommonModule], [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfGetTableCellControlPipe, typeof i11.AjfIncrementPipe, typeof i12.AjfIsCellEditablePipe, typeof i13.AjfIsRepeatingSlideInstancePipe, typeof i14.AjfNodeCompleteNamePipe, typeof i15.AjfRangePipe, typeof i16.AjfReadOnlyFieldComponent, typeof i17.AjfReadOnlyTableFieldComponent, typeof i18.AjfTableRowClass, typeof i19.AjfTableVisibleColumnsPipe, typeof i20.AjfValidSlidePipe]>;
 }
 
 export interface AjfFormStringIdentifier {
@@ -445,6 +446,12 @@ export interface AjfFormulaFieldInstance extends AjfFieldInstance {
     node: AjfFormulaField;
 }
 
+export declare class AjfGetTableCellControlPipe implements PipeTransform {
+    transform(ctrl: null | string | AjfTableFormControl): AjfTableFormControl | null;
+    static ɵfac: i0.ɵɵFactoryDef<AjfGetTableCellControlPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfGetTableCellControlPipe, "ajfGetTableCellControl">;
+}
+
 export declare class AjfIncrementPipe implements PipeTransform {
     transform(value: number, increment?: number): number;
     static ɵfac: i0.ɵɵFactoryDef<AjfIncrementPipe, never>;
@@ -458,6 +465,12 @@ export declare abstract class AjfInputFieldComponent extends AjfBaseFieldCompone
 export declare class AjfInvalidFieldDefinitionError extends AjfError {
     get name(): string;
     constructor(message?: string);
+}
+
+export declare class AjfIsCellEditablePipe implements PipeTransform {
+    transform(cell: string | AjfTableCell): boolean;
+    static ɵfac: i0.ɵɵFactoryDef<AjfIsCellEditablePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfIsCellEditablePipe, "ajfIsCellEditable">;
 }
 
 export declare class AjfIsRepeatingSlideInstancePipe implements PipeTransform {
@@ -540,6 +553,18 @@ export declare class AjfRangePipe implements PipeTransform {
     static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfRangePipe, "ajfRange">;
 }
 
+export declare class AjfReadOnlyFieldComponent extends CoreComponent {
+    constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlyFieldComponent, "ajf-read-only-field", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyFieldComponent, never>;
+}
+
+export declare class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
+    constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlyTableFieldComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyTableFieldComponent, never>;
+}
+
 export interface AjfRendererUpdateMap {
     [prop: string]: AjfNodeInstance[];
 }
@@ -605,9 +630,15 @@ export interface AjfTableField extends AjfField {
     rows: (string | AjfTableCell)[][];
 }
 
+export declare abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
+    constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
+    goToCell(row: number, column: number): void;
+    goToNextCell(ev: Event, row: number, column: number): void;
+}
+
 export interface AjfTableFieldInstance extends AjfFieldInstance {
     context: AjfContext;
-    controls: [string, (string | FormControl)[]][];
+    controls: [string, (string | AjfTableFormControl)[]][];
     hideEmptyRows: boolean;
     node: AjfTableField;
     value: [string, (string | number)[]][];
@@ -620,7 +651,7 @@ export declare class AjfTableRowClass implements PipeTransform {
 }
 
 export declare class AjfTableVisibleColumnsPipe implements PipeTransform {
-    transform(instance: AjfTableFieldInstance): (string | number | FormControl)[][];
+    transform(instance: AjfTableFieldInstance): (string | number | AjfTableFormControl)[][];
     static ɵfac: i0.ɵɵFactoryDef<AjfTableVisibleColumnsPipe, never>;
     static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfTableVisibleColumnsPipe, "ajfTableVisibleColumns">;
 }

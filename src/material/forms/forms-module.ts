@@ -21,7 +21,7 @@
  */
 
 import {AjfCommonModule} from '@ajf/core/common';
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {AjfBarcodeModule} from '@ajf/material/barcode';
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
@@ -51,9 +51,7 @@ import {AjfFormField} from './field';
 import {AjfFieldService} from './field-service';
 import {AjfFieldWarningDialog} from './field-warning-dialog';
 import {AjfFormRenderer} from './form';
-import {AjfGetTableCellControlPipe} from './get-table-cell-control';
 import {AjfInputFieldComponent} from './input-field';
-import {AjfIsCellEditablePipe} from './is-cell-editable';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
@@ -77,9 +75,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfFieldWarningDialog,
     AjfFormField,
     AjfFormRenderer,
-    AjfGetTableCellControlPipe,
     AjfInputFieldComponent,
-    AjfIsCellEditablePipe,
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
@@ -103,7 +99,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   ],
   providers: [
     AjfFieldService,
-    AjfWarningAlertService,
+    {provide: AJF_WARNING_ALERT_SERVICE, useClass: AjfWarningAlertService},
   ],
 })
 export class AjfFormsModule {

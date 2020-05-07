@@ -3,7 +3,6 @@
     <ng-container *ngIf="instance.filteredChoices as cs">
       <gic-select *ngIf="control|async as ctrl"
           #singleChoiceSelect
-          [disabled]="readonly"
           [searchBar]="instance|ajfSelectHasSearchBar:searchThreshold"
           [useVirtualScroll]="instance|ajfSelectUseVirtualScroll:100"
           [placeholder]="instance.node.label"
@@ -20,7 +19,7 @@
       [formControl]="ctrl!">
       <ion-item *ngFor="let choice of instance.filteredChoices">
         <ion-label>{{ choice.label | translate }}</ion-label>
-        <ion-radio [disabled]="readonly" [value]="choice.value"></ion-radio>
+        <ion-radio [value]="choice.value"></ion-radio>
       </ion-item>
     </ion-radio-group>
   </div>

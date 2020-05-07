@@ -20,17 +20,22 @@
  *
  */
 
-import {AjfFormRendererService, AjfInputFieldComponent as CoreComponent} from '@ajf/core/forms';
-import {BooleanInput} from '@angular/cdk/coercion';
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFormRendererService,
+  AjfInputFieldComponent as CoreComponent
+} from '@ajf/core/forms';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Inject,
   OnDestroy,
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
+
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, startWith, switchMap, withLatestFrom} from 'rxjs/operators';
 
@@ -49,7 +54,8 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
   private _setValueSub: Subscription = Subscription.EMPTY;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
     this.type = 'number';
 
@@ -94,6 +100,4 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
     }
     this._setValueEvt.emit(value);
   }
-
-  static ngAcceptInputType_readonly: BooleanInput;
 }

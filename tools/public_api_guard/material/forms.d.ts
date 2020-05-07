@@ -1,13 +1,11 @@
 export declare class AjfBooleanFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfBooleanFieldComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfBooleanFieldComponent, never>;
 }
 
 export declare class AjfDateFieldComponent extends AjfBaseFieldComponent<AjfDateFieldInstance> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfDateFieldComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfDateFieldComponent, never>;
 }
@@ -17,14 +15,12 @@ export declare class AjfDateInputFieldComponent extends AjfBaseFieldComponent<Aj
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, _dvs: AjfDateValueStringPipe);
     protected _onInstanceChange(): void;
     onChange(): void;
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfDateInputFieldComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfDateInputFieldComponent, never>;
 }
 
 export declare class AjfEmptyFieldComponent extends AjfBaseFieldComponent<AjfEmptyFieldInstance> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfEmptyFieldComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfEmptyFieldComponent, never>;
 }
@@ -67,43 +63,36 @@ export declare class AjfFormRenderer extends AjfCoreFormRenderer {
 
 export declare class AjfFormsModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfFormsModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfBarcodeFieldComponent, typeof i2.AjfBooleanFieldComponent, typeof i3.AjfDateFieldComponent, typeof i4.AjfDateInputFieldComponent, typeof i5.AjfEmptyFieldComponent, typeof i6.AjfFieldWarningDialog, typeof i7.AjfFormField, typeof i8.AjfFormRenderer, typeof i9.AjfGetTableCellControlPipe, typeof i10.AjfInputFieldComponent, typeof i11.AjfIsCellEditablePipe, typeof i12.AjfMultipleChoiceFieldComponent, typeof i13.AjfSingleChoiceFieldComponent, typeof i14.AjfTableFieldComponent, typeof i15.AjfTimeFieldComponent], [typeof i16.AjfBarcodeModule, typeof i17.AjfCalendarModule, typeof i18.AjfCommonModule, typeof i19.AjfFormsModule, typeof i20.AjfCheckboxGroupModule, typeof i21.AjfPageSliderModule, typeof i22.AjfTimeModule, typeof i23.CommonModule, typeof i24.MatButtonModule, typeof i25.MatCardModule, typeof i26.MatDialogModule, typeof i27.MatFormFieldModule, typeof i28.MatIconModule, typeof i29.MatInputModule, typeof i30.MatRadioModule, typeof i31.MatSelectModule, typeof i32.MatSlideToggleModule, typeof i33.MatToolbarModule, typeof i34.ReactiveFormsModule, typeof i35.TranslateModule], [typeof i7.AjfFormField, typeof i8.AjfFormRenderer]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfBarcodeFieldComponent, typeof i2.AjfBooleanFieldComponent, typeof i3.AjfDateFieldComponent, typeof i4.AjfDateInputFieldComponent, typeof i5.AjfEmptyFieldComponent, typeof i6.AjfFieldWarningDialog, typeof i7.AjfFormField, typeof i8.AjfFormRenderer, typeof i9.AjfInputFieldComponent, typeof i10.AjfMultipleChoiceFieldComponent, typeof i11.AjfSingleChoiceFieldComponent, typeof i12.AjfTableFieldComponent, typeof i13.AjfTimeFieldComponent], [typeof i14.AjfBarcodeModule, typeof i15.AjfCalendarModule, typeof i16.AjfCommonModule, typeof i17.AjfFormsModule, typeof i18.AjfCheckboxGroupModule, typeof i19.AjfPageSliderModule, typeof i20.AjfTimeModule, typeof i21.CommonModule, typeof i22.MatButtonModule, typeof i23.MatCardModule, typeof i24.MatDialogModule, typeof i25.MatFormFieldModule, typeof i26.MatIconModule, typeof i27.MatInputModule, typeof i28.MatRadioModule, typeof i29.MatSelectModule, typeof i30.MatSlideToggleModule, typeof i31.MatToolbarModule, typeof i32.ReactiveFormsModule, typeof i33.TranslateModule], [typeof i7.AjfFormField, typeof i8.AjfFormRenderer]>;
     static forRoot(): i0.ModuleWithProviders<AjfFormsModule>;
 }
 
 export declare class AjfInputFieldComponent extends CoreComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfInputFieldComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfInputFieldComponent, never>;
 }
 
 export declare class AjfMultipleChoiceFieldComponent<T> extends AjfFieldWithChoicesComponent<T> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, searchThreshold: number);
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfMultipleChoiceFieldComponent<any>, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfMultipleChoiceFieldComponent<any>, [null, null, null, { optional: true; }]>;
 }
 
 export declare class AjfSingleChoiceFieldComponent<T> extends AjfFieldWithChoicesComponent<T> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, searchThreshold: number);
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfSingleChoiceFieldComponent<any>, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfSingleChoiceFieldComponent<any>, [null, null, null, { optional: true; }]>;
 }
 
-export declare class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
+export declare class AjfTableFieldComponent extends AjfCoreTableFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    goToCell(row: number, column: number): void;
-    goToNextCell(ev: Event, row: number, column: number): void;
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTableFieldComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfTableFieldComponent, never>;
 }
 
 export declare class AjfTimeFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTimeFieldComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfTimeFieldComponent, never>;
 }

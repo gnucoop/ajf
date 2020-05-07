@@ -1,6 +1,5 @@
 export declare class AjfCheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T> {
     constructor(checkboxGroup: AjfCheckboxGroup<T>);
-    static ngAcceptInputType_readonly: BooleanInput;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfCheckboxGroupItem<any>, "ajf-checkbox-group-item", never, {}, {}, never, ["*"]>;
     static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroupItem<any>, [{ optional: true; }]>;
 }
