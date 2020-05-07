@@ -19,7 +19,7 @@ ng_module(
     assets = [
         ":read-only-field.css",
         ":read-only-table-field.css",
-    ],
+    ] + glob(["**/*.html"]),
     module_name = "@ajf/core/forms",
     deps = [
         "//src/core/common",
