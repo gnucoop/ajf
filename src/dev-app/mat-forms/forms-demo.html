@@ -1,27 +1,42 @@
 <div class="demo-forms">
-  <h4 class="demo-section-header">Form</h4>
-  <mat-checkbox [(ngModel)]="readonly">readonly</mat-checkbox>
+  <h4 class="demo-section-header">
+    Form
+    <div class="demo-spacer"></div>
+    <mat-checkbox [(ngModel)]="readonly">readonly</mat-checkbox>
+  </h4>
   <section>
-    <mat-grid-list [cols]="2" rowHeight="230px">
-      <mat-grid-tile>
-        <div class="demo-forms-header-box">
-          <h5>Schema</h5>
-          <textarea [(ngModel)]="formSchema"></textarea>
-          <button (click)="setSchema()" mat-raised-button
-              color="primary">Set schema</button>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="demo-forms-header-box">
-          <h5>Context</h5>
-          <textarea [(ngModel)]="context"></textarea>
-          <button (click)="getCurrentContext()" mat-raised-button
-              color="primary">Get current context</button>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Definition</mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-grid-list [cols]="3" rowHeight="230px">
+        <mat-grid-tile>
+          <div class="demo-forms-header-box">
+            <h5>Schema</h5>
+            <textarea [(ngModel)]="formSchema"></textarea>
+            <button (click)="setSchema()" mat-raised-button color="primary">Set schema</button>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="demo-forms-header-box">
+            <h5>Context</h5>
+            <textarea [(ngModel)]="context"></textarea>
+            <button (click)="getCurrentContext()" mat-raised-button color="primary">Get current context</button>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div class="demo-forms-header-box">
+            <h5>Validation</h5>
+            <div class="demo-form-errors">
+              <div *ngFor="let message of messages" class="demo-form-error">{{ message }}</div>
+            </div>
+          </div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-expansion-panel>
     <div class="demo-form-container">
-      <ajf-form [form]="form" [hasStartMessage]="false" [hasEndMessage]="false" hideTopToolbar [readonly]="readonly"></ajf-form>
+      <ajf-form [form]="form" [hasStartMessage]="false" [hasEndMessage]="false" hideTopToolbar [readonly]="readonly">
+      </ajf-form>
     </div>
   </section>
 </div>

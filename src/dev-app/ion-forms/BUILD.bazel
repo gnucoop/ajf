@@ -10,7 +10,9 @@ ng_module(
         ":forms_demo_scss",
     ],
     deps = [
+        "//src/core/json-validation",
         "//src/ionic/forms",
+        "@npm//@angular/material",
         "@npm//@angular/router",
     ],
 )

@@ -21,6 +21,7 @@
  */
 
 import {AjfForm, AjfFormRendererService, AjfFormSerializer} from '@ajf/core/forms';
+import {AjfJsonValidator} from '@ajf/core/json-validation';
 import {AjfContext} from '@ajf/core/models';
 import {Component} from '@angular/core';
 
@@ -35,6 +36,7 @@ export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
   form: AjfForm;
   context: string = JSON.stringify(formContext);
+  messages: string[] = [];
 
   get readonly() {
     return this._readonly;
@@ -44,9 +46,11 @@ export class FormsDemo {
   }
   private _readonly = false;
 
-  constructor(private _formRendererService: AjfFormRendererService) {
+  constructor(
+      private _formRendererService: AjfFormRendererService,
+      private _jsonValidator: AjfJsonValidator,
+  ) {
     this.form = AjfFormSerializer.fromJson(formSchema, formContext);
-    console.log(this.form);
   }
 
   setSchema(): void {
@@ -63,9 +67,14 @@ export class FormsDemo {
         context = {};
       }
       this.form = AjfFormSerializer.fromJson(schema, context);
-      console.log(this.form);
+
+      const validation = this._jsonValidator.validate('form', this.form);
+
+      if (!validation.valid) {
+        this.messages = (validation.errors || []).map(error => error.message || '');
+      }
     } catch (e) {
-      console.log(e);
+      this.messages = [(e as Error).message];
     }
   }
 

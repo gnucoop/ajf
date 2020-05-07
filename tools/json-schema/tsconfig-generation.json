@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "ES5",
+    "module": "CommonJS",
+    "strictNullChecks": false,
+    "lib": [
+      "es5",
+      "es2015",
+      "dom"
+    ],
+    "baseUrl": "../..",
+    "rootDirs": [
+      ".",
+      "./external/npm"
+    ],
+    "paths": {
+      "@ajf/ajf-examples": [
+        "./src/packages/ajf-examples"
+      ],
+      "@ajf/calendars/*": [
+        "./src/calendars/*"
+      ],
+      "@ajf/core": [
+        "./src/core"
+      ],
+      "@ajf/core/*": [
+        "./src/core/*"
+      ],
+      "@ajf/ionic/*": [
+        "./src/ionic/*"
+      ],
+      "@ajf/material/*": [
+        "./src/material/*"
+      ],
+      "*": [
+        "./external/npm/node_modules/*",
+        "./external/npm/node_modules/@types/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

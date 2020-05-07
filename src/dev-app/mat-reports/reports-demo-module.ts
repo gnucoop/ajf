@@ -20,9 +20,13 @@
  *
  */
 
+import {AjfJsonValidationModule} from '@ajf/core/json-validation';
 import {AjfReportsModule} from '@ajf/material/reports';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {RouterModule} from '@angular/router';
 
@@ -30,8 +34,12 @@ import {ReportsDemo} from './reports-demo';
 
 @NgModule({
   imports: [
+    AjfJsonValidationModule,
     AjfReportsModule,
+    CommonModule,
     FormsModule,
+    MatButtonModule,
+    MatExpansionModule,
     MatGridListModule,
     RouterModule.forChild([{path: '', component: ReportsDemo}]),
   ],

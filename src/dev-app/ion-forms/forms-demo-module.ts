@@ -20,9 +20,12 @@
  *
  */
 
+import {AjfJsonValidationModule} from '@ajf/core/json-validation';
 import {AjfFormsModule} from '@ajf/ionic/forms';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {RouterModule} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 
@@ -31,8 +34,11 @@ import {FormsDemo} from './forms-demo';
 @NgModule({
   imports: [
     AjfFormsModule,
+    AjfJsonValidationModule,
+    CommonModule,
     FormsModule,
     IonicModule,
+    MatExpansionModule,
     RouterModule.forChild([{path: '', component: FormsDemo}]),
   ],
   declarations: [

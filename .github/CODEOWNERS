@@ -1,22 +1,24 @@
 # Ajf core
 /src/core/*                                        @trik
+/src/core/barcode/*                                @peppedeka
 /src/core/calendar/*                               @trik
 /src/core/chart/*                                  @trik
 /src/core/checkbox-group/*                         @trik
 /src/core/common/*                                 @trik
 /src/core/forms/**/*                               @trik
 /src/core/image/*                                  @trik
+/src/core/json-validation/*                        @trik
 /src/core/map/*                                    @trik
 /src/core/models/**/*                              @trik
 /src/core/node-icon/*                              @trik
 /src/core/page-break/*                             @trik
 /src/core/page-slider/*                            @trik
 /src/core/reports/**/*                             @trik
+/src/core/schemas/*                                @trik
 /src/core/table/*                                  @trik
 /src/core/text/*                                   @trik
 /src/core/time/*                                   @trik
 /src/core/utils/*                                  @trik
-/src/core/barcode/*                                @peppedeka
 
 # Ajf material
 /src/material/*                                    @trik

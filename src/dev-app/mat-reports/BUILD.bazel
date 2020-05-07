@@ -10,7 +10,10 @@ ng_module(
         ":reports_demo_scss",
     ],
     deps = [
+        "//src/core/json-validation",
         "//src/material/reports",
+        "@npm//@angular/common",
+        "@npm//@angular/material",
         "@npm//@angular/router",
     ],
 )

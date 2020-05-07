@@ -20,7 +20,7 @@ filegroup(
     srcs = ["//src/ionic/%s:overview" % name for name in IONIC_ENTRYPOINTS],
 )
 
-# Creates the @angular/ionic package published to npm.
+# Creates the @ajf/ionic package published to npm.
 ng_package(
     name = "npm_package",
     srcs = [

@@ -62,6 +62,7 @@ filegroup(
         "index.html",
         ":system-config",
         "//tools:system-rxjs-operators.js",
+        "//tools/third-party-libs:ajv-bundle.js",
         "//tools/third-party-libs:chart.js-bundle.js",
         "//tools/third-party-libs:chart.piecelabel.js-bundle.js",
         "//tools/third-party-libs:css-element-queries-bundle.js",
