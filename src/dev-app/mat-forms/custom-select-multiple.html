@@ -1,5 +1,5 @@
 <ng-container *ngIf="!(instance|ajfExpandFieldWithChoices:searchThreshold); else expanded">
-  <mat-select *ngIf="control|async as c" [formControl]="c!" [multiple]="true" [disabled]="readonly">
+  <mat-select *ngIf="control|async as c" [formControl]="c!" [multiple]="true">
     <mat-option [value]="choice.value"
         *ngFor="let choice of instance.filteredChoices">
       {{ choice.label | translate }}

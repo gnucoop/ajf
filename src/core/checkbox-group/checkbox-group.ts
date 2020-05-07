@@ -264,15 +264,6 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
     }
   }
 
-  protected _readonly: boolean;
-  get readonly(): boolean {
-    return this._readonly;
-  }
-  @Input()
-  set readonly(readonly: boolean) {
-    this._readonly = coerceBooleanProperty(readonly);
-  }
-
   private _checkedIconVal: BehaviorSubject<string> = new BehaviorSubject<string>('');
   get checkedIcon(): string {
     return this._checkedIconVal.getValue();

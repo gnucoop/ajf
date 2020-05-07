@@ -49,7 +49,9 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   set instance(instance: AjfFieldInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
-      this._loadComponent();
+      if (this._init) {
+        this._loadComponent();
+      }
     }
   }
 
@@ -60,13 +62,13 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   @Input()
   set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
-    if (this._componentInstance != null) {
-      this._componentInstance.readonly = this._readonly;
+    if (this._init) {
+      this._loadComponent();
     }
-    this._cdr.markForCheck();
   }
 
   private _componentInstance: AjfBaseFieldComponent<AjfFieldInstance>;
+  private _init: boolean = false;
 
   protected abstract componentsMap: AjfFieldComponentsMap;
   private _updatedSub = Subscription.EMPTY;
@@ -78,6 +80,7 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
+    this._init = true;
     this._loadComponent();
   }
 
@@ -94,13 +97,14 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
     if (componentDef == null) {
       return;
     }
-    const component = componentDef.component;
+    const component = this._readonly && componentDef.readOnlyComponent ?
+        componentDef.readOnlyComponent :
+        componentDef.component;
     try {
       const componentFactory = this._cfr.resolveComponentFactory(component);
       const componentRef = vcr.createComponent(componentFactory);
       this._componentInstance = componentRef.instance;
       this._componentInstance.instance = this._instance;
-      this._componentInstance.readonly = this._readonly;
 
       if (componentDef.inputs) {
         Object.keys(componentDef.inputs).forEach(key => {

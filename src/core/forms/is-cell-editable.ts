@@ -20,31 +20,16 @@
  *
  */
 
-import {
-  AJF_WARNING_ALERT_SERVICE,
-  AjfBaseFieldComponent,
-  AjfFormRendererService
-} from '@ajf/core/forms';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  ViewEncapsulation
-} from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
-import {AjfWarningAlertService} from './warning-alert-service';
+import {AjfTableCell} from './interface/fields/table-field';
 
-@Component({
-  templateUrl: 'time-field.html',
-  styleUrls: ['time-field.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-})
-export class AjfTimeFieldComponent extends AjfBaseFieldComponent {
-  constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
-    super(cdr, service, was);
+@Pipe({name: 'ajfIsCellEditable'})
+export class AjfIsCellEditablePipe implements PipeTransform {
+  transform(cell: string|AjfTableCell): boolean {
+    if (cell == null || typeof cell === 'string') {
+      return false;
+    }
+    return cell.editable === true;
   }
 }

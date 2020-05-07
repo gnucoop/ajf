@@ -21,16 +21,17 @@
  */
 
 import {
+  AJF_WARNING_ALERT_SERVICE,
   AjfBaseFieldComponent,
   AjfFormRendererService,
   AjfFormulaFieldInstance
 } from '@ajf/core/forms';
-import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Inject,
   OnDestroy,
   ViewChild,
   ViewEncapsulation
@@ -58,7 +59,8 @@ export class AjfFormulaFieldComponent extends
   private _onChangeSub = Subscription.EMPTY;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
 
     const control$ = this.control.pipe(
@@ -100,6 +102,4 @@ export class AjfFormulaFieldComponent extends
     }
     this._onChangeEvt.emit(evt.detail.value);
   }
-
-  static ngAcceptInputType_readonly: BooleanInput;
 }

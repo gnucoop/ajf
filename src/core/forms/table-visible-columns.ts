@@ -21,12 +21,12 @@
  */
 
 import {Pipe, PipeTransform} from '@angular/core';
-import {FormControl} from '@angular/forms';
 import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
+import {AjfTableFormControl} from './interface/forms/table-form-control';
 
 @Pipe({name: 'ajfTableVisibleColumns'})
 export class AjfTableVisibleColumnsPipe implements PipeTransform {
-  transform(instance: AjfTableFieldInstance): (string|number|FormControl)[][] {
+  transform(instance: AjfTableFieldInstance): (string|number|AjfTableFormControl)[][] {
     if (!instance.node.editable) {
       const val = instance.value || [];
       return instance.hideEmptyRows ?
@@ -39,6 +39,7 @@ export class AjfTableVisibleColumnsPipe implements PipeTransform {
               .map(v => [v[0], ...v[1]]) :
           val.map(v => [v[0], ...v[1]]);
     }
-    return (instance.controls || []).map(v => [v[0], ...v[1]]);
+    return ((instance.controls as [string, (string | AjfTableFormControl)[]][]) || [])
+        .map(v => [v[0], ...v[1]]);
   }
 }

@@ -21,15 +21,15 @@
  */
 
 import {
-  AjfBaseFieldComponent,
+  AJF_WARNING_ALERT_SERVICE,
   AjfFormRendererService,
-  AjfTableFieldInstance
+  AjfTableFieldComponent as AjfCoreTableFieldComponent
 } from '@ajf/core/forms';
-import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   ViewEncapsulation
 } from '@angular/core';
 
@@ -41,11 +41,10 @@ import {AjfWarningAlertService} from './warning-alert-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
+export class AjfTableFieldComponent extends AjfCoreTableFieldComponent {
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
-
-  static ngAcceptInputType_readonly: BooleanInput;
 }

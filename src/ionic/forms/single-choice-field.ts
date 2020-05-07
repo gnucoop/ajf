@@ -22,10 +22,10 @@
 
 import {
   AJF_SEARCH_ALERT_THRESHOLD,
+  AJF_WARNING_ALERT_SERVICE,
   AjfFieldWithChoicesComponent,
   AjfFormRendererService
 } from '@ajf/core/forms';
-import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -45,10 +45,9 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfSingleChoiceFieldComponent<T> extends AjfFieldWithChoicesComponent<T> {
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService,
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
       @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number) {
     super(cdr, service, was, searchThreshold);
   }
-
-  static ngAcceptInputType_readonly: BooleanInput;
 }

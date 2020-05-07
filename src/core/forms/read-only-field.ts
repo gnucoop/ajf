@@ -20,15 +20,29 @@
  *
  */
 
-import {AjfTableCell} from '@ajf/core/forms';
-import {Pipe, PipeTransform} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewEncapsulation
+} from '@angular/core';
 
-@Pipe({name: 'ajfIsCellEditable'})
-export class AjfIsCellEditablePipe implements PipeTransform {
-  transform(cell: string|AjfTableCell): boolean {
-    if (cell == null || typeof cell === 'string') {
-      return false;
-    }
-    return cell.editable === true;
+import {AjfFormRendererService} from './form-renderer';
+import {AjfInputFieldComponent as CoreComponent} from './input-field';
+import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
+
+@Component({
+  selector: 'ajf-read-only-field',
+  templateUrl: 'read-only-field.html',
+  styleUrls: ['read-only-field.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfReadOnlyFieldComponent extends CoreComponent {
+  constructor(
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    super(cdr, service, was);
   }
 }

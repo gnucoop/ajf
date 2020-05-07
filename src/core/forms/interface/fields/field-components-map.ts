@@ -30,6 +30,7 @@ import {AjfFieldInstance} from '../fields-instances/field-instance';
 export interface AjfFieldComponentsMap {
   [key: number]: {
     component: Type<AjfBaseFieldComponent>,
+    readOnlyComponent?: Type<AjfBaseFieldComponent>,
     inputs?: {[key: string]: any},
     createInstance?: (instance: AjfFieldInstanceCreate, context: AjfContext) => AjfFieldInstance;
     isFieldWithChoice?: boolean;

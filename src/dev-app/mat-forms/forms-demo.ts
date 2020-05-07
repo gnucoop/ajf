@@ -24,6 +24,7 @@ import {
   AjfForm,
   AjfFormRendererService,
   AjfFormSerializer,
+  AjfReadOnlyFieldComponent,
   createFieldWithChoicesInstance
 } from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
@@ -59,6 +60,7 @@ export class FormsDemo {
     fieldService.registerCustomField({
       fieldType: 101,
       component: CustomSelectMultiple,
+      readOnlyComponent: AjfReadOnlyFieldComponent,
       createInstance: createFieldWithChoicesInstance as any,
       isFieldWithChoice: true,
     });

@@ -21,16 +21,17 @@
  */
 
 import {
+  AJF_WARNING_ALERT_SERVICE,
   AjfBaseFieldComponent,
   AjfDateFieldInstance,
   AjfDateValueStringPipe,
   AjfFormRendererService
 } from '@ajf/core/forms';
-import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Inject,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
@@ -52,7 +53,8 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
   private _maxDateStr: string|undefined;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService,
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
       private _dvs: AjfDateValueStringPipe) {
     super(cdr, service, was);
   }
@@ -75,6 +77,4 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
     this._minDateStr = this._dvs.transform(this.instance.node.minDate);
     this._maxDateStr = this._dvs.transform(this.instance.node.maxDate);
   }
-
-  static ngAcceptInputType_readonly: BooleanInput;
 }

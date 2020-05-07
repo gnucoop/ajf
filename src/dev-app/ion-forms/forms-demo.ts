@@ -26,7 +26,6 @@ import {Component} from '@angular/core';
 
 import {formContext, formSchema} from './form';
 
-
 @Component({
   selector: 'forms-demo',
   templateUrl: 'forms-demo.html',

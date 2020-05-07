@@ -21,11 +21,6 @@
  */
 
 import {
-  AJF_WARNING_ALERT_SERVICE,
-  AjfBaseFieldComponent,
-  AjfFormRendererService
-} from '@ajf/core/forms';
-import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -33,15 +28,18 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import {AjfWarningAlertService} from './warning-alert-service';
+import {AjfBaseFieldComponent} from './base-field';
+import {AjfFormRendererService} from './form-renderer';
+import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
+import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  templateUrl: 'time-field.html',
-  styleUrls: ['time-field.css'],
+  templateUrl: 'read-only-table-field.html',
+  styleUrls: ['read-only-table-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfTimeFieldComponent extends AjfBaseFieldComponent {
+export class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
   constructor(
       cdr: ChangeDetectorRef, service: AjfFormRendererService,
       @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {

@@ -3,7 +3,6 @@
       [attr.aria-label]="instance.node.label || (instance|ajfNodeCompleteName)"
       [min]="instance.node.minDate|ajfDateValueString"
       [max]="instance.node.maxDate|ajfDateValueString"
-      [readonly]="readonly"
       (change)="onChange()"
       [formControl]="ctrl!">
 </mat-form-field>

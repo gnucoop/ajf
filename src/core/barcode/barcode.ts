@@ -20,15 +20,7 @@
  *
  */
 
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {
-  ChangeDetectorRef,
-  Directive,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  Renderer2
-} from '@angular/core';
+import {ChangeDetectorRef, Directive, EventEmitter, OnDestroy, Renderer2} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
 import {BrowserBarcodeReader, Result} from '@zxing/library';
 import {from, Observable, of, Subscription} from 'rxjs';
@@ -36,16 +28,6 @@ import {catchError, debounceTime, switchMap} from 'rxjs/operators';
 
 @Directive()
 export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
-  protected _readonly: boolean;
-  get readonly(): boolean {
-    return this._readonly;
-  }
-  @Input()
-  set readonly(readonly: boolean) {
-    this._readonly = coerceBooleanProperty(readonly);
-    this._cdr.markForCheck();
-  }
-
   readonly codeReader = new BrowserBarcodeReader();
 
   readonly startDetection = new EventEmitter<void>();
@@ -147,17 +129,15 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
       return;
     }
     const target = evt.target as HTMLInputElement;
-    const files = target.files;
-    if (files != null && files[0]) {
-      let reader = new FileReader();
+    const files = target.files as FileList;
+    this._onSelect(files);
+  }
 
-      reader.readAsDataURL(files[0]);
-      reader.onload = (ev: ProgressEvent) => {
-        const data: string = (ev.target as FileReader).result as string;
-        this.startCalculation.emit(data);
-        this._cdr.detectChanges();
-      };
+  onSelectDrop(files: FileList): void {
+    if (files == null) {
+      return;
     }
+    this._onSelect(files);
   }
 
   /** ControlValueAccessor implements */
@@ -193,6 +173,20 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     this._video = this._renderer.createElement('video');
     this._video.height = 480;
     this._video.width = 640;
+  }
+
+
+  private _onSelect(files: FileList): void {
+    if (files != null && files.length > 0 && files[0]) {
+      let reader = new FileReader();
+
+      reader.readAsDataURL(files[0]);
+      reader.onload = (ev: ProgressEvent) => {
+        const data: string = (ev.target as FileReader).result as string;
+        this.startCalculation.emit(data);
+        this._cdr.detectChanges();
+      };
+    }
   }
 
   /**
