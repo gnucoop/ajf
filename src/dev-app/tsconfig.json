@@ -8,6 +8,7 @@
     "baseUrl": ".",
     "paths": {
       "@ajf/ajf-examples": ["../../dist/packages/ajf-examples"],
+      "@ajf/ajf-examples/*": ["../../dist/packages/ajf-examples/*"],
       "@ajf/calendars/*": ["../calendars/*"],
       "@ajf/core/*": ["../core/*"],
       "@ajf/ionic/*": ["../ionic/*"],

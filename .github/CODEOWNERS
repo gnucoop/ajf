@@ -101,6 +101,9 @@
 # Universal app
 /src/universal-app/**                              @trik
 
+# Integration tests
+/integration/**                                    @trik
+
 # Tooling
 /.circleci/**                                      @trik
 /.jenkins/**                                       @trik

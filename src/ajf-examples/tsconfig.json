@@ -8,7 +8,8 @@
     "baseUrl": ".",
     "paths": {
       "@ajf/core/*": ["../core/*"],
-      "@ajf/ionic/*": ["../ionic/*"]
+      "@ajf/ionic/*": ["../ionic/*"],
+      "@ajf/material/*": ["../material/*"]
     }
   },
   "include": ["./**/*.ts"]

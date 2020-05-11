@@ -105,4 +105,5 @@ create_globals("calendars", CALENDARS_ENTRYPOINTS + CALENDARS_TESTING_ENTRYPOINT
 # Rollup globals the examples package. Since individual examples are
 # grouped by package and component, the primary entry-point imports
 # from entry-points which should be treated as external imports.
-# create_globals("ajf-examples", IONIC_ENTRYPOINTS + MATERIAL_ENTRYPOINTS)
+create_globals("ajf-examples/ionic", ["calendar"])
+create_globals("ajf-examples/material", ["calendar"])

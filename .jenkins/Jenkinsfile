@@ -49,6 +49,11 @@ pipeline {
     }
     stage('Integration tests') {
       steps {
+        sh 'yarn -s bazel test integration/... --build_tests_only --config=view-engine'
+      }
+    }
+    stage('E2E tests') {
+      steps {
         sh 'yarn -s bazel test src/... --build_tag_filters=e2e --test_tag_filters=e2e --build_tests_only'
       }
     }
