@@ -103,7 +103,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   ],
 })
 export class AjfFormsModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<AjfFormsModule> {
     return {
       ngModule: AjfFormsModule,
       providers: [

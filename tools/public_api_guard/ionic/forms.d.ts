@@ -59,7 +59,7 @@ export declare class AjfFormRenderer extends AjfCoreFormRenderer implements Afte
 export declare class AjfFormsModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfFormsModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfBarcodeFieldComponent, typeof i2.AjfBooleanFieldComponent, typeof i3.AjfDateFieldComponent, typeof i4.AjfDateInputFieldComponent, typeof i5.AjfEmptyFieldComponent, typeof i6.AjfFormField, typeof i7.AjfFormPage, typeof i8.AjfFormRenderer, typeof i9.AjfFormulaFieldComponent, typeof i10.AjfInputFieldComponent, typeof i11.AjfMultipleChoiceFieldComponent, typeof i12.AjfNumberFieldComponent, typeof i13.AjfSelectHasSearchBarPipe, typeof i14.AjfSelectUseVirtualScroll, typeof i15.AjfSingleChoiceFieldComponent, typeof i16.AjfTableFieldComponent, typeof i17.AjfTextareaFieldComponent, typeof i18.AjfTimeFieldComponent], [typeof i19.AjfBarcodeModule, typeof i20.AjfCalendarModule, typeof i21.AjfCheckboxGroupModule, typeof i22.AjfCommonModule, typeof i23.AjfFormsModule, typeof i24.AjfPageSliderModule, typeof i25.AjfTimeModule, typeof i26.CommonModule, typeof i27.FormsModule, typeof i28.GicModule, typeof i29.IonicModule, typeof i27.ReactiveFormsModule, typeof i30.TranslateModule], [typeof i6.AjfFormField, typeof i8.AjfFormRenderer]>;
-    static forRoot(): i0.ModuleWithProviders<AjfFormsModule>;
+    static forRoot(): ModuleWithProviders<AjfFormsModule>;
 }
 
 export declare class AjfInputFieldComponent extends CoreComponent {

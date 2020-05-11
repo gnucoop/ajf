@@ -20,7 +20,7 @@
  *
  */
 
-import {ChangeDetectorRef, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Directive, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, map, withLatestFrom} from 'rxjs/operators';
@@ -30,6 +30,7 @@ import {AjfFormRendererService} from './form-renderer';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfWarningAlertService} from './warning-alert-service';
 
+@Directive()
 export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFieldInstance>
     implements OnDestroy, OnInit {
   private _instance: T;

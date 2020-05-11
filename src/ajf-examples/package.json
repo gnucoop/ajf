@@ -1,11 +1,6 @@
 {
   "name": "@ajf/ajf-examples",
   "version": "0.0.0-PLACEHOLDER",
-  "description": "Ajf Ionic Examples",
-  "main": "./bundles/ajf-examples.umd.js",
-  "module": "./esm5/ajf-examples.es5.js",
-  "es2015": "./esm2015/ajf-examples.js",
-  "typings": "./ajf-examples.d.ts",
   "private": true,
   "repository": {
     "type": "git",
