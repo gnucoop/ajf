@@ -150,9 +150,9 @@ function createChangelogWriterOptions(changelogPath: string, presetWriterOptions
           }
 
           // TODO(devversion): once we formalize the commit message format and
-          // require specifying the "material" package explicitly, we can remove
-          // the fallback to the "material" package.
-          const packageName = commit.package || 'material';
+          // require specifying the "ajf" package explicitly, we can remove
+          // the fallback to the "ajf" package.
+          const packageName = commit.package || 'ajf';
           const type = getTypeOfCommitGroupDescription(group.title);
 
           if (!packageGroups[packageName]) {
