@@ -5,10 +5,10 @@ export declare class AjfCommonModule {
 
 export declare class AjfDndDirective {
     background: string;
-    file: EventEmitter<any>;
-    onDragLeave(evt: Event): void;
-    onDragOver(evt: Event): void;
-    onDrop(evt: any): void;
+    file: Observable<FileList>;
+    onDragLeave(evt: DragEvent): void;
+    onDragOver(evt: DragEvent): void;
+    onDrop(evt: DragEvent): void;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfDndDirective, "[ajfDnd]", never, {}, { "file": "file"; }, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfDndDirective, never>;
 }
