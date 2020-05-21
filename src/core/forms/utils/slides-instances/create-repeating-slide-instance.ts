@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfRepeatingSlideInstance} from '../../interface/slides-instances/repeating-slide-instance';
 import {AjfSlideInstanceCreate, createSlideInstance} from './create-slide-instance';
 
@@ -28,7 +29,10 @@ export type AjfRepeatingSlideInstanceCreate = Omit<AjfSlideInstanceCreate, 'node
 
 export function createRepeatingSlideInstance(instance: AjfRepeatingSlideInstanceCreate):
     AjfRepeatingSlideInstance {
-  const slideInstance = createSlideInstance(instance);
+  const {node, ...slideInstanceCreate} = instance;
+  const {nodeType, ...slideNode} = node;
+  const slideInstance = createSlideInstance(
+      {...slideInstanceCreate, node: {nodeType: AjfNodeType.AjfSlide, ...slideNode}});
   return {
     ...slideInstance,
     node: instance.node,

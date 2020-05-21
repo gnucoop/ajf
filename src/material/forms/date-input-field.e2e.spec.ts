@@ -5,7 +5,7 @@ describe('ajf-date-input-field', () => {
   beforeEach(async () => await browser.get('/mat-date-input-field'));
 
   it('should show a date input field', async () => {
-    expect(element(by.css('input[type=date]'))).toBeDefined();
+    expect(await element(by.css('input[type=date]')).isPresent()).toBe(true);
   });
 
   it('should prevent selecting dates before minDate and after maxDate', async () => {
