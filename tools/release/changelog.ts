@@ -27,7 +27,7 @@ interface ChangelogPackage {
 
 /** Hardcoded order of packages shown in the changelog. */
 const orderedChangelogPackages = [
-  'cdk',
+  'core',
   'ionic',
   'material',
   'monaco',
@@ -85,7 +85,7 @@ export async function prependChangelogFromLatestTag(changelogPath: string, relea
 /** Prompts the terminal for a changelog release name. */
 export async function promptChangelogReleaseName(): Promise<string> {
   return (await prompt<{releaseName: string}>({
-           type: 'text',
+           type: 'input',
            name: 'releaseName',
            message: 'What should be the name of the release?'
          }))
