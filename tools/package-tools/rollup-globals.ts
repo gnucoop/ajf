@@ -46,6 +46,7 @@ export const rollupGlobals = {
   '@angular/cdk/coercion': 'ng.cdk.coercion',
   '@angular/cdk/keycodes': 'ng.cdk.keycodes',
   '@angular/common': 'ng.common',
+  '@angular/common/http': 'ng.common.http',
   '@angular/core': 'ng.core',
   '@angular/core/testing': 'ng.core.testing',
   '@angular/forms': 'ng.forms',

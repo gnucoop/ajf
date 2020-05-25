@@ -37,5 +37,6 @@ export enum AjfFieldType {
   Barcode,
   File,
   Image,
+  VideoUrl,
   LENGTH
 }

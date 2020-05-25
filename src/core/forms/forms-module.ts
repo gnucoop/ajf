@@ -23,6 +23,7 @@
 import {AjfCommonModule} from '@ajf/core/common';
 import {AjfFileInputModule} from '@ajf/core/file-input';
 import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
@@ -68,6 +69,7 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfCommonModule,
     AjfFileInputModule,
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
   ],
   exports: [

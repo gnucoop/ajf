@@ -50,6 +50,7 @@ export * from './serializers/warning-group-serializer';
 export * from './table-visible-columns';
 export * from './table-row-class';
 export * from './validation-service';
+export * from './video-url-field';
 export * from './warning-alert-service';
 
 export * from './interface/attachments/attachment';
