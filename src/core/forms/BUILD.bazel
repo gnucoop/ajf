@@ -17,17 +17,21 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [
+        ":file-field.css",
         ":read-only-field.css",
+        ":read-only-file-field.css",
         ":read-only-table-field.css",
     ] + glob(["**/*.html"]),
     module_name = "@ajf/core/forms",
     deps = [
         "//src/core/common",
+        "//src/core/file-input",
         "//src/core/models",
         "//src/core/page-slider",
         "//src/core/utils",
         "@npm//@angular/core",
         "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
         "@npm//@types/esprima",
         "@npm//date-fns",
     ],
@@ -40,8 +44,20 @@ sass_library(
 )
 
 sass_binary(
+    name = "file_field_scss",
+    src = "file-field.scss",
+    deps = [],
+)
+
+sass_binary(
     name = "read_only_field_scss",
     src = "read-only-field.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "read_only_file_field_scss",
+    src = "read-only-file-field.scss",
     deps = [],
 )
 
