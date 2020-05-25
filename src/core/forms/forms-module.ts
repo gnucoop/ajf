@@ -38,6 +38,7 @@ import {AjfFieldIsValidPipe} from './field-is-valid';
 import {AjfFileFieldComponent} from './file-field';
 import {AjfFormRendererService} from './form-renderer';
 import {AjfGetTableCellControlPipe} from './get-table-cell-control';
+import {AjfImageFieldComponent} from './image-field';
 import {AjfIncrementPipe} from './increment';
 import {AjfIsCellEditablePipe} from './is-cell-editable';
 import {AjfIsRepeatingSlideInstancePipe} from './is-repeating-slide';
@@ -45,6 +46,7 @@ import {AjfNodeCompleteNamePipe} from './node-complete-name';
 import {AjfRangePipe} from './range';
 import {AjfReadOnlyFieldComponent} from './read-only-field';
 import {AjfReadOnlyFileFieldComponent} from './read-only-file-field';
+import {AjfReadOnlyImageFieldComponent} from './read-only-image-field';
 import {AjfReadOnlyTableFieldComponent} from './read-only-table-field';
 import {AjfTableRowClass} from './table-row-class';
 import {AjfTableVisibleColumnsPipe} from './table-visible-columns';
@@ -64,6 +66,7 @@ import {AjfValidationService} from './validation-service';
     AjfFieldIsValidPipe,
     AjfFileFieldComponent,
     AjfGetTableCellControlPipe,
+    AjfImageFieldComponent,
     AjfIncrementPipe,
     AjfIsCellEditablePipe,
     AjfIsRepeatingSlideInstancePipe,
@@ -71,6 +74,7 @@ import {AjfValidationService} from './validation-service';
     AjfRangePipe,
     AjfReadOnlyFieldComponent,
     AjfReadOnlyFileFieldComponent,
+    AjfReadOnlyImageFieldComponent,
     AjfReadOnlyTableFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
@@ -94,6 +98,7 @@ import {AjfValidationService} from './validation-service';
     AjfFieldIsValidPipe,
     AjfFileFieldComponent,
     AjfGetTableCellControlPipe,
+    AjfImageFieldComponent,
     AjfIncrementPipe,
     AjfIsCellEditablePipe,
     AjfIsRepeatingSlideInstancePipe,
@@ -101,6 +106,7 @@ import {AjfValidationService} from './validation-service';
     AjfRangePipe,
     AjfReadOnlyFieldComponent,
     AjfReadOnlyFileFieldComponent,
+    AjfReadOnlyImageFieldComponent,
     AjfReadOnlyTableFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
