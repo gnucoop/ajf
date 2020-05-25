@@ -20,22 +20,9 @@
  *
  */
 
-export enum AjfFieldType {
-  String,
-  Text,
-  Number,
-  Boolean,
-  SingleChoice,
-  MultipleChoice,
-  Formula,
-  Empty,
-  Date,
-  DateInput,
-  Time,
-  Table,
-  Geolocation,
-  Barcode,
-  File,
-  Image,
-  LENGTH
+import {AjfField} from './field';
+import {AjfFieldType} from './field-type';
+
+export interface AjfImageField extends AjfField {
+  fieldType: AjfFieldType.Image;
 }

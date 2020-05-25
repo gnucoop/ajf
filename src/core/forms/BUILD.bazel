@@ -17,6 +17,7 @@ ng_module(
     ),
     assets = [
         ":file-field.css",
+        ":image-field.css",
     ] + glob(["**/*.html"]),
     module_name = "@ajf/core/forms",
     deps = [
@@ -36,6 +37,12 @@ ng_module(
 sass_binary(
     name = "file_field_scss",
     src = "file-field.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "image_field_scss",
+    src = "image-field.scss",
     deps = [],
 )
 

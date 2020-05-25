@@ -38,6 +38,7 @@ export * from './form';
 export * from './forms-module';
 export * from './get-type-name';
 export * from './input-field';
+export * from './image-field';
 export * from './node-complete-name';
 export * from './search-alert-threshold';
 export * from './serializers/attachments-origin-serializer';

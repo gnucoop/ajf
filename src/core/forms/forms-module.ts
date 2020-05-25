@@ -35,6 +35,7 @@ import {AjfFieldIconPipe} from './field-icon';
 import {AjfFieldIsValidPipe} from './field-is-valid';
 import {AjfFileFieldComponent} from './file-field';
 import {AjfFormRendererService} from './form-renderer';
+import {AjfImageFieldComponent} from './image-field';
 import {AjfIncrementPipe} from './increment';
 import {AjfIsRepeatingSlideInstancePipe} from './is-repeating-slide';
 import {AjfNodeCompleteNamePipe} from './node-complete-name';
@@ -54,6 +55,7 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
     AjfFileFieldComponent,
+    AjfImageFieldComponent,
     AjfIncrementPipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,
@@ -77,6 +79,7 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
     AjfFileFieldComponent,
+    AjfImageFieldComponent,
     AjfIncrementPipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,

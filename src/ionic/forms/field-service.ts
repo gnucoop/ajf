@@ -24,6 +24,7 @@ import {
   AjfFieldService as CoreService,
   AjfFieldType,
   AjfFileFieldComponent,
+  AjfImageFieldComponent,
 } from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 
@@ -59,5 +60,6 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.Time] = {component: AjfTimeFieldComponent};
     this.componentsMap[AjfFieldType.Barcode] = {component: AjfBarcodeFieldComponent};
     this.componentsMap[AjfFieldType.File] = {component: AjfFileFieldComponent};
+    this.componentsMap[AjfFieldType.Image] = {component: AjfImageFieldComponent};
   }
 }
