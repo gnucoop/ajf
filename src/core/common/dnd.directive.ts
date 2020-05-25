@@ -20,12 +20,13 @@
  *
  */
 
-import {Directive, Output, EventEmitter} from '@angular/core';
+import {Directive, EventEmitter, Output} from '@angular/core';
+import {Observable} from 'rxjs';
 
 @Directive({
   selector: '[ajfDnd]',
   host: {
-    '[style.background]': 'background',
+    '[class.ajf-dnd-over]': 'over',
     '(dragover)': 'onDragOver($event)',
     '(dragleave)': 'onDragLeave($event)',
     '(drop)': 'onDrop($event)',
@@ -35,18 +36,21 @@ export class AjfDndDirective {
   private _file: EventEmitter<FileList> = new EventEmitter<FileList>();
   @Output() file: Observable<FileList> = this._file.asObservable();
 
-  background = '#eee';
+  private _over: boolean = false;
+  get over(): boolean {
+    return this._over;
+  }
 
   onDragOver(evt: DragEvent): void {
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = '#999';
+    this._over = true;
   }
 
   onDragLeave(evt: DragEvent): void {
     evt.preventDefault();
     evt.stopPropagation();
-    this.background = '#eee';
+    this._over = false;
   }
 
   onDrop(evt: DragEvent): void {
@@ -57,7 +61,7 @@ export class AjfDndDirective {
     }
     let files: FileList = evt.dataTransfer.files;
     if (files.length > 0) {
-      this.background = '#eee';
+      this._over = false;
       this._file.emit(files);
     }
   }
