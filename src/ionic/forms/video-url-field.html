@@ -1,0 +1,10 @@
+<ng-container *ngIf="control|async as ctrl">
+  <ion-input *ngIf="!readonly" class="ajf-video-input" [formControl]="ctrl!"></ion-input>
+  <div class="ajf-video-thumbnail">
+    <ng-container *ngIf="validUrl|async">
+      <a target="_blank" [href]="ctrl.value">
+        <img *ngIf="videoThumbnail|async as thumb" [src]="thumb" class="" alt="">
+      </a>
+    </ng-container>
+  </div>
+</ng-container>
