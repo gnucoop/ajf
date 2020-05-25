@@ -26,6 +26,7 @@ import {DevAppHome} from './dev-app-home';
 
 export const DEV_APP_ROUTES: Routes = [
   {path: '', component: DevAppHome},
+  {path: 'file-input', loadChildren: 'file-input/file-input-demo-module#FileInputDemoModule'},
   {path: 'ion-barcode', loadChildren: 'ion-barcode/barcode-demo-module#BarcodeDemoModule'},
   {path: 'ion-calendar', loadChildren: 'ion-calendar/calendar-demo-module#CalendarDemoModule'},
   {

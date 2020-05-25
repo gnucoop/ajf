@@ -1,0 +1,9 @@
+<div class="demo-file-input">
+  <h4 class="demo-section-header">File input</h4>
+  <section>
+    <ajf-file-input [(ngModel)]="file">
+      <div ajfDropMessage>Drop your test file here or click to select</div>
+      <div ajfFilePreview #fileInfo="ajfFilePreview">{{ fileInfo.value|json }}</div>
+    </ajf-file-input>
+  </section>
+</div>

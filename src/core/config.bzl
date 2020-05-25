@@ -5,6 +5,7 @@ CORE_ENTRYPOINTS = [
     "chart",
     "checkbox-group",
     "common",
+    "file-input",
     "forms",
     "image",
     "map",

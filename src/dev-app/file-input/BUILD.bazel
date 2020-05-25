@@ -1,0 +1,23 @@
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "file-input",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "file-input-demo.html",
+        ":file_input_demo_scss",
+    ],
+    deps = [
+        "//src/core/file-input",
+        "@npm//@angular/common",
+        "@npm//@angular/forms",
+        "@npm//@angular/router",
+    ],
+)
+
+sass_binary(
+    name = "file_input_demo_scss",
+    src = "file-input-demo.scss",
+)
