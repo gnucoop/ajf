@@ -103,6 +103,8 @@ export class AjfFileInput implements ControlValueAccessor {
   readonly fileIcon: SafeResourceUrl;
   readonly removeIcon: SafeResourceUrl;
 
+  @Input() accept: string;
+
   private _value: any;
   get value(): any {
     return this._value;
@@ -115,7 +117,9 @@ export class AjfFileInput implements ControlValueAccessor {
       if (value.length === 1) {
         this._processFileUpload(value[0]);
       }
-    } else if (value == null || isAjfFile(value)) {
+    } else if (
+        value == null ||
+        (isAjfFile(value) && isValidMimeType((value as AjfFile).type, this.accept))) {
       this._value = value;
       this._valueChange.emit(this._value);
       this._cdr.detectChanges();
@@ -146,7 +150,7 @@ export class AjfFileInput implements ControlValueAccessor {
 
   onSelectFile(): void {
     const files = this._nativeInput.nativeElement.files;
-    if (files == null || files.length !== 1) {
+    if (files == null || files.length !== 1 || files[0]) {
       return;
     }
     this._processFileUpload(files[0]);
@@ -180,6 +184,9 @@ export class AjfFileInput implements ControlValueAccessor {
   private _processFileUpload(file: File): void {
     const reader = new FileReader();
     const {name, size, type} = file;
+    if (!isValidMimeType(type, this.accept)) {
+      return;
+    }
     reader.onload = (_e: ProgressEvent) => {
       const content = reader.result;
       if (typeof content !== 'string') {
@@ -205,6 +212,20 @@ function isAjfFile(value: any): boolean {
   }
   const keys = Object.keys(value).sort((a, b) => a.localeCompare(b));
   return JSON.stringify(keys) === ajfFileKeys;
+}
+
+function isValidMimeType(mimeType: string, accept: string): boolean {
+  if (accept == null) {
+    return true;
+  }
+  let terminate = true;
+  if (accept.endsWith('*')) {
+    accept = accept.slice(0, accept.length - 1);
+    terminate = false;
+  }
+  const regExStr = '^' + accept + (terminate ? '$' : '');
+  const regEx = new RegExp(regExStr);
+  return regEx.test(mimeType);
 }
 
 export const fileIcon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwM' +
