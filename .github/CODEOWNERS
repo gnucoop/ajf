@@ -4,6 +4,7 @@
 /src/core/chart/*                                  @trik
 /src/core/checkbox-group/*                         @trik
 /src/core/common/*                                 @trik
+/src/core/file-input/**/*                          @trik
 /src/core/forms/**/*                               @trik
 /src/core/image/*                                  @trik
 /src/core/map/*                                    @trik
@@ -64,6 +65,7 @@
 /src/dev-app/dev-app/**                            @trik
 /src/dev-app/example/**                            @trik
 /src/dev-app/examples-page/**                      @trik
+/src/dev-app/file-input/**                         @trik
 /src/dev-app/ion-barcode/**                        @peppedeka
 /src/dev-app/ion-calendar/**                       @trik
 /src/dev-app/ion-checkbox-group/**                 @trik
@@ -93,6 +95,7 @@
 /src/e2e-app/*                                     @trik
 /src/e2e-app/e2e-app/*                             @trik
 /src/e2e-app/example-viewer/*                      @trik
+/src/e2e-app/file-input/*                          @trik
 /src/e2e-app/ion-calendar/*                        @trik
 /src/e2e-app/ion-date-input-field/*                @trik
 /src/e2e-app/mat-calendar/*                        @trik

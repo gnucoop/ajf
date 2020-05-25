@@ -39,6 +39,7 @@ export class DevAppLayout {
       children:
           [
             {name: 'Examples', route: '/examples'},
+            {name: 'File input', route: '/file-input'},
           ]
     },
     {
