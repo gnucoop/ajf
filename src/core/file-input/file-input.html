@@ -23,4 +23,4 @@
     </div>
   </ng-template>
 </div>
-<input #nativeInput name="" aria-label="file input" type="file" (change)="onSelectFile()">
+<input #nativeInput [accept]="accept" name="" aria-label="file input" type="file" (change)="onSelectFile()">
