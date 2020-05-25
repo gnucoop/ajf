@@ -23,7 +23,9 @@
 import {
   AjfFieldService as CoreService,
   AjfFieldType,
+  AjfFileFieldComponent,
   AjfReadOnlyFieldComponent,
+  AjfReadOnlyFileFieldComponent,
   AjfReadOnlyTableFieldComponent
 } from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
@@ -93,6 +95,10 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.Barcode] = {
       component: AjfBarcodeFieldComponent,
       readOnlyComponent: AjfReadOnlyFieldComponent
+    };
+    this.componentsMap[AjfFieldType.File] = {
+      component: AjfFileFieldComponent,
+      readOnlyComponent: AjfReadOnlyFileFieldComponent
     };
   }
 }
