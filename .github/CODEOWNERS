@@ -13,6 +13,7 @@
 /src/core/page-slider/*                            @trik
 /src/core/reports/**/*                             @trik
 /src/core/table/*                                  @trik
+/src/core/testing/private/**/*                     @trik
 /src/core/text/*                                   @trik
 /src/core/time/*                                   @trik
 /src/core/utils/*                                  @trik
