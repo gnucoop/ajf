@@ -30,6 +30,7 @@ ng_module(
         ":single-choice-field.css",
         ":table-field.css",
         ":time-field.css",
+        ":video-url-field.css",
     ] + glob(["**/*.html"]),
     module_name = "@ajf/material/forms",
     deps = [
@@ -117,6 +118,12 @@ sass_binary(
 sass_binary(
     name = "time_field_scss",
     src = "time-field.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "video_url_field_scss",
+    src = "video-url-field.scss",
     deps = [],
 )
 

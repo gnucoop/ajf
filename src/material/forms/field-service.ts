@@ -38,6 +38,7 @@ import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTimeFieldComponent} from './time-field';
+import {AjfVideoUrlFieldComponent} from './video-url-field';
 
 @Injectable({providedIn: 'root'})
 export class AjfFieldService extends CoreService {
@@ -60,5 +61,6 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.Barcode] = {component: AjfBarcodeFieldComponent};
     this.componentsMap[AjfFieldType.File] = {component: AjfFileFieldComponent};
     this.componentsMap[AjfFieldType.Image] = {component: AjfImageFieldComponent};
+    this.componentsMap[AjfFieldType.VideoUrl] = {component: AjfVideoUrlFieldComponent};
   }
 }
