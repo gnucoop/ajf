@@ -32,29 +32,33 @@ import {Directive, Output, EventEmitter} from '@angular/core';
   }
 })
 export class AjfDndDirective {
-  @Output() file: EventEmitter<any> = new EventEmitter<any>();
+  private _file: EventEmitter<FileList> = new EventEmitter<FileList>();
+  @Output() file: Observable<FileList> = this._file.asObservable();
 
   background = '#eee';
 
-  onDragOver(evt: Event) {
+  onDragOver(evt: DragEvent): void {
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#999';
   }
 
-  onDragLeave(evt: Event) {
+  onDragLeave(evt: DragEvent): void {
     evt.preventDefault();
     evt.stopPropagation();
     this.background = '#eee';
   }
 
-  onDrop(evt: any) {
+  onDrop(evt: DragEvent): void {
     evt.preventDefault();
     evt.stopPropagation();
+    if (evt.dataTransfer == null || evt.dataTransfer.files.length === 0) {
+      return;
+    }
     let files: FileList = evt.dataTransfer.files;
     if (files.length > 0) {
       this.background = '#eee';
-      this.file.emit(files);
+      this._file.emit(files);
     }
   }
 }
