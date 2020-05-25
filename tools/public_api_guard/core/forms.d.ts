@@ -289,7 +289,8 @@ export declare enum AjfFieldType {
     Barcode = 13,
     File = 14,
     Image = 15,
-    LENGTH = 16
+    VideoUrl = 16,
+    LENGTH = 17
 }
 
 export interface AjfFieldWarningAlertResult {
@@ -441,7 +442,7 @@ export declare class AjfFormSerializer {
 
 export declare class AjfFormsModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfFormsModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfGetTableCellControlPipe, typeof i12.AjfImageFieldComponent, typeof i13.AjfIncrementPipe, typeof i14.AjfIsCellEditablePipe, typeof i15.AjfIsRepeatingSlideInstancePipe, typeof i16.AjfNodeCompleteNamePipe, typeof i17.AjfRangePipe, typeof i18.AjfReadOnlyFieldComponent, typeof i19.AjfReadOnlyFileFieldComponent, typeof i20.AjfReadOnlyImageFieldComponent, typeof i21.AjfReadOnlyTableFieldComponent, typeof i22.AjfTableRowClass, typeof i23.AjfTableVisibleColumnsPipe, typeof i24.AjfValidSlidePipe], [typeof i25.AjfCommonModule, typeof i26.AjfFileInputModule, typeof i27.CommonModule, typeof i28.ReactiveFormsModule], [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfGetTableCellControlPipe, typeof i12.AjfImageFieldComponent, typeof i13.AjfIncrementPipe, typeof i14.AjfIsCellEditablePipe, typeof i15.AjfIsRepeatingSlideInstancePipe, typeof i16.AjfNodeCompleteNamePipe, typeof i17.AjfRangePipe, typeof i18.AjfReadOnlyFieldComponent, typeof i19.AjfReadOnlyFileFieldComponent, typeof i20.AjfReadOnlyImageFieldComponent, typeof i21.AjfReadOnlyTableFieldComponent, typeof i22.AjfTableRowClass, typeof i23.AjfTableVisibleColumnsPipe, typeof i24.AjfValidSlidePipe]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfGetTableCellControlPipe, typeof i12.AjfImageFieldComponent, typeof i13.AjfIncrementPipe, typeof i14.AjfIsCellEditablePipe, typeof i15.AjfIsRepeatingSlideInstancePipe, typeof i16.AjfNodeCompleteNamePipe, typeof i17.AjfRangePipe, typeof i18.AjfReadOnlyFieldComponent, typeof i19.AjfReadOnlyFileFieldComponent, typeof i20.AjfReadOnlyImageFieldComponent, typeof i21.AjfReadOnlyTableFieldComponent, typeof i22.AjfReadOnlyVideoUrlFieldComponent, typeof i23.AjfTableRowClass, typeof i24.AjfTableVisibleColumnsPipe, typeof i25.AjfValidSlidePipe], [typeof i26.AjfCommonModule, typeof i27.AjfFileInputModule, typeof i28.CommonModule, typeof i29.HttpClientModule, typeof i30.ReactiveFormsModule], [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfGetTableCellControlPipe, typeof i12.AjfImageFieldComponent, typeof i13.AjfIncrementPipe, typeof i14.AjfIsCellEditablePipe, typeof i15.AjfIsRepeatingSlideInstancePipe, typeof i16.AjfNodeCompleteNamePipe, typeof i17.AjfRangePipe, typeof i18.AjfReadOnlyFieldComponent, typeof i19.AjfReadOnlyFileFieldComponent, typeof i20.AjfReadOnlyImageFieldComponent, typeof i21.AjfReadOnlyTableFieldComponent, typeof i22.AjfReadOnlyVideoUrlFieldComponent, typeof i23.AjfTableRowClass, typeof i24.AjfTableVisibleColumnsPipe, typeof i25.AjfValidSlidePipe]>;
 }
 
 export interface AjfFormStringIdentifier {
@@ -600,6 +601,12 @@ export declare class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponen
     static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyTableFieldComponent, never>;
 }
 
+export declare class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
+    constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer, httpClient: HttpClient);
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlyVideoUrlFieldComponent, "ajf-read-only-video-url-field", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyVideoUrlFieldComponent, never>;
+}
+
 export interface AjfRendererUpdateMap {
     [prop: string]: AjfNodeInstance[];
 }
@@ -736,6 +743,14 @@ export declare class AjfValidSlidePipe implements PipeTransform {
     transform(slide: AjfBaseSlideInstance, idx: number): boolean;
     static ɵfac: i0.ɵɵFactoryDef<AjfValidSlidePipe, never>;
     static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfValidSlidePipe, "ajfValidSlide">;
+}
+
+export declare type AjfVideoProvider = 'youtube' | 'vimeo';
+
+export declare class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
+    readonly validUrl: Observable<boolean>;
+    readonly videoThumbnail: Observable<SafeResourceUrl>;
+    constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer, httpClient: HttpClient);
 }
 
 export interface AjfWarning extends AjfCondition {

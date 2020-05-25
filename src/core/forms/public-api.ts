@@ -51,6 +51,7 @@ export * from './node-complete-name';
 export * from './range';
 export * from './read-only-file-field';
 export * from './read-only-image-field';
+export * from './read-only-video-url-field';
 export * from './search-alert-threshold';
 export * from './serializers/attachments-origin-serializer';
 export * from './serializers/choices-origin-serializer';
@@ -63,6 +64,7 @@ export * from './table-row-class';
 export * from './table-visible-columns';
 export * from './valid-slide';
 export * from './validation-service';
+export * from './video-url-field';
 export * from './warning-alert-service';
 
 export * from './read-only-field';
