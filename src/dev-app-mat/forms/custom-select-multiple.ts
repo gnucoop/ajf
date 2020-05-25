@@ -20,7 +20,11 @@
  *
  */
 
-import {AJF_SEARCH_ALERT_THRESHOLD, AJF_WARNING_ALERT_SERVICE, AjfFormRendererService,} from '@ajf/core/forms';
+import {
+  AJF_SEARCH_ALERT_THRESHOLD,
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFormRendererService,
+} from '@ajf/core/forms';
 import {AjfMultipleChoiceFieldComponent, AjfWarningAlertService} from '@ajf/material/forms';
 import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
 
