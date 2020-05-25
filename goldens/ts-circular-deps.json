@@ -5,5 +5,9 @@
     "src/core/forms/utils/fields/is-custom-field-with-choices.ts",
     "src/core/forms/utils/fields/fields-map.ts",
     "src/core/forms/interface/fields/field-components-map.ts"
+  ],
+  [
+    "src/core/testing/private/e2e/actions.ts",
+    "src/core/testing/private/e2e/query.ts"
   ]
 ]
