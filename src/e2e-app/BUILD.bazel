@@ -26,6 +26,7 @@ ng_module(
     ),
     deps = [
         "//src/ajf-examples/private",
+        "//src/core/file-input",
         "//src/ionic/calendar",
         "//src/ionic/forms",
         "//src/material/calendar",

@@ -1,0 +1,58 @@
+.ajf-file-input {
+  display: flex;
+  min-height: 100px;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+
+  .ajf-drop-zone, .ajf-file-info {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ajf-drop-zone {
+    background-color: #eeeeee;
+    cursor: pointer;
+
+    &.ajf-dnd-over {
+      background-color: #999999;
+    }
+  }
+
+  .ajf-file-info-content {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 32px;
+      height: 32px;
+      margin-right: 8px;
+    }
+  }
+
+  input {
+    position: absolute;
+    top: -9999;
+    left: -9999;
+    opacity: 0;
+    z-index: -1;
+  }
+
+  .ajf-screen-reader-only {
+    display: none;
+  }
+
+  .ajf-remove-file {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 8px;
+
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
