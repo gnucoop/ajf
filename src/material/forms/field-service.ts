@@ -28,7 +28,8 @@ import {
   AjfReadOnlyFieldComponent,
   AjfReadOnlyFileFieldComponent,
   AjfReadOnlyImageFieldComponent,
-  AjfReadOnlyTableFieldComponent
+  AjfReadOnlyTableFieldComponent,
+  AjfReadOnlyVideoUrlFieldComponent,
 } from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 
@@ -42,6 +43,7 @@ import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTimeFieldComponent} from './time-field';
+import {AjfVideoUrlFieldComponent} from './video-url-field';
 
 @Injectable({providedIn: 'root'})
 export class AjfFieldService extends CoreService {
@@ -105,6 +107,10 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.Image] = {
       component: AjfImageFieldComponent,
       readOnlyComponent: AjfReadOnlyImageFieldComponent
+    };
+    this.componentsMap[AjfFieldType.VideoUrl] = {
+      component: AjfVideoUrlFieldComponent,
+      readOnlyComponent: AjfReadOnlyVideoUrlFieldComponent
     };
   }
 }
