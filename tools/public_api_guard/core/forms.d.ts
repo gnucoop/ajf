@@ -287,7 +287,8 @@ export declare enum AjfFieldType {
     Table = 11,
     Geolocation = 12,
     Barcode = 13,
-    LENGTH = 14
+    File = 14,
+    LENGTH = 15
 }
 
 export interface AjfFieldWarningAlertResult {
