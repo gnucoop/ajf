@@ -320,14 +320,24 @@ export const formSchema: any = {
       name: 'files',
       label: 'File upload fields',
       nodeType: 3,
-      nodes: [{
-        id: 801,
-        parent: 8,
-        name: 'file',
-        label: 'Generic file',
-        nodeType: 0,
-        fieldType: 14,
-      }]
+      nodes: [
+        {
+          id: 801,
+          parent: 8,
+          name: 'file',
+          label: 'Generic file',
+          nodeType: 0,
+          fieldType: 14,
+        },
+        {
+          id: 802,
+          parent: 801,
+          name: 'image',
+          label: 'Image file',
+          nodeType: 0,
+          fieldType: 15,
+        },
+      ]
     },
   ]
 };
