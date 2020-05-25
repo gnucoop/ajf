@@ -257,7 +257,15 @@ export const formSchema: any = {
       label: 'Multiple Slide',
       nodeType: 4,
       nodes: [
-        {parent: 5, id: 5001, name: name, label: 'Child\'s name', nodeType: 0, fieldType: 0}, {
+        {
+          parent: 5,
+          id: 5001,
+          name: name,
+          label: 'Child\'s name',
+          nodeType: 0,
+          fieldType: 0,
+        },
+        {
           parent: 5001,
           id: 5002,
           name: 'birthweight',
@@ -303,8 +311,23 @@ export const formSchema: any = {
         nodeType: 0,
         fieldType: 11,
         rowLabels: ['row1', 'row2', 'row3'],
-        columnLabels: ['value1', 'value2', 'sum']
+        columnLabels: ['value1', 'value2', 'sum'],
       }]
-    }
+    },
+    {
+      parent: 7,
+      id: 8,
+      name: 'files',
+      label: 'File upload fields',
+      nodeType: 3,
+      nodes: [{
+        id: 801,
+        parent: 8,
+        name: 'file',
+        label: 'Generic file',
+        nodeType: 0,
+        fieldType: 14,
+      }]
+    },
   ]
 };
