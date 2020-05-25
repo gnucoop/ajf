@@ -23,6 +23,7 @@
 import {AjfCommonModule} from '@ajf/core/common';
 import {AjfFileInputModule} from '@ajf/core/file-input';
 import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
@@ -48,6 +49,7 @@ import {AjfReadOnlyFieldComponent} from './read-only-field';
 import {AjfReadOnlyFileFieldComponent} from './read-only-file-field';
 import {AjfReadOnlyImageFieldComponent} from './read-only-image-field';
 import {AjfReadOnlyTableFieldComponent} from './read-only-table-field';
+import {AjfReadOnlyVideoUrlFieldComponent} from './read-only-video-url-field';
 import {AjfTableRowClass} from './table-row-class';
 import {AjfTableVisibleColumnsPipe} from './table-visible-columns';
 import {AjfValidSlidePipe} from './valid-slide';
@@ -76,6 +78,7 @@ import {AjfValidationService} from './validation-service';
     AjfReadOnlyFileFieldComponent,
     AjfReadOnlyImageFieldComponent,
     AjfReadOnlyTableFieldComponent,
+    AjfReadOnlyVideoUrlFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
@@ -84,6 +87,7 @@ import {AjfValidationService} from './validation-service';
     AjfCommonModule,
     AjfFileInputModule,
     CommonModule,
+    HttpClientModule,
     ReactiveFormsModule,
   ],
   exports: [
@@ -108,6 +112,7 @@ import {AjfValidationService} from './validation-service';
     AjfReadOnlyFileFieldComponent,
     AjfReadOnlyImageFieldComponent,
     AjfReadOnlyTableFieldComponent,
+    AjfReadOnlyVideoUrlFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
