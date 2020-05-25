@@ -16,6 +16,7 @@ export declare class AjfFileInput implements ControlValueAccessor {
     _filePreviewChildren: QueryList<AjfFilePreview>;
     _nativeInput: ElementRef<HTMLInputElement>;
     _onTouched: () => any;
+    accept: string;
     readonly fileIcon: SafeResourceUrl;
     readonly removeIcon: SafeResourceUrl;
     get value(): any;
@@ -29,7 +30,7 @@ export declare class AjfFileInput implements ControlValueAccessor {
     resetValue(): void;
     triggerNativeInput(): void;
     writeValue(value: any): void;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFileInput, "ajf-file-input", never, { "value": "value"; }, { "valueChange": "valueChange"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"]>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFileInput, "ajf-file-input", never, { "accept": "accept"; "value": "value"; }, { "valueChange": "valueChange"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"]>;
     static ɵfac: i0.ɵɵFactoryDef<AjfFileInput, never>;
 }
 
