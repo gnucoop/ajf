@@ -20,9 +20,13 @@
  *
  */
 
-import {AjfInputFieldComponent as CoreComponent, AjfFormRendererService} from '@ajf/core/forms';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit,
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFormRendererService,
+  AjfInputFieldComponent as CoreComponent,
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy, OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import {defer, Observable, Subscription} from 'rxjs';
@@ -44,7 +48,8 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
   private _setValueSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+    cdr: ChangeDetectorRef, service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
     this.type = 'number';
 

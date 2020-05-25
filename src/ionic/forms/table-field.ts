@@ -21,10 +21,13 @@
  */
 
 import {
-  AjfBaseFieldComponent, AjfFormRendererService, AjfTableFieldInstance
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfFormRendererService,
+  AjfTableFieldInstance,
 } from '@ajf/core/forms';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, ViewEncapsulation
 } from '@angular/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
@@ -38,7 +41,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+    cdr: ChangeDetectorRef, service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
 }

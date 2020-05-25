@@ -36,7 +36,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 
 import {TranslateModule} from '@ngx-translate/core';
 
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {AjfCommonModule} from '@ajf/core/common';
 import {AjfBarcodeModule} from '@ajf/material/barcode';
 import {AjfCalendarModule} from '@ajf/material/calendar';
@@ -117,7 +117,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   ],
   providers: [
     AjfFieldService,
-    AjfWarningAlertService,
+    {provide: AJF_WARNING_ALERT_SERVICE, useClass: AjfWarningAlertService},
   ],
 })
 export class AjfFormsModule {

@@ -20,9 +20,13 @@
  *
  */
 
-import {AjfBaseFieldComponent, AjfFormRendererService} from '@ajf/core/forms';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfFormRendererService,
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, ViewEncapsulation
 } from '@angular/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
@@ -36,7 +40,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfBooleanFieldComponent extends AjfBaseFieldComponent {
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+    cdr: ChangeDetectorRef, service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
 }

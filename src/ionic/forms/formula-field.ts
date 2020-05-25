@@ -20,10 +20,14 @@
  *
  */
 
-import {AjfBaseFieldComponent, AjfFormulaFieldInstance,
-  AjfFormRendererService} from '@ajf/core/forms';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, ViewChild,
-  ViewEncapsulation} from '@angular/core';
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfFormRendererService,
+  AjfFormulaFieldInstance,
+} from '@ajf/core/forms';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, OnDestroy,
+  ViewChild, ViewEncapsulation} from '@angular/core';
 import {IonInput} from '@ionic/angular';
 import {Observable, Subscription} from 'rxjs';
 import {filter, map, startWith, switchMap} from 'rxjs/operators';
@@ -47,7 +51,8 @@ export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFi
   private _onChangeSub = Subscription.EMPTY;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
 
     const control$ = this.control.pipe(

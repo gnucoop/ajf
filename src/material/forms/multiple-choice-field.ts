@@ -21,7 +21,10 @@
  */
 
 import {
-  AjfFieldWithChoicesComponent, AjfFormRendererService, AJF_SEARCH_ALERT_THRESHOLD
+  AJF_SEARCH_ALERT_THRESHOLD,
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFieldWithChoicesComponent,
+  AjfFormRendererService,
 } from '@ajf/core/forms';
 import {
   ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Optional, ViewEncapsulation
@@ -40,7 +43,7 @@ export class AjfMultipleChoiceFieldComponent<T> extends AjfFieldWithChoicesCompo
   constructor(
     cdr: ChangeDetectorRef,
     service: AjfFormRendererService,
-    was: AjfWarningAlertService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
     @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number
   ) {
     super(cdr, service, was, searchThreshold);

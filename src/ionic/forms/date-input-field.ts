@@ -20,9 +20,14 @@
  *
  */
 
-import {AjfDateFieldInstance, AjfDateValueStringPipe, AjfBaseFieldComponent,
-    AjfFormRendererService} from '@ajf/core/forms';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild,
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfDateFieldInstance,
+  AjfDateValueStringPipe,
+  AjfFormRendererService,
+} from '@ajf/core/forms';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, ViewChild,
     ViewEncapsulation} from '@angular/core';
 import {IonInput} from '@ionic/angular';
 
@@ -42,7 +47,8 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
   private _maxDateStr: string | undefined;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService,
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
       private _dvs: AjfDateValueStringPipe) {
     super(cdr, service, was);
   }

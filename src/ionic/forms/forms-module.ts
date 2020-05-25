@@ -30,7 +30,7 @@ import {GicModule} from '@gic/angular';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfCommonModule} from '@ajf/core/common';
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {AjfBarcodeModule} from '@ajf/ionic/barcode';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
@@ -115,7 +115,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   ],
   providers: [
     AjfFieldService,
-    AjfWarningAlertService,
+    {provide: AJF_WARNING_ALERT_SERVICE, useClass: AjfWarningAlertService},
   ],
 })
 export class AjfFormsModule {
