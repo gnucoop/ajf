@@ -23,6 +23,6 @@
 export * from './apply-styles-directive';
 export * from './auto-focus.directive';
 export * from './common-module';
+export * from './dnd-directive';
 export * from './format-if-number';
 export * from './translate-if-string';
-export * from './dnd.directive';
