@@ -339,5 +339,22 @@ export const formSchema: any = {
         },
       ]
     },
+    {
+      parent: 8,
+      id: 9,
+      name: 'video_url_slide',
+      label: 'Video url',
+      nodeType: 3,
+      nodes: [
+        {
+          id: 901,
+          parent: 9,
+          name: 'video_url',
+          label: 'Video URL',
+          nodeType: 0,
+          fieldType: 16,
+        },
+      ]
+    },
   ]
 };
