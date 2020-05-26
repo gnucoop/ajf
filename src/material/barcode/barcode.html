@@ -9,15 +9,15 @@
 <ng-template #barcode>
   <mat-button-toggle-group [(ngModel)]=toggle>
     <mat-button-toggle value="drop" (click)="fileInput.click()" [disabled]="readonly">
-      <span translate>Upload image</span>
+      <span>{{ 'Upload image' | translate }}</span>
       <mat-icon>add_circle_outline</mat-icon>
       <input #fileInput type="file" (change)="onSelectFile($event?.target?.files)" multiple style="display:none;" [disabled]="readonly"/>
     </mat-button-toggle>
     <mat-button-toggle value="drop" [disabled]="readonly">
-      <span translate>Drop image</span>
+      <span>{{ 'Drop image' | translate }}</span>
     </mat-button-toggle>
     <mat-button-toggle value="camera" [disabled]="readonly">
-      <span translate>Camera</span>
+      <span>{{ 'Camera' | translate }}</span>
     </mat-button-toggle>
   </mat-button-toggle-group>
   <ng-container [ngSwitch]="toggle">
@@ -25,7 +25,7 @@
       <div class="ajf-drop-container">
         <div class="ajf-dropzone" [attr.ajfDnd]="!readonly" (file)="onSelectFile($event)">
           <div class="ajf-text-wrapper">
-            <div class="ajf-centered" translate>Drop your image here!</div>
+            <div class="ajf-centered">{{ 'Drop your image here!' | translate }}</div>
           </div>
         </div>
       </div>

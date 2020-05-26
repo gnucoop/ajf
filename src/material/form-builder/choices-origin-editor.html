@@ -10,23 +10,23 @@
   <ng-template [ngIf]="canEditChoices">
     <button (click)="addRow()" mat-button>
       <mat-icon>add</mat-icon>
-      <span translate>Add value</span>
+      <span>{{ 'Add value' | translate }}</span>
     </button>
     <mat-table [dataSource]="choices">
       <ng-container matColumnDef="label">
-        <mat-header-cell *matHeaderCellDef translate>Label</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'Label' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let row; let idx = index">
           <input matInput [(ngModel)]="row.label" type="text">
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="value">
-        <mat-header-cell *matHeaderCellDef translate>Value</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'Value' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let row; let idx = index">
           <input matInput [(ngModel)]="row.value" type="text">
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="delete">
-        <mat-header-cell *matHeaderCellDef translate>Delete</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'Delete' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let row; let idx = index">
             <mat-icon (click)="deleteRow(idx)">delete</mat-icon>
         </mat-cell>

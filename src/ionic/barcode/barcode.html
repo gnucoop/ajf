@@ -10,11 +10,11 @@
   <ion-segment [(ngModel)]="toggle">
     <ion-segment-button value="drop" (click)="fileInput.click()" layout="icon-end" [attr.disabled]="readonly">
       <ion-icon name="add-circle-outline"></ion-icon>
-      <span translate>Upload image </span>
+      <span>{{ 'Upload image' | translate }}</span>
       <input #fileInput type="file" (change)="onSelectFile($event?.target?.files)" multiple style="display:none;" />
     </ion-segment-button>
     <ion-segment-button value="camera" [attr.disabled]="readonly">
-      <span translate>Camera</span>
+      <span>{{ 'Camera' | translate }}</span>
     </ion-segment-button>
   </ion-segment>
   <ng-container *ngIf="toggle == 'camera'">

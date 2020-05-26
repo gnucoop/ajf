@@ -12,20 +12,20 @@
       <mat-button-toggle
         (click)="reportStyles = !reportStyles; sectionStyles = false; widgetStyles = false" value="left"
         [ngClass]="{'ajf-selected': reportStyles}">
-        report
-        <ng-container translate>CSS style</ng-container>
+        {{ 'report' | translate }}
+        <ng-container>{{ 'CSS style' | translate }}</ng-container>
       </mat-button-toggle>
       <mat-button-toggle
         (click)="sectionStyles = !sectionStyles; reportStyles = false; widgetStyles = false"
         [ngClass]="{'ajf-selected': sectionStyles}">
         {{ origin }}
-        <ng-container translate>CSS style</ng-container>
+        <ng-container>{{ 'CSS style' | translate }}</ng-container>
       </mat-button-toggle>
       <mat-button-toggle
         (click)="widgetStyles = !widgetStyles; sectionStyles = false; reportStyles = false"
         [ngClass]="{'ajf-selected': widgetStyles}">
         {{ widgetName }}
-        <ng-container translate>CSS style</ng-container>
+        <ng-container>{{ 'CSS style' | translate }}</ng-container>
       </mat-button-toggle>
     </mat-button-toggle-group>
     <div class="ajf-style-container" *ngIf="(reportStyles) ? true : false ">
@@ -62,11 +62,11 @@
       <div class="properties-container" *ngIf="(currentWidget.widgetType !== 8)">
         <div class="ajf-layout-preview">
           <div class="ajf-vbottom">
-            <div translate>height</div>
+            <div>{{ 'height' | translate }}</div>
             <div>{{ getHeightWidget|async }}</div>
           </div>
           <div class="ajf-margin-box">
-            <div class="ajf-top-label" translate>margin</div>
+            <div class="ajf-top-label">{{ 'margin' | translate }}</div>
             <div class="ajf-vtop">{{ getMarginWidgetTop|async }}</div>
             <div class="ajf-vright">{{ getMarginWidgetRight|async }}</div>
             <div class="ajf-vbottom">{{ getMarginWidgetBottom|async }}</div>
@@ -80,14 +80,14 @@
               <div class="ajf-vtr">{{ getBorderRadiusWidgetTopRight|async }}</div>
               <div class="ajf-vbr">{{ getBorderRadiusWidgetBottomRight|async }}</div>
               <div class="ajf-vbl">{{ getBorderRadiusWidgetBottomLeft|async }}</div>
-              <div class="ajf-top-label" translate>border</div>
+              <div class="ajf-top-label">{{ 'border' | translate }}</div>
               <div class="ajf-padding-box">
-                <div class="ajf-top-label" translate>padding</div>
+                <div class="ajf-top-label">{{ 'padding' | translate }}</div>
                 <div class="ajf-vtop">{{ getPaddingWidgetTop|async }}</div>
                 <div class="ajf-vright">{{ getPaddingWidgetRight|async }}</div>
                 <div class="ajf-vbottom">{{ getPaddingWidgetBottom|async }}</div>
                 <div class="ajf-vleft">{{ getPaddingWidgetLeft|async }}</div>
-                <div class="ajf-content-box" translate>content</div>
+                <div class="ajf-content-box">{{ 'content' | translate }}</div>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@
         <mat-grid-list rowHeight="2em" cols="12">
           <mat-grid-tile></mat-grid-tile>
           <mat-grid-tile class="ajf-lal" colspan="4">
-            <span>height</span>
+            <span>{{ 'height' | translate }}</span>
           </mat-grid-tile>
           <mat-grid-tile colspan="7">
             <mat-slider
@@ -117,7 +117,7 @@
                 (click)="marginExpanded = !marginExpanded">keyboard_arrow_down</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile class="ajf-lal" colspan="4">
-            <span translate>margin</span>
+            <span>{{ 'margin' | translate }}</span>
           </mat-grid-tile>
           <mat-grid-tile colspan="7">
             <mat-slider
@@ -136,7 +136,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>margin top</span>
+              &nbsp;&nbsp;<span>{{ 'margin top' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -153,7 +153,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>margin right</span>
+              &nbsp;&nbsp;<span>{{ 'margin right' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -170,7 +170,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>margin bottom</span>
+              &nbsp;&nbsp;<span>{{ 'margin bottom' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -187,7 +187,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>margin left</span>
+              &nbsp;&nbsp;<span>{{ 'margin left' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -210,7 +210,7 @@
                 (click)="paddingExpanded = !paddingExpanded">keyboard_arrow_down</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile class="ajf-lal" colspan="4">
-            <span translate>padding</span>
+            <span>{{ 'padding' | translate }}</span>
           </mat-grid-tile>
           <mat-grid-tile colspan="7">
             <mat-slider
@@ -228,7 +228,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>padding top</span>
+              &nbsp;&nbsp;<span>{{ 'padding top' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -245,7 +245,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>padding right</span>
+              &nbsp;&nbsp;<span>{{ 'padding right' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -262,7 +262,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>padding bottom</span>
+              &nbsp;&nbsp;<span>{{ 'padding bottom' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -279,7 +279,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>padding left</span>
+              &nbsp;&nbsp;<span>{{ 'padding left' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -302,7 +302,7 @@
                 (click)="borderWidthExpanded = !borderWidthExpanded">keyboard_arrow_down</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile class="ajf-lal" colspan="4">
-            <span translate>border width</span>
+            <span>{{ 'border width' | translate }}</span>
           </mat-grid-tile>
           <mat-grid-tile colspan="7">
             <mat-slider
@@ -320,7 +320,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>border width top</span>
+              &nbsp;&nbsp;<span>{{ 'border width top' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -337,7 +337,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>border width right</span>
+              &nbsp;&nbsp;<span>{{ 'border width right' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -354,7 +354,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>border width bottom</span>
+              &nbsp;&nbsp;<span>{{ 'border width bottom' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -371,7 +371,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>border width left</span>
+              &nbsp;&nbsp;<span>{{ 'border width left' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -394,7 +394,7 @@
                 (click)="borderRadiusExpanded = !borderRadiusExpanded">keyboard_arrow_down</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile class="ajf-lal" colspan="4">
-            <span translate>border radius</span>
+            <span>{{ 'border radius' | translate }}</span>
           </mat-grid-tile>
           <mat-grid-tile colspan="7">
             <mat-slider
@@ -412,7 +412,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>border radius top left</span>
+              &nbsp;&nbsp;<span>{{ 'border radius top left' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -429,7 +429,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>border radius top right</span>
+              &nbsp;&nbsp;<span>{{ 'border radius top right' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -446,7 +446,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>border radius bottom left</span>
+              &nbsp;&nbsp;<span>{{ 'border radius bottom left' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -463,7 +463,7 @@
           <mat-grid-list cols="12">
             <mat-grid-tile></mat-grid-tile>
             <mat-grid-tile class="ajf-lal" colspan="4">
-              &nbsp;&nbsp;<span translate>border radius bottom right</span>
+              &nbsp;&nbsp;<span>{{ 'border radius bottom right' | translate }}</span>
             </mat-grid-tile>
             <mat-grid-tile colspan="7">
               <mat-slider
@@ -483,7 +483,7 @@
         <mat-grid-list cols="12">
           <mat-grid-tile></mat-grid-tile>
           <mat-grid-tile class="ajf-lal" colspan="3">
-            <span translate>font size</span>
+            <span>{{ 'font size' | translate }}</span>
           </mat-grid-tile>
           <mat-grid-tile colspan="7">
             <mat-slider
@@ -513,27 +513,27 @@
           <mat-select
               (change)="setWidgetStyles('font-style', $event.value)"
               [placeholder]="'Font style' | translate">
-            <mat-option translate value="normal">Normal</mat-option>
-            <mat-option translate value="italic">Italic</mat-option>
-            <mat-option translate value="oblique">Oblique</mat-option>
+            <mat-option value="normal">{{ 'Normal' | translate }}</mat-option>
+            <mat-option value="italic">{{ 'Italic' | translate }}</mat-option>
+            <mat-option value="oblique">{{ 'Oblique' | translate }}</mat-option>
           </mat-select>
           <mat-select
               (change)="setWidgetStyles('text-align', $event.value)"
               [placeholder]="'Align' | translate">
-            <mat-option translate value="center">Center</mat-option>
-            <mat-option translate value="left">Left</mat-option>
-            <mat-option translate value="right">Right</mat-option>
+            <mat-option value="center">{{ 'Center' | translate }}</mat-option>
+            <mat-option value="left">{{ 'Left' | translate }}</mat-option>
+            <mat-option value="right">{{ 'Right' | translate }}</mat-option>
           </mat-select>
         </form>
       </ng-template>
       <h1>
-        <ng-container translate>properties of</ng-container>
+        <ng-container>{{ 'properties of' | translate }}</ng-container>
         {{ widgetName }}
       </h1>
     </div>
     <div [ngSwitch]="currentWidget.widgetType">
       <ng-template [ngSwitchCase]="0">
-        <h1 translate>Column</h1>
+        <h1>{{ 'Column' | translate }}</h1>
         <ng-template ngFor let-col [ngForOf]="currentLayoutWidget.columns" let-idx="index">
           <mat-toolbar>
               <mat-toolbar-row *ngIf="col !== -1">
@@ -574,9 +574,8 @@
         <mat-toolbar>
           <mat-toolbar-row>
             <button mat-button
-                translate
                 (click)="addColumn()"
-                *ngIf="currentLayoutWidget.columns.length < 10">Add column</button>
+                *ngIf="currentLayoutWidget.columns.length < 10">{{ 'Add column' | translate }}</button>
           </mat-toolbar-row>
         </mat-toolbar>
       </ng-template>
@@ -589,8 +588,7 @@
             [placeholder]="'paste a link' | translate"
             style="width: 100%"
             [(ngModel)]="imageUrl">
-        <button mat-button (click)="setImageUrl()"
-            translate>Set image</button>
+        <button mat-button (click)="setImageUrl()">{{ 'Set image' | translate }}</button>
       </ng-template>
       <ng-template [ngSwitchCase]="3">
         <div style="width:500px">
@@ -605,7 +603,7 @@
         </div>
       </ng-template>
       <ng-template [ngSwitchCase]="4">
-        <h3 translate>Choose type of Chart</h3>
+        <h3>{{ 'Choose type of Chart' | translate }}</h3>
         <mat-button-toggle-group class="ajf-chart-buttons">
           <div class="ajf-row">
             <mat-button-toggle
@@ -696,12 +694,12 @@
             </mat-button-toggle>
           </div>
         </mat-button-toggle-group>
-        <h3 translate>Labels</h3>
+        <h3>{{ 'Labels' | translate }}</h3>
         <ajf-report-builder-forms-analyzer></ajf-report-builder-forms-analyzer>
         <ajf-theme-color [section]="'chart'" [label]="tabValue"></ajf-theme-color>
           <mat-card>
             <mat-card-header>
-              <mat-card-title>Border width</mat-card-title>
+              <mat-card-title>{{ 'Border width' | translate }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <mat-slider
@@ -724,8 +722,8 @@
                     <span [style.background]="color">
                       {{ color }}
                     </span>
-                    <button mat-button translate
-                        (click)="removeChartBackgroundColor(idx)">Remove</button>
+                    <button mat-button
+                        (click)="removeChartBackgroundColor(idx)">{{ 'Remove' | translate }}</button>
                   </mat-list-item>
                 </ng-template>
               </mat-list>
@@ -737,7 +735,7 @@
                     <span [style.background]="color">
                       {{ color }}
                     </span>
-                    <button mat-button (click)="removeChartBorderColor(idx)">remove</button>
+                    <button mat-button (click)="removeChartBorderColor(idx)">{{ 'remove' | translate }}</button>
                   </mat-list-item>
                 </ng-template>
               </mat-list>
@@ -752,7 +750,7 @@
         (click)="visibilitySection = !visibilitySection"
         [ngClass]="{'ajf-selected': visibilitySection}">
       {{ widgetName }}
-      <ng-container translate>Visibility</ng-container>
+      <ng-container>{{ 'Visibility' | translate }}</ng-container>
     </button>
     <div [style.display]="visibilitySection ? 'block' : 'none'">
       <ajf-report-builder-condition-editor [visibility]="currentWidget.visibility"></ajf-report-builder-condition-editor>

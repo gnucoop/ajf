@@ -2,10 +2,10 @@
   <button mat-icon-button (click)="leftSidenav.toggle()">
     <mat-icon>add_box</mat-icon>
   </button>
-  <button mat-button [matMenuTriggerFor]="choicesMenu" translate>Choices</button>
-  <button mat-button (click)="editStringIdentifier()" translate>Identifier</button>
+  <button mat-button [matMenuTriggerFor]="choicesMenu">{{ 'Choices' | translate }}</button>
+  <button mat-button (click)="editStringIdentifier()">{{ 'Identifier' | translate }}</button>
   <mat-menu #choicesMenu>
-    <button (click)="createChoicesOrigin()" mat-menu-item translate>New..</button>
+    <button (click)="createChoicesOrigin()" mat-menu-item>{{ 'New..' | translate }}</button>
     <ng-container *ngIf="choicesOrigins|async as cos">
       <button *ngFor="let choicesOrigin of cos"
           (click)="editChoicesOrigin(choicesOrigin)" mat-menu-item>

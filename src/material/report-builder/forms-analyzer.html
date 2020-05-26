@@ -12,12 +12,12 @@
                   {{ label }}
               </mat-grid-tile>
               <mat-grid-tile>
-                <button mat-button translate
-                    (click)="setCurrentIndex(idx);openDialogChartEditMainData()">Edit</button>
+                <button mat-button
+                    (click)="setCurrentIndex(idx);openDialogChartEditMainData()">{{ 'Edit' | translate }}</button>
               </mat-grid-tile>
               <mat-grid-tile>
-                <button mat-button translate
-                    (click)="removeMainData(idx)">Remove</button>
+                <button mat-button
+                    (click)="removeMainData(idx)">{{ 'Remove' | translate }}</button>
               </mat-grid-tile>
             </ng-template>
           </mat-grid-list>
@@ -28,7 +28,7 @@
     <mat-tab-group>
       <mat-tab label="dataset">
         <button mat-button (click)="openDialogChartAddDataset()" style="width:100%">
-            add dataset
+            {{ 'add dataset' | translate }}
         </button>
         <mat-grid-list rowHeight="50px" cols="4">
           <ng-template ngFor let-label [ngForOf]="getDataset()" let-idx="index">
@@ -39,16 +39,16 @@
               </mat-grid-tile>
               <mat-grid-tile>
                 <button mat-button (click)="setCurrentIndex(idx);openDialogChartAddDataOfDataset()" style="width:100%">
-                  add data
+                  {{ 'add data' | translate }}
                 </button>
               </mat-grid-tile>
               <mat-grid-tile>
-              <button mat-button translate
-                  (click)="setCurrentIndex(idx);openDialogChartEditDataset()">Edit</button>
+              <button mat-button
+                  (click)="setCurrentIndex(idx);openDialogChartEditDataset()">{{ 'Edit' | translate }}</button>
               </mat-grid-tile>
               <mat-grid-tile>
-                <button mat-button translate
-                    (click)="removeDataset(idx)">Remove</button>
+                <button mat-button
+                    (click)="removeDataset(idx)">{{ 'Remove' | translate }}</button>
               </mat-grid-tile>
           </ng-template>
         </mat-grid-list>
@@ -60,12 +60,12 @@
                 {{ label }}
             </mat-grid-tile>
             <mat-grid-tile>
-              <button mat-button translate
-                  (click)="openDialogChartEditDataOfDataset(idx)">Edit</button>
+              <button mat-button
+                  (click)="openDialogChartEditDataOfDataset(idx)">{{ 'Edit' | translate }}</button>
             </mat-grid-tile>
             <mat-grid-tile>
-              <button mat-button translate
-                  (click)="removeRelatedData(idx)">Remove</button>
+              <button mat-button
+                  (click)="removeRelatedData(idx)">{{ 'Remove' | translate }}</button>
             </mat-grid-tile>
           </ng-template>
         </mat-grid-list>
@@ -78,8 +78,7 @@
       <mat-tab-group>
         <mat-tab [label]="'Main Data' | translate">
           <button mat-button (click)="openDialogAddMainData()"
-              translate
-              style="width:100%;">Add Main Data</button>
+              style="width:100%;">{{ 'Add Main Data' | translate }}</button>
           <mat-grid-list rowHeight="50px" cols="4">
             <ng-template ngFor let-label [ngForOf]="getTableHeader()" let-idx="index">
               <mat-grid-tile>
@@ -88,17 +87,17 @@
                 </button>
               </mat-grid-tile>
               <mat-grid-tile>
-                <button mat-button translate
+                <button mat-button
                     (click)="setCurrentIndex(idx);openDialogTableAddDataset()"
-                    style="width:100%">add data</button>
+                    style="width:100%">{{ 'add data' | translate }}</button>
               </mat-grid-tile>
               <mat-grid-tile>
-                <button mat-button translate
-                    (click)="setCurrentIndex(idx);openDialogTableEditMainData()">Edit</button>
+                <button mat-button
+                    (click)="setCurrentIndex(idx);openDialogTableEditMainData()">{{ 'Edit' | translate }}</button>
               </mat-grid-tile>
               <mat-grid-tile>
-                <button mat-button translate
-                    (click)="removeTableMainData(idx)">Remove</button>
+                <button mat-button
+                    (click)="removeTableMainData(idx)">{{ 'Remove' | translate }}</button>
               </mat-grid-tile>
             </ng-template>
           </mat-grid-list>
@@ -111,12 +110,12 @@
                   {{ label }}
               </mat-grid-tile>
               <mat-grid-tile>
-                <button mat-button translate
-                    (click)="openDialogTableEditDataset(idx)">Edit</button>
+                <button mat-button
+                    (click)="openDialogTableEditDataset(idx)">{{ 'Edit' | translate }}</button>
               </mat-grid-tile>
               <mat-grid-tile>
-                <button mat-button translate
-                    (click)="removeData(currentMainDataIndex, idx + 1)">Remove</button>
+                <button mat-button
+                    (click)="removeData(currentMainDataIndex, idx + 1)">{{ 'Remove' | translate }}</button>
               </mat-grid-tile>
             </ng-template>
           </mat-grid-list>
@@ -126,4 +125,3 @@
     </ng-template>
   </ng-template>
 </ng-template>
-

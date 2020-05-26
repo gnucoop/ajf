@@ -27,7 +27,7 @@
     </mat-card-content>
     <mat-card-actions>
       <ng-template [ngIf]="!isValid">
-        <ng-container translate>Invalid condition! Please check syntax.</ng-container>
+        <ng-container>{{ 'Invalid condition! Please check syntax.' | translate }}</ng-container>
       </ng-template>
       <textarea
           (focus)="hideErrorMessage()"

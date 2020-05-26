@@ -13,8 +13,7 @@
       <mat-toolbar *ngIf="!hideTopToolbar">
         {{ title }}
         <span class="ajf-spacer"></span>
-        <button mat-button default *ngIf="!saveDisabled" (click)="onSave($event)"
-            translate>Save</button>
+        <button mat-button default *ngIf="!saveDisabled" (click)="onSave($event)">{{ 'Save' | translate }}</button>
       </mat-toolbar>
       <div class="ajf-slider-container">
         <ajf-page-slider (orientationChange)="orientationChangeHandler($event)"
@@ -151,7 +150,7 @@
                 </button>
               </div>
               <div class="ajf-info-box ajf-error">
-                <div class="ajf-title" translate>Errors</div>
+                <div class="ajf-title">{{ 'Errors' | translate }}</div>
                 <div class="ajf-content">
                   {{ errors | async }} / {{ slidesNum|async }}
                 </div>
