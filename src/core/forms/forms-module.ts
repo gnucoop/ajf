@@ -20,7 +20,11 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
+import {AjfFileInputModule} from '@ajf/core/file-input';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import {AjfBoolToIntPipe} from './bool-to-int';
 import {AjfDateValuePipe} from './date-value';
@@ -29,6 +33,7 @@ import {AjfExpandFieldWithChoicesPipe} from './expand-input-with-choices';
 import {AjfFieldHost} from './field-host';
 import {AjfFieldIconPipe} from './field-icon';
 import {AjfFieldIsValidPipe} from './field-is-valid';
+import {AjfFileFieldComponent} from './file-field';
 import {AjfFormRendererService} from './form-renderer';
 import {AjfIncrementPipe} from './increment';
 import {AjfIsRepeatingSlideInstancePipe} from './is-repeating-slide';
@@ -48,6 +53,7 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfFieldHost,
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
+    AjfFileFieldComponent,
     AjfIncrementPipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,
@@ -55,6 +61,12 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
+  ],
+  imports: [
+    AjfCommonModule,
+    AjfFileInputModule,
+    CommonModule,
+    ReactiveFormsModule,
   ],
   exports: [
     AjfBoolToIntPipe,
@@ -64,6 +76,7 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfFieldHost,
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
+    AjfFileFieldComponent,
     AjfIncrementPipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,

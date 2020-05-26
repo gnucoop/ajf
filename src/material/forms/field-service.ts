@@ -20,7 +20,11 @@
  *
  */
 
-import {AjfFieldService as CoreService, AjfFieldType} from '@ajf/core/forms';
+import {
+  AjfFieldService as CoreService,
+  AjfFieldType,
+  AjfFileFieldComponent,
+} from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
@@ -53,5 +57,6 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.MultipleChoice] = {component: AjfMultipleChoiceFieldComponent},
     this.componentsMap[AjfFieldType.Time] = {component: AjfTimeFieldComponent},
     this.componentsMap[AjfFieldType.Barcode] = {component: AjfBarcodeFieldComponent};
+    this.componentsMap[AjfFieldType.File] = {component: AjfFileFieldComponent};
   }
 }

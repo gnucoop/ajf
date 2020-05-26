@@ -1,5 +1,6 @@
 package(default_visibility = ["//visibility:public"])
 
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
 load(
     "//tools:defaults.bzl",
     "markdown_to_html",
@@ -14,17 +15,28 @@ ng_module(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
     ),
-    assets = [],
+    assets = [
+        ":file-field.css",
+    ] + glob(["**/*.html"]),
     module_name = "@ajf/core/forms",
     deps = [
+        "//src/core/common",
+        "//src/core/file-input",
         "//src/core/models",
         "//src/core/page-slider",
         "//src/core/utils",
         "@npm//@angular/core",
         "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
         "@npm//@types/esprima",
         "@npm//date-fns",
     ],
+)
+
+sass_binary(
+    name = "file_field_scss",
+    src = "file-field.scss",
+    deps = [],
 )
 
 ng_test_library(
