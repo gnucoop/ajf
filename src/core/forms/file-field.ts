@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfFile, fileIcon} from '@ajf/core/file-input';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -27,6 +28,10 @@ import {
   Inject,
   ViewEncapsulation
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {Observable} from 'rxjs';
+import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
 
 import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
@@ -41,9 +46,29 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfFileFieldComponent extends AjfBaseFieldComponent {
+  readonly fileIcon: SafeResourceUrl;
+  readonly fileUrl: Observable<SafeResourceUrl>;
+  readonly fileName: Observable<string>;
+
   constructor(
       cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService, domSanitizer: DomSanitizer) {
     super(cdr, service, was);
+    this.fileIcon = domSanitizer.bypassSecurityTrustResourceUrl(fileIcon);
+    const fileStream = this.control.pipe(
+                           filter(control => control != null),
+                           switchMap(control => {
+                             control = control as FormControl;
+                             return control.valueChanges.pipe(
+                                 startWith(control.value),
+                             );
+                           }),
+                           filter(value => value != null),
+                           shareReplay(1),
+                           ) as Observable<AjfFile>;
+    this.fileUrl = fileStream.pipe(
+        map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)),
+    );
+    this.fileName = fileStream.pipe(map(file => file.name));
   }
 }

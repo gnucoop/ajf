@@ -1,1 +1,8 @@
-<ajf-file-input *ngIf="control|async as ctrl" [formControl]="ctrl!"></ajf-file-input>
+<ng-container *ngIf="control|async as ctrl">
+  <ajf-file-input *ngIf="!readonly; else readonlyTmpl" [formControl]="ctrl!"></ajf-file-input>
+  <ng-template #readonlyTmpl>
+    <a *ngIf="fileUrl|async as curFileUrl" [href]="curFileUrl" [download]="fileName|async">
+      <img [src]="fileIcon"> {{ fileName|async }}
+    </a>
+  </ng-template>
+</ng-container>
