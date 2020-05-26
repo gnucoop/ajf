@@ -90,6 +90,7 @@ System.config({
     '@ajf/core/chart': 'dist/packages/core/chart/index.js',
     '@ajf/core/checkbox-group': 'dist/packages/core/checkbox-group/index.js',
     '@ajf/core/common': 'dist/packages/core/common/index.js',
+    '@ajf/core/file-input': 'dist/packages/core/file-input/index.js',
     '@ajf/core/forms': 'dist/packages/core/forms/index.js',
     '@ajf/core/image': 'dist/packages/core/image/index.js',
     '@ajf/core/map': 'dist/packages/core/map/index.js',

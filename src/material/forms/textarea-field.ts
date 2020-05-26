@@ -20,19 +20,28 @@
  *
  */
 
-export * from './boolean-field';
-export * from './date-field';
-export * from './date-input-field';
-export * from './empty-field';
-export * from './field';
-export * from './field-service';
-export * from './field-warning-dialog';
-export * from './input-field';
-export * from './form';
-export * from './forms-module';
-export * from './multiple-choice-field';
-export * from './single-choice-field';
-export * from './table-field';
-export * from './textarea-field';
-export * from './time-field';
-export * from './warning-alert-service';
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfInputFieldComponent as CoreComponent,
+  AjfFormRendererService,
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, ViewEncapsulation
+} from '@angular/core';
+
+import {AjfWarningAlertService} from './warning-alert-service';
+
+@Component({
+  moduleId: module.id,
+  templateUrl: 'textarea-field.html',
+  styleUrls: ['textarea-field.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfTextareaFieldComponent extends CoreComponent {
+  constructor(
+    cdr: ChangeDetectorRef, service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    super(cdr, service, was);
+  }
+}

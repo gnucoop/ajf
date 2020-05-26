@@ -57,6 +57,7 @@ import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
+import {AjfTextareaFieldComponent} from './textarea-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfWarningAlertService} from './warning-alert-service';
@@ -97,6 +98,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
+    AjfTextareaFieldComponent,
     AjfTimeFieldComponent,
     AjfVideoUrlFieldComponent,
   ],
@@ -115,6 +117,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
+    AjfTextareaFieldComponent,
     AjfTimeFieldComponent,
     AjfVideoUrlFieldComponent,
   ],

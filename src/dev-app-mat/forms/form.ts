@@ -213,14 +213,22 @@ export const formSchema: any = {
         {
           parent: 1003,
           id: 1004,
+          name: 'string',
+          label: 'Free long text response',
+          nodeType: 0,
+          fieldType: 1
+        },
+        {
+          parent: 1004,
+          id: 1005,
           name: 'boolean',
           label: 'Boolean answer (a checkbox)',
           nodeType: 0,
           fieldType: 3
         },
         {
-          parent: 1004,
-          id: 1005,
+          parent: 1005,
+          id: 1006,
           name: 'empty',
           label: '',
           nodeType: 0,
@@ -228,24 +236,24 @@ export const formSchema: any = {
           HTML: 'Inserts an HTML note in the form'
         },
         {
-          parent: 1005,
-          id: 1006,
+          parent: 1006,
+          id: 1007,
           name: 'date input',
           label: 'A date',
           nodeType: 0,
           fieldType: 9
         },
         {
-          parent: 1006,
-          id: 1007,
+          parent: 1007,
+          id: 1008,
           name: 'time',
           label: 'Time',
           nodeType: 0,
           fieldType: 10
         },
         {
-          parent: 1007,
-          id: 1008,
+          parent: 1008,
+          id: 1009,
           name: 'barcode',
           label: 'Barcode',
           nodeType: 0,
