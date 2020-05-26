@@ -1,0 +1,65 @@
+load("@io_bazel_rules_sass//sass:sass.bzl", "sass_binary")
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+)
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "file-input",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [":file-input.css"] + glob(["**/*.html"]),
+    module_name = "@ajf/core/file-input",
+    deps = [
+        "//src/core/common",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
+        "@npm//@ngx-translate/core",
+    ],
+)
+
+sass_binary(
+    name = "file_input_scss",
+    src = "file-input.scss",
+    deps = [],
+)
+
+ng_test_library(
+    name = "unit_test_sources",
+    srcs = glob(
+        ["**/*.spec.ts"],
+        exclude = ["**/*.e2e.spec.ts"],
+    ),
+    deps = [
+        ":file-input",
+        "@npm//@angular/platform-browser",
+        "@npm//@ngx-translate/core",
+        "@npm//rxjs",
+    ],
+)
+
+ng_web_test_suite(
+    name = "unit_tests",
+    deps = [
+        ":unit_test_sources",
+    ],
+)
+
+markdown_to_html(
+    name = "overview",
+    srcs = ["file-input.md"],
+)
+
+filegroup(
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
+)
