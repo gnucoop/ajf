@@ -72,6 +72,10 @@ import {AjfValidSlidePipe} from './valid-slide';
     HttpClientModule,
     ReactiveFormsModule,
   ],
+  entryComponents: [
+    AjfFileFieldComponent,
+    AjfImageFieldComponent,
+  ],
   exports: [
     AjfBoolToIntPipe,
     AjfDateValuePipe,
@@ -90,7 +94,11 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
   ],
-  providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
+  providers: [
+    AjfDateValueStringPipe,
+    AjfFormRendererService,
+    AjfValidationService,
+  ],
 })
 export class AjfFormsModule {
 }
