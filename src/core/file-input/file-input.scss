@@ -5,7 +5,7 @@
   position: relative;
   overflow: hidden;
 
-  .ajf-drop-zone, .ajf-file-info {
+  .ajf-drop-zone, .ajf-file-info, .ajf-drop-message {
     flex: 1 1 auto;
     display: flex;
     align-items: center;
@@ -14,11 +14,15 @@
 
   .ajf-drop-zone {
     background-color: #eeeeee;
-    cursor: pointer;
 
     &.ajf-dnd-over {
       background-color: #999999;
     }
+  }
+
+  .ajf-drop-message {
+    cursor: pointer;
+    align-self: stretch;
   }
 
   .ajf-file-info-content {
@@ -49,10 +53,12 @@
     top: 16px;
     right: 16px;
     padding: 8px;
+    cursor: pointer;
 
     img {
       width: 16px;
       height: 16px;
+      margin-right: 0;
     }
   }
 }
