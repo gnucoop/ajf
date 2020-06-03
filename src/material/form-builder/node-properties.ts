@@ -35,6 +35,7 @@ import {
 import {AjfCondition, alwaysCondition, neverCondition} from '@ajf/core/models';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   OnDestroy,
@@ -193,6 +194,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         return nodeEntry != null && isRepeatingContainerNode(nodeEntry.node);
       }
 
+  private _visibilityOptSub: Subscription = Subscription.EMPTY;
   private _visibilitySub: Subscription = Subscription.EMPTY;
   private _conditionalBranchesSub = Subscription.EMPTY;
   private _formulaRepsSub = Subscription.EMPTY;
@@ -264,8 +266,11 @@ export class AjfFbNodeProperties implements OnDestroy {
   private _saveSub = Subscription.EMPTY;
 
   constructor(
-      private _service: AjfFormBuilderService, private _dialog: MatDialog,
-      private _fb: FormBuilder) {
+      private _cdr: ChangeDetectorRef,
+      private _service: AjfFormBuilderService,
+      private _dialog: MatDialog,
+      private _fb: FormBuilder,
+  ) {
     this._nodeEntry = _service.editedNodeEntry;
     this._choicesOriginsSub =
         _service.choicesOrigins.subscribe((c) => this._choicesOrigins = c || []);
@@ -400,6 +405,7 @@ export class AjfFbNodeProperties implements OnDestroy {
   ngOnDestroy(): void {
     this._choicesOriginsSub.unsubscribe();
 
+    this._visibilityOptSub.unsubscribe();
     this._visibilitySub.unsubscribe();
     this._formulaRepsSub.unsubscribe();
     this._choicesFilterSub.unsubscribe();
@@ -447,6 +453,9 @@ export class AjfFbNodeProperties implements OnDestroy {
   private _initForm(): void {
     this._propertiesForm = this._nodeEntry.pipe(
         filter((n) => n != null), map((n) => {
+          if (this._visibilityOptSub != null) {
+            this._visibilityOptSub.unsubscribe();
+          }
           if (this._visibilitySub != null) {
             this._visibilitySub.unsubscribe();
           }
@@ -664,6 +673,8 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initTriggerConditionEdit(): void {
+    this._editConditionDialogSub = Subscription.EMPTY;
+    this._cdr.markForCheck();
     this._editTriggerConditionSub =
         (<Observable<number>>this._editTriggerConditionEvt)
             .pipe(withLatestFrom(this._propertiesForm))
@@ -684,6 +695,7 @@ export class AjfFbNodeProperties implements OnDestroy {
                     }
                     this._editConditionDialogSub.unsubscribe();
                     this._editConditionDialogSub = Subscription.EMPTY;
+                    this._cdr.markForCheck();
                   });
             });
   }
@@ -747,6 +759,7 @@ export class AjfFbNodeProperties implements OnDestroy {
                         }
                         this._editWarningConditionDialogSub.unsubscribe();
                         this._editWarningConditionDialogSub = Subscription.EMPTY;
+                        this._cdr.markForCheck();
                       });
             });
   }
@@ -810,6 +823,7 @@ export class AjfFbNodeProperties implements OnDestroy {
                         }
                         this._editValidationConditionDialogSub.unsubscribe();
                         this._editValidationConditionDialogSub = Subscription.EMPTY;
+                        this._cdr.markForCheck();
                       });
             });
   }
@@ -834,6 +848,7 @@ export class AjfFbNodeProperties implements OnDestroy {
                     }
                     this._editConditionDialogSub.unsubscribe();
                     this._editConditionDialogSub = Subscription.EMPTY;
+                    this._cdr.markForCheck();
                   });
             });
   }
@@ -858,11 +873,14 @@ export class AjfFbNodeProperties implements OnDestroy {
                     }
                     this._editConditionDialogSub.unsubscribe();
                     this._editConditionDialogSub = Subscription.EMPTY;
+                    this._cdr.markForCheck();
                   });
             });
   }
 
   private _initFormulaEdit(): void {
+    this._editConditionDialogSub = Subscription.EMPTY;
+    this._cdr.markForCheck();
     this._editFormulaSub =
         (<Observable<void>>this._editFormulaEvt)
             .pipe(withLatestFrom(this._propertiesForm))
@@ -882,6 +900,7 @@ export class AjfFbNodeProperties implements OnDestroy {
                     }
                     this._editConditionDialogSub.unsubscribe();
                     this._editConditionDialogSub = Subscription.EMPTY;
+                    this._cdr.markForCheck();
                   });
             });
   }
@@ -906,6 +925,7 @@ export class AjfFbNodeProperties implements OnDestroy {
                     }
                     this._editConditionDialogSub.unsubscribe();
                     this._editConditionDialogSub = Subscription.EMPTY;
+                    this._cdr.markForCheck();
                   });
             });
   }
@@ -930,6 +950,7 @@ export class AjfFbNodeProperties implements OnDestroy {
                     }
                     this._editConditionDialogSub.unsubscribe();
                     this._editConditionDialogSub = Subscription.EMPTY;
+                    this._cdr.markForCheck();
                   });
             });
   }
@@ -955,6 +976,7 @@ export class AjfFbNodeProperties implements OnDestroy {
                     }
                     this._editConditionDialogSub.unsubscribe();
                     this._editConditionDialogSub = Subscription.EMPTY;
+                    this._cdr.markForCheck();
                   });
             });
   }
@@ -980,45 +1002,64 @@ export class AjfFbNodeProperties implements OnDestroy {
                     }
                     this._editConditionDialogSub.unsubscribe();
                     this._editConditionDialogSub = Subscription.EMPTY;
+                    this._cdr.markForCheck();
                   });
             });
   }
 
   private _handleTriggerCondtionsChange(fg: FormGroup): void {
     this._triggerConditionsSub = fg.valueChanges
-                                     .pipe(distinctUntilChanged(
-                                         (v1, v2) => JSON.stringify(v1.triggerConditions) ===
-                                             JSON.stringify(v2.triggerConditions)))
+                                     .pipe(
+                                         distinctUntilChanged(
+                                             (v1, v2) => JSON.stringify(v1.triggerConditions) ===
+                                                 JSON.stringify(v2.triggerConditions)),
+                                         )
                                      .subscribe((v: any) => {
                                        this._triggerConditions = v.triggerConditions;
+                                       this._cdr.markForCheck();
                                      });
   }
 
   private _handleWarningCondtionsChange(fg: FormGroup): void {
     this._warningConditionsSub = fg.valueChanges
-                                     .pipe(distinctUntilChanged(
-                                         (v1, v2) => JSON.stringify(v1.warningConditions) ===
-                                             JSON.stringify(v2.warningConditions)))
+                                     .pipe(
+                                         distinctUntilChanged(
+                                             (v1, v2) => JSON.stringify(v1.warningConditions) ===
+                                                 JSON.stringify(v2.warningConditions)),
+                                         )
                                      .subscribe((v: any) => {
                                        this._warningConditions = v.warningConditions;
+                                       this._cdr.markForCheck();
                                      });
   }
 
   private _handleValidationCondtionsChange(fg: FormGroup): void {
     this._validationConditionsSub = fg.valueChanges
-                                        .pipe(distinctUntilChanged(
-                                            (v1, v2) => JSON.stringify(v1.validationConditions) ===
-                                                JSON.stringify(v2.validationConditions)))
-                                        .subscribe((v: any) => {
+                                                JSON.stringify(v2.validationConditions)), )
                                           this._validationConditions = v.validationConditions;
-                                        });
+                                                this._cdr.markForCheck();
+                                                .pipe(
+                                                    distinctUntilChanged(
+                                                        (v1, v2) => JSON.stringify(
+                                                                        v1.validationConditions) ===
+                                                            JSON.stringify(
+                                                                v2.validationConditions)),
+                                                    )
+                                                    .subscribe((v: any) => {
+                                                      this._validationConditions =
+                                                          v.validationConditions;
+                                                      this._cdr.markForCheck();
+                                                    });
   }
 
   private _handleForceValueChange(fg: FormGroup): void {
+    this._curForceValue = v.forceValue;
+    this._cdr.markForCheck();
     this._forceValueSub =
         fg.valueChanges.pipe(distinctUntilChanged((v1, v2) => v1.forceValue === v2.forceValue))
             .subscribe((v: any) => {
               this._curForceValue = v.forceValue;
+              this._cdr.markForCheck();
             });
   }
 
@@ -1028,6 +1069,14 @@ export class AjfFbNodeProperties implements OnDestroy {
             .pipe(distinctUntilChanged((v1, v2) => v1.nextSlideCondition === v2.nextSlideCondition))
             .subscribe((v: any) => {
               this._nextSlideCondition = v.nextSlideCondition;
+              this._cdr.markForCheck();
+            });
+    this._formulaSub =
+        fg.valueChanges
+            .pipe(distinctUntilChanged((v1, v2) => v1.nextSlideCondition === v2.nextSlideCondition))
+            .subscribe((v: any) => {
+              this._nextSlideCondition = v.nextSlideCondition;
+              this._cdr.markForCheck();
             });
   }
 
@@ -1036,6 +1085,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         fg.valueChanges.pipe(distinctUntilChanged((v1, v2) => v1.formula === v2.formula))
             .subscribe((v: any) => {
               this._curFormula = v.formula;
+              this._cdr.markForCheck();
             });
   }
 
@@ -1044,6 +1094,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         fg.valueChanges.pipe(distinctUntilChanged((v1, v2) => v1.formulaReps === v2.formulaReps))
             .subscribe((v: any) => {
               this._curFormulaReps = v.formulaReps;
+              this._cdr.markForCheck();
             });
   }
 
@@ -1053,6 +1104,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             .pipe(distinctUntilChanged((v1, v2) => v1.choicesFilter === v2.choicesFilter))
             .subscribe((v: any) => {
               this._curChoicesFilter = v.choicesFilter;
+              this._cdr.markForCheck();
             });
   }
 
@@ -1073,6 +1125,7 @@ export class AjfFbNodeProperties implements OnDestroy {
               } else if (curCbNum > cbNum) {
                 this._conditionalBranches.splice(0, curCbNum - cbNum);
               }
+              this._cdr.markForCheck();
             });
   }
 
@@ -1096,6 +1149,15 @@ export class AjfFbNodeProperties implements OnDestroy {
               this._curVisibility = newCondition;
               fg.controls['visibility'].setValue(newCondition);
             });
+    this._visibilitySub = fg.valueChanges
+                              .pipe(
+                                  filter(v => v.visibilityOpt === 'condition'),
+                                  distinctUntilChanged((v1, v2) => v1.visibility === v2.visibility),
+                                  )
+                              .subscribe(v => {
+                                this._curVisibility = v.visibility;
+                                this._cdr.markForCheck();
+                              });
   }
 
   private _guessVisibilityOpt(condition: AjfCondition): string {

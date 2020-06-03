@@ -152,7 +152,7 @@
         </ng-template>
         <div class="ajf-prop">
           <div class="ajf-header">
-            <label translate>Validation</label>
+            <label>{{ 'Validation' | translate }}</label>
             <mat-icon class="ajf-pointer" (click)="addValidationCondition()">add_circle_outline</mat-icon>
           </div>
           <div *ngIf="validationConditions == null || validationConditions.length == 0"
