@@ -27,7 +27,7 @@ import {
 } from '@ajf/core/forms';
 import {AjfCondition, alwaysCondition, neverCondition} from '@ajf/core/models';
 import {
-  ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, ViewEncapsulation
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, ViewEncapsulation
 } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
@@ -153,6 +153,7 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   isRepeatingContainerNode: (node: AjfNode) => boolean = isRepeatingContainerNode;
 
+  private _visibilityOptSub: Subscription = Subscription.EMPTY;
   private _visibilitySub: Subscription = Subscription.EMPTY;
   private _conditionalBranchesSub = Subscription.EMPTY;
   private _formulaRepsSub = Subscription.EMPTY;
@@ -224,6 +225,7 @@ export class AjfFbNodeProperties implements OnDestroy {
   private _saveSub = Subscription.EMPTY;
 
   constructor(
+    private _cdr: ChangeDetectorRef,
     private _service: AjfFormBuilderService,
     private _dialog: MatDialog,
     private _fb: FormBuilder
@@ -348,6 +350,7 @@ export class AjfFbNodeProperties implements OnDestroy {
   ngOnDestroy(): void {
     this._choicesOriginsSub.unsubscribe();
 
+    this._visibilityOptSub.unsubscribe();
     this._visibilitySub.unsubscribe();
     this._formulaRepsSub.unsubscribe();
     this._choicesFilterSub.unsubscribe();
@@ -398,6 +401,7 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._propertiesForm = this._nodeEntry.pipe(
       filter((n) => n != null),
       map((n) => {
+        if (this._visibilityOptSub != null) { this._visibilityOptSub.unsubscribe(); }
         if (this._visibilitySub != null) { this._visibilitySub.unsubscribe(); }
         if (this._conditionalBranchesSub != null) { this._conditionalBranchesSub.unsubscribe(); }
         n = n!;
@@ -633,6 +637,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editConditionDialogSub.unsubscribe();
             this._editConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -686,6 +691,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editWarningConditionDialogSub.unsubscribe();
             this._editWarningConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -739,6 +745,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editValidationConditionDialogSub.unsubscribe();
             this._editValidationConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -760,6 +767,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editConditionDialogSub.unsubscribe();
             this._editConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -781,6 +789,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editConditionDialogSub.unsubscribe();
             this._editConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -802,6 +811,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editConditionDialogSub.unsubscribe();
             this._editConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -823,6 +833,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editConditionDialogSub.unsubscribe();
             this._editConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -844,6 +855,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editConditionDialogSub.unsubscribe();
             this._editConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -865,6 +877,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editConditionDialogSub.unsubscribe();
             this._editConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -887,6 +900,7 @@ export class AjfFbNodeProperties implements OnDestroy {
             }
             this._editConditionDialogSub.unsubscribe();
             this._editConditionDialogSub = Subscription.EMPTY;
+            this._cdr.markForCheck();
           });
       });
   }
@@ -897,6 +911,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         JSON.stringify(v1.triggerConditions) === JSON.stringify(v2.triggerConditions)))
       .subscribe((v: any) => {
         this._triggerConditions = v.triggerConditions;
+        this._cdr.markForCheck();
       });
   }
 
@@ -906,6 +921,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         JSON.stringify(v1.warningConditions) === JSON.stringify(v2.warningConditions)))
       .subscribe((v: any) => {
         this._warningConditions = v.warningConditions;
+        this._cdr.markForCheck();
       });
   }
 
@@ -915,6 +931,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         JSON.stringify(v1.validationConditions) === JSON.stringify(v2.validationConditions)))
       .subscribe((v: any) => {
         this._validationConditions = v.validationConditions;
+        this._cdr.markForCheck();
       });
   }
 
@@ -923,6 +940,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       .pipe(distinctUntilChanged((v1, v2) => v1.forceValue === v2.forceValue))
       .subscribe((v: any) => {
         this._curForceValue = v.forceValue;
+        this._cdr.markForCheck();
       });
   }
 
@@ -931,6 +949,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       .pipe(distinctUntilChanged((v1, v2) => v1.nextSlideCondition === v2.nextSlideCondition))
       .subscribe((v: any) => {
         this._nextSlideCondition = v.nextSlideCondition;
+        this._cdr.markForCheck();
       });
   }
 
@@ -939,6 +958,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       .pipe(distinctUntilChanged((v1, v2) => v1.formula === v2.formula))
       .subscribe((v: any) => {
         this._curFormula = v.formula;
+        this._cdr.markForCheck();
       });
   }
 
@@ -947,6 +967,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       .pipe(distinctUntilChanged((v1, v2) => v1.formulaReps === v2.formulaReps))
       .subscribe((v: any) => {
         this._curFormulaReps = v.formulaReps;
+        this._cdr.markForCheck();
       });
   }
 
@@ -955,6 +976,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       .pipe(distinctUntilChanged((v1, v2) => v1.choicesFilter === v2.choicesFilter))
       .subscribe((v: any) => {
         this._curChoicesFilter = v.choicesFilter;
+        this._cdr.markForCheck();
       });
   }
 
@@ -974,11 +996,12 @@ export class AjfFbNodeProperties implements OnDestroy {
         } else if (curCbNum > cbNum) {
           this._conditionalBranches.splice(0, curCbNum - cbNum);
         }
+        this._cdr.markForCheck();
       });
   }
 
   private _handleVisibilityChange(fg: FormGroup): void {
-    this._visibilitySub = fg.valueChanges
+    this._visibilityOptSub = fg.valueChanges
       .pipe(distinctUntilChanged((v1, v2) => v1.visibilityOpt === v2.visibilityOpt))
       .subscribe((v) => {
         const visibilityOpt = v.visibilityOpt;
@@ -995,6 +1018,15 @@ export class AjfFbNodeProperties implements OnDestroy {
         }
         this._curVisibility = newCondition;
         fg.controls['visibility'].setValue(newCondition);
+      });
+    this._visibilitySub = fg.valueChanges
+      .pipe(
+        filter(v => v.visibilityOpt === 'condition'),
+        distinctUntilChanged((v1, v2) => v1.visibility === v2.visibility),
+      )
+      .subscribe(v => {
+        this._curVisibility = v.visibility;
+        this._cdr.markForCheck();
       });
   }
 
