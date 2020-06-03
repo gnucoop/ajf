@@ -42,6 +42,25 @@ describe('AjfFileInput', () => {
     expect(fileInput.value).toBeNull();
   });
 
+  it('should set its value on file selection.', async () => {
+    const fileInput = fixture.componentInstance;
+    const fileList = fileInput._nativeInput.nativeElement.files as FileList;
+    fileList.item = idx => {
+      if (idx === 0) {
+        return emptyPngFile;
+      }
+      return null;
+    };
+    const lastValue = fileInput.valueChange.pipe(shareReplay(1));
+    fileInput.onSelectFile();
+    await lastValue.pipe(take(1)).toPromise();
+    const {name, size, type, content} = fileInput.value as AjfFile;
+    expect(name).toEqual(emptyPngFile.name);
+    expect(size).toEqual(emptyPngFile.size);
+    expect(type).toEqual(emptyPngFile.type);
+    expect(content).toEqual(`data:image/png;base64,${emptyPng}`);
+  });
+
   it('should display the default drop message', () => {
     const el = fixture.nativeElement as HTMLElement;
     const dropMessages = el.getElementsByClassName('ajf-drop-message');

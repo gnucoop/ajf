@@ -150,10 +150,14 @@ export class AjfFileInput implements ControlValueAccessor {
 
   onSelectFile(): void {
     const files = this._nativeInput.nativeElement.files;
-    if (files == null || files.length !== 1 || files[0]) {
+    if (files == null) {
       return;
     }
-    this._processFileUpload(files[0]);
+    const file = files.item(0);
+    if (file == null) {
+      return;
+    }
+    this._processFileUpload(files.item(0) as File);
   }
 
   registerOnChange(fn: any): void {
