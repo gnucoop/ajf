@@ -1034,27 +1034,20 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _handleValidationCondtionsChange(fg: FormGroup): void {
-    this._validationConditionsSub = fg.valueChanges
-                                                JSON.stringify(v2.validationConditions)), )
-                                          this._validationConditions = v.validationConditions;
-                                                this._cdr.markForCheck();
-                                                .pipe(
-                                                    distinctUntilChanged(
-                                                        (v1, v2) => JSON.stringify(
-                                                                        v1.validationConditions) ===
-                                                            JSON.stringify(
-                                                                v2.validationConditions)),
-                                                    )
-                                                    .subscribe((v: any) => {
-                                                      this._validationConditions =
-                                                          v.validationConditions;
-                                                      this._cdr.markForCheck();
-                                                    });
+    this._validationConditionsSub =
+        fg.valueChanges
+            .pipe(
+                distinctUntilChanged(
+                    (v1, v2) => JSON.stringify(v1.validationConditions) ===
+                        JSON.stringify(v2.validationConditions)),
+                )
+            .subscribe((v: any) => {
+              this._validationConditions = v.validationConditions;
+              this._cdr.markForCheck();
+            });
   }
 
   private _handleForceValueChange(fg: FormGroup): void {
-    this._curForceValue = v.forceValue;
-    this._cdr.markForCheck();
     this._forceValueSub =
         fg.valueChanges.pipe(distinctUntilChanged((v1, v2) => v1.forceValue === v2.forceValue))
             .subscribe((v: any) => {
