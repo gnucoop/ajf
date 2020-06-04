@@ -53,6 +53,7 @@ import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTextareaFieldComponent} from './textarea-field';
 import {AjfTimeFieldComponent} from './time-field';
+import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
@@ -90,6 +91,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfTableFieldComponent,
     AjfTextareaFieldComponent,
     AjfTimeFieldComponent,
+    AjfVideoUrlFieldComponent,
   ],
   entryComponents: [
     AjfBarcodeFieldComponent,
@@ -105,6 +107,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfTableFieldComponent,
     AjfTextareaFieldComponent,
     AjfTimeFieldComponent,
+    AjfVideoUrlFieldComponent,
   ],
   exports: [
     AjfFormField,
