@@ -95,8 +95,10 @@ export class AjfFilePreview implements OnDestroy {
   }],
 })
 export class AjfFileInput implements ControlValueAccessor {
-  @ContentChildren(AjfDropMessage) _dropMessageChildren: QueryList<AjfDropMessage>;
-  @ContentChildren(AjfFilePreview) _filePreviewChildren: QueryList<AjfFilePreview>;
+  @ContentChildren(AjfDropMessage, {descendants: false})
+  _dropMessageChildren: QueryList<AjfDropMessage>;
+  @ContentChildren(AjfFilePreview, {descendants: false})
+  _filePreviewChildren: QueryList<AjfFilePreview>;
   @ViewChild('nativeInput') _nativeInput: ElementRef<HTMLInputElement>;
 
   readonly fileIcon: SafeResourceUrl;
