@@ -39,6 +39,7 @@ testem.log
 /.git
 /.firebase
 /.bazelrc.user
+src/__ngcc_entry_points__.json
 
 # monaco support files
 src/monaco/lib/lib-ts.*
