@@ -4,8 +4,8 @@ export declare class AjfCommonModule {
 }
 
 export declare class AjfDndDirective {
-    background: string;
     file: Observable<FileList>;
+    get over(): boolean;
     onDragLeave(evt: DragEvent): void;
     onDragOver(evt: DragEvent): void;
     onDrop(evt: DragEvent): void;
