@@ -15,6 +15,7 @@ pipeline {
     }
     stage('Setup') {
       steps {
+        sh 'rm -Rf /home/jenkins/.cache/bazelisk /home/jenkins/bazel_repository_cache'
         restoreCache(cacheParams)
         sh 'cat .jenkins/bazelrc >> .bazelrc'
         sh 'yarn install --frozen-lockfile --non-interactive'
