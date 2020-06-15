@@ -89,7 +89,7 @@ export function sum(array: any[]): any {
 }
 
 export function dateOperations(dString: string, period: string, operation: string, v: any): string {
-  const fmt = 'mm/dd/yyyy';
+  const fmt = 'MM/dd/yyyy';
   let d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
   if (operation == 'remove') {
     v = -v;
@@ -214,6 +214,7 @@ export function extractDates(source: any[], property: string, fmt: string): stri
       switch (fmt) {
         case 'WW':
         case 'ww':
+        case 'II':
           prefix = 'W';
           res.push(prefix + formatDate(source[i]['date_start'], fmt));
           break;
@@ -407,12 +408,12 @@ export function formatNumber(num: number, fmt?: string): string {
 }
 
 export function formatDate(date: Date|string, fmt?: string): string {
-  fmt = fmt || 'mm-DD-yyyy';
+  fmt = fmt || 'MM-dd-yyyy';
   return dateUtils.format(typeof date === 'string' ? dateUtils.parse(date) : date, fmt);
 }
 
 export function isoMonth(date: Date, fmt?: string): string {
-  fmt = fmt || 'mm';
+  fmt = fmt || 'MM';
   const du = dateUtils;
   return du.format(du.addDays(du.startOfISOWeek(date), 3), fmt);
 }
