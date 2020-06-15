@@ -107,6 +107,11 @@ export function demoWidgets(ts: TranslateService): {name: string, instance: AjfW
             {
               ...baseWidget,
               widgetType: AjfWidgetType.Chart,
+              options: {
+                scales: {
+                  yAxes: [{ticks: {callback: (value: any, index: any, values: any) => '$' + value}}]
+                }
+              }
             },
             {}, ts),
         chartType: 'line',
@@ -114,86 +119,95 @@ export function demoWidgets(ts: TranslateService): {name: string, instance: AjfW
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
           datasets: [{
             label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: [65000000, 59, 80, 81, 56, 55, 40],
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
-            lineTension: 0.1
+            lineTension: 0.1,
+
           }]
         }
       } as any,
     },
     {
       name: 'Table',
-      instance: {
-        ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Table,
-            },
-            {}, ts),
-        data: [
-          [{value: 'a'}, {value: 'b'}, {value: 'c'}],
-          [{value: 'd'}, {value: 'e'}, {value: 'f'}],
-          [{value: 'g'}, {value: 'h'}, {value: 'i'}],
-        ]
-      } as any,
+      instance:
+          {
+            ...createWidgetInstance(
+                {
+                  ...baseWidget,
+                  widgetType: AjfWidgetType.Table,
+                },
+                {}, ts),
+            data: [
+              [{value: 'a'}, {value: 'b'}, {value: 'c'}],
+              [{value: 'd'}, {value: 'e'}, {value: 'f'}],
+              [{value: 'g'}, {value: 'h'}, {value: 'i'}],
+            ]
+          } as any,
     },
     {
       name: 'Map',
-      instance: {
-        ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Map,
-              tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-            } as any,
-            {}, ts),
-        coordinate: [51.508530, -0.076132],
-      } as any,
+      instance:
+          {
+            ...createWidgetInstance(
+                {
+                  ...baseWidget,
+                  widgetType: AjfWidgetType.Map,
+                  tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+                } as any,
+                {}, ts),
+            coordinate: [51.508530, -0.076132],
+          } as any,
     },
     {
       name: 'Column',
-      instance: {
-        ...createWidgetInstance({...baseWidget, widgetType: AjfWidgetType.Column}, {}, ts),
-        content: [{
-          ...createWidgetInstance(
-              {
-                ...baseWidget,
-                widgetType: AjfWidgetType.Text,
-              },
-              {}, ts),
-          htmlText: 'Sample column'
-        }],
-      } as any,
+      instance:
+          {
+            ...createWidgetInstance({...baseWidget, widgetType: AjfWidgetType.Column}, {}, ts),
+            content:
+                [{
+                  ...createWidgetInstance(
+                      {
+                        ...baseWidget,
+                        widgetType: AjfWidgetType.Text,
+                      },
+                      {}, ts),
+                  htmlText: 'Sample column'
+                }],
+          } as any,
     },
     {
       name: 'Formula',
-      instance: {
-        ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Formula,
-            },
-            {}, ts),
-        formula: 'Sample formula'
-      },
+      instance:
+          {
+            ...createWidgetInstance(
+                {
+                  ...baseWidget,
+                  widgetType: AjfWidgetType.Formula,
+                },
+                {}, ts),
+            formula: 'Sample formula'
+          },
     },
     {
       name: 'Image container',
-      instance: {
-        ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.ImageContainer,
-              imageType: AjfImageType.Image,
-            } as any,
-            {}, ts),
-        urls: [
-          'http://icons.iconarchive.com/icons/designbolts/smurfs-movie/256/grouchy-smurf-icon.png',
-          'http://www.iconarchive.com/download/i78313/designbolts/smurfs-movie/brainy-smurf.ico',
-          'http://icons.veryicon.com/png/Movie%20%26%20TV/The%20Smurfs/Smurfette.png',
-        ],
-      },
+      instance:
+          {
+            ...createWidgetInstance(
+                {
+                  ...baseWidget,
+                  widgetType: AjfWidgetType.ImageContainer,
+                  imageType: AjfImageType.Image,
+                } as any,
+                {}, ts),
+            urls: [
+              'http://icons.iconarchive.com/icons/designbolts/' +
+                  'smurfs-movie/256/grouchy-smurf-icon.png',
+              'http://www.iconarchive.com/download/i78313/designbolts/' +
+                  'smurfs-movie/brainy-smurf.ico',
+              'http://icons.veryicon.com/png/Movie%20%26%20TV/The%20Smurfs/Smurfette.png',
+            ],
+          },
     }
   ];
 }

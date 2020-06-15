@@ -35,7 +35,15 @@ import {
 import * as Chart from 'chart.js';
 const chartClass = (<any>Chart).default || Chart;
 // tslint:disable-next-line
-import {ChartData, ChartOptions, ChartPoint} from 'chart.js';
+import {
+  ChartData,
+  ChartPoint,
+  ChartLegendLabelItem,
+  ChartSize,
+  ChartTooltipModel,
+  ChartTooltipItem,
+  ChartOptions
+} from 'chart.js';
 import 'chart.piecelabel.js';
 
 import {deepCopy} from '@ajf/core/utils';
@@ -138,6 +146,100 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
 
   private _fixChartOptions(options: ChartOptions): ChartOptions {
     options = options || {};
+    if (options.legendCallback) {
+      const legendCallback = options.legendCallback;
+      options.legendCallback = new Function(legendCallback) as (chart: Chart) => string;
+    }
+    if (options.onHover) {
+      const onHover = options.onHover;
+      options.onHover = new Function(onHover) as (
+                            this: Chart, event: MouseEvent, activeElements: Array<{}>) => any;
+    }
+    if (options.onClick) {
+      const onClick = options.onClick;
+      options.onHover = new Function(onClick) as (event?: MouseEvent, activeElements?: Array<{}>) =>
+                            any;
+    }
+    if (options.onResize) {
+      const onResize = options.onResize;
+      options.onResize = new Function(onResize) as (this: Chart, newSize: ChartSize) => void;
+    }
+    if (options.legend) {
+      const legend = options.legend;
+      if (legend.onClick) {
+        const onClick = legend.onClick;
+        legend.onClick =
+            new Function(onClick) as (event: MouseEvent, legendItem: ChartLegendLabelItem) => void;
+      }
+      if (legend.onHover) {
+        const onHover = legend.onHover;
+        legend.onHover =
+            new Function(onHover) as (event: MouseEvent, legendItem: ChartLegendLabelItem) => void;
+      }
+      if (legend.onLeave) {
+        const onLeave = legend.onLeave;
+        legend.onHover =
+            new Function(onLeave) as (event: MouseEvent, legendItem: ChartLegendLabelItem) => void;
+      }
+      if (legend.labels) {
+        const labels = legend.labels;
+        if (labels.generateLabels) {
+          const generateLabels = labels.generateLabels;
+          labels.generateLabels = new Function(generateLabels) as (chart: Chart) =>
+                                      ChartLegendLabelItem[];
+        }
+        if (labels.filter) {
+          const filter = labels.filter as any;
+          labels.filter =
+              new Function(filter) as (legendItem: ChartLegendLabelItem, data: ChartData) => any;
+        }
+      }
+    }
+    if (options.tooltips) {
+      const tooltips = options.tooltips;
+      if (tooltips.custom) {
+        const custom = tooltips.custom;
+        tooltips.custom = new Function(custom) as (tooltipModel: ChartTooltipModel) => void;
+      }
+      if (tooltips.callbacks) {
+        const callbacks: any = tooltips.callbacks;
+        Object.keys(callbacks).forEach((key: any) => {
+          const stringFn = callbacks[key] as any;
+          callbacks[key] = new Function(stringFn) as (item: ChartTooltipItem[], data: ChartData) =>
+                               string | string[];
+        });
+      }
+      if (tooltips.filter) {
+        const filter = tooltips.filter;
+        tooltips.filter = new Function(filter) as (item: ChartTooltipItem, data: ChartData) =>
+                              boolean;
+      }
+      if (tooltips.itemSort) {
+        const itemSort = tooltips.itemSort;
+        tooltips.itemSort =
+            new Function(itemSort) as (
+                itemA: ChartTooltipItem, itemB: ChartTooltipItem, data?: ChartData) => number;
+      }
+    }
+    if (options.hover) {
+      const hover = options.hover;
+      if (hover.onHover) {
+        const onHover = hover.onHover;
+        hover.onHover = new Function(onHover) as (
+                            this: Chart, event: MouseEvent, activeElements: Array<{}>) => any;
+      }
+    }
+    if (options.animation) {
+      const animation = options.animation;
+      if (animation.onProgress) {
+        const onProgress = animation.onProgress;
+        animation.onProgress = new Function(onProgress) as (chart: any) => void;
+      }
+      if (animation.onComplete) {
+        const onComplete = animation.onComplete;
+        animation.onComplete = new Function(onComplete) as (chart: any) => void;
+      }
+    }
     if (options.scales == null) {
       options.scales = {xAxes: [], yAxes: []};
     }
@@ -147,6 +249,24 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     if (options.scales.yAxes == null) {
       options.scales.yAxes = [];
     }
+    options.scales.yAxes.forEach((yAxe) => {
+      if (yAxe.ticks) {
+        if (yAxe.ticks.callback != null) {
+          const callback = yAxe.ticks.callback;
+          yAxe.ticks.callback = new Function(callback) as (value: any, index: any, values: any) =>
+                                    string | number;
+        }
+      }
+    });
+    options.scales.xAxes.forEach((xAxe) => {
+      if (xAxe.ticks) {
+        if (xAxe.ticks.callback != null) {
+          const callback = xAxe.ticks.callback;
+          xAxe.ticks.callback = new Function(callback) as (value: any, index: any, values: any) =>
+                                    string | number;
+        }
+      }
+    });
     if (this.chartType == 'pie') {
       let newOptions = <any>options;
       newOptions.pieceLabel = {
