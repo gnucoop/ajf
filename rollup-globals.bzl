@@ -64,7 +64,6 @@ ROLLUP_GLOBALS = {
     "@zxing/library": "zxing",
     "@ngx-translate/core": "ngxTranslate.core",
     "chart.js": "Chart",
-    "chart.piecelabel.js": "Chart.piecelabel",
     "css-element-queries": "cssElementQueries",
     "date-fns": "dateFns",
     "debug": "debug",

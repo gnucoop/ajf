@@ -36,7 +36,6 @@ import * as Chart from 'chart.js';
 const chartClass = (<any>Chart).default || Chart;
 // tslint:disable-next-line
 import {ChartData, ChartOptions, ChartPoint} from 'chart.js';
-import 'chart.piecelabel.js';
 
 import {deepCopy} from '@ajf/core/utils';
 import {ExtendedChartType} from './extended-chart-type';
@@ -147,20 +146,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     if (options.scales.yAxes == null) {
       options.scales.yAxes = [];
     }
-    if (this.chartType == 'pie') {
-      let newOptions = <any>options;
-      newOptions.pieceLabel = {
-        render: function(args: any) {
-          if (args.label) {
-            return args.label + ':' + args.value;
-          } else {
-            return args.value;
-          }
-        },
-        position: 'outside'
-      };
-      return newOptions;
-    }
+
     return options;
   }
 }
