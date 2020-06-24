@@ -124,6 +124,7 @@
     "@types/send": "^0.14.5",
     "@types/stylelint": "^9.10.1",
     "@types/url-parse": "^1.4.3",
+    "@types/yaml": "^1.9.7",
     "autoprefixer": "^6.7.7",
     "axe-webdriverjs": "^1.1.5",
     "babel-plugin-remove-webpack": "^1.1.0",
@@ -198,7 +199,7 @@
     "typescript-3.8": "npm:typescript@~3.8.0",
     "uglify-js": "^3.7.6",
     "vrsource-tslint-rules": "5.1.1",
-    "yaml": "^1.7.2",
+    "yaml": "^1.10.0",
     "yargs": "15.3.0"
   },
   "resolutions": {
