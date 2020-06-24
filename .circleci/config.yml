@@ -1,4 +1,4 @@
-# Configuration file for https://circleci.com/gh/gnucoop/ajf
+# Configuration file for https://circleci.com/gh/angular/components
 
 # Note: YAML anchors allow an object to be re-used, reducing duplication.
 # The ampersand declares an alias for an object, then later the `<<: *name`
@@ -7,18 +7,28 @@
 # To validate changes, use an online parser, eg.
 # http://yaml-online-parser.appspot.com/
 
-var_1: &docker_image angular/ngcontainer:0.7.0
-var_2: &cache_key v2-gc-ajf-{{ checksum "WORKSPACE" }}-{{ checksum "yarn.lock" }}-0.7.0
+var_1: &docker_image circleci/node:12.9.1
+var_2: &docker-firefox-image circleci/node:12.9.1-browsers
+
+# **Note**: When updating the beginning of the cache key, also update the cache key to match
+# the new cache key prefix. This allows us to take advantage of CircleCI's fallback caching.
+# Read more here: https://circleci.com/docs/2.0/caching/#restoring-cache.
+var_3: &cache_key v6-ng-mat-{{ checksum ".bazelversion" }}-{{ checksum "tools/postinstall/apply-patches.js" }}-{{ checksum "WORKSPACE" }}-{{ checksum "yarn.lock" }}
+# We want to invalidate the cache if the postinstall patches change. In order to apply new
+# patches, a clean version of the node modules is needed. Additionally, we invalidate the cache
+# if the Bazel version changes. We do this because otherwise the `bazelisk` cache folder will
+# contain all previously used versions and ultimately cause the cache restoring to be slower.
+var_4: &cache_fallback_key v6-ng-mat-{{ checksum ".bazelversion" }}-{{ checksum "tools/postinstall/apply-patches.js" }}-
 
 # Settings common to each job
-var_3: &job_defaults
+var_5: &job_defaults
   working_directory: ~/ng
   docker:
     - image: *docker_image
 
 # Job step for checking out the source code from GitHub. This also ensures that the source code
 # is rebased on top of master.
-var_4: &checkout_code
+var_6: &checkout_code
   checkout:
     # After checkout, rebase on top of master. By default, PRs are not rebased on top of master,
     # which we want. See https://discuss.circleci.com/t/1662
@@ -26,52 +36,58 @@ var_4: &checkout_code
 
 # Restores the cache that could be available for the current Yarn lock file. The cache usually
 # includes the node modules and the Bazel repository cache.
-var_5: &restore_cache
+var_7: &restore_cache
   restore_cache:
-    key: *cache_key
+    keys:
+      - *cache_key
+      - *cache_fallback_key
 
 # Saves the cache for the current Yarn lock file. We store the node modules and the Bazel
 # repository cache in order to make subsequent builds faster.
-var_6: &save_cache
+var_8: &save_cache
   save_cache:
     key: *cache_key
     paths:
       - "node_modules"
+      - "~/.cache/bazelisk"
       - "~/bazel_repository_cache"
 
 # Decryption token that is used to decode the GCP credentials file in ".circleci/gcp_token".
-# var_7: &gcp_decrypt_token "gnucoop"
+var_9: &gcp_decrypt_token "angular"
 
 # Job step that ensures that the node module dependencies are installed and up-to-date. We use
 # Yarn with the frozen lockfile option in order to make sure that lock file and package.json are
 # in sync. Unlike in Travis, we don't need to manually purge the node modules if stale because
 # CircleCI automatically discards the cache if the checksum of the lock file has changed.
-var_8: &yarn_install
-  run: yarn install --frozen-lockfile --non-interactive
+var_10: &yarn_install
+  run:
+    name: "Installing project dependencies"
+    command: yarn install --frozen-lockfile --non-interactive
 
-# Copies the Bazel config which is specifically for CircleCI to a location where Bazel picks it
-# up and merges it with the project-wide bazel configuration (tools/bazel.rc)
-var_9: &copy_bazel_config
-  # Set up the CircleCI specific bazel configuration.
-  run: sudo cp ./.circleci/bazel.rc /etc/bazel.bazelrc
+# Installs all dependencies but does not enforce a frozen lockfile. Helpful when
+# the "package.json" is updated as part of a CI job. e.g. when setting up snapshots.
+var_11: &yarn_install_loose_lockfile
+  run:
+    name: "Installing project dependencies"
+    command: yarn install --non-interactive
 
-# Sets up a different Docker image that includes a moe recent Firefox version which
-# is needed for headless testing.
-var_10: &docker-firefox-image
-  # TODO(devversion): Temporarily use a image that includes Firefox 62 because the
-  # ngcontainer image does include an old Firefox version that does not support headless.
-  - image: circleci/node:11.4.0-browsers
+# Sets up the Bazel config which is specific for CircleCI builds.
+var_12: &setup_bazel_ci_config
+  run:
+    name: "Setting up Bazel configuration for CI"
+    command: |
+      echo "import %workspace%/.circleci/bazel.rc" >> ./.bazelrc
 
 # Attaches the release output which has been stored in the workspace to the current job.
 # https://circleci.com/docs/2.0/workflows/#using-workspaces-to-share-data-among-jobs
-var_11: &attach_release_output
+var_13: &attach_release_output
   attach_workspace:
     at: dist/
 
 # Branch filter that we can specify for jobs that should only run on publish branches. This filter
 # is used to ensure that not all upstream branches will be published as Github builds
 # (e.g. revert branches, feature branches)
-var_12: &publish_branches_filter
+var_14: &publish_branches_filter
   branches:
     only:
       - master
@@ -85,22 +101,54 @@ var_12: &publish_branches_filter
 # In order to reduce duplication we use a YAML anchor that just always excludes the "_presubmit"
 # branch. We don't want to run Circle for the temporary "_presubmit" branch which is reserved
 # for the caretaker.
-var_13: &ignore_presubmit_branch_filter
+var_15: &ignore_presubmit_branch_filter
   branches:
     ignore:
       - "_presubmit"
 
 # Runs a script that sets up the Bazel remote execution. This will be used by jobs that run
 # Bazel primarily and should benefit from remote caching and execution.
-var_14: &setup_bazel_remote_execution
+var_16: &setup_bazel_remote_execution
   run:
     name: "Setup bazel RBE remote execution"
     command: ./scripts/circleci/bazel/setup-remote-execution.sh
 
+# Sets up the bazel binary globally. We don't want to access bazel through Yarn and NodeJS
+# because it could mean that the Bazel child process only has access to limited memory.
+var_17: &setup_bazel_binary
+  run:
+    name: "Setting up global Bazel binary"
+    command: ./scripts/circleci/setup_bazel_binary.sh
+
+# Sets up the Angular snapshot builds.
+var_18: &setup_snapshot_builds
+  run:
+    name: "Setting up Angular snapshot builds"
+    command: node ./scripts/circleci/setup-angular-snapshots.js master
+
+# Filter to skip a job on builds for pull requests.
+var_19: &skip_on_pull_requests_filter
+  branches:
+      ignore:
+        - /pull\/\d+/
+
+# Filter which ensures that jobs only run for pull requests.
+var_20: &only_on_pull_requests_filter
+  branches:
+      only:
+        - /pull\/\d+/
+
+# Anchor for a step that notifies Slack when preceding steps failed.
+var_21: &slack_notify_on_failure
+  run:
+    name: "Notifying team about job failure"
+    when: on_fail
+    command: ./scripts/circleci/notify-slack-job-failure.sh
+
 # -----------------------------
 # Container version of CircleCI
 # -----------------------------
-version: 2
+version: 2.1
 
 # -----------------------------------------------------------------------------------------
 # Job definitions. Jobs which are defined just here, will not run automatically. Each job
@@ -109,25 +157,47 @@ version: 2
 jobs:
 
   # -----------------------------------
-  # Build and test job that uses Bazel.
+  # Job to test that everything builds with Bazel
   # -----------------------------------
-  bazel_build_test:
+  bazel_build:
     <<: *job_defaults
-    resource_class: large
-    # environment:
-    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
       - *checkout_code
       - *restore_cache
-      - *copy_bazel_config
+      - *setup_bazel_ci_config
       - *setup_bazel_remote_execution
+      - *yarn_install
+      - *setup_bazel_binary
 
-      - run: bazel build src/... --build_tag_filters=-docs-package
-      - run: bazel test src/... --build_tag_filters=-docs-package
+      # Exclude release and docs packages here as those will be built within
+      # the "build_release_packages" and "publish_snapshots" jobs.
+      - run: bazel build src/... --build_tag_filters=-docs-package,-release-package
+      - *slack_notify_on_failure
 
-      # Note: We want to save the cache in this job because the workspace cache also
-      # includes the Bazel repository cache that will be updated in this job.
-      - *save_cache
+  # -----------------------------------
+  # Job which ensures that all non-test Bazel targets build properly
+  # in View Engine configuration.
+  # -----------------------------------
+  view_engine_build:
+    <<: *job_defaults
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    steps:
+      - *checkout_code
+      - *restore_cache
+      - *setup_bazel_ci_config
+      - *setup_bazel_remote_execution
+      - *yarn_install
+      - *setup_bazel_binary
+
+      # Exclude release and docs packages here as those will be built within
+      # the "build_release_packages" and "publish_snapshots" jobs.
+      - run: bazel build src/... --build_tag_filters=-docs-package,-release-package --config=view-engine
+      - *slack_notify_on_failure
 
   # --------------------------------------------------------------------------------------------
   # Job that runs ts-api-guardian against our API goldens in "tools/public_api_guard".
@@ -135,59 +205,58 @@ jobs:
   # --------------------------------------------------------------------------------------------
   api_golden_checks:
     <<: *job_defaults
-    resource_class: large
-    # environment:
-    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
     - *checkout_code
     - *restore_cache
-    - *copy_bazel_config
+    - *setup_bazel_ci_config
     - *setup_bazel_remote_execution
+    - *yarn_install
+    - *setup_bazel_binary
 
     - run: bazel test tools/public_api_guard/...
+    - *slack_notify_on_failure
 
   # -----------------------------------------------------------------
   # Job that runs the e2e tests with Protractor and Chromium headless
   # -----------------------------------------------------------------
-  e2e_material_tests:
+  e2e_tests:
     <<: *job_defaults
-    resource_class: large
-    # environment:
-    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
       - *checkout_code
       - *restore_cache
-      - *copy_bazel_config
+      - *setup_bazel_ci_config
       - *setup_bazel_remote_execution
+      - *yarn_install
+      - *setup_bazel_binary
 
-      - run: bazel test e2e-mat/...
-  
-  e2e_ionic_tests:
-    <<: *job_defaults
-    resource_class: large
-    # environment:
-    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
-    steps:
-      - *checkout_code
-      - *restore_cache
-      - *copy_bazel_config
-      - *setup_bazel_remote_execution
-
-      - run: bazel test e2e-ion/...
+      - run: bazel test src/... --build_tag_filters=e2e --test_tag_filters=e2e --build_tests_only
+      - *slack_notify_on_failure
 
   # ------------------------------------------------------------------------------------------
   # Job that runs the unit tests on locally installed browsers (Chrome and Firefox headless).
-  # The available browsers are installed through the angular/ngcontainer Docker image.
+  # The available browsers are chromium and firefox
   # ------------------------------------------------------------------------------------------
   tests_local_browsers:
-    docker: *docker-firefox-image
-    resource_class: large
+    <<: *job_defaults
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
-    - *checkout_code
-    - *restore_cache
-    - *yarn_install
+      - *checkout_code
+      - *restore_cache
+      - *setup_bazel_ci_config
+      - *setup_bazel_remote_execution
+      - *yarn_install
+      - *setup_bazel_binary
 
-    - run: ./scripts/circleci/run-local-browser-tests.sh
+      - run: bazel test src/... --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only
+      - *slack_notify_on_failure
 
   # ----------------------------------------------------------------------------
   # Job that runs the unit tests on Browserstack. The browsers that will be used
@@ -195,16 +264,18 @@ jobs:
   # ----------------------------------------------------------------------------
   tests_browserstack:
     <<: *job_defaults
-    resource_class: large
+    resource_class: xlarge
     environment:
-      BROWSER_STACK_USERNAME: "gnucoop"
-      BROWSER_STACK_ACCESS_KEY: "gnucoop"
+      BROWSER_STACK_USERNAME: "angularteam1"
+      BROWSER_STACK_ACCESS_KEY: "CaXMeMHD9pr5PHg8N7Jq"
     steps:
       - *checkout_code
       - *restore_cache
+      - *setup_bazel_ci_config
       - *yarn_install
 
       - run: ./scripts/circleci/run-browserstack-tests.sh
+      - *slack_notify_on_failure
 
   # ----------------------------------------------------------------------------
   # Job that runs the unit tests on Saucelabs. The browsers that will be used
@@ -212,73 +283,78 @@ jobs:
   # ----------------------------------------------------------------------------
   tests_saucelabs:
     <<: *job_defaults
-    resource_class: large
+    resource_class: xlarge
     environment:
-      SAUCE_USERNAME: "gnucoop"
-      SAUCE_ACCESS_KEY: "gnucoop"
+      SAUCE_USERNAME: "angular-components"
+      SAUCE_ACCESS_KEY: "63348201a846-eeb9-3ee4-300f-ea990b8a"
       # Note: This number should not be too high because otherwise we might run into
       # a rate limit exception.
       KARMA_PARALLEL_BROWSERS: 2
     steps:
     - *checkout_code
     - *restore_cache
+    - *setup_bazel_ci_config
     - *yarn_install
 
     - run: ./scripts/circleci/run-saucelabs-tests.sh
-
-  # -----------------------------------------------------------------------------------------
-  # Job that builds the dev-app with AOT. In order to speed up this job, the release output
-  # from the workspace storage will be attached to this job.
-  # -----------------------------------------------------------------------------------------
-  build_devapp_aot:
-    <<: *job_defaults
-    steps:
-      - *checkout_code
-      - *restore_cache
-      - *yarn_install
-      - *attach_release_output
-
-      - run: yarn gulp ci:aot
-
-  # -------------------------------------------------------------------------
-  # Job that pre-render's the universal app with `@angular/platform-server`.
-  # This verifies that Ajf can be rendered within Node.
-  # -------------------------------------------------------------------------
-  prerender_build:
-    <<: *job_defaults
-    steps:
-    - *checkout_code
-    - *restore_cache
-    - *yarn_install
-
-    - run: yarn gulp ci:prerender
+    - *slack_notify_on_failure
 
   # ----------------------------------
-  # Lint job. Runs the gulp lint task.
+  # Lint job.
   # ----------------------------------
   lint:
     <<: *job_defaults
     steps:
       - *checkout_code
       - *restore_cache
+      - *setup_bazel_ci_config
       - *yarn_install
+      - *setup_bazel_binary
 
-      - run: yarn gulp ci:lint
+      - run:
+          name: Checking rollup globals
+          command: |
+            bazel build //:rollup_globals
+            yarn check-rollup-globals $(bazel info bazel-bin)/rollup_globals.json
+
+      - run:
+          name: Checking entry-points configuration
+          command: |
+            bazel build //:entry_points_manifest
+            yarn check-entry-point-setup $(bazel info bazel-bin)/entry_points_manifest.json
+
+      - run: yarn ng-dev format changed --check << pipeline.git.base_revision >>
+      - run: yarn ownerslint
+      - run: yarn stylelint
+      - run: yarn tslint
+      - run: yarn -s ts-circular-deps:check
+
+      - *slack_notify_on_failure
+      - *save_cache
 
   # -------------------------------------------------------------------------------------------
-  # Job that builds all release packages with Gulp. The built packages can be then used in the
-  # same workflow to publish snapshot builds or test the dev-app with the release packages.
+  # Job that builds all release packages. The built packages can be then used in the same
+  # workflow to publish snapshot builds.
   # -------------------------------------------------------------------------------------------
   build_release_packages:
     <<: *job_defaults
-    resource_class: large
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
       - *checkout_code
       - *restore_cache
+      - *setup_bazel_ci_config
+      - *setup_bazel_remote_execution
       - *yarn_install
+      - *setup_bazel_binary
 
-      - run: yarn gulp ci:build-release-packages
+      - run: yarn build
       - run: yarn check-release-output
+
+      # TODO(devversion): replace this with bazel tests that run Madge. This is
+      # cumbersome and doesn't guarantee no circular deps for other entry-points.
+      - run: yarn madge --circular dist/releases/cdk/schematics/index.js
 
       # Store the release output in the workspace storage. This means that other jobs
       # in the same workflow can attach the release output to their job.
@@ -287,18 +363,14 @@ jobs:
           paths:
             - "releases/**/*"
 
-      # Since there is no UMD bundle that includes everything from the packages, we need to move
-      # all bundles into a directory. This allows us to store all UMD bundles as job
+      # Since there is no UMD bundle that includes everything from the CDK, we need to move
+      # all bundles into a directory. This allows us to store all CDK UMD bundles as job
       # artifacts that can be picked up by the Angular Github bot.
       - run:
-          name: Prepare artifacts for publish.
+          name: Prepare CDK artifacts for publish.
           command: |
-            mkdir -p /tmp/core-umd-minified-bundles
-            cp dist/releases/core/bundles/*.umd.min.js /tmp/core-umd-minified-bundles
-            mkdir -p /tmp/material-umd-minified-bundles
-            cp dist/releases/material/bundles/*.umd.min.js /tmp/material-umd-minified-bundles
-            mkdir -p /tmp/ionic-umd-minified-bundles
-            cp dist/releases/ionic/bundles/*.umd.min.js /tmp/ionic-umd-minified-bundles
+            mkdir -p /tmp/cdk-umd-minified-bundles
+            cp dist/releases/cdk/bundles/*.umd.min.js /tmp/cdk-umd-minified-bundles
       # Publish bundle artifacts which will be used to calculate the size change.
       # Note: Make sure that the size plugin from the Angular robot fetches the artifacts
       # from this CircleCI job (see .github/angular-robot.yml). Additionally any artifacts need to
@@ -307,55 +379,210 @@ jobs:
       # artifacts from CircleCI. See:
       # https://github.com/angular/github-robot/blob/master/functions/src/plugins/size.ts#L392-L394
       - store_artifacts:
-          path: /tmp/core-umd-minified-bundles
-          destination: /ajf/core_release_output/
+          path: dist/releases/material/bundles/material.umd.min.js
+          destination: /angular_material/material_release_output/material.umd.min.js
       - store_artifacts:
-          path: /tmp/material-umd-minified-bundles
-          destination: /ajf/material_release_output/
+          path: /tmp/cdk-umd-minified-bundles
+          destination: /angular_material/cdk_release_output/
+      - *slack_notify_on_failure
+
+  upload_release_packages:
+    <<: *job_defaults
+    steps:
+      - *checkout_code
+      - *restore_cache
+      - *attach_release_output
+      - *yarn_install
+
+      # Creates package archives and passes in an appropriate meaningful archive suffix. The
+      # suffix consists of the pull request number and a short SHA describing the current `HEAD`.
+      - run: ./scripts/create-package-archives.js --suffix "pr$CIRCLE_PR_NUMBER-$(git rev-parse --short HEAD)"
+      # Upload archives to the CircleCI job artifacts.
       - store_artifacts:
-          path: /tmp/ionic-umd-minified-bundles
-          destination: /ajf/ionic_release_output/
+          path: dist/release-archives
 
   # ----------------------------------------
   # Job that publishes the build snapshots
   # ----------------------------------------
   publish_snapshots:
     <<: *job_defaults
-    resource_class: large
-    # environment:
-    #   GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
       - *checkout_code
       - *restore_cache
       - *attach_release_output
-      - *copy_bazel_config
+      - *setup_bazel_ci_config
       - *setup_bazel_remote_execution
+      - *yarn_install
+      - *setup_bazel_binary
 
       # CircleCI has a config setting to enforce SSH for all github connections.
       # This is not compatible with our mechanism of using a Personal Access Token
       # to publish the build snapshots. In order to fix this, we unset the global option.
       - run: git config --global --unset "url.ssh://git@github.com.insteadof"
 
-      # TODO(devversion): Ideally the "build_release_packages" job should build all packages with
-      # Bazel, but for now we mix up the Gulp and bazel setup, so we need to build the package here.
-      - run: bazel build src/ajf-examples:npm_package --config=release
-
+      # The components examples package is not a release package, but we publish it
+      # as part of this job to the docs-content repository. It's not contained in the
+      # attached release output, so we need to build it here.
+      - run: bazel build src/components-examples:npm_package --config=release
       - run: ./scripts/circleci/publish-snapshots.sh
+      - *slack_notify_on_failure
 
+  # -----------------------------------------------------------------
+  # Job that ensures that the release output is compatible with ngcc.
+  # -----------------------------------------------------------------
+  ngcc_compatibility:
+    <<: *job_defaults
+    resource_class: xlarge
+    steps:
+      - *checkout_code
+      - *restore_cache
+      - *attach_release_output
+      - *yarn_install
+
+      # Copy the release packages into the node modules so that ngcc can process them.
+      - run: cp -R dist/releases/* node_modules/@angular/
+      # Delete existing ngcc manifests that would prevent the copied packages
+      # from being discovered.
+      - run: rm -f node_modules/__ngcc_entry_points__.json
+      # Ensure that the job fails if an entry-point cannot be compiled. Also disable
+      # tsconfig parsing as that causes the release packages to be incorrectly resolved
+      # to the sources due to path mapping.
+      - run: yarn ngcc --error-on-failed-entry-point --no-tsconfig
+      - *slack_notify_on_failure
+
+  # -----------------------------------------------------------------
+  # Job that ensures that the release output is compatible with the
+  # latest snapshot ngcc changes.
+  # -----------------------------------------------------------------
+  ngcc_compatibility_snapshot:
+    <<: *job_defaults
+    resource_class: xlarge
+    steps:
+      - *checkout_code
+      - *restore_cache
+      - *attach_release_output
+      - *setup_snapshot_builds
+      - *yarn_install_loose_lockfile
+
+      # Copy the release packages into the node modules so that ngcc can process them.
+      - run: cp -R dist/releases/* node_modules/@angular/
+      # Delete existing ngcc manifests that would prevent the copied packages
+      # from being discovered.
+      - run: rm -f node_modules/__ngcc_entry_points__.json
+      # Ensure that the job fails if an entry-point cannot be compiled. Also disable
+      # tsconfig parsing as that causes the release packages to be incorrectly resolved
+      # to the sources due to path mapping.
+      - run: yarn ngcc --error-on-failed-entry-point --no-tsconfig
+      - *slack_notify_on_failure
 
   # ----------------------------------------------------------------------------
   # Job that runs the local browser tests against the Angular Github snapshots
   # ----------------------------------------------------------------------------
   snapshot_tests_local_browsers:
-    docker: *docker-firefox-image
-    resource_class: large
+    docker:
+      - image: *docker-firefox-image
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
     steps:
     - *checkout_code
     - *restore_cache
-    - *yarn_install
+    - *setup_bazel_ci_config
+    - *setup_bazel_remote_execution
+    - *setup_snapshot_builds
+    - *yarn_install_loose_lockfile
+    - *setup_bazel_binary
 
-    - run: node ./scripts/circleci/setup-angular-snapshots.js
-    - run: ./scripts/circleci/run-local-browser-tests.sh
+    - run: bazel test src/... --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only
+    - *slack_notify_on_failure
+
+  # ----------------------------------------------------------------------------
+  # Job that runs all Bazel tests against View Engine with the current Angular version
+  # specified in the project dev dependencies.
+  # ----------------------------------------------------------------------------
+  view_engine_test:
+    <<: *job_defaults
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    steps:
+      - *checkout_code
+      - *restore_cache
+      - *setup_bazel_ci_config
+      - *setup_bazel_remote_execution
+      - *yarn_install
+      - *setup_bazel_binary
+
+      # Run project tests with NGC and View Engine.
+      - run: bazel test src/... --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only
+      - *slack_notify_on_failure
+
+  # ----------------------------------------------------------------------------
+  # Job that runs all Bazel tests against View Engine from angular/angular#master.
+  # ----------------------------------------------------------------------------
+  view_engine_snapshot_test_cronjob:
+    <<: *job_defaults
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    steps:
+      - *checkout_code
+      - *restore_cache
+      - *setup_bazel_ci_config
+      - *setup_bazel_remote_execution
+      - *setup_snapshot_builds
+      - *yarn_install_loose_lockfile
+      - *setup_bazel_binary
+
+      # Run project tests with NGC and View Engine.
+      - run: bazel test src/... --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only
+      - *slack_notify_on_failure
+
+  # ----------------------------------------------------------------------------
+  # Job that runs all Bazel integration tests.
+  # ----------------------------------------------------------------------------
+  integration_tests:
+    <<: *job_defaults
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    steps:
+      - *checkout_code
+      - *restore_cache
+      - *setup_bazel_ci_config
+      - *setup_bazel_remote_execution
+      - *yarn_install
+      - *setup_bazel_binary
+      - run: yarn integration-tests
+      - run: yarn integration-tests:view-engine
+      - *slack_notify_on_failure
+
+  # ----------------------------------------------------------------------------
+  # Job that runs all Bazel tests against material-components-web@canary
+  # ----------------------------------------------------------------------------
+  mdc_snapshot_test_cronjob:
+    <<: *job_defaults
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    steps:
+      - *checkout_code
+      - *restore_cache
+      - *setup_bazel_binary
+      - *setup_bazel_ci_config
+      - *setup_bazel_remote_execution
+      - *yarn_install
+
+      # Install the latest canary version of the "material-components-web".
+      - run: yarn add material-components-web@canary
+
+      # Setup the components repository to use the MDC snapshot builds.
+      # Run project tests with the MDC canary builds.
+      - run: bazel test src/... --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --build_tests_only
+      - *slack_notify_on_failure
 
 # ----------------------------------------------------------------------------------------
 # Workflow definitions. A workflow usually groups multiple jobs together. This is useful if
@@ -367,37 +594,42 @@ jobs:
 workflows:
   version: 2
 
-  bazel_targets:
+  default_workflow:
     jobs:
-      - bazel_build_test:
+      - bazel_build:
+          filters: *ignore_presubmit_branch_filter
+      - view_engine_build:
+          filters: *ignore_presubmit_branch_filter
+      - view_engine_test:
           filters: *ignore_presubmit_branch_filter
       - api_golden_checks:
           filters: *ignore_presubmit_branch_filter
-
-  unit_tests:
-    jobs:
+      - integration_tests:
+          filters: *ignore_presubmit_branch_filter
       - tests_local_browsers:
           filters: *ignore_presubmit_branch_filter
-#      - tests_browserstack:
-#          filters: *ignore_presubmit_branch_filter
-#      - tests_saucelabs:
-#          filters: *ignore_presubmit_branch_filter
-
-  integration_tests:
-    jobs:
-      - e2e_material_tests:
+      - tests_browserstack:
           filters: *ignore_presubmit_branch_filter
-      - e2e_ionic_tests:
+      - tests_saucelabs:
           filters: *ignore_presubmit_branch_filter
-      - prerender_build:
+      - e2e_tests:
           filters: *ignore_presubmit_branch_filter
-
-  release_output:
-    jobs:
       - build_release_packages:
           filters: *ignore_presubmit_branch_filter
-      - build_devapp_aot:
+      - upload_release_packages:
+          # We don't want to run this job on push builds because for those, the
+          # `publish_snapshots` runs, and publishes build artifacts.
+          filters: *only_on_pull_requests_filter
+          requires:
+            - build_release_packages
+      - lint:
           filters: *ignore_presubmit_branch_filter
+      - ngcc_compatibility:
+          filters: *ignore_presubmit_branch_filter
+          requires:
+            - build_release_packages
+      - ngcc_compatibility_snapshot:
+          filters: *skip_on_pull_requests_filter
           requires:
             - build_release_packages
       - publish_snapshots:
@@ -405,27 +637,24 @@ workflows:
           requires:
             - build_release_packages
 
-  # Lint workflow. As we want to lint in one job, this is a workflow with just one job.
-  lint:
-    jobs:
-      - lint:
-          filters: *ignore_presubmit_branch_filter
-
-  # Snapshot tests workflow that is scheduled to run all specified jobs at midnight everyday.
+  # Snapshot tests workflow that is scheduled to run all specified jobs every hour.
   # This workflow runs various jobs against the Angular snapshot builds from Github.
   snapshot_tests:
     jobs:
-      # Note that we need additional jobs for the nightly snapshot tests because there is no
-      # easy way to detect whether a job runs inside of a cronjob or specific workflow.
-      # See: https://circleci.com/ideas/?idea=CCI-I-295
+      # Note that we need additional jobs for the cronjob snapshot tests because there
+      # is no easy way to detect whether a job runs inside of a cronjob or specific
+      # workflow. See: https://circleci.com/ideas/?idea=CCI-I-295
       - snapshot_tests_local_browsers
+      - view_engine_snapshot_test_cronjob
+      - mdc_snapshot_test_cronjob
+
     triggers:
       - schedule:
-          cron: "0 0 * * *"
+          cron: "0 * * * *"
           filters:
             branches:
               only:
                 # We only want to run the "master" branch against the snapshot builds because
-                # it's not guaranteed that older versions of Ajf always work
+                # it's not guaranteed that older versions of Angular Material always work
                 # with the latest Angular version.
                 - master
