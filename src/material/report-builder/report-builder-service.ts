@@ -2067,7 +2067,7 @@ export class AjfReportBuilderService {
       if (widget == null) {
         return null;
       }
-      const arr = (<Array<any>>(widget as any)[propName]);
+      const arr = (widget as any)[propName] as any[];
       arr.push(value);
       (widget as any)[propName] = arr;
       return widget;
@@ -2076,7 +2076,7 @@ export class AjfReportBuilderService {
 
   private _removeFromCurrentWidgetArrayProperty(propName: string, idx: number) {
     this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
-      (<Array<any>>(widget as any)[propName]).splice(idx, 1);
+      ((widget as any)[propName] as any[]).splice(idx, 1);
       return widget;
     });
   }
