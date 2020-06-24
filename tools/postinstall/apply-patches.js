@@ -70,14 +70,6 @@ function applyPatches() {
     var resolvedEntryPoint = tsFiles.find(f => f.endsWith('/public-api.ts')) || null;
   `,
       'node_modules/@angular/compiler-cli/src/ngtsc/entry_point/src/logic.js');
-  searchAndReplace(
-    /(TsCompilerAotCompilerTypeCheckHostAdapter\.prototype\.fromSummaryFileName = function \(fileName, referringLibFileName\) {)/,
-    `$1
-            var ext = /@angular\\/material|@angular\\/cdk|@gic\\/angular|@ionic\\/angular|ngx-color-picker/g;
-            if (ext.test(referringLibFileName)) {
-                fileName = fileName.replace('.ngfactory', '');
-            }`,
-    'node_modules/@angular/compiler-cli/src/transformers/compiler_host.js');
 
   // Workaround for: https://hackmd.io/MlqFp-yrSx-0mw4rD7dnQQ?both. We only want to discard
   // the metadata of files in the bazel managed node modules. That way we keep the default
@@ -91,6 +83,14 @@ function applyPatches() {
     if ((filePath.includes('node_modules/') || !hasFlatModuleBundle) && $1`,
       'node_modules/@angular/compiler-cli/src/transformers/compiler_host.js');
   applyPatch(path.join(__dirname, './flat_module_factory_resolution.patch'));
+  searchAndReplace(
+      /(TsCompilerAotCompilerTypeCheckHostAdapter\.prototype\.fromSummaryFileName = function \(fileName, referringLibFileName\) {)/,
+      `$1
+              var ext = /@angular\\/material|@angular\\/cdk|@gic\\/angular|@ionic\\/angular|ngx-color-picker/g;
+              if (ext.test(referringLibFileName)) {
+                  fileName = fileName.replace('.ngfactory', '');
+              }`,
+      'node_modules/@angular/compiler-cli/src/transformers/compiler_host.js');
   // The three replacements below ensure that metadata files can be read by NGC and
   // that metadata files are collected as Bazel action inputs.
   searchAndReplace(
