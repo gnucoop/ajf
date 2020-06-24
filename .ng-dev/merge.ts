@@ -9,7 +9,13 @@ export const merge = (): MergeConfig => {
   const currentVersion = require('../package.json').version;
   // We use the `@ajf/core` as source of truth for the latest published version in NPM.
   // Any package from the monorepo could technically work and result in the same version.
-  const {minor, patch} = determineMergeBranches(currentVersion, '@ajf/core');
+  let {minor, patch} = determineMergeBranches(currentVersion, '@ajf/core');
+
+  // TODO(devversion) Clean this up once the label/branching has been finalized.
+  if (currentVersion.startsWith('10.0.0-rc')) {
+    patch = '10.0.x';
+    minor = 'master';
+  }
 
   return {
     // By default, the merge script merges locally with `git cherry-pick` and autosquash.
@@ -27,7 +33,8 @@ export const merge = (): MergeConfig => {
       },
       {
         pattern: 'target: minor',
-        branches: ['master', minor],
+        // TODO: Clean this up after the labels/branching has been finalized.
+        branches: minor === 'master' ? ['master'] : ['master', minor],
       },
       {
         pattern: 'target: major',
