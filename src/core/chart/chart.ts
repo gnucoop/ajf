@@ -44,7 +44,6 @@ import {
   ChartTooltipModel,
   ChartTooltipItem,
 } from 'chart.js';
-import 'chart.piecelabel.js';
 
 import {deepCopy} from '@ajf/core/utils';
 import {ExtendedChartType} from './extended-chart-type';

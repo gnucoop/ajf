@@ -22,7 +22,6 @@
     "@ngx-translate/core": "0.0.0-ANGXT",
     "@zxing/library": "^0.15.2",
     "chart.js": "^2.9.3",
-    "chart.piecelabel.js": "^0.15.0",
     "css-element-queries": "^1.2.3",
     "date-fns": "^2.9.0",
     "debug": "^4.1.1",

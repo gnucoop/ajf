@@ -54,7 +54,6 @@ THIRD_PARTY_GEN_BUNDLES = [
     ("@ionic/core/loader", "ionic-core-loader-bundle.js"),
     ("@zxing/library", "zxing-library-bundle.js"),
     ("chart.js", "chart.js-bundle.js"),
-    ("chart.piecelabel.js", "chart.piecelabel.js-bundle.js"),
     ("css-element-queries", "css-element-queries-bundle.js"),
     ("date-fns", "date-fns-bundle.js"),
     ("debug", "debug-bundle.js"),
