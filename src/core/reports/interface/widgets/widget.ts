@@ -21,7 +21,9 @@
  */
 
 import {AjfCondition, AjfFormula} from '@ajf/core/models';
+
 import {AjfStyles} from '../styles';
+
 import {AjfWidgetType} from './widget-type';
 
 export interface AjfWidget {
