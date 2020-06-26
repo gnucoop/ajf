@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "rxjs-tslint-rules"
+  ],
   "rulesDirectory": [
     "./tools/tslint-rules/",
     "node_modules/vrsource-tslint-rules/rules",
@@ -138,6 +141,11 @@
     "no-output-on-prefix": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
+
+    // RxJS
+    "rxjs-no-unsafe-takeuntil": true,
+    "rxjs-no-unsafe-catch": true,
+
     // Custom Rules
     "ts-loader": true,
     "no-exposed-todo": true,
