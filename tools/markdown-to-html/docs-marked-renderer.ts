@@ -6,9 +6,10 @@ const exampleCommentRegex = /<!--\s*example\(([^)]+)\)\s*-->/g;
 
 /**
  * Custom renderer for marked that will be used to transform markdown files to HTML
- * files that can be used in the Ajf docs.
+ * files that can be used in the Angular Material docs.
  */
 export class DocsMarkdownRenderer extends Renderer {
+
   /** Set of fragment links discovered in the currently rendered file. */
   private _referencedFragments = new Set<string>();
 
@@ -77,19 +78,18 @@ export class DocsMarkdownRenderer extends Renderer {
    *  `<div material-docs-example="name"></div>`
    */
   html(html: string) {
-    html = html.replace(
-        exampleCommentRegex,
-        (_match: string,
-         content: string) => {  // using [\s\S]* because .* does not match line breaks
-          if (content.match(/\{[\s\S]*\}/g)) {
-            const {example, file, region} = JSON.parse(content);
-            return `<div material-docs-example="${example}"
-                           file="${file}"
-                           region="${region}"></div>`;
-          } else {
-            return `<div material-docs-example="${content}"></div>`;
-          }
-        });
+    html = html.replace(exampleCommentRegex, (_match: string, content: string) => {
+        // using [\s\S]* because .* does not match line breaks
+        if (content.match(/\{[\s\S]*\}/g)) {
+          const {example, file, region} = JSON.parse(content);
+          return `<div material-docs-example="${example}"
+                             ${file ? `file="${file}"` : ''}
+                             ${region ? `region="${region}"` : ''}></div>`;
+        } else {
+          return `<div material-docs-example="${content}"></div>`;
+        }
+      }
+    );
 
     return super.html(html);
   }
