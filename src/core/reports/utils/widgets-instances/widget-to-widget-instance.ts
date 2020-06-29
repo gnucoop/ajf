@@ -45,6 +45,7 @@ import {AjfFormulaWidget} from '../../interface/widgets/formula-widget';
 import {AjfImageContainerWidget} from '../../interface/widgets/image-container-widget';
 import {AjfImageWidget} from '../../interface/widgets/image-widget';
 import {AjfMapWidget} from '../../interface/widgets/map-widget';
+import {AjfTableCell} from '@ajf/core/table';
 import {AjfTableWidget} from '../../interface/widgets/table-widget';
 import {AjfTextWidget} from '../../interface/widgets/text-widget';
 import {AjfWidget} from '../../interface/widgets/widget';
@@ -108,7 +109,7 @@ export function widgetToWidgetInstance(
         ds = {...ds, options: d.options};
       }
       if (d.label != null) {
-        ds = {...ds, label: d.label};
+        ds = {...ds, label: d.label.trim().length > 0 ? ts.instant(d.label) : d.label};
       }
       if (d.datalabels != null) {
         ds.datalabels = deepCopy(d.datalabels);
@@ -143,12 +144,21 @@ export function widgetToWidgetInstance(
     }));
 
     twi.data = (tw.dataset ||
-                []).map(row => row.map(cell => ({
-                                         value: evaluateExpression(cell.formula.formula, context),
-                                         style: {...tw.cellStyles, ...cell.style},
-                                         rowspan: cell.rowspan,
-                                         colspan: cell.colspan,
-                                       })));
+                []).map(row => row.map(cell => {
+                  let evf = '';
+                  try {
+                    evf = cell.formula instanceof Array ?
+                      cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
+                      trFormula(cell.formula!, context as AjfContext, ts);
+                  } catch (_e) {
+                  }
+                  return ({
+                    value: evf,
+                    style: { ...tw.cellStyles, ...cell.style },
+                    rowspan: cell.rowspan,
+                    colspan: cell.colspan,
+                  });
+                }));
   } else if (widget.widgetType === AjfWidgetType.DynamicTable) {
     const tdw = widget as AjfDynamicTableWidget;
     const tdwi = wi as AjfTableWidgetInstance;
@@ -158,15 +168,42 @@ export function widgetToWidgetInstance(
           cell.formula.map(f => trFormula(f as AjfFormula, context, ts)) :
           trFormula(cell.formula!, context, ts);
     });
-    const dataset = evaluateExpression(tdw.rowDefinition.formula, context) || [];
+
+    let dataset: AjfTableCell[][] = evaluateExpression(tdw.rowDefinition.formula, context) || [];
+    dataset = (dataset || []).map((row: AjfTableCell[]) => row.map(cell => {
+      let trf = cell.value;
+      try {
+        if (trf instanceof Array) {
+          trf = trf.map(
+            v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
+        } else {
+          trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
+            ts.instant(trf) : trf;
+        }
+      } catch (_e) {
+      }
+      return ({
+        ...cell,
+        value: trf
+      });
+    }));
 
     const header =
-        (tdw.dataset || []).map(cell => ({
-                                  value: evaluateExpression(cell.formula.formula, context),
-                                  style: {...tdw.cellStyles, ...cell.style},
-                                  rowspan: cell.rowspan,
-                                  colspan: cell.colspan,
-                                }));
+      (tdw.dataset || []).map(cell => {
+        let evf = '';
+        try {
+          evf = cell.formula instanceof Array ?
+            cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
+            trFormula(cell.formula!, context as AjfContext, ts);
+        } catch (_e) {
+        }
+        return ({
+          value: evf,
+          style: { ...tdw.cellStyles, ...cell.style },
+          rowspan: cell.rowspan,
+          colspan: cell.colspan,
+        });
+      });
     tdwi.data = [[...header], ...dataset];
   } else if (widget.widgetType === AjfWidgetType.Image) {
     const iw = widget as AjfImageWidget;
