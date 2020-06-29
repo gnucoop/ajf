@@ -24,7 +24,7 @@ import {AjfCondition, AjfContext} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
-import * as esprima from 'esprima';
+import {tokenize} from 'esprima';
 import {
   BehaviorSubject,
   from,
@@ -105,9 +105,6 @@ import {orderedNodes} from './utils/nodes/ordered-nodes';
 import {updateRepsNum} from './utils/slides-instances/update-reps-num';
 import {validSlide} from './utils/slides-instances/valid-slide';
 import {AjfValidationService} from './validation-service';
-
-const esprimaMod: any = (esprima as any).default || esprima;
-const {tokenize} = esprimaMod;
 
 export const enum AjfFormInitStatus {
   Initializing,

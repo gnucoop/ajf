@@ -20,9 +20,7 @@
  *
  */
 
-import * as esprima from 'esprima';
-const esprimaMod: any = (esprima as any).default || esprima;
-const {tokenize} = esprimaMod;
+import {tokenize} from 'esprima';
 
 import {AjfContext} from '../interface/context';
 import {dbg} from './debug';
