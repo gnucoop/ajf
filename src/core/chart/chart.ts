@@ -32,9 +32,6 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import * as Chart from 'chart.js';
-const chartClass = (Chart as any).default || Chart;
-// tslint:disable-next-line
 import {
   ChartData,
   ChartPoint,
@@ -43,6 +40,7 @@ import {
   ChartSize,
   ChartTooltipModel,
   ChartTooltipItem,
+  Chart,
 } from 'chart.js';
 
 import {deepCopy} from '@ajf/core/utils';
@@ -135,7 +133,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
       this._renderer.setStyle(this._chartCanvasElement, 'height', 'inherit');
       this._renderer.appendChild(this._el.nativeElement, this._chartCanvasElement);
       const ctx = this._chartCanvasElement.getContext('2d');
-      this._chart = new chartClass(ctx, {
+      this._chart = new Chart(ctx, {
         type: this.chartType,
         data: this._fixData(this.chartType, this.data),
         options: this._fixChartOptions(this.options)
