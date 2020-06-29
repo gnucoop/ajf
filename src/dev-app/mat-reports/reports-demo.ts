@@ -37,6 +37,18 @@ export class ReportsDemo {
   context: string = '{}';
 
   constructor(private _ts: TranslateService) {
+    const engDict = {
+      'Salva': 'Save',
+      'Esempio': 'Sample',
+      'Testo': 'Text',
+      'Colonna 1': 'Column 1',
+      'Righa 1': 'Row 1',
+      'Nome': 'Name',
+      'Dessie Zuria': 'DessieT ZuriaT',
+      'Totale': 'Total'
+    };
+    _ts.setTranslation('ENG', engDict);
+    _ts.setDefaultLang('ENG');
     this._populateReport();
   }
 

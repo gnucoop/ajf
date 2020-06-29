@@ -25,7 +25,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslateService): any {
   let formula = f.formula;
-  if (formula.substr(0, 1) === '"') {
+  if (formula.substr(0, 1) === '"' || formula.substr(0, 1) === '\'') {
     const ft = formula.slice(1, -1);
     const transFt =
         ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.instant(ft) : ft;
