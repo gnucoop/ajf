@@ -101,7 +101,7 @@
     "@schematics/angular": "^10.0.0",
     "@types/autoprefixer": "^9.7.2",
     "@types/browser-sync": "^2.26.1",
-    "@types/chart.js": "^2.9.11",
+    "@types/chart.js": "^2.9.22",
     "@types/esprima": "^4.0.2",
     "@types/fs-extra": "^8.0.1",
     "@types/glob": "^7.1.1",
