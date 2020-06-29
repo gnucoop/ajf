@@ -94,7 +94,7 @@
     "@bazel/rollup": "^1.6.0",
     "@bazel/typescript": "^1.6.0",
     "@firebase/app-types": "^0.5.0",
-    "@ngx-translate/http-loader": "^4.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
     "@octokit/rest": "16.28.7",
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
