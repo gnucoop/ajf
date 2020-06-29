@@ -20,7 +20,7 @@
     "@angular/forms": "0.0.0-NG",
     "@angular/router": "0.0.0-NG",
     "@ngx-translate/core": "0.0.0-ANGXT",
-    "@zxing/library": "^0.15.2",
+    "@zxing/library": "0.0.0-ZXING",
     "chart.js": "^2.9.3",
     "css-element-queries": "^1.2.3",
     "date-fns": "^2.9.0",

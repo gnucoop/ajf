@@ -848,6 +848,11 @@
     "@angular-devkit/core" "10.0.0"
     "@angular-devkit/schematics" "10.0.0"
 
+"@sinonjs/text-encoding@0.7.1":
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
+  integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
+
 "@stylelint/postcss-css-in-js@^0.37.1":
   version "0.37.1"
   resolved "https://registry.yarnpkg.com/@stylelint/postcss-css-in-js/-/postcss-css-in-js-0.37.1.tgz#41e5e7660f73d88227610e18c6ebb262d56ac125"
@@ -1332,14 +1337,14 @@
   resolved "https://registry.yarnpkg.com/@webcomponents/custom-elements/-/custom-elements-1.3.2.tgz#22187e3c1b0a18ff1552c489fef423d86972cba3"
   integrity sha512-0HtVxwE+PLPCIFL2i8/d+vjlrj8fgafmzZvIblZMyMcww9upicXTdfQT7K0Tg7tDlSoWxjmP2xKYP09A2YMocQ==
 
-"@zxing/library@^0.15.2":
-  version "0.15.2"
-  resolved "https://registry.yarnpkg.com/@zxing/library/-/library-0.15.2.tgz#3026071aca80a84af09706dffa1d386053e11efc"
-  integrity sha512-J+N88Eyg6eI2SKIk2YIkjjNICbMSqmLZnB3oD1S21Bi3k+Ddg2eKe/nW+Hce4NKAFAZtY1mdDM08Bj9eu87HSg==
+"@zxing/library@^0.17.0":
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/@zxing/library/-/library-0.17.0.tgz#e7aa9636fdeaad8ecb81b14098211f88da16b2ff"
+  integrity sha512-P7T2k0y2mhtLyXDoHI4IzwD2KDId/CCi9PMy56Xvr2MCj+gO8RfAy0loOX9TF9eWmhi5LzbSxcz4Xkvi1Bs0/Q==
   dependencies:
     ts-custom-error "^3.0.0"
   optionalDependencies:
-    text-encoding "^0.7.0"
+    "@sinonjs/text-encoding" "0.7.1"
 
 JSONStream@^1.0.4, JSONStream@^1.2.1:
   version "1.3.5"
@@ -12011,11 +12016,6 @@ test-exclude@^5.2.2:
     minimatch "^3.0.4"
     read-pkg-up "^4.0.0"
     require-main-filename "^2.0.0"
-
-text-encoding@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.7.0.tgz#f895e836e45990624086601798ea98e8f36ee643"
-  integrity sha512-oJQ3f1hrOnbRLOcwKz0Liq2IcrvDeZRHXhd9RgLrsT+DjWY/nty1Hi7v3dtkaEYbPYe0mUoOfzRrMwfXXwgPUA==
 
 text-extensions@^1.0.0:
   version "1.9.0"
