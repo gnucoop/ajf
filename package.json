@@ -61,7 +61,7 @@
     "chart.js": "^2.9.3",
     "core-js": "^2.6.11",
     "css-element-queries": "^1.2.3",
-    "date-fns": "^2.9.0",
+    "date-fns": "^2.14.0",
     "esprima": "^4.0.1",
     "flag-icon-css": "^3.4.5",
     "leaflet": "^1.6.0",

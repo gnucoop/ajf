@@ -23,7 +23,7 @@
     "@zxing/library": "0.0.0-ZXING",
     "chart.js": "^2.9.3",
     "css-element-queries": "^1.2.3",
-    "date-fns": "^2.9.0",
+    "date-fns": "0.0.0-DATEFNS",
     "esprima": "^4.0.1",
     "leaflet": "^1.6.0",
     "numeral": "^2.0.6",
