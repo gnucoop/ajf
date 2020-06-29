@@ -21,12 +21,12 @@
     "@angular/router": "0.0.0-NG",
     "@ngx-translate/core": "0.0.0-ANGXT",
     "@zxing/library": "0.0.0-ZXING",
-    "chart.js": "^2.9.3",
-    "css-element-queries": "^1.2.3",
+    "chart.js": "0.0.0-CHART",
+    "css-element-queries": "0.0.0-CEQ",
     "date-fns": "0.0.0-DATEFNS",
-    "esprima": "^4.0.1",
-    "leaflet": "^1.6.0",
-    "numeral": "^2.0.6"
+    "esprima": "0.0.0-ESPRIMA",
+    "leaflet": "0.0.0-LEAFLET",
+    "numeral": "0.0.0-NUMERAL"
   },
   "dependencies": {
     "tslib": "0.0.0-TSLIB"

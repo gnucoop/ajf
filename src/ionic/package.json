@@ -19,6 +19,7 @@
     "@gic/angular": "0.0.0-GIC",
     "@ionic/angular": "0.0.0-ION",
     "@ajf/core": "0.0.0-PLACEHOLDER",
+    "@ajf/icons": "0.0.0-AJFI",
     "flag-icon-css": "0.0.0-FIC"
   },
   "dependencies": {
