@@ -66,7 +66,6 @@ ROLLUP_GLOBALS = {
     "chart.js": "Chart",
     "css-element-queries": "cssElementQueries",
     "date-fns": "dateFns",
-    "debug": "debug",
     "esprima": "esprima",
     "leaflet": "leaflet",
     "moment": "moment",

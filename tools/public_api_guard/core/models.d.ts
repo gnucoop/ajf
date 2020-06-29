@@ -66,8 +66,6 @@ export declare const dateUtils: {
     startOfISOWeek: typeof dateFns.startOfISOWeek;
 };
 
-export declare const dbg: debug.Debugger;
-
 export declare function decimalCount(x: string | number): number;
 
 export declare function digitCount(x: number): number;

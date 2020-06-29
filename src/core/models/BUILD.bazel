@@ -20,7 +20,6 @@ ng_module(
     deps = [
         "//src/core/utils",
         "@npm//@angular/core",
-        "@npm//@types/debug",
         "@npm//@types/esprima",
         "@npm//@types/numeral",
         "@npm//date-fns",

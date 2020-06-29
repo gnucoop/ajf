@@ -66,7 +66,6 @@ filegroup(
         "//tools/third-party-libs:chart.js-bundle.js",
         "//tools/third-party-libs:css-element-queries-bundle.js",
         "//tools/third-party-libs:date-fns-bundle.js",
-        "//tools/third-party-libs:debug-bundle.js",
         "//tools/third-party-libs:esprima-bundle.js",
         "//tools/third-party-libs:gic-core-bundle.js",
         "//tools/third-party-libs:gic-core-loader-bundle.js",

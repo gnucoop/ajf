@@ -56,7 +56,6 @@ THIRD_PARTY_GEN_BUNDLES = [
     ("chart.js", "chart.js-bundle.js"),
     ("css-element-queries", "css-element-queries-bundle.js"),
     ("date-fns", "date-fns-bundle.js"),
-    ("debug", "debug-bundle.js"),
     ("esprima", "esprima-bundle.js"),
     ("leaflet", "leaflet-bundle.js"),
     ("numeral", "numeral-bundle.js"),

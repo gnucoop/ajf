@@ -21,7 +21,6 @@
  */
 
 import {AjfContext} from '../interface/context';
-import {dbg} from './debug';
 import {getContextString} from './get-context-string';
 
 let cachedContext: any = {};
@@ -37,13 +36,10 @@ export function validateExpression(str: string, context?: AjfContext): boolean {
   let ctx = cachedContextString;
   try {
     let f = new Function(`${ctx}${str}`);
-    dbg(<any>`validating formula %s using context %j`, str, ctx);
     f();
-    dbg(`formula %s validated`, str);
     f = <any>null;
     return true;
   } catch (e) {
-    dbg(`formula %s not validated: error %j`, str, e);
     return false;
   }
 }

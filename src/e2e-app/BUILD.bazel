@@ -68,7 +68,6 @@ ts_devserver(
         "@npm//core-js",
         "@npm//css-element-queries",
         "@npm//date-fns",
-        "@npm//debug",
         "@npm//esprima",
         "@npm//hammerjs",
         "@npm//leaflet",

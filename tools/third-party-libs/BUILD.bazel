@@ -34,18 +34,10 @@ third_party_bundle(
 )
 
 third_party_bundle(
-    name = "debug",
-    entry_point = "@npm//:node_modules/debug/src/browser.js",
-    module_name = "debug",
-    deps = [
-        "@npm//debug",
-    ],
-)
-
-third_party_bundle(
     name = "esprima",
     entry_point = "@npm//:node_modules/esprima/dist/esprima.js",
     module_name = "esprima",
+    exports = "default",
     deps = [
         "@npm//esprima",
     ],
