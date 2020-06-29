@@ -19,7 +19,7 @@
     "@gic/angular": "0.0.0-GIC",
     "@ionic/angular": "0.0.0-ION",
     "@ajf/core": "0.0.0-PLACEHOLDER",
-    "flag-icon-css": "^3.3.0"
+    "flag-icon-css": "0.0.0-FIC"
   },
   "dependencies": {
     "tslib": "0.0.0-TSLIB"

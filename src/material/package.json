@@ -20,7 +20,7 @@
     "@angular/material": "0.0.0-ANGM",
     "@ajf/icons": "^1.0.0",
     "@ajf/core": "0.0.0-PLACEHOLDER",
-    "flag-icon-css": "^3.4.6",
+    "flag-icon-css": "0.0.0-FIC",
     "ngx-color-picker": "^9.0.0",
     "quill": "^1.3.7"
   },
