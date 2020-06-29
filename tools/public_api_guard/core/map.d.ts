@@ -2,9 +2,9 @@ export declare class AjfMapComponent implements AfterViewInit, OnDestroy {
     set attribution(attribution: string);
     set coordinate(coordinate: number[]);
     set disabled(disabled: boolean);
-    get map(): L.Map;
+    get map(): Map;
     mapContainer: AjfMapContainerDirective;
-    set tileLayer(tileLayer: string);
+    set tileLayer(tl: string);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     redraw(): void;

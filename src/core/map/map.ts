@@ -29,10 +29,8 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import * as L from 'leaflet';
+import {map, Map, tileLayer} from 'leaflet';
 import {Subscription} from 'rxjs';
-
-const leafletLib = (L as any).default || L;
 
 import {AjfMapContainerDirective} from './map-container-directive';
 
@@ -55,8 +53,8 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
 
   private _tileLayer: string;
   @Input()
-  set tileLayer(tileLayer: string) {
-    this._tileLayer = tileLayer;
+  set tileLayer(tl: string) {
+    this._tileLayer = tl;
     this._addTileLayerToMap();
   }
 
@@ -74,9 +72,8 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
     this._disableMap();
   }
 
-
-  private _map: L.Map;
-  get map(): L.Map {
+  private _map: Map;
+  get map(): Map {
     return this._map;
   }
 
@@ -104,7 +101,7 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
   private _initMap(): void {
     const options = {zoomControl: false, attributionControl: false};
 
-    this._map = leafletLib.map(this.mapContainer.htmlElement, options);
+    this._map = map(this.mapContainer.htmlElement, options);
   }
 
   private _setMapView(): void {
@@ -130,7 +127,7 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
       return;
     }
     this._map.eachLayer((l) => this._map.removeLayer(l));
-    leafletLib.tileLayer(this._tileLayer, {attribution: this._attribution}).addTo(this._map);
+    tileLayer(this._tileLayer, {attribution: this._attribution}).addTo(this._map);
   }
 
   private _disableMap(): void {
