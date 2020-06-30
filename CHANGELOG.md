@@ -1,3 +1,12 @@
+## 10.0.2 "rapid-butterfly" (2020-06-30)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **reports:** translate table cells and chart labels ([8cc764f51270a81481bf9942e59f930ac2dab742](https://github.com/gnucoop/ajf/commit/8cc764f51270a81481bf9942e59f930ac2dab742)) |
+
+
 ## 10.0.1 "jolly-queen" (2020-06-29)
 
 
