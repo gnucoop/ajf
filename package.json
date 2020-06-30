@@ -45,7 +45,7 @@
     "merge": "ts-node --project scripts scripts/merge-script/cli.ts --config ./merge-config.js",
     "approve-api": "node ./scripts/approve-api-golden.js"
   },
-  "version": "9.0.4",
+  "version": "9.0.5",
   "dependencies": {
     "@ajf/icons": "^1.0.0",
     "@angular/animations": "^9.1.0",
