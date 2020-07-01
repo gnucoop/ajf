@@ -21,6 +21,7 @@
  */
 
 import {AjfContext, AjfFormula, createFormula, evaluateExpression} from '@ajf/core/models';
+import {AjfTableCell} from '@ajf/core/table';
 import {deepCopy} from '@ajf/core/utils';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -45,7 +46,6 @@ import {AjfFormulaWidget} from '../../interface/widgets/formula-widget';
 import {AjfImageContainerWidget} from '../../interface/widgets/image-container-widget';
 import {AjfImageWidget} from '../../interface/widgets/image-widget';
 import {AjfMapWidget} from '../../interface/widgets/map-widget';
-import {AjfTableCell} from '@ajf/core/table';
 import {AjfTableWidget} from '../../interface/widgets/table-widget';
 import {AjfTextWidget} from '../../interface/widgets/text-widget';
 import {AjfWidget} from '../../interface/widgets/widget';
