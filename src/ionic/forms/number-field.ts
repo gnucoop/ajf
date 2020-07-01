@@ -35,7 +35,7 @@ import {
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
-
+import {FormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, startWith, switchMap, withLatestFrom} from 'rxjs/operators';
 
@@ -60,13 +60,13 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
     this.type = 'number';
 
     this.value = defer(
-        () => this.control.pipe(
-            filter(control => control != null),
-            switchMap(
-                control => control!.valueChanges.pipe(
-                    startWith(control!.value),
-                    )),
-            ));
+                     () => this.control.pipe(
+                         filter(control => control != null),
+                         switchMap(
+                             control => control!.valueChanges.pipe(
+                                 startWith(control!.value),
+                                 )),
+                         )) as Observable<number|null>;
   }
 
   ngOnDestroy(): void {
@@ -81,10 +81,11 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
                             .pipe(
                                 withLatestFrom(this.control),
                                 )
-                            .subscribe(([value, control]) => {
-                              if (control == null) {
+                            .subscribe(([value, ctrl]) => {
+                              if (ctrl == null) {
                                 return;
                               }
+                              const control = ctrl as FormControl;
                               control.setValue(value);
                             });
   }

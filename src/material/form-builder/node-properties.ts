@@ -442,9 +442,12 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initSave(): void {
-    this._saveSub = this._saveEvt.pipe(withLatestFrom(this.propertiesForm))
-                        .subscribe((r: [void, FormGroup]) => {
-                          const fg = r[1];
+    this._saveSub = this._saveEvt
+                        .pipe(
+                            withLatestFrom(this.propertiesForm),
+                            )
+                        .subscribe(([_, formGroup]) => {
+                          const fg = formGroup as FormGroup;
                           const val = {...fg.value, conditionalBranches: this._conditionalBranches};
                           this._service.saveNodeEntry(val);
                         });
@@ -639,14 +642,15 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initRemoveTriggerCondition(): void {
-    this._removeTriggerConditionSub = (<Observable<number>>this._removeTriggerConditionEvt)
-                                          .pipe(withLatestFrom(this._propertiesForm))
-                                          .subscribe((r: [number, FormGroup]) => {
-                                            const vcIdx = r[0];
-                                            const fg = r[1];
-                                            if (fg == null) {
+    this._removeTriggerConditionSub = this._removeTriggerConditionEvt
+                                          .pipe(
+                                              withLatestFrom(this._propertiesForm),
+                                              )
+                                          .subscribe(([vcIdx, formGroup]) => {
+                                            if (formGroup == null) {
                                               return;
                                             }
+                                            const fg = formGroup as FormGroup;
                                             const ctrl = fg.controls['triggerConditions'];
                                             let vcs = (ctrl.value || []).slice(0);
                                             if (vcIdx < 0 || vcIdx >= vcs.length) {
@@ -658,13 +662,15 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initAddTriggerCondition(): void {
-    this._addTriggerConditionSub = (<Observable<void>>this._addTriggerConditionEvt)
-                                       .pipe(withLatestFrom(this._propertiesForm))
-                                       .subscribe((r: [void, FormGroup]) => {
-                                         const fg = r[1];
-                                         if (fg == null) {
+    this._addTriggerConditionSub = this._addTriggerConditionEvt
+                                       .pipe(
+                                           withLatestFrom(this._propertiesForm),
+                                           )
+                                       .subscribe(([_, formGroup]) => {
+                                         if (formGroup == null) {
                                            return;
                                          }
+                                         const fg = formGroup as FormGroup;
                                          const ctrl = fg.controls['triggerConditions'];
                                          let vcs = (ctrl.value || []).slice(0);
                                          vcs.push('');
@@ -676,12 +682,12 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._editConditionDialogSub = Subscription.EMPTY;
     this._cdr.markForCheck();
     this._editTriggerConditionSub =
-        (<Observable<number>>this._editTriggerConditionEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [number, FormGroup]) => {
+        this._editTriggerConditionEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([vcIdx, fg]) => {
               this._destroyConditionDialog();
-              const vcIdx = r[0];
-              const fg = r[1];
               if (vcIdx < 0 || vcIdx >= this._triggerConditions.length || fg == null) {
                 return;
               }
@@ -701,14 +707,15 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initRemoveWarningCondition(): void {
-    this._removeWarningConditionSub = (<Observable<number>>this._removeWarningConditionEvt)
-                                          .pipe(withLatestFrom(this._propertiesForm))
-                                          .subscribe((r: [number, FormGroup]) => {
-                                            const vcIdx = r[0];
-                                            const fg = r[1];
-                                            if (fg == null) {
+    this._removeWarningConditionSub = this._removeWarningConditionEvt
+                                          .pipe(
+                                              withLatestFrom(this._propertiesForm),
+                                              )
+                                          .subscribe(([vcIdx, formGroup]) => {
+                                            if (formGroup == null) {
                                               return;
                                             }
+                                            const fg = formGroup as FormGroup;
                                             const ctrl = fg.controls['warningConditions'];
                                             let vcs = (ctrl.value || []).slice(0);
                                             if (vcIdx < 0 || vcIdx >= vcs.length) {
@@ -720,13 +727,15 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initAddWarningCondition(): void {
-    this._addWarningConditionSub = (<Observable<void>>this._addWarningConditionEvt)
-                                       .pipe(withLatestFrom(this._propertiesForm))
-                                       .subscribe((r: [void, FormGroup]) => {
-                                         const fg = r[1];
-                                         if (fg == null) {
+    this._addWarningConditionSub = this._addWarningConditionEvt
+                                       .pipe(
+                                           withLatestFrom(this._propertiesForm),
+                                           )
+                                       .subscribe(([_, formGroup]) => {
+                                         if (formGroup == null) {
                                            return;
                                          }
+                                         const fg = formGroup as FormGroup;
                                          const ctrl = fg.controls['warningConditions'];
                                          let vcs = (ctrl.value || []).slice(0);
                                          vcs.push({condition: '', errorMessage: ''});
@@ -736,12 +745,12 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initWarningConditionEdit(): void {
     this._editWarningConditionSub =
-        (<Observable<number>>this._editWarningConditionEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [number, FormGroup]) => {
+        this._editWarningConditionEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([vcIdx, fg]) => {
               this._destroyWarningConditionDialog();
-              const vcIdx = r[0];
-              const fg = r[1];
               if (vcIdx < 0 || vcIdx >= this._warningConditions.length || fg == null) {
                 return;
               }
@@ -765,14 +774,15 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initRemoveValidationCondition(): void {
-    this._removeValidationConditionSub = (<Observable<number>>this._removeValidationConditionEvt)
-                                             .pipe(withLatestFrom(this._propertiesForm))
-                                             .subscribe((r: [number, FormGroup]) => {
-                                               const vcIdx = r[0];
-                                               const fg = r[1];
-                                               if (fg == null) {
+    this._removeValidationConditionSub = this._removeValidationConditionEvt
+                                             .pipe(
+                                                 withLatestFrom(this._propertiesForm),
+                                                 )
+                                             .subscribe(([vcIdx, formGroup]) => {
+                                               if (formGroup == null) {
                                                  return;
                                                }
+                                               const fg = formGroup as FormGroup;
                                                const ctrl = fg.controls['validationConditions'];
                                                let vcs = (ctrl.value || []).slice(0);
                                                if (vcIdx < 0 || vcIdx >= vcs.length) {
@@ -784,13 +794,15 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   private _initAddValidationCondition(): void {
-    this._addValidationConditionSub = (<Observable<void>>this._addValidationConditionEvt)
-                                          .pipe(withLatestFrom(this._propertiesForm))
-                                          .subscribe((r: [void, FormGroup]) => {
-                                            const fg = r[1];
-                                            if (fg == null) {
+    this._addValidationConditionSub = this._addValidationConditionEvt
+                                          .pipe(
+                                              withLatestFrom(this._propertiesForm),
+                                              )
+                                          .subscribe(([_, formGroup]) => {
+                                            if (formGroup == null) {
                                               return;
                                             }
+                                            const fg = formGroup as FormGroup;
                                             const ctrl = fg.controls['validationConditions'];
                                             let vcs = (ctrl.value || []).slice(0);
                                             vcs.push({condition: '', errorMessage: ''});
@@ -800,12 +812,12 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initValidationConditionEdit(): void {
     this._editValidationConditionSub =
-        (<Observable<number>>this._editValidationConditionEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [number, FormGroup]) => {
+        this._editValidationConditionEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([vcIdx, fg]) => {
               this._destroyValidationConditionDialog();
-              const vcIdx = r[0];
-              const fg = r[1];
               if (vcIdx < 0 || vcIdx >= this._validationConditions.length || fg == null) {
                 return;
               }
@@ -830,14 +842,16 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initForceValueEdit(): void {
     this._editForceValueSub =
-        (<Observable<void>>this._editForceValueEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [void, FormGroup]) => {
+        this._editForceValueEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([_, formGroup]) => {
               this._destroyConditionDialog();
-              const fg = r[1];
-              if (fg == null) {
+              if (formGroup == null) {
                 return;
               }
+              const fg = formGroup as FormGroup;
               const ctrl = fg.controls['forceValue'];
               this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
               this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -855,14 +869,16 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initNextSlideConditionEdit(): void {
     this._editNextSlideConditionSub =
-        (<Observable<void>>this._editNextSlideConditionEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [void, FormGroup]) => {
+        this._editNextSlideConditionEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([_, formGroup]) => {
               this._destroyConditionDialog();
-              const fg = r[1];
-              if (fg == null) {
+              if (formGroup == null) {
                 return;
               }
+              const fg = formGroup as FormGroup;
               const ctrl = fg.controls['nextSlideCondition'];
               this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
               this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -882,14 +898,16 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._editConditionDialogSub = Subscription.EMPTY;
     this._cdr.markForCheck();
     this._editFormulaSub =
-        (<Observable<void>>this._editFormulaEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [void, FormGroup]) => {
+        this._editFormulaEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([_, formGroup]) => {
               this._destroyConditionDialog();
-              const fg = r[1];
-              if (fg == null) {
+              if (formGroup == null) {
                 return;
               }
+              const fg = formGroup as FormGroup;
               const ctrl = fg.controls['formula'];
               this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
               this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -907,14 +925,16 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initFormulaRepsEdit(): void {
     this._editFormulaRepsSub =
-        (<Observable<void>>this._editFormulaRepsEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [void, FormGroup]) => {
+        this._editFormulaRepsEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([_, formGroup]) => {
               this._destroyConditionDialog();
-              const fg = r[1];
-              if (fg == null) {
+              if (formGroup == null) {
                 return;
               }
+              const fg = formGroup as FormGroup;
               const ctrl = fg.controls['formulaReps'];
               this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
               this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -932,14 +952,16 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initChoicesFilterEdit(): void {
     this._editChoicesFilterSub =
-        (<Observable<void>>this._editChoicesFilterEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [void, FormGroup]) => {
+        this._editChoicesFilterEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([_, formGroup]) => {
               this._destroyConditionDialog();
-              const fg = r[1];
-              if (fg == null) {
+              if (formGroup == null) {
                 return;
               }
+              const fg = formGroup as FormGroup;
               const ctrl = fg.controls['choicesFilter'];
               this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
               this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -957,12 +979,12 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initConditionalBranchEdit(): void {
     this._editConditionalBranchSub =
-        (<Observable<number>>this._editConditionalBranchEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [number, FormGroup]) => {
+        this._editConditionalBranchEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([cbIdx, fg]) => {
               this._destroyConditionDialog();
-              const cbIdx = r[0];
-              const fg = r[1];
               if (cbIdx < 0 || cbIdx >= this._conditionalBranches.length || fg == null) {
                 return;
               }
@@ -983,14 +1005,16 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   private _initVisibilityEdit(): void {
     this._editVisibilitySub =
-        (<Observable<void>>this._editVisibilityEvt)
-            .pipe(withLatestFrom(this._propertiesForm))
-            .subscribe((r: [void, FormGroup]) => {
+        this._editVisibilityEvt
+            .pipe(
+                withLatestFrom(this._propertiesForm),
+                )
+            .subscribe(([_, formGroup]) => {
               this._destroyConditionDialog();
-              const fg = r[1];
-              if (fg == null) {
+              if (formGroup == null) {
                 return;
               }
+              const fg = formGroup as FormGroup;
               const ctrl = fg.controls['visibility'];
               const condition = ctrl.value;
               this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);

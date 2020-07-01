@@ -36,6 +36,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {IonInput} from '@ionic/angular';
 import {InputChangeEventDetail} from '@ionic/core';
 import {Observable, Subscription} from 'rxjs';
@@ -64,22 +65,23 @@ export class AjfFormulaFieldComponent extends
     super(cdr, service, was);
 
     const control$ = this.control.pipe(
-        filter(control => control != null),
-    );
+                         filter(control => control != null),
+                         ) as Observable<FormControl>;
+    const controlValue$ = control$.pipe(
+                              switchMap(
+                                  control => this._onChangeEvt.pipe(
+                                      map(value => ({control, value})),
+                                      )),
+                              ) as Observable<{control: FormControl, value: any}>;
 
-    this._onChangeSub =
-        control$
-            .pipe(
-                switchMap(control => this._onChangeEvt.pipe(map(value => ({control, value})))),
-                )
-            .subscribe(({control, value}) => {
-              try {
-                const v = parseFloat(value);
-                value = v;
-              } catch (e) {
-              }
-              control!.setValue(value);
-            });
+    this._onChangeSub = controlValue$.subscribe(({control, value}) => {
+      try {
+        const v = parseFloat(value);
+        value = v;
+      } catch (e) {
+      }
+      control.setValue(value);
+    });
 
     this.value = this.control.pipe(
         filter(control => control != null),

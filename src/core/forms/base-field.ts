@@ -21,7 +21,7 @@
  */
 
 import {ChangeDetectorRef, Directive, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, map, withLatestFrom} from 'rxjs/operators';
 
@@ -59,20 +59,24 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
       private _warningAlertService: AjfWarningAlertService,
   ) {
     this._control = defer(
-        () => this._service.getControl(this.instance)
-                  .pipe(
-                      map(ctrl => ctrl as FormControl || new FormControl()),
-                      ));
+                        () => this._service.getControl(this.instance)
+                                  .pipe(
+                                      map(ctrl => (ctrl || new FormControl()) as FormControl),
+                                      )) as Observable<FormControl|null>;
   }
 
   ngOnInit(): void {
     this._warningTriggerSub =
-        this.instance.warningTrigger.pipe(withLatestFrom(this.control), filter(v => v[1] != null))
-            .subscribe((v: [void, AbstractControl|null]) => {
+        this.instance.warningTrigger
+            .pipe(
+                withLatestFrom(this.control),
+                filter(([_, ctrl]) => ctrl != null),
+                )
+            .subscribe(([_, ctrl]) => {
               if (this.instance.warningResults == null) {
                 return;
               }
-              const control = v[1];
+              const control = ctrl as FormControl;
               const s =
                   this._warningAlertService
                       .showWarningAlertPrompt(

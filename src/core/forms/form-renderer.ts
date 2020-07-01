@@ -282,13 +282,15 @@ export class AjfFormRendererService {
 
   private _initErrorsStreams(): void {
     this._errorPositions = this._valueChanged.pipe(
-        withLatestFrom(this._nodes, this._form), filter(v => v[2] != null && v[2].form != null),
-        map((v: [void, AjfNodeInstance[], {form: AjfForm | null, context?: AjfContext}|null]) => {
-          const nodes = v[1];
-          const form = v[2]!.form!;
+        withLatestFrom(this._nodes, this._form),
+        filter(
+            ([_, __, form]) => form != null &&
+                (form as {form: AjfForm | null, context?: AjfContext}).form != null),
+        map(([_, nodes, formDef]) => {
+          const form = (formDef as {form: AjfForm | null, context?: AjfContext}).form as AjfForm;
           let currentPosition = 0;
           const errors: number[] = [];
-          nodes.forEach((node) => {
+          (nodes as AjfNodeInstance[]).forEach((node) => {
             if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
               const rsNode = node as AjfRepeatingSlideInstance;
               for (let i = 0; i < rsNode.reps; i++) {
@@ -317,57 +319,117 @@ export class AjfFormRendererService {
           this._slidesNum.next(currentPosition);
           return errors;
         }),
-        publishReplay(), refCount());
+        publishReplay(),
+        refCount(),
+    );
     this._errors = this._errorPositions.pipe(
-        map(e => e != null ? e.length : 0), startWith(0), publishReplay(), refCount());
+        map(e => e != null ? e.length : 0),
+        startWith(0),
+        publishReplay(),
+        refCount(),
+    );
   }
 
   private _initUpdateMapStreams(): void {
     this._visibilityNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._visibilityNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._repetitionNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._repetitionNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._conditionalBranchNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._conditionalBranchNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._formulaNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._formulaNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._validationNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._validationNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._warningNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._warningNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._filteredChoicesNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._filteredChoicesNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._triggerConditionsNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._triggerConditionsNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._nextSlideConditionsNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._nextSlideConditionsNodesMapUpdates)
-            .pipe(scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-                    return op(rmap);
-                  }, {}), startWith<AjfRendererUpdateMap>({}), share());
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
 
     this._nodesMaps = [
       this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
@@ -399,13 +461,18 @@ export class AjfFormRendererService {
                       map(() => form),
                   );
             }),
-            map((form) => {
+            map((formDef) => {
               return (_nodesInstances: AjfNodeInstance[]): AjfNodeInstance[] => {
-                const nodes = form != null && form.form != null ?
-                    this._orderedNodesInstancesTree(
-                        flattenNodes(form.form.nodes), form.form.nodes, undefined, [],
-                        form.context || {}) :
-                    [];
+                let nodes: AjfNodeInstance[];
+                if (formDef != null &&
+                    (formDef as {form: AjfForm | null, context?: AjfContext}).form != null) {
+                  const form = (formDef as {form: AjfForm, context: AjfContext});
+                  const baseNodes = form.form.nodes;
+                  nodes = this._orderedNodesInstancesTree(
+                      flattenNodes(baseNodes), baseNodes, undefined, [], form.context || {});
+                } else {
+                  nodes = [];
+                }
                 let currentPosition = 0;
                 nodes.forEach((node) => {
                   if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
@@ -579,11 +646,9 @@ export class AjfFormRendererService {
 
   private _updateFormValueAndValidity(): void {
     this._nodesUpdates.asObservable()
-        .pipe(
-            withLatestFrom(this._formGroup),
-            filter((values: [AjfNodesInstancesOperation, FormGroup|null]) => values[1] !== null))
-        .subscribe((values: [AjfNodesInstancesOperation, FormGroup|null]) => {
-          const form: FormGroup = <FormGroup>values[1];
+        .pipe(withLatestFrom(this._formGroup), filter(([_, fg]) => fg !== null))
+        .subscribe(([_, fg]) => {
+          const form = fg as FormGroup;
           form.updateValueAndValidity();
         });
   }
@@ -629,7 +694,9 @@ export class AjfFormRendererService {
     this._formGroupSubscription =
         formGroup.valueChanges
             .pipe(
-                startWith<any>({}), pairwise(), debounceTime(200),
+                startWith({} as any),
+                pairwise(),
+                debounceTime(200),
                 withLatestFrom<
                     [any, any],
                     [
@@ -637,7 +704,8 @@ export class AjfFormRendererService {
                       AjfRendererUpdateMap, AjfRendererUpdateMap, AjfRendererUpdateMap,
                       AjfRendererUpdateMap, AjfRendererUpdateMap, AjfRendererUpdateMap,
                       AjfNodeInstance[]
-                    ]>(...(this._nodesMaps), this._flatNodes))
+                    ]>(...(this._nodesMaps), this._flatNodes),
+                )
             .subscribe((v: [
                          [any, any], AjfRendererUpdateMap, AjfRendererUpdateMap,
                          AjfRendererUpdateMap, AjfRendererUpdateMap, AjfRendererUpdateMap,

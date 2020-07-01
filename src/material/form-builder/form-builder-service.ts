@@ -502,11 +502,11 @@ export class AjfFormBuilderService {
             filter(([form]) => form != null),
             map(([form, nodes, attachmentsOrigins, choicesOrigins, stringIdentifier]) => {
               return createForm({
-                choicesOrigins: choicesOrigins.slice(0),
-                attachmentsOrigins: attachmentsOrigins.slice(0),
-                stringIdentifier: (stringIdentifier || []).slice(0),
-                nodes: nodes.slice(0) as AjfSlide[],
-                supplementaryInformations: form!.supplementaryInformations,
+                choicesOrigins: (choicesOrigins as AjfChoicesOrigin<any>[]).slice(0),
+                attachmentsOrigins: (attachmentsOrigins as AjfAttachmentsOrigin<any>[]).slice(0),
+                stringIdentifier: ((stringIdentifier || []) as AjfFormStringIdentifier[]).slice(0),
+                nodes: (nodes as AjfSlide[]).slice(0),
+                supplementaryInformations: (form as AjfForm).supplementaryInformations,
               });
             }));
   }
@@ -646,9 +646,10 @@ export class AjfFormBuilderService {
     this._saveNodeEntryEvent
         .pipe(
             withLatestFrom(this.editedNodeEntry, this.choicesOrigins, this.attachmentsOrigins),
-            filter(([_, nodeEntry]) => nodeEntry != null), map(([properties, nodeEntry]) => {
+            filter(([_, nodeEntry]) => nodeEntry != null),
+            map(([properties, ne]) => {
               this._beforeNodesUpdate.emit();
-              nodeEntry = nodeEntry!;
+              const nodeEntry = ne as AjfFormBuilderNodeEntry;
               const origNode = nodeEntry.node;
               const node = deepCopy(origNode);
               node.id = nodeEntry.node.id;
@@ -785,7 +786,8 @@ export class AjfFormBuilderService {
                 }
                 return nodes;
               };
-            }))
+            }),
+            )
         .subscribe(this._nodesUpdates);
   }
 

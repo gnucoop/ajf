@@ -52,18 +52,18 @@ export class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
       @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService, domSanitizer: DomSanitizer) {
     super(cdr, service, was);
     const fileStream = this.control.pipe(
-                           filter(control => control != null),
-                           switchMap(control => {
-                             control = control as FormControl;
-                             return control.valueChanges.pipe(
-                                 startWith(control.value),
-                             );
-                           }),
-                           filter(value => value != null),
-                           shareReplay(1),
-                           ) as Observable<AjfFile>;
+        filter(control => control != null),
+        switchMap(control => {
+          control = control as FormControl;
+          return control.valueChanges.pipe(
+                     startWith(control.value),
+                     ) as Observable<AjfFile>;
+        }),
+        filter(value => value != null),
+        shareReplay(1),
+    );
     this.imageUrl = fileStream.pipe(
-        map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)),
+        map(file => domSanitizer.bypassSecurityTrustResourceUrl((file as AjfFile).content)),
     );
   }
 }

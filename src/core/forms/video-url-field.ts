@@ -57,7 +57,7 @@ export class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
           );
         }),
         filter(value => value != null),
-        map(value => getVideoProviderAndId(value)),
+        map(value => getVideoProviderAndId(value as string)),
     );
     this.validUrl = video.pipe(map(v => v != null));
     this.videoThumbnail = video.pipe(
@@ -75,12 +75,12 @@ function videoPreviewUrl(httpClient: HttpClient, video: VideoInfo): Observable<s
   }
   if (video.provider === 'vimeo') {
     return httpClient
-        .get<{thumbnail_url: string}>(
-            `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${video.id}`)
-        .pipe(
-            map(response => response.thumbnail_url),
-            catchError(() => obsOf(null)),
-        );
+               .get<{thumbnail_url: string}>(
+                   `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${video.id}`)
+               .pipe(
+                   map(response => response.thumbnail_url),
+                   catchError(() => obsOf(null)),
+                   ) as Observable<string|null>;
   }
   return obsOf('');
 }

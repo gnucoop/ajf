@@ -862,73 +862,77 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
         }),
         distinctUntilChanged());
 
-    this._stylesUpdatesSubs =
-        (<Observable<{idx: any; value: any}>>this._updateWidgetMarginEvt)
-            .pipe(withLatestFrom(this.getMarginWidget))
-            .subscribe((r: [{idx: number, value: any}, number[]|undefined]) => {
-              if (r == null) {
-                return;
-              }
-              const idx = r[0].idx;
-              const value = r[0].value;
-              const v = r[1] || [0, 0, 0, 0];
-              if (v == null || v.length < idx) {
-                return;
-              }
-              v[idx] = value;
-              this.setWidgetStyles('margin', v);
-            });
+    this._stylesUpdatesSubs = this._updateWidgetMarginEvt
+                                  .pipe(
+                                      withLatestFrom(this.getMarginWidget),
+                                      )
+                                  .subscribe(r => {
+                                    if (r == null) {
+                                      return;
+                                    }
+                                    const idx = r[0].idx;
+                                    const value = r[0].value;
+                                    const v = (r[1] || [0, 0, 0, 0]) as number[];
+                                    if (v == null || v.length < idx) {
+                                      return;
+                                    }
+                                    v[idx] = value;
+                                    this.setWidgetStyles('margin', v);
+                                  });
 
-    this._stylesUpdatesSubs.add(
-        (<Observable<{idx: any; value: any}>>this._updateWidgetPaddingEvt)
-            .pipe(withLatestFrom(this.getPaddingWidget))
-            .subscribe((r: [{idx: number, value: any}, number[]|undefined]) => {
-              if (r == null) {
-                return;
-              }
-              const idx = r[0].idx;
-              const value = r[0].value;
-              const v = r[1] || [0, 0, 0, 0];
-              if (v == null || v.length < idx) {
-                return;
-              }
-              v[idx] = value;
-              this.setWidgetStyles('padding', v);
-            }));
+    this._stylesUpdatesSubs.add(this._updateWidgetPaddingEvt
+                                    .pipe(
+                                        withLatestFrom(this.getPaddingWidget),
+                                        )
+                                    .subscribe(r => {
+                                      if (r == null) {
+                                        return;
+                                      }
+                                      const idx = r[0].idx;
+                                      const value = r[0].value;
+                                      const v = (r[1] || [0, 0, 0, 0]) as number[];
+                                      if (v == null || v.length < idx) {
+                                        return;
+                                      }
+                                      v[idx] = value;
+                                      this.setWidgetStyles('padding', v);
+                                    }));
 
-    this._stylesUpdatesSubs.add(
-        (<Observable<{idx: any; value: any}>>this._updateWidgetBorderWidthEvt)
-            .pipe(withLatestFrom(this.getBorderWidthWidget))
-            .subscribe((r: [{idx: number, value: any}, number[]|undefined]) => {
-              if (r == null) {
-                return;
-              }
-              const idx = r[0].idx;
-              const value = r[0].value;
-              const v = r[1] || [0, 0, 0, 0];
-              if (v == null || v.length < idx) {
-                return;
-              }
-              v[idx] = value;
-              this.setWidgetStyles('border-width', v);
-            }));
+    this._stylesUpdatesSubs.add(this._updateWidgetBorderWidthEvt
+                                    .pipe(
+                                        withLatestFrom(this.getBorderWidthWidget),
+                                        )
+                                    .subscribe(r => {
+                                      if (r == null) {
+                                        return;
+                                      }
+                                      const idx = r[0].idx;
+                                      const value = r[0].value;
+                                      const v = (r[1] || [0, 0, 0, 0]) as number[];
+                                      if (v == null || v.length < idx) {
+                                        return;
+                                      }
+                                      v[idx] = value;
+                                      this.setWidgetStyles('border-width', v);
+                                    }));
 
-    this._stylesUpdatesSubs.add(
-        (<Observable<{idx: any; value: any}>>this._updateWidgetBorderRadiusEvt)
-            .pipe(withLatestFrom(this.getBorderRadiusWidget))
-            .subscribe((r: [{idx: number, value: any}, number[]|undefined]) => {
-              if (r == null) {
-                return;
-              }
-              const idx = r[0].idx;
-              const value = r[0].value;
-              const v = r[1] || [0, 0, 0, 0];
-              if (v == null || v.length < idx) {
-                return;
-              }
-              v[idx] = value;
-              this.setWidgetStyles('border-radius', v);
-            }));
+    this._stylesUpdatesSubs.add(this._updateWidgetBorderRadiusEvt
+                                    .pipe(
+                                        withLatestFrom(this.getBorderRadiusWidget),
+                                        )
+                                    .subscribe(r => {
+                                      if (r == null) {
+                                        return;
+                                      }
+                                      const idx = r[0].idx;
+                                      const value = r[0].value;
+                                      const v = (r[1] || [0, 0, 0, 0]) as number[];
+                                      if (v == null || v.length < idx) {
+                                        return;
+                                      }
+                                      v[idx] = value;
+                                      this.setWidgetStyles('border-radius', v);
+                                    }));
   }
 
   ngOnChanges(changes: any) {

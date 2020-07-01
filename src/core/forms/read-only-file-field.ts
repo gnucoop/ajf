@@ -55,19 +55,19 @@ export class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
     super(cdr, service, was);
     this.fileIcon = domSanitizer.bypassSecurityTrustResourceUrl(fileIcon);
     const fileStream = this.control.pipe(
-                           filter(control => control != null),
-                           switchMap(control => {
-                             control = control as FormControl;
-                             return control.valueChanges.pipe(
-                                 startWith(control.value),
-                             );
-                           }),
-                           filter(value => value != null),
-                           shareReplay(1),
-                           ) as Observable<AjfFile>;
-    this.fileUrl = fileStream.pipe(
-        map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)),
+        filter(control => control != null),
+        switchMap(control => {
+          control = control as FormControl;
+          return control.valueChanges.pipe(
+                     startWith(control.value),
+                     ) as Observable<AjfFile>;
+        }),
+        filter(value => value != null),
+        shareReplay(1),
     );
-    this.fileName = fileStream.pipe(map(file => file.name));
+    this.fileUrl = fileStream.pipe(
+        map(file => domSanitizer.bypassSecurityTrustResourceUrl((file as AjfFile).content)),
+    );
+    this.fileName = fileStream.pipe(map(file => (file as AjfFile).name));
   }
 }

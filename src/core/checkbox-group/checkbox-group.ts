@@ -292,7 +292,10 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
 
   constructor(checkboxGroup?: AjfCheckboxGroup<T>) {
     this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal)
-                    .pipe(map(r => r[0] ? r[1] : r[2]));
+                    .pipe(
+                        map(([checked, checkedIcon, notCheckedIcon]) =>
+                                (checked ? checkedIcon : notCheckedIcon) as string),
+                    );
 
     if (checkboxGroup) {
       this.checkboxGroup = checkboxGroup;

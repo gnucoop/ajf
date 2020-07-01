@@ -310,13 +310,12 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
       this._errorMoveSubscription =
           (<Observable<boolean>>this._errorMoveEvent)
               .pipe(withLatestFrom(this._errorPositions))
-              .subscribe((v: [boolean, number[]]) => {
-                const move = v[0];
+              .subscribe(([move, errs]) => {
                 const currentPosition = this.formSlider.currentPage - (+this.hasStartMessage) + 1;
-                const errors = v[1];
-                if (errors == null) {
+                if (errs == null) {
                   return;
                 }
+                const errors = errs as number[];
 
                 let found = false;
                 let prevIdx = -1;

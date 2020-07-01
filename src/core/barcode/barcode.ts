@@ -208,7 +208,10 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
    * @memberof AjfBarcode
    */
   private _readBarcodeFromImage(img: HTMLImageElement): Observable<Result> {
-    return from(this.codeReader.decodeFromImage(img)).pipe(catchError(e => of(e as Result)));
+    const decode = from(this.codeReader.decodeFromImage(img)) as Observable<Result>;
+    return decode.pipe(
+               catchError(e => of(e)),
+               ) as Observable<Result>;
   }
 
   /**

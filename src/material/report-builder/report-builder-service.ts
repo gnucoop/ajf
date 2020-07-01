@@ -545,27 +545,26 @@ export class AjfReportBuilderService {
                 this._footerWidgets.pipe(filter(w => w != null)),
                 this._reportStyles.pipe(filter(w => w != null)),
                 ))
-        .subscribe((r: [
-                     [void, AjfReport | null, AjfForm[]], AjfWidgetsContainer, AjfWidgetsContainer,
-                     AjfWidgetsContainer, AjfStyles
-                   ]) => {
+        .subscribe(r => {
           let obj: any = {};
           // const curRo = r[0][1];
           // const forms = r[0][2] != null ? r[0][2] || []
           //     : (curRo != null ? curRo.forms || [] : []);
 
-          obj.header = {content: r[1].widgets.map(w => deepCopy(w)), styles: r[1].styles} as
+          const [hco, cco, fco] = [r[1], r[2], r[3]] as AjfWidgetsContainer[];
+
+          obj.header = {content: hco.widgets.map(w => deepCopy(w)), styles: hco.styles} as
               AjfReportContainer;
-          obj.content = {content: r[2].widgets.map(w => deepCopy(w)), styles: r[2].styles} as
+          obj.content = {content: cco.widgets.map(w => deepCopy(w)), styles: cco.styles} as
               AjfReportContainer;
-          obj.footer = {content: r[3].widgets.map(w => deepCopy(w)), styles: r[3].styles} as
+          obj.footer = {content: fco.widgets.map(w => deepCopy(w)), styles: fco.styles} as
               AjfReportContainer;
           obj.styles = r[4];
 
           const ro = {
-            header: {content: r[1].widgets, styles: r[1].styles},
-            content: {content: r[2].widgets, styles: r[2].styles},
-            footer: {content: r[3].widgets, styles: r[3].styles},
+            header: {content: hco.widgets, styles: hco.styles},
+            content: {content: cco.widgets, styles: cco.styles},
+            footer: {content: fco.widgets, styles: fco.styles},
             styles: r[4]
           } as AjfReport;
 
