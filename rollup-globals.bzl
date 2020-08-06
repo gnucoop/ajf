@@ -28,6 +28,7 @@ ROLLUP_GLOBALS = {
     "@angular/cdk/collections": "ng.cdk.collections",
     "@angular/cdk/drag-drop": "ng.cdk.dragDrop",
     "@angular/cdk/keycodes": "ng.cdk.keycodes",
+    "@angular/cdk/text-field": "ng.cdk.textField",
     "@angular/material/autocomplete": "ng.material.autocomplete",
     "@angular/material/button": "ng.material.button",
     "@angular/material/button-toggle": "ng.material.buttonToggle",

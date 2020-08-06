@@ -42,6 +42,7 @@ import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
+import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 
@@ -54,7 +55,7 @@ export class AjfFieldService extends CoreService {
       readOnlyComponent: AjfReadOnlyFieldComponent
     },
     this.componentsMap[AjfFieldType.Text] = {
-      component: AjfInputFieldComponent,
+      component: AjfTextFieldComponent,
       readOnlyComponent: AjfReadOnlyFieldComponent
     },
     this.componentsMap[AjfFieldType.Number] = {

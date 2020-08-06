@@ -30,6 +30,7 @@ ng_module(
         ":multiple-choice-field.css",
         ":single-choice-field.css",
         ":table-field.css",
+        ":text-field.css",
         ":time-field.css",
         ":video-url-field.css",
     ] + glob(["**/*.html"]),
@@ -119,6 +120,12 @@ sass_binary(
 sass_binary(
     name = "table_field_scss",
     src = "table-field.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "text_field_scss",
+    src = "text-field.scss",
     deps = [],
 )
 

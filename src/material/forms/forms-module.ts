@@ -27,6 +27,7 @@ import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/material/page-slider';
 import {AjfTimeModule} from '@ajf/material/time';
+import {TextFieldModule} from '@angular/cdk/text-field';
 import {CommonModule} from '@angular/common';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -55,6 +56,7 @@ import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
+import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfWarningAlertService} from './warning-alert-service';
@@ -65,7 +67,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfCheckboxGroupModule, AjfPageSliderModule, AjfTimeModule,       CommonModule,
     MatButtonModule,        MatCardModule,       MatDialogModule,     MatFormFieldModule,
     MatIconModule,          MatInputModule,      MatRadioModule,      MatSelectModule,
-    MatSlideToggleModule,   MatToolbarModule,    ReactiveFormsModule, TranslateModule,
+    MatSlideToggleModule,   MatToolbarModule,    ReactiveFormsModule, TextFieldModule,
+    TranslateModule,
   ],
   declarations: [
     AjfBarcodeFieldComponent,
@@ -80,6 +83,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
+    AjfTextFieldComponent,
     AjfTimeFieldComponent,
     AjfVideoUrlFieldComponent,
   ],
@@ -93,6 +97,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
+    AjfTextFieldComponent,
     AjfTimeFieldComponent,
     AjfVideoUrlFieldComponent,
   ],
