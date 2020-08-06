@@ -1,3 +1,12 @@
+## 10.0.3 "bitter-breeze" (2020-08-06)
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **forms:** render text fields in a text area ([ea2f70a308b8d4a4a8b09824add65df62bff5061](https://github.com/gnucoop/ajf/commit/ea2f70a308b8d4a4a8b09824add65df62bff5061)) |
+
+
 ## 10.0.2 "rapid-butterfly" (2020-06-30)
 
 ### core
