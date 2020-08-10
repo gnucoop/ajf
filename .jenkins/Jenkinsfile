@@ -71,7 +71,7 @@ pipeline {
       steps {
         sh 'yarn build'
         script {
-          env.pkg_json_version = sh(script:'node -pe "require(\'./package.json\').version"', returnStdout: true).trim()
+          env.pkg_json_version = sh('node -pe "require(\\\"./package.json\\\\").version"', returnStdout: true).trim()
           env.expected_version = sh('echo "${pkg_json_version}-sha-$(git rev-parse --short HEAD)"', returnStdout: true).trim()
           sh 'yarn check-release-output ${expected_version}'
         }
