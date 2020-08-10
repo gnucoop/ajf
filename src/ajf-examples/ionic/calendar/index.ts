@@ -1,7 +1,7 @@
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {NgModule} from '@angular/core';
 
-import {IonicCalendarSimpleExample} from './calendar-simple/calendar-simple-example';
+import {IonicCalendarSimpleExample} from './ionic-calendar-simple/calendar-simple-example';
 
 export {
   IonicCalendarSimpleExample,

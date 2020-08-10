@@ -1,7 +1,7 @@
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {NgModule} from '@angular/core';
 
-import {MaterialCalendarSimpleExample} from './calendar-simple/calendar-simple-example';
+import {MaterialCalendarSimpleExample} from './material-calendar-simple/calendar-simple-example';
 
 export {
   MaterialCalendarSimpleExample,
