@@ -350,7 +350,12 @@ jobs:
       - *setup_bazel_binary
 
       - run: yarn build
-      - run: yarn check-release-output
+      - run:
+          name: Checking release output
+          command: |
+            pkg_json_version=$(node -pe "require('./package.json').version")
+            expected_version="${pkg_json_version}-sha-$(git rev-parse --short HEAD)"
+            yarn check-release-output ${expected_version}
 
       # TODO(devversion): replace this with bazel tests that run Madge. This is
       # cumbersome and doesn't guarantee no circular deps for other entry-points.
@@ -426,7 +431,18 @@ jobs:
       # The components examples package is not a release package, but we publish it
       # as part of this job to the docs-content repository. It's not contained in the
       # attached release output, so we need to build it here.
-      - run: bazel build src/components-examples:npm_package --config=release
+      - run: bazel build src/components-examples:npm_package --config=snapshot-build
+
+      # Ensures that we do not push the snapshot artifacts upstream until all previous
+      # snapshot build jobs have completed. This helps avoiding conflicts when multiple
+      # commits have been pushed (resulting in multiple concurrent snapshot publish jobs).
+      # We increase the confidence threshold so that it queries the CircleCI API a second time
+      # after a delay. We do this as the CircleCI API does not refresh immediately when a job
+      # completes/starts, and this will improve stability of the queue step. See source:
+      # https://github.com/eddiewebb/circleci-queue/commit/5d42add5bbcff5e8ac7fe189448a61fea98b0839.
+      - queue/until_front_of_line:
+          confidence: "2"
+
       - run: ./scripts/circleci/publish-snapshots.sh
       - *slack_notify_on_failure
 

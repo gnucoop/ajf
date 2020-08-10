@@ -70,7 +70,11 @@ pipeline {
     stage('Release output') {
       steps {
         sh 'yarn build'
-        sh 'yarn check-release-output'
+        script {
+          env.pkg_json_version = sh(script:'node -pe "require(\'./package.json\').version"', returnStdout: true).trim()
+          env.expected_version = sh('echo "${pkg_json_version}-sha-$(git rev-parse --short HEAD)"', returnStdout: true).trim()
+          sh 'yarn check-release-output ${expected_version}'
+        }
         sh 'cp -R dist/releases/* node_modules/@ajf/'
         sh 'mv node_modules/__ngcc_entry_points__.json node_modules/__ngcc_entry_points__.json.back'
         sh 'yarn ngcc --error-on-failed-entry-point --no-tsconfig'
