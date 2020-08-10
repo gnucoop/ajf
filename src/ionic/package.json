@@ -25,13 +25,5 @@
   "dependencies": {
     "tslib": "0.0.0-TSLIB"
   },
-  "schematics": "./schematics/collection.json",
-  "ng-update": {
-    "migrations": "./schematics/migration.json",
-    "packageGroup": [
-      "@ajf/ionic",
-      "@ajf/core"
-    ]
-  },
   "sideEffects": false
 }

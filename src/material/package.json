@@ -27,13 +27,5 @@
   "dependencies": {
     "tslib": "0.0.0-TSLIB"
   },
-  "schematics": "./schematics/collection.json",
-  "ng-update": {
-    "migrations": "./schematics/migration.json",
-    "packageGroup": [
-      "@ajf/material",
-      "@ajf/core"
-    ]
-  },
   "sideEffects": false
 }
