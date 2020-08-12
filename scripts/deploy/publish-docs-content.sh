@@ -23,8 +23,9 @@ docsDistPath="${projectPath}/dist/docs"
 # Path to the cloned docs-content repository.
 docsContentPath="${projectPath}/tmp/ajf-docs-content"
 
-# Path to the release output of the Bazel "@ajf/ajf-examples" NPM package.
-examplesPackagePath="$(yarn -s bazel info bazel-bin)/src/ajf-examples/npm_package"
+# Path to the build output of the Bazel "@ajf/ajf-examples" NPM package.
+# Note: When changing this, also change the path in `scripts/build-docs-content.js`.
+examplesPackagePath="${projectPath}/dist/docs-content-pkg/"
 
 # Git clone URL for the ajf-docs-content repository.
 docsContentRepoUrl="https://github.com/gnucoop/ajf-docs-content"
