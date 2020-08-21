@@ -322,6 +322,17 @@ export declare class AjfWidgetSerializer {
     static fromJson(json: Partial<AjfWidget>): AjfWidget;
 }
 
+export declare abstract class AjfWidgetService {
+    readonly componentsMap: AjfWidgetComponentsMap;
+    registerCustomWidget(widget: {
+        widgetType: number;
+        component: Type<AjfBaseWidgetComponent>;
+        inputs?: {
+            [key: string]: any;
+        };
+    }): void;
+}
+
 export declare enum AjfWidgetType {
     Layout = 0,
     PageBreak = 1,

@@ -74,6 +74,7 @@ export * from './serializers/widget-serializer';
 export * from './widget';
 export * from './widget-components-map';
 export * from './widget-host';
+export * from './widget-service';
 
 export * from './utils/aggregation/create-aggregation';
 export * from './utils/reports-instances/create-report-instance';
