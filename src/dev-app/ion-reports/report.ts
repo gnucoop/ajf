@@ -21,51 +21,56 @@
  */
 
 export const testReport = {
-  'header': {
-    'styles': {'background-color': '#56d3cf', 'color': '#ffffff'},
-    'content': [{
-      'columns': [0.55, -1, 0.45],
-      'widgetType': 0,
-      'content': [
-        {
-          'widgetType': 0,
-          'columns': [-1, -1],
-          'styles': {'background-color': '#37c4ca'},
-          'content': [
-            {
-              'widgetType': 2,
-              'styles': {
-                'width': '44px',
-                'height': '44px',
-                'border-radius': '22px',
-                'background-color': '#2bb7c0',
-                'padding': '10px',
-                'margin': '0 15px'
+  header: {
+    styles: {'background-color': '#56d3cf', color: '#ffffff'},
+    content: [
+      {
+        columns: [0.55, -1, 0.45],
+        widgetType: 0,
+        content: [
+          {
+            widgetType: 0,
+            columns: [-1, -1],
+            styles: {'background-color': '#37c4ca'},
+            content: [
+              {
+                widgetType: 2,
+                styles: {
+                  width: '44px',
+                  height: '44px',
+                  'border-radius': '22px',
+                  'background-color': '#2bb7c0',
+                  padding: '10px',
+                  margin: '0 15px'
+                },
+                imageUrl: 'https://dl.dropboxusercontent.com/u/53590771/wash.png'
               },
-              'imageUrl': 'https://dl.dropboxusercontent.com/u/53590771/wash.png'
-            },
-            {'widgetType': 3, 'htmlText': 'prova', 'styles': {'padding': '0 15px'}}
-          ]
-        },
-        {
-          'widgetType': 0,
-          'styles': {
-            'border-top': '2em solid transparent',
-            'border-bottom': '2em solid transparent',
-            'border-left': '2em solid #37c4ca'
-          }
-        },
-        {
-          'widgetType': 3,
-          'styles': {'padding': '15px', 'color': 'white'},
-          'htmlText': '<b>inutile</b>'
-        }
-      ]
-    }]
+              {widgetType: 3, htmlText: 'prova', styles: {padding: '0 15px'}}
+            ]
+          },
+          {
+            widgetType: 0,
+            styles: {
+              'border-top': '2em solid transparent',
+              'border-bottom': '2em solid transparent',
+              'border-left': '2em solid #37c4ca'
+            }
+          },
+          {widgetType: 3, styles: {padding: '15px', color: 'white'}, htmlText: '<b>inutile</b>'}
+        ]
+      },
+      {widgetType: 101},
+    ]
   },
-  'footer': [],
-  'content': [{
-    'styles': {'margin': '15px 0'},
-    'content': [{'columns': [0.5, -1, 0.5], 'widgetType': 0, 'content': []}]
+  footer: [],
+  content: [{
+    styles: {margin: '15px 0'},
+    content: [
+      {
+        columns: [0.5, -1, 0.5],
+        widgetType: 0,
+        content: [],
+      },
+    ]
   }]
 };

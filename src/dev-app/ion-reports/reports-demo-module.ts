@@ -26,6 +26,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 
+import {CustomWidget} from './custom-widget';
 import {ReportsDemo} from './reports-demo';
 
 @NgModule({
@@ -36,6 +37,7 @@ import {ReportsDemo} from './reports-demo';
     IonicModule,
   ],
   declarations: [
+    CustomWidget,
     ReportsDemo,
   ],
 })

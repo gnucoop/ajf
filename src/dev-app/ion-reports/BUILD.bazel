@@ -7,12 +7,18 @@ ng_module(
     srcs = glob(["**/*.ts"]),
     assets = [
         "reports-demo.html",
+        ":custom_widget_scss",
         ":reports_demo_scss",
     ],
     deps = [
         "//src/ionic/reports",
         "@npm//@angular/router",
     ],
+)
+
+sass_binary(
+    name = "custom_widget_scss",
+    src = "custom-widget.scss",
 )
 
 sass_binary(
