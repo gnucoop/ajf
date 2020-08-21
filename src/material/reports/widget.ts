@@ -20,25 +20,16 @@
  *
  */
 
-import {AjfReportWidget as CoreComponent, AjfWidgetType} from '@ajf/core/reports';
+import {AjfReportWidget as CoreComponent, AjfWidgetComponentsMap} from '@ajf/core/reports';
 import {
   ChangeDetectionStrategy,
   Component,
   ComponentFactoryResolver,
   Renderer2,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
-import {AjfChartWidgetComponent} from './chart-widget';
-import {AjfColumnWidgetComponent} from './column-widget';
-import {AjfFormulaWidgetComponent} from './formula-widget';
-import {AjfImageContainerWidgetComponent} from './image-container-widget';
-import {AjfImageWidgetComponent} from './image-widget';
-import {AjfLayoutWidgetComponent} from './layout-widget';
-import {AjfMapWidgetComponent} from './map-widget';
-import {AjfPageBreakWidgetComponent} from './page-break-widget';
-import {AjfTableWidgetComponent} from './table-widget';
-import {AjfTextWidgetComponent} from './text-widget';
+import {AjfWidgetService} from './widget-service';
 
 @Component({
   selector: 'ajf-widget',
@@ -48,21 +39,10 @@ import {AjfTextWidgetComponent} from './text-widget';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportWidget extends CoreComponent {
-  constructor(cfr: ComponentFactoryResolver, renderer: Renderer2) {
-    super(cfr, renderer);
-  }
+  readonly widgetsMap: AjfWidgetComponentsMap;
 
-  widgetsMap = {
-    [AjfWidgetType.Layout]: {component: AjfLayoutWidgetComponent},
-    [AjfWidgetType.PageBreak]: {component: AjfPageBreakWidgetComponent},
-    [AjfWidgetType.Image]: {component: AjfImageWidgetComponent},
-    [AjfWidgetType.Text]: {component: AjfTextWidgetComponent},
-    [AjfWidgetType.Chart]: {component: AjfChartWidgetComponent},
-    [AjfWidgetType.Table]: {component: AjfTableWidgetComponent},
-    [AjfWidgetType.DynamicTable]: {component: AjfTableWidgetComponent},
-    [AjfWidgetType.Map]: {component: AjfMapWidgetComponent},
-    [AjfWidgetType.Column]: {component: AjfColumnWidgetComponent},
-    [AjfWidgetType.Formula]: {component: AjfFormulaWidgetComponent},
-    [AjfWidgetType.ImageContainer]: {component: AjfImageContainerWidgetComponent},
-  };
+  constructor(cfr: ComponentFactoryResolver, renderer: Renderer2, widgetService: AjfWidgetService) {
+    super(cfr, renderer);
+    this.widgetsMap = widgetService.componentsMap;
+  }
 }

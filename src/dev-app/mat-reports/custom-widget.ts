@@ -20,17 +20,16 @@
  *
  */
 
-export * from './chart-widget';
-export * from './column-widget';
-export * from './formula-widget';
-export * from './image-container-widget';
-export * from './image-widget';
-export * from './layout-widget';
-export * from './map-widget';
-export * from './page-break-widget';
-export * from './report';
-export * from './reports-module';
-export * from './table-widget';
-export * from './text-widget';
-export * from './widget';
-export * from './widget-service';
+import {AjfBaseWidgetComponent} from '@ajf/core/reports';
+import {ChangeDetectorRef, Component, ElementRef} from '@angular/core';
+
+@Component({
+  selector: 'demo-custom-widget',
+  templateUrl: 'custom-widget.html',
+  styleUrls: ['custom-widget.css'],
+})
+export class CustomWidget extends AjfBaseWidgetComponent {
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
+  }
+}

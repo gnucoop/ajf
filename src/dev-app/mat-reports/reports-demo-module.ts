@@ -23,19 +23,23 @@
 import {AjfReportsModule} from '@ajf/material/reports';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {RouterModule} from '@angular/router';
 
+import {CustomWidget} from './custom-widget';
 import {ReportsDemo} from './reports-demo';
 
 @NgModule({
   imports: [
     AjfReportsModule,
     FormsModule,
+    MatButtonModule,
     MatGridListModule,
     RouterModule.forChild([{path: '', component: ReportsDemo}]),
   ],
   declarations: [
+    CustomWidget,
     ReportsDemo,
   ],
 })

@@ -59,42 +59,8 @@ export declare class AjfReportsModule {
 }
 
 export declare class AjfReportWidget extends CoreComponent {
-    widgetsMap: {
-        0: {
-            component: typeof AjfLayoutWidgetComponent;
-        };
-        1: {
-            component: typeof AjfPageBreakWidgetComponent;
-        };
-        2: {
-            component: typeof AjfImageWidgetComponent;
-        };
-        3: {
-            component: typeof AjfTextWidgetComponent;
-        };
-        4: {
-            component: typeof AjfChartWidgetComponent;
-        };
-        5: {
-            component: typeof AjfTableWidgetComponent;
-        };
-        10: {
-            component: typeof AjfTableWidgetComponent;
-        };
-        6: {
-            component: typeof AjfMapWidgetComponent;
-        };
-        7: {
-            component: typeof AjfColumnWidgetComponent;
-        };
-        8: {
-            component: typeof AjfFormulaWidgetComponent;
-        };
-        9: {
-            component: typeof AjfImageContainerWidgetComponent;
-        };
-    };
-    constructor(cfr: ComponentFactoryResolver, renderer: Renderer2);
+    readonly widgetsMap: AjfWidgetComponentsMap;
+    constructor(cfr: ComponentFactoryResolver, renderer: Renderer2, widgetService: AjfWidgetService);
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReportWidget, "ajf-widget", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfReportWidget, never>;
 }
@@ -109,4 +75,10 @@ export declare class AjfTextWidgetComponent extends AjfBaseWidgetComponent<AjfTe
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfTextWidgetComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfTextWidgetComponent, never>;
+}
+
+export declare class AjfWidgetService extends CoreService {
+    constructor();
+    static ɵfac: i0.ɵɵFactoryDef<AjfWidgetService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<AjfWidgetService>;
 }

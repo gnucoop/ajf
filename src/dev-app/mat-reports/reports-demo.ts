@@ -21,9 +21,11 @@
  */
 
 import {AjfReportInstance, AjfReportSerializer, createReportInstance} from '@ajf/core/reports';
+import {AjfWidgetService} from '@ajf/material/reports';
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 
+import {CustomWidget} from './custom-widget';
 import {testReport} from './report';
 
 @Component({
@@ -36,7 +38,8 @@ export class ReportsDemo {
   reportStr: string = JSON.stringify(testReport);
   context: string = '{}';
 
-  constructor(private _ts: TranslateService) {
+  constructor(private _ts: TranslateService, widgetService: AjfWidgetService) {
+    widgetService.registerCustomWidget({widgetType: 101, component: CustomWidget});
     const engDict = {
       'Salva': 'Save',
       'Esempio': 'Sample',
