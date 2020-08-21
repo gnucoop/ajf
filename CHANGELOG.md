@@ -1,3 +1,25 @@
+## 10.0.4 "sparkling-limit" (2020-08-21)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **reports:** add AjfWidgetService for custom widgets definition ([81d5ed084f78a8024b25d12194a2843f1d4c6989](https://github.com/gnucoop/ajf/commit/81d5ed084f78a8024b25d12194a2843f1d4c6989)) |
+
+### ionic
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **reports:** add support for custom report widgets definition ([f43b6005dc25e625848951a3a393d51c44ec010e](https://github.com/gnucoop/ajf/commit/f43b6005dc25e625848951a3a393d51c44ec010e)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** approve api change ([6e41ff869f8f02dfb39e6ddd0e3a6ddc0a0bc8f7](https://github.com/gnucoop/ajf/commit/6e41ff869f8f02dfb39e6ddd0e3a6ddc0a0bc8f7)) |
+| feature |  **reports:** add support for custom report widgets definition ([9bcd57f5cdc3a00c3b5faccbdc03ba47c96cd979](https://github.com/gnucoop/ajf/commit/9bcd57f5cdc3a00c3b5faccbdc03ba47c96cd979)) |
+
+
 ## 10.0.3 "bitter-breeze" (2020-08-06)
 
 ### material
