@@ -109,7 +109,7 @@ class PublishReleaseTask extends BaseReleaseTask {
     const {releaseNotes, releaseTitle} = extractedReleaseNotes;
 
     // Create and push the release tag before publishing to NPM.
-    this._createReleaseTag(newVersionName, releaseNotes);
+    this._createReleaseTag(`v${newVersionName}`, releaseNotes);
     this._pushReleaseTag(newVersionName, upstreamRemote);
 
     // Just in order to double-check that the user is sure to publish to NPM, we want
