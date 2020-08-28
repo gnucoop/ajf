@@ -298,6 +298,7 @@ export interface AjfWidgetComponentsMap {
         inputs?: {
             [key: string]: any;
         };
+        initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext, translateService: TranslateService) => AjfWidgetInstance;
     };
 }
 
