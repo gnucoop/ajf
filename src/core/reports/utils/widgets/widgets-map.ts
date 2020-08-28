@@ -20,13 +20,6 @@
  *
  */
 
-import {Type} from '@angular/core';
+import {AjfWidgetComponentsMap} from '../../interface/widgets/widget-components-map';
 
-import {AjfBaseWidgetComponent} from './base-widget';
-
-export interface AjfWidgetComponentsMap {
-  [key: number]: {
-    component: Type<AjfBaseWidgetComponent>,
-    inputs?: {[key: string]: any},
-  };
-}
+export const componentsMap: AjfWidgetComponentsMap = {};

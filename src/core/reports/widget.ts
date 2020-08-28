@@ -30,7 +30,7 @@ import {
 } from '@angular/core';
 
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
-import {AjfWidgetComponentsMap} from './widget-components-map';
+import {AjfWidgetComponentsMap} from './interface/widgets/widget-components-map';
 import {AjfWidgetHost} from './widget-host';
 
 @Directive()

@@ -20,27 +20,18 @@
  *
  */
 
+import {AjfContext} from '@ajf/core/models';
 import {Type} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
-import {AjfBaseWidgetComponent} from './base-widget';
-import {AjfWidgetComponentsMap} from './interface/widgets/widget-components-map';
-import {componentsMap} from './utils/widgets/widgets-map';
+import {AjfBaseWidgetComponent} from '../../base-widget';
+import {AjfWidgetInstance} from '../widgets-instances/widget-instance';
 
-export abstract class AjfWidgetService {
-  readonly componentsMap: AjfWidgetComponentsMap = componentsMap;
-
-  registerCustomWidget(widget: {
-    widgetType: number,
+export interface AjfWidgetComponentsMap {
+  [key: number]: {
     component: Type<AjfBaseWidgetComponent>,
     inputs?: {[key: string]: any},
-  }): void {
-    const {widgetType, component} = widget;
-    if (widgetType < 100) {
-      throw new Error('Invalid custom widget type, it must be greater than 100');
-    }
-    if (component == null) {
-      throw new Error('Invalid custom widget component');
-    }
-    this.componentsMap[widgetType] = widget;
-  }
+    initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext,
+                    translateService: TranslateService) => AjfWidgetInstance;
+  };
 }

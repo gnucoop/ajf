@@ -52,6 +52,7 @@ import {AjfWidget} from '../../interface/widgets/widget';
 import {AjfWidgetType} from '../../interface/widgets/widget-type';
 import {AjfWidgetWithContent} from '../../interface/widgets/widget-with-content';
 import {evaluateAggregation} from '../aggregation/evaluate-aggregation';
+import {componentsMap} from '../widgets/widgets-map';
 
 import {createWidgetInstance} from './create-widget-instance';
 import {trFormula} from './widget-instance-utils';
@@ -143,22 +144,21 @@ export function widgetToWidgetInstance(
           trFormula(cell.formula!, context as AjfContext, ts);
     }));
 
-    twi.data = (tw.dataset ||
-                []).map(row => row.map(cell => {
-                  let evf = '';
-                  try {
-                    evf = cell.formula instanceof Array ?
-                      cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
-                      trFormula(cell.formula!, context as AjfContext, ts);
-                  } catch (_e) {
-                  }
-                  return ({
-                    value: evf,
-                    style: { ...tw.cellStyles, ...cell.style },
-                    rowspan: cell.rowspan,
-                    colspan: cell.colspan,
-                  });
-                }));
+    twi.data = (tw.dataset || []).map(row => row.map(cell => {
+      let evf = '';
+      try {
+        evf = cell.formula instanceof Array ?
+            cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
+            trFormula(cell.formula!, context as AjfContext, ts);
+      } catch (_e) {
+      }
+      return ({
+        value: evf,
+        style: {...tw.cellStyles, ...cell.style},
+        rowspan: cell.rowspan,
+        colspan: cell.colspan,
+      });
+    }));
   } else if (widget.widgetType === AjfWidgetType.DynamicTable) {
     const tdw = widget as AjfDynamicTableWidget;
     const tdwi = wi as AjfTableWidgetInstance;
@@ -175,35 +175,31 @@ export function widgetToWidgetInstance(
       try {
         if (trf instanceof Array) {
           trf = trf.map(
-            v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
+              v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
         } else {
-          trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
-            ts.instant(trf) : trf;
+          trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ? ts.instant(trf) :
+                                                                                  trf;
         }
       } catch (_e) {
       }
-      return ({
-        ...cell,
-        value: trf
-      });
+      return ({...cell, value: trf});
     }));
 
-    const header =
-      (tdw.dataset || []).map(cell => {
-        let evf = '';
-        try {
-          evf = cell.formula instanceof Array ?
+    const header = (tdw.dataset || []).map(cell => {
+      let evf = '';
+      try {
+        evf = cell.formula instanceof Array ?
             cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
             trFormula(cell.formula!, context as AjfContext, ts);
-        } catch (_e) {
-        }
-        return ({
-          value: evf,
-          style: { ...tdw.cellStyles, ...cell.style },
-          rowspan: cell.rowspan,
-          colspan: cell.colspan,
-        });
+      } catch (_e) {
+      }
+      return ({
+        value: evf,
+        style: {...tdw.cellStyles, ...cell.style},
+        rowspan: cell.rowspan,
+        colspan: cell.colspan,
       });
+    });
     tdwi.data = [[...header], ...dataset];
   } else if (widget.widgetType === AjfWidgetType.Image) {
     const iw = widget as AjfImageWidget;
@@ -266,6 +262,13 @@ export function widgetToWidgetInstance(
     const mw = widget as AjfMapWidget;
     const mwi = wi as AjfMapWidgetInstance;
     mwi.coordinate = evaluateExpression(mw.coordinate.formula, context);
+  } else if (widget.widgetType > 100) {
+    const iiFn = componentsMap[widget.widgetType] != null ?
+        componentsMap[widget.widgetType].initInstance :
+        null;
+    if (iiFn != null) {
+      return iiFn(wi, context, ts);
+    }
   }
   return wi;
 }
