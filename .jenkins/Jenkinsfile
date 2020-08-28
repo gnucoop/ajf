@@ -75,6 +75,7 @@ pipeline {
           env.expected_version = sh(script: 'echo "${pkg_json_version}-sha-$(git rev-parse --short HEAD)"', returnStdout: true).trim()
           sh 'yarn check-release-output ${expected_version}'
         }
+        sh 'rm -Rf node_modules/@ajf/{calendars,core,ionic,material}'
         sh 'cp -R dist/releases/* node_modules/@ajf/'
         sh 'mv node_modules/__ngcc_entry_points__.json node_modules/__ngcc_entry_points__.json.back'
         sh 'yarn ngcc --error-on-failed-entry-point --no-tsconfig'
