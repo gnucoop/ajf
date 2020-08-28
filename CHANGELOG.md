@@ -1,3 +1,12 @@
+## 10.0.5 "sweet-firefly" (2020-08-28)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **reports:** add support for user defined init functions in custom widgets ([6d0c7888bb217bd1d5d27f44116f844dac1fdd0d](https://github.com/gnucoop/ajf/commit/6d0c7888bb217bd1d5d27f44116f844dac1fdd0d)) |
+
+
 ## 10.0.4 "sparkling-limit" (2020-08-21)
 
 ### core
