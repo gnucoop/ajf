@@ -13,6 +13,14 @@ describe('ajf-table-field', () => {
     expect(await cells[8].getText()).toBe('Row 2');
   });
 
+  it('should show table header', async () => {
+    const cells = await element.all(by.tagName('td')).getWebElements();
+    cells.forEach(async cell => console.log(await cell.getText()));
+    expect(await cells[1].getText()).toBe('Label 1');
+    expect(await cells[2].getText()).toBe('Label 2');
+    expect(await cells[3].getText()).toBe('Label 3');
+  });
+
   it('should show an input on data cell click', async () => {
     const cells = await element.all(by.tagName('td')).getWebElements();
     await cells[0].click();
