@@ -98,6 +98,7 @@
 /src/e2e-app/file-input/*                          @trik
 /src/e2e-app/ion-calendar/*                        @trik
 /src/e2e-app/ion-date-input-field/*                @trik
+/src/e2e-app/ion-table-field/*                     @trik
 /src/e2e-app/mat-calendar/*                        @trik
 /src/e2e-app/mat-date-input-field/*                @trik
 /src/e2e-app/mat-table-field/*                     @trik

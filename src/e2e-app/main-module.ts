@@ -10,6 +10,7 @@ import {E2E_APP_ROUTES} from './e2e-app/routes';
 import {FileInputE2eModule} from './file-input/file-input-e2e-module';
 import {IonicCalendarE2eModule} from './ion-calendar/calendar-e2e-module';
 import {IonicDateInputFieldE2eModule} from './ion-date-input-field/date-input-field-e2e-module';
+import {IonicTableFieldE2eModule} from './ion-table-field/table-field-e2e-module';
 import {MaterialCalendarE2eModule} from './mat-calendar/calendar-e2e-module';
 import {MaterialDateInputFieldE2eModule} from './mat-date-input-field/date-input-field-e2e-module';
 import {MaterialTableFieldE2eModule} from './mat-table-field/table-field-e2e-module';
@@ -27,6 +28,7 @@ import {MaterialTableFieldE2eModule} from './mat-table-field/table-field-e2e-mod
     FileInputE2eModule,
     IonicCalendarE2eModule,
     IonicDateInputFieldE2eModule,
+    IonicTableFieldE2eModule,
     MaterialCalendarE2eModule,
     MaterialDateInputFieldE2eModule,
     MaterialTableFieldE2eModule,
