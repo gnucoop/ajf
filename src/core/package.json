@@ -26,7 +26,9 @@
     "date-fns": "0.0.0-DATEFNS",
     "esprima": "0.0.0-ESPRIMA",
     "leaflet": "0.0.0-LEAFLET",
-    "numeral": "0.0.0-NUMERAL"
+    "numeral": "0.0.0-NUMERAL",
+    "file-saver": "0.0.0-FILESAVER",
+    "xlsx": "0.0.0-XLSX"
   },
   "dependencies": {
     "tslib": "0.0.0-TSLIB"
