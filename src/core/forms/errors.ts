@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -26,7 +26,9 @@ import {AjfError} from '@ajf/core/models';
  * This class will define an Ajf invalid field definition error
  */
 export class AjfInvalidFieldDefinitionError extends AjfError {
-  get name(): string { return 'AjfInvalidFieldDefinitionError'; }
+  get name(): string {
+    return 'AjfInvalidFieldDefinitionError';
+  }
 
   constructor(message?: string) {
     super(message);

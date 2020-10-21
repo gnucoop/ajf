@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,16 +20,20 @@
  *
  */
 
+import {AjfReport} from '@ajf/core/reports';
 import {
-  AfterContentInit, ChangeDetectionStrategy, Component, Input, ViewChild, ViewEncapsulation
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 
-import {AjfReport} from '@ajf/core/reports';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder',
   templateUrl: 'report-builder.html',
   styleUrls: ['report-builder.css'],
@@ -45,8 +49,11 @@ export class AjfReportBuilder implements AfterContentInit {
   private _init: boolean = false;
 
   private _report: AjfReport;
-  get report(): AjfReport { return this._report; }
-  @Input() set report(report: AjfReport) {
+  get report(): AjfReport {
+    return this._report;
+  }
+  @Input()
+  set report(report: AjfReport) {
     if (report != null) {
       this._report = report;
       if (this._init) {
@@ -55,7 +62,7 @@ export class AjfReportBuilder implements AfterContentInit {
     }
   }
 
-  constructor(private _service: AjfReportBuilderService) { }
+  constructor(private _service: AjfReportBuilderService) {}
 
   ngAfterContentInit(): void {
     this._setCurrentReport();

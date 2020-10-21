@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,12 +20,15 @@
  *
  */
 
+import {AjfCalendar, AjfCalendarService} from '@ajf/core/calendar';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
-
-import {AjfCalendar, AjfCalendarService} from '@ajf/core/calendar';
 
 export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -37,27 +40,12 @@ export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
  * Ajf calendar component.
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'viewDate',
-    'disabled',
-    'dateOnlyForDay',
-    'viewMode',
-    'selectionMode',
-    'startOfWeekDay',
-    'isoMode',
-    'minDate',
-    'maxDate',
-    'selectedPeriod',
-  ],
-  outputs: [
-    'change'
-  ],
+  outputs: ['change'],
   providers: [
     CALENDAR_CONTROL_VALUE_ACCESSOR,
   ]

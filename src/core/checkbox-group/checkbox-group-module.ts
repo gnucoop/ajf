@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -28,13 +28,14 @@ import {AjfCheckboxGroup} from './checkbox-group';
 
 @NgModule({
   imports: [
-    FormsModule
+    FormsModule,
   ],
   declarations: [
-    AjfCheckboxGroup
+    AjfCheckboxGroup,
   ],
   exports: [
-    AjfCheckboxGroup
+    AjfCheckboxGroup,
   ]
 })
-export class AjfCheckboxGroupModule { }
+export class AjfCheckboxGroupModule {
+}

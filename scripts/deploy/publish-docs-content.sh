@@ -23,13 +23,14 @@ docsDistPath="${projectPath}/dist/docs"
 # Path to the cloned docs-content repository.
 docsContentPath="${projectPath}/tmp/ajf-docs-content"
 
-# Path to the release output of the Bazel "@ajf/material-examples" NPM package.
-examplesPackagePath="$(bazel info bazel-bin)/src/material-examples/npm_package"
+# Path to the build output of the Bazel "@ajf/ajf-examples" NPM package.
+# Note: When changing this, also change the path in `scripts/build-docs-content.js`.
+examplesPackagePath="${projectPath}/dist/docs-content-pkg/"
 
 # Git clone URL for the ajf-docs-content repository.
 docsContentRepoUrl="https://github.com/gnucoop/ajf-docs-content"
 
-# Current version of Angular Material from the package.json file
+# Current version of Ajf from the package.json file
 buildVersion=$(node -pe "require('./package.json').version")
 
 # Name of the branch that is currently being deployed.
@@ -40,9 +41,8 @@ commitSha=$(git rev-parse --short HEAD)
 commitAuthorName=$(git --no-pager show -s --format='%an' HEAD)
 commitAuthorEmail=$(git --no-pager show -s --format='%ae' HEAD)
 commitMessage=$(git log --oneline -n 1)
-commitTag="${buildVersion}-${commitSha}"
 
-buildVersionName="${buildVersion}-${commitSha}"
+buildVersionName="${buildVersion}-sha-${commitSha}"
 buildTagName="${branchName}-${commitSha}"
 buildCommitMessage="${branchName} - ${commitMessage}"
 
@@ -78,6 +78,11 @@ echo "Removed everything from the docs-content repository. Copying package outpu
 
 # Copy the package output to the docs-content repository.
 cp -R ${examplesPackagePath}/* ${docsContentPath}
+
+# Update permissions for the copied "npm_package". Bazel makes these files readonly
+# in the "bazel-out", but for publishing, they should be writable. Also it's necessary
+# in order to be able to update the "package.json" version
+chmod -R u+w ${docsContentPath}
 
 echo "Successfully copied package output into the docs-content repository."
 

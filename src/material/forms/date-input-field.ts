@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,16 +20,27 @@
  *
  */
 
-import {AjfDateFieldInstance, AjfDateValueStringPipe, AjfBaseFieldComponent,
-    AjfFormRendererService} from '@ajf/core/forms';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild,
-    ViewEncapsulation} from '@angular/core';
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfDateFieldInstance,
+  AjfDateValueStringPipe,
+  AjfFormRendererService
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+
 import {MatInput} from '@angular/material/input';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'date-input-field.html',
   styleUrls: ['date-input-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,23 +49,24 @@ import {AjfWarningAlertService} from './warning-alert-service';
 export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFieldInstance> {
   @ViewChild(MatInput, {static: false}) input: MatInput;
 
-  private _minDateStr: string | undefined;
-  private _maxDateStr: string | undefined;
+  private _minDateStr: string|undefined;
+  private _maxDateStr: string|undefined;
 
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService,
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
       private _dvs: AjfDateValueStringPipe) {
     super(cdr, service, was);
   }
 
   onChange(): void {
-    if (this.input == null) { return; }
+    if (this.input == null) {
+      return;
+    }
     const val = this.input.value || '';
     if (val.length > 0) {
-      if (
-        (this._minDateStr != null && val < this._minDateStr)
-        || (this._maxDateStr != null && val > this._maxDateStr)
-      ) {
+      if ((this._minDateStr != null && val < this._minDateStr) ||
+          (this._maxDateStr != null && val > this._maxDateStr)) {
         this.input.value = '';
       }
     }

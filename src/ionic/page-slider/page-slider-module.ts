@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,27 +20,26 @@
  *
  */
 
+import {AjfPageSliderModule as AjfCorePageSliderModule} from '@ajf/core/page-slider';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-
 import {IonicModule} from '@ionic/angular';
-
-import {AjfPageSliderModule as AjfCorePageSliderModule} from '@ajf/core/page-slider';
 
 import {AjfPageSlider} from './page-slider';
 
 @NgModule({
   imports: [
+    AjfCorePageSliderModule,
     CommonModule,
     IonicModule,
-    AjfCorePageSliderModule
   ],
   declarations: [
-    AjfPageSlider
+    AjfPageSlider,
   ],
   exports: [
     AjfCorePageSliderModule,
-    AjfPageSlider
-  ]
+    AjfPageSlider,
+  ],
 })
-export class AjfPageSliderModule { }
+export class AjfPageSliderModule {
+}

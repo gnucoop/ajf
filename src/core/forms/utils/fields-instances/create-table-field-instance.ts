@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,9 +22,10 @@
 
 import {AjfContext} from '@ajf/core/models';
 
-import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instance';
-import {AjfTableField, AjfTableCell} from '../../interface/fields/table-field';
 import {AjfTableFieldInstance} from '../../interface/fields-instances/table-field-instance';
+import {AjfTableCell, AjfTableField} from '../../interface/fields/table-field';
+
+import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instance';
 
 export type AjfTableFieldInstanceCreate = AjfFieldInstanceCreate&Partial<AjfTableFieldInstance>;
 /**
@@ -34,12 +35,9 @@ export type AjfTableFieldInstanceCreate = AjfFieldInstanceCreate&Partial<AjfTabl
  */
 function normalizeRows(node: AjfTableField): void {
   node.rows.forEach((row, rowIdx) => {
-    row.forEach( (elem, elemIdx) => {
+    row.forEach((elem, elemIdx) => {
       if (typeof elem === 'string') {
-        node.rows[rowIdx][elemIdx] = {
-          formula: elem,
-          editable: node.editable
-        } as AjfTableCell;
+        node.rows[rowIdx][elemIdx] = {formula: elem, editable: node.editable} as AjfTableCell;
       }
     });
   });
@@ -47,13 +45,13 @@ function normalizeRows(node: AjfTableField): void {
 
 export function createTableFieldInstance(
     instance: AjfTableFieldInstanceCreate, context: AjfContext): AjfTableFieldInstance {
-      normalizeRows(instance.node as AjfTableField);
-      const fieldInstance = createFieldInstance(instance, context);
-      return {
-        ...fieldInstance,
-        node: instance.node,
-        context,
-        hideEmptyRows: instance.hideEmptyRows || false,
-        controls: []
-      };
-    }
+  normalizeRows(instance.node as AjfTableField);
+  const fieldInstance = createFieldInstance(instance, context);
+  return {
+    ...fieldInstance,
+    node: instance.node,
+    context,
+    hideEmptyRows: instance.hideEmptyRows || false,
+    controls: []
+  };
+}

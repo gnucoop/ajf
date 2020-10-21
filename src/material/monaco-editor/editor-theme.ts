@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -24,7 +24,7 @@
  * List of theme available for Monaco Editor
  */
 export class IEditorTheme {
-    static readonly VISUAL_STUDIO = 'vs';
-    static readonly VISUAL_STUDIO_DARK = 'vs-dark';
-    static readonly HIGH_CONTRAST_DARK = 'hc-black';
+  static readonly VISUAL_STUDIO = 'vs';
+  static readonly VISUAL_STUDIO_DARK = 'vs-dark';
+  static readonly HIGH_CONTRAST_DARK = 'hc-black';
 }

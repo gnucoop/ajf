@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -32,4 +32,5 @@ import {AjfMonacoEditor} from './monaco-editor';
     AjfMonacoEditor,
   ]
 })
-export class AjfMonacoEditorModule { }
+export class AjfMonacoEditorModule {
+}

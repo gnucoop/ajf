@@ -1,0 +1,21 @@
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "mat-fields",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "fields-demo.html",
+        ":fields_demo_scss",
+    ],
+    deps = [
+        "//src/material/forms",
+        "@npm//@angular/router",
+    ],
+)
+
+sass_binary(
+    name = "fields_demo_scss",
+    src = "fields-demo.scss",
+)

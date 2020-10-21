@@ -2,16 +2,11 @@
   "name": "@ajf/ionic",
   "version": "0.0.0-PLACEHOLDER",
   "description": "",
-  "main": "./bundles/ionic.umd.js",
-  "module": "./esm5/ionic.es5.js",
-  "es2015": "./esm2015/ionic.js",
-  "typings": "./ionic.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/gnucoop/ajf.git"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/gnucoop/ajf/issues"
@@ -24,18 +19,11 @@
     "@gic/angular": "0.0.0-GIC",
     "@ionic/angular": "0.0.0-ION",
     "@ajf/core": "0.0.0-PLACEHOLDER",
-    "flag-icon-css": "^3.3.0"
+    "@ajf/icons": "0.0.0-AJFI",
+    "flag-icon-css": "0.0.0-FIC"
   },
   "dependencies": {
-    "tslib": "^1.9.3"
-  },
-  "schematics": "./schematics/collection.json",
-  "ng-update": {
-    "migrations": "./schematics/migration.json",
-    "packageGroup": [
-      "@ajf/ionic",
-      "@ajf/core"
-    ]
+    "tslib": "0.0.0-TSLIB"
   },
   "sideEffects": false
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -26,53 +26,43 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Renderer2,
   forwardRef,
   Input,
   OnChanges,
   OnDestroy,
   Output,
+  Renderer2,
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-
 import {
-  NG_VALUE_ACCESSOR,
-  NG_VALIDATORS,
   ControlValueAccessor,
   FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
   Validator
 } from '@angular/forms';
-
+import {default as Quill} from 'quill';
 import {Subscription} from 'rxjs';
 
 import {AjfReportBuilderService} from './report-builder-service';
 
-import {default as Quill} from 'quill';
-
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-quill-editor',
   template: `
     <ng-content select="[ajf-quill-editor-toolbar]"></ng-content>
   `,
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => AjfQuillEditor),
-    multi: true
-  }, {
-    provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => AjfQuillEditor),
-    multi: true
-  }],
+  providers: [
+    {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AjfQuillEditor), multi: true},
+    {provide: NG_VALIDATORS, useExisting: forwardRef(() => AjfQuillEditor), multi: true}
+  ],
   styleUrls: ['quill-editor.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AjfQuillEditor
-  implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy, Validator {
-
+export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy,
+                                       Validator {
   quillEditor: any;
   editorElem: HTMLElement;
   emptyArray: any[] = [];
@@ -88,61 +78,43 @@ export class AjfQuillEditor
       'label': 'June 23rd 2017, 12:39:12 pm',
       'value': 'MMMM Do YYYY, h:mm:ss a',
       'validator': 'MMMMDoYYYYhmmssa'
-    }, {
-      'label': 'Friday',
-      'value': 'dddd',
-      'validator': 'dddd'
-    }, {
-      'label': 'Jun 23rd 17',
-      'value': 'MMM Do YY',
-      'validator': 'MMMDoYY'
-    }];
+    },
+    {'label': 'Friday', 'value': 'dddd', 'validator': 'dddd'},
+    {'label': 'Jun 23rd 17', 'value': 'MMM Do YY', 'validator': 'MMMDoYY'}
+  ];
 
 
   fonts = [
-    false,
-    'blackr',
-    'black-italic',
-    'bold',
-    'bold-condensed',
-    'bold-condensed-italic',
-    'bold-italic',
-    'condensed',
-    'condensed-italic',
-    'italic',
-    'light',
-    'light-italic',
-    'medium',
-    'medium-italic',
-    'thinr',
-    'thin-italic'
+    false, 'blackr', 'black-italic', 'bold', 'bold-condensed', 'bold-condensed-italic',
+    'bold-italic', 'condensed', 'condensed-italic', 'italic', 'light', 'light-italic', 'medium',
+    'medium-italic', 'thinr', 'thin-italic'
   ];
 
   defaultModules = {
     formula: true,
-    toolbar: [
-      ['formula'],
-      ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-      // ['blockquote', 'code-block'],
+    toolbar:
+        [
+          ['formula'], ['bold', 'italic', 'underline', 'strike'],  // toggled buttons
+          // ['blockquote', 'code-block'],
 
-      [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-      // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-      // [{ 'direction': 'rtl' }],                         // text direction
+          [{'header': 1}, {'header': 2}],  // custom button values
+          [{'list': 'ordered'}, {'list': 'bullet'}],
+          [{'script': 'sub'}, {'script': 'super'}],  // superscript/subscript
+          // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+          // [{ 'direction': 'rtl' }],                         // text direction
 
-      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+          [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+          [{'header': [1, 2, 3, 4, 5, 6, false]}],
 
-      [{ 'color': this.emptyArray.slice() },
-      { 'background': this.emptyArray.slice() }],          // dropdown with defaults from theme
-      [{ 'font': this.fonts }],
-      [{ 'align': this.emptyArray.slice() }],
+          [
+            {'color': this.emptyArray.slice()}, {'background': this.emptyArray.slice()}
+          ],  // dropdown with defaults from theme
+          [{'font': this.fonts}], [{'align': this.emptyArray.slice()}],
 
-      ['clean'],                                         // remove formatting button
+          ['clean'],  // remove formatting button
 
-      // ['link', 'image', 'video']                         // link and image, video
-    ]
+          // ['link', 'image', 'video']                         // link and image, video
+        ]
   };
 
   font = Quill.import('formats/font');
@@ -170,79 +142,65 @@ export class AjfQuillEditor
   @Output() formulaClick: EventEmitter<any> = new EventEmitter<any>();
 
 
-  onModelChange: Function = () => { };
-  onModelTouched: Function = () => { };
+  onModelChange: Function = () => {};
+  onModelTouched: Function = () => {};
 
-  private _formulas: { formula: any, unlisten: Function | null }[] = [];
+  private _formulas: {formula: any, unlisten: Function|null}[] = [];
   private _formulaTextSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    private _elementRef: ElementRef,
-    private _renderer: Renderer2,
-    private _service: AjfReportBuilderService) {
+      private _elementRef: ElementRef, private _renderer: Renderer2,
+      private _service: AjfReportBuilderService) {
     this.font.whitelist = this.fonts;
     this.font.whitelist.push('regular');
 
-    this._formulaTextSub =
-      this._service.getFormulaToHtmlEvent()
-        .subscribe((event: any) => {
-
-          // reference is defined only when the user want to edit the formula
-          if (event.reference !== undefined) {
-            event.reference.innerHTML = event.formula;
-            this._renderer.setAttribute(event.reference, 'formula', event.formula);
-            const efs = this._formulas.filter(f => f.formula === event.reference);
-            let formulaEntry;
-            let unlisten;
-            if (efs.length > 0) {
-              formulaEntry = efs[0];
-              unlisten = formulaEntry.unlisten;
-              if (unlisten != null) {
-                unlisten();
-              }
-            } else {
-              formulaEntry = { formula: event.reference, unlisten: null };
-              this._formulas.push(formulaEntry);
-            }
-            formulaEntry.unlisten = this._renderer.listen(
-              event.reference, 'click', () => {
-                let obj = {
-                  'formula': event.formula,
-                  'reference': event.reference
-                };
-                this.formulaClick.emit(obj);
-              }
-            );
-          } else {
-            const quillEditor = this._elementRef.nativeElement.querySelector('.ajf-ql-editor');
-            const link = this._renderer.createElement('a');
-            this._renderer.setAttribute(link, 'href', 'javascript:void(0)');
-            this._renderer.setStyle(link, 'cursor', 'pointer');
-            this._renderer.setAttribute(link, 'formula', this.check(event.formula));
-            const linkLabel = this._renderer.createText(event.formula);
-            this._renderer.appendChild(link, linkLabel);
-            // add listener related on the click event of the new formula
-            const unlisten = this._renderer.listen(
-              link, 'click', (_) => {
-                let obj = {
-                  'formula': this.check(event.formula),
-                  'reference': link
-                };
-                this.formulaClick.emit(obj);
-              }
-            );
-            this._renderer.appendChild(quillEditor, link);
-            this._formulas.push({ unlisten, formula: link });
+    this._formulaTextSub = this._service.getFormulaToHtmlEvent().subscribe((event: any) => {
+      // reference is defined only when the user want to edit the formula
+      if (event.reference !== undefined) {
+        event.reference.innerHTML = event.formula;
+        this._renderer.setAttribute(event.reference, 'formula', event.formula);
+        const efs = this._formulas.filter(f => f.formula === event.reference);
+        let formulaEntry;
+        let unlisten;
+        if (efs.length > 0) {
+          formulaEntry = efs[0];
+          unlisten = formulaEntry.unlisten;
+          if (unlisten != null) {
+            unlisten();
           }
+        } else {
+          formulaEntry = {formula: event.reference, unlisten: null};
+          this._formulas.push(formulaEntry);
+        }
+        formulaEntry.unlisten = this._renderer.listen(event.reference, 'click', () => {
+          let obj = {'formula': event.formula, 'reference': event.reference};
+          this.formulaClick.emit(obj);
         });
+      } else {
+        const quillEditor = this._elementRef.nativeElement.querySelector('.ajf-ql-editor');
+        const link = this._renderer.createElement('a');
+        this._renderer.setAttribute(link, 'href', 'javascript:void(0)');
+        this._renderer.setStyle(link, 'cursor', 'pointer');
+        this._renderer.setAttribute(link, 'formula', this.check(event.formula));
+        const linkLabel = this._renderer.createText(event.formula);
+        this._renderer.appendChild(link, linkLabel);
+        // add listener related on the click event of the new formula
+        const unlisten = this._renderer.listen(link, 'click', (_) => {
+          let obj = {'formula': this.check(event.formula), 'reference': link};
+          this.formulaClick.emit(obj);
+        });
+        this._renderer.appendChild(quillEditor, link);
+        this._formulas.push({unlisten, formula: link});
+      }
+    });
   }
 
   check(value: string): string {
-    this.dateFormats.forEach((elem: any) => {
-      if (elem.value == value) {
-        return <string>elem.validator;
+    for (let i = 0; i < this.dateFormats.length; i++) {
+      if (this.dateFormats[i].value == value) {
+        return this.dateFormats[i].validator;
       }
-    });
+    }
     return <string>value;
   }
   /**
@@ -266,8 +224,7 @@ export class AjfQuillEditor
       modules['formula'] = true;
     }
     this._elementRef.nativeElement.insertAdjacentHTML(
-      'beforeend', '<div quill-editor-element></div>'
-    );
+        'beforeend', '<div quill-editor-element></div>');
 
     this.editorElem = this._elementRef.nativeElement.querySelector('[quill-editor-element]');
 
@@ -285,12 +242,8 @@ export class AjfQuillEditor
 
     // mark model as touched if editor lost focus
     this.quillEditor.on('selection-change', (range: any, oldRange: any, source: string) => {
-      this.selectionChanged.emit({
-        editor: this.quillEditor,
-        range: range,
-        oldRange: oldRange,
-        source: source
-      });
+      this.selectionChanged.emit(
+          {editor: this.quillEditor, range: range, oldRange: oldRange, source: source});
 
       if (!range) {
         this.onModelTouched();
@@ -321,9 +274,7 @@ export class AjfQuillEditor
     let elem = this._elementRef.nativeElement.querySelector('.ajf-ql-formula');
     this.listenFunc = this._renderer.listen(elem, 'click', (_) => {
       this.formulaClick.emit();
-
     });
-
   }
 
   writeValue(currentValue: any) {
@@ -336,17 +287,12 @@ export class AjfQuillEditor
           editor.innerHTML = this.initHTML;
           let allFormulas = this._elementRef.nativeElement.querySelectorAll('[formula]');
           allFormulas.forEach((elem: any) => {
-            const unlisten = this._renderer.listen(
-              elem, 'click', (_) => {
-                let obj = {
-                  'formula': this.check(elem.innerText),
-                  'reference': elem
-                };
-                this.formulaClick.emit(obj);
-              }
-            );
+            const unlisten = this._renderer.listen(elem, 'click', (_) => {
+              let obj = {'formula': this.check(elem.innerText), 'reference': elem};
+              this.formulaClick.emit(obj);
+            });
             this._renderer.setStyle(elem, 'cursor', 'pointer');
-            this._formulas.push({ unlisten, formula: elem });
+            this._formulas.push({unlisten, formula: elem});
             this._init = true;
           });
         } else if (currentValue != this.initHTML) {
@@ -372,27 +318,21 @@ export class AjfQuillEditor
     }
 
     let err: {
-      minLengthError?: { given: number, minLength: number };
-      maxLengthError?: { given: number, maxLength: number };
+      minLengthError?: {given: number, minLength: number};
+      maxLengthError?: {given: number, maxLength: number};
     } = {},
-      valid = true;
+  valid = true;
 
     const textLength = this.quillEditor.getText().trim().length;
 
     if (this.minLength) {
-      err.minLengthError = {
-        given: textLength,
-        minLength: this.minLength
-      };
+      err.minLengthError = {given: textLength, minLength: this.minLength};
 
       valid = textLength >= this.minLength || !textLength;
     }
 
     if (this.maxLength) {
-      err.maxLengthError = {
-        given: textLength,
-        maxLength: this.maxLength
-      };
+      err.maxLengthError = {given: textLength, maxLength: this.maxLength};
 
       valid = textLength <= this.maxLength && valid;
     }
@@ -401,12 +341,10 @@ export class AjfQuillEditor
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
     if (changes['readOnly'] && this.quillEditor) {
       this.quillEditor.enable(!changes['readOnly'].currentValue);
     }
     if (changes['modules'] && this.quillEditor) {
-
       Quill.register(this.font, true);
       this.quillEditor = new Quill(this.editorElem, {
         modules: changes['modules']['currentValue'],

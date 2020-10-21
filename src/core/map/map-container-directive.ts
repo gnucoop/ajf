@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,13 +20,13 @@
  *
  */
 
-import {ElementRef, Directive} from '@angular/core';
+import {Directive, ElementRef} from '@angular/core';
 
-@Directive({
-  selector: '[mapContainer]'
-})
+@Directive({selector: '[mapContainer]'})
 export class AjfMapContainerDirective {
-  get htmlElement(): HTMLElement { return this._el.nativeElement; }
+  get htmlElement(): HTMLElement {
+    return this._el.nativeElement;
+  }
 
-  constructor(private _el: ElementRef) { }
+  constructor(private _el: ElementRef) {}
 }

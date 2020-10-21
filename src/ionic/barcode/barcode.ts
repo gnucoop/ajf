@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,12 +20,17 @@
  *
  */
 
+import {AjfBarcode} from '@ajf/core/barcode';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, ViewEncapsulation, Renderer2
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  forwardRef,
+  Renderer2,
+  ViewEncapsulation
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
-import {AjfBarcode} from '@ajf/core/barcode';
 
 export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -34,14 +39,12 @@ export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-barcode',
   templateUrl: 'barcode.html',
   styleUrls: ['barcode.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [BARCODE_CONTROL_VALUE_ACCESSOR],
-  inputs: ['readonly'],
 })
 export class AjfBarcodeComponent extends AjfBarcode {
   constructor(cdr: ChangeDetectorRef, renderer: Renderer2) {

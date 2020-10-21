@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -24,7 +24,7 @@ import {AjfWidgetSerializer, AjfWidgetType, createWidgetInstance} from '@ajf/cor
 import {TestBed} from '@angular/core/testing';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
-import {AjfReportWidget, AjfReportsModule} from './public-api';
+import {AjfReportsModule, AjfReportWidget} from './public-api';
 
 describe('AjfReportWidget', () => {
   let ts: TranslateService;
@@ -42,11 +42,8 @@ describe('AjfReportWidget', () => {
   });
 
   it('should respect widget visibility', async () => {
-    const widget = AjfWidgetSerializer.fromJson({
-      widgetType: AjfWidgetType.Text,
-      htmlText: 'foo',
-      visibility: {condition: 'false'}
-    } as any);
+    const widget = AjfWidgetSerializer.fromJson(
+        {widgetType: AjfWidgetType.Text, htmlText: 'foo', visibility: {condition: 'false'}} as any);
     const instance = createWidgetInstance(widget, {}, ts);
 
     const fixture = TestBed.createComponent(AjfReportWidget);

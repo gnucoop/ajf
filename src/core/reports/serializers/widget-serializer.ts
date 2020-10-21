@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -23,6 +23,7 @@
 import {AjfConditionSerializer, AjfFormulaSerializer, alwaysCondition} from '@ajf/core/models';
 
 import {AjfChartDataset} from '../interface/dataset/chart-dataset';
+import {AjfDataset} from '../interface/dataset/dataset';
 import {AjfTableDataset} from '../interface/dataset/table-dataset';
 import {AjfChartWidget} from '../interface/widgets/chart-widget';
 import {AjfDataWidget} from '../interface/widgets/data-widget';
@@ -66,17 +67,22 @@ export class AjfWidgetSerializer {
   }
 
   private static _dataWidgetFromJson(json: AjfWidget&Partial<AjfDataWidget>): AjfDataWidget {
-    const dataset = json.dataset ?
-        (json.widgetType === AjfWidgetType.Table ?
-             (json.dataset as AjfTableDataset[][])
-                 .map(row => row.map(cell => AjfDatasetSerializer.fromJson(cell))) :
-             (json.dataset as AjfChartDataset[]).map(d => AjfDatasetSerializer.fromJson(d))) :
-        [];
+    let dataset: AjfDataset[]|AjfDataset[][];
+    if (json.dataset == null) {
+      dataset = [];
+    } else {
+      if (json.widgetType === AjfWidgetType.Table) {
+        dataset = (json.dataset as AjfTableDataset[][])
+                      .map(row => row.map(cell => AjfDatasetSerializer.fromJson(cell)));
+      } else {
+        dataset = (json.dataset as AjfChartDataset[]).map(d => AjfDatasetSerializer.fromJson(d));
+      }
+    }
     return {...createWidget(json), dataset};
   }
 
   private static _widgetWithContentFromJson(json: AjfWidget&
-                                           Partial<AjfWidgetWithContent>): AjfWidgetWithContent {
+                                            Partial<AjfWidgetWithContent>): AjfWidgetWithContent {
     const content = (json.content || []).map(c => AjfWidgetSerializer.fromJson(c));
     return {...createWidget(json), content};
   }

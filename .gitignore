@@ -2,15 +2,9 @@
 
 # compiled output
 /dist
-/bundles
 /tmp
 /deploy
 /bazel-out
-
-# Example module file will be auto-generated.
-# TODO(devversion): re-add the example-module once angular#30259 is fixed.
-# /src/ionic-examples/example-module.ts
-# /src/material-examples/example-module.ts
 
 # dependencies
 node_modules
@@ -29,14 +23,13 @@ node_modules
 
 # IDEs
 /.idea
-/.vscode
+/.vscode/launch.json
 /*.iml
 
 # misc
 .DS_Store
 /.sass-cache
 /connect.lock
-/coverage/*
 /libpeerconnection.log
 npm-debug.log
 yarn-debug.log
@@ -45,10 +38,10 @@ testem.log
 /.chrome
 /.git
 /.firebase
-node_env.sh
-firebase.json
+/.bazelrc.user
 
-# schematics
-/src/core/schematics/**/*.js
-/src/core/schematics/**/*.map
-\.circleci/\.gcp_credentials
+# monaco support files
+src/monaco/lib/lib-ts.*
+src/monaco/lib/lib-es6-ts.*
+src/monaco/lib/monaco.d.ts
+src/monaco/lib/typescriptServices.*

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -38,4 +38,5 @@ import {AjfTime} from './time';
     AjfTime,
   ]
 })
-export class AjfTimeModule { }
+export class AjfTimeModule {
+}

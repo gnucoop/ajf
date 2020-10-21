@@ -2,16 +2,11 @@
   "name": "@ajf/calendars",
   "version": "0.0.0-PLACEHOLDER",
   "description": "",
-  "main": "./bundles/calendars.umd.js",
-  "module": "./esm5/calendars.es5.js",
-  "es2015": "./esm2015/calendars.js",
-  "typings": "./calendars.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/gnucoop/ajf.git"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/gnucoop/ajf/issues"

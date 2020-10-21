@@ -38,7 +38,7 @@ publishPackage() {
   commitAuthorEmail=$(git --no-pager show -s --format='%ae' HEAD)
   commitMessage=$(git log --oneline -n 1)
 
-  buildVersionName="${buildVersion}-${commitSha}"
+  buildVersionName="${buildVersion}-sha-${commitSha}"
   buildTagName="${branchName}-${commitSha}"
   buildCommitMessage="${branchName} - ${commitMessage}"
 
@@ -87,11 +87,6 @@ publishPackage() {
     exit 0
   fi
 
-  # Replace the version in every file recursively with a more specific version that also includes
-  # the SHA of the current build job. Normally this "sed" call would just replace the version
-  # placeholder, but the version placeholders have been replaced by the release task already.
-  sed -i "s/${buildVersion}/${buildVersionName}/g" $(find . -type f -not -path '*\/.*')
-
   echo "Updated the build version in every file to include the SHA of the latest commit."
 
   # Prepare Git for pushing the artifacts to the repository.
@@ -106,7 +101,7 @@ publishPackage() {
   git add -A
   git commit --allow-empty -m "${buildCommitMessage}"
   git tag "${buildTagName}"
-  git push origin ${branchName} --tags
+  git push origin ${branchName} --tags --force
 
   echo "Published package artifacts for ${packageName}#${buildVersionName} into ${branchName}"
 }

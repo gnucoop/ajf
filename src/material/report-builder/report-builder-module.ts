@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,10 +20,16 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
+import {AjfMapModule} from '@ajf/core/map';
+import {AjfTableModule} from '@ajf/core/table';
+import {AjfTextModule} from '@ajf/core/text';
+import {AjfImageModule} from '@ajf/material/image';
+import {AjfMonacoEditorModule} from '@ajf/material/monaco-editor';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
@@ -38,17 +44,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
 import {TranslateModule} from '@ngx-translate/core';
-
 import {ColorPickerModule} from 'ngx-color-picker';
-
-import {AjfCommonModule} from '@ajf/core/common';
-import {AjfMapModule} from '@ajf/core/map';
-import {AjfTableModule} from '@ajf/core/table';
-import {AjfTextModule} from '@ajf/core/text';
-import {AjfImageModule} from '@ajf/material/image';
-import {AjfMonacoEditorModule} from '@ajf/material/monaco-editor';
 
 import {AjfReportBuilderColumn} from './column';
 import {AjfReportBuilderConditionEditor} from './condition-editor';
@@ -56,84 +53,62 @@ import {AjfReportBuilderContent} from './content';
 import {AjfReportBuilderCustomWidgetDialog} from './custom-widget-dialog';
 import {AjfReportBuilderCustomWidgetToolbarButton} from './custom-widget-toolbar-button';
 import {AjfReportBuilderCustomWidgetsToolbar} from './custom-widgets-toolbar';
-import {AjfReportBuilderFormsAnalyzerDialog} from './forms-analyzer-dialog';
 import {AjfReportBuilderFormsAnalyzer} from './forms-analyzer';
+import {AjfReportBuilderFormsAnalyzerDialog} from './forms-analyzer-dialog';
 import {AjfImageFilterPipe} from './image-filter';
 import {AjfReportBuilderImageGroup} from './image-group';
 import {AjfReportBuilderProperties} from './properties';
 import {AjfQuillEditor} from './quill-editor';
 import {AjfReportBuilderRendererWidget} from './renderer-widget';
-import {AjfReportBuilderThemeColorDialog} from './theme-color-dialog';
+import {AjfReportBuilder} from './report-builder';
+import {AjfReportBuilderService} from './report-builder-service';
 import {AjfReportBuilderThemeColor} from './theme-color';
-import {AjfReportBuilderToolbarDialog} from './toolbar-dialog';
+import {AjfReportBuilderThemeColorDialog} from './theme-color-dialog';
 import {AjfReportBuilderToolbar} from './toolbar';
+import {AjfReportBuilderToolbarDialog} from './toolbar-dialog';
 import {AjfReportBuilderWidgetToolbarButton} from './widget-toolbar-button';
 import {AjfReportBuilderWidgetsRowButtons} from './widgets-row-buttons';
 import {AjfReportBuilderWidgetsToolbar} from './widgets-toolbar';
-import {AjfReportBuilderService} from './report-builder-service';
-import {AjfReportBuilder} from './report-builder';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    DragDropModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatCardModule,
-    MatDialogModule,
-    MatGridListModule,
-    MatIconModule,
-    MatListModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-    MatTabsModule,
-    MatToolbarModule,
-    MatTooltipModule,
+    AjfCommonModule, AjfImageModule,  AjfMapModule,      AjfMonacoEditorModule,
+    AjfTableModule,  AjfTextModule,   ColorPickerModule, CommonModule,
+    DragDropModule,  FormsModule,     MatButtonModule,   MatButtonToggleModule,
+    MatCardModule,   MatDialogModule, MatGridListModule, MatIconModule,
+    MatListModule,   MatSelectModule, MatSidenavModule,  MatSlideToggleModule,
+    MatSliderModule, MatTabsModule,   MatToolbarModule,  MatTooltipModule,
     TranslateModule,
-    ColorPickerModule,
-    AjfCommonModule,
-    AjfImageModule,
-    AjfMapModule,
-    AjfMonacoEditorModule,
-    AjfTableModule,
-    AjfTextModule,
   ],
   declarations: [
+    AjfImageFilterPipe,
     AjfQuillEditor,
     AjfReportBuilderColumn,
     AjfReportBuilderConditionEditor,
     AjfReportBuilderContent,
     AjfReportBuilderCustomWidgetDialog,
-    AjfReportBuilderCustomWidgetToolbarButton,
     AjfReportBuilderCustomWidgetsToolbar,
-    AjfReportBuilderFormsAnalyzerDialog,
+    AjfReportBuilderCustomWidgetToolbarButton,
     AjfReportBuilderFormsAnalyzer,
+    AjfReportBuilderFormsAnalyzerDialog,
     AjfReportBuilderImageGroup,
     AjfReportBuilderProperties,
     AjfReportBuilderRendererWidget,
-    AjfReportBuilderThemeColorDialog,
     AjfReportBuilderThemeColor,
-    AjfReportBuilderToolbarDialog,
+    AjfReportBuilderThemeColorDialog,
     AjfReportBuilderToolbar,
-    AjfReportBuilderWidgetToolbarButton,
+    AjfReportBuilderToolbarDialog,
     AjfReportBuilderWidgetsRowButtons,
     AjfReportBuilderWidgetsToolbar,
+    AjfReportBuilderWidgetToolbarButton,
     AjfReportBuilder,
-    AjfImageFilterPipe,
   ],
   exports: [
     AjfReportBuilder,
-  ],
-  entryComponents: [
-    AjfReportBuilderFormsAnalyzerDialog,
-    AjfReportBuilderThemeColorDialog,
-    AjfReportBuilderToolbarDialog,
   ],
   providers: [
     AjfReportBuilderService,
   ]
 })
-export class AjfReportBuilderModule { }
+export class AjfReportBuilderModule {
+}

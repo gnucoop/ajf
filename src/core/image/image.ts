@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,14 +20,22 @@
  *
  */
 
-import {ElementRef, OnDestroy, OnInit, Renderer2, RendererStyleFlags2} from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  RendererStyleFlags2
+} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-
-import {Observable, BehaviorSubject, Subscription} from 'rxjs';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 
 import {AjfImageIcon} from './image-icon';
 import {AjfImageType} from './image-type';
 
+@Directive()
 export abstract class AjfImage implements OnDestroy, OnInit {
   iconComponent: ElementRef;
 
@@ -37,40 +45,43 @@ export abstract class AjfImage implements OnDestroy, OnInit {
    * if 2 take image by class
    *
    */
-  set type(type: AjfImageType) {
+  @Input()
+  set type(type: AjfImageType|null) {
     this._imageType.next(type);
   }
 
-  set imageUrl(imageUrl: string) {
+  @Input()
+  set imageUrl(imageUrl: string|null) {
     imageUrl = typeof imageUrl === 'string' ? imageUrl : '';
     this._url.next(
-      imageUrl.startsWith('data:image/svg+xml;base64,')
-      ? this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl)
-      : imageUrl
-    );
+        imageUrl.startsWith('data:image/svg+xml;base64,') ?
+            this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl) :
+            imageUrl);
   }
 
-  set icon(icon: AjfImageIcon) {
+  @Input()
+  set icon(icon: AjfImageIcon|null) {
     this._iconObj.next(icon);
   }
 
-  set flag(flag: string) {
+  @Input()
+  set flag(flag: string|null) {
     this._flagName.next(flag);
   }
 
   readonly imageTypes = AjfImageType;
 
-  private _imageType = new BehaviorSubject<AjfImageType | null>(null);
-  readonly imageType: Observable<AjfImageType | null> = this._imageType.asObservable();
+  private _imageType = new BehaviorSubject<AjfImageType|null>(null);
+  readonly imageType: Observable<AjfImageType|null> = this._imageType.asObservable();
 
-  private _url = new BehaviorSubject<string | SafeResourceUrl | null>(null);
-  readonly url: Observable<string | SafeResourceUrl | null> = this._url.asObservable();
+  private _url = new BehaviorSubject<string|SafeResourceUrl|null>(null);
+  readonly url: Observable<string|SafeResourceUrl|null> = this._url.asObservable();
 
-  private _iconObj = new BehaviorSubject<AjfImageIcon | null>(null);
-  readonly iconObj: Observable<AjfImageIcon | null> = this._iconObj.asObservable();
+  private _iconObj = new BehaviorSubject<AjfImageIcon|null>(null);
+  readonly iconObj: Observable<AjfImageIcon|null> = this._iconObj.asObservable();
 
-  private _flagName = new BehaviorSubject<string | null>(null);
-  readonly flagName: Observable<string | null> = this._flagName.asObservable();
+  private _flagName = new BehaviorSubject<string|null>(null);
+  readonly flagName: Observable<string|null> = this._flagName.asObservable();
 
   private _iconSub = Subscription.EMPTY;
 
@@ -91,9 +102,13 @@ export abstract class AjfImage implements OnDestroy, OnInit {
 
   private _updateIconSize(): void {
     const icon = this._iconObj.getValue();
-    if (icon == null) { return; }
+    if (icon == null) {
+      return;
+    }
     const styles = this._el.nativeElement.style;
-    if (this.iconComponent == null || styles == null || styles.fontSize == null) { return; }
+    if (this.iconComponent == null || styles == null || styles.fontSize == null) {
+      return;
+    }
     const fontSize: string = styles.fontSize;
     if (fontSize.match(/^[0-9]+px$/) != null) {
       const el = this.iconComponent.nativeElement;

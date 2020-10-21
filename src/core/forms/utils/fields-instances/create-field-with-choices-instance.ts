@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -26,7 +26,6 @@ import {EventEmitter} from '@angular/core';
 import {
   AjfFieldWithChoicesInstance
 } from '../../interface/fields-instances/field-with-choices-instance';
-
 import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instance';
 
 export type AjfFieldWithChoicesInstanceCreate<T> =

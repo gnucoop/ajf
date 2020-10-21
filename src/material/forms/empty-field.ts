@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,16 +21,22 @@
  */
 
 import {
-  AjfBaseFieldComponent, AjfEmptyFieldInstance, AjfFormRendererService
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfEmptyFieldInstance,
+  AjfFormRendererService
 } from '@ajf/core/forms';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'empty-field.html',
   styleUrls: ['empty-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,7 +44,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfEmptyFieldComponent extends AjfBaseFieldComponent<AjfEmptyFieldInstance> {
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
 }

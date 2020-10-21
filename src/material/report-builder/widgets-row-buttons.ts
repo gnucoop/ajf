@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,7 +22,12 @@
 
 import {AjfLayoutWidget, AjfWidget, AjfWidgetType} from '@ajf/core/reports';
 import {
-  ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 
@@ -30,24 +35,22 @@ import {AjfReportBuilderService} from './report-builder-service';
 import {ajfWidgetTypeToLabel, widgetReportBuilderIconName} from './utils';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-widgets-row-buttons',
-  inputs: ['from', 'fromWidget', 'position', 'widget', 'child', 'isOver'],
   templateUrl: 'widgets-row-buttons.html',
   styleUrls: ['widgets-row-buttons.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
-  from: string;
-  fromWidget: AjfWidget;
-  position: number;
-  widget: AjfWidget;
-  child: boolean;
+  @Input() from: string;
+  @Input() fromWidget: AjfWidget;
+  @Input() position: number;
+  @Input() widget: AjfWidget;
+  @Input() child: boolean;
+  @Input() isOver = false;
   currentWidget: AjfWidget|null = null;
   isClicked = false;
   color: string[] = [];
-  isOver = false;
 
   widgetIcon: string;
   widgetLabel: string;
@@ -68,9 +71,7 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
    *
    * @param private _afjBuilderService: AjfBuilderService
    */
-  constructor(private _service: AjfReportBuilderService) {
-
-  }
+  constructor(private _service: AjfReportBuilderService) {}
 
   selectedWidget() {
     this.isClicked = !this.isClicked;
@@ -94,7 +95,6 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   }
 
   changeColumn(direction: string) {
-
     if (direction == 'back') {
       this._service.changeColumn(
           this.position, this.position - 1, <AjfLayoutWidget>this.fromWidget);
@@ -125,25 +125,20 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
     this.widgetIcon = widgetReportBuilderIconName(this.widget.widgetType);
     this.widgetLabel = ajfWidgetTypeToLabel(this.widget.widgetType);
 
-    this._onDraggedSub = this._service.onDragged
-      .subscribe(x => {
-        this.onDragged = x;
-      });
+    this._onDraggedSub = this._service.onDragged.subscribe(x => {
+      this.onDragged = x;
+    });
 
-    this._onOverSub = this._service.onOver
-      .subscribe(x => {
-        this.onOver = x;
-      });
+    this._onOverSub = this._service.onOver.subscribe(x => {
+      this.onOver = x;
+    });
 
-    this._currentWidgetSub = this._service.currentWidget
-      .subscribe(
-      x => {
-        this.currentWidget = x;
-        if (x !== this.widget) {
-          this.isClicked = false;
-        }
-      });
-
+    this._currentWidgetSub = this._service.currentWidget.subscribe(x => {
+      this.currentWidget = x;
+      if (x !== this.widget) {
+        this.isClicked = false;
+      }
+    });
   }
   ngOnDestroy(): void {
     this._onDraggedSub.unsubscribe();

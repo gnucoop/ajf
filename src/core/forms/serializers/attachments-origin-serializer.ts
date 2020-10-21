@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,7 +22,8 @@
 
 import {AjfAttachmentsOrigin} from '../interface/attachments/attachments-origin';
 import {
-  AjfAttachmentsOriginCreate, createAttachmentsOrigin
+  AjfAttachmentsOriginCreate,
+  createAttachmentsOrigin
 } from '../utils/attachments/create-attachments-origin';
 
 export class AjfAttachmentsOriginSerializer {

@@ -12,7 +12,7 @@
   <ion-buttons slot="end">
     <ion-button *ngIf="!fixedOrientation" (click)="switchOrientation()">
       <ion-icon [class.ajf-icon-rotated]="orientation == 'horizontal'"
-          name="swap"></ion-icon>
+          name="swap-horizontal"></ion-icon>
     </ion-button>
     <ion-button (click)="slide({dir: 'up'})" fill="solid" color="secondary">
       <ion-icon *ngIf="orientation == 'horizontal'" name="arrow-back"></ion-icon>

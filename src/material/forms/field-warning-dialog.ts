@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -24,7 +24,6 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
 
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'field-warning-dialog.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

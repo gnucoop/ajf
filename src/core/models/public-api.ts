@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -30,7 +30,6 @@ export * from './serializers/formula-serializer';
 export * from './utils/always-condition';
 export * from './utils/create-condition';
 export * from './utils/create-formula';
-export * from './utils/debug';
 export * from './utils/evaluate-expression';
 export * from './utils/expression-utils';
 export * from './utils/get-context-string';

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -24,10 +24,8 @@ import {AjfCalendarModule as CoreModule} from '@ajf/core/calendar';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-
-import {TranslateModule} from '@ngx-translate/core';
-
 import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfCalendarComponent} from './calendar';
 
@@ -46,4 +44,5 @@ import {AjfCalendarComponent} from './calendar';
     AjfCalendarComponent,
   ],
 })
-export class AjfCalendarModule {}
+export class AjfCalendarModule {
+}

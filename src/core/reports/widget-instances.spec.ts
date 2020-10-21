@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,8 +20,13 @@
  *
  */
 
-import {AjfTextWidgetInstance, AjfWidgetType, createWidget,
-  widgetToWidgetInstance} from './public-api';
+import {
+  AjfTableWidgetInstance,
+  AjfTextWidgetInstance,
+  AjfWidgetType,
+  createWidget,
+  widgetToWidgetInstance
+} from './public-api';
 
 class TsMock {
   instant(str: string): string {
@@ -33,12 +38,10 @@ describe('widgetToWidgetInstance', () => {
   it('should replace interpolated context variables in ', () => {
     const tsMock = new TsMock() as any;
 
-    const widget = createWidget({
-      widgetType: AjfWidgetType.Text,
-      htmlText: 'Test string [[foo]] - bar [[baz]]'
-    } as any);
-    const instance = widgetToWidgetInstance(
-      widget, {foo: 'quz', baz: 'qux'}, tsMock) as AjfTextWidgetInstance;
+    const widget = createWidget(
+        {widgetType: AjfWidgetType.Text, htmlText: 'Test string [[foo]] - bar [[baz]]'} as any);
+    const instance =
+        widgetToWidgetInstance(widget, {foo: 'quz', baz: 'qux'}, tsMock) as AjfTextWidgetInstance;
 
     expect(instance.htmlText).toEqual('Test string quz - bar qux');
   });
@@ -49,14 +52,37 @@ describe('widgetToWidgetInstance', () => {
       widgetType: AjfWidgetType.Text,
       htmlText: '[[ foo[$repetition] ]]',
     } as any);
-    const ctx = {
-      foo: ['bar', 'baz', 'quz'],
-      '$repetition': 0
-    };
-    for (let i = 0 ; i < 3 ; i++) {
+    const ctx = {foo: ['bar', 'baz', 'quz'], '$repetition': 0};
+    for (let i = 0; i < 3; i++) {
       ctx['$repetition'] = i;
       const instance = widgetToWidgetInstance(widget, ctx, tsMock) as AjfTextWidgetInstance;
       expect(instance.htmlText).toBe(ctx.foo[i]);
     }
+  });
+
+  it('should load the row of the table in runtime', () => {
+    const tsMock = new TsMock() as any;
+    const widget = createWidget({
+      widgetType: AjfWidgetType.DynamicTable,
+      rowDefinition: {'formula': 'dynamicData'},
+      dataset: [
+        {
+          'label': '',
+          'formula': {'formula': '"Girl"'},
+          'style': {'text-align': 'left', 'font-weight': 'bold'},
+          'aggregation': {'aggregation': 0}
+        },
+        {
+          'label': '',
+          'formula': {'formula': '"Name"'},
+          'style': {'text-align': 'left', 'font-weight': 'bold'},
+          'aggregation': {'aggregation': 0}
+        }
+      ]
+    } as any);
+    const ctx = {dynamicData: [[{'value': 'foo'}, {'value': 'baz'}]]};
+
+    const instance = widgetToWidgetInstance(widget, ctx, tsMock) as AjfTableWidgetInstance;
+    expect(instance.data[1][0].value).toBe(ctx.dynamicData[0][0].value);
   });
 });

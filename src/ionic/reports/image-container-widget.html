@@ -4,8 +4,8 @@
       <ajf-image
           [type]="instance.widget.imageType"
           [imageUrl]="icw"
-          [icon]=""
-          [flag]=""
+          [icon]="null"
+          [flag]="null"
           [applyStyles]="instance.widget!.styles"
       ></ajf-image>
     </div>
@@ -14,8 +14,8 @@
       <div *ngFor="let icw of instance.flags; let idx = index" class="ajf-column">
         <ajf-image
             [type]="instance.widget.imageType"
-            [imageUrl]=""
-            [icon]=""
+            [imageUrl]="null"
+            [icon]="null"
             [flag]="icw"
             [applyStyles]="instance.widget!.styles"
         ></ajf-image>
@@ -25,9 +25,9 @@
       <div *ngFor="let icw of instance.icons; let idx = index" class="ajf-column">
         <ajf-image
             [type]="instance.widget.imageType"
-            [imageUrl]=""
+            [imageUrl]="null"
             [icon]="icw"
-            [flag]=""
+            [flag]="null"
             [applyStyles]="instance.widget!.styles"
         ></ajf-image>
       </div>

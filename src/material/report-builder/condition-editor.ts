@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,7 +22,13 @@
 
 import {AjfCondition, validateExpression} from '@ajf/core/models';
 import {
-  ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {Subscription, timer} from 'rxjs';
 
@@ -32,7 +38,6 @@ import {sanitizeConditionString} from './utils';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-condition-editor',
   templateUrl: 'condition-editor.html',
   styleUrls: ['condition-editor.css'],
@@ -45,9 +50,7 @@ import {sanitizeConditionString} from './utils';
  * @implements : AfterViewInit
  */
 export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
-
-  @Input()
-  visibility: AjfCondition;
+  @Input() visibility: AjfCondition;
 
   formsVariables: AjfFormVariables[];
   isValid = false;
@@ -62,14 +65,10 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
 
 
   @ViewChild('conditionTextArea', {static: false}) conditionTextArea: any;
-  @ViewChild('errorMessage', {static: false}) errorMessage: any;
 
   //  operators is an array of any type that contains all allow operators
   operators: string[] = [
-    '( )', '\' \'',
-    '<', '<=', '==', '>=', '>', '!=', '!',
-    '&&', '||',
-    '+', '-', '*', '/', '%',
+    '( )', '\' \'', '<', '<=', '==', '>=', '>', '!=', '!', '&&', '||', '+', '-', '*', '/', '%',
     'true', 'false'
   ];
 
@@ -79,11 +78,7 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
    * this constructor will init current condition by ajfBuilderservice
    * and init condition and availableFieldNames subscriptions
    */
-  constructor(
-    private _service: AjfReportBuilderService
-  ) {
-
-  }
+  constructor(private _service: AjfReportBuilderService) {}
   extractNames(formsVariables: AjfFormVariables[]) {
     this.names.length = 0;
     for (let i = 0; i < formsVariables.length; i++) {
@@ -126,13 +121,15 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
 
     startingString = sanitizeConditionString(startingString);
     endingString = sanitizeConditionString(endingString);
-    sStart += startingString.length - initialLenght +
-      text.length + (startingString.length > 0 ? 2 : 1);
+    sStart +=
+        startingString.length - initialLenght + text.length + (startingString.length > 0 ? 2 : 1);
     newStr = startingString.length > 0 ? `${startingString} ` : '';
     this.conditionText = `${newStr}${text} ${endingString}`;
 
     const s = timer(0).subscribe(() => {
-      if (s && !s.closed) { s.unsubscribe(); }
+      if (s && !s.closed) {
+        s.unsubscribe();
+      }
       if (el.createTextRange) {
         let range = el.createTextRange();
         range.move('character', sStart);
@@ -162,15 +159,6 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
     this._service.saveCondition(this.conditionText);
   }
 
-  /**
-   * this method will hide the error message
-   */
-  hideErrorMessage(): void {
-    if (this.errorMessage == null) {
-      return;
-    }
-  }
-
   ngOnInit(): void {
     this.conditionText = this.visibility.condition;
     this.isValid = true;
@@ -179,14 +167,12 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
       this.conditionText = '';
     }
 
-    this._conditionNamesSub = this._service.conditionNames
-      .subscribe((x) => {
-        this.formsVariables = x;
-        if (x != null) {
-          this.extractNames(this.formsVariables);
-        }
-      });
-
+    this._conditionNamesSub = this._service.conditionNames.subscribe((x) => {
+      this.formsVariables = x;
+      if (x != null) {
+        this.extractNames(this.formsVariables);
+      }
+    });
   }
   /**
    * this method will destroy a conditionSubscriptions

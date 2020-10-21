@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,31 +20,29 @@
  *
  */
 
-import {
-  addDays, addMonths, addYears, endOfISOWeek, format, getDay, parse, startOfISOWeek, startOfMonth
-} from 'date-fns';
+import * as dateFns from 'date-fns';
 import * as numeral from 'numeral';
 
 const numeralConstructor: (value?: any) => any = (<any>numeral).default || numeral;
 
 
 export const dateUtils = {
-  addDays,
-  addMonths,
-  addYears,
-  endOfISOWeek,
-  format,
-  getDay,
-  parse,
-  startOfMonth,
-  startOfISOWeek
+  addDays: dateFns.addDays,
+  addMonths: dateFns.addMonths,
+  addYears: dateFns.addYears,
+  endOfISOWeek: dateFns.endOfISOWeek,
+  format: dateFns.format,
+  getDay: dateFns.getDay,
+  parse: dateFns.parseISO,
+  startOfMonth: dateFns.startOfMonth,
+  startOfISOWeek: dateFns.startOfISOWeek
 };
 
 export function digitCount(x: number): number {
-  if ( isNaN(x) || typeof(x) !== 'number') {
+  if (isNaN(x) || typeof (x) !== 'number') {
     return 0;
   }
-  if ( !isFinite(x)) {
+  if (!isFinite(x)) {
     return Infinity;
   }
   return x.toString().replace(/[^0-9]/g, '').length;
@@ -62,7 +60,7 @@ export function decimalCount(x: string|number): number {
 }
 
 export function isInt(x: string|number): boolean {
-  if (typeof(x) === 'string') {
+  if (typeof (x) === 'string') {
     return /^-?\d+$/.test(x);
   }
   if (typeof (x) === 'number') {
@@ -91,7 +89,7 @@ export function sum(array: any[]): any {
 }
 
 export function dateOperations(dString: string, period: string, operation: string, v: any): string {
-  const fmt = 'MM/DD/YYYY';
+  const fmt = 'mm/dd/yyyy';
   let d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
   if (operation == 'remove') {
     v = -v;
@@ -215,10 +213,12 @@ export function extractDates(source: any[], property: string, fmt: string): stri
     if (source[i][property] != null) {
       switch (fmt) {
         case 'WW':
+        case 'ww':
           prefix = 'W';
           res.push(prefix + formatDate(source[i]['date_start'], fmt));
           break;
         case 'MM':
+        case 'mm':
           prefix = 'M';
           res.push(prefix + isoMonth(source[i]['date_start'], fmt));
           break;
@@ -406,13 +406,13 @@ export function formatNumber(num: number, fmt?: string): string {
   return numeralConstructor(num).format(fmt);
 }
 
-export function formatDate(date: Date, fmt?: string): string {
-  fmt = fmt || 'MM-DD-YYYY';
-  return dateUtils.format(date, fmt);
+export function formatDate(date: Date|string, fmt?: string): string {
+  fmt = fmt || 'mm-DD-yyyy';
+  return dateUtils.format(typeof date === 'string' ? dateUtils.parse(date) : date, fmt);
 }
 
 export function isoMonth(date: Date, fmt?: string): string {
-  fmt = fmt || 'MM';
+  fmt = fmt || 'mm';
   const du = dateUtils;
   return du.format(du.addDays(du.startOfISOWeek(date), 3), fmt);
 }

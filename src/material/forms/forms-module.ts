@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,6 +20,14 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
+import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfBarcodeModule} from '@ajf/material/barcode';
+import {AjfCalendarModule} from '@ajf/material/calendar';
+import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
+import {AjfPageSliderModule} from '@ajf/material/page-slider';
+import {AjfTimeModule} from '@ajf/material/time';
+import {TextFieldModule} from '@angular/cdk/text-field';
 import {CommonModule} from '@angular/common';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -33,16 +41,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
 import {TranslateModule} from '@ngx-translate/core';
-
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
-import {AjfCommonModule} from '@ajf/core/common';
-import {AjfBarcodeModule} from '@ajf/material/barcode';
-import {AjfCalendarModule} from '@ajf/material/calendar';
-import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
-import {AjfPageSliderModule} from '@ajf/material/page-slider';
-import {AjfTimeModule} from '@ajf/material/time';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
@@ -57,31 +56,19 @@ import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
+import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
+import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSlideToggleModule,
-    MatToolbarModule,
+    AjfBarcodeModule,       AjfCalendarModule,   AjfCommonModule,     AjfCoreFormsModule,
+    AjfCheckboxGroupModule, AjfPageSliderModule, AjfTimeModule,       CommonModule,
+    MatButtonModule,        MatCardModule,       MatDialogModule,     MatFormFieldModule,
+    MatIconModule,          MatInputModule,      MatRadioModule,      MatSelectModule,
+    MatSlideToggleModule,   MatToolbarModule,    ReactiveFormsModule, TextFieldModule,
     TranslateModule,
-    AjfCoreFormsModule,
-    AjfCalendarModule,
-    AjfBarcodeModule,
-    AjfCheckboxGroupModule,
-    AjfCommonModule,
-    AjfPageSliderModule,
-    AjfTimeModule
   ],
   declarations: [
     AjfBarcodeFieldComponent,
@@ -89,18 +76,16 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfDateFieldComponent,
     AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
-    AjfFormField,
     AjfFieldWarningDialog,
+    AjfFormField,
     AjfFormRenderer,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
-    AjfTimeFieldComponent
-  ],
-  exports: [
-    AjfFormField,
-    AjfFormRenderer
+    AjfTextFieldComponent,
+    AjfTimeFieldComponent,
+    AjfVideoUrlFieldComponent,
   ],
   entryComponents: [
     AjfBarcodeFieldComponent,
@@ -108,20 +93,25 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfDateFieldComponent,
     AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
-    AjfFieldWarningDialog,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
-    AjfTimeFieldComponent
+    AjfTextFieldComponent,
+    AjfTimeFieldComponent,
+    AjfVideoUrlFieldComponent,
+  ],
+  exports: [
+    AjfFormField,
+    AjfFormRenderer,
   ],
   providers: [
     AjfFieldService,
-    AjfWarningAlertService,
+    {provide: AJF_WARNING_ALERT_SERVICE, useClass: AjfWarningAlertService},
   ],
 })
 export class AjfFormsModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<AjfFormsModule> {
     return {
       ngModule: AjfFormsModule,
       providers: [

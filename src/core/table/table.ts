@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,14 +21,17 @@
  */
 
 import {
-  Component, ChangeDetectionStrategy, ChangeDetectorRef, Input, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  ViewEncapsulation
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
 import {AjfTableCell} from './table-cell';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-table',
   templateUrl: 'table.html',
   styleUrls: ['table.css'],
@@ -37,15 +40,21 @@ import {AjfTableCell} from './table-cell';
 })
 export class AjfTable {
   private _data: AjfTableCell[][];
-  get data(): AjfTableCell[][] { return this._data; }
-  @Input() set data(data: AjfTableCell[][]) {
+  get data(): AjfTableCell[][] {
+    return this._data;
+  }
+  @Input()
+  set data(data: AjfTableCell[][]) {
     this._data = this._fixData(data);
     this._cdr.markForCheck();
   }
 
   private _cellpadding: string;
-  get cellpadding(): string { return this._cellpadding; }
-  @Input() set cellpadding(cellpadding: string) {
+  get cellpadding(): string {
+    return this._cellpadding;
+  }
+  @Input()
+  set cellpadding(cellpadding: string) {
     this._cellpadding = cellpadding;
     this._cdr.markForCheck();
   }
@@ -56,7 +65,7 @@ export class AjfTable {
    *
    * @memberOf TableComponent
    */
-  constructor(private _cdr: ChangeDetectorRef, private _domSanitizer: DomSanitizer) { }
+  constructor(private _cdr: ChangeDetectorRef, private _domSanitizer: DomSanitizer) {}
 
   private _fixData(data: AjfTableCell[][]): AjfTableCell[][] {
     (data || []).forEach((elem) => {

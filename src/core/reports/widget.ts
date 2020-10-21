@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,17 +20,28 @@
  *
  */
 
-import {ComponentFactoryResolver, OnInit, Renderer2} from '@angular/core';
+import {
+  ComponentFactoryResolver,
+  Directive,
+  Input,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
-import {AjfWidgetComponentsMap} from './widget-components-map';
+import {AjfWidgetComponentsMap} from './interface/widgets/widget-components-map';
 import {AjfWidgetHost} from './widget-host';
 
+@Directive()
 export abstract class AjfReportWidget implements OnInit {
-  widgetHost: AjfWidgetHost;
+  @ViewChild(AjfWidgetHost, {static: true}) widgetHost: AjfWidgetHost;
 
   private _instance: AjfWidgetInstance;
-  get instance(): AjfWidgetInstance { return this._instance; }
+  get instance(): AjfWidgetInstance {
+    return this._instance;
+  }
+  @Input()
   set instance(instance: AjfWidgetInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
@@ -44,7 +55,7 @@ export abstract class AjfReportWidget implements OnInit {
 
   private _init = false;
 
-  constructor(private _cfr: ComponentFactoryResolver, private _renderer: Renderer2) { }
+  constructor(private _cfr: ComponentFactoryResolver, private _renderer: Renderer2) {}
 
   ngOnInit(): void {
     this._init = true;
@@ -52,16 +63,17 @@ export abstract class AjfReportWidget implements OnInit {
   }
 
   private _loadComponent(): void {
-    if (
-      !this._init || this._instance == null
-      || this.widgetHost == null || !this.instance.visible) {
+    if (!this._init || this._instance == null || this.widgetHost == null ||
+        !this.instance.visible) {
       return;
     }
 
     const vcr = this.widgetHost.viewContainerRef;
     vcr.clear();
     const componentDef = this.widgetsMap[this._instance.widget.widgetType];
-    if (componentDef == null) { return; }
+    if (componentDef == null) {
+      return;
+    }
     const component = componentDef.component;
     try {
       const componentFactory = this._cfr.resolveComponentFactory(component);
@@ -71,11 +83,9 @@ export abstract class AjfReportWidget implements OnInit {
       Object.keys(this._instance.widget.styles).forEach((style: string) => {
         try {
           this._renderer.setStyle(
-            componentInstance.el.nativeElement,
-            style,
-            `${this._instance.widget.styles[style]}`
-          );
-        } catch (e) { }
+              componentInstance.el.nativeElement, style, `${this._instance.widget.styles[style]}`);
+        } catch (e) {
+        }
       });
 
       componentInstance.instance = this._instance;
@@ -86,6 +96,7 @@ export abstract class AjfReportWidget implements OnInit {
           }
         });
       }
-    } catch (e) { }
+    } catch (e) {
+    }
   }
 }

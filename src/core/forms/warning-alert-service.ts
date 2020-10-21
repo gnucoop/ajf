@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,6 +20,7 @@
  *
  */
 
+import {InjectionToken} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import {AjfFieldWarningAlertResult} from './field-warning-alert-result';
@@ -27,3 +28,6 @@ import {AjfFieldWarningAlertResult} from './field-warning-alert-result';
 export interface AjfWarningAlertService {
   showWarningAlertPrompt(warnings: string[]): Observable<AjfFieldWarningAlertResult>;
 }
+
+export const AJF_WARNING_ALERT_SERVICE =
+    new InjectionToken<AjfWarningAlertService>('ajf-warning-alert-service');

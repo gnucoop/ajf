@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,38 +21,57 @@
  */
 
 import {
-  AfterContentInit, ChangeDetectorRef, EventEmitter, OnInit
+  AfterContentInit,
+  ChangeDetectorRef,
+  Directive,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
 } from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
-import {endOfISOWeek, endOfWeek, endOfYear, parse, startOfISOWeek, startOfWeek,
-  startOfYear} from 'date-fns';
+import {
+  endOfISOWeek,
+  endOfWeek,
+  endOfYear,
+  parseISO as parse,
+  startOfISOWeek,
+  startOfWeek,
+  startOfYear
+} from 'date-fns';
 import {Observable} from 'rxjs';
 
 import {AjfCalendarEntry} from './calendar-entry';
-import {AjfCalendarPeriodType} from './calendar-period-type';
 import {AjfCalendarPeriod} from './calendar-period';
+import {AjfCalendarPeriodType} from './calendar-period-type';
 import {AjfCalendarService} from './calendar-service';
 import {AjfCalendarViewMode} from './calendar-view-mode';
 import {AjfCalendarWeekDay} from './calendar-week-day';
 
-const weekDays: string[] = [
-  '', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
-];
+const weekDays: string[] =
+    ['', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
 export class AjfCalendarChange {
   source: AjfCalendar;
-  period: AjfCalendarPeriod | null;
+  period: AjfCalendarPeriod|null;
 }
 
+@Directive()
 export abstract class AjfCalendar implements AfterContentInit, ControlValueAccessor, OnInit {
-  get viewDate(): Date { return this._viewDate; }
+  get viewDate(): Date {
+    return this._viewDate;
+  }
+  @Input()
   set viewDate(viewDate: Date) {
     this._setViewDate(viewDate);
     this._cdr.markForCheck();
   }
 
   private _disabled = false;
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  @Input()
   set disabled(disabled: boolean) {
     const newDisabled = disabled != null && `${disabled}` !== 'false';
     if (newDisabled !== this._disabled) {
@@ -62,14 +81,20 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   }
 
   private _dateOnlyForDay = false;
-  get dateOnlyForDay(): boolean { return this._disabled; }
+  get dateOnlyForDay(): boolean {
+    return this._disabled;
+  }
+  @Input()
   set dateOnlyForDay(dateOnlyForDay: boolean) {
     this._dateOnlyForDay = dateOnlyForDay != null && `${dateOnlyForDay}` !== 'false';
     this._cdr.markForCheck();
   }
 
   private _viewMode: AjfCalendarViewMode = 'month';
-  get viewMode(): AjfCalendarViewMode { return this._viewMode; }
+  get viewMode(): AjfCalendarViewMode {
+    return this._viewMode;
+  }
+  @Input()
   set viewMode(viewMode: AjfCalendarViewMode) {
     this._viewMode = viewMode;
     this._buildCalendar();
@@ -77,7 +102,10 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   }
 
   private _selectionMode: AjfCalendarPeriodType = 'day';
-  get selectionMode(): AjfCalendarPeriodType { return this._selectionMode; }
+  get selectionMode(): AjfCalendarPeriodType {
+    return this._selectionMode;
+  }
+  @Input()
   set selectionMode(selectionMode: AjfCalendarPeriodType) {
     this._selectionMode = selectionMode;
     this._cdr.markForCheck();
@@ -87,6 +115,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   get startOfWeekDay(): AjfCalendarWeekDay {
     return <AjfCalendarWeekDay>weekDays[this._startOfWeekDay];
   }
+  @Input()
   set startOfWeekDay(weekDay: AjfCalendarWeekDay) {
     this._startOfWeekDay = weekDays.indexOf(weekDay);
 
@@ -98,58 +127,58 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
 
   private _isoMode: boolean = false;
 
-  get isoMode(): boolean { return this._isoMode; }
+  get isoMode(): boolean {
+    return this._isoMode;
+  }
+  @Input()
   set isoMode(isoMode: boolean) {
     this._isoMode = isoMode;
     this._buildCalendar();
   }
 
-  private _minDate: Date | null;
-  get minDate(): Date | null { return this._minDate; }
-  set minDate(minDate: Date | null) {
+  private _minDate: Date|null;
+  get minDate(): Date|null {
+    return this._minDate;
+  }
+  @Input()
+  set minDate(minDate: Date|null) {
     this._minDate = minDate != null ? new Date(minDate.valueOf()) : null;
     this._cdr.markForCheck();
   }
 
-  private _maxDate: Date | null;
-  get maxDate(): Date | null { return this._maxDate; }
-  set maxDate(maxDate: Date | null) {
+  private _maxDate: Date|null;
+  get maxDate(): Date|null {
+    return this._maxDate;
+  }
+  @Input()
+  set maxDate(maxDate: Date|null) {
     this._maxDate = maxDate != null ? new Date(maxDate.valueOf()) : null;
     this._cdr.markForCheck();
   }
 
   private _change: EventEmitter<AjfCalendarChange> = new EventEmitter<AjfCalendarChange>();
-  get change(): Observable<AjfCalendarChange> {
-    return this._change.asObservable();
-  }
+  @Output() readonly change: Observable<AjfCalendarChange> = this._change.asObservable();
 
-  private _selectedPeriod: AjfCalendarPeriod | null;
-  private set selectedPeriod(period: AjfCalendarPeriod | null) {
+  private _selectedPeriod: AjfCalendarPeriod|null;
+  @Input()
+  set selectedPeriod(period: AjfCalendarPeriod|null) {
     this._selectedPeriod = period;
-    this._change.emit({
-      source: this,
-      period: period
-    });
+    this._change.emit({source: this, period: period});
     this._refreshSelection();
     this._cdr.markForCheck();
   }
 
-  get value(): AjfCalendarPeriod | Date | null {
+  get value(): AjfCalendarPeriod|Date|null {
     if (this._dateOnlyForDay && this.selectionMode === 'day') {
       return this._selectedPeriod != null ? this._selectedPeriod.startDate : null;
     }
     return this._selectedPeriod;
   }
-  set value(period: AjfCalendarPeriod | Date | null) {
-    if (
-      this._dateOnlyForDay && this.selectionMode === 'day' && period instanceof Date
-      && (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)
-    ) {
-      this.selectedPeriod = {
-        type: 'day',
-        startDate: period,
-        endDate: period
-      };
+  @Input()
+  set value(period: AjfCalendarPeriod|Date|null) {
+    if (this._dateOnlyForDay && this.selectionMode === 'day' && period instanceof Date &&
+        (this._selectedPeriod == null || period !== this._selectedPeriod.startDate)) {
+      this.selectedPeriod = {type: 'day', startDate: period, endDate: period};
     } else if (period instanceof Object && period !== this._selectedPeriod) {
       this.selectedPeriod = <AjfCalendarPeriod>period;
       this._onChangeCallback(period);
@@ -157,9 +186,15 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     this._cdr.markForCheck();
   }
 
-  get calendarHeaders(): string[] { return this._calendarHeaders; }
-  get calendarRows(): AjfCalendarEntry[][] { return this._calendarRows; }
-  get viewHeader(): string { return this._viewHeader; }
+  get calendarHeaders(): string[] {
+    return this._calendarHeaders;
+  }
+  get calendarRows(): AjfCalendarEntry[][] {
+    return this._calendarRows;
+  }
+  get viewHeader(): string {
+    return this._viewHeader;
+  }
 
   private _viewDate: Date = new Date();
   private _viewHeader = '';
@@ -167,7 +202,7 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   private _calendarRows: AjfCalendarEntry[][] = [];
   private _calendarHeaders: string[] = [];
 
-  constructor(private _cdr: ChangeDetectorRef, private _service: AjfCalendarService) { }
+  constructor(private _cdr: ChangeDetectorRef, private _service: AjfCalendarService) {}
 
   prevPage(): void {
     this.viewDate = this._service.previousView(this._viewDate, this._viewMode);
@@ -195,24 +230,20 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
       return this._nextViewMode(entry);
     }
 
-    let newPeriod: AjfCalendarPeriod | null = null;
+    let newPeriod: AjfCalendarPeriod|null = null;
     if (this._service.isEntrySelected(entry, this._selectedPeriod) == 'full') {
       newPeriod = null;
     } else if (this._selectionMode == 'day') {
-      newPeriod = {
-        type: 'day',
-        startDate: entry.date,
-        endDate: entry.date
-      };
+      newPeriod = {type: 'day', startDate: entry.date, endDate: entry.date};
     } else if (this._selectionMode == 'week') {
       newPeriod = {
         type: 'week',
-        startDate: this._isoMode ?
-          startOfISOWeek(entry.date) :
-          startOfWeek(entry.date, {weekStartsOn: this._startOfWeekDay}),
+        startDate: this._isoMode ? startOfISOWeek(entry.date) : startOfWeek(entry.date, {
+          weekStartsOn: this._startOfWeekDay as 0 | 1 | 2 | 3 | 4 | 5 | 6
+        }),
         endDate: this._isoMode ?
-          endOfISOWeek(entry.date) :
-          endOfWeek(entry.date, {weekStartsOn: this._startOfWeekDay})
+            endOfISOWeek(entry.date) :
+            endOfWeek(entry.date, {weekStartsOn: this._startOfWeekDay as 0 | 1 | 2 | 3 | 4 | 5 | 6})
       };
     } else if (this._selectionMode == 'month') {
       const monthBounds = this._service.monthBounds(entry.date, this._isoMode);
@@ -257,8 +288,8 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
     this._refreshSelection();
   }
 
-  private _onChangeCallback: (_: any) => void = (_: any) => { };
-  private _onTouchedCallback: () => void = () => { };
+  private _onChangeCallback: (_: any) => void = (_: any) => {};
+  private _onTouchedCallback: () => void = () => {};
 
   private _setViewDate(date: Date): void {
     this._viewDate = date;

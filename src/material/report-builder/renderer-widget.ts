@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -23,12 +23,26 @@
 import {AjfImageType} from '@ajf/core/image';
 import {evaluateExpression} from '@ajf/core/models';
 import {
-  AjfChartWidget, AjfColumnWidget, AjfDataset, AjfImageWidget, AjfLayoutWidget, AjfMapWidget,
-  AjfTableWidget, AjfTextWidget, AjfWidget, AjfWidgetType
+  AjfChartWidget,
+  AjfColumnWidget,
+  AjfDataset,
+  AjfImageWidget,
+  AjfLayoutWidget,
+  AjfMapWidget,
+  AjfTableWidget,
+  AjfTextWidget,
+  AjfWidget,
+  AjfWidgetType
 } from '@ajf/core/reports';
 import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 import {
-  ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, OnInit, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
 } from '@angular/core';
 import {Observable, Subscription, timer} from 'rxjs';
 import {distinctUntilChanged, map, startWith} from 'rxjs/operators';
@@ -37,7 +51,6 @@ import {AjfReportBuilderDragData} from './report-builder-drag-data';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-renderer-widget',
   templateUrl: 'renderer-widget.html',
   styleUrls: ['renderer-widget.css'],
@@ -55,11 +68,9 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     return this.widget as AjfLayoutWidget;
   }
 
-  @Input()
-  position: number;
+  @Input() position: number;
 
-  @Input()
-  section: string;
+  @Input() section: string;
 
   // this boolean sign if is dragged a widget
   onDragged = false;
@@ -69,7 +80,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   fixedZoom: any;
 
   getTableTitles: Observable<string[]>;
-  getTableContent: Observable<string[][] | undefined>;
+  getTableContent: Observable<string[][]|undefined>;
 
   getChartType: Observable<number>;
   getDataset: Observable<AjfDataset[][]>;
@@ -81,16 +92,14 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
 
   private _onDraggedSub: Subscription = Subscription.EMPTY;
 
-  constructor(
-    private _service: AjfReportBuilderService
-  ) { }
+  constructor(private _service: AjfReportBuilderService) {}
 
   canDropPredicate(item: CdkDrag<AjfReportBuilderDragData>): boolean {
-    item.data.dropZones.forEach(d => {
-      if (['header', 'widget'].indexOf(d) > -1) {
+    for (let i = 0; i < item.data.dropZones.length; i++) {
+      if (['header', 'widget'].indexOf(item.data.dropZones[i]) > -1) {
         return true;
       }
-    });
+    }
     return false;
   }
 
@@ -100,11 +109,10 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
    * @memberOf AjfReportBuilderContent
    */
   onDragStartHandler(): void {
-    let s = timer(200)
-      .subscribe(() => {
-        s.unsubscribe();
-        this._service.dragStarted();
-      });
+    let s = timer(200).subscribe(() => {
+      s.unsubscribe();
+      this._service.dragStarted();
+    });
   }
 
   /**
@@ -122,17 +130,21 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     return <AjfColumnWidget[]>myObj.content;
   }
 
-  getIcon(): {fontSet: string, fontIcon: string} | null {
+  getIcon(): {fontSet: string, fontIcon: string}|null {
     const defVal = {fontSet: '', fontIcon: ''};
     const myObj: AjfImageWidget = <AjfImageWidget>this.widget;
-    if (myObj.icon == null) { return null; }
+    if (myObj.icon == null) {
+      return null;
+    }
     return evaluateExpression(myObj.icon.formula) || defVal;
   }
 
-  getFlag(): string | null {
+  getFlag(): string|null {
     const defVal = 'ch';
     const myObj: AjfImageWidget = <AjfImageWidget>this.widget;
-    if (myObj.flag == null) { return null; }
+    if (myObj.flag == null) {
+      return null;
+    }
     return evaluateExpression(myObj.flag.formula) || defVal;
   }
 
@@ -143,10 +155,12 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     return `${percent.toString()}%`;
   }
 
-  getImageUrl(): string | null {
+  getImageUrl(): string|null {
     const defVal = '';
     const myObj: AjfImageWidget = <AjfImageWidget>this.widget;
-    if (myObj.url == null) { return null; }
+    if (myObj.url == null) {
+      return null;
+    }
     return evaluateExpression(myObj.url.formula) || defVal;
   }
 
@@ -185,7 +199,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     let myObj: AjfMapWidget;
     myObj = <AjfMapWidget>this.widget;
     if (myObj.attribution === '') {
-      return "&copy; <a href='http://osm.org/copyright'>O</a> contributors";
+      return '&copy; <a href=\'http://osm.org/copyright\'>O</a> contributors';
     } else {
       return myObj.attribution;
     }
@@ -197,10 +211,9 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
   }
 
   ngOnInit(): void {
-    this._onDraggedSub = this._service.onDragged
-      .subscribe(x => {
-        this.onDragged = x;
-      });
+    this._onDraggedSub = this._service.onDragged.subscribe(x => {
+      this.onDragged = x;
+    });
 
     this.getChartType = this._service.currentWidget.pipe(
         map((widget: AjfWidget|null) => {
@@ -269,6 +282,7 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
         }
         return tableContent;
       }
+      return [];
     }));
 
     this._service.updateCurrentWidget(this.widget);

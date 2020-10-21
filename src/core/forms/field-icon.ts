@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -28,7 +28,7 @@ import {AjfFieldType} from './interface/fields/field-type';
 
 @Pipe({name: 'ajfFieldIcon'})
 export class AjfFieldIconPipe implements PipeTransform {
-  transform(field: AjfField | AjfFieldType): string {
+  transform(field: AjfField|AjfFieldType): string {
     return fieldIconName(
         (field as AjfField).fieldType ? (field as AjfField).fieldType : field as AjfFieldType);
   }

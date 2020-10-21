@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tunnelTmpDir="/tmp/material-browserstack"
+tunnelTmpDir="/tmp/ajf-browserstack"
 tunnelLogFile="${tunnelTmpDir}/browserstack-local.log"
 tunnelReadyFile="${tunnelTmpDir}/readyfile"
 tunnelErrorFile="${tunnelTmpDir}/errorfile"

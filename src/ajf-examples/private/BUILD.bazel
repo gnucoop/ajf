@@ -1,0 +1,13 @@
+load("//tools:defaults.bzl", "ts_library")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_library(
+    name = "private",
+    srcs = glob(["*.ts"]),
+    module_name = "@ajf/ajf-examples/private",
+    deps = [
+        "//src/ajf-examples",
+        "@npm//@angular/core",
+    ],
+)

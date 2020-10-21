@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,22 +20,19 @@
  *
  */
 
-import {CommonModule} from '@angular/common';
-import {ModuleWithProviders, NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
-import {IonicModule} from '@ionic/angular';
-import {GicModule} from '@gic/angular';
-
-import {TranslateModule} from '@ngx-translate/core';
-
 import {AjfCommonModule} from '@ajf/core/common';
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {AjfBarcodeModule} from '@ajf/ionic/barcode';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
 import {AjfPageSliderModule} from '@ajf/ionic/page-slider';
 import {AjfTimeModule} from '@ajf/ionic/time';
+import {CommonModule} from '@angular/common';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {GicModule} from '@gic/angular';
+import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
@@ -44,8 +41,8 @@ import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfFormField} from './field';
 import {AjfFieldService} from './field-service';
-import {AjfFormPage} from './form-page';
 import {AjfFormRenderer} from './form';
+import {AjfFormPage} from './form-page';
 import {AjfFormulaFieldComponent} from './formula-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
@@ -56,23 +53,24 @@ import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTextareaFieldComponent} from './textarea-field';
 import {AjfTimeFieldComponent} from './time-field';
+import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonicModule,
-    GicModule,
-    TranslateModule,
+    AjfBarcodeModule,
+    AjfCalendarModule,
+    AjfCheckboxGroupModule,
     AjfCommonModule,
     AjfCoreFormsModule,
-    AjfCalendarModule,
-    AjfBarcodeModule,
-    AjfCheckboxGroupModule,
     AjfPageSliderModule,
     AjfTimeModule,
+    CommonModule,
+    FormsModule,
+    GicModule,
+    IonicModule,
+    ReactiveFormsModule,
+    TranslateModule,
   ],
   declarations: [
     AjfBarcodeFieldComponent,
@@ -92,11 +90,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
     AjfTextareaFieldComponent,
-    AjfTimeFieldComponent
-  ],
-  exports: [
-    AjfFormField,
-    AjfFormRenderer
+    AjfTimeFieldComponent,
+    AjfVideoUrlFieldComponent,
   ],
   entryComponents: [
     AjfBarcodeFieldComponent,
@@ -111,15 +106,20 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
     AjfTextareaFieldComponent,
-    AjfTimeFieldComponent
+    AjfTimeFieldComponent,
+    AjfVideoUrlFieldComponent,
+  ],
+  exports: [
+    AjfFormField,
+    AjfFormRenderer,
   ],
   providers: [
     AjfFieldService,
-    AjfWarningAlertService,
+    {provide: AJF_WARNING_ALERT_SERVICE, useClass: AjfWarningAlertService},
   ],
 })
 export class AjfFormsModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<AjfFormsModule> {
     return {
       ngModule: AjfFormsModule,
       providers: [

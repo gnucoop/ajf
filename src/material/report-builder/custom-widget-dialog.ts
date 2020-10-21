@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -26,22 +26,18 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'custom-widget-dialog',
   templateUrl: 'custom-widget-dialog.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfReportBuilderCustomWidgetDialog {
-  @Input()
-  label: string;
-  @Input()
-  position: number;
+  @Input() label: string;
+  @Input() position: number;
 
   constructor(
-    private _service: AjfReportBuilderService,
-    private _dialogRef: MatDialogRef<AjfReportBuilderCustomWidgetDialog>
-  ) { }
+      private _service: AjfReportBuilderService,
+      private _dialogRef: MatDialogRef<AjfReportBuilderCustomWidgetDialog>) {}
 
   changeLabel() {
     this._service.changeLabelCustomWidget(this.label, this.position);

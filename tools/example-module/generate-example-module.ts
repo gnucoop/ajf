@@ -1,55 +1,67 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import {parseExampleFile} from './parse-example-file';
+import {parseExampleModuleFile} from './parse-example-module-file';
 
 interface ExampleMetadata {
-  component: string;
+  /** Name of the example component. */
+  componentName: string;
+  /** Path to the source file that declares this example. */
   sourcePath: string;
+  /** Path to the directory containing this example. */
+  packagePath: string;
+  /** Selector to match the component of this example. */
+  selector: string;
+  /** Unique id for this example. */
   id: string;
+  /** Title of the example. */
   title: string;
+  /** Additional components for this example. */
   additionalComponents: string[];
-  additionalFiles: string[];
-  selectorName: string[];
+  /** Files for this example. */
+  files: string[];
+  /** Reference to the module that declares this example. */
+  module: ExampleModule;
 }
 
-/** Build ES module import statements for the given example metadata. */
-function buildImportsTemplate(data: ExampleMetadata): string {
-  const components = data.additionalComponents.concat(data.component);
-  const relativeSrcPath = data.sourcePath.replace(/\\/g, '/').replace('.ts', '');
+interface ExampleModule {
+  /** Path to the package that the module is defined in. */
+  packagePath: string;
+  /** Name of the module. */
+  name: string;
+}
 
-  return `import {${components.join(',')}} from './${relativeSrcPath}';`;
+interface AnalyzedExamples {
+  exampleMetadata: ExampleMetadata[];
 }
 
 /** Inlines the example module template with the specified parsed data. */
-function inlineExampleModuleTemplate(parsedData: ExampleMetadata[]): string {
-  // TODO(devversion): re-add line-breaks for debugging once the example module has
-  // been re-added to the repository gitignore.
-  // Blocked on https://github.com/angular/angular/issues/30259
-  const exampleImports = parsedData.map(m => buildImportsTemplate(m)).join('');
-  const quotePlaceholder = '◬';
-  const exampleList = parsedData.reduce((result, data) => {
-    return result.concat(data.component).concat(data.additionalComponents);
-  }, [] as string[]);
+function inlineExampleModuleTemplate(parsedData: AnalyzedExamples): string {
+  const {exampleMetadata} = parsedData;
+  const exampleComponents = exampleMetadata.reduce((result, data) => {
+    if (result[data.id] !== undefined) {
+      throw Error(`Multiple examples with the same id have been discovered: ${data.id}`);
+    }
 
-  const exampleComponents = parsedData.reduce((result, data) => {
     result[data.id] = {
+      packagePath: data.packagePath,
       title: data.title,
-      // Since we use JSON.stringify to output the data below, the `component` will be wrapped
-      // in quotes, whereas we want a reference to the class. Add placeholder characters next to
-      // where the quotes will be so that we can strip them away afterwards.
-      component: `${quotePlaceholder}${data.component}${quotePlaceholder}`,
-      additionalFiles: data.additionalFiles,
-      selectorName: data.selectorName.join(', '),
+      componentName: data.componentName,
+      files: data.files,
+      selector: data.selector,
+      additionalComponents: data.additionalComponents,
+      primaryFile: path.basename(data.sourcePath),
+      module: {
+        name: data.module.name,
+        importSpecifier: data.module.packagePath,
+      },
     };
 
     return result;
   }, {} as any);
 
   return fs.readFileSync(require.resolve('./example-module.template'), 'utf8')
-    .replace('${exampleImports}', exampleImports)
-    .replace('${exampleComponents}', JSON.stringify(exampleComponents))
-    .replace('${exampleList}', `[${exampleList.join(', ')}]`)
-    .replace(new RegExp(`"${quotePlaceholder}|${quotePlaceholder}"`, 'g'), '');
+    .replace(/\${exampleComponents}/g, JSON.stringify(exampleComponents, null, 2));
 }
 
 /** Converts a given camel-cased string to a dash-cased string. */
@@ -59,11 +71,28 @@ function convertToDashCase(name: string): string {
   return name.split(' ').join('-');
 }
 
-/** Collects the metadata of the given source files by parsing the given TypeScript files. */
-function collectExampleMetadata(sourceFiles: string[], baseFile: string): ExampleMetadata[] {
+/**
+ * Analyzes the examples by parsing the given TypeScript files in order to find
+ * individual example modules and example metadata.
+ */
+function analyzeExamples(sourceFiles: string[], baseDir: string): AnalyzedExamples {
   const exampleMetadata: ExampleMetadata[] = [];
+  const exampleModules: ExampleModule[] = [];
 
   for (const sourceFile of sourceFiles) {
+    const relativePath = path.relative(baseDir, sourceFile).replace(/\\/g, '/');
+    const importPath = relativePath.replace(/\.ts$/, '');
+    const packagePath = path.dirname(relativePath);
+
+    // Collect all individual example modules.
+    if (path.basename(sourceFile) === 'index.ts') {
+      exampleModules.push(...parseExampleModuleFile(sourceFile).map(name => ({
+        name,
+        importPath,
+        packagePath,
+      })));
+    }
+
     // Avoid parsing non-example files.
     if (!path.basename(sourceFile, path.extname(sourceFile)).endsWith('-example')) {
       continue;
@@ -74,35 +103,49 @@ function collectExampleMetadata(sourceFiles: string[], baseFile: string): Exampl
 
     if (primaryComponent) {
       // Generate a unique id for the component by converting the class name to dash-case.
-      const exampleId = convertToDashCase(primaryComponent.component.replace('Example', ''));
+      const exampleId = convertToDashCase(primaryComponent.componentName.replace('Example', ''));
       const example: ExampleMetadata = {
-        sourcePath: path.relative(baseFile, sourceFile),
+        sourcePath: relativePath,
+        packagePath,
         id: exampleId,
-        component: primaryComponent.component,
+        selector: primaryComponent.selector,
+        componentName: primaryComponent.componentName,
         title: primaryComponent.title.trim(),
         additionalComponents: [],
-        additionalFiles: [],
-        selectorName: []
+        files: [],
+        module: null,
       };
 
+      // For consistency, we expect the example component selector to match
+      // the id of the example.
+      const expectedSelector = `${exampleId}-example`;
+      if (primaryComponent.selector !== expectedSelector) {
+        throw Error(`Example ${exampleId} uses selector: ${primaryComponent.selector}, ` +
+            `but expected: ${expectedSelector}`);
+      }
+
+      example.files.push(path.basename(relativePath));
+      if (primaryComponent.templateUrl) {
+        example.files.push(primaryComponent.templateUrl);
+      }
+      if (primaryComponent.styleUrls) {
+        example.files.push(...primaryComponent.styleUrls);
+      }
+
       if (secondaryComponents.length) {
-        example.selectorName.push(example.component);
-
         for (const meta of secondaryComponents) {
-          example.additionalComponents.push(meta.component);
-
+          example.additionalComponents.push(meta.componentName);
           if (meta.templateUrl) {
-            example.additionalFiles.push(meta.templateUrl);
+            example.files.push(meta.templateUrl);
           }
-
           if (meta.styleUrls) {
-            example.additionalFiles.push(...meta.styleUrls);
+            example.files.push(...meta.styleUrls);
           }
-
-          example.selectorName.push(meta.component);
         }
       }
 
+      // Ensure referenced files actually exist in the example.
+      example.files.forEach(f => assertReferencedExampleFileExists(baseDir, packagePath, f));
       exampleMetadata.push(example);
     } else {
         throw Error(`Could not find a primary example component in ${sourceFile}. ` +
@@ -110,7 +153,40 @@ function collectExampleMetadata(sourceFiles: string[], baseFile: string): Exampl
     }
   }
 
-  return exampleMetadata;
+  // Walk through all collected examples and find their parent example module. In View Engine,
+  // components cannot be lazy-loaded without the associated module being loaded.
+  exampleMetadata.forEach(example => {
+    const parentModule = exampleModules
+      .find(module => example.sourcePath.startsWith(module.packagePath));
+
+    if (!parentModule) {
+      throw Error(`Could not determine example module for: ${example.id}`);
+    }
+
+    const actualPath = path.dirname(example.sourcePath);
+    const expectedPath = path.posix.join(parentModule.packagePath, example.id);
+
+    // Ensures that example ids match with the directory they are stored in. This is not
+    // necessary for the docs site, but it helps with consistency and makes it easy to
+    // determine an id for an example. We also ensures for consistency that example
+    // folders are direct siblings of the module file.
+    if (actualPath !== expectedPath) {
+      throw Error(`Example is stored in: ${actualPath}, but expected: ${expectedPath}`);
+    }
+
+    example.module = parentModule;
+  });
+
+  return {exampleMetadata};
+}
+
+/** Asserts that the given file exists for the specified example. */
+function assertReferencedExampleFileExists(baseDir: string, examplePackagePath: string,
+                                           relativePath: string) {
+  if (!fs.existsSync(path.join(baseDir, examplePackagePath, relativePath))) {
+    throw Error(
+        `Example "${examplePackagePath}" references "${relativePath}", but file does not exist.`);
+  }
 }
 
 /**
@@ -119,8 +195,8 @@ function collectExampleMetadata(sourceFiles: string[], baseFile: string): Exampl
  */
 export function generateExampleModule(sourceFiles: string[], outputFile: string,
                                       baseDir: string = path.dirname(outputFile)) {
-  const results = collectExampleMetadata(sourceFiles, baseDir);
-  const generatedModuleFile = inlineExampleModuleTemplate(results);
+  const analysisData = analyzeExamples(sourceFiles, baseDir);
+  const generatedModuleFile = inlineExampleModuleTemplate(analysisData);
 
   fs.writeFileSync(outputFile, generatedModuleFile);
 }

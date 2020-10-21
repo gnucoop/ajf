@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,6 +20,5 @@
  *
  */
 
-export * from './coerce-boolean-property';
 export * from './deep-copy';
 export * from './sized-enum-to-string-array';

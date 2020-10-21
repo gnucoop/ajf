@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,8 +22,12 @@
 
 export class AjfError extends Error {
   stack: string;
-  get name(): string { return 'AjfError'; }
-  get message(): string { return this._message; }
+  get name(): string {
+    return 'AjfError';
+  }
+  get message(): string {
+    return this._message;
+  }
   // this private string is the error message
   private _message: string;
   /**

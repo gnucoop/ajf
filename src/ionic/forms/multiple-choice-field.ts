@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,16 +21,23 @@
  */
 
 import {
-  AjfFieldWithChoicesComponent, AjfFormRendererService, AJF_SEARCH_ALERT_THRESHOLD
+  AJF_SEARCH_ALERT_THRESHOLD,
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFieldWithChoicesComponent,
+  AjfFormRendererService
 } from '@ajf/core/forms';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Optional, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Optional,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'multiple-choice-field.html',
   styleUrls: ['multiple-choice-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,11 +45,9 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfMultipleChoiceFieldComponent<T> extends AjfFieldWithChoicesComponent<T> {
   constructor(
-    cdr: ChangeDetectorRef,
-    service: AjfFormRendererService,
-    was: AjfWarningAlertService,
-    @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number
-  ) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+      @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number) {
     super(cdr, service, was, searchThreshold);
   }
 }

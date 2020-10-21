@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,14 +21,17 @@
  */
 
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-node-type-entry',
   templateUrl: 'node-type-entry.html',
   styleUrls: ['node-type-entry.css'],
@@ -37,12 +40,14 @@ import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
 })
 export class AjfFbNodeTypeEntry {
   private _nodeType: AjfFormBuilderNodeTypeEntry;
-  get nodeType(): AjfFormBuilderNodeTypeEntry { return this._nodeType; }
+  get nodeType(): AjfFormBuilderNodeTypeEntry {
+    return this._nodeType;
+  }
   @Input()
   set nodeType(nodeType: AjfFormBuilderNodeTypeEntry) {
     this._nodeType = nodeType;
     this._cdr.markForCheck();
   }
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  constructor(private _cdr: ChangeDetectorRef) {}
 }

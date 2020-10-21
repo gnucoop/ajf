@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,8 +21,18 @@
  */
 
 import {
-  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input,
-  OnChanges, OnDestroy, Output, SimpleChange, ViewChild, ViewEncapsulation
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChange,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {AutoCompleteSingleton} from './autocomplete-singleton-model';
 import {IEditorLanguage} from './editor-language-model';
@@ -34,15 +44,12 @@ declare const monaco: any;
 
 
 @Component({
-  moduleId: module.id,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'ajf-monaco-editor',
   styleUrls: ['monaco-editor.css'],
   templateUrl: 'monaco-editor.html',
-  host: {
-    '(window:resize)': 'onResize($event)'
-  }
+  host: {'(window:resize)': 'onResize($event)'}
 })
 export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
   @Input() experimentalScreenReader?: boolean;
@@ -87,20 +94,21 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
   @Input() formatOnType?: boolean;
   @Input() suggestOnTriggerCharacters?: boolean;
   @Input() acceptSuggestionOnEnter?: boolean;
-  @Input() snippetSuggestions?: 'top' | 'bottom' | 'inline' | 'none';
+  @Input() snippetSuggestions?: 'top'|'bottom'|'inline'|'none';
   @Input() tabCompletion?: boolean;
   @Input() wordBasedSuggestions?: boolean;
   @Input() selectionHighlight?: boolean;
   @Input() codeLens?: boolean;
   @Input() folding?: boolean;
-  @Input() renderWhitespace?: 'none' | 'boundary' | 'all';
+  @Input() renderWhitespace?: 'none'|'boundary'|'all';
   @Input() renderControlCharacters?: boolean;
   @Input() renderIndentGuides?: boolean;
   @Input() renderLineHighlight?: boolean;
   @Input() useTabStops?: boolean;
   @Input() fontFamily?: string;
-  @Input() fontWeight?: 'normal' | 'bold' | 'bolder' | 'lighter' | 'initial' | 'inherit'
-    | '100' | '200' | '300' | '400' | '500' | '600' | '700' | '800' | '900';
+  @Input()
+  fontWeight?: 'normal'|'bold'|'bolder'|'lighter'|'initial'|'inherit'|'100'|'200'|'300'|'400'|'500'|
+      '600'|'700'|'800'|'900';
   @Input() fontSize?: number;
   @Input() lineHeight?: number;
 
@@ -110,7 +118,8 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
   @Input() autoFormatOnLoad = true;
   @Input() monacoLibPath = 'vs/loader.js';
 
-  @Input() set valueToCompare(v: string) {
+  @Input()
+  set valueToCompare(v: string) {
     if (v !== this._valueToCompare) {
       this._valueToCompare = v;
 
@@ -134,292 +143,295 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
     }
   }
 
-    @Input() set value(v: string) {
-      if (v !== this._value) {
-        this._value = v;
+  @Input()
+  set value(v: string) {
+    if (v !== this._value) {
+      this._value = v;
 
-        if (this._value === void 0 || !this._editor) {
-          return;
-        }
-
-        if (this._editor.getEditorType() !== 'vs.editor.ICodeEditor') {
-          this._initEditor();
-          return;
-        }
-
-        this._editor.setValue(this._value);
+      if (this._value === void 0 || !this._editor) {
+        return;
       }
-    }
 
-    @Output() valueChange = new EventEmitter();
-    @Output() valueToCompareChange = new EventEmitter();
-    @Output() init = new EventEmitter();
-
-    @ViewChild('editor', {static: true}) editorContent: ElementRef;
-
-    private _editor: any;
-    get editor(): any { return this._editor; }
-
-    private _value = '';
-    private _valueToCompare = '';
-
-    constructor() {
-    }
-
-    /**
-     * load Monaco lib
-     */
-    ngAfterViewInit() {
-        let onGotAmdLoader = () => {
-            // Load monaco
-            (<any>window).require(['vs/editor/editor.main'], () => {
-                this._initMonaco();
-            });
-        };
-
-        // Load AMD loader if necessary
-        if (!(<any>window).require) {
-            let loaderScript = document.createElement('script');
-            loaderScript.type = 'text/javascript';
-            loaderScript.src = this.monacoLibPath;
-            loaderScript.addEventListener('load', onGotAmdLoader);
-            document.body.appendChild(loaderScript);
-        } else {
-            onGotAmdLoader();
-        }
-    }
-
-    /**
-     * Upon destruction of the component we make sure to dispose both the editor and
-     * the extra libs that we might've loaded
-     */
-    ngOnDestroy() {
-        this.dispose();
-    }
-
-    ngOnChanges(_changes: {[propKey: string]: SimpleChange}) {
-        if (this._editor) {
-            this._editor.updateOptions(this._getOptions());
-        }
-    }
-
-    /**
-     * Destroy the monaco componenent
-     */
-    dispose() {
-        let myDiv: HTMLDivElement = this.editorContent.nativeElement;
-        if (this._editor) {
-            this._editor.dispose();
-            while (myDiv.hasChildNodes()) {
-              if (myDiv.firstChild != null) {
-                myDiv.removeChild(myDiv.firstChild);
-              }
-            }
-            this._editor = null;
-        }
-    }
-
-    /**
-     * Triggered when windows is resized
-     * @param event
-     */
-    onResize(_event: any) {
-        // Manually set monaco size because MonacoEditor doesn't work with Flexbox css
-        let myDiv: HTMLDivElement = this.editorContent.nativeElement;
-        if (myDiv == null || myDiv.parentElement == null) { return; }
-        myDiv.setAttribute('style', `height: ${myDiv.parentElement.offsetHeight}px; width:100%;`);
-    }
-
-    /**
-     * Init editor
-     * Is called once monaco library is available
-     */
-    private _initMonaco() {
+      if (this._editor.getEditorType() !== 'vs.editor.ICodeEditor') {
         this._initEditor();
-        this.init.emit();
+        return;
+      }
+
+      this._editor.setValue(this._value);
     }
+  }
 
-    private _initEditor() {
-        let myDiv: HTMLDivElement = this.editorContent.nativeElement;
-        let options = this._getOptions();
-        this.dispose();
+  @Output() valueChange = new EventEmitter();
+  @Output() valueToCompareChange = new EventEmitter();
+  @Output() init = new EventEmitter();
 
-        if (!this._valueToCompare) {
-            this._editor = this._initSimpleEditor(myDiv, options);
-        } else {
-            this._editor = this._initDiffEditor(myDiv, options);
+  @ViewChild('editor', {static: true}) editorContent: ElementRef;
+
+  private _editor: any;
+  get editor(): any {
+    return this._editor;
+  }
+
+  private _value = '';
+  private _valueToCompare = '';
+
+  constructor() {}
+
+  /**
+   * load Monaco lib
+   */
+  ngAfterViewInit() {
+    let onGotAmdLoader = () => {
+      // Load monaco
+      (<any>window).require(['vs/editor/editor.main'], () => {
+        this._initMonaco();
+      });
+    };
+
+    // Load AMD loader if necessary
+    if (!(<any>window).require) {
+      let loaderScript = document.createElement('script');
+      loaderScript.type = 'text/javascript';
+      loaderScript.src = this.monacoLibPath;
+      loaderScript.addEventListener('load', onGotAmdLoader);
+      document.body.appendChild(loaderScript);
+    } else {
+      onGotAmdLoader();
+    }
+  }
+
+  /**
+   * Upon destruction of the component we make sure to dispose both the editor and
+   * the extra libs that we might've loaded
+   */
+  ngOnDestroy() {
+    this.dispose();
+  }
+
+  ngOnChanges(_changes: {[propKey: string]: SimpleChange}) {
+    if (this._editor) {
+      this._editor.updateOptions(this._getOptions());
+    }
+  }
+
+  /**
+   * Destroy the monaco componenent
+   */
+  dispose() {
+    let myDiv: HTMLDivElement = this.editorContent.nativeElement;
+    if (this._editor) {
+      this._editor.dispose();
+      while (myDiv.hasChildNodes()) {
+        if (myDiv.firstChild != null) {
+          myDiv.removeChild(myDiv.firstChild);
         }
+      }
+      this._editor = null;
+    }
+  }
 
-        // Manually set monaco size because MonacoEditor doesn't work with Flexbox css
-        if (myDiv != null && myDiv.parentElement != null) {
-          myDiv.setAttribute('style', `height: ${myDiv.parentElement.offsetHeight}px; width:100%;`);
+  /**
+   * Triggered when windows is resized
+   * @param event
+   */
+  onResize(_event: any) {
+    // Manually set monaco size because MonacoEditor doesn't work with Flexbox css
+    let myDiv: HTMLDivElement = this.editorContent.nativeElement;
+    if (myDiv == null || myDiv.parentElement == null) {
+      return;
+    }
+    myDiv.setAttribute('style', `height: ${myDiv.parentElement.offsetHeight}px; width:100%;`);
+  }
+
+  /**
+   * Init editor
+   * Is called once monaco library is available
+   */
+  private _initMonaco() {
+    this._initEditor();
+    this.init.emit();
+  }
+
+  private _initEditor() {
+    let myDiv: HTMLDivElement = this.editorContent.nativeElement;
+    let options = this._getOptions();
+    this.dispose();
+
+    if (!this._valueToCompare) {
+      this._editor = this._initSimpleEditor(myDiv, options);
+    } else {
+      this._editor = this._initDiffEditor(myDiv, options);
+    }
+
+    // Manually set monaco size because MonacoEditor doesn't work with Flexbox css
+    if (myDiv != null && myDiv.parentElement != null) {
+      myDiv.setAttribute('style', `height: ${myDiv.parentElement.offsetHeight}px; width:100%;`);
+    }
+
+    // Init Autocomplete if not disabled
+    if (!this.disableAutocomplete) {
+      AutoCompleteSingleton.getInstance().initAutoComplete(this.language);
+    }
+
+    // When content is loaded, scrollChange is trigerred,
+    // We can only force auto format at this moment, because editor
+    // doesn't have onReady event ...
+    //  this._editor.onDidScrollChange(() => {
+    //     if (this.autoFormatOnLoad && !this._isCodeFormatted) {
+    //         this._editor.getAction('editor.action.format').run();
+    //         this._isCodeFormatted = true;
+    //     }
+    // });
+
+    // Trigger on change event for simple editor
+    this._getOriginalModel().onDidChangeContent((_e: any) => {
+      let newVal: string = this._getOriginalModel().getValue();
+      if (this._value !== newVal) {
+        this._updateValue(newVal);
+      }
+    });
+
+    // Trigger on change event for diff editor
+    if (this._getModifiedModel()) {
+      this._getModifiedModel().onDidChangeContent((_e: any) => {
+        let newVal: string = this._getModifiedModel().getValue();
+        if (this._valueToCompare !== newVal) {
+          this._updateValueToCompare(newVal);
         }
-
-        // Init Autocomplete if not disabled
-        if (!this.disableAutocomplete) {
-            AutoCompleteSingleton.getInstance().initAutoComplete(this.language);
-        }
-
-        // When content is loaded, scrollChange is trigerred,
-        // We can only force auto format at this moment, because editor
-        // doesn't have onReady event ...
-        //  this._editor.onDidScrollChange(() => {
-        //     if (this.autoFormatOnLoad && !this._isCodeFormatted) {
-        //         this._editor.getAction('editor.action.format').run();
-        //         this._isCodeFormatted = true;
-        //     }
-        // });
-
-        // Trigger on change event for simple editor
-        this._getOriginalModel().onDidChangeContent((_e: any) => {
-            let newVal: string = this._getOriginalModel().getValue();
-            if (this._value !== newVal) {
-                this._updateValue(newVal);
-            }
-        });
-
-        // Trigger on change event for diff editor
-        if (this._getModifiedModel()) {
-            this._getModifiedModel().onDidChangeContent((_e: any) => {
-                let newVal: string = this._getModifiedModel().getValue();
-                if (this._valueToCompare !== newVal) {
-                    this._updateValueToCompare(newVal);
-                }
-            });
-        }
+      });
     }
+  }
 
-    /**
-     * Create a simple editor text
-     * @param div
-     * @param options
-     */
-    private _initSimpleEditor(div: HTMLDivElement, options: any) {
-        return monaco.editor.create(div, options);
+  /**
+   * Create a simple editor text
+   * @param div
+   * @param options
+   */
+  private _initSimpleEditor(div: HTMLDivElement, options: any) {
+    return monaco.editor.create(div, options);
+  }
+
+  /**
+   * Create a diff editor to compare two string (_value and _valueToCompare)
+   * @param div
+   */
+  private _initDiffEditor(div: HTMLDivElement, options: any) {
+    let originalModel = monaco.editor.createModel(this._value, this.language);
+    let modifiedModel = monaco.editor.createModel(this._valueToCompare, this.language);
+
+    let diffEditor = monaco.editor.createDiffEditor(div, options);
+    diffEditor.setModel({
+      modified: modifiedModel,
+      original: originalModel,
+    });
+
+    return diffEditor;
+  }
+
+  private _getOptions(): IEditorOptions {
+    let options: IEditorOptions = new IEditorOptions();
+    options.experimentalScreenReader = this.experimentalScreenReader;
+    options.ariaLabel = this.ariaLabel;
+    options.rulers = this.rulers;
+    options.wordSeparators = this.wordSeparators;
+    options.selectionClipboard = this.selectionClipboard;
+    options.lineNumbers = this.lineNumbers;
+    options.selectOnLineNumbers = this.selectOnLineNumbers;
+    options.lineNumbersMinChars = this.lineNumbersMinChars;
+    options.glyphMargin = this.glyphMargin;
+    options.lineDecorationsWidth = this.lineDecorationsWidth;
+    options.revealHorizontalRightPadding = this.revealHorizontalRightPadding;
+    options.roundedSelection = this.roundedSelection;
+    options.theme = this.theme;
+    options.readOnly = this.readOnly;
+    options.scrollbar = this.scrollbar;
+    options.overviewRulerLanes = this.overviewRulerLanes;
+    options.cursorBlinking = this.cursorBlinking;
+    options.mouseWheelZoom = this.mouseWheelZoom;
+    options.cursorStyle = this.cursorStyle;
+    options.mouseWheelZoom = this.mouseWheelZoom;
+    options.fontLigatures = this.fontLigatures;
+    options.disableTranslate3d = this.disableTranslate3d;
+    options.hideCursorInOverviewRuler = this.hideCursorInOverviewRuler;
+    options.scrollBeyondLastLine = this.scrollBeyondLastLine;
+    options.automaticLayout = this.automaticLayout;
+    options.wrappingColumn = this.wrappingColumn;
+    options.wordWrap = this.wordWrap;
+    options.wrappingIndent = this.wrappingIndent;
+    options.wordWrapBreakBeforeCharacters = this.wordWrapBreakBeforeCharacters;
+    options.wordWrapBreakAfterCharacters = this.wordWrapBreakAfterCharacters;
+    options.wordWrapBreakObtrusiveCharacters = this.wordWrapBreakObtrusiveCharacters;
+    options.stopRenderingLineAfter = this.stopRenderingLineAfter;
+    options.hover = this.hover;
+    options.contextmenu = this.contextmenu;
+    options.mouseWheelScrollSensitivity = this.mouseWheelScrollSensitivity;
+    options.quickSuggestions = this.quickSuggestions;
+    options.quickSuggestionsDelay = this.quickSuggestionsDelay;
+    options.parameterHints = this.parameterHints;
+    options.iconsInSuggestions = this.iconsInSuggestions;
+    options.autoClosingBrackets = this.autoClosingBrackets;
+    options.formatOnType = this.formatOnType;
+    options.suggestOnTriggerCharacters = this.suggestOnTriggerCharacters;
+    options.acceptSuggestionOnEnter = this.acceptSuggestionOnEnter;
+    options.snippetSuggestions = this.snippetSuggestions;
+    options.tabCompletion = this.tabCompletion;
+    options.wordBasedSuggestions = this.wordBasedSuggestions;
+    options.selectionHighlight = this.selectionHighlight;
+    options.codeLens = this.codeLens;
+    options.folding = this.folding;
+    options.renderWhitespace = this.renderWhitespace;
+    options.renderControlCharacters = this.renderControlCharacters;
+    options.renderIndentGuides = this.renderIndentGuides;
+    options.renderLineHighlight = this.renderLineHighlight;
+    options.useTabStops = this.useTabStops;
+    options.fontFamily = this.fontFamily;
+    options.fontWeight = this.fontWeight;
+    options.fontSize = this.fontSize;
+    options.lineHeight = this.lineHeight;
+    options.value = this._value;
+    options.language = this.language;
+
+    Object.keys(options).forEach((key) => {
+      if ((<any>options)[key] === undefined) {
+        delete (<any>options)[key];  // Remove all undefined properties
+      }
+    });
+    return options;
+  }
+
+  /**
+   * UpdateValue
+   *
+   * @param value
+   */
+  private _updateValue(value: string) {
+    this.value = value;
+    this._value = value;
+    this.valueChange.emit(value);
+  }
+
+  /**
+   * UpdateValue
+   *
+   * @param value
+   */
+  private _updateValueToCompare(value: string) {
+    this.valueToCompare = value;
+    this._valueToCompare = value;
+    this.valueToCompareChange.emit(value);
+  }
+
+  private _getOriginalModel() {
+    if (this._editor) {
+      let model = this._editor.getModel();
+      return model.original ? model.original : model;
     }
+  }
 
-    /**
-     * Create a diff editor to compare two string (_value and _valueToCompare)
-     * @param div
-     */
-    private _initDiffEditor(div: HTMLDivElement, options: any) {
-        let originalModel = monaco.editor.createModel(this._value, this.language);
-        let modifiedModel = monaco.editor.createModel(this._valueToCompare, this.language);
-
-        let diffEditor = monaco.editor.createDiffEditor(div, options);
-        diffEditor.setModel({
-            modified: modifiedModel,
-            original: originalModel,
-        });
-
-        return diffEditor;
+  private _getModifiedModel() {
+    if (this._editor) {
+      let model = this._editor.getModel();
+      return model.modified ? model.modified : null;
     }
-
-    private _getOptions(): IEditorOptions {
-        let options: IEditorOptions = new IEditorOptions();
-        options.experimentalScreenReader = this.experimentalScreenReader;
-        options.ariaLabel = this.ariaLabel;
-        options.rulers = this.rulers;
-        options.wordSeparators = this.wordSeparators;
-        options.selectionClipboard = this.selectionClipboard;
-        options.lineNumbers = this.lineNumbers;
-        options.selectOnLineNumbers = this.selectOnLineNumbers;
-        options.lineNumbersMinChars = this.lineNumbersMinChars;
-        options.glyphMargin = this.glyphMargin;
-        options.lineDecorationsWidth = this.lineDecorationsWidth;
-        options.revealHorizontalRightPadding = this.revealHorizontalRightPadding;
-        options.roundedSelection = this.roundedSelection;
-        options.theme = this.theme;
-        options.readOnly = this.readOnly;
-        options.scrollbar = this.scrollbar;
-        options.overviewRulerLanes = this.overviewRulerLanes;
-        options.cursorBlinking = this.cursorBlinking;
-        options.mouseWheelZoom = this.mouseWheelZoom;
-        options.cursorStyle = this.cursorStyle;
-        options.mouseWheelZoom = this.mouseWheelZoom;
-        options.fontLigatures = this.fontLigatures;
-        options.disableTranslate3d = this.disableTranslate3d;
-        options.hideCursorInOverviewRuler = this.hideCursorInOverviewRuler;
-        options.scrollBeyondLastLine = this.scrollBeyondLastLine;
-        options.automaticLayout = this.automaticLayout;
-        options.wrappingColumn = this.wrappingColumn;
-        options.wordWrap = this.wordWrap;
-        options.wrappingIndent = this.wrappingIndent;
-        options.wordWrapBreakBeforeCharacters = this.wordWrapBreakBeforeCharacters;
-        options.wordWrapBreakAfterCharacters = this.wordWrapBreakAfterCharacters;
-        options.wordWrapBreakObtrusiveCharacters = this.wordWrapBreakObtrusiveCharacters;
-        options.stopRenderingLineAfter = this.stopRenderingLineAfter;
-        options.hover = this.hover;
-        options.contextmenu = this.contextmenu;
-        options.mouseWheelScrollSensitivity = this.mouseWheelScrollSensitivity;
-        options.quickSuggestions = this.quickSuggestions;
-        options.quickSuggestionsDelay = this.quickSuggestionsDelay;
-        options.parameterHints = this.parameterHints;
-        options.iconsInSuggestions = this.iconsInSuggestions;
-        options.autoClosingBrackets = this.autoClosingBrackets;
-        options.formatOnType = this.formatOnType;
-        options.suggestOnTriggerCharacters = this.suggestOnTriggerCharacters;
-        options.acceptSuggestionOnEnter = this.acceptSuggestionOnEnter;
-        options.snippetSuggestions = this.snippetSuggestions;
-        options.tabCompletion = this.tabCompletion;
-        options.wordBasedSuggestions = this.wordBasedSuggestions;
-        options.selectionHighlight = this.selectionHighlight;
-        options.codeLens = this.codeLens;
-        options.folding = this.folding;
-        options.renderWhitespace = this.renderWhitespace;
-        options.renderControlCharacters = this.renderControlCharacters;
-        options.renderIndentGuides = this.renderIndentGuides;
-        options.renderLineHighlight = this.renderLineHighlight;
-        options.useTabStops = this.useTabStops;
-        options.fontFamily = this.fontFamily;
-        options.fontWeight = this.fontWeight;
-        options.fontSize = this.fontSize;
-        options.lineHeight = this.lineHeight;
-        options.value = this._value;
-        options.language = this.language;
-
-        Object.keys(options)
-          .forEach((key) => {
-            if ((<any>options)[key] === undefined) {
-              delete (<any>options)[key]; // Remove all undefined properties
-            }
-          });
-        return options;
-    }
-
-    /**
-     * UpdateValue
-     *
-     * @param value
-     */
-    private _updateValue(value: string) {
-        this.value = value;
-        this._value = value;
-        this.valueChange.emit(value);
-    }
-
-    /**
-     * UpdateValue
-     *
-     * @param value
-     */
-    private _updateValueToCompare(value: string) {
-        this.valueToCompare = value;
-        this._valueToCompare = value;
-        this.valueToCompareChange.emit(value);
-    }
-
-    private _getOriginalModel() {
-        if (this._editor) {
-            let model = this._editor.getModel();
-            return model.original ? model.original : model;
-        }
-    }
-
-    private _getModifiedModel() {
-        if (this._editor) {
-            let model = this._editor.getModel();
-            return model.modified ? model.modified : null;
-        }
-    }
+  }
 }

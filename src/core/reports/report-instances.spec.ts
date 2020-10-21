@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -23,35 +23,35 @@
 import {TestBed} from '@angular/core/testing';
 import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
-import {AjfColumnWidgetInstance, AjfReportSerializer, AjfTextWidgetInstance, AjfWidgetType,
-  createReportInstance} from './public-api';
+import {
+  AjfColumnWidgetInstance,
+  AjfReportSerializer,
+  AjfTextWidgetInstance,
+  AjfWidgetType,
+  createReportInstance
+} from './public-api';
 
 describe('createReportInstance', () => {
   let ts: TranslateService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()]
-    });
+    TestBed.configureTestingModule({imports: [TranslateModule.forRoot()]});
     ts = TestBed.get(TranslateService);
   });
 
   it('should support variables at report level', () => {
     const json = {
       content: {
-        content: [
-          {
-            widgetType: AjfWidgetType.Text,
-            htmlText: '[[foo]]', styles: {},
-            visibility: {condition: 'true'}
-          }
-        ],
+        content: [{
+          widgetType: AjfWidgetType.Text,
+          htmlText: '[[foo]]',
+          styles: {},
+          visibility: {condition: 'true'}
+        }],
         styles: {},
       },
       styles: {},
-      variables: [
-        {name: 'foo', formula: {formula: '1 + 2'}}
-      ],
+      variables: [{name: 'foo', formula: {formula: '1 + 2'}}],
     };
     const report = AjfReportSerializer.fromJson(json);
     const reportInstance = createReportInstance(report, {}, ts);
@@ -62,22 +62,18 @@ describe('createReportInstance', () => {
   it('should support widget repetitions', () => {
     const json = {
       content: {
-        content: [
-          {
-            widgetType: AjfWidgetType.Column,
+        content: [{
+          widgetType: AjfWidgetType.Column,
+          styles: {},
+          visibility: {condition: 'true'},
+          repetitions: {formula: '3'},
+          content: [{
+            widgetType: AjfWidgetType.Text,
+            htmlText: '[[ foo[$repetition] ]]',
             styles: {},
-            visibility: {condition: 'true'},
-            repetitions: {formula: '3'},
-            content: [
-              {
-                widgetType: AjfWidgetType.Text,
-                htmlText: '[[ foo[$repetition] ]]',
-                styles: {},
-                visibility: {condition: 'true'}
-              }
-            ]
-          }
-        ],
+            visibility: {condition: 'true'}
+          }]
+        }],
         styles: {},
       },
       styles: {},
@@ -89,7 +85,7 @@ describe('createReportInstance', () => {
     const reportInstance = createReportInstance(report, ctx, ts);
     const column = reportInstance.content!.content[0] as AjfColumnWidgetInstance;
     expect(column.content.length).toBe(3);
-    for (let i = 0 ; i < 3 ; i++) {
+    for (let i = 0; i < 3; i++) {
       const text = column.content[i] as AjfTextWidgetInstance;
       expect(text.htmlText).toBe(ctx.foo[i]);
     }

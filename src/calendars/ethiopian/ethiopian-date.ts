@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -46,14 +46,14 @@ export class EthiopianDate {
         if (result == null) {
           throw new Error('Invalid Argument Exception');
         }
-        [this._year, this._month, this._date] = [
-          result.getFullYear(), result.getMonth(), result.getDate()];
+        [this._year, this._month, this._date] =
+            [result.getFullYear(), result.getMonth(), result.getDate()];
         this._gc = EthiopianDate.ethiopianToGregorian(this._year, this._month, this._date);
       } else if (typeof val === 'object' && val instanceof Date) {
         const result = EthiopianDate.gregorianToEthiopian(
-          val.getFullYear(), val.getMonth() + 1, val.getDate());
-        [this._year, this._month, this._date] = [
-          result.getFullYear(), result.getMonth(), result.getDate()];
+            val.getFullYear(), val.getMonth() + 1, val.getDate());
+        [this._year, this._month, this._date] =
+            [result.getFullYear(), result.getMonth(), result.getDate()];
         this._gc = EthiopianDate.ethiopianToGregorian(this._year, this._month, this._date);
       } else {
         throw new Error('Invalid Argument Exception');
@@ -96,15 +96,13 @@ export class EthiopianDate {
   }
 
   getMonthName(): string|null {
-    return this._month >= 0 && this._month < MONTHS_NAMES.length
-      ? MONTHS_NAMES[this._month]
-      : null;
+    return this._month >= 0 && this._month < MONTHS_NAMES.length ? MONTHS_NAMES[this._month] : null;
   }
 
   getShortMonthName(): string|null {
-      return this._month >= 0 && this._month < SHORT_MONTHS_NAMES.length
-        ? SHORT_MONTHS_NAMES[this._month]
-        : null;
+    return this._month >= 0 && this._month < SHORT_MONTHS_NAMES.length ?
+        SHORT_MONTHS_NAMES[this._month] :
+        null;
   }
 
   getHours(): number {
@@ -138,9 +136,8 @@ export class EthiopianDate {
    *
    * @api public
    */
-  static ethiopianToGregorian(
-    val?: EthiopianDate|string|number, month?: number, day?: number
-  ): Date {
+  static ethiopianToGregorian(val?: EthiopianDate|string|number, month?: number, day?: number):
+      Date {
     let ec: [number, number, number];
     if (val != null && month == null && day == null && typeof val !== 'number') {
       if (typeof val === 'string') {
@@ -150,7 +147,7 @@ export class EthiopianDate {
         const [y, m, d] = [val.getFullYear(), val.getMonth() + 1, val.getDate()];
         ec = [y, m, d];
       } else {
-          throw new Error('Invalid Argument Exception');
+        throw new Error('Invalid Argument Exception');
       }
     } else if (val != null && month != null && day != null && typeof val === 'number') {
       ec = [val, month + 1, day];
@@ -161,9 +158,8 @@ export class EthiopianDate {
     return new Date(gc[0], gc[1] - 1, gc[2]);
   }
 
-  static gregorianToEthiopian(
-    val?: Date|string|number, month?: number, day?: number
-  ): EthiopianDate {
+  static gregorianToEthiopian(val?: Date|string|number, month?: number, day?: number):
+      EthiopianDate {
     let gc: [number, number, number];
     if (val != null && month == null && day == null && typeof val !== 'number') {
       if (typeof val === 'string') {
@@ -173,7 +169,7 @@ export class EthiopianDate {
         const [y, m, d] = [val.getFullYear(), val.getMonth() + 1, val.getDate()];
         gc = [y, m, d];
       } else {
-          throw new Error('Invalid Argument Exception');
+        throw new Error('Invalid Argument Exception');
       }
     } else if (val != null && month != null && day != null && typeof val === 'number') {
       gc = [val, month + 1, day];
@@ -194,16 +190,12 @@ export class EthiopianDate {
    */
   static parse(dateString: string): EthiopianDate|null {
     if (!dateString) {
-        return null;
+      return null;
     }
     const result = dateString.split('-');
     if (result.length === 3) {
-        const [y, m, d] = result;
-        return new EthiopianDate(
-          parseInt(y, 10),
-          parseInt(m, 10) - 1,
-          parseInt(d, 10)
-        );
+      const [y, m, d] = result;
+      return new EthiopianDate(parseInt(y, 10), parseInt(m, 10) - 1, parseInt(d, 10));
     }
     throw new Error(`ParsingError: Can't parse ${dateString}`);
   }

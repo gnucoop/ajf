@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -25,7 +25,7 @@ import {AjfBaseSlideInstance} from './interface/slides-instances/base-slide-inst
 
 @Pipe({name: 'ajfValidSlide', pure: false})
 export class AjfValidSlidePipe implements PipeTransform {
-  transform (slide: AjfBaseSlideInstance, idx: number): boolean {
+  transform(slide: AjfBaseSlideInstance, idx: number): boolean {
     if (idx == null || typeof idx !== 'number') {
       return false;
     }
@@ -33,11 +33,12 @@ export class AjfValidSlidePipe implements PipeTransform {
       return true;
     }
     return slide.slideNodes[idx]
-      .map(n => {
-        if (n.visible && Object.keys(n).indexOf('valid') > -1) {
-          return (<any>n).valid;
-        }
-        return true;
-      }).reduce((v1, v2) => v1 && v2, true);
+        .map(n => {
+          if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+            return (<any>n).valid;
+          }
+          return true;
+        })
+        .reduce((v1, v2) => v1 && v2, true);
   }
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,23 +20,20 @@
  *
  */
 
+import {AjfReportRenderer as AjfCoreReportRenderer} from '@ajf/core/reports';
 import {
-  ChangeDetectorRef, ChangeDetectionStrategy, Component, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ViewEncapsulation
 } from '@angular/core';
 
-import {AjfReportRenderer as AjfCoreReportRenderer} from '@ajf/core/reports';
-
-
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report',
   templateUrl: 'report.html',
   styleUrls: ['report.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: [
-    'instance'
-  ],
 })
 export class AjfReportRenderer extends AjfCoreReportRenderer {
   constructor(cdr: ChangeDetectorRef) {

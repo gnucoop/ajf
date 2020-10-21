@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,9 +20,7 @@
  *
  */
 
-import * as esprima from 'esprima';
-const esprimaMod: any = (esprima as any).default || esprima;
-const {tokenize} = esprimaMod;
+import {tokenize} from 'esprima';
 
 export function normalizeExpression(
     formula: string, ancestorsNames: {[prop: string]: number}, prefix: number[]): string {

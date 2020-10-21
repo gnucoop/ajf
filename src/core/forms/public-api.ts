@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,24 +20,38 @@
  *
  */
 
+export * from './as-field-instance';
+export * from './as-repeating-slide-instance';
 export * from './base-field';
+export * from './bool-to-int';
 export * from './date-value';
 export * from './date-value-string';
 export * from './errors';
-export * from './field-icon';
-export * from './field-is-valid';
-export * from './field-utils';
+export * from './expand-input-with-choices';
 export * from './field';
 export * from './field-host';
+export * from './field-icon';
+export * from './field-is-valid';
 export * from './field-service';
-export * from './field-with-choices';
+export * from './field-utils';
 export * from './field-warning-alert-result';
-export * from './form-renderer';
+export * from './field-with-choices';
+export * from './file-field';
 export * from './form';
+export * from './form-renderer';
 export * from './forms-module';
+export * from './get-table-cell-control';
 export * from './get-type-name';
+export * from './increment';
 export * from './input-field';
+export * from './image-field';
+export * from './is-cell-editable';
+export * from './is-repeating-slide';
 export * from './node-complete-name';
+export * from './range';
+export * from './read-only-file-field';
+export * from './read-only-image-field';
+export * from './read-only-video-url-field';
 export * from './search-alert-threshold';
 export * from './serializers/attachments-origin-serializer';
 export * from './serializers/choices-origin-serializer';
@@ -45,10 +59,16 @@ export * from './serializers/form-serializer';
 export * from './serializers/node-serializer';
 export * from './serializers/validation-group-serializer';
 export * from './serializers/warning-group-serializer';
-export * from './table-visible-columns';
+export * from './table-field';
 export * from './table-row-class';
+export * from './table-visible-columns';
+export * from './valid-slide';
 export * from './validation-service';
+export * from './video-url-field';
 export * from './warning-alert-service';
+
+export * from './read-only-field';
+export * from './read-only-table-field';
 
 export * from './interface/attachments/attachment';
 export * from './interface/attachments/attachments-fixed-origin';
@@ -73,6 +93,7 @@ export * from './interface/fields/field-components-map';
 export * from './interface/fields/field-size';
 export * from './interface/fields/field-type';
 export * from './interface/fields/field-with-choices';
+export * from './interface/fields/file-field';
 export * from './interface/fields/formula-field';
 export * from './interface/fields/multiple-choice-field';
 export * from './interface/fields/number-field';
@@ -119,11 +140,11 @@ export * from './interface/warning/warning';
 export * from './interface/warning/warning-group';
 export * from './interface/warning/warning-result';
 
-export * from './utils/choices/create-choices-origin';
 export * from './utils/choices/create-choices-fixed-origin';
 export * from './utils/choices/create-choices-function-origin';
 export * from './utils/choices/create-choices-observable-array-origin';
 export * from './utils/choices/create-choices-observable-origin';
+export * from './utils/choices/create-choices-origin';
 export * from './utils/choices/create-choices-promise-origin';
 export * from './utils/choices/init-choices-origin';
 export * from './utils/choices/is-choices-fixed-origin';

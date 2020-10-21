@@ -1,0 +1,24 @@
+<table class="ajf-table-field">
+  <ng-container *ngIf="instance.node as node">
+    <ng-container *ngFor="let columns of instance.controls; let row = index">
+      <tr [ngClass]="row | ajfTableRowClass">
+        <td>
+          <ng-container *ngIf="columns && columns.length > 0 && columns[0] != null">
+            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
+          </ng-container>
+        </td>
+        <ng-container *ngIf="columns && columns.length > 1 && columns[1] != null">
+          <td *ngFor="let c of columns[1]; let column = index">
+            <ng-container *ngIf="c|ajfGetTableCellControl as contr">
+              <ng-container *ngIf="contr != null">
+                <span *ngIf="row > 0; else labelCell"
+                  class="ajf-table-cell">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>
+                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>
+              </ng-container>
+            </ng-container>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-container>
+  </ng-container>
+</table>

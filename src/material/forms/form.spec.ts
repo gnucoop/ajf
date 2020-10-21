@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,15 +20,21 @@
  *
  */
 
-import {AjfFieldType, AjfFieldWithChoices, AjfFormRendererService, AjfFormSerializer,
-  AjfNodeType, AjfSlideInstance} from '@ajf/core/forms';
+import {
+  AjfFieldType,
+  AjfFieldWithChoices,
+  AjfFormRendererService,
+  AjfFormSerializer,
+  AjfNodeType,
+  AjfSlideInstance
+} from '@ajf/core/forms';
 import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
 import {timer} from 'rxjs';
-import {first} from 'rxjs/operators';
+import {take} from 'rxjs/operators';
 
 import {AjfFormRenderer, AjfFormsModule} from './public-api';
 
@@ -53,31 +59,25 @@ describe('AjfFormRenderer', () => {
 
   it('should update slide validation based on fields value', async () => {
     const form = AjfFormSerializer.fromJson({
-      nodes: [
-        {
-          id: 1,
-          parent: 0,
+      nodes: [{
+        id: 1,
+        parent: 0,
+        parentNode: 0,
+        name: 'slide',
+        label: 'slide',
+        nodeType: 3,
+        conditionalBranches: [{condition: 'true'}],
+        nodes: [{
+          id: 2,
+          parent: 1,
           parentNode: 0,
-          name: 'slide',
-          label: 'slide',
-          nodeType: 3,
-          conditionalBranches: [{condition: 'true'}],
-          nodes: [
-            {
-              id: 2,
-              parent: 1,
-              parentNode: 0,
-              name: 'foo',
-              label: 'foo',
-              nodeType: AjfNodeType.AjfField,
-              fieldType: AjfFieldType.String,
-              validation: {
-                notEmpty: true
-              },
-            } as any
-          ]
-        }
-      ]
+          name: 'foo',
+          label: 'foo',
+          nodeType: AjfNodeType.AjfField,
+          fieldType: AjfFieldType.String,
+          validation: {notEmpty: true},
+        } as any]
+      }]
     });
 
     const fixture = TestBed.createComponent(AjfFormRenderer);
@@ -85,12 +85,12 @@ describe('AjfFormRenderer', () => {
     cmp.form = form;
 
     let nodesTree: AjfSlideInstance[] = [];
-    service.nodesTree.pipe(first()).subscribe(r => nodesTree = r);
+    service.nodesTree.pipe(take(1)).subscribe(r => nodesTree = r);
 
     fixture.detectChanges();
     await fixture.whenRenderingDone();
 
-    const formGroup = (await cmp.formGroup.pipe(first()).toPromise())!;
+    const formGroup = (await cmp.formGroup.pipe(take(1)).toPromise())!;
     expect(formGroup).toBeDefined();
     expect(nodesTree[0].valid).toBeFalsy();
 
@@ -98,7 +98,7 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    await timer(500).pipe(first()).toPromise();
+    await timer(500).pipe(take(1)).toPromise();
 
     expect(nodesTree[0].valid).toBeTruthy();
   });
@@ -129,49 +129,30 @@ describe('AjfFormRenderer', () => {
     expect(error).toBeNull();
   });
 
-  it ('should show the sum of first and second cell in the third cell', async () => {
+  it('should show the sum of first and second cell in the third cell', async () => {
     const formulasForm: any = {
       choicesOrigins: [],
-      nodes: [
-        {
-          parent: 0,
-          id: 7,
-          name: 'table1',
-          label: 'editable table with formulas',
-          nodeType: 3,
-          nodes: [
-            {
-              id: 701,
-              parent: 7,
-              name: 'row',
-              rows: [
-                [
-                  'value1',
-                  'value2',
-                  {
-                    formula: 'row__0__0+row__0__1',
-                    editable: false
-                  }
-                ]
-              ],
-              label: '2.1',
-              editable: true,
-              nodeType: 0,
-              fieldType: 11,
-              rowLabels: [
-                'row1'
-              ],
-              columnLabels: [
-                'value1',
-                'value2',
-                'sum'
-              ]
-            }
-          ]
-        }
-      ]
+      nodes: [{
+        parent: 0,
+        id: 7,
+        name: 'table1',
+        label: 'editable table with formulas',
+        nodeType: 3,
+        nodes: [{
+          id: 701,
+          parent: 7,
+          name: 'row',
+          rows: [['value1', 'value2', {formula: 'row__0__0+row__0__1', editable: false}]],
+          label: '2.1',
+          editable: true,
+          nodeType: 0,
+          fieldType: 11,
+          rowLabels: ['row1'],
+          columnLabels: ['value1', 'value2', 'sum']
+        }]
+      }]
     };
-    const context: any = { value1: 1, value2: 2};
+    const context: any = {value1: 1, value2: 2};
 
     const fixture = TestBed.createComponent(AjfFormRenderer);
     const cmp = fixture.componentInstance;
@@ -181,9 +162,9 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenRenderingDone();
-    await timer(500).pipe(first()).toPromise();
+    await timer(500).pipe(take(1)).toPromise();
 
-    const formGroup = (await cmp.formGroup.pipe(first()).toPromise())!;
+    const formGroup = (await cmp.formGroup.pipe(take(1)).toPromise())!;
     const ctx = service.getFormValue();
 
     expect(formGroup).toBeDefined();
@@ -205,37 +186,31 @@ const testForm = {
       ],
     },
   ],
-  nodes: [
-    {
-      id: 1,
-      parent: 0,
+  nodes: [{
+    id: 1,
+    parent: 0,
+    parentNode: 0,
+    nodeType: AjfNodeType.AjfSlide,
+    name: 'slide',
+    label: 'slide',
+    conditionalBranches: [{condition: 'true'}],
+    nodes: [{
+      id: 2,
+      parent: 1,
       parentNode: 0,
-      nodeType: AjfNodeType.AjfSlide,
-      name: 'slide',
-      label: 'slide',
+      nodeType: AjfNodeType.AjfField,
+      name: 'field',
+      label: 'field',
       conditionalBranches: [{condition: 'true'}],
-      nodes: [
-        {
-          id: 2,
-          parent: 1,
-          parentNode: 0,
-          nodeType: AjfNodeType.AjfField,
-          name: 'field',
-          label: 'field',
-          conditionalBranches: [{condition: 'true'}],
-          fieldType: AjfFieldType.SingleChoice,
-          choicesOriginRef: 'choices',
-          validation: {
-            notEmpty: true
-          } as any
-        } as unknown as AjfFieldWithChoices<string>
-      ]
-    }
-  ],
+      fieldType: AjfFieldType.SingleChoice,
+      choicesOriginRef: 'choices',
+      validation: {notEmpty: true} as any
+    } as unknown as AjfFieldWithChoices<string>]
+  }],
 } as any;
 
 @Component({
-  template: '<ajf-form [form]="form"></ajf-form>'
+  template: '<ajf-form [form]="form"></ajf-form>',
 })
 class TestComponent {
   form = AjfFormSerializer.fromJson(testForm);

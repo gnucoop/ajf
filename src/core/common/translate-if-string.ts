@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -26,11 +26,11 @@ import {TranslatePipe} from '@ngx-translate/core';
 
 @Pipe({name: 'ajfTranslateIfString'})
 export class TranslateIfString extends TranslatePipe {
-    transform(query: string, ...args: any[]): any {
-        if (typeof query === 'string') {
-            return super.transform(query, ...args);
-        } else {
-            return query;
-        }
+  transform(query: any, ...args: any[]): any {
+    if (typeof query === 'string') {
+      return super.transform(query, ...args);
+    } else {
+      return query;
     }
+  }
 }

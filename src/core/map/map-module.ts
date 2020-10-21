@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,16 +22,17 @@
 
 import {NgModule} from '@angular/core';
 
-import {AjfMapContainerDirective} from './map-container-directive';
 import {AjfMapComponent} from './map';
+import {AjfMapContainerDirective} from './map-container-directive';
 
 @NgModule({
   declarations: [
     AjfMapComponent,
-    AjfMapContainerDirective
+    AjfMapContainerDirective,
   ],
   exports: [
-    AjfMapComponent
-  ]
+    AjfMapComponent,
+  ],
 })
-export class AjfMapModule { }
+export class AjfMapModule {
+}

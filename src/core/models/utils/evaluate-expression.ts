@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,12 +20,9 @@
  *
  */
 
-import * as esprima from 'esprima';
-const esprimaMod: any = (esprima as any).default || esprima;
-const {tokenize} = esprimaMod;
+import {tokenize} from 'esprima';
 
 import {AjfContext} from '../interface/context';
-import {dbg} from './debug';
 import {AjfExpressionUtils} from './expression-utils';
 
 let execContext: any = {};
@@ -65,21 +62,11 @@ export function evaluateExpression(
   ctx.push(execContext);
 
   try {
-    if (dbg.enabled) {
-      dbg(`evaluating formula %s using context %j`, formula, ctx);
-    }
     let f = new Function(...identifiers, `return ${formula}`);
     const res = f(...ctx);
-    if (dbg.enabled) {
-      dbg(`formula %s evaluated: result %s`, formula, res);
-    }
     f = <any>null;
     return res;
   } catch (e) {
-    console.log(e);
-    if (dbg.enabled) {
-      dbg(`formula %s not evaluated: error %j`, formula, e.message);
-    }
     return false;
   }
 }

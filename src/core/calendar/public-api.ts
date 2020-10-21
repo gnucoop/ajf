@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,6 +20,7 @@
  *
  */
 
+export * from './calendar-entry-label';
 export * from './calendar-entry-selected-state';
 export * from './calendar-entry-type';
 export * from './calendar-entry';

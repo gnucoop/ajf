@@ -1,1 +1,1 @@
-<ion-textarea [formControl]="control|async"></ion-textarea>
+<ion-textarea *ngIf="control|async as ctrl" [formControl]="ctrl!"></ion-textarea>

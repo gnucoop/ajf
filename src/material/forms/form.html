@@ -1,11 +1,11 @@
 <ng-container *ngIf="formGroup|async as fg">
-  <form novalidate [formGroup]="fg">
+  <form novalidate [formGroup]="fg!">
     <div class="ajf-form-container">
 
       <mat-toolbar *ngIf="!hideTopToolbar" class="ajf-btn-strip">
         <ng-template ngFor let-slideInstance [ngForOf]="slides|async" [ngForTrackBy]="trackNodeById">
           <button mat-button class="ajf-topbar-button"
-          *ngIf="topBar && slideInstance.node && slideInstance.node.label != null && slideInstance.node.label.length > 0"
+          *ngIf="topBar != null && slideInstance.node != null && slideInstance.node.label != null && slideInstance.node.label.length > 0"
               (click)="scrollToSlide(slideInstance)">{{slideInstance.node.label | translate}}</button>
         </ng-template>
       </mat-toolbar>
@@ -23,7 +23,7 @@
             [orientation]="orientation"
             #formSlider>
           <ng-container *ngIf="(slides|async) as curSlides">
-            <ng-container *ngIf="curSlides.length > 0 && hasStartMessage">
+            <ng-container *ngIf="curSlides!.length > 0 && hasStartMessage">
               <ajf-page-slider-item>
                 <div class="ajf-form-page">
                   <mat-card>
@@ -56,7 +56,7 @@
                         <mat-card-header>
                           <div class="ajf-page-slider-item-header">
                             <h2>
-                              <span class="ajf-form-header-number">{{ slideInstance.position + hasStartMessage }} &rarr;</span>
+                              <span class="ajf-form-header-number">{{ slideInstance.position + (hasStartMessage | ajfBoolToInt) }} &rarr;</span>
                               <span [innerHTML]="slideInstance.node.label | translate"></span>
                             </h2>
                             <mat-icon class="ajf-warning" *ngIf="!slideInstance.valid">warning</mat-icon>
@@ -65,11 +65,11 @@
                         </mat-card-header>
                         <mat-card-content>
                           <ng-template ngFor let-fieldInstance [ngForOf]="slideInstance.flatNodes" [ngForTrackBy]="trackNodeById">
-                            <div [ngClass]="'ajf-' + fieldInstance.node.size" class="ajf-field-entry" *ngIf="fieldInstance.visible">
-                              <i [class]="fieldInstance.node.fieldType | ajfFieldIcon" item-right></i>
-                              <p>{{ fieldInstance.node.description | translate }}</p>
-                              <label *ngIf="fieldInstance.node.fieldType !== 7" [innerHTML]="fieldInstance.node.label | translate"></label>
-                              <ajf-field [instance]="fieldInstance" [readonly]="readonly"></ajf-field>
+                            <div [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size" class="ajf-field-entry" *ngIf="fieldInstance.visible">
+                              <i [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon" item-right></i>
+                              <p>{{ ((fieldInstance|ajfAsFieldInstance).node.description || '') | translate }}</p>
+                              <label *ngIf="(fieldInstance|ajfAsFieldInstance).node.fieldType !== 7" [innerHTML]="fieldInstance.node.label | translate"></label>
+                              <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" [readonly]="readonly"></ajf-field>
                             </div>
                           </ng-template>
                         </mat-card-content>
@@ -79,13 +79,13 @@
                 </ng-container>
                 <!-- repeating slides -->
                 <ng-container *ngIf="(slideInstance|ajfIsRepeatingSlideInstance)">
-                  <ajf-page-slider-item *ngFor="let curRep of (slideInstance.reps|ajfRange); let idx = index; let lastSlide = last">
+                  <ajf-page-slider-item *ngFor="let curRep of ((slideInstance|ajfAsRepeatingSlideInstance).reps|ajfRange); let idx = index; let lastSlide = last">
                     <div class="ajf-form-page">
                       <mat-card>
                         <mat-card-header>
                           <div class="ajf-page-slider-item-header">
                             <h2>
-                              <span class="ajf-form-header-number">{{ slideInstance.position|ajfIncrement:idx + hasStartMessage }} &rarr;</span>
+                              <span class="ajf-form-header-number">{{ slideInstance.position|ajfIncrement:idx + (hasStartMessage | ajfBoolToInt) }} &rarr;</span>
                               <span [innerHTML]="slideInstance.node.label | translate"></span>
                             </h2>
                             <mat-icon class="ajf-warning" *ngIf="!(slideInstance|ajfValidSlide:idx)">warning</mat-icon>
@@ -93,20 +93,20 @@
                           </div>
                         </mat-card-header>
                         <mat-card-content>
-                          <div *ngIf="lastSlide" class="ajf-group-actions">
-                            <button (click)="addGroup(slideInstance)" [disabled]="!slideInstance.canAdd" mat-mini-fab>
+                          <div *ngIf="lastSlide && !readonly" class="ajf-group-actions">
+                            <button (click)="addGroup(slideInstance)" [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd" mat-mini-fab>
                               <mat-icon>add</mat-icon>
                             </button>
-                            <button (click)="removeGroup(slideInstance)" [disabled]="!slideInstance.canRemove" mat-mini-fab>
+                            <button (click)="removeGroup(slideInstance)" [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove" mat-mini-fab>
                               <mat-icon>remove</mat-icon>
                             </button>
                           </div>
                           <ng-template ngFor let-fieldInstance [ngForOf]="slideInstance.slideNodes[idx]" [ngForTrackBy]="trackNodeById">
-                            <div [ngClass]="'ajf-' + fieldInstance.node.size" class="ajf-field-entry" *ngIf="fieldInstance.visible">
-                              <i [class]="fieldInstance.node.fieldType | ajfFieldIcon" item-right></i>
-                              <p>{{ fieldInstance.node.description | translate }}</p>
+                            <div [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size" class="ajf-field-entry" *ngIf="fieldInstance.visible">
+                              <i [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon" item-right></i>
+                              <p>{{ ((fieldInstance|ajfAsFieldInstance).node.description || '') | translate }}</p>
                               <label [innerHTML]="fieldInstance.node.label | translate"></label>
-                              <ajf-field [instance]="fieldInstance" [readonly]="readonly"></ajf-field>
+                              <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" [readonly]="readonly"></ajf-field>
                             </div>
                           </ng-template>
                         </mat-card-content>
@@ -116,7 +116,7 @@
                 </ng-container>
               </ng-container>
             </ng-container>
-            <ng-container *ngIf="curSlides.length > 0 && hasEndMessage">
+            <ng-container *ngIf="curSlides && curSlides!.length > 0 && hasEndMessage">
               <ajf-page-slider-item>
                 <div class="ajf-form-page">
                   <mat-card>
@@ -124,7 +124,7 @@
                       <div class="ajf-page-slider-item-header">
                         <h2>
                           <span *ngIf="(slidesNum|async) as snum" class="ajf-form-header-number">
-                            {{ snum + (hasStartMessage | ajfBoolToInt ) + 1 }} &rarr;
+                            {{ snum! + (hasStartMessage | ajfBoolToInt ) + 1 }} &rarr;
                           </span>
                           <span class="ajf-title">
                             <ng-content select="[ajfFormEndMessageTitle]"></ng-content>

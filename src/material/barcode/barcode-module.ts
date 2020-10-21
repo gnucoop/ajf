@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,28 +20,24 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
-
 import {TranslateModule} from '@ngx-translate/core';
-
-import {AjfCommonModule} from '@ajf/core/common';
 
 import {AjfBarcodeComponent} from './barcode';
 
 @NgModule({
   imports: [
+    AjfCommonModule,
     CommonModule,
-    FormsModule,
-    TranslateModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatIconModule,
-    AjfCommonModule
+    TranslateModule,
   ],
   declarations: [
     AjfBarcodeComponent,
@@ -50,4 +46,5 @@ import {AjfBarcodeComponent} from './barcode';
     AjfBarcodeComponent,
   ],
 })
-export class AjfBarcodeModule {}
+export class AjfBarcodeModule {
+}

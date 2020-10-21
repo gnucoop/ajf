@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,4 +22,4 @@
 
 import {ChartType} from 'chart.js';
 
-export type ExtendedChartType = ChartType | 'horizontalBar' | 'scatter' | 'pie';
+export type ExtendedChartType = ChartType|'horizontalBar'|'scatter'|'pie';

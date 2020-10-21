@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,14 +20,13 @@
  *
  */
 
+import {
+  AjfCheckboxGroup,
+  AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem
+} from '@ajf/core/checkbox-group';
 import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@angular/core';
 
-import {
-  AjfCheckboxGroup, AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem
-} from '@ajf/core/checkbox-group';
-
 @Component({
-  moduleId: module.id,
   selector: 'ajf-checkbox-group-item',
   templateUrl: 'checkbox-group-item.html',
   styleUrls: ['checkbox-group-item.css'],
@@ -38,21 +37,13 @@ import {
     '[class.ajf-checkbox-group-checked]': 'checked',
     '[class.ajf-checkbox-group-disable]': 'disabled'
   },
-  inputs: [
-    'id',
-    'name',
-    'checked',
-    'value',
-    'checkedIcon',
-    'notCheckedIcon',
-    'readonly'
-  ],
-  outputs: [
-    'change'
-  ]
 })
 export class CheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T> {
-  constructor(@Optional() checkboxGroup: AjfCheckboxGroup<T>) {
+  constructor(
+    // `AjfCheckboxGroupItem` is commonly used in combination with a `AjfCheckboxGroup`.
+    // tslint:disable-next-line: lightweight-tokens
+    @Optional() checkboxGroup: AjfCheckboxGroup<T>,
+  ) {
     super(checkboxGroup);
     this.checkedIcon = 'check_box';
     this.notCheckedIcon = 'check_box_outline_blank';

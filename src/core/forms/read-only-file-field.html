@@ -1,0 +1,6 @@
+<a *ngIf="fileUrl|async as fu ; else noFile" [href]="fu" [download]="fileName|async">
+  <img [src]="fileIcon"> {{ fileName|async }}
+</a>
+<ng-template #noFile>
+  <div class="ajf-no-file-placeholder"></div>
+</ng-template>

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -47,8 +47,6 @@ import {AjfReportWidget} from './widget';
 
 @NgModule({
   imports: [
-    CommonModule,
-    TranslateModule,
     AjfChartModule,
     AjfCommonModule,
     AjfImageModule,
@@ -56,7 +54,9 @@ import {AjfReportWidget} from './widget';
     AjfPageBreakModule,
     AjfTableModule,
     AjfTextModule,
+    CommonModule,
     CoreModule,
+    TranslateModule,
   ],
   declarations: [
     AjfChartWidgetComponent,
@@ -75,18 +75,6 @@ import {AjfReportWidget} from './widget';
   exports: [
     AjfReportRenderer,
     AjfReportWidget,
-  ],
-  entryComponents: [
-    AjfChartWidgetComponent,
-    AjfColumnWidgetComponent,
-    AjfFormulaWidgetComponent,
-    AjfImageContainerWidgetComponent,
-    AjfImageWidgetComponent,
-    AjfLayoutWidgetComponent,
-    AjfMapWidgetComponent,
-    AjfPageBreakWidgetComponent,
-    AjfTableWidgetComponent,
-    AjfTextWidgetComponent,
   ],
 })
 export class AjfReportsModule {

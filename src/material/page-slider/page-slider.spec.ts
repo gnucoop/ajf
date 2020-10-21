@@ -7,19 +7,21 @@ import {AjfPageSlider, AjfPageSliderModule} from './public-api';
 
 describe('AjfPageSlider', () => {
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        AjfPageSliderModule,
-      ],
-      declarations: [TestComponent],
-    }).compileComponents();
+    TestBed
+        .configureTestingModule({
+          imports: [
+            BrowserAnimationsModule,
+            AjfPageSliderModule,
+          ],
+          declarations: [TestComponent],
+        })
+        .compileComponents();
   }));
 
   it('should scroll slides up / down and to specified index', (done) => {
     const fixture = TestBed.createComponent(TestComponent);
-    const slider = <AjfPageSlider>fixture.debugElement
-      .query(By.directive(AjfPageSlider)).componentInstance;
+    const slider =
+        <AjfPageSlider>fixture.debugElement.query(By.directive(AjfPageSlider)).componentInstance;
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
@@ -51,7 +53,6 @@ describe('AjfPageSlider', () => {
 });
 
 @Component({
-  moduleId: module.id,
   template: `
     <ajf-page-slider [ngStyle]="{'height': '400px'}">
       <ajf-page-slider-item [ngStyle]="{'height': '300px'}">slide 1</ajf-page-slider-item>
@@ -62,4 +63,5 @@ describe('AjfPageSlider', () => {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-class TestComponent { }
+class TestComponent {
+}

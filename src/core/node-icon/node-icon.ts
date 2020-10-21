@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,17 +21,25 @@
  */
 
 import {AjfField, AjfFieldType, AjfNode, AjfNodeType} from '@ajf/core/forms';
+import {Directive, Input} from '@angular/core';
 
-
+@Directive()
 export abstract class AjfNodeIcon {
   private _fontSet: string;
-  get fontSet(): string { return this._fontSet; }
+  get fontSet(): string {
+    return this._fontSet;
+  }
 
   private _fontIcon: string;
-  get fontIcon(): string { return this._fontIcon; }
+  get fontIcon(): string {
+    return this._fontIcon;
+  }
 
   private _node: AjfNode;
-  get node(): AjfNode { return this._node; }
+  get node(): AjfNode {
+    return this._node;
+  }
+  @Input()
   set node(node: AjfNode) {
     this._node = node;
     this._fontSet = 'ajf-icon';
@@ -41,11 +49,11 @@ export abstract class AjfNodeIcon {
   private _getFontIcon(node: AjfNode): string {
     switch (node.nodeType) {
       case AjfNodeType.AjfField:
-      const fieldType = AjfFieldType[(<AjfField>node).fieldType];
-      return fieldType != null ? `field-${fieldType.toLowerCase()}` : '';
+        const fieldType = AjfFieldType[(<AjfField>node).fieldType];
+        return fieldType != null ? `field-${fieldType.toLowerCase()}` : '';
       default:
-      const nodeType = AjfNodeType[node.nodeType];
-      return nodeType != null ? `node-${nodeType.toLowerCase().replace('ajf', '')}` : '';
+        const nodeType = AjfNodeType[node.nodeType];
+        return nodeType != null ? `node-${nodeType.toLowerCase().replace('ajf', '')}` : '';
     }
   }
 }

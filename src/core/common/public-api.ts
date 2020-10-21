@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -23,6 +23,7 @@
 export * from './apply-styles-directive';
 export * from './auto-focus.directive';
 export * from './common-module';
+export * from './dnd-directive';
 export * from './format-if-number';
 export * from './translate-if-string';
-export * from './dnd.directive';
+export * from './video.directive';

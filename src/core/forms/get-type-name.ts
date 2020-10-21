@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,7 +22,5 @@
 
 export function getTypeName(v: any): string {
   let typeStr = typeof v;
-  return typeStr === 'object'
-    ? v.constructor.toString().match(/\w+/g)[1]
-    : typeStr;
+  return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,24 +22,23 @@
 
 import {ChangeDetectorRef} from '@angular/core';
 
+import {AjfBaseFieldComponent} from './base-field';
+import {AjfFormRendererService} from './form-renderer';
 import {
   AjfFieldWithChoicesInstance
 } from './interface/fields-instances/field-with-choices-instance';
-import {AjfBaseFieldComponent} from './base-field';
-import {AjfFormRendererService} from './form-renderer';
 import {AjfWarningAlertService} from './warning-alert-service';
 
-export abstract class AjfFieldWithChoicesComponent<T>
-    extends AjfBaseFieldComponent<AjfFieldWithChoicesInstance<T>> {
+export abstract class AjfFieldWithChoicesComponent<T> extends
+    AjfBaseFieldComponent<AjfFieldWithChoicesInstance<T>> {
   private _searchThreshold: number = 6;
-  get searchThreshold(): number { return this._searchThreshold; }
+  get searchThreshold(): number {
+    return this._searchThreshold;
+  }
 
   constructor(
-    cdr: ChangeDetectorRef,
-    service: AjfFormRendererService,
-    warningAlertService: AjfWarningAlertService,
-    searchThreshold: number
-  ) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      warningAlertService: AjfWarningAlertService, searchThreshold: number) {
     super(cdr, service, warningAlertService);
     if (searchThreshold != null) {
       this._searchThreshold = searchThreshold;

@@ -4,34 +4,41 @@
   "compilerOptions": {
     "outDir": "./dist/packages/all",
     "experimentalDecorators": true,
-    "module": "es2015",
+    // Bazel either uses "umd" or "esnext". We replicate this here for IDE support.
+    // https://github.com/bazelbuild/rules_typescript/blob/master/internal/common/tsconfig.bzl#L199
+    "module": "esnext",
     "moduleResolution": "node",
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": false,
     "strictNullChecks": true,
+    "noImplicitReturns": true,
     "strictFunctionTypes": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "skipLibCheck": true,
+    "strictBindCallApply": true,
     "target": "es2015",
     "lib": ["es5", "es2015", "dom"],
     "types": ["jasmine"],
     "baseUrl": ".",
     "paths": {
+      "@ajf/ajf-examples": ["./src/packages/ajf-examples"],
+      "@ajf/ajf-examples/*": ["./src/packages/ajf-examples/*"],
+      "@ajf/calendars/*": ["./src/calendars/*"],
       "@ajf/core": ["./src/core"],
       "@ajf/core/*": ["./src/core/*"],
       "@ajf/ionic/*": ["./src/ionic/*"],
-      "@ajf/ionic-examples": ["./src/packages/ionic-examples"],
-      "@ajf/material/*": ["./src/material/*"],
-      "@ajf/material-examples": ["./src/packages/material-examples"]
+      "@ajf/material/*": ["./src/material/*"]
     }
   },
   "include": [
     "src/**/*.ts",
     "e2e/**/*.ts",
     "test/**/*.ts",
-    "tools/**/*.ts"
+    "tools/**/*.ts",
+    "integration/**/*.ts",
+    "scripts/**/*.ts"
   ],
   "exclude": [
     // Exclude files that depend on Node APIs because those depend on the Node types and therefore

@@ -1,0 +1,21 @@
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "mat-calendar",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "calendar-demo.html",
+        ":calendar_demo_scss",
+    ],
+    deps = [
+        "//src/material/calendar",
+        "@npm//@angular/router",
+    ],
+)
+
+sass_binary(
+    name = "calendar_demo_scss",
+    src = "calendar-demo.scss",
+)

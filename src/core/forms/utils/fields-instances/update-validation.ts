@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -49,8 +49,7 @@ export function updateValidation(
     context.$value = instance.value;
   }
 
-  instance.validationResults =
-      evaluateValidationGroup(validation, context[completeName], context);
+  instance.validationResults = evaluateValidationGroup(validation, context[completeName], context);
   instance.valid = instance.validationResults.reduce(
       (prev: boolean, x: AjfValidationResult) => prev && x.result, true);
 }

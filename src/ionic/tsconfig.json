@@ -5,6 +5,7 @@
     "rootDir": "..",
     "baseUrl": ".",
     "paths": {
+      "@ajf/core": ["../core"],
       "@ajf/core/*": ["../core/*"],
       "@ajf/ionic/*": ["./*"]
     }

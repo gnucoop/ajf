@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -36,9 +36,9 @@ import {AjfNodeType} from '../interface/nodes/node-type';
 import {AjfRepeatingNode} from '../interface/nodes/repeating-node';
 import {AjfRepeatingSlide} from '../interface/slides/repeating-slide';
 import {AjfSlide} from '../interface/slides/slide';
-import {componentsMap} from '../utils/fields/fields-map';
 import {AjfFieldCreate, createField} from '../utils/fields/create-field';
 import {createFieldWithChoices} from '../utils/fields/create-field-with-choices';
+import {componentsMap} from '../utils/fields/fields-map';
 import {createContainerNode} from '../utils/nodes/create-container-node';
 import {AjfNodeCreate, createNode} from '../utils/nodes/create-node';
 import {createNodeGroup} from '../utils/nodes/create-node-group';
@@ -130,14 +130,13 @@ export class AjfNodeSerializer {
     if (obj.nextSlideCondition) {
       obj.nextSlideCondition = AjfConditionSerializer.fromJson(obj.nextSlideCondition);
     }
-    const isCustomFieldWithChoice = obj.fieldType > 100
-      && componentsMap[obj.fieldType] != null
-      && componentsMap[obj.fieldType].isFieldWithChoice === true;
+    const isCustomFieldWithChoice = obj.fieldType > 100 && componentsMap[obj.fieldType] != null &&
+        componentsMap[obj.fieldType].isFieldWithChoice === true;
     if (isCustomFieldWithChoice) {
       return AjfNodeSerializer._fieldWithChoicesFromJson(
-        json as AjfFieldCreate & Partial<AjfFieldWithChoices<any>>,
-        choicesOrigins,
-    );
+          json as AjfFieldCreate & Partial<AjfFieldWithChoices<any>>,
+          choicesOrigins,
+      );
     }
 
     switch (obj.fieldType) {
@@ -155,7 +154,7 @@ export class AjfNodeSerializer {
   }
 
   private static _fieldNodeLinkFromJson(json: AjfNodeCreate&
-                                       Partial<AjfFieldNodeLink>): AjfFieldNodeLink {
+                                        Partial<AjfFieldNodeLink>): AjfFieldNodeLink {
     return {...createNode(json), nodeType: AjfNodeType.AjfFieldNodeLink};
   }
 
@@ -181,7 +180,7 @@ export class AjfNodeSerializer {
   }
 
   private static _formulaFieldFromJson(json: AjfFieldCreate&
-                                      Partial<AjfFormulaField>): AjfFormulaField {
+                                       Partial<AjfFormulaField>): AjfFormulaField {
     if (json.formula) {
       json.formula = AjfFormulaSerializer.fromJson(json.formula);
     }
@@ -203,7 +202,7 @@ export class AjfNodeSerializer {
   }
 
   private static _repeatingNodeFromJson(json: AjfNodeCreate&
-                                       Partial<AjfRepeatingNode>): AjfRepeatingNode {
+                                        Partial<AjfRepeatingNode>): AjfRepeatingNode {
     if (json.formulaReps) {
       json.formulaReps = AjfFormulaSerializer.fromJson(json.formulaReps);
     }

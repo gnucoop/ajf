@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -24,7 +24,6 @@ import {AjfField} from '../../interface/fields/field';
 import {componentsMap} from './fields-map';
 
 export function isCustomFieldWithChoices(field: AjfField): boolean {
-  return field.fieldType > 100
-    && componentsMap[field.fieldType] != null
-    && componentsMap[field.fieldType].isFieldWithChoice === true;
+  return field.fieldType > 100 && componentsMap[field.fieldType] != null &&
+      componentsMap[field.fieldType].isFieldWithChoice === true;
 }

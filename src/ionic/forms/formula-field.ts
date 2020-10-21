@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,25 +20,38 @@
  *
  */
 
-import {AjfBaseFieldComponent, AjfFormulaFieldInstance,
-  AjfFormRendererService} from '@ajf/core/forms';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, ViewChild,
-  ViewEncapsulation} from '@angular/core';
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfFormRendererService,
+  AjfFormulaFieldInstance
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Inject,
+  OnDestroy,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {IonInput} from '@ionic/angular';
+import {InputChangeEventDetail} from '@ionic/core';
 import {Observable, Subscription} from 'rxjs';
 import {filter, map, startWith, switchMap} from 'rxjs/operators';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-moduleId: module.id,
-templateUrl: 'formula-field.html',
-styleUrls: ['formula-field.css'],
-changeDetection: ChangeDetectionStrategy.OnPush,
-encapsulation: ViewEncapsulation.None,
+  templateUrl: 'formula-field.html',
+  styleUrls: ['formula-field.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
-export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFieldInstance>
-    implements OnDestroy {
+export class AjfFormulaFieldComponent extends
+    AjfBaseFieldComponent<AjfFormulaFieldInstance> implements OnDestroy {
   @ViewChild(IonInput, {static: true}) input: IonInput;
 
   readonly value: Observable<any>;
@@ -47,28 +60,35 @@ export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFi
   private _onChangeSub = Subscription.EMPTY;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
 
     const control$ = this.control.pipe(
-      filter(control => control != null),
-    );
+                         filter(control => control != null),
+                         ) as Observable<FormControl>;
+    const controlValue$ = control$.pipe(
+                              switchMap(
+                                  control => this._onChangeEvt.pipe(
+                                      map(value => ({control, value})),
+                                      )),
+                              ) as Observable<{control: FormControl, value: any}>;
 
-    this._onChangeSub = control$.pipe(
-      switchMap(control => this._onChangeEvt.pipe(map(value => ({control, value})))),
-    ).subscribe(({control, value}) => {
+    this._onChangeSub = controlValue$.subscribe(({control, value}) => {
       try {
         const v = parseFloat(value);
         value = v;
-      } catch (e) { }
-      control!.setValue(value);
+      } catch (e) {
+      }
+      control.setValue(value);
     });
 
     this.value = this.control.pipe(
-      filter(control => control != null),
-      switchMap(control => control!.valueChanges.pipe(
-        startWith(control!.value),
-      )),
+        filter(control => control != null),
+        switchMap(
+            control => control!.valueChanges.pipe(
+                startWith(control!.value),
+                )),
     );
   }
 
@@ -77,7 +97,11 @@ export class AjfFormulaFieldComponent extends AjfBaseFieldComponent<AjfFormulaFi
     this._onChangeSub.unsubscribe();
   }
 
-  onChange(evt: {detail: {value: any}}): void {
+  onChange(event: Event): void {
+    const evt = event as CustomEvent<InputChangeEventDetail>;
+    if (evt.detail == null) {
+      return;
+    }
     this._onChangeEvt.emit(evt.detail.value);
   }
 }

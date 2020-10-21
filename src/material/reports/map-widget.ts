@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,20 +20,22 @@
  *
  */
 
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
-  ViewEncapsulation} from '@angular/core';
-
 import {AjfBaseWidgetComponent, AjfMapWidgetInstance} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'map-widget.html',
   styleUrls: ['map-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfMapWidgetComponent
-    extends AjfBaseWidgetComponent<AjfMapWidgetInstance> {
+export class AjfMapWidgetComponent extends AjfBaseWidgetComponent<AjfMapWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {
     super(cdr, el);
   }

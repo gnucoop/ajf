@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -24,7 +24,7 @@ import {NgModule} from '@angular/core';
 
 import {ApplyStylesDirective} from './apply-styles-directive';
 import {AutofocusDirective} from './auto-focus.directive';
-import {AjfDndDirective} from './dnd.directive';
+import {AjfDndDirective} from './dnd-directive';
 import {FormatIfNumber} from './format-if-number';
 import {TranslateIfString} from './translate-if-string';
 import {AjfVideoDirective} from './video.directive';
@@ -47,4 +47,5 @@ import {AjfVideoDirective} from './video.directive';
     TranslateIfString,
   ],
 })
-export class AjfCommonModule { }
+export class AjfCommonModule {
+}

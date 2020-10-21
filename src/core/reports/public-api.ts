@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -22,6 +22,7 @@
 
 export * from './base-widget';
 export * from './chart-utils';
+export * from './get-column-content';
 export * from './interface/aggregation/aggregation';
 export * from './interface/aggregation/aggregation-type';
 export * from './interface/charts/chart-type';
@@ -71,8 +72,9 @@ export * from './serializers/report-container-serializer';
 export * from './serializers/report-serializer';
 export * from './serializers/widget-serializer';
 export * from './widget';
-export * from './widget-components-map';
+export * from './interface/widgets/widget-components-map';
 export * from './widget-host';
+export * from './widget-service';
 
 export * from './utils/aggregation/create-aggregation';
 export * from './utils/reports-instances/create-report-instance';

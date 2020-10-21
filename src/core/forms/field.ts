@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,76 +20,96 @@
  *
  */
 
-import {coerceBooleanProperty} from '@ajf/core/utils';
-import {ChangeDetectorRef, ComponentFactoryResolver, OnDestroy, OnInit} from '@angular/core';
+import {coerceBooleanProperty} from '@angular/cdk/coercion';
+import {
+  ChangeDetectorRef,
+  ComponentFactoryResolver,
+  Directive,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {Subscription} from 'rxjs';
 
-import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
-import {AjfFieldInstance} from './interface/fields-instances/field-instance';
+import {AjfBaseFieldComponent} from './base-field';
 import {AjfFieldHost} from './field-host';
-import {AjfBaseFieldComponent} from '.';
+import {AjfFieldInstance} from './interface/fields-instances/field-instance';
+import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 
+@Directive()
 export abstract class AjfFormField implements OnDestroy, OnInit {
-  fieldHost: AjfFieldHost;
+  @ViewChild(AjfFieldHost, {static: true}) fieldHost: AjfFieldHost;
 
   private _instance: AjfFieldInstance;
-  get instance(): AjfFieldInstance { return this._instance; }
+  get instance(): AjfFieldInstance {
+    return this._instance;
+  }
+  @Input()
   set instance(instance: AjfFieldInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
-      this._loadComponent();
+      if (this._init) {
+        this._loadComponent();
+      }
     }
   }
 
   private _readonly: boolean;
-  get readonly(): boolean { return this._readonly; }
+  get readonly(): boolean {
+    return this._readonly;
+  }
+  @Input()
   set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
-    if (this._componentInstance != null) {
-      this._componentInstance.readonly = this._readonly;
+    if (this._init) {
+      this._loadComponent();
     }
-    this._cdr.markForCheck();
   }
 
   private _componentInstance: AjfBaseFieldComponent<AjfFieldInstance>;
+  private _init: boolean = false;
 
   protected abstract componentsMap: AjfFieldComponentsMap;
   private _updatedSub = Subscription.EMPTY;
 
-  constructor(
-    private _cdr: ChangeDetectorRef,
-    private _cfr: ComponentFactoryResolver
-  ) { }
+  constructor(private _cdr: ChangeDetectorRef, private _cfr: ComponentFactoryResolver) {}
 
   ngOnDestroy(): void {
     this._updatedSub.unsubscribe();
   }
 
   ngOnInit(): void {
+    this._init = true;
     this._loadComponent();
   }
 
   private _loadComponent(): void {
     this._updatedSub.unsubscribe();
     this._updatedSub = Subscription.EMPTY;
-    if (this._instance == null || this.fieldHost == null) { return; }
+    if (this._instance == null || this.fieldHost == null) {
+      return;
+    }
 
     const vcr = this.fieldHost.viewContainerRef;
     vcr.clear();
     const componentDef = this.componentsMap[this._instance.node.fieldType];
-    if (componentDef == null) { return; }
-    const component = componentDef.component;
+    if (componentDef == null) {
+      return;
+    }
+    const component = this._readonly && componentDef.readOnlyComponent ?
+        componentDef.readOnlyComponent :
+        componentDef.component;
     try {
       const componentFactory = this._cfr.resolveComponentFactory(component);
       const componentRef = vcr.createComponent(componentFactory);
       this._componentInstance = componentRef.instance;
       this._componentInstance.instance = this._instance;
-      this._componentInstance.readonly = this._readonly;
 
       if (componentDef.inputs) {
         Object.keys(componentDef.inputs).forEach(key => {
-          if (key in  this._componentInstance) {
-            ( this._componentInstance as any)[key] = componentDef.inputs![key];
+          if (key in this._componentInstance) {
+            (this._componentInstance as any)[key] = componentDef.inputs![key];
           }
         });
       }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,25 +20,20 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-
-import {TranslateModule} from '@ngx-translate/core';
-
 import {IonicModule} from '@ionic/angular';
-
-import {AjfCommonModule} from '@ajf/core/common';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfBarcodeComponent} from './barcode';
 
 @NgModule({
   imports: [
+    AjfCommonModule,
     CommonModule,
-    FormsModule,
-    TranslateModule,
     IonicModule,
-    AjfCommonModule
+    TranslateModule,
   ],
   declarations: [
     AjfBarcodeComponent,
@@ -47,4 +42,5 @@ import {AjfBarcodeComponent} from './barcode';
     AjfBarcodeComponent,
   ],
 })
-export class AjfBarcodeModule {}
+export class AjfBarcodeModule {
+}

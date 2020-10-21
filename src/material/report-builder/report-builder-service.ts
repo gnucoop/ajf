@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -23,21 +23,46 @@
 import {AjfField, AjfFieldType, AjfForm, AjfNode, AjfNodeType, flattenNodes} from '@ajf/core/forms';
 import {AjfFormula, createFormula} from '@ajf/core/models';
 import {
-  AjfAggregation, AjfChartWidget, AjfColumnWidget, AjfCustomWidget, AjfDataWidget, AjfImageWidget,
-  AjfLayoutWidget, AjfReport, AjfReportContainer, AjfStyles, AjfTableWidget, AjfTextWidget,
-  AjfWidget, AjfWidgetType, createAggregation, createWidget
+  AjfAggregation,
+  AjfChartWidget,
+  AjfColumnWidget,
+  AjfCustomWidget,
+  AjfDataWidget,
+  AjfImageWidget,
+  AjfLayoutWidget,
+  AjfReport,
+  AjfReportContainer,
+  AjfStyles,
+  AjfTableWidget,
+  AjfTextWidget,
+  AjfWidget,
+  AjfWidgetType,
+  createAggregation,
+  createWidget
 } from '@ajf/core/reports';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Inject, Injectable, Optional} from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {
-  combineLatest, filter, map, publishReplay, refCount, scan, share, startWith
+  combineLatest,
+  filter,
+  map,
+  publishReplay,
+  refCount,
+  scan,
+  share,
+  startWith
 } from 'rxjs/operators';
 
 import {AjfFormVariables, AjfReportIcons, AjfReportsConfig, AjfWidgetsContainer} from './models';
 import {
-  AjfColorOperation, AjfCustomWidgetsOperation, AjfFormVariablesOperation, AjfReportFormsOperation,
-  AjfStylesOperation, AjfWidgetOperation, AjfWidgetsOperation
+  AjfColorOperation,
+  AjfCustomWidgetsOperation,
+  AjfFormVariablesOperation,
+  AjfReportFormsOperation,
+  AjfStylesOperation,
+  AjfWidgetOperation,
+  AjfWidgetsOperation
 } from './operations';
 import {AJF_REPORTS_CONFIG} from './tokens';
 
@@ -48,7 +73,6 @@ import {AJF_REPORTS_CONFIG} from './tokens';
  */
 @Injectable()
 export class AjfReportBuilderService {
-
   /**
    *  this Observable observe the customWidgets obj
    *
@@ -74,13 +98,11 @@ export class AjfReportBuilderService {
   private _savedReport: Observable<AjfReport>;
   private _savedReportUpdate: Subject<AjfReport> = new Subject<AjfReport>();
 
-  private _jsonStack: BehaviorSubject<string[]> =
-  new BehaviorSubject<string[]>([]);
+  private _jsonStack: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
-  private _lastDeletedJson: string | undefined;
+  private _lastDeletedJson: string|undefined;
 
-  private _emptyContent: BehaviorSubject<boolean> =
-  new BehaviorSubject<boolean>(true);
+  private _emptyContent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   /**
    *  this Observable observe if is fired drag mouse event.
@@ -153,20 +175,21 @@ export class AjfReportBuilderService {
 
   private _color: Observable<string[]>;
   private _colorUpdate: Subject<AjfColorOperation> = new Subject<AjfColorOperation>();
-  private _defaultColor: string[] =
-  [
-    'rgba(0, 0, 0, 1)', 'rgba(51, 153, 255, 1)', 'rgba(153, 204, 0, 1)', 'rgba(255, 102, 0, 1)',
-    'rgba(0, 204, 204, 1)', 'rgba(204, 204, 153, 1)', 'rgba(255, 153, 0, 1)', 'rgba(230, 0, 0, 1)',
-    'rgba(255, 153, 0, 1)', 'rgba(255, 255, 0, 1)', 'rgba(0, 138, 0, 1)', 'rgba(0, 102, 204, 1)',
-    'rgba(153, 51, 255, 1)', 'rgba(255, 255, 255, 1)', 'rgba(250, 204, 204, 1)',
+  private _defaultColor: string[] = [
+    'rgba(0, 0, 0, 1)',       'rgba(51, 153, 255, 1)',  'rgba(153, 204, 0, 1)',
+    'rgba(255, 102, 0, 1)',   'rgba(0, 204, 204, 1)',   'rgba(204, 204, 153, 1)',
+    'rgba(255, 153, 0, 1)',   'rgba(230, 0, 0, 1)',     'rgba(255, 153, 0, 1)',
+    'rgba(255, 255, 0, 1)',   'rgba(0, 138, 0, 1)',     'rgba(0, 102, 204, 1)',
+    'rgba(153, 51, 255, 1)',  'rgba(255, 255, 255, 1)', 'rgba(250, 204, 204, 1)',
     'rgba(255, 235, 204, 1)', 'rgba(255, 255, 204, 1)', 'rgba(204, 232, 204, 1)',
     'rgba(204, 224, 245, 1)', 'rgba(235, 214, 255, 1)', 'rgba(187, 187, 187, 1)',
     'rgba(240, 102, 102, 1)', 'rgba(255, 194, 102, 1)', 'rgba(255, 255, 102, 1)',
     'rgba(102, 185, 102, 1)', 'rgba(102, 163, 224, 1)', 'rgba(194, 133, 255, 1)',
-    'rgba(136, 136, 136, 1)', 'rgba(161, 0, 0, 1)', 'rgba(178, 107, 0, 1)',
-    'rgba(178, 178, 0, 1)', 'rgba(0, 97, 0, 1)', 'rgba(0, 71, 178, 1)',
-    'rgba(107, 36, 178, 1)', 'rgba(68, 68, 68, 1)', 'rgba(92, 0, 0, 1)', 'rgba(102, 61, 0, 1)',
-    'rgba(102, 102, 0, 1)', 'rgba(0, 55, 0, 1)', 'rgba(0, 41, 102, 1)', 'rgba(61, 20, 102, 1)'
+    'rgba(136, 136, 136, 1)', 'rgba(161, 0, 0, 1)',     'rgba(178, 107, 0, 1)',
+    'rgba(178, 178, 0, 1)',   'rgba(0, 97, 0, 1)',      'rgba(0, 71, 178, 1)',
+    'rgba(107, 36, 178, 1)',  'rgba(68, 68, 68, 1)',    'rgba(92, 0, 0, 1)',
+    'rgba(102, 61, 0, 1)',    'rgba(102, 102, 0, 1)',   'rgba(0, 55, 0, 1)',
+    'rgba(0, 41, 102, 1)',    'rgba(61, 20, 102, 1)'
   ];
 
 
@@ -210,16 +233,14 @@ export class AjfReportBuilderService {
    *
    * @memberOf AjfReportBuilderService
    */
-  private _saveReport: BehaviorSubject<any> =
-  new BehaviorSubject<any>(null);
+  private _saveReport: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   /**
    * this BehaviorSubject contains the AjfReport.
    *
    * @memberOf AjfReportBuilderService
    */
-  private _report: BehaviorSubject<AjfReport | null> =
-    new BehaviorSubject<AjfReport | null>(null);
+  private _report: BehaviorSubject<AjfReport|null> = new BehaviorSubject<AjfReport|null>(null);
 
   /**
    *  this Observable observe the styles of report.
@@ -271,20 +292,17 @@ export class AjfReportBuilderService {
    */
   columnWidthChangedEmitter: EventEmitter<void> = new EventEmitter<void>();
 
-  private _iconSets: AjfReportIcons = {
-    'ajf-icon': []
-  };
-  get iconSets(): AjfReportIcons { return this._iconSets; }
+  private _iconSets: AjfReportIcons = {'ajf-icon': []};
+  get iconSets(): AjfReportIcons {
+    return this._iconSets;
+  }
 
   /**
    * Creates an instance of AjfReportBuilderService.
    *
    * @memberOf AjfReportBuilderService
    */
-  constructor(
-    @Optional() @Inject(AJF_REPORTS_CONFIG) reportsConfig: AjfReportsConfig
-  ) {
-
+  constructor(@Optional() @Inject(AJF_REPORTS_CONFIG) reportsConfig: AjfReportsConfig) {
     this._lastDeletedJson = '';
 
     if (reportsConfig != null) {
@@ -293,29 +311,15 @@ export class AjfReportBuilderService {
       }
     }
 
-    this._origin = (<Observable<string>>this._originUpdate).pipe(
-      startWith('header'),
-      share()
-    );
+    this._origin = (<Observable<string>>this._originUpdate).pipe(startWith('header'), share());
 
-    this._savedReport = (<Observable<AjfReport>>this._savedReportUpdate).pipe(
-      share()
-    );
+    this._savedReport = (<Observable<AjfReport>>this._savedReportUpdate).pipe(share());
 
-    this._onDragged = (<Observable<boolean>>this._onDraggedUpdate).pipe(
-      startWith(false),
-      share()
-    );
+    this._onDragged = (<Observable<boolean>>this._onDraggedUpdate).pipe(startWith(false), share());
 
-    this._onOver = (<Observable<boolean>>this._onOverUpdate).pipe(
-      startWith(false),
-      share()
-    );
+    this._onOver = (<Observable<boolean>>this._onOverUpdate).pipe(startWith(false), share());
 
-    this._fixedZoom = (<Observable<boolean>>this._fixedZoomUpdate).pipe(
-      startWith(false),
-      share()
-    );
+    this._fixedZoom = (<Observable<boolean>>this._fixedZoomUpdate).pipe(startWith(false), share());
 
     this._onDragEnter = this._onDragEnterUpdate.pipe(share());
 
@@ -398,69 +402,73 @@ export class AjfReportBuilderService {
                               return op(color);
                             }, this._defaultColor), share(), startWith(this._defaultColor));
 
-    this._currentWidget =
-        (<Observable<AjfWidgetOperation>>this._currentWidgetUpdate)
-            .pipe(filter(s => s != null), scan((widget: AjfWidget|null, op: AjfWidgetOperation) => {
-                    return op(widget);
-                  }, undefined), publishReplay(1), refCount());
+    this._currentWidget = this._currentWidgetUpdate.pipe(
+        filter(s => s != null),
+        map(s => s!),
+        scan(
+            (widget: AjfWidget|null, op: AjfWidgetOperation) => {
+              return op(widget);
+            },
+            null as unknown as AjfWidget),
+        publishReplay(1),
+        refCount(),
+    );
 
-    this._reportForms.pipe(
-      filter(f => f.length != 0),
-      map((forms: AjfForm[]) => {
-        return (_c: AjfFormVariables[]): AjfFormVariables[] => {
-          return this.fillFormsVariables(forms);
-        };
-      })
-    ).subscribe(this._formsVariablesUpdate);
+    this._reportForms
+        .pipe(filter(f => f.length != 0), map((forms: AjfForm[]) => {
+                return (_c: AjfFormVariables[]): AjfFormVariables[] => {
+                  return this.fillFormsVariables(forms);
+                };
+              }))
+        .subscribe(this._formsVariablesUpdate);
 
-    this._reportForms.pipe(
-      filter(f => f.length != 0),
-      map((forms: AjfForm[]) => {
-        return (_c: AjfFormVariables[]): AjfFormVariables[] => {
-          return this.fillFormsVariables(forms);
-        };
-      })
-    ).subscribe(this._conditionNamesUpdate);
+    this._reportForms
+        .pipe(filter(f => f.length != 0), map((forms: AjfForm[]) => {
+                return (_c: AjfFormVariables[]): AjfFormVariables[] => {
+                  return this.fillFormsVariables(forms);
+                };
+              }))
+        .subscribe(this._conditionNamesUpdate);
 
     const reportObs = this._report;
 
-    reportObs.pipe(
-      map((r: AjfReport | null) => {
-        return (_colors: string[]): string[] => {
-          let tempColors: string[] = this._defaultColor;
-          if (r == null) {
-            return [];
-          } else {
-            this.parseColor(r.styles, tempColors);
-            if (r.content) {
-              this.parseColor(r.content.styles, tempColors);
-            }
-            if (r.footer) {
-              this.parseColor(r.footer.styles, tempColors);
-            }
-            if (r.header) {
-              this.parseColor(r.header.styles, tempColors);
-              for (let i = 0; i < r.header.content.length; i++) {
-                let obj = r.header.content[i];
-                this.parseColor(obj.styles, tempColors);
-                if (obj.widgetType === AjfWidgetType.Layout) {
-                  let layoutObj = obj as AjfLayoutWidget;
-                  for (let j = 0; j < layoutObj.content.length; j++) {
-                    let columnObj = layoutObj.content[j] as AjfColumnWidget;
-                    this.parseColor(columnObj.styles, tempColors);
-                    for (let z = 0; z < columnObj.content.length; z++) {
-                      let widgetObj = columnObj.content[z];
-                      this.parseColor(widgetObj.styles, tempColors);
+    reportObs
+        .pipe(map((r: AjfReport|null) => {
+          return (_colors: string[]): string[] => {
+            let tempColors: string[] = this._defaultColor;
+            if (r == null) {
+              return [];
+            } else {
+              this.parseColor(r.styles, tempColors);
+              if (r.content) {
+                this.parseColor(r.content.styles, tempColors);
+              }
+              if (r.footer) {
+                this.parseColor(r.footer.styles, tempColors);
+              }
+              if (r.header) {
+                this.parseColor(r.header.styles, tempColors);
+                for (let i = 0; i < r.header.content.length; i++) {
+                  let obj = r.header.content[i];
+                  this.parseColor(obj.styles, tempColors);
+                  if (obj.widgetType === AjfWidgetType.Layout) {
+                    let layoutObj = obj as AjfLayoutWidget;
+                    for (let j = 0; j < layoutObj.content.length; j++) {
+                      let columnObj = layoutObj.content[j] as AjfColumnWidget;
+                      this.parseColor(columnObj.styles, tempColors);
+                      for (let z = 0; z < columnObj.content.length; z++) {
+                        let widgetObj = columnObj.content[z];
+                        this.parseColor(widgetObj.styles, tempColors);
+                      }
                     }
                   }
                 }
               }
             }
-          }
-          return <string[]>tempColors;
-        };
-      })
-    ).subscribe(this._colorUpdate);
+            return <string[]>tempColors;
+          };
+        }))
+        .subscribe(this._colorUpdate);
 
     reportObs
         .pipe(map((r: AjfReport|null) => {
@@ -519,16 +527,14 @@ export class AjfReportBuilderService {
         }))
         .subscribe(this._footerWidgetsUpdate);
 
-    this._saveReport.pipe(
-      map((json: any) => {
-        return (_r: any): any => {
-          if (json = null) {
-            return {};
-          }
-          return json;
-        };
-      })
-    );
+    this._saveReport.pipe(map((json: any) => {
+      return (_r: any): any => {
+        if (json = null) {
+          return {};
+        }
+        return json;
+      };
+    }));
 
     this._saveReportEvent
         .pipe(
@@ -539,27 +545,26 @@ export class AjfReportBuilderService {
                 this._footerWidgets.pipe(filter(w => w != null)),
                 this._reportStyles.pipe(filter(w => w != null)),
                 ))
-        .subscribe((r: [
-                     [void, AjfReport | null, AjfForm[]], AjfWidgetsContainer, AjfWidgetsContainer,
-                     AjfWidgetsContainer, AjfStyles
-                   ]) => {
+        .subscribe(r => {
           let obj: any = {};
           // const curRo = r[0][1];
           // const forms = r[0][2] != null ? r[0][2] || []
           //     : (curRo != null ? curRo.forms || [] : []);
 
-          obj.header = {content: r[1].widgets.map(w => deepCopy(w)), styles: r[1].styles} as
+          const [hco, cco, fco] = [r[1], r[2], r[3]] as AjfWidgetsContainer[];
+
+          obj.header = {content: hco.widgets.map(w => deepCopy(w)), styles: hco.styles} as
               AjfReportContainer;
-          obj.content = {content: r[2].widgets.map(w => deepCopy(w)), styles: r[2].styles} as
+          obj.content = {content: cco.widgets.map(w => deepCopy(w)), styles: cco.styles} as
               AjfReportContainer;
-          obj.footer = {content: r[3].widgets.map(w => deepCopy(w)), styles: r[3].styles} as
+          obj.footer = {content: fco.widgets.map(w => deepCopy(w)), styles: fco.styles} as
               AjfReportContainer;
           obj.styles = r[4];
 
           const ro = {
-            header: {content: r[1].widgets, styles: r[1].styles},
-            content: {content: r[2].widgets, styles: r[2].styles},
-            footer: {content: r[3].widgets, styles: r[3].styles},
+            header: {content: hco.widgets, styles: hco.styles},
+            content: {content: cco.widgets, styles: cco.styles},
+            footer: {content: fco.widgets, styles: fco.styles},
             styles: r[4]
           } as AjfReport;
 
@@ -600,10 +605,7 @@ export class AjfReportBuilderService {
   parseColor(cssStyles: any, colors: string[]): void {
     const styleKeys = ['background-color', 'backgroundColor', 'color'];
     styleKeys.forEach((k) => {
-      if (
-        cssStyles[k] &&
-        colors.indexOf(cssStyles[k]) == -1
-      ) {
+      if (cssStyles[k] && colors.indexOf(cssStyles[k]) == -1) {
         colors.push(cssStyles[k]);
       }
     });
@@ -612,7 +614,7 @@ export class AjfReportBuilderService {
   fillFormsVariables(forms: AjfForm[]) {
     let variables: AjfFormVariables[] = [];
     for (let i = 0; i < forms.length; i++) {
-      variables[i] = { nodes: [], labels: [], names: [], types: [] };
+      variables[i] = {nodes: [], labels: [], names: [], types: []};
 
       if (forms[i].nodes != null && forms[i].nodes.length > 0) {
         variables[i].nodes = this.filterNodes(flattenNodes(forms[i].nodes));
@@ -620,7 +622,6 @@ export class AjfReportBuilderService {
       variables[i].labels = this.extractLabelsNodes(variables[i].nodes);
       variables[i].names = this.extractNamesNodes(variables[i].nodes);
       variables[i].types = this.extractTypesNodes(variables[i].nodes);
-
     }
     return variables;
   }
@@ -689,11 +690,11 @@ export class AjfReportBuilderService {
   }
 
   isNumberArray(value: any[]): boolean {
-    value.forEach((v) => {
-      if (!this.isNumber(v)) {
+    for (let i = 0; i < value.length; i++) {
+      if (!this.isNumber(value[i])) {
         return false;
       }
-    });
+    }
     return true;
   }
 
@@ -763,7 +764,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   dragEnter(array: string, index: number): void {
-    this._onDragEnterUpdate.next({ array, index });
+    this._onDragEnterUpdate.next({array, index});
   }
 
   /**
@@ -823,7 +824,7 @@ export class AjfReportBuilderService {
    * @readonly
    * @memberOf AjfReportBuilderService
    */
-  get report(): Observable<AjfReport | null> {
+  get report(): Observable<AjfReport|null> {
     return this._report.asObservable();
   }
 
@@ -853,10 +854,7 @@ export class AjfReportBuilderService {
 
   saveFormulaToHtml(htmlFormula: string, reference: any) {
     if (this._saveFormulaTOHtml != null) {
-      const obj = {
-        'formula': htmlFormula,
-        'reference': reference
-      };
+      const obj = {'formula': htmlFormula, 'reference': reference};
       this._saveFormulaTOHtml.emit(obj);
     }
   }
@@ -876,11 +874,10 @@ export class AjfReportBuilderService {
     this._jsonStack.next(currentStack);
   }
 
-  popJsonStack(): string | undefined {
-    let emptyJson =
-      '{"header":{"content":[],"styles":{}},' +
-      '"content":{"content":[],"styles":{}},"' +
-      'footer":{"content":[],"styles":{}},"styles":{}}';
+  popJsonStack(): string|undefined {
+    let emptyJson = '{"header":{"content":[],"styles":{}},' +
+        '"content":{"content":[],"styles":{}},"' +
+        'footer":{"content":[],"styles":{}},"styles":{}}';
     let currentStack = this._jsonStack.getValue();
     currentStack.pop();
     this._lastDeletedJson = currentStack.pop();
@@ -1167,7 +1164,6 @@ export class AjfReportBuilderService {
 
 
       if (newValue !== -1) {
-
         if (myObj.columns.length === 1) {
           myObj.columns[0] = 1;
           return myObj;
@@ -1211,11 +1207,9 @@ export class AjfReportBuilderService {
 
       for (let i = 0; i < size; i++) {
         if (myObj.columns[i] !== -1) {
-
           if ((i == idx)) {
             myObj.columns[idx] = newValue;
           } else {
-
             if (add) {
               myObj.columns[i] += spreadValue;
               if ((myObj.columns[i] > 0.9) && (myObj.columns.length - objNum != 1)) {
@@ -1249,16 +1243,11 @@ export class AjfReportBuilderService {
         }
       } else {
         myObj.columns[idx] = Number(this.roundTo(1 - sum, 2).toFixed(2));
-
       }
 
       for (let j = 0; j < myObj.columns.length; j++) {
-        if (
-          myObj.columns[j] !== -1 &&
-          !re1.test(String(myObj.columns[j])) &&
-          !re2.test(String(myObj.columns[j])) &&
-          !re3.test(String(myObj.columns[j]))
-        ) {
+        if (myObj.columns[j] !== -1 && !re1.test(String(myObj.columns[j])) &&
+            !re2.test(String(myObj.columns[j])) && !re3.test(String(myObj.columns[j]))) {
           this.instantColumnValue(0.10, j);
         }
       }
@@ -1286,7 +1275,7 @@ export class AjfReportBuilderService {
     });
   }
 
-  setIcon(icon: { fontSet: string, fontIcon: string }) {
+  setIcon(icon: {fontSet: string, fontIcon: string}) {
     this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
       if (widget == null) {
         return null;
@@ -1321,12 +1310,8 @@ export class AjfReportBuilderService {
   }
 
   saveChartFormula(
-    _label: string,
-    _level: number,
-    _mainIndex: number,
-    _index: number,
-    formulaText: string,
-    aggregationType: number) {
+      _label: string, _level: number, _mainIndex: number, _index: number, formulaText: string,
+      aggregationType: number) {
     this._currentWidgetUpdate.next((w: AjfWidget|null): AjfWidget|null => {
       if (w == null) {
         return null;
@@ -1364,18 +1349,14 @@ export class AjfReportBuilderService {
         } else {
           widget.dataset[mainIndex].splice(index, 1, dataset);
         } */
-
       }
       return widget;
     });
   }
 
   saveTableFormula(
-    _label: string,
-    aggregationType: number,
-    formulaText: string,
-    _mainIndex: number,
-    _index: number) {
+      _label: string, aggregationType: number, formulaText: string, _mainIndex: number,
+      _index: number) {
     this._currentWidgetUpdate.next((w: AjfWidget|null): AjfWidget|null => {
       if (w == null) {
         return null;
@@ -1547,13 +1528,12 @@ export class AjfReportBuilderService {
    *
    * @memberOf AjfReportBuilderService
    */
-  setWidgetStyles(label: string, value: string | string[]) {
+  setWidgetStyles(label: string, value: string|string[]) {
     this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
       let myObj = <AjfTextWidget>widget;
 
-      const pxStyles = [
-        'font-size', 'height', 'width', 'border-width', 'border-radius', 'padding', 'margin'
-      ];
+      const pxStyles =
+          ['font-size', 'height', 'width', 'border-width', 'border-radius', 'padding', 'margin'];
       const isPxStyle = pxStyles.indexOf(label) > -1;
       if (isPxStyle && !(value instanceof Array) && this.isNumber(value)) {
         value += 'px';
@@ -1731,7 +1711,7 @@ export class AjfReportBuilderService {
       value = Number(this.roundTo(1 / (num - objNum), 2).toFixed(2));
 
       for (let i = 0; i < num; i++) {
-        if (myObj.columns[i] !== - 1) {
+        if (myObj.columns[i] !== -1) {
           myObj.columns[i] = value;
           checkSum = Number(this.roundTo(checkSum + value, 2).toFixed(2));
         }
@@ -1795,11 +1775,7 @@ export class AjfReportBuilderService {
       checkSum = Number(this.roundTo(checkSum, 2).toFixed(2));
 
       if (checkSum > 1) {
-        tmpValue =
-          parseFloat(
-            this.roundTo(
-              ((checkSum - 1) % 1), 2
-            ).toFixed(2));
+        tmpValue = parseFloat(this.roundTo(((checkSum - 1) % 1), 2).toFixed(2));
         tempObj[0] -= tmpValue;
         tempObj[0] = this.roundTo(tempObj[0], 2);
       } else if (checkSum < 1) {
@@ -1844,7 +1820,6 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   remove(node: string, idx: number) {
-
     switch (node) {
       case 'header':
       case 'content':
@@ -1933,8 +1908,7 @@ export class AjfReportBuilderService {
           return myObj;
         });
         break;
-      case 'customWidgets':
-        {
+      case 'customWidgets': {
         this._updates[node].next((widgets: AjfCustomWidget[]): AjfCustomWidget[] => {
           if (widgets.length === 0) {
             throw new Error('you can not remove from empty array');
@@ -1945,9 +1919,9 @@ export class AjfReportBuilderService {
           widgets.splice(idx, 1);
           return widgets;
         });
-        }
-        break;
-      default: throw new Error('unknown node ' + node);
+      } break;
+      default:
+        throw new Error('unknown node ' + node);
     }
   }
 
@@ -2055,9 +2029,7 @@ export class AjfReportBuilderService {
   }
 
   addCustomColor(color: string) {
-
     this._updates['color'].next((colors: string[]): string[] => {
-
       if (colors.indexOf(color) < 0) {
         colors.push(color);
       }
@@ -2094,7 +2066,7 @@ export class AjfReportBuilderService {
       if (widget == null) {
         return null;
       }
-      const arr = (<Array<any>>(widget as any)[propName]);
+      const arr = (widget as any)[propName] as any[];
       arr.push(value);
       (widget as any)[propName] = arr;
       return widget;
@@ -2103,7 +2075,7 @@ export class AjfReportBuilderService {
 
   private _removeFromCurrentWidgetArrayProperty(propName: string, idx: number) {
     this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
-      (<Array<any>>(widget as any)[propName]).splice(idx, 1);
+      ((widget as any)[propName] as any[]).splice(idx, 1);
       return widget;
     });
   }

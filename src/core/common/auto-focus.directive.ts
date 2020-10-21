@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,16 +21,13 @@
  */
 import {AfterContentInit, Directive, ElementRef, Input} from '@angular/core';
 
-@Directive({selector: '[autoFocus]' })
+@Directive({selector: '[autoFocus]'})
 export class AutofocusDirective implements AfterContentInit {
+  @Input() appAutoFocus: boolean;
 
-    @Input()
-    appAutoFocus: boolean;
+  constructor(private _el: ElementRef) {}
 
-    constructor(private _el: ElementRef) {
-    }
-
-    ngAfterContentInit() {
-        this._el.nativeElement.focus();
-    }
+  ngAfterContentInit() {
+    this._el.nativeElement.focus();
+  }
 }

@@ -1,9 +1,4 @@
 /*global jasmine, __karma__, window*/
-
-var newScript = document.createElement('script');
-newScript.setAttribute('data-resources-url', '/base/node_modules/ionicons/');
-document.body.appendChild(newScript);
-
 Error.stackTraceLimit = Infinity;
 
 // The default time that jasmine waits for an asynchronous test to finish is five seconds.
@@ -27,7 +22,7 @@ configureTestBed()
   });
 
 
-/** Runs the Angular Ajf specs in Karma. */
+/** Runs the Ajf specs in Karma. */
 function runAjfSpecs() {
   // By importing all spec files, Karma will run the tests directly.
   return Promise.all(specFiles.map(function(fileName) {
@@ -35,7 +30,7 @@ function runAjfSpecs() {
   }));
 }
 
-/** Whether the specified file is part of Angular Ajf. */
+/** Whether the specified file is part of Ajf. */
 function isAjfSpecFile(path) {
   return path.slice(-8) === '.spec.js' && path.indexOf('node_modules') === -1;
 }
@@ -51,9 +46,7 @@ function configureTestBed() {
     var testing = providers[1];
     var testingBrowser = providers[2];
 
-    console.log('----------');
     console.log('Running tests using Angular version: ' + core.VERSION.full);
-    console.log('----------');
 
     var testBed = testing.TestBed.initTestEnvironment(
       testingBrowser.BrowserDynamicTestingModule,
@@ -69,7 +62,7 @@ function configureTestBed() {
  * destruction are thrown instead of silently logged. Also runs TestBed.resetTestingModule after
  * each unit test.
  *
- * Without this patch, the combination of two behaviors is problematic for Angular Ajf:
+ * Without this patch, the combination of two behaviors is problematic for Ajf:
  * - TestBed.resetTestingModule catches errors thrown on fixture destruction and logs them without
  *     the errors ever being thrown. This means that any component errors that occur in ngOnDestroy
  *     can encounter errors silently and still pass unit tests.
@@ -86,7 +79,15 @@ function patchTestBedToDestroyFixturesAfterEveryTest(testBed) {
   // errors when destroying components are no longer causing Jasmine to fail.
   testBed.resetTestingModule = function() {
     try {
+      const moduleRef = this._testModuleRef || this._moduleRef;
       this._activeFixtures.forEach(function (fixture) { fixture.destroy(); });
+      // Destroy the TestBed `NgModule` reference to clear out shared styles that would
+      // otherwise remain in DOM and significantly increase memory consumption in browsers.
+      // This increased consumption then results in noticeable test instability and slow-down.
+      // See: https://github.com/angular/angular/issues/31834.
+      if (moduleRef != null) {
+        moduleRef.destroy();
+      }
     } finally {
       this._activeFixtures = [];
       // Regardless of errors or not, run the original reset testing module function.

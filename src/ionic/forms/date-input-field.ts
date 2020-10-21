@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,41 +20,54 @@
  *
  */
 
-import {AjfDateFieldInstance, AjfDateValueStringPipe, AjfBaseFieldComponent,
-    AjfFormRendererService} from '@ajf/core/forms';
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild,
-    ViewEncapsulation} from '@angular/core';
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfDateFieldInstance,
+  AjfDateValueStringPipe,
+  AjfFormRendererService
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {IonInput} from '@ionic/angular';
+import {InputChangeEventDetail} from '@ionic/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'date-input-field.html',
   styleUrls: ['date-input-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFieldInstance> {
-  @ViewChild(IonInput, {static: true}) input: IonInput;
+  @ViewChild(IonInput, {static: false}) input: IonInput;
 
-  private _minDateStr: string | undefined;
-  private _maxDateStr: string | undefined;
+  private _minDateStr: string|undefined;
+  private _maxDateStr: string|undefined;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService,
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
       private _dvs: AjfDateValueStringPipe) {
     super(cdr, service, was);
   }
 
-  onChange(evt: {detail: {value: string}}): void {
-    if (this.input == null) { return; }
+  onChange(event: Event): void {
+    const evt = event as CustomEvent<InputChangeEventDetail>;
+    if (this.input == null || evt.detail == null) {
+      return;
+    }
     const val = evt.detail.value || '';
     if (val.length > 0) {
-      if (
-        (this._minDateStr != null && val < this._minDateStr)
-        || (this._maxDateStr != null && val > this._maxDateStr)
-      ) {
+      if ((this._minDateStr != null && val < this._minDateStr) ||
+          (this._maxDateStr != null && val > this._maxDateStr)) {
         this.input.value = '';
       }
     }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -26,7 +26,6 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {AjfReportBuilderService} from './report-builder-service';
 
 @Component({
-  moduleId: module.id,
   selector: 'toolbar-dialog',
   templateUrl: 'toolbar-dialog.html',
   encapsulation: ViewEncapsulation.None,
@@ -34,15 +33,14 @@ import {AjfReportBuilderService} from './report-builder-service';
 })
 export class AjfReportBuilderToolbarDialog {
   constructor(
-    private _service: AjfReportBuilderService,
-    private _dialogRef: MatDialogRef<AjfReportBuilderToolbarDialog>
-  ) { }
+      private _service: AjfReportBuilderService,
+      private _dialogRef: MatDialogRef<AjfReportBuilderToolbarDialog>) {}
 
   resetReport() {
     let emptyReport: any = {
-      'header': { 'content': [], 'styles': {} },
-      'content': { 'content': [], 'styles': {} },
-      'footer': { 'content': [], 'styles': {} },
+      'header': {'content': [], 'styles': {}},
+      'content': {'content': [], 'styles': {}},
+      'footer': {'content': [], 'styles': {}},
       'styles': {}
     };
     this._service.setReport(emptyReport);

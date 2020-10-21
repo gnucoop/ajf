@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -73,7 +73,7 @@ export class AjfValidationService {
       */
     var sum = function(array) {return array.reduce(function(a, b){ return a + b; }, 0); }`,
     `var dateOperations = function(dString, period, operation, v) {
-        fmt = 'MM/DD/YYYY';
+        fmt = 'mm/dd/yyyy';
         var d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
         if (operation == 'remove') {
           v = -v;
@@ -147,7 +147,7 @@ export class AjfValidationService {
         }
         return sum;
       }`,
-      `/**
+    `/**
         * extract the array of sum for each week != null
         * @param  source array of object wich contains property
         * @param  propertues string array the properties to sum
@@ -207,7 +207,7 @@ export class AjfValidationService {
               case "WW":
                 prefix = "W";
                 break;
-              case "MM":
+              case "mm":
                 prefix = "M";
                 break;
               default:
@@ -343,11 +343,11 @@ export class AjfValidationService {
         return numeral(num).format(fmt);
       }`,
     `var formatDate = function(date, fmt) {
-        fmt = fmt || 'MM-DD-YYYY';
+        fmt = fmt || 'mm-dd-yyyy';
         return dateUtils.format(date, fmt);
       }`,
     `var isoMonth = function(date, fmt) {
-        fmt = fmt || 'MM';
+        fmt = fmt || 'mm';
         var du = dateUtils;
         return du.format(du.addDays(du.startOfMonth(date), 4),fmt)
       }`,
@@ -370,14 +370,14 @@ export class AjfValidationService {
       }`
   ];
 
-  private _functions: (Function | string)[] = [];
+  private _functions: (Function|string)[] = [];
   private _functionsStr: string = '';
 
   constructor() {
     this._initFunctions();
   }
 
-  addFunction(f: Function | string): void {
+  addFunction(f: Function|string): void {
     this._functions.push(f);
     this._initFunctions();
   }
@@ -389,9 +389,8 @@ export class AjfValidationService {
   }
 
   private _initFunctions(): void {
-    const functionsStr = this._functions
-      .map(f => typeof f === 'string' ? f : f.toString())
-      .join('; ');
+    const functionsStr =
+        this._functions.map(f => typeof f === 'string' ? f : f.toString()).join('; ');
     this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
     AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
   }

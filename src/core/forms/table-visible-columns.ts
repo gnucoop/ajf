@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,19 +21,25 @@
  */
 
 import {Pipe, PipeTransform} from '@angular/core';
-import {FormControl} from '@angular/forms';
 import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
+import {AjfTableFormControl} from './interface/forms/table-form-control';
 
 @Pipe({name: 'ajfTableVisibleColumns'})
 export class AjfTableVisibleColumnsPipe implements PipeTransform {
-  transform(instance: AjfTableFieldInstance): (string|number|FormControl)[][] {
+  transform(instance: AjfTableFieldInstance): (string|number|AjfTableFormControl)[][] {
     if (!instance.node.editable) {
-      return instance.hideEmptyRows
-        ? (instance.value || []).filter(col => col[1].reduce((prev: boolean, cur) => {
-          return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
-        }, false)).map(v => [v[0], ...v[1]])
-        : instance.value.map(v => [v[0], ...v[1]]);
+      const val = instance.value || [];
+      return instance.hideEmptyRows ?
+          val.filter(
+                 col => col[1].reduce(
+                     (prev: boolean, cur) => {
+                       return prev || (cur != null && cur !== '' && cur !== 0 && cur !== '0');
+                     },
+                     false))
+              .map(v => [v[0], ...v[1]]) :
+          val.map(v => [v[0], ...v[1]]);
     }
-    return (instance.controls || []).map(v => [v[0], ...v[1]]);
+    return ((instance.controls as [string, (string | AjfTableFormControl)[]][]) || [])
+        .map(v => [v[0], ...v[1]]);
   }
 }

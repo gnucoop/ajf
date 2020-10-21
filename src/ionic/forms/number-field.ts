@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,40 +20,53 @@
  *
  */
 
-import {AjfInputFieldComponent as CoreComponent, AjfFormRendererService} from '@ajf/core/forms';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit,
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFormRendererService,
+  AjfInputFieldComponent as CoreComponent
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Inject,
+  OnDestroy,
+  OnInit,
   ViewEncapsulation
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
-import {filter, switchMap, startWith, withLatestFrom} from 'rxjs/operators';
+import {filter, startWith, switchMap, withLatestFrom} from 'rxjs/operators';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'number-field.html',
   styleUrls: ['number-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy, OnInit {
-  readonly value: Observable<number | null>;
+  readonly value: Observable<number|null>;
 
-  private _setValueEvt: EventEmitter<number | null> = new EventEmitter<number | null>();
+  private _setValueEvt: EventEmitter<number|null> = new EventEmitter<number|null>();
   private _setValueSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
     this.type = 'number';
 
-    this.value = defer(() => this.control.pipe(
-      filter(control => control != null),
-      switchMap(control => control!.valueChanges.pipe(
-        startWith(control!.value),
-      )),
-    ));
+    this.value = defer(
+                     () => this.control.pipe(
+                         filter(control => control != null),
+                         switchMap(
+                             control => control!.valueChanges.pipe(
+                                 startWith(control!.value),
+                                 )),
+                         )) as Observable<number|null>;
   }
 
   ngOnDestroy(): void {
@@ -64,12 +77,17 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
 
   ngOnInit(): void {
     super.ngOnInit();
-    this._setValueSub = this._setValueEvt.pipe(
-      withLatestFrom(this.control),
-    ).subscribe(([value, control]) => {
-      if (control == null) { return; }
-      control.setValue(value);
-    });
+    this._setValueSub = this._setValueEvt
+                            .pipe(
+                                withLatestFrom(this.control),
+                                )
+                            .subscribe(([value, ctrl]) => {
+                              if (ctrl == null) {
+                                return;
+                              }
+                              const control = ctrl as FormControl;
+                              control.setValue(value);
+                            });
   }
 
   setValue(value: any): void {

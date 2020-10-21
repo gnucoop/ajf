@@ -4,6 +4,7 @@
 /src/core/chart/*                                  @trik
 /src/core/checkbox-group/*                         @trik
 /src/core/common/*                                 @trik
+/src/core/file-input/**/*                          @trik
 /src/core/forms/**/*                               @trik
 /src/core/image/*                                  @trik
 /src/core/map/*                                    @trik
@@ -13,6 +14,7 @@
 /src/core/page-slider/*                            @trik
 /src/core/reports/**/*                             @trik
 /src/core/table/*                                  @trik
+/src/core/testing/private/**/*                     @trik
 /src/core/text/*                                   @trik
 /src/core/time/*                                   @trik
 /src/core/utils/*                                  @trik
@@ -56,74 +58,71 @@
 
 # Docs examples & guides
 /guides/**                                         @trik
-/src/material-examples/**                          @trik
-/src/ionic-examples/**                             @trik
+/src/ajf-examples/**                               @trik
 
-# Dev app material
-/src/dev-app-mat/*                                 @trik
-/src/dev-app-mat/barcode/**                        @peppedeka
-/src/dev-app-mat/calendar/**                       @trik
-/src/dev-app-mat/calendar-ethiopian/**             @trik
-/src/dev-app-mat/checkbox-group/**                 @trik
-/src/dev-app-mat/dev-app/**                        @trik
-/src/dev-app-mat/example/**                        @trik
-/src/dev-app-mat/examples-page/**                  @trik
-/src/dev-app-mat/form-builder/**                   @trik
-/src/dev-app-mat/fields/**                         @trik
-/src/dev-app-mat/forms/**                          @trik
-/src/dev-app-mat/image/**                          @trik
-/src/dev-app-mat/node-icon/**                      @trik
-/src/dev-app-mat/page-slider/**                    @trik
-/src/dev-app-mat/report-builder/**                 @trik
-/src/dev-app-mat/reports/**                        @trik
-/src/dev-app-mat/time/**                           @trik
-/src/dev-app-mat/widgets/**                        @trik
+# Dev app
+/src/dev-app/*                                     @trik
+/src/dev-app/dev-app/**                            @trik
+/src/dev-app/example/**                            @trik
+/src/dev-app/examples-page/**                      @trik
+/src/dev-app/file-input/**                         @trik
+/src/dev-app/ion-barcode/**                        @peppedeka
+/src/dev-app/ion-calendar/**                       @trik
+/src/dev-app/ion-checkbox-group/**                 @trik
+/src/dev-app/ion-fields/**                         @trik
+/src/dev-app/ion-forms/**                          @trik
+/src/dev-app/ion-image/**                          @trik
+/src/dev-app/ion-node-icon/**                      @trik
+/src/dev-app/ion-page-slider/**                    @trik
+/src/dev-app/ion-reports/**                        @trik
+/src/dev-app/ion-widgets/**                        @trik
+/src/dev-app/mat-barcode/**                        @peppedeka
+/src/dev-app/mat-calendar/**                       @trik
+/src/dev-app/mat-calendar-ethiopian/**             @trik
+/src/dev-app/mat-checkbox-group/**                 @trik
+/src/dev-app/mat-form-builder/**                   @trik
+/src/dev-app/mat-fields/**                         @trik
+/src/dev-app/mat-forms/**                          @trik
+/src/dev-app/mat-image/**                          @trik
+/src/dev-app/mat-node-icon/**                      @trik
+/src/dev-app/mat-page-slider/**                    @trik
+/src/dev-app/mat-report-builder/**                 @trik
+/src/dev-app/mat-reports/**                        @trik
+/src/dev-app/mat-time/**                           @trik
+/src/dev-app/mat-widgets/**                        @trik
 
-# Dev app ionic
-/src/dev-app-ion/*                                 @trik
-/src/dev-app-ion/barcode/**                        @peppedeka
-/src/dev-app-ion/calendar/**                       @trik
-/src/dev-app-ion/checkbox-group/**                 @trik
-/src/dev-app-ion/dev-app/**                        @trik
-/src/dev-app-ion/example/**                        @trik
-/src/dev-app-ion/examples-page/**                  @trik
-/src/dev-app-ion/fields/**                         @trik
-/src/dev-app-ion/forms/**                          @trik
-/src/dev-app-ion/image/**                          @trik
-/src/dev-app-ion/node-icon/**                      @trik
-/src/dev-app-ion/page-slider/**                    @trik
-/src/dev-app-ion/reports/**                        @trik
-/src/dev-app-ion/widgets/**                        @trik
+# E2E app
+/src/e2e-app/*                                     @trik
+/src/e2e-app/e2e-app/*                             @trik
+/src/e2e-app/example-viewer/*                      @trik
+/src/e2e-app/file-input/*                          @trik
+/src/e2e-app/ion-calendar/*                        @trik
+/src/e2e-app/ion-date-input-field/*                @trik
+/src/e2e-app/mat-calendar/*                        @trik
+/src/e2e-app/mat-date-input-field/*                @trik
+/src/e2e-app/mat-table-field/*                     @trik
 
-# E2E app material
-/src/e2e-app-mat/*                                 @trik
-/src/e2e-app-mat/calendar/*                        @trik
-/src/e2e-app-mat/date-input-field/*                @trik
-/src/e2e-app-mat/e2e-app/**                        @trik
-/src/e2e-app-mat/example-viewer/**                 @trik
-/src/e2e-app-mat/table-field/*                     @trik
+# Universal app
+/src/universal-app/**                              @trik
 
-# E2E app ionic
-/src/e2e-app-ion/*                                 @trik
-/src/e2e-app-ion/calendar/*                        @trik
-/src/e2e-app-ion/date-input-field/*                @trik
-/src/e2e-app-ion/e2e-app/**                        @trik
-/src/e2e-app-ion/example-viewer/**                 @trik
-
-# Universal app material
-/src/universal-app-mat/**                          @trik
-
-# Universal app ionic
-/src/universal-app-ion/**                          @trik
+# Integration tests
+/integration/**                                    @trik
 
 # Tooling
 /.circleci/**                                      @trik
 /.jenkins/**                                       @trik
+/.yarn/**                                          @trik
 /scripts/**                                        @trik
 /test/**                                           @trik
 /tools/**                                          @trik
 
 # Misc
-/*                                                 @trik
 /.github/**                                        @trik
+/.github/CODEOWNERS                                @trik
+/.github/ISSUE_TEMPLATE/**                         @trik
+/.vscode/**                                        @trik
+/.ng-dev/**                                        @trik
+/goldens/size-test.yml                             @trik
+/goldens/**                                        @trik
 /src/*                                             @trik
+/*                                                 @trik

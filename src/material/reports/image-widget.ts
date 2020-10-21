@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,13 +20,16 @@
  *
  */
 
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
-  ViewEncapsulation} from '@angular/core';
-
 import {AjfBaseWidgetComponent, AjfImageWidgetInstance} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'image-widget.html',
   styleUrls: ['image-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

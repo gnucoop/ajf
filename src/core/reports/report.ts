@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,24 +20,28 @@
  *
  */
 
-import {ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectorRef, Directive, Input} from '@angular/core';
 
 import {AjfReportInstance} from './interface/reports-instances/report-instance';
 import {AjfReport} from './interface/reports/report';
 
+@Directive()
 export abstract class AjfReportRenderer {
   private _instance: AjfReportInstance;
-  get instance(): AjfReportInstance { return this._instance; }
+  get instance(): AjfReportInstance {
+    return this._instance;
+  }
+  @Input()
   set instance(instance: AjfReportInstance) {
     this._instance = instance;
     this._report = instance != null ? instance.report : null;
     this._cdr.markForCheck();
   }
 
-  private _report: AjfReport | null;
-  get report(): AjfReport | null {
+  private _report: AjfReport|null;
+  get report(): AjfReport|null {
     return this._report;
   }
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  constructor(private _cdr: ChangeDetectorRef) {}
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -26,12 +26,11 @@ import {
 import {AjfChoicesOriginCreate} from './create-choices-origin';
 
 export type AjfChoicesObservableArrayOriginCreate<T> =
-  Omit<AjfChoicesOriginCreate<T>, 'type'>&Pick<AjfChoicesObservableArrayOrigin<T>, 'generator'>
-  &Partial<AjfChoicesObservableArrayOrigin<T>>;
+    Omit<AjfChoicesOriginCreate<T>, 'type'>&Pick<AjfChoicesObservableArrayOrigin<T>, 'generator'>&
+    Partial<AjfChoicesObservableArrayOrigin<T>>;
 
 export function createChoicesObservableArrayOrigin<T>(
-  origin: AjfChoicesObservableArrayOriginCreate<T>
-): AjfChoicesObservableArrayOrigin<T> {
+    origin: AjfChoicesObservableArrayOriginCreate<T>): AjfChoicesObservableArrayOrigin<T> {
   return {
     ...origin,
     type: 'observableArray',

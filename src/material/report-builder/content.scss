@@ -27,7 +27,7 @@ ajf-report-builder-content {
       }
 
       .ajf-drop-zone-container {
-        background-color:rgba(66, 134, 244, 0.2) !important;
+        background-color: rgba(66, 134, 244, 0.2) !important;
         border: 23px solid white !important;
       }
     }
@@ -35,7 +35,7 @@ ajf-report-builder-content {
     .ajf-header, .ajf-footer {
       border: 23px solid rgba(255, 102, 102, 0.4) !important;
       .ajf-drop-zone-container {
-        background-color:rgba(255, 102, 102, 0.4) !important;
+        background-color: rgba(255, 102, 102, 0.4) !important;
       }
       .ajf-drop-zone {
         background-color: rgba(255, 102, 102, 0.4)  !important;
@@ -45,9 +45,9 @@ ajf-report-builder-content {
     .ajf-drop-zone-container {
       background-color: black;
       border: 16px solid white;
-      position:relative;
+      position: relative;
       opacity: 0;
-      z-index:0;
+      z-index: 0;
       min-height: 50px !important;
       display: none !important;
     }
@@ -103,7 +103,7 @@ ajf-report-builder-content {
   }
 
   .ajf-my-content {
-    width:100%;
+    width: 100%;
     white-space: nowrap;
     overflow-y: auto;
   }

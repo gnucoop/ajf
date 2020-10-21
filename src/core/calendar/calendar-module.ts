@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -33,11 +33,13 @@ import {AjfCalendarService} from './calendar-service';
     AjfCalendarEntryLabelPipe,
   ],
 })
-export class AjfCalendarModule { }
+export class AjfCalendarModule {
+}
 
 @NgModule({
   providers: [
     AjfCalendarService,
   ],
 })
-export class AjfGregorianCalendarModule { }
+export class AjfGregorianCalendarModule {
+}

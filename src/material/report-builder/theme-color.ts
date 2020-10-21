@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -23,7 +23,12 @@
 import {AjfWidget} from '@ajf/core/reports';
 import {deepCopy} from '@ajf/core/utils';
 import {
-  ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
@@ -38,7 +43,6 @@ import {AjfReportBuilderThemeColorDialog} from './theme-color-dialog';
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-theme-color',
   templateUrl: 'theme-color.html',
   styleUrls: ['theme-color.css'],
@@ -59,14 +63,11 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
   styleBackgroundColor = 'rgb(255,255,255,0)';
   styleColor = 'rgb(0,0,0,0)';
 
-  @Input()
-  section: string;
+  @Input() section: string;
 
-  @Input()
-  label: string;
+  @Input() label: string;
 
-  @Input()
-  init: string;
+  @Input() init: string;
 
   /**
    * the name of the section that contains the currentWidget
@@ -82,11 +83,7 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
   private _contentStylesSub: Subscription = Subscription.EMPTY;
   private _footerStylesSub: Subscription = Subscription.EMPTY;
 
-  constructor(
-    private _service: AjfReportBuilderService,
-    public dialog: MatDialog
-  ) {
-  }
+  constructor(private _service: AjfReportBuilderService, public dialog: MatDialog) {}
 
   setStyles(value: any) {
     switch (this.section) {
@@ -114,7 +111,6 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
   }
 
   setAlphaColor(value: any) {
-
     value = value.toFixed(2);
     for (let i = 0; i < this.colors.length; i++) {
       let lastComma = this.colors[i].lastIndexOf(',');
@@ -187,7 +183,9 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
   }
 
   setStyle() {
-    if (this.currentWidget == null) { return; }
+    if (this.currentWidget == null) {
+      return;
+    }
     this.currentWidget.styles = deepCopy(this.currentWidget.styles);
     this._service.updateCurrentWidget(this.currentWidget);
   }
@@ -197,23 +195,19 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this._colorsSub = this._service.colors.subscribe(x => {
+      this.colors = x;
+    });
 
-    this._colorsSub = this._service.colors
-      .subscribe(x => {
-        this.colors = x;
-      }
-      );
-
-    this._currentWidgetSub = this._service.currentWidget
-      .subscribe(x => {
-        if (x != null) {
-          if (this.currentWidget !== x) {
-            this.currentWidget = x;
-          }
-        } else {
-          this.currentWidget = null;
+    this._currentWidgetSub = this._service.currentWidget.subscribe(x => {
+      if (x != null) {
+        if (this.currentWidget !== x) {
+          this.currentWidget = x;
         }
-      });
+      } else {
+        this.currentWidget = null;
+      }
+    });
 
     this.getColorWidget = this._service.currentWidget.pipe(
         map((myObj: AjfWidget|null) => {
@@ -253,4 +247,3 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
     this._footerStylesSub.unsubscribe();
   }
 }
-

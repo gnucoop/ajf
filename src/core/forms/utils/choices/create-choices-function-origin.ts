@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -23,13 +23,11 @@
 import {AjfChoicesFunctionOrigin} from '../../interface/choices/choices-function-origin';
 import {AjfChoicesOriginCreate} from './create-choices-origin';
 
-export type AjfChoicesFunctionOriginCreate<T> =
-  Omit<AjfChoicesOriginCreate<T>, 'type'>&Pick<AjfChoicesFunctionOrigin<T>, 'generator'>
-  &Partial<AjfChoicesFunctionOrigin<T>>;
+export type AjfChoicesFunctionOriginCreate<T> = Omit<AjfChoicesOriginCreate<T>, 'type'>&
+    Pick<AjfChoicesFunctionOrigin<T>, 'generator'>&Partial<AjfChoicesFunctionOrigin<T>>;
 
-export function createChoicesFunctionOrigin<T>(
-  origin: AjfChoicesFunctionOriginCreate<T>
-): AjfChoicesFunctionOrigin<T> {
+export function createChoicesFunctionOrigin<T>(origin: AjfChoicesFunctionOriginCreate<T>):
+    AjfChoicesFunctionOrigin<T> {
   return {
     ...origin,
     type: 'function',

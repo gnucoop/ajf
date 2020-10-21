@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -26,10 +26,11 @@ import {AjfChartComponent} from './chart';
 
 @NgModule({
   declarations: [
-    AjfChartComponent
+    AjfChartComponent,
   ],
   exports: [
-    AjfChartComponent
-  ]
+    AjfChartComponent,
+  ],
 })
-export class AjfChartModule { }
+export class AjfChartModule {
+}

@@ -1,0 +1,15 @@
+load("//tools:defaults.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "example",
+    srcs = glob(["**/*.ts"]),
+    deps = [
+        "//src/ajf-examples",
+        "//src/ajf-examples/private",
+        "@npm//@angular/cdk",
+        "@npm//@angular/elements",
+        "@npm//@angular/material",
+    ],
+)

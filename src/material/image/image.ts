@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,26 +20,22 @@
  *
  */
 
+import {AjfImage as AjfCoreImage} from '@ajf/core/image';
 import {
-  ChangeDetectionStrategy, Component, ElementRef, Renderer2, ViewEncapsulation
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Renderer2,
+  ViewEncapsulation
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
-import {AjfImage as AjfCoreImage} from '@ajf/core/image';
-
 @Component({
-  moduleId: module.id,
   selector: 'ajf-image',
   templateUrl: 'image.html',
   styleUrls: ['image.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  inputs: [
-    'type',
-    'icon',
-    'imageUrl',
-    'flag'
-  ],
 })
 export class AjfImage extends AjfCoreImage {
   constructor(el: ElementRef, renderer: Renderer2, ds: DomSanitizer) {

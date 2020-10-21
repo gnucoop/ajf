@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,11 +20,10 @@
  *
  */
 
-import * as Chart from 'chart.js';
-const chartClass = (<any>Chart).default || Chart;
+import {Chart} from 'chart.js';
 
 export function registerChartPlugins(plugins: any[]) {
   if (plugins != null && plugins.length > 0) {
-    plugins.forEach(plugin => chartClass.plugins.register(plugin));
+    plugins.forEach(plugin => Chart.plugins.register(plugin));
   }
 }

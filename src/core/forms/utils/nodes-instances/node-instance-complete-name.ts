@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -24,7 +24,7 @@ import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 import {nodeInstanceSuffix} from './node-instance-suffix';
 
 export function nodeInstanceCompleteName(instance: AjfNodeInstance): string {
-  return instance != null && instance.node != null
-    ? `${instance.node.name}${nodeInstanceSuffix(instance)}`
-    : '';
+  return instance != null && instance.node != null ?
+      `${instance.node.name}${nodeInstanceSuffix(instance)}` :
+      '';
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,29 +20,29 @@
  *
  */
 
+import {AjfCheckboxGroupModule as AjfCoreCheckboxGroupModule} from '@ajf/core/checkbox-group';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-
-import {AjfCheckboxGroupModule as AjfCoreCheckboxGroupModule} from '@ajf/core/checkbox-group';
 
 import {CheckboxGroupItem} from './checkbox-group-item';
 
 
 @NgModule({
   imports: [
+    AjfCoreCheckboxGroupModule,
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    AjfCoreCheckboxGroupModule
   ],
   declarations: [
-    CheckboxGroupItem
+    CheckboxGroupItem,
   ],
   exports: [
     AjfCoreCheckboxGroupModule,
-    CheckboxGroupItem
-  ]
+    CheckboxGroupItem,
+  ],
 })
-export class AjfCheckboxGroupModule { }
+export class AjfCheckboxGroupModule {
+}

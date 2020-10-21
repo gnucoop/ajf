@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -28,11 +28,11 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-page-break',
   templateUrl: 'page-break.html',
   styleUrls: ['page-break.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AjfPageBreakComponent { }
+export class AjfPageBreakComponent {
+}

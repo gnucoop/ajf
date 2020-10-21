@@ -12,9 +12,9 @@ ajf-report-builder-renderer-widget {
       .ajf-columns {
         border: 9px solid red !important;
         height: 100%;
-        margin-bottom:20px;
-        padding-bottom:20px;
-        padding-top:20px;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        padding-top: 20px;
 
         .ajf-fixed {
           border: 9px solid yellow !important;
@@ -24,7 +24,7 @@ ajf-report-builder-renderer-widget {
 
           border: 9px solid yellowgreen;
           margin-left: 10px;
-          margin-right:10px;
+          margin-right: 10px;
           border-radius: 36px;
           height: 100%;
 
@@ -42,12 +42,12 @@ ajf-report-builder-renderer-widget {
     }
   }
   .ajf-container {
-    height:inherit;
+    height: inherit;
     display: block;
     min-height: 50px;
   }
   .ajf-row-button {
-    width:100%;
+    width: 100%;
   }
 
   .ajf-container:hover {
@@ -79,7 +79,7 @@ ajf-report-builder-renderer-widget {
   }
 
   .ajf-row {
-    display:flex;
+    display: flex;
     flex-direction: column;
     height: 100%;
   }
@@ -114,7 +114,7 @@ ajf-report-builder-renderer-widget {
     min-width: 100px;
   }
   .ajf-column-drop-zone {
-    margin:10%;
+    margin: 10%;
     height: 50px;
     background-color: white;
     border: 9px solid  rgba(66, 134, 244, 0.6);
@@ -135,8 +135,8 @@ ajf-report-builder-renderer-widget {
   }
 
   mat-list {
-      height:100%;
-      padding: 0;
+    height: 100%;
+    padding: 0;
   }
 
   .ajf-ui.ajf-fluid.ajf-image {

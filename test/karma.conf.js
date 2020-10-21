@@ -1,23 +1,38 @@
 const path = require('path');
 const {customLaunchers, platformMap} = require('./browser-providers');
 
-module.exports = (config) => {
-
+module.exports = config => {
   config.set({
     basePath: path.join(__dirname, '..'),
     frameworks: ['jasmine'],
+    middleware: ['fake-url'],
     plugins: [
-      require('karma-jasmine'),
-      require('karma-browserstack-launcher'),
-      require('karma-sauce-launcher'),
-      require('karma-chrome-launcher'),
-      require('karma-firefox-launcher'),
-      require('karma-sourcemap-loader'),
+      require('karma-jasmine'), require('karma-browserstack-launcher'),
+      require('karma-sauce-launcher'), require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'), require('karma-sourcemap-loader'), {
+        'middleware:fake-url': [
+          'factory',
+          function() {
+            // Middleware that avoids triggering 404s during tests that need to reference
+            // image paths. Assumes that the image path will start with `/$`.
+            return function(request, response, next) {
+              if (request.url.indexOf('/$') === 0) {
+                response.writeHead(200);
+                return response.end();
+              }
+
+              next();
+            }
+          }
+        ]
+      }
     ],
     files: [
       {pattern: 'node_modules/core-js/client/core.min.js', included: true, watched: false},
-      {pattern: 'node_modules/tslib/tslib.js', included: true, watched: false},
+      {pattern: 'node_modules/core-js/client/core.min.js.map', included: false, watched: false},
+      {pattern: 'node_modules/tslib/tslib.js', included: false, watched: false},
       {pattern: 'node_modules/systemjs/dist/system.js', included: true, watched: false},
+      {pattern: 'node_modules/systemjs/dist/system.js.map', included: false, watched: false},
       {pattern: 'node_modules/zone.js/dist/zone.min.js', included: true, watched: false},
       {pattern: 'node_modules/zone.js/dist/proxy.min.js', included: true, watched: false},
       {pattern: 'node_modules/zone.js/dist/sync-test.js', included: true, watched: false},
@@ -38,18 +53,22 @@ module.exports = (config) => {
       {pattern: 'node_modules/@zxing/library/umd/index.min.js', included: false, watched: false},
 
       {pattern: 'node_modules/chart.js/Chart.umd.js', included: false, watched: false},
-      {pattern: 'node_modules/chart.piecelabel.js/build/Chart.PieceLabel.min.js', included: false, watched: false},
       {pattern: 'node_modules/css-element-queries/css-element-queries.umd.js', included: false, watched: false},
       {pattern: 'node_modules/date-fns/date-fns.umd.js', included: false, watched: false},
-      {pattern: 'node_modules/debug/debug.umd.js', included: false, watched: false},
       {pattern: 'node_modules/esprima/esprima.umd.js', included: false, watched: false},
       {pattern: 'node_modules/leaflet/leaflet.umd.js', included: false, watched: false},
       {pattern: 'node_modules/moment/min/moment.min.js', included: false, watched: false},
       {pattern: 'node_modules/numeral/numeral.umd.js', included: false, watched: false},
       {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},
 
-      {pattern: 'test/karma-system-config.js', included: true, watched: false},
+      // The Karma system configuration is built by Bazel. The built System config
+      // is copied into the "dist/" folder so that the Karma config can use it.
+      {pattern: 'dist/karma-system-config.js', included: true, watched: false},
       {pattern: 'test/karma-test-shim.js', included: true, watched: false},
+
+      // Needed for exposing the RxJS operators through the RxJS UMD bundle. This
+      // is done for performance reasons since fetching individual files is slow.
+      {pattern: 'tools/system-rxjs-operators.js', included: false, watched: false},
 
       // Includes all package tests and source files into karma. Those files will be watched.
       // This pattern also matches all sourcemap files and TypeScript files for debugging.
@@ -58,9 +77,7 @@ module.exports = (config) => {
 
     customLaunchers: customLaunchers,
 
-    preprocessors: {
-      'dist/packages/**/*.js': ['sourcemap']
-    },
+    preprocessors: {'dist/packages/**/*.js': ['sourcemap']},
 
     reporters: ['dots'],
     autoWatch: false,
@@ -83,21 +100,16 @@ module.exports = (config) => {
       video: false,
     },
 
-    browserDisconnectTimeout: 180000,
-    browserDisconnectTolerance: 3,
+    browserDisconnectTolerance: 1,
     browserNoActivityTimeout: 300000,
-    captureTimeout: 180000,
 
-    browsers: ['ChromeHeadlessLocal'],
+    browsers: [],
     singleRun: false,
 
     // Try Websocket for a faster transmission first. Fallback to polling if necessary.
     transports: ['websocket', 'polling'],
 
-    browserConsoleLogOptions: {
-      terminal: true,
-      level: 'log'
-    },
+    browserConsoleLogOptions: {terminal: true, level: 'log'},
 
     client: {
       jasmine: {
@@ -136,6 +148,18 @@ module.exports = (config) => {
     } else if (testPlatform === 'saucelabs') {
       config.sauceLabs.build = buildIdentifier;
       config.sauceLabs.tunnelIdentifier = tunnelIdentifier;
+      // Setup the saucelabs reporter so that we report back to Saucelabs once
+      // our tests finished.
+      config.reporters.push('saucelabs');
+    }
+
+    // If the test platform is not "local", browsers are launched externally and can take
+    // up more time to capture. Also the connection can be flaky and therefore needs a
+    // higher disconnect timeout.
+    if (testPlatform !== 'local') {
+      config.browserDisconnectTimeout = 180000;
+      config.browserDisconnectTolerance = 3;
+      config.captureTimeout = 180000;
     }
 
     const platformBrowsers = platformMap[testPlatform];

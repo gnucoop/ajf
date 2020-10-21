@@ -1,0 +1,26 @@
+<div ajfDnd (file)="onFileDrop($event)" class="ajf-drop-zone">
+  <div *ngIf="value == null; else fileInfo" class="ajf-drop-message" (click)="triggerNativeInput()">
+    <ng-container *ngIf="_dropMessageChildren?.length; else defaultDropMessage">
+      <ng-content select="[ajfDropMessage]"></ng-content>
+    </ng-container>
+    <ng-template #defaultDropMessage>Drop your file here or click to select</ng-template>
+  </div>
+  <ng-template #fileInfo>
+    <button (click)="resetValue()" class="ajf-remove-file">
+      <img [src]="removeIcon" alt="">
+      <div class="ajf-screen-reader-only">{{ 'Delete'|translate }}</div>
+    </button>
+    <div class="ajf-file-info">
+      <ng-container *ngIf="_filePreviewChildren?.length; else defaultFilePreview">
+        <ng-content select="[ajfFilePreview]"></ng-content>
+      </ng-container>
+      <ng-template #defaultFilePreview>
+        <div class="ajf-file-info-content">
+          <img [src]="fileIcon" alt="">
+          <div>{{ value.name }}</div>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+</div>
+<input #nativeInput [accept]="accept" name="" aria-label="file input" type="file" (change)="onSelectFile()">

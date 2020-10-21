@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,22 +20,24 @@
  *
  */
 
-import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef,
-  ViewEncapsulation} from '@angular/core';
-
 import {AjfImageType} from '@ajf/core/image';
 import {AjfBaseWidgetComponent, AjfImageContainerWidgetInstance} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation
+} from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'image-container-widget.html',
   styleUrls: ['image-container-widget.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfImageContainerWidgetComponent
-    extends AjfBaseWidgetComponent<AjfImageContainerWidgetInstance> {
+export class AjfImageContainerWidgetComponent extends
+    AjfBaseWidgetComponent<AjfImageContainerWidgetInstance> {
   readonly imageTypes = AjfImageType;
 
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

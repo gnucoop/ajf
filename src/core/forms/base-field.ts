@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,9 +20,8 @@
  *
  */
 
-import {coerceBooleanProperty} from '@ajf/core/utils';
-import {ChangeDetectorRef, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormControl} from '@angular/forms';
+import {ChangeDetectorRef, Directive, OnDestroy, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, map, withLatestFrom} from 'rxjs/operators';
 
@@ -31,10 +30,13 @@ import {AjfFormRendererService} from './form-renderer';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfWarningAlertService} from './warning-alert-service';
 
+@Directive()
 export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFieldInstance>
     implements OnDestroy, OnInit {
   private _instance: T;
-  get instance(): T { return this._instance; }
+  get instance(): T {
+    return this._instance;
+  }
   set instance(instance: T) {
     if (instance !== this._instance) {
       this._instance = instance;
@@ -43,46 +45,59 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     }
   }
 
-  protected _readonly: boolean;
-  get readonly(): boolean { return this._readonly; }
-  set readonly(readonly: boolean) {
-    this._readonly = coerceBooleanProperty(readonly);
-    this._changeDetectorRef.markForCheck();
+  private _control: Observable<FormControl|null>;
+  get control(): Observable<FormControl|null> {
+    return this._control;
   }
-
-  private _control: Observable<AbstractControl | null>;
-  get control(): Observable<AbstractControl | null> { return this._control; }
 
   private _warningTriggerSub: Subscription = Subscription.EMPTY;
   private _instanceUpdateSub: Subscription = Subscription.EMPTY;
 
   constructor(
-    protected _changeDetectorRef: ChangeDetectorRef,
-    private _service: AjfFormRendererService,
-    private _warningAlertService: AjfWarningAlertService,
+      protected _changeDetectorRef: ChangeDetectorRef,
+      private _service: AjfFormRendererService,
+      private _warningAlertService: AjfWarningAlertService,
   ) {
-    this._control = defer(() => this._service.getControl(this.instance).pipe(
-      map(ctrl => ctrl || new FormControl()),
-    ));
+    this._control = defer(
+                        () => this._service.getControl(this.instance)
+                                  .pipe(
+                                      map(ctrl => (ctrl || new FormControl()) as FormControl),
+                                      )) as Observable<FormControl|null>;
   }
 
   ngOnInit(): void {
-    this._warningTriggerSub = this.instance.warningTrigger.pipe(
-      withLatestFrom(this.control),
-      filter(v => v[1] != null)
-    ).subscribe((v: [void, AbstractControl | null]) => {
-      if (this.instance.warningResults == null) { return; }
-      const control = v[1];
-      const s = this._warningAlertService.showWarningAlertPrompt(
-        this.instance.warningResults.filter(w => w.result).map(w => w.warning)
-      ).subscribe(
-        (r: AjfFieldWarningAlertResult) => {
-          if (r.result) { control!.setValue(null); }
-        },
-        (_e: any) => { if (s) { s.unsubscribe(); }},
-        () => { if (s) { s.unsubscribe(); }}
-      );
-    });
+    this._warningTriggerSub =
+        this.instance.warningTrigger
+            .pipe(
+                withLatestFrom(this.control),
+                filter(([_, ctrl]) => ctrl != null),
+                )
+            .subscribe(([_, ctrl]) => {
+              if (this.instance.warningResults == null) {
+                return;
+              }
+              const control = ctrl as FormControl;
+              const s =
+                  this._warningAlertService
+                      .showWarningAlertPrompt(
+                          this.instance.warningResults.filter(w => w.result).map(w => w.warning))
+                      .subscribe(
+                          (r: AjfFieldWarningAlertResult) => {
+                            if (r.result) {
+                              control!.setValue(null);
+                            }
+                          },
+                          (_e: any) => {
+                            if (s) {
+                              s.unsubscribe();
+                            }
+                          },
+                          () => {
+                            if (s) {
+                              s.unsubscribe();
+                            }
+                          });
+            });
   }
 
   ngOnDestroy(): void {
@@ -90,7 +105,7 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     this._instanceUpdateSub.unsubscribe();
   }
 
-  protected _onInstanceChange(): void { }
+  protected _onInstanceChange(): void {}
 
   private _setUpInstanceUpdate(): void {
     this._instanceUpdateSub.unsubscribe();
@@ -99,7 +114,8 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
         if (this._changeDetectorRef) {
           try {
             this._changeDetectorRef.detectChanges();
-          } catch (e) { }
+          } catch (e) {
+          }
         }
       });
     } else {

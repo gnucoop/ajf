@@ -1,0 +1,25 @@
+load("//tools:defaults.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "calendar",
+    srcs = glob(["**/*.ts"]),
+    assets = glob([
+        "**/*.html",
+        "**/*.css",
+    ]),
+    module_name = "@ajf/ajf-examples/ionic/calendar",
+    deps = [
+        "//src/ionic/calendar",
+    ],
+)
+
+filegroup(
+    name = "source-files",
+    srcs = glob([
+        "**/*.html",
+        "**/*.css",
+        "**/*.ts",
+    ]),
+)

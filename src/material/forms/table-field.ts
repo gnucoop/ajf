@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -21,73 +21,30 @@
  */
 
 import {
-  AjfBaseFieldComponent, AjfFormRendererService, AjfTableFieldInstance
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFormRendererService,
+  AjfTableFieldComponent as AjfCoreTableFieldComponent
 } from '@ajf/core/forms';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewEncapsulation
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
-interface ExtFormControl extends FormControl {
-  show?: boolean;
-}
-
 @Component({
-  moduleId: module.id,
   templateUrl: 'table-field.html',
   styleUrls: ['table-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
+export class AjfTableFieldComponent extends AjfCoreTableFieldComponent {
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
-  }
-
-  goToNextCell(ev: KeyboardEvent, row: number, column: number): void {
-    const rowLength = this.instance.controls[row][1].length;
-    const currentCell = this.instance.controls[row][1][column] as ExtFormControl;
-    if (column + 1 >= rowLength) {
-      column = 0;
-      if (row + 1 >= this.instance.controls.length) {
-        row = 1;
-      } else {
-        row += 1;
-      }
-    } else {
-      column += 1;
-    }
-    if (typeof currentCell !== 'string') {
-      currentCell.show = false;
-    }
-    this._showCell(row, column);
-    ev.preventDefault();
-    ev.stopPropagation();
-  }
-
-  goToCell(row: number, column: number): void {
-    this._resetControls();
-    this._showCell(row, column);
-  }
-
-  private _resetControls(): void {
-    this.instance.controls.forEach(row => row[1].forEach(cell => {
-      if (typeof cell !== 'string') {
-        (cell as ExtFormControl).show = false;
-      }
-    }));
-  }
-
-  private _showCell(row: number, column: number): void {
-    if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
-      return;
-    }
-    const nextCell = this.instance.controls[row][1][column] as ExtFormControl;
-    if (typeof nextCell !== 'string') {
-      nextCell.show = true;
-    }
   }
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,10 +20,9 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-
-import {AjfCommonModule} from '@ajf/core/common';
 
 import {AjfTable} from './table';
 
@@ -39,4 +38,5 @@ import {AjfTable} from './table';
     AjfTable,
   ]
 })
-export class AjfTableModule { }
+export class AjfTableModule {
+}

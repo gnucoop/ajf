@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,8 +20,15 @@
  *
  */
 
+import {AjfCommonModule} from '@ajf/core/common';
+import {AjfFileInputModule} from '@ajf/core/file-input';
+import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 
+import {AjfAsFieldInstancePipe} from './as-field-instance';
+import {AjfAsRepeatingSlideInstancePipe} from './as-repeating-slide-instance';
 import {AjfBoolToIntPipe} from './bool-to-int';
 import {AjfDateValuePipe} from './date-value';
 import {AjfDateValueStringPipe} from './date-value-string';
@@ -29,18 +36,29 @@ import {AjfExpandFieldWithChoicesPipe} from './expand-input-with-choices';
 import {AjfFieldHost} from './field-host';
 import {AjfFieldIconPipe} from './field-icon';
 import {AjfFieldIsValidPipe} from './field-is-valid';
+import {AjfFileFieldComponent} from './file-field';
 import {AjfFormRendererService} from './form-renderer';
+import {AjfGetTableCellControlPipe} from './get-table-cell-control';
+import {AjfImageFieldComponent} from './image-field';
 import {AjfIncrementPipe} from './increment';
+import {AjfIsCellEditablePipe} from './is-cell-editable';
 import {AjfIsRepeatingSlideInstancePipe} from './is-repeating-slide';
 import {AjfNodeCompleteNamePipe} from './node-complete-name';
 import {AjfRangePipe} from './range';
+import {AjfReadOnlyFieldComponent} from './read-only-field';
+import {AjfReadOnlyFileFieldComponent} from './read-only-file-field';
+import {AjfReadOnlyImageFieldComponent} from './read-only-image-field';
+import {AjfReadOnlyTableFieldComponent} from './read-only-table-field';
+import {AjfReadOnlyVideoUrlFieldComponent} from './read-only-video-url-field';
 import {AjfTableRowClass} from './table-row-class';
 import {AjfTableVisibleColumnsPipe} from './table-visible-columns';
-import {AjfValidationService} from './validation-service';
 import {AjfValidSlidePipe} from './valid-slide';
+import {AjfValidationService} from './validation-service';
 
 @NgModule({
   declarations: [
+    AjfAsFieldInstancePipe,
+    AjfAsRepeatingSlideInstancePipe,
     AjfBoolToIntPipe,
     AjfDateValuePipe,
     AjfDateValueStringPipe,
@@ -48,15 +66,33 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfFieldHost,
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
+    AjfFileFieldComponent,
+    AjfGetTableCellControlPipe,
+    AjfImageFieldComponent,
     AjfIncrementPipe,
+    AjfIsCellEditablePipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,
     AjfRangePipe,
+    AjfReadOnlyFieldComponent,
+    AjfReadOnlyFileFieldComponent,
+    AjfReadOnlyImageFieldComponent,
+    AjfReadOnlyTableFieldComponent,
+    AjfReadOnlyVideoUrlFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
+  ],
+  imports: [
+    AjfCommonModule,
+    AjfFileInputModule,
+    CommonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   exports: [
+    AjfAsFieldInstancePipe,
+    AjfAsRepeatingSlideInstancePipe,
     AjfBoolToIntPipe,
     AjfDateValuePipe,
     AjfDateValueStringPipe,
@@ -64,15 +100,28 @@ import {AjfValidSlidePipe} from './valid-slide';
     AjfFieldHost,
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
+    AjfFileFieldComponent,
+    AjfGetTableCellControlPipe,
+    AjfImageFieldComponent,
     AjfIncrementPipe,
+    AjfIsCellEditablePipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,
     AjfRangePipe,
+    AjfReadOnlyFieldComponent,
+    AjfReadOnlyFileFieldComponent,
+    AjfReadOnlyImageFieldComponent,
+    AjfReadOnlyTableFieldComponent,
+    AjfReadOnlyVideoUrlFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
   ],
-  providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService]
+  providers: [
+    AjfDateValueStringPipe,
+    AjfFormRendererService,
+    AjfValidationService,
+  ],
 })
 export class AjfFormsModule {
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,16 +20,13 @@
  *
  */
 
-import {ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 
 import {AjfReportBuilderService} from './report-builder-service';
 import {ajfWidgetTypeStringToIcon, ajfWidgetTypeStringToLabel} from './utils';
 
-
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-custom-widget-toolbar-button',
-  inputs: ['widgetType', 'position'],
   templateUrl: 'custom-widget-toolbar-button.html',
   styleUrls: ['custom-widget-toolbar-button.css'],
   encapsulation: ViewEncapsulation.None,
@@ -40,10 +37,10 @@ import {ajfWidgetTypeStringToIcon, ajfWidgetTypeStringToLabel} from './utils';
  * @implements : OnInit
  */
 export class AjfReportBuilderCustomWidgetToolbarButton implements OnInit {
-  widgetType: string;
+  @Input() widgetType: string;
+  @Input() position: number;
   widgetIcon: string;
   widgetLabel: string;
-  position: number;
   customWidgets: any[] = [];
 
   // {...t, dropZones: ['header','content','footer','column','widget']}
@@ -51,10 +48,7 @@ export class AjfReportBuilderCustomWidgetToolbarButton implements OnInit {
   /**
    * this constructor will init icon registry
    */
-  constructor(
-    private _service: AjfReportBuilderService
-  ) {
-  }
+  constructor(private _service: AjfReportBuilderService) {}
 
   /**
    * this method call a service method for remove custom widget

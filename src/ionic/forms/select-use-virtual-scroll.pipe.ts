@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,9 +20,8 @@
  *
  */
 
-import {Pipe, PipeTransform} from '@angular/core';
-
 import {AjfFieldWithChoicesInstance} from '@ajf/core/forms';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({name: 'ajfSelectUseVirtualScroll'})
 export class AjfSelectUseVirtualScroll implements PipeTransform {

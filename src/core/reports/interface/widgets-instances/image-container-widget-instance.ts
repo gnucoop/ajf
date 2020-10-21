@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,12 +20,14 @@
  *
  */
 
+import {AjfImageIcon} from '@ajf/core/image';
+
 import {AjfImageContainerWidget} from '../widgets/image-container-widget';
 import {AjfWidgetInstance} from './widget-instance';
 
 export interface AjfImageContainerWidgetInstance extends AjfWidgetInstance {
   widget: AjfImageContainerWidget;
-  icons: string[];
+  icons: AjfImageIcon[];
   flags: string[];
   urls: string[];
 }

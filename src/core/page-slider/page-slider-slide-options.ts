@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,13 +20,10 @@
  *
  */
 
-export type AjfHorizontalPageSliderSlideDirection = 'left' | 'right';
-export type AjfVerticalPageSliderSlideDirection = 'up' | 'down';
+export type AjfHorizontalPageSliderSlideDirection = 'left'|'right';
+export type AjfVerticalPageSliderSlideDirection = 'up'|'down';
 export type AjfPageSliderSlideDirection =
-  'back'
-  | 'forward'
-  | AjfHorizontalPageSliderSlideDirection
-  | AjfVerticalPageSliderSlideDirection;
+    'back'|'forward'|AjfHorizontalPageSliderSlideDirection|AjfVerticalPageSliderSlideDirection;
 
 export interface AjfPageSliderSlideOptions {
   dir?: AjfPageSliderSlideDirection;

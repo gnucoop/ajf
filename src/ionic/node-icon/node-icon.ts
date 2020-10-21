@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,18 +20,15 @@
  *
  */
 
+import {AjfNodeIcon as AjfCoreNodeIcon} from '@ajf/core/node-icon';
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 
-import {AjfNodeIcon as AjfCoreNodeIcon} from '@ajf/core/node-icon';
-
-
 @Component({
-  moduleId: module.id,
   selector: 'ajf-node-icon',
   templateUrl: 'node-icon.html',
   styleUrls: ['node-icon.css'],
-  inputs: ['node'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AjfNodeIcon extends AjfCoreNodeIcon { }
+export class AjfNodeIcon extends AjfCoreNodeIcon {
+}

@@ -1,0 +1,21 @@
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "ion-forms",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "forms-demo.html",
+        ":forms_demo_scss",
+    ],
+    deps = [
+        "//src/ionic/forms",
+        "@npm//@angular/router",
+    ],
+)
+
+sass_binary(
+    name = "forms_demo_scss",
+    src = "forms-demo.scss",
+)

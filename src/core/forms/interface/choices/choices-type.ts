@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,7 +20,7 @@
  *
  */
 
-export enum AjfChoicesType {
+export const enum AjfChoicesType {
   String,
   Number,
   LENGTH

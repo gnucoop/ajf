@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -24,7 +24,12 @@ import {AjfStyles, AjfWidget, AjfWidgetType} from '@ajf/core/reports';
 import {deepCopy} from '@ajf/core/utils';
 import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 import {
-  AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit,
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import {Observable, Subscription, timer} from 'rxjs';
@@ -38,16 +43,12 @@ import {AjfReportBuilderService} from './report-builder-service';
  * @export
  */
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-content',
   templateUrl: 'content.html',
   styleUrls: ['content.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '(mouseover)': 'onMouseOver()',
-    '(mouseleave)': 'onMouseLeave()'
-  }
+  host: {'(mouseover)': 'onMouseOver()', '(mouseleave)': 'onMouseLeave()'}
 })
 export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDestroy {
   onMouseOver(): void {
@@ -60,13 +61,13 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
     this._service.overEnded();
   }
 
-  canDropPredicate(
-    dropZones: string[]
-  ): (item: CdkDrag<AjfReportBuilderDragData>) => boolean {
+  canDropPredicate(dropZones: string[]): (item: CdkDrag<AjfReportBuilderDragData>) => boolean {
     return item => {
-      item.data.dropZones.forEach(d => {
-        if (dropZones.indexOf(d) > -1) { return true; }
-      });
+      for (let i = 0; i < item.data.dropZones.length; i++) {
+        if (dropZones.indexOf(item.data.dropZones[i]) > -1) {
+          return true;
+        }
+      }
       return false;
     };
   }
@@ -143,9 +144,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   private _onOverSub: Subscription = Subscription.EMPTY;
   private _currentWidgetSub: Subscription = Subscription.EMPTY;
 
-  constructor(
-    private _service: AjfReportBuilderService,
-    private _cdRef: ChangeDetectorRef) {
+  constructor(private _service: AjfReportBuilderService, private _cdRef: ChangeDetectorRef) {
     this.headerStyles = this._service.headerStyles;
     this.contentStyles = this._service.contentStyles;
     this.footerStyles = this._service.footerStyles;
@@ -161,11 +160,12 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    * @memberOf AjfReportBuilderContent
    */
   onDragStartHandler(): void {
-    let s = timer(200)
-      .subscribe(() => {
-        if (s != null) { s.unsubscribe(); }
-        this._service.dragStarted();
-      });
+    let s = timer(200).subscribe(() => {
+      if (s != null) {
+        s.unsubscribe();
+      }
+      this._service.dragStarted();
+    });
   }
 
   /**
@@ -182,7 +182,10 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    *
    * @memberOf AjfReportBuilderContent
    */
-  onDragEnterHandler(array: string, index: number): void {
+  onDragEnterHandler(array: string, index: number|undefined): void {
+    if (index == null) {
+      return;
+    }
     this._service.dragEnter(array, index);
   }
 
@@ -205,10 +208,8 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    * @memberOf AjfReportBuilderContent
    */
   onDragEnterCheck(array: string, index: number): boolean {
-    if (
-      (array === this.onDragEnter.array) &&
-      ((index === this.onDragEnter.index) || (index === -1))
-    ) {
+    if ((array === this.onDragEnter.array) &&
+        ((index === this.onDragEnter.index) || (index === -1))) {
       return true;
     } else {
       return false;
@@ -240,8 +241,8 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
     this._service.setOrigin(arrayTo);
     const itemData = event.item.data as AjfReportBuilderDragData;
     if (itemData.fromColumn != null) {
-        this._service.removeWidgetToColumn(itemData.fromColumn, itemData.fromIndex!);
-        this.currentWidget = itemData.widget!;
+      this._service.removeWidgetToColumn(itemData.fromColumn, itemData.fromIndex!);
+      this.currentWidget = itemData.widget!;
     } else if (itemData.widget != null) {
       this.remove(itemData.arrayFrom!, itemData.from!);
       this.currentWidget = itemData.widget;
@@ -269,34 +270,27 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   }
 
   ngOnInit(): void {
-    this._headerWidgetsSub = this._service.headerWidgets
-      .subscribe(x => {
-        this.headerWidgets = x.widgets;
-      });
-    this._contentWidgetsSub = this._service.contentWidgets
-      .subscribe(x => {
-        this.contentWidgets = x.widgets;
-      });
-    this._footerWidgetsSub = this._service.footerWidgets
-      .subscribe(x => {
-        this.footerWidgets = x.widgets;
-      });
-    this._onDraggedSub = this._service.onDragged
-      .subscribe(x => {
-        this.onDragged = x;
-      });
-    this._fixedZoomSub = this._service.fixedZoom
-      .subscribe(bool => {
-        this.fixedZoom = bool;
-      });
-    this._onDragEnterSub = this._service.onDragEnter
-      .subscribe(x => {
-        this.onDragEnter = x;
-      });
-    this._onOverSub = this._service.onOver
-      .subscribe(x => {
-        this.onOver = x;
-      });
+    this._headerWidgetsSub = this._service.headerWidgets.subscribe(x => {
+      this.headerWidgets = x.widgets;
+    });
+    this._contentWidgetsSub = this._service.contentWidgets.subscribe(x => {
+      this.contentWidgets = x.widgets;
+    });
+    this._footerWidgetsSub = this._service.footerWidgets.subscribe(x => {
+      this.footerWidgets = x.widgets;
+    });
+    this._onDraggedSub = this._service.onDragged.subscribe(x => {
+      this.onDragged = x;
+    });
+    this._fixedZoomSub = this._service.fixedZoom.subscribe(bool => {
+      this.fixedZoom = bool;
+    });
+    this._onDragEnterSub = this._service.onDragEnter.subscribe(x => {
+      this.onDragEnter = x;
+    });
+    this._onOverSub = this._service.onOver.subscribe(x => {
+      this.onOver = x;
+    });
   }
 
   ngAfterViewChecked() {
@@ -304,10 +298,11 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   }
 
   ngOnDestroy(): void {
-    [
-      this._headerWidgetsSub, this._contentWidgetsSub, this._footerWidgetsSub,
-      this._currentWidgetSub, this._onDraggedSub, this._fixedZoomSub,
-      this._onOverSub, this._onDragEnterSub
-    ].forEach(s => { s.unsubscribe(); });
+    [this._headerWidgetsSub, this._contentWidgetsSub, this._footerWidgetsSub,
+     this._currentWidgetSub, this._onDraggedSub, this._fixedZoomSub, this._onOverSub,
+     this._onDragEnterSub]
+        .forEach(s => {
+          s.unsubscribe();
+        });
   }
 }

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -20,24 +20,30 @@
  *
  */
 
-import {AjfBaseFieldComponent, AjfFormRendererService} from '@ajf/core/forms';
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation
+  AJF_WARNING_ALERT_SERVICE,
+  AjfBaseFieldComponent,
+  AjfFormRendererService
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewEncapsulation
 } from '@angular/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
-
 @Component({
-  moduleId: module.id,
   templateUrl: 'boolean-field.html',
   styleUrls: ['boolean-field.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfBooleanFieldComponent extends AjfBaseFieldComponent {
-
   constructor(
-    cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService) {
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
     super(cdr, service, was);
   }
 }

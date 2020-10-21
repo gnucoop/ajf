@@ -5,37 +5,51 @@ pipeline {
   environment {
     scmInfo = checkout scm
     gitBranch = scmInfo.GIT_BRANCH.replace("origin/", "")
+    cacheParams = getCacheParams()
   }
   stages {
-    stage('Restore cache') {
+    stage('Get cache') {
       steps {
-        sh 'gsutil cp gs://ajf-bazel-build-cache/ajf-node-modules.tar.gz .'
-        sh 'tar xfz ajf-node-modules.tar.gz'
-        sh 'rm ajf-node-modules.tar.gz'
-        sh 'gsutil cp gs://ajf-bazel-build-cache/ajf-bazel-repository.tar.gz .'
-        sh 'tar xfz ajf-bazel-repository.tar.gz -C /home/jenkins'
-        sh 'rm ajf-bazel-repository.tar.gz'
-        sh 'cat .jenkins/bazelrc >> .bazelrc'
+        getCache(cacheParams)
       }
     }
     stage('Setup') {
       steps {
-        sh 'yarn install'
+        sh 'rm -Rf /home/jenkins/.cache/bazelisk /home/jenkins/bazel_repository_cache'
+        restoreCache(cacheParams)
+        sh 'cat .jenkins/bazelrc >> .bazelrc'
+        sh 'yarn install --frozen-lockfile --non-interactive'
+        sh './scripts/circleci/setup_bazel_binary.sh'
       }
     }
     stage('Lint') {
       steps {
+        sh 'bazel build //:rollup_globals'
+        sh 'yarn -s check-rollup-globals $(bazel info bazel-bin)/rollup_globals.json'
+        sh 'bazel build //:entry_points_manifest'
+        sh 'yarn check-entry-point-setup $(bazel info bazel-bin)/entry_points_manifest.json'
         sh 'yarn -s lint'
+        sh 'yarn -s ts-circular-deps:check'
       }
     }
-    stage('Build') {
+    stage('Build - View Engine') {
       steps {
-        sh 'bazel build src/... --build_tag_filters=-docs-package'
+        sh 'bazel build src/... --build_tag_filters=-docs-package,-release-package --config=view-engine'
       }
     }
-    stage('Unit tests') {
+    stage('Unit tests - View Engine') {
       steps {
-        sh 'bazel test src/... --build_tag_filters=-e2e --test_tag_filters=-e2e'
+        sh 'bazel test src/... --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only'
+      }
+    }
+    stage('Integration tests') {
+      steps {
+        sh 'yarn integration-tests:view-engine'
+      }
+    }
+    stage('Build - Ivy') {
+      steps {
+        sh 'bazel build src/... --build_tag_filters=-docs-package,-release-package'
       }
     }
     stage('API guard tests') {
@@ -43,26 +57,35 @@ pipeline {
         sh 'bazel test tools/public_api_guard/...'
       }
     }
-    stage('Integration tests') {
+    stage('Unit tests - Ivy') {
       steps {
-        sh 'bazel test src/... --build_tag_filters=e2e --test_tag_filters=e2e'
+        sh 'bazel test src/... --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only'
+      }
+    }
+    stage('E2E tests') {
+      steps {
+        sh 'bazel test src/... --build_tag_filters=e2e --test_tag_filters=e2e --build_tests_only'
       }
     }
     stage('Release output') {
       steps {
-        sh 'yarn gulp ci:build-release-packages'
-        sh 'yarn check-release-output'
-        sh 'yarn gulp ci:aot'
+        sh 'yarn build'
+        script {
+          env.pkg_json_version = sh(script: 'node -pe "require(\\\"./package.json\\\").version"', returnStdout: true).trim()
+          env.expected_version = sh(script: 'echo "${pkg_json_version}-sha-$(git rev-parse --short HEAD)"', returnStdout: true).trim()
+          sh 'yarn check-release-output ${expected_version}'
+        }
+        sh 'rm -Rf node_modules/@ajf/{calendars,core,ionic,material}'
+        sh 'cp -R dist/releases/* node_modules/@ajf/'
+        sh 'mv node_modules/__ngcc_entry_points__.json node_modules/__ngcc_entry_points__.json.back'
+        sh 'yarn ngcc --error-on-failed-entry-point --no-tsconfig'
+        sh 'mv node_modules/__ngcc_entry_points__.json.back node_modules/__ngcc_entry_points__.json'
+        sh 'rm -Rf node_modules/@ajf/{calendars,core,ionic,material}'
       }
     }
     stage('Save cache') {
       steps {
-        sh 'tar cfz ajf-node-modules.tar.gz node_modules'
-        sh 'gsutil cp ajf-node-modules.tar.gz gs://ajf-bazel-build-cache/'
-        sh 'rm ajf-node-modules.tar.gz'
-        sh 'tar cfz ajf-bazel-repository.tar.gz -C /home/jenkins bazel_repository_cache'
-        sh 'gsutil cp ajf-bazel-repository.tar.gz gs://ajf-bazel-build-cache/'
-        sh 'rm ajf-bazel-repository.tar.gz'
+        saveCache(cacheParams)
       }
     }
     stage('Publish snapshots') {
@@ -72,9 +95,97 @@ pipeline {
         }
       }
       steps {
+        sh 'bazel build src/ajf-examples:npm_package --config=release'
+        sh 'yarn build-docs-content'
         sh './scripts/circleci/publish-snapshots.sh'
-        sh './scripts/deploy/deploy-dev-apps.sh'
+        sh 'node ./scripts/deploy-dev-app.js'
       }
     }
   }
+}
+
+void getCache(cacheParams) {
+  if (cacheParams["hasNodeModulesCache"]) {
+    sh "gsutil cp gs://ajf-bazel-remote-cache/${cacheParams["nodeModulesCache"]} ."
+  }
+  if (cacheParams["hasBazeliskCache"]) {
+    sh "gsutil cp gs://ajf-bazel-remote-cache/${cacheParams["bazeliskCache"]} ."
+  }
+  if (cacheParams["hasBazelRepositoryCache"]) {
+    sh "gsutil cp gs://ajf-bazel-remote-cache/${cacheParams["bazelRepositoryCache"]} ."
+  }
+}
+
+void restoreCache(cacheParams) {
+  sh "rm -Rf node_modules ~/.cache/bazelisk ~/bazel_repository_cache"
+  if (cacheParams["hasNodeModulesCache"]) {
+    try {
+      sh "tar xfz ${cacheParams["nodeModulesCache"]}"
+    } catch (e) { }
+  }
+  if (cacheParams["hasBazeliskCache"]) {
+    try {
+      sh "mkdir -p /home/jenkins/.cache"
+      sh "tar xfz ${cacheParams["bazeliskCache"]} -C /home/jenkins/.cache"
+    } catch (e) { }
+  }
+  if (cacheParams["hasBazelRepositoryCache"]) {
+    try {
+      sh "tar xfz ${cacheParams["bazelRepositoryCache"]} -C /home/jenkins"
+    } catch (e) { }
+  }
+}
+
+void saveCache(cacheParams) {
+  if (!cacheParams["hasNodeModulesCache"]) {
+    try {
+      sh "tar cfz ${cacheParams["nodeModulesCache"]} node_modules"
+      sh "gsutil cp ${cacheParams["nodeModulesCache"]} gs://ajf-bazel-remote-cache/"
+    } catch (e) { }
+  }
+  if (!cacheParams["hasBazeliskCache"]) {
+    try {
+      sh "tar cfz ${cacheParams["bazeliskCache"]} -C /home/jenkins/.cache bazelisk"
+      sh "gsutil cp ${cacheParams["bazeliskCache"]} gs://ajf-bazel-remote-cache/"
+    } catch (e) { }
+  }
+  if (!cacheParams["hasBazelRepositoryCache"]) {
+    try {
+      sh "tar cfz ${cacheParams["bazelRepositoryCache"]} -C /home/jenkins bazel_repository_cache"
+      sh "gsutil cp ${cacheParams["bazelRepositoryCache"]} gs://ajf-bazel-remote-cache/"
+    } catch (e) { }
+  }
+}
+
+Map getCacheParams() {
+  cacheKey = sh(script: "./scripts/jenkins/cache-key.sh", returnStdout: true).trim()
+  nodeModulesCache = "ajf-node-modules-${cacheKey}.tar.gz"
+  bazeliskCache = "ajf-bazelisk-${cacheKey}.tar.gz"
+  bazelRepositoryCache = "ajf-bazel-repository-${cacheKey}.tar.gz"
+  try {
+    sh "gsutil stat gs://ajf-bazel-remote-cache/${nodeModulesCache}"
+    hasNodeModulesCache = true
+  } catch (e) {
+    hasNodeModulesCache = false
+  }
+  try {
+    sh "gsutil stat gs://ajf-bazel-remote-cache/${bazeliskCache}"
+    hasBazeliskCache = true
+  } catch (e) {
+    hasBazeliskCache = false
+  }
+  try {
+    sh "gsutil stat gs://ajf-bazel-remote-cache/${bazelRepositoryCache}"
+    hasBazelRepositoryCache = true
+  } catch (e) {
+    hasBazelRepositoryCache = false
+  }
+  return [
+    "hasNodeModulesCache": hasNodeModulesCache,
+    "hasBazeliskCache": hasBazeliskCache,
+    "hasBazelRepositoryCache": hasBazelRepositoryCache,
+    "nodeModulesCache": nodeModulesCache,
+    "bazeliskCache": bazeliskCache,
+    "bazelRepositoryCache": bazelRepositoryCache
+  ]
 }

@@ -1,156 +1,180 @@
-# List of all components / subpackages.
-
-CORE_PACKAGES = [
-    "barcode",
-    "calendar",
-    "chart",
-    "checkbox-group",
-    "common",
-    "forms",
-    "image",
-    "map",
-    "models",
-    "node-icon",
-    "page-break",
-    "page-slider",
-    "reports",
-    "table",
-    "text",
-    "time",
-    "utils",
-]
-
-CORE_TARGETS = ["//src/core"] + ["//src/core/%s" % p for p in CORE_PACKAGES]
-
-MATERIAL_PACKAGES = [
-    "barcode",
-    "calendar",
-    "checkbox-group",
-    "form-builder",
-    "forms",
-    "image",
-    "monaco-editor",
-    "node-icon",
-    "page-slider",
-    "report-builder",
-    "reports",
-    "time",
-]
-
-MATERIAL_TARGETS = ["//src/material"] + ["//src/material/%s" % p for p in MATERIAL_PACKAGES]
-
-IONIC_PACKAGES = [
-    "barcode",
-    "calendar",
-    "checkbox-group",
-    "forms",
-    "image",
-    "node-icon",
-    "page-slider",
-    "reports",
-    "time",
-]
-
-IONIC_TARGETS = ["//src/ionic"] + ["//src/ionic/%s" % p for p in IONIC_PACKAGES]
-
-CALENDARS_PACKAGES = [
-    "ethiopian",
-]
-
-CALENDARS_TARGETS = ["//src/calendars"] + ["//src/calendars/%s" % p for p in CALENDARS_PACKAGES]
-
 # Each individual package uses a placeholder for the version of Angular to ensure they're
 # all in-sync. This map is passed to each ng_package rule to stamp out the appropriate
 # version for the placeholders.
-ANGULAR_PACKAGE_VERSION = "^8.0.0"
-ANGULAR_MATERIAL_PACKAGE_VERSION = "^8.0.0"
-NGXT_PACKAGE_VERSION = "^11.0.0"
-IONIC_PACKAGE_VERSION = "^4.7.0"
-GIC_PACKAGE_VERSION = "^4.7.1"
+AJF_ICONS_PACKAGE_VERSION = "^1.0.0"
+ANGULAR_PACKAGE_VERSION = "^10.0.0 || ^11.0.0"
+ANGULAR_MATERIAL_PACKAGE_VERSION = "^10.0.0 || ^11.0.0"
+CHARTJS_PACKAGE_VERSION = "^2.9.3"
+CSS_ELEMENT_QUERIES_PACKAGE_VERSION = "^1.2.3"
+DATEFNS_PACKAGE_VERSION = "^2.14.0"
+ESPRIMA_PACKAGE_VERSION = "^4.0.1"
+FLAG_ICON_CSS_PACKAGE_VERSION = "^3.5.0"
+GIC_PACKAGE_VERSION = "^5.0.0"
+IONIC_PACKAGE_VERSION = "^5.0.0"
+LEAFLET_PACKAGE_VERSION = "^1.6.0"
+NGX_COLOR_PICKER_PACKAGE_VERSION = "^9.1.0"
+NGXT_PACKAGE_VERSION = "^13.0.0"
+QUILL_PACKAGE_VERION = "^1.3.7"
+NUMERAL_PACKAGE_VERION = "^2.0.6"
+TSLIB_PACKAGE_VERSION = "^2.0.0"
+ZXING_PACKAGE_VERSION = "^0.17.0"
+
 VERSION_PLACEHOLDER_REPLACEMENTS = {
-    "0.0.0-NGM": ANGULAR_MATERIAL_PACKAGE_VERSION,
-    "0.0.0-NGXT": NGXT_PACKAGE_VERSION,
-    "0.0.0-NG": ANGULAR_PACKAGE_VERSION,
+    "0.0.0-AJFI": AJF_ICONS_PACKAGE_VERSION,
+    "0.0.0-ANGM": ANGULAR_MATERIAL_PACKAGE_VERSION,
+    "0.0.0-ANGXCP": NGX_COLOR_PICKER_PACKAGE_VERSION,
+    "0.0.0-ANGXT": NGXT_PACKAGE_VERSION,
+    "0.0.0-CHART": CHARTJS_PACKAGE_VERSION,
+    "0.0.0-CEQ": CSS_ELEMENT_QUERIES_PACKAGE_VERSION,
+    "0.0.0-DATEFNS": DATEFNS_PACKAGE_VERSION,
+    "0.0.0-ESPRIMA": ESPRIMA_PACKAGE_VERSION,
+    "0.0.0-FIC": FLAG_ICON_CSS_PACKAGE_VERSION,
     "0.0.0-GIC": GIC_PACKAGE_VERSION,
     "0.0.0-ION": IONIC_PACKAGE_VERSION,
+    "0.0.0-LEAFLET": LEAFLET_PACKAGE_VERSION,
+    "0.0.0-NG": ANGULAR_PACKAGE_VERSION,
+    "0.0.0-NUMERAL": NUMERAL_PACKAGE_VERION,
+    "0.0.0-QUILL": QUILL_PACKAGE_VERION,
+    "0.0.0-TSLIB": TSLIB_PACKAGE_VERSION,
+    "0.0.0-ZXING": ZXING_PACKAGE_VERSION,
 }
 
-# Base rollup globals for everything in the repo.
-ROLLUP_GLOBALS = {
-    "@gic/core": "gic.core",
-    "@gic/angular": "gic.angular",
-    "@ionic/core": "ionic.core",
-    "@ionic/angular": "ionic.angular",
-    "@ngx-translate/core": "ngxt.core",
-    "@ngx-translate/http-loader": "ngxt.httpLoader",
-    "chart.js": "chartJs",
-    "chart.piecelabel.js": "chartPiecelabel",
-    "date-fns": "date-fns",
-    "debug": "debug",
-    "esprima": "esprima",
-    "leaflet": "leaflet",
-    "numeral": "numeral",
-    "tslib": "tslib",
-    "url-parse": "url-parse",
-    "@ajf/core": "ajf.core",
-    "@ajf/ionic": "ajf.ionic",
-    "@ajf/material": "ajf.material",
-}
-
-# Rollup globals for core subpackages in the form of, e.g., {"@ajf/core/auth": "ajf.core.auth"}
-ROLLUP_GLOBALS.update({
-    "@ajf/core/%s" % p: "ajf.core.%s" % p
-    for p in CORE_PACKAGES
-})
-
-# Rollup globals for material subpackages, e.g., {"@ajf/material/auth": "ajf.material.auth"}
-ROLLUP_GLOBALS.update({
-    "@ajf/material/%s" % p: "ajf.material.%s" % p
-    for p in MATERIAL_PACKAGES
-})
-
-# Rollup globals for ionic subpackages, e.g., {"@ajf/ionic/auth": "ajf.material.auth"}
-ROLLUP_GLOBALS.update({
-    "@ajf/ionic/%s" % p: "ajf.ionic.%s" % p
-    for p in IONIC_PACKAGES
-})
-
-# UMD bundles for Angular packages and subpackges we depend on for development and testing.
-ANGULAR_LIBRARY_UMDS = [
-    "@npm//:node_modules/@angular/animations/bundles/animations-browser.umd.js",
-    "@npm//:node_modules/@angular/animations/bundles/animations.umd.js",
-    "@npm//:node_modules/@angular/common/bundles/common-http-testing.umd.js",
-    "@npm//:node_modules/@angular/common/bundles/common-http.umd.js",
-    "@npm//:node_modules/@angular/common/bundles/common-testing.umd.js",
-    "@npm//:node_modules/@angular/common/bundles/common.umd.js",
-    "@npm//:node_modules/@angular/compiler/bundles/compiler-testing.umd.js",
-    "@npm//:node_modules/@angular/compiler/bundles/compiler.umd.js",
-    "@npm//:node_modules/@angular/core/bundles/core-testing.umd.js",
-    "@npm//:node_modules/@angular/core/bundles/core.umd.js",
-    "@npm//:node_modules/@angular/elements/bundles/elements.umd.js",
-    "@npm//:node_modules/@angular/forms/bundles/forms.umd.js",
-    "@npm//:node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js",
-    "@npm//:node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js",
-    "@npm//:node_modules/@angular/platform-browser/bundles/platform-browser-animations.umd.js",
-    "@npm//:node_modules/@angular/platform-browser/bundles/platform-browser-testing.umd.js",
-    "@npm//:node_modules/@angular/platform-browser/bundles/platform-browser.umd.js",
-    "@npm//:node_modules/@angular/router/bundles/router.umd.js",
+# List of default Angular library UMD bundles which are not processed by ngcc.
+ANGULAR_NO_NGCC_BUNDLES = [
+    ("@angular/compiler", ["compiler.umd.js"]),
 ]
 
-LIBRARIES_UMDS = [
-    "@npm//:node_modules/@gic/angular/angular.umd.js",
-    "@npm//:node_modules/@gic/core/core.umd.js",
-    "@npm//:node_modules/@gic/core/core-loader.umd.js",
-    "@npm//:node_modules/@ionic/angular/angular.umd.js",
-    "@npm//:node_modules/@ionic/core/core.umd.js",
-    "@npm//:node_modules/@ionic/core/core-loader.umd.js",
-    "@npm//:node_modules/@zxing/library/umd/index.min.js",
-    "@npm//:node_modules/chart.js/Chart.umd.js",
-    "@npm//:node_modules/chart.piecelabel.js/build/Chart.PieceLabel.min.js",
-    "@npm//:node_modules/css-element-queries/css-element-queries.umd.js",
-    "@npm//:node_modules/date-fns/date-fns.umd.js",
-    "@npm//:node_modules/debug/debug.umd.js",
-    "@npm//:node_modules/esprima/esprima.umd.js",
-    "@npm//:node_modules/leaflet/leaflet.umd.js",
-    "@npm//:node_modules/numeral/numeral.umd.js",
+# List of Angular library UMD bundles which will be processed by ngcc.
+ANGULAR_NGCC_BUNDLES = [
+    ("@angular/animations", ["animations-browser.umd.js", "animations.umd.js"]),
+    ("@angular/cdk", ["cdk-accordion.umd.js", "cdk-a11y.umd.js", "cdk-bidi.umd.js", "cdk-collections.umd.js", "cdk-drag-drop.umd.js", "cdk-keycodes.umd.js", "cdk-layout.umd.js", "cdk-observers.umd.js", "cdk-overlay.umd.js", "cdk-platform.umd.js", "cdk-portal.umd.js", "cdk-scrolling.umd.js", "cdk-table.umd.js", "cdk-text-field.umd.js"]),
+    ("@angular/common", ["common-http-testing.umd.js", "common-http.umd.js", "common-testing.umd.js", "common.umd.js"]),
+    ("@angular/compiler", ["compiler-testing.umd.js"]),
+    ("@angular/core", ["core-testing.umd.js", "core.umd.js"]),
+    ("@angular/elements", ["elements.umd.js"]),
+    ("@angular/forms", ["forms.umd.js"]),
+    ("@angular/material", ["material-autocomplete.umd.js", "material-button.umd.js", "material-button-toggle.umd.js", "material-card.umd.js", "material-checkbox.umd.js", "material-chips.umd.js", "material-core.umd.js", "material-dialog.umd.js", "material-divider.umd.js", "material-expansion.umd.js", "material-form-field.umd.js", "material-grid-list.umd.js", "material-icon.umd.js", "material-input.umd.js", "material-list.umd.js", "material-menu.umd.js", "material-radio.umd.js", "material-select.umd.js", "material-sidenav.umd.js", "material-slide-toggle.umd.js", "material-slider.umd.js", "material-table.umd.js", "material-tabs.umd.js", "material-toolbar.umd.js", "material-tooltip.umd.js"]),
+    ("@angular/platform-browser-dynamic", ["platform-browser-dynamic-testing.umd.js", "platform-browser-dynamic.umd.js"]),
+    ("@angular/platform-browser", ["platform-browser.umd.js", "platform-browser-testing.umd.js", "platform-browser-animations.umd.js"]),
+    ("@angular/router", ["router.umd.js"]),
 ]
+
+THIRD_PARTY_NGCC_BUNDLES = [
+    ("@gic/angular", "gic-angular.umd.js"),
+    ("@ionic/angular", "ionic-angular.umd.js"),
+    ("@ngx-translate/core", "ngx-translate-core.umd.js"),
+    ("ngx-color-picker", "ngx-color-picker.umd.js"),
+]
+
+THIRD_PARTY_NO_NGCC_BUNDLES = [
+]
+
+THIRD_PARTY_GEN_BUNDLES = [
+    ("@gic/core", "gic-core-bundle.js"),
+    ("@gic/core/loader", "gic-core-loader-bundle.js"),
+    ("@ionic/core", "ionic-core-bundle.js"),
+    ("@ionic/core/loader", "ionic-core-loader-bundle.js"),
+    ("@zxing/library", "zxing-library-bundle.js"),
+    ("chart.js", "chart.js-bundle.js"),
+    ("css-element-queries", "css-element-queries-bundle.js"),
+    ("date-fns", "date-fns-bundle.js"),
+    ("esprima", "esprima-bundle.js"),
+    ("leaflet", "leaflet-bundle.js"),
+    ("numeral", "numeral-bundle.js"),
+    ("quill", "quill-bundle.js"),
+]
+
+"""
+  Gets a dictionary of all packages and their bundle names.
+"""
+
+def getFrameworkPackageBundles():
+    res = {}
+    for pkgName, bundleNames in ANGULAR_NGCC_BUNDLES + ANGULAR_NO_NGCC_BUNDLES:
+        res[pkgName] = res.get(pkgName, []) + bundleNames
+    return res
+
+"""
+  Gets a dictionary of all third party packages and their bundle names.
+"""
+
+def getThirdPartyPackageBundles():
+    res = {}
+    for pkgName, bundleName in THIRD_PARTY_NGCC_BUNDLES:
+        res[pkgName] = bundleName
+    return res
+
+def getThirdPartyNoNgccPackageBundles():
+    res = {}
+    for pkgName, bundleName in THIRD_PARTY_NO_NGCC_BUNDLES:
+        res[pkgName] = bundleName
+    return res
+
+def getThirdPartyGenPackageBundles():
+    res = {}
+    for pkgName, bundleName in THIRD_PARTY_GEN_BUNDLES:
+        res[pkgName] = bundleName
+    return res
+
+"""
+  Gets a list of labels which resolve to the UMD bundles of the given packages.
+"""
+
+def getUmdFilePaths(packages, ngcc_artifacts):
+    tmpl = "@npm//:node_modules/%s" + ("/__ivy_ngcc__" if ngcc_artifacts else "") + "/bundles/%s"
+    return [
+        tmpl % (pkgName, bundleName)
+        for pkgName, bundleNames in packages
+        for bundleName in bundleNames
+    ]
+
+def getThirdPartyUmdFilePaths(packages, ngcc_artifacts):
+    tmpl = "@npm//:node_modules/%s" + ("/__ivy_ngcc__" if ngcc_artifacts else "") + "/bundles/%s"
+    return [
+        tmpl % (pkgName, bundleName)
+        for pkgName, bundleName in packages
+    ]
+
+def getThirdPartyNoNgccUmdFilePaths(packages):
+    tmpl = "@npm//:node_modules/%s/%s"
+    return [
+        tmpl % (package, bundleName)
+        for package, bundleName in packages
+    ]
+
+def getThirdPartyGenUmdFilePaths(packages):
+    tmpl = "//tools/third-party-libs:%s"
+    return [
+        tmpl % bundleName
+        for _, bundleName in packages
+    ]
+
+ANGULAR_PACKAGE_BUNDLES = getFrameworkPackageBundles()
+
+THIRD_PARTY_PACKAGE_BUNDLES = getThirdPartyPackageBundles()
+THIRD_PARTY_NO_NGCC_PACKAGE_BUNDLES = getThirdPartyNoNgccPackageBundles()
+THIRD_PARTY_GEN_PACKAGE_BUNDLES = getThirdPartyGenPackageBundles()
+
+ANGULAR_LIBRARY_VIEW_ENGINE_UMDS = getUmdFilePaths(ANGULAR_NO_NGCC_BUNDLES, False) + \
+                                   getUmdFilePaths(ANGULAR_NGCC_BUNDLES, False) + \
+                                   getThirdPartyUmdFilePaths(THIRD_PARTY_NGCC_BUNDLES, False) + \
+                                   getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES) + \
+                                   getThirdPartyGenUmdFilePaths(THIRD_PARTY_GEN_BUNDLES)
+
+ANGULAR_LIBRARY_IVY_UMDS = getUmdFilePaths(ANGULAR_NO_NGCC_BUNDLES, False) + \
+                           getUmdFilePaths(ANGULAR_NGCC_BUNDLES, True) + \
+                           getThirdPartyUmdFilePaths(THIRD_PARTY_NGCC_BUNDLES, True) + \
+                           getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES) + \
+                           getThirdPartyGenUmdFilePaths(THIRD_PARTY_GEN_BUNDLES)
+
+"""
+  Gets the list of targets for the Angular library UMD bundles. Conditionally
+  switches between View Engine or Ivy UMD bundles based on the
+  "--config={ivy,view-engine}" flag.
+"""
+
+def getAngularUmdTargets():
+    return select({
+        "//tools:view_engine_mode": ANGULAR_LIBRARY_VIEW_ENGINE_UMDS,
+        "//conditions:default": ANGULAR_LIBRARY_IVY_UMDS,
+    })

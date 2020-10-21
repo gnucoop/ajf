@@ -4,7 +4,7 @@
   </ng-template>
   <ng-template [ngSwitchCase]="imageTypes.Icon">
     <i *ngIf="iconObj|async as io"
-        [ngClass]="[io.fontSet, io.fontIcon]"></i>
+        [ngClass]="[io!.fontSet, io!.fontIcon]"></i>
   </ng-template>
   <span *ngSwitchCase="imageTypes.Flag" [class]="flagName|async"></span>
 </ng-container>

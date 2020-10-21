@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -30,7 +30,6 @@ import {AjfFormBuilderService} from './form-builder-service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-fb-choices-origin-editor-dialog',
   templateUrl: 'choices-origin-editor-dialog.html',
   styleUrls: ['choices-origin-editor-dialog.css'],
@@ -38,7 +37,7 @@ import {AjfFormBuilderService} from './form-builder-service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AjfFbChoicesOriginEditorDialog {
-  @ViewChild(AjfFbChoicesOriginEditor, {static: true}) editor: AjfFbChoicesOriginEditor;
+  @ViewChild(AjfFbChoicesOriginEditor, {static: false}) editor: AjfFbChoicesOriginEditor;
 
   private _choicesOrigin: Observable<AjfChoicesOrigin<any>>;
   get choicesOrigin(): Observable<AjfChoicesOrigin<any>> {
@@ -46,18 +45,13 @@ export class AjfFbChoicesOriginEditorDialog {
   }
 
   constructor(private _service: AjfFormBuilderService) {
-    this._choicesOrigin = this._service.editedChoicesOrigin.pipe(
-      filter(c => c != null),
-      map(c => c!)
-    );
+    this._choicesOrigin =
+        this._service.editedChoicesOrigin.pipe(filter(c => c != null), map(c => c!));
   }
 
   saveChoicesOrigin(): void {
-    this._service.saveChoicesOrigin({
-      label: this.editor.label,
-      name: this.editor.name,
-      choices: this.editor.choicesArr
-    });
+    this._service.saveChoicesOrigin(
+        {label: this.editor.label, name: this.editor.name, choices: this.editor.choicesArr});
   }
 
   cancelChoicesOriginEdit(): void {

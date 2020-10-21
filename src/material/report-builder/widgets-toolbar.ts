@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright (C) 2018 Gnucoop soc. coop.
+ * Copyright (C) Gnucoop soc. coop.
  *
  * This file is part of the Advanced JSON forms (ajf).
  *
@@ -29,7 +29,6 @@ import {AjfReportBuilderService} from './report-builder-service';
 
 
 @Component({
-  moduleId: module.id,
   selector: 'ajf-report-builder-widgets-toolbar',
   templateUrl: 'widgets-toolbar.html',
   encapsulation: ViewEncapsulation.None,
@@ -61,11 +60,12 @@ export class AjfReportBuilderWidgetsToolbar {
    * @memberOf AjfReportBuilderContent
    */
   onDragStartHandler(): void {
-    let s = timer(200)
-      .subscribe(() => {
-        if (s != null) { s.unsubscribe(); }
-        this._service.dragStarted();
-      });
+    let s = timer(200).subscribe(() => {
+      if (s != null) {
+        s.unsubscribe();
+      }
+      this._service.dragStarted();
+    });
   }
 
   /**
