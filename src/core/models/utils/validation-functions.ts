@@ -21,9 +21,9 @@
  */
 
 import * as dateFns from 'date-fns';
-import * as numeral from 'numeral';
+import * as numbroMod from 'numbro';
 
-const numeralConstructor: (value?: any) => any = (<any>numeral).default || numeral;
+const numbro = numbroMod.default || numbroMod;
 
 
 export const dateUtils = {
@@ -403,7 +403,7 @@ export function alert(source: any[], property: string, threshold: number): strin
 
 export function formatNumber(num: number, fmt?: string): string {
   fmt = fmt || '0,0[.]0';
-  return numeralConstructor(num).format(fmt);
+  return numbro(num).format(fmt);
 }
 
 export function formatDate(date: Date|string, fmt?: string): string {

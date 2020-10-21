@@ -71,7 +71,7 @@ ts_devserver(
         "@npm//esprima",
         "@npm//hammerjs",
         "@npm//leaflet",
-        "@npm//numeral",
+        "@npm//numbro",
         "@npm//@ionic/core",
         "@npm//@ngx-translate/core",
         "@npm//@webcomponents/custom-elements",

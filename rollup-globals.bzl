@@ -71,7 +71,7 @@ ROLLUP_GLOBALS = {
     "leaflet": "leaflet",
     "moment": "moment",
     "ngx-color-picker": "ngxColorPicker",
-    "numeral": "numeral",
+    "numbro": "numbro",
     "protractor": "protractor",
     "quill": "quill",
     "rxjs": "rxjs",

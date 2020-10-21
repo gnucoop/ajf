@@ -21,8 +21,8 @@ ng_module(
         "//src/core/utils",
         "@npm//@angular/core",
         "@npm//@types/esprima",
-        "@npm//@types/numeral",
         "@npm//date-fns",
+        "@npm//numbro",
     ],
 )
 

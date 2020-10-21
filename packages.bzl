@@ -15,7 +15,7 @@ LEAFLET_PACKAGE_VERSION = "^1.6.0"
 NGX_COLOR_PICKER_PACKAGE_VERSION = "^9.1.0"
 NGXT_PACKAGE_VERSION = "^13.0.0"
 QUILL_PACKAGE_VERION = "^1.3.7"
-NUMERAL_PACKAGE_VERION = "^2.0.6"
+NUMBRO_PACKAGE_VERION = "^2.3.1"
 TSLIB_PACKAGE_VERSION = "^2.0.0"
 ZXING_PACKAGE_VERSION = "^0.17.0"
 
@@ -33,7 +33,7 @@ VERSION_PLACEHOLDER_REPLACEMENTS = {
     "0.0.0-ION": IONIC_PACKAGE_VERSION,
     "0.0.0-LEAFLET": LEAFLET_PACKAGE_VERSION,
     "0.0.0-NG": ANGULAR_PACKAGE_VERSION,
-    "0.0.0-NUMERAL": NUMERAL_PACKAGE_VERION,
+    "0.0.0-NUMBRO": NUMBRO_PACKAGE_VERION,
     "0.0.0-QUILL": QUILL_PACKAGE_VERION,
     "0.0.0-TSLIB": TSLIB_PACKAGE_VERSION,
     "0.0.0-ZXING": ZXING_PACKAGE_VERSION,
@@ -67,6 +67,7 @@ THIRD_PARTY_NGCC_BUNDLES = [
 ]
 
 THIRD_PARTY_NO_NGCC_BUNDLES = [
+    ("numbro", "dist/numbro.min.js"),
 ]
 
 THIRD_PARTY_GEN_BUNDLES = [
@@ -80,7 +81,6 @@ THIRD_PARTY_GEN_BUNDLES = [
     ("date-fns", "date-fns-bundle.js"),
     ("esprima", "esprima-bundle.js"),
     ("leaflet", "leaflet-bundle.js"),
-    ("numeral", "numeral-bundle.js"),
     ("quill", "quill-bundle.js"),
 ]
 

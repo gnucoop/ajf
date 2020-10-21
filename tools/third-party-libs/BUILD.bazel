@@ -104,15 +104,6 @@ third_party_bundle(
 )
 
 third_party_bundle(
-    name = "numeral",
-    entry_point = "@npm//:node_modules/numeral/numeral.js",
-    module_name = "numeral",
-    deps = [
-        "@npm//numeral",
-    ],
-)
-
-third_party_bundle(
     name = "quill",
     entry_point = "@npm//:node_modules/quill/dist/quill.js",
     module_name = "quill",

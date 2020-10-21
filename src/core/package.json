@@ -26,7 +26,7 @@
     "date-fns": "0.0.0-DATEFNS",
     "esprima": "0.0.0-ESPRIMA",
     "leaflet": "0.0.0-LEAFLET",
-    "numeral": "0.0.0-NUMERAL"
+    "numbro": "0.0.0-NUMBRO"
   },
   "dependencies": {
     "tslib": "0.0.0-TSLIB"
