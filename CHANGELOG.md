@@ -1,3 +1,24 @@
+## 10.0.6 "misty-cherry" (2020-10-21)
+
+### ionic
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** render table header as text ([5accdfbda94a3e05c5381591e8e1d0913d62a946](https://github.com/gnucoop/ajf/commit/5accdfbda94a3e05c5381591e8e1d0913d62a946)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** render table header as text ([3240bfc0697f8d96b261f1dfadc6e74cc17e04d1](https://github.com/gnucoop/ajf/commit/3240bfc0697f8d96b261f1dfadc6e74cc17e04d1)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **dev-app:** ionic widgets demo layout ([f81cdc30d1db198b434ce08a097015298c1fe89d](https://github.com/gnucoop/ajf/commit/f81cdc30d1db198b434ce08a097015298c1fe89d)) |
+
+
 ## 10.0.5 "sweet-firefly" (2020-08-28)
 
 ### core
