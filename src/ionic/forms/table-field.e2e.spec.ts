@@ -1,4 +1,4 @@
-import {browser, by, element, ExpectedConditions, Key} from 'protractor';
+import {browser, by, element} from 'protractor';
 
 describe('ajf-table-field', () => {
   beforeEach(async () => await browser.get('/ion-table-field'));
