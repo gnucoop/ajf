@@ -46,6 +46,15 @@ third_party_bundle(
 )
 
 third_party_bundle(
+    name = "file-saver",
+    entry_point = "@npm//:node_modules/file-saver/src/FileSaver.js",
+    module_name = "file-saver",
+    deps = [
+        "@npm//file-saver",
+    ],
+)
+
+third_party_bundle(
     name = "gic-core",
     entry_point = "@npm//:node_modules/@gic/core/dist/index.js",
     globals = {
@@ -132,5 +141,14 @@ third_party_bundle(
     deps = [
         "@npm//@zxing",
         "@npm//ts-custom-error",
+    ],
+)
+
+third_party_bundle(
+    name = "xlsx",
+    entry_point = "@npm//:node_modules/xlsx/xlsx.js",
+    module_name = "xlsx",
+    deps = [
+        "@npm//xlsx",
     ],
 )

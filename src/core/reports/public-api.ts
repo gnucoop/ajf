@@ -73,6 +73,7 @@ export * from './serializers/report-serializer';
 export * from './serializers/widget-serializer';
 export * from './widget';
 export * from './interface/widgets/widget-components-map';
+export * from './widget-export';
 export * from './widget-host';
 export * from './widget-service';
 
