@@ -67,7 +67,6 @@ THIRD_PARTY_NGCC_BUNDLES = [
 ]
 
 THIRD_PARTY_NO_NGCC_BUNDLES = [
-    ("numbro", "dist/numbro.min.js"),
 ]
 
 THIRD_PARTY_GEN_BUNDLES = [
@@ -81,6 +80,7 @@ THIRD_PARTY_GEN_BUNDLES = [
     ("date-fns", "date-fns-bundle.js"),
     ("esprima", "esprima-bundle.js"),
     ("leaflet", "leaflet-bundle.js"),
+    ("numbro", "numbro-bundle.js"),
     ("quill", "quill-bundle.js"),
 ]
 

@@ -58,7 +58,7 @@ module.exports = config => {
       {pattern: 'node_modules/esprima/esprima.umd.js', included: false, watched: false},
       {pattern: 'node_modules/leaflet/leaflet.umd.js', included: false, watched: false},
       {pattern: 'node_modules/moment/min/moment.min.js', included: false, watched: false},
-      {pattern: 'node_modules/numbro/dist/numbro.min.js', included: false, watched: false},
+      {pattern: 'node_modules/numbro/numbro.umd.js', included: false, watched: false},
       {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},
 
       // The Karma system configuration is built by Bazel. The built System config
