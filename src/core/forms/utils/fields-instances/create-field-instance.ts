@@ -39,6 +39,9 @@ export function createFieldInstance(
       value = context[nodeInstance.node.name];
     } else if (context[completeName] != null) {
       value = context[completeName];
+    } else if (instance.node.defaultValue != null) {
+      context[completeName] = instance.node.defaultValue;
+      value = context[completeName];
     }
   }
   return {
@@ -46,7 +49,6 @@ export function createFieldInstance(
     node: instance.node,
     value,
     valid: false,
-    defaultValue: instance.defaultValue != null ? instance.defaultValue : null,
     validationResults: instance.validationResults || [],
     warningResults: instance.warningResults || [],
     warningTrigger: new EventEmitter<void>(),
