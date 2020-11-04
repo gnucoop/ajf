@@ -33,7 +33,6 @@ import {AjfWarningResult} from '../warning/warning-result';
 export interface AjfFieldInstance extends AjfNodeInstance {
   // if the field pass the validation
   valid: boolean;
-  defaultValue: any;
   node: AjfField;
   // the value of field
   value: any;
