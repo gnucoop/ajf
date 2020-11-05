@@ -293,14 +293,14 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     });
     if (this.chartType == 'pie') {
       let newOptions = <any>options;
-      newOptions.pieceLabel = {
+      newOptions.pieceLabel = {...{
         render: function(args: any) {
           if (args.label) {
             return args.label + ':' + args.value;
           } else {
             return args.value;
           }
-        },
+        }, ...newOptions.pieceLabel},
         position: 'outside'
       };
       return newOptions;
