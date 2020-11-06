@@ -95,14 +95,14 @@ describe('formula field', () => {
             }]
           };
           const form: AjfForm = AjfFormSerializer.fromJson(json);
-   
+
           formRenderer.nodesTree.subscribe(nodes => {
             const slide = nodes[0];
             const field = slide.nodes[0] as AjfFieldInstance;
             expect(field.value).toEqual(14);
             done();
           });
-   
+
           formRenderer.setForm(form);
-        });     
+        });
 });
