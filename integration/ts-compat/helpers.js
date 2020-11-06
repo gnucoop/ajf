@@ -1,6 +1,6 @@
 
 const {relative, sep, join} = require('path');
-const {readdirSync, readFileSync, existsSync} = require('fs');
+const {readdirSync, readFileSync, existsSync, unlinkSync} = require('fs');
 const {set, ln, rm, mkdir} = require('shelljs');
 const {fork} = require('child_process');
 const runfiles = require(process.env.BAZEL_NODE_RUNFILES_HELPER);
@@ -31,11 +31,11 @@ exports.runTypeScriptCompatibilityTest = async (tscBinPath) => {
     // be compiled without path mappings (simulating a real project).
     for (const {name, pkgPath} of npmPackages) {
       console.info(`Linking "@ajf/${name}" into node modules..`);
-      ln('-s', pkgPath, join(ajfDir, name));
+      ln('-sf', pkgPath, join(ajfDir, name));
     }
 
     const tscArgs = [
-      '--strict', '--lib', 'es2015,dom',
+      '--strict', '--lib', 'es2015,dom', '--esModuleInterop',
       // Ensures that `node_modules` can be resolved. By default, in sandbox environments the
       // node modules cannot be resolved because they are wrapped in the `npm/node_modules` folder
       '--baseUrl', nodeModulesDir, testFilePath
@@ -48,7 +48,8 @@ exports.runTypeScriptCompatibilityTest = async (tscBinPath) => {
       // Remove symlinks to keep a clean repository state.
       for (const {name} of npmPackages) {
         console.info(`Removing link for "@ajf/${name}"..`);
-        rm(join(ajfDir, name));
+        unlinkSync(join(ajfDir, name));
+        rm('-rf', join(ajfDir, name));
       }
       exitCode === 0 ? resolve() : reject();
     });
