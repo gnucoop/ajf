@@ -40,6 +40,7 @@ testem.log
 /.firebase
 /.bazelrc.user
 *.log
+.ng-dev.user*
 
 # monaco support files
 src/monaco/lib/lib-ts.*
