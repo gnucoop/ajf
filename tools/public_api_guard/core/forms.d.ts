@@ -229,7 +229,6 @@ export declare class AjfFieldIconPipe implements PipeTransform {
 }
 
 export interface AjfFieldInstance extends AjfNodeInstance {
-    defaultValue: any;
     formula?: AjfFormula;
     nextSlideCondition?: AjfCondition;
     node: AjfField;
