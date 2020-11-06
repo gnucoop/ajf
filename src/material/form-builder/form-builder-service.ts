@@ -296,7 +296,7 @@ export class AjfFormBuilderService {
   }
 
   private _form: BehaviorSubject<AjfForm|null> = new BehaviorSubject<AjfForm|null>(null);
-  private _formObs: Observable<AjfForm|null> = this._form.asObservable();
+  private _formObs: Observable<AjfForm|null> = this._form as Observable<AjfForm|null>;
   /**
    * Current edited form stream
    *
@@ -345,14 +345,15 @@ export class AjfFormBuilderService {
   private _editedNodeEntry: BehaviorSubject<AjfFormBuilderNodeEntry|null> =
       new BehaviorSubject<AjfFormBuilderNodeEntry|null>(null);
   private _editedNodeEntryObs: Observable<AjfFormBuilderNodeEntry|null> =
-      this._editedNodeEntry.asObservable();
+      this._editedNodeEntry as Observable<AjfFormBuilderNodeEntry|null>;
   get editedNodeEntry(): Observable<AjfFormBuilderNodeEntry|null> {
     return this._editedNodeEntryObs;
   }
 
   private _editedCondition: BehaviorSubject<AjfCondition|null> =
       new BehaviorSubject<AjfCondition|null>(null);
-  private _editedConditionObs: Observable<AjfCondition|null> = this._editedCondition.asObservable();
+  private _editedConditionObs: Observable<AjfCondition|null> =
+      this._editedCondition as Observable<AjfCondition|null>;
   get editedCondition(): Observable<AjfCondition|null> {
     return this._editedConditionObs;
   }
@@ -360,18 +361,18 @@ export class AjfFormBuilderService {
   private _editedChoicesOrigin: BehaviorSubject<AjfChoicesOrigin<any>|null> =
       new BehaviorSubject<AjfChoicesOrigin<any>|null>(null);
   private _editedChoicesOriginObs: Observable<AjfChoicesOrigin<any>|null> =
-      this._editedChoicesOrigin.asObservable();
+      this._editedChoicesOrigin as Observable<AjfChoicesOrigin<any>|null>;
   get editedChoicesOrigin(): Observable<AjfChoicesOrigin<any>|null> {
     return this._editedChoicesOriginObs;
   }
 
   private _beforeNodesUpdate: EventEmitter<void> = new EventEmitter<void>();
-  private _beforeNodesUpdateObs: Observable<void> = this._beforeNodesUpdate.asObservable();
+  private _beforeNodesUpdateObs: Observable<void> = this._beforeNodesUpdate as Observable<void>;
   get beforeNodesUpdate(): Observable<void> {
     return this._beforeNodesUpdateObs;
   }
   private _afterNodeUpdate: EventEmitter<void> = new EventEmitter<void>();
-  private _afterNodeUpdateObs: Observable<void> = this._afterNodeUpdate.asObservable();
+  private _afterNodeUpdateObs: Observable<void> = this._afterNodeUpdate as Observable<void>;
   get afterNodeUpdate(): Observable<void> {
     return this._afterNodeUpdateObs;
   }

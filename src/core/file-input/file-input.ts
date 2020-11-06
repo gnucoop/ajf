@@ -128,7 +128,9 @@ export class AjfFileInput implements ControlValueAccessor {
   }
 
   private _valueChange = new EventEmitter<AjfFile|undefined>();
-  @Output() readonly valueChange: Observable<AjfFile|undefined> = this._valueChange.asObservable();
+  @Output()
+  readonly valueChange: Observable<AjfFile|undefined> =
+      this._valueChange as Observable<AjfFile|undefined>;
 
   /** The method to be called in order to update ngModel. */
   _controlValueAccessorChangeFn: (value: any) => void = () => {};

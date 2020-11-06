@@ -157,7 +157,8 @@ export abstract class AjfCalendar implements AfterContentInit, ControlValueAcces
   }
 
   private _change: EventEmitter<AjfCalendarChange> = new EventEmitter<AjfCalendarChange>();
-  @Output() readonly change: Observable<AjfCalendarChange> = this._change.asObservable();
+  @Output()
+  readonly change: Observable<AjfCalendarChange> = this._change as Observable<AjfCalendarChange>;
 
   private _selectedPeriod: AjfCalendarPeriod|null;
   @Input()

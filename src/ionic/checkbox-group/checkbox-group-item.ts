@@ -41,9 +41,9 @@ import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@
 })
 export class AjfCheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T> {
   constructor(
-    // `AjfCheckboxGroupItem` is commonly used in combination with a `AjfCheckboxGroup`.
-    // tslint:disable-next-line: lightweight-tokens
-    @Optional() checkboxGroup: AjfCheckboxGroup<T>,
+      // `AjfCheckboxGroupItem` is commonly used in combination with a `AjfCheckboxGroup`.
+      // tslint:disable-next-line: lightweight-tokens
+      @Optional() checkboxGroup: AjfCheckboxGroup<T>,
   ) {
     super(checkboxGroup);
     this.checkedIcon = 'checkmark';

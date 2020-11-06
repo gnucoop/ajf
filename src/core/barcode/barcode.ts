@@ -84,16 +84,18 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
   constructor(private _cdr: ChangeDetectorRef, private _renderer: Renderer2) {
     this._init();
 
-    this._startDetectionSub = this.startDetection.asObservable()
+    this._startDetectionSub = (this.startDetection as Observable<void>)
                                   .pipe(
-                                      debounceTime(300), switchMap(() => {
+                                      debounceTime(300),
+                                      switchMap(() => {
                                         const data: string =
                                             this._getDataFromVideo(this.videoSource);
                                         return this._readBarcodeFromData(data);
                                       }),
                                       catchError(() => {
                                         return of({} as Result);
-                                      }))
+                                      }),
+                                      )
                                   .subscribe((result: any) => {
                                     if (!result.text) {
                                       this.startDetection.emit();
@@ -103,10 +105,12 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
                                     }
                                   });
 
-    this._startCalculationSub = this.startCalculation.asObservable()
-                                    .pipe(switchMap((data: string) => {
-                                      return this._readBarcodeFromData(data);
-                                    }))
+    this._startCalculationSub = (this.startCalculation as Observable<string>)
+                                    .pipe(
+                                        switchMap((data: string) => {
+                                          return this._readBarcodeFromData(data);
+                                        }),
+                                        )
                                     .subscribe((result: any) => {
                                       if (result.text) {
                                         this.toggle = 'drop';

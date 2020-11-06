@@ -77,7 +77,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
       new EventEmitter<AjfPageSliderOrientation>();
   @Output()
   readonly orientationChange: Observable<AjfPageSliderOrientation> =
-      this._orientationChange.asObservable();
+      this._orientationChange as Observable<AjfPageSliderOrientation>;
 
   private _saveDisabled: boolean = false;
   get saveDisabled(): boolean {
@@ -192,7 +192,9 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   private _errorMoveSubscription: Subscription = Subscription.EMPTY;
 
   private _formAction: EventEmitter<AjfFormActionEvent> = new EventEmitter<AjfFormActionEvent>();
-  @Output() readonly formAction: Observable<AjfFormActionEvent> = this._formAction.asObservable();
+  @Output()
+  readonly formAction: Observable<AjfFormActionEvent> =
+      this._formAction as Observable<AjfFormActionEvent>;
 
   @Input()
   set form(form: AjfForm) {

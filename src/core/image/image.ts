@@ -72,16 +72,18 @@ export abstract class AjfImage implements OnDestroy, OnInit {
   readonly imageTypes = AjfImageType;
 
   private _imageType = new BehaviorSubject<AjfImageType|null>(null);
-  readonly imageType: Observable<AjfImageType|null> = this._imageType.asObservable();
+  readonly imageType: Observable<AjfImageType|null> =
+      this._imageType as Observable<AjfImageType|null>;
 
   private _url = new BehaviorSubject<string|SafeResourceUrl|null>(null);
-  readonly url: Observable<string|SafeResourceUrl|null> = this._url.asObservable();
+  readonly url: Observable<string|SafeResourceUrl|null> =
+      this._url as Observable<string|SafeResourceUrl|null>;
 
   private _iconObj = new BehaviorSubject<AjfImageIcon|null>(null);
-  readonly iconObj: Observable<AjfImageIcon|null> = this._iconObj.asObservable();
+  readonly iconObj: Observable<AjfImageIcon|null> = this._iconObj as Observable<AjfImageIcon|null>;
 
   private _flagName = new BehaviorSubject<string|null>(null);
-  readonly flagName: Observable<string|null> = this._flagName.asObservable();
+  readonly flagName: Observable<string|null> = this._flagName as Observable<string|null>;
 
   private _iconSub = Subscription.EMPTY;
 

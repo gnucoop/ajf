@@ -282,7 +282,7 @@ export class AjfReportBuilderService {
   private _saveFormulaTOHtml: EventEmitter<any> = new EventEmitter<any>();
 
   getFormulaToHtmlEvent(): Observable<string> {
-    return this._saveFormulaTOHtml.asObservable();
+    return this._saveFormulaTOHtml as Observable<string>;
   }
 
   /**
@@ -825,7 +825,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   get report(): Observable<AjfReport|null> {
-    return this._report.asObservable();
+    return this._report as Observable<AjfReport|null>;
   }
 
   /**
@@ -1050,7 +1050,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   get getSaveReport(): Observable<any> {
-    return this._saveReport.asObservable();
+    return this._saveReport as Observable<any>;
   }
 
   /**

@@ -150,10 +150,11 @@ export class AjfFormRendererService {
       new Subject<AjfRendererUpdateMapOperation>();
 
   private _formInitEvent: EventEmitter<AjfFormInitStatus> = new EventEmitter<AjfFormInitStatus>();
-  readonly formInitEvent: Observable<AjfFormInitStatus> = this._formInitEvent.asObservable();
+  readonly formInitEvent: Observable<AjfFormInitStatus> =
+      this._formInitEvent as Observable<AjfFormInitStatus>;
 
   private _formGroup: BehaviorSubject<FormGroup|null> = new BehaviorSubject<FormGroup|null>(null);
-  readonly formGroup: Observable<FormGroup|null> = this._formGroup.asObservable();
+  readonly formGroup: Observable<FormGroup|null> = this._formGroup as Observable<FormGroup|null>;
 
   private _form: BehaviorSubject<{form: AjfForm | null, context?: AjfContext}|null> =
       new BehaviorSubject<{form: AjfForm | null, context?: AjfContext}|null>(null);
@@ -171,10 +172,11 @@ export class AjfFormRendererService {
   private _nodesMaps: Observable<AjfRendererUpdateMap>[];
 
   private _nextSlideTrigger: EventEmitter<AjfNodeInstance> = new EventEmitter<AjfNodeInstance>();
-  readonly nextSlideTrigger: Observable<AjfNodeInstance> = this._nextSlideTrigger.asObservable();
+  readonly nextSlideTrigger: Observable<AjfNodeInstance> =
+      this._nextSlideTrigger as Observable<AjfNodeInstance>;
 
   private _slidesNum: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  readonly slidesNum: Observable<number> = this._slidesNum.asObservable();
+  readonly slidesNum: Observable<number> = this._slidesNum as Observable<number>;
 
   get nodesTree(): Observable<AjfSlideInstance[]> {
     return this._flatNodesTree;
@@ -645,8 +647,11 @@ export class AjfFormRendererService {
   }
 
   private _updateFormValueAndValidity(): void {
-    this._nodesUpdates.asObservable()
-        .pipe(withLatestFrom(this._formGroup), filter(([_, fg]) => fg !== null))
+    this._nodesUpdates
+        .pipe(
+            withLatestFrom(this._formGroup),
+            filter(([_, fg]) => fg !== null),
+            )
         .subscribe(([_, fg]) => {
           const form = fg as FormGroup;
           form.updateValueAndValidity();

@@ -49,7 +49,9 @@ export class AjfPageSliderItem implements OnDestroy {
   @ViewChild('content', {static: true}) content: ElementRef;
 
   private _scrollEvt = new EventEmitter<{x: number, y: number}>();
-  @Output() readonly scroll: Observable<{x: number, y: number}> = this._scrollEvt.asObservable();
+  @Output()
+  readonly scroll: Observable<{x: number, y: number}> =
+      this._scrollEvt as Observable<{x: number, y: number}>;
 
   private _scrollX = 0;
   private _scrollY = 0;

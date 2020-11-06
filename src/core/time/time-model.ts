@@ -25,7 +25,7 @@ import {Observable} from 'rxjs';
 
 export class AjfTimeModel {
   private _changed: EventEmitter<string> = new EventEmitter<string>();
-  readonly changed: Observable<string> = this._changed.asObservable();
+  readonly changed: Observable<string> = this._changed as Observable<string>;
 
   private _hours = 0;
   private _minutes = 0;

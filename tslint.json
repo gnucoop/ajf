@@ -88,34 +88,15 @@
       "check-type",
       "check-preblock"
     ],
-    // Bans jasmine helper functions that will prevent the CI from properly running tests.
     "ban": [
       true,
-      [
-        "fit"
-      ],
-      [
-        "fdescribe"
-      ],
-      [
-        "xit"
-      ],
-      [
-        "xdescribe"
-      ],
-      {
-        "name": [
-          "first"
-        ],
-        "message": "Use take(1) instead."
-      },
-      {
-        "name": [
-          "Object",
-          "assign"
-        ],
-        "message": "Use the spread operator instead."
-      }
+      ["fit"],
+      ["fdescribe"],
+      ["xit"],
+      ["xdescribe"],
+      {"name": ["first"], "message": "Use take(1) instead."},
+      {"name": ["Object", "assign"], "message": "Use the spread operator instead."},
+      {"name": ["*", "asObservable"], "message": "Cast to Observable type instead."}
     ],
     // Avoids inconsistent linebreak styles in source files. Forces developers to use LF linebreaks.
     "linebreak-style": [

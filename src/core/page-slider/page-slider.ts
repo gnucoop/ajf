@@ -69,13 +69,14 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   @ContentChildren(AjfPageSliderItem, {descendants: true}) pages: QueryList<AjfPageSliderItem>;
 
   private _pageScrollFinish: EventEmitter<void> = new EventEmitter<void>();
-  @Output() readonly pageScrollFinish: Observable<void> = this._pageScrollFinish.asObservable();
+  @Output()
+  readonly pageScrollFinish: Observable<void> = this._pageScrollFinish as Observable<void>;
 
   private _orientationChange: EventEmitter<AjfPageSliderOrientation> =
       new EventEmitter<AjfPageSliderOrientation>();
   @Output()
   readonly orientationChange: Observable<AjfPageSliderOrientation> =
-      this._orientationChange.asObservable();
+      this._orientationChange as Observable<AjfPageSliderOrientation>;
 
   @Input() duration = 300;
 

@@ -1,4 +1,4 @@
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 
 import {
   AjfChoice,
@@ -9,7 +9,7 @@ import {
   createChoicesOrigin,
   createChoicesPromiseOrigin,
   initChoicesOrigin,
-  isChoicesFixedOrigin
+  isChoicesFixedOrigin,
 } from './public-api';
 
 describe('createChoicesOrigin', () => {
@@ -64,8 +64,8 @@ describe('createChoicesFunctionOrigin', () => {
 describe('createChoicesObservableArrayOrigin', () => {
   it('should have choices from a given observable', (done) => {
     let subject = new Subject<AjfChoice<number>[]>();
-    let choicesOrigin =
-        createChoicesObservableArrayOrigin({name: 'foo', generator: subject.asObservable()});
+    let choicesOrigin = createChoicesObservableArrayOrigin(
+        {name: 'foo', generator: subject as Observable<AjfChoice<number>[]>});
 
     let choices = choicesOrigin.choices;
 
@@ -94,7 +94,7 @@ describe('createChoicesObservableOrigin', () => {
     let subject = new Subject<AjfChoice<number>>();
     let choicesOrigin = createChoicesObservableOrigin({
       name: 'foo',
-      generator: subject.asObservable(),
+      generator: subject as Observable<AjfChoice<number>>,
     });
 
     initChoicesOrigin(choicesOrigin).then(() => {

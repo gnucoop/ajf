@@ -34,7 +34,7 @@ import {Observable} from 'rxjs';
 })
 export class AjfDndDirective {
   private _file: EventEmitter<FileList> = new EventEmitter<FileList>();
-  @Output() file: Observable<FileList> = this._file.asObservable();
+  @Output() file: Observable<FileList> = this._file as Observable<FileList>;
 
   private _over: boolean = false;
   get over(): boolean {

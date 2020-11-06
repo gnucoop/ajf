@@ -118,7 +118,9 @@ export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccess
   /** Event emitted when the group's value changes. */
   private _change: EventEmitter<AjfCheckboxGroupChange<T>> =
       new EventEmitter<AjfCheckboxGroupChange<T>>();
-  @Output() readonly change: Observable<AjfCheckboxGroupChange<T>> = this._change.asObservable();
+  @Output()
+  readonly change: Observable<AjfCheckboxGroupChange<T>> =
+      this._change as Observable<AjfCheckboxGroupChange<T>>;
 
   /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
   onTouched: () => any = () => {};
@@ -217,7 +219,7 @@ export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccess
 export class AjfCheckboxGroupItem<T> implements OnInit {
   /** The unique ID for this button toggle. */
   private _checkboxId: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  readonly checkboxId: Observable<string> = this._checkboxId.asObservable();
+  readonly checkboxId: Observable<string> = this._checkboxId as Observable<string>;
 
   @Input()
   set id(id: string) {
@@ -231,7 +233,7 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
 
   /** Whether or not this button toggle is checked. */
   private _checkedState: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly checkedState: Observable<boolean> = this._checkedState.asObservable();
+  readonly checkedState: Observable<boolean> = this._checkedState as Observable<boolean>;
   get checked(): boolean {
     return this._checkedState.getValue();
   }
@@ -242,7 +244,7 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
 
   /** Whether or not this button toggle is disabled. */
   private _disabledState: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly disabledState: Observable<boolean> = this._disabledState.asObservable();
+  readonly disabledState: Observable<boolean> = this._disabledState as Observable<boolean>;
   get disabled(): boolean {
     const disabled = this._disabledState.getValue();
     return disabled || (this.checkboxGroup != null && this.checkboxGroup.disabled);
@@ -288,7 +290,8 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
   private _change: EventEmitter<AjfCheckboxGroupItemChange<T>> =
       new EventEmitter<AjfCheckboxGroupItemChange<T>>();
   @Output()
-  readonly change: Observable<AjfCheckboxGroupItemChange<T>> = this._change.asObservable();
+  readonly change: Observable<AjfCheckboxGroupItemChange<T>> =
+      this._change as Observable<AjfCheckboxGroupItemChange<T>>;
 
   constructor(checkboxGroup?: AjfCheckboxGroup<T>) {
     this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal)

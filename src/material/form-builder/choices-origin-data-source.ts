@@ -37,7 +37,7 @@ export class ChoicesOriginDataSource extends DataSource<ChoicesOriginChoiceEntry
 
   constructor() {
     super();
-    this._choicesObs = this._choices.asObservable();
+    this._choicesObs = this._choices as Observable<ChoicesOriginChoiceEntry[]>;
   }
 
   connect(): Observable<ChoicesOriginChoiceEntry[]> {
