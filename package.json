@@ -118,7 +118,7 @@
     "@types/minimist": "^1.2.0",
     "@types/node": "^12.11.1",
     "@types/parse5": "^5.0.2",
-    "@types/quill": "^2.0.3",
+    "@types/quill": "^2.0.4",
     "@types/run-sequence": "^0.0.30",
     "@types/semver": "^7.3.4",
     "@types/send": "^0.14.5",
