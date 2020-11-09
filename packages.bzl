@@ -2,8 +2,8 @@
 # all in-sync. This map is passed to each ng_package rule to stamp out the appropriate
 # version for the placeholders.
 AJF_ICONS_PACKAGE_VERSION = "^1.0.0"
-ANGULAR_PACKAGE_VERSION = "^10.0.0 || ^11.0.0"
-ANGULAR_MATERIAL_PACKAGE_VERSION = "^10.0.0 || ^11.0.0"
+ANGULAR_PACKAGE_VERSION = "^10.0.0 || ^11.0.0-0"
+ANGULAR_MATERIAL_PACKAGE_VERSION = "^10.0.0 || ^11.0.0-0"
 CHARTJS_PACKAGE_VERSION = "^2.9.3"
 CSS_ELEMENT_QUERIES_PACKAGE_VERSION = "^1.2.3"
 DATEFNS_PACKAGE_VERSION = "^2.14.0"
