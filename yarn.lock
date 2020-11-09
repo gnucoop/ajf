@@ -1431,10 +1431,10 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-0.0.32.tgz#bd284e57c84f1325da702babfc82a5328190c0c5"
   integrity sha1-vShOV8hPEyXacCur/IKlMoGQwMU=
 
-"@types/quill@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@types/quill/-/quill-2.0.3.tgz#bddb7d0951c277de6bf006faa29b39bfa3941ebb"
-  integrity sha512-bsMS+1pXXH06aP9oZOw0o7mGQnEhWo9yXoc4Hh8RO33JCgYzDZUJUUQbqzRwPoJV7T4RDwkhV/dCfXhNBUGqPQ==
+"@types/quill@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@types/quill/-/quill-2.0.4.tgz#bae8c682ede5afe7ebc1da134dc90949b96828f4"
+  integrity sha512-94nSS3Cij7Kdy9ar0KoPvTntxaZrL6axo4xLp/YMxhaWAZOK/kmVMxLKSx0xt07cac/sRqGIW495kGZZf74/Jw==
   dependencies:
     parchment "^1.1.2"
     quill-delta "^4.0.1"
