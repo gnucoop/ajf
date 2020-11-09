@@ -75,12 +75,12 @@ pipeline {
           env.expected_version = sh(script: 'echo "${pkg_json_version}-sha-$(git rev-parse --short HEAD)"', returnStdout: true).trim()
           sh 'yarn check-release-output ${expected_version}'
         }
-        sh 'rm -Rf node_modules/@ajf/{calendars,core,ionic,material}'
+        sh 'rm -Rf  node_modules/@ajf/calendars node_modules/@ajf/core node_modules/@ajf/ionic node_modules/@ajf/material'
         sh 'cp -R dist/releases/* node_modules/@ajf/'
         sh 'mv node_modules/__ngcc_entry_points__.json node_modules/__ngcc_entry_points__.json.back'
         sh 'yarn ngcc --error-on-failed-entry-point --no-tsconfig'
         sh 'mv node_modules/__ngcc_entry_points__.json.back node_modules/__ngcc_entry_points__.json'
-        sh 'rm -Rf node_modules/@ajf/{calendars,core,ionic,material}'
+        sh 'rm -Rf node_modules/@ajf/calendars node_modules/@ajf/core node_modules/@ajf/ionic node_modules/@ajf/material'
       }
     }
     stage('Save cache') {
