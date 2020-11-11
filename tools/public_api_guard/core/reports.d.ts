@@ -76,6 +76,7 @@ export declare enum AjfChartType {
 export interface AjfChartWidget extends AjfDataWidget {
     chartType: AjfChartType;
     dataset: AjfChartDataset[];
+    exportable?: boolean;
     labels: AjfFormula | AjfFormula[];
     options: ChartOptions;
     type?: AjfChartType;
@@ -85,6 +86,7 @@ export interface AjfChartWidgetInstance extends AjfDataWidgetInstance {
     chartType: ExtendedChartType;
     data: ChartData;
     datasets: ChartDataSets[];
+    exportable: boolean;
     labels: string[];
     widget: AjfChartWidget;
     canvasDataUrl?(): string;
@@ -236,7 +238,7 @@ export declare class AjfReportSerializer {
 
 export declare class AjfReportsModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfReportsModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfReportsModule, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfWidgetHost], never, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfWidgetHost]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfReportsModule, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfWidgetHost, typeof i3.AjfWidgetExport], [typeof i4.CommonModule], [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfWidgetHost, typeof i3.AjfWidgetExport]>;
 }
 
 export interface AjfReportVariable {
@@ -269,10 +271,12 @@ export interface AjfTableDataset extends AjfDataset {
 export interface AjfTableWidget extends AjfDataWidget {
     cellStyles: any;
     dataset: AjfTableDataset[][];
+    exportable?: boolean;
 }
 
 export interface AjfTableWidgetInstance extends AjfDataWidgetInstance {
     data: AjfTableCell[][];
+    exportable: boolean;
     recalcEvt: Subject<boolean>;
     widget: AjfTableWidget;
 }
@@ -304,6 +308,22 @@ export interface AjfWidgetComponentsMap {
 }
 
 export declare type AjfWidgetCreate = Pick<AjfWidget, 'widgetType'> & Partial<AjfWidget>;
+
+export declare class AjfWidgetExport {
+    data: ChartData | AjfTableCell[][];
+    enable: boolean;
+    overlay: boolean;
+    widgetType: AjfWidgetType;
+    constructor();
+    buildCsv(): string;
+    buildXlsx(): {
+        [key: string]: string | number;
+    }[];
+    exportCsv(): void;
+    exportXlsx(): void;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfWidgetExport, "ajf-widget-export", never, { "widgetType": "widgetType"; "data": "data"; "overlay": "overlay"; "enable": "enable"; }, {}, never, ["*"]>;
+    static ɵfac: i0.ɵɵFactoryDef<AjfWidgetExport, never>;
+}
 
 export declare class AjfWidgetHost {
     readonly viewContainerRef: ViewContainerRef;

@@ -20,19 +20,24 @@
  *
  */
 
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
 import {AjfGetColumnContentPipe} from './get-column-content';
+import {AjfWidgetExport} from './widget-export';
 import {AjfWidgetHost} from './widget-host';
 
 @NgModule({
   declarations: [
     AjfGetColumnContentPipe,
     AjfWidgetHost,
+    AjfWidgetExport,
   ],
+  imports: [CommonModule],
   exports: [
     AjfGetColumnContentPipe,
     AjfWidgetHost,
+    AjfWidgetExport,
   ],
 })
 export class AjfReportsModule {

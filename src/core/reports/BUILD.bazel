@@ -4,6 +4,7 @@ load(
     "ng_module",
     "ng_test_library",
     "ng_web_test_suite",
+    "sass_binary",
     "sass_library",
 )
 load("//tools/vfs-fonts:index.bzl", "generate_vfs_fonts")
@@ -13,10 +14,10 @@ package(default_visibility = ["//visibility:public"])
 generate_vfs_fonts(
     name = "vfs-fonts",
     srcs = [
-        "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-normal.woff",
         "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-italic.woff",
-        "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-normal.woff",
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-normal.woff",
         "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-italic.woff",
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-normal.woff",
     ],
     output = ":report-to-pdf/vfs-fonts.ts",
 )
@@ -27,7 +28,7 @@ ng_module(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
     ) + [":report-to-pdf/vfs-fonts.ts"],
-    assets = [],
+    assets = [":widget-export.css"],
     module_name = "@ajf/core/reports",
     deps = [
         "//src/core/chart",
@@ -40,13 +41,21 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@ngx-translate/core",
         "@npm//@types/chart.js",
+        "@npm//@types/file-saver",
         "@npm//@types/pdfmake",
+        "@npm//xlsx",
     ],
 )
 
 sass_library(
     name = "reports_scss_lib",
     srcs = glob(["**/_*.scss"]),
+    deps = [],
+)
+
+sass_binary(
+    name = "widget_export_scss",
+    src = "widget-export.scss",
     deps = [],
 )
 
@@ -58,8 +67,12 @@ ng_test_library(
     ),
     deps = [
         ":reports",
+        "//src/core/table",
         "@npm//@angular/platform-browser",
         "@npm//@ngx-translate/core",
+        "@npm//@types/chart.js",
+        "@npm//@types/file-saver",
+        "@npm//xlsx",
     ],
 )
 
