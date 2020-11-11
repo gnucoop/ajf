@@ -4,7 +4,9 @@
       [ngStyle]="{'flex-grow': column > -1 ? 1 : null, 'flex-basis' : column > -1 ? (column * 100) + '%' : null}"
       class="ajf-column"
   >
+  <ng-container *ngIf="allcolumnsRendered$|async">
     <ajf-widget *ngIf="(instance|ajfGetColumnContent:idx) as cc" [instance]="cc!">
     </ajf-widget>
-  </div>
+  </ng-container>
+ </div>
 </div>

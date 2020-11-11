@@ -68,6 +68,7 @@ ROLLUP_GLOBALS = {
     "css-element-queries": "cssElementQueries",
     "date-fns": "dateFns",
     "esprima": "esprima",
+    "file-saver": "file-saver",
     "leaflet": "leaflet",
     "moment": "moment",
     "ngx-color-picker": "ngxColorPicker",
@@ -78,6 +79,7 @@ ROLLUP_GLOBALS = {
     "quill": "quill",
     "rxjs": "rxjs",
     "rxjs/operators": "rxjs.operators",
+    "xlsx": "xlsx",
 }
 
 # Converts a string from dash-case to lower camel case.

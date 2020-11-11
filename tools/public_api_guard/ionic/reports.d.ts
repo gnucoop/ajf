@@ -29,8 +29,10 @@ export declare class AjfImageWidgetComponent extends AjfBaseWidgetComponent<AjfI
     static ɵfac: i0.ɵɵFactoryDef<AjfImageWidgetComponent, never>;
 }
 
-export declare class AjfLayoutWidgetComponent extends AjfBaseWidgetComponent<AjfLayoutWidgetInstance> {
+export declare class AjfLayoutWidgetComponent extends AjfBaseWidgetComponent<AjfLayoutWidgetInstance> implements AfterContentChecked {
+    readonly allcolumnsRendered$: Observable<boolean>;
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
+    ngAfterContentChecked(): void;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfLayoutWidgetComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfLayoutWidgetComponent, never>;
 }

@@ -26,4 +26,5 @@ import {AjfDataWidget} from './data-widget';
 export interface AjfTableWidget extends AjfDataWidget {
   cellStyles: any;
   dataset: AjfTableDataset[][];
+  exportable?: boolean;
 }

@@ -1,1 +1,7 @@
-<ajf-table [data]="instance.data"></ajf-table>
+<ajf-widget-export 
+[widgetType]="instance.widgetType" 
+[data]="instance.data"
+[enable]="instance.exportable"
+>
+    <ajf-table [data]="instance.data"></ajf-table>
+</ajf-widget-export>

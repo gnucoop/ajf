@@ -1,0 +1,29 @@
+ajf-widget-export {
+    width: 100%;
+    height: inherit;
+    .ajf-export-menu {
+        position: absolute;
+        right: 0;
+        top: 0;
+        button {
+            margin: 0.5em;
+            border: none;
+            color: white;
+            background-color: #4a403f;
+            padding: 7.5px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    }
+    .ajf-widget-wrapper {
+        position: relative;
+    }
+    .ajf-widget-wrapper:hover {
+        .ajf-export-menu {
+            display: block !important;
+        }
+    }
+}

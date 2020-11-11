@@ -25,7 +25,7 @@ import {AjfWidgetInstance, AjfWidgetType, createWidgetInstance} from '@ajf/core/
 import {TranslateService} from '@ngx-translate/core';
 
 const baseWidget = {
-  styles: {},
+  styles: { height: '200px'},
   visibility: {condition: 'true'}
 };
 
@@ -115,6 +115,9 @@ export function demoWidgets(ts: TranslateService): {name: string, instance: AjfW
             } as any,
             {}, ts),
         chartType: 'line',
+        styles: {
+            height: '200px'
+        },
         data: {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
           datasets: [{

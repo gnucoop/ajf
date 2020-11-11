@@ -1,6 +1,10 @@
-<ajf-chart
-    [chartType]="instance.chartType"
-    [options]="instance.widget.options"
-    [data]="instance.data"
-    [instance]="instance"
-></ajf-chart>
+<ajf-widget-export 
+    [widgetType]="instance.widgetType"  
+    [data]="instance.data" 
+    [enable]="instance.exportable"
+    [overlay]="true">
+  <ajf-chart
+      [chartType]="instance.chartType"
+      [options]="instance.widget.options"
+      [data]="instance.data"></ajf-chart>
+</ajf-widget-export>
