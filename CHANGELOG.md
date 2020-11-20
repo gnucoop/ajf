@@ -1,3 +1,14 @@
+# 11.0.0 "divine-cell" (2020-11-20)
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  approve api changes in core forms ([9c23817c4b56829402b06802fe31a718d8cec110](https://github.com/gnucoop/ajf/commit/9c23817c4b56829402b06802fe31a718d8cec110)) |
+| bug fix |  lint errors ([2380a0a69dc7855a05b6fe51b424e34e287be657](https://github.com/gnucoop/ajf/commit/2380a0a69dc7855a05b6fe51b424e34e287be657)) |
+| feature |  add support for TypeScript 4.0 ([173aec1fcc197c5bdfd28a0aba00d79b583eb8ba](https://github.com/gnucoop/ajf/commit/173aec1fcc197c5bdfd28a0aba00d79b583eb8ba)) |
+
+
 ## 10.0.6 "misty-cherry" (2020-10-21)
 
 ### ionic
