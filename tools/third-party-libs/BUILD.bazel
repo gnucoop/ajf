@@ -113,6 +113,16 @@ third_party_bundle(
 )
 
 third_party_bundle(
+    name = "pdfmake",
+    entry_point = "@npm//:node_modules/pdfmake/build/pdfmake.js",
+    module_name = "pdfmake/build/pdfmake",
+    exports = "default",
+    deps = [
+        "@npm//pdfmake",
+    ],
+)
+
+third_party_bundle(
     name = "quill",
     entry_point = "@npm//:node_modules/quill/dist/quill.js",
     module_name = "quill",

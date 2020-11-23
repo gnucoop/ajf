@@ -73,6 +73,7 @@ filegroup(
         "//tools/third-party-libs:ionic-core-loader-bundle.js",
         "//tools/third-party-libs:leaflet-bundle.js",
         "//tools/third-party-libs:numbro-bundle.js",
+        "//tools/third-party-libs:pdfmake-bundle.js",
         "//tools/third-party-libs:quill-bundle.js",
         "//tools/third-party-libs:zxing-library-bundle.js",
         "@npm//:node_modules/@ajf/icons/css/ajf-icons.css",

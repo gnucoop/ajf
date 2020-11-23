@@ -28,6 +28,7 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@ngx-translate/core",
         "@npm//@types/chart.js",
+        "@npm//@types/pdfmake",
     ],
 )
 

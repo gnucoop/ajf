@@ -17,6 +17,12 @@
     </mat-grid-list>
     <button (click)="setReport()" mat-raised-button
         color="primary">Set report</button>
+    &nbsp;
+    <button (click)="printReport('portrait')" mat-raised-button
+        color="primary">Print pdf (portrait)</button>
+    &nbsp;
+    <button (click)="printReport('landscape')" mat-raised-button
+        color="primary">Print pdf (landscape)</button>
     <div class="demo-form-builder-container">
       <ajf-report [instance]="report"></ajf-report>
     </div>
