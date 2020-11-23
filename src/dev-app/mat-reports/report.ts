@@ -21,56 +21,163 @@
  */
 
 export const testReport = {
-  header: {
-    styles: {'background-color': '#56d3cf', color: '#ffffff'},
-    content: [
+  'header': {
+    'content': [],
+    'styles': {}
+  },
+  'content': {
+    'content': [
       {
-        columns: [0.55, -1, 0.45],
-        widgetType: 0,
-        content: [
+        'widgetType': 0,
+        'columns': [
+          -1,
+          -1
+        ],
+        'content': [
           {
-            widgetType: 0,
-            columns: [-1, -1],
-            styles: {'background-color': '#37c4ca'},
-            content: [
+            'widgetType': 7,
+            'content': [
               {
-                widgetType: 2,
-                styles: {
-                  width: '44px',
-                  height: '44px',
-                  'border-radius': '22px',
-                  'background-color': '#2bb7c0',
-                  padding: '10px',
-                  margin: '0 15px'
-                },
-                imageUrl: 'https://dl.dropboxusercontent.com/u/53590771/wash.png'
-              },
-              {widgetType: 3, htmlText: 'prova', styles: {padding: '0 15px'}}
+                'widgetType': 3,
+                'htmlText': 'column 1'
+              }
             ]
           },
           {
-            widgetType: 0,
-            styles: {
-              'border-top': '2em solid transparent',
-              'border-bottom': '2em solid transparent',
-              'border-left': '2em solid #37c4ca'
-            }
-          },
-          {widgetType: 3, styles: {padding: '15px', color: 'white'}, htmlText: '<b>inutile</b>'}
+            'widgetType': 7,
+            'content': [
+              {
+                'widgetType': 3,
+                'htmlText': 'column 2'
+              }
+            ]
+          }
         ]
       },
-      {widgetType: 101},
-    ]
-  },
-  footer: [],
-  content: [{
-    styles: {margin: '15px 0'},
-    content: [
       {
-        columns: [0.5, -1, 0.5],
-        widgetType: 0,
-        content: [],
+        'widgetType': 2,
+        'imageType': 0,
+        'url': {
+          'formula': '"https://i.imgur.com/4Kw1Pbc.jpg"'
+        }
       },
-    ]
-  }]
+      {
+        'widgetType': 5,
+        'dataset': [
+          [
+            {
+              'label': '',
+              'formula': {
+                'formula': '"1a"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '"1b"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '"1c"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            }
+          ],
+          [
+            {
+              'label': '',
+              'formula': {
+                'formula': '"2a"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '"2b"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '"2c"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            }
+          ],
+          [
+            {
+              'label': '',
+              'formula': {
+                'formula': '"3a"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '"3b"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '"3c"'
+              },
+              'aggregation': {
+                'aggregation': 0
+              }
+            }
+          ]
+        ]
+      },
+      {
+        'widgetType': 4,
+        'chartType': 6,
+        'labels': {
+          'formula': '["label1", "label2", "label3"]'
+        },
+        'dataset': [
+          {
+            'label': '"chart data"',
+            'formula': [
+              {
+                'formula': '[100, 200, 300]'
+              }
+            ],
+            'aggregation': {
+              'aggregation': 0
+            }
+          }
+        ]
+      }
+    ],
+    'styles': {}
+  },
+  'footer': {
+    'content': [],
+    'styles': {}
+  }
 };

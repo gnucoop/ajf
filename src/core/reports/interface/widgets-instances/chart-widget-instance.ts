@@ -33,4 +33,5 @@ export interface AjfChartWidgetInstance extends AjfDataWidgetInstance {
   chartType: ExtendedChartType;
   data: ChartData;
   labels: string[];
+  canvasDataUrl?(): string;
 }

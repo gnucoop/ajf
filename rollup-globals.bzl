@@ -72,6 +72,7 @@ ROLLUP_GLOBALS = {
     "moment": "moment",
     "ngx-color-picker": "ngxColorPicker",
     "numbro": "numbro",
+    "pdfmake/build/pdfmake": "pdfmake.build.pdfmake",
     "protractor": "protractor",
     "quill": "quill",
     "rxjs": "rxjs",
