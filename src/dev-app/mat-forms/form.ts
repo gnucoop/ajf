@@ -36,7 +36,11 @@ export const formSchema: any = {
       type: 'fixed',
       name: 'animals',
       choicesType: 'string',
-      choices: [{value: 'dog', label: 'Dog'}, {value: 'cat', label: 'Cat'}]
+      choices: [
+        {value: 'dog', label: 'Dog'},
+        {value: 'cat', label: 'Cat'},
+        {value: 'blackcat', label: 'Black Cat'}
+      ]
     },
     {
       type: 'fixed',

@@ -51,6 +51,7 @@ export * from './node-complete-name';
 export * from './range';
 export * from './read-only-file-field';
 export * from './read-only-image-field';
+export * from './read-only-select-field';
 export * from './read-only-video-url-field';
 export * from './search-alert-threshold';
 export * from './serializers/attachments-origin-serializer';

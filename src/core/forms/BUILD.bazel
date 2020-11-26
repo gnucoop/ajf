@@ -23,6 +23,7 @@ ng_module(
         ":read-only-file-field.css",
         ":read-only-image-field.css",
         ":read-only-video-url-field.css",
+        ":read-only-select-field.css",
         ":read-only-table-field.css",
     ] + glob(["**/*.html"]),
     module_name = "@ajf/core/forms",
@@ -35,6 +36,7 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@angular/platform-browser",
+        "@npm//@ngx-translate/core",
         "@npm//@types/esprima",
         "@npm//date-fns",
     ],
@@ -77,6 +79,12 @@ sass_binary(
 )
 
 sass_binary(
+    name = "read_only_select_field_scss",
+    src = "read-only-select-field.scss",
+    deps = [],
+)
+
+sass_binary(
     name = "read_only_table_field_scss",
     src = "read-only-table-field.scss",
     deps = [],
@@ -98,6 +106,7 @@ ng_test_library(
         ":forms",
         "//src/core/models",
         "@npm//@angular/platform-browser",
+        "@npm//@ngx-translate/core",
         "@npm//rxjs",
     ],
 )
