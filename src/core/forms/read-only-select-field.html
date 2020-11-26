@@ -1,0 +1,12 @@
+<ng-container *ngIf="control|async as ctrl">
+    <ng-container *ngFor="let choice of instance.filteredChoices; let idx = index">
+        <ng-container *ngIf="multiple|async; else singleChoice">
+            <span *ngIf="ctrl.value && ctrl.value?.indexOf(choice.value) > -1">
+                {{choice.label|translate}}{{ctrl.value[ctrl.value.length - 1] !== choice.value ? ', ': ''}}
+            </span>
+        </ng-container>
+        <ng-template #singleChoice>
+            <span *ngIf="ctrl.value === choice.value">{{choice.label|translate}}</span>
+        </ng-template>
+    </ng-container>
+</ng-container>

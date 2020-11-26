@@ -26,6 +26,7 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
+import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfAsFieldInstancePipe} from './as-field-instance';
 import {AjfAsRepeatingSlideInstancePipe} from './as-repeating-slide-instance';
@@ -48,6 +49,7 @@ import {AjfRangePipe} from './range';
 import {AjfReadOnlyFieldComponent} from './read-only-field';
 import {AjfReadOnlyFileFieldComponent} from './read-only-file-field';
 import {AjfReadOnlyImageFieldComponent} from './read-only-image-field';
+import {AjfReadOnlySelectFieldComponent} from './read-only-select-field';
 import {AjfReadOnlyTableFieldComponent} from './read-only-table-field';
 import {AjfReadOnlyVideoUrlFieldComponent} from './read-only-video-url-field';
 import {AjfTableRowClass} from './table-row-class';
@@ -77,6 +79,7 @@ import {AjfValidationService} from './validation-service';
     AjfReadOnlyFieldComponent,
     AjfReadOnlyFileFieldComponent,
     AjfReadOnlyImageFieldComponent,
+    AjfReadOnlySelectFieldComponent,
     AjfReadOnlyTableFieldComponent,
     AjfReadOnlyVideoUrlFieldComponent,
     AjfTableRowClass,
@@ -84,11 +87,8 @@ import {AjfValidationService} from './validation-service';
     AjfValidSlidePipe,
   ],
   imports: [
-    AjfCommonModule,
-    AjfFileInputModule,
-    CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
+    AjfCommonModule, AjfFileInputModule, CommonModule, HttpClientModule, ReactiveFormsModule,
+    TranslateModule
   ],
   exports: [
     AjfAsFieldInstancePipe,
@@ -111,11 +111,22 @@ import {AjfValidationService} from './validation-service';
     AjfReadOnlyFieldComponent,
     AjfReadOnlyFileFieldComponent,
     AjfReadOnlyImageFieldComponent,
+    AjfReadOnlySelectFieldComponent,
     AjfReadOnlyTableFieldComponent,
     AjfReadOnlyVideoUrlFieldComponent,
     AjfTableRowClass,
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
+  ],
+  entryComponents: [
+    AjfFileFieldComponent,
+    AjfImageFieldComponent,
+    AjfReadOnlyFieldComponent,
+    AjfReadOnlyFileFieldComponent,
+    AjfReadOnlyImageFieldComponent,
+    AjfReadOnlySelectFieldComponent,
+    AjfReadOnlyTableFieldComponent,
+    AjfReadOnlyVideoUrlFieldComponent,
   ],
   providers: [
     AjfDateValueStringPipe,

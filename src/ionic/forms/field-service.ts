@@ -28,6 +28,7 @@ import {
   AjfReadOnlyFieldComponent,
   AjfReadOnlyFileFieldComponent,
   AjfReadOnlyImageFieldComponent,
+  AjfReadOnlySelectFieldComponent,
   AjfReadOnlyTableFieldComponent,
   AjfReadOnlyVideoUrlFieldComponent,
 } from '@ajf/core/forms';
@@ -90,11 +91,11 @@ export class AjfFieldService extends CoreService {
     };
     this.componentsMap[AjfFieldType.SingleChoice] = {
       component: AjfSingleChoiceFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
+      readOnlyComponent: AjfReadOnlySelectFieldComponent
     };
     this.componentsMap[AjfFieldType.MultipleChoice] = {
       component: AjfMultipleChoiceFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
+      readOnlyComponent: AjfReadOnlySelectFieldComponent
     };
     this.componentsMap[AjfFieldType.Time] = {
       component: AjfTimeFieldComponent,
