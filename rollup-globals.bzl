@@ -94,7 +94,7 @@ def to_umd_name(name):
 # Creates globals for a given package and its entry-points.
 def create_globals(packageName, entryPoints):
     ROLLUP_GLOBALS.update({
-        "@ajf/%s/%s" % (packageName, ep): "ng.%s.%s" % (to_umd_name(packageName), to_umd_name(ep))
+        "@ajf/%s/%s" % (packageName, ep): "ajf.%s.%s" % (to_umd_name(packageName), to_umd_name(ep))
         for ep in entryPoints
     })
 
