@@ -1,11 +1,12 @@
 export declare class AjfChartComponent implements AfterViewInit, OnChanges {
     chartType: ExtendedChartType;
     data: ChartData;
+    instance: ChartWidgetInstance;
     options: ChartOptions;
     constructor(_el: ElementRef, _renderer: Renderer2);
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfChartComponent, "ajf-chart", never, { "data": "data"; "options": "options"; "chartType": "chartType"; }, {}, never, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfChartComponent, "ajf-chart", never, { "data": "data"; "options": "options"; "chartType": "chartType"; "instance": "instance"; }, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfChartComponent, never>;
 }
 
