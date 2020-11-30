@@ -1,3 +1,19 @@
+## 10.1.1 "bitter-union" (2020-11-30)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** show labels for select fields when readonly ([342d21558665117944ad29cbb99ddd06be21bb53](https://github.com/gnucoop/ajf/commit/342d21558665117944ad29cbb99ddd06be21bb53)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  approve api change in core/chart and core/reports ([a50e34524808b3136bbbd4f041614cd74cd6cae2](https://github.com/gnucoop/ajf/commit/a50e34524808b3136bbbd4f041614cd74cd6cae2)) |
+| feature |  report-to-pdf ([d15ef49037781757b2054dee17172639fd45f3e6](https://github.com/gnucoop/ajf/commit/d15ef49037781757b2054dee17172639fd45f3e6)) |
+
+
 # 10.1.0 "empty-voice" (2020-11-09)
 
 ### ajf
