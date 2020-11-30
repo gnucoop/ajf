@@ -1,10 +1,10 @@
 <div class="ajf-columns">
-  <div
-      *ngFor="let column of instance.widget.columns; let idx = index"
-      [ngStyle]="{'flex-grow': column > -1 ? 1 : null, 'flex-basis' : column > -1 ? (column * 100) + '%' : null}"
-      class="ajf-column"
-  >
-    <ajf-widget *ngIf="(instance|ajfGetColumnContent:idx) as cc" [instance]="cc!">
-    </ajf-widget>
-  </div>
+    <div *ngFor="let column of instance.widget.columns; let idx = index"
+        [ngStyle]="{'flex-grow': column > -1 ? 1 : null, 'flex-basis' : column > -1 ? (column * 100) + '%' : null}"
+        class="ajf-column">
+        <ng-container *ngIf="allcolumnsRendered$|async">
+            <ajf-widget *ngIf="(instance|ajfGetColumnContent:idx) as cc" [instance]="cc!">
+            </ajf-widget>
+        </ng-container>
+    </div>
 </div>

@@ -25,6 +25,7 @@
     "css-element-queries": "0.0.0-CEQ",
     "date-fns": "0.0.0-DATEFNS",
     "esprima": "0.0.0-ESPRIMA",
+    "file-saver": "0.0.0-FILESAVER",
     "leaflet": "0.0.0-LEAFLET",
     "numbro": "0.0.0-NUMBRO",
     "pdfmake": "0.0.0-PDFMAKE"

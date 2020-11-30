@@ -25,7 +25,7 @@ import {AjfWidgetInstance, AjfWidgetType, createWidgetInstance} from '@ajf/core/
 import {TranslateService} from '@ngx-translate/core';
 
 const baseWidget = {
-  styles: {},
+  styles: {height: '200px'},
   visibility: {condition: 'true'}
 };
 

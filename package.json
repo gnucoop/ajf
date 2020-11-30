@@ -67,6 +67,7 @@
     "css-element-queries": "^1.2.3",
     "date-fns": "^2.14.0",
     "esprima": "^4.0.1",
+    "file-saver": "^2.0.2",
     "flag-icon-css": "^3.5.0",
     "leaflet": "^1.6.0",
     "ngx-color-picker": "^10.1.0",
@@ -77,6 +78,7 @@
     "rxjs-tslint-rules": "^4.33.1",
     "systemjs": "0.19.43",
     "tslib": "^2.0.0",
+    "xlsx": "^0.16.5",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
@@ -109,6 +111,7 @@
     "@types/browser-sync": "^2.26.1",
     "@types/chart.js": "^2.9.22",
     "@types/esprima": "^4.0.2",
+    "@types/file-saver": "^2.0.1",
     "@types/glob": "^7.1.1",
     "@types/gulp": "^3.8.36",
     "@types/inquirer": "^7.3.1",

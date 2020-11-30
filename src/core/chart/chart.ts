@@ -144,8 +144,21 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     }
     if (this.data != null) {
       this._chartCanvasElement = this._renderer.createElement('canvas');
-      this._renderer.setStyle(this._chartCanvasElement, 'width', 'inherit');
-      this._renderer.setStyle(this._chartCanvasElement, 'height', 'inherit');
+      const widgetExportElement: HTMLElement = this._el.nativeElement.parentElement.parentElement;
+      const height = widgetExportElement.clientHeight;
+      const width = widgetExportElement.clientWidth;
+      if (widgetExportElement != null) {
+        if (height > 0) {
+          this._renderer.setStyle(this._el.nativeElement, 'height', `${height}px`);
+          this._renderer.setStyle(this._chartCanvasElement, 'height', `${height}px`);
+        }
+        if (width > 0) {
+          this._renderer.setStyle(this._chartCanvasElement, 'width', width);
+        }
+      } else {
+        this._renderer.setStyle(this._chartCanvasElement, 'width', 'inherit');
+        this._renderer.setStyle(this._chartCanvasElement, 'height', 'inherit');
+      }
       this._renderer.appendChild(this._el.nativeElement, this._chartCanvasElement);
       const ctx = this._chartCanvasElement!.getContext('2d') as CanvasRenderingContext2D;
       this._chart = new Chart(ctx, {
