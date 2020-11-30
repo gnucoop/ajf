@@ -43,6 +43,7 @@ import {AjfGetTableCellControlPipe} from './get-table-cell-control';
 import {AjfImageFieldComponent} from './image-field';
 import {AjfIncrementPipe} from './increment';
 import {AjfIsCellEditablePipe} from './is-cell-editable';
+import {AjfIsReadonlyInputFieldPipe} from './is-readonly-input-field';
 import {AjfIsRepeatingSlideInstancePipe} from './is-repeating-slide';
 import {AjfNodeCompleteNamePipe} from './node-complete-name';
 import {AjfRangePipe} from './range';
@@ -73,6 +74,7 @@ import {AjfValidationService} from './validation-service';
     AjfImageFieldComponent,
     AjfIncrementPipe,
     AjfIsCellEditablePipe,
+    AjfIsReadonlyInputFieldPipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,
     AjfRangePipe,
@@ -105,6 +107,7 @@ import {AjfValidationService} from './validation-service';
     AjfImageFieldComponent,
     AjfIncrementPipe,
     AjfIsCellEditablePipe,
+    AjfIsReadonlyInputFieldPipe,
     AjfIsRepeatingSlideInstancePipe,
     AjfNodeCompleteNamePipe,
     AjfRangePipe,
