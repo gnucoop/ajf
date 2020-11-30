@@ -20,7 +20,12 @@
  *
  */
 
-import {AjfReportInstance, AjfReportSerializer, createReportInstance} from '@ajf/core/reports';
+import {
+  AjfReportInstance,
+  AjfReportSerializer,
+  createReportInstance,
+  openReportPdf,
+} from '@ajf/core/reports';
 import {AjfWidgetService} from '@ajf/material/reports';
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
@@ -57,6 +62,10 @@ export class ReportsDemo {
 
   setReport(): void {
     this._populateReport();
+  }
+
+  printReport(orientation: 'portrait'|'landscape') {
+    openReportPdf(this.report, orientation);
   }
 
   private _populateReport(): void {
