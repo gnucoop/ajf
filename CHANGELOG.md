@@ -1,3 +1,12 @@
+## 11.0.2 (2020-11-30)
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** formula fields must be readonly inputs ([93c2819c8231e990e3b1f3a30dc20275aa2a2408](https://github.com/gnucoop/ajf/commit/93c2819c8231e990e3b1f3a30dc20275aa2a2408)) |
+
+
 ## 11.0.1 "delicate-queen" (2020-11-30)
 
 ### core
