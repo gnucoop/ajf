@@ -11,7 +11,7 @@
 <div *ngIf="!readonly && instance && instance.validationResults" class="ajf-errors">
   <ng-container *ngFor="let res of instance.validationResults">
     <div class="error" *ngIf="!res.result">
-      {{ res.error }} 
+      {{ res.error|translate }} 
     </div>
   </ng-container>
 </div>
