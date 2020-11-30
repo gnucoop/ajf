@@ -1,3 +1,19 @@
+## 11.0.1 "delicate-queen" (2020-11-30)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** show labels for select fields when readonly ([ddac4e635f319ccf9a9c973769e39976d900bc9c](https://github.com/gnucoop/ajf/commit/ddac4e635f319ccf9a9c973769e39976d900bc9c)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  approve api change in core/chart and core/reports ([c2a01b9e8b97ef2a011a135f8c3eb838ef35006f](https://github.com/gnucoop/ajf/commit/c2a01b9e8b97ef2a011a135f8c3eb838ef35006f)) |
+| feature |  report-to-pdf ([2d15b6a4df5e5e837aa42363ce3cc0772b1f870b](https://github.com/gnucoop/ajf/commit/2d15b6a4df5e5e837aa42363ce3cc0772b1f870b)) |
+
+
 # 11.0.0 "divine-cell" (2020-11-20)
 
 ### ajf
