@@ -1,3 +1,12 @@
+## 10.1.2 "winter-cloud" (2020-11-30)
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** formula fields must be readonly inputs ([bf50d9874bbfd8f4756a9b384021610713a65173](https://github.com/gnucoop/ajf/commit/bf50d9874bbfd8f4756a9b384021610713a65173)) |
+
+
 ## 10.1.1 "bitter-union" (2020-11-30)
 
 ### core
