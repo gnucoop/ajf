@@ -46,6 +46,7 @@ export * from './increment';
 export * from './input-field';
 export * from './image-field';
 export * from './is-cell-editable';
+export * from './is-readonly-input-field';
 export * from './is-repeating-slide';
 export * from './node-complete-name';
 export * from './range';
