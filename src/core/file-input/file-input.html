@@ -3,7 +3,7 @@
     <ng-container *ngIf="_dropMessageChildren?.length; else defaultDropMessage">
       <ng-content select="[ajfDropMessage]"></ng-content>
     </ng-container>
-    <ng-template #defaultDropMessage>Drop your file here or click to select</ng-template>
+    <ng-template #defaultDropMessage>{{'Drop your file here or click to select'|translate}}</ng-template>
   </div>
   <ng-template #fileInfo>
     <button (click)="resetValue()" class="ajf-remove-file">
