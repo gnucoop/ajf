@@ -42,6 +42,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
+  SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import {Observable, Subscription, timer} from 'rxjs';
@@ -288,9 +289,10 @@ export class AjfReportBuilderRendererWidget implements OnInit, OnDestroy, OnChan
     this._service.updateCurrentWidget(this.widget);
   }
 
-  ngOnChanges(changes: any) {
-    if (changes.widget && changes.widget.currentValue != null) {
-      this.widget = changes.widget.currentValue;
+  ngOnChanges(changes: SimpleChanges): void {
+    const widget = changes['widget'];
+    if (widget && widget.currentValue != null) {
+      this.widget = widget.currentValue;
     }
   }
 
