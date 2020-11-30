@@ -20,24 +20,8 @@
  *
  */
 
-import {AjfChartWidgetInstance} from '../interface/widgets-instances/chart-widget-instance';
-import {AjfColumnWidgetInstance} from '../interface/widgets-instances/column-widget-instance';
-import {AjfFormulaWidgetInstance} from '../interface/widgets-instances/formula-widget-instance';
-import {AjfImageWidgetInstance} from '../interface/widgets-instances/image-widget-instance';
-import {AjfLayoutWidgetInstance} from '../interface/widgets-instances/layout-widget-instance';
-import {AjfReportContainerInstance} from '../interface/reports-instances/report-container-instance';
-import {AjfReportInstance} from '../interface/reports-instances/report-instance';
-import {AjfTableWidgetInstance} from '../interface/widgets-instances/table-widget-instance';
-import {AjfTextWidgetInstance} from '../interface/widgets-instances/text-widget-instance';
-import {AjfWidgetInstance} from '../interface/widgets-instances/widget-instance';
-import {AjfWidgetType} from '../interface/widgets/widget-type';
-import {ImageMap, loadReportImages} from './load-report-images';
-
 import {AjfImageType} from '@ajf/core/image';
-
-import * as pm from 'pdfmake/build/pdfmake';
-import {vfsFonts} from './vfs-fonts';
-(pm as any).vfs = vfsFonts;
+import {createPdf, TCreatedPdf} from 'pdfmake/build/pdfmake';
 import {
   Column,
   Content,
@@ -47,31 +31,53 @@ import {
   TDocumentDefinitions
 } from 'pdfmake/interfaces';
 
+import {AjfReportContainerInstance} from '../interface/reports-instances/report-container-instance';
+import {AjfReportInstance} from '../interface/reports-instances/report-instance';
+import {AjfChartWidgetInstance} from '../interface/widgets-instances/chart-widget-instance';
+import {AjfColumnWidgetInstance} from '../interface/widgets-instances/column-widget-instance';
+import {AjfFormulaWidgetInstance} from '../interface/widgets-instances/formula-widget-instance';
+import {AjfImageWidgetInstance} from '../interface/widgets-instances/image-widget-instance';
+import {AjfLayoutWidgetInstance} from '../interface/widgets-instances/layout-widget-instance';
+import {AjfTableWidgetInstance} from '../interface/widgets-instances/table-widget-instance';
+import {AjfTextWidgetInstance} from '../interface/widgets-instances/text-widget-instance';
+import {AjfWidgetInstance} from '../interface/widgets-instances/widget-instance';
+import {AjfWidgetType} from '../interface/widgets/widget-type';
+
+import {ImageMap, loadReportImages} from './load-report-images';
+import {vfsFonts} from './vfs-fonts';
+
+const fontsMap = {
+  Roboto: {
+    normal: 'roboto-all-400-normal.woff',
+    bold: 'roboto-all-500-normal.woff',
+    italics: 'roboto-all-400-italic.woff',
+    bolditalics: 'roboto-all-500-italic.woff'
+  },
+};
+
 export function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation) {
   createReportPdf(report, orientation).then(pdf => {
-    pdf.open();
+    pdf.download();
   });
 }
 
-export function createReportPdf(report: AjfReportInstance, orientation?: PageOrientation):
-  Promise<pm.TCreatedPdf> {
-
-  return new Promise<pm.TCreatedPdf>(resolve => {
+export function createReportPdf(
+    report: AjfReportInstance, orientation?: PageOrientation): Promise<TCreatedPdf> {
+  return new Promise<TCreatedPdf>(resolve => {
     loadReportImages(report).then(images => {
-      let width = 595.28 - 40 * 2; // A4 page width - margins
+      let width = 595.28 - 40 * 2;  // A4 page width - margins
       if (orientation === 'landscape') {
         width = 841.89 - 40 * 2;
       }
       const pdfDef = reportToPdf(report, images, width);
       pdfDef.pageOrientation = orientation;
-      resolve(pm.createPdf(pdfDef));
+      resolve(createPdf(pdfDef, undefined, fontsMap, vfsFonts));
     });
   });
 }
 
-function reportToPdf(report: AjfReportInstance, images: ImageMap, width: number):
-  TDocumentDefinitions {
-
+function reportToPdf(
+    report: AjfReportInstance, images: ImageMap, width: number): TDocumentDefinitions {
   const stack: Content[] = [];
   if (report.header != null) {
     stack.push(containerToPdf(report.header, images, width));
@@ -82,44 +88,43 @@ function reportToPdf(report: AjfReportInstance, images: ImageMap, width: number)
   if (report.footer != null) {
     stack.push(containerToPdf(report.footer, images, width));
   }
-  return { content: { stack } };
+  return {content: {stack}};
 }
 
-function containerToPdf(container: AjfReportContainerInstance, images: ImageMap, width: number):
-  Content {
-
-  return { stack: container.content.map(w => widgetToPdf(w, images, width)) };
+function containerToPdf(
+    container: AjfReportContainerInstance, images: ImageMap, width: number): Content {
+  return {stack: container.content.map(w => widgetToPdf(w, images, width))};
 }
 
 const marginBetweenWidgets = 10;
 
 function widgetToPdf(widget: AjfWidgetInstance, images: ImageMap, width: number): Content {
   switch (widget.widget.widgetType) {
-  case AjfWidgetType.Layout:
-    return layoutToPdf(widget as AjfLayoutWidgetInstance, images, width);
-  case AjfWidgetType.PageBreak:
-    return { text: '', pageBreak: 'after' };
-  case AjfWidgetType.Image:
-    return imageToPdf(widget as AjfImageWidgetInstance, images, width);
-  case AjfWidgetType.Text:
-    return textToPdf(widget as AjfTextWidgetInstance);
-  case AjfWidgetType.Chart:
-    const chart = widget as AjfChartWidgetInstance;
-    const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
-    if (dataUrl === '') {
-      return { text: '[chart with no attached canvas]' };
-    }
-    return { image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets] };
-  case AjfWidgetType.Table:
-    return tableToPdf(widget as AjfTableWidgetInstance);
-  case AjfWidgetType.Column:
-    const cw = widget as AjfColumnWidgetInstance;
-    return { stack: cw.content.map(w => widgetToPdf(w, images, width)) };
-  case AjfWidgetType.Formula:
-    const fw = widget as AjfFormulaWidgetInstance;
-    return { text: fw.formula, margin: [0, 0, 0, marginBetweenWidgets] };
-  default:
-    return { text: '' };
+    case AjfWidgetType.Layout:
+      return layoutToPdf(widget as AjfLayoutWidgetInstance, images, width);
+    case AjfWidgetType.PageBreak:
+      return {text: '', pageBreak: 'after'};
+    case AjfWidgetType.Image:
+      return imageToPdf(widget as AjfImageWidgetInstance, images, width);
+    case AjfWidgetType.Text:
+      return textToPdf(widget as AjfTextWidgetInstance);
+    case AjfWidgetType.Chart:
+      const chart = widget as AjfChartWidgetInstance;
+      const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
+      if (dataUrl === '') {
+        return {text: '[chart with no attached canvas]'};
+      }
+      return {image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets]};
+    case AjfWidgetType.Table:
+      return tableToPdf(widget as AjfTableWidgetInstance);
+    case AjfWidgetType.Column:
+      const cw = widget as AjfColumnWidgetInstance;
+      return {stack: cw.content.map(w => widgetToPdf(w, images, width))};
+    case AjfWidgetType.Formula:
+      const fw = widget as AjfFormulaWidgetInstance;
+      return {text: fw.formula, margin: [0, 0, 0, marginBetweenWidgets]};
+    default:
+      return {text: ''};
   }
 }
 
@@ -135,24 +140,24 @@ function layoutToPdf(lw: AjfLayoutWidgetInstance, images: ImageMap, width: numbe
     // Children of Layout widgets are supposed to be Columns. If they aren't,
     // we must wrap them to avoid problems like images having an 'auto' width.
     if (child.stack == null) {
-      child = { stack: [child] };
+      child = {stack: [child]};
     }
     (child as Column).width = columns[i] === -1 ? 'auto' : '*';
     children.push(child);
   }
-  return { columns: children };
+  return {columns: children};
 }
 
 function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: number): Content {
   if (image.widget.imageType !== AjfImageType.Image) {
     // Can't get icons to work, pdfs with multiple fonts don't seem to be working
-    return { text: '' };
+    return {text: ''};
   }
   const dataUrl = images[image.url];
   if (dataUrl == null) {
-    return { text: '' };
+    return {text: ''};
   }
-  return { image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets] };
+  return {image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets]};
 }
 
 function textToPdf(tw: AjfTextWidgetInstance): Content {
@@ -172,7 +177,7 @@ function textToPdf(tw: AjfTextWidgetInstance): Content {
 
 function tableToPdf(table: AjfTableWidgetInstance): Content {
   if (table.data == null || table.data.length === 0) {
-    return { text: '' };
+    return {text: ''};
   }
   const body: TableCell[][] = [];
   for (let i = 0; i < table.data.length; i++) {
@@ -180,15 +185,15 @@ function tableToPdf(table: AjfTableWidgetInstance): Content {
     const bodyRow: TableCell[] = [];
     for (let j = 0; j < dataRow.length; j++) {
       const cell = dataRow[j];
-      bodyRow.push({ text: table.dataset[i][j], colSpan: cell.colspan });
+      bodyRow.push({text: table.dataset[i][j], colSpan: cell.colspan});
       // pdfmake wants placeholder cells after cells with colspan > 1:
       for (let k = 1; k < (cell.colspan || 1); k++) {
-        bodyRow.push({ text: '' });
+        bodyRow.push({text: ''});
       }
     }
     body.push(bodyRow);
   }
-  return { table: { headerRows: 0, body }, margin: [0, 0, 0, marginBetweenWidgets] };
+  return {table: {headerRows: 0, body}, margin: [0, 0, 0, marginBetweenWidgets]};
 }
 
 function stripHTML(s: string): string {

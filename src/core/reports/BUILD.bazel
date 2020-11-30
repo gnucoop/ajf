@@ -6,15 +6,27 @@ load(
     "ng_web_test_suite",
     "sass_library",
 )
+load("//tools/vfs-fonts:index.bzl", "generate_vfs_fonts")
 
 package(default_visibility = ["//visibility:public"])
+
+generate_vfs_fonts(
+    name = "vfs-fonts",
+    srcs = [
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-normal.woff",
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-italic.woff",
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-normal.woff",
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-italic.woff",
+    ],
+    output = ":report-to-pdf/vfs-fonts.ts",
+)
 
 ng_module(
     name = "reports",
     srcs = glob(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
-    ),
+    ) + [":report-to-pdf/vfs-fonts.ts"],
     assets = [],
     module_name = "@ajf/core/reports",
     deps = [
