@@ -8,9 +8,9 @@
   integrity sha512-FMq+j6E6UjtwwjPhIl4a80esPLYH55p1ZFp1PAkZe76gANamXhUf9VHS0rGkekuuFlomVVa/vEyqGD9JGQV39Q==
 
 "@angular-devkit/build-optimizer@^0.1100.0":
-  version "0.1100.2"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.1100.2.tgz#93dea833aed64d265cfdfebb6580e10cf909630b"
-  integrity sha512-2ZdEeAs0a53g9LDkP5H2mCEPLyk7yd9P7eTepNYvIOz3xJ6W6dB2CqotPMfnHgd4o12cbzCOWrPBxbfo/VnMig==
+  version "0.1100.3"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/build-optimizer/-/build-optimizer-0.1100.3.tgz#4010c5439cca57f61badfcd98b898c131bc259c0"
+  integrity sha512-ACvi4W8iDqWJOqHZA7LLI1lldbjrouANxOb1wxgFyr6krKypU6kDXOF2ZWNdrsgDvW0zwJPKeDNFzYyvqQpe/w==
   dependencies:
     loader-utils "2.0.0"
     source-map "0.7.3"
