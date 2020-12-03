@@ -1,3 +1,14 @@
+## 11.0.3 "late-sound" (2020-12-03)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **reports:** widget wrapper inside export container has zero height ([e34d94044084cbfad02f9a018bcd7c2f68ae5266](https://github.com/gnucoop/ajf/commit/e34d94044084cbfad02f9a018bcd7c2f68ae5266)) |
+| feature |  **common:** add helper to build a string from a string identifier ([b2f03b11038fd9f8cd4904334925eb9bc57fc793](https://github.com/gnucoop/ajf/commit/b2f03b11038fd9f8cd4904334925eb9bc57fc793)) |
+| feature |  **reports:** add string identifier in report interface ([6e3abab375de3aaaa86c082bb5acefaf233e98e0](https://github.com/gnucoop/ajf/commit/6e3abab375de3aaaa86c082bb5acefaf233e98e0)) |
+
+
 ## 11.0.2 "shy-term" (2020-11-30)
 
 ### ajf
