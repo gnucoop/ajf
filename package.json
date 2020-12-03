@@ -140,7 +140,7 @@
     "dgeni-packages": "^0.28.4",
     "firebase-tools": "^8.16.1",
     "fontsource-roboto": "^3.0.3",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
