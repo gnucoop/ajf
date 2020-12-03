@@ -1,3 +1,14 @@
+## 10.1.3 "holy-mouse" (2020-12-03)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **reports:** widget wrapper inside export container has zero height ([0c1263fb81b912a828f381716091a8987e8d9fa3](https://github.com/gnucoop/ajf/commit/0c1263fb81b912a828f381716091a8987e8d9fa3)) |
+| feature |  **common:** add helper to build a string from a string identifier ([2aff89fe20fde2197f3399f72d85334211adf2c1](https://github.com/gnucoop/ajf/commit/2aff89fe20fde2197f3399f72d85334211adf2c1)) |
+| feature |  **reports:** add string identifier in report interface ([66ca5a7d5ad22fc2b21e9a820a3280266b8e134a](https://github.com/gnucoop/ajf/commit/66ca5a7d5ad22fc2b21e9a820a3280266b8e134a)) |
+
+
 ## 10.1.2 "winter-cloud" (2020-11-30)
 
 ### ajf
