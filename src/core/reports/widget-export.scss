@@ -20,6 +20,7 @@ ajf-widget-export {
     }
     .ajf-widget-wrapper {
         position: relative;
+        height: inherit;
     }
     .ajf-widget-wrapper:hover {
         .ajf-export-menu {
