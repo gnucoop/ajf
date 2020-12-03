@@ -20,7 +20,6 @@
  *
  */
 
-export interface AjfFormStringIdentifier {
-  label: string;
-  value: string[];
-}
+import {AjfStringIdentifier} from '@ajf/core/common';
+
+export type AjfFormStringIdentifier = AjfStringIdentifier;

@@ -20,18 +20,6 @@
  *
  */
 
-import {AjfForm} from '@ajf/core/forms';
-import {AjfStyles} from '../styles';
-import {AjfReportContainer} from './report-container';
-import {AjfReportStringIdentifier} from './report-string-identifier';
-import {AjfReportVariable} from './report-variable';
+import {AjfStringIdentifier} from '@ajf/core/common';
 
-export interface AjfReport {
-  header?: AjfReportContainer;
-  content?: AjfReportContainer;
-  footer?: AjfReportContainer;
-  styles?: AjfStyles;
-  forms?: AjfForm[];
-  variables?: AjfReportVariable[];
-  stringIdentifier?: AjfReportStringIdentifier[];
-}
+export type AjfReportStringIdentifier = AjfStringIdentifier;

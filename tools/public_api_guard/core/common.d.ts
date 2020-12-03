@@ -13,6 +13,11 @@ export declare class AjfDndDirective {
     static ɵfac: i0.ɵɵFactoryDef<AjfDndDirective, never>;
 }
 
+export interface AjfStringIdentifier {
+    label: string;
+    value: string[];
+}
+
 export declare class AjfVideoDirective implements AfterViewInit {
     isInit: EventEmitter<any>;
     get source(): HTMLVideoElement;
