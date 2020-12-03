@@ -20,9 +20,9 @@
  *
  */
 
+import {AjfContext} from '@ajf/core/common';
 import {tokenize} from 'esprima';
 
-import {AjfContext} from '../interface/context';
 import {AjfExpressionUtils} from './expression-utils';
 
 let execContext: any = {};

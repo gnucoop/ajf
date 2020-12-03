@@ -20,7 +20,8 @@
  *
  */
 
-import {AjfContext} from '../interface/context';
+import {AjfContext} from '@ajf/core/common';
+
 import {getContextString} from './get-context-string';
 
 let cachedContext: any = {};

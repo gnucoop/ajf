@@ -20,20 +20,4 @@
  *
  */
 
-export * from './context';
-export * from './error';
-export * from './interface/condition';
-export * from './interface/formula';
-export * from './interface/validation-function';
-export * from './serializers/condition-serializer';
-export * from './serializers/formula-serializer';
-export * from './utils/always-condition';
-export * from './utils/create-condition';
-export * from './utils/create-formula';
-export * from './utils/evaluate-expression';
-export * from './utils/expression-utils';
-export * from './utils/get-context-string';
-export * from './utils/never-condition';
-export * from './utils/normalize-expression';
-export * from './utils/validate-expression';
-export * from './utils/validation-functions';
+export type AjfContext = import('@ajf/core/common').AjfContext;

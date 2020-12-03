@@ -3,6 +3,10 @@ export declare class AjfCommonModule {
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCommonModule, [typeof i1.AjfDndDirective, typeof i2.AjfVideoDirective, typeof i3.ApplyStylesDirective, typeof i4.AutofocusDirective, typeof i5.FormatIfNumber, typeof i6.TranslateIfString], never, [typeof i1.AjfDndDirective, typeof i2.AjfVideoDirective, typeof i3.ApplyStylesDirective, typeof i4.AutofocusDirective, typeof i5.FormatIfNumber, typeof i6.TranslateIfString]>;
 }
 
+export declare type AjfContext = {
+    [key: string]: any;
+};
+
 export declare class AjfDndDirective {
     file: Observable<FileList>;
     get over(): boolean;
