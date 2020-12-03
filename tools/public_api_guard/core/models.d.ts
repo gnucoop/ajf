@@ -6,9 +6,7 @@ export declare class AjfConditionSerializer {
     static fromJson(json: Partial<AjfCondition>): AjfCondition;
 }
 
-export declare type AjfContext = {
-    [key: string]: any;
-};
+export declare type AjfContext = import('@ajf/core/common').AjfContext;
 
 export declare class AjfError extends Error {
     get message(): string;

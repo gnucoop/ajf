@@ -18,6 +18,7 @@ ng_module(
     assets = [],
     module_name = "@ajf/core/models",
     deps = [
+        "//src/core/common",
         "//src/core/utils",
         "@npm//@angular/core",
         "@npm//@types/esprima",

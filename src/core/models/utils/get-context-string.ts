@@ -20,7 +20,8 @@
  *
  */
 
-import {AjfContext} from '../interface/context';
+import {AjfContext} from '@ajf/core/common';
+
 import {AjfExpressionUtils} from './expression-utils';
 
 export function getContextString(context?: AjfContext): string {
