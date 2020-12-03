@@ -32,6 +32,7 @@ export * from './interface/dataset/dataset';
 export * from './interface/dataset/table-dataset';
 export * from './interface/reports/report';
 export * from './interface/reports/report-container';
+export * from './interface/reports/report-string-identifier';
 export * from './interface/reports/report-variable';
 export * from './interface/reports-instances/report-container-instance';
 export * from './interface/reports-instances/report-instance';

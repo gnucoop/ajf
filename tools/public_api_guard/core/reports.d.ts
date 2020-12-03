@@ -196,6 +196,7 @@ export interface AjfReport {
     footer?: AjfReportContainer;
     forms?: AjfForm[];
     header?: AjfReportContainer;
+    stringIdentifier?: AjfReportStringIdentifier[];
     styles?: AjfStyles;
     variables?: AjfReportVariable[];
 }
@@ -240,6 +241,8 @@ export declare class AjfReportsModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfReportsModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfReportsModule, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfWidgetHost, typeof i3.AjfWidgetExport], [typeof i4.CommonModule], [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfWidgetHost, typeof i3.AjfWidgetExport]>;
 }
+
+export declare type AjfReportStringIdentifier = AjfStringIdentifier;
 
 export interface AjfReportVariable {
     formula: AjfFormula;
