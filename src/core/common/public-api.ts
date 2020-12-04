@@ -22,6 +22,7 @@
 
 export * from './apply-styles-directive';
 export * from './auto-focus.directive';
+export * from './build-string-identifier';
 export * from './common-module';
 export * from './context';
 export * from './dnd-directive';
