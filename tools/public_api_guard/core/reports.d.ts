@@ -239,10 +239,16 @@ export declare class AjfReportSerializer {
 
 export declare class AjfReportsModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfReportsModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfReportsModule, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfWidgetHost, typeof i3.AjfWidgetExport], [typeof i4.CommonModule], [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfWidgetHost, typeof i3.AjfWidgetExport]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfReportsModule, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfReportStringIdentifierPipe, typeof i3.AjfWidgetHost, typeof i4.AjfWidgetExport], [typeof i5.CommonModule], [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfReportStringIdentifierPipe, typeof i3.AjfWidgetHost, typeof i4.AjfWidgetExport]>;
 }
 
 export declare type AjfReportStringIdentifier = AjfStringIdentifier;
+
+export declare class AjfReportStringIdentifierPipe implements PipeTransform {
+    transform(report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string;
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportStringIdentifierPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfReportStringIdentifierPipe, "ajfReportStringIdentifier">;
+}
 
 export interface AjfReportVariable {
     formula: AjfFormula;

@@ -20,30 +20,15 @@
  *
  */
 
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {AjfContext, BuildStringIdentifierOpts} from '@ajf/core/common';
+import {Pipe, PipeTransform} from '@angular/core';
 
-import {AjfGetColumnContentPipe} from './get-column-content';
-import {AjfReportStringIdentifierPipe} from './report-string-identifier';
-import {AjfWidgetExport} from './widget-export';
-import {AjfWidgetHost} from './widget-host';
+import {AjfReport} from './interface/reports/report';
+import {buildReportStringIdentifier} from './utils/reports/build-report-string-identifier';
 
-@NgModule({
-  declarations: [
-    AjfGetColumnContentPipe,
-    AjfReportStringIdentifierPipe,
-    AjfWidgetHost,
-    AjfWidgetExport,
-  ],
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    AjfGetColumnContentPipe,
-    AjfReportStringIdentifierPipe,
-    AjfWidgetHost,
-    AjfWidgetExport,
-  ],
-})
-export class AjfReportsModule {
+@Pipe({name: 'ajfReportStringIdentifier'})
+export class AjfReportStringIdentifierPipe implements PipeTransform {
+  transform(report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string {
+    return buildReportStringIdentifier(report, context, opts);
+  }
 }
