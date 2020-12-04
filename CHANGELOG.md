@@ -1,3 +1,12 @@
+## 10.1.4 "patient-union" (2020-12-04)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **common:** buildStringIdentifier is not exported ([38faa1681c27919cad88d84bfcb8deeaf033fe2d](https://github.com/gnucoop/ajf/commit/38faa1681c27919cad88d84bfcb8deeaf033fe2d)) |
+
+
 ## 10.1.3 "holy-mouse" (2020-12-03)
 
 ### core
