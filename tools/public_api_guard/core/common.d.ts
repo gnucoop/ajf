@@ -49,7 +49,16 @@ export declare class AutofocusDirective implements AfterContentInit {
     static ɵfac: i0.ɵɵFactoryDef<AutofocusDirective, never>;
 }
 
-export declare const buildStringIdentifier: (stringIdentifier: AjfStringIdentifier[] | undefined, context: AjfContext, emptyString?: string) => string;
+export declare const buildStringIdentifier: (stringIdentifier: AjfStringIdentifier[] | undefined, context: AjfContext, opts?: BuildStringIdentifierOpts | undefined) => string;
+
+export declare const buildStringIdentifierOpts: (opts?: BuildStringIdentifierOpts | undefined) => Required<BuildStringIdentifierOpts>;
+
+export interface BuildStringIdentifierOpts {
+    emptyString?: string;
+    entriesDivider?: string;
+    labelSuffix?: string;
+    valuesDivider?: string;
+}
 
 export declare class FormatIfNumber extends DecimalPipe {
     transform(value: any, digitsInfo?: string, locale?: string): any;

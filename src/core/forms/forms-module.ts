@@ -39,6 +39,7 @@ import {AjfFieldIconPipe} from './field-icon';
 import {AjfFieldIsValidPipe} from './field-is-valid';
 import {AjfFileFieldComponent} from './file-field';
 import {AjfFormRendererService} from './form-renderer';
+import {AjfFormStringIdentifierPipe} from './form-string-identifier';
 import {AjfGetTableCellControlPipe} from './get-table-cell-control';
 import {AjfImageFieldComponent} from './image-field';
 import {AjfIncrementPipe} from './increment';
@@ -70,6 +71,7 @@ import {AjfValidationService} from './validation-service';
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
     AjfFileFieldComponent,
+    AjfFormStringIdentifierPipe,
     AjfGetTableCellControlPipe,
     AjfImageFieldComponent,
     AjfIncrementPipe,
@@ -103,6 +105,7 @@ import {AjfValidationService} from './validation-service';
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
     AjfFileFieldComponent,
+    AjfFormStringIdentifierPipe,
     AjfGetTableCellControlPipe,
     AjfImageFieldComponent,
     AjfIncrementPipe,
