@@ -20,30 +20,22 @@
  *
  */
 
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {
+  AjfContext,
+  buildStringIdentifier,
+  BuildStringIdentifierOpts,
+} from '@ajf/core/common';
 
-import {AjfGetColumnContentPipe} from './get-column-content';
-import {AjfReportStringIdentifierPipe} from './report-string-identifier';
-import {AjfWidgetExport} from './widget-export';
-import {AjfWidgetHost} from './widget-host';
+import {AjfReport} from '../../interface/reports/report';
 
-@NgModule({
-  declarations: [
-    AjfGetColumnContentPipe,
-    AjfReportStringIdentifierPipe,
-    AjfWidgetHost,
-    AjfWidgetExport,
-  ],
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    AjfGetColumnContentPipe,
-    AjfReportStringIdentifierPipe,
-    AjfWidgetHost,
-    AjfWidgetExport,
-  ],
-})
-export class AjfReportsModule {
-}
+export const buildReportStringIdentifier =
+    (report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string => {
+      if (report == null) {
+        return '';
+      }
+      const stringIdentifier = report.stringIdentifier || [];
+      if (stringIdentifier.length === 0) {
+        return '';
+      }
+      return buildStringIdentifier(stringIdentifier, context, opts);
+    };

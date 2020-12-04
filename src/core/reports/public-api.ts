@@ -66,6 +66,7 @@ export * from './interface/widgets-instances/text-widget-instance';
 export * from './interface/widgets-instances/widget-instance';
 export * from './interface/widgets-instances/widget-with-content-instance';
 export * from './report';
+export * from './report-string-identifier';
 export * from './reports-module';
 export * from './serializers/aggregation-serializer';
 export * from './serializers/dataset-serializer';
