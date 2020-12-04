@@ -1,3 +1,13 @@
+## 10.1.5 "morning-field" (2020-12-04)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **forms:** add pipe to build string from string identifier ([f779581cc88e5c2fa5133015b6e5254fca6b87d1](https://github.com/gnucoop/ajf/commit/f779581cc88e5c2fa5133015b6e5254fca6b87d1)) |
+| feature |  **reports:** add pipe to build string from string identifier ([e04c6de00b5114fb6e5a0ff61c748d58045f7cbc](https://github.com/gnucoop/ajf/commit/e04c6de00b5114fb6e5a0ff61c748d58045f7cbc)) |
+
+
 ## 10.1.4 "patient-union" (2020-12-04)
 
 ### core
