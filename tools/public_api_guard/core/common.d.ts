@@ -49,6 +49,8 @@ export declare class AutofocusDirective implements AfterContentInit {
     static ɵfac: i0.ɵɵFactoryDef<AutofocusDirective, never>;
 }
 
+export declare const buildStringIdentifier: (stringIdentifier: AjfStringIdentifier[] | undefined, context: AjfContext, emptyString?: string) => string;
+
 export declare class FormatIfNumber extends DecimalPipe {
     transform(value: any, digitsInfo?: string, locale?: string): any;
     static ɵfac: i0.ɵɵFactoryDef<FormatIfNumber, never>;
