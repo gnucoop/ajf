@@ -1,3 +1,13 @@
+## 11.0.5 "gentle-band" (2020-12-04)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **forms:** add pipe to build string from string identifier ([3fa1ceb5717cb39b1db3cfeb19ab4155e6c3d4be](https://github.com/gnucoop/ajf/commit/3fa1ceb5717cb39b1db3cfeb19ab4155e6c3d4be)) |
+| feature |  **reports:** add pipe to build string from string identifier ([2c585f5a71340f4b50ec1aa24264f0452973ddfa](https://github.com/gnucoop/ajf/commit/2c585f5a71340f4b50ec1aa24264f0452973ddfa)) |
+
+
 ## 11.0.4 "bitter-dream" (2020-12-04)
 
 ### core
