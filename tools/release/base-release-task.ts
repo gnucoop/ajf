@@ -9,7 +9,6 @@ import {getAllowedPublishBranches} from './version-name/publish-branches';
  * the staging and publish script.
  */
 export class BaseReleaseTask {
-
   constructor(public git: GitClient) {}
 
   /** Checks if the user is on an allowed publish branch for the specified version. */
@@ -25,15 +24,15 @@ export class BaseReleaseTask {
     }
 
     console.error(chalk.red('  ✘   You are not on an allowed publish branch.'));
-    console.info(chalk.yellow(
-        `      Allowed branches are: ${chalk.bold(allowedBranches.join(', '))}`));
+    console.info(
+        chalk.yellow(`      Allowed branches are: ${chalk.bold(allowedBranches.join(', '))}`));
     console.info();
 
     // Prompt the user if they wants to forcibly use the current branch. We support this
     // because in some cases, releases do not use the common publish branches. e.g. a major
     // release is delayed, and new features for the next minor version are collected.
-    if (await this.promptConfirm(
-        `Do you want to forcibly use the current branch? (${chalk.italic(currentBranchName)})`)) {
+    if (await this.promptConfirm(`Do you want to forcibly use the current branch? (${
+            chalk.italic(currentBranchName)})`)) {
       console.log();
       console.log(chalk.green(`  ✓   Using the "${chalk.italic(currentBranchName)}" branch.`));
       return currentBranchName;
@@ -51,8 +50,9 @@ export class BaseReleaseTask {
 
     // Check if the current branch is in sync with the remote branch.
     if (upstreamCommitSha !== localCommitSha) {
-      console.error(chalk.red(`  ✘ The current branch is not in sync with the remote branch. ` +
-        `Please make sure your local branch "${chalk.italic(publishBranch)}" is up to date.`));
+      console.error(chalk.red(
+          `  ✘ The current branch is not in sync with the remote branch. ` +
+          `Please make sure your local branch "${chalk.italic(publishBranch)}" is up to date.`));
       process.exit(1);
     }
   }
@@ -60,8 +60,9 @@ export class BaseReleaseTask {
   /** Verifies that there are no uncommitted changes in the project. */
   protected verifyNoUncommittedChanges() {
     if (this.git.hasUncommittedChanges()) {
-      console.error(chalk.red(`  ✘   There are changes which are not committed and should be ` +
-        `discarded.`));
+      console.error(chalk.red(
+          `  ✘   There are changes which are not committed and should be ` +
+          `discarded.`));
       process.exit(1);
     }
   }
@@ -69,10 +70,11 @@ export class BaseReleaseTask {
   /** Prompts the user with a confirmation question and a specified message. */
   protected async promptConfirm(message: string, defaultValue = false): Promise<boolean> {
     return (await prompt<{result: boolean}>({
-      type: 'confirm',
-      name: 'result',
-      message: message,
-      default: defaultValue,
-    })).result;
+             type: 'confirm',
+             name: 'result',
+             message: message,
+             default: defaultValue,
+           }))
+        .result;
   }
 }

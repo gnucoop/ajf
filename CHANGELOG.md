@@ -1,3 +1,12 @@
+## 11.0.4 "bitter-dream" (2020-12-04)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **common:** buildStringIdentifier is not exported ([a34307bfa0bbd47a86320fa5c6247c8aa1c7a32a](https://github.com/gnucoop/ajf/commit/a34307bfa0bbd47a86320fa5c6247c8aa1c7a32a)) |
+
+
 ## 11.0.3 "late-sound" (2020-12-03)
 
 ### core
