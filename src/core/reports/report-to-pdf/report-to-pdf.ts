@@ -57,7 +57,7 @@ const fontsMap = {
 
 export function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation) {
   createReportPdf(report, orientation).then(pdf => {
-    pdf.download();
+    pdf.open();
   });
 }
 
