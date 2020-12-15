@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import * as chalk from 'chalk';
 import {readFileSync} from 'fs';
 import {join, relative} from 'path';
 import * as tsutils from 'tsutils';
