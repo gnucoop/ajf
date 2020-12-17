@@ -145,7 +145,8 @@ export function widgetToWidgetInstance(
           cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
           trFormula(cell.formula!, context as AjfContext, ts);
     }));
-
+    twi.exportable =
+        tw.exportable && (tw.exportable === true || tw.exportable === 'true') ? true : false;
     twi.data = (tw.dataset || []).map(row => row.map(cell => {
       let evf = '';
       try {
