@@ -990,6 +990,11 @@
   dependencies:
     moment "^2.10.2"
 
+"@types/color-name@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
+  integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
+
 "@types/debug@^4.1.5":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
@@ -10900,9 +10905,9 @@ rxjs-report-usage@^1.0.4:
     prompts "~2.3.2"
 
 rxjs-tslint-rules@^4.33.1:
-  version "4.34.5"
-  resolved "https://registry.yarnpkg.com/rxjs-tslint-rules/-/rxjs-tslint-rules-4.34.5.tgz#1f83fdcec128c1b18b8a88f61ff36307f1345191"
-  integrity sha512-SbRjfSpl45TzlxyIU9Zeb2Ex8o5E6wq/W56R0OM26dw/KgqGKuBix4VQ94AhiMEBmzvONusqr+KBWtuB7RaZYA==
+  version "4.34.7"
+  resolved "https://registry.yarnpkg.com/rxjs-tslint-rules/-/rxjs-tslint-rules-4.34.7.tgz#051e8f0a1672d7f3cb65544d458491ec6d405495"
+  integrity sha512-AF6FlEQ6tj/tF3IyP0WzMRXvmMv8xoTsdN+wS/BNGxkQhO95o0JVTQEsc3jXCPPwYPCKYDYGfx/rbDuzY9xAag==
   dependencies:
     "@phenomnomnominal/tsquery" "^4.0.0"
     decamelize "^4.0.0"
