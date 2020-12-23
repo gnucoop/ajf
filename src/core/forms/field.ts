@@ -49,6 +49,9 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   set instance(instance: AjfFieldInstance) {
     if (this._instance !== instance) {
       this._instance = instance;
+      if (this._instance.node && !this._instance.node.editable) {
+        this._readonly = true;
+      }
       if (this._init) {
         this._loadComponent();
       }
@@ -62,6 +65,9 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
   @Input()
   set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
+    if (!this._readonly && this._instance.node && !this._instance.node.editable) {
+      this._readonly = true;
+    }
     if (this._init) {
       this._loadComponent();
     }
