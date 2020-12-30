@@ -173,7 +173,7 @@
     "monaco-editor": "^0.20.0",
     "node-sass": "^4.13.1",
     "parse5": "^5.1.1",
-    "postcss": "^7.0.27",
+    "postcss": "^8.2.2",
     "protractor": "^7.0.0",
     "request": "^2.88.0",
     "requirejs": "^2.3.6",
