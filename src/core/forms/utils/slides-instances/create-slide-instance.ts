@@ -34,7 +34,7 @@ export function createSlideInstance(instance: AjfSlideInstanceCreate): AjfSlideI
     nodes: [],
     slideNodes: [],
     flatNodes: [],
-    valid: true,
+    valid: false,
     position: 0,
   };
 }
