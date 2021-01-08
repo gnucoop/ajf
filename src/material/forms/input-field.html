@@ -1,3 +1,6 @@
 <mat-form-field *ngIf="control|async as ctrl">
-  <input matInput [type]="type" [formControl]="ctrl!" [readonly]="instance|ajfIsReadonlyInputField">
+  <input matInput *ngIf="type === 'text'" type="text" [formControl]="ctrl!"
+    [readonly]="instance|ajfIsReadonlyInputField">
+  <input matInput *ngIf="type === 'number'" type="number" [formControl]="ctrl!"
+    [readonly]="instance|ajfIsReadonlyInputField">
 </mat-form-field>
