@@ -88,17 +88,23 @@ describe('AjfFormRenderer', () => {
     service.nodesTree.pipe(take(1)).subscribe(r => nodesTree = r);
 
     fixture.detectChanges();
-    await fixture.whenRenderingDone();
+    await fixture.whenStable();
+    await timer(200).pipe(take(1)).toPromise();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
     const formGroup = (await cmp.formGroup.pipe(take(1)).toPromise())!;
     expect(formGroup).toBeDefined();
+
     expect(nodesTree[0].valid).toBeFalsy();
 
     formGroup.patchValue({foo: 'bar'});
 
     fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    await timer(500).pipe(take(1)).toPromise();
+    await fixture.whenStable();
+    await timer(200).pipe(take(1)).toPromise();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
     expect(nodesTree[0].valid).toBeTruthy();
   });
@@ -107,6 +113,7 @@ describe('AjfFormRenderer', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
     await fixture.whenStable();
+    await timer(200).pipe(take(1)).toPromise();
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -120,6 +127,7 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
+    await timer(200).pipe(take(1)).toPromise();
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -161,8 +169,10 @@ describe('AjfFormRenderer', () => {
     cmp.form = form;
 
     fixture.detectChanges();
-    await fixture.whenRenderingDone();
-    await timer(500).pipe(take(1)).toPromise();
+    await fixture.whenStable();
+    await timer(100).pipe(take(1)).toPromise();
+    fixture.detectChanges();
+    await fixture.whenStable();
 
     const formGroup = (await cmp.formGroup.pipe(take(1)).toPromise())!;
     const ctx = service.getFormValue();
@@ -171,6 +181,45 @@ describe('AjfFormRenderer', () => {
     expect(ctx).toBeDefined();
     expect(ctx['row__0__2']).toBeDefined();
     expect(ctx['row__0__2']).toBe(3);
+  });
+
+  it('should be valid if no validation rule is defined', async () => {
+    const form = AjfFormSerializer.fromJson({
+      nodes: [{
+        id: 1,
+        parent: 0,
+        parentNode: 0,
+        name: 'slide',
+        label: 'slide',
+        nodeType: 3,
+        conditionalBranches: [{condition: 'true'}],
+        nodes: [{
+          id: 2,
+          parent: 1,
+          parentNode: 0,
+          name: 'foo',
+          label: 'foo',
+          nodeType: AjfNodeType.AjfField,
+          fieldType: AjfFieldType.String,
+        } as any]
+      }]
+    });
+
+
+    const fixture = TestBed.createComponent(AjfFormRenderer);
+    const cmp = fixture.componentInstance;
+    cmp.form = form;
+
+    let nodesTree: AjfSlideInstance[] = [];
+    service.nodesTree.pipe(take(1)).subscribe(r => nodesTree = r);
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await timer(200).pipe(take(1)).toPromise();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(nodesTree[0].valid).toBeTruthy();
   });
 });
 

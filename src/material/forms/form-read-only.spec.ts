@@ -26,6 +26,8 @@ import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {TranslateModule} from '@ngx-translate/core';
+import {timer} from 'rxjs';
+import {take} from 'rxjs/operators';
 
 import {AjfFormsModule} from './public-api';
 
@@ -49,6 +51,7 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
+    await timer(200).pipe(take(1)).toPromise();
     fixture.detectChanges();
     await fixture.whenStable();
 

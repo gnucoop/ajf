@@ -111,6 +111,21 @@ export const enum AjfFormInitStatus {
   Complete
 }
 
+const updateSlideValidity = (slide: AjfRepeatingSlideInstance|AjfSlideInstance) => {
+  const subNodesNum = slide.flatNodes.length;
+  let valid = true;
+  for (let i = 0; i < subNodesNum; i++) {
+    const subNode = slide.flatNodes[i];
+    if (subNode.visible && isFieldInstance(subNode) && !(subNode as AjfFieldInstance).valid) {
+      valid = false;
+      break;
+    }
+  }
+  if (slide.valid !== valid) {
+    slide.valid = valid;
+  }
+};
+
 @Injectable()
 export class AjfFormRendererService {
   private _visibilityNodesMap: Observable<AjfRendererUpdateMap>;
@@ -442,7 +457,7 @@ export class AjfFormRendererService {
   }
 
   private _initFormStreams(): void {
-    const formObs = <Observable<{form: AjfForm | null, context?: AjfContext}>>this._form;
+    const formObs = this._form;
     formObs
         .pipe(map((_form) => {
           return this._initFormGroupStreams(new FormGroup({}));
@@ -909,21 +924,8 @@ export class AjfFormRendererService {
                 while (idx >= 0) {
                   const curNode = nodes[idx];
                   if (isSlidesInstance(curNode)) {
-                    const slide = curNode as (AjfRepeatingSlideInstance | AjfSlideInstance);
-                    const subNodesNum = slide.flatNodes.length;
-                    let valid = true;
-                    for (let i = 0; i < subNodesNum; i++) {
-                      const subNode = slide.flatNodes[i];
-                      if (subNode.visible && isFieldInstance(subNode) &&
-                          !(subNode as AjfFieldInstance).valid) {
-                        valid = false;
-                        break;
-                      }
-                    }
-                    if (slide.valid !== valid) {
-                      slide.valid = valid;
-                    }
-                    slide.updatedEvt.emit();
+                    updateSlideValidity(curNode as AjfRepeatingSlideInstance | AjfSlideInstance);
+                    curNode.updatedEvt.emit();
                   }
                   idx--;
                 }
@@ -987,10 +989,12 @@ export class AjfFormRendererService {
           slides.forEach(s => {
             nodes.push(s);
             nodes = nodes.concat(s.flatNodes);
+            updateSlideValidity(s);
           });
           return nodes;
         }),
-        share());
+        share(),
+    );
   }
 
   private _removeNodeInstance(nodeInstance: AjfNodeInstance): AjfNodeInstance {
