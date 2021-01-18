@@ -1,3 +1,24 @@
+## 10.1.6 "mute-sun" (2021-01-18)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** slide validity is not correctly initialized ([24ded6d85e1d896ce5af7955c99108c8819269a8](https://github.com/gnucoop/ajf/commit/24ded6d85e1d896ce5af7955c99108c8819269a8)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **form:** input field ([0c2d0300870f651ac6234710e39c56a7a166d05d](https://github.com/gnucoop/ajf/commit/0c2d0300870f651ac6234710e39c56a7a166d05d)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **report-to-pdf:** fix retrieval of chart's canvasDataUrl in material component ([3a36f7d7b0bccc4e3f773d600e9c37965c5a413f](https://github.com/gnucoop/ajf/commit/3a36f7d7b0bccc4e3f773d600e9c37965c5a413f)) |
+
+
 ## 10.1.5 "morning-field" (2020-12-04)
 
 ### core
