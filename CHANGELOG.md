@@ -1,3 +1,25 @@
+## 11.0.6 "plain-violet" (2021-01-18)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** slide validity is not correctly initialized ([84565de27ecc266d02e66dec045f0ebdb45d2a0b](https://github.com/gnucoop/ajf/commit/84565de27ecc266d02e66dec045f0ebdb45d2a0b)) |
+| bug fix |  **reports:** add exportable attribute in table widget instance ([668cb085b7e2e92a048d53a7261917e1c730fa48](https://github.com/gnucoop/ajf/commit/668cb085b7e2e92a048d53a7261917e1c730fa48)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **form:** input field ([6dc1406211e6609ad31769e67c6b249b43e1d1d0](https://github.com/gnucoop/ajf/commit/6dc1406211e6609ad31769e67c6b249b43e1d1d0)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **report-to-pdf:** fix retrieval of chart's canvasDataUrl in material component ([4f2dee2e93a302c22c249d38484c78daa2d103e7](https://github.com/gnucoop/ajf/commit/4f2dee2e93a302c22c249d38484c78daa2d103e7)) |
+
+
 ## 11.0.5 "gentle-band" (2020-12-04)
 
 ### core
