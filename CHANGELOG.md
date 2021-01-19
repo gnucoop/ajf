@@ -1,3 +1,12 @@
+## 10.1.7 "delicate-hall" (2021-01-19)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **reports:** add exportable attribute in table widget instance ([3d9304b012f332ffc07d1252b6ada65932d6988d](https://github.com/gnucoop/ajf/commit/3d9304b012f332ffc07d1252b6ada65932d6988d)) |
+
+
 ## 10.1.6 "mute-sun" (2021-01-18)
 
 ### core
