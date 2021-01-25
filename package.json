@@ -138,7 +138,7 @@
     "chalk": "^4.1.0",
     "codelyzer": "^6.0.0-next.2",
     "conventional-changelog": "^3.1.18",
-    "dgeni": "^0.4.12",
+    "dgeni": "^0.4.11",
     "dgeni-packages": "^0.28.4",
     "firebase-tools": "^9.2.1",
     "fontsource-roboto": "^3.0.3",
