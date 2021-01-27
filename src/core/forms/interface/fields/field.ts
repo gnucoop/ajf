@@ -43,4 +43,13 @@ export interface AjfField extends AjfNode {
   nextSlideCondition?: AjfCondition;
   attachmentOrigin?: AjfAttachmentsOrigin<any>;
   attachments?: any[];
+  /*
+   * Hint text visualized in tooltip used
+   * to explain the mean of field
+   */
+  hint?: string;
+  /**
+   * Hint icon showed as anchor of hint
+   */
+  hintIcon?: string;
 }
