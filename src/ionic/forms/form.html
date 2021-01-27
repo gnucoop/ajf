@@ -56,9 +56,12 @@
                         <ng-container *ngFor="let fieldInstance of slideInstance.flatNodes; trackBy: trackNodeById">
                           <div [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size" class="ajf-field-entry"
                               *ngIf="fieldInstance.visible">
-                            <i [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon" item-right></i>
+                              <i [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon" item-right></i>
                             <p>{{ (fieldInstance|ajfAsFieldInstance).node.description }}</p>
                             <ion-label [innerHTML]="fieldInstance.node.label | translate"></ion-label>
+                            <ion-icon *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint" 
+                            [name]="(fieldInstance|ajfAsFieldInstance).node?.hintIcon || 'help-outline'" 
+                              (click)="openPopover($event, hint)"></ion-icon>
                             <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" [readonly]="readonly"></ajf-field>
                           </div>
                         </ng-container>

@@ -41,6 +41,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
@@ -63,12 +64,12 @@ import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
   imports: [
-    AjfBarcodeModule,       AjfCalendarModule,   AjfCommonModule,     AjfCoreFormsModule,
-    AjfCheckboxGroupModule, AjfPageSliderModule, AjfTimeModule,       CommonModule,
-    MatButtonModule,        MatCardModule,       MatDialogModule,     MatFormFieldModule,
-    MatIconModule,          MatInputModule,      MatRadioModule,      MatSelectModule,
-    MatSlideToggleModule,   MatToolbarModule,    ReactiveFormsModule, TextFieldModule,
-    TranslateModule,
+    AjfBarcodeModule,       AjfCalendarModule,   AjfCommonModule,  AjfCoreFormsModule,
+    AjfCheckboxGroupModule, AjfPageSliderModule, AjfTimeModule,    CommonModule,
+    MatButtonModule,        MatCardModule,       MatDialogModule,  MatFormFieldModule,
+    MatIconModule,          MatInputModule,      MatRadioModule,   MatSelectModule,
+    MatSlideToggleModule,   MatToolbarModule,    MatTooltipModule, ReactiveFormsModule,
+    TextFieldModule,        TranslateModule,
   ],
   declarations: [
     AjfBarcodeFieldComponent,

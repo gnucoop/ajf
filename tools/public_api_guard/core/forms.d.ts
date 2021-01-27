@@ -194,6 +194,8 @@ export interface AjfField extends AjfNode {
     editable: boolean;
     fieldType: AjfFieldType;
     formula?: AjfFormula;
+    hint?: string;
+    hintIcon?: string;
     nextSlideCondition?: AjfCondition;
     nodeType: AjfNodeType.AjfField;
     size: AjfFieldSize;
