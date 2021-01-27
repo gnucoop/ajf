@@ -31,8 +31,11 @@ import {
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
+import {PopoverController} from '@ionic/angular';
 import {Subscription} from 'rxjs';
 import {delayWhen, switchMap} from 'rxjs/operators';
+import {AjfPopover} from './popover';
+
 
 @Component({
   selector: 'ajf-form',
@@ -55,7 +58,9 @@ export class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewIni
   private _viewInitEvt: EventEmitter<void> = new EventEmitter<void>();
   private _scrollFinishSub: Subscription = Subscription.EMPTY;
 
-  constructor(rendererService: AjfFormRendererService, cdr: ChangeDetectorRef) {
+  constructor(
+      rendererService: AjfFormRendererService, cdr: ChangeDetectorRef,
+      public popoverController: PopoverController) {
     super(rendererService, cdr);
 
     this._scrollFinishSub = this._viewInitEvt
@@ -74,6 +79,17 @@ export class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewIni
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this._scrollFinishSub.unsubscribe();
+  }
+
+  openPopover(ev: any, hint: string): void {
+    const popover = this.popoverController.create({
+      component: AjfPopover,
+      cssClass: 'ajf-popover',
+      translucent: true,
+      event: ev,
+      componentProps: {hint}
+    });
+    popover.then((pop) => pop.present());
   }
 
   private _updateLongSlide(): void {

@@ -71,12 +71,26 @@ ajf-form {
                     padding-left: 10px;
                     padding-right: 10px;
                     width: 100%;
+                    .mat-icon {
+                      vertical-align: bottom;
+                      margin-left: 5px;
+                    }
 
-                    &.ajf-normal { width: 100%; }
-                    &.ajf-small { width: 50%; }
-                    &.ajf-smaller { width: 33%; }
-                    &.ajf-tiny { width: 25%; }
-                    &.ajf-mini { width: 20%; }
+                    &.ajf-normal {
+                      width: 100%;
+                    }
+                    &.ajf-small {
+                      width: 50%;
+                    }
+                    &.ajf-smaller {
+                      width: 33%;
+                    }
+                    &.ajf-tiny {
+                      width: 25%;
+                    }
+                    &.ajf-mini {
+                      width: 20%;
+                    }
                   }
                 }
               }

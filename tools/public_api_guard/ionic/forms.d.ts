@@ -41,9 +41,11 @@ export declare class AjfFormField extends CoreFormField {
 
 export declare class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewInit, OnDestroy {
     get longSlide(): boolean;
-    constructor(rendererService: AjfFormRendererService, cdr: ChangeDetectorRef);
+    popoverController: PopoverController;
+    constructor(rendererService: AjfFormRendererService, cdr: ChangeDetectorRef, popoverController: PopoverController);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
+    openPopover(ev: any, hint: string): void;
     static ngAcceptInputType_fixedOrientation: BooleanInput;
     static ngAcceptInputType_hasEndMessage: BooleanInput;
     static ngAcceptInputType_hasStartMessage: BooleanInput;
@@ -58,7 +60,7 @@ export declare class AjfFormRenderer extends AjfCoreFormRenderer implements Afte
 
 export declare class AjfFormsModule {
     static ɵinj: i0.ɵɵInjectorDef<AjfFormsModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfBarcodeFieldComponent, typeof i2.AjfBooleanFieldComponent, typeof i3.AjfDateFieldComponent, typeof i4.AjfDateInputFieldComponent, typeof i5.AjfEmptyFieldComponent, typeof i6.AjfFormField, typeof i7.AjfFormPage, typeof i8.AjfFormRenderer, typeof i9.AjfFormulaFieldComponent, typeof i10.AjfInputFieldComponent, typeof i11.AjfMultipleChoiceFieldComponent, typeof i12.AjfNumberFieldComponent, typeof i13.AjfSelectHasSearchBarPipe, typeof i14.AjfSelectUseVirtualScroll, typeof i15.AjfSingleChoiceFieldComponent, typeof i16.AjfTableFieldComponent, typeof i17.AjfTextareaFieldComponent, typeof i18.AjfTimeFieldComponent, typeof i19.AjfVideoUrlFieldComponent], [typeof i20.AjfBarcodeModule, typeof i21.AjfCalendarModule, typeof i22.AjfCheckboxGroupModule, typeof i23.AjfCommonModule, typeof i24.AjfFormsModule, typeof i25.AjfPageSliderModule, typeof i26.AjfTimeModule, typeof i27.CommonModule, typeof i28.FormsModule, typeof i29.GicModule, typeof i30.IonicModule, typeof i28.ReactiveFormsModule, typeof i31.TranslateModule], [typeof i6.AjfFormField, typeof i8.AjfFormRenderer]>;
+    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfBarcodeFieldComponent, typeof i2.AjfBooleanFieldComponent, typeof i3.AjfDateFieldComponent, typeof i4.AjfDateInputFieldComponent, typeof i5.AjfEmptyFieldComponent, typeof i6.AjfFormField, typeof i7.AjfFormPage, typeof i8.AjfFormRenderer, typeof i9.AjfFormulaFieldComponent, typeof i10.AjfInputFieldComponent, typeof i11.AjfMultipleChoiceFieldComponent, typeof i12.AjfNumberFieldComponent, typeof i13.AjfPopover, typeof i14.AjfSelectHasSearchBarPipe, typeof i15.AjfSelectUseVirtualScroll, typeof i16.AjfSingleChoiceFieldComponent, typeof i17.AjfTableFieldComponent, typeof i18.AjfTextareaFieldComponent, typeof i19.AjfTimeFieldComponent, typeof i20.AjfVideoUrlFieldComponent], [typeof i21.AjfBarcodeModule, typeof i22.AjfCalendarModule, typeof i23.AjfCheckboxGroupModule, typeof i24.AjfCommonModule, typeof i25.AjfFormsModule, typeof i26.AjfPageSliderModule, typeof i27.AjfTimeModule, typeof i28.CommonModule, typeof i29.FormsModule, typeof i30.GicModule, typeof i31.IonicModule, typeof i29.ReactiveFormsModule, typeof i32.TranslateModule], [typeof i6.AjfFormField, typeof i8.AjfFormRenderer]>;
     static forRoot(): ModuleWithProviders<AjfFormsModule>;
 }
 
