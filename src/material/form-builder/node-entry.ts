@@ -20,7 +20,7 @@
  *
  */
 
-import {isContainerNode} from '@ajf/core/forms';
+import {AjfNode, isContainerNode, isSlidesNode} from '@ajf/core/forms';
 import {CdkDrag, CdkDragDrop, CdkDropList} from '@angular/cdk/drag-drop';
 import {
   AfterViewInit,
@@ -37,13 +37,16 @@ import {Observable, Subscription} from 'rxjs';
 
 import {AjfFbBranchLine} from './branch-line';
 import {
-  AjfFormBuilderEmptySlot,
   AjfFormBuilderNode,
   AjfFormBuilderNodeEntry,
   AjfFormBuilderNodeTypeEntry,
   AjfFormBuilderService
 } from './form-builder-service';
-
+import {
+  disableFieldDropPredicate,
+  disableSlideDropPredicate,
+  onDropProcess
+} from './form-builder-utils';
 
 const branchColors: string[] = [
   '#F44336',  // RED
@@ -85,6 +88,16 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return this._isNodeEntry;
   }
 
+  private _isExpanded = false;
+  get isExpanded(): boolean {
+    return this._isExpanded;
+  }
+  @Input()
+  set isExpanded(exp: boolean) {
+    this._isExpanded = exp;
+    setTimeout(() => this._updateBranchHeights(), 400);
+  }
+
   private _nodeEntry: AjfFormBuilderNode;
   get nodeEntry(): AjfFormBuilderNode {
     return this._nodeEntry;
@@ -110,6 +123,14 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   @Input()
   set level(value: number) {
     this._level = value;
+  }
+  private _isDraggable: boolean = true;
+  get isDraggable(): boolean {
+    return this._isDraggable;
+  }
+  @Input()
+  set isDraggable(draggable: boolean) {
+    this._isDraggable = draggable;
   }
 
   get realNodeEntry(): AjfFormBuilderNodeEntry {
@@ -175,18 +196,31 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
 
   onResize(): void {}
 
-  edit(): void {
+  edit(evt: Event): void {
+    evt.stopPropagation();
     if (this.nodeEntry == null || !this.isNodeEntry) {
       return;
     }
     this._service.editNodeEntry(<AjfFormBuilderNodeEntry>this.nodeEntry);
   }
 
-  delete(): void {
+  delete(evt: Event): void {
+    evt.stopPropagation();
     if (this.nodeEntry == null || !this.isNodeEntry) {
       return;
     }
     this._service.deleteNodeEntry(<AjfFormBuilderNodeEntry>this.nodeEntry);
+  }
+
+  isLastNode(): boolean {
+    if (!this.realNodeEntry || !this.realNodeEntry.children) {
+      return false;
+    }
+    return !this.realNodeEntry.children[0].children;
+  }
+
+  isSlide(node: AjfNode): boolean {
+    return isSlidesNode(node);
   }
 
   ngAfterViewInit(): void {
@@ -201,23 +235,31 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     this._childEntriesSubscription.unsubscribe();
   }
 
-  onDropSuccess(evt: CdkDragDrop<AjfFormBuilderNodeTypeEntry>, content = false): void {
-    const dd = evt.item.data as AjfFormBuilderNodeTypeEntry;
-    if (this._nodeEntry == null) {
-      this._service.insertNode(dd, null as any, 0, content);
-      return;
-    }
-    if (dd.nodeType !== void 0 && (!this.isNodeEntry || (this.isNodeEntry && content))) {
-      const emptySlot = content ?
-          {parent: (<AjfFormBuilderNodeEntry>this.nodeEntry).node, parentNode: 0} :
-          <AjfFormBuilderEmptySlot>this._nodeEntry;
-      this._service.insertNode(
-          <AjfFormBuilderNodeTypeEntry>dd, emptySlot.parent, emptySlot.parentNode, content);
-    }
+  /**
+   * Triggers when a field or slide node is moved or inserted by drag&dropping in the formbuilder.
+   * @param event The drop event.
+   * @param content True if the current nodeEntry contains other nodeEntries.
+   */
+  onDrop(
+      event: CdkDragDrop<AjfFormBuilderNodeEntry>|CdkDragDrop<AjfFormBuilderNodeTypeEntry>,
+      content = false): void {
+    onDropProcess(event, this._service, this._nodeEntry, content);
   }
 
-  disableSlideDropPredicate(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
-    return !item.data.isSlide;
+  /**
+   * Assigns a progressive id to the dropList, to connect it to the FormBuilder source list.
+   * @param empty True if the list is marked as empty.
+   */
+  assignId(empty: boolean = false): string {
+    return this._service.assignListId(this.realNodeEntry.node, empty);
+  }
+
+  disableSlideDrop(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
+    return disableSlideDropPredicate(item);
+  }
+
+  disableFieldDrop(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
+    return disableFieldDropPredicate(item);
   }
 
   emptyAreaDropPredicate(): (item: CdkDrag, _drop: CdkDropList) => boolean {
