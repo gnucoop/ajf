@@ -1,3 +1,19 @@
+## 10.1.8 "glib-tub" (2021-02-04)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** add label instead of value for field with choices into form string identifier ([82999d40de0679c45ce139a0ad77f2746ba87f2f](https://github.com/gnucoop/ajf/commit/82999d40de0679c45ce139a0ad77f2746ba87f2f)) |
+| feature |  **forms:**  make a field read-only from the schema ([1eecf6f9c9f577027ce2317dc9d8b45ded332154](https://github.com/gnucoop/ajf/commit/1eecf6f9c9f577027ce2317dc9d8b45ded332154)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **form:** add hint ([701af89fd1003078a24de7183b5ef998e7b3fc69](https://github.com/gnucoop/ajf/commit/701af89fd1003078a24de7183b5ef998e7b3fc69)) |
+
+
 ## 10.1.7 "delicate-hall" (2021-01-19)
 
 ### core
