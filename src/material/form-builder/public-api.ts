@@ -22,4 +22,5 @@
 
 export * from './form-builder-module';
 export * from './form-builder-service';
+export * from './form-builder-utils';
 export * from './form-builder';

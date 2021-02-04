@@ -37,6 +37,7 @@ ROLLUP_GLOBALS = {
     "@angular/material/chips": "ng.material.chips",
     "@angular/material/core": "ng.material.core",
     "@angular/material/dialog": "ng.material.dialog",
+    "@angular/material/expansion": "ng.material.expansionPanel",
     "@angular/material/form-field": "ng.material.formField",
     "@angular/material/grid-list": "ng.material.gridList",
     "@angular/material/icon": "ng.material.icon",
