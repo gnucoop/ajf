@@ -1,3 +1,19 @@
+## 11.0.7 "internal-sweater" (2021-02-04)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** add label instead of value for field with choices into form string identifier ([da1711f446f640e12b331d81cd800de51a1298ce](https://github.com/gnucoop/ajf/commit/da1711f446f640e12b331d81cd800de51a1298ce)) |
+| feature |  **forms:**  make a field read-only from the schema ([41b06ef6932eecd0ebe71c57785d9f4d26347933](https://github.com/gnucoop/ajf/commit/41b06ef6932eecd0ebe71c57785d9f4d26347933)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **form:** add hint ([e02071eb8d3a39150d8fdf907c3d0616fe9707fc](https://github.com/gnucoop/ajf/commit/e02071eb8d3a39150d8fdf907c3d0616fe9707fc)) |
+
+
 ## 11.0.6 "plain-violet" (2021-01-18)
 
 ### core
