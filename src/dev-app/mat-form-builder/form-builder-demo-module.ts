@@ -20,9 +20,11 @@
  *
  */
 
+import {AjfValidationService} from '@ajf/core/forms';
 import {AjfFormBuilderModule} from '@ajf/material/form-builder';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {RouterModule} from '@angular/router';
 
@@ -33,10 +35,14 @@ import {FormBuilderDemo} from './form-builder-demo';
     AjfFormBuilderModule,
     FormsModule,
     MatExpansionModule,
+    MatButtonModule,
     RouterModule.forChild([{path: '', component: FormBuilderDemo}]),
   ],
   declarations: [
     FormBuilderDemo,
+  ],
+  providers: [
+    AjfValidationService,
   ],
 })
 export class FormBuilderDemoModule {

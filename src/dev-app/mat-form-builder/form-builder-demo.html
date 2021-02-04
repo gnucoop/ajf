@@ -6,6 +6,7 @@
         <mat-panel-title>Schema</mat-panel-title>
       </mat-expansion-panel-header>
       <textarea [(ngModel)]="formSchema"></textarea>
+      <button mat-raised-button color="primary" (click)="setForm()">Set form</button>
     </mat-expansion-panel>
     <div class="demo-form-builder-container">
       <ajf-form-builder [form]="form"></ajf-form-builder>
