@@ -22,6 +22,7 @@
 
 import {AjfChoicesOrigin, AjfForm} from '@ajf/core/forms';
 import {AjfCondition} from '@ajf/core/models';
+import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 import {
   AfterContentInit,
   AfterViewChecked,
@@ -35,6 +36,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatSlideToggleChange} from '@angular/material/slide-toggle';
 import {Observable, Subscription} from 'rxjs';
 import {sample} from 'rxjs/operators';
 
@@ -45,6 +47,7 @@ import {
   AjfFormBuilderNodeTypeEntry,
   AjfFormBuilderService
 } from './form-builder-service';
+import {disableFieldDropPredicate, onDropProcess} from './form-builder-utils';
 import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
 
 @Component({
@@ -84,6 +87,19 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   private _choicesOrigins: Observable<AjfChoicesOrigin<any>[]>;
   get choicesOrigins(): Observable<AjfChoicesOrigin<any>[]> {
     return this._choicesOrigins;
+  }
+
+  private _globalExpanded = false;
+  get isGlobalExpanded(): boolean {
+    return this._globalExpanded;
+  }
+
+  /**
+   * The list of the ids of all the dropLists connected to the formbuilder source list.
+   */
+  private _connectedDropLists: Observable<string[]> = this._service.connectedDropLists;
+  get connectedDropLists(): Observable<string[]> {
+    return this._connectedDropLists;
   }
 
   private _vc: EventEmitter<void> = new EventEmitter<void>();
@@ -164,8 +180,23 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     this._service.createChoicesOrigin();
   }
 
-  disableDropPredicate(): boolean {
+  disableDrop(): boolean {
     return false;
+  }
+
+  disableFieldDrop(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
+    return disableFieldDropPredicate(item);
+  }
+
+  /**
+   * Triggers when a field or slide node is moved or inserted by drag&dropping in the formbuilder.
+   * @param event The drop event.
+   * @param content True if the current nodeEntry contains other nodeEntries.
+   */
+  onDrop(
+      event: CdkDragDrop<AjfFormBuilderNodeEntry>|CdkDragDrop<AjfFormBuilderNodeTypeEntry>,
+      content = false): void {
+    onDropProcess(event, this._service, null, content);
   }
 
   editChoicesOrigin(choicesOrigin: AjfChoicesOrigin<any>): void {
@@ -179,6 +210,22 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     }
     this._stringIdentifierDialog = this._dialog.open(
         AjfFbStringIdentifierDialogComponent, {disableClose: true, width: '60%', height: '60%'});
+  }
+
+  expandAll() {
+    this._globalExpanded = true;
+  }
+
+  collapseAll() {
+    this._globalExpanded = false;
+  }
+
+  expandToggle(evt: MatSlideToggleChange) {
+    if (evt.checked) {
+      this.expandAll();
+    } else {
+      this.collapseAll();
+    }
   }
 
   private _setCurrentForm(): void {

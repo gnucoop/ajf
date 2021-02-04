@@ -58,8 +58,9 @@ import {
 } from '@ajf/core/forms';
 import {AjfCondition, alwaysCondition, createCondition, createFormula} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
+import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {EventEmitter, Injectable} from '@angular/core';
-import {BehaviorSubject, combineLatest, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, Subject, Subscription} from 'rxjs';
 import {filter, map, publishReplay, refCount, scan, withLatestFrom} from 'rxjs/operators';
 
 import {
@@ -91,6 +92,26 @@ export interface AjfFormBuilderNodeEntry {
 export interface AjfFormBuilderEmptySlot {
   parent: AjfNode;
   parentNode: number;
+}
+
+/**
+ * Represents a node's position change in the formbuilder.
+ */
+export interface AjfFormBuilderMoveEvent {
+  /**
+   * The node being moved.
+   */
+  nodeEntry: AjfFormBuilderNode;
+
+  /**
+   * The index of the node previous position.
+   */
+  fromIndex: number;
+
+  /**
+   * The index of the node new position.
+   */
+  toIndex: number;
 }
 
 
@@ -143,27 +164,6 @@ function buildFormBuilderNodesContent(_nodes: AjfNode[], node: AjfNode): AjfForm
     return buildFormBuilderNodesSubtree((<AjfContainerNode>node).nodes, node, true);
   }
   return [];
-}
-
-
-function buildFormBuilderNodesTree(nodes: AjfNode[]): (AjfFormBuilderNode|null)[] {
-  const rootNodes = nodes.filter(n => n.parent == null || n.parent === 0);
-  if (rootNodes.length === 1) {
-    const rootNode = rootNodes[0];
-    if (isSlidesNode(rootNode)) {
-      const tree: AjfFormBuilderNode[] = [];
-      tree.push(<AjfFormBuilderNodeEntry>{
-        node: rootNode,
-        container: null,
-        children: buildFormBuilderNodesSubtree(nodes, rootNode),
-        content: buildFormBuilderNodesContent(nodes, rootNode)
-      });
-      return tree;
-    }
-  } else if (rootNodes.length === 0) {
-    return [null];
-  }
-  throw new Error('Invalid form definition');
 }
 
 export function flattenNodes(nodes: AjfNode[]): AjfNode[] {
@@ -297,6 +297,7 @@ export class AjfFormBuilderService {
 
   private _form: BehaviorSubject<AjfForm|null> = new BehaviorSubject<AjfForm|null>(null);
   private _formObs: Observable<AjfForm|null> = this._form as Observable<AjfForm|null>;
+
   /**
    * Current edited form stream
    *
@@ -341,6 +342,14 @@ export class AjfFormBuilderService {
   private _nodeEntriesTree: Observable<AjfFormBuilderNodeEntry[]>;
   get nodeEntriesTree(): Observable<AjfFormBuilderNodeEntry[]> {
     return this._nodeEntriesTree;
+  }
+
+  /**
+   * A list of the ids of the dropLists connected to the source list.
+   */
+  private _connectedDropLists: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
+  get connectedDropLists(): BehaviorSubject<string[]> {
+    return this._connectedDropLists;
   }
 
   private _editedNodeEntry: BehaviorSubject<AjfFormBuilderNodeEntry|null> =
@@ -389,6 +398,16 @@ export class AjfFormBuilderService {
   private _saveNodeEntryEvent: EventEmitter<any> = new EventEmitter<any>();
   private _deleteNodeEntryEvent: EventEmitter<AjfFormBuilderNodeEntry> =
       new EventEmitter<AjfFormBuilderNodeEntry>();
+  /**
+   * Event fired when the position of a node in a tree changes.
+   */
+  private _moveNodeEntryEvent: EventEmitter<AjfFormBuilderMoveEvent> =
+      new EventEmitter<AjfFormBuilderMoveEvent>();
+
+  /**
+   * Subscribes to the moveNodeEntryEvent event emitter;
+   */
+  private _moveNodeSub: Subscription = Subscription.EMPTY;
 
   constructor() {
     this._initChoicesOriginsStreams();
@@ -397,6 +416,7 @@ export class AjfFormBuilderService {
     this._initNodesStreams();
     this._initFormStreams();
     this._initSaveNode();
+    this._initMoveNode();
     this._initDeleteNode();
   }
 
@@ -434,12 +454,23 @@ export class AjfFormBuilderService {
     this._editedChoicesOrigin.next(null);
   }
 
+  assignListId(node: AjfNode, empty: boolean = false): string {
+    if (node.nodeType === AjfNodeType.AjfSlide || node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+      const listId = empty ? `empty_fields_list_${node.id}` : `fields_list_${node.id}`;
+      if (this._connectedDropLists.value.indexOf(listId) == -1) {
+        this._connectDropList(listId);
+      }
+      return listId;
+    }
+    return '';
+  }
+
   insertNode(
-      nodeType: AjfFormBuilderNodeTypeEntry, parent: AjfNode, parentNode: number,
-      inContent = false): void {
+      nodeType: AjfFormBuilderNodeTypeEntry, parent: AjfNode, parentNode: number, inContent = false,
+      insertInIndex = 0): void {
     let node: AjfNode|AjfField;
     const id = ++nodeUniqueId;
-    const isFieldNode = nodeType.nodeType.field != null;
+    const isFieldNode = nodeType.nodeType?.field != null;
     if (isFieldNode) {
       node = createField({
         id,
@@ -453,7 +484,7 @@ export class AjfFormBuilderService {
       node = createContainerNode({
         id,
         nodeType: nodeType.nodeType.node,
-        parent: parent != null ? parent.id : 0,
+        parent: 0,
         parentNode,
         name: '',
         nodes: [],
@@ -461,23 +492,19 @@ export class AjfFormBuilderService {
     }
     this._beforeNodesUpdate.emit();
     this._nodesUpdates.next((nodes: AjfNode[]): AjfNode[] => {
-      if (node.parent === 0) {
-        return [node];
-      }
-      const cn = isContainerNode(parent) && inContent ? (<AjfContainerNode>parent) :
-                                                        getNodeContainer({nodes}, parent);
-      if (cn != null) {
-        if (!isFieldNode) {
-          const replaceNodes = cn.nodes === nodes;
-          const newNodes = cn.nodes.slice(0);
-          newNodes.push(node);
-          cn.nodes = newNodes;
-          if (replaceNodes) {
-            nodes = newNodes;
-          }
-        } else {
-          cn.nodes.push(node);
-        }
+      const cn = isContainerNode(parent) && inContent ?
+          (<AjfContainerNode>parent) :
+          getNodeContainer({nodes}, parent) as AjfContainerNode;
+      if (!isFieldNode) {
+        let newNodes = nodes.slice(0);
+        newNodes.splice(insertInIndex, 0, node);
+        newNodes = this._updateNodesList(0, newNodes);
+        return newNodes;
+      } else {
+        let newNodes = cn.nodes.slice(0);
+        newNodes.splice(insertInIndex, 0, node);
+        newNodes = this._updateNodesList(cn.id, newNodes);
+        cn.nodes = newNodes;
       }
       return nodes;
     });
@@ -493,6 +520,15 @@ export class AjfFormBuilderService {
 
   deleteNodeEntry(nodeEntry: AjfFormBuilderNodeEntry): void {
     this._deleteNodeEntryEvent.next(nodeEntry);
+  }
+
+  /**
+   * Triggers the moveNode event when a node is moved in the formbuilder.
+   * @param nodeEntry The node to be moved.
+   */
+  moveNodeEntry(nodeEntry: AjfFormBuilderNodeEntry, from: number, to: number): void {
+    const moveEvent: AjfFormBuilderMoveEvent = {nodeEntry: nodeEntry, fromIndex: from, toIndex: to};
+    this._moveNodeEntryEvent.next(moveEvent);
   }
 
   getCurrentForm(): Observable<AjfForm> {
@@ -552,6 +588,36 @@ export class AjfFormBuilderService {
 
   saveStringIdentifier(identifier: AjfFormStringIdentifier[]): void {
     this._stringIdentifierUpdates.next(() => [...identifier]);
+  }
+
+  private _buildFormBuilderNodesTree(nodes: AjfNode[]): (AjfFormBuilderNode|null)[] {
+    this._updateNodesList(0, nodes);
+    const rootNodes = nodes.filter(
+        n => n.nodeType == AjfNodeType.AjfSlide || n.nodeType == AjfNodeType.AjfRepeatingSlide);
+    if (rootNodes.length === 0) {
+      return [null];
+    }
+    const rootNode = rootNodes[0];
+    if (isSlidesNode(rootNode)) {
+      const tree: AjfFormBuilderNode[] = [];
+      tree.push(<AjfFormBuilderNodeEntry>{
+        node: rootNode,
+        container: null,
+        children: buildFormBuilderNodesSubtree(nodes, rootNode),
+        content: buildFormBuilderNodesContent(nodes, rootNode)
+      });
+      return tree;
+    }
+    throw new Error('Invalid form definition');
+  }
+
+  /**
+   * Adds the id of a dropList to be connected with the FormBuilder source list.
+   * @param listId The id of the list to connect.
+   */
+  private _connectDropList(listId: string) {
+    let connectedLists = this._connectedDropLists.value.slice(0);
+    this._connectedDropLists.next([...connectedLists, listId]);
   }
 
   private _findMaxNodeId(nodes: AjfNode[], _curMaxId = 0): number {
@@ -628,9 +694,15 @@ export class AjfFormBuilderService {
 
   private _initNodesStreams(): void {
     this._nodes = (<Observable<AjfNodesOperation>>this._nodesUpdates)
-                      .pipe(scan((nodes: AjfNode[], op: AjfNodesOperation) => {
-                              return op(nodes);
-                            }, []), publishReplay(1), refCount());
+                      .pipe(
+                          scan(
+                              (nodes: AjfNode[], op: AjfNodesOperation) => {
+                                return op(nodes);
+                              },
+                              []),
+                          publishReplay(1),
+                          refCount(),
+                      );
 
     this._nodesWithoutChoiceOrigins =
         (this._nodes as Observable<AjfSlide[]>).pipe(map(slides => slides.map(slide => {
@@ -658,8 +730,10 @@ export class AjfFormBuilderService {
         publishReplay(1), refCount());
 
     this._nodeEntriesTree = this._nodes.pipe(
-        map(nodes => <AjfFormBuilderNodeEntry[]>buildFormBuilderNodesTree(nodes)), publishReplay(1),
-        refCount());
+        map(nodes => <AjfFormBuilderNodeEntry[]>this._buildFormBuilderNodesTree(nodes)),
+        publishReplay(1),
+        refCount(),
+    );
   }
 
   private _initSaveNode(): void {
@@ -829,11 +903,69 @@ export class AjfFormBuilderService {
               } else {
                 nodes = nodes.slice(0);
               }
-              nodes = deleteNodeSubtree(nodes, node);
             }
             return nodes;
           };
         }))
         .subscribe(this._nodesUpdates);
+  }
+
+  /**
+   * Initializes the subscription to the moveNodeEntryEvent.
+   */
+  private _initMoveNode(): void {
+    this._moveNodeSub.unsubscribe();
+    this._moveNodeSub =
+        this._moveNodeEntryEvent
+            .pipe(
+                map((moveEvent: AjfFormBuilderMoveEvent) => {
+                  this._beforeNodesUpdate.emit();
+                  return (nodes: AjfNode[]): AjfNode[] => {
+                    const nodeEntry = moveEvent.nodeEntry as AjfFormBuilderNodeEntry;
+                    const node = nodeEntry.node;
+                    let cn = getNodeContainer({nodes}, node) as AjfContainerNode;
+                    let newNodes: AjfNode[] = nodes;
+                    if (cn != null) {
+                      const replaceNodes = cn.nodes === nodes;
+                      newNodes = cn.nodes;
+                      moveItemInArray(newNodes, moveEvent.fromIndex, moveEvent.toIndex);
+                      newNodes = this._updateNodesList(cn.id, newNodes);
+                      cn.nodes = newNodes;
+                      if (replaceNodes) {
+                        nodes = newNodes;
+                      } else {
+                        nodes = nodes.slice(0);
+                      }
+                    }
+                    return nodes;
+                  };
+                }),
+                )
+            .subscribe(this._nodesUpdates);
+  }
+
+  /**
+   * Updates the "id" and "parent" fields of a modified or rearranged list of nodes.
+   * @param containerId The id of the parent container of the list.
+   * @param nodesList The list of nodes to be updated.
+   */
+  private _updateNodesList(containerId: number, nodesList: AjfNode[]): AjfNode[] {
+    if (!nodesList.length) {
+      return [];
+    }
+    const contId = containerId != undefined ? containerId : 0;
+    for (let idx = 0; idx < nodesList.length; idx++) {
+      let currentNode = nodesList[idx];
+      currentNode.id = (contId * 1000) + idx + 1;
+      currentNode.parent = idx == 0 ? contId : (contId * 1000) + idx;
+      if (currentNode.nodeType == AjfNodeType.AjfSlide ||
+          currentNode.nodeType == AjfNodeType.AjfRepeatingSlide) {
+        const currentSlide = currentNode as AjfSlide;
+        if (currentSlide.nodes) {
+          this._updateNodesList(currentSlide.id, currentSlide.nodes);
+        }
+      }
+    }
+    return nodesList;
   }
 }
