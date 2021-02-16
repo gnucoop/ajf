@@ -521,6 +521,7 @@ export class AjfFbNodeProperties implements OnDestroy {
 
             controls.description = field.description;
             controls.defaultValue = field.defaultValue;
+            controls.hint = field.hint;
             controls.size = field.size;
             controls.formula = formula;
             controls.forceValue = forceValue;
