@@ -85,6 +85,7 @@ export const formSchema: any = {
           id: 1002,
           name: 'number',
           label: 'A number with the added constraint of being an integer',
+          hint: 'A number with the added constraint of being an integer hint',
           nodeType: 0,
           fieldType: 2,
           validation: {
