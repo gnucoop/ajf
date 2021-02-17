@@ -322,6 +322,7 @@ export class AjfFormBuilderService {
     return this._stringIdentifier;
   }
 
+  private _nodesWithoutChoiceOrigins: Observable<AjfSlide[]>;
   private _nodes: Observable<AjfNode[]>;
   get nodes(): Observable<AjfNode[]> {
     return this._nodes;
@@ -496,8 +497,8 @@ export class AjfFormBuilderService {
 
   getCurrentForm(): Observable<AjfForm> {
     return combineLatest([
-             this.form, this.nodes, this.attachmentsOrigins, this.choicesOrigins,
-             this.stringIdentifier
+             this.form, this._nodesWithoutChoiceOrigins, this.attachmentsOrigins,
+             this.choicesOrigins, this.stringIdentifier
            ])
         .pipe(
             filter(([form]) => form != null),
@@ -630,6 +631,24 @@ export class AjfFormBuilderService {
                       .pipe(scan((nodes: AjfNode[], op: AjfNodesOperation) => {
                               return op(nodes);
                             }, []), publishReplay(1), refCount());
+
+    this._nodesWithoutChoiceOrigins =
+        (this._nodes as Observable<AjfSlide[]>).pipe(map(slides => slides.map(slide => {
+          slide.nodes = (slide.nodes as AjfField[]).map((node: AjfField) => {
+            if (isFieldWithChoices(node)) {
+              const fwc = deepCopy(node);
+              if (fwc && fwc.choices) {
+                delete fwc.choices;
+              }
+              if (fwc && fwc.choicesOrigin) {
+                delete fwc.choicesOrigin;
+              }
+              return fwc;
+            }
+            return node;
+          });
+          return slide;
+        })));
 
     this._flatNodes = this._nodes.pipe(
         map((nodes: AjfNode[]) => flattenNodes(nodes)), publishReplay(1), refCount());
