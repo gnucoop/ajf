@@ -4,7 +4,13 @@
       <ion-toolbar *ngIf="!hideTopToolbar">
         {{ title | translate }}
         <ion-buttons slot="end">
-          <ion-button *ngIf="!saveDisabled" (click)="onSave($event)">{{ 'Save' | translate }}</ion-button>
+          <!-- this content projection  allow to add buttons on toolbar-->
+          <ng-content select="[ajfFormTopToolbarButtons]"></ng-content>
+          <!-- apply a default save button only when ajfFormSaveButton is empty-->
+          <span *ngIf="!saveDisabled" (click)="onSave($event)">
+            <span #saveButton><ng-content select="[ajfFormSaveButton]"></ng-content></span> 
+            <ion-button *ngIf="saveButton != null  && saveButton.childNodes != null && saveButton.childNodes.length == 0">{{ 'Save' | translate }}</ion-button>
+          </span>
         </ion-buttons>
       </ion-toolbar>
       <div class="ajf-slider-container">

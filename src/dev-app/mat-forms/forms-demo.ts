@@ -30,6 +30,7 @@ import {
 import {AjfContext} from '@ajf/core/models';
 import {AjfFieldService} from '@ajf/material/forms';
 import {Component} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 import {CustomSelectMultiple} from './custom-select-multiple';
 import {formContext, formSchema} from './form';
@@ -42,7 +43,8 @@ import {formContext, formSchema} from './form';
 })
 export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
-  form: AjfForm;
+  form$: BehaviorSubject<AjfForm|null> = new BehaviorSubject<AjfForm|null>(null);
+
   context: string = JSON.stringify(formContext);
 
   get readonly() {
@@ -64,8 +66,9 @@ export class FormsDemo {
       createInstance: createFieldWithChoicesInstance as any,
       isFieldWithChoice: true,
     });
-    this.form = AjfFormSerializer.fromJson(formSchema, formContext);
-    console.log(this.form);
+    const form = AjfFormSerializer.fromJson(formSchema, formContext);
+    this.form$.next(form);
+    console.log(form);
   }
 
   setSchema(): void {
@@ -81,8 +84,9 @@ export class FormsDemo {
       } else {
         context = {};
       }
-      this.form = AjfFormSerializer.fromJson(schema, context);
-      console.log(this.form);
+      const form = AjfFormSerializer.fromJson(schema, context);
+      console.log(form);
+      this.form$.next(form);
     } catch (e) {
       console.log(e);
     }
