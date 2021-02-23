@@ -57,7 +57,7 @@ export declare class AjfFormRenderer extends AjfCoreFormRenderer {
     static ngAcceptInputType_hideTopToolbar: BooleanInput;
     static ngAcceptInputType_readonly: BooleanInput;
     static ngAcceptInputType_saveDisabled: BooleanInput;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFormRenderer, "ajf-form", never, { "topBar": "topBar"; }, {}, never, ["[ajfFormStartMessageTitle]", "[ajfFormStartMessage]", "[ajfFormEndMessageTitle]", "[ajfFormEndMessage]"]>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFormRenderer, "ajf-form", never, { "topBar": "topBar"; }, {}, never, ["[ajfFormTopToolbarButtons]", "[ajfFormSaveButton]", "[ajfFormStartMessageTitle]", "[ajfFormStartMessage]", "[ajfFormEndMessageTitle]", "[ajfFormEndMessage]"]>;
     static ɵfac: i0.ɵɵFactoryDef<AjfFormRenderer, never>;
 }
 

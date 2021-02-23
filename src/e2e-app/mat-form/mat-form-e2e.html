@@ -1,4 +1,8 @@
 <h1>Number Field Example</h1>
 <section>
-  <ajf-form [form]="form"></ajf-form>
+  <ajf-form
+    [form]="form"
+    [topBar]="(topBar$|async)|| false"
+    [hideTopToolbar]="(hideToolbar$|async)|| false"
+  ></ajf-form>
 </section>

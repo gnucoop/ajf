@@ -13,6 +13,7 @@ ng_module(
     deps = [
         "//src/material/forms",
         "@npm//@angular/router",
+        "@npm//rxjs",
     ],
 )
 

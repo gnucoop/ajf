@@ -21,7 +21,10 @@
  */
 
 import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {Observable, of} from 'rxjs';
+import {filter, startWith, switchMap} from 'rxjs/operators';
 
 const formSchema: any = {
   choicesOrigins: [{
@@ -65,11 +68,35 @@ const formSchema: any = {
   selector: 'mat-form-e2e',
   templateUrl: 'mat-form-e2e.html',
 })
-export class MaterialFormE2E {
+export class MaterialFormE2E implements OnInit {
   formSchema: string = JSON.stringify(formSchema);
   form: AjfForm;
+  routeStream$: Observable<Params> = this._route.queryParams;
+  topBar$: Observable<boolean> = this.routeStream$.pipe(
+      filter(p => p != null), switchMap((params) => {
+        let res = false;
+        if (params.topbar != null && params.topbar === 'true') {
+          res = true;
+        }
+        return of(res);
+      }),
+      startWith(false));
 
-  constructor() {
+  hideToolbar$: Observable<boolean> = this.routeStream$.pipe(
+      filter(p => p != null), switchMap((params) => {
+        let res = false;
+        if (params.hidetoolbar != null && params.hidetoolbar === 'true') {
+          res = true;
+        }
+        return of(res);
+      }),
+      startWith(false));
+
+  constructor(private _route: ActivatedRoute) {}
+  ngOnInit(): void {
     this.form = AjfFormSerializer.fromJson(formSchema);
+    this._route.queryParams.subscribe(params => {
+      console.log(params);
+    });
   }
 }
