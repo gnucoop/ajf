@@ -1,19 +1,23 @@
 <ng-container *ngIf="formGroup|async as fg">
   <form novalidate [formGroup]="fg!">
     <div class="ajf-form-container">
-
-      <mat-toolbar *ngIf="!hideTopToolbar" class="ajf-btn-strip">
+      <mat-toolbar *ngIf="!hideTopToolbar && topBar" class="ajf-btn-strip">
         <ng-template ngFor let-slideInstance [ngForOf]="slides|async" [ngForTrackBy]="trackNodeById">
           <button mat-button class="ajf-topbar-button"
-            *ngIf="topBar != null && slideInstance.node != null && slideInstance.node.label != null && slideInstance.node.label.length > 0"
+            *ngIf="slideInstance.node != null && slideInstance.node.label != null && slideInstance.node.label.length > 0"
             (click)="scrollToSlide(slideInstance)">{{slideInstance.node.label | translate}}</button>
         </ng-template>
       </mat-toolbar>
-
       <mat-toolbar *ngIf="!hideTopToolbar">
         {{ title }}
         <span class="ajf-spacer"></span>
-        <button mat-button default *ngIf="!saveDisabled" (click)="onSave($event)" translate>Save</button>
+        <!-- this content projection allow to add buttons on toolbar -->
+        <ng-content select="[ajfFormTopToolbarButtons]"></ng-content>
+        <!-- apply a default save button only when ajfFormSaveButton is empty -->
+        <span *ngIf="!saveDisabled" (click)="onSave($event)">
+          <span #saveButton><ng-content select="[ajfFormSaveButton]"></ng-content></span> 
+          <button *ngIf="saveButton != null  && saveButton.childNodes != null && saveButton.childNodes.length == 0" mat-button default>{{'Save'|translate}}</button>
+        </span>
       </mat-toolbar>
       <div class="ajf-slider-container">
         <ajf-page-slider (orientationChange)="orientationChangeHandler($event)" [fixedOrientation]="fixedOrientation"
@@ -68,7 +72,7 @@
                               <i [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon"
                                 item-right></i>
                               <p>{{ ((fieldInstance|ajfAsFieldInstance).node.description || '') | translate }}</p>
-                              <label *ngIf="(fieldInstance|ajfAsFieldInstance).node.fieldType !== 7"
+                              <label [attr.id]="fieldInstance.node.name" *ngIf="(fieldInstance|ajfAsFieldInstance).node.fieldType !== 7"
                                 [innerHTML]="fieldInstance.node.label | translate"></label>
                               <mat-icon class="ajf-tooltip-icon"
                                 *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint" [matTooltip]="hint"
@@ -118,7 +122,7 @@
                               <i [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon"
                                 item-right></i>
                               <p>{{ ((fieldInstance|ajfAsFieldInstance).node.description || '') | translate }}</p>
-                              <label [innerHTML]="fieldInstance.node.label | translate"></label>
+                              <label [attr.id]="fieldInstance.node.name" [innerHTML]="fieldInstance.node.label | translate"></label>
                               <mat-icon class="ajf-tooltip-icon"
                                 *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint" [matTooltip]="hint"
                                 matTooltipPosition="right">

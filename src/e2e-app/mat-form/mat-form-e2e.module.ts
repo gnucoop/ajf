@@ -22,6 +22,7 @@
 
 import {AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
 import {AjfFormsModule} from '@ajf/material/forms';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
 import {MaterialFormE2E} from './mat-form-e2e';
@@ -29,6 +30,7 @@ import {MaterialFormE2E} from './mat-form-e2e';
 @NgModule({
   imports: [
     AjfFormsModule,
+    CommonModule,
     CoreFormsModule,
   ],
   declarations: [
