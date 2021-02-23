@@ -106,7 +106,7 @@
     "@bazel/typescript": "^2.3.2",
     "@firebase/app-types": "^0.6.1",
     "@ngx-translate/http-loader": "^6.0.0",
-    "@octokit/rest": "18.1.0",
+    "@octokit/rest": "18.2.0",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "@schematics/angular": "^11.1.0",
