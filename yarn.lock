@@ -481,10 +481,10 @@
   resolved "https://registry.yarnpkg.com/@bazel/rollup/-/rollup-2.3.0.tgz#688774f0abe8f3c891d566d65bdfb54768c10e21"
   integrity sha512-kSsgZtu2UIHUqw9UuCeEvRsFn5eobomTmkj3MYJ/LNlCR+HohKG9DWLkT5KcPPL9tDZTq62vRqLk9k/h/E44Bw==
 
-"@bazel/terser@^2.2.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@bazel/terser/-/terser-2.3.0.tgz#41b82436b8103f42b3b61d8abdeebd7d3af3aa77"
-  integrity sha512-9NVOgLPVFZCPY+XRm9KHIP3ahdZPv6vRGuMVYF7wNPgtKQNARNccc8JegA5aJBnDJYavhZeyQqyDMSY6rG5Drg==
+"@bazel/terser@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@bazel/terser/-/terser-3.2.1.tgz#0480cc6b00a7bf1d8c8763aa1eff267352768bf1"
+  integrity sha512-aV20kqoYnpEEfx2l4ipFOSb5JgRmPVAvicOQBQ6eMqD7SGRrDDNVtjhemo11/RCJiZuUYNxoCo+itLBw4kNaPg==
 
 "@bazel/typescript@^2.2.0":
   version "2.3.0"
