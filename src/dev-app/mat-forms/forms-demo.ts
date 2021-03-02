@@ -25,7 +25,8 @@ import {
   AjfFormRendererService,
   AjfFormSerializer,
   AjfReadOnlyFieldComponent,
-  createFieldWithChoicesInstance
+  createFieldWithChoicesInstance,
+  createFormPdf
 } from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
 import {AjfFieldService} from '@ajf/material/forms';
@@ -94,5 +95,19 @@ export class FormsDemo {
 
   getCurrentContext(): void {
     this.context = JSON.stringify(this._formRendererService.getFormValue());
+  }
+
+  printPdf() {
+    const schema = {
+      name: 'Test Form',
+      schema: this.form$.getValue() as AjfForm,
+      is_tallysheet: false,
+    };
+    const formData = {
+      date_start: ' ',
+      date_end: ' ',
+      data: this._formRendererService.getFormValue(),
+    };
+    createFormPdf(schema, undefined, formData).open();
   }
 }
