@@ -6,6 +6,7 @@
 /src/core/common/*                                 @trik
 /src/core/file-input/**/*                          @trik
 /src/core/forms/**/*                               @trik
+/src/core/forms/form-to-pdf/*                      @robzan8
 /src/core/image/*                                  @trik
 /src/core/map/*                                    @trik
 /src/core/models/**/*                              @trik
@@ -13,6 +14,7 @@
 /src/core/page-break/*                             @trik
 /src/core/page-slider/*                            @trik
 /src/core/reports/**/*                             @trik
+/src/core/reports/report-to-pdf/*                  @robzan8
 /src/core/table/*                                  @trik
 /src/core/testing/private/**/*                     @trik
 /src/core/text/*                                   @trik
