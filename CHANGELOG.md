@@ -1,3 +1,20 @@
+## 11.0.8 "fancy-fog" (2021-03-08)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **forms:** form-to-pdf ([20b4cd706af0b4513bda25f4341eda17051b6f8e](https://github.com/gnucoop/ajf/commit/20b4cd706af0b4513bda25f4341eda17051b6f8e)) |
+| feature |  **reports:** set image width from styles ([7359a03c7851fcf40734a911b0b0c83e226c008c](https://github.com/gnucoop/ajf/commit/7359a03c7851fcf40734a911b0b0c83e226c008c)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **form-builder:** output form should not repeat choice values for every choice field ([7a252557190dda86debba9a90fb25dc569ab5b8c](https://github.com/gnucoop/ajf/commit/7a252557190dda86debba9a90fb25dc569ab5b8c)) |
+| feature |  **report-builder:** add hint to field node properties ([b33458344f8b69bbe9ab86d9f8e32996394cb0c3](https://github.com/gnucoop/ajf/commit/b33458344f8b69bbe9ab86d9f8e32996394cb0c3)) |
+
+
 ## 11.0.7 "internal-sweater" (2021-02-04)
 
 ### core
