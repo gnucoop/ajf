@@ -1,3 +1,20 @@
+## 10.1.9 "odd-pine" (2021-03-08)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **forms:** form-to-pdf ([0003ff02eee244befa5a5ccfd2b4df732bf70cdf](https://github.com/gnucoop/ajf/commit/0003ff02eee244befa5a5ccfd2b4df732bf70cdf)) |
+| feature |  **reports:** set image width from styles ([d449eba0b0aba3f88fe5440708d3b667ee3947ec](https://github.com/gnucoop/ajf/commit/d449eba0b0aba3f88fe5440708d3b667ee3947ec)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **form-builder:** output form should not repeat choice values for every choice field ([a1b691f343b47467de4300007e8c2ae6392a6ca2](https://github.com/gnucoop/ajf/commit/a1b691f343b47467de4300007e8c2ae6392a6ca2)) |
+| feature |  **report-builder:** add hint to field node properties ([3f110c27428860339b540da52835ac91135d55b2](https://github.com/gnucoop/ajf/commit/3f110c27428860339b540da52835ac91135d55b2)) |
+
+
 ## 10.1.8 "glib-tub" (2021-02-04)
 
 ### core
