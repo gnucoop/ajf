@@ -166,7 +166,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "madge": "^3.6.0",
     "magic-string": "^0.25.6",
-    "marked": "^1.0.0",
+    "marked": "^2.0.0",
     "merge2": "^1.2.3",
     "minimatch": "^3.0.4",
     "minimist": "^1.2.0",
