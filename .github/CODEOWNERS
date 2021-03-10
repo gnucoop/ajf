@@ -2,9 +2,9 @@
 /src/core/*                                        @trik
 /src/core/calendar/*                               @trik
 /src/core/chart/*                                  @trik
-/src/core/checkbox-group/*                         @trik
-/src/core/common/*                                 @trik
-/src/core/file-input/**/*                          @trik
+/src/core/checkbox-group/*                         @mrumbrella
+/src/core/common/*                                 @mrumbrella
+/src/core/file-input/**/*                          @mrumbrella
 /src/core/forms/**/*                               @trik
 /src/core/forms/form-to-pdf/*                      @robzan8
 /src/core/image/*                                  @trik
@@ -26,8 +26,8 @@
 /src/material/*                                    @trik
 /src/material/barcode/*                            @peppedeka
 /src/material/calendar/*                           @trik
-/src/material/checkbox-group/*                     @trik
-/src/material/form-builder/*                       @trik
+/src/material/checkbox-group/*                     @mrumbrella
+/src/material/form-builder/*                       @mrumbrella
 /src/material/forms/*                              @trik
 /src/material/image/*                              @trik
 /src/material/monaco-editor/*                      @trik
@@ -41,7 +41,7 @@
 /src/ionic/*                                       @trik
 /src/ionic/barcode/*                               @peppedeka
 /src/ionic/calendar/*                              @trik
-/src/ionic/checkbox-group/*                        @trik
+/src/ionic/checkbox-group/*                        @mrumbrella
 /src/ionic/forms/*                                 @trik
 /src/ionic/image/*                                 @trik
 /src/ionic/node-icon/*                             @trik
