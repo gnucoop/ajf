@@ -1,13 +1,5 @@
 import {createPlugin, Plugin, utils} from 'stylelint';
-import {
-  AtRule,
-  atRule,
-  decl,
-  Declaration,
-  Node,
-  Result,
-  Root
-} from './stylelint-postcss-types';
+import {AtRule, Declaration, Node, Result, Root} from './stylelint-postcss-types';
 
 /** Name of this stylelint rule. */
 const ruleName = 'ajf/theme-mixin-api';
