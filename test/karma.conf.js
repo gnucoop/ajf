@@ -94,7 +94,7 @@ module.exports = config => {
 
     browserStack: {
       project: 'Ajf Unit Tests',
-      startTunnel: false,
+      startTunnel: true,
       retryLimit: 3,
       timeout: 1800,
       video: false,
