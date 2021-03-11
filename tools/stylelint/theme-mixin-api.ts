@@ -114,20 +114,41 @@ const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => 
       }
 
       const expectedProperty = type === 'density' ? '$density-scale' : '$config';
-      const expectedValue = `mat-get-${type}-config($config-or-theme)`;
-      const configExtractionNode = !!node.nodes &&
-          node.nodes.find((n): n is Declaration => n.type === 'decl' && n.value === expectedValue);
+      const expectedValues = type === 'typography' ?
+          [
+            'typography.private-typography-to-2014-config(' +
+                'theming.get-typography-config($config-or-theme))',
+            'theming.get-typography-config($config-or-theme)'
+          ] :
+          [`theming.get-${type}-config($config-or-theme)`];
+      let configExtractionNode: Declaration|null = null;
+      let nonCommentNodeCount = 0;
 
-      if (!configExtractionNode) {
+      if (node.nodes) {
+        for (const currentNode of node.nodes) {
+          if (currentNode.type !== 'comment') {
+            nonCommentNodeCount++;
+          }
+
+          if (currentNode.type === 'decl' && expectedValues.includes(currentNode.value)) {
+            configExtractionNode = currentNode;
+            break;
+          }
+        }
+      }
+
+      if (!configExtractionNode && nonCommentNodeCount > 0) {
         if (context.fix) {
-          node.insertBefore(0, {prop: expectedProperty, value: expectedValue});
+          node.insertBefore(0, {prop: expectedProperty, value: expectedValues[0]});
         } else {
           reportError(
               node,
               `Config is not extracted. Consumers could pass a theme object. ` +
-                  `Extract the configuration by using: ${expectedProperty}: ${expectedValue}`);
+                  `Extract the configuration by using one of the following:` +
+                  expectedValues.map(expectedValue => `${expectedProperty}: ${expectedValue}`)
+                      .join('\n'));
         }
-      } else if (configExtractionNode.prop !== expectedProperty) {
+      } else if (configExtractionNode && configExtractionNode.prop !== expectedProperty) {
         reportError(
             configExtractionNode,
             `For consistency, variable for configuration should ` +
