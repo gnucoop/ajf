@@ -6,12 +6,11 @@ import {
   calendarsPackage,
 } from './packages';
 
-import './tasks/ci';
-import './tasks/clean';
-import './tasks/unit-test';
-
 createPackageBuildTasks(corePackage);
 createPackageBuildTasks(ionicPackage);
 createPackageBuildTasks(materialPackage);
 createPackageBuildTasks(calendarsPackage);
 
+import './tasks/clean';
+import './tasks/unit-test';
+import './tasks/ci';

@@ -114,7 +114,7 @@
     "@types/file-saver": "^2.0.1",
     "@types/fs-extra": "^9.0.5",
     "@types/glob": "^7.1.1",
-    "@types/gulp": "^3.8.36",
+    "@types/gulp": "4.0.7",
     "@types/inquirer": "^7.3.1",
     "@types/jasmine": "^3.5.4",
     "@types/leaflet": "^1.5.12",
@@ -143,13 +143,8 @@
     "fontsource-roboto": "^3.0.3",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.4.0",
-    "gulp-cli": "^2.2.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-if": "^2.0.2",
-    "gulp-rename": "^1.4.0",
-    "gulp-requirejs": "^1.2.1",
+    "gulp": "^4.0.2",
+    "gulp-cli": "^2.3.0",
     "gulp-sass": "^4.0.2",
     "highlight.js": "^10.4.0",
     "husky": "^4.3.0",
@@ -182,7 +177,6 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sourcemaps": "^0.6.3",
-    "run-sequence": "^2.2.1",
     "sass": "^1.29.0",
     "scss-bundle": "^3.1.2",
     "selenium-webdriver": "^3.6.0",
@@ -200,8 +194,7 @@
     "yaml": "^1.10.0"
   },
   "resolutions": {
-    "dgeni-packages/typescript": "4.1.2",
-    "**/graceful-fs": "4.2.2"
+    "dgeni-packages/typescript": "4.1.2"
   },
   "husky": {
     "hooks": {
