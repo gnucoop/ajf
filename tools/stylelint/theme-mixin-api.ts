@@ -1,12 +1,13 @@
+import {basename} from 'path';
 import {createPlugin, Plugin, utils} from 'stylelint';
-import {AtRule, Declaration, Node, Result, Root} from './stylelint-postcss-types';
+
+import {AtRule, atRule, decl, Declaration, Node, Result, Root} from './stylelint-postcss-types';
 
 /** Name of this stylelint rule. */
 const ruleName = 'ajf/theme-mixin-api';
 
 /** Regular expression that matches all theme mixins. */
-const themeMixinRegex =
-    /^(?:_(ajf-.+)-(density)|(ajf-.+)-(density|color|typography|theme))\((.*)\)$/;
+const themeMixinRegex = /^(density|color|typography|theme)\((.*)\)$/;
 
 /**
  * Stylelint plugin which ensures that theme mixins have a consistent API. Besides
@@ -18,38 +19,44 @@ const themeMixinRegex =
  *   2. Checks if the individual theme mixins handle the case where consumers pass a theme object.
  *      For convenience, we support passing theme object to the scoped mixins.
  *   3. Checks if the `-theme` mixins have the duplicate style check set up. We want to
- *      consistently check for duplicative theme styles so that we can warn consumers.
+ *      consistently check for duplicative theme styles so that we can warn consumers. The
+ *      plugin ensures that style-generating statements are nested inside the duplication check.
  */
-const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => {
+const plugin = (isEnabled: boolean, _options: never, context: {fix: boolean}) => {
   return (root: Root, result: Result) => {
-    if (!isEnabled) {
+    const componentName = getComponentNameFromPath(root.source!.input.file!);
+
+    if (!componentName || !isEnabled) {
       return;
     }
 
     root.walkAtRules('mixin', node => {
+      if (node.params.startsWith('_') || node.params.startsWith('private-')) {
+        // This is a private mixins that isn't intended to be consumed outside of our own code.
+        return;
+      }
+
       const matches = node.params.match(themeMixinRegex);
       if (matches === null) {
         return;
       }
 
-      // Name of the component with prefix. e.g. `mat-mdc-button` or `mat-slide-toggle`.
-      const componentName = matches[1] || matches[3];
       // Type of the theme mixin. e.g. `density`, `color`, `theme`.
-      const type = matches[2] || matches[4];
+      const type = matches[1];
       // Naively assumes that mixin arguments can be easily retrieved by splitting based on
       // a comma. This is not always correct because Sass maps can be constructed in parameters.
       // These would contain commas that throw of the argument retrieval. It's acceptable that
       // this rule will fail in such edge-cases. There is no AST for `postcss.AtRule` params.
-      const args = matches[5].split(',');
+      const args = matches[2].split(',').map(arg => arg.trim());
 
       if (type === 'theme') {
-        validateThemeMixin(node, componentName, args);
+        validateThemeMixin(node, args);
       } else {
         validateIndividualSystemMixins(node, type, args);
       }
     });
 
-    function validateThemeMixin(node: AtRule, componentName: string, args: string[]) {
+    function validateThemeMixin(node: AtRule, args: string[]) {
       if (args.length !== 1) {
         reportError(node, 'Expected theme mixin to only declare a single argument.');
       } else if (args[0] !== '$theme-or-color-config') {
@@ -61,20 +68,35 @@ const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => 
       }
 
       const themePropName = `$theme`;
-      const legacyColorExtractExpr = `_mat-legacy-get-theme($theme-or-color-config)`;
+      const legacyColorExtractExpr = `theming.private-legacy-get-theme($theme-or-color-config)`;
       const duplicateStylesCheckExpr =
-          `_mat-check-duplicate-theme-styles(${themePropName}, '${componentName}')`;
-      const legacyConfigDecl = !!node.nodes &&
-          node.nodes.find(
-              (n): n is Declaration => n.type === 'decl' && n.value === legacyColorExtractExpr);
-      const hasDuplicateStylesCheck = !!node.nodes &&
-          node.nodes.find(
-              n => n.type === 'atrule' && n.name === 'include' &&
-                  n.params === duplicateStylesCheckExpr);
+          `theming.private-check-duplicate-theme-styles(${themePropName}, '${componentName}')`;
+
+      let legacyConfigDecl: Declaration|null = null;
+      let duplicateStylesCheck: AtRule|null = null;
+      let hasNodesOutsideDuplicationCheck = false;
+      let isLegacyConfigRetrievalFirstStatement = false;
+
+      if (node.nodes) {
+        for (let i = 0; i < node.nodes.length; i++) {
+          const childNode = node.nodes[i];
+          if (childNode.type === 'decl' && childNode.value === legacyColorExtractExpr) {
+            legacyConfigDecl = childNode;
+            isLegacyConfigRetrievalFirstStatement = i === 0;
+          } else if (
+              childNode.type === 'atrule' && childNode.name === 'include' &&
+              childNode.params === duplicateStylesCheckExpr) {
+            duplicateStylesCheck = childNode;
+          } else if (childNode.type !== 'comment') {
+            hasNodesOutsideDuplicationCheck = true;
+          }
+        }
+      }
 
       if (!legacyConfigDecl) {
         if (context.fix) {
-          node.insertBefore(0, {prop: themePropName, value: legacyColorExtractExpr});
+          legacyConfigDecl = decl({prop: themePropName, value: legacyColorExtractExpr});
+          node.insertBefore(0, legacyConfigDecl);
         } else {
           reportError(
               node,
@@ -85,20 +107,31 @@ const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => 
         }
       } else if (legacyConfigDecl.prop !== themePropName) {
         reportError(
-            legacyConfigDecl,
-            `For consistency, variable for theme should ` +
-                `be called: ${themePropName}`);
+            legacyConfigDecl, `For consistency, theme variable should be called: ${themePropName}`);
       }
 
-      if (!hasDuplicateStylesCheck) {
+      if (!duplicateStylesCheck) {
         if (context.fix) {
-          node.insertBefore(0, {name: 'include', params: duplicateStylesCheckExpr});
+          duplicateStylesCheck = atRule({name: 'include', params: duplicateStylesCheckExpr});
+          node.insertBefore(1, duplicateStylesCheck);
         } else {
           reportError(
               node,
               `Missing check for duplicative theme styles. Please include the ` +
                   `duplicate styles check mixin: ${duplicateStylesCheckExpr}`);
         }
+      }
+
+      if (hasNodesOutsideDuplicationCheck) {
+        reportError(
+            node,
+            `Expected nodes other than the "${legacyColorExtractExpr}" ` +
+                `declaration to be nested inside the duplicate styles check.`);
+      }
+
+      if (legacyConfigDecl !== null && !isLegacyConfigRetrievalFirstStatement) {
+        reportError(
+            legacyConfigDecl, 'Legacy configuration should be retrieved first in theme mixin.');
       }
     }
 
@@ -130,7 +163,8 @@ const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => 
             nonCommentNodeCount++;
           }
 
-          if (currentNode.type === 'decl' && expectedValues.includes(currentNode.value)) {
+          if (currentNode.type === 'decl' &&
+              expectedValues.includes(stripNewlinesAndIndentation(currentNode.value))) {
             configExtractionNode = currentNode;
             break;
           }
@@ -161,6 +195,24 @@ const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => 
     }
   };
 };
+
+/** Figures out the name of the component from a file path. */
+function getComponentNameFromPath(filePath: string): string|null {
+  const match = basename(filePath).match(/_?(.*)-theme\.scss$/);
+
+  if (!match) {
+    return null;
+  }
+
+  const prefix = 'ajf-';
+
+  return prefix + match[1];
+}
+
+/** Strips newlines from a string and any whitespace immediately after it. */
+function stripNewlinesAndIndentation(value: string): string {
+  return value.replace(/(\r|\n)\s+/g, '');
+}
 
 // Note: We need to cast the value explicitly to `Plugin` because the stylelint types
 // do not type the context parameter. https://stylelint.io/developer-guide/rules#add-autofix
