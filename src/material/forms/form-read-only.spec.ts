@@ -24,6 +24,7 @@ import {
   AjfField,
   AjfFieldType,
   AjfFieldWithChoices,
+  AjfForm,
   AjfFormSerializer,
   AjfNodeType
 } from '@ajf/core/forms';
@@ -160,7 +161,7 @@ const slideForm = {
   }],
 } as any;
 
-const testForm = JSON.parse(JSON.stringify(slideForm));
+const testForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
 testForm.nodes[0].nodes = [{
   id: 2,
   parent: 1,
@@ -174,7 +175,7 @@ testForm.nodes[0].nodes = [{
   validation: {notEmpty: true} as any
 } as unknown as AjfFieldWithChoices<string>];
 
-const inputTestForm = JSON.parse(JSON.stringify(slideForm));
+const inputTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
 inputTestForm.nodes[0].nodes = [{
   id: 2,
   parent: 1,
@@ -186,7 +187,7 @@ inputTestForm.nodes[0].nodes = [{
   validation: {notEmpty: true} as any
 } as unknown as AjfField];
 
-const readOnlyInputTestForm = JSON.parse(JSON.stringify(slideForm));
+const readOnlyInputTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
 readOnlyInputTestForm.nodes[0].nodes = [{
   id: 2,
   parent: 1,
@@ -198,7 +199,7 @@ readOnlyInputTestForm.nodes[0].nodes = [{
   validation: {notEmpty: true} as any
 } as unknown as AjfField];
 
-const readOnlySingleChoiceTestForm = JSON.parse(JSON.stringify(slideForm));
+const readOnlySingleChoiceTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
 readOnlySingleChoiceTestForm.nodes[0].nodes = [{
   id: 2,
   parent: 1,
@@ -213,7 +214,7 @@ readOnlySingleChoiceTestForm.nodes[0].nodes = [{
   validation: {notEmpty: true} as any
 } as unknown as AjfFieldWithChoices<string>];
 
-const readOnlyMultipleChoiceTestForm = JSON.parse(JSON.stringify(slideForm));
+const readOnlyMultipleChoiceTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
 readOnlyMultipleChoiceTestForm.nodes[0].nodes = [{
   id: 2,
   parent: 1,

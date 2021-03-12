@@ -1,4 +1,4 @@
-load("@npm//@bazel/typescript:index.bzl", "ts_devserver")
+load("@npm//@bazel/concatjs:index.bzl", "concatjs_devserver")
 load("//:packages.bzl", "getAngularUmdTargets")
 load("//tools:defaults.bzl", "ng_module")
 
@@ -43,7 +43,7 @@ ng_module(
     ],
 )
 
-ts_devserver(
+concatjs_devserver(
     name = "devserver",
     testonly = True,
     additional_root_paths = [
@@ -72,7 +72,6 @@ ts_devserver(
         "@npm//leaflet",
         "@npm//numbro",
         "@npm//pdfmake",
-        "@npm//@ionic/core",
         "@npm//@ngx-translate/core",
         "@npm//@webcomponents/custom-elements",
         ":index.html",

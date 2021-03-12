@@ -7,6 +7,10 @@ _BASE_ROLLUP_DEPS = [
     "@npm//rollup-plugin-sourcemaps",
 ]
 
+_BASE_ROLLUP_DATA = [
+    ":node_modules",
+]
+
 def _create_rollup_config(
         name,
         output_name,
@@ -58,5 +62,6 @@ def third_party_bundle(
         config_file = ":%s" % config_name,
         entry_point = entry_point,
         format = "umd",
+        rollup_bin = "//tools/third-party-libs:rollup_bin",
         deps = _BASE_ROLLUP_DEPS + deps,
     )
