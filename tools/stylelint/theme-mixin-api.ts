@@ -1,14 +1,7 @@
-import {createPlugin, Plugin, utils} from 'stylelint';
 import {basename} from 'path';
-import {
-  AtRule,
-  atRule,
-  decl,
-  Declaration,
-  Node,
-  Result,
-  Root
-} from './stylelint-postcss-types';
+import {createPlugin, Plugin, utils} from 'stylelint';
+
+import {AtRule, atRule, decl, Declaration, Node, Result, Root} from './stylelint-postcss-types';
 
 /** Name of this stylelint rule. */
 const ruleName = 'ajf/theme-mixin-api';
@@ -26,9 +19,10 @@ const themeMixinRegex = /^(density|color|typography|theme)\((.*)\)$/;
  *   2. Checks if the individual theme mixins handle the case where consumers pass a theme object.
  *      For convenience, we support passing theme object to the scoped mixins.
  *   3. Checks if the `-theme` mixins have the duplicate style check set up. We want to
- *      consistently check for duplicative theme styles so that we can warn consumers.
+ *      consistently check for duplicative theme styles so that we can warn consumers. The
+ *      plugin ensures that style-generating statements are nested inside the duplication check.
  */
-const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => {
+const plugin = (isEnabled: boolean, _options: never, context: {fix: boolean}) => {
   return (root: Root, result: Result) => {
     const componentName = getComponentNameFromPath(root.source!.input.file!);
 
@@ -78,9 +72,31 @@ const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => 
       const duplicateStylesCheckExpr =
           `theming.private-check-duplicate-theme-styles(${themePropName}, '${componentName}')`;
 
+      let legacyConfigDecl: Declaration|null = null;
+      let duplicateStylesCheck: AtRule|null = null;
+      let hasNodesOutsideDuplicationCheck = false;
+      let isLegacyConfigRetrievalFirstStatement = false;
+
+      if (node.nodes) {
+        for (let i = 0; i < node.nodes.length; i++) {
+          const childNode = node.nodes[i];
+          if (childNode.type === 'decl' && childNode.value === legacyColorExtractExpr) {
+            legacyConfigDecl = childNode;
+            isLegacyConfigRetrievalFirstStatement = i === 0;
+          } else if (
+              childNode.type === 'atrule' && childNode.name === 'include' &&
+              childNode.params === duplicateStylesCheckExpr) {
+            duplicateStylesCheck = childNode;
+          } else if (childNode.type !== 'comment') {
+            hasNodesOutsideDuplicationCheck = true;
+          }
+        }
+      }
+
       if (!legacyConfigDecl) {
         if (context.fix) {
-          node.insertBefore(0, {prop: themePropName, value: legacyColorExtractExpr});
+          legacyConfigDecl = decl({prop: themePropName, value: legacyColorExtractExpr});
+          node.insertBefore(0, legacyConfigDecl);
         } else {
           reportError(
               node,
@@ -91,20 +107,31 @@ const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => 
         }
       } else if (legacyConfigDecl.prop !== themePropName) {
         reportError(
-            legacyConfigDecl,
-            `For consistency, variable for theme should ` +
-                `be called: ${themePropName}`);
+            legacyConfigDecl, `For consistency, theme variable should be called: ${themePropName}`);
       }
 
-      if (!hasDuplicateStylesCheck) {
+      if (!duplicateStylesCheck) {
         if (context.fix) {
-          node.insertBefore(0, {name: 'include', params: duplicateStylesCheckExpr});
+          duplicateStylesCheck = atRule({name: 'include', params: duplicateStylesCheckExpr});
+          node.insertBefore(1, duplicateStylesCheck);
         } else {
           reportError(
               node,
               `Missing check for duplicative theme styles. Please include the ` +
                   `duplicate styles check mixin: ${duplicateStylesCheckExpr}`);
         }
+      }
+
+      if (hasNodesOutsideDuplicationCheck) {
+        reportError(
+            node,
+            `Expected nodes other than the "${legacyColorExtractExpr}" ` +
+                `declaration to be nested inside the duplicate styles check.`);
+      }
+
+      if (legacyConfigDecl !== null && !isLegacyConfigRetrievalFirstStatement) {
+        reportError(
+            legacyConfigDecl, 'Legacy configuration should be retrieved first in theme mixin.');
       }
     }
 
@@ -121,12 +148,12 @@ const plugin = (isEnabled: boolean, options: never, context: {fix: boolean}) => 
 
       const expectedProperty = type === 'density' ? '$density-scale' : '$config';
       const expectedValues = type === 'typography' ?
-        [
-          'typography.private-typography-to-2014-config(' +
-              'theming.get-typography-config($config-or-theme))',
-          'theming.get-typography-config($config-or-theme)'
-        ] :
-        [`theming.get-${type}-config($config-or-theme)`];
+          [
+            'typography.private-typography-to-2014-config(' +
+                'theming.get-typography-config($config-or-theme))',
+            'theming.get-typography-config($config-or-theme)'
+          ] :
+          [`theming.get-${type}-config($config-or-theme)`];
       let configExtractionNode: Declaration|null = null;
       let nonCommentNodeCount = 0;
 
@@ -177,13 +204,7 @@ function getComponentNameFromPath(filePath: string): string|null {
     return null;
   }
 
-  let prefix = '';
-
-  if (filePath.includes('material-experimental')) {
-    prefix = 'mat-mdc-';
-  } else if (filePath.includes('material')) {
-    prefix = 'mat-';
-  }
+  const prefix = 'ajf-';
 
   return prefix + match[1];
 }
