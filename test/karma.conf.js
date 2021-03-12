@@ -53,7 +53,6 @@ module.exports = config => {
       {pattern: 'node_modules/@zxing/library/umd/index.min.js', included: false, watched: false},
 
       {pattern: 'node_modules/chart.js/Chart.umd.js', included: false, watched: false},
-      {pattern: 'node_modules/css-element-queries/css-element-queries.umd.js', included: false, watched: false},
       {pattern: 'node_modules/date-fns/date-fns.umd.js', included: false, watched: false},
       {pattern: 'node_modules/esprima/esprima.umd.js', included: false, watched: false},
       {pattern: 'node_modules/leaflet/leaflet.umd.js', included: false, watched: false},

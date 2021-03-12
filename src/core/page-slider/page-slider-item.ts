@@ -20,6 +20,8 @@
  *
  */
 
+/// <reference types="resize-observer-browser" />
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,7 +33,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {ResizeSensor} from 'css-element-queries';
 import {Observable, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 
@@ -55,7 +56,7 @@ export class AjfPageSliderItem implements OnDestroy {
 
   private _scrollX = 0;
   private _scrollY = 0;
-  private _resizeSensor: ResizeSensor;
+  private _resizeObserver: ResizeObserver|null = null;
   private _resizeEvent: EventEmitter<void> = new EventEmitter<void>();
   private _resizeSub: Subscription = Subscription.EMPTY;
 
@@ -63,7 +64,10 @@ export class AjfPageSliderItem implements OnDestroy {
       private _el: ElementRef,
       private _renderer: Renderer2,
   ) {
-    this._resizeSensor = new ResizeSensor(_el.nativeElement, () => this._onResize());
+    if (typeof ResizeObserver !== 'undefined') {
+      this._resizeObserver = new ResizeObserver(() => this._onResize());
+      this._resizeObserver.observe(this._el.nativeElement);
+    }
 
     this._resizeSub = this._resizeEvent
                           .pipe(
@@ -73,11 +77,11 @@ export class AjfPageSliderItem implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this._resizeSensor) {
-      this._resizeSensor.detach();
+    if (this._resizeObserver) {
+      this._resizeObserver.unobserve(this._el.nativeElement);
     }
-    this._resizeSub.unsubscribe();
     this._resizeEvent.complete();
+    this._resizeSub.unsubscribe();
   }
 
   setScroll(dir: AjfPageSliderItemScrollDirection, amount: number, _duration: number): boolean {

@@ -23,7 +23,7 @@ ng_module(
         "@npm//@angular/animations",
         "@npm//@angular/cdk",
         "@npm//@angular/core",
-        "@npm//css-element-queries",
+        "@npm//@types/resize-observer-browser",
     ],
 )
 

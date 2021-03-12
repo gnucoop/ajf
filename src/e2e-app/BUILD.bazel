@@ -66,7 +66,6 @@ concatjs_devserver(
     static_files = [
         "@npm//zone.js",
         "@npm//core-js-bundle",
-        "@npm//css-element-queries",
         "@npm//date-fns",
         "@npm//esprima",
         "@npm//leaflet",

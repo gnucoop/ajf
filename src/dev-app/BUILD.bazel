@@ -64,7 +64,6 @@ filegroup(
         ":system-config",
         "//tools:system-rxjs-operators.js",
         "//tools/third-party-libs:chart.js-bundle.js",
-        "//tools/third-party-libs:css-element-queries-bundle.js",
         "//tools/third-party-libs:date-fns-bundle.js",
         "//tools/third-party-libs:esprima-bundle.js",
         "//tools/third-party-libs:file-saver-bundle.js",
