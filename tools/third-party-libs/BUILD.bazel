@@ -20,10 +20,6 @@ third_party_bundle(
     name = "css-element-queries",
     entry_point = "@npm//:node_modules/css-element-queries/index.js",
     module_name = "css-element-queries",
-    exports = "default",
-    deps = [
-        "@npm//css-element-queries",
-    ],
 )
 
 third_party_bundle(
