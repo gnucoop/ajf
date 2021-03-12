@@ -1,3 +1,7 @@
+# 12.0.0-next.0 "odd-scene" (2021-03-12)
+
+update to angular 12
+
 ## 11.0.8 "fancy-fog" (2021-03-08)
 
 ### core
