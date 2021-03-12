@@ -17,15 +17,6 @@ third_party_bundle(
 )
 
 third_party_bundle(
-    name = "css-element-queries",
-    entry_point = "@npm//:node_modules/css-element-queries/index.js",
-    module_name = "css-element-queries",
-    deps = [
-        "@npm//css-element-queries",
-    ],
-)
-
-third_party_bundle(
     name = "date-fns",
     entry_point = "@npm//:node_modules/date-fns/esm/index.js",
     module_name = "date-fns",

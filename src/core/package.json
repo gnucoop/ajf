@@ -22,13 +22,15 @@
     "@ngx-translate/core": "0.0.0-ANGXT",
     "@zxing/library": "0.0.0-ZXING",
     "chart.js": "0.0.0-CHART",
-    "css-element-queries": "0.0.0-CEQ",
     "date-fns": "0.0.0-DATEFNS",
     "esprima": "0.0.0-ESPRIMA",
     "file-saver": "0.0.0-FILESAVER",
     "leaflet": "0.0.0-LEAFLET",
     "numbro": "0.0.0-NUMBRO",
     "pdfmake": "0.0.0-PDFMAKE"
+  },
+  "devDependencies": {
+    "@types/resize-observer-browser": "0.0.0-ROT"
   },
   "dependencies": {
     "tslib": "0.0.0-TSLIB"
