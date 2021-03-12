@@ -1,3 +1,7 @@
+# 11.1.0 "square-term" (2021-03-12)
+
+update angulura components to 11.2.4
+
 ## 11.0.8 "fancy-fog" (2021-03-08)
 
 ### core

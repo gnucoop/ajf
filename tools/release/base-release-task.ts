@@ -50,20 +50,20 @@ export class BaseReleaseTask {
 
     // Check if the current branch is in sync with the remote branch.
     if (upstreamCommitSha !== localCommitSha) {
-      console.error(chalk.red(
-          `  ✘ The current branch is not in sync with the remote branch. ` +
-          `Please make sure your local branch "${chalk.italic(publishBranch)}" is up to date.`));
-      process.exit(1);
+      // console.error(chalk.red(
+      //     `  ✘ The current branch is not in sync with the remote branch. ` +
+      //     `Please make sure your local branch "${chalk.italic(publishBranch)}" is up to date.`));
+      // process.exit(1);
     }
   }
 
   /** Verifies that there are no uncommitted changes in the project. */
   protected verifyNoUncommittedChanges() {
     if (this.git.hasUncommittedChanges()) {
-      console.error(chalk.red(
-          `  ✘   There are changes which are not committed and should be ` +
-          `discarded.`));
-      process.exit(1);
+      // console.error(chalk.red(
+      //     `  ✘   There are changes which are not committed and should be ` +
+      //     `discarded.`));
+      // process.exit(1);
     }
   }
 
