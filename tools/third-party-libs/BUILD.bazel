@@ -1,4 +1,3 @@
-load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 load(":third-party-bundle.bzl", "third_party_bundle")
 
 package(default_visibility = ["//visibility:public"])
@@ -7,26 +6,19 @@ exports_files([
     "rollup.config-tmpl.js",
 ])
 
-nodejs_binary(
-    name = "rollup_bin",
-    data = ["@npm//:node_modules"],
-    entry_point = "@npm//:node_modules/rollup/dist/bin/rollup",
-    # TODO(josephperrott): update dependency usages to no longer need bazel patch module resolver
-    # See: https://github.com/bazelbuild/rules_nodejs/wiki#--bazel_patch_module_resolver-now-defaults-to-false-2324
-    templated_args = ["--bazel_patch_module_resolver"],
-)
-
 third_party_bundle(
     name = "chart.js",
     entry_point = "@npm//:node_modules/chart.js/dist/Chart.js",
     module_name = "chart.js",
     exports = "default",
+    deps = ["@npm//chart.js"],
 )
 
 third_party_bundle(
     name = "date-fns",
     entry_point = "@npm//:node_modules/date-fns/esm/index.js",
     module_name = "date-fns",
+    deps = ["@npm//date-fns"],
 )
 
 third_party_bundle(
@@ -34,12 +26,14 @@ third_party_bundle(
     entry_point = "@npm//:node_modules/esprima/dist/esprima.js",
     module_name = "esprima",
     exports = "default",
+    deps = ["@npm//esprima"],
 )
 
 third_party_bundle(
     name = "file-saver",
     entry_point = "@npm//:node_modules/file-saver/src/FileSaver.js",
     module_name = "file-saver",
+    deps = ["@npm//file-saver"],
 )
 
 third_party_bundle(
@@ -49,6 +43,7 @@ third_party_bundle(
         "tslib": "tslib",
     },
     module_name = "@gic/core",
+    deps = ["@npm//@gic"],
 )
 
 third_party_bundle(
@@ -58,6 +53,7 @@ third_party_bundle(
         "tslib": "tslib",
     },
     module_name = "@gic/core/loader",
+    deps = ["@npm//@gic"],
 )
 
 third_party_bundle(
@@ -67,6 +63,7 @@ third_party_bundle(
         "tslib": "tslib",
     },
     module_name = "@ionic/core",
+    deps = ["@npm//@ionic"],
 )
 
 third_party_bundle(
@@ -76,6 +73,7 @@ third_party_bundle(
         "tslib": "tslib",
     },
     module_name = "@ionic/core/loader",
+    deps = ["@npm//@ionic"],
 )
 
 third_party_bundle(
@@ -89,6 +87,7 @@ third_party_bundle(
     name = "numbro",
     entry_point = "@npm//:node_modules/numbro/dist/numbro.js",
     module_name = "numbro",
+    deps = ["@npm//numbro"],
 )
 
 third_party_bundle(
@@ -96,12 +95,14 @@ third_party_bundle(
     entry_point = "@npm//:node_modules/pdfmake/build/pdfmake.js",
     module_name = "pdfmake/build/pdfmake",
     exports = "default",
+    deps = ["@npm//pdfmake"],
 )
 
 third_party_bundle(
     name = "quill",
     entry_point = "@npm//:node_modules/quill/dist/quill.js",
     module_name = "quill",
+    deps = ["@npm//quill"],
 )
 
 third_party_bundle(
@@ -112,10 +113,12 @@ third_party_bundle(
         "main",
     ],
     module_name = "@zxing/library",
+    deps = ["@npm//@zxing/library"],
 )
 
 third_party_bundle(
     name = "xlsx",
     entry_point = "@npm//:node_modules/xlsx/xlsx.js",
     module_name = "xlsx",
+    deps = ["@npm//xlsx"],
 )

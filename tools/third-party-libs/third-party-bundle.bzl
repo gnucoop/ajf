@@ -62,6 +62,5 @@ def third_party_bundle(
         config_file = ":%s" % config_name,
         entry_point = entry_point,
         format = "umd",
-        rollup_bin = "//tools/third-party-libs:rollup_bin",
         deps = _BASE_ROLLUP_DEPS + deps,
     )
