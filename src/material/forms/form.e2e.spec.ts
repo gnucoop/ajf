@@ -86,4 +86,11 @@ describe('ajf-form test top toolbar input', () => {
        const toolbars = await element.all(by.tagName('mat-toolbar')).getWebElements();
        expect(toolbars.length).toBe(1);
      });
+  it(`topbar input is not defined and hideTopToolbar is true:
+     should show one mat toolbar(pageSliderToolBar)`,
+        async () => {
+          await browser.get('/mat-form/?hidetoolbar=true');
+          const toolbars = await element.all(by.tagName('mat-toolbar')).getWebElements();
+          expect(toolbars.length).toBe(1);
+        });
 });

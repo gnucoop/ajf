@@ -413,6 +413,7 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     onSave(_evt: any): void;
     orientationChangeHandler(orientation: AjfPageSliderOrientation): void;
     removeGroup(nodeGroup: AjfNodeGroupInstance | AjfSlideInstance | AjfRepeatingSlideInstance): void;
+    scrollToSlide(slide: AjfSlideInstance): void;
     trackNodeById(_: number, node: AjfNodeInstance): string;
     static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfFormRenderer, never, never, { "title": "title"; "saveDisabled": "saveDisabled"; "hasStartMessage": "hasStartMessage"; "hasEndMessage": "hasEndMessage"; "hideTopToolbar": "hideTopToolbar"; "hideBottomToolbar": "hideBottomToolbar"; "hideNavigationButtons": "hideNavigationButtons"; "fixedOrientation": "fixedOrientation"; "readonly": "readonly"; "orientation": "orientation"; "form": "form"; }, { "orientationChange": "orientationChange"; "formAction": "formAction"; }, never>;
     static ɵfac: i0.ɵɵFactoryDef<AjfFormRenderer, never>;
@@ -639,6 +640,7 @@ export interface AjfRepeatingContainerNodeInstance extends AjfContainerNodeInsta
 }
 
 export interface AjfRepeatingNode extends AjfNode {
+    disableHistory?: boolean;
     formulaReps?: AjfFormula;
     maxReps: number;
     minReps: number;
@@ -647,6 +649,7 @@ export interface AjfRepeatingNode extends AjfNode {
 export interface AjfRepeatingNodeInstance extends AjfNodeInstance {
     canAdd?: boolean;
     canRemove?: boolean;
+    disableHistory?: boolean;
     formulaReps?: AjfFormula;
     node: AjfRepeatingNode;
     reps: number;

@@ -28,6 +28,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
@@ -50,6 +51,8 @@ import {AjfPopover} from './popover';
  * @implements : AfterViewInit
  */
 export class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewInit, OnDestroy {
+  @Input() topBar: boolean = false;
+
   private _longSlide = false;
   get longSlide(): boolean {
     return this._longSlide;

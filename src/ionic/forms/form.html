@@ -1,6 +1,15 @@
 <ng-container *ngIf="formGroup|async as currentFormGroup">
   <form novalidate [formGroup]="currentFormGroup!">
     <div class="ajf-form-container">
+      <ion-toolbar *ngIf="!hideTopToolbar && topBar" class="ajf-btn-strip">
+          <div class="ajf-topbar-buttons">
+            <ng-container *ngFor="let slideInstance of (slides|async)">
+              <ion-button class="ajf-topbar-button"
+              *ngIf="slideInstance.node != null && slideInstance.node.label != null && slideInstance.node.label.length > 0"
+              (click)="scrollToSlide(slideInstance)">{{slideInstance.node.label | translate}}</ion-button>
+            </ng-container>
+          </div>
+      </ion-toolbar>
       <ion-toolbar *ngIf="!hideTopToolbar">
         {{ title | translate }}
         <ion-buttons slot="end">

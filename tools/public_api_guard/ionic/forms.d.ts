@@ -42,6 +42,7 @@ export declare class AjfFormField extends CoreFormField {
 export declare class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewInit, OnDestroy {
     get longSlide(): boolean;
     popoverController: PopoverController;
+    topBar: boolean;
     constructor(rendererService: AjfFormRendererService, cdr: ChangeDetectorRef, popoverController: PopoverController);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -54,7 +55,7 @@ export declare class AjfFormRenderer extends AjfCoreFormRenderer implements Afte
     static ngAcceptInputType_hideTopToolbar: BooleanInput;
     static ngAcceptInputType_readonly: BooleanInput;
     static ngAcceptInputType_saveDisabled: BooleanInput;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFormRenderer, "ajf-form", never, {}, {}, never, ["[ajfFormTopToolbarButtons]", "[ajfFormSaveButton]", "[ajfFormStartMessageTitle]", "[ajfFormStartMessage]", "[ajfFormEndMessageTitle]", "[ajfFormEndMessage]"]>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFormRenderer, "ajf-form", never, { "topBar": "topBar"; }, {}, never, ["[ajfFormTopToolbarButtons]", "[ajfFormSaveButton]", "[ajfFormStartMessageTitle]", "[ajfFormStartMessage]", "[ajfFormEndMessageTitle]", "[ajfFormEndMessage]"]>;
     static ɵfac: i0.ɵɵFactoryDef<AjfFormRenderer, never>;
 }
 

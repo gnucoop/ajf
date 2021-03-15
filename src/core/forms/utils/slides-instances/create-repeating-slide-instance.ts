@@ -38,6 +38,7 @@ export function createRepeatingSlideInstance(instance: AjfRepeatingSlideInstance
     node: instance.node,
     slideNodes: [],
     formulaReps: instance.formulaReps,
+    disableHistory: instance.disableHistory,
     reps: 0,
     nodes: [],
     flatNodes: [],

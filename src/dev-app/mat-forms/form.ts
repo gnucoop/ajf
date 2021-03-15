@@ -280,7 +280,34 @@ export const formSchema: any = {
       ]
     },
     {
-      parent: 5,
+      parent: 4,
+      id: 500,
+      name: 'repeat',
+      label: 'Multiple Slide with history disabled',
+      nodeType: 4,
+      disableHistory: true,
+      nodes: [
+        {
+          parent: 500,
+          id: 500001,
+          name: 'name',
+          label: 'Child\'s name',
+          nodeType: 0,
+          fieldType: 0,
+          validation: {notEmpty: true}
+        },
+        {
+          parent: 500001,
+          id: 500002,
+          name: 'birthweight',
+          label: 'Child\'s birthweight',
+          nodeType: 0,
+          fieldType: 2
+        }
+      ]
+    },
+    {
+      parent: 500,
       id: 6,
       name: 'custom',
       label: 'Custom field',

@@ -15,6 +15,20 @@ ajf-form {
       flex-direction: column;
       height: 100%;
 
+      .ajf-topbar-buttons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-content: stretch;
+        align-items: flex-start;
+        overflow-x: auto;
+
+        ion-button {
+          flex: 0 1 auto;
+          align-self: auto;
+        }
+      }
       ion-toolbar {
         flex: 0 0 auto;
         height: 56px;
@@ -89,11 +103,21 @@ ajf-form {
                       width: 100%;
                       box-sizing: border-box;
 
-                      &.ajf-normal { width: 100%; }
-                      &.ajf-small { width: 50%; }
-                      &.ajf-smaller { width: 33%; }
-                      &.ajf-tiny { width: 25%; }
-                      &.ajf-mini { width: 20%; }
+                      &.ajf-normal {
+                        width: 100%;
+                      }
+                      &.ajf-small {
+                        width: 50%;
+                      }
+                      &.ajf-smaller {
+                        width: 33%;
+                      }
+                      &.ajf-tiny {
+                        width: 25%;
+                      }
+                      &.ajf-mini {
+                        width: 20%;
+                      }
                     }
                   }
                 }

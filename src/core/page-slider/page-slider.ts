@@ -203,7 +203,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
       } else if (opts.dir === 'forward' || opts.dir === 'down' || opts.dir === 'right') {
         this._slideForward();
       }
-    } else if (opts.to) {
+    } else if (opts.to != null) {
       this._slideTo(opts.to);
     }
   }
