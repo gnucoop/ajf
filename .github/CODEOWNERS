@@ -5,14 +5,14 @@
 /src/core/checkbox-group/*                         @mrumbrella
 /src/core/common/*                                 @mrumbrella
 /src/core/file-input/**/*                          @sara-gnucoop
-/src/core/forms/**/*                               @trik
+/src/core/forms/**/*                               @peppedeka
 /src/core/forms/form-to-pdf/*                      @robzan8
 /src/core/image/*                                  @trik
 /src/core/map/*                                    @trik
 /src/core/models/**/*                              @trik
 /src/core/node-icon/*                              @trik
 /src/core/page-break/*                             @trik
-/src/core/page-slider/*                            @trik
+/src/core/page-slider/*                            @peppedeka
 /src/core/reports/**/*                             @trik
 /src/core/reports/report-to-pdf/*                  @robzan8
 /src/core/table/*                                  @trik
@@ -32,7 +32,7 @@
 /src/material/image/*                              @trik
 /src/material/monaco-editor/*                      @trik
 /src/material/node-icon/*                          @trik
-/src/material/page-slider/*                        @trik
+/src/material/page-slider/*                        @peppedeka
 /src/material/report-builder/**/*                  @trik
 /src/material/reports/*                            @trik
 /src/material/time/*                               @trik
@@ -45,7 +45,7 @@
 /src/ionic/forms/*                                 @trik
 /src/ionic/image/*                                 @trik
 /src/ionic/node-icon/*                             @trik
-/src/ionic/page-slider/*                           @trik
+/src/ionic/page-slider/*                           @peppedeka
 /src/ionic/reports/*                               @trik
 /src/ionic/time/*                                  @trik
 
@@ -75,7 +75,7 @@
 /src/dev-app/ion-forms/**                          @trik
 /src/dev-app/ion-image/**                          @trik
 /src/dev-app/ion-node-icon/**                      @trik
-/src/dev-app/ion-page-slider/**                    @trik
+/src/dev-app/ion-page-slider/**                    @peppedeka
 /src/dev-app/ion-reports/**                        @trik
 /src/dev-app/ion-widgets/**                        @trik
 /src/dev-app/mat-barcode/**                        @peppedeka
@@ -87,7 +87,7 @@
 /src/dev-app/mat-forms/**                          @trik
 /src/dev-app/mat-image/**                          @trik
 /src/dev-app/mat-node-icon/**                      @trik
-/src/dev-app/mat-page-slider/**                    @trik
+/src/dev-app/mat-page-slider/**                    @peppedeka
 /src/dev-app/mat-report-builder/**                 @trik
 /src/dev-app/mat-reports/**                        @trik
 /src/dev-app/mat-time/**                           @trik
