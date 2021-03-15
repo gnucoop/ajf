@@ -48,8 +48,8 @@ const fontsMap = {
 
 interface FormSchema {
   name: string;
-  schema: AjfForm;
-  is_tallysheet: boolean;
+  schema?: AjfForm;
+  is_tallysheet?: boolean;
 }
 
 interface FormData {
@@ -145,7 +145,7 @@ function formToPdf(
 
   const translate = translateFunction(ts);
   const name = translate(formSchema.name);
-  const form: AjfForm = formSchema.schema;
+  const form = formSchema.schema as AjfForm;
 
   const choicesMap: ChoicesMap = {};
   for (const o of form.choicesOrigins) {
