@@ -279,7 +279,7 @@ function fieldToPdf(
         lookupArrayFunction(formData, rep)(field.name);
       const selectedChoices = selectedValues.map(v => choices.find(c => c.value = v))
         .filter(c => c) as AjfChoice<any>[];
-      return choiceToPdf(field, selectedChoices, translate);
+      return choiceToPdf(field, selectedChoices, translate, formData);
     case AjfFieldType.Empty:
       const text = stripHTML(translate((field as AjfEmptyField).HTML));
       return [borderlessCell(text, true)];
@@ -291,7 +291,8 @@ function fieldToPdf(
 }
 
 function choiceToPdf(
-  field: AjfField, choices: AjfChoice<any>[], translate: (s: string) => string): Content[] {
+  field: AjfField, choices: AjfChoice<any>[], translate: (s: string) => string,
+  formData?: FormData): Content[] {
 
   let choiceLabels: string[];
   if (choices == null || choices.length === 0) {
@@ -303,9 +304,15 @@ function choiceToPdf(
   for (const c of choiceLabels) {
     body.push([translate(c)]);
   }
-  const question = translate(field.label) +
-    ((field.fieldType === AjfFieldType.SingleChoice) ? ` (${translate('single choice')})` :
-      ` (${translate('multipe choice')})`);
+  let question = translate(field.label);
+  // If the form is empty (to be compiled),
+  // help the user distinguish between single- and multiple-choice questions:
+  if (formData == null && field.fieldType === AjfFieldType.SingleChoice) {
+    question += ` (${translate('single choice')})`;
+  }
+  if (formData == null && field.fieldType === AjfFieldType.MultipleChoice) {
+    question += ` (${translate('multipe choice')})`;
+  }
   return [{
     columns: [
       borderlessCell(question), {
