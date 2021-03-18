@@ -816,7 +816,7 @@ export declare function createFieldWithChoicesInstance<T>(instance: AjfFieldWith
 
 export declare function createForm(form?: AjfFormCreate): AjfForm;
 
-export declare function createFormPdf(formSchema: FormSchema, ts?: TranslateService, formData?: FormData): TCreatedPdf;
+export declare function createFormPdf(form: AjfForm, translate?: (s: string) => string, orientation?: PageOrientation, header?: Content[], context?: AjfContext): TCreatedPdf;
 
 export declare function createNode(node: AjfNodeCreate): AjfNode;
 

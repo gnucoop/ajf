@@ -98,16 +98,15 @@ export class FormsDemo {
   }
 
   printPdf() {
-    const schema = {
-      name: 'Test Form',
-      schema: this.form$.getValue() as AjfForm,
-      is_tallysheet: false,
-    };
-    const formData = {
-      date_start: ' ',
-      date_end: ' ',
-      data: this._formRendererService.getFormValue(),
-    };
-    createFormPdf(schema, undefined, formData).open();
+    const form = this.form$.getValue() as AjfForm;
+    const ctx = this._formRendererService.getFormValue();
+    const header: any = [{
+      text: 'Test Form',
+      fontSize: 22,
+      bold: true,
+      alignment: 'center',
+      margin: [0, 0, 0, 10]
+    }];
+    createFormPdf(form, undefined, undefined, header, ctx).open();
   }
 }
