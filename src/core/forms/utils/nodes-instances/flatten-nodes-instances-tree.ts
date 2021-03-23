@@ -25,6 +25,10 @@ import {AjfSlideInstance} from '../../interface/slides-instances/slide-instance'
 import {flattenNodesInstances} from './flatten-nodes-instances';
 import {isSlidesInstance} from './is-slides-instance';
 
+/**
+ * It creates a one dimensional array of AjfSlideInstance.
+ * If the node is a slides node recursively  concat their nodes.
+ */
 export function flattenNodesInstancesTree(nodes: AjfNodeInstance[]): AjfSlideInstance[] {
   let flatTree: AjfSlideInstance[] = [];
   nodes.forEach((nodeInstance: AjfNodeInstance) => {

@@ -26,6 +26,12 @@ import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 import {isContainerNodeInstance} from './is-container-node-instance';
 import {isFieldInstance} from './is-field-instance';
 
+/**
+ * It creates a one dimensional array of AjfNodeInstance.
+ * If the node is a containerNode(has the nodes attribute)
+ * recursively  concat their nodes.
+ * If includeGroups is true the result also contains the containerNodeInstance.
+ */
 export function flattenNodesInstances(
     nodes: AjfNodeInstance[], includeGroups = false): AjfNodeInstance[] {
   let flatNodes: AjfNodeInstance[] = [];

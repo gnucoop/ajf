@@ -29,12 +29,24 @@ import {AjfAttachmentsOriginSerializer} from './attachments-origin-serializer';
 import {AjfChoicesOriginSerializer} from './choices-origin-serializer';
 import {AjfNodeSerializer} from './node-serializer';
 
+/**
+ *  Create an AjfForm by json schema, apply a default value for stringIdentifier and initContext
+ */
 export class AjfFormSerializer {
   static fromJson(form: Partial<AjfForm>, context?: AjfContext): AjfForm {
+    /**
+     * create choicesOrigins by serializer
+     */
     const choicesOrigins =
         (form.choicesOrigins || []).map(c => AjfChoicesOriginSerializer.fromJson(c));
+    /**
+     * create attachmentsOrigins by serializer
+     */
     const attachmentsOrigins =
         (form.attachmentsOrigins || []).map(a => AjfAttachmentsOriginSerializer.fromJson(a));
+    /**
+     * create nodes by serializer
+     */
     const nodes =
         (form.nodes || [])
             .map(n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins)) as (

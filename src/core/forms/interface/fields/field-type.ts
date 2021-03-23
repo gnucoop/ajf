@@ -20,6 +20,9 @@
  *
  */
 
+/**
+ * The available ajf field types.
+ */
 // tslint:disable-next-line:prefer-const-enum
 export enum AjfFieldType {
   String,

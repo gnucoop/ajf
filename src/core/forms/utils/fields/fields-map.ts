@@ -21,5 +21,9 @@
  */
 
 import {AjfFieldComponentsMap} from '../../interface/fields/field-components-map';
-
+/**
+ * The componentsMap is a dictionary key value
+ * Represents the association between an AjfFieldType and the
+ * components used to render it.
+ */
 export const componentsMap: AjfFieldComponentsMap = {};

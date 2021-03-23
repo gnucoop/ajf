@@ -26,12 +26,43 @@ import {AjfRepeatingSlide} from '../slides/repeating-slide';
 import {AjfSlide} from '../slides/slide';
 import {AjfFormStringIdentifier} from './form-string-identifier';
 
+/**
+ * The main structure of a json schema representing a Form.
+ */
 export interface AjfForm {
+  /**
+   * The slides containing the Form nodes.
+   */
   nodes: (AjfRepeatingSlide|AjfSlide)[];
+
+  /**
+   * The options for the single or multiple choices nodes.
+   */
   choicesOrigins: AjfChoicesOrigin<any>[];
+
+  // @TODO(tutti): check
   attachmentsOrigins: AjfAttachmentsOrigin<any>[];
+
+  /**
+   * An array of identifiers, each defined by a Label and a field value, used to show a brief
+   * summary of the form data.
+   */
   stringIdentifier: AjfFormStringIdentifier[];
-  initContext?: any;
+
+  /**
+   * A context specifying the initial state and values of a form.
+   * It can be complemented and/or overwritten by the actual data.
+   */
+  initContext?: {[key: string]: string|string[]|number|number[]};
+
+  /**
+   * Any additional informations related to the Form.
+   */
   supplementaryInformations?: any;
+
+  /**
+   * The validation state of the form, derived from the validation state of each
+   * of its fields.
+   */
   valid?: boolean;
 }

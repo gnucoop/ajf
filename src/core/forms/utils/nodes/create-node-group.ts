@@ -27,6 +27,12 @@ import {AjfRepeatingNodeCreate, createRepeatingNode} from './create-repeating-no
 
 export type AjfNodeGroupCreate = AjfContainerNodeCreate&AjfRepeatingNodeCreate;
 
+/**
+ * It creates a AjfNodeGroup
+ * set nodeType to AjfNodeType.AjfNodeGroup = 2.
+ * Extends an AjfNode with the merging of containerNode  attributes(nodes)
+ * with repeatingNode attributes(formulaReps, minReps, maxReps)
+ */
 export function createNodeGroup(nodeGroup: AjfNodeGroupCreate): AjfNodeGroup {
   return {
     ...createContainerNode(nodeGroup),

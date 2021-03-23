@@ -23,6 +23,9 @@
 import {AjfField} from './field';
 import {AjfFieldType} from './field-type';
 
+/**
+ * An AjfField of type Text.
+ */
 export interface AjfTextField extends AjfField {
   fieldType: AjfFieldType.Text;
 }

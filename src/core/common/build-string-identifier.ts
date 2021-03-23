@@ -23,6 +23,14 @@
 import {AjfContext} from './context';
 import {AjfStringIdentifier} from './string-identifier';
 
+/**
+ * emptyString: the string displayed when the context has no match.
+ * entriesDivider: the string displauyed beetwen entries
+ * labelSuffix: the string displayed between the label and its values
+ * valuesDivider: the string dispayed between values
+ * @export
+ * @interface BuildStringIdentifierOpts
+ */
 export interface BuildStringIdentifierOpts {
   emptyString?: string;
   entriesDivider?: string;

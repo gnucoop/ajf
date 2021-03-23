@@ -20,6 +20,7 @@
  *
  */
 
+// TODO Check if and where it is actually used
 export interface AjfFieldState {
   visibility: boolean;
   value: any;

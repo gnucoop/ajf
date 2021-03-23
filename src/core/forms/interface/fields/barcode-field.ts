@@ -23,6 +23,9 @@
 import {AjfField} from './field';
 import {AjfFieldType} from './field-type';
 
+/**
+ * An AjfField of type Barcode
+ */
 export interface AjfBarcodeField extends AjfField {
   fieldType: AjfFieldType.Barcode;
 }

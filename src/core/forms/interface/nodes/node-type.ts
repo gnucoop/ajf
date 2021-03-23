@@ -20,6 +20,9 @@
  *
  */
 
+/**
+ * An enum containing all the available NodeTypes
+ */
 // tslint:disable-next-line:prefer-const-enum
 export enum AjfNodeType {
   AjfField,

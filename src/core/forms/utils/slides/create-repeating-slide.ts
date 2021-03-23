@@ -26,7 +26,10 @@ import {AjfContainerNodeCreate, createContainerNode} from '../nodes/create-conta
 import {AjfRepeatingNodeCreate, createRepeatingNode} from '../nodes/create-repeating-node';
 
 export type AjfRepeatingSlideCreate = AjfContainerNodeCreate&AjfRepeatingNodeCreate;
-
+/**
+ * It creates a AjfRepeatingSlide as the composition of createContainerNode and
+ * createRepeatingNode and set AjfRepeatingSlide as nodeType
+ */
 export function createRepeatingSlide(nodeGroup: AjfRepeatingSlideCreate): AjfRepeatingSlide {
   return {
     ...createContainerNode(nodeGroup),

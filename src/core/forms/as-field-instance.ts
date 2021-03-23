@@ -25,6 +25,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 
+/**
+ * It casts an AjfNodeInstance as AjfFieldInstance.
+ */
 @Pipe({name: 'ajfAsFieldInstance'})
 export class AjfAsFieldInstancePipe implements PipeTransform {
   transform(instance: AjfNodeInstance): AjfFieldInstance {

@@ -26,7 +26,12 @@ import {AjfFieldInstance} from '../../interface/fields-instances/field-instance'
 import {AjfValidationResult} from '../../interface/validation/validation-results';
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
 import {evaluateValidationGroup} from '../validation/evaluate-validation-group';
-
+/**
+ * it updates the instance.valid attribute.
+ * If validation is not defined the instance.valid is true.
+ * If valdiation.forceValue is true update context.
+ * Updates instance.valid with the re-evaluation of validationResults in AND.
+ */
 export function updateValidation(
     instance: AjfFieldInstance, context: AjfContext, supplementaryInformations?: any): void {
   const validation = instance.validation;
@@ -34,7 +39,7 @@ export function updateValidation(
     instance.valid = true;
     return;
   }
-
+  // TODO what is this??
   if (supplementaryInformations) {
     Object.keys(supplementaryInformations).forEach((key) => {
       context[`__supplementary__${key}__`] = supplementaryInformations[key];

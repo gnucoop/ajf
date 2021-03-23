@@ -24,6 +24,10 @@ import {AjfContext, evaluateExpression} from '@ajf/core/models';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
 
+/**
+ * If nextSlideCondition of instance is defined return the evaluateExpression of nextSlideCondition
+ * else return false.
+ */
 export function updateNextSlideCondition(instance: AjfFieldInstance, context: AjfContext): boolean {
   if (instance.nextSlideCondition != null) {
     return evaluateExpression(instance.nextSlideCondition.condition, context);

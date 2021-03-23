@@ -26,11 +26,36 @@ import {AjfChoice} from '../choices/choice';
 import {AjfChoicesOrigin} from '../choices/choices-origin';
 import {AjfField} from './field';
 
+/**
+ * An AjfField of type AjfFieldWithChoices.
+ */
 export interface AjfFieldWithChoices<T> extends AjfField {
+  /**
+   * The choices for the select element after choicesFilter
+   */
   choices: AjfChoice<T>[];
+
+  /**
+   *  The source of the initial choices list, taken from the json schema
+   */
   choicesOrigin: AjfChoicesOrigin<T>;
+
+  /**
+   * A formula to filter choices elements
+   */
   choicesFilter?: AjfFormula;
+
+  /**
+   * Force the UI checkbox group display
+   */
   forceExpanded: boolean;
+
+  /**
+   * Force the UI dropdown display
+   */
   forceNarrow: boolean;
+
+  // TODO: Check again when we'll comment the Form Renderer or any code relative
+  // to the triggerConditions.
   triggerConditions?: AjfCondition[];
 }

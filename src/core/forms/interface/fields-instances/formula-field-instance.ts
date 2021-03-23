@@ -24,7 +24,14 @@ import {AjfFormula} from '@ajf/core/models';
 import {AjfFormulaField} from '../fields/formula-field';
 import {AjfFieldInstance} from './field-instance';
 
+/**
+ * An AjfFieldInstance with a node of type AjfFormulaField.
+ */
 export interface AjfFormulaFieldInstance extends AjfFieldInstance {
   node: AjfFormulaField;
+
+  /**
+   * A formula used to derive the value of the formula field.
+   */
   formula?: AjfFormula;
 }

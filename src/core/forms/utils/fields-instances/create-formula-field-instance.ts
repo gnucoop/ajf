@@ -26,9 +26,10 @@ import {AjfFormulaFieldInstance} from '../../interface/fields-instances/formula-
 import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instance';
 
 export type AjfFormulaFieldInstanceCreate = AjfFieldInstanceCreate&Partial<AjfFormulaFieldInstance>;
-
+// TODO what it does more than createFieldInstance
 export function createFormulaFieldInstance(
     instance: AjfFormulaFieldInstanceCreate, context: AjfContext): AjfFormulaFieldInstanceCreate {
   const fieldInstance = createFieldInstance(instance, context);
+  // TODO why return {...fieldInstance, node: instance.node} instead {...fieldInstance}
   return {...fieldInstance, node: instance.node};
 }

@@ -29,6 +29,18 @@ import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complet
 
 export type AjfFieldInstanceCreate = AjfNodeInstanceCreate&Partial<AjfFieldInstance>;
 
+/**
+ * Create a field instance and init the value of the field by cascade conditions.
+ *
+ * First check if the value is in the context by node name.
+ * Second check if the value is in the context by complete name.
+ * Third check if the field has a default value.
+ * Else value is null.
+ *
+ * If instance validationResultsis is not defined assign empty array.
+ * If instance warningResults is not defined assign empty array.
+ * Init valid with false.
+ */
 export function createFieldInstance(
     instance: AjfFieldInstanceCreate, context: AjfContext): AjfFieldInstance {
   const nodeInstance = createNodeInstance(instance);

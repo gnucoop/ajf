@@ -24,6 +24,9 @@ import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 import {AjfNode} from '../../interface/nodes/node';
 import {isRepeatingContainerNode} from '../nodes/is-repeating-container-node';
 
+/**
+ * It returns all ancestor repeatingContainerNodes of the node.
+ */
 export function getAncestorRepeatingNodes(
     allNodes: (AjfNode|AjfNodeInstance)[], node: AjfNode): AjfNode[] {
   let nodeGroups: AjfNode[] = [];

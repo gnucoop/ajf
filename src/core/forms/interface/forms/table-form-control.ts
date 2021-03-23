@@ -22,7 +22,18 @@
 
 import {FormControl} from '@angular/forms';
 
+/**
+ * An ng FormControl of a table.
+ */
 export interface AjfTableFormControl {
+  /**
+   * The ng FormControl
+   */
   control: FormControl;
+
+  /**
+   * If set to true, the FormControl is allocated.
+   * If set to false the value of the FormControl is shown only as plain text.
+   */
   show: boolean;
 }

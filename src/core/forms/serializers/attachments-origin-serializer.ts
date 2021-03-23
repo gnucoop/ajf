@@ -26,6 +26,9 @@ import {
   createAttachmentsOrigin
 } from '../utils/attachments/create-attachments-origin';
 
+/**
+ *  Create an AjfAttachmentsOrigin by json schema, throw error if name isn't defined
+ */
 export class AjfAttachmentsOriginSerializer {
   static fromJson(origin: Partial<AjfAttachmentsOrigin<any>>): AjfAttachmentsOrigin<any> {
     if (origin.name == null) {

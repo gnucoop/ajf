@@ -23,6 +23,9 @@
 import {AjfValidation} from '../../interface/validation/validation';
 import {createValidation} from './create-validation';
 
+/**
+ * It creates an AjfValidation with notEmpty condition.
+ */
 export function notEmptyValidation(): AjfValidation {
   return createValidation({condition: `notEmpty($value)`, errorMessage: `Value must not be empty`});
 }

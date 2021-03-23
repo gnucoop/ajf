@@ -29,6 +29,10 @@ export type AjfChoicesObservableArrayOriginCreate<T> =
     Omit<AjfChoicesOriginCreate<T>, 'type'>&Pick<AjfChoicesObservableArrayOrigin<T>, 'generator'>&
     Partial<AjfChoicesObservableArrayOrigin<T>>;
 
+/**
+ *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'observableArray'
+ *  apply default value for label and choices
+ */
 export function createChoicesObservableArrayOrigin<T>(
     origin: AjfChoicesObservableArrayOriginCreate<T>): AjfChoicesObservableArrayOrigin<T> {
   return {

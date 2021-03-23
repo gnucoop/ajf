@@ -26,6 +26,12 @@ import {AjfBaseSlideInstanceCreate} from './base';
 
 export type AjfSlideInstanceCreate = AjfBaseSlideInstanceCreate&Partial<AjfSlideInstance>;
 
+/**
+ * It creates AjfSlideInstance.
+ * Init nodes,slideNodes and flatNodes with empty array.
+ * Init valid with false.
+ * Init position with 0.
+ */
 export function createSlideInstance(instance: AjfSlideInstanceCreate): AjfSlideInstance {
   const nodeInstance = createNodeInstance(instance);
   return {

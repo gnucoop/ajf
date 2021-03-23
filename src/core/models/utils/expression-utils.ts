@@ -25,8 +25,11 @@ import {AjfValidationFn} from '../interface/validation-function';
 import * as vfuncs from './validation-functions';
 
 export class AjfExpressionUtils {
+  // TODO what is it for
   static UTIL_FUNCTIONS = '';
-
+  /**
+   * It is a key-value dictionary, that mapping all Ajf validation functions.
+   */
   static utils: {[name: string]: AjfValidationFn} = {
     digitCount: {fn: vfuncs.digitCount},
     decimalCount: {fn: vfuncs.decimalCount},

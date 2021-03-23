@@ -27,6 +27,11 @@ import {isField} from '../nodes/is-field';
 
 import {getAncestorRepeatingNodes} from './get-ancestor-repeating-nodes';
 
+/**
+ * Returns all childs node.name of the node's ancestor (includes itself).
+ * It is a key-value dictionary, key is the name of the node and
+ * value is the position inside ancestorRepeatingNodes.
+ */
 export function getAncestorRepeatingNodesNames(
     allNodes: (AjfNode|AjfNodeInstance)[], node: AjfNode): {[prop: string]: number} {
   let names: {[prop: string]: number} = {};

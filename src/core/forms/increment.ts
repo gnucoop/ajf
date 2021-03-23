@@ -22,6 +22,12 @@
 
 import {Pipe, PipeTransform} from '@angular/core';
 
+/**
+ * It increments the value parameter by increment offset parameter.
+ *
+ * @export
+ * @class AjfIncrementPipe
+ */
 @Pipe({name: 'ajfIncrement'})
 export class AjfIncrementPipe implements PipeTransform {
   transform(value: number, increment: number = 1): number {

@@ -22,6 +22,9 @@
 
 import {AjfValidationGroup} from '../../interface/validation/validation-group';
 
+/**
+ *  Create a AjfValidationGroup, apply conditions defaults when it missing
+ */
 export function createValidationGroup(group: Partial<AjfValidationGroup>): AjfValidationGroup {
   return {...group, conditions: group.conditions || []};
 }

@@ -27,20 +27,28 @@ import {
 import {AjfChoicesObservableOrigin} from '../../interface/choices/choices-observable-origin';
 import {AjfChoicesOrigin} from '../../interface/choices/choices-origin';
 import {AjfChoicesPromiseOrigin} from '../../interface/choices/choices-promise-origin';
-
+/**
+ * Called by form-rederer
+ * take as param an AjfChoicesOrigin&lt;any&gt; and return an Promise&lt;void&gt; for handling async
+ * event
+ */
 export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void> {
+  /** fixed don't use async evente the promise is resolved */
   if (origin.type === 'fixed') {
     return Promise.resolve();
   }
+  /** apply function and than return resolve promise */
   if (origin.type === 'function') {
     const fo = origin as AjfChoicesFunctionOrigin<any>;
     fo.choices = fo.generator();
     return Promise.resolve();
   }
+  /** modify origin.choices with result of resolved promise */
   if (origin.type === 'promise') {
     const po = origin as AjfChoicesPromiseOrigin<any>;
     return po.generator.then(choices => po.choices = choices).then();
   }
+  /** modify origin.choices with result of subscribed observable */
   if (origin.type === 'observable') {
     const obso = origin as AjfChoicesObservableOrigin<any>;
     if (obso.generator != null) {
@@ -54,6 +62,7 @@ export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void> 
       });
     }
   }
+  /** modify origin.choices with result of subscribed observable */
   if (origin.type === 'observableArray') {
     const aoo = origin as AjfChoicesObservableArrayOrigin<any>;
     if (aoo.generator != null) {

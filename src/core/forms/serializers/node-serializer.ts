@@ -49,6 +49,11 @@ import {createSlide} from '../utils/slides/create-slide';
 import {AjfValidationGroupSerializer} from './validation-group-serializer';
 import {AjfWarningGroupSerializer} from './warning-group-serializer';
 
+/**
+ * Create an AjfNode by json schema,
+ * apply a default value for name
+ * throw new error if id,parent or nodeType attribute missed
+ */
 export class AjfNodeSerializer {
   static fromJson(
       json: Partial<AjfNode>,
@@ -66,6 +71,7 @@ export class AjfNodeSerializer {
     }
     obj.conditionalBranches =
         (obj.conditionalBranches || []).map(c => AjfConditionSerializer.fromJson(c));
+    // call serializer by nodeType and cast obj with the right interface
     switch (obj.nodeType) {
       case AjfNodeType.AjfField:
         return AjfNodeSerializer._fieldFromJson(

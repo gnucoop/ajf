@@ -20,6 +20,14 @@
  *
  */
 
+/**
+ * Should return the name of the class of the given object in string
+ *
+ * @export
+ * @param v
+ * @return {*}
+ */
+// TODO still useful? it is not used anywhere
 export function getTypeName(v: any): string {
   let typeStr = typeof v;
   return typeStr === 'object' ? v.constructor.toString().match(/\w+/g)[1] : typeStr;

@@ -29,9 +29,24 @@ import {
 } from './interface/fields-instances/field-with-choices-instance';
 import {AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * It rappresents the base componet for every ajf fields with choiches.
+ *
+ * @export
+ * @abstract
+ * @class AjfFieldWithChoicesComponent
+ * @template T
+ */
 export abstract class AjfFieldWithChoicesComponent<T> extends
     AjfBaseFieldComponent<AjfFieldWithChoicesInstance<T>> {
   private _searchThreshold: number = 6;
+
+  /**
+   * It represents the threshold below which the choices are displayed
+   * in expanded mode.
+   *
+   * @readonly
+   */
   get searchThreshold(): number {
     return this._searchThreshold;
   }

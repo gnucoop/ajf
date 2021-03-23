@@ -28,6 +28,15 @@ import {AjfTableFieldInstance} from './interface/fields-instances/table-field-in
 import {AjfTableFormControl} from './interface/forms/table-form-control';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * This component manages the table field data.
+ * It exposes methods for managing the display of controllers.
+ *
+ *
+ * @export
+ * @abstract
+ * @class AjfTableFieldComponent
+ */
 export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
   constructor(
       cdr: ChangeDetectorRef, service: AjfFormRendererService,
@@ -35,6 +44,14 @@ export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTa
     super(cdr, service, was);
   }
 
+  /**
+   *  set the current cell show to false and set the next cell show to true.
+   *
+   * @param ev
+   * @param row
+   * @param column
+   * @return {*}
+   */
   goToNextCell(ev: Event, row: number, column: number): void {
     if (this.instance.controls.length < row ||
         (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
@@ -61,11 +78,23 @@ export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTa
     ev.stopPropagation();
   }
 
+  /**
+   * It resets all control.show to false and sets the control.show
+   * (identified by row and column) to true.
+   *
+   * @param row
+   * @param column
+   */
   goToCell(row: number, column: number): void {
     this._resetControls();
     this._showCell(row, column);
   }
 
+  /**
+   * it sets all controls show to false.
+   *
+   * @private
+   */
   private _resetControls(): void {
     this.instance.controls.forEach(row => row[1].forEach(cell => {
       if (typeof cell !== 'string') {
@@ -74,6 +103,14 @@ export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTa
     }));
   }
 
+  /**
+   * It sets the control.show (identified by row and column) to true.
+   *
+   * @private
+   * @param row
+   * @param column
+   * @return {*}
+   */
   private _showCell(row: number, column: number): void {
     if (row >= this.instance.controls.length || column >= this.instance.controls[row][1].length) {
       return;

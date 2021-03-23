@@ -26,6 +26,9 @@ import {AjfContainerNodeCreate, createContainerNode} from '../nodes/create-conta
 
 export type AjfSlideCreate = AjfContainerNodeCreate;
 
+/**
+ * It creates AjfSlide.
+ */
 export function createSlide(nodeGroup: AjfSlideCreate): AjfSlide {
   return {
     ...createContainerNode(nodeGroup),

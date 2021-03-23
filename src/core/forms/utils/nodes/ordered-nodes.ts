@@ -22,6 +22,11 @@
 
 import {AjfNode} from '../../interface/nodes/node';
 
+/**
+ * It is return a new orderered nodes.
+ * The newNodes are ordered recursively by parentNode.
+ * The sorting begins by parent
+ */
 export function orderedNodes(nodes: AjfNode[], parent: number|null): AjfNode[] {
   let newNodes: AjfNode[] = [];
   nodes

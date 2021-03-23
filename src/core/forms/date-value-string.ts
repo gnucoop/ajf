@@ -23,6 +23,11 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {format} from 'date-fns';
 
+/**
+ * It formats Date with 'yyyy-MM-dd'
+ * @param date the date to format
+ * @return the format date
+ */
 @Injectable()
 @Pipe({name: 'ajfDateValueString'})
 export class AjfDateValueStringPipe implements PipeTransform {

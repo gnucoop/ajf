@@ -33,6 +33,9 @@ import {evaluateValidationMinDigits} from './evaluate-validation-min-digits';
 import {evaluateValidationMinValue} from './evaluate-validation-min-value';
 import {evaluateValidationNotEmpty} from './evaluate-validation-not-empty';
 
+/**
+ * It evaluate AjfValidationGroup and returns an AjfValidationResult[].
+ */
 export function evaluateValidationGroup(
     validation: AjfValidationGroup, value: any, context?: AjfContext): AjfValidationResult[] {
   let res: AjfValidationResult[] = [];

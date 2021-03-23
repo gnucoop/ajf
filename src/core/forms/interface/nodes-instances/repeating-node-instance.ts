@@ -24,10 +24,32 @@ import {AjfFormula} from '@ajf/core/models';
 import {AjfRepeatingNode} from '../../interface/nodes/repeating-node';
 import {AjfNodeInstance} from './node-instance';
 
+/**
+ * A node instance containing an AjfRepeatingNode node.
+ */
 export interface AjfRepeatingNodeInstance extends AjfNodeInstance {
+  /**
+   * The blueprint AjfRepeatingNode.
+   */
   node: AjfRepeatingNode;
+
+  /**
+   * A formula that determines the number of repetitions calculated with the instance index.
+   */
   formulaReps?: AjfFormula;
+
+  /**
+   * The numeric id of the current repetition.
+   */
   reps: number;
+
+  /**
+   * True if can add a new slide.
+   */
   canAdd?: boolean;
+
+  /**
+   * True if can remove the current slide
+   */
   canRemove?: boolean;
 }

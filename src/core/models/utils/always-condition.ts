@@ -22,7 +22,9 @@
 
 import {AjfCondition} from '../interface/condition';
 import {createCondition} from './create-condition';
-
+/**
+ * It creates a true AjfCondidion.
+ */
 export function alwaysCondition(): AjfCondition {
   return createCondition({condition: 'true'});
 }

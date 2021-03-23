@@ -20,6 +20,10 @@
  *
  */
 
+/**
+ * isChoicesOrigin check if co parameter is defined and if correctly implements choicheOrigin
+ * interface
+ */
 export function isChoicesOrigin(co: any): boolean {
   return co != null && typeof co === 'object' && co.name != null && typeof co.name === 'string' &&
       co.label != null && typeof co.label === 'string' &&

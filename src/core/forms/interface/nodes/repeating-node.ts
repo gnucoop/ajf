@@ -24,14 +24,29 @@ import {AjfFormula} from '@ajf/core/models';
 
 import {AjfNode} from './node';
 
+/**
+ * Interface that is extended to represent a Repeating Node.
+ * Repeating nodes are used any time a node can or must be repeated
+ * N times, where N is the value of the "formulaReps" property.
+ */
 export interface AjfRepeatingNode extends AjfNode {
-  // is a node group repeat condition
-  // example: "opd_treatment == 'Yes' && ($groupReps || 1) || 0"
+
+  /**
+   * Is the number of node repetition
+   * Example: "opd_treatment == 'Yes' && ($groupReps || 1) || 0"
+   */
+  // TODO(peppedeka) WARNING: currently, formulaReps is NOT evaluated.
+  // If formulaReps is set to any value, no repetition is allowed.
+  // The number of possible repetitions is currently determined by maxReps (if set).
   formulaReps?: AjfFormula;
 
-  // max number of repetitions
+  /**
+   *  Max number of repetitions
+   */
   maxReps: number;
 
-  // min number of repetitions
+  /**
+   *  Min number of repetitions
+   */
   minReps: number;
 }

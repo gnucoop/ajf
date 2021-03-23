@@ -19,8 +19,14 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
-
 export interface AjfStringIdentifier {
+  /**
+   * A label used to describe the form data
+   */
   label: string;
+
+  /**
+   * The field name to be associated with the label
+   */
   value: string[];
 }

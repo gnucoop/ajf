@@ -22,6 +22,13 @@
 
 import {Pipe, PipeTransform} from '@angular/core';
 
+/**
+ * It returns a array of numbers.
+ * The numbers are incremental by step.
+ *
+ * @export
+ * @class AjfRangePipe
+ */
 @Pipe({name: 'ajfRange'})
 export class AjfRangePipe implements PipeTransform {
   transform(size: number = 0, start: number = 1, step: number = 1): number[] {

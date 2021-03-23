@@ -24,14 +24,73 @@ import {AjfField} from './field';
 import {AjfFieldType} from './field-type';
 
 export interface AjfTableCell {
+  /**
+   * The Formula associated with the cell.
+   */
   formula: string;
+
+  /**
+   * If true the formula can be overridden by input value.
+   */
   editable?: boolean;
 }
+
+/**
+ * An AjfField of type Table.
+ *
+ *
+ * Eg.
+ * {
+ *  id: 1,
+ *  parent: 0,
+ *  name: 'TableName',
+ *  rows: [
+ *     [
+ *       'TableName__0__0',
+ *       'TableName__0__1',
+ *       {
+ *         'formula': 'TableName__0__0 + TableName__0__1'
+ *         'editable': false
+ *       },
+ *     ],
+ *     ['TableName__1__0', 'TableName__1__1', 'TableName__1__2],
+ *   ],
+ *   label: '2.1 Table test',
+ *   editable: true,
+ *   nodeType: 0,
+ *   fieldType: 11,
+ *   rowLabels: [
+ *     'TestRow',
+ *     'OtherTestRow',
+ *   ],
+ *   columnLabels: ['Label 1', 'Label 2', 'Label 3']
+ * }
+ *
+ */
 export interface AjfTableField extends AjfField {
   fieldType: AjfFieldType.Table;
-  // deprecated string type is used to maintain backward compatibility
+
+  /**
+   * The string|number array represents all the values in the row cells.
+   * if string
+   *  Every element of this matrix need to satisfy this format: name =
+   * `${table.name}__${row.idx}__${column.idx}` This name is used also as the the control name in
+   * the form formGroup.registerControl(name, tableFormControl.control);
+   */
   rows: (string|AjfTableCell)[][];
+
+  /**
+   * The string array represents all the column labels.
+   */
   columnLabels: string[];
+
+  /**
+   * The string array represents all the row labels.
+   */
   rowLabels: string[];
+
+  /**
+   * If true, empty rows are not showed
+   */
   hideEmptyRows: boolean;
 }

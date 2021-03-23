@@ -23,6 +23,9 @@
 import {AjfField} from '../../interface/fields/field';
 import {AjfFieldType} from '../../interface/fields/field-type';
 
+/**
+ * It is true if the field type is Formula.
+ */
 export function isFormulaField(field: AjfField): boolean {
   return field.fieldType === AjfFieldType.Formula;
 }

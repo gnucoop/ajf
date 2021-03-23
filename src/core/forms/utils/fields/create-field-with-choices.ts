@@ -25,7 +25,12 @@ import {AjfFieldCreate, createField} from './create-field';
 
 export type AjfFieldWithChoicesCreate<T> = AjfFieldCreate&
     Pick<AjfFieldWithChoices<T>, 'fieldType'|'choicesOrigin'>&Partial<AjfFieldWithChoices<T>>;
-
+/**
+ * Create an AjfFieldWithChoice.
+ * If choices is not defined apply empty array.
+ * If forceExpanded is not defined apply false.
+ * If forceNarrow is not defined apply false.
+ */
 export function createFieldWithChoices<T>(field: AjfFieldWithChoicesCreate<T>):
     AjfFieldWithChoices<T> {
   const node = createField({...field});

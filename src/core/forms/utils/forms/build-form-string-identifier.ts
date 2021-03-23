@@ -37,6 +37,9 @@ import {isFieldWithChoices} from '../fields/is-field-with-choices';
 import {flattenNodes} from '../nodes/flatten-nodes';
 import {isField} from '../nodes/is-field';
 
+/**
+ * It builds a string that contains information preview about the form and its context.
+ */
 export const buildFormStringIdentifier =
     (form: AjfForm, context: AjfContext, opts?: BuildStringIdentifierOpts): string => {
       if (form == null) {

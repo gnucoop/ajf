@@ -23,6 +23,10 @@
 import {AjfValidation} from '../../interface/validation/validation';
 import {createValidation} from './create-validation';
 
+/**
+ * It checks if the length of digits is less than or equal to maxValue and returns
+ * an AjfValidation.
+ */
 export function maxDigitsValidation(maxValue: number): AjfValidation {
   return createValidation({
     condition: `$value ? $value.toString().length <= ${maxValue.toString()} : false`,

@@ -25,6 +25,11 @@ import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 
 import {isContainerNodeInstance} from './is-container-node-instance';
 
+/**
+ * it creates a one dimensional array of AjfNodeInstance.
+ * if the node is a isContainerNodeInstance(has the nodes attribute)
+ * recursively  concat their nodes
+ */
 export function flattenNodeInstances(nodes: AjfNodeInstance[] = []): AjfNodeInstance[] {
   let flatNodes: AjfNodeInstance[] = [];
   nodes.forEach((nodeInstance: AjfNodeInstance) => {

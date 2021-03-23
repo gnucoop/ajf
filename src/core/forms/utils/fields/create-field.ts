@@ -27,7 +27,12 @@ import {AjfNodeCreate, createNode} from '../nodes/create-node';
 
 export type AjfFieldCreate =
     Omit<AjfNodeCreate, 'nodeType'>&Pick<AjfField, 'fieldType'>&Partial<AjfField>;
-
+/**
+ * It creates an AjfField.
+ * If size is not defined apply 'normal'.
+ * If defaultValue is not defined apply null.
+ * If editable is not defined return true if field type is'nt formula or table
+ */
 export function createField(field: AjfFieldCreate): AjfField {
   const node = createNode({...field, nodeType: AjfNodeType.AjfField});
   const editable = field.editable != null ?

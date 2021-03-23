@@ -38,6 +38,12 @@ interface VideoInfo {
   id: string;
 }
 
+/**
+ * It allows the loading of video(youtube or vimeo) url inside an AjfForm.
+ *
+ * @export
+ * @class AjfVideoUrlFieldComponent
+ */
 export class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
   readonly validUrl: Observable<boolean>;
   readonly videoThumbnail: Observable<SafeResourceUrl>;
@@ -69,6 +75,13 @@ export class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
   }
 }
 
+/**
+ * it returns a url of thumbnail related to video or null.
+ *
+ * @param httpClient
+ * @param video
+ * @return {*}
+ */
 function videoPreviewUrl(httpClient: HttpClient, video: VideoInfo): Observable<string|null> {
   if (video.provider === 'youtube') {
     return obsOf(`https://img.youtube.com/vi/${video.id}/default.jpg`);
@@ -85,6 +98,13 @@ function videoPreviewUrl(httpClient: HttpClient, video: VideoInfo): Observable<s
   return obsOf('');
 }
 
+/**
+ * It checks the url param, if url is an youtube o vimeo domain return
+ * an videoInfo else null
+ *
+ * @param url
+ * @return {*}
+ */
 function getVideoProviderAndId(url: string): VideoInfo|null {
   let provider: AjfVideoProvider|null = null;
   let id: string|null = null;
@@ -101,6 +121,12 @@ function getVideoProviderAndId(url: string): VideoInfo|null {
   return {provider, id};
 }
 
+/**
+ * it gets the id of vimeo video url.
+ *
+ * @param url
+ * @return {*}
+ */
 function getVimeoVideoId(url: string): string|null {
   if (url.indexOf('#') > -1) {
     url = url.split('#')[0];
@@ -134,6 +160,12 @@ function getVimeoVideoId(url: string): string|null {
   return id;
 }
 
+/**
+ * it gets the id of youtube video url.
+ *
+ * @param url
+ * @return {*}
+ */
 function getYouTubeVideoId(url: string): string|null {
   const shortcode = /youtube:\/\/|https?:\/\/youtu\.be\/|http:\/\/y2u\.be\//g;
   if (shortcode.test(url)) {
