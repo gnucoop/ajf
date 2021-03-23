@@ -1,4 +1,5 @@
 load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
+load("//:packages.bzl", "getThirdPartyUmdTargets")
 load("//tools:create-system-config.bzl", "create_system_config")
 load("//tools:defaults.bzl", "ng_module")
 load("//tools:es5-named-output.bzl", "es5_named_output")
@@ -64,19 +65,6 @@ filegroup(
         "index.html",
         ":system-config",
         "//tools:system-rxjs-operators.js",
-        "//tools/third-party-libs:chart.js-bundle.js",
-        "//tools/third-party-libs:date-fns-bundle.js",
-        "//tools/third-party-libs:esprima-bundle.js",
-        "//tools/third-party-libs:gic-core-bundle.js",
-        "//tools/third-party-libs:gic-core-loader-bundle.js",
-        "//tools/third-party-libs:ionic-core-bundle.js",
-        "//tools/third-party-libs:ionic-core-loader-bundle.js",
-        "//tools/third-party-libs:leaflet-bundle.js",
-        "//tools/third-party-libs:numbro-bundle.js",
-        "//tools/third-party-libs:pdfmake-bundle.js",
-        "//tools/third-party-libs:quill-bundle.js",
-        "//tools/third-party-libs:xlsx-bundle.js",
-        "//tools/third-party-libs:zxing-library-bundle.js",
         "@npm//:node_modules/@ajf/icons/css/ajf-icons.css",
         "@npm//:node_modules/@ajf/icons/fonts/ajf.eot",
         "@npm//:node_modules/@ajf/icons/fonts/ajf.svg",
@@ -93,13 +81,14 @@ filegroup(
         "@npm//:node_modules/systemjs/dist/system.js",
         "@npm//:node_modules/tslib/tslib.js",
         "@npm//:node_modules/zone.js/dist/zone.js",
-    ],
+    ] + getThirdPartyUmdTargets(),
 )
 
 dev_server(
     name = "devserver",
     srcs = [":dev_app_static_files"],
     additional_root_paths = [
+        "npm",
         "npm/node_modules",
         # Needed for compatibility with "pkg_web" which always uses the tree
         # artifact output as workspace root.
@@ -128,6 +117,7 @@ pkg_web(
         ":dev_app_static_files",
     ],
     additional_root_paths = [
+        "external/npm",
         "npm/node_modules",
     ],
     tags = ["manual"],
