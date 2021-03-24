@@ -1,6 +1,15 @@
 <ng-container *ngIf="formGroup|async as currentFormGroup">
   <form novalidate [formGroup]="currentFormGroup!">
     <div class="ajf-form-container">
+      <ion-toolbar *ngIf="!hideTopToolbar && topBar" class="ajf-btn-strip">
+          <div class="ajf-topbar-buttons">
+            <ng-container *ngFor="let slideInstance of (slides|async)">
+              <ion-button class="ajf-topbar-button"
+              *ngIf="slideInstance.node != null && slideInstance.node.label != null && slideInstance.node.label.length > 0"
+              (click)="scrollToSlide(slideInstance)">{{slideInstance.node.label | translate}}</ion-button>
+            </ng-container>
+          </div>
+      </ion-toolbar>
       <ion-toolbar *ngIf="!hideTopToolbar">
         {{ title | translate }}
         <ion-buttons slot="end">
@@ -68,7 +77,8 @@
                             <ion-icon *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint" 
                             [name]="(fieldInstance|ajfAsFieldInstance).node?.hintIcon || 'help-outline'" 
                               (click)="openPopover($event, hint)"></ion-icon>
-                            <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" [readonly]="readonly"></ajf-field>
+                            <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" [readonly]="readonly">
+                            </ajf-field>
                           </div>
                         </ng-container>
                       </ion-card-content>
@@ -90,10 +100,10 @@
                           <ion-icon color="secondary" name="checkmark" *ngIf="(slideInstance|ajfValidSlide:idx)"></ion-icon>
                         </div>
                         <div *ngIf="lastSlide && !readonly" class="ajf-group-actions">
-                          <ion-fab-button size="small" (click)="addGroup(slideInstance)" [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd">
+                          <ion-fab-button size="small" (click)="addGroup(slideInstance)" [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval && !slideInstance.valid)">
                             <ion-icon name="add"></ion-icon>
                           </ion-fab-button>
-                          <ion-fab-button size="small" (click)="removeGroup(slideInstance)" [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove">
+                          <ion-fab-button size="small" (click)="removeGroup(slideInstance)" [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove || (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval">
                             <ion-icon name="remove"></ion-icon>
                           </ion-fab-button>
                         </div>
@@ -105,7 +115,8 @@
                             <i [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon" item-right></i>
                             <p>{{ (fieldInstance|ajfAsFieldInstance).node.description }}</p>
                             <ion-label [innerHTML]="fieldInstance.node.label | translate"></ion-label>
-                            <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" [readonly]="readonly"></ajf-field>
+                            <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" 
+                              [readonly]="readonly || (!lastSlide && (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval)"></ajf-field>
                           </div>
                         </ng-container>
                         <div *ngIf="lastSlide && longSlide" class="ajf-group-actions ajf-group-actions-bottom">

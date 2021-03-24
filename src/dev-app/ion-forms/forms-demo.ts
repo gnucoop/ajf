@@ -44,6 +44,14 @@ export class FormsDemo {
   }
   private _readonly = false;
 
+  get topBar() {
+    return this._topBar;
+  }
+  set topBar(value: boolean) {
+    this._topBar = value;
+  }
+  private _topBar = true;
+
   constructor(private _formRendererService: AjfFormRendererService) {
     this.form = AjfFormSerializer.fromJson(formSchema, formContext);
     console.log(this.form);
