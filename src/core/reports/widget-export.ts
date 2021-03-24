@@ -24,7 +24,7 @@ import {AjfTableCell} from '@ajf/core/table';
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
 import {ChartData} from 'chart.js';
 import {format} from 'date-fns';
-import * as fileSaver from 'file-saver';
+import {saveAs} from 'file-saver';
 import * as XLSX from 'xlsx';
 
 import {AjfWidgetType} from '../reports/interface/widgets/widget-type';
@@ -55,69 +55,29 @@ export class AjfWidgetExport {
   @Input() overlay = true;
   @Input() enable = false;
   constructor() {}
-  buildCsv(): string {
-    let csvString = '';
-    const DELIMITER = ',';
-    const STOP = '\n';
-    switch (this.widgetType) {
-      default:
-      case AjfWidgetType.Chart:
-        this.data = this.data as ChartData;
-        if (this.data.datasets == null || this.data.labels == null) {
-          return csvString;
-        }
-        csvString = DELIMITER + (this.data.labels as string[]).toString() + STOP;
-        this.data.datasets.forEach((dataset: Chart.ChartDataSets) => {
-          const data = dataset.data || [];
-          csvString += dataset.label + DELIMITER + data.toString() + STOP;
-        });
-        break;
-      case AjfWidgetType.Table:
-        let prefix = '';
-        let rowSpan = 0;
-        this.data = this.data as AjfTableCell[][];
-        for (let row of this.data) {
-          csvString += prefix;
-          for (let elem of row) {
-            if (elem.rowspan == null) {
-              if (parseInt(elem.value, 10) || elem.value === false) {
-                csvString += elem.value + ',';
-              } else {
-                csvString += elem.value + ',';
-              }
-            } else {
-              rowSpan = elem.rowspan as number;
-              csvString += elem.value + ',';
-              prefix = ',';
-            }
-          }
-          if (csvString[csvString.length - 1] === ',') {
-            csvString = csvString.substring(0, csvString.length - 1);
-          }
-          csvString += '\n';
-          rowSpan--;
-          if (rowSpan > 0) {
-            csvString += ',';
-          }
-          prefix = '';
-        }
 
-        break;
-    }
-
-    return csvString;
-  }
   exportCsv(): void {
-    if (this.widgetType == null || this.data == null) {
-      return;
-    }
-    (fileSaver as any)
-        .default(
-            new Blob([this.buildCsv()], {type: 'text/csv;charset=utf-8'}),
-            `${this._buildTitle(this.widgetType)}${'.csv'}`);
+    const sheetName = this._buildTitle(this.widgetType);
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this._buildXlsxData());
+    const csv = XLSX.utils.sheet_to_csv(worksheet);
+
+    saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), `${sheetName}${'.csv'}`);
   }
 
-  buildXlsx(): {[key: string]: string|number}[] {
+  exportXlsx(): void {
+    const sheetName = this._buildTitle(this.widgetType);
+    const sheets: {[sheet: string]: XLSX.WorkSheet} = {};
+    sheets[sheetName] = XLSX.utils.json_to_sheet(this._buildXlsxData());
+    const worksheet: XLSX.WorkBook = {Sheets: sheets, SheetNames: [sheetName]};
+    const excelBuffer = XLSX.write(worksheet, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    saveAs(new Blob([excelBuffer]), `${sheetName}.xlsx`);
+  }
+
+  private _buildXlsxData(): {[key: string]: string|number}[] {
     let xlsxData: {[key: string]: string|number}[] = [];
     let labels: string[] = [];
     switch (this.widgetType) {
@@ -153,15 +113,6 @@ export class AjfWidgetExport {
     }
 
     return xlsxData;
-  }
-
-  exportXlsx(): void {
-    const ws: XLSX.WorkSheet = (XLSX as any).default.utils.json_to_sheet(this.buildXlsx());
-    const wb: XLSX.WorkBook = (XLSX as any).default.utils.book_new();
-    const title = this._buildTitle(this.widgetType);
-
-    (XLSX as any).default.utils.book_append_sheet(wb, ws, title);
-    (XLSX as any).default.writeFile(wb, `${title}.xlsx`);
   }
 
   private _buildTitle(widgetType: AjfWidgetType): string {
