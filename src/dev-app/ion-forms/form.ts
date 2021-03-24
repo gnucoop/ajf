@@ -31,6 +31,7 @@ export const formContext: any = {
 };
 
 export const formSchema: any = {
+  topBar: true,
   choicesOrigins: [
     {
       type: 'fixed',

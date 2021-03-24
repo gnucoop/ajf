@@ -106,12 +106,16 @@
                         </mat-card-header>
                         <mat-card-content>
                           <div *ngIf="lastSlide && !readonly" class="ajf-group-actions">
-                            <button (click)="addGroup(slideInstance)"
-                              [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd" mat-mini-fab>
-                              <mat-icon>add</mat-icon>
+                            <button
+                              (click)="addGroup(slideInstance)"
+                              [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval && !slideInstance.valid)"
+                              mat-mini-fab>
+                               <mat-icon>add</mat-icon>
                             </button>
-                            <button (click)="removeGroup(slideInstance)"
-                              [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove" mat-mini-fab>
+                            <button
+                              (click)="removeGroup(slideInstance)"
+                              [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove || (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval"
+                              mat-mini-fab>
                               <mat-icon>remove</mat-icon>
                             </button>
                           </div>
@@ -127,7 +131,8 @@
                                 *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint" [matTooltip]="hint"
                                 matTooltipPosition="right">
                                 {{(fieldInstance|ajfAsFieldInstance).node?.hintIcon || 'help'}}</mat-icon>
-                              <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" [readonly]="readonly">
+                              <ajf-field [instance]="fieldInstance|ajfAsFieldInstance" 
+                                [readonly]="readonly || (!lastSlide && (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval)">
                               </ajf-field>
                             </div>
                           </ng-template>

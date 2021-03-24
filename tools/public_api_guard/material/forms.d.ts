@@ -48,7 +48,6 @@ export declare class AjfFormField extends CoreFormField {
 export declare class AjfFormRenderer extends AjfCoreFormRenderer {
     topBar: boolean;
     constructor(rendererService: AjfFormRendererService, changeDetectorRef: ChangeDetectorRef);
-    scrollToSlide(slide: any): void;
     static ngAcceptInputType_fixedOrientation: BooleanInput;
     static ngAcceptInputType_hasEndMessage: BooleanInput;
     static ngAcceptInputType_hasStartMessage: BooleanInput;

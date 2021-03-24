@@ -37,8 +37,7 @@ export const formSchema: any = {
       name: 'animals',
       choicesType: 'string',
       choices: [
-        {value: 'dog', label: 'Dog'},
-        {value: 'cat', label: 'Cat'},
+        {value: 'dog', label: 'Dog'}, {value: 'cat', label: 'Cat'},
         {value: 'blackcat', label: 'Black Cat'}
       ]
     },
@@ -280,7 +279,34 @@ export const formSchema: any = {
       ]
     },
     {
-      parent: 5,
+      parent: 4,
+      id: 500,
+      name: 'repeat',
+      label: 'Multiple Slide with history disabled',
+      nodeType: 4,
+      disableRemoval: true,
+      nodes: [
+        {
+          parent: 500,
+          id: 500001,
+          name: 'name',
+          label: 'Child\'s name',
+          nodeType: 0,
+          fieldType: 0,
+          validation: {notEmpty: true}
+        },
+        {
+          parent: 500001,
+          id: 500002,
+          name: 'birthweight',
+          label: 'Child\'s birthweight',
+          nodeType: 0,
+          fieldType: 2
+        }
+      ]
+    },
+    {
+      parent: 500,
       id: 6,
       name: 'custom',
       label: 'Custom field',

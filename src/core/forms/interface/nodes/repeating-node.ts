@@ -34,4 +34,12 @@ export interface AjfRepeatingNode extends AjfNode {
 
   // min number of repetitions
   minReps: number;
+
+  /**
+   * If true show all slides of repeating node in readonly mode.
+   * Except the last slide.
+   * In the last slide remove button is always disabled and add button is enabled
+   * only when the last slide is valid.
+   */
+  disableRemoval?: boolean;
 }
