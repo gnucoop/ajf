@@ -39,9 +39,8 @@ third_party_bundle(
     name = "file-saver",
     entry_point = "@npm//:node_modules/file-saver/src/FileSaver.js",
     module_name = "file-saver",
-    deps = [
-        "@npm//file-saver",
-    ],
+    exports = "default",
+    deps = ["@npm//file-saver"],
 )
 
 third_party_bundle(
@@ -148,7 +147,6 @@ third_party_bundle(
     name = "xlsx",
     entry_point = "@npm//:node_modules/xlsx/xlsx.js",
     module_name = "xlsx",
-    deps = [
-        "@npm//xlsx",
-    ],
+    exports = "default",
+    deps = ["@npm//xlsx"],
 )

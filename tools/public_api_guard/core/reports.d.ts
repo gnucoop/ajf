@@ -324,10 +324,6 @@ export declare class AjfWidgetExport {
     overlay: boolean;
     widgetType: AjfWidgetType;
     constructor();
-    buildCsv(): string;
-    buildXlsx(): {
-        [key: string]: string | number;
-    }[];
     exportCsv(): void;
     exportXlsx(): void;
     static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfWidgetExport, "ajf-widget-export", never, { "widgetType": "widgetType"; "data": "data"; "overlay": "overlay"; "enable": "enable"; }, {}, never, ["*"]>;
