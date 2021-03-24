@@ -1,4 +1,5 @@
 import {ChartData} from 'chart.js';
+import * as XLSX from 'xlsx';
 
 import {AjfTableCell} from '../table';
 
@@ -17,11 +18,6 @@ describe('widget-export', () => {
       lineTension: 0.1
     }]
   };
-  const dataTableCsv: AjfTableCell[][] = [
-    [{value: 'a'}, {value: 'b'}, {value: 'c'}],
-    [{value: 'd'}, {value: 'e'}, {value: 'f'}],
-    [{value: 'g'}, {value: 'h'}, {value: 'i'}],
-  ] as AjfTableCell[][];
 
   const dataTableXlsx: AjfTableCell[][] = [
     [
@@ -41,34 +37,11 @@ describe('widget-export', () => {
     ],
   ] as AjfTableCell[][];
 
-
-  it('widget chart to csv', () => {
+  it('widget chart to xlsx data', () => {
     widgetExport.data = dataChart;
     widgetExport.widgetType = AjfWidgetType.Chart;
-
-    const csv = widgetExport.buildCsv();
-    const toEqual = `,January,February,March,April,May,June,July
-My First Dataset,65000000,59,80,81,56,55,40
-`;
-
-    expect(csv).toEqual(toEqual);
-  });
-  it('widget table to csv', () => {
-    widgetExport.data = dataTableCsv;
-    widgetExport.widgetType = AjfWidgetType.Table;
-
-    const csv = widgetExport.buildCsv();
-    const toEqual = `a,b,c
-d,e,f
-g,h,i
-`;
-    expect(csv).toEqual(toEqual);
-  });
-  it('widget chart to xlsx', () => {
-    widgetExport.data = dataChart;
-    widgetExport.widgetType = AjfWidgetType.Chart;
-
-    const xlsx = widgetExport.buildXlsx();
+    const testSpy = spyOn(XLSX.utils, 'json_to_sheet').and.callThrough();
+    widgetExport.exportCsv();
     const toEqual = [{
       name: 'My First Dataset',
       January: 65000000,
@@ -79,14 +52,15 @@ g,h,i
       June: 55,
       July: 40
     }];
-    expect(JSON.stringify(xlsx)).toEqual(JSON.stringify(toEqual));
+    expect(testSpy).toHaveBeenCalledWith(toEqual);
   });
-  it('widget table to xlsx', () => {
+
+  it('widget table to xlsx data', () => {
     widgetExport.data = dataTableXlsx;
     widgetExport.widgetType = AjfWidgetType.Table;
-
-    const xlsx = widgetExport.buildXlsx();
+    const testSpy = spyOn(XLSX.utils, 'json_to_sheet').and.callThrough();
+    widgetExport.exportCsv();
     const toEqual = [{a: 'd', b: 'e', c: 'f'}, {a: 'g', b: 'h', c: 'i'}];
-    expect(JSON.stringify(xlsx)).toEqual(JSON.stringify(toEqual));
+    expect(testSpy).toHaveBeenCalledWith(toEqual);
   });
 });
