@@ -1,3 +1,26 @@
+# 12.0.0-next.1 "quiet-cloud" (2021-03-24)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** fix FormSchema interface in form-to-pdf ([010eefb125d927bbb84626d4919cd0e743148e98](https://github.com/gnucoop/ajf/commit/010eefb125d927bbb84626d4919cd0e743148e98)) |
+| bug fix |  **reports:** fixed the export of the csv, now shows the value without the saveValue warning ([a5f7bbc676d1e25af5016a4389b681c78eaa25fc](https://github.com/gnucoop/ajf/commit/a5f7bbc676d1e25af5016a4389b681c78eaa25fc)) |
+| feature |  **forms:** improve form-to-pdf api ([4e430ec0b5828f3b32623e7c121691741a6859a3](https://github.com/gnucoop/ajf/commit/4e430ec0b5828f3b32623e7c121691741a6859a3)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **form-builder:** Added Drag & Drop functionalities. ([e611a24b26bba1b94ee4837ad7f35c636463c083](https://github.com/gnucoop/ajf/commit/e611a24b26bba1b94ee4837ad7f35c636463c083)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **page-slider:** add disableRemoval mode in repeating slide ([91bfeaa85d6bc78174219683be55d38bfbc7b36f](https://github.com/gnucoop/ajf/commit/91bfeaa85d6bc78174219683be55d38bfbc7b36f)) |
+
+
 # 12.0.0-next.0 "odd-scene" (2021-03-12)
 
 update to angular 12
