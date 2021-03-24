@@ -44,10 +44,6 @@ export class AjfFormRenderer extends AjfCoreFormRenderer {
     super(rendererService, changeDetectorRef);
   }
 
-  scrollToSlide(slide: any): void {
-    this.formSlider.slide({to: slide.position - 1});
-  }
-
   static ngAcceptInputType_fixedOrientation: BooleanInput;
   static ngAcceptInputType_hasEndMessage: BooleanInput;
   static ngAcceptInputType_hasStartMessage: BooleanInput;
