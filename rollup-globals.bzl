@@ -68,7 +68,6 @@ ROLLUP_GLOBALS = {
     "chart.js": "Chart",
     "date-fns": "dateFns",
     "esprima": "esprima",
-    "file-saver": "file-saver",
     "leaflet": "leaflet",
     "moment": "moment",
     "ngx-color-picker": "ngxColorPicker",

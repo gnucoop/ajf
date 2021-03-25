@@ -67,7 +67,6 @@ filegroup(
         "//tools/third-party-libs:chart.js-bundle.js",
         "//tools/third-party-libs:date-fns-bundle.js",
         "//tools/third-party-libs:esprima-bundle.js",
-        "//tools/third-party-libs:file-saver-bundle.js",
         "//tools/third-party-libs:gic-core-bundle.js",
         "//tools/third-party-libs:gic-core-loader-bundle.js",
         "//tools/third-party-libs:ionic-core-bundle.js",

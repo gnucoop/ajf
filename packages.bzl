@@ -89,7 +89,6 @@ THIRD_PARTY_GEN_BUNDLES = [
     ("chart.js", "chart.js-bundle.js"),
     ("date-fns", "date-fns-bundle.js"),
     ("esprima", "esprima-bundle.js"),
-    ("file-saver", "file-saver-bundle.js"),
     ("leaflet", "leaflet-bundle.js"),
     ("numbro", "numbro-bundle.js"),
     ("pdfmake/build/pdfmake", "pdfmake-bundle.js"),

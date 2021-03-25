@@ -41,7 +41,6 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@ngx-translate/core",
         "@npm//@types/chart.js",
-        "@npm//@types/file-saver",
         "@npm//@types/pdfmake",
         "@npm//xlsx",
     ],
@@ -71,7 +70,6 @@ ng_test_library(
         "@npm//@angular/platform-browser",
         "@npm//@ngx-translate/core",
         "@npm//@types/chart.js",
-        "@npm//@types/file-saver",
         "@npm//xlsx",
     ],
 )

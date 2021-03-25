@@ -1,10 +1,21 @@
 ajf-widget-export {
     width: 100%;
     height: inherit;
+
+    .ajf-widget-wrapper {
+        position: relative;
+        height: inherit;
+    }
+
     .ajf-export-menu {
         position: absolute;
         right: 0;
         top: 0;
+
+        &.ajf-export-menu-overlay {
+            display: none;
+        }
+
         button {
             margin: 0.5em;
             border: none;
@@ -18,13 +29,10 @@ ajf-widget-export {
             cursor: pointer;
         }
     }
-    .ajf-widget-wrapper {
-        position: relative;
-        height: inherit;
-    }
+
     .ajf-widget-wrapper:hover {
-        .ajf-export-menu {
-            display: block !important;
+        .ajf-export-menu-overlay {
+            display: block;
         }
     }
 }
