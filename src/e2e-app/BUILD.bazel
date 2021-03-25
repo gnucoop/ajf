@@ -31,6 +31,7 @@ ng_module(
         "//src/ionic/forms",
         "//src/material/calendar",
         "//src/material/forms",
+        "//src/material/reports",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/elements",

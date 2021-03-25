@@ -325,6 +325,7 @@ export declare class AjfWidgetExport {
     overlay: boolean;
     widgetType: AjfWidgetType;
     constructor();
+    export(bookType: 'csv' | 'xlsx'): void;
     exportCsv(): void;
     exportXlsx(): void;
     static ɵcmp: i0.ɵɵComponentDeclaration<AjfWidgetExport, "ajf-widget-export", never, { "widgetType": "widgetType"; "data": "data"; "overlay": "overlay"; "enable": "enable"; }, {}, never, ["*"]>;

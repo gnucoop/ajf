@@ -99,12 +99,14 @@
 /src/e2e-app/example-viewer/*                      @trik
 /src/e2e-app/file-input/*                          @trik
 /src/e2e-app/ion-calendar/*                        @sara-gnucoop
-/src/e2e-app/ion-form/*                            @peppedeka
 /src/e2e-app/ion-date-input-field/*                @trik
+/src/e2e-app/ion-form/*                            @peppedeka
+/src/e2e-app/ion-report/*                          @trik
 /src/e2e-app/ion-table-field/*                     @trik
 /src/e2e-app/mat-calendar/*                        @sara-gnucoop
-/src/e2e-app/mat-form/*                            @peppedeka
 /src/e2e-app/mat-date-input-field/*                @trik
+/src/e2e-app/mat-form/*                            @peppedeka
+/src/e2e-app/mat-report/*                          @trik
 /src/e2e-app/mat-table-field/*                     @trik
 
 # Universal app

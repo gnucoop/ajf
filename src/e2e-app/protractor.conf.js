@@ -6,6 +6,18 @@ exports.config = {
     defaultTimeoutInterval: 120000,
   },
 
+  capabilities: {
+    browserName: 'chrome',
+    chromeOptions: {
+      prefs: {
+        download: {
+          prompt_for_download: false,
+          default_directory: '.',
+        },
+      },
+    },
+  },
+
   plugins: [
     {
       // Runs the axe-core accessibility checks each time the e2e page changes and

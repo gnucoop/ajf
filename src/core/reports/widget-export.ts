@@ -24,7 +24,6 @@ import {AjfTableCell} from '@ajf/core/table';
 import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@angular/core';
 import {ChartData} from 'chart.js';
 import {format} from 'date-fns';
-import {saveAs} from 'file-saver';
 import * as XLSX from 'xlsx';
 
 import {AjfWidgetType} from '../reports/interface/widgets/widget-type';
@@ -32,19 +31,7 @@ import {AjfWidgetType} from '../reports/interface/widgets/widget-type';
 
 @Component({
   selector: 'ajf-widget-export',
-  template: `
-    <div class="ajf-widget-wrapper">
-        <ng-content></ng-content>
-        <div  *ngIf="enable" class="ajf-export-menu" [style.display]="!overlay?'block':'none'">
-            <button (click)="exportCsv()">
-                CSV
-            </button>
-            <button (click)="exportXlsx()" mat-menu-item>
-                XLSX
-            </button>
-        </div>
-    </div>
-    `,
+  templateUrl: 'widget-export.html',
   styleUrls: ['widget-export.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -54,27 +41,39 @@ export class AjfWidgetExport {
   @Input() data: ChartData|AjfTableCell[][];
   @Input() overlay = true;
   @Input() enable = false;
+
   constructor() {}
 
+  /**
+   * Export widget data in CSV format
+   * @deprecated Use `AjfWidgetExport.export` with 'csv' parameter.
+   * @breaking-change 13.0.0
+   */
   exportCsv(): void {
-    const sheetName = this._buildTitle(this.widgetType);
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this._buildXlsxData());
-    const csv = XLSX.utils.sheet_to_csv(worksheet);
-
-    saveAs(new Blob([csv], {type: 'text/csv;charset=utf-8'}), `${sheetName}${'.csv'}`);
+    this.export('csv');
   }
 
+  /**
+   * Export widget data in Xlsx format
+   * @deprecated Use `AjfWidgetExport.export` with 'xlsx' parameter.
+   * @breaking-change 13.0.0
+   */
   exportXlsx(): void {
+    this.export('xlsx');
+  }
+
+  /**
+   * Export widget data in CSV or Xlsx format
+   */
+  export(bookType: 'csv'|'xlsx'): void {
     const sheetName = this._buildTitle(this.widgetType);
     const sheets: {[sheet: string]: XLSX.WorkSheet} = {};
     sheets[sheetName] = XLSX.utils.json_to_sheet(this._buildXlsxData());
-    const worksheet: XLSX.WorkBook = {Sheets: sheets, SheetNames: [sheetName]};
-    const excelBuffer = XLSX.write(worksheet, {
-      bookType: 'xlsx',
+    const workBook: XLSX.WorkBook = {Sheets: sheets, SheetNames: [sheetName]};
+    XLSX.writeFile(workBook, `${sheetName}.${bookType}`, {
+      bookType,
       type: 'array',
     });
-
-    saveAs(new Blob([excelBuffer]), `${sheetName}.xlsx`);
   }
 
   private _buildXlsxData(): {[key: string]: string|number}[] {

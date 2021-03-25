@@ -15,13 +15,15 @@ export class E2eAppLayout {
 
   navLinks = [
     {path: 'file-input', title: 'File Input'},
-    {path: 'ion-form', title: 'Ionic - Form'},
     {path: 'ion-calendar', title: 'Ionic - Calendar'},
     {path: 'ion-date-input-field', title: 'Ionic - Date Input Field'},
+    {path: 'ion-form', title: 'Ionic - Form'},
+    {path: 'ion-report', title: 'Ionic - Report'},
     {path: 'ion-table-field', title: 'Ionic - Table Field'},
-    {path: 'mat-form', title: 'Material - Form'},
     {path: 'mat-calendar', title: 'Material - Calendar'},
     {path: 'mat-date-input-field', title: 'Material - Date Input Field'},
+    {path: 'mat-form', title: 'Material - Form'},
+    {path: 'mat-report', title: 'Material - Report'},
     {path: 'mat-table-field', title: 'Material - Table Field'},
   ];
 }
