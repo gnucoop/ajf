@@ -6,18 +6,31 @@ describe('ajf-table-field', () => {
   it('should show a table field', async () => {
     expect(await element(by.className('ajf-table-field')).isPresent()).toBe(true);
     const cells = await element.all(by.tagName('td')).getWebElements();
-    expect(cells.length).toBe(12);
-    cells.forEach(async cell => console.log(await cell.getText()));
-    expect(await cells[0].getText()).toBe('2.1');
-    expect(await cells[4].getText()).toBe('Row 1');
-    expect(await cells[8].getText()).toBe('Row 2');
+    const cellsNum = cells.length;
+    expect(cellsNum).toBe(12);
+    const cellsValues = [] as string[];
+    for (let i = 0; i < cellsNum; i++) {
+      const cell = cells[i];
+      cellsValues.push(await cell.getText());
+      console.log(`cell ${i}: ${cellsValues[i]}`);
+    }
+    expect(cellsValues[0]).toBe('2.1');
+    expect(cellsValues[4]).toBe('Row 1');
+    expect(cellsValues[8]).toBe('Row 2');
   });
 
   it('should show table header', async () => {
     const cells = await element.all(by.tagName('td')).getWebElements();
-    cells.forEach(async cell => console.log(await cell.getText()));
-    expect(await cells[1].getText()).toBe('Label 1');
-    expect(await cells[2].getText()).toBe('Label 2');
-    expect(await cells[3].getText()).toBe('Label 3');
+    const cellsNum = cells.length;
+    expect(cellsNum).toBe(12);
+    const cellsValues = [] as string[];
+    for (let i = 0; i < cellsNum; i++) {
+      const cell = cells[i];
+      cellsValues.push(await cell.getText());
+      console.log(`cell ${i}: ${cellsValues[i]}`);
+    }
+    expect(cellsValues[1]).toBe('Label 1');
+    expect(cellsValues[2]).toBe('Label 2');
+    expect(cellsValues[3]).toBe('Label 3');
   });
 });
