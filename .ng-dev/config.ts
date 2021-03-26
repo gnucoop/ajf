@@ -4,6 +4,7 @@ import {github} from './github';
 import {merge} from './merge';
 import {commitMessage} from './commit-message';
 import {caretaker} from './caretaker';
+import {release} from './release';
 
 module.exports = {
   commitMessage,
@@ -11,4 +12,5 @@ module.exports = {
   github,
   merge,
   caretaker,
+  release,
 };
