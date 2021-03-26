@@ -9,7 +9,8 @@
     "./tools/stylelint/no-concrete-rules.ts",
     "./tools/stylelint/no-top-level-ampersand-in-mixin.ts",
     "./tools/stylelint/theme-mixin-api.ts",
-    "./tools/stylelint/no-import.ts"
+    "./tools/stylelint/no-import.ts",
+    "./tools/stylelint/single-line-comment-only.ts"
   ],
   "rules": {
     "ajf/no-prefixes": [true, {
@@ -19,6 +20,9 @@
     "ajf/theme-mixin-api": true,
     "ajf/selector-no-deep": true,
     "ajf/no-nested-mixin": true,
+    "ajf/single-line-comment-only": [true, {
+      "filePattern": "\\.scss$"
+    }],
     "ajf/no-import": [true, {
       "exclude": "\\.import\\.scss$"
     }],
