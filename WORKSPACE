@@ -32,20 +32,8 @@ load("@build_bazel_rules_nodejs//:index.bzl", "check_bazel_version", "node_repos
 check_bazel_version("4.0.0")
 
 node_repositories(
-    node_repositories = {
-        "12.9.1-darwin_amd64": ("node-v12.9.1-darwin-x64.tar.gz", "node-v12.9.1-darwin-x64", "9aaf29d30056e2233fd15dfac56eec12e8342d91bb6c13d54fb5e599383dddb9"),
-        "12.9.1-linux_amd64": ("node-v12.9.1-linux-x64.tar.xz", "node-v12.9.1-linux-x64", "680a1263c9f5f91adadcada549f0a9c29f1b26d09658d2b501c334c3f63719e5"),
-        "12.9.1-windows_amd64": ("node-v12.9.1-win-x64.zip", "node-v12.9.1-win-x64", "6a4e54bda091bd02dbd8ff1b9f6671e036297da012a53891e3834d4bf4bed297"),
-    },
-    node_urls = ["https://nodejs.org/dist/v{version}/{filename}"],
-    # For deterministic builds, specify explicit NodeJS and Yarn versions.
-    node_version = "12.9.1",
-    # We do not need to define a specific yarn version as bazel will respect the .yarnrc file
-    # and run the version of yarn defined at the set-path value.
-    # Since bazel runs yarn from the working directory of the package.json, and our .yarnrc
-    # file is in the same directory, it correctly discovers and respects it.  Additionally,
-    # it ensures that the yarn environment variable to detect if yarn has already followed
-    # the set-path value is reset.
+    node_version = "12.14.1",
+    package_json = ["//:package.json"],
 )
 
 yarn_install(
