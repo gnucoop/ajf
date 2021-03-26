@@ -1,4 +1,5 @@
 export declare class AjfCheckboxGroupModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroupModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfCheckboxGroupModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCheckboxGroupModule, [typeof i1.CheckboxGroupItem], [typeof i2.AjfCheckboxGroupModule, typeof i3.CommonModule, typeof i4.MatButtonModule, typeof i5.MatIconModule], [typeof i2.AjfCheckboxGroupModule, typeof i1.CheckboxGroupItem]>;
 }

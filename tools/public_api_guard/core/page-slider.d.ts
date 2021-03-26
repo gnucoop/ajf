@@ -45,6 +45,7 @@ export declare class AjfPageSliderItem implements OnDestroy {
 export declare type AjfPageSliderItemScrollDirection = 'x' | 'y';
 
 export declare class AjfPageSliderModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfPageSliderModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfPageSliderModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfPageSliderModule, [typeof i1.AjfPageSliderItem], never, [typeof i1.AjfPageSliderItem]>;
 }

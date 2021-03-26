@@ -13,6 +13,7 @@ export declare class AjfMapComponent implements AfterViewInit, OnDestroy {
 }
 
 export declare class AjfMapModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfMapModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfMapModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfMapModule, [typeof i1.AjfMapComponent, typeof i2.AjfMapContainerDirective], never, [typeof i1.AjfMapComponent]>;
 }

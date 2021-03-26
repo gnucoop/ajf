@@ -11,6 +11,7 @@ export declare class AjfChartComponent implements AfterViewInit, OnChanges {
 }
 
 export declare class AjfChartModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfChartModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfChartModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfChartModule, [typeof i1.AjfChartComponent], never, [typeof i1.AjfChartComponent]>;
 }

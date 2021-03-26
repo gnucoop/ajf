@@ -80,6 +80,7 @@ export declare class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChan
 }
 
 export declare class AjfMonacoEditorModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfMonacoEditorModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfMonacoEditorModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfMonacoEditorModule, [typeof i1.AjfMonacoEditor], never, [typeof i1.AjfMonacoEditor]>;
 }

@@ -238,6 +238,7 @@ export declare class AjfReportSerializer {
 }
 
 export declare class AjfReportsModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportsModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfReportsModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfReportsModule, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfReportStringIdentifierPipe, typeof i3.AjfWidgetHost, typeof i4.AjfWidgetExport], [typeof i5.CommonModule], [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfReportStringIdentifierPipe, typeof i3.AjfWidgetHost, typeof i4.AjfWidgetExport]>;
 }

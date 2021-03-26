@@ -56,6 +56,7 @@ export declare class AjfReportRenderer extends AjfCoreReportRenderer {
 }
 
 export declare class AjfReportsModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfReportsModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfReportsModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfReportsModule, [typeof i1.AjfChartWidgetComponent, typeof i2.AjfColumnWidgetComponent, typeof i3.AjfFormulaWidgetComponent, typeof i4.AjfImageContainerWidgetComponent, typeof i5.AjfImageWidgetComponent, typeof i6.AjfLayoutWidgetComponent, typeof i7.AjfMapWidgetComponent, typeof i8.AjfPageBreakWidgetComponent, typeof i9.AjfReportRenderer, typeof i10.AjfReportWidget, typeof i11.AjfTableWidgetComponent, typeof i12.AjfTextWidgetComponent], [typeof i13.AjfChartModule, typeof i14.AjfCommonModule, typeof i15.AjfImageModule, typeof i16.AjfMapModule, typeof i17.AjfPageBreakModule, typeof i18.AjfTableModule, typeof i19.AjfTextModule, typeof i20.CommonModule, typeof i21.AjfReportsModule, typeof i22.TranslateModule], [typeof i9.AjfReportRenderer, typeof i10.AjfReportWidget]>;
 }

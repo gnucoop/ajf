@@ -7,6 +7,7 @@ export declare class AjfPageSlider extends AjfCorePageSlider {
 }
 
 export declare class AjfPageSliderModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfPageSliderModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfPageSliderModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfPageSliderModule, [typeof i1.AjfPageSlider], [typeof i2.AjfPageSliderModule, typeof i3.CommonModule, typeof i4.MatButtonModule, typeof i5.MatIconModule, typeof i6.MatToolbarModule], [typeof i2.AjfPageSliderModule, typeof i1.AjfPageSlider]>;
 }

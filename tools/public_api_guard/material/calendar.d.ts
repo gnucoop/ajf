@@ -5,6 +5,7 @@ export declare class AjfCalendarComponent extends AjfCalendar {
 }
 
 export declare class AjfCalendarModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfCalendarModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCalendarModule, [typeof i1.AjfCalendarComponent], [typeof i2.CommonModule, typeof i3.AjfCalendarModule, typeof i4.FormsModule, typeof i5.MatButtonModule, typeof i6.TranslateModule], [typeof i1.AjfCalendarComponent]>;
 }

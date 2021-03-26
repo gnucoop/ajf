@@ -64,6 +64,7 @@ export declare type AjfCalendarEntrySelectedState = ('none' | 'partial' | 'full'
 export declare type AjfCalendarEntryType = ('day' | 'month' | 'year');
 
 export declare class AjfCalendarModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfCalendarModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCalendarModule, [typeof i1.AjfCalendarEntryLabelPipe], never, [typeof i1.AjfCalendarEntryLabelPipe]>;
 }
@@ -114,6 +115,7 @@ export declare type AjfCalendarViewMode = ('month' | 'year' | 'decade');
 export declare type AjfCalendarWeekDay = ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
 
 export declare class AjfGregorianCalendarModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfGregorianCalendarModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfGregorianCalendarModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfGregorianCalendarModule, never, never, never>;
 }

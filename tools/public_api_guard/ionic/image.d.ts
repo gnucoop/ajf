@@ -5,6 +5,7 @@ export declare class AjfImage extends AjfCoreImage {
 }
 
 export declare class AjfImageModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfImageModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfImageModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfImageModule, [typeof i1.AjfImage], [typeof i2.CommonModule, typeof i3.IonicModule], [typeof i1.AjfImage]>;
 }

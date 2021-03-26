@@ -61,6 +61,7 @@ export declare class AjfCheckboxGroupItemChange<T> {
 }
 
 export declare class AjfCheckboxGroupModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroupModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfCheckboxGroupModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCheckboxGroupModule, [typeof i1.AjfCheckboxGroup], [typeof i2.FormsModule], [typeof i1.AjfCheckboxGroup]>;
 }

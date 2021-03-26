@@ -1,4 +1,5 @@
 export declare class AjfEthiopianCalendarModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfEthiopianCalendarModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfEthiopianCalendarModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfEthiopianCalendarModule, [typeof i1.AjfEthiopianDatePipe], never, [typeof i1.AjfEthiopianDatePipe]>;
 }

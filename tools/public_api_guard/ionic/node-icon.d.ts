@@ -4,6 +4,7 @@ export declare class AjfNodeIcon extends AjfCoreNodeIcon {
 }
 
 export declare class AjfNodeIconModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfNodeIconModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfNodeIconModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfNodeIconModule, [typeof i1.AjfNodeIcon], [typeof i2.CommonModule, typeof i3.IonicModule], [typeof i1.AjfNodeIcon]>;
 }

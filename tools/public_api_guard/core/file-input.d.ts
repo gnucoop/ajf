@@ -35,6 +35,7 @@ export declare class AjfFileInput implements ControlValueAccessor {
 }
 
 export declare class AjfFileInputModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfFileInputModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfFileInputModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFileInputModule, [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview], [typeof i2.AjfCommonModule, typeof i3.CommonModule, typeof i4.TranslateModule], [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview]>;
 }

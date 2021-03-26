@@ -4,6 +4,7 @@ export declare class AjfPageBreakComponent {
 }
 
 export declare class AjfPageBreakModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfPageBreakModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfPageBreakModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfPageBreakModule, [typeof i1.AjfPageBreakComponent], never, [typeof i1.AjfPageBreakComponent]>;
 }

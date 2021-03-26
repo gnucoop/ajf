@@ -16,6 +16,7 @@ export interface AjfTableCell {
 }
 
 export declare class AjfTableModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfTableModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfTableModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfTableModule, [typeof i1.AjfTable], [typeof i2.AjfCommonModule, typeof i3.CommonModule], [typeof i1.AjfTable]>;
 }

@@ -32,6 +32,7 @@ export interface AjfFormBuilderEmptySlot {
 }
 
 export declare class AjfFormBuilderModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfFormBuilderModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfFormBuilderModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormBuilderModule, [typeof i1.AjfFbBranchLine, typeof i2.AjfFbChoicesOriginEditor, typeof i3.AjfFbChoicesOriginEditorDialog, typeof i4.AjfFbConditionEditor, typeof i5.AjfFbConditionEditorDialog, typeof i6.AjfFbNodeEntry, typeof i7.AjfFbNodeProperties, typeof i8.AjfFbNodeTypeEntry, typeof i9.AjfFbStringIdentifierDialogComponent, typeof i10.AjfFbValidationConditionEditorDialog, typeof i11.AjfFbWarningConditionEditorDialog, typeof i12.AjfFormBuilder], [typeof i13.AjfMonacoEditorModule, typeof i14.AjfNodeIconModule, typeof i15.CommonModule, typeof i16.DragDropModule, typeof i17.FormsModule, typeof i18.MatAutocompleteModule, typeof i19.MatButtonModule, typeof i20.MatCardModule, typeof i21.MatCheckboxModule, typeof i22.MatChipsModule, typeof i23.MatDialogModule, typeof i24.MatFormFieldModule, typeof i25.MatIconModule, typeof i26.MatInputModule, typeof i27.MatListModule, typeof i28.MatMenuModule, typeof i29.MatSelectModule, typeof i30.MatSidenavModule, typeof i31.MatSliderModule, typeof i32.MatTableModule, typeof i33.MatToolbarModule, typeof i34.MatTooltipModule, typeof i17.ReactiveFormsModule, typeof i35.TranslateModule, typeof i36.MatExpansionModule, typeof i37.MatSlideToggleModule], [typeof i12.AjfFormBuilder]>;
 }

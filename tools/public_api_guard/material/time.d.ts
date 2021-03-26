@@ -7,6 +7,7 @@ export declare class AjfTime extends Base implements ControlValueAccessor, OnDes
 }
 
 export declare class AjfTimeModule {
+    static ɵfac: i0.ɵɵFactoryDef<AjfTimeModule, never>;
     static ɵinj: i0.ɵɵInjectorDef<AjfTimeModule>;
     static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfTimeModule, [typeof i1.AjfTime], [typeof i2.FormsModule, typeof i3.MatFormFieldModule, typeof i4.MatInputModule], [typeof i1.AjfTime]>;
 }
