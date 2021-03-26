@@ -1,3 +1,25 @@
+## 11.1.1 "wispy-math" (2021-03-26)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **reports:** fixed the export of the csv, now shows the value without the saveValue warning ([ad4a07dc47d434b56d233cbae531b07c127eb513](https://github.com/gnucoop/ajf/commit/ad4a07dc47d434b56d233cbae531b07c127eb513)) |
+| feature |  **forms:** improve form-to-pdf api ([06f846da01e98f532e1e792e088d5b876fba6f4d](https://github.com/gnucoop/ajf/commit/06f846da01e98f532e1e792e088d5b876fba6f4d)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **form-builder:** Added Drag & Drop functionalities. ([450fba6b49d14575eeb8a356c549afa83bf9c0b1](https://github.com/gnucoop/ajf/commit/450fba6b49d14575eeb8a356c549afa83bf9c0b1)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **page-slider:** add disableRemoval mode in repeating slide ([afee0dca762ffc92fa901de34e639827d92ddf28](https://github.com/gnucoop/ajf/commit/afee0dca762ffc92fa901de34e639827d92ddf28)) |
+
+
 # 11.1.0 "square-term" (2021-03-12)
 
 update angulura components to 11.2.4

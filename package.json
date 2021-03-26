@@ -47,7 +47,7 @@
     "integration-tests:size-test": "bazel test //integration/size-test/...",
     "check-tools": "yarn tsc --project tools/tsconfig-ci.json"
   },
-  "version": "11.1.0",
+  "version": "11.1.1",
   "dependencies": {
     "@ajf/icons": "^1.0.0",
     "@angular/animations": "^11.1.0",
