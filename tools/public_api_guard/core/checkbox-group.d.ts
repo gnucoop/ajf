@@ -20,8 +20,8 @@ export declare class AjfCheckboxGroup<T> implements AfterContentInit, ControlVal
     removeValue(value: T): void;
     writeValue(value: T[]): void;
     static ngAcceptInputType_disabled: BooleanInput;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfCheckboxGroup<any>, "ajf-checkbox-group,[ajf-checkbox-group]", never, { "value": "value"; "name": "name"; "disabled": "disabled"; }, { "change": "change"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroup<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfCheckboxGroup<any>, "ajf-checkbox-group,[ajf-checkbox-group]", never, { "value": "value"; "name": "name"; "disabled": "disabled"; }, { "change": "change"; }, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCheckboxGroup<any>, never>;
 }
 
 export declare class AjfCheckboxGroupChange<T> {
@@ -51,8 +51,8 @@ export declare class AjfCheckboxGroupItem<T> implements OnInit {
     constructor(checkboxGroup?: AjfCheckboxGroup<T>);
     ngOnInit(): void;
     onInputChange(event: Event): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfCheckboxGroupItem<any>, never, never, { "id": "id"; "name": "name"; "checked": "checked"; "disabled": "disabled"; "value": "value"; "checkedIcon": "checkedIcon"; "notCheckedIcon": "notCheckedIcon"; }, { "change": "change"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroupItem<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfCheckboxGroupItem<any>, never, never, { "id": "id"; "name": "name"; "checked": "checked"; "disabled": "disabled"; "value": "value"; "checkedIcon": "checkedIcon"; "notCheckedIcon": "notCheckedIcon"; }, { "change": "change"; }, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCheckboxGroupItem<any>, never>;
 }
 
 export declare class AjfCheckboxGroupItemChange<T> {
@@ -61,7 +61,7 @@ export declare class AjfCheckboxGroupItemChange<T> {
 }
 
 export declare class AjfCheckboxGroupModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfCheckboxGroupModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfCheckboxGroupModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCheckboxGroupModule, [typeof i1.AjfCheckboxGroup], [typeof i2.FormsModule], [typeof i1.AjfCheckboxGroup]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCheckboxGroupModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfCheckboxGroupModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfCheckboxGroupModule, [typeof i1.AjfCheckboxGroup], [typeof i2.FormsModule], [typeof i1.AjfCheckboxGroup]>;
 }

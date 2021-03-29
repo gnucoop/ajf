@@ -13,8 +13,8 @@ export declare abstract class AjfTime implements ControlValueAccessor, OnDestroy
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: any): void;
     writeValue(value: string): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfTime, never, never, { "readonly": "readonly"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfTime, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfTime, never, never, { "readonly": "readonly"; }, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTime, never>;
 }
 
 export declare class AjfTimeModel {

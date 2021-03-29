@@ -12,8 +12,8 @@ export declare abstract class AjfImage implements OnDestroy, OnInit {
     constructor(_el: ElementRef, _renderer: Renderer2, _domSanitizer: DomSanitizer);
     ngOnDestroy(): void;
     ngOnInit(): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfImage, never, never, { "type": "type"; "imageUrl": "imageUrl"; "icon": "icon"; "flag": "flag"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfImage, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfImage, never, never, { "type": "type"; "imageUrl": "imageUrl"; "icon": "icon"; "flag": "flag"; }, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfImage, never>;
 }
 
 export interface AjfImageIcon {

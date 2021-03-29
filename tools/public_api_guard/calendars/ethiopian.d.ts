@@ -1,7 +1,7 @@
 export declare class AjfEthiopianCalendarModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfEthiopianCalendarModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfEthiopianCalendarModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfEthiopianCalendarModule, [typeof i1.AjfEthiopianDatePipe], never, [typeof i1.AjfEthiopianDatePipe]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfEthiopianCalendarModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfEthiopianCalendarModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfEthiopianCalendarModule, [typeof i1.AjfEthiopianDatePipe], never, [typeof i1.AjfEthiopianDatePipe]>;
 }
 
 export declare class AjfEthiopianCalendarService extends AjfCalendarService {
@@ -13,14 +13,14 @@ export declare class AjfEthiopianCalendarService extends AjfCalendarService {
     };
     nextView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
     previousView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
-    static ɵfac: i0.ɵɵFactoryDef<AjfEthiopianCalendarService, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfEthiopianCalendarService, never>;
     static ɵprov: i0.ɵɵInjectableDef<AjfEthiopianCalendarService>;
 }
 
 export declare class AjfEthiopianDatePipe implements PipeTransform {
     transform(value: any): string | null;
-    static ɵfac: i0.ɵɵFactoryDef<AjfEthiopianDatePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfEthiopianDatePipe, "ajfEthiopianDate">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfEthiopianDatePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfEthiopianDatePipe, "ajfEthiopianDate">;
     static ɵprov: i0.ɵɵInjectableDef<AjfEthiopianDatePipe>;
 }
 

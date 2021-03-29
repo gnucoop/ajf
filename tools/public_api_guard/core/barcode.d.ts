@@ -19,6 +19,6 @@ export declare abstract class AjfBarcode implements ControlValueAccessor, OnDest
     reset(): void;
     takeSnapshot(): void;
     writeValue(value: string): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfBarcode, never, never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfBarcode, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBarcode, never, never, {}, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfBarcode, never>;
 }

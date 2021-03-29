@@ -4,14 +4,14 @@ export declare const AJF_WARNING_ALERT_SERVICE: InjectionToken<AjfWarningAlertSe
 
 export declare class AjfAsFieldInstancePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): AjfFieldInstance;
-    static ɵfac: i0.ɵɵFactoryDef<AjfAsFieldInstancePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfAsFieldInstancePipe, "ajfAsFieldInstance">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfAsFieldInstancePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfAsFieldInstancePipe, "ajfAsFieldInstance">;
 }
 
 export declare class AjfAsRepeatingSlideInstancePipe implements PipeTransform {
     transform(instance: AjfSlideInstance): AjfRepeatingSlideInstance;
-    static ɵfac: i0.ɵɵFactoryDef<AjfAsRepeatingSlideInstancePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfAsRepeatingSlideInstancePipe, "ajfAsRepeatingSlideInstance">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfAsRepeatingSlideInstancePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfAsRepeatingSlideInstancePipe, "ajfAsRepeatingSlideInstance">;
 }
 
 export interface AjfAttachment<T> {
@@ -46,8 +46,8 @@ export declare abstract class AjfBaseFieldComponent<T extends AjfFieldInstance =
     protected _onInstanceChange(): void;
     ngOnDestroy(): void;
     ngOnInit(): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfBaseFieldComponent<any>, never, never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfBaseFieldComponent<any>, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfBaseFieldComponent<any>, never, never, {}, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfBaseFieldComponent<any>, never>;
 }
 
 export interface AjfBaseSlideInstance extends AjfContainerNodeInstance {
@@ -62,8 +62,8 @@ export interface AjfBooleanField extends AjfField {
 
 export declare class AjfBoolToIntPipe implements PipeTransform {
     transform(value: boolean): number;
-    static ɵfac: i0.ɵɵFactoryDef<AjfBoolToIntPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfBoolToIntPipe, "ajfBoolToInt">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfBoolToIntPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfBoolToIntPipe, "ajfBoolToInt">;
 }
 
 export interface AjfChoice<T> {
@@ -161,14 +161,14 @@ export interface AjfDateInputFieldInstance extends AjfFieldInstance {
 
 export declare class AjfDateValuePipe implements PipeTransform {
     transform(date: Date | 'today' | undefined): Date | null;
-    static ɵfac: i0.ɵɵFactoryDef<AjfDateValuePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfDateValuePipe, "ajfDateValue">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfDateValuePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfDateValuePipe, "ajfDateValue">;
 }
 
 export declare class AjfDateValueStringPipe implements PipeTransform {
     transform(date: Date | 'today' | undefined): string | undefined;
-    static ɵfac: i0.ɵɵFactoryDef<AjfDateValueStringPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfDateValueStringPipe, "ajfDateValueString">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfDateValueStringPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfDateValueStringPipe, "ajfDateValueString">;
     static ɵprov: i0.ɵɵInjectableDef<AjfDateValueStringPipe>;
 }
 
@@ -182,8 +182,8 @@ export interface AjfEmptyFieldInstance extends AjfFieldInstance {
 
 export declare class AjfExpandFieldWithChoicesPipe implements PipeTransform {
     transform(instance: AjfFieldWithChoicesInstance<any>, threshold: number): boolean;
-    static ɵfac: i0.ɵɵFactoryDef<AjfExpandFieldWithChoicesPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfExpandFieldWithChoicesPipe, "ajfExpandFieldWithChoices">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfExpandFieldWithChoicesPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfExpandFieldWithChoicesPipe, "ajfExpandFieldWithChoices">;
 }
 
 export interface AjfField extends AjfNode {
@@ -220,14 +220,14 @@ export declare type AjfFieldCreate = Omit<AjfNodeCreate, 'nodeType'> & Pick<AjfF
 export declare class AjfFieldHost {
     readonly viewContainerRef: ViewContainerRef;
     constructor(viewContainerRef: ViewContainerRef);
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfFieldHost, "[ajf-field-host]", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFieldHost, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFieldHost, "[ajf-field-host]", never, {}, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFieldHost, never>;
 }
 
 export declare class AjfFieldIconPipe implements PipeTransform {
     transform(field: AjfField | AjfFieldType): string;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFieldIconPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfFieldIconPipe, "ajfFieldIcon">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFieldIconPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFieldIconPipe, "ajfFieldIcon">;
 }
 
 export interface AjfFieldInstance extends AjfNodeInstance {
@@ -247,8 +247,8 @@ export declare type AjfFieldInstanceCreate = AjfNodeInstanceCreate & Partial<Ajf
 
 export declare class AjfFieldIsValidPipe {
     transform(validationResults?: AjfValidationResult[]): boolean;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFieldIsValidPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfFieldIsValidPipe, "ajfFieldIsValid">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFieldIsValidPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFieldIsValidPipe, "ajfFieldIsValid">;
 }
 
 export interface AjfFieldNodeLink extends AjfNode {
@@ -329,8 +329,8 @@ export interface AjfFileField extends AjfField {
 
 export declare class AjfFileFieldComponent extends AjfBaseFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFileFieldComponent, "ajf-file-field", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFileFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileFieldComponent, "ajf-file-field", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFileFieldComponent, never>;
 }
 
 export interface AjfForm {
@@ -361,8 +361,8 @@ export declare abstract class AjfFormField implements OnDestroy, OnInit {
     constructor(_cdr: ChangeDetectorRef, _cfr: ComponentFactoryResolver);
     ngOnDestroy(): void;
     ngOnInit(): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfFormField, never, never, { "instance": "instance"; "readonly": "readonly"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFormField, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFormField, never, never, { "instance": "instance"; "readonly": "readonly"; }, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormField, never>;
 }
 
 export declare const enum AjfFormInitStatus {
@@ -415,8 +415,8 @@ export declare abstract class AjfFormRenderer implements AfterViewChecked, After
     removeGroup(nodeGroup: AjfNodeGroupInstance | AjfSlideInstance | AjfRepeatingSlideInstance): void;
     scrollToSlide(slide: AjfSlideInstance): void;
     trackNodeById(_: number, node: AjfNodeInstance): string;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfFormRenderer, never, never, { "title": "title"; "saveDisabled": "saveDisabled"; "hasStartMessage": "hasStartMessage"; "hasEndMessage": "hasEndMessage"; "hideTopToolbar": "hideTopToolbar"; "hideBottomToolbar": "hideBottomToolbar"; "hideNavigationButtons": "hideNavigationButtons"; "fixedOrientation": "fixedOrientation"; "readonly": "readonly"; "orientation": "orientation"; "form": "form"; }, { "orientationChange": "orientationChange"; "formAction": "formAction"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFormRenderer, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFormRenderer, never, never, { "title": "title"; "saveDisabled": "saveDisabled"; "hasStartMessage": "hasStartMessage"; "hasEndMessage": "hasEndMessage"; "hideTopToolbar": "hideTopToolbar"; "hideBottomToolbar": "hideBottomToolbar"; "hideNavigationButtons": "hideNavigationButtons"; "fixedOrientation": "fixedOrientation"; "readonly": "readonly"; "orientation": "orientation"; "form": "form"; }, { "orientationChange": "orientationChange"; "formAction": "formAction"; }, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormRenderer, never>;
 }
 
 export declare class AjfFormRendererService {
@@ -434,7 +434,7 @@ export declare class AjfFormRendererService {
     getFormValue(): any;
     removeGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean>;
     setForm(form: AjfForm | null, context?: AjfContext): void;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFormRendererService, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormRendererService, never>;
     static ɵprov: i0.ɵɵInjectableDef<AjfFormRendererService>;
 }
 
@@ -443,17 +443,17 @@ export declare class AjfFormSerializer {
 }
 
 export declare class AjfFormsModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfFormsModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfFormsModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFormsModule, [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfFormStringIdentifierPipe, typeof i12.AjfGetTableCellControlPipe, typeof i13.AjfImageFieldComponent, typeof i14.AjfIncrementPipe, typeof i15.AjfIsCellEditablePipe, typeof i16.AjfIsReadonlyInputFieldPipe, typeof i17.AjfIsRepeatingSlideInstancePipe, typeof i18.AjfNodeCompleteNamePipe, typeof i19.AjfRangePipe, typeof i20.AjfReadOnlyFieldComponent, typeof i21.AjfReadOnlyFileFieldComponent, typeof i22.AjfReadOnlyImageFieldComponent, typeof i23.AjfReadOnlySelectFieldComponent, typeof i24.AjfReadOnlyTableFieldComponent, typeof i25.AjfReadOnlyVideoUrlFieldComponent, typeof i26.AjfTableRowClass, typeof i27.AjfTableVisibleColumnsPipe, typeof i28.AjfValidSlidePipe], [typeof i29.AjfCommonModule, typeof i30.AjfFileInputModule, typeof i31.CommonModule, typeof i32.HttpClientModule, typeof i33.ReactiveFormsModule, typeof i34.TranslateModule], [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfFormStringIdentifierPipe, typeof i12.AjfGetTableCellControlPipe, typeof i13.AjfImageFieldComponent, typeof i14.AjfIncrementPipe, typeof i15.AjfIsCellEditablePipe, typeof i16.AjfIsReadonlyInputFieldPipe, typeof i17.AjfIsRepeatingSlideInstancePipe, typeof i18.AjfNodeCompleteNamePipe, typeof i19.AjfRangePipe, typeof i20.AjfReadOnlyFieldComponent, typeof i21.AjfReadOnlyFileFieldComponent, typeof i22.AjfReadOnlyImageFieldComponent, typeof i23.AjfReadOnlySelectFieldComponent, typeof i24.AjfReadOnlyTableFieldComponent, typeof i25.AjfReadOnlyVideoUrlFieldComponent, typeof i26.AjfTableRowClass, typeof i27.AjfTableVisibleColumnsPipe, typeof i28.AjfValidSlidePipe]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormsModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfFormsModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfFormsModule, [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfFormStringIdentifierPipe, typeof i12.AjfGetTableCellControlPipe, typeof i13.AjfImageFieldComponent, typeof i14.AjfIncrementPipe, typeof i15.AjfIsCellEditablePipe, typeof i16.AjfIsReadonlyInputFieldPipe, typeof i17.AjfIsRepeatingSlideInstancePipe, typeof i18.AjfNodeCompleteNamePipe, typeof i19.AjfRangePipe, typeof i20.AjfReadOnlyFieldComponent, typeof i21.AjfReadOnlyFileFieldComponent, typeof i22.AjfReadOnlyImageFieldComponent, typeof i23.AjfReadOnlySelectFieldComponent, typeof i24.AjfReadOnlyTableFieldComponent, typeof i25.AjfReadOnlyVideoUrlFieldComponent, typeof i26.AjfTableRowClass, typeof i27.AjfTableVisibleColumnsPipe, typeof i28.AjfValidSlidePipe], [typeof i29.AjfCommonModule, typeof i30.AjfFileInputModule, typeof i31.CommonModule, typeof i32.HttpClientModule, typeof i33.ReactiveFormsModule, typeof i34.TranslateModule], [typeof i1.AjfAsFieldInstancePipe, typeof i2.AjfAsRepeatingSlideInstancePipe, typeof i3.AjfBoolToIntPipe, typeof i4.AjfDateValuePipe, typeof i5.AjfDateValueStringPipe, typeof i6.AjfExpandFieldWithChoicesPipe, typeof i7.AjfFieldHost, typeof i8.AjfFieldIconPipe, typeof i9.AjfFieldIsValidPipe, typeof i10.AjfFileFieldComponent, typeof i11.AjfFormStringIdentifierPipe, typeof i12.AjfGetTableCellControlPipe, typeof i13.AjfImageFieldComponent, typeof i14.AjfIncrementPipe, typeof i15.AjfIsCellEditablePipe, typeof i16.AjfIsReadonlyInputFieldPipe, typeof i17.AjfIsRepeatingSlideInstancePipe, typeof i18.AjfNodeCompleteNamePipe, typeof i19.AjfRangePipe, typeof i20.AjfReadOnlyFieldComponent, typeof i21.AjfReadOnlyFileFieldComponent, typeof i22.AjfReadOnlyImageFieldComponent, typeof i23.AjfReadOnlySelectFieldComponent, typeof i24.AjfReadOnlyTableFieldComponent, typeof i25.AjfReadOnlyVideoUrlFieldComponent, typeof i26.AjfTableRowClass, typeof i27.AjfTableVisibleColumnsPipe, typeof i28.AjfValidSlidePipe]>;
 }
 
 export declare type AjfFormStringIdentifier = AjfStringIdentifier;
 
 export declare class AjfFormStringIdentifierPipe implements PipeTransform {
     transform(form: AjfForm, context: AjfContext, opts?: BuildStringIdentifierOpts): string;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFormStringIdentifierPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfFormStringIdentifierPipe, "ajfFormStringIdentifier">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormStringIdentifierPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfFormStringIdentifierPipe, "ajfFormStringIdentifier">;
 }
 
 export interface AjfFormulaField extends AjfField {
@@ -467,21 +467,21 @@ export interface AjfFormulaFieldInstance extends AjfFieldInstance {
 
 export declare class AjfGetTableCellControlPipe implements PipeTransform {
     transform(ctrl: null | string | AjfTableFormControl): AjfTableFormControl | null;
-    static ɵfac: i0.ɵɵFactoryDef<AjfGetTableCellControlPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfGetTableCellControlPipe, "ajfGetTableCellControl">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfGetTableCellControlPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfGetTableCellControlPipe, "ajfGetTableCellControl">;
 }
 
 export declare class AjfImageFieldComponent extends AjfBaseFieldComponent {
     readonly imageUrl: Observable<SafeResourceUrl>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfImageFieldComponent, "ajf-image-field", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfImageFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfImageFieldComponent, "ajf-image-field", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfImageFieldComponent, never>;
 }
 
 export declare class AjfIncrementPipe implements PipeTransform {
     transform(value: number, increment?: number): number;
-    static ɵfac: i0.ɵɵFactoryDef<AjfIncrementPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfIncrementPipe, "ajfIncrement">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfIncrementPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIncrementPipe, "ajfIncrement">;
 }
 
 export declare abstract class AjfInputFieldComponent extends AjfBaseFieldComponent {
@@ -495,20 +495,20 @@ export declare class AjfInvalidFieldDefinitionError extends AjfError {
 
 export declare class AjfIsCellEditablePipe implements PipeTransform {
     transform(cell: string | AjfTableCell): boolean;
-    static ɵfac: i0.ɵɵFactoryDef<AjfIsCellEditablePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfIsCellEditablePipe, "ajfIsCellEditable">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfIsCellEditablePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsCellEditablePipe, "ajfIsCellEditable">;
 }
 
 export declare class AjfIsReadonlyInputFieldPipe implements PipeTransform {
     transform(instance: AjfNodeInstance): boolean;
-    static ɵfac: i0.ɵɵFactoryDef<AjfIsReadonlyInputFieldPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfIsReadonlyInputFieldPipe, "ajfIsReadonlyInputField">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfIsReadonlyInputFieldPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsReadonlyInputFieldPipe, "ajfIsReadonlyInputField">;
 }
 
 export declare class AjfIsRepeatingSlideInstancePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): boolean;
-    static ɵfac: i0.ɵɵFactoryDef<AjfIsRepeatingSlideInstancePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfIsRepeatingSlideInstancePipe, "ajfIsRepeatingSlideInstance">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfIsRepeatingSlideInstancePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfIsRepeatingSlideInstancePipe, "ajfIsRepeatingSlideInstance">;
 }
 
 export interface AjfMultipleChoiceField<T> extends AjfFieldWithChoices<T> {
@@ -528,8 +528,8 @@ export interface AjfNode {
 
 export declare class AjfNodeCompleteNamePipe implements PipeTransform {
     transform(instance: AjfNodeInstance): string;
-    static ɵfac: i0.ɵɵFactoryDef<AjfNodeCompleteNamePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfNodeCompleteNamePipe, "ajfNodeCompleteName">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfNodeCompleteNamePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfNodeCompleteNamePipe, "ajfNodeCompleteName">;
 }
 
 export declare type AjfNodeCreate = Pick<AjfNode, 'nodeType' | 'id' | 'parent' | 'name'> & Partial<AjfNode>;
@@ -581,14 +581,14 @@ export interface AjfNumberField extends AjfField {
 
 export declare class AjfRangePipe implements PipeTransform {
     transform(size?: number, start?: number, step?: number): number[];
-    static ɵfac: i0.ɵɵFactoryDef<AjfRangePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfRangePipe, "ajfRange">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfRangePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfRangePipe, "ajfRange">;
 }
 
 export declare class AjfReadOnlyFieldComponent extends CoreComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlyFieldComponent, "ajf-read-only-field", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyFieldComponent, "ajf-read-only-field", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyFieldComponent, never>;
 }
 
 export declare class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
@@ -596,34 +596,34 @@ export declare class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent
     readonly fileName: Observable<string>;
     readonly fileUrl: Observable<SafeResourceUrl>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlyFileFieldComponent, "ajf-read-only-file-field", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyFileFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyFileFieldComponent, "ajf-read-only-file-field", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyFileFieldComponent, never>;
 }
 
 export declare class AjfReadOnlyImageFieldComponent extends AjfBaseFieldComponent {
     readonly imageUrl: Observable<SafeResourceUrl>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlyImageFieldComponent, "ajf-read-only-image-field", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyImageFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyImageFieldComponent, "ajf-read-only-image-field", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyImageFieldComponent, never>;
 }
 
 export declare class AjfReadOnlySelectFieldComponent extends AjfBaseFieldComponent<AjfFieldWithChoicesInstance<String | number>> {
     readonly multiple: Observable<boolean>;
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlySelectFieldComponent, "ng-component", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlySelectFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlySelectFieldComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlySelectFieldComponent, never>;
 }
 
 export declare class AjfReadOnlyTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlyTableFieldComponent, "ng-component", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyTableFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyTableFieldComponent, "ng-component", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyTableFieldComponent, never>;
 }
 
 export declare class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService, domSanitizer: DomSanitizer, httpClient: HttpClient);
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfReadOnlyVideoUrlFieldComponent, "ajf-read-only-video-url-field", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReadOnlyVideoUrlFieldComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfReadOnlyVideoUrlFieldComponent, "ajf-read-only-video-url-field", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReadOnlyVideoUrlFieldComponent, never>;
 }
 
 export interface AjfRendererUpdateMap {
@@ -709,14 +709,14 @@ export interface AjfTableFieldInstance extends AjfFieldInstance {
 
 export declare class AjfTableRowClass implements PipeTransform {
     transform(value: number): string;
-    static ɵfac: i0.ɵɵFactoryDef<AjfTableRowClass, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfTableRowClass, "ajfTableRowClass">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableRowClass, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfTableRowClass, "ajfTableRowClass">;
 }
 
 export declare class AjfTableVisibleColumnsPipe implements PipeTransform {
     transform(instance: AjfTableFieldInstance): (string | number | AjfTableFormControl)[][];
-    static ɵfac: i0.ɵɵFactoryDef<AjfTableVisibleColumnsPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfTableVisibleColumnsPipe, "ajfTableVisibleColumns">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableVisibleColumnsPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfTableVisibleColumnsPipe, "ajfTableVisibleColumns">;
 }
 
 export interface AjfTextField extends AjfField {
@@ -756,14 +756,14 @@ export declare class AjfValidationService {
     constructor();
     addFunction(f: Function | string): void;
     addFunctionHandler(name: string, fn: any): void;
-    static ɵfac: i0.ɵɵFactoryDef<AjfValidationService, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfValidationService, never>;
     static ɵprov: i0.ɵɵInjectableDef<AjfValidationService>;
 }
 
 export declare class AjfValidSlidePipe implements PipeTransform {
     transform(slide: AjfBaseSlideInstance, idx: number): boolean;
-    static ɵfac: i0.ɵɵFactoryDef<AjfValidSlidePipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfValidSlidePipe, "ajfValidSlide">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfValidSlidePipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfValidSlidePipe, "ajfValidSlide">;
 }
 
 export declare type AjfVideoProvider = 'youtube' | 'vimeo';

@@ -34,8 +34,8 @@ export declare abstract class AjfCalendar implements AfterContentInit, ControlVa
     registerOnTouched(fn: any): void;
     selectEntry(entry: AjfCalendarEntry): void;
     writeValue(value: any): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfCalendar, never, never, { "viewDate": "viewDate"; "disabled": "disabled"; "dateOnlyForDay": "dateOnlyForDay"; "viewMode": "viewMode"; "selectionMode": "selectionMode"; "startOfWeekDay": "startOfWeekDay"; "isoMode": "isoMode"; "minDate": "minDate"; "maxDate": "maxDate"; "selectedPeriod": "selectedPeriod"; "value": "value"; }, { "change": "change"; }, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCalendar, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfCalendar, never, never, { "viewDate": "viewDate"; "disabled": "disabled"; "dateOnlyForDay": "dateOnlyForDay"; "viewMode": "viewMode"; "selectionMode": "selectionMode"; "startOfWeekDay": "startOfWeekDay"; "isoMode": "isoMode"; "minDate": "minDate"; "maxDate": "maxDate"; "selectedPeriod": "selectedPeriod"; "value": "value"; }, { "change": "change"; }, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendar, never>;
 }
 
 export declare class AjfCalendarChange {
@@ -54,8 +54,8 @@ export interface AjfCalendarEntry {
 export declare class AjfCalendarEntryLabelPipe implements PipeTransform {
     constructor(_service: AjfCalendarService);
     transform(entry: AjfCalendarEntry): string;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarEntryLabelPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfCalendarEntryLabelPipe, "ajfCalendarEntryLabel">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendarEntryLabelPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfCalendarEntryLabelPipe, "ajfCalendarEntryLabel">;
     static ɵprov: i0.ɵɵInjectableDef<AjfCalendarEntryLabelPipe>;
 }
 
@@ -64,9 +64,9 @@ export declare type AjfCalendarEntrySelectedState = ('none' | 'partial' | 'full'
 export declare type AjfCalendarEntryType = ('day' | 'month' | 'year');
 
 export declare class AjfCalendarModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfCalendarModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfCalendarModule, [typeof i1.AjfCalendarEntryLabelPipe], never, [typeof i1.AjfCalendarEntryLabelPipe]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendarModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfCalendarModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfCalendarModule, [typeof i1.AjfCalendarEntryLabelPipe], never, [typeof i1.AjfCalendarEntryLabelPipe]>;
 }
 
 export interface AjfCalendarParams {
@@ -100,7 +100,7 @@ export declare class AjfCalendarService {
     };
     nextView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
     previousView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
-    static ɵfac: i0.ɵɵFactoryDef<AjfCalendarService, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendarService, never>;
     static ɵprov: i0.ɵɵInjectableDef<AjfCalendarService>;
 }
 
@@ -115,7 +115,7 @@ export declare type AjfCalendarViewMode = ('month' | 'year' | 'decade');
 export declare type AjfCalendarWeekDay = ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
 
 export declare class AjfGregorianCalendarModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfGregorianCalendarModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfGregorianCalendarModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfGregorianCalendarModule, never, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfGregorianCalendarModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfGregorianCalendarModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfGregorianCalendarModule, never, never, never>;
 }

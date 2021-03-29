@@ -1,10 +1,10 @@
 export declare class AjfNodeIcon extends AjfCoreNodeIcon {
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfNodeIcon, "ajf-node-icon", never, {}, {}, never, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfNodeIcon, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfNodeIcon, "ajf-node-icon", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfNodeIcon, never>;
 }
 
 export declare class AjfNodeIconModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfNodeIconModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfNodeIconModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfNodeIconModule, [typeof i1.AjfNodeIcon], [typeof i2.CommonModule, typeof i3.MatIconModule], [typeof i1.AjfNodeIcon]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfNodeIconModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfNodeIconModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfNodeIconModule, [typeof i1.AjfNodeIcon], [typeof i2.CommonModule, typeof i3.MatIconModule], [typeof i1.AjfNodeIcon]>;
 }

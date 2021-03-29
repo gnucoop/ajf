@@ -1,6 +1,6 @@
 export declare class AjfDropMessage {
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfDropMessage, "[ajfDropMessage]", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfDropMessage, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfDropMessage, "[ajfDropMessage]", never, {}, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfDropMessage, never>;
 }
 
 export interface AjfFile {
@@ -30,22 +30,22 @@ export declare class AjfFileInput implements ControlValueAccessor {
     resetValue(): void;
     triggerNativeInput(): void;
     writeValue(value: any): void;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfFileInput, "ajf-file-input", never, { "accept": "accept"; "value": "value"; }, { "valueChange": "valueChange"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"]>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFileInput, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFileInput, "ajf-file-input", never, { "accept": "accept"; "value": "value"; }, { "valueChange": "valueChange"; }, ["_dropMessageChildren", "_filePreviewChildren"], ["[ajfDropMessage]", "[ajfFilePreview]"]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFileInput, never>;
 }
 
 export declare class AjfFileInputModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfFileInputModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfFileInputModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfFileInputModule, [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview], [typeof i2.AjfCommonModule, typeof i3.CommonModule, typeof i4.TranslateModule], [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFileInputModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfFileInputModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfFileInputModule, [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview], [typeof i2.AjfCommonModule, typeof i3.CommonModule, typeof i4.TranslateModule], [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview]>;
 }
 
 export declare class AjfFilePreview implements OnDestroy {
     get value(): AjfFile;
     constructor(vcr: ViewContainerRef);
     ngOnDestroy(): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfFilePreview, "[ajfFilePreview]", ["ajfFilePreview"], {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfFilePreview, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfFilePreview, "[ajfFilePreview]", ["ajfFilePreview"], {}, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFilePreview, never>;
 }
 
 export declare const fileIcon: string;

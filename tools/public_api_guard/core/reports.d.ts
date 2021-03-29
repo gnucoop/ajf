@@ -133,8 +133,8 @@ export interface AjfFormulaWidgetInstance extends AjfWidgetInstance {
 
 export declare class AjfGetColumnContentPipe {
     transform(instance: AjfLayoutWidgetInstance, column: number): AjfWidgetInstance | null;
-    static ɵfac: i0.ɵɵFactoryDef<AjfGetColumnContentPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfGetColumnContentPipe, "ajfGetColumnContent">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfGetColumnContentPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfGetColumnContentPipe, "ajfGetColumnContent">;
 }
 
 export interface AjfImageContainerWidget extends AjfWidget {
@@ -229,8 +229,8 @@ export declare abstract class AjfReportRenderer {
     set instance(instance: AjfReportInstance);
     get report(): AjfReport | null;
     constructor(_cdr: ChangeDetectorRef);
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfReportRenderer, never, never, { "instance": "instance"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportRenderer, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfReportRenderer, never, never, { "instance": "instance"; }, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportRenderer, never>;
 }
 
 export declare class AjfReportSerializer {
@@ -238,17 +238,17 @@ export declare class AjfReportSerializer {
 }
 
 export declare class AjfReportsModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportsModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfReportsModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfReportsModule, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfReportStringIdentifierPipe, typeof i3.AjfWidgetHost, typeof i4.AjfWidgetExport], [typeof i5.CommonModule], [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfReportStringIdentifierPipe, typeof i3.AjfWidgetHost, typeof i4.AjfWidgetExport]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportsModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfReportsModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfReportsModule, [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfReportStringIdentifierPipe, typeof i3.AjfWidgetHost, typeof i4.AjfWidgetExport], [typeof i5.CommonModule], [typeof i1.AjfGetColumnContentPipe, typeof i2.AjfReportStringIdentifierPipe, typeof i3.AjfWidgetHost, typeof i4.AjfWidgetExport]>;
 }
 
 export declare type AjfReportStringIdentifier = AjfStringIdentifier;
 
 export declare class AjfReportStringIdentifierPipe implements PipeTransform {
     transform(report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportStringIdentifierPipe, never>;
-    static ɵpipe: i0.ɵɵPipeDefWithMeta<AjfReportStringIdentifierPipe, "ajfReportStringIdentifier">;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportStringIdentifierPipe, never>;
+    static ɵpipe: i0.ɵɵPipeDeclaration<AjfReportStringIdentifierPipe, "ajfReportStringIdentifier">;
 }
 
 export interface AjfReportVariable {
@@ -263,8 +263,8 @@ export declare abstract class AjfReportWidget implements OnInit {
     protected abstract widgetsMap: AjfWidgetComponentsMap;
     constructor(_cfr: ComponentFactoryResolver, _renderer: Renderer2);
     ngOnInit(): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfReportWidget, never, never, { "instance": "instance"; }, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfReportWidget, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfReportWidget, never, never, { "instance": "instance"; }, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportWidget, never>;
 }
 
 export interface AjfStyles {
@@ -327,15 +327,15 @@ export declare class AjfWidgetExport {
     constructor();
     exportCsv(): void;
     exportXlsx(): void;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfWidgetExport, "ajf-widget-export", never, { "widgetType": "widgetType"; "data": "data"; "overlay": "overlay"; "enable": "enable"; }, {}, never, ["*"]>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfWidgetExport, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfWidgetExport, "ajf-widget-export", never, { "widgetType": "widgetType"; "data": "data"; "overlay": "overlay"; "enable": "enable"; }, {}, never, ["*"]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetExport, never>;
 }
 
 export declare class AjfWidgetHost {
     readonly viewContainerRef: ViewContainerRef;
     constructor(viewContainerRef: ViewContainerRef);
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfWidgetHost, "[ajf-widget-host]", never, {}, {}, never>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfWidgetHost, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfWidgetHost, "[ajf-widget-host]", never, {}, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetHost, never>;
 }
 
 export interface AjfWidgetInstance {

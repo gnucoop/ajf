@@ -24,8 +24,8 @@ export declare class AjfPageSlider implements AfterContentInit, OnDestroy {
     onTouchStart(evt: TouchEvent): void;
     slide(opts: AjfPageSliderSlideOptions): void;
     switchOrientation(): void;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<AjfPageSlider, never, never, { "duration": "duration"; "orientation": "orientation"; "fixedOrientation": "fixedOrientation"; "currentPage": "currentPage"; "hideNavigationButtons": "hideNavigationButtons"; }, { "pageScrollFinish": "pageScrollFinish"; "orientationChange": "orientationChange"; }, ["pages"]>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfPageSlider, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfPageSlider, never, never, { "duration": "duration"; "orientation": "orientation"; "fixedOrientation": "fixedOrientation"; "currentPage": "currentPage"; "hideNavigationButtons": "hideNavigationButtons"; }, { "pageScrollFinish": "pageScrollFinish"; "orientationChange": "orientationChange"; }, ["pages"]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfPageSlider, never>;
 }
 
 export declare class AjfPageSliderItem implements OnDestroy {
@@ -38,16 +38,16 @@ export declare class AjfPageSliderItem implements OnDestroy {
     constructor(_el: ElementRef, _renderer: Renderer2);
     ngOnDestroy(): void;
     setScroll(dir: AjfPageSliderItemScrollDirection, amount: number, _duration: number): boolean;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<AjfPageSliderItem, "ajf-page-slider-item", never, {}, { "scroll": "scroll"; }, never, ["*"]>;
-    static ɵfac: i0.ɵɵFactoryDef<AjfPageSliderItem, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfPageSliderItem, "ajf-page-slider-item", never, {}, { "scroll": "scroll"; }, never, ["*"]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfPageSliderItem, never>;
 }
 
 export declare type AjfPageSliderItemScrollDirection = 'x' | 'y';
 
 export declare class AjfPageSliderModule {
-    static ɵfac: i0.ɵɵFactoryDef<AjfPageSliderModule, never>;
-    static ɵinj: i0.ɵɵInjectorDef<AjfPageSliderModule>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<AjfPageSliderModule, [typeof i1.AjfPageSliderItem], never, [typeof i1.AjfPageSliderItem]>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfPageSliderModule, never>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<AjfPageSliderModule>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfPageSliderModule, [typeof i1.AjfPageSliderItem], never, [typeof i1.AjfPageSliderItem]>;
 }
 
 export declare type AjfPageSliderOrientation = 'horizontal' | 'vertical';
