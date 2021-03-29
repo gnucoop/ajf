@@ -29,6 +29,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
 import {GicModule} from '@gic/angular';
 import {IonicModule} from '@ionic/angular';
+import {TranslateModule} from '@ngx-translate/core';
 import {DevAppComponent} from './dev-app';
 import {DevAppDirectionality} from './dev-app/dev-app-directionality';
 import {DevAppModule} from './dev-app/dev-app-module';
@@ -43,6 +44,7 @@ import {DEV_APP_ROUTES} from './dev-app/routes';
     HttpClientModule,
     IonicModule.forRoot(),
     RouterModule.forRoot(DEV_APP_ROUTES),
+    TranslateModule.forRoot(),
   ],
   declarations: [
     DevAppComponent,

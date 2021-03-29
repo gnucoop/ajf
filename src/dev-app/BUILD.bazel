@@ -42,6 +42,7 @@ ng_module(
         "//src/dev-app/mat-reports",
         "//src/dev-app/mat-time",
         "//src/dev-app/mat-widgets",
+        "@npm//@angular/cdk",
         "@npm//@angular/router",
         "@npm//@gic/angular",
         "@npm//@ionic/angular",

@@ -30,7 +30,6 @@ import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {RouterModule} from '@angular/router';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {DevApp404} from './dev-app-404';
 import {DevAppHome} from './dev-app-home';
@@ -47,7 +46,6 @@ import {DevAppLayout} from './dev-app-layout';
     MatSidenavModule,
     MatToolbarModule,
     RouterModule,
-    TranslateModule.forRoot(),
   ],
   declarations: [
     DevApp404,
