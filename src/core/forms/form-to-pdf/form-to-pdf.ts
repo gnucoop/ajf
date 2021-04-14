@@ -233,7 +233,7 @@ function fieldToPdf(
       const selectedValues = (field.fieldType === AjfFieldType.SingleChoice) ?
         [lookupString(field.name)] :
         lookupArrayFunction(context, rep)(field.name);
-      const selectedChoices = selectedValues.map(v => choices.find(c => c.value = v))
+      const selectedChoices = selectedValues.map(v => choices.find(c => c.value === v))
         .filter(c => c) as AjfChoice<any>[];
       return choiceToPdf(field, selectedChoices, translate, context);
     case AjfFieldType.Empty:
