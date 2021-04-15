@@ -33,7 +33,7 @@ export function evaluateValidationNotEmpty(
   const ctx = {'$value': value};
   if (typeof validation.notEmpty === 'boolean') {
     return {
-      result: evaluateExpression(`($value != null) === ${validation.notEmpty}`, ctx),
+      result: evaluateExpression(`notEmpty($value) === ${validation.notEmpty}`, ctx),
       error: 'Value must not be empty',
       clientValidation: false
     };
