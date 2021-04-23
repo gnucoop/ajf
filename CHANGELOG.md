@@ -1,3 +1,13 @@
+# 12.0.0-next.2 "broken-smoke" (2021-04-23)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** change NotEmpty validation to check also for empty string ([3e6d1184a61fdd20b4ce42084d6874d5feb7f7af](https://github.com/gnucoop/ajf/commit/3e6d1184a61fdd20b4ce42084d6874d5feb7f7af)) |
+| bug fix |  **forms:** fix values in form-to-pdf for single and multiple choices fields ([95d69989a05c8fc648bb175f3f7ee01851dddd6b](https://github.com/gnucoop/ajf/commit/95d69989a05c8fc648bb175f3f7ee01851dddd6b)) |
+
+
 ## 11.1.1 "wispy-math" (2021-03-26)
 
 ### core
