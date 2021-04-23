@@ -1,3 +1,13 @@
+## 11.1.2 "summer-rain" (2021-04-23)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** change NotEmpty validation to check also for empty string ([c04b94c46821bcde809d194f49bd45db8e03d428](https://github.com/gnucoop/ajf/commit/c04b94c46821bcde809d194f49bd45db8e03d428)) |
+| bug fix |  **forms:** fix values in form-to-pdf for single and multiple choices fields ([3170ed7c2124fa2f27fe268b772717f5505f5594](https://github.com/gnucoop/ajf/commit/3170ed7c2124fa2f27fe268b772717f5505f5594)) |
+
+
 ## 11.1.1 "wispy-math" (2021-03-26)
 
 ### core
