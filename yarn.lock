@@ -566,18 +566,18 @@
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.6.1.tgz#dcbd23030a71c0c74fc95d4a3f75ba81653850e9"
   integrity sha512-L/ZnJRAq7F++utfuoTKX4CLBG5YR7tFO3PLzG1/oXXKEezJ0kRL3CMRoueBEmTCzVb/6SIs2Qlaw++uDgi5Xyg==
 
-"@gic/angular@^5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@gic/angular/-/angular-5.6.0.tgz#55126092ecb4350a81a7e7282a24a736860d9f38"
-  integrity sha512-tl9HVKaNSf48tjRAo6UykLbwktXMaSohFizV7wdMM4NH4HM9GH4zUhYCe7tOyAPE67OkJrZ6JAUmLRDnHhbfeg==
+"@gic/angular@^5.6.1":
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/@gic/angular/-/angular-5.6.1.tgz#4701883c27b08e7b91ccb7be2f43d84ad356772b"
+  integrity sha512-3o/YqXWqETv98IQzw3N1nB8OCInWdU0GWIPOf5aKBYqPuv0JWXuZrD+Gx11HjzLAzldEotZ1+gy6zYbSMdKhww==
   dependencies:
-    "@gic/core" "5.6.0"
+    "@gic/core" "5.6.1"
     tslib "^1.9.3"
 
-"@gic/core@5.6.0", "@gic/core@^5.6.0":
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/@gic/core/-/core-5.6.0.tgz#29a8202bc40a3497a2d6327bed61e117580d8e2e"
-  integrity sha512-juJrOCeF0z5h234GF9Zmu+YurOyM6OCwNsZhCmuE/Lj43C5Hy5cywed6OJ6Z0NhwgOUXrIkTV0AIE9CtUsGfAQ==
+"@gic/core@5.6.1", "@gic/core@^5.6.1":
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/@gic/core/-/core-5.6.1.tgz#5dd5136e336d5a6e6d765ce3a19ef8b6e3f91722"
+  integrity sha512-UAxYmvd5UTChycdFWQk595uuo9n/NVWtpahXrRHK6ZlEedkw/SOyqEn2CO/Rm+txrWLqJQBVyNNgVYHoWQ9+7A==
   dependencies:
     "@ionic/core" "~5.6.0"
     "@stencil/core" "^2.4.0"
