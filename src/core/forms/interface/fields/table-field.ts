@@ -20,18 +20,20 @@
  *
  */
 
+import {InputType} from '../forms/table-form-control';
 import {AjfField} from './field';
 import {AjfFieldType} from './field-type';
 
 export interface AjfTableCell {
-  formula: string;
   editable?: boolean;
+  formula: string;
 }
 export interface AjfTableField extends AjfField {
+  columnLabels: string[];
+  columnTypes: InputType[];
   fieldType: AjfFieldType.Table;
+  hideEmptyRows: boolean;
+  rowLabels: string[];
   // deprecated string type is used to maintain backward compatibility
   rows: (string|AjfTableCell)[][];
-  columnLabels: string[];
-  rowLabels: string[];
-  hideEmptyRows: boolean;
 }
