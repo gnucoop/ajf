@@ -556,8 +556,11 @@ export class AjfFormRendererService {
                   with this mask `${tNode.name}__${rowIdx}__${idx}`
                   */
                   const name = `${tNode.name}__${rowIdx}__${idx}`;
-                  const tableFormControl:
-                      AjfTableFormControl = {control: new FormControl(), show: false};
+                  const tableFormControl: AjfTableFormControl = {
+                    control: new FormControl(),
+                    show: false,
+                    type: tNode.columnTypes && tNode.columnTypes[idx] || 'number'
+                  };
                   tableFormControl.control.setValue(tfInstance.context[cell.formula]);
                   formGroup.registerControl(name, tableFormControl.control);
                   r.push(tableFormControl);

@@ -687,6 +687,7 @@ export interface AjfTableCell {
 
 export interface AjfTableField extends AjfField {
     columnLabels: string[];
+    columnTypes: InputType[];
     fieldType: AjfFieldType.Table;
     hideEmptyRows: boolean;
     rowLabels: string[];
