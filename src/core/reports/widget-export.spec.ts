@@ -40,27 +40,21 @@ describe('widget-export', () => {
   it('widget chart to xlsx data', () => {
     widgetExport.data = dataChart;
     widgetExport.widgetType = AjfWidgetType.Chart;
-    const testSpy = spyOn(XLSX.utils, 'json_to_sheet').and.callThrough();
+    const testSpy = spyOn(XLSX.utils, 'aoa_to_sheet').and.callThrough();
     widgetExport.exportCsv();
-    const toEqual = [{
-      name: 'My First Dataset',
-      January: 65000000,
-      February: 59,
-      March: 80,
-      April: 81,
-      May: 56,
-      June: 55,
-      July: 40
-    }];
+    const toEqual: unknown[][] = [
+      ['name', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      ['My First Dataset', 65000000, 59, 80, 81, 56, 55, 40]
+    ];
     expect(testSpy).toHaveBeenCalledWith(toEqual);
   });
 
   it('widget table to xlsx data', () => {
     widgetExport.data = dataTableXlsx;
     widgetExport.widgetType = AjfWidgetType.Table;
-    const testSpy = spyOn(XLSX.utils, 'json_to_sheet').and.callThrough();
+    const testSpy = spyOn(XLSX.utils, 'aoa_to_sheet').and.callThrough();
     widgetExport.exportCsv();
-    const toEqual = [{a: 'd', b: 'e', c: 'f'}, {a: 'g', b: 'h', c: 'i'}];
+    const toEqual: unknown[][] = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']];
     expect(testSpy).toHaveBeenCalledWith(toEqual);
   });
 });
