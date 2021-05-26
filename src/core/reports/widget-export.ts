@@ -68,7 +68,7 @@ export class AjfWidgetExport {
   export(bookType: 'csv'|'xlsx'): void {
     const sheetName = this._buildTitle(this.widgetType);
     const sheets: {[sheet: string]: XLSX.WorkSheet} = {};
-    sheets[sheetName] = XLSX.utils.json_to_sheet(this._buildXlsxData());
+    sheets[sheetName] = XLSX.utils.aoa_to_sheet(this._buildXlsxData());
     const workBook: XLSX.WorkBook = {Sheets: sheets, SheetNames: [sheetName]};
     XLSX.writeFile(workBook, `${sheetName}.${bookType}`, {
       bookType,
@@ -76,21 +76,22 @@ export class AjfWidgetExport {
     });
   }
 
-  private _buildXlsxData(): {[key: string]: string|number}[] {
-    let xlsxData: {[key: string]: string|number}[] = [];
+  private _buildXlsxData(): unknown[][] {
+    let xlsxData: unknown[][] = [];
     let labels: string[] = [];
     switch (this.widgetType) {
       default:
       case AjfWidgetType.Chart:
         this.data = this.data as ChartData;
         const datasets = this.data.datasets || [];
-        labels = this.data.labels as string[];
+        labels = ['name'].concat(this.data.labels as string[]);
+        xlsxData.push(labels);
         for (let i = 0; i < datasets.length; i++) {
-          const row: {[id: string]: any} = {};
+          const row: unknown[] = [];
           const data = datasets[i].data || [];
-          row['name'] = datasets[i].label;
+          row.push(datasets[i].label);
           for (let j = 0; j < data.length; j++) {
-            row[labels[j]] = data[j];
+            row.push(data[j]);
           }
           xlsxData.push(row);
         }
@@ -98,12 +99,20 @@ export class AjfWidgetExport {
       case AjfWidgetType.Table:
         this.data = this.data as AjfTableCell[][];
         this.data.forEach((row: AjfTableCell[], idxRow: number) => {
-          const res: {[id: string]: any} = {};
+          const res: unknown[] = [];
           if (idxRow === 0) {
-            labels = row.map(r => r.value.changingThisBreaksApplicationSecurity);
+            row.forEach((elem: AjfTableCell) => {
+              labels.push(elem.value.changingThisBreaksApplicationSecurity);
+              if (elem.colspan && elem.colspan > 1) {
+                for (let i = 1; i < elem.colspan; i++) {
+                  labels.push(' ');
+                }
+              }
+            });
+            xlsxData.push(labels);
           } else {
-            row.forEach((elem: AjfTableCell, idxElem: number) => {
-              res[labels[idxElem]] = elem.value.changingThisBreaksApplicationSecurity;
+            row.forEach((elem: AjfTableCell) => {
+              res.push(elem.value.changingThisBreaksApplicationSecurity);
             });
             xlsxData.push(res);
           }
