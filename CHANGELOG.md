@@ -1,3 +1,12 @@
+# 12.0.0-next.3 "lucky-cell" (2021-05-31)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** allows all primitive input types inside a table field table field ([7d629645652954b4a42199f960aae32a45eb42b8](https://github.com/gnucoop/ajf/commit/7d629645652954b4a42199f960aae32a45eb42b8)) |
+| bug fix |  **reports:** fix the csv/xsls export of tables with colspan or duplicated header labels ([e0c01fa05a5b68c59835471b10ac3c0c798bdcca](https://github.com/gnucoop/ajf/commit/e0c01fa05a5b68c59835471b10ac3c0c798bdcca)) |
+
 # 12.0.0-next.2 "broken-smoke" (2021-04-23)
 
 ### core
