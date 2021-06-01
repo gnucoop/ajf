@@ -47,7 +47,7 @@ import {AjfFormBuilderService} from './form-builder-service';
 export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
   readonly dataSource: MatTableDataSource<AjfFormStringIdentifier> =
       new MatTableDataSource<AjfFormStringIdentifier>();
-  readonly displayedColumns = ['label', 'value', 'delete'];
+  readonly displayedColumns = ['label', 'value', 'show', 'delete'];
   readonly fields$: Observable<string[]>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -66,7 +66,7 @@ export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
   }
 
   addRow(): void {
-    this.dataSource.data = [...this.dataSource.data, {label: '', value: []}];
+    this.dataSource.data = [...this.dataSource.data, {label: '', value: [], show: undefined}];
   }
 
   deleteRow(rowIdx: number): void {
