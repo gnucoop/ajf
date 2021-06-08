@@ -26,7 +26,8 @@
     "esprima": "0.0.0-ESPRIMA",
     "leaflet": "0.0.0-LEAFLET",
     "numbro": "0.0.0-NUMBRO",
-    "pdfmake": "0.0.0-PDFMAKE"
+    "pdfmake": "0.0.0-PDFMAKE",
+    "rxjs": "0.0.0-RXJS"
   },
   "devDependencies": {
     "@types/resize-observer-browser": "0.0.0-ROT"

@@ -20,7 +20,8 @@
     "@ionic/angular": "0.0.0-ION",
     "@ajf/core": "0.0.0-PLACEHOLDER",
     "@ajf/icons": "0.0.0-AJFI",
-    "flag-icon-css": "0.0.0-FIC"
+    "flag-icon-css": "0.0.0-FIC",
+    "rxjs": "0.0.0-RXJS"
   },
   "dependencies": {
     "tslib": "0.0.0-TSLIB"

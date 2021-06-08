@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/gnucoop/ajf#readme",
   "peerDependencies": {
-    "@ajf/core": "0.0.0-PLACEHOLDER"
+    "@ajf/core": "0.0.0-PLACEHOLDER",
+    "rxjs": "0.0.0-RXJS"
   },
   "sideEffects": false
 }

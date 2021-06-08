@@ -22,7 +22,8 @@
     "@ajf/icons": "0.0.0-AJFI",
     "flag-icon-css": "0.0.0-FIC",
     "ngx-color-picker": "0.0.0-ANGXCP",
-    "quill": "0.0.0-QUILL"
+    "quill": "0.0.0-QUILL",
+    "rxjs": "0.0.0-RXJS"
   },
   "dependencies": {
     "tslib": "0.0.0-TSLIB"
