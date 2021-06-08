@@ -72,7 +72,6 @@ filegroup(
         "@npm//:node_modules/@ajf/icons/fonts/ajf.woff",
         "@npm//:node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
         "@npm//:node_modules/@ionic/angular/css/ionic.bundle.css",
-        "@npm//:node_modules/@webcomponents/custom-elements/custom-elements.min.js",
         "@npm//:node_modules/core-js-bundle/index.js",
         "@npm//:node_modules/flag-icon-css/css/flag-icon.min.css",
         "@npm//:node_modules/flag-icon-css/flags/4x3/bf.svg",
