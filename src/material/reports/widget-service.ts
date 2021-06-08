@@ -20,34 +20,9 @@
  *
  */
 
-import {AjfWidgetService as CoreService, AjfWidgetType as wt} from '@ajf/core/reports';
+import {AjfWidgetService as CoreService} from '@ajf/core/reports';
 import {Injectable} from '@angular/core';
-
-import {AjfChartWidgetComponent} from './chart-widget';
-import {AjfColumnWidgetComponent} from './column-widget';
-import {AjfFormulaWidgetComponent} from './formula-widget';
-import {AjfImageContainerWidgetComponent} from './image-container-widget';
-import {AjfImageWidgetComponent} from './image-widget';
-import {AjfLayoutWidgetComponent} from './layout-widget';
-import {AjfMapWidgetComponent} from './map-widget';
-import {AjfPageBreakWidgetComponent} from './page-break-widget';
-import {AjfTableWidgetComponent} from './table-widget';
-import {AjfTextWidgetComponent} from './text-widget';
 
 @Injectable({providedIn: 'root'})
 export class AjfWidgetService extends CoreService {
-  constructor() {
-    super();
-    this.componentsMap[wt.Layout] = {component: AjfLayoutWidgetComponent};
-    this.componentsMap[wt.PageBreak] = {component: AjfPageBreakWidgetComponent};
-    this.componentsMap[wt.Image] = {component: AjfImageWidgetComponent};
-    this.componentsMap[wt.Text] = {component: AjfTextWidgetComponent};
-    this.componentsMap[wt.Chart] = {component: AjfChartWidgetComponent};
-    this.componentsMap[wt.Table] = {component: AjfTableWidgetComponent};
-    this.componentsMap[wt.DynamicTable] = {component: AjfTableWidgetComponent};
-    this.componentsMap[wt.Map] = {component: AjfMapWidgetComponent};
-    this.componentsMap[wt.Column] = {component: AjfColumnWidgetComponent};
-    this.componentsMap[wt.Formula] = {component: AjfFormulaWidgetComponent};
-    this.componentsMap[wt.ImageContainer] = {component: AjfImageContainerWidgetComponent};
-  }
 }

@@ -22,13 +22,14 @@
 
 import {ChangeDetectorRef, Directive, EventEmitter, OnDestroy, Renderer2} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
-import {BrowserBarcodeReader, Result} from '@zxing/library';
+import {BrowserMultiFormatReader} from '@zxing/browser';
+import {Result} from '@zxing/library';
 import {from, Observable, of, Subscription} from 'rxjs';
 import {catchError, debounceTime, switchMap} from 'rxjs/operators';
 
 @Directive()
 export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
-  readonly codeReader = new BrowserBarcodeReader();
+  readonly codeReader = new BrowserMultiFormatReader();
 
   readonly startDetection = new EventEmitter<void>();
   readonly startCalculation = new EventEmitter<string>();
@@ -212,7 +213,7 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
    * @memberof AjfBarcode
    */
   private _readBarcodeFromImage(img: HTMLImageElement): Observable<Result> {
-    const decode = from(this.codeReader.decodeFromImage(img)) as Observable<Result>;
+    const decode = from(this.codeReader.decodeFromImageElement(img)) as Observable<Result>;
     return decode.pipe(
                catchError(e => of(e)),
                ) as Observable<Result>;

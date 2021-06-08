@@ -90,6 +90,10 @@ def ng_module(
         srcs = srcs,
         module_name = module_name,
         flat_module_out_file = flat_module_out_file,
+        compilation_mode = select({
+            "//tools:partial_compilation_enabled": "partial",
+            "//conditions:default": "",
+        }),
         deps = local_deps,
         tsconfig = tsconfig,
         testonly = testonly,
@@ -167,7 +171,7 @@ def karma_web_test_suite(name, **kwargs):
             # Note: when changing the browser names here, also update the "yarn test"
             # script to reflect the new browser names.
             "@npm//@angular/dev-infra-private/browsers/chromium:chromium",
-            "@npm//@angular/dev-infra-private/browsers/firefox:firefox",
+            # "@npm//@angular/dev-infra-private/browsers/firefox:firefox",
         ]
 
     for opt_name in kwargs.keys():

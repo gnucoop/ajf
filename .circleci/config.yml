@@ -174,7 +174,8 @@ jobs:
 
       # Exclude release and docs packages here as those will be built within
       # the "build_release_packages" and "publish_snapshots" jobs.
-      - run: bazel build src/... --build_tag_filters=-docs-package,-release-package
+      # TODO(devversion): remove target exclusion once https://github.com/bazelbuild/rules_nodejs/pull/2646 is available.
+      - run: bazel build --build_tag_filters=-docs-package,-release-package -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
       - *slack_notify_on_failure
 
   # -----------------------------------
@@ -196,7 +197,8 @@ jobs:
 
       # Exclude release and docs packages here as those will be built within
       # the "build_release_packages" and "publish_snapshots" jobs.
-      - run: bazel build src/... --build_tag_filters=-docs-package,-release-package --config=view-engine
+      # TODO(devversion): remove target exclusion once https://github.com/bazelbuild/rules_nodejs/pull/2646 is available.
+      - run: bazel build --build_tag_filters=-docs-package,-release-package --config=view-engine -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
       - *slack_notify_on_failure
 
   # --------------------------------------------------------------------------------------------
@@ -258,7 +260,8 @@ jobs:
       - *yarn_install
       - *setup_bazel_binary
 
-      - run: bazel test src/... --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only
+      # TODO(devversion): remove target exclusion once https://github.com/bazelbuild/rules_nodejs/pull/2646 is available.
+      - run: bazel test --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
       - *slack_notify_on_failure
 
   # ----------------------------------------------------------------------------
@@ -526,7 +529,8 @@ jobs:
     - *yarn_install_loose_lockfile
     - *setup_bazel_binary
 
-    - run: bazel test src/... --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only
+    # TODO(devversion): remove target exclusion once https://github.com/bazelbuild/rules_nodejs/pull/2646 is available.
+    - run: bazel test --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
     - *slack_notify_on_failure
 
   # ----------------------------------------------------------------------------
@@ -547,7 +551,8 @@ jobs:
       - *setup_bazel_binary
 
       # Run project tests with NGC and View Engine.
-      - run: bazel test src/... --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only
+      # TODO(devversion): remove target exclusion once https://github.com/bazelbuild/rules_nodejs/pull/2646 is available.
+      - run: bazel test --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
       - *slack_notify_on_failure
 
   # ----------------------------------------------------------------------------
@@ -568,7 +573,8 @@ jobs:
       - *setup_bazel_binary
 
       # Run project tests with NGC and View Engine.
-      - run: bazel test src/... --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only
+      # TODO(devversion): remove target exclusion once https://github.com/bazelbuild/rules_nodejs/pull/2646 is available.
+      - run: bazel test --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
       - *slack_notify_on_failure
 
   # ----------------------------------------------------------------------------
@@ -586,8 +592,37 @@ jobs:
       - *setup_bazel_remote_execution
       - *yarn_install
       - *setup_bazel_binary
-      - run: yarn integration-tests
+
+      - run: yarn integration-tests:partial-ivy
       - run: yarn integration-tests:view-engine
+      # TODO: Re-enable when there are integration tests that should run with Ivy.
+      # Currently this command fails as there are no tests.
+      # - run: yarn integration-tests
+      - run:
+          name: Running size integration tests (failures are reported in Slack only).
+          command: |
+            # If the size integration tests fail, report the failure to a dedicated #components-ci-size-tracking Slack channel.
+            yarn integration-tests:size-test || node ./scripts/circleci/notify-slack-job-failure.js components-ci-size-tracking
+      - *slack_notify_on_failure
+
+  # ----------------------------------------------------------------------------
+  # Job that runs all integration tests against Angular snapshot builds.
+  # ----------------------------------------------------------------------------
+  integration_tests_snapshot:
+    <<: *job_defaults
+    resource_class: xlarge
+    environment:
+      GCP_DECRYPT_TOKEN: *gcp_decrypt_token
+    steps:
+      - checkout_and_rebase
+      - *restore_cache
+      - *setup_bazel_ci_config
+      - *setup_bazel_remote_execution
+      - *setup_snapshot_builds
+      - *yarn_install_loose_lockfile
+      - *setup_bazel_binary
+
+      - run: yarn integration-tests:partial-ivy
       - *slack_notify_on_failure
 
   # ----------------------------------------------------------------------------
@@ -611,7 +646,8 @@ jobs:
 
       # Setup the components repository to use the MDC snapshot builds.
       # Run project tests with the MDC canary builds.
-      - run: bazel test src/... --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --build_tests_only
+      # TODO(devversion): remove target exclusion once https://github.com/bazelbuild/rules_nodejs/pull/2646 is available.
+      - run: bazel test --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --build_tests_only -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
       - *slack_notify_on_failure
 
 # ----------------------------------------------------------------------------------------
@@ -674,9 +710,14 @@ workflows:
       # Note that we need additional jobs for the cronjob snapshot tests because there
       # is no easy way to detect whether a job runs inside of a cronjob or specific
       # workflow. See: https://circleci.com/ideas/?idea=CCI-I-295
-      - snapshot_tests_local_browsers
-      - view_engine_snapshot_test_cronjob
-      - mdc_snapshot_test_cronjob
+      - snapshot_tests_local_browsers:
+          filters: *only_main_branch_filter
+      - view_engine_snapshot_test_cronjob:
+          filters: *only_main_branch_filter
+      - mdc_snapshot_test_cronjob:
+          filters: *only_main_branch_filter
+      - integration_tests_snapshot:
+          filters: *only_main_branch_filter
 
     triggers:
       - schedule:

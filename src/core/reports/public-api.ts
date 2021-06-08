@@ -22,6 +22,7 @@
 
 export * from './base-widget';
 export * from './chart-utils';
+export * from './default-widgets';
 export * from './get-column-content';
 export * from './interface/aggregation/aggregation';
 export * from './interface/aggregation/aggregation-type';

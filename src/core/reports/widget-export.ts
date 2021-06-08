@@ -26,6 +26,8 @@ import {ChartData} from 'chart.js';
 import {format} from 'date-fns';
 import * as XLSX from 'xlsx';
 
+const xlsxMod = ((XLSX as any).default || XLSX) as typeof XLSX;
+
 import {AjfWidgetType} from '../reports/interface/widgets/widget-type';
 
 
@@ -68,9 +70,9 @@ export class AjfWidgetExport {
   export(bookType: 'csv'|'xlsx'): void {
     const sheetName = this._buildTitle(this.widgetType);
     const sheets: {[sheet: string]: XLSX.WorkSheet} = {};
-    sheets[sheetName] = XLSX.utils.aoa_to_sheet(this._buildXlsxData());
+    sheets[sheetName] = xlsxMod.utils.aoa_to_sheet(this._buildXlsxData());
     const workBook: XLSX.WorkBook = {Sheets: sheets, SheetNames: [sheetName]};
-    XLSX.writeFile(workBook, `${sheetName}.${bookType}`, {
+    xlsxMod.writeFile(workBook, `${sheetName}.${bookType}`, {
       bookType,
       type: 'array',
     });

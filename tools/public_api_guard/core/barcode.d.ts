@@ -2,7 +2,7 @@ export declare abstract class AjfBarcode implements ControlValueAccessor, OnDest
     readonly _startCalculationSub: Subscription;
     readonly _startDetectionSub: Subscription;
     get canvasCtx(): CanvasRenderingContext2D;
-    readonly codeReader: BrowserBarcodeReader;
+    readonly codeReader: BrowserMultiFormatReader;
     readonly startCalculation: EventEmitter<string>;
     readonly startDetection: EventEmitter<void>;
     get toggle(): string;

@@ -56,12 +56,12 @@ if (require.main === module) {
   // to the specified output directory.
   for (const execPath of inputFiles) {
     // Compute a relative path from the package to the actual input file.
-    // e.g `src/components-examples/cdk/<..>/example.ts` becomes `cdk/<..>/example.ts`.
+    // e.g `src/ajf-examples/core/<..>/example.ts` becomes `core/<..>/example.ts`.
     const basePath = relative(packageName, execPath);
     const fileExtension = extname(basePath).substring(1);
     const parsed = regionParser(readFileSync(execPath, 'utf8'), fileExtension);
     detectAndHighlightRegionBlocks(parsed, basePath, outDir);
-    // Convert "my-component-example.ts" into "my-component-example-ts.html"
+    // Convert "my-ajf-example.ts" into "my-ajf-example-ts.html"
     const baseOutputPath = basePath.replace(`.${fileExtension}`, `-${fileExtension}.html`);
     const outputPath = join(outDir, baseOutputPath);
     const htmlOutput = highlightCodeBlock(parsed.contents, fileExtension);

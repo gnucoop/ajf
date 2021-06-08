@@ -18,10 +18,11 @@
               (onDragEnd)="onDragEndHandler();"
               [child]="true">
             </ajf-report-builder-widgets-row-buttons>
-            <ajf-column
+            <!-- temporarily disabled for ivy partial build -->
+            <!-- <ajf-column
               [column]="clm"
               [applyStyles]="widget.styles">
-            </ajf-column>
+            </ajf-column> -->
             <ng-template [ngIf]="onDragged === true">
               <div cdkDropList
                 [cdkDropListEnterPredicate]="canDropPredicate"

@@ -20,14 +20,25 @@
  *
  */
 
-import {Type} from '@angular/core';
+import {Inject, Injectable, Optional, Type} from '@angular/core';
 
 import {AjfBaseWidgetComponent} from './base-widget';
+import {AJF_DEFAULT_WIDGETS} from './default-widgets';
 import {AjfWidgetComponentsMap} from './interface/widgets/widget-components-map';
 import {componentsMap} from './utils/widgets/widgets-map';
 
+@Injectable()
 export abstract class AjfWidgetService {
   readonly componentsMap: AjfWidgetComponentsMap = componentsMap;
+
+  constructor(@Optional() @Inject(AJF_DEFAULT_WIDGETS) defaultWidgets: AjfWidgetComponentsMap) {
+    if (defaultWidgets != null) {
+      for (const key in defaultWidgets) {
+        const nKey = parseInt(key, 10);
+        this.componentsMap[nKey] = defaultWidgets[key];
+      }
+    }
+  }
 
   registerCustomWidget(widget: {
     widgetType: number,

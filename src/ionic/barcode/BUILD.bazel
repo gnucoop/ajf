@@ -26,7 +26,6 @@ ng_module(
         "@npm//@angular/forms",
         "@npm//@ionic/angular",
         "@npm//@ngx-translate/core",
-        "@npm//@zxing/library",
     ],
 )
 

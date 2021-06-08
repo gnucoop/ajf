@@ -42,6 +42,8 @@ ng_module(
         "@npm//@ngx-translate/core",
         "@npm//@types/chart.js",
         "@npm//@types/pdfmake",
+        "@npm//chart.js",
+        "@npm//pdfmake",
         "@npm//xlsx",
     ],
 )

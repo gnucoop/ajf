@@ -49,7 +49,8 @@ module.exports = config => {
       {pattern: 'node_modules/@ionic/core/core.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ionic/core/core-loader.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ngx-translate/**/*', included: false, watched: false},
-      {pattern: 'node_modules/@zxing/library/umd/index.min.js', included: false, watched: false},
+      {pattern: 'node_modules/@zxing/browser/umd/zxing-browser.js', included: false, watched: false},
+      {pattern: 'node_modules/@zxing/library/umd/index.js', included: false, watched: false},
 
       {pattern: 'node_modules/chart.js/Chart.umd.js', included: false, watched: false},
       {pattern: 'node_modules/date-fns/date-fns.umd.js', included: false, watched: false},

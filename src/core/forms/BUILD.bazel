@@ -52,6 +52,8 @@ ng_module(
         "@npm//@types/esprima",
         "@npm//@types/pdfmake",
         "@npm//date-fns",
+        "@npm//esprima",
+        "@npm//pdfmake",
     ],
 )
 

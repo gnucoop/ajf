@@ -20,8 +20,9 @@ QUILL_PACKAGE_VERSION = "^1.3.7"
 RESIZE_OBSERVER_TYPES_PACKAGE_VERSION = "^0.1.5"
 RXJS_PACKAGE_VERSION = "^6.5.3"
 TSLIB_PACKAGE_VERSION = "^2.1.0"
-XLSX_PACKAGE_VERSION = "^0.16.5"
-ZXING_PACKAGE_VERSION = "^0.17.0"
+XLSX_PACKAGE_VERSION = "^0.17.0"
+ZXINGB_PACKAGE_VERSION = "^0.0.9"
+ZXINGL_PACKAGE_VERSION = "^0.18.6"
 
 # Each placer holder is used to stamp versions during the build process, replacing the key with it's
 # value pair. These replacements occur during building of `npm_package` and `ng_package` stamping in
@@ -46,7 +47,8 @@ VERSION_PLACEHOLDER_REPLACEMENTS = {
     "0.0.0-ROT": RESIZE_OBSERVER_TYPES_PACKAGE_VERSION,
     "0.0.0-RXJS": RXJS_PACKAGE_VERSION,
     "0.0.0-TSLIB": TSLIB_PACKAGE_VERSION,
-    "0.0.0-ZXING": ZXING_PACKAGE_VERSION,
+    "0.0.0-ZXINGB": ZXINGB_PACKAGE_VERSION,
+    "0.0.0-ZXINGL": ZXINGL_PACKAGE_VERSION,
     "0.0.0-XLSX": XLSX_PACKAGE_VERSION,
     # Version of the local package being built, generated via the `--workspace_status_command` flag.
     "0.0.0-PLACEHOLDER": "{BUILD_SCM_VERSION}",
@@ -76,6 +78,7 @@ THIRD_PARTY_NO_NGCC_BUNDLES = [
     ("@gic/core/loader", []),
     ("@ionic/core", []),
     ("@ionic/core/loader", []),
+    ("@zxing/browser", []),
     ("@zxing/library", []),
     ("chart.js", []),
     ("date-fns", []),

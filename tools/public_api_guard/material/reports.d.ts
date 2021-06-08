@@ -81,7 +81,6 @@ export declare class AjfTextWidgetComponent extends AjfBaseWidgetComponent<AjfTe
 }
 
 export declare class AjfWidgetService extends CoreService {
-    constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<AjfWidgetService>;
 }
