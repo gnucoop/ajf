@@ -14,14 +14,14 @@ export declare class AjfEthiopianCalendarService extends AjfCalendarService {
     nextView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
     previousView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfEthiopianCalendarService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<AjfEthiopianCalendarService>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfEthiopianCalendarService>;
 }
 
 export declare class AjfEthiopianDatePipe implements PipeTransform {
     transform(value: any): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfEthiopianDatePipe, never>;
     static ɵpipe: i0.ɵɵPipeDeclaration<AjfEthiopianDatePipe, "ajfEthiopianDate">;
-    static ɵprov: i0.ɵɵInjectableDef<AjfEthiopianDatePipe>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfEthiopianDatePipe>;
 }
 
 export declare class EthiopianDate {

@@ -28,7 +28,7 @@ export declare class AjfEmptyFieldComponent extends AjfBaseFieldComponent<AjfEmp
 export declare class AjfFieldService extends CoreService {
     constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFieldService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<AjfFieldService>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfFieldService>;
 }
 
 export declare class AjfFieldWarningDialog {
@@ -101,5 +101,5 @@ export declare class AjfWarningAlertService implements CoreWarningAlertService {
     constructor(_dialog: MatDialog);
     showWarningAlertPrompt(warnings: string[]): Observable<AjfFieldWarningAlertResult>;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfWarningAlertService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<AjfWarningAlertService>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfWarningAlertService>;
 }

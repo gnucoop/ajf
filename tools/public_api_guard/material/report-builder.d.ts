@@ -115,7 +115,7 @@ export declare class AjfReportBuilderService {
     updateArrayWidgets(type: string, newWidget: AjfWidgetsContainer): void;
     updateCurrentWidget(newWidget: AjfWidget | null): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportBuilderService, [{ optional: true; }]>;
-    static ɵprov: i0.ɵɵInjectableDef<AjfReportBuilderService>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfReportBuilderService>;
 }
 
 export interface AjfReportsConfig {

@@ -169,7 +169,7 @@ export declare class AjfDateValueStringPipe implements PipeTransform {
     transform(date: Date | 'today' | undefined): string | undefined;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfDateValueStringPipe, never>;
     static ɵpipe: i0.ɵɵPipeDeclaration<AjfDateValueStringPipe, "ajfDateValueString">;
-    static ɵprov: i0.ɵɵInjectableDef<AjfDateValueStringPipe>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfDateValueStringPipe>;
 }
 
 export interface AjfEmptyField extends AjfField {
@@ -435,7 +435,7 @@ export declare class AjfFormRendererService {
     removeGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean>;
     setForm(form: AjfForm | null, context?: AjfContext): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormRendererService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<AjfFormRendererService>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfFormRendererService>;
 }
 
 export declare class AjfFormSerializer {
@@ -758,7 +758,7 @@ export declare class AjfValidationService {
     addFunction(f: Function | string): void;
     addFunctionHandler(name: string, fn: any): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfValidationService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<AjfValidationService>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfValidationService>;
 }
 
 export declare class AjfValidSlidePipe implements PipeTransform {

@@ -104,7 +104,7 @@ export declare class AjfFormBuilderService {
     saveStringIdentifier(identifier: AjfFormStringIdentifier[]): void;
     setForm(form: AjfForm | null): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormBuilderService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<AjfFormBuilderService>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfFormBuilderService>;
 }
 
 export declare function disableFieldDropPredicate(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean;

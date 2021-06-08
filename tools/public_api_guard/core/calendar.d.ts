@@ -56,7 +56,7 @@ export declare class AjfCalendarEntryLabelPipe implements PipeTransform {
     transform(entry: AjfCalendarEntry): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendarEntryLabelPipe, never>;
     static ɵpipe: i0.ɵɵPipeDeclaration<AjfCalendarEntryLabelPipe, "ajfCalendarEntryLabel">;
-    static ɵprov: i0.ɵɵInjectableDef<AjfCalendarEntryLabelPipe>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfCalendarEntryLabelPipe>;
 }
 
 export declare type AjfCalendarEntrySelectedState = ('none' | 'partial' | 'full');
@@ -101,7 +101,7 @@ export declare class AjfCalendarService {
     nextView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
     previousView(viewDate: Date, viewMode: AjfCalendarViewMode): Date;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfCalendarService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<AjfCalendarService>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<AjfCalendarService>;
 }
 
 export interface AjfCalendarView {
