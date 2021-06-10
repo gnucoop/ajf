@@ -1,3 +1,12 @@
+# 12.0.0 "odd-waterfall" (2021-06-10)
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| feature |  **form-builder:** add show attribute to string identifier  ([a07f752306f8ebe925db45026b1a8bec2850e7c7](https://github.com/gnucoop/ajf/commit/a07f752306f8ebe925db45026b1a8bec2850e7c7)) |
+
+
 # 12.0.0-next.3 "lucky-cell" (2021-05-31)
 
 ### core
