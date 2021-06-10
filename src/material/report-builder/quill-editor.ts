@@ -129,9 +129,9 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
   @Input() formats: string[];
   @Input() initHTML: string;
 
-  @Output() editorCreated: EventEmitter<any> = new EventEmitter();
-  @Output() contentChanged: EventEmitter<any> = new EventEmitter();
-  @Output() selectionChanged: EventEmitter<any> = new EventEmitter();
+  @Output() readonly editorCreated: EventEmitter<any> = new EventEmitter();
+  @Output() readonly contentChanged: EventEmitter<any> = new EventEmitter();
+  @Output() readonly selectionChanged: EventEmitter<any> = new EventEmitter();
 
 
   /**
@@ -139,7 +139,7 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
    *
    * @memberof QuillEditorComponent
    */
-  @Output() formulaClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() readonly formulaClick: EventEmitter<any> = new EventEmitter<any>();
 
 
   onModelChange: Function = () => {};

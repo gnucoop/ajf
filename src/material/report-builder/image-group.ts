@@ -79,7 +79,7 @@ export class AjfReportBuilderImageGroup {
    *
    * @memberof QuillEditorComponent
    */
-  @Output() formulaClick: EventEmitter<any> = new EventEmitter<any>();
+  @Output() readonly formulaClick: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private _service: AjfReportBuilderService) {}
 

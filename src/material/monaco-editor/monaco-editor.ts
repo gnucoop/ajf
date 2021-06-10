@@ -161,9 +161,9 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
     }
   }
 
-  @Output() valueChange = new EventEmitter();
-  @Output() valueToCompareChange = new EventEmitter();
-  @Output() init = new EventEmitter();
+  @Output() readonly valueChange = new EventEmitter();
+  @Output() readonly valueToCompareChange = new EventEmitter();
+  @Output() readonly init = new EventEmitter();
 
   @ViewChild('editor', {static: true}) editorContent: ElementRef;
 

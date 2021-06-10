@@ -42,7 +42,7 @@ export class AjfVideoDirective implements AfterViewInit {
     this._initCam();
   }
 
-  @Output() isInit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() readonly isInit: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private _el: ElementRef, private _renderer: Renderer2) {}
 
