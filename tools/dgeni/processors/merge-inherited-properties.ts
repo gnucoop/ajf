@@ -52,6 +52,7 @@ export class MergeInheritedProperties implements Processor {
       // by using an instance comparison.
       // tslint:disable-next-line:ban Need to use Object.assign to preserve the prototype.
       const newMemberDoc = Object.assign(Object.create(memberDoc), memberDoc);
+
       newMemberDoc.containerDoc = destination;
       destination.members.push(newMemberDoc);
     }
