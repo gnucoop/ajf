@@ -9,7 +9,7 @@ export declare type AjfContext = {
 };
 
 export declare class AjfDndDirective {
-    file: Observable<FileList>;
+    readonly file: Observable<FileList>;
     get over(): boolean;
     onDragLeave(evt: DragEvent): void;
     onDragOver(evt: DragEvent): void;
@@ -25,7 +25,7 @@ export interface AjfStringIdentifier {
 }
 
 export declare class AjfVideoDirective implements AfterViewInit {
-    isInit: EventEmitter<any>;
+    readonly isInit: EventEmitter<any>;
     get source(): HTMLVideoElement;
     set source(source: HTMLVideoElement);
     constructor(_el: ElementRef, _renderer: Renderer2);

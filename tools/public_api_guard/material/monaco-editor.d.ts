@@ -23,7 +23,7 @@ export declare class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChan
     hideCursorInOverviewRuler?: boolean;
     hover?: boolean;
     iconsInSuggestions?: boolean;
-    init: EventEmitter<any>;
+    readonly init: EventEmitter<any>;
     language: IEditorLanguage;
     lineDecorationsWidth?: number;
     lineHeight?: number;
@@ -56,9 +56,9 @@ export declare class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChan
     theme?: IEditorTheme;
     useTabStops?: boolean;
     set value(v: string);
-    valueChange: EventEmitter<any>;
+    readonly valueChange: EventEmitter<any>;
     set valueToCompare(v: string);
-    valueToCompareChange: EventEmitter<any>;
+    readonly valueToCompareChange: EventEmitter<any>;
     wordBasedSuggestions?: boolean;
     wordSeparators?: string;
     wordWrap?: boolean;
