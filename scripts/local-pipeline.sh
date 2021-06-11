@@ -16,7 +16,7 @@ yarn -s lint
 yarn -s ts-circular-deps:check
 
 echo "Build - View Engine"
-"${BAZEL_BINARY}" build --build_tag_filters=-docs-package,-release-package -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
+"${BAZEL_BINARY}" build --build_tag_filters=-docs-package,-release-package --config=view-engine -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
 
 echo "Unit tests - View Engine"
 "${BAZEL_BINARY}" test --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only -- src/... -//src/e2e-app:devserver_with_linked_declarations.MF
