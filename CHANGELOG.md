@@ -1,3 +1,12 @@
+# 12.1.0-next.0 "crimson-bread" (2021-06-16)
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **multiple:** approve api change in core/common and material/monaco-editor ([026413fb337a5f118327bc86cb718c1a11718d5c](https://github.com/gnucoop/ajf/commit/026413fb337a5f118327bc86cb718c1a11718d5c)) |
+
+
 # 12.0.0 "odd-waterfall" (2021-06-10)
 
 ### material
