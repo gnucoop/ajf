@@ -28,7 +28,7 @@ export function validSlide(slide: AjfBaseSlideInstance, idx: number): boolean {
   }
   return slide.slideNodes[idx]
       .map(n => {
-        if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+        if (n.visible && Object.keys(n).includes('valid')) {
           return (<any>n).valid;
         }
         return true;

@@ -102,10 +102,10 @@ function getVideoProviderAndId(url: string): VideoInfo|null {
 }
 
 function getVimeoVideoId(url: string): string|null {
-  if (url.indexOf('#') > -1) {
+  if (url.includes('#')) {
     url = url.split('#')[0];
   }
-  if (url.indexOf('?') > -1 && url.indexOf('clip_id=') === -1) {
+  if (url.includes('?') && !url.includes('clip_id=')) {
     url = url.split('?')[0];
   }
 
@@ -199,9 +199,9 @@ function getYouTubeVideoId(url: string): string|null {
 
 function stripParameters(url: string): string {
   // Split parameters or split folder separator
-  if (url.indexOf('?') > -1) {
+  if (url.includes('?')) {
     return url.split('?')[0];
-  } else if (url.indexOf('/') > -1) {
+  } else if (url.includes('/')) {
     return url.split('/')[0];
   }
   return url;

@@ -6,7 +6,7 @@ describe('ajf-date-input-field', () => {
     await browser.get('/ion-date-input-field');
     await browser.wait(async () => {
       const classes = await element(by.css('html')).getAttribute('class');
-      return classes.indexOf('hydrated') > -1;
+      return classes.includes('hydrated');
     }, 5000);
   });
 
