@@ -20,16 +20,17 @@
  *
  */
 
-import {AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
+import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
 import {AjfFormsModule} from '@ajf/material/forms';
+import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-
 import {MaterialTableFieldE2E} from './table-field-e2e';
 
 @NgModule({
   imports: [
     AjfFormsModule,
-    CoreFormsModule,
+    AjfCoreFormsModule,
+    CommonModule,
   ],
   declarations: [
     MaterialTableFieldE2E,
