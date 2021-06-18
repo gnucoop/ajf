@@ -8,7 +8,7 @@ const [output, ...fonts] = args;
 const dir = dirname(output);
 mkdirSync(dir, {recursive: true});
 
-let tsOut = 'export const vfsFonts = {\n';
+let tsOut = 'export const vfsFonts: {[key: string]: string} = {\n';
 
 fonts.forEach(font => {
   const buffer = readFileSync(font);
