@@ -15,13 +15,29 @@
             <ng-template #controlCell>
               <ng-container *ngIf="c|ajfGetTableCellControl as contr">
                 <ng-container *ngIf="contr != null">
-                  <input
+                  <ng-container
                     *ngIf="contr.show && (node.rows[row-1][column]|ajfIsCellEditable); else plainTextCell"
-                    (focusout)="contr!.show = false"
-                    [type]="contr.type"
-                    [formControl]="contr.control"
-                    autofocus
-                  />
+                  >
+                    <ng-container
+                      *ngIf="contr.type === 'number';else genericInput"
+                    >
+                      <input
+                        (focusout)="contr!.show = false"
+                        type="number"
+                        [formControl]="contr.control"
+                        autofocus
+                      />
+                    </ng-container>
+                    <ng-template #genericInput>
+                      <input
+                        (focusout)="contr!.show = false"
+                        [type]="contr.type"
+                        [formControl]="contr.control"
+                        (keydown.tab)="goToNextCell($event, row, column)"
+                        autofocus
+                      />
+                    </ng-template>
+                  </ng-container>
                   <ng-template #plainTextCell>
                     <span class="ajf-table-cell" (click)="goToCell(row, column)"
                       >{{ contr.control!.value | ajfTranslateIfString |
