@@ -1,5 +1,6 @@
 # Ajf core
 /src/core/*                                        @trik
+/src/core/barcode/*                                @peppedeka
 /src/core/calendar/*                               @sara-gnucoop
 /src/core/chart/*                                  @sara-gnucoop
 /src/core/checkbox-group/*                         @mrumbrella
@@ -20,7 +21,7 @@
 /src/core/text/*                                   @trik
 /src/core/time/*                                   @trik
 /src/core/utils/*                                  @trik
-/src/core/barcode/*                                @peppedeka
+/src/core/vfs-fonts/*                              @trik
 
 # Ajf material
 /src/material/*                                    @trik

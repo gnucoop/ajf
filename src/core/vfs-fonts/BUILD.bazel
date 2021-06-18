@@ -1,0 +1,59 @@
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+)
+load("//tools/vfs-fonts:index.bzl", "generate_vfs_fonts")
+
+package(default_visibility = ["//visibility:public"])
+
+generate_vfs_fonts(
+    name = "vfs-fonts-ts",
+    srcs = [
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-italic.woff",
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-normal.woff",
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-italic.woff",
+        "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-normal.woff",
+    ],
+    output = ":vfs-fonts-lib.ts",
+)
+
+ng_module(
+    name = "vfs-fonts",
+    srcs = [":vfs-fonts-lib.ts"] + glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [],
+    module_name = "@ajf/core/vfs-fonts",
+    deps = [],
+)
+
+ng_test_library(
+    name = "unit_test_sources",
+    srcs = glob(
+        ["**/*.spec.ts"],
+        exclude = ["**/*.e2e.spec.ts"],
+    ),
+    deps = [
+        ":vfs-fonts",
+        "@npm//@angular/platform-browser",
+    ],
+)
+
+ng_web_test_suite(
+    name = "unit_tests",
+    deps = [":unit_test_sources"],
+)
+
+markdown_to_html(
+    name = "overview",
+    srcs = ["vfs-fonts.md"],
+)
+
+filegroup(
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
+)
