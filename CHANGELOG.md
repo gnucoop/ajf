@@ -1,3 +1,13 @@
+## 12.0.2 "cool-block" (2021-06-22)
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **multiple:** remove some circular deps in reports modules ([d9ac9c4e80b41d04505e735ed74edf3071baf671](https://github.com/gnucoop/ajf/commit/d9ac9c4e80b41d04505e735ed74edf3071baf671)) |
+| bug fix |  **multiple:** reports default widgets map need to be provided in root ([ad7696ae95106f2286c718066396ef681fa8829c](https://github.com/gnucoop/ajf/commit/ad7696ae95106f2286c718066396ef681fa8829c)) |
+
+
 ## 12.0.1 "damp-pond" (2021-06-18)
 
 ### ajf
