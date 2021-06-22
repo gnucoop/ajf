@@ -20,17 +20,8 @@
  *
  */
 
-import {AjfChartModule} from '@ajf/core/chart';
-import {AjfCommonModule} from '@ajf/core/common';
-import {AjfMapModule} from '@ajf/core/map';
-import {AjfPageBreakModule} from '@ajf/core/page-break';
-import {AjfReportsModule as CoreModule} from '@ajf/core/reports';
-import {AjfTableModule} from '@ajf/core/table';
-import {AjfTextModule} from '@ajf/core/text';
-import {AjfImageModule} from '@ajf/ionic/image';
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
+import {AjfWidgetComponentsMap, AjfWidgetType as wt} from '@ajf/core/reports';
+import {InjectionToken} from '@angular/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfColumnWidgetComponent} from './column-widget';
@@ -40,42 +31,24 @@ import {AjfImageWidgetComponent} from './image-widget';
 import {AjfLayoutWidgetComponent} from './layout-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
-import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
-import {AjfReportWidget} from './widget';
 
-@NgModule({
-  imports: [
-    AjfChartModule,
-    AjfCommonModule,
-    AjfImageModule,
-    AjfMapModule,
-    AjfPageBreakModule,
-    AjfTableModule,
-    AjfTextModule,
-    CommonModule,
-    CoreModule,
-    TranslateModule,
-  ],
-  declarations: [
-    AjfChartWidgetComponent,
-    AjfColumnWidgetComponent,
-    AjfFormulaWidgetComponent,
-    AjfImageContainerWidgetComponent,
-    AjfImageWidgetComponent,
-    AjfLayoutWidgetComponent,
-    AjfMapWidgetComponent,
-    AjfPageBreakWidgetComponent,
-    AjfReportRenderer,
-    AjfReportWidget,
-    AjfTableWidgetComponent,
-    AjfTextWidgetComponent,
-  ],
-  exports: [
-    AjfReportRenderer,
-    AjfReportWidget,
-  ],
-})
-export class AjfReportsModule {
-}
+const factory = (): AjfWidgetComponentsMap => {
+  const defaultWidgets = {} as AjfWidgetComponentsMap;
+  defaultWidgets[wt.Layout] = {component: AjfLayoutWidgetComponent};
+  defaultWidgets[wt.PageBreak] = {component: AjfPageBreakWidgetComponent};
+  defaultWidgets[wt.Image] = {component: AjfImageWidgetComponent};
+  defaultWidgets[wt.Text] = {component: AjfTextWidgetComponent};
+  defaultWidgets[wt.Chart] = {component: AjfChartWidgetComponent};
+  defaultWidgets[wt.Table] = {component: AjfTableWidgetComponent};
+  defaultWidgets[wt.DynamicTable] = {component: AjfTableWidgetComponent};
+  defaultWidgets[wt.Map] = {component: AjfMapWidgetComponent};
+  defaultWidgets[wt.Column] = {component: AjfColumnWidgetComponent};
+  defaultWidgets[wt.Formula] = {component: AjfFormulaWidgetComponent};
+  defaultWidgets[wt.ImageContainer] = {component: AjfImageContainerWidgetComponent};
+  return defaultWidgets;
+};
+
+export const AJF_DEFAULT_WIDGETS = new InjectionToken<AjfWidgetComponentsMap>(
+    'ajf-ion-default-widgets', {providedIn: 'root', factory});
