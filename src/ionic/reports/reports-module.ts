@@ -45,7 +45,6 @@ import {
   AjfColumnWidgetComponent,
   AjfLayoutWidgetComponent,
   AjfReportWidget,
-  AjfWidgetService,
 } from './widget';
 
 @NgModule({
