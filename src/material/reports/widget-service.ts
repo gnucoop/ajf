@@ -20,9 +20,14 @@
  *
  */
 
-import {AjfWidgetService as CoreService} from '@ajf/core/reports';
-import {Injectable} from '@angular/core';
+import {AjfWidgetComponentsMap, AjfWidgetService as CoreService} from '@ajf/core/reports';
+import {Inject, Injectable} from '@angular/core';
+
+import {AJF_DEFAULT_WIDGETS} from './default-widgets';
 
 @Injectable({providedIn: 'root'})
 export class AjfWidgetService extends CoreService {
+  constructor(@Inject(AJF_DEFAULT_WIDGETS) defaultWidgets: AjfWidgetComponentsMap) {
+    super(defaultWidgets);
+  }
 }

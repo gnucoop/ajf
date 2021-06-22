@@ -22,6 +22,7 @@
 
 export * from './chart-widget';
 export * from './column-widget';
+export * from './default-widgets';
 export * from './formula-widget';
 export * from './image-container-widget';
 export * from './image-widget';

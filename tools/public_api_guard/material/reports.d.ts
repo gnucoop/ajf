@@ -1,3 +1,5 @@
+export declare const AJF_DEFAULT_WIDGETS: InjectionToken<AjfWidgetComponentsMap>;
+
 export declare class AjfChartWidgetComponent extends AjfBaseWidgetComponent<AjfChartWidgetInstance> {
     constructor(cdr: ChangeDetectorRef, el: ElementRef);
     static ɵcmp: i0.ɵɵComponentDeclaration<AjfChartWidgetComponent, "ng-component", never, {}, {}, never, never>;
@@ -81,6 +83,7 @@ export declare class AjfTextWidgetComponent extends AjfBaseWidgetComponent<AjfTe
 }
 
 export declare class AjfWidgetService extends CoreService {
+    constructor(defaultWidgets: AjfWidgetComponentsMap);
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<AjfWidgetService>;
 }

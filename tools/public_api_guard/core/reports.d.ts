@@ -1,5 +1,3 @@
-export declare const AJF_DEFAULT_WIDGETS: InjectionToken<AjfWidgetComponentsMap>;
-
 export interface AjfAggregation {
     aggregation: AjfAggregationType;
 }
@@ -363,8 +361,6 @@ export declare abstract class AjfWidgetService {
             [key: string]: any;
         };
     }): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetService, [{ optional: true; }]>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<AjfWidgetService>;
 }
 
 export declare enum AjfWidgetType {
