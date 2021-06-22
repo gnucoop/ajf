@@ -33,17 +33,20 @@ import {NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
-import {AjfColumnWidgetComponent} from './column-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
-import {AjfLayoutWidgetComponent} from './layout-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
 import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
-import {AjfReportWidget} from './widget';
+import {
+  AjfColumnWidgetComponent,
+  AjfLayoutWidgetComponent,
+  AjfReportWidget,
+  AjfWidgetService
+} from './widget';
 
 @NgModule({
   imports: [
