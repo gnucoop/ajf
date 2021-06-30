@@ -1,3 +1,13 @@
+# 12.1.0-next.1 "broken-waterfall" (2021-06-22)
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **multiple:** remove some circular deps in reports modules ([986418751f2c0088950c92b96ec3fe09f08aebe9](https://github.com/gnucoop/ajf/commit/986418751f2c0088950c92b96ec3fe09f08aebe9)) |
+| bug fix |  **multiple:** reports default widgets map need to be provided in root ([a0fc21bd576848ff46e26ef40cec1e4adca3329a](https://github.com/gnucoop/ajf/commit/a0fc21bd576848ff46e26ef40cec1e4adca3329a)) |
+
+
 # 12.1.0-next.0 "crimson-bread" (2021-06-16)
 
 ### ajf

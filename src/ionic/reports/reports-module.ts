@@ -24,12 +24,7 @@ import {AjfChartModule} from '@ajf/core/chart';
 import {AjfCommonModule} from '@ajf/core/common';
 import {AjfMapModule} from '@ajf/core/map';
 import {AjfPageBreakModule} from '@ajf/core/page-break';
-import {
-  AJF_DEFAULT_WIDGETS,
-  AjfReportsModule as CoreModule,
-  AjfWidgetComponentsMap,
-  AjfWidgetType as wt,
-} from '@ajf/core/reports';
+import {AjfReportsModule as CoreModule} from '@ajf/core/reports';
 import {AjfTableModule} from '@ajf/core/table';
 import {AjfTextModule} from '@ajf/core/text';
 import {AjfImageModule} from '@ajf/ionic/image';
@@ -38,52 +33,19 @@ import {NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
-import {AjfColumnWidgetComponent} from './column-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
-import {AjfLayoutWidgetComponent} from './layout-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
 import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
-import {AjfReportWidget} from './widget';
-
-const defaultWidgets = {} as AjfWidgetComponentsMap;
-defaultWidgets[wt.Layout] = {
-  component: AjfLayoutWidgetComponent
-};
-defaultWidgets[wt.PageBreak] = {
-  component: AjfPageBreakWidgetComponent
-};
-defaultWidgets[wt.Image] = {
-  component: AjfImageWidgetComponent
-};
-defaultWidgets[wt.Text] = {
-  component: AjfTextWidgetComponent
-};
-defaultWidgets[wt.Chart] = {
-  component: AjfChartWidgetComponent
-};
-defaultWidgets[wt.Table] = {
-  component: AjfTableWidgetComponent
-};
-defaultWidgets[wt.DynamicTable] = {
-  component: AjfTableWidgetComponent
-};
-defaultWidgets[wt.Map] = {
-  component: AjfMapWidgetComponent
-};
-defaultWidgets[wt.Column] = {
-  component: AjfColumnWidgetComponent
-};
-defaultWidgets[wt.Formula] = {
-  component: AjfFormulaWidgetComponent
-};
-defaultWidgets[wt.ImageContainer] = {
-  component: AjfImageContainerWidgetComponent
-};
+import {
+  AjfColumnWidgetComponent,
+  AjfLayoutWidgetComponent,
+  AjfReportWidget,
+} from './widget';
 
 @NgModule({
   imports: [
@@ -115,9 +77,6 @@ defaultWidgets[wt.ImageContainer] = {
   exports: [
     AjfReportRenderer,
     AjfReportWidget,
-  ],
-  providers: [
-    {provide: AJF_DEFAULT_WIDGETS, useValue: defaultWidgets},
   ],
 })
 export class AjfReportsModule {

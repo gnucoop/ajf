@@ -62,10 +62,10 @@
     "@angular/core" "^10.0.0-0 || ^11.0.0"
     reflect-metadata "^0.1.13"
 
-"@angular/cdk@^12.1.0-next.0":
-  version "12.1.0-next.0"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-12.1.0-next.0.tgz#726e373506588f1840e3c12d6076ea9a04516a89"
-  integrity sha512-esqAWChNPv5Zj2QVi3HUG4IUA7wOs+WfJY9LkIqoSdRO62CV6IKY8t0O2Rw9AuJdnW+7i0Fshi6PqGvnFW8M3A==
+"@angular/cdk@^12.1.0-rc.0":
+  version "12.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-12.1.0-rc.0.tgz#134f1a1d5f551ab84269cd691b500fd34c501ffb"
+  integrity sha512-ZmJguSTYYhil2oa2NvXR/J/2sZGYprHmcDdIeolpdvQGEQ8Br39fWnjVGEwCCXe0VY4hCqpR0C2BmnlKWNHlZA==
   dependencies:
     tslib "^2.2.0"
   optionalDependencies:
@@ -179,10 +179,10 @@
     glob "7.1.7"
     yargs "^17.0.0"
 
-"@angular/material@^12.1.0-next.0":
-  version "12.1.0-next.0"
-  resolved "https://registry.yarnpkg.com/@angular/material/-/material-12.1.0-next.0.tgz#e4171447662c3e5c570b2205efeb23e8a27069e9"
-  integrity sha512-Q9Y3miB2PYdRNgBXlRdMmQ39kNCfAjqDTio0CntQvg2D2ZLzMy/TjHXe/oHX6fam7LQdSxxLC8FT7x7WaQcX9Q==
+"@angular/material@^12.1.0-rc.0":
+  version "12.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-12.1.0-rc.0.tgz#49c9cb1c99c9ba3115df2118d05575b26a947453"
+  integrity sha512-olN4RqZxwK50sjSOfmqG9eiEr2+Mg+rCs0SV0Pk1KSJvRCt22qnX5WVFHgOW3QV+VNt2YCvlOSnOA3NKfQtDFg==
   dependencies:
     tslib "^2.2.0"
 
@@ -12847,7 +12847,7 @@ tsickle@^0.38.0:
   resolved "https://registry.yarnpkg.com/tsickle/-/tsickle-0.38.1.tgz#30762db759d40c435943093b6972c7f2efb384ef"
   integrity sha512-4xZfvC6+etRu6ivKCNqMOd1FqcY/m6JY3Y+yr5+Xw+i751ciwrWINi6x/3l1ekcODH9GZhlf0ny2LpzWxnjWYA==
 
-tslib@2.2.0, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.2.0:
+tslib@2.2.0, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.2.0.tgz#fb2c475977e35e241311ede2693cee1ec6698f5c"
   integrity sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==

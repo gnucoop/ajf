@@ -7,27 +7,15 @@ load(
     "sass_binary",
     "sass_library",
 )
-load("//tools/vfs-fonts:index.bzl", "generate_vfs_fonts")
 
 package(default_visibility = ["//visibility:public"])
-
-generate_vfs_fonts(
-    name = "vfs-fonts",
-    srcs = [
-        "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-italic.woff",
-        "@npm//:node_modules/fontsource-roboto/files/roboto-all-400-normal.woff",
-        "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-italic.woff",
-        "@npm//:node_modules/fontsource-roboto/files/roboto-all-500-normal.woff",
-    ],
-    output = ":form-to-pdf/vfs-fonts.ts",
-)
 
 ng_module(
     name = "forms",
     srcs = glob(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
-    ) + [":form-to-pdf/vfs-fonts.ts"],
+    ),
     assets = [
         ":file-field.css",
         ":image-field.css",
@@ -45,6 +33,7 @@ ng_module(
         "//src/core/models",
         "//src/core/page-slider",
         "//src/core/utils",
+        "//src/core/vfs-fonts",
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@angular/platform-browser",

@@ -20,39 +20,28 @@
  *
  */
 
+import {AjfContext, AjfFormula, evaluateExpression} from '@ajf/core/models';
+import {vfsFonts, vfsFontsMap} from '@ajf/core/vfs-fonts';
+import {createPdf, TCreatedPdf} from 'pdfmake/build/pdfmake';
+import {Content, PageOrientation, TDocumentDefinitions} from 'pdfmake/interfaces';
+
 import {AjfChoice} from '../interface/choices/choice';
 import {AjfEmptyField} from '../interface/fields/empty-field';
 import {AjfField} from '../interface/fields/field';
 import {AjfFieldType} from '../interface/fields/field-type';
-import {AjfForm} from '../interface/forms/form';
 import {AjfFormulaField} from '../interface/fields/formula-field';
+import {AjfTableCell, AjfTableField} from '../interface/fields/table-field';
+import {AjfForm} from '../interface/forms/form';
 import {AjfNodeType} from '../interface/nodes/node-type';
 import {AjfRepeatingSlide} from '../interface/slides/repeating-slide';
 import {AjfSlide} from '../interface/slides/slide';
-import {AjfTableCell, AjfTableField} from '../interface/fields/table-field';
-
-import {AjfContext, AjfFormula, evaluateExpression} from '@ajf/core/models';
-
-import {Content, PageOrientation, TDocumentDefinitions} from 'pdfmake/interfaces';
-import {createPdf, TCreatedPdf} from 'pdfmake/build/pdfmake';
-import {vfsFonts} from './vfs-fonts';
-
-const fontsMap = {
-  Roboto: {
-    normal: 'roboto-all-400-normal.woff',
-    bold: 'roboto-all-500-normal.woff',
-    italics: 'roboto-all-400-italic.woff',
-    bolditalics: 'roboto-all-500-italic.woff'
-  },
-};
 
 export function createFormPdf(
-  form: AjfForm, translate?: (s: string) => string, orientation?: PageOrientation,
-  header?: Content[], context?: AjfContext): TCreatedPdf {
-
+    form: AjfForm, translate?: (s: string) => string, orientation?: PageOrientation,
+    header?: Content[], context?: AjfContext): TCreatedPdf {
   const t = translate ? translate : (s: string) => s;
   const pdfDef = formToPdf(form, t, orientation, header, context);
-  return createPdf(pdfDef, undefined, fontsMap, vfsFonts);
+  return createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts);
 }
 
 // ChoicesMap maps a choicesOriginRef to the list the choices.
@@ -115,9 +104,8 @@ function lookupArrayFunction(context?: AjfContext, rep?: number): (name: string)
 
 // Given an AjfForm, returns its pdfmake pdf document definition.
 function formToPdf(
-  form: AjfForm, translate: (s: string) => string, orientation?: PageOrientation,
-  header?: Content[], context?: AjfContext): TDocumentDefinitions {
-
+    form: AjfForm, translate: (s: string) => string, orientation?: PageOrientation,
+    header?: Content[], context?: AjfContext): TDocumentDefinitions {
   const choicesMap: ChoicesMap = {};
   for (const o of form.choicesOrigins) {
     choicesMap[o.name] = o.choices;
@@ -129,23 +117,20 @@ function formToPdf(
       content.push(...slideToPdf(slide as AjfSlide, choicesMap, translate, context));
     } else if (slide.nodeType === AjfNodeType.AjfRepeatingSlide) {
       content.push(
-        ...repeatingSlideToPdf(slide as AjfRepeatingSlide, choicesMap, translate, context)
-      );
+          ...repeatingSlideToPdf(slide as AjfRepeatingSlide, choicesMap, translate, context));
     }
   }
   return {content, pageOrientation: orientation};
 }
 
 function slideToPdf(
-  slide: AjfSlide | AjfRepeatingSlide, choicesMap: ChoicesMap,
-  translate: (s: string) => string, context?: AjfContext, rep?: number): Content[] {
-
+    slide: AjfSlide|AjfRepeatingSlide, choicesMap: ChoicesMap, translate: (s: string) => string,
+    context?: AjfContext, rep?: number): Content[] {
   let label = translate(slide.label);
   if (rep != null) {
     label = `${label} (${translate('repeat')} ${rep})`;
   }
-  const content: Content[] =
-    [{text: label, fontSize: 18, bold: true, margin: [0, 15, 0, 10]}];
+  const content: Content[] = [{text: label, fontSize: 18, bold: true, margin: [0, 15, 0, 10]}];
   for (const field of (slide.nodes as AjfField[])) {
     content.push(...fieldToPdf(field, choicesMap, translate, context, rep));
   }
@@ -153,9 +138,8 @@ function slideToPdf(
 }
 
 function repeatingSlideToPdf(
-  slide: AjfRepeatingSlide, choicesMap: ChoicesMap, translate: (s: string) => string,
-  context?: AjfContext): Content[] {
-
+    slide: AjfRepeatingSlide, choicesMap: ChoicesMap, translate: (s: string) => string,
+    context?: AjfContext): Content[] {
   let repeats = 3;  // default, if no formData
   const maxRepeats = 20;
   if (context != null && slide.name != null) {
@@ -177,17 +161,14 @@ function borderlessCell(text: string, bold?: boolean): Content {
 }
 
 function fieldToPdf(
-  field: AjfField, choicesMap: ChoicesMap, translate: (s: string) => string,
-  context?: AjfContext, rep?: number): Content[] {
-
+    field: AjfField, choicesMap: ChoicesMap, translate: (s: string) => string, context?: AjfContext,
+    rep?: number): Content[] {
   if (field.nodeType !== AjfNodeType.AjfField) {
     throw new Error('not a field');
   }
 
-  const visible =
-    context == null /* form not compiled, show all fields */ ||
-    field.visibility == null ||
-    evaluateExpression(field.visibility.condition, context);
+  const visible = context == null /* form not compiled, show all fields */ ||
+      field.visibility == null || evaluateExpression(field.visibility.condition, context);
   if (!visible) {
     return [];
   }
@@ -220,21 +201,22 @@ function fieldToPdf(
       return [{
         table: {
           widths: ['*', '*'],
-          body: [[ {text: translate(field.label), border: [false, false, false, false]}, val ]]
+          body: [[{text: translate(field.label), border: [false, false, false, false]}, val]]
         }
       }];
     case AjfFieldType.SingleChoice:
     case AjfFieldType.MultipleChoice:
       const choices = choicesMap[(field as any).choicesOriginRef];
-      if (context == null) { // empty form
+      if (context == null) {  // empty form
         return choiceToPdf(field, choices, translate);
       }
       // compiled form, only print choices that are selected
       const selectedValues = (field.fieldType === AjfFieldType.SingleChoice) ?
-        [lookupString(field.name)] :
-        lookupArrayFunction(context, rep)(field.name);
-      const selectedChoices = selectedValues.map(v => choices.find(c => c.value === v))
-        .filter(c => c) as AjfChoice<any>[];
+          [lookupString(field.name)] :
+          lookupArrayFunction(context, rep)(field.name);
+      const selectedChoices =
+          selectedValues.map(v => choices.find(c => c.value === v)).filter(c => c) as
+          AjfChoice<any>[];
       return choiceToPdf(field, selectedChoices, translate, context);
     case AjfFieldType.Empty:
       const text = stripHTML(translate((field as AjfEmptyField).HTML));
@@ -247,9 +229,8 @@ function fieldToPdf(
 }
 
 function choiceToPdf(
-  field: AjfField, choices: AjfChoice<any>[], translate: (s: string) => string,
-  context?: AjfContext): Content[] {
-
+    field: AjfField, choices: AjfChoice<any>[], translate: (s: string) => string,
+    context?: AjfContext): Content[] {
   let choiceLabels: string[];
   if (choices == null || choices.length === 0) {
     choiceLabels = [' '];
@@ -280,14 +261,13 @@ function choiceToPdf(
 }
 
 function tableToPdf(
-  table: AjfTableField, lookupString: (s: string) => string,
-  translate: (s: string) => string): Content[] {
-
+    table: AjfTableField, lookupString: (s: string) => string,
+    translate: (s: string) => string): Content[] {
   const body: string[][] = [['', ...table.columnLabels.map(translate)]];
   for (let i = 0; i < table.rows.length; i++) {
     const row = [...table.rows[i]];
     for (let j = 0; j < row.length; j++) {
-      if (typeof(row[j]) !== 'string') {
+      if (typeof (row[j]) !== 'string') {
         row[j] = (row[j] as AjfTableCell).formula;
       }
     }

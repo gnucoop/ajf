@@ -21,6 +21,7 @@
  */
 
 import {AjfImageType} from '@ajf/core/image';
+import {vfsFonts, vfsFontsMap} from '@ajf/core/vfs-fonts';
 import {createPdf, TCreatedPdf} from 'pdfmake/build/pdfmake';
 import {
   Column,
@@ -44,16 +45,6 @@ import {AjfWidgetInstance} from '../interface/widgets-instances/widget-instance'
 import {AjfWidgetType} from '../interface/widgets/widget-type';
 
 import {ImageMap, loadReportImages} from './load-report-images';
-import {vfsFonts} from './vfs-fonts';
-
-const fontsMap = {
-  Roboto: {
-    normal: 'roboto-all-400-normal.woff',
-    bold: 'roboto-all-500-normal.woff',
-    italics: 'roboto-all-400-italic.woff',
-    bolditalics: 'roboto-all-500-italic.woff'
-  },
-};
 
 export function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation) {
   createReportPdf(report, orientation).then(pdf => {
@@ -71,7 +62,7 @@ export function createReportPdf(
       }
       const pdfDef = reportToPdf(report, images, width);
       pdfDef.pageOrientation = orientation;
-      resolve(createPdf(pdfDef, undefined, fontsMap, vfsFonts));
+      resolve(createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts));
     });
   });
 }
@@ -158,7 +149,7 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
     return {text: ''};
   }
   const w = image.styles.width;
-  if (typeof(w) === 'string' && w.endsWith('px')) {
+  if (typeof (w) === 'string' && w.endsWith('px')) {
     width = Number(w.slice(0, -2));
   }
   return {image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets]};

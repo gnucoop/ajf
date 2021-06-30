@@ -20,9 +20,22 @@
  *
  */
 
-import {AjfWidgetService as CoreService} from '@ajf/core/reports';
-import {Injectable} from '@angular/core';
-
-@Injectable({providedIn: 'root'})
-export class AjfWidgetService extends CoreService {
+export interface VfsFont {
+  normal: string;
+  bold: string;
+  italics: string;
+  bolditalics: string;
 }
+
+export type VfsFontsMap = {
+  [key: string]: VfsFont
+};
+
+export const vfsFontsMap: VfsFontsMap = {
+  Roboto: {
+    normal: 'roboto-all-400-normal.woff',
+    bold: 'roboto-all-500-normal.woff',
+    italics: 'roboto-all-400-italic.woff',
+    bolditalics: 'roboto-all-500-italic.woff'
+  },
+};

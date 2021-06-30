@@ -20,9 +20,6 @@
  *
  */
 
-import {AjfWidgetService as CoreService} from '@ajf/core/reports';
-import {Injectable} from '@angular/core';
+declare const vfsFonts: {[key: string]: string};
 
-@Injectable({providedIn: 'root'})
-export class AjfWidgetService extends CoreService {
-}
+export {vfsFonts};

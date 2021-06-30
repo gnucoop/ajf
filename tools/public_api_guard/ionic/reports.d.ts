@@ -58,7 +58,7 @@ export declare class AjfReportRenderer extends AjfCoreReportRenderer {
 export declare class AjfReportsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportsModule, never>;
     static ɵinj: i0.ɵɵInjectorDeclaration<AjfReportsModule>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfReportsModule, [typeof i1.AjfChartWidgetComponent, typeof i2.AjfColumnWidgetComponent, typeof i3.AjfFormulaWidgetComponent, typeof i4.AjfImageContainerWidgetComponent, typeof i5.AjfImageWidgetComponent, typeof i6.AjfLayoutWidgetComponent, typeof i7.AjfMapWidgetComponent, typeof i8.AjfPageBreakWidgetComponent, typeof i9.AjfReportRenderer, typeof i10.AjfReportWidget, typeof i11.AjfTableWidgetComponent, typeof i12.AjfTextWidgetComponent], [typeof i13.AjfChartModule, typeof i14.AjfCommonModule, typeof i15.AjfImageModule, typeof i16.AjfMapModule, typeof i17.AjfPageBreakModule, typeof i18.AjfTableModule, typeof i19.AjfTextModule, typeof i20.CommonModule, typeof i21.AjfReportsModule, typeof i22.TranslateModule], [typeof i9.AjfReportRenderer, typeof i10.AjfReportWidget]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfReportsModule, [typeof i1.AjfChartWidgetComponent, typeof i2.AjfColumnWidgetComponent, typeof i3.AjfFormulaWidgetComponent, typeof i4.AjfImageContainerWidgetComponent, typeof i5.AjfImageWidgetComponent, typeof i2.AjfLayoutWidgetComponent, typeof i6.AjfMapWidgetComponent, typeof i7.AjfPageBreakWidgetComponent, typeof i8.AjfReportRenderer, typeof i2.AjfReportWidget, typeof i9.AjfTableWidgetComponent, typeof i10.AjfTextWidgetComponent], [typeof i11.AjfChartModule, typeof i12.AjfCommonModule, typeof i13.AjfImageModule, typeof i14.AjfMapModule, typeof i15.AjfPageBreakModule, typeof i16.AjfTableModule, typeof i17.AjfTextModule, typeof i18.CommonModule, typeof i19.AjfReportsModule, typeof i20.TranslateModule], [typeof i8.AjfReportRenderer, typeof i2.AjfReportWidget]>;
 }
 
 export declare class AjfReportWidget extends CoreComponent {
@@ -81,6 +81,7 @@ export declare class AjfTextWidgetComponent extends AjfBaseWidgetComponent<AjfTe
 }
 
 export declare class AjfWidgetService extends CoreService {
+    constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfWidgetService, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<AjfWidgetService>;
 }
