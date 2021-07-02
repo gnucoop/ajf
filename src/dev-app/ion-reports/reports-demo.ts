@@ -21,9 +21,9 @@
  */
 
 import {AjfReportInstance, AjfReportSerializer, createReportInstance} from '@ajf/core/reports';
+import {TranslocoService} from '@ajf/core/transloco';
 import {AjfWidgetService} from '@ajf/ionic/reports';
 import {Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 
 import {CustomWidget} from './custom-widget';
 import {testReport} from './report';
@@ -38,7 +38,7 @@ export class ReportsDemo {
   reportStr: string = JSON.stringify(testReport);
   context: string = '{}';
 
-  constructor(private _ts: TranslateService, widgetService: AjfWidgetService) {
+  constructor(private _ts: TranslocoService, widgetService: AjfWidgetService) {
     widgetService.registerCustomWidget({widgetType: 101, component: CustomWidget});
     this._populateReport();
   }

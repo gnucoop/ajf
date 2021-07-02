@@ -18,6 +18,7 @@
 /src/core/reports/report-to-pdf/*                  @robzan8
 /src/core/table/*                                  @trik
 /src/core/testing/private/**/*                     @trik
+/src/core/transloco/*                              @peppedeka
 /src/core/text/*                                   @trik
 /src/core/time/*                                   @trik
 /src/core/utils/*                                  @trik
@@ -69,6 +70,7 @@
 /src/dev-app/example/**                            @peppedeka
 /src/dev-app/examples-page/**                      @peppedeka
 /src/dev-app/file-input/**                         @peppedeka
+/src/dev-app/i18n/**                               @peppedeka
 /src/dev-app/ion-barcode/**                        @peppedeka
 /src/dev-app/ion-calendar/**                       @sara-gnucoop
 /src/dev-app/ion-checkbox-group/**                 @peppedeka

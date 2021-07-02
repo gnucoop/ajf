@@ -41,11 +41,11 @@ ng_module(
         "//src/core/reports",
         "//src/core/table",
         "//src/core/text",
+        "//src/core/transloco",
         "//src/ionic/image",
         "@npm//@angular/animations",
         "@npm//@angular/common",
         "@npm//@angular/core",
-        "@npm//@ngx-translate/core",
     ],
 )
 
@@ -136,8 +136,8 @@ ng_test_library(
     deps = [
         ":reports",
         "//src/core/reports",
+        "//src/core/transloco",
         "@npm//@angular/platform-browser",
-        "@npm//@ngx-translate/core",
     ],
 )
 

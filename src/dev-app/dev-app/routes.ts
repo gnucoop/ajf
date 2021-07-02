@@ -29,6 +29,7 @@ export const DEV_APP_ROUTES: Routes = [
   {path: 'file-input', loadChildren: 'file-input/file-input-demo-module#FileInputDemoModule'},
   {path: 'ion-barcode', loadChildren: 'ion-barcode/barcode-demo-module#BarcodeDemoModule'},
   {path: 'ion-calendar', loadChildren: 'ion-calendar/calendar-demo-module#CalendarDemoModule'},
+  {path: 'i18n', loadChildren: 'i18n/i18n-demo-module#I18nDemoModule'},
   {
     path: 'ion-checkbox-group',
     loadChildren: 'ion-checkbox-group/checkbox-group-demo-module#CheckboxGroupDemoModule'

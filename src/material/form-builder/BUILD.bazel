@@ -35,13 +35,13 @@ ng_module(
         "//src/core/forms",
         "//src/core/models",
         "//src/core/reports",
+        "//src/core/transloco",
         "//src/material/monaco-editor",
         "//src/material/node-icon",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@angular/material",
-        "@npm//@ngx-translate/core",
     ],
 )
 

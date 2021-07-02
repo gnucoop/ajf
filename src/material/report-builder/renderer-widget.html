@@ -47,7 +47,7 @@
     </ajf-image>
   </div>
   <div *ngSwitchCase="widgetTypes.Text" class="ajf-row ajf-text">
-    <ajf-text [htmlText]="getHtmlText() | translate"  [applyStyles]="widget.styles"></ajf-text>
+    <ajf-text [htmlText]="getHtmlText() | transloco"  [applyStyles]="widget.styles"></ajf-text>
   </div>
   <div *ngSwitchCase="widgetTypes.Chart" class="ajf-row" [applyStyles]="widget.styles">
   </div>

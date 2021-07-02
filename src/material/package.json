@@ -26,7 +26,8 @@
     "rxjs": "0.0.0-RXJS"
   },
   "dependencies": {
-    "tslib": "0.0.0-TSLIB"
+    "tslib": "0.0.0-TSLIB",
+    "flat": "0.0.0-FLAT"
   },
   "sideEffects": false
 }

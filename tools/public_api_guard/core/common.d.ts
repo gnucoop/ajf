@@ -68,7 +68,7 @@ export declare class FormatIfNumber extends DecimalPipe {
     static ɵpipe: i0.ɵɵPipeDeclaration<FormatIfNumber, "ajfFormatIfNumber">;
 }
 
-export declare class TranslateIfString extends TranslatePipe {
+export declare class TranslateIfString extends TranslocoPipe {
     transform(query: any, ...args: any[]): any;
     static ɵfac: i0.ɵɵFactoryDeclaration<TranslateIfString, never>;
     static ɵpipe: i0.ɵɵPipeDeclaration<TranslateIfString, "ajfTranslateIfString">;

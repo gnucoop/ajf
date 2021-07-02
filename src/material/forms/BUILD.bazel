@@ -38,6 +38,7 @@ ng_module(
     deps = [
         "//src/core/common",
         "//src/core/forms",
+        "//src/core/transloco",
         "//src/material/barcode",
         "//src/material/calendar",
         "//src/material/checkbox-group",
@@ -47,7 +48,6 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@angular/material",
-        "@npm//@ngx-translate/core",
     ],
 )
 
@@ -150,8 +150,8 @@ ng_test_library(
     deps = [
         ":forms",
         "//src/core/forms",
+        "//src/core/transloco",
         "@npm//@angular/platform-browser",
-        "@npm//@ngx-translate/core",
         "@npm//rxjs",
     ],
 )

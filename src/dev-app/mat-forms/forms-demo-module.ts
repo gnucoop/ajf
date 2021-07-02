@@ -21,6 +21,7 @@
  */
 
 import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 import {AjfFormsModule} from '@ajf/material/forms';
 import {CommonModule} from '@angular/common';
@@ -31,7 +32,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {RouterModule} from '@angular/router';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {CustomSelectMultiple} from './custom-select-multiple';
 import {FormsDemo} from './forms-demo';
@@ -49,7 +49,7 @@ import {FormsDemo} from './forms-demo';
     MatSelectModule,
     ReactiveFormsModule,
     RouterModule.forChild([{path: '', component: FormsDemo}]),
-    TranslateModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     CustomSelectMultiple,

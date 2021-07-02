@@ -27,10 +27,10 @@ import {AjfPageBreakModule} from '@ajf/core/page-break';
 import {AjfReportsModule as CoreModule} from '@ajf/core/reports';
 import {AjfTableModule} from '@ajf/core/table';
 import {AjfTextModule} from '@ajf/core/text';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfImageModule} from '@ajf/ionic/image';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
@@ -58,7 +58,7 @@ import {
     AjfTextModule,
     CommonModule,
     CoreModule,
-    TranslateModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     AjfChartWidgetComponent,

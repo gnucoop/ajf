@@ -28,11 +28,11 @@ import {
   AjfFormSerializer,
   AjfNodeType
 } from '@ajf/core/forms';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {TranslateModule} from '@ngx-translate/core';
 import {timer} from 'rxjs';
 import {take} from 'rxjs/operators';
 
@@ -44,7 +44,7 @@ describe('AjfFormRenderer', () => {
       imports: [
         AjfFormsModule,
         NoopAnimationsModule,
-        TranslateModule.forRoot(),
+        AjfTranslocoModule,
       ],
       declarations: [
         TestComponent, TestReadOnlySingleChoiceComponent, TestReadOnlyMultipleChoiceComponent,

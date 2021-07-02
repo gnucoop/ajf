@@ -20,6 +20,7 @@
  *
  */
 
+import {TranslocoService} from '@ajf/core/transloco';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -28,8 +29,6 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-
-import {TranslateService} from '@ngx-translate/core';
 
 /**
  * this component manages the report text
@@ -53,7 +52,7 @@ export class AjfTextComponent {
     // type checking and length checking for instant method
     const htmlTextToBeTranslate: string =
         htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0 ?
-        this._ts.instant(htmlText) :
+        this._ts.translate(htmlText) :
         htmlText;
     this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
     this._cdr.markForCheck();
@@ -65,5 +64,5 @@ export class AjfTextComponent {
 
   constructor(
       private _cdr: ChangeDetectorRef, private _domSanitizer: DomSanitizer,
-      private _ts: TranslateService) {}
+      private _ts: TranslocoService) {}
 }

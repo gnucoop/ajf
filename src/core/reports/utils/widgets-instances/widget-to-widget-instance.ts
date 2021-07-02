@@ -22,8 +22,8 @@
 
 import {AjfContext, AjfFormula, createFormula, evaluateExpression} from '@ajf/core/models';
 import {AjfTableCell} from '@ajf/core/table';
+import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
-import {TranslateService} from '@ngx-translate/core';
 
 import {chartToChartJsType} from '../../chart-utils';
 import {AjfTableDataset} from '../../interface/dataset/table-dataset';
@@ -58,7 +58,7 @@ import {createWidgetInstance} from './create-widget-instance';
 import {trFormula} from './widget-instance-utils';
 
 export function widgetToWidgetInstance(
-    widget: AjfWidget, context: AjfContext, ts: TranslateService): AjfWidgetInstance {
+    widget: AjfWidget, context: AjfContext, ts: TranslocoService): AjfWidgetInstance {
   const wi = createWidgetInstance(widget, context, ts);
 
   if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
@@ -87,10 +87,11 @@ export function widgetToWidgetInstance(
       try {
         if (evf instanceof Array) {
           evf = evf.map(
-              v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
+              v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v);
         } else {
-          evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ? ts.instant(evf) :
-                                                                                  evf;
+          evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ?
+              ts.translate(evf) :
+              evf;
         }
       } catch (_e) {
       }
@@ -110,7 +111,7 @@ export function widgetToWidgetInstance(
         ds = {...ds, options: d.options};
       }
       if (d.label != null) {
-        ds = {...ds, label: d.label.trim().length > 0 ? ts.instant(d.label) : d.label};
+        ds = {...ds, label: d.label.trim().length > 0 ? ts.translate(d.label) : d.label};
       }
       if (d.datalabels != null) {
         ds.datalabels = deepCopy(d.datalabels);
@@ -180,10 +181,11 @@ export function widgetToWidgetInstance(
       try {
         if (trf instanceof Array) {
           trf = trf.map(
-              v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.instant(v) : v);
+              v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v);
         } else {
-          trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ? ts.instant(trf) :
-                                                                                  trf;
+          trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
+              ts.translate(trf) :
+              trf;
         }
       } catch (_e) {
       }
@@ -258,7 +260,7 @@ export function widgetToWidgetInstance(
       }
       htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
     });
-    tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.instant(htmlText) : htmlText;
+    tewi.htmlText = htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
   } else if (widget.widgetType === AjfWidgetType.Formula) {
     const fw = widget as AjfFormulaWidget;
     const fwi = wi as AjfFormulaWidgetInstance;

@@ -22,6 +22,7 @@
 
 import {AjfCommonModule} from '@ajf/core/common';
 import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfBarcodeModule} from '@ajf/ionic/barcode';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/ionic/checkbox-group';
@@ -32,7 +33,6 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {GicModule} from '@gic/angular';
 import {IonicModule} from '@ionic/angular';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
@@ -71,7 +71,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     GicModule,
     IonicModule,
     ReactiveFormsModule,
-    TranslateModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     AjfBarcodeFieldComponent,

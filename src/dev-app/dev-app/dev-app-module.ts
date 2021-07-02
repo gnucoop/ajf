@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
@@ -37,6 +38,7 @@ import {DevAppLayout} from './dev-app-layout';
 
 @NgModule({
   imports: [
+    AjfTranslocoModule,
     CdkAccordionModule,
     CommonModule,
     MatButtonModule,
@@ -46,6 +48,7 @@ import {DevAppLayout} from './dev-app-layout';
     MatSidenavModule,
     MatToolbarModule,
     RouterModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     DevApp404,

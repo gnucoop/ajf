@@ -37,7 +37,7 @@ export declare class AjfFileInput implements ControlValueAccessor {
 export declare class AjfFileInputModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFileInputModule, never>;
     static ɵinj: i0.ɵɵInjectorDeclaration<AjfFileInputModule>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfFileInputModule, [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview], [typeof i2.AjfCommonModule, typeof i3.CommonModule, typeof i4.TranslateModule], [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfFileInputModule, [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview], [typeof i2.AjfCommonModule, typeof i3.CommonModule, typeof i4.AjfTranslocoModule], [typeof i1.AjfDropMessage, typeof i1.AjfFileInput, typeof i1.AjfFilePreview]>;
 }
 
 export declare class AjfFilePreview implements OnDestroy {

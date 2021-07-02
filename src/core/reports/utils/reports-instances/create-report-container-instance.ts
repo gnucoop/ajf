@@ -21,7 +21,7 @@
  */
 
 import {AjfContext} from '@ajf/core/models';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslocoService} from '@ajf/core/transloco';
 
 import {
   AjfReportContainerInstance
@@ -31,7 +31,7 @@ import {widgetToWidgetInstance} from '../widgets-instances/widget-to-widget-inst
 
 export function createReportContainerInstance(
     container: AjfReportContainer, context: AjfContext,
-    ts: TranslateService): AjfReportContainerInstance {
+    ts: TranslocoService): AjfReportContainerInstance {
   const content = container.content.map(c => widgetToWidgetInstance(c, context, ts));
   return {
     container,

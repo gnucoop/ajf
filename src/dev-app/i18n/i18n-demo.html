@@ -1,0 +1,18 @@
+<div class="i18n-file-input">
+  <h4 class="demo-section-header">i18n</h4>
+  <mat-form-field appearance="fill">
+    <mat-label>choose language</mat-label>
+    <mat-select>
+      <mat-option
+        *ngFor="let lang of langs"
+        [value]="lang"
+        (click)="changeLang(lang)"
+      >
+        {{lang}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngFor="let word of allWords">
+    <p>{{word|transloco}}</p>
+  </div>
+</div>

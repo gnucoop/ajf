@@ -21,9 +21,9 @@
  */
 
 import {AjfCommonModule} from '@ajf/core/common';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfDropMessage, AjfFileInput, AjfFilePreview} from './file-input';
 
@@ -41,7 +41,7 @@ import {AjfDropMessage, AjfFileInput, AjfFilePreview} from './file-input';
   imports: [
     AjfCommonModule,
     CommonModule,
-    TranslateModule,
+    AjfTranslocoModule,
   ],
 })
 export class AjfFileInputModule {

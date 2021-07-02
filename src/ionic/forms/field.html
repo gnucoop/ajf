@@ -13,7 +13,7 @@
   <div class="ajf-errors">
     <ng-container *ngFor="let res of instance.validationResults">
       <div class="error" *ngIf="!res.result">
-        {{ res.error | translate }}
+        {{ res.error | transloco }}
       </div>
     </ng-container>
   </div>

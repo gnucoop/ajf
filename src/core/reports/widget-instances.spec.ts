@@ -29,7 +29,7 @@ import {
 } from './public-api';
 
 class TsMock {
-  instant(str: string): string {
+  translate(str: string): string {
     return str;
   }
 }

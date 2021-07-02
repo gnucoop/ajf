@@ -1,0 +1,137 @@
+/**
+ * @license
+ * Copyright (C) Gnucoop soc. coop.
+ *
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
+ */
+
+import {Translation} from '@ngneat/transloco';
+
+export const fr: Translation = {
+  'Drop your file here or click to select':
+      'Déposez votre fichier ici ou cliquez pour sélectionner',
+  'Delete': 'Effacer',
+  'Upload image': 'Télécharger une image',
+  'Camera': 'Caméra',
+  'Save': 'Sauvegarder',
+  'Errors': 'les erreurs',
+  'Drop image': 'Déposer l\'image',
+  'Drop your image here!': 'Déposez votre image ici !',
+  'Edit choices origin': 'Modifier l\'origine des choix',
+  'Close': 'Fermer',
+  'Name': 'Nom',
+  'Label': 'Étiqueter',
+  'Add value': 'Ajouter de la valeur',
+  'Value': 'Valeur',
+  'delete': 'effacer',
+  'Edit condition': 'Modifier la condition',
+  'Choices': 'Les choix',
+  'Identifier': 'Identifier',
+  'New..': 'Nouveau..',
+  'Properties': 'Propriétés',
+  'Visibility': 'Visibilité',
+  'Visible': 'Visible',
+  'Always': 'Toujours',
+  'Never': 'Jamais',
+  'Condition...': 'État...',
+  'Branches': 'Branches',
+  'Repetitions': 'Répétitions',
+  'Min repetitions': 'Nombre minimum de répétitions',
+  'Max repetitions': 'Nombre maximal de répétitions',
+  'Field size': 'Taille du champ',
+  'Size': 'Taille',
+  'Hint': 'Indice',
+  'Description': 'La description',
+  'Default value': 'Valeur par défaut',
+  'Formula': 'Formule',
+  'Not empty': 'Pas vide',
+  'Min value': 'Valeur minimale',
+  'Max value': 'Valeur max',
+  'Min digits': 'Min chiffres',
+  'Max digits': 'Nombre maximum de chiffres',
+  'Validation': 'Validation',
+  'No conditions': 'Aucune condition',
+  'Not empty warning': 'Avertissement pas vide',
+  'Warnings': 'Mises en garde',
+  'No warnings': 'Aucun avertissement',
+  'Go to next slide condition': 'Passer à la condition de diapositive suivante',
+  'Choices origins': 'Origines des choix',
+  'Choices filter': 'Filtre de choix',
+  'Force expanded selection': 'Forcer la sélection étendue',
+  'Force narrow selection': 'Forcer la sélection étroite',
+  'Trigger selection': 'Sélection de déclencheur',
+  'No trigger condition': 'Aucune condition de déclenchement',
+  'Edit identifier': 'Modifier l\'identifiant',
+  'Show': 'Spectacle',
+  'All': 'Tout',
+  'First': 'D\'abord',
+  'Last': 'Durer',
+  'Error message': 'Message d\'erreur',
+  'Warning message': 'Message d\'alerte',
+  'Invalid condition! Please check syntax.': 'État invalide ! Veuillez vérifier la syntaxe.',
+  'Drop here': 'Déposer ici',
+  'Main Data': 'Donnée principale',
+  'Edit': 'Éditer',
+  'Remove': 'Supprimer',
+  'add dataset': 'ajouter un jeu de données',
+  'add data': 'ajouter des données',
+  'Add Main Data': 'Ajouter des données principales',
+  'data': 'Les données',
+  'CSS style': 'Style CSS',
+  'height': 'la taille',
+  'margin': 'marge',
+  'border': 'frontière',
+  'padding': 'rembourrage',
+  'content': 'contenu',
+  'margin top': 'marge supérieure',
+  'margin right': 'marge à droite',
+  'margin bottom': 'marge inférieure',
+  'margin left': 'marge gauche',
+  'padding top': 'haut de rembourrage',
+  'padding right': 'rembourrage à droite',
+  'padding bottom': 'bas de rembourrage',
+  'padding left': 'rembourrage à gauche',
+  'border width': 'largeur de la bordure',
+  'border width top': 'largeur de bordure en haut',
+  'border width right': 'largeur de bordure à droite',
+  'border width bottom': 'largeur de bordure en bas',
+  'border width left': 'largeur de bordure à gauche',
+  'border radius': 'rayon de la frontière',
+  'border radius top left': 'rayon de la bordure en haut à gauche',
+  'border radius top right': 'rayon de la bordure en haut à droite',
+  'border radius bottom left': 'rayon de la bordure en bas à gauche',
+  'border radius bottom right': 'rayon de la bordure en bas à droite',
+  'font size': 'taille de police',
+  'Font size': 'Taille de police',
+  'Font style': 'Font style',
+  'Normal': 'Normal',
+  'Italic': 'Italique',
+  'Oblique': 'Oblique',
+  'Align': 'Aligner',
+  'Center': 'Centre',
+  'Left': 'La gauche',
+  'Right': 'Droite',
+  'properties of': 'propriétés de',
+  'Column': 'Colonne',
+  'Add column': 'Ajouter une colonne',
+  'paste a link': 'coller un lien',
+  'Set image': 'Définir l\'image',
+  'Choose type of Chart': 'Choisissez le type de graphique',
+  'Labels': 'Étiquettes',
+  'Border width': 'Largeur de la bordure'
+};

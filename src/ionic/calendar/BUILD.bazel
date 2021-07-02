@@ -20,11 +20,11 @@ ng_module(
     module_name = "@ajf/ionic/calendar",
     deps = [
         "//src/core/calendar",
+        "//src/core/transloco",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@ionic/angular",
-        "@npm//@ngx-translate/core",
     ],
 )
 

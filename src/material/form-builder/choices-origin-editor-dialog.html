@@ -1,10 +1,13 @@
-<h3 matDialogTitle translate>Edit choices origin</h3>
+<h3 matDialogTitle>{{'Edit choices origin'|transloco}}</h3>
 <mat-dialog-content>
   <ajf-fb-choices-origin-editor
-      *ngIf="choicesOrigin|async as co"
-      [choicesOrigin]="co!"></ajf-fb-choices-origin-editor>
+    *ngIf="choicesOrigin|async as co"
+    [choicesOrigin]="co!"
+  ></ajf-fb-choices-origin-editor>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button translate (click)="saveChoicesOrigin()">Save</button>
-  <button mat-button translate (click)="cancelChoicesOriginEdit()">Close</button>
+  <button mat-button (click)="saveChoicesOrigin()">{{'Save'|transloco}}</button>
+  <button mat-button (click)="cancelChoicesOriginEdit()">
+    {{'Close'|transloco}}
+  </button>
 </mat-dialog-actions>

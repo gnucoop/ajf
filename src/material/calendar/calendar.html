@@ -1,13 +1,13 @@
 <div class="ajf-calendar-header">
   <button (click)="prevPage()" mat-mini-fab>&#8592;</button>
   <button (click)="previousViewMode()" mat-button class="ajf-calendar-header-title">
-    {{ viewHeader | translate }}
+    {{ viewHeader | transloco }}
   </button>
   <button (click)="nextPage()" mat-mini-fab>&#8594;</button>
 </div>
 <div class="ajf-calendar-row" *ngIf="calendarHeaders.length > 0">
   <div *ngFor="let calendarHeader of calendarHeaders">
-    {{ calendarHeader | translate }}
+    {{ calendarHeader | transloco }}
   </div>
 </div>
 <div class="ajf-calendar-row" *ngFor="let row of calendarRows">

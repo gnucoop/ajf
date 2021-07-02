@@ -19,6 +19,7 @@ ng_module(
         "//src/dev-app/example",
         "//src/dev-app/examples-page",
         "//src/dev-app/file-input",
+        "//src/dev-app/i18n",
         "//src/dev-app/ion-barcode",
         "//src/dev-app/ion-calendar",
         "//src/dev-app/ion-checkbox-group",

@@ -2,21 +2,41 @@
   <button mat-icon-button (click)="leftSidenav.toggle()">
     <mat-icon>add_box</mat-icon>
   </button>
-  <button mat-button [matMenuTriggerFor]="choicesMenu" translate>Choices</button>
-  <button mat-button (click)="editStringIdentifier()" translate>Identifier</button>
-  <button mat-icon-button aria-label="Collapsed" matTooltip="Keep slides collapsed">
+  <button mat-button [matMenuTriggerFor]="choicesMenu">
+    {{'Choices'|transloco}}
+  </button>
+  <button mat-button (click)="editStringIdentifier()">
+    {{'Identifier'|transloco}}
+  </button>
+  <button
+    mat-icon-button
+    aria-label="Collapsed"
+    matTooltip="Keep slides collapsed"
+  >
     <mat-icon>unfold_less</mat-icon>
   </button>
-  <mat-slide-toggle color="primary" (change)="expandToggle($event)"></mat-slide-toggle> 
-  <button mat-icon-button aria-label="Expanded" matTooltip="Keep slides expanded">
+  <mat-slide-toggle
+    color="primary"
+    (change)="expandToggle($event)"
+  ></mat-slide-toggle>
+  <button
+    mat-icon-button
+    aria-label="Expanded"
+    matTooltip="Keep slides expanded"
+  >
     <mat-icon>unfold_more</mat-icon>
   </button>
   <mat-menu #choicesMenu>
-    <button (click)="createChoicesOrigin()" mat-menu-item translate>New..</button>
+    <button (click)="createChoicesOrigin()" mat-menu-item>
+      {{'New..'|transloco}}
+    </button>
     <ng-container *ngIf="choicesOrigins|async as cos">
-      <button *ngFor="let choicesOrigin of cos"
-          (click)="editChoicesOrigin(choicesOrigin)" mat-menu-item>
-        {{ choicesOrigin.label || choicesOrigin.name }}
+      <button
+        *ngFor="let choicesOrigin of cos"
+        (click)="editChoicesOrigin(choicesOrigin)"
+        mat-menu-item
+      >
+        {{ (choicesOrigin.label || choicesOrigin.name)| transloco }}
       </button>
     </ng-container>
   </mat-menu>
@@ -27,28 +47,35 @@
 </mat-toolbar>
 <mat-drawer-container cdkDropListGroup>
   <mat-drawer #leftSidenav position="start" mode="over">
-    <div #sourceDropList cdkDropList
-        [cdkDropListConnectedTo]="(connectedDropLists|async)!"
-        [cdkDropListEnterPredicate]="disableDrop"
-        [cdkDropListData]="nodeTypes">
-      <ajf-fb-node-type-entry *ngFor="let nodeType of nodeTypes"
-          cdkDrag
-          [cdkDragData]="nodeType"
-          (cdkDragStarted)="leftSidenav.close()"
-          [nodeType]="nodeType"></ajf-fb-node-type-entry>
+    <div
+      #sourceDropList
+      cdkDropList
+      [cdkDropListConnectedTo]="(connectedDropLists|async)!"
+      [cdkDropListEnterPredicate]="disableDrop"
+      [cdkDropListData]="nodeTypes"
+    >
+      <ajf-fb-node-type-entry
+        *ngFor="let nodeType of nodeTypes"
+        cdkDrag
+        [cdkDragData]="nodeType"
+        (cdkDragStarted)="leftSidenav.close()"
+        [nodeType]="nodeType"
+      ></ajf-fb-node-type-entry>
     </div>
   </mat-drawer>
   <mat-drawer #rightSidenav position="end" mode="side" [opened]="true">
     <ajf-fb-node-properties></ajf-fb-node-properties>
   </mat-drawer>
   <div #designer class="ajf-designer">
-    <ajf-fb-node-entry id="slides-list"
-        cdkDropList
-        (cdkDropListDropped)="onDrop($event)"
-        [cdkDropListEnterPredicate]="disableFieldDrop"
-        *ngFor="let nodeEntry of (nodeEntriesTree|async); let isFirst = first"
-        [isExpanded]="isGlobalExpanded"
-        [isFirst]="isFirst"
-        [nodeEntry]="nodeEntry"></ajf-fb-node-entry>
+    <ajf-fb-node-entry
+      id="slides-list"
+      cdkDropList
+      (cdkDropListDropped)="onDrop($event)"
+      [cdkDropListEnterPredicate]="disableFieldDrop"
+      *ngFor="let nodeEntry of (nodeEntriesTree|async); let isFirst = first"
+      [isExpanded]="isGlobalExpanded"
+      [isFirst]="isFirst"
+      [nodeEntry]="nodeEntry"
+    ></ajf-fb-node-entry>
   </div>
 </mat-drawer-container>
