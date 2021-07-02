@@ -24,31 +24,31 @@
 /src/core/vfs-fonts/*                              @trik
 
 # Ajf material
-/src/material/*                                    @trik
+/src/material/*                                    @peppedeka
 /src/material/barcode/*                            @peppedeka
 /src/material/calendar/*                           @sara-gnucoop
 /src/material/checkbox-group/*                     @mrumbrella
 /src/material/form-builder/*                       @mrumbrella
-/src/material/forms/*                              @trik
-/src/material/image/*                              @trik
-/src/material/monaco-editor/*                      @trik
-/src/material/node-icon/*                          @trik
+/src/material/forms/*                              @peppedeka
+/src/material/image/*                              @peppedeka
+/src/material/monaco-editor/*                      @peppedeka
+/src/material/node-icon/*                          @peppedeka
 /src/material/page-slider/*                        @peppedeka
-/src/material/report-builder/**/*                  @trik
-/src/material/reports/*                            @trik
-/src/material/time/*                               @trik
+/src/material/report-builder/**/*                  @peppedeka
+/src/material/reports/*                            @peppedeka
+/src/material/time/*                               @peppedeka
 
 # Ajf ionic
-/src/ionic/*                                       @trik
+/src/ionic/*                                       @peppedeka
 /src/ionic/barcode/*                               @peppedeka
 /src/ionic/calendar/*                              @sara-gnucoop
 /src/ionic/checkbox-group/*                        @mrumbrella
-/src/ionic/forms/*                                 @trik
-/src/ionic/image/*                                 @trik
-/src/ionic/node-icon/*                             @trik
+/src/ionic/forms/*                                 @peppedeka
+/src/ionic/image/*                                 @peppedeka
+/src/ionic/node-icon/*                             @peppedeka
 /src/ionic/page-slider/*                           @peppedeka
-/src/ionic/reports/*                               @trik
-/src/ionic/time/*                                  @trik
+/src/ionic/reports/*                               @peppedeka
+/src/ionic/time/*                                  @peppedeka
 
 # Ajf monaco
 /src/monaco/*                                      @trik
@@ -64,51 +64,51 @@
 /src/ajf-examples/**                               @trik
 
 # Dev app
-/src/dev-app/*                                     @trik
-/src/dev-app/dev-app/**                            @trik
-/src/dev-app/example/**                            @trik
-/src/dev-app/examples-page/**                      @trik
-/src/dev-app/file-input/**                         @trik
+/src/dev-app/*                                     @peppedeka
+/src/dev-app/dev-app/**                            @peppedeka
+/src/dev-app/example/**                            @peppedeka
+/src/dev-app/examples-page/**                      @peppedeka
+/src/dev-app/file-input/**                         @peppedeka
 /src/dev-app/ion-barcode/**                        @peppedeka
 /src/dev-app/ion-calendar/**                       @sara-gnucoop
-/src/dev-app/ion-checkbox-group/**                 @trik
-/src/dev-app/ion-fields/**                         @trik
-/src/dev-app/ion-forms/**                          @trik
-/src/dev-app/ion-image/**                          @trik
-/src/dev-app/ion-node-icon/**                      @trik
+/src/dev-app/ion-checkbox-group/**                 @peppedeka
+/src/dev-app/ion-fields/**                         @peppedeka
+/src/dev-app/ion-forms/**                          @peppedeka
+/src/dev-app/ion-image/**                          @peppedeka
+/src/dev-app/ion-node-icon/**                      @peppedeka
 /src/dev-app/ion-page-slider/**                    @peppedeka
-/src/dev-app/ion-reports/**                        @trik
-/src/dev-app/ion-widgets/**                        @trik
+/src/dev-app/ion-reports/**                        @peppedeka
+/src/dev-app/ion-widgets/**                        @peppedeka
 /src/dev-app/mat-barcode/**                        @peppedeka
 /src/dev-app/mat-calendar/**                       @sara-gnucoop
 /src/dev-app/mat-calendar-ethiopian/**             @sara-gnucoop
-/src/dev-app/mat-checkbox-group/**                 @trik
-/src/dev-app/mat-form-builder/**                   @trik
-/src/dev-app/mat-fields/**                         @trik
-/src/dev-app/mat-forms/**                          @trik
-/src/dev-app/mat-image/**                          @trik
-/src/dev-app/mat-node-icon/**                      @trik
+/src/dev-app/mat-checkbox-group/**                 @peppedeka
+/src/dev-app/mat-form-builder/**                   @peppedeka
+/src/dev-app/mat-fields/**                         @peppedeka
+/src/dev-app/mat-forms/**                          @peppedeka
+/src/dev-app/mat-image/**                          @peppedeka
+/src/dev-app/mat-node-icon/**                      @peppedeka
 /src/dev-app/mat-page-slider/**                    @peppedeka
-/src/dev-app/mat-report-builder/**                 @trik
-/src/dev-app/mat-reports/**                        @trik
-/src/dev-app/mat-time/**                           @trik
-/src/dev-app/mat-widgets/**                        @trik
+/src/dev-app/mat-report-builder/**                 @peppedeka
+/src/dev-app/mat-reports/**                        @peppedeka
+/src/dev-app/mat-time/**                           @peppedeka
+/src/dev-app/mat-widgets/**                        @peppedeka
 
 # E2E app
-/src/e2e-app/*                                     @trik
-/src/e2e-app/e2e-app/*                             @trik
-/src/e2e-app/example-viewer/*                      @trik
-/src/e2e-app/file-input/*                          @trik
+/src/e2e-app/*                                     @peppedeka
+/src/e2e-app/e2e-app/*                             @peppedeka
+/src/e2e-app/example-viewer/*                      @peppedeka
+/src/e2e-app/file-input/*                          @peppedeka
 /src/e2e-app/ion-calendar/*                        @sara-gnucoop
-/src/e2e-app/ion-date-input-field/*                @trik
+/src/e2e-app/ion-date-input-field/*                @peppedeka
 /src/e2e-app/ion-form/*                            @peppedeka
-/src/e2e-app/ion-report/*                          @trik
-/src/e2e-app/ion-table-field/*                     @trik
+/src/e2e-app/ion-report/*                          @peppedeka
+/src/e2e-app/ion-table-field/*                     @peppedeka
 /src/e2e-app/mat-calendar/*                        @sara-gnucoop
-/src/e2e-app/mat-date-input-field/*                @trik
+/src/e2e-app/mat-date-input-field/*                @peppedeka
 /src/e2e-app/mat-form/*                            @peppedeka
-/src/e2e-app/mat-report/*                          @trik
-/src/e2e-app/mat-table-field/*                     @trik
+/src/e2e-app/mat-report/*                          @peppedeka
+/src/e2e-app/mat-table-field/*                     @peppedeka
 
 # Universal app
 /src/universal-app/**                              @trik
@@ -126,7 +126,7 @@
 
 # Misc
 /.github/**                                        @trik
-/.github/CODEOWNERS                                @trik
+/.github/CODEOWNERS                                @peppedeka
 /.github/ISSUE_TEMPLATE/**                         @trik
 /.husky/**                                         @trik
 /.vscode/**                                        @trik
