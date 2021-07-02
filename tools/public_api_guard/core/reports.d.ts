@@ -313,7 +313,7 @@ export interface AjfWidgetComponentsMap {
         inputs?: {
             [key: string]: any;
         };
-        initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext, translateService: TranslateService) => AjfWidgetInstance;
+        initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext, translateService: TranslocoService) => AjfWidgetInstance;
     };
 }
 
@@ -390,14 +390,14 @@ export declare function chartToChartJsType(chartType?: AjfChartType): ExtendedCh
 
 export declare function createAggregation(aggregation: AjfAggregationCreate): AjfAggregation;
 
-export declare function createReportInstance(report: AjfReport, context: AjfContext, ts: TranslateService): AjfReportInstance;
+export declare function createReportInstance(report: AjfReport, context: AjfContext, ts: TranslocoService): AjfReportInstance;
 
 export declare function createReportPdf(report: AjfReportInstance, orientation?: PageOrientation): Promise<TCreatedPdf>;
 
 export declare function createWidget(widget: AjfWidgetCreate): AjfWidget;
 
-export declare function createWidgetInstance(widget: AjfWidget, context: AjfContext, _ts: TranslateService): AjfWidgetInstance;
+export declare function createWidgetInstance(widget: AjfWidget, context: AjfContext, _ts: TranslocoService): AjfWidgetInstance;
 
 export declare function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation): void;
 
-export declare function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslateService): AjfWidgetInstance;
+export declare function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslocoService): AjfWidgetInstance;

@@ -3,108 +3,139 @@
   [ngClass]="{'ajf-drag-mode': onDragged, 'ajf-zoom-mode': fixedZoom}"
   [applyStyles]="reportStyles|async"
   (mouseenter)="show = true"
-  (mouseleave)="show = false">
+  (mouseleave)="show = false"
+>
   <div
     class="ajf-header"
     [ngClass]="{'ajf-is-on-over': onDragged || show}"
-    [applyStyles]="(headerStyles|async)">
+    [applyStyles]="(headerStyles|async)"
+  >
     <mat-list *ngFor="let t of headerWidgets; let i = index">
-      <div cdkDropList
-          class="ajf-drop-zone"
-          [ngClass]="{'ajf-show': true}"
-          [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
-          (cdkDropListDropped)="addToList('header', $event, i);"
-          (dragenter)="onDragEnterHandler('header', i)"
-          (dragleave)="onDragLeaveHandler()">
-      </div>
-      <ajf-report-builder-widgets-row-buttons
-          cdkDrag
-          [cdkDragData]="{widget: t,fromIndex: i,arrayFrom: 'header', dropZones: ['widget','column']}"
-          [style.display]="(showActions || onDragged)? 'block' : 'none'"
-          [from]="'header'"
-          [widget]="t"
-          [position]="i"
-          (cdkDragStarted)="onDragStartHandler();"
-          (cdkDragEnded)="onDragEndHandler()">
-      </ajf-report-builder-widgets-row-buttons>
-      <ajf-report-builder-renderer-widget [widget]="t" [position]="i" [section]="'header'" (currentWidget)="currentWidget"></ajf-report-builder-renderer-widget>
-    </mat-list>
-    <div cdkDropList
-        class="ajf-drop-zone-container"
+      <div
+        cdkDropList
+        class="ajf-drop-zone"
         [ngClass]="{'ajf-show': true}"
-        [cdkDropListEnterPredicate]="canDropPredicate(['header','widget','column'])"
-        (cdkDropListDropped)="addToList('header', $event)"
-        (dragenter)="onDragEnterHandler('header', headerWidgets?.length)"
-        (dragleave)="onDragLeaveHandler()">
-    </div>
+        [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
+        (cdkDropListDropped)="addToList('header', $event, i);"
+        (dragenter)="onDragEnterHandler('header', i)"
+        (dragleave)="onDragLeaveHandler()"
+      ></div>
+      <ajf-report-builder-widgets-row-buttons
+        cdkDrag
+        [cdkDragData]="{widget: t,fromIndex: i,arrayFrom: 'header', dropZones: ['widget','column']}"
+        [style.display]="(showActions || onDragged)? 'block' : 'none'"
+        [from]="'header'"
+        [widget]="t"
+        [position]="i"
+        (cdkDragStarted)="onDragStartHandler();"
+        (cdkDragEnded)="onDragEndHandler()"
+      >
+      </ajf-report-builder-widgets-row-buttons>
+      <ajf-report-builder-renderer-widget
+        [widget]="t"
+        [position]="i"
+        [section]="'header'"
+        (currentWidget)="currentWidget"
+      ></ajf-report-builder-renderer-widget>
+    </mat-list>
+    <div
+      cdkDropList
+      class="ajf-drop-zone-container"
+      [ngClass]="{'ajf-show': true}"
+      [cdkDropListEnterPredicate]="canDropPredicate(['header','widget','column'])"
+      (cdkDropListDropped)="addToList('header', $event)"
+      (dragenter)="onDragEnterHandler('header', headerWidgets?.length)"
+      (dragleave)="onDragLeaveHandler()"
+    ></div>
   </div>
   <div
     class="ajf-content"
     [ngClass]="{'ajf-is-on-over': onDragged || show}"
-    [applyStyles]="contentStyles|async">
+    [applyStyles]="contentStyles|async"
+  >
     <mat-list *ngFor="let t of contentWidgets; let i = index">
-      <div cdkDropList
-          class="ajf-drop-zone"
-          [ngClass]="{'ajf-show': true}"
-          [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
-          (cdkDropListDropped)="addToList('content', $event, i)"
-          (dragenter)="onDragEnterHandler('content', i)"
-          (dragleave)="onDragLeaveHandler()">
-      </div>
+      <div
+        cdkDropList
+        class="ajf-drop-zone"
+        [ngClass]="{'ajf-show': true}"
+        [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
+        (cdkDropListDropped)="addToList('content', $event, i)"
+        (dragenter)="onDragEnterHandler('content', i)"
+        (dragleave)="onDragLeaveHandler()"
+      ></div>
       <ajf-report-builder-widgets-row-buttons
-          cdkDrag
-          [cdkDragData]="{widget: t, fromIndex: i, arrayFrom: 'content', dropZones: ['widget','column']}"
-          [style.display]="showActions ? 'block' : 'none'"
-          [from]="'content'"
-          [widget]="t"
-          [position]="i"
-          (cdkDragStarted)="onDragStartHandler()"
-          (cdkDragEnded)="onDragEndHandler();">
+        cdkDrag
+        [cdkDragData]="{widget: t, fromIndex: i, arrayFrom: 'content', dropZones: ['widget','column']}"
+        [style.display]="showActions ? 'block' : 'none'"
+        [from]="'content'"
+        [widget]="t"
+        [position]="i"
+        (cdkDragStarted)="onDragStartHandler()"
+        (cdkDragEnded)="onDragEndHandler();"
+      >
       </ajf-report-builder-widgets-row-buttons>
-      <ajf-report-builder-renderer-widget [widget]="t" [position]="i" [section]="'content'" (currentWidget)="currentWidget"></ajf-report-builder-renderer-widget>
+      <ajf-report-builder-renderer-widget
+        [widget]="t"
+        [position]="i"
+        [section]="'content'"
+        (currentWidget)="currentWidget"
+      ></ajf-report-builder-renderer-widget>
     </mat-list>
-    <div cdkDropList
-        class="ajf-drop-zone-container"
-        [ngClass]="{'ajf-show': onDragged}"
-        [cdkDropListEnterPredicate]="canDropPredicate(['content','widget','column'])"
-        (cdkDropListDropped)="addToList('content', $event)"
-        (dragenter)="onDragEnterHandler('content', contentWidgets?.length)"
-        (dragleave)="onDragLeaveHandler()">
-      <label translate>Drop here</label>
+    <div
+      cdkDropList
+      class="ajf-drop-zone-container"
+      [ngClass]="{'ajf-show': onDragged}"
+      [cdkDropListEnterPredicate]="canDropPredicate(['content','widget','column'])"
+      (cdkDropListDropped)="addToList('content', $event)"
+      (dragenter)="onDragEnterHandler('content', contentWidgets?.length)"
+      (dragleave)="onDragLeaveHandler()"
+    >
+      <label>{{'Drop here'|transloco}}</label>
     </div>
   </div>
   <div
     class="ajf-footer"
     [ngClass]="{'ajf-is-on-over': onDragged || show}"
-    [applyStyles]="footerStyles|async">
+    [applyStyles]="footerStyles|async"
+  >
     <mat-list *ngFor="let t of footerWidgets; let i = index">
-      <div cdkDropList
-          class="ajf-drop-zone"
-          [ngClass]="{'ajf-show': true}"
-          [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
-          (cdkDropListDropped)="addToList('footer', $event, i)"
-          (dragenter)="onDragEnterHandler('footer', i)"
-          (dragleave)="onDragLeaveHandler()">
-      </div>
+      <div
+        cdkDropList
+        class="ajf-drop-zone"
+        [ngClass]="{'ajf-show': true}"
+        [cdkDropListEnterPredicate]="canDropPredicate(['widget','column'])"
+        (cdkDropListDropped)="addToList('footer', $event, i)"
+        (dragenter)="onDragEnterHandler('footer', i)"
+        (dragleave)="onDragLeaveHandler()"
+      ></div>
       <ajf-report-builder-widgets-row-buttons
-          cdkDrag
-          [cdkDragData]="{widget: t, fromIndex: i, arrayFrom: 'footer', dropZones: ['widget','column']}"
-          [style.display]="showActions ? 'block' : 'none'"
-          [from]="'footer'"
-          [widget]="t"
-          [position]="i"
-          (cdkDragStarted)="onDragStartHandler()"
-          (cdkDragEnded)="onDragEndHandler()">
+        cdkDrag
+        [cdkDragData]="{widget: t, fromIndex: i, arrayFrom: 'footer', dropZones: ['widget','column']}"
+        [style.display]="showActions ? 'block' : 'none'"
+        [from]="'footer'"
+        [widget]="t"
+        [position]="i"
+        (cdkDragStarted)="onDragStartHandler()"
+        (cdkDragEnded)="onDragEndHandler()"
+      >
       </ajf-report-builder-widgets-row-buttons>
-      <ajf-report-builder-renderer-widget [widget]="t" [position]="i" [section]="'footer'" (currentWidget)="currentWidget"></ajf-report-builder-renderer-widget>
+      <ajf-report-builder-renderer-widget
+        [widget]="t"
+        [position]="i"
+        [section]="'footer'"
+        (currentWidget)="currentWidget"
+      ></ajf-report-builder-renderer-widget>
     </mat-list>
-    <div cdkDropList
-        class="ajf-drop-zone-container"
-        [ngClass]="{'ajf-show': onDragged}"
-        [cdkDropListEnterPredicate]="canDropPredicate(['footer','widget','column'])"
-        (cdkDropListDropped)="addToList('footer', $event)"
-        (dragenter)="onDragEnterHandler('footer', headerWidgets?.length)"
-        (dragleave)="onDragLeaveHandler()">
-      <label translate>Drop here</label>
+    <div
+      cdkDropList
+      class="ajf-drop-zone-container"
+      [ngClass]="{'ajf-show': onDragged}"
+      [cdkDropListEnterPredicate]="canDropPredicate(['footer','widget','column'])"
+      (cdkDropListDropped)="addToList('footer', $event)"
+      (dragenter)="onDragEnterHandler('footer', headerWidgets?.length)"
+      (dragleave)="onDragLeaveHandler()"
+    >
+      <label>{{'Drop here'|transloco}}</label>
     </div>
+  </div>
 </div>

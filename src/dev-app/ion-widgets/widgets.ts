@@ -22,14 +22,14 @@
 
 import {AjfImageType} from '@ajf/core/image';
 import {AjfWidgetInstance, AjfWidgetType, createWidgetInstance} from '@ajf/core/reports';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslocoService} from '@ajf/core/transloco';
 
 const baseWidget = {
   styles: {height: '200px'},
   visibility: {condition: 'true'}
 };
 
-export function demoWidgets(ts: TranslateService): {name: string, instance: AjfWidgetInstance}[] {
+export function demoWidgets(ts: TranslocoService): {name: string, instance: AjfWidgetInstance}[] {
   return [
     {
       name: 'Layout',

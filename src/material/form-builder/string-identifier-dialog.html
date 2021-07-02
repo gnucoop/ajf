@@ -1,17 +1,17 @@
-<h3 matDialogTitle translate>Edit identifier</h3>
+<h3 matDialogTitle>{{'Edit identifier'|transloco}}</h3>
 <mat-dialog-content>
   <button (click)="addRow()" mat-button>
     <mat-icon>add</mat-icon>
-    <span translate>Add value</span>
+    <span>{{'Add value'|transloco}}</span>
   </button>
   <mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="label">
-      <mat-header-cell *matHeaderCellDef translate>Label</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>{{'Label'|transloco}}</mat-header-cell>
       <mat-cell *matCellDef="let row; let idx = index">
         <mat-form-field>
           <input
             matInput
-            [placeholder]="'Label'|translate"
+            [placeholder]="'Label'|transloco"
             autofocus
             [(ngModel)]="row.label"
           />
@@ -19,7 +19,7 @@
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="value">
-      <mat-header-cell *matHeaderCellDef translate>Value</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>{{'Value'|transloco}}</mat-header-cell>
       <mat-cell *matCellDef="let row; let idx = index">
         <mat-form-field>
           <mat-chip-list #chipList>
@@ -39,7 +39,7 @@
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="true"
             (matChipInputTokenEnd)="addValue(row, $event, valueInput)"
-            [placeholder]="'Value'|translate"
+            [placeholder]="'Value'|transloco"
           />
           <mat-autocomplete
             #valueAc="matAutocomplete"
@@ -53,19 +53,21 @@
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="show">
-      <mat-header-cell *matHeaderCellDef translate>Show</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>{{'Show'|transloco}}</mat-header-cell>
       <mat-cell *matCellDef="let row; let idx = index">
         <mat-form-field>
           <mat-select matNativeControl [(ngModel)]="row.show">
-            <mat-option value="all" translate>All</mat-option>
-            <mat-option value="first" translate>First</mat-option>
-            <mat-option value="last" translate>Last</mat-option>
+            <mat-option value="all">{{'All'|transloco}}</mat-option>
+            <mat-option value="first">{{'First'|transloco}}</mat-option>
+            <mat-option value="last">{{'Last'|transloco}}</mat-option>
           </mat-select>
         </mat-form-field>
       </mat-cell>
     </ng-container>
     <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef translate>Delete</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef
+        >{{'Delete'|transloco}}</mat-header-cell
+      >
       <mat-cell *matCellDef="let row; let idx = index">
         <mat-icon (click)="deleteRow(idx)">delete</mat-icon>
       </mat-cell>
@@ -76,7 +78,7 @@
   </mat-table>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button translate matDialogClose (click)="saveStringIdentifier()">
-    Save
+  <button mat-button matDialogClose (click)="saveStringIdentifier()">
+    {{'Save'|transloco}}
   </button>
 </mat-dialog-actions>

@@ -7,7 +7,7 @@ export declare class AjfBarcodeComponent extends AjfBarcode {
 export declare class AjfBarcodeModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfBarcodeModule, never>;
     static ɵinj: i0.ɵɵInjectorDeclaration<AjfBarcodeModule>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfBarcodeModule, [typeof i1.AjfBarcodeComponent], [typeof i2.AjfCommonModule, typeof i3.CommonModule, typeof i4.IonicModule, typeof i5.TranslateModule], [typeof i1.AjfBarcodeComponent]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfBarcodeModule, [typeof i1.AjfBarcodeComponent], [typeof i2.AjfCommonModule, typeof i3.CommonModule, typeof i4.IonicModule, typeof i5.AjfTranslocoModule], [typeof i1.AjfBarcodeComponent]>;
 }
 
 export declare const BARCODE_CONTROL_VALUE_ACCESSOR: any;

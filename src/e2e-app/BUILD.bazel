@@ -13,7 +13,7 @@ devserverIndexHtmlDependencies = [
     "@npm//leaflet",
     "@npm//numbro",
     "@npm//pdfmake",
-    "@npm//@ngx-translate/core",
+    "//src/core/transloco",
     ":index.html",
 ]
 
@@ -40,6 +40,7 @@ ng_module(
     deps = [
         "//src/ajf-examples/private",
         "//src/core/file-input",
+        "//src/core/transloco",
         "//src/ionic/calendar",
         "//src/ionic/forms",
         "//src/material/calendar",
@@ -51,8 +52,6 @@ ng_module(
         "@npm//@angular/platform-browser",
         "@npm//@angular/router",
         "@npm//@ionic/angular",
-        "@npm//@ngx-translate/core",
-        "@npm//@ngx-translate/http-loader",
     ],
 )
 

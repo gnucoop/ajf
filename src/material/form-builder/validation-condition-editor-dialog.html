@@ -1,14 +1,19 @@
-<h3 matDialogTitle translate>Edit condition</h3>
+<h3 matDialogTitle>{{'Edit condition'|transloco}}</h3>
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput [(ngModel)]="errorMessage" [placeholder]="'Error message' | translate">
+    <input
+      matInput
+      [(ngModel)]="errorMessage"
+      [placeholder]="'Error message'|transloco"
+    />
   </mat-form-field>
   <ajf-condition-editor
-      *ngIf="fields|async as curFields"
-      [fields]="curFields!"
-      [condition]="condition"></ajf-condition-editor>
+    *ngIf="fields|async as curFields"
+    [fields]="curFields!"
+    [condition]="condition"
+  ></ajf-condition-editor>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button translate (click)="saveCondition()">Save</button>
-  <button mat-button translate matDialogClose>Close</button>
+  <button mat-button (click)="saveCondition()">{{'Save'|transloco}}</button>
+  <button mat-button matDialogClose>{{'Close'|transloco}}</button>
 </mat-dialog-actions>

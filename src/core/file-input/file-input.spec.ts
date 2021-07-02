@@ -1,7 +1,7 @@
 import {AjfFile, AjfFileInput, AjfFileInputModule} from '@ajf/core/file-input';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TranslateModule} from '@ngx-translate/core';
 import {shareReplay, take} from 'rxjs/operators';
 
 const emptyPng =
@@ -20,7 +20,7 @@ describe('AjfFileInput', () => {
   beforeEach(async () => {
     await TestBed
         .configureTestingModule({
-          imports: [AjfFileInputModule, TranslateModule.forRoot()],
+          imports: [AjfFileInputModule, AjfTranslocoModule],
         })
         .compileComponents();
     fixture = TestBed.createComponent(AjfFileInput);
@@ -90,7 +90,7 @@ describe('AjfFileInput with custom drop message', () => {
     await TestBed
         .configureTestingModule({
           declarations: [DropMessageTestComponent],
-          imports: [AjfFileInputModule, TranslateModule.forRoot()],
+          imports: [AjfFileInputModule, AjfTranslocoModule],
         })
         .compileComponents();
     fixture = TestBed.createComponent(DropMessageTestComponent);
@@ -114,7 +114,7 @@ describe('AjfFileInput with custom file preview', () => {
     await TestBed
         .configureTestingModule({
           declarations: [FilePreviewTestComponent],
-          imports: [AjfFileInputModule, TranslateModule.forRoot()],
+          imports: [AjfFileInputModule, AjfTranslocoModule],
         })
         .compileComponents();
     fixture = TestBed.createComponent(FilePreviewTestComponent);

@@ -19,7 +19,7 @@
     "@angular/common": "0.0.0-NG",
     "@angular/forms": "0.0.0-NG",
     "@angular/router": "0.0.0-NG",
-    "@ngx-translate/core": "0.0.0-ANGXT",
+    "@ngneat/transloco": "0.0.0-TRNLC",
     "@zxing/browser": "0.0.0-ZXINGB",
     "@zxing/library": "0.0.0-ZXINGL",
     "chart.js": "0.0.0-CHART",

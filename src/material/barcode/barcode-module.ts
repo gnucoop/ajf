@@ -21,12 +21,12 @@
  */
 
 import {AjfCommonModule} from '@ajf/core/common';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfBarcodeComponent} from './barcode';
 
@@ -37,7 +37,7 @@ import {AjfBarcodeComponent} from './barcode';
     MatButtonModule,
     MatButtonToggleModule,
     MatIconModule,
-    TranslateModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     AjfBarcodeComponent,

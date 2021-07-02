@@ -24,6 +24,7 @@ import {AjfCommonModule} from '@ajf/core/common';
 import {AjfMapModule} from '@ajf/core/map';
 import {AjfTableModule} from '@ajf/core/table';
 import {AjfTextModule} from '@ajf/core/text';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfImageModule} from '@ajf/material/image';
 import {AjfMonacoEditorModule} from '@ajf/material/monaco-editor';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -44,7 +45,6 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {TranslateModule} from '@ngx-translate/core';
 import {ColorPickerModule} from 'ngx-color-picker';
 
 import {AjfReportBuilderColumn} from './column';
@@ -72,13 +72,13 @@ import {AjfReportBuilderWidgetsToolbar} from './widgets-toolbar';
 
 @NgModule({
   imports: [
-    AjfCommonModule, AjfImageModule,  AjfMapModule,      AjfMonacoEditorModule,
-    AjfTableModule,  AjfTextModule,   ColorPickerModule, CommonModule,
-    DragDropModule,  FormsModule,     MatButtonModule,   MatButtonToggleModule,
-    MatCardModule,   MatDialogModule, MatGridListModule, MatIconModule,
-    MatListModule,   MatSelectModule, MatSidenavModule,  MatSlideToggleModule,
-    MatSliderModule, MatTabsModule,   MatToolbarModule,  MatTooltipModule,
-    TranslateModule,
+    AjfCommonModule,    AjfImageModule,  AjfMapModule,      AjfMonacoEditorModule,
+    AjfTableModule,     AjfTextModule,   ColorPickerModule, CommonModule,
+    DragDropModule,     FormsModule,     MatButtonModule,   MatButtonToggleModule,
+    MatCardModule,      MatDialogModule, MatGridListModule, MatIconModule,
+    MatListModule,      MatSelectModule, MatSidenavModule,  MatSlideToggleModule,
+    MatSliderModule,    MatTabsModule,   MatToolbarModule,  MatTooltipModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     AjfImageFilterPipe,
@@ -108,7 +108,7 @@ import {AjfReportBuilderWidgetsToolbar} from './widgets-toolbar';
   ],
   providers: [
     AjfReportBuilderService,
-  ]
+  ],
 })
 export class AjfReportBuilderModule {
 }

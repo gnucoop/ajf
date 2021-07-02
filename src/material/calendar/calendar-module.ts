@@ -21,11 +21,11 @@
  */
 
 import {AjfCalendarModule as CoreModule} from '@ajf/core/calendar';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfCalendarComponent} from './calendar';
 
@@ -35,7 +35,7 @@ import {AjfCalendarComponent} from './calendar';
     CoreModule,
     FormsModule,
     MatButtonModule,
-    TranslateModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     AjfCalendarComponent,

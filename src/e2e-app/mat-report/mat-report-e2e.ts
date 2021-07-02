@@ -21,8 +21,8 @@
  */
 
 import {AjfReportInstance, AjfReportSerializer, createReportInstance} from '@ajf/core/reports';
+import {TranslocoService} from '@ajf/core/transloco';
 import {Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 
 import {testReport} from './report';
 
@@ -33,7 +33,7 @@ import {testReport} from './report';
 export class MaterialReportE2E {
   readonly report: AjfReportInstance;
 
-  constructor(ts: TranslateService) {
+  constructor(ts: TranslocoService) {
     const report = AjfReportSerializer.fromJson(testReport);
     this.report = createReportInstance(report, {}, ts);
   }

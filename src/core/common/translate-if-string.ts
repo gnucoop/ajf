@@ -20,12 +20,12 @@
  *
  */
 
+import {TranslocoPipe} from '@ajf/core/transloco';
 import {Pipe} from '@angular/core';
-import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Pipe({name: 'ajfTranslateIfString'})
-export class TranslateIfString extends TranslatePipe {
+export class TranslateIfString extends TranslocoPipe {
   transform(query: any, ...args: any[]): any {
     if (typeof query === 'string') {
       return super.transform(query, ...args);

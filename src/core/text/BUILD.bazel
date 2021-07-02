@@ -19,10 +19,10 @@ ng_module(
     assets = [":text.css"] + glob(["**/*.html"]),
     module_name = "@ajf/core/text",
     deps = [
+        "//src/core/transloco",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
-        "@npm//@ngx-translate/core",
     ],
 )
 

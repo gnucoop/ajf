@@ -20,8 +20,8 @@
  *
  */
 
+import {AjfTranslocoModule, TranslocoService} from '@ajf/core/transloco';
 import {TestBed} from '@angular/core/testing';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 import {
   AjfColumnWidgetInstance,
@@ -32,11 +32,11 @@ import {
 } from './public-api';
 
 describe('createReportInstance', () => {
-  let ts: TranslateService;
+  let ts: TranslocoService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({imports: [TranslateModule.forRoot()]});
-    ts = TestBed.get(TranslateService);
+    TestBed.configureTestingModule({imports: [AjfTranslocoModule]});
+    ts = TestBed.get(TranslocoService);
   });
 
   it('should support variables at report level', () => {

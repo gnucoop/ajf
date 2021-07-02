@@ -2,7 +2,7 @@
   <mat-select *ngIf="control|async as c" [formControl]="c!" [multiple]="true">
     <mat-option [value]="choice.value"
         *ngFor="let choice of instance.filteredChoices">
-      {{ choice.label | translate }}
+      {{ choice.label | transloco }}
     </mat-option>
   </mat-select>
 </ng-container>
@@ -12,7 +12,7 @@
       [formControl]="c!">
     <ajf-checkbox-group-item *ngFor="let choice of instance.filteredChoices"
         [value]="choice.value">
-      {{ choice.label | translate }}
+      {{ choice.label | transloco }}
     </ajf-checkbox-group-item>
   </ajf-checkbox-group>
 </ng-template>

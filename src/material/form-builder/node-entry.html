@@ -59,7 +59,7 @@
           <ajf-node-icon [node]="realNodeEntry.node"></ajf-node-icon>
           <span
             class="ajf-title"
-            [innerHTML]="(realNodeEntry.node.label || realNodeEntry.node.name)  | translate"
+            [innerHTML]="(realNodeEntry.node.label || realNodeEntry.node.name)  | transloco"
           ></span>
           <span
             *ngIf="realNodeEntry.node.visibility && realNodeEntry.node.visibility?.condition !== 'true'"

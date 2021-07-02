@@ -26,9 +26,9 @@ import {
   createReportInstance,
   openReportPdf,
 } from '@ajf/core/reports';
+import {TranslocoService} from '@ajf/core/transloco';
 import {AjfWidgetService} from '@ajf/material/reports';
 import {Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 
 import {CustomWidget} from './custom-widget';
 import {testReport} from './report';
@@ -43,7 +43,7 @@ export class ReportsDemo {
   reportStr: string = JSON.stringify(testReport);
   context: string = '{}';
 
-  constructor(private _ts: TranslateService, widgetService: AjfWidgetService) {
+  constructor(private _ts: TranslocoService, widgetService: AjfWidgetService) {
     widgetService.registerCustomWidget({widgetType: 101, component: CustomWidget});
     const engDict = {
       'Salva': 'Save',
@@ -55,7 +55,7 @@ export class ReportsDemo {
       'Dessie Zuria': 'DessieT ZuriaT',
       'Totale': 'Total'
     };
-    _ts.setTranslation('ENG', engDict);
+    _ts.setTranslation(engDict, 'ENG');
     _ts.setDefaultLang('ENG');
     this._populateReport();
   }

@@ -7,31 +7,44 @@
   </div>
 </ng-container>
 <ng-template #barcode>
-  <mat-button-toggle-group [value]=toggle>
+  <mat-button-toggle-group [value]="toggle">
     <mat-button-toggle (click)="toggle = 'drop'; fileInput.click()">
-      <span translate>Upload image</span>
+      <span>{{'Upload image'|transloco}}</span>
       <mat-icon>add_circle_outline</mat-icon>
-      <input #fileInput type="file" (change)="onSelectFile($event)" multiple style="display:none;" />
+      <input
+        #fileInput
+        type="file"
+        (change)="onSelectFile($event)"
+        multiple
+        style="display: none"
+      />
     </mat-button-toggle>
     <mat-button-toggle (click)="toggle = 'drop'">
-      <span translate>Drop image</span>
+      <span>{{'Drop image'|transloco}}</span>
     </mat-button-toggle>
     <mat-button-toggle (click)="toggle = 'camera'">
-      <span translate>Camera</span>
+      <span>{{'Camera'|transloco}}</span>
     </mat-button-toggle>
   </mat-button-toggle-group>
   <ng-container [ngSwitch]="toggle">
     <ng-container *ngSwitchCase="'drop'">
       <div class="ajf-drop-container">
-          <div class="ajf-dropzone" ajfDnd (file)="onSelectDrop($event)">
-            <div class="ajf-text-wrapper">
-              <div class="ajf-centered" translate>Drop your image here!</div>
+        <div class="ajf-dropzone" ajfDnd (file)="onSelectDrop($event)">
+          <div class="ajf-text-wrapper">
+            <div class="ajf-centered">
+              {{'Drop your image here!'|transloco}}
             </div>
           </div>
+        </div>
       </div>
     </ng-container>
     <ng-container *ngSwitchCase="'camera'">
-      <div ajfVideoDirective [source]="videoSource" class="left" (isInit)="takeSnapshot()"></div>
+      <div
+        ajfVideoDirective
+        [source]="videoSource"
+        class="left"
+        (isInit)="takeSnapshot()"
+      ></div>
     </ng-container>
   </ng-container>
 </ng-template>

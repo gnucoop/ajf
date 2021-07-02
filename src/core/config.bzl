@@ -21,6 +21,7 @@ CORE_ENTRYPOINTS_WITH_STYLES = [
     "table",
     "text",
     "time",
+    "transloco",
     "utils",
 ]
 
