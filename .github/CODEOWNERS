@@ -14,7 +14,7 @@
 /src/core/node-icon/*                              @trik
 /src/core/page-break/*                             @trik
 /src/core/page-slider/*                            @peppedeka
-/src/core/reports/**/*                             @trik
+/src/core/reports/**/*                             @peppedeka
 /src/core/reports/report-to-pdf/*                  @robzan8
 /src/core/table/*                                  @trik
 /src/core/testing/private/**/*                     @trik
