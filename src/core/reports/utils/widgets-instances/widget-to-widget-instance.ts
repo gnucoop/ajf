@@ -207,7 +207,7 @@ export function widgetToWidgetInstance(
         colspan: cell.colspan,
       });
     });
-    tdwi.data = [[...header], ...dataset];
+    tdwi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
   } else if (widget.widgetType === AjfWidgetType.Image) {
     const iw = widget as AjfImageWidget;
     const iwi = wi as AjfImageWidgetInstance;
