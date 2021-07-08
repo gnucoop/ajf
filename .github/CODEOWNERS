@@ -124,7 +124,7 @@
 /.yarn/**                                          @trik
 /scripts/**                                        @trik
 /test/**                                           @trik
-/tools/**                                          @trik
+/tools/**                                          @peppedeka
 
 # Misc
 /.github/**                                        @trik
