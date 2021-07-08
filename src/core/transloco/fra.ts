@@ -22,7 +22,7 @@
 
 import {Translation} from '@ngneat/transloco';
 
-export const fr: Translation = {
+export const FRA: Translation = {
   'Drop your file here or click to select':
       'Déposez votre fichier ici ou cliquez pour sélectionner',
   'Delete': 'Effacer',

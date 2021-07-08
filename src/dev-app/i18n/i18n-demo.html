@@ -12,7 +12,15 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <div *ngFor="let word of allWords">
-    <p>{{word|transloco}}</p>
+
+  <h5>translations inside i18n demo</h5>
+  <div>
+    <h1>{{'hello'|transloco}}</h1>
+  </div>
+  <div>
+    <h4>AJF Form Builder</h4>
+    <section>
+      <ajf-form-builder></ajf-form-builder>
+    </section>
   </div>
 </div>
