@@ -11,6 +11,7 @@ ng_module(
     ],
     deps = [
         "//src/core/transloco",
+        "//src/material/form-builder",
         "@npm//@angular/common",
         "@npm//@angular/forms",
         "@npm//@angular/material",

@@ -20,24 +20,30 @@
  *
  */
 
-import {AjfTranslocoModule} from '@ajf/core/transloco';
+import {AjfTranslocoModule, HashMap, TranslocoPipe as CoreTranslocoPipe} from '@ajf/core/transloco';
+import {AjfFormBuilderModule} from '@ajf/material/form-builder';
 import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
+import {NgModule, Pipe} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {RouterModule} from '@angular/router';
 
 import {I18nDemo} from './i18n-demo';
 
+@Pipe({name: 'transloco', pure: false})
+export class TranslocoPipe extends CoreTranslocoPipe {
+  transform(key: string|null, params?: HashMap|undefined, inlineLang?: string|undefined) {
+    return super.transform(`demo.${key}`, params, inlineLang);
+  }
+}
 
 @NgModule({
-  declarations: [
-    I18nDemo,
-  ],
+  declarations: [I18nDemo, TranslocoPipe],
   imports: [
     CommonModule,
     FormsModule,
     MatSelectModule,
+    AjfFormBuilderModule,
     RouterModule.forChild([{path: '', component: I18nDemo}]),
     AjfTranslocoModule,
   ],

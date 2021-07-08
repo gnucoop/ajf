@@ -32,15 +32,15 @@ import {
 import {TranslocoHttpLoader} from './transloco-loader';
 import {MissingHandler} from './transloco-missing-handler';
 
-
 @NgModule({
+  imports: [TranslocoModule],
   exports: [TranslocoModule],
   providers: [
     {
       provide: TRANSLOCO_CONFIG,
       useValue: translocoConfig({
-        availableLangs: ['en', 'es', 'fr', 'it'],
-        defaultLang: 'en',
+        availableLangs: ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'],
+        defaultLang: 'ENG',
         reRenderOnLangChange: true,
         prodMode: false,
       })

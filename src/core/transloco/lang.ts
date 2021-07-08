@@ -20,15 +20,63 @@
  *
  */
 
-
 import {Translation} from '@ngneat/transloco';
-import {en} from './en';
-import {es} from './es';
-import {fr} from './fr';
-import {it} from './it';
+
+import {ENG} from './eng';
+import {ESP} from './esp';
+import {ETH} from './eth';
+import {FRA} from './fra';
+import {ITA} from './ita';
+import {PRT} from './prt';
+
 export const langs: {[key: string]: Translation} = {
-  en,
-  es,
-  fr,
-  it
+  ENG,
+  ESP,
+  FRA,
+  ITA,
+  PRT,
+  ETH
+};
+
+/**
+ * @param lang
+ * is the language of the translation expressed with the standard iso country code 3 digits,
+ * except for English expressed with ENG.
+ * @param translation
+ * is a dictionary key value, which represents the translation to add.
+ * @param prefix
+ * if present it creates a sub-section, the translations present in the prefix section will not
+ * change the translations of the other sections.
+ *
+ */
+export const addLang = (lang: string, translation: Translation, prefix?: string): void => {
+  if (lang != null && langs[lang] == null && translation != null) {
+    langs[lang] = {};
+    if (prefix != null) {
+      langs[lang][prefix] = translation;
+    } else {
+      langs[lang] = translation;
+    }
+  }
+};
+
+/**
+ * @param lang
+ * is the language of the translation expressed with the standard iso country code 3 digits,
+ * except for English expressed with ENG.
+ * @param translation
+ * is a dictionary key value, which represents the translation to add.
+ * @param prefix
+ * if present it creates a sub-section, the translations present in the prefix section will not
+ * change the translations of the other sections.
+ *
+ */
+export const updateLang = (lang: string, translation: Translation, prefix?: string): void => {
+  if (lang != null && langs[lang] != null && translation != null) {
+    if (prefix != null) {
+      langs[lang][prefix] = translation;
+    } else {
+      langs[lang] = {...langs[lang], ...translation};
+    }
+  }
 };
