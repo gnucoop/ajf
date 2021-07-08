@@ -20,7 +20,7 @@
  *
  */
 
-import {langs, TranslocoService} from '@ajf/core/transloco';
+import {TranslocoService, updateLang} from '@ajf/core/transloco';
 import {Component} from '@angular/core';
 
 @Component({
@@ -30,9 +30,13 @@ import {Component} from '@angular/core';
 })
 export class I18nDemo {
   readonly langs: string[];
-  readonly allWords: string[] = Object.keys(langs['en']);
   constructor(private _translocoService: TranslocoService) {
     this.langs = _translocoService.getAvailableLangs() as string[];
+    updateLang('ENG', {'hello': 'hello world!'}, 'demo');
+    updateLang('ITA', {'hello': 'ciao mondo!'}, 'demo');
+    updateLang('ESP', {'hello': 'hola mundo!'}, 'demo');
+    updateLang('FRA', {'hello': 'Bonjour le monde!'}, 'demo');
+    updateLang('ETH', {'hello': 'ሰላም ልዑል!'}, 'demo');
   }
 
   changeLang(lang: string): void {
