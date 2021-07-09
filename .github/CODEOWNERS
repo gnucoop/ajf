@@ -123,7 +123,7 @@
 /.jenkins/**                                       @trik
 /.yarn/**                                          @trik
 /scripts/**                                        @trik
-/test/**                                           @trik
+/test/**                                           @peppedeka
 /tools/**                                          @peppedeka
 
 # Misc
@@ -135,5 +135,5 @@
 /.ng-dev/**                                        @trik
 /goldens/size-test.yml                             @trik
 /goldens/**                                        @trik
-/src/*                                             @trik
-/*                                                 @trik
+/src/*                                             @peppedeka
+/*                                                 @peppedeka
