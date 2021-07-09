@@ -49,6 +49,7 @@ module.exports = config => {
       {pattern: 'node_modules/@ionic/core/core.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ionic/core/core-loader.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ngneat/transloco/**/*', included: false, watched: false},
+      {pattern: 'node_modules/@ngneat/transloco/schematics/**/*', included: false, watched: false},
       {
         pattern: 'node_modules/@zxing/browser/umd/zxing-browser.js',
         included: false,
