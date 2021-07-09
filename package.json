@@ -113,7 +113,6 @@
     "@bazel/terser": "3.5.0",
     "@bazel/typescript": "3.5.0",
     "@firebase/app-types": "^0.6.1",
-    "@ngneat/transloco-keys-manager": "^2.7.2",
     "@octokit/rest": "18.3.5",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^18.0.0",
