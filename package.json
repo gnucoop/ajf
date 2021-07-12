@@ -102,7 +102,7 @@
     "@axe-core/webdriverjs": "^4.1.0",
     "@babel/core": "^7.13.10",
     "@babel/traverse": "^7.13.0",
-    "@bazel/bazelisk": "1.7.5",
+    "@bazel/bazelisk": "1.10.0",
     "@bazel/buildifier": "4.0.1",
     "@bazel/concatjs": "3.5.0",
     "@bazel/ibazel": "0.15.8",
