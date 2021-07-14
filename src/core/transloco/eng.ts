@@ -24,6 +24,7 @@
 import {Translation} from '@ngneat/transloco';
 
 export const ENG: Translation = {
+  'Drop your slides here': 'Drop your slides here',
   'Drop your file here or click to select': 'Drop your file here or click to select',
   'Delete': 'Delete',
   'Upload image': 'Upload image',

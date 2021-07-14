@@ -24,6 +24,7 @@
 import {Translation} from '@ngneat/transloco';
 
 export const PRT: Translation = {
+  'Drop your slides here': 'Solte seus slides aqui',
   'Drop your file here or click to select': 'Solte seu arquivo aqui ou clique para selecionar',
   'Delete': 'Excluir',
   'Upload image': 'Enviar Imagem',

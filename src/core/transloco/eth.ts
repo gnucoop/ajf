@@ -23,6 +23,7 @@
 import {Translation} from '@ngneat/transloco';
 
 export const ETH: Translation = {
+  'Drop your slides here': 'ተንሸራታቾችዎን እዚህ ይጥሉ',
   'Drop your file here or click to select': 'ፋይልዎን እዚህ ጣል ያድርጉ ወይም አጠቃላይ ጠቅ ያድርጉ',
   'Delete': 'ሰርዝ',
   'Upload image': 'ስቀልን ምስል',

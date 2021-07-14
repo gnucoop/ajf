@@ -23,6 +23,7 @@
 import {Translation} from '@ngneat/transloco';
 
 export const FRA: Translation = {
+  'Drop your slides here': 'Déposez vos diapositives ici',
   'Drop your file here or click to select':
       'Déposez votre fichier ici ou cliquez pour sélectionner',
   'Delete': 'Effacer',
