@@ -23,15 +23,15 @@
 import {NgModule} from '@angular/core';
 import {
   TRANSLOCO_CONFIG,
-  TRANSLOCO_LOADER,
   TRANSLOCO_MISSING_HANDLER,
   translocoConfig,
-  TranslocoModule
+  TranslocoModule,
+  TranslocoService
 } from '@ngneat/transloco';
 
-import {TranslocoHttpLoader} from './transloco-loader';
+import {langs} from './lang';
 import {MissingHandler} from './transloco-missing-handler';
-
+const availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'];
 @NgModule({
   imports: [TranslocoModule],
   exports: [TranslocoModule],
@@ -39,15 +39,21 @@ import {MissingHandler} from './transloco-missing-handler';
     {
       provide: TRANSLOCO_CONFIG,
       useValue: translocoConfig({
-        availableLangs: ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'],
+        availableLangs,
         defaultLang: 'ENG',
         reRenderOnLangChange: true,
         prodMode: false,
       })
     },
-    {provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoader},
     {provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler}
   ],
 })
 export class AjfTranslocoModule {
+  constructor(ts: TranslocoService) {
+    availableLangs.forEach(lang => {
+      if (langs[lang] != null) {
+        ts.setTranslation(langs[lang], lang);
+      }
+    });
+  }
 }

@@ -23,6 +23,7 @@
 import {Translation} from '@ngneat/transloco';
 
 export const ESP: Translation = {
+  'Drop your slides here': 'Suelta tus diapositivas aquí',
   'Drop your file here or click to select': 'Suelta tu archivo aquí o haz clic para seleccionar',
   'Delete': 'Borrar',
   'Upload image': 'Cargar imagen',
