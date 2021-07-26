@@ -60,7 +60,7 @@ function getMonthBounds(date: EthiopianDate): {start: EthiopianDate, end: Ethiop
 
 @Injectable({providedIn: 'root'})
 export class AjfEthiopianCalendarService extends AjfCalendarService {
-  buildView(params: AjfCalendarParams): AjfCalendarView {
+  override buildView(params: AjfCalendarParams): AjfCalendarView {
     const {viewMode} = params;
     const viewDate = EthiopianDate.gregorianToEthiopian(params.viewDate);
     switch (viewMode) {
@@ -90,7 +90,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
     return super.buildView(params);
   }
 
-  entryLabel(entry: AjfCalendarEntry): string {
+  override entryLabel(entry: AjfCalendarEntry): string {
     const ecDate = EthiopianDate.gregorianToEthiopian(entry.date);
     if (entry.type === 'day') {
       return `${ecDate.getDate()}`;
@@ -101,7 +101,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
     return `${ecDate.getFullYear()}`;
   }
 
-  monthBounds(date: Date, isoMode: boolean): {start: Date, end: Date} {
+  override monthBounds(date: Date, isoMode: boolean): {start: Date, end: Date} {
     if (!isoMode) {
       const ecDate = EthiopianDate.gregorianToEthiopian(date);
       const {start, end} = getMonthBounds(ecDate);
@@ -134,7 +134,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
     }
   }
 
-  nextView(viewDate: Date, viewMode: AjfCalendarViewMode): Date {
+  override nextView(viewDate: Date, viewMode: AjfCalendarViewMode): Date {
     if (viewMode === 'month') {
       const ecDate = EthiopianDate.gregorianToEthiopian(viewDate);
       let year = ecDate.getFullYear();
@@ -150,7 +150,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
     return super.nextView(viewDate, viewMode);
   }
 
-  previousView(viewDate: Date, viewMode: AjfCalendarViewMode): Date {
+  override previousView(viewDate: Date, viewMode: AjfCalendarViewMode): Date {
     if (viewMode === 'month') {
       const ecDate = EthiopianDate.gregorianToEthiopian(viewDate);
       let year = ecDate.getFullYear();

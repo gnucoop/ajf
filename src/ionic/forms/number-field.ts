@@ -69,13 +69,13 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
                          )) as Observable<number|null>;
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     super.ngOnDestroy();
     this._setValueEvt.complete();
     this._setValueSub.unsubscribe();
   }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     super.ngOnInit();
     this._setValueSub = this._setValueEvt
                             .pipe(

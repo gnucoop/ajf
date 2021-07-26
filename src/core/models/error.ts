@@ -21,11 +21,11 @@
  */
 
 export class AjfError extends Error {
-  stack: string;
-  get name(): string {
+  override stack: string;
+  override get name(): string {
     return 'AjfError';
   }
-  get message(): string {
+  override get message(): string {
     return this._message;
   }
   // this private string is the error message

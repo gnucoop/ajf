@@ -26,7 +26,7 @@ import {Pipe} from '@angular/core';
 
 @Pipe({name: 'ajfTranslateIfString'})
 export class TranslateIfString extends TranslocoPipe {
-  transform(query: any, ...args: any[]): any {
+  override transform(query: any, ...args: any[]): any {
     if (typeof query === 'string') {
       return super.transform(query, ...args);
     } else {

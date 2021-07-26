@@ -55,7 +55,7 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
     super(animationBuilder, cdr, renderer);
   }
 
-  ngAfterContentInit(): void {
+  override ngAfterContentInit(): void {
     super.ngAfterContentInit();
     this._scrollSub = this.pages.changes
                           .pipe(
@@ -70,7 +70,7 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
                           });
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     super.ngOnDestroy();
     this._scrollSub.unsubscribe();
   }

@@ -23,7 +23,7 @@ export class DocsMarkdownRenderer extends Renderer {
    * want to create a header-link for each H3 and H4 heading. This allows users to jump to
    * specific parts of the docs.
    */
-  heading(label: string, level: number, raw: string) {
+  override heading(label: string, level: number, raw: string) {
     if (level === 3 || level === 4) {
       const headingId = this._slugger.slug(raw);
       return `
@@ -38,7 +38,7 @@ export class DocsMarkdownRenderer extends Renderer {
   }
 
   /** Transforms markdown links into the corresponding HTML output. */
-  link(href: string, title: string, text: string) {
+  override link(href: string, title: string, text: string) {
     // We only want to fix up markdown links that are relative and do not refer to guides already.
     // Otherwise we always map the link to the "guide/" path.
     // TODO(devversion): remove this logic and just disallow relative paths.
@@ -76,7 +76,7 @@ export class DocsMarkdownRenderer extends Renderer {
    *  turns into
    *  `<div material-docs-example="name"></div>`
    */
-  html(html: string) {
+   override html(html: string) {
     html = html.replace(exampleCommentRegex, (_match: string, content: string) => {
       // using [\s\S]* because .* does not match line breaks
       if (content.match(/\{[\s\S]*\}/g)) {

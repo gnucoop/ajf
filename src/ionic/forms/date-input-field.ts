@@ -73,7 +73,7 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
     }
   }
 
-  protected _onInstanceChange(): void {
+  protected override _onInstanceChange(): void {
     this._minDateStr = this._dvs.transform(this.instance.node.minDate);
     this._maxDateStr = this._dvs.transform(this.instance.node.maxDate);
   }

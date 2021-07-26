@@ -26,7 +26,7 @@ import {Pipe} from '@angular/core';
 
 @Pipe({name: 'ajfFormatIfNumber'})
 export class FormatIfNumber extends DecimalPipe {
-  transform(value: any, digitsInfo?: string, locale?: string) {
+  override transform(value: any, digitsInfo?: string, locale?: string) {
     if (typeof value === 'number') {
       return super.transform(value, digitsInfo, locale);
     } else {

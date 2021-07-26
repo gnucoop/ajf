@@ -74,12 +74,12 @@ export class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewIni
                                 .subscribe(_ => this._updateLongSlide());
   }
 
-  ngAfterViewInit(): void {
+  override ngAfterViewInit(): void {
     super.ngAfterViewInit();
     this._viewInitEvt.emit();
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     super.ngOnDestroy();
     this._scrollFinishSub.unsubscribe();
   }

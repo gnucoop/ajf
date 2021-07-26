@@ -92,7 +92,7 @@ export class AjfFormulaFieldComponent extends
     );
   }
 
-  ngOnDestroy(): void {
+  override ngOnDestroy(): void {
     this._onChangeEvt.complete();
     this._onChangeSub.unsubscribe();
   }
