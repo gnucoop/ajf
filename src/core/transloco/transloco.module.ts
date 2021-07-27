@@ -20,7 +20,7 @@
  *
  */
 
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {
   TRANSLOCO_CONFIG,
   TRANSLOCO_MISSING_HANDLER,
@@ -55,5 +55,13 @@ export class AjfTranslocoModule {
         ts.setTranslation(langs[lang], lang);
       }
     });
+  }
+  static forRoot(): ModuleWithProviders<AjfTranslocoModule> {
+    return {
+      ngModule: AjfTranslocoModule,
+      providers: [
+        TranslocoService,
+      ]
+    };
   }
 }
