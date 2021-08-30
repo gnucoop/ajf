@@ -21,8 +21,8 @@
  */
 
 import {AjfWidgetInstance} from '@ajf/core/reports';
+import {TranslocoService} from '@ajf/core/transloco';
 import {Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
 
 import {demoWidgets} from './widgets';
 
@@ -34,7 +34,7 @@ import {demoWidgets} from './widgets';
 export class WidgetsDemo {
   widgets: {name: string, instance: AjfWidgetInstance}[];
 
-  constructor(ts: TranslateService) {
+  constructor(ts: TranslocoService) {
     this.widgets = demoWidgets(ts);
   }
 }

@@ -40,6 +40,7 @@ ng_module(
     deps = [
         "//src/core/common",
         "//src/core/forms",
+        "//src/core/transloco",
         "//src/ionic/barcode",
         "//src/ionic/calendar",
         "//src/ionic/checkbox-group",
@@ -50,7 +51,6 @@ ng_module(
         "@npm//@angular/forms",
         "@npm//@gic/angular",
         "@npm//@ionic/angular",
-        "@npm//@ngx-translate/core",
     ],
 )
 
@@ -165,13 +165,13 @@ ng_test_library(
     deps = [
         ":forms",
         "//src/core/forms",
+        "//src/core/transloco",
         "//src/ionic/calendar",
         "//src/ionic/checkbox-group",
         "//src/ionic/page-slider",
         "@npm//@angular/forms",
         "@npm//@angular/platform-browser",
         "@npm//@ionic/angular",
-        "@npm//@ngx-translate/core",
         "@npm//rxjs",
     ],
 )

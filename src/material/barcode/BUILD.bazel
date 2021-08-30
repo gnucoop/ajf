@@ -21,10 +21,10 @@ ng_module(
     deps = [
         "//src/core/barcode",
         "//src/core/common",
+        "//src/core/transloco",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/material",
-        "@npm//@ngx-translate/core",
     ],
 )
 

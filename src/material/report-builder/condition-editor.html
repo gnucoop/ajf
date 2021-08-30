@@ -9,17 +9,32 @@
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <br>
+      <br />
       <form>
-        <mat-select [(ngModel)]="a" [ngModelOptions]="{standalone: true}" placeholder="Select condition">
+        <mat-select
+          [(ngModel)]="a"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Select condition"
+        >
           <ng-template ngFor let-form let-id="index" [ngForOf]="formsVariables">
-            <mat-option *ngFor="let label of form.labels;let i = index;" [value]="label" (click)="setCurrent(id, i)">
+            <mat-option
+              *ngFor="let label of form.labels;let i = index;"
+              [value]="label"
+              (click)="setCurrent(id, i)"
+            >
               {{ id}}: {{ label }}
             </mat-option>
           </ng-template>
         </mat-select>
-        <mat-select [(ngModel)]="b" [ngModelOptions]="{standalone: true}" placeholder="Select operator">
-          <mat-option *ngFor="let operator of operators" (click)="appendText(operator);">
+        <mat-select
+          [(ngModel)]="b"
+          [ngModelOptions]="{standalone: true}"
+          placeholder="Select operator"
+        >
+          <mat-option
+            *ngFor="let operator of operators"
+            (click)="appendText(operator);"
+          >
             {{ operator }}
           </mat-option>
         </mat-select>
@@ -27,14 +42,16 @@
     </mat-card-content>
     <mat-card-actions>
       <ng-template [ngIf]="!isValid">
-        <ng-container translate>Invalid condition! Please check syntax.</ng-container>
+        <ng-container
+          >{{'Invalid condition! Please check syntax.'|transloco}}</ng-container
+        >
       </ng-template>
       <textarea
-          #conditionTextArea
-          [(ngModel)]="conditionText"
-          (keyup)="checkValidation()">
-        </textarea>
+        #conditionTextArea
+        [(ngModel)]="conditionText"
+        (keyup)="checkValidation()"
+      >
+      </textarea>
     </mat-card-actions>
   </mat-card>
 </ng-template>
-

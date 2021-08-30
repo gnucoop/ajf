@@ -10,6 +10,7 @@ ng_module(
         ":dev_app_layout_scss",
     ],
     deps = [
+        "//src/core/transloco",
         "@npm//@angular/cdk",
         "@npm//@angular/material",
         "@npm//@angular/router",

@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfMonacoEditorModule} from '@ajf/material/monaco-editor';
 import {AjfNodeIconModule} from '@ajf/material/node-icon';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -45,7 +46,6 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfFbBranchLine} from './branch-line';
 import {AjfFbChoicesOriginEditor} from './choices-origin-editor';
@@ -68,7 +68,7 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
     MatCheckboxModule,     MatChipsModule,        MatDialogModule,     MatFormFieldModule,
     MatIconModule,         MatInputModule,        MatListModule,       MatMenuModule,
     MatSelectModule,       MatSidenavModule,      MatSliderModule,     MatTableModule,
-    MatToolbarModule,      MatTooltipModule,      ReactiveFormsModule, TranslateModule,
+    MatToolbarModule,      MatTooltipModule,      ReactiveFormsModule, AjfTranslocoModule,
     MatExpansionModule,    MatSlideToggleModule,
 
   ],

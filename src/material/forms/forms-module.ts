@@ -22,6 +22,7 @@
 
 import {AjfCommonModule} from '@ajf/core/common';
 import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfBarcodeModule} from '@ajf/material/barcode';
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
@@ -42,7 +43,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
@@ -69,7 +69,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     MatButtonModule,        MatCardModule,       MatDialogModule,  MatFormFieldModule,
     MatIconModule,          MatInputModule,      MatRadioModule,   MatSelectModule,
     MatSlideToggleModule,   MatToolbarModule,    MatTooltipModule, ReactiveFormsModule,
-    TextFieldModule,        TranslateModule,
+    TextFieldModule,        AjfTranslocoModule,
   ],
   declarations: [
     AjfBarcodeFieldComponent,

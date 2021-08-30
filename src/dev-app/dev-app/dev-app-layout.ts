@@ -40,6 +40,7 @@ export class DevAppLayout {
           [
             {name: 'Examples', route: '/examples'},
             {name: 'File input', route: '/file-input'},
+            {name: 'i18n', route: '/i18n'},
           ]
     },
     {

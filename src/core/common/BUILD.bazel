@@ -18,9 +18,9 @@ ng_module(
     assets = [],
     module_name = "@ajf/core/common",
     deps = [
+        "//src/core/transloco",
         "@npm//@angular/common",
         "@npm//@angular/core",
-        "@npm//@ngx-translate/core",
     ],
 )
 

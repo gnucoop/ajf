@@ -1,13 +1,13 @@
 <div class="ajf-calendar-header">
   <ion-fab-button mini left [disabled]="disabled" (click)="prevPage()">&#8592;</ion-fab-button>
   <ion-button [disabled]="disabled" (click)="previousViewMode()" light class="ajf-calendar-header-title">
-    {{ viewHeader | translate }}
+    {{ viewHeader | transloco }}
   </ion-button>
   <ion-fab-button mini right [disabled]="disabled" (click)="nextPage()">&#8594;</ion-fab-button>
 </div>
 <div class="ajf-calendar-row" *ngIf="calendarHeaders.length > 0">
   <div *ngFor="let calendarHeader of calendarHeaders">
-    <div class="button-label">{{ calendarHeader | translate }}</div>
+    <div class="button-label">{{ calendarHeader | transloco }}</div>
   </div>
 </div>
 <div class="ajf-calendar-row" *ngFor="let row of calendarRows">

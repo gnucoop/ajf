@@ -20,17 +20,16 @@
  *
  */
 
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfTextComponent} from './text';
 
 @NgModule({
   imports: [
     CommonModule,
-    TranslateModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     AjfTextComponent,

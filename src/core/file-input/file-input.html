@@ -3,12 +3,12 @@
     <ng-container *ngIf="_dropMessageChildren?.length; else defaultDropMessage">
       <ng-content select="[ajfDropMessage]"></ng-content>
     </ng-container>
-    <ng-template #defaultDropMessage>{{'Drop your file here or click to select'|translate}}</ng-template>
+    <ng-template #defaultDropMessage>{{'Drop your file here or click to select'|transloco}}</ng-template>
   </div>
   <ng-template #fileInfo>
     <button (click)="resetValue()" class="ajf-remove-file">
       <img [src]="removeIcon" alt="">
-      <div class="ajf-screen-reader-only">{{ 'Delete'|translate }}</div>
+      <div class="ajf-screen-reader-only">{{ 'Delete'|transloco }}</div>
     </button>
     <div class="ajf-file-info">
       <ng-container *ngIf="_filePreviewChildren?.length; else defaultFilePreview">

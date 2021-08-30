@@ -13,7 +13,7 @@ GIC_PACKAGE_VERSION = "^5.0.0"
 IONIC_PACKAGE_VERSION = "^5.0.0"
 LEAFLET_PACKAGE_VERSION = "^1.6.0"
 NGX_COLOR_PICKER_PACKAGE_VERSION = "^10.0.0"
-NGXT_PACKAGE_VERSION = "^13.0.0"
+TRNLC_PACKAGE_VERSION = "^2.21.0"
 NUMBRO_PACKAGE_VERSION = "^2.3.1"
 PDFMAKE_PACKAGE_VERSION = "^0.1.68"
 QUILL_PACKAGE_VERSION = "^1.3.7"
@@ -31,7 +31,7 @@ VERSION_PLACEHOLDER_REPLACEMENTS = {
     "0.0.0-AJFI": AJF_ICONS_PACKAGE_VERSION,
     "0.0.0-ANGM": ANGULAR_MATERIAL_PACKAGE_VERSION,
     "0.0.0-ANGXCP": NGX_COLOR_PICKER_PACKAGE_VERSION,
-    "0.0.0-ANGXT": NGXT_PACKAGE_VERSION,
+    "0.0.0-TRNLC": TRNLC_PACKAGE_VERSION,
     "0.0.0-CHART": CHARTJS_PACKAGE_VERSION,
     "0.0.0-DATEFNS": DATEFNS_PACKAGE_VERSION,
     "0.0.0-ESPRIMA": ESPRIMA_PACKAGE_VERSION,
@@ -83,6 +83,7 @@ THIRD_PARTY_NO_NGCC_BUNDLES = [
     ("chart.js", []),
     ("date-fns", []),
     ("esprima", []),
+    ("flat", []),
     ("leaflet", []),
     ("numbro", []),
     ("pdfmake", ["pdfmake/build/pdfmake"]),
@@ -93,7 +94,7 @@ THIRD_PARTY_NO_NGCC_BUNDLES = [
 THIRD_PARTY_NGCC_BUNDLES = [
     ("@gic/angular", "gic-angular.umd.js"),
     ("@ionic/angular", "ionic-angular.umd.js"),
-    ("@ngx-translate/core", "ngx-translate-core.umd.js"),
+    ("@ngneat/transloco", "ngneat-transloco.umd.js"),
     ("ngx-color-picker", "ngx-color-picker.umd.js"),
 ]
 

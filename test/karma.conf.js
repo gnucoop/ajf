@@ -48,8 +48,12 @@ module.exports = config => {
       {pattern: 'node_modules/@ionic/angular/angular.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ionic/core/core.umd.js', included: false, watched: false},
       {pattern: 'node_modules/@ionic/core/core-loader.umd.js', included: false, watched: false},
-      {pattern: 'node_modules/@ngx-translate/**/*', included: false, watched: false},
-      {pattern: 'node_modules/@zxing/browser/umd/zxing-browser.js', included: false, watched: false},
+      {pattern: 'node_modules/@ngneat/transloco/**/*', included: false, watched: false},
+      {
+        pattern: 'node_modules/@zxing/browser/umd/zxing-browser.js',
+        included: false,
+        watched: false
+      },
       {pattern: 'node_modules/@zxing/library/umd/index.js', included: false, watched: false},
 
       {pattern: 'node_modules/chart.js/Chart.umd.js', included: false, watched: false},
@@ -162,8 +166,8 @@ module.exports = config => {
     }
 
     const platformBrowsers = platformMap[testPlatform];
-    const browserInstanceChunks = splitBrowsersIntoInstances(
-        platformBrowsers, maxParallelContainerInstances);
+    const browserInstanceChunks =
+        splitBrowsersIntoInstances(platformBrowsers, maxParallelContainerInstances);
 
     // Configure Karma to launch the browsers that belong to the given test platform and
     // container instance.

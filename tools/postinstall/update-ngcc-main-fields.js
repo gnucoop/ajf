@@ -27,6 +27,7 @@ const entries = [
   'node_modules/@angular/**/package.json',
   'node_modules/@gic/**/package.json',
   'node_modules/@ionic/**/package.json',
+  'node_modules/@ngneat/**/package.json',
   'node_modules/ngx-color-picker/**/package.json',
 ];
 entries.forEach(entry => {

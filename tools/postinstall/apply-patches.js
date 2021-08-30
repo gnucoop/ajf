@@ -91,7 +91,7 @@ function applyPatches() {
   searchAndReplace(
       /(TsCompilerAotCompilerTypeCheckHostAdapter\.prototype\.fromSummaryFileName = function \(fileName, referringLibFileName\) {)/,
       `$1
-              var ext = /@angular\\/material|@angular\\/cdk|@gic\\/angular|@ionic\\/angular|ngx-color-picker/g;
+              var ext = /@angular\\/material|@angular\\/cdk|@gic\\/angular|@ionic\\/angular|@ngneat|ngx-color-picker/g;
               if (ext.test(referringLibFileName)) {
                   fileName = fileName.replace('.ngfactory', '');
               }`,

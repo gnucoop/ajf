@@ -21,23 +21,23 @@
  */
 
 import {AjfWidgetSerializer, AjfWidgetType, createWidgetInstance} from '@ajf/core/reports';
+import {AjfTranslocoModule, TranslocoService} from '@ajf/core/transloco';
 import {TestBed} from '@angular/core/testing';
-import {TranslateModule, TranslateService} from '@ngx-translate/core';
 
 import {AjfReportsModule, AjfReportWidget} from './public-api';
 
 describe('AjfReportWidget', () => {
-  let ts: TranslateService;
+  let ts: TranslocoService;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         AjfReportsModule,
-        TranslateModule.forRoot(),
+        AjfTranslocoModule,
       ],
     });
 
-    ts = TestBed.get(TranslateService);
+    ts = TestBed.get(TranslocoService);
     await TestBed.compileComponents();
   });
 

@@ -21,13 +21,13 @@
  */
 
 import {AjfContext, evaluateExpression} from '@ajf/core/models';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslocoService} from '@ajf/core/transloco';
 
 import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instance';
 import {AjfWidget} from '../../interface/widgets/widget';
 
 export function createWidgetInstance(
-    widget: AjfWidget, context: AjfContext, _ts: TranslateService): AjfWidgetInstance {
+    widget: AjfWidget, context: AjfContext, _ts: TranslocoService): AjfWidgetInstance {
   return {
     widget,
     widgetType: widget.widgetType,

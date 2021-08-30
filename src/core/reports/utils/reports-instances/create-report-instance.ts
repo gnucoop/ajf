@@ -21,7 +21,7 @@
  */
 
 import {AjfContext, evaluateExpression} from '@ajf/core/models';
-import {TranslateService} from '@ngx-translate/core';
+import {TranslocoService} from '@ajf/core/transloco';
 
 import {AjfReportInstance} from '../../interface/reports-instances/report-instance';
 import {AjfReport} from '../../interface/reports/report';
@@ -29,7 +29,7 @@ import {AjfReport} from '../../interface/reports/report';
 import {createReportContainerInstance} from './create-report-container-instance';
 
 export function createReportInstance(
-    report: AjfReport, context: AjfContext, ts: TranslateService): AjfReportInstance {
+    report: AjfReport, context: AjfContext, ts: TranslocoService): AjfReportInstance {
   (report.variables || []).forEach(variable => {
     context[variable.name] = evaluateExpression(variable.formula.formula, context);
   });

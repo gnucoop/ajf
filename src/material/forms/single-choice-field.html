@@ -2,7 +2,7 @@
   <mat-select *ngIf="control|async as ctrl" [formControl]="ctrl!">
     <mat-option [value]="choice.value"
         *ngFor="let choice of instance.filteredChoices">
-      {{ choice.label | translate }}
+      {{ choice.label | transloco }}
     </mat-option>
   </mat-select>
 </ng-container>
@@ -12,7 +12,7 @@
       [formControl]="ctrl!">
     <mat-radio-button [value]="choice.value"
         *ngFor="let choice of instance.filteredChoices">
-      {{ choice.label | translate }}
+      {{ choice.label | transloco }}
     </mat-radio-button>
   </mat-radio-group>
 </ng-template>

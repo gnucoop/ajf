@@ -21,10 +21,10 @@
  */
 
 import {AjfCommonModule} from '@ajf/core/common';
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
-import {TranslateModule} from '@ngx-translate/core';
 
 import {AjfBarcodeComponent} from './barcode';
 
@@ -33,7 +33,7 @@ import {AjfBarcodeComponent} from './barcode';
     AjfCommonModule,
     CommonModule,
     IonicModule,
-    TranslateModule,
+    AjfTranslocoModule,
   ],
   declarations: [
     AjfBarcodeComponent,
