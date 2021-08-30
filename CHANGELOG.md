@@ -1,3 +1,35 @@
+# 12.1.0-next.2 "parsimonious-cover" (2021-08-30)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** add default choiceorigins to schema when export form to pdf ([8632c9be7e96c1abb0dcbd7fd5cfe643c830077a](https://github.com/gnucoop/ajf/commit/8632c9be7e96c1abb0dcbd7fd5cfe643c830077a)) |
+| bug fix |  **forms:** update field instance state in init node.  ([44ebb8acf91eed8355ba1ad40604fcc659f9d982](https://github.com/gnucoop/ajf/commit/44ebb8acf91eed8355ba1ad40604fcc659f9d982)) |
+| bug fix |  **reports:** omit table header when empty ([6a7fc1ae0731f5cce42b914cb6ad2e0baa6da29e](https://github.com/gnucoop/ajf/commit/6a7fc1ae0731f5cce42b914cb6ad2e0baa6da29e)) |
+| bug fix |  **transloco:** add module forRoot function ([9112607f3285647940aa324c303310faa50258bb](https://github.com/gnucoop/ajf/commit/9112607f3285647940aa324c303310faa50258bb)) |
+| bug fix |  **transloco:** add prt and eth translations ([3896d220788ee9daf8b0507ed002e540ad7939cd](https://github.com/gnucoop/ajf/commit/3896d220788ee9daf8b0507ed002e540ad7939cd)) |
+| feature |  **reports:** pdf printing of dynamic tables ([878c4f275809d4756568528743a134840934aabb](https://github.com/gnucoop/ajf/commit/878c4f275809d4756568528743a134840934aabb)) |
+
+### ionic
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** add css for table fields ([1fba2b44a5e072b548182ab04646ae942f8c78bf](https://github.com/gnucoop/ajf/commit/1fba2b44a5e072b548182ab04646ae942f8c78bf)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **reports:** add Layout widget to defaultWidgetsFactory ([c8484d1b6cd7643d210460fb8d1d86c7664c20cf](https://github.com/gnucoop/ajf/commit/c8484d1b6cd7643d210460fb8d1d86c7664c20cf)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** table field handling number input by ng if directive ([379449705e09db113081aef59551d6689f29e55b](https://github.com/gnucoop/ajf/commit/379449705e09db113081aef59551d6689f29e55b)) |
+
+
 # 12.1.0-next.1 "broken-waterfall" (2021-06-22)
 
 ### ajf
