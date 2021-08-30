@@ -1,3 +1,35 @@
+## 12.0.3 "giving-rest" (2021-08-30)
+
+### core
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** add default choiceorigins to schema when export form to pdf ([0cb7025514b5b6f93077130934e2b4973be2c5a4](https://github.com/gnucoop/ajf/commit/0cb7025514b5b6f93077130934e2b4973be2c5a4)) |
+| bug fix |  **forms:** update field instance state in init node.  ([ec97074d3ab255b4d004610afbd8a796fe506d8d](https://github.com/gnucoop/ajf/commit/ec97074d3ab255b4d004610afbd8a796fe506d8d)) |
+| bug fix |  **reports:** omit table header when empty ([7abe04e0ba6cca0a5dc75160554b4f6cc6b782b9](https://github.com/gnucoop/ajf/commit/7abe04e0ba6cca0a5dc75160554b4f6cc6b782b9)) |
+| bug fix |  **transloco:** add module forRoot function ([02f963c3f223feff2a45800ae8c24f90465d8fe7](https://github.com/gnucoop/ajf/commit/02f963c3f223feff2a45800ae8c24f90465d8fe7)) |
+| bug fix |  **transloco:** add prt and eth translations ([bd510a79b1fe8ce6a006a2d753a1894ea0352a77](https://github.com/gnucoop/ajf/commit/bd510a79b1fe8ce6a006a2d753a1894ea0352a77)) |
+| feature |  **reports:** pdf printing of dynamic tables ([8c2b9490f8173afa8df477443fa022f6e5bc5744](https://github.com/gnucoop/ajf/commit/8c2b9490f8173afa8df477443fa022f6e5bc5744)) |
+
+### ionic
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** add css for table fields ([26682e45a0534909809934d667627e687c9a9e6b](https://github.com/gnucoop/ajf/commit/26682e45a0534909809934d667627e687c9a9e6b)) |
+
+### material
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **reports:** add Layout widget to defaultWidgetsFactory ([29a5f2c793f47d18aeeb830d9f23358a027b3274](https://github.com/gnucoop/ajf/commit/29a5f2c793f47d18aeeb830d9f23358a027b3274)) |
+
+### ajf
+
+|            |                       |
+| ---------- | --------------------- |
+| bug fix |  **forms:** table field handling number input by ng if directive ([259e9f0ddf80707bc4286ea253247ba65b968d44](https://github.com/gnucoop/ajf/commit/259e9f0ddf80707bc4286ea253247ba65b968d44)) |
+
+
 ## 12.0.2 "cool-block" (2021-06-22)
 
 ### ajf
