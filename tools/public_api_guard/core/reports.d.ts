@@ -400,4 +400,6 @@ export declare function createWidgetInstance(widget: AjfWidget, context: AjfCont
 
 export declare function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation): void;
 
+export declare function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport;
+
 export declare function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslocoService): AjfWidgetInstance;

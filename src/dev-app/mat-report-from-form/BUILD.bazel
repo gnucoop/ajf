@@ -1,0 +1,23 @@
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "mat-report-from-form",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "report-from-form-demo.html",
+        ":report_from_form_demo_scss",
+    ],
+    deps = [
+        "//src/material/forms",
+        "//src/material/reports",
+        "@npm//@angular/router",
+        "@npm//rxjs",
+    ],
+)
+
+sass_binary(
+    name = "report_from_form_demo_scss",
+    src = "report-from-form-demo.scss",
+)

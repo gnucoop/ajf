@@ -1,4 +1,4 @@
-import * as funcs from './validation-functions';
+import * as funcs from './expression-utils';
 
 
 describe('Validation Function', () => {
