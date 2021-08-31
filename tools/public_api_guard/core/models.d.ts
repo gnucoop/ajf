@@ -46,6 +46,10 @@ export declare function calculateTrendByProperties(source: any[], properties: st
 
 export declare function calculateTrendProperty(source: any[], property: string): string;
 
+export declare function COUNTFORMS(forms: Form[], expression?: string): number;
+
+export declare function COUNTFORMS_UNIQUE(forms: Form[], fieldName: string, expression?: string): number;
+
 export declare function createCondition(condition?: Partial<AjfCondition>): AjfCondition;
 
 export declare function createFormula(formula?: Partial<AjfFormula>): AjfFormula;
@@ -80,6 +84,10 @@ export declare function extractDates(source: any[], property: string, fmt: strin
 
 export declare function extractSum(source: any[], properties: string[]): number;
 
+export interface Form {
+    [key: string]: string | number | null;
+}
+
 export declare function formatDate(date: Date | string, fmt?: string): string;
 
 export declare function formatNumber(num: number, fmt?: string): string;
@@ -92,7 +100,17 @@ export declare function isInt(x: string | number): boolean;
 
 export declare function isoMonth(date: Date, fmt?: string): string;
 
+export declare function LAST(forms: Form[], expression: string, date?: string): number;
+
 export declare function lastProperty(source: any, property: string): any;
+
+export declare function MAX(forms: Form[], fieldName: string): number;
+
+export declare function MEAN(forms: Form[], expression: string): number;
+
+export declare function MEDIAN(forms: Form[], fieldName: string): number;
+
+export declare function MODE(forms: Form[], fieldName: string): number[];
 
 export declare function neverCondition(): AjfCondition;
 
@@ -102,11 +120,15 @@ export declare function normalizeExpression(formula: string, ancestorsNames: {
 
 export declare function notEmpty(x: any): boolean;
 
+export declare function PERCENT(value1: number, value2: number): string;
+
 export declare function round(num: number | string, digits: number): number;
 
 export declare function scanGroupField(reps: number, acc: any, callback: any): any;
 
 export declare function sum(array: any[]): any;
+
+export declare function SUM(forms: Form[], expression: string, condition?: string): number;
 
 export declare function sumLastProperties(source: any[], properties: string[]): number;
 
