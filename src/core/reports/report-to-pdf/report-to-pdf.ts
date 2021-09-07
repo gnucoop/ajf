@@ -48,21 +48,25 @@ import {AjfWidgetType} from '../interface/widgets/widget-type';
 
 import {ImageMap, loadReportImages} from './load-report-images';
 
-export function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation) {
-  createReportPdf(report, orientation).then(pdf => {
+export function openReportPdf(
+  report: AjfReportInstance, orientation: PageOrientation = 'portrait', icons: ImageMap = {}) {
+
+  createReportPdf(report, orientation, icons).then(pdf => {
     pdf.open();
   });
 }
 
 export function createReportPdf(
-    report: AjfReportInstance, orientation?: PageOrientation): Promise<TCreatedPdf> {
+    report: AjfReportInstance, orientation: PageOrientation = 'portrait', icons: ImageMap = {}
+  ): Promise<TCreatedPdf> {
+
   return new Promise<TCreatedPdf>(resolve => {
     loadReportImages(report).then(images => {
       let width = 595.28 - 40 * 2;  // A4 page width - margins
       if (orientation === 'landscape') {
         width = 841.89 - 40 * 2;
       }
-      const pdfDef = reportToPdf(report, images, width);
+      const pdfDef = reportToPdf(report, {...images, ...icons}, width);
       pdfDef.pageOrientation = orientation;
       resolve(createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts));
     });
@@ -100,7 +104,7 @@ function widgetToPdf(widget: AjfWidgetInstance, images: ImageMap, width: number)
     case AjfWidgetType.Image:
       return imageToPdf(widget as AjfImageWidgetInstance, images, width);
     case AjfWidgetType.Text:
-      return textToPdf(widget as AjfTextWidgetInstance);
+      return textToPdf(widget as AjfTextWidgetInstance, images);
     case AjfWidgetType.Chart:
       const chart = widget as AjfChartWidgetInstance;
       const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
@@ -110,7 +114,7 @@ function widgetToPdf(widget: AjfWidgetInstance, images: ImageMap, width: number)
       return {image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets]};
     case AjfWidgetType.Table:
     case AjfWidgetType.DynamicTable:
-      return tableToPdf(widget as AjfTableWidgetInstance);
+      return tableToPdf(widget as AjfTableWidgetInstance, images);
     case AjfWidgetType.Column:
       const cw = widget as AjfColumnWidgetInstance;
       return {stack: cw.content.map(w => widgetToPdf(w, images, width))};
@@ -158,9 +162,17 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
   return {image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets]};
 }
 
-function textToPdf(tw: AjfTextWidgetInstance): Content {
+function htmlTextToPdfText(htmlText: string, images: ImageMap): string {
+  const iconText = images[htmlText];
+  if (typeof(iconText) === 'string') {
+    return iconText;
+  }
+  return stripHTML(htmlText);
+}
+
+function textToPdf(tw: AjfTextWidgetInstance, images: ImageMap): Content {
   const text: Content = {
-    text: stripHTML(tw.htmlText),
+    text: htmlTextToPdfText(tw.htmlText, images),
     margin: [0, 0, 0, marginBetweenWidgets],
   };
   if (tw.htmlText.startsWith('<h1>')) {
@@ -173,7 +185,7 @@ function textToPdf(tw: AjfTextWidgetInstance): Content {
   return text;
 }
 
-function tableToPdf(table: AjfTableWidgetInstance): Content {
+function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
   if (table.data == null || table.data.length === 0) {
     return {text: ''};
   }
@@ -182,11 +194,17 @@ function tableToPdf(table: AjfTableWidgetInstance): Content {
     const bodyRow: TableCell[] = [];
     for (const cell of dataRow) {
       let text = '';
-      if (typeof(cell.value) === 'string' || typeof(cell.value) === 'number') {
-        text = String(cell.value);
-      }
-      if (typeof(cell.value) === 'object') {
-        text = String(cell.value.changingThisBreaksApplicationSecurity || '');
+      switch (typeof(cell.value)) {
+        case 'number':
+          text = String(cell.value);
+          break;
+        case 'string':
+          text = htmlTextToPdfText(cell.value, images);
+          break;
+        case 'object':
+          const val = cell.value.changingThisBreaksApplicationSecurity || '';
+          text = htmlTextToPdfText(val, images);
+          break;
       }
       bodyRow.push({text, colSpan: cell.colspan, rowSpan: cell.rowspan});
     }
