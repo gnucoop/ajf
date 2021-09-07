@@ -33,6 +33,8 @@ import {AjfImageType} from '@ajf/core/image';
 
 // ImageMap maps image urls to dataurls, like:
 // 'http://whatever.com/image.png': 'data:image/png;base64,...'
+// It can also be used for icons, like:
+// '<span class="material-icons">radio_button_checked</span>': 'X'
 export interface ImageMap {
   [url: string]: string;
 }

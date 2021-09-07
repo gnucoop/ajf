@@ -392,12 +392,12 @@ export declare function createAggregation(aggregation: AjfAggregationCreate): Aj
 
 export declare function createReportInstance(report: AjfReport, context: AjfContext, ts: TranslocoService): AjfReportInstance;
 
-export declare function createReportPdf(report: AjfReportInstance, orientation?: PageOrientation): Promise<TCreatedPdf>;
+export declare function createReportPdf(report: AjfReportInstance, orientation?: PageOrientation, icons?: ImageMap): Promise<TCreatedPdf>;
 
 export declare function createWidget(widget: AjfWidgetCreate): AjfWidget;
 
 export declare function createWidgetInstance(widget: AjfWidget, context: AjfContext, _ts: TranslocoService): AjfWidgetInstance;
 
-export declare function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation): void;
+export declare function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation, icons?: ImageMap): void;
 
 export declare function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslocoService): AjfWidgetInstance;
