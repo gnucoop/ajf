@@ -61,6 +61,10 @@ export const DEV_APP_ROUTES: Routes = [
     path: 'mat-form-builder',
     loadChildren: 'mat-form-builder/form-builder-demo-module#FormBuilderDemoModule'
   },
+  {
+    path: 'mat-report-from-form',
+    loadChildren: 'mat-report-from-form/report-from-form-demo-module#ReportFromFormDemoModule'
+  },
   {path: 'mat-forms', loadChildren: 'mat-forms/forms-demo-module#FormsDemoModule'},
   {path: 'mat-image', loadChildren: 'mat-image/image-demo-module#ImageDemoModule'},
   {path: 'mat-node-icon', loadChildren: 'mat-node-icon/node-icon-demo-module#NodeIconDemoModule'},

@@ -1,0 +1,33 @@
+<div class="demo-forms">
+  <h4 class="demo-section-header">{{'report from form'|transloco}}</h4>
+  <br /><br />
+  <section>
+    <mat-grid-list [cols]="2" rowHeight="230px">
+      <mat-grid-tile>
+        <div class="demo-forms-header-box">
+          <h5>{{'Form Schema'|transloco}}</h5>
+          <textarea [(ngModel)]="formSchema"></textarea>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="demo-forms-header-box">
+          <h5>{{'Report Schema'|transloco}}</h5>
+          <textarea disabled [(ngModel)]="reportSchemaStringified"></textarea>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <input
+      mat-input
+      [placeholder]="'type form id' | transloco"
+      [(ngModel)]="formId"
+    />
+    <button (click)="setSchema()" mat-raised-button color="primary">
+      {{'Set schema'|transloco}}
+    </button>
+    <div class="demo-f2r-container">
+      <ng-container *ngIf="reportInstance$|async as reportInstance">
+        <ajf-report [instance]="reportInstance"></ajf-report>
+      </ng-container>
+    </div>
+  </section>
+</div>
