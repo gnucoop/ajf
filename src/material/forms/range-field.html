@@ -1,0 +1,11 @@
+<mat-slider
+  *ngIf="control|async as ctrl"
+  thumbLabel
+  [formControl]="ctrl!"
+  [tickInterval]="step"
+  [step]="step"
+  [min]="start"
+  [max]="end"
+  [attr.aria-label]="name"
+  [attr.name]="name"
+></mat-slider>

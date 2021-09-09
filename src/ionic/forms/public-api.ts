@@ -31,6 +31,7 @@ export * from './form';
 export * from './forms-module';
 export * from './multiple-choice-field';
 export * from './number-field';
+export * from './range-field';
 export * from './single-choice-field';
 export * from './table-field';
 export * from './textarea-field';

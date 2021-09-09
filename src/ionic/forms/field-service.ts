@@ -43,6 +43,7 @@ import {AjfFormulaFieldComponent} from './formula-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfNumberFieldComponent} from './number-field';
+import {AjfRangeFieldComponent} from './range-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTextareaFieldComponent} from './textarea-field';
@@ -116,6 +117,10 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.VideoUrl] = {
       component: AjfVideoUrlFieldComponent,
       readOnlyComponent: AjfReadOnlyVideoUrlFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Range] = {
+      component: AjfRangeFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
     };
   }
 }

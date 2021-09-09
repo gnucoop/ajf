@@ -30,6 +30,7 @@ ng_module(
         ":input-field.css",
         ":multiple-choice-field.css",
         ":number-field.css",
+        ":range-field.css",
         ":single-choice-field.css",
         ":table-field.css",
         ":textarea-field.css",
@@ -40,6 +41,7 @@ ng_module(
     deps = [
         "//src/core/common",
         "//src/core/forms",
+        "//src/core/range",
         "//src/core/transloco",
         "//src/ionic/barcode",
         "//src/ionic/calendar",
@@ -123,6 +125,12 @@ sass_binary(
 sass_binary(
     name = "number_field_scss",
     src = "number-field.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "range_field_scss",
+    src = "range-field.scss",
     deps = [],
 )
 

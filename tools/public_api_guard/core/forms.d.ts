@@ -292,7 +292,8 @@ export declare enum AjfFieldType {
     File = 14,
     Image = 15,
     VideoUrl = 16,
-    LENGTH = 17
+    Range = 17,
+    LENGTH = 18
 }
 
 export interface AjfFieldWarningAlertResult {
@@ -578,6 +579,17 @@ export declare enum AjfNodeType {
 
 export interface AjfNumberField extends AjfField {
     fieldType: AjfFieldType.Number;
+}
+
+export interface AjfRangeField extends AjfField {
+    end?: number;
+    fieldType: AjfFieldType.Range;
+    start?: number;
+    step?: number;
+}
+
+export interface AjfRangeFieldInstance extends AjfFieldInstance {
+    node: AjfRangeField;
 }
 
 export declare class AjfRangePipe implements PipeTransform {

@@ -66,38 +66,40 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
   }
 
   ngOnInit(): void {
-    this._warningTriggerSub =
-        this.instance.warningTrigger
-            .pipe(
-                withLatestFrom(this.control),
-                filter(([_, ctrl]) => ctrl != null),
-                )
-            .subscribe(([_, ctrl]) => {
-              if (this.instance.warningResults == null) {
-                return;
-              }
-              const control = ctrl as FormControl;
-              const s =
-                  this._warningAlertService
-                      .showWarningAlertPrompt(
-                          this.instance.warningResults.filter(w => w.result).map(w => w.warning))
-                      .subscribe(
-                          (r: AjfFieldWarningAlertResult) => {
-                            if (r.result) {
-                              control!.setValue(null);
-                            }
-                          },
-                          (_e: any) => {
-                            if (s) {
-                              s.unsubscribe();
-                            }
-                          },
-                          () => {
-                            if (s) {
-                              s.unsubscribe();
-                            }
-                          });
-            });
+    if (this.instance != null) {
+      this._warningTriggerSub =
+          this.instance.warningTrigger
+              .pipe(
+                  withLatestFrom(this.control),
+                  filter(([_, ctrl]) => ctrl != null),
+                  )
+              .subscribe(([_, ctrl]) => {
+                if (this.instance.warningResults == null) {
+                  return;
+                }
+                const control = ctrl as FormControl;
+                const s =
+                    this._warningAlertService
+                        .showWarningAlertPrompt(
+                            this.instance.warningResults.filter(w => w.result).map(w => w.warning))
+                        .subscribe(
+                            (r: AjfFieldWarningAlertResult) => {
+                              if (r.result) {
+                                control!.setValue(null);
+                              }
+                            },
+                            (_e: any) => {
+                              if (s) {
+                                s.unsubscribe();
+                              }
+                            },
+                            () => {
+                              if (s) {
+                                s.unsubscribe();
+                              }
+                            });
+              });
+    }
   }
 
   ngOnDestroy(): void {

@@ -41,6 +41,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatSliderModule} from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
@@ -55,6 +56,7 @@ import {AjfFieldWarningDialog} from './field-warning-dialog';
 import {AjfFormRenderer} from './form';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
+import {AjfRangeFieldComponent} from './range-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTextFieldComponent} from './text-field';
@@ -64,43 +66,25 @@ import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
   imports: [
-    AjfBarcodeModule,       AjfCalendarModule,   AjfCommonModule,  AjfCoreFormsModule,
-    AjfCheckboxGroupModule, AjfPageSliderModule, AjfTimeModule,    CommonModule,
-    MatButtonModule,        MatCardModule,       MatDialogModule,  MatFormFieldModule,
-    MatIconModule,          MatInputModule,      MatRadioModule,   MatSelectModule,
-    MatSlideToggleModule,   MatToolbarModule,    MatTooltipModule, ReactiveFormsModule,
-    TextFieldModule,        AjfTranslocoModule,
+    AjfBarcodeModule,       AjfCalendarModule,    AjfCommonModule,  AjfCoreFormsModule,
+    AjfCheckboxGroupModule, AjfPageSliderModule,  AjfTimeModule,    AjfTranslocoModule,
+    CommonModule,           MatButtonModule,      MatCardModule,    MatDialogModule,
+    MatFormFieldModule,     MatIconModule,        MatInputModule,   MatRadioModule,
+    MatSelectModule,        MatSlideToggleModule, MatToolbarModule, MatTooltipModule,
+    ReactiveFormsModule,    TextFieldModule,      MatSliderModule
   ],
   declarations: [
-    AjfBarcodeFieldComponent,
-    AjfBooleanFieldComponent,
-    AjfDateFieldComponent,
-    AjfDateInputFieldComponent,
-    AjfEmptyFieldComponent,
-    AjfFieldWarningDialog,
-    AjfFormField,
-    AjfFormRenderer,
-    AjfInputFieldComponent,
-    AjfMultipleChoiceFieldComponent,
-    AjfSingleChoiceFieldComponent,
-    AjfTableFieldComponent,
-    AjfTextFieldComponent,
-    AjfTimeFieldComponent,
-    AjfVideoUrlFieldComponent,
+    AjfBarcodeFieldComponent, AjfBooleanFieldComponent, AjfDateFieldComponent,
+    AjfDateInputFieldComponent, AjfEmptyFieldComponent, AjfFieldWarningDialog, AjfFormField,
+    AjfFormRenderer, AjfInputFieldComponent, AjfMultipleChoiceFieldComponent,
+    AjfRangeFieldComponent, AjfSingleChoiceFieldComponent, AjfTableFieldComponent,
+    AjfTextFieldComponent, AjfTimeFieldComponent, AjfVideoUrlFieldComponent
   ],
   entryComponents: [
-    AjfBarcodeFieldComponent,
-    AjfBooleanFieldComponent,
-    AjfDateFieldComponent,
-    AjfDateInputFieldComponent,
-    AjfEmptyFieldComponent,
-    AjfInputFieldComponent,
-    AjfMultipleChoiceFieldComponent,
-    AjfSingleChoiceFieldComponent,
-    AjfTableFieldComponent,
-    AjfTextFieldComponent,
-    AjfTimeFieldComponent,
-    AjfVideoUrlFieldComponent,
+    AjfBarcodeFieldComponent, AjfBooleanFieldComponent, AjfDateFieldComponent,
+    AjfDateInputFieldComponent, AjfEmptyFieldComponent, AjfInputFieldComponent,
+    AjfMultipleChoiceFieldComponent, AjfRangeFieldComponent, AjfSingleChoiceFieldComponent,
+    AjfTableFieldComponent, AjfTextFieldComponent, AjfTimeFieldComponent, AjfVideoUrlFieldComponent
   ],
   exports: [
     AjfFormField,

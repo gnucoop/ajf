@@ -1,0 +1,12 @@
+<ion-range
+  snaps="true"
+  ticks="true"
+  debounce="500"
+  *ngIf="control|async as ctrl"
+  [attr.aria-label]="name"
+  [formControl]="ctrl!"
+  [name]="name"
+  [step]="step"
+  [min]="start"
+  [max]="end"
+></ion-range>

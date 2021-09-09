@@ -8,7 +8,7 @@ export const commitMessage: CommitMessageConfig = {
   minBodyLength: 0,
   minBodyLengthTypeExcludes: ['docs'],
   scopes: [
-    'multiple', // For when a commit applies to multiple components.
+    'multiple',  // For when a commit applies to multiple components.
     'core/barcode',
     'core/calendar',
     'core/chart',
@@ -22,6 +22,7 @@ export const commitMessage: CommitMessageConfig = {
     'core/node-icon',
     'core/page-break',
     'core/page-slider',
+    'core/range',
     'core/reports',
     'core/table',
     'core/testing',
@@ -35,6 +36,7 @@ export const commitMessage: CommitMessageConfig = {
     'ionic/image',
     'ionic/node-icon',
     'ionic/page-slider',
+    'ionic/range',
     'ionic/reports',
     'ionic/time',
     'material/barcode',
@@ -45,6 +47,7 @@ export const commitMessage: CommitMessageConfig = {
     'material/image',
     'material/monaco-editor',
     'material/node-icon',
+    'material/range',
     'material/page-slider',
     'material/reports',
     'material/time',

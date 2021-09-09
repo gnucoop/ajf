@@ -20,25 +20,32 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfFieldType {
-  String,
-  Text,
-  Number,
-  Boolean,
-  SingleChoice,
-  MultipleChoice,
-  Formula,
-  Empty,
-  Date,
-  DateInput,
-  Time,
-  Table,
-  Geolocation,
-  Barcode,
-  File,
-  Image,
-  VideoUrl,
-  Range,
-  LENGTH
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFormRendererService,
+} from '@ajf/core/forms';
+import {AjfRange} from '@ajf/core/range';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewEncapsulation
+} from '@angular/core';
+
+import {AjfWarningAlertService} from './warning-alert-service';
+
+@Component({
+  selector: 'ajf-range',
+  templateUrl: 'range-field.html',
+  styleUrls: ['range-field.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfRangeFieldComponent extends AjfRange {
+  constructor(
+      cdr: ChangeDetectorRef, service: AjfFormRendererService,
+      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    super(cdr, service, was);
+  }
 }

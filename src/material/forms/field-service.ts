@@ -41,6 +41,7 @@ import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
+import {AjfRangeFieldComponent} from './range-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTextFieldComponent} from './text-field';
@@ -113,6 +114,10 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.VideoUrl] = {
       component: AjfVideoUrlFieldComponent,
       readOnlyComponent: AjfReadOnlyVideoUrlFieldComponent
+    };
+    this.componentsMap[AjfFieldType.Range] = {
+      component: AjfRangeFieldComponent,
+      readOnlyComponent: AjfReadOnlyFieldComponent
     };
   }
 }
