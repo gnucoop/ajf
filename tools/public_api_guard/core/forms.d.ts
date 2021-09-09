@@ -130,6 +130,7 @@ export declare const enum AjfChoicesType {
 
 export interface AjfContainerNode extends AjfNode {
     nodes: AjfNode[];
+    readonly?: AjfCondition;
 }
 
 export declare type AjfContainerNodeCreate = AjfNodeCreate & Partial<AjfContainerNode>;
@@ -673,7 +674,9 @@ export interface AjfSlide extends AjfContainerNode {
 }
 
 export interface AjfSlideInstance extends AjfBaseSlideInstance {
+    editable: boolean;
     node: AjfSlide;
+    readonly: AjfCondition;
 }
 
 export interface AjfStringField extends AjfField {

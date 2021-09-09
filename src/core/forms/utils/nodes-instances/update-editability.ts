@@ -20,24 +20,22 @@
  *
  */
 
-import {neverCondition} from '@ajf/core/models';
+import {AjfCondition, AjfContext, evaluateExpression} from '@ajf/core/models';
+
 import {AjfSlideInstance} from '../../interface/slides-instances/slide-instance';
-import {createNodeInstance} from '../nodes-instances/create-node-instance';
-import {AjfBaseSlideInstanceCreate} from './base';
 
-export type AjfSlideInstanceCreate = AjfBaseSlideInstanceCreate&Partial<AjfSlideInstance>;
+export function updateEditability(instance: AjfSlideInstance, context: AjfContext): boolean {
+  if (instance.readonly == null) {
+    instance.editable = true;
+    return true;
+  }
+  const readOnly: AjfCondition = instance.readonly;
 
-export function createSlideInstance(instance: AjfSlideInstanceCreate): AjfSlideInstance {
-  const nodeInstance = createNodeInstance(instance);
-  return {
-    ...nodeInstance,
-    node: instance.node,
-    nodes: [],
-    slideNodes: [],
-    flatNodes: [],
-    valid: false,
-    position: 0,
-    editable: instance.editable || true,
-    readonly: instance.node.readonly || neverCondition()
-  };
+  const oldEditability: boolean = instance.editable;
+  let newEditability: boolean = !evaluateExpression(readOnly.condition, context);
+  if (newEditability !== instance.editable) {
+    instance.editable = newEditability;
+  }
+
+  return oldEditability !== newEditability;
 }

@@ -20,8 +20,11 @@
  *
  */
 
+import {AjfCondition} from '@ajf/core/models';
 import {AjfNode} from './node';
 
 export interface AjfContainerNode extends AjfNode {
   nodes: AjfNode[];
+  // AjfCondition for handling field writable
+  readonly?: AjfCondition;
 }

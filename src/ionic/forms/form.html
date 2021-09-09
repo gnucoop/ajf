@@ -124,7 +124,7 @@
                             ></ion-icon>
                             <ajf-field
                               [instance]="fieldInstance|ajfAsFieldInstance"
-                              [readonly]="readonly"
+                              [readonly]="readonly || !slideInstance.editable"
                             >
                             </ajf-field>
                           </div>
