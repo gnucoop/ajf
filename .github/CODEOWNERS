@@ -14,6 +14,7 @@
 /src/core/node-icon/*                              @peppedeka
 /src/core/page-break/*                             @peppedeka
 /src/core/page-slider/*                            @peppedeka
+/src/core/range/*                                  @peppedeka
 /src/core/reports/**/*                             @peppedeka
 /src/core/reports/report-to-pdf/*                  @robzan8
 /src/core/table/*                                  @peppedeka
@@ -35,6 +36,7 @@
 /src/material/monaco-editor/*                      @peppedeka
 /src/material/node-icon/*                          @peppedeka
 /src/material/page-slider/*                        @peppedeka
+/src/material/range/*                              @peppedeka
 /src/material/report-builder/**/*                  @peppedeka
 /src/material/reports/*                            @peppedeka
 /src/material/time/*                               @peppedeka

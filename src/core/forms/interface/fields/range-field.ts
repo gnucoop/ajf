@@ -20,25 +20,12 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfFieldType {
-  String,
-  Text,
-  Number,
-  Boolean,
-  SingleChoice,
-  MultipleChoice,
-  Formula,
-  Empty,
-  Date,
-  DateInput,
-  Time,
-  Table,
-  Geolocation,
-  Barcode,
-  File,
-  Image,
-  VideoUrl,
-  Range,
-  LENGTH
+import {AjfField} from './field';
+import {AjfFieldType} from './field-type';
+
+export interface AjfRangeField extends AjfField {
+  fieldType: AjfFieldType.Range;
+  end?: number;
+  start?: number;
+  step?: number;
 }

@@ -48,6 +48,7 @@ import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfNumberFieldComponent} from './number-field';
 import {AjfPopover} from './popover';
+import {AjfRangeFieldComponent} from './range-field';
 import {AjfSelectHasSearchBarPipe} from './select-has-search-bar.pipe';
 import {AjfSelectUseVirtualScroll} from './select-use-virtual-scroll.pipe';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
@@ -87,6 +88,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfMultipleChoiceFieldComponent,
     AjfNumberFieldComponent,
     AjfPopover,
+    AjfRangeFieldComponent,
     AjfSelectHasSearchBarPipe,
     AjfSelectUseVirtualScroll,
     AjfSingleChoiceFieldComponent,
@@ -106,6 +108,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfMultipleChoiceFieldComponent,
     AjfNumberFieldComponent,
     AjfPopover,
+    AjfRangeFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
     AjfTextareaFieldComponent,

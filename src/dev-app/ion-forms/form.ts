@@ -27,7 +27,8 @@ export const formContext: any = {
   'value3': 3,
   'value4': 4,
   'value5': 5,
-  'value6': 6
+  'value6': 6,
+  'range': 2
 };
 
 export const formSchema: any = {
@@ -140,7 +141,8 @@ export const formSchema: any = {
         },
         {parent: 1005, id: 1006, name: 'date input', label: 'A date', nodeType: 0, fieldType: 9},
         {parent: 1006, id: 1007, name: 'time', label: 'Time', nodeType: 0, fieldType: 10},
-        {parent: 1007, id: 1008, name: 'barcode', label: 'Barcode', nodeType: 0, fieldType: 13}
+        {parent: 1007, id: 1008, name: 'barcode', label: 'Barcode', nodeType: 0, fieldType: 13},
+        {parent: 1008, id: 1009, name: 'range', label: 'Range', nodeType: 0, fieldType: 17}
       ]
     },
     {

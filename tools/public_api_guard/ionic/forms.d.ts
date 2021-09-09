@@ -62,7 +62,7 @@ export declare class AjfFormRenderer extends AjfCoreFormRenderer implements Afte
 export declare class AjfFormsModule {
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfFormsModule, never>;
     static ɵinj: i0.ɵɵInjectorDeclaration<AjfFormsModule>;
-    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfFormsModule, [typeof i1.AjfBarcodeFieldComponent, typeof i2.AjfBooleanFieldComponent, typeof i3.AjfDateFieldComponent, typeof i4.AjfDateInputFieldComponent, typeof i5.AjfEmptyFieldComponent, typeof i6.AjfFormField, typeof i7.AjfFormPage, typeof i8.AjfFormRenderer, typeof i9.AjfFormulaFieldComponent, typeof i10.AjfInputFieldComponent, typeof i11.AjfMultipleChoiceFieldComponent, typeof i12.AjfNumberFieldComponent, typeof i13.AjfPopover, typeof i14.AjfSelectHasSearchBarPipe, typeof i15.AjfSelectUseVirtualScroll, typeof i16.AjfSingleChoiceFieldComponent, typeof i17.AjfTableFieldComponent, typeof i18.AjfTextareaFieldComponent, typeof i19.AjfTimeFieldComponent, typeof i20.AjfVideoUrlFieldComponent], [typeof i21.AjfBarcodeModule, typeof i22.AjfCalendarModule, typeof i23.AjfCheckboxGroupModule, typeof i24.AjfCommonModule, typeof i25.AjfFormsModule, typeof i26.AjfPageSliderModule, typeof i27.AjfTimeModule, typeof i28.CommonModule, typeof i29.FormsModule, typeof i30.GicModule, typeof i31.IonicModule, typeof i29.ReactiveFormsModule, typeof i32.AjfTranslocoModule], [typeof i6.AjfFormField, typeof i8.AjfFormRenderer]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfFormsModule, [typeof i1.AjfBarcodeFieldComponent, typeof i2.AjfBooleanFieldComponent, typeof i3.AjfDateFieldComponent, typeof i4.AjfDateInputFieldComponent, typeof i5.AjfEmptyFieldComponent, typeof i6.AjfFormField, typeof i7.AjfFormPage, typeof i8.AjfFormRenderer, typeof i9.AjfFormulaFieldComponent, typeof i10.AjfInputFieldComponent, typeof i11.AjfMultipleChoiceFieldComponent, typeof i12.AjfNumberFieldComponent, typeof i13.AjfPopover, typeof i14.AjfRangeFieldComponent, typeof i15.AjfSelectHasSearchBarPipe, typeof i16.AjfSelectUseVirtualScroll, typeof i17.AjfSingleChoiceFieldComponent, typeof i18.AjfTableFieldComponent, typeof i19.AjfTextareaFieldComponent, typeof i20.AjfTimeFieldComponent, typeof i21.AjfVideoUrlFieldComponent], [typeof i22.AjfBarcodeModule, typeof i23.AjfCalendarModule, typeof i24.AjfCheckboxGroupModule, typeof i25.AjfCommonModule, typeof i26.AjfFormsModule, typeof i27.AjfPageSliderModule, typeof i28.AjfTimeModule, typeof i29.CommonModule, typeof i30.FormsModule, typeof i31.GicModule, typeof i32.IonicModule, typeof i30.ReactiveFormsModule, typeof i33.AjfTranslocoModule], [typeof i6.AjfFormField, typeof i8.AjfFormRenderer]>;
     static forRoot(): ModuleWithProviders<AjfFormsModule>;
 }
 
@@ -86,6 +86,12 @@ export declare class AjfNumberFieldComponent extends CoreComponent implements On
     setValue(value: any): void;
     static ɵcmp: i0.ɵɵComponentDeclaration<AjfNumberFieldComponent, "ng-component", never, {}, {}, never, never>;
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfNumberFieldComponent, never>;
+}
+
+export declare class AjfRangeFieldComponent extends AjfRange {
+    constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfRangeFieldComponent, "ajf-range", never, {}, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfRangeFieldComponent, never>;
 }
 
 export declare class AjfSingleChoiceFieldComponent<T> extends AjfFieldWithChoicesComponent<T> {

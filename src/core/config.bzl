@@ -17,6 +17,7 @@ CORE_ENTRYPOINTS_WITH_STYLES = [
     "node-icon",
     "page-break",
     "page-slider",
+    "range",
     "reports",
     "table",
     "text",
