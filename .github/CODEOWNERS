@@ -1,5 +1,5 @@
 # Ajf core
-/src/core/*                                        @trik
+/src/core/*                                        @peppedeka
 /src/core/barcode/*                                @peppedeka
 /src/core/calendar/*                               @sara-gnucoop
 /src/core/chart/*                                  @sara-gnucoop
@@ -8,21 +8,21 @@
 /src/core/file-input/**/*                          @sara-gnucoop
 /src/core/forms/**/*                               @peppedeka
 /src/core/forms/form-to-pdf/*                      @robzan8
-/src/core/image/*                                  @trik
-/src/core/map/*                                    @trik
-/src/core/models/**/*                              @trik
-/src/core/node-icon/*                              @trik
-/src/core/page-break/*                             @trik
+/src/core/image/*                                  @peppedeka
+/src/core/map/*                                    @peppedeka
+/src/core/models/**/*                              @peppedeka
+/src/core/node-icon/*                              @peppedeka
+/src/core/page-break/*                             @peppedeka
 /src/core/page-slider/*                            @peppedeka
 /src/core/reports/**/*                             @peppedeka
 /src/core/reports/report-to-pdf/*                  @robzan8
-/src/core/table/*                                  @trik
-/src/core/testing/private/**/*                     @trik
+/src/core/table/*                                  @peppedeka
+/src/core/testing/private/**/*                     @peppedeka
 /src/core/transloco/*                              @peppedeka
-/src/core/text/*                                   @trik
-/src/core/time/*                                   @trik
-/src/core/utils/*                                  @trik
-/src/core/vfs-fonts/*                              @trik
+/src/core/text/*                                   @peppedeka
+/src/core/time/*                                   @peppedeka
+/src/core/utils/*                                  @peppedeka
+/src/core/vfs-fonts/*                              @peppedeka
 
 # Ajf material
 /src/material/*                                    @peppedeka
@@ -52,17 +52,17 @@
 /src/ionic/time/*                                  @peppedeka
 
 # Ajf monaco
-/src/monaco/*                                      @trik
-/src/monaco/lib/*                                  @trik
-/src/monaco/src/*                                  @trik
+/src/monaco/*                                      @peppedeka
+/src/monaco/lib/*                                  @peppedeka
+/src/monaco/src/*                                  @peppedeka
 
 # Ajf calendars
 /src/calendars/*                                   @sara-gnucoop
 /src/calendars/ethiopian/*                         @sara-gnucoop
 
 # Docs examples & guides
-/guides/**                                         @trik
-/src/ajf-examples/**                               @trik
+/guides/**                                         @peppedeka
+/src/ajf-examples/**                               @peppedeka
 
 # Dev app
 /src/dev-app/*                                     @peppedeka
@@ -114,27 +114,27 @@
 /src/e2e-app/mat-table-field/*                     @peppedeka
 
 # Universal app
-/src/universal-app/**                              @trik
+/src/universal-app/**                              @peppedeka
 
 # Integration tests
-/integration/**                                    @trik
+/integration/**                                    @peppedeka
 
 # Tooling
-/.circleci/**                                      @trik
-/.jenkins/**                                       @trik
-/.yarn/**                                          @trik
-/scripts/**                                        @trik
+/.circleci/**                                      @peppedeka
+/.jenkins/**                                       @peppedeka
+/.yarn/**                                          @peppedeka
+/scripts/**                                        @peppedeka
 /test/**                                           @peppedeka
 /tools/**                                          @peppedeka
 
 # Misc
-/.github/**                                        @trik
+/.github/**                                        @peppedeka
 /.github/CODEOWNERS                                @peppedeka
-/.github/ISSUE_TEMPLATE/**                         @trik
-/.husky/**                                         @trik
-/.vscode/**                                        @trik
-/.ng-dev/**                                        @trik
-/goldens/size-test.yml                             @trik
-/goldens/**                                        @trik
+/.github/ISSUE_TEMPLATE/**                         @peppedeka
+/.husky/**                                         @peppedeka
+/.vscode/**                                        @peppedeka
+/.ng-dev/**                                        @peppedeka
+/goldens/size-test.yml                             @peppedeka
+/goldens/**                                        @peppedeka
 /src/*                                             @peppedeka
 /*                                                 @peppedeka
