@@ -21,8 +21,7 @@
  */
 
 import {AjfNodeInstance} from './node-instance';
-
 export interface AjfContainerNodeInstance extends AjfNodeInstance {
-  nodes: AjfNodeInstance[];
   flatNodes: AjfNodeInstance[];
+  nodes: AjfNodeInstance[];
 }

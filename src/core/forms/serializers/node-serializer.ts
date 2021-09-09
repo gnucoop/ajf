@@ -89,8 +89,12 @@ export class AjfNodeSerializer {
             attachmentsOrigins,
         );
       case AjfNodeType.AjfSlide:
+        const slideObj = obj as AjfNodeCreate & Partial<AjfSlide>;
+        if (slideObj.readonly) {
+          slideObj.readonly = AjfConditionSerializer.fromJson(slideObj.readonly);
+        }
         return AjfNodeSerializer._slideFromJson(
-            obj as AjfNodeCreate & Partial<AjfSlide>,
+            slideObj as AjfNodeCreate & Partial<AjfSlide>,
             choicesOrigins,
             attachmentsOrigins,
         );

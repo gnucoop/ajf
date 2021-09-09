@@ -157,6 +157,7 @@ const slideForm = {
     name: 'slide',
     label: 'slide',
     conditionalBranches: [{condition: 'true'}],
+    readonly: [{condition: 'false'}],
     nodes: []
   }],
 } as any;

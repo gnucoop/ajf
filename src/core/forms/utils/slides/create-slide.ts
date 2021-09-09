@@ -20,6 +20,7 @@
  *
  */
 
+import {neverCondition} from '@ajf/core/models';
 import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfSlide} from '../../interface/slides/slide';
 import {AjfContainerNodeCreate, createContainerNode} from '../nodes/create-container-node';
@@ -30,5 +31,6 @@ export function createSlide(nodeGroup: AjfSlideCreate): AjfSlide {
   return {
     ...createContainerNode(nodeGroup),
     nodeType: AjfNodeType.AjfSlide,
+    readonly: nodeGroup.readonly || neverCondition(),
   };
 }

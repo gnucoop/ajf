@@ -97,6 +97,7 @@ import {nodeInstanceCompleteName} from './utils/nodes-instances/node-instance-co
 import {nodeInstanceSuffix} from './utils/nodes-instances/node-instance-suffix';
 import {nodeToNodeInstance} from './utils/nodes-instances/node-to-node-instance';
 import {updateConditionalBranches} from './utils/nodes-instances/update-conditional-branches';
+import {updateEditability} from './utils/nodes-instances/update-editability';
 import {updateVisibility} from './utils/nodes-instances/update-visibility';
 import {flattenNodes} from './utils/nodes/flatten-nodes';
 import {isContainerNode} from './utils/nodes/is-container-node';
@@ -128,6 +129,10 @@ const updateSlideValidity = (slide: AjfRepeatingSlideInstance|AjfSlideInstance) 
 
 @Injectable()
 export class AjfFormRendererService {
+  private _editabilityNodesMap: Observable<AjfRendererUpdateMap>;
+  private _editabilityNodesMapUpdates: Subject<AjfRendererUpdateMapOperation> =
+      new Subject<AjfRendererUpdateMapOperation>();
+
   private _visibilityNodesMap: Observable<AjfRendererUpdateMap>;
   private _visibilityNodesMapUpdates: Subject<AjfRendererUpdateMapOperation> =
       new Subject<AjfRendererUpdateMapOperation>();
@@ -348,6 +353,17 @@ export class AjfFormRendererService {
   }
 
   private _initUpdateMapStreams(): void {
+    this._editabilityNodesMap =
+        (<Observable<AjfRendererUpdateMapOperation>>this._editabilityNodesMapUpdates)
+            .pipe(
+                scan(
+                    (rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+                      return op(rmap);
+                    },
+                    {}),
+                startWith({} as AjfRendererUpdateMap),
+                share(),
+            );
     this._visibilityNodesMap =
         (<Observable<AjfRendererUpdateMapOperation>>this._visibilityNodesMapUpdates)
             .pipe(
@@ -449,9 +465,9 @@ export class AjfFormRendererService {
             );
 
     this._nodesMaps = [
-      this._visibilityNodesMap, this._repetitionNodesMap, this._conditionalBranchNodesMap,
-      this._formulaNodesMap, this._validationNodesMap, this._warningNodesMap,
-      this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
+      this._editabilityNodesMap, this._visibilityNodesMap, this._repetitionNodesMap,
+      this._conditionalBranchNodesMap, this._formulaNodesMap, this._validationNodesMap,
+      this._warningNodesMap, this._nextSlideConditionsNodesMap, this._filteredChoicesNodesMap,
       this._triggerConditionsNodesMap
     ];
   }
@@ -585,6 +601,9 @@ export class AjfFormRendererService {
           }
         }
         updateFieldInstanceState(fInstance, context);
+      }
+      if (nodeType === AjfNodeType.AjfSlide) {
+        updateEditability(instance as AjfSlideInstance, context);
       }
       this._addNodeInstance(instance);
     }
@@ -727,28 +746,29 @@ export class AjfFormRendererService {
                       [any, any], AjfRendererUpdateMap, AjfRendererUpdateMap, AjfRendererUpdateMap,
                       AjfRendererUpdateMap, AjfRendererUpdateMap, AjfRendererUpdateMap,
                       AjfRendererUpdateMap, AjfRendererUpdateMap, AjfRendererUpdateMap,
-                      AjfNodeInstance[]
+                      AjfRendererUpdateMap, AjfNodeInstance[]
                     ]>(...(this._nodesMaps), this._flatNodes),
                 )
             .subscribe((v: [
                          [any, any], AjfRendererUpdateMap, AjfRendererUpdateMap,
                          AjfRendererUpdateMap, AjfRendererUpdateMap, AjfRendererUpdateMap,
                          AjfRendererUpdateMap, AjfRendererUpdateMap, AjfRendererUpdateMap,
-                         AjfRendererUpdateMap, AjfNodeInstance[]
+                         AjfRendererUpdateMap, AjfRendererUpdateMap, AjfNodeInstance[]
                        ]) => {
               const oldFormValue = init && {} || v[0][0];
               init = false;
               const newFormValue = v[0][1];
-              const visibilityMap = v[1];
-              const repetitionMap = v[2];
-              const conditionalBranchesMap = v[3];
-              const formulaMap = v[4];
-              const validationMap = v[5];
-              const warningMap = v[6];
-              const nextSlideConditionsMap = v[7];
-              const filteredChoicesMap = v[8];
-              const triggerConditionsMap = v[9];
-              const nodes = v[10];
+              const editability = v[1];
+              const visibilityMap = v[2];
+              const repetitionMap = v[3];
+              const conditionalBranchesMap = v[4];
+              const formulaMap = v[5];
+              const validationMap = v[6];
+              const warningMap = v[7];
+              const nextSlideConditionsMap = v[8];
+              const filteredChoicesMap = v[9];
+              const triggerConditionsMap = v[10];
+              const nodes = v[11];
 
               // takes the names of the fields that have changed
               const delta = this._formValueDelta(oldFormValue, newFormValue);
@@ -763,6 +783,14 @@ export class AjfFormRendererService {
               delta.forEach((fieldName) => {
                 updatedNodes = updatedNodes.concat(
                     nodes.filter(n => nodeInstanceCompleteName(n) === fieldName));
+                if (editability[fieldName] != null) {
+                  editability[fieldName].forEach(nodeInstance => {
+                    if (isSlideInstance(nodeInstance)) {
+                      const slideInstance = nodeInstance as AjfSlideInstance;
+                      updateEditability(slideInstance, newFormValue);
+                    }
+                  });
+                }
                 if (visibilityMap[fieldName] != null) {
                   visibilityMap[fieldName].forEach(nodeInstance => {
                     const completeName = nodeInstanceCompleteName(nodeInstance);
@@ -1013,6 +1041,7 @@ export class AjfFormRendererService {
     this._removeNodesFilteredChoicesMapIndex(nodeName);
     this._removeNodesTriggerConditionsMapIndex(nodeName);
     if (isSlidesInstance(nodeInstance)) {
+      this._removeNodesEditabilityMapIndex(nodeName);
       return this._removeSlideInstance(nodeInstance as AjfBaseSlideInstance);
     } else if (isRepeatingContainerNode(nodeInstance.node)) {
       this._removeNodeGroupInstance(nodeInstance as AjfRepeatingContainerNodeInstance);
@@ -1200,6 +1229,9 @@ export class AjfFormRendererService {
 
   private _addSlideInstance(slideInstance: AjfSlideInstance): AjfSlideInstance {
     const slide = slideInstance.node;
+    if (slide.readonly != null) {
+      this._addToNodesEditabilityMap(slideInstance, slide.readonly.condition);
+    }
     if (slide.visibility != null) {
       this._addToNodesVisibilityMap(slideInstance, slide.visibility.condition);
     }
@@ -1233,7 +1265,9 @@ export class AjfFormRendererService {
     }
     return nodeGroupInstance;
   }
-
+  private _removeNodesEditabilityMapIndex(index: string): void {
+    this._removeNodesMapIndex(this._editabilityNodesMapUpdates, index);
+  }
   private _removeNodesVisibilityMapIndex(index: string): void {
     this._removeNodesMapIndex(this._visibilityNodesMapUpdates, index);
   }
@@ -1340,6 +1374,10 @@ export class AjfFormRendererService {
         return vmap;
       });
     }
+  }
+
+  private _addToNodesEditabilityMap(nodeInstance: AjfNodeInstance, formula: string): void {
+    this._addToNodesMap(this._editabilityNodesMapUpdates, nodeInstance, formula);
   }
 
   private _addToNodesVisibilityMap(nodeInstance: AjfNodeInstance, formula: string): void {
