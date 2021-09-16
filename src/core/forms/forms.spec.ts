@@ -1,11 +1,12 @@
+import {TestBed} from '@angular/core/testing';
+
 import {
   AjfFieldInstance,
   AjfForm,
   AjfFormRendererService,
   AjfFormSerializer,
   AjfFormsModule
-} from '@ajf/core/forms';
-import {TestBed} from '@angular/core/testing';
+} from './index';
 
 describe('formula field', () => {
   beforeEach(async () => {

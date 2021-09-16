@@ -1,4 +1,4 @@
-import {AjfExpressionUtils, evaluateExpression, validateExpression} from './public-api';
+import {AjfExpressionUtils, evaluateExpression, validateExpression} from './index';
 
 describe('evaluateExpression', () => {
   it('should evalute expressions given a context', () => {

@@ -15,8 +15,6 @@ ng_module(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
     ),
-    assets = [],
-    module_name = "@ajf/core/common",
     deps = [
         "//src/core/transloco",
         "@npm//@angular/common",

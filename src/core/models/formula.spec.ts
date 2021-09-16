@@ -1,4 +1,4 @@
-import {createFormula} from './public-api';
+import {createFormula} from './index';
 
 describe('createFormula', () => {
   it('should create an empty formula with no parameters', () => {

@@ -1,4 +1,4 @@
-import {VfsFont, vfsFonts, vfsFontsMap} from '@ajf/core/vfs-fonts';
+import {VfsFont, vfsFonts, vfsFontsMap} from './index';
 
 describe('vfsFonts', () => {
   it('should contain the default fonts', () => {

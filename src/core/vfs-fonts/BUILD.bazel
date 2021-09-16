@@ -26,8 +26,6 @@ ng_module(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
     ),
-    assets = [],
-    module_name = "@ajf/core/vfs-fonts",
     deps = [],
 )
 

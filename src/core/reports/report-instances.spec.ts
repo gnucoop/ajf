@@ -20,16 +20,16 @@
  *
  */
 
-import {AjfTranslocoModule, TranslocoService} from '@ajf/core/transloco';
 import {TestBed} from '@angular/core/testing';
 
+import {AjfTranslocoModule, TranslocoService} from '../transloco';
 import {
   AjfColumnWidgetInstance,
   AjfReportSerializer,
   AjfTextWidgetInstance,
   AjfWidgetType,
   createReportInstance
-} from './public-api';
+} from './index';
 
 describe('createReportInstance', () => {
   let ts: TranslocoService;

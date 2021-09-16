@@ -35,7 +35,6 @@ ng_module(
         ":widget-toolbar-button.css",
         ":widgets-row-buttons.css",
     ] + glob(["**/*.html"]),
-    module_name = "@ajf/material/report-builder",
     deps = [
         "//src/core/common",
         "//src/core/forms",

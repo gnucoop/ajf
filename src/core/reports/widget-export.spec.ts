@@ -3,8 +3,8 @@ import * as XLSX from 'xlsx';
 
 import {AjfTableCell} from '../table';
 
+import {AjfWidgetExport} from './index';
 import {AjfWidgetType} from './interface/widgets/widget-type';
-import {AjfWidgetExport} from './public-api';
 
 describe('widget-export', () => {
   const widgetExport = new AjfWidgetExport();

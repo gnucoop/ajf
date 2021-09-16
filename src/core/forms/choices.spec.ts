@@ -10,7 +10,7 @@ import {
   createChoicesPromiseOrigin,
   initChoicesOrigin,
   isChoicesFixedOrigin,
-} from './public-api';
+} from './index';
 
 describe('createChoicesOrigin', () => {
   it('should have a name, a label and a choices type', () => {

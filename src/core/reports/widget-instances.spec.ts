@@ -26,7 +26,7 @@ import {
   AjfWidgetType,
   createWidget,
   widgetToWidgetInstance
-} from './public-api';
+} from './index';
 
 class TsMock {
   translate(str: string): string {

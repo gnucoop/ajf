@@ -20,15 +20,6 @@
  *
  */
 
-import {
-  AjfFieldType,
-  AjfFieldWithChoices,
-  AjfFormRendererService,
-  AjfFormSerializer,
-  AjfNodeType,
-  AjfSlideInstance
-} from '@ajf/core/forms';
-import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
@@ -36,7 +27,17 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {timer} from 'rxjs';
 import {take} from 'rxjs/operators';
 
-import {AjfFormRenderer, AjfFormsModule} from './public-api';
+import {
+  AjfFieldType,
+  AjfFieldWithChoices,
+  AjfFormRendererService,
+  AjfFormSerializer,
+  AjfNodeType,
+  AjfSlideInstance,
+} from '../../core/forms';
+import {AjfTranslocoModule} from '../../core/transloco';
+
+import {AjfFormRenderer, AjfFormsModule} from './index';
 
 describe('AjfFormRenderer', () => {
   let service: AjfFormRendererService;

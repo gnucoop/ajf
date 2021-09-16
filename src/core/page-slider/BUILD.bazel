@@ -17,7 +17,6 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":page-slider-item.css"] + glob(["**/*.html"]),
-    module_name = "@ajf/core/page-slider",
     deps = [
         "//src/core/utils",
         "@npm//@angular/animations",

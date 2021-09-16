@@ -37,7 +37,6 @@ ng_module(
         ":time-field.css",
         ":video-url-field.css",
     ] + glob(["**/*.html"]),
-    module_name = "@ajf/ionic/forms",
     deps = [
         "//src/core/common",
         "//src/core/forms",

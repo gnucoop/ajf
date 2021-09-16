@@ -17,7 +17,6 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":map.css"] + glob(["**/*.html"]),
-    module_name = "@ajf/core/map",
     deps = [
         "@npm//@angular/core",
         "@npm//@types/leaflet",

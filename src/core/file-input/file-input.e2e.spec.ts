@@ -1,5 +1,6 @@
-import {expectToExist} from '@ajf/core/testing/private/e2e';
 import {browser} from 'protractor';
+
+import {expectToExist} from '../testing/private/e2e';
 
 describe('ajf-file-input', () => {
   beforeEach(async () => await browser.get('/file-input'));

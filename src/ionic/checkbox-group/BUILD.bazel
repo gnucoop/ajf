@@ -17,7 +17,6 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":checkbox-group-item.css"] + glob(["**/*.html"]),
-    module_name = "@ajf/ionic/checkbox-group",
     deps = [
         "//src/core/checkbox-group",
         "@npm//@angular/common",

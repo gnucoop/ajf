@@ -19,7 +19,6 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":file-input.css"] + glob(["**/*.html"]),
-    module_name = "@ajf/core/file-input",
     deps = [
         "//src/core/common",
         "//src/core/transloco",

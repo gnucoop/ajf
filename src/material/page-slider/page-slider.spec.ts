@@ -3,7 +3,7 @@ import {async, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {AjfPageSlider, AjfPageSliderModule} from './public-api';
+import {AjfPageSlider, AjfPageSliderModule} from './index';
 
 describe('AjfPageSlider', () => {
   beforeEach(async(() => {

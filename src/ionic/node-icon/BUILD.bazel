@@ -17,7 +17,6 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":node-icon.css"] + glob(["**/*.html"]),
-    module_name = "@ajf/ionic/node-icon",
     deps = [
         "//src/core/node-icon",
         "@npm//@angular/common",

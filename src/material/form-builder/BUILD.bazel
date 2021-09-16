@@ -30,7 +30,6 @@ ng_module(
         ":validation-condition-editor-dialog.css",
         ":warning-condition-editor-dialog.css",
     ] + glob(["**/*.html"]),
-    module_name = "@ajf/material/form-builder",
     deps = [
         "//src/core/forms",
         "//src/core/models",

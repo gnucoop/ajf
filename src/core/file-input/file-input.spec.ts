@@ -1,8 +1,10 @@
-import {AjfFile, AjfFileInput, AjfFileInputModule} from '@ajf/core/file-input';
-import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {shareReplay, take} from 'rxjs/operators';
+
+import {AjfTranslocoModule} from '../transloco';
+
+import {AjfFile, AjfFileInput, AjfFileInputModule} from './index';
 
 const emptyPng =
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';

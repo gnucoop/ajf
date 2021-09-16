@@ -1,6 +1,7 @@
-import {AjfDndDirective} from '@ajf/core/common';
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+
+import {AjfDndDirective} from './index';
 
 describe('AjfDndDirective', () => {
   let fixture: ComponentFixture<TestComponent>;

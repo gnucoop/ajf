@@ -1,5 +1,6 @@
-import {alwaysCondition, createCondition, createFormula, neverCondition} from '@ajf/core/models';
-import {AjfFieldType, AjfNodeType, createField, createNode} from './public-api';
+import {alwaysCondition, createCondition, createFormula, neverCondition} from '../models';
+
+import {AjfFieldType, AjfNodeType, createField, createNode} from './index';
 
 
 describe('createNode', () => {

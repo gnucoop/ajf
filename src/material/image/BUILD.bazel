@@ -17,7 +17,6 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":image.css"] + glob(["**/*.html"]),
-    module_name = "@ajf/material/image",
     deps = [
         "//src/core/image",
         "@npm//@angular/common",

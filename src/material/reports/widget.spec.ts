@@ -20,11 +20,12 @@
  *
  */
 
-import {AjfWidgetSerializer, AjfWidgetType, createWidgetInstance} from '@ajf/core/reports';
-import {AjfTranslocoModule, TranslocoService} from '@ajf/core/transloco';
 import {TestBed} from '@angular/core/testing';
 
-import {AjfReportsModule, AjfReportWidget} from './public-api';
+import {AjfWidgetSerializer, AjfWidgetType, createWidgetInstance} from '../../core/reports';
+import {AjfTranslocoModule, TranslocoService} from '../../core/transloco';
+
+import {AjfReportsModule, AjfReportWidget} from './index';
 
 describe('AjfReportWidget', () => {
   let ts: TranslocoService;

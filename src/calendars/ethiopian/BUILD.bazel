@@ -12,8 +12,6 @@ ng_module(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
     ),
-    assets = [],
-    module_name = "@ajf/calendars/ethiopian",
     deps = [
         "//src/core/calendar",
         "@npm//@angular/core",

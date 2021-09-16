@@ -32,7 +32,6 @@ ng_module(
         ":text-widget.css",
         ":widget.css",
     ] + glob(["**/*.html"]),
-    module_name = "@ajf/material/reports",
     deps = [
         "//src/core/chart",
         "//src/core/common",

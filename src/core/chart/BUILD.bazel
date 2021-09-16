@@ -17,7 +17,6 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":chart.css"] + glob(["**/*.html"]),
-    module_name = "@ajf/core/chart",
     deps = [
         "//src/core/utils",
         "@npm//@angular/core",

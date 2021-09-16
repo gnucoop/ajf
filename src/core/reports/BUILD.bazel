@@ -17,7 +17,6 @@ ng_module(
         exclude = ["**/*.spec.ts"],
     ),
     assets = [":widget-export.css"],
-    module_name = "@ajf/core/reports",
     deps = [
         "//src/core/chart",
         "//src/core/forms",

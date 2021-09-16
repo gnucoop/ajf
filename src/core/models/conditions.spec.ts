@@ -1,4 +1,4 @@
-import {alwaysCondition, createCondition, neverCondition} from './public-api';
+import {alwaysCondition, createCondition, neverCondition} from './index';
 
 describe('createCondition', () => {
   it('should create an empty condition with no parameters', () => {

@@ -20,11 +20,12 @@
  *
  */
 
-import {AjfImageType} from '@ajf/core/image';
 import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 
-import {AjfImageModule} from './public-api';
+import {AjfImageType} from '../../core/image';
+
+import {AjfImageModule} from './index';
 
 describe('AjfImage', () => {
   beforeEach(async () => {
