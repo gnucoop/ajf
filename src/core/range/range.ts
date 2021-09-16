@@ -105,7 +105,8 @@ export abstract class AjfRange extends AjfBaseFieldComponent<AjfRangeFieldInstan
     }
   }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    super.ngOnInit();
     if (this.instance != null && this.instance.node != null) {
       const node = this.instance.node;
       if (node.end != null) {
