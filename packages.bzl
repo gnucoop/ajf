@@ -73,24 +73,6 @@ ANGULAR_NGCC_BUNDLES = [
     ("@angular/router", ["router.umd.js"]),
 ]
 
-THIRD_PARTY_NO_NGCC_BUNDLES = [
-    ("@gic/core", []),
-    ("@gic/core/loader", []),
-    ("@ionic/core", []),
-    ("@ionic/core/loader", []),
-    ("@zxing/browser", []),
-    ("@zxing/library", []),
-    ("chart.js", []),
-    ("date-fns", []),
-    ("esprima", []),
-    ("flat", []),
-    ("leaflet", []),
-    ("numbro", []),
-    ("pdfmake", ["pdfmake/build/pdfmake"]),
-    ("quill", []),
-    ("xlsx", []),
-]
-
 THIRD_PARTY_NGCC_BUNDLES = [
     ("@gic/angular", "gic-angular.umd.js"),
     ("@ionic/angular", "ionic-angular.umd.js"),
@@ -115,12 +97,6 @@ def getFrameworkPackageBundles():
 def getThirdPartyPackageBundles():
     res = {}
     for pkgName, bundleName in THIRD_PARTY_NGCC_BUNDLES:
-        res[pkgName] = bundleName
-    return res
-
-def getThirdPartyNoNgccPackageBundles():
-    res = {}
-    for pkgName, bundleName in THIRD_PARTY_NO_NGCC_BUNDLES:
         res[pkgName] = bundleName
     return res
 
@@ -158,17 +134,14 @@ def getThirdPartyNoNgccUmdFilePaths(packages):
 ANGULAR_PACKAGE_BUNDLES = getFrameworkPackageBundles()
 
 THIRD_PARTY_PACKAGE_BUNDLES = getThirdPartyPackageBundles()
-THIRD_PARTY_NO_NGCC_PACKAGE_BUNDLES = getThirdPartyNoNgccPackageBundles()
 
 ANGULAR_LIBRARY_VIEW_ENGINE_UMDS = getUmdFilePaths(ANGULAR_NO_NGCC_BUNDLES, False) + \
                                    getUmdFilePaths(ANGULAR_NGCC_BUNDLES, False) + \
-                                   getThirdPartyUmdFilePaths(THIRD_PARTY_NGCC_BUNDLES, False) + \
-                                   getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES)
+                                   getThirdPartyUmdFilePaths(THIRD_PARTY_NGCC_BUNDLES, False)
 
 ANGULAR_LIBRARY_IVY_UMDS = getUmdFilePaths(ANGULAR_NO_NGCC_BUNDLES, False) + \
                            getUmdFilePaths(ANGULAR_NGCC_BUNDLES, True) + \
-                           getThirdPartyUmdFilePaths(THIRD_PARTY_NGCC_BUNDLES, True) + \
-                           getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES)
+                           getThirdPartyUmdFilePaths(THIRD_PARTY_NGCC_BUNDLES, True)
 
 """
   Gets the list of targets for the Angular library UMD bundles. Conditionally
@@ -181,10 +154,3 @@ def getAngularUmdTargets():
         "//tools:view_engine_mode": ANGULAR_LIBRARY_VIEW_ENGINE_UMDS,
         "//conditions:default": ANGULAR_LIBRARY_IVY_UMDS,
     })
-
-"""
-  Gets the list of targets for the third party librariers UMD bundles.
-"""
-
-def getThirdPartyUmdTargets():
-    return getThirdPartyNoNgccUmdFilePaths(THIRD_PARTY_NO_NGCC_BUNDLES)

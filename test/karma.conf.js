@@ -71,6 +71,23 @@ module.exports = config => {
       {pattern: 'dist/karma-system-config.js', included: true, watched: false},
       {pattern: 'test/karma-test-shim.js', included: true, watched: false},
 
+      // Third party AMD bundles
+      {pattern: 'dist/amd_ionic_core.js', included: false, watched: false},
+      {pattern: 'dist/amd_ionic_core_loader.js', included: false, watched: false},
+      {pattern: 'dist/amd_gic_core.js', included: false, watched: false},
+      {pattern: 'dist/amd_gic_core_loader.js', included: false, watched: false},
+      {pattern: 'dist/amd_zxing_browser.js', included: false, watched: false},
+      {pattern: 'dist/amd_zxing_library.js', included: false, watched: false},
+      {pattern: 'dist/amd_chart_js.js', included: false, watched: false},
+      {pattern: 'dist/amd_date_fns.js', included: false, watched: false},
+      {pattern: 'dist/amd_date_fns_locales.js', included: false, watched: false},
+      {pattern: 'dist/amd_esprima.js', included: false, watched: false},
+      {pattern: 'dist/amd_flat.js', included: false, watched: false},
+      {pattern: 'dist/amd_leaflet.js', included: false, watched: false},
+      {pattern: 'dist/amd_numbro.js', included: false, watched: false},
+      {pattern: 'dist/amd_pdfmake.js', included: false, watched: false},
+      {pattern: 'dist/amd_xlsx.js', included: false, watched: false},
+
       // Needed for exposing the RxJS operators through the RxJS UMD bundle. This
       // is done for performance reasons since fetching individual files is slow.
       {pattern: 'tools/system-rxjs-operators.js', included: false, watched: false},

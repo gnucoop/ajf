@@ -8,12 +8,6 @@ package(default_visibility = ["//visibility:public"])
 devserverIndexHtmlDependencies = [
     "@npm//zone.js",
     "@npm//core-js-bundle",
-    "@npm//date-fns",
-    "@npm//esprima",
-    "@npm//leaflet",
-    "@npm//numbro",
-    "@npm//pdfmake",
-    "//src/core/transloco",
     ":index.html",
 ]
 
@@ -67,6 +61,7 @@ concatjs_devserver(
     scripts = [
         ":devserver-configure.js",
         "//tools/rxjs:rxjs_umd_modules",
+        "//tools/third-party-libs:amd_bundles",
         "@npm//:node_modules/tslib/tslib.js",
     ] + getAngularUmdTargets(),
     # Name of the generated `concatjs` bundle that is built based on the labels in `deps` and `scripts`.

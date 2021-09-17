@@ -1,11 +1,152 @@
+load("//tools/esbuild:index.bzl", "esbuild_amd")
+
 package(default_visibility = ["//visibility:public"])
 
-exports_files(["npm_umd_bundle.patch"])
+esbuild_amd(
+    name = "amd_date_fns",
+    testonly = True,
+    entry_point = "@npm//:node_modules/date-fns/esm/index.js",
+    module_name = "date-fns",
+    deps = ["@npm//date-fns"],
+)
+
+esbuild_amd(
+    name = "amd_date_fns_locales",
+    testonly = True,
+    entry_point = "@npm//:node_modules/date-fns/esm/locale/index.js",
+    module_name = "date-fns/locale",
+    deps = ["@npm//date-fns"],
+)
+
+esbuild_amd(
+    name = "amd_chart_js",
+    testonly = True,
+    entry_point = "@npm//:node_modules/chart.js/dist/Chart.js",
+    module_name = "chart.js",
+    deps = ["@npm//chart.js"],
+)
+
+esbuild_amd(
+    name = "amd_esprima",
+    testonly = True,
+    entry_point = "@npm//:node_modules/esprima/dist/esprima.js",
+    module_name = "esprima",
+    deps = ["@npm//esprima"],
+)
+
+esbuild_amd(
+    name = "amd_flat",
+    testonly = True,
+    entry_point = "@npm//:node_modules/flat/index.js",
+    module_name = "flat",
+    deps = ["@npm//flat"],
+)
+
+esbuild_amd(
+    name = "amd_leaflet",
+    testonly = True,
+    entry_point = "@npm//:node_modules/leaflet/dist/leaflet.js",
+    module_name = "leaflet",
+    deps = ["@npm//leaflet"],
+)
+
+esbuild_amd(
+    name = "amd_gic_core",
+    testonly = True,
+    entry_point = "@npm//:node_modules/@gic/core/dist/index.cjs.js",
+    module_name = "@gic/core",
+    deps = ["@npm//@gic/core"],
+)
+
+esbuild_amd(
+    name = "amd_gic_core_loader",
+    testonly = True,
+    entry_point = "@npm//:node_modules/@gic/core/loader/index.cjs.js",
+    module_name = "@gic/core/loader",
+    deps = ["@npm//@gic/core"],
+)
+
+esbuild_amd(
+    name = "amd_ionic_core",
+    testonly = True,
+    entry_point = "@npm//:node_modules/@ionic/core/dist/index.cjs.js",
+    module_name = "@ionic/core",
+    deps = ["@npm//@ionic/core"],
+)
+
+esbuild_amd(
+    name = "amd_ionic_core_loader",
+    testonly = True,
+    entry_point = "@npm//:node_modules/@ionic/core/loader/index.cjs.js",
+    module_name = "@ionic/core/loader",
+    deps = ["@npm//@ionic/core"],
+)
+
+esbuild_amd(
+    name = "amd_numbro",
+    testonly = True,
+    entry_point = "@npm//:node_modules/numbro/dist/numbro.js",
+    module_name = "numbro",
+    deps = ["@npm//numbro"],
+)
+
+esbuild_amd(
+    name = "amd_pdfmake",
+    testonly = True,
+    entry_point = "@npm//:node_modules/pdfmake/build/pdfmake.js",
+    module_name = "pdfmake/build/pdfmake",
+    deps = ["@npm//pdfmake"],
+)
+
+esbuild_amd(
+    name = "amd_quill",
+    testonly = True,
+    entry_point = "@npm//:node_modules/quill/dist/quill.js",
+    module_name = "quill",
+    deps = ["@npm//quill"],
+)
+
+esbuild_amd(
+    name = "amd_xlsx",
+    testonly = True,
+    entry_point = "@npm//:node_modules/xlsx/dist/xlsx.js",
+    module_name = "xlsx",
+    deps = ["@npm//xlsx"],
+)
+
+esbuild_amd(
+    name = "amd_zxing_browser",
+    testonly = True,
+    entry_point = "@npm//:node_modules/@zxing/browser/esm/index.js",
+    module_name = "@zxing/browser",
+    deps = ["@npm//@zxing/browser"],
+)
+
+esbuild_amd(
+    name = "amd_zxing_library",
+    testonly = True,
+    entry_point = "@npm//:node_modules/@zxing/library/esm/index.js",
+    module_name = "@zxing/library",
+    deps = ["@npm//@zxing/library"],
+)
 
 filegroup(
-    name = "pdfmake_umd_module",
+    name = "amd_bundles",
     srcs = [
-        ":pdfmake_shims.js",
-        "@npm//pdfmake:pdfmake__umd",
+        ":amd_chart_js_bundle.js",
+        ":amd_date_fns_bundle.js",
+        ":amd_date_fns_locales_bundle.js",
+        ":amd_esprima_bundle.js",
+        ":amd_flat_bundle.js",
+        ":amd_gic_core_bundle.js",
+        ":amd_gic_core_loader_bundle.js",
+        ":amd_ionic_core_bundle.js",
+        ":amd_ionic_core_loader_bundle.js",
+        ":amd_leaflet_bundle.js",
+        ":amd_numbro_bundle.js",
+        ":amd_pdfmake_bundle.js",
+        ":amd_xlsx_bundle.js",
+        ":amd_zxing_browser_bundle.js",
+        ":amd_zxing_library_bundle.js",
     ],
 )

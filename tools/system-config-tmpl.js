@@ -34,7 +34,6 @@ var frameworkPackages = $ANGULAR_PACKAGE_BUNDLES;
 
 /** Map of third party packages and their bundle names. */
 var thirdPartyPackages = $THIRD_PARTY_PACKAGE_BUNDLES;
-var thirdPartyNoNgccPackages = $THIRD_PARTY_NO_NGCC_PACKAGE_BUNDLES;
 
 /** Whether Ivy is enabled. */
 var isRunningWithIvy = 'TMPL_angular_ivy_enabled'.toString() === 'True';
@@ -53,7 +52,22 @@ var pathMapping = {
   'rxjs': 'node:rxjs/bundles/rxjs.umd.min.js',
   'rxjs/operators': 'tools/system-rxjs-operators.js',
 
-  '@angular/cdk': 'node:@angular/cdk',
+  // These path mappings are only for the legacy Karma setup.
+  '@ionic/core': 'tools/third-party-libs/amd_ionic_core_bundle.js',
+  '@ionic/core/loader': 'tools/third-party-libs/amd_ionic_core_loader_bundle.js',
+  '@gic/core': 'tools/third-party-libs/amd_gic_core_bundle.js',
+  '@gic/core/loader': 'tools/third-party-libs/amd_gic_core_loader_bundle.js',
+  '@zxing/browser': 'tools/third-party-libs/amd_zxing_browser_bundle.js',
+  '@zxing/library': 'tools/third-party-libs/amd_zxing_library_bundle.js',
+  'chart.js': 'tools/third-party-libs/amd_chart_js_bundle.js',
+  'date-fns': 'tools/third-party-libs/amd_date_fns_bundle.js',
+  'date-fns/locale': 'tools/third-party-libs/amd_date_fns_locales_bundle.js',
+  'esprima': 'tools/third-party-libs/amd_esprima_bundle.js',
+  'flat': 'tools/third-party-libs/amd_flat_bundle.js',
+  'leaflet': 'tools/third-party-libs/amd_leaflet_bundle.js',
+  'numbro': 'tools/third-party-libs/amd_numbro_bundle.js',
+  'pdfmake/build/pdfmake': 'tools/third-party-libs/amd_pdfmake_bundle.js',
+  'xlsx': 'tools/third-party-libs/amd_xlsx_bundle.js',
 };
 
 /** Package configurations that will be used in SystemJS. */
@@ -79,7 +93,6 @@ setupFrameworkPackages();
 
 // Configure third party packages.
 setupThirdPartyPackages();
-setupThirdPartyNoNgccPackages();
 
 // Configure Angular components packages/entry-points.
 setupLocalReleasePackages();
@@ -151,21 +164,6 @@ function setupThirdPartyPackages() {
       bundlePath = '__ivy_ngcc__/' + bundlePath;
     }
     packagesConfig[moduleName] = {main: bundlePath};
-  });
-}
-
-function setupThirdPartyNoNgccPackages() {
-  Object.keys(thirdPartyNoNgccPackages).forEach(function(moduleName) {
-    // Ensures that imports to the framework package are resolved
-    // to the configured node modules directory.
-    var shims = thirdPartyNoNgccPackages[moduleName];
-    var bundlePath = moduleName.split('/');
-    var bundleName = bundlePath.pop() + '.umd.js';
-    pathMapping[moduleName] = moduleName + '/' + bundlePath.join('/');
-    packagesConfig[moduleName] = {main: bundleName};
-    shims.forEach(shim => {
-      pathMapping[shim] = 'tools/third-party-libs/' + moduleName + '_shims.js';
-    });
   });
 }
 

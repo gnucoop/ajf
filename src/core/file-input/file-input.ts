@@ -82,7 +82,7 @@ export class AjfFilePreview implements OnDestroy {
 @Component({
   selector: 'ajf-file-input',
   templateUrl: './file-input.html',
-  styleUrls: ['./file-input.scss'],
+  styleUrls: ['./file-input.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   host: {

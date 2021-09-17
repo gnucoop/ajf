@@ -53,7 +53,11 @@ ng_test_library(
 
 ng_web_test_suite(
     name = "unit_tests",
-    deps = [":unit_test_sources"],
+    deps = [
+        "//tools/third-party-libs:amd_ionic_core",
+        "//tools/third-party-libs:amd_ionic_core_loader",
+        ":unit_test_sources",
+    ],
 )
 
 markdown_to_html(

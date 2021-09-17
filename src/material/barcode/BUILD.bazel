@@ -53,7 +53,12 @@ ng_test_library(
 
 ng_web_test_suite(
     name = "unit_tests",
-    deps = [":unit_test_sources"],
+    deps = [
+        "//tools/third-party-libs:amd_flat",
+        "//tools/third-party-libs:amd_zxing_browser",
+        "//tools/third-party-libs:amd_zxing_library",
+        ":unit_test_sources",
+    ],
 )
 
 markdown_to_html(

@@ -22,7 +22,6 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@types/chart.js",
-        "@npm//chart.js",
     ],
 )
 
@@ -51,7 +50,10 @@ ng_test_library(
 
 ng_web_test_suite(
     name = "unit_tests",
-    deps = [":unit_test_sources"],
+    deps = [
+        "//tools/third-party-libs:amd_chart_js",
+        ":unit_test_sources",
+    ],
 )
 
 markdown_to_html(

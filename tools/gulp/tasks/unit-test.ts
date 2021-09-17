@@ -19,12 +19,46 @@ task(':test:build-system-config', done => {
   done();
 });
 
+/** Compiles the esm bundles from date-fns to AMD so that we can load them in Karma. */
+task(':test:third-party-libs', done => {
+  shelljs.cd(buildConfig.projectDir);
+  const bazelGenfilesDir = shelljs.exec('yarn -s bazel info bazel-genfiles').stdout.trim();
+
+  const libs = [
+    'amd_chart_js',
+    'amd_date_fns',
+    'amd_date_fns_locales',
+    'amd_esprima',
+    'amd_flat',
+    'amd_gic_core',
+    'amd_gic_core_loader',
+    'amd_ionic_core',
+    'amd_ionic_core_loader',
+    'amd_leaflet',
+    'amd_numbro',
+    'amd_pdfmake',
+    'amd_xlsx',
+    'amd_zxing_browser',
+    'amd_zxing_library',
+  ];
+  libs.forEach(target => {
+    const outputPath = join(buildConfig.outputDir, `${target}.js`);
+    const bundlePath = join(bazelGenfilesDir, `tools/third-party-libs/${target}_bundle.js`);
+    shelljs.exec(`yarn -s bazel build //tools/third-party-libs:${target}`);
+    shelljs.cp(bundlePath, outputPath);
+    shelljs.chmod('u+w', outputPath);
+  });
+
+  done();
+});
+
 /** Builds everything that is necessary for karma. */
 task(':test:build', series(
   'clean',
   'core:build-no-bundles',
   'ionic:build-no-bundles',
   'material:build-no-bundles',
+  ':test:third-party-libs',
   ':test:build-system-config'
 ));
 
