@@ -27,12 +27,40 @@ import {AjfBaseFieldComponent} from '../../base-field';
 import {AjfFieldInstanceCreate} from '../../utils/fields-instances/create-field-instance';
 import {AjfFieldInstance} from '../fields-instances/field-instance';
 
+/**
+ * Represents the association between an AjfFieldType and the
+ * components used to render it.
+ */
 export interface AjfFieldComponentsMap {
+
+  /**
+   * The field type.
+   */
   [key: number]: {
+
+    /**
+     * The field component.
+     */
     component: Type<AjfBaseFieldComponent>,
+
+    /**
+     * The readonly field component.
+     */
     readOnlyComponent?: Type<AjfBaseFieldComponent>,
+
+    /**
+     * The Angular inputs of the components.
+     */
     inputs?: {[key: string]: any},
+
+    /**
+     * The signature and return type of the method used for create Instance.
+     */
     createInstance?: (instance: AjfFieldInstanceCreate, context: AjfContext) => AjfFieldInstance;
+
+    /**
+     * If true, the field has choices.
+     */
     isFieldWithChoice?: boolean;
   };
 }

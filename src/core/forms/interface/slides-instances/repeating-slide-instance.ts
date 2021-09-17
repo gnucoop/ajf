@@ -26,6 +26,9 @@ import {
 import {AjfRepeatingSlide} from '../slides/repeating-slide';
 import {AjfBaseSlideInstance} from './base-slide-instance';
 
+/**
+ * An AjfBaseSlideInstance with node of type AjfRepeatingSlide
+ */
 export interface AjfRepeatingSlideInstance extends AjfBaseSlideInstance,
                                                    AjfRepeatingContainerNodeInstance {
   node: AjfRepeatingSlide;

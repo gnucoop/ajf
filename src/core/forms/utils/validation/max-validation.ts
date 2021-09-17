@@ -23,6 +23,10 @@
 import {AjfValidation} from '../../interface/validation/validation';
 import {createValidation} from './create-validation';
 
+/**
+ * It checks if the value is less than or equal to maxValue and returns
+ * an AjfValidation.
+ */
 export function maxValidation(maxValue: number): AjfValidation {
   return createValidation({
     condition: '$value <= ' + maxValue.toString(),

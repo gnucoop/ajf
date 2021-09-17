@@ -23,6 +23,10 @@
 import {AjfNode} from './node';
 import {AjfNodeType} from './node-type';
 
+/**
+ * Used by the formBuilder.
+ * Represents an empty slot in which to insert a new ajfNode.
+ */
 export interface AjfFieldNodeLink extends AjfNode {
   nodeType: AjfNodeType.AjfFieldNodeLink;
 }

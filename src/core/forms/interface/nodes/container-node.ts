@@ -23,7 +23,13 @@
 import {AjfCondition} from '@ajf/core/models';
 import {AjfNode} from './node';
 
+/**
+ * An AjfNode that contains other AjfNodes.
+ */
 export interface AjfContainerNode extends AjfNode {
+  /**
+   * The children nodes
+   */
   nodes: AjfNode[];
   // AjfCondition for handling field writable
   readonly?: AjfCondition;

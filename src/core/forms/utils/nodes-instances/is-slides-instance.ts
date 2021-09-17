@@ -23,6 +23,9 @@
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 import {isSlidesNode} from '../nodes/is-slides-node';
 
+/**
+ * It is true if nodeInstance is relative to AjfRepeatingSlide node or AjfSlide node.
+ */
 export function isSlidesInstance(nodeInstance: AjfNodeInstance): boolean {
   return nodeInstance != null && nodeInstance.node != null && isSlidesNode(nodeInstance.node);
 }

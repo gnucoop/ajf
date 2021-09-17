@@ -22,6 +22,10 @@
 
 import {AjfFormula} from '../interface/formula';
 
+/**
+ * It Creates an AjfFormula.
+ * If formula.formula is not defined will be assigned ''.
+ */
 export function createFormula(formula: Partial<AjfFormula> = {}): AjfFormula {
   return {formula: formula.formula || ''};
 }

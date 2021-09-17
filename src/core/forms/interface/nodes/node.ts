@@ -23,27 +23,56 @@
 import {AjfCondition} from '@ajf/core/models';
 import {AjfNodeType} from './node-type';
 
+/**
+ * The base element of ajf forms (for example a slide or a field).
+ * Can contain other nodes in a recursive nodes tree.
+ */
 export interface AjfNode {
+  /**
+   * The node type
+   */
   nodeType: AjfNodeType;
 
-  // node identification number
+  /**
+   * Node identification number
+   */
   id: number;
 
-  // id of predecessor node
+  /**
+   * Id of the parent node
+   */
   parent: number;
 
-  // is a id of parent node,  if this node is part of an AjfNodeGroup
+  /**
+   * The index of the condition in the conditionalBranches array of the parent node
+   * that determines if the current branch should be followed.
+   * (eg.
+   *    parentNode.id = 1
+   *    parentNode.conditionalBranches = ['x &gt; 1', 'x &lt;= 1', 'true'];
+   *    myCurrentNode.parent = 1
+   *    myCurrentNode.parentNode = 0;
+   *
+   * In this case, if the condition 'x &gt; 1' is met, the current branch will be followed ).
+   */
   parentNode: number;
 
-  // an AjfCondition array
+  /**
+   * List of conditions that determines the branch to be followed
+   */
   conditionalBranches: AjfCondition[];
 
-  // the name of the field
+  /**
+   * The name of the field
+   */
   name: string;
 
-  // hte label of the field
+  /**
+   * The label of the field
+   */
   label: string;
 
-  // AjfCondition for handling visibility
+  /**
+   * AjfCondition for handling visibility
+   */
   visibility?: AjfCondition;
 }

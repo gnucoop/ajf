@@ -25,6 +25,10 @@ import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 import {isFormulaField} from '../fields/is-formula-field';
 import {isFieldInstance} from '../nodes-instances/is-field-instance';
 
+/**
+ * It is true if the nodeInstance is a fieldInstance and
+ * if the node of instance is a Formula field.
+ */
 export function isFormulaFieldInstance(nodeInstance: AjfNodeInstance): boolean {
   return nodeInstance != null && isFieldInstance(nodeInstance) &&
       isFormulaField((nodeInstance as AjfFieldInstance).node);

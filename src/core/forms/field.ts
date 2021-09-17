@@ -37,6 +37,15 @@ import {AjfFieldHost} from './field-host';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
 
+/**
+ * It is a base wrapper of every ajfField.
+ * It manages what type of component to load(editable component or readonly component)
+ * by input instance.
+ *
+ * @export
+ * @abstract
+ * @class AjfFormField
+ */
 @Directive()
 export abstract class AjfFormField implements OnDestroy, OnInit {
   @ViewChild(AjfFieldHost, {static: true}) fieldHost: AjfFieldHost;
@@ -58,6 +67,11 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
     }
   }
 
+  /**
+   * if true mean that component need to be a readonly component
+   *
+   * @private
+   */
   private _readonly: boolean;
   get readonly(): boolean {
     return this._readonly;
@@ -90,6 +104,12 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
     this._loadComponent();
   }
 
+  /**
+   * It builds a new AjfField component by fieldType and binds it to the fieldHost.
+   *
+   * @private
+   * @return {*}
+   */
   private _loadComponent(): void {
     this._updatedSub.unsubscribe();
     this._updatedSub = Subscription.EMPTY;

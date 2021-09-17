@@ -32,6 +32,12 @@ import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * It allows the loading of files inside an AjfForm through an AjfFileInput.
+ *
+ * @export
+ * @class AjfFileFieldComponent
+ */
 @Component({
   selector: 'ajf-file-field',
   templateUrl: 'file-field.html',

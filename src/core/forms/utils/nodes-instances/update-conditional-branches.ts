@@ -24,6 +24,10 @@ import {AjfContext, evaluateExpression} from '@ajf/core/models';
 
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 
+/**
+ * It updates instance.verifiedBranch with the idx of the last branch verified.
+ * If instance.verifiedBranch value changes return true
+ */
 export function updateConditionalBranches(instance: AjfNodeInstance, context: AjfContext): boolean {
   const conditionalBranches = instance.conditionalBranches;
 

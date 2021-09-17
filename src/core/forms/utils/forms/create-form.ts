@@ -25,6 +25,15 @@ import {AjfFormStringIdentifier} from '../../interface/forms/form-string-identif
 
 export type AjfFormCreate = Partial<AjfForm>;
 
+/**
+ * It creates an Ajf form.
+ * Any missing mandatory attributes are initialized with the respective
+ * empty object
+ *
+ * @export
+ * @param [form={}]
+ * @return {*}
+ */
 export function createForm(form: AjfFormCreate = {}): AjfForm {
   return {
     nodes: form.nodes || [],

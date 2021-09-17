@@ -22,7 +22,9 @@
 
 import {AjfNode} from '../../interface/nodes/node';
 import {AjfNodeType} from '../../interface/nodes/node-type';
-
+/**
+ * It is true if node is an AjfField.
+ */
 export function isField(node: AjfNode): boolean {
   return node != null && node.nodeType === AjfNodeType.AjfField;
 }

@@ -32,6 +32,16 @@ import {componentsMap} from './utils/fields/fields-map';
 export abstract class AjfFieldService {
   readonly componentsMap: AjfFieldComponentsMap = componentsMap;
 
+  /**
+   * It allows to register custom fields inside an Ajf form.
+   * @param fieldType is the field type of the custom field. Values from 0 to 100 are reserved to
+   *     Ajf.
+   * @param component It is the custom component that implement an AjfBaseFieldComponent.
+   * @param readOnlyComponent It is the readonly custom component that implement an
+   *     AjfBaseFieldComponent.
+   * @createInstance The signature and return type of the method used for create Instance.
+   * @isFieldWithChoice If true, the field has choices.
+   */
   registerCustomField(field: {
     fieldType: number,
     component: Type<AjfBaseFieldComponent>,

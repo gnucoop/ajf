@@ -23,8 +23,24 @@
 import {AjfContainerNodeInstance} from '../nodes-instances/container-node-instance';
 import {AjfNodeInstance} from '../nodes-instances/node-instance';
 
+/**
+ * An AjfContainerNodeInstance of type slide
+ */
 export interface AjfBaseSlideInstance extends AjfContainerNodeInstance {
+  /**
+   * The slide nodes.
+   * AjfSlideInstance use only the first element of the array.
+   * AjfRepeatingSlideInstance use one element for each repeating slide.
+   */
   slideNodes: AjfNodeInstance[][];
+
+  /**
+   * False if at least one of the nodes is not valid
+   */
   valid: boolean;
+
+  /**
+   * The current position of the slide
+   */
   position: number;
 }

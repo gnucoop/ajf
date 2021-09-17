@@ -24,6 +24,11 @@ import {AjfCondition, AjfContext, evaluateExpression} from '@ajf/core/models';
 
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 
+/**
+ * It updates instance.visible with the result of evaluating instance.visibility.condition.
+ * If instance.visibility is null instance.visible is false and it returns false.
+ * If instance.visible changes return true.
+ */
 export function updateVisibility(
     instance: AjfNodeInstance, context: AjfContext, branchVisibility = true): boolean {
   if (instance.visibility == null) {

@@ -20,4 +20,7 @@
  *
  */
 
+/**
+ * The size of the Field to be used when the Field is rendered
+ */
 export type AjfFieldSize = 'normal'|'small'|'smaller'|'tiny'|'mini';

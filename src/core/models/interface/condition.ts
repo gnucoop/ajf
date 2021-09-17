@@ -20,6 +20,13 @@
  *
  */
 
+/**
+ * A string expression representing a condition to be evaluated
+ * (eg. for a visibility or validation check)
+ */
 export interface AjfCondition {
+  /**
+   * The string expression to be evaluated
+   */
   condition: string;
 }

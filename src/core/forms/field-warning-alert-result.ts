@@ -20,6 +20,14 @@
  *
  */
 
+/**
+ * It is used in AjfBaseFieldComponent, is a partial of AjfWarningResult.
+ * It rappresents the result of warning condition.
+ *
+ * @export
+ * @interface AjfFieldWarningAlertResult
+ */
+// TODO why not use AjfWarningResult?
 export interface AjfFieldWarningAlertResult {
   result: boolean;
 }

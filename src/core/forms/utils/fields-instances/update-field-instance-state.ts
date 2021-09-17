@@ -31,6 +31,9 @@ import {updateNextSlideCondition} from './update-next-slide-condition';
 import {updateValidation} from './update-validation';
 import {updateWarning} from './update-warning';
 
+/**
+ * It grab all the field instance update functions.
+ */
 export function updateFieldInstanceState(
     instance: AjfFieldInstance, context: AjfContext, branchVisibility = true): void {
   updateVisibility(instance, context, branchVisibility);

@@ -27,6 +27,11 @@ import {AjfSlideInstanceCreate, createSlideInstance} from './create-slide-instan
 export type AjfRepeatingSlideInstanceCreate = Omit<AjfSlideInstanceCreate, 'node'>&
     Pick<AjfRepeatingSlideInstance, 'node'>&Partial<AjfRepeatingSlideInstance>;
 
+/**
+ * It creates AjfRepeatingSlideInstance.
+ * Init slideNodes, nodes and flatNodes with empty array,
+ * Init reps as with 0.
+ */
 export function createRepeatingSlideInstance(instance: AjfRepeatingSlideInstanceCreate):
     AjfRepeatingSlideInstance {
   const {node, ...slideInstanceCreate} = instance;

@@ -24,6 +24,9 @@ import {AjfCondition} from '@ajf/core/models';
 
 import {AjfValidation} from './validation';
 
+/**
+ * A set of conditions
+ */
 export interface AjfValidationGroup {
   forceValue?: AjfCondition;
   maxValue?: AjfValidation;

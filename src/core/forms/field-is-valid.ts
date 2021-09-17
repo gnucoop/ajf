@@ -24,6 +24,10 @@ import {Pipe} from '@angular/core';
 
 import {AjfValidationResult} from './interface/validation/validation-results';
 
+/**
+ * It returns true if all validationResults are true.
+ *
+ */
 @Pipe({name: 'ajfFieldIsValid'})
 export class AjfFieldIsValidPipe {
   transform(validationResults?: AjfValidationResult[]): boolean {

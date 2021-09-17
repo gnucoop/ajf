@@ -23,6 +23,9 @@
 import {AjfField} from './field';
 import {AjfFieldType} from './field-type';
 
+/**
+ * An AjfField of type Time
+ */
 export interface AjfTimeField extends AjfField {
   fieldType: AjfFieldType.Time;
 }

@@ -37,6 +37,12 @@ import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * It allows the loading of image url inside an AjfForm.
+ *
+ * @export
+ * @class AjfImageFieldComponent
+ */
 @Component({
   selector: 'ajf-image-field',
   templateUrl: 'image-field.html',

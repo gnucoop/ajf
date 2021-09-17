@@ -23,6 +23,9 @@
 import {AjfCondition} from '../interface/condition';
 import {createCondition} from './create-condition';
 
+/**
+ * It creates a false AjfCondidion.
+ */
 export function neverCondition(): AjfCondition {
   return createCondition({condition: 'false'});
 }

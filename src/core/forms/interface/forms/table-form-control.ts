@@ -26,8 +26,19 @@ export type InputType =
     'button'|'checkbox'|'color'|'date'|'datetime-local'|'email'|'file'|'hidden'|'image'|'month'|
     'number'|'password'|'radio'|'range'|'reset'|'search'|'submit'|'tel'|'text'|'time'|'url'|'week';
 
+/**
+ * An ng FormControl of a table.
+ */
 export interface AjfTableFormControl {
+  /**
+   * The ng FormControl
+   */
   control: FormControl;
+
+  /**
+   * If set to true, the FormControl is allocated.
+   * If set to false the value of the FormControl is shown only as plain text.
+   */
   show: boolean;
   type: InputType;
 }

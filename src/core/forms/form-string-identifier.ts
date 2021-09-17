@@ -26,6 +26,12 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {AjfForm} from './interface/forms/form';
 import {buildFormStringIdentifier} from './utils/forms/build-form-string-identifier';
 
+/**
+ * it returns a form string identifier.
+ *
+ * @export
+ * @class AjfFormStringIdentifierPipe
+ */
 @Pipe({name: 'ajfFormStringIdentifier'})
 export class AjfFormStringIdentifierPipe implements PipeTransform {
   transform(form: AjfForm, context: AjfContext, opts?: BuildStringIdentifierOpts): string {

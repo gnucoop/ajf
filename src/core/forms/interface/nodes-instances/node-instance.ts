@@ -25,12 +25,56 @@ import {EventEmitter} from '@angular/core';
 
 import {AjfNode} from '../nodes/node';
 
+/**
+ * The instance of an ajfNode.
+ * A single ajfNode can have multiple instances with different values
+ * differentiated by a suffix, when used in a repeating slide.
+ * (eg.
+ * country__0 = 'ITA', country__1 = 'ESP'
+ * city__0__0 = 'Milano', city__0__1 = 'Roma', city__1__0 = 'Madrid'
+ * )
+ *
+ * The AjfNodeInstance visibility is determined by the visibility of the current branch
+ * and  the visibility condition of the node itself.
+ * @see {@link updateVisibility}
+ * @see {@link updateConditionalBranches}
+ */
+// TODO Check if jsDoc @see and @link actually work and are displayed as intended
 export interface AjfNodeInstance {
+  /**
+   * The AjfNode blueprint from which this node instance is generated
+   */
   node: AjfNode;
+
+  /**
+   * Array of prefixes that identifies the tree of all the ancestor nodes indexes
+   */
   prefix: number[];
+
+  /**
+   * The current node visibility
+   */
   visible: boolean;
+
+  /**
+   * List of conditions that determines the branch to be followed
+   */
   conditionalBranches: AjfCondition[];
+
+  /**
+   * AjfCondition for handling visibility
+   */
   visibility?: AjfCondition;
+
+  /**
+   * Identifies the index of the condition verified and is equal to the
+   * parentNode of branch that determines..?
+   */
+  // TODO ask Trik
   verifiedBranch?: number;
+
+  /**
+   * Emitted when any property of the node instance has changed value
+   */
   updatedEvt: EventEmitter<void>;
 }

@@ -22,6 +22,10 @@
 
 import {AjfCondition} from '../interface/condition';
 
+/**
+ * It Creates an AjfCondition by conditio.
+ * If condition.condition is not defined will be assigned ''.
+ */
 export function createCondition(condition: Partial<AjfCondition> = {}): AjfCondition {
   return {condition: condition.condition || ''};
 }

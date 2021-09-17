@@ -20,6 +20,14 @@
  *
  */
 
+/**
+ * it returns the factorial of n parameter.
+ *
+ * @export
+ * @param n
+ * @return {*}
+ */
+// TODO is it used?
 export function factorial(n: number): number {
   let f = 1;
   for (let i: number = n; i > 1; i--) {

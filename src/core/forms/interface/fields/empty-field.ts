@@ -22,6 +22,10 @@
 
 import {AjfField} from './field';
 
+
+/**
+ * An AjfField that contains an HTML.
+ */
 export interface AjfEmptyField extends AjfField {
   HTML: string;
 }

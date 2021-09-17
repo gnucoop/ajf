@@ -34,6 +34,13 @@ import {AjfFormRendererService} from './form-renderer';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * This component allows you to show the video related to url contained in the control of
+ * the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyVideoUrlFieldComponent
+ */
 @Component({
   selector: 'ajf-read-only-video-url-field',
   templateUrl: 'read-only-video-url-field.html',

@@ -25,6 +25,10 @@ import {AjfValidationGroup} from '../../interface/validation/validation-group';
 import {AjfValidationResult} from '../../interface/validation/validation-results';
 import {evaluateValidation} from './evaluate-validation';
 
+/**
+ * Basic validation function that cheecks the maximum value of the digit
+ * maxValue is the associated AjfCondition
+ */
 export function evaluateValidationMaxValue(
     validation: AjfValidationGroup, value: any): AjfValidationResult|null {
   if (validation.maxValue == null) {

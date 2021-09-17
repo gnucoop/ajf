@@ -23,6 +23,9 @@
 import {AjfField} from './field';
 import {AjfFieldType} from './field-type';
 
+/**
+ * An AjfField of type File
+ */
 export interface AjfFileField extends AjfField {
   fieldType: AjfFieldType.File;
 }

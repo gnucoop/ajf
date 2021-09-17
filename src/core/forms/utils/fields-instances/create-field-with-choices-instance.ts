@@ -30,7 +30,11 @@ import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instan
 
 export type AjfFieldWithChoicesInstanceCreate<T> =
     AjfFieldInstanceCreate&Partial<AjfFieldWithChoicesInstance<T>>;
-
+/**
+ * Create a field with choices instance.
+ * Extends simple field instance with
+ * filteredChoices,firstTriggerConditionDone and selectionTrigger
+ */
 export function createFieldWithChoicesInstance<T>(
     instance: AjfFieldWithChoicesInstanceCreate<T>,
     context: AjfContext): AjfFieldWithChoicesInstance<T> {

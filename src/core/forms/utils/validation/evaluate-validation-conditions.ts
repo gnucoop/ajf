@@ -26,6 +26,9 @@ import {AjfValidationGroup} from '../../interface/validation/validation-group';
 import {AjfValidationResult} from '../../interface/validation/validation-results';
 import {evaluateValidation} from './evaluate-validation';
 
+/**
+ * It applies evaluateValidation to every validation condition and return it.
+ */
 export function evaluateValidationConditions(
     validation: AjfValidationGroup, context?: AjfContext): AjfValidationResult[] {
   let res: AjfValidationResult[] = [];

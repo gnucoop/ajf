@@ -27,6 +27,9 @@ import {
 } from '../../interface/fields-instances/field-with-choices-instance';
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
 
+/**
+ * It is true if at least one of the triggherate coditions is true
+ */
 export function updateTriggerConditions(
     instance: AjfFieldWithChoicesInstance<any>, context: AjfContext): boolean {
   if (instance.triggerConditions == null) {

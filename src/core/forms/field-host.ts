@@ -22,6 +22,9 @@
 
 import {Directive, ViewContainerRef} from '@angular/core';
 
+/**
+ * It Applies a viewContainerRef to a component selector.
+ */
 @Directive({selector: '[ajf-field-host]'})
 export class AjfFieldHost {
   constructor(readonly viewContainerRef: ViewContainerRef) {}

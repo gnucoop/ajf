@@ -34,9 +34,16 @@ import {AjfFormRendererService} from './form-renderer';
 import {
   AjfFieldWithChoicesInstance
 } from './interface/fields-instances/field-with-choices-instance';
-import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 import {AjfFieldType} from './interface/fields/field-type';
+import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * This component allows you to show the values of AjfFieldWithChoicesInstance
+ * contained in the control of the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlySelectFieldComponent
+ */
 @Component({
   templateUrl: 'read-only-select-field.html',
   styleUrls: ['read-only-select-field.css'],
@@ -44,7 +51,7 @@ import {AjfFieldType} from './interface/fields/field-type';
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfReadOnlySelectFieldComponent extends
-  AjfBaseFieldComponent<AjfFieldWithChoicesInstance<String|number>> {
+    AjfBaseFieldComponent<AjfFieldWithChoicesInstance<String|number>> {
   readonly multiple: Observable<boolean>;
 
   constructor(
@@ -53,8 +60,7 @@ export class AjfReadOnlySelectFieldComponent extends
     super(cdr, service, was);
 
     this.multiple = this.control.pipe(
-      filter(control => control != null),
-      map(() => this.instance.node.fieldType === AjfFieldType.MultipleChoice)
-    );
+        filter(control => control != null),
+        map(() => this.instance.node.fieldType === AjfFieldType.MultipleChoice));
   }
 }

@@ -23,6 +23,9 @@
 import {AjfField} from './field';
 import {AjfFieldType} from './field-type';
 
+/**
+ * An AjfField of type Image.
+ */
 export interface AjfImageField extends AjfField {
   fieldType: AjfFieldType.Image;
 }

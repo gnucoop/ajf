@@ -23,6 +23,9 @@
 import {AjfValidationGroup} from '../interface/validation/validation-group';
 import {createValidationGroup} from '../utils/validation/create-validation-group';
 
+/**
+ *  Create an AjfValidationGroup by json schema
+ */
 export class AjfValidationGroupSerializer {
   static fromJson(group: Partial<AjfValidationGroup>): AjfValidationGroup {
     return createValidationGroup(group);
