@@ -33,6 +33,13 @@ import {AjfFormRendererService} from './form-renderer';
 import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * This component allows you to shows the values contained in the controls of
+ * the form inherited from AjfBaseFieldComponent with AjfTableFieldInstance.
+ *
+ * @export
+ * @class AjfReadOnlyTableFieldComponent
+ */
 @Component({
   templateUrl: 'read-only-table-field.html',
   styleUrls: ['read-only-table-field.css'],

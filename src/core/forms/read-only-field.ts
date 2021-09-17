@@ -32,6 +32,12 @@ import {AjfFormRendererService} from './form-renderer';
 import {AjfInputFieldComponent as CoreComponent} from './input-field';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * this component show the control value inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyFieldComponent
+ */
 @Component({
   selector: 'ajf-read-only-field',
   templateUrl: 'read-only-field.html',

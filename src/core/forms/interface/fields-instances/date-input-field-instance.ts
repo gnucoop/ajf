@@ -23,6 +23,9 @@
 import {AjfDateInputField} from '../fields/date-input-field';
 import {AjfFieldInstance} from './field-instance';
 
+/**
+ * An AjfFieldInstance with a node of type AjfDateInputField.
+ */
 export interface AjfDateInputFieldInstance extends AjfFieldInstance {
   node: AjfDateInputField;
 }

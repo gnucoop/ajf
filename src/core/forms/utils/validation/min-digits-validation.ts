@@ -23,6 +23,10 @@
 import {AjfValidation} from '../../interface/validation/validation';
 import {createValidation} from './create-validation';
 
+/**
+ * It checks if the length of digits is greater than or equal to minValue and returns
+ * an AjfValidation.
+ */
 export function minDigitsValidation(minValue: number): AjfValidation {
   return createValidation({
     condition: `$value ? $value.toString().length >= ${minValue.toString()} : false`,

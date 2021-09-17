@@ -23,6 +23,9 @@
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 import {isField} from '../nodes/is-field';
 
+/**
+ * It is true if the nodeInstance is relative to a AjfField.
+ */
 export function isFieldInstance(nodeInstance: AjfNodeInstance): boolean {
   return nodeInstance != null && nodeInstance.node != null && isField(nodeInstance.node);
 }

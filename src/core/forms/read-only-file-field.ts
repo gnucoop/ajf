@@ -37,6 +37,13 @@ import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
+/**
+ * This component allows you to download the file contained in the control of
+ * the form inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfReadOnlyFileFieldComponent
+ */
 @Component({
   selector: 'ajf-read-only-file-field',
   templateUrl: 'read-only-file-field.html',

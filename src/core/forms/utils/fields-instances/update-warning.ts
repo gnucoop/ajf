@@ -26,6 +26,11 @@ import {AjfFieldInstance} from '../../interface/fields-instances/field-instance'
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
 import {evaluateWarningGroup} from '../warning/evaluate-warning-group';
 
+/**
+ * It Updates instance warining results.
+ * If instance.warning in null return.
+ * If nodeInstanceCompleteName is in context and warning is defined re-evaluate warning group
+ */
 export function updateWarning(instance: AjfFieldInstance, context: AjfContext): void {
   const warning = instance.warning;
   if (warning == null) {

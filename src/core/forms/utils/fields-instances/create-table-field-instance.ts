@@ -43,6 +43,12 @@ function normalizeRows(node: AjfTableField): void {
   });
 }
 
+/**
+ * Create an Table Fieldinstance.
+ * Extends simple field instance with context,hideEmptyRows and controls.
+ * If hideEmptyRows is not defined in instance set with false.
+ * Assign empty array to controls
+ */
 export function createTableFieldInstance(
     instance: AjfTableFieldInstanceCreate, context: AjfContext): AjfTableFieldInstance {
   normalizeRows(instance.node as AjfTableField);

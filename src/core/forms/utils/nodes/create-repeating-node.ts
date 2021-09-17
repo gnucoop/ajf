@@ -24,7 +24,12 @@ import {AjfRepeatingNode} from '../../interface/nodes/repeating-node';
 import {AjfNodeCreate, createNode} from './create-node';
 
 export type AjfRepeatingNodeCreate = AjfNodeCreate&Partial<AjfRepeatingNode>;
-
+/**
+ * It creates an AjfRepeatingNode.
+ * It extends AjfNode with formulaReps, minReps, maxReps by schema.
+ * If minReps is not defined assign 1.
+ * If maxReps is not defined assign 0.
+ */
 export function createRepeatingNode(repeatingNode: AjfRepeatingNodeCreate): AjfRepeatingNode {
   const node = createNode(repeatingNode);
   return {

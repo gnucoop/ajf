@@ -28,10 +28,24 @@ import {AjfFieldWithChoices} from '../fields/field-with-choices';
 
 import {AjfFieldInstance} from './field-instance';
 
+/**
+ * An AjfFieldInstance with a node of type AjfFieldWithChoicesInstance.
+ */
 export interface AjfFieldWithChoicesInstance<T> extends AjfFieldInstance {
   node: AjfFieldWithChoices<T>;
+
+  /**
+   * The filtered choices list, originally taken from json schema
+   */
   filteredChoices: AjfChoice<any>[];
+
+  /**
+   * A formula to filter choices elements
+   */
   choicesFilter?: AjfFormula;
+
+  // TODO: Check again when we'll comment the Form Renderer or any code relative
+  // to the triggerConditions.
   triggerConditions?: AjfCondition[];
   firstTriggerConditionDone: any;
   selectionTrigger: EventEmitter<void>;

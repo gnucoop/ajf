@@ -23,6 +23,9 @@
 import {AjfField} from './field';
 import {AjfFieldType} from './field-type';
 
+/**
+ * An AjfField of type Number.
+ */
 export interface AjfNumberField extends AjfField {
   fieldType: AjfFieldType.Number;
 }

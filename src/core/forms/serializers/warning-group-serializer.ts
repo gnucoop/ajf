@@ -23,6 +23,9 @@
 import {AjfWarningGroup} from '../interface/warning/warning-group';
 import {createWarningGroup} from '../utils/warning/create-warning-group';
 
+/**
+ *  Create an AjfWarningGroup by json schema
+ */
 export class AjfWarningGroupSerializer {
   static fromJson(group: Partial<AjfWarningGroup>): AjfWarningGroup {
     return createWarningGroup(group);

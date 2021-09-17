@@ -23,6 +23,9 @@
 import {AjfFieldType} from './field-type';
 import {AjfFieldWithChoices} from './field-with-choices';
 
+/**
+ * An AjfField of type SingleChoice.
+ */
 export interface AjfSingleChoiceField<T> extends AjfFieldWithChoices<T> {
   fieldType: AjfFieldType.SingleChoice;
 }

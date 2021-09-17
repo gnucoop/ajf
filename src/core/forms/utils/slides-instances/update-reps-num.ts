@@ -25,6 +25,9 @@ import {AjfContext, evaluateExpression} from '@ajf/core/models';
 import {AjfRepeatingNodeInstance} from '../../interface/nodes-instances/repeating-node-instance';
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
 
+/**
+ * It upodates AjfRepeatingNodeInstance reps and it returns oldReps.
+ */
 export function updateRepsNum(instance: AjfRepeatingNodeInstance, context?: AjfContext): number {
   const oldReps: number = instance.reps || 0;
   context = context || {};

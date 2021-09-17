@@ -23,6 +23,9 @@
 import {AjfEmptyField} from '../fields/empty-field';
 import {AjfFieldInstance} from './field-instance';
 
+/**
+ * An AjfFieldInstance with a node of type AjfEmptyField.
+ */
 export interface AjfEmptyFieldInstance extends AjfFieldInstance {
   node: AjfEmptyField;
 }

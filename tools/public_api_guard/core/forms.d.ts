@@ -338,7 +338,9 @@ export declare class AjfFileFieldComponent extends AjfBaseFieldComponent {
 export interface AjfForm {
     attachmentsOrigins: AjfAttachmentsOrigin<any>[];
     choicesOrigins: AjfChoicesOrigin<any>[];
-    initContext?: any;
+    initContext?: {
+        [key: string]: string | string[] | number | number[];
+    };
     nodes: (AjfRepeatingSlide | AjfSlide)[];
     stringIdentifier: AjfFormStringIdentifier[];
     supplementaryInformations?: any;

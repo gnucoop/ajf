@@ -26,9 +26,13 @@ import {
   AjfFieldWithChoicesInstance
 } from './interface/fields-instances/field-with-choices-instance';
 
+/**
+ * It returns true if AjfFieldWithChoices is forceExpanded and filteredChoices length is
+ * less than equal threshold.
+ */
 @Pipe({name: 'ajfExpandFieldWithChoices'})
 export class AjfExpandFieldWithChoicesPipe implements PipeTransform {
-  transform(instance: AjfFieldWithChoicesInstance<any>, threshold: number) {
+  transform(instance: AjfFieldWithChoicesInstance<any>, threshold: number): boolean {
     return !instance.node.forceNarrow &&
         (instance.node.forceExpanded ||
          (instance.filteredChoices && instance.filteredChoices.length <= threshold));

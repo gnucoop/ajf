@@ -20,8 +20,23 @@
  *
  */
 
+ /**
+  * The result of the evaluation of a validation condition
+  */
 export interface AjfValidationResult {
+  /**
+   * True if the condition is valid
+   */
   result: boolean;
+
+  /**
+   * The error message if the result is false
+   */
   error: string;
+
+  /**
+   * The default value is false
+   */
+  // TODO() Check if it is actually used
   clientValidation: boolean;
 }

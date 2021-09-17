@@ -49,7 +49,11 @@ export const dateUtils = {
 };
 
 export class AjfExpressionUtils {
+  // TODO what is it for
   static UTIL_FUNCTIONS = '';
+  /**
+   * It is a key-value dictionary, that mapping all Ajf validation functions.
+   */
   static utils: {[name: string]: AjfValidationFn} = {
     digitCount: {fn: digitCount},
     decimalCount: {fn: decimalCount},
@@ -136,7 +140,9 @@ export function evaluateExpression(
     return false;
   }
 }
-
+/**
+ * It returns the count of digit inside x.
+ */
 export function digitCount(x: number): number {
   if (isNaN(x) || typeof (x) !== 'number') {
     return 0;
@@ -146,7 +152,9 @@ export function digitCount(x: number): number {
   }
   return x.toString().replace(/[^0-9]/g, '').length;
 }
-
+/**
+ * It is count the count of decimal digit inside s.
+ */
 export function decimalCount(x: string|number): number {
   if (typeof x === 'string') {
     x = parseFloat(x);
@@ -157,7 +165,9 @@ export function decimalCount(x: string|number): number {
   const parts = x.toString().split('.');
   return parts.length > 1 ? parts[1].length : 0;
 }
-
+/**
+ * It is true if x is an integer.
+ */
 export function isInt(x: string|number): boolean {
   if (typeof (x) === 'string') {
     return /^-?\d+$/.test(x);
@@ -167,26 +177,39 @@ export function isInt(x: string|number): boolean {
   }
   return false;
 }
-
+/**
+ * It is true if x is not empty.
+ */
 export function notEmpty(x: any): boolean {
   return (typeof x !== 'undefined' && x !== null ? x.toString().length > 0 : false);
 }
-
+/**
+ * It is true if array contains x or array is equal to x.
+ */
 export function valueInChoice(array: any[], x: any): boolean {
   return (array || []).indexOf(x) > -1 || array === x;
 }
-
+/**
+ * It applies callback for reps times and accumulate the result in acc.
+ */
 export function scanGroupField(reps: number, acc: any, callback: any): any {
   for (let i = 0; i < reps; i++) {
     acc = callback(acc, i);
   }
   return acc;
 }
-
+/**
+ * It returns the sum of the array values.
+ */
 export function sum(array: any[]): any {
   return array.reduce((a, b) => a + b, 0);
 }
-
+/**
+ * It applies add/remove(operation) v (day/month/year)period to dstring and return new format date.
+ */
+// TODO check if deprecated instead refacotoring parameter type
+// TODO (dString: string|null, period:'day'|'month'|'year',
+// TODO operation: 'add/remove' = 'add', v:number)
 export function dateOperations(dString: string, period: string, operation: string, v: any): string {
   const fmt = 'mm/dd/yyyy';
   let d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
@@ -209,7 +232,9 @@ export function dateOperations(dString: string, period: string, operation: strin
   }
   return dateUtils.format(dateOp(d, v), fmt);
 }
-
+/**
+ * It rounds the num with the value of digits
+ */
 export function round(num: number|string, digits: number): number {
   digits = digits || 0;
   let f;
@@ -227,7 +252,11 @@ export function round(num: number|string, digits: number): number {
   const m = Math.pow(10, digits);
   return Math.round(f * m) / m;
 }
-
+/**
+ * It extracts property from source.
+ * for every element of source if property and property2 are defined return the sum
+ * else if only property is defined return him.
+ */
 export function extractArray(source: any[], property: string, property2?: string): any[] {
   source = (source || []).slice(0);
   const l = source.length;
@@ -241,7 +270,9 @@ export function extractArray(source: any[], property: string, property2?: string
   }
   return res;
 }
-
+/**
+ * It returns the sum of all defined properties of each element of source.
+ */
 export function extractSum(source: any[], properties: string[]): number {
   let sumVal = 0;
   properties = (properties || []).slice(0);
@@ -258,7 +289,10 @@ export function extractSum(source: any[], properties: string[]): number {
   }
   return sumVal;
 }
-
+/**
+ * It returns a number array that contains the sum of properties value inside the source.
+ * extractArraySum([{a: 5}, {b: 1}, {a: 5, b: 1}], ['a', 'b']); =&gt; [6,6]
+ */
 export function extractArraySum(source: any[], properties: string[]): any[] {
   const arrays: any[] = [];
   properties = (properties || []).slice(0);
@@ -280,7 +314,9 @@ export function extractArraySum(source: any[], properties: string[]): any[] {
   }
   return res;
 }
-
+/**
+ * Draw a threshold line on chart related to the property.
+ */
 export function drawThreshold(source: any[], property: string, threshold: any[]): any[] {
   source = (source || []).slice(0);
   threshold = threshold || [0];
@@ -302,7 +338,9 @@ export function drawThreshold(source: any[], property: string, threshold: any[])
   }
   return res;
 }
-
+/**
+ * Extract the dates of the source object with property != null
+ */
 export function extractDates(source: any[], property: string, fmt: string): string[] {
   source = (source || []).slice(0);
   const l = source.length;
@@ -329,7 +367,9 @@ export function extractDates(source: any[], property: string, fmt: string): stri
   }
   return res;
 }
-
+/**
+ * Extract the last property contains in source != null
+ */
 export function lastProperty(source: any, property: string): any {
   source = (source || []).slice(0);
   let l = source.length - 1;
@@ -342,7 +382,9 @@ export function lastProperty(source: any, property: string): any {
   }
   return l >= 0 ? source[l][property] : '';
 }
-
+/**
+ * It sum the LAst properties of source.
+ */
 export function sumLastProperties(source: any[], properties: string[]): number {
   source = (source || []).slice(0);
   let sumVal = 0;
@@ -355,7 +397,9 @@ export function sumLastProperties(source: any[], properties: string[]): number {
   }
   return sumVal;
 }
-
+/**
+ * Compute the trend of the property contained on the source.
+ */
 export function calculateTrendProperty(source: any[], property: string): string {
   source = (source || []).slice(0);
   let last = source.length - 1;
@@ -389,7 +433,9 @@ export function calculateTrendProperty(source: any[], property: string): string 
     return '<p><i class="material-icons" style="color:red">trending_down</i></p>';
   }
 }
-
+/**
+ * Compute the average value of the property contained on the source.
+ */
 export function calculateTrendByProperties(source: any[], properties: string[]): string {
   const arraysum = extractArraySum(source, properties);
 
@@ -404,7 +450,9 @@ export function calculateTrendByProperties(source: any[], properties: string[]):
     return '<p><i class="material-icons" style="color:red">trending_down</i></p>';
   }
 }
-
+/**
+ *
+ */
 export function calculateAvgProperty(
     source: any[], property: string, range: number, coefficient: number): number {
   source = (source || []).slice(0);

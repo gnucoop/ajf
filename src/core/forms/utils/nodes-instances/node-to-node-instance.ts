@@ -70,7 +70,11 @@ import {getInstanceWarnings} from './get-instance-warnings';
 import {isFieldInstance} from './is-field-instance';
 import {isNodeGroupInstance} from './is-node-group-instance';
 import {isRepeatingSlideInstance} from './is-repeating-slide-instance';
-
+/**
+ * It creates a nodeInstance relative to a node.
+ * To create the instance it calls relative create builder by nodeType.
+ * If the prefix is ​​defined all formulas and conditions are calculated based on it.
+ */
 export function nodeToNodeInstance(
     allNodes: AjfNode[]|AjfNodeInstance[], node: AjfNode, prefix: number[],
     context: AjfContext): AjfNodeInstance|null {
