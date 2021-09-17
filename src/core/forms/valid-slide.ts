@@ -40,7 +40,7 @@ export class AjfValidSlidePipe implements PipeTransform {
     }
     return slide.slideNodes[idx]
         .map(n => {
-          if (n.visible && Object.keys(n).includes('valid')) {
+          if (n.visible && Object.keys(n).indexOf('valid') > -1) {
             return (<any>n).valid;
           }
           return true;
