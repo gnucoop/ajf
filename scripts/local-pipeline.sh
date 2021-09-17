@@ -41,7 +41,7 @@ yarn integration-tests:partial-ivy
 
 echo "Release output"
 yarn build-and-check-release-output
-yarn check-tools
+yarn check-tooling-setup
 cp -R dist/releases/* node_modules/@ajf/
 mv node_modules/__ngcc_entry_points__.json node_modules/__ngcc_entry_points__.json.back
 yarn ngcc --error-on-failed-entry-point --no-tsconfig
