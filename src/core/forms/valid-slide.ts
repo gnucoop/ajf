@@ -21,7 +21,9 @@
  */
 
 import {Pipe, PipeTransform} from '@angular/core';
+
 import {AjfBaseSlideInstance} from './interface/slides-instances/base-slide-instance';
+import {validSlide} from './utils/slides-instances/valid-slide';
 
 /**
  * It checks if idx is a valid index for slide parameter.
@@ -35,16 +37,6 @@ export class AjfValidSlidePipe implements PipeTransform {
     if (idx == null || typeof idx !== 'number') {
       return false;
     }
-    if (idx >= slide.slideNodes.length) {
-      return true;
-    }
-    return slide.slideNodes[idx]
-        .map(n => {
-          if (n.visible && Object.keys(n).indexOf('valid') > -1) {
-            return (<any>n).valid;
-          }
-          return true;
-        })
-        .reduce((v1, v2) => v1 && v2, true);
+    return validSlide(slide, idx);
   }
 }
