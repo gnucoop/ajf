@@ -49,11 +49,8 @@ export class AjfDndDirective {
 
 // @public
 export interface AjfStringIdentifier {
-    // (undocumented)
     label: string;
-    // (undocumented)
     show?: 'all' | 'first' | 'last';
-    // (undocumented)
     value: string[];
 }
 
@@ -102,7 +99,7 @@ export class AutofocusDirective implements AfterContentInit {
 // @public (undocumented)
 export const buildStringIdentifier: (stringIdentifier: AjfStringIdentifier[] | undefined, context: AjfContext, opts?: BuildStringIdentifierOpts | undefined) => string;
 
-// @public (undocumented)
+// @public
 export interface BuildStringIdentifierOpts {
     // (undocumented)
     emptyString?: string;

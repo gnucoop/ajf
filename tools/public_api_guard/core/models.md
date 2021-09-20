@@ -9,7 +9,6 @@ import * as dateFns_2 from 'date-fns';
 
 // @public
 export interface AjfCondition {
-    // (undocumented)
     condition: string;
 }
 
@@ -37,7 +36,6 @@ export class AjfError extends Error {
 export class AjfExpressionUtils {
     // (undocumented)
     static UTIL_FUNCTIONS: string;
-    // (undocumented)
     static utils: {
         [name: string]: AjfValidationFn;
     };
@@ -64,7 +62,7 @@ export type AjfValidationFn = {
 function alert_2(source: any[], property: string, threshold: number): string;
 export { alert_2 as alert }
 
-// @public (undocumented)
+// @public
 export function alwaysCondition(): AjfCondition;
 
 // @public (undocumented)
@@ -73,10 +71,10 @@ export function calculateAvgProperty(source: any[], property: string, range: num
 // @public (undocumented)
 export function calculateAvgPropertyArray(source: any[], properties: string[], range: number, coefficient: number): number[];
 
-// @public (undocumented)
+// @public
 export function calculateTrendByProperties(source: any[], properties: string[]): string;
 
-// @public (undocumented)
+// @public
 export function calculateTrendProperty(source: any[], property: string): string;
 
 // @public
@@ -85,13 +83,13 @@ export function COUNTFORMS(forms: Form[], expression?: string): number;
 // @public
 export function COUNTFORMS_UNIQUE(forms: Form[], fieldName: string, expression?: string): number;
 
-// @public (undocumented)
+// @public
 export function createCondition(condition?: Partial<AjfCondition>): AjfCondition;
 
-// @public (undocumented)
+// @public
 export function createFormula(formula?: Partial<AjfFormula>): AjfFormula;
 
-// @public (undocumented)
+// @public
 export function dateOperations(dString: string, period: string, operation: string, v: any): string;
 
 // @public (undocumented)
@@ -107,28 +105,28 @@ export const dateUtils: {
     startOfISOWeek: typeof dateFns_2.startOfISOWeek;
 };
 
-// @public (undocumented)
+// @public
 export function decimalCount(x: string | number): number;
 
-// @public (undocumented)
+// @public
 export function digitCount(x: number): number;
 
-// @public (undocumented)
+// @public
 export function drawThreshold(source: any[], property: string, threshold: any[]): any[];
 
 // @public (undocumented)
 export function evaluateExpression(expression: string, context?: AjfContext_2, forceFormula?: string): any;
 
-// @public (undocumented)
+// @public
 export function extractArray(source: any[], property: string, property2?: string): any[];
 
-// @public (undocumented)
+// @public
 export function extractArraySum(source: any[], properties: string[]): any[];
 
-// @public (undocumented)
+// @public
 export function extractDates(source: any[], property: string, fmt: string): string[];
 
-// @public (undocumented)
+// @public
 export function extractSum(source: any[], properties: string[]): number;
 
 // @public (undocumented)
@@ -149,7 +147,7 @@ export function getContextString(context?: AjfContext_2): string;
 // @public (undocumented)
 export function getCoordinate(source: any, zoom?: number): [number, number, number];
 
-// @public (undocumented)
+// @public
 export function isInt(x: string | number): boolean;
 
 // @public (undocumented)
@@ -158,7 +156,7 @@ export function isoMonth(date: Date, fmt?: string): string;
 // @public
 export function LAST(forms: Form[], expression: string, date?: string): number;
 
-// @public (undocumented)
+// @public
 export function lastProperty(source: any, property: string): any;
 
 // @public
@@ -173,7 +171,7 @@ export function MEDIAN(forms: Form[], fieldName: string): number;
 // @public
 export function MODE(forms: Form[], fieldName: string): number[];
 
-// @public (undocumented)
+// @public
 export function neverCondition(): AjfCondition;
 
 // @public
@@ -181,31 +179,31 @@ export function normalizeExpression(formula: string, ancestorsNames: {
     [prop: string]: number;
 }, prefix: number[]): string;
 
-// @public (undocumented)
+// @public
 export function notEmpty(x: any): boolean;
 
 // @public
 export function PERCENT(value1: number, value2: number): string;
 
-// @public (undocumented)
+// @public
 export function round(num: number | string, digits: number): number;
 
-// @public (undocumented)
+// @public
 export function scanGroupField(reps: number, acc: any, callback: any): any;
 
 // @public
 export function SUM(forms: Form[], expression: string, condition?: string): number;
 
-// @public (undocumented)
+// @public
 export function sum(array: any[]): any;
 
-// @public (undocumented)
+// @public
 export function sumLastProperties(source: any[], properties: string[]): number;
 
 // @public (undocumented)
 export function validateExpression(str: string, context?: AjfContext_2): boolean;
 
-// @public (undocumented)
+// @public
 export function valueInChoice(array: any[], x: any): boolean;
 
 // (No @packageDocumentation comment for this package)
