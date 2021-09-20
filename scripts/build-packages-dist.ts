@@ -111,7 +111,7 @@ function buildReleasePackages(useIvy: boolean, distPath: string,
   return packageNames.map(pkg => {
     const outputPath = getOutputPath(pkg);
     return {
-      name: `@angular/${pkg}`,
+      name: `@ajf/${pkg}`,
       outputPath
     };
   });

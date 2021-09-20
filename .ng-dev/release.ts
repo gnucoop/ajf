@@ -59,15 +59,9 @@ actionProto._verifyPackageVersions =
  * appear in the changelog.
  */
 export const releasePackages = [
-  'cdk',
+  'core',
+  'ionic',
   'material',
-  'google-maps',
-  'youtube-player',
-  'cdk-experimental',
-  'material-experimental',
-  'material-moment-adapter',
-  'material-luxon-adapter',
-  'material-date-fns-adapter',
 ];
 
 /** Configuration for the `ng-dev release` command. */
