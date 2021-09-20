@@ -59,15 +59,10 @@ actionProto._verifyPackageVersions =
  * appear in the changelog.
  */
 export const releasePackages = [
-  'cdk',
+  'calendars',
+  'core',
+  'ionic',
   'material',
-  'google-maps',
-  'youtube-player',
-  'cdk-experimental',
-  'material-experimental',
-  'material-moment-adapter',
-  'material-luxon-adapter',
-  'material-date-fns-adapter',
 ];
 
 /** Configuration for the `ng-dev release` command. */
@@ -88,7 +83,7 @@ export const release: ReleaseConfig = {
       };
     },
   },
-  publishRegistry: 'https://sinopia.gnucoop.com',
+  publishRegistry: 'https://registry.npmjs.org',
   npmPackages: releasePackages.map(pkg => `@ajf/${pkg}`),
   buildPackages: async () => {
     // The `performNpmReleaseBuild` function is loaded at runtime as loading of the
