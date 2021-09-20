@@ -1,7 +1,14 @@
-import {basename} from 'path';
 import {createPlugin, Plugin, utils} from 'stylelint';
-
-import {AtRule, atRule, decl, Declaration, Node, Result, Root} from './stylelint-postcss-types';
+import {basename} from 'path';
+import {
+  AtRule,
+  atRule,
+  decl,
+  Declaration,
+  Node,
+  Result,
+  Root
+} from 'postcss';
 
 /** Name of this stylelint rule. */
 const ruleName = 'ajf/theme-mixin-api';
@@ -148,12 +155,12 @@ const plugin = (isEnabled: boolean, _options: never, context: {fix: boolean}) =>
 
       const expectedProperty = type === 'density' ? '$density-scale' : '$config';
       const expectedValues = type === 'typography' ?
-          [
-            'typography.private-typography-to-2014-config(' +
-                'theming.get-typography-config($config-or-theme))',
-            'theming.get-typography-config($config-or-theme)'
-          ] :
-          [`theming.get-${type}-config($config-or-theme)`];
+        [
+          'typography.private-typography-to-2014-config(' +
+              'theming.get-typography-config($config-or-theme))',
+          'typography.private-typography-to-2018-config(' +
+              'theming.get-typography-config($config-or-theme))',        ] :
+        [`theming.get-${type}-config($config-or-theme)`];
       let configExtractionNode: Declaration|null = null;
       let nonCommentNodeCount = 0;
 
@@ -204,7 +211,13 @@ function getComponentNameFromPath(filePath: string): string|null {
     return null;
   }
 
-  const prefix = 'ajf-';
+  let prefix = '';
+
+  if (filePath.includes('material-experimental') && filePath.includes('mdc-')) {
+    prefix = 'mat-mdc-';
+  } else if (filePath.includes('material')) {
+    prefix = 'mat-';
+  }
 
   return prefix + match[1];
 }
