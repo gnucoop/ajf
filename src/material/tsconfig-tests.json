@@ -6,7 +6,7 @@
   "extends": "../bazel-tsconfig-build.json",
   "references": [
     {
-      "path": "../cdk/tsconfig-tests.json"
+      "path": "../core/tsconfig-tests.json"
     }
   ],
   "compilerOptions": {
