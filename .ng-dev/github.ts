@@ -6,5 +6,6 @@ import {GithubConfig} from '@angular/dev-infra-private/ng-dev/utils/config';
  */
 export const github: GithubConfig = {
   owner: 'gnucoop',
-  name: 'ajf'
+  name: 'ajf',
+  mainBranchName: 'master',
 };
