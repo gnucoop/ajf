@@ -107,7 +107,7 @@
     "@bazel/esbuild": "4.1.0",
     "@bazel/ibazel": "0.15.10",
     "@bazel/jasmine": "4.1.0",
-    "@bazel/protractor": "4.1.0",
+    "@bazel/protractor": "4.2.0",
     "@bazel/rollup": "4.1.0",
     "@bazel/runfiles": "4.1.0",
     "@bazel/terser": "4.1.0",
