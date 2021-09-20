@@ -12,10 +12,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": false,
     "strictNullChecks": true,
+    "noImplicitOverride": true,
     "noImplicitReturns": true,
     "strictFunctionTypes": true,
     "noImplicitAny": true,
-    "noImplicitOverride": true,
     "noImplicitThis": true,
     "skipLibCheck": true,
     "strictBindCallApply": true,
@@ -51,12 +51,6 @@
 
     // IDEs should not type-check the different node_modules directories of the different packages.
     // This would cause the IDEs to be slower and also linters would check the node_modules.
-    "node_modules/",
-
-    // Exclude schematic template files and test cases which aren't valid TS files.
-    "src/material/schematics/ng-generate/*/files/**/*",
-    "src/core/schematics/ng-generate/*/files/**/*",
-    "src/core/schematics/ng-update/test-cases/**/*",
-    "src/material/schematics/ng-update/test-cases/**/*"
+    "node_modules/"
   ]
 }
