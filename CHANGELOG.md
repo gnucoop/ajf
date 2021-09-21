@@ -1,3 +1,9 @@
+<a name="12.1.2"></a>
+# 12.1.2 "soft-snow" (2021-09-21)
+## Special Thanks
+Marco Marche and trik
+
+
 <a name="12.1.0"></a>
 # 12.1.0 "winter-credit" (2021-09-20)
 ### core
