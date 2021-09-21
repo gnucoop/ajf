@@ -82,7 +82,7 @@ export const release: ReleaseConfig = {
       };
     },
   },
-  publishRegistry: 'https://sinopia.gnucoop.com',
+  publishRegistry: 'https://registry.npmjs.org',
   npmPackages: releasePackages.map(pkg => `@ajf/${pkg}`),
   buildPackages: async () => {
     // The `performNpmReleaseBuild` function is loaded at runtime as loading of the
