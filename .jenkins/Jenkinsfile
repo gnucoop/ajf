@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'bazel-build-node14'
+    label 'bazel-build-node16'
   }
   environment {
     scmInfo = checkout scm
@@ -22,14 +22,9 @@ pipeline {
         sh './scripts/circleci/setup_bazel_binary.sh'
       }
     }
-    stage('Lint') {
+    stage('Unit tests - View Engine') {
       steps {
-        sh 'bazel build //:rollup_globals'
-        sh 'yarn -s check-rollup-globals $(bazel info bazel-bin)/rollup_globals.json'
-        sh 'bazel build //:entry_points_manifest'
-        sh 'yarn check-entry-point-setup $(bazel info bazel-bin)/entry_points_manifest.json'
-        sh 'yarn -s lint'
-        sh 'yarn -s ts-circular-deps:check'
+        sh 'bazel test --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only -- src/...'
       }
     }
     stage('Build - View Engine') {
@@ -37,9 +32,24 @@ pipeline {
         sh 'bazel build --build_tag_filters=-docs-package,-release-package --config=view-engine -- src/...'
       }
     }
-    stage('Unit tests - View Engine') {
+    stage('Test local browsers') {
       steps {
-        sh 'bazel test --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only -- src/...'
+        sh 'bazel test --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only -- src/...'
+      }
+    }
+    stage('Lint') {
+      steps {
+        sh 'bazel build //:rollup_globals'
+        sh 'yarn check-rollup-globals $(bazel info bazel-bin)/rollup_globals.json'
+        sh 'bazel build //:entry_points_manifest'
+        sh 'yarn check-entry-point-setup $(bazel info bazel-bin)/entry_points_manifest.json'
+        sh 'yarn -s lint'
+        sh 'yarn -s ts-circular-deps:check'
+      }
+    }
+    stage('Integration tests - Partial Ivy') {
+      steps {
+        sh 'yarn integration-tests:partial-ivy'
       }
     }
     stage('Integration tests - View Engine') {
@@ -49,44 +59,25 @@ pipeline {
     }
     stage('E2E tests') {
       steps {
-        sh 'bazel test src/... --build_tag_filters=e2e --test_tag_filters=e2e --build_tests_only --flaky_test_attempts=2'
+        sh 'yarn e2e --flaky_test_attempts=2'
       }
     }
-    stage('Build - Ivy') {
-      steps {
-        sh 'bazel build --build_tag_filters=-docs-package,-release-package -- src/...'
-      }
-    }
-    stage('API guard tests') {
-      steps {
-        sh 'bazel test tools/public_api_guard/...'
-      }
-    }
-    stage('Unit tests - Ivy') {
-      steps {
-        sh 'bazel test --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only -- src/...'
-      }
-    }
-    stage('Integration tests - Ivy') {
-      steps {
-        sh 'yarn integration-tests:partial-ivy'
-      }
-    }
-    stage('Release output') {
+    stage('Build release packages') {
       steps {
         sh 'yarn build-and-check-release-output'
         sh 'yarn check-tooling-setup'
+        sh './scripts/jenkins/create-build-artifacts.js'
+        archiveArtifacts 'dist/releases/**/*.tgz'
+      }
+    }
+    stage('Ngcc compatibility check') {
+      steps {
         sh 'rm -Rf  node_modules/@ajf/calendars node_modules/@ajf/core node_modules/@ajf/ionic node_modules/@ajf/material'
         sh 'cp -R dist/releases/* node_modules/@ajf/'
         sh 'mv node_modules/__ngcc_entry_points__.json node_modules/__ngcc_entry_points__.json.back'
         sh 'yarn ngcc --error-on-failed-entry-point --no-tsconfig'
         sh 'mv node_modules/__ngcc_entry_points__.json.back node_modules/__ngcc_entry_points__.json'
         sh 'rm -Rf node_modules/@ajf/calendars node_modules/@ajf/core node_modules/@ajf/ionic node_modules/@ajf/material'
-      }
-    }
-    stage('Save cache') {
-      steps {
-        saveCache(cacheParams)
       }
     }
     stage('Publish snapshots') {
@@ -100,8 +91,22 @@ pipeline {
         sh 'yarn build-docs-content'
         sh './scripts/circleci/publish-snapshots.sh'
         sh 'node ./scripts/deploy-dev-app.js'
-        sh './scripts/jenkins/create-build-artifacts.sh'
-        archiveArtifacts 'dist/releases/**/*.tgz'
+      }
+    }
+    stage('Build') {
+      steps {
+        sh 'bazel build --build_tag_filters=-docs-package,-release-package -- src/...'
+      }
+    }
+    stage('API golden checks') {
+      steps {
+        sh 'bazel test tools/public_api_guard/...'
+        sh 'bazel test tools/model-schema/...'
+      }
+    }
+    stage('Save cache') {
+      steps {
+        saveCache(cacheParams)
       }
     }
   }
