@@ -7,6 +7,15 @@ BAZEL_BINARY="./node_modules/.bin/bazel"
 echo "Setup"
 yarn install --non-interactive
 
+echo "Unit tests - View Engine"
+"${BAZEL_BINARY}" test --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only -- src/...
+
+echo "Build - View Engine"
+"${BAZEL_BINARY}" build --build_tag_filters=-docs-package,-release-package --config=view-engine -- src/...
+
+echo "Test local browsers"
+"${BAZEL_BINARY}" test --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only -- src/...
+
 echo "Lint"
 "${BAZEL_BINARY}" build //:rollup_globals
 yarn check-rollup-globals $("${BAZEL_BINARY}" info bazel-bin)/rollup_globals.json
@@ -15,35 +24,28 @@ yarn check-entry-point-setup $("${BAZEL_BINARY}" info bazel-bin)/entry_points_ma
 yarn -s lint
 yarn -s ts-circular-deps:check
 
-echo "Build - View Engine"
-"${BAZEL_BINARY}" build --build_tag_filters=-docs-package,-release-package --config=view-engine -- src/...
-
-echo "Unit tests - View Engine"
-"${BAZEL_BINARY}" test --build_tag_filters=-docs-package,-e2e --test_tag_filters=-e2e --config=view-engine --build_tests_only -- src/...
-
 echo "Integration tests - View Engine"
 yarn integration-tests:view-engine
 
-echo "E2E tests"
-"${BAZEL_BINARY}" test src/... --build_tag_filters=e2e --test_tag_filters=e2e --build_tests_only --flaky_test_attempts=2
-
-echo "Build - Ivy"
-"${BAZEL_BINARY}" build --build_tag_filters=-docs-package,-release-package -- src/...
-
-echo "API guard tests"
-"${BAZEL_BINARY}" test tools/public_api_guard/...
-
-echo "Unit tests - Ivy"
-"${BAZEL_BINARY}" test --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only -- src/...
-
-echo "Integration tests - Ivy"
+echo "Integration tests - Partial Ivy"
 yarn integration-tests:partial-ivy
 
-echo "Release output"
+echo "E2E tests"
+yarn e2e --flaky_test_attempts=2
+
+echo "Build release packages"
 yarn build-and-check-release-output
 yarn check-tooling-setup
+
+echo "Ngcc compatibility check"
 cp -R dist/releases/* node_modules/@ajf/
 mv node_modules/__ngcc_entry_points__.json node_modules/__ngcc_entry_points__.json.back
 yarn ngcc --error-on-failed-entry-point --no-tsconfig
 mv node_modules/__ngcc_entry_points__.json.back node_modules/__ngcc_entry_points__.json
 rm -Rf node_modules/@ajf/{calendars,core,ionic,material}
+
+echo "Build"
+"${BAZEL_BINARY}" build --build_tag_filters=-docs-package,-release-package -- src/...
+
+echo "API golden checks"
+"${BAZEL_BINARY}" test tools/public_api_guard/...
