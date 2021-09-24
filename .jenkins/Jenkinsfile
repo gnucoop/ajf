@@ -101,7 +101,6 @@ pipeline {
     stage('API golden checks') {
       steps {
         sh 'bazel test tools/public_api_guard/...'
-        sh 'bazel test tools/model-schema/...'
       }
     }
     stage('Save cache') {
