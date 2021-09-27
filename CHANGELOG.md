@@ -1,3 +1,26 @@
+<a name="13.0.0-next.1"></a>
+# 13.0.0-next.1 "ancient-sea" (2021-09-27)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [3c7524545](https://github.com/gnucoop/ajf/commit/3c75245450d276679a52012e424373e3e3443afb) | fix | **forms:** unable to create node instance if no validation condition has been defined |
+
+<!-- CHANGELOG SPLIT MARKER -->
+
+<a name="13.0.0-next.0"></a>
+# 0.0.0 "hidden-silence" (2021-09-20)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [6d6f0e44e](https://github.com/gnucoop/ajf/commit/6d6f0e44e89453faa6c419a70d77a237490cad8b) | feat | **form:** make a slide readonly by condition |
+| [6f5d0f0e6](https://github.com/gnucoop/ajf/commit/6f5d0f0e6c07c91f3de4c175e961f60041aaa0be) | feat | **forms:** add range field |
+| [35c50dd4a](https://github.com/gnucoop/ajf/commit/35c50dd4af581ca551b21c476d4e138b15f54c35) | feat | **reports:** icons to text translation in pdf printing |
+| [11e0eed46](https://github.com/gnucoop/ajf/commit/11e0eed46aa9ef80d712aed88801390c7eaa5d05) | fix | **range:** range field must call base class ngOnInit method |
+### multiple
+| Commit | Type | Description |
+| -- | -- | -- |
+| [ba72d14ae](https://github.com/gnucoop/ajf/commit/ba72d14aeb8c9346dad3a93ee7e3f8cb46f34a3a) | feat | add report from form function |
+
 <a name="12.1.2"></a>
 # 12.1.2 "soft-snow" (2021-09-21)
 ## Special Thanks
