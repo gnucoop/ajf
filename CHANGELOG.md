@@ -1,3 +1,13 @@
+<a name="12.1.3"></a>
+# 12.1.3 "flat-cloud" (2021-09-27)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [80314898e](https://github.com/gnucoop/ajf/commit/80314898ea22d294e46ae59aef076865e5d3e1ca) | fix | **forms:** unable to create form instance if no validation condition has been defined |
+## Special Thanks
+trik
+
+
 <a name="13.0.0-next.1"></a>
 # 13.0.0-next.1 "ancient-sea" (2021-09-27)
 ### core
