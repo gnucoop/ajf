@@ -32,7 +32,7 @@ import {evaluateValidation} from './evaluate-validation';
 export function evaluateValidationConditions(
     validation: AjfValidationGroup, context?: AjfContext): AjfValidationResult[] {
   let res: AjfValidationResult[] = [];
-  validation.conditions.forEach((cond) => {
+  (validation.conditions || []).forEach((cond) => {
     res.push(evaluateValidation(cond, context));
   });
   return res;
