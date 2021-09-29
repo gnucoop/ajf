@@ -27,6 +27,7 @@ import {
   AjfFieldWithChoices,
   AjfForm,
   AjfFormSerializer,
+  AjfRangeField,
   flattenNodes,
   isField
 } from '@ajf/core/forms';
@@ -108,6 +109,13 @@ export class ReportFromFormDemo {
               multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
               multipleChoices[Math.floor(Math.random() * multipleChoices.length)]
             ];
+            break;
+          case AjfFieldType.Range:
+            const rangeField = field as AjfRangeField;
+            const end = rangeField.end ?? 10;
+            const start = rangeField.start ?? 1;
+            const value = Math.floor(start + Math.random() * (end + 1 - start));
+            ctx[field.name] = value;
         }
       });
       ctxMap.push(ctx);
