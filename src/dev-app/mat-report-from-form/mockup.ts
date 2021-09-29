@@ -91,16 +91,22 @@ export const formSchema: any = {
           label: '64-bit floating point number',
           nodeType: 0,
           fieldType: 2,
-          validation: {notEmpty: true}
+          validation: {notEmpty: true},
+          warning: {conditions: [{condition: 'number1 > 300', warningMessage: 'Are you sure?'}]}
         },
         {
           parent: 1001,
           id: 1002,
-          name: 'number2',
+          name: 'number',
           label: 'A number with the added constraint of being an integer',
           nodeType: 0,
           fieldType: 2,
           validation: {
+            maxValue: {
+              'condition': 'number < 150',
+              'clientValidation': true,
+              'errorMessage': 'minore di 150'
+            },
             conditions: [
               {
                 'condition': 'isInt(number)',
@@ -126,7 +132,7 @@ export const formSchema: any = {
         {
           parent: 1003,
           id: 1004,
-          name: 'bool',
+          name: 'boolean',
           label: 'Boolean answer (a checkbox)',
           nodeType: 0,
           fieldType: 3
@@ -142,7 +148,16 @@ export const formSchema: any = {
         },
         {parent: 1005, id: 1006, name: 'date input', label: 'A date', nodeType: 0, fieldType: 9},
         {parent: 1006, id: 1007, name: 'time', label: 'Time', nodeType: 0, fieldType: 10},
-        {parent: 1007, id: 1008, name: 'barcode', label: 'Barcode', nodeType: 0, fieldType: 13}
+        {parent: 1007, id: 1008, name: 'barcode', label: 'Barcode', nodeType: 0, fieldType: 13}, {
+          parent: 1008,
+          id: 1009,
+          name: 'range',
+          label: 'Range',
+          start: 1,
+          end: 15,
+          nodeType: 0,
+          fieldType: 17
+        }
       ]
     },
     {
@@ -168,6 +183,7 @@ export const formSchema: any = {
           label: 'Multiple choice answer 6 options',
           nodeType: 0,
           fieldType: 5,
+          forceExpanded: true,
           choicesOriginRef: 'mchoice2'
         },
         {
@@ -204,7 +220,7 @@ export const formSchema: any = {
           label: 'Name of your cat:',
           nodeType: 0,
           fieldType: 0,
-          'visibility': {'condition': 'pet_type === \'cat\''}
+          visibility: {condition: 'pet_type === \'cat\''}
         },
         {
           parent: 3002,
@@ -213,7 +229,7 @@ export const formSchema: any = {
           label: 'Name of your dog:',
           nodeType: 0,
           fieldType: 0,
-          'visibility': {'condition': 'pet_type === \'dog\''}
+          visibility: {condition: 'pet_type === \'dog\''}
         }
       ]
     },
@@ -263,7 +279,7 @@ export const formSchema: any = {
         {
           parent: 5,
           id: 5001,
-          name: name,
+          name: 'name',
           label: 'Child\'s name',
           nodeType: 0,
           fieldType: 0,
