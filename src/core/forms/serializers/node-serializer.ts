@@ -61,11 +61,11 @@ export class AjfNodeSerializer {
       attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
       ): AjfNode {
     const err = 'Malformed node';
-    json.name = json.name || '';
-    if (json.id == null || json.parent == null || json.nodeType == null) {
+    const obj = {...json} as AjfNodeCreate;
+    obj.name = obj.name ?? '';
+    if (obj.id == null || obj.parent == null || obj.nodeType == null) {
       throw new Error(err);
     }
-    const obj = json as AjfNodeCreate;
     if (obj.visibility) {
       obj.visibility = AjfConditionSerializer.fromJson(obj.visibility);
     }
