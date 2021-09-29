@@ -15,10 +15,11 @@ const indexHtmlPath = require.resolve('./index.html');
 
 const result = renderModuleFactory(
     KitchenSinkRootServerModuleNgFactory, {document: readFileSync(indexHtmlPath, 'utf-8')});
+const outDir = process.env.TEST_UNDECLARED_OUTPUTS_DIR as string;
 
 result
     .then(content => {
-      const filename = join(__dirname, 'index-prerendered.html');
+      const filename = join(outDir, 'index-prerendered.html');
 
       console.log('Inspect pre-rendered page here:');
       console.log(`file://${filename}`);
