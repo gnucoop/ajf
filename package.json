@@ -50,7 +50,7 @@
     "i18n:extract": "transloco-keys-manager extract",
     "i18n:find": "transloco-keys-manager find"
   },
-  "version": "13.0.0-next.1",
+  "version": "13.0.0-next.2",
   "dependencies": {
     "@ajf/icons": "^1.0.0",
     "@angular/animations": "13.0.0-next.2",
@@ -147,7 +147,7 @@
     "dgeni": "^0.4.11",
     "dgeni-packages": "^0.28.4",
     "diff": "^5.0.0",
-    "firebase-tools": "^9.2.1",
+    "firebase-tools": "^9.19.0",
     "fontsource-roboto": "^3.0.3",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
