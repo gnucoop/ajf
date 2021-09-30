@@ -1,3 +1,16 @@
+<a name="13.0.0-next.2"></a>
+# 13.0.0-next.2 "still-mouse" (2021-09-30)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [996b165d0](https://github.com/gnucoop/ajf/commit/996b165d0a84665744e3c015363805d3a5e286f9) | feat | **reports:** add range field in report from form |
+| [f2e2c3996](https://github.com/gnucoop/ajf/commit/f2e2c399622f31f6e868ef8ec90406348d5effb9) | fix | **forms:** in table force value to number if type is number |
+| [0c562cd85](https://github.com/gnucoop/ajf/commit/0c562cd85013f3e2cc9f1f6033336de89695ad3f) | fix | **forms:** Node serializer fromJson name assignment. |
+## Special Thanks
+Marco Marche, Marco Tozzi, peppedeka, sara and trik
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="12.1.3"></a>
 # 12.1.3 "flat-cloud" (2021-09-27)
 ### core
