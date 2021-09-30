@@ -1,3 +1,15 @@
+<a name="12.1.4"></a>
+# 12.1.4 "plain-silence" (2021-09-30)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [1e959ba0b](https://github.com/gnucoop/ajf/commit/1e959ba0bba6c7974e761d79a270a9117dc2b5c0) | feat | **reports:** add range field in report from form |
+| [266210286](https://github.com/gnucoop/ajf/commit/2662102864fb398364efd990f00aac2f125821e7) | fix | **forms:** in table force value to number if type is number |
+| [e99e841af](https://github.com/gnucoop/ajf/commit/e99e841af7ffb45b7f609409f34c62af6a5dd1e0) | fix | **forms:** Node serializer fromJson name assignment. |
+## Special Thanks
+Marco Tozzi, peppedeka, sara and trik
+
+
 <a name="13.0.0-next.2"></a>
 # 13.0.0-next.2 "still-mouse" (2021-09-30)
 ### core
