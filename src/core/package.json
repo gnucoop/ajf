@@ -28,7 +28,8 @@
     "leaflet": "0.0.0-LEAFLET",
     "numbro": "0.0.0-NUMBRO",
     "pdfmake": "0.0.0-PDFMAKE",
-    "rxjs": "0.0.0-RXJS"
+    "rxjs": "0.0.0-RXJS",
+    "xlsx": "0.0.0-XLSX"
   },
   "devDependencies": {
     "@types/resize-observer-browser": "0.0.0-ROT"
