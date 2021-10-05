@@ -48,6 +48,10 @@ import {AjfWidgetType} from '../interface/widgets/widget-type';
 
 import {ImageMap, loadReportImages} from './load-report-images';
 
+const pageWidth = 800;
+const pageHeight = pageWidth * 1.4142; // A4 proportions
+const pageMargins: [number, number] = [40, 60];
+
 export function openReportPdf(
   report: AjfReportInstance, orientation: PageOrientation = 'portrait', icons: ImageMap = {}) {
 
@@ -62,11 +66,13 @@ export function createReportPdf(
 
   return new Promise<TCreatedPdf>(resolve => {
     loadReportImages(report).then(images => {
-      let width = 595.28 - 40 * 2;  // A4 page width - margins
+      let width = pageWidth - pageMargins[0] * 2;
       if (orientation === 'landscape') {
-        width = 841.89 - 40 * 2;
+        width = pageHeight - pageMargins[1] * 2;
       }
       const pdfDef = reportToPdf(report, {...images, ...icons}, width);
+      pdfDef.pageSize = {width: pageWidth, height: pageHeight};
+      pdfDef.pageMargins = pageMargins;
       pdfDef.pageOrientation = orientation;
       resolve(createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts));
     });
@@ -202,8 +208,11 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
           text = htmlTextToPdfText(cell.value, images);
           break;
         case 'object':
-          const val = cell.value.changingThisBreaksApplicationSecurity || '';
-          text = htmlTextToPdfText(val, images);
+          let val = cell.value.changingThisBreaksApplicationSecurity;
+          if (typeof(val) === 'number') {
+            val = String(val);
+          }
+          text = htmlTextToPdfText(val || '', images);
           break;
       }
       bodyRow.push({text, colSpan: cell.colspan, rowSpan: cell.rowspan});
