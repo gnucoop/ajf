@@ -56,11 +56,11 @@ export class ReportFromFormDemo {
   constructor(
       private _ts: TranslocoService,
   ) {
-    AjfFormSerializer.fromJson(formSchemaObj);
-    this.reportSchema = reportFromForm.reportFromForm(formSchemaObj);
+    const form = AjfFormSerializer.fromJson(formSchemaObj);
+    this.reportSchema = reportFromForm.reportFromForm(form);
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
-    this.reportInstance$.next(createReportInstance(
-        this.reportSchema, {forms: this._generateRandomCtx(formSchemaObj)}, _ts));
+    this.reportInstance$.next(
+        createReportInstance(this.reportSchema, {forms: this._generateRandomCtx(form)}, _ts));
   }
 
   setSchema(): void {
