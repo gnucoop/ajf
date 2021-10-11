@@ -20,7 +20,7 @@
  *
  */
 
-import {loadExampleFactory} from '@ajf/ajf-examples/private';
+import {loadExample} from '@ajf/ajf-examples/private';
 import {Component, Injector, Input, OnInit, ViewContainerRef} from '@angular/core';
 
 /** Loads an example component from `@ajf/ajf-examples` */
@@ -39,6 +39,7 @@ export class ExampleViewer implements OnInit {
   constructor(private _injector: Injector, private _viewContainerRef: ViewContainerRef) {}
 
   async ngOnInit() {
-    this._viewContainerRef.createComponent(await loadExampleFactory(this.id, this._injector));
+    const {component, injector} = await loadExample(this.id, this._injector);
+    this._viewContainerRef.createComponent(component, {injector});
   }
 }

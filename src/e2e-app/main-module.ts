@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {E2eApp} from './e2e-app';
 import {E2eAppModule} from './e2e-app/e2e-app-module';
-import {E2E_APP_ROUTES} from './e2e-app/routes';
+import {E2E_APP_ROUTES} from './routes';
 import {FileInputE2eModule} from './file-input/file-input-e2e-module';
 import {IonicCalendarE2eModule} from './ion-calendar/calendar-e2e-module';
 import {IonicDateInputFieldE2eModule} from './ion-date-input-field/date-input-field-e2e-module';
