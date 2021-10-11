@@ -39,7 +39,7 @@ import * as i24 from '@ajf/core/map';
 import * as i25 from '@ajf/material/monaco-editor';
 import * as i26 from '@ajf/core/table';
 import * as i27 from '@ajf/core/text';
-import * as i28 from 'ngx-color-picker';
+import * as i28 from '@gnucoop/ngx-color-picker';
 import * as i29 from '@angular/common';
 import * as i30 from '@angular/cdk/drag-drop';
 import * as i31 from '@angular/forms';

@@ -45,7 +45,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {ColorPickerModule} from 'ngx-color-picker';
+import {ColorPickerModule} from '@gnucoop/ngx-color-picker';
 
 import {AjfReportBuilderColumn} from './column';
 import {AjfReportBuilderConditionEditor} from './condition-editor';

@@ -52,8 +52,9 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@angular/material",
+        "@npm//@gnucoop/ngx-color-picker",
         "@npm//@types/quill",
-        "@npm//ngx-color-picker",
+        "@npm//quill",
     ],
 )
 

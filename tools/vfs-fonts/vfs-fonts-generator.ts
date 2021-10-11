@@ -1,5 +1,5 @@
-import {mkdirSync, readFileSync, writeFileSync} from 'fs';
-import {basename, dirname} from 'path';
+const {mkdirSync, readFileSync, writeFileSync} = require('fs');
+const {basename, dirname} = require('path');
 
 const args = process.argv.slice(2);
 
