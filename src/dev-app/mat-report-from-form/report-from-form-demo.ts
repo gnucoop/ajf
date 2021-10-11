@@ -69,10 +69,10 @@ export class ReportFromFormDemo {
     }
     let forms;
     const schemaObj = JSON.parse(this.formSchema);
-    AjfFormSerializer.fromJson(schemaObj);
-    this.reportSchema = reportFromForm.reportFromForm(schemaObj, this.formId);
+    const form = AjfFormSerializer.fromJson(schemaObj);
+    this.reportSchema = reportFromForm.reportFromForm(form, this.formId);
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
-    forms = this._generateRandomCtx(schemaObj);
+    forms = this._generateRandomCtx(form);
     if (this.formId != null) {
       forms[this.formId] = forms;
     }
