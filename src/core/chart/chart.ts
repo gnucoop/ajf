@@ -139,7 +139,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
       this._chart = null;
     }
     if (this._chartCanvasElement != null) {
-      this._renderer.removeChild(this._el.nativeElement, this._chartCanvasElement);
+      this._chartCanvasElement.remove();
       this._chartCanvasElement = null;
     }
     if (this.data != null) {
@@ -320,14 +320,17 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     });
     if (this.chartType == 'pie') {
       let newOptions = <any>options;
-      newOptions.pieceLabel = {...{
-        render: function(args: any) {
-          if (args.label) {
-            return args.label + ':' + args.value;
-          } else {
-            return args.value;
-          }
-        }, ...newOptions.pieceLabel},
+      newOptions.pieceLabel = {
+        ...{
+          render: function(args: any) {
+            if (args.label) {
+              return args.label + ':' + args.value;
+            } else {
+              return args.value;
+            }
+          },
+          ...newOptions.pieceLabel
+        },
         position: 'outside'
       };
       return newOptions;

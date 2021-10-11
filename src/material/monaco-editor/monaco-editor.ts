@@ -223,7 +223,7 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
       this._editor.dispose();
       while (myDiv.hasChildNodes()) {
         if (myDiv.firstChild != null) {
-          myDiv.removeChild(myDiv.firstChild);
+          myDiv.firstChild.remove();
         }
       }
       this._editor = null;
