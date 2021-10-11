@@ -55,16 +55,6 @@ pipeline {
         archiveArtifacts 'dist/releases/**/*.tgz'
       }
     }
-    stage('Ngcc compatibility check') {
-      steps {
-        sh 'rm -Rf  node_modules/@ajf/calendars node_modules/@ajf/core node_modules/@ajf/ionic node_modules/@ajf/material'
-        sh 'cp -R dist/releases/* node_modules/@ajf/'
-        sh 'mv node_modules/__ngcc_entry_points__.json node_modules/__ngcc_entry_points__.json.back'
-        sh 'yarn ngcc --error-on-failed-entry-point --no-tsconfig'
-        sh 'mv node_modules/__ngcc_entry_points__.json.back node_modules/__ngcc_entry_points__.json'
-        sh 'rm -Rf node_modules/@ajf/calendars node_modules/@ajf/core node_modules/@ajf/ionic node_modules/@ajf/material'
-      }
-    }
     stage('Publish snapshots') {
       when {
         expression {
