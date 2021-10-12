@@ -19,3 +19,13 @@ writeFileSync(xlsxBundlePath, xlsxBundle);
   package.module = package.unpkg;
   writeFileSync(packagePath, JSON.stringify(package, null, 2));
 });
+
+const overlayFile = 'node_modules/@angular/cdk/fesm2020/overlay.mjs';
+let overlay = readFileSync(overlayFile, 'utf8');
+overlay = overlay.replace(`ConnectedOverlayPositionChange = __decorate([
+    __param(1, Optional()),
+    __metadata("design:paramtypes", [ConnectionPositionPair,
+        ScrollingVisibility])
+], ConnectedOverlayPositionChange);
+`, '');
+writeFileSync(overlayFile, overlay);
