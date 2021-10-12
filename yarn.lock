@@ -1053,9 +1053,10 @@
     cosmiconfig "^7.0.0"
     tslib "^2.3.0"
 
-"@ngneat/transloco@https://github.com/trik/transloco/releases/download/3.0.3-fix/ngneat-transloco-3.0.3.tgz":
-  version "3.0.3"
-  resolved "https://github.com/trik/transloco/releases/download/3.0.3-fix/ngneat-transloco-3.0.3.tgz#4761d6a42a6b055c65badd08afd85c421f83e65f"
+"@ngneat/transloco@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@ngneat/transloco/-/transloco-3.0.5.tgz#a1ae768312ae2cee0cf78b9fdba91e0788de2508"
+  integrity sha512-7RpQaJ57JFHQCV703prMPUfInAqL3vigDiZ+kvJoFZ5KO2/YPpXYGmZqB9l96vax8KsOwKp+LCN3DK2CF1Z+WA==
   dependencies:
     "@ngneat/transloco-utils" "3.0.0"
     flat "5.0.2"
