@@ -1344,9 +1344,6 @@ export function fieldIconName(type: AjfFieldType): string;
 export function flattenNodes(nodes: AjfNode[]): AjfNode[];
 
 // @public
-export function getTypeName(v: any): string;
-
-// @public
 export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void>;
 
 // @public

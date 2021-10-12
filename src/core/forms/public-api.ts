@@ -42,7 +42,6 @@ export * from './form-renderer';
 export * from './form-string-identifier';
 export * from './forms-module';
 export * from './get-table-cell-control';
-export * from './get-type-name';
 export * from './increment';
 export * from './input-field';
 export * from './image-field';

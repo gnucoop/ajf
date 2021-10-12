@@ -53,7 +53,7 @@ export class AjfVideoDirective implements AfterViewInit {
             (this._source as any).srcObject = stream;
             (this._source as any).play();
           })
-          .catch((err: MediaStreamError) => {
+          .catch((err: any) => {
             console.log(err);
           });
     }
