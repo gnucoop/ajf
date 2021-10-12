@@ -30,7 +30,8 @@ const {root_paths: _rootPathsRaw, port, historyApiFallback} =
     minimist(args, {boolean: 'historyApiFallback'});
 const rootPaths = _rootPathsRaw ? _rootPathsRaw.split(',') : ['/'];
 
-const server = new DevServer(port, rootPaths, historyApiFallback);
+const bindUi = process.env.TEST_TARGET === undefined;
+const server = new DevServer(port, rootPaths, bindUi, historyApiFallback);
 
 // Setup ibazel support.
 setupBazelWatcherSupport(server);
