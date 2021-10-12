@@ -1,6 +1,7 @@
 <ion-input
     type="date"
     *ngIf="control|async as ctrl"
+    [attr.aria-label]="instance|ajfNodeCompleteName"
     [min]="instance.node.minDate|ajfDateValueString"
     [max]="instance.node.maxDate|ajfDateValueString"
     (ionChange)="onChange($event)"
