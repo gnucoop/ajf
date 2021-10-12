@@ -15,7 +15,6 @@ export const merge: MergeConfig = {
       {pattern: 'preserve commits', method: 'rebase'}
     ]
   },
-  claSignedLabel: 'cla: yes',
   mergeReadyLabel: 'merge ready',
   commitMessageFixupLabel: 'commit message fixup',
   caretakerNoteLabel: 'caretaker note',
