@@ -29,3 +29,14 @@ overlay = overlay.replace(`ConnectedOverlayPositionChange = __decorate([
 ], ConnectedOverlayPositionChange);
 `, '');
 writeFileSync(overlayFile, overlay);
+
+const ngDevFile = 'node_modules/@angular/dev-infra-private/ng-dev/cli-bundle.js';
+let ngDev = readFileSync(ngDevFile, 'utf8');
+ngDev = ngDev.replace(
+`    function getReleaseTagForVersion(version) {
+      return version.format();
+    }`,
+`    function getReleaseTagForVersion(version) {
+      return 'v' + version.format();
+    }`);
+writeFileSync(ngDevFile, ngDev);
