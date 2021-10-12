@@ -1,3 +1,26 @@
+<a name="13.0.0-next.8"></a>
+# 13.0.0-next.8 "misty-shape" (2021-10-12)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [3c7524545](https://github.com/gnucoop/ajf/commit/3c75245450d276679a52012e424373e3e3443afb) | fix | **forms:** unable to create node instance if no validation condition has been defined |
+| [761c8f6ef](https://github.com/gnucoop/ajf/commit/761c8f6ef97d15ea3da843157462e8c74b72bc5f) | fix | **reports:** AjfReport instance imported using current module name |
+| [8f68a1496](https://github.com/gnucoop/ajf/commit/8f68a14964e86b21c09fa7fb159c213d95e0702c) | fix | **reports:** increase page size and fix printing of numbers in tables |
+### dev-app
+| Commit | Type | Description |
+| -- | -- | -- |
+| [9259640b5](https://github.com/gnucoop/ajf/commit/9259640b57a7681fa2c04b04c38610b451127388) | fix | report from form params |
+| [90e453955](https://github.com/gnucoop/ajf/commit/90e453955e3927930397470aac5921735ba91721) | fix | report from form set schema wrong params |
+### multiple
+| Commit | Type | Description |
+| -- | -- | -- |
+| [417b470e2](https://github.com/gnucoop/ajf/commit/417b470e276e1a8e826425d0be64ac5b6dfbb689) | feat | add support for TypeScript 4.4 |
+| [4a4582589](https://github.com/gnucoop/ajf/commit/4a4582589febbb43b1c3edcbbc603da4b187a85d) | fix | add missing aria labels in form fields |
+## Special Thanks
+Marco Marche, Roberto Zanotto, peppedeka and trik
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="12.1.4"></a>
 # 12.1.4 "plain-silence" (2021-09-30)
 ### core
