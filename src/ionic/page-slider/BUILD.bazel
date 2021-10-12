@@ -53,8 +53,6 @@ ng_test_library(
 ng_web_test_suite(
     name = "unit_tests",
     deps = [
-        "//tools/third-party-libs:amd_ionic_core",
-        "//tools/third-party-libs:amd_ionic_core_loader",
         ":unit_test_sources",
     ],
 )

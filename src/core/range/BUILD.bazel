@@ -44,12 +44,6 @@ ng_test_library(
 ng_web_test_suite(
     name = "unit_tests",
     deps = [
-        "//tools/third-party-libs:amd_date_fns",
-        "//tools/third-party-libs:amd_date_fns_locales",
-        "//tools/third-party-libs:amd_esprima",
-        "//tools/third-party-libs:amd_flat",
-        "//tools/third-party-libs:amd_numbro",
-        "//tools/third-party-libs:amd_pdfmake",
         ":unit_test_sources",
     ],
 )
