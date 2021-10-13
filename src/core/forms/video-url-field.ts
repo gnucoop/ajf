@@ -21,7 +21,7 @@
  */
 
 import {HttpClient} from '@angular/common/http';
-import {ChangeDetectorRef, Inject} from '@angular/core';
+import {ChangeDetectorRef, Directive, Inject} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {Observable, of as obsOf} from 'rxjs';
@@ -44,6 +44,7 @@ interface VideoInfo {
  * @export
  * @class AjfVideoUrlFieldComponent
  */
+@Directive()
 export class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
   readonly validUrl: Observable<boolean>;
   readonly videoThumbnail: Observable<SafeResourceUrl>;

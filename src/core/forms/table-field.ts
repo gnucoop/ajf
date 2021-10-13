@@ -20,7 +20,7 @@
  *
  */
 
-import {ChangeDetectorRef, Inject} from '@angular/core';
+import {ChangeDetectorRef, Directive, Inject} from '@angular/core';
 
 import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
@@ -37,6 +37,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
  * @abstract
  * @class AjfTableFieldComponent
  */
+@Directive()
 export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
   constructor(
       cdr: ChangeDetectorRef, service: AjfFormRendererService,

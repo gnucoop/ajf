@@ -1130,6 +1130,10 @@ export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTa
     constructor(cdr: ChangeDetectorRef, service: AjfFormRendererService, was: AjfWarningAlertService);
     goToCell(row: number, column: number): void;
     goToNextCell(ev: Event, row: number, column: number): void;
+    // (undocumented)
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfTableFieldComponent, never, never, {}, {}, never>;
+    // (undocumented)
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfTableFieldComponent, never>;
 }
 
 // @public
@@ -1244,6 +1248,10 @@ export class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
     readonly validUrl: Observable<boolean>;
     // (undocumented)
     readonly videoThumbnail: Observable<SafeResourceUrl>;
+    // (undocumented)
+    static ɵdir: i0.ɵɵDirectiveDeclaration<AjfVideoUrlFieldComponent, never, never, {}, {}, never>;
+    // (undocumented)
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfVideoUrlFieldComponent, never>;
 }
 
 // @public (undocumented)
