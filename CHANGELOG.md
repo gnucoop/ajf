@@ -1,3 +1,24 @@
+<a name="12.1.5"></a>
+# 12.1.5 "throbbing-snow" (2021-10-13)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [db28cc122](https://github.com/gnucoop/ajf/commit/db28cc122eaeeae5a9d4b3b8dc4baf46b406cd4d) | fix | **reports:** AjfReport instance imported using current module name |
+| [558af3ae8](https://github.com/gnucoop/ajf/commit/558af3ae849e44a1a34dc99d3f1f2f90d670ee5f) | fix | **reports:** increase page size and fix printing of numbers in tables |
+### dev-app
+| Commit | Type | Description |
+| -- | -- | -- |
+| [e78680438](https://github.com/gnucoop/ajf/commit/e7868043896872b0d42a1a0aae9eddaead2cd011) | fix | report from form params |
+| [ba0e05af5](https://github.com/gnucoop/ajf/commit/ba0e05af534fc0d187a00528971e1fe2e2c6ed92) | fix | report from form set schema wrong params |
+### multiple
+| Commit | Type | Description |
+| -- | -- | -- |
+| [619c95d48](https://github.com/gnucoop/ajf/commit/619c95d485fc7e463ea30234524290a8b1872c92) | fix | add missing aria labels in form fields |
+## Special Thanks
+Roberto Zanotto, peppedeka and trik
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="12.1.4"></a>
 # 12.1.4 "plain-silence" (2021-09-30)
 ### core
