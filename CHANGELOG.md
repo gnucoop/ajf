@@ -1,3 +1,14 @@
+<a name="13.0.0-next.9"></a>
+# 13.0.0-next.9 "empty-river" (2021-10-13)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [b93407817](https://github.com/gnucoop/ajf/commit/b93407817c2544d250f2597351094f9b0a1f0065) | fix | **forms:** classes using Angular features need to be decorated |
+## Special Thanks
+trik
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="12.1.5"></a>
 # 12.1.5 "throbbing-snow" (2021-10-13)
 ### core
