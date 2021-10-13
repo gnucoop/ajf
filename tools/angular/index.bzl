@@ -78,7 +78,7 @@ def _create_third_party_bundle_targets(pkg, entry_point, module_name):
         entry_point = "@npm//:node_modules/%s/%s" % (pkg.name, fesm_bundle_path),
         config = "//tools/angular:esbuild_config",
         # List of dependencies which should never be bundled into these linker-processed bundles.
-        external = ["rxjs", "@angular", "@gic", "@ionic", "domino", "flat", "xhr2"],
+        external = ["rxjs", "@angular", "@gic", "@ionic", "@ngneat", "domino", "flat", "xhr2"],
     )
 
     _linker_mapping(

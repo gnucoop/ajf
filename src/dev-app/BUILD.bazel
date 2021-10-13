@@ -56,6 +56,9 @@ ng_module(
 esbuild_config(
     name = "esbuild_config",
     config_file = "esbuild.config.mjs",
+    deps = [
+        "//tools/esbuild:custom_resolve_esbuild_plugin",
+    ],
 )
 
 esbuild(

@@ -1,9 +1,23 @@
 /**
  * @license
- * Copyright Google LLC All Rights Reserved.
+ * Copyright (C) Gnucoop soc. coop.
  *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 
 import fs from 'fs';
@@ -34,13 +48,13 @@ async function assertNoPartialDeclaration(filePath, ast, traverseFn) {
 }
 
 /**
- * Creates an ESBuild plugin for running the Angular linker resolved sources.
- *
- * @param filter Mandatory file path filter for the ESBuild plugin to apply to. Read
- *   more here: https://esbuild.github.io/plugins/#filters.
- * @param ensureNoPartialDeclaration Whether an additional check ensuring there are
- *   no partial declarations should run.
- */
+* Creates an ESBuild plugin for running the Angular linker resolved sources.
+*
+* @param filter Mandatory file path filter for the ESBuild plugin to apply to. Read
+*   more here: https://esbuild.github.io/plugins/#filters.
+* @param ensureNoPartialDeclaration Whether an additional check ensuring there are
+*   no partial declarations should run.
+*/
 export async function createLinkerEsbuildPlugin(filter, ensureNoPartialDeclaration) {
   // Note: We load all dependencies asynchronously so that these large dependencies
   // do not slow-down bundling when the linker plugin is not actually created.
@@ -60,7 +74,16 @@ export async function createLinkerEsbuildPlugin(filter, ensureNoPartialDeclarati
     setup: (build) => {
       build.onLoad({filter}, async (args) => {
         const filePath = args.path;
-        const content = await fs.promises.readFile(filePath, 'utf8');
+        let content = await fs.promises.readFile(filePath, 'utf8');
+        if (filePath.match(/@angular\/cdk\/fesm2020\/overlay\.mjs/)) {
+          content = content.replace(
+              'ConnectedOverlayPositionChange = __decorate([\n' +
+              '    __param(1, Optional()),\n' +
+              '    __metadata("design:paramtypes", [ConnectionPositionPair,\n' +
+              '        ScrollingVisibility])\n' +
+              '], ConnectedOverlayPositionChange);\n',
+              '');
+        };
         const {ast, code} = await babel.transformAsync(content, {
           filename: filePath,
           filenameRelative: filePath,

@@ -1,12 +1,30 @@
 /**
  * @license
- * Copyright Google LLC All Rights Reserved.
+ * Copyright (C) Gnucoop soc. coop.
  *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * This file is part of the Advanced JSON forms (ajf).
+ *
+ * Advanced JSON forms (ajf) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Advanced JSON forms (ajf) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Advanced JSON forms (ajf).
+ * If not, see http://www.gnu.org/licenses/.
+ *
  */
 
-export default {
-  resolveExtensions: ['.js'],
-  format: 'esm',
-};
+ import {customResolvePlugin} from '../../tools/esbuild/custom_resolve_esbuild_plugin.mjs';
+
+ export default {
+   resolveExtensions: ['.js'],
+   format: 'esm',
+   plugins: [customResolvePlugin],
+ };
+ 
