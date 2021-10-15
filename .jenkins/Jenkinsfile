@@ -47,6 +47,11 @@ pipeline {
         sh 'yarn integration-tests:partial-ivy'
       }
     }
+    stage('Integration tests') {
+      steps {
+        sh 'yarn integration-tests'
+      }
+    }
     stage('Test local browsers') {
       steps {
         sh 'bazel test --build_tag_filters=-e2e --test_tag_filters=-e2e --build_tests_only -- src/...'

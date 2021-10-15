@@ -24,10 +24,10 @@ XLSX_PACKAGE_VERSION = "^0.17.0"
 ZXINGB_PACKAGE_VERSION = "^0.0.9"
 ZXINGL_PACKAGE_VERSION = "^0.18.6"
 
-# Each placer holder is used to stamp versions during the build process, replacing the key with it's
+# Each placeholder is used to stamp versions during the build process, replacing the key with it's
 # value pair. These replacements occur during building of `npm_package` and `ng_package` stamping in
 # the peer dependencies and versions, primarily in `package.json`s.
-VERSION_PLACEHOLDER_REPLACEMENTS = {
+NPM_PACKAGE_SUBSTITUTIONS = {
     "0.0.0-AJFI": AJF_ICONS_PACKAGE_VERSION,
     "0.0.0-ANGM": ANGULAR_MATERIAL_PACKAGE_VERSION,
     "0.0.0-ANGXCP": NGX_COLOR_PICKER_PACKAGE_VERSION,
@@ -53,6 +53,12 @@ VERSION_PLACEHOLDER_REPLACEMENTS = {
     # Version of the local package being built, generated via the `--workspace_status_command` flag.
     "0.0.0-PLACEHOLDER": "{BUILD_SCM_VERSION}",
 }
+
+NO_STAMP_NPM_PACKAGE_SUBSTITUTIONS = dict(NPM_PACKAGE_SUBSTITUTIONS, **{
+    # When building NPM packages for tests (where stamping is disabled),
+    # we use `0.0.0` for the version placeholder.
+    "0.0.0-PLACEHOLDER": "0.0.0",
+})
 
 ANGULAR_PACKAGES_CONFIG = [
     ("@angular/animations", struct(entry_points = ["browser"])),

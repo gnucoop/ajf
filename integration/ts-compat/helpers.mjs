@@ -1,12 +1,12 @@
-const {join} = require('path');
-const {unlinkSync} = require('fs');
-const {set, ln, rm, mkdir} = require('shelljs');
-const {fork} = require('child_process');
-const {getNpmPackagesFromRunfiles} = require('../npm-packages-from-runfiles');
-const {runfiles} = require('@bazel/runfiles');
+import {join}  from 'path';
+import {unlinkSync}  from 'fs';
+import shelljs from 'shelljs';
+import {fork}  from 'child_process';
+import {getNpmPackagesFromRunfiles}  from '../npm-packages-from-runfiles.mjs';
+import {runfiles} from '@bazel/runfiles';
 
 // Exit if any command fails.
-set('-e');
+shelljs.set('-e');
 
 // List of NPM packages that have been built for the current test target.
 const npmPackages = getNpmPackagesFromRunfiles();
@@ -21,18 +21,18 @@ const testFilePath = runfiles.resolveWorkspaceRelative(
  * compatibility test, links the built release packages into `node_modules` and
  * compiles a test file using the specified tsc binary which imports all entry-points.
  */
-exports.runTypeScriptCompatibilityTest = async (tscBinPath) => {
+export async function runTypeScriptCompatibilityTest(tscBinPath) {
   return new Promise((resolve, reject) => {
     const ajfDir = join(nodeModulesDir, '@ajf/');
 
-    // Create the `node_modules/@ajf` directory in case it's not present.
-    mkdir('-p', ajfDir);
+    // Create the `node_modules/@angular` directory in case it's not present.
+    shelljs.mkdir('-p', ajfDir);
 
     // Symlink npm packages into `node_modules/` so that the project can
     // be compiled without path mappings (simulating a real project).
     for (const {name, pkgPath} of npmPackages) {
       console.info(`Linking "@ajf/${name}" into node modules..`);
-      ln('-sf', pkgPath, join(ajfDir, name));
+      shelljs.ln('-sf', pkgPath, join(ajfDir, name));
     }
 
     const tscArgs = [
@@ -54,7 +54,7 @@ exports.runTypeScriptCompatibilityTest = async (tscBinPath) => {
       for (const {name} of npmPackages) {
         console.info(`Removing link for "@ajf/${name}"..`);
         unlinkSync(join(ajfDir, name));
-        rm('-rf', join(ajfDir, name));
+        shelljs.rm('-rf', join(ajfDir, name));
       }
       exitCode === 0 ? resolve() : reject();
     });

@@ -10,3 +10,8 @@ ngDev = ngDev.replace(
       return 'v' + version.format();
     }`);
 fs.writeFileSync(ngDevFile, ngDev);
+
+const ioniconsFile = 'node_modules/ionicons/dist/types/components.d.ts';
+let ionicons = fs.readFileSync(ioniconsFile, 'utf8');
+ionicons = ionicons.replace(/"aria(Hidden|Label)"\?:/gm, '"aria$1":');
+fs.writeFileSync(ioniconsFile, ionicons);
