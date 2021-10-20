@@ -20,7 +20,7 @@
  *
  */
 
-import {tokenize} from 'esprima';
+import {getCodeIdentifiers} from './expression-utils';
 
 export function normalizeExpression(
   formula: string,
@@ -28,9 +28,7 @@ export function normalizeExpression(
   prefix: number[],
 ): string {
   const ancestorsNameStrings = Object.keys(ancestorsNames);
-  const tokens = tokenize(formula)
-    .filter((token: any) => token.type == 'Identifier' && token.value != '$value')
-    .map((token: any) => token.value);
+  const tokens = getCodeIdentifiers(formula);
   tokens.forEach((t: any) => {
     if (ancestorsNameStrings.indexOf(t) > -1) {
       formula = formula.replace(

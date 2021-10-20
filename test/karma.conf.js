@@ -61,8 +61,8 @@ module.exports = config => {
 
       {pattern: 'node_modules/chart.js/Chart.umd.js', included: false, watched: false},
       {pattern: 'node_modules/date-fns/date-fns.umd.js', included: false, watched: false},
-      {pattern: 'node_modules/esprima/esprima.umd.js', included: false, watched: false},
       {pattern: 'node_modules/leaflet/leaflet.umd.js', included: false, watched: false},
+      {pattern: 'node_modules/meriyah/meriyah.umd.js', included: false, watched: false},
       {pattern: 'node_modules/moment/min/moment.min.js', included: false, watched: false},
       {pattern: 'node_modules/numbro/numbro.umd.js', included: false, watched: false},
       {pattern: 'node_modules/rxjs/**/*', included: false, watched: false},

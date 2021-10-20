@@ -22,7 +22,7 @@
 
 import {AjfContext} from '@ajf/core/common';
 import * as dateFns from 'date-fns';
-import {tokenize} from 'esprima';
+import {parseScript} from 'meriyah';
 import * as numbroMod from 'numbro';
 
 import {AjfValidationFn} from '../interface/validation-function';
@@ -35,6 +35,24 @@ export interface Form {
 }
 
 const MAX_REPS = 30;
+
+export const getCodeIdentifiers = (
+  source: string,
+  includeDollarValue: boolean = false,
+): string[] => {
+  const identifiers = [] as string[];
+  parseScript(source, {
+    onToken: (token, start, end) => {
+      if (token == 'Identifier') {
+        const identifier = source.substring(start, end);
+        if (includeDollarValue || identifier !== '$value') {
+          identifiers.push(identifier);
+        }
+      }
+    },
+  });
+  return identifiers;
+};
 
 export const dateUtils = {
   addDays: dateFns.addDays,
@@ -118,9 +136,7 @@ export function evaluateExpression(
   if (/^"[^"]*"$/.test(formula)) {
     return formula.replace(/^"+|"+$/g, '');
   }
-  const identifiers = tokenize(formula)
-    .filter((t: any) => t.type === 'Identifier')
-    .map((t: any) => t.value);
+  const identifiers = getCodeIdentifiers(formula, true);
   const ctx: any[] = [];
   identifiers.forEach((key: string) => {
     let val: any = null;

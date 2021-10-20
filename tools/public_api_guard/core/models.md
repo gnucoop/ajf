@@ -142,6 +142,9 @@ export function formatDate(date: Date | string, fmt?: string): string;
 export function formatNumber(num: number, fmt?: string): string;
 
 // @public (undocumented)
+export const getCodeIdentifiers: (source: string, includeDollarValue?: boolean) => string[];
+
+// @public (undocumented)
 export function getContextString(context?: AjfContext_2): string;
 
 // @public (undocumented)

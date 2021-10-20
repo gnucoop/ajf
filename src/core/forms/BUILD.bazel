@@ -37,10 +37,8 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@angular/platform-browser",
-        "@npm//@types/esprima",
         "@npm//@types/pdfmake",
         "@npm//date-fns",
-        "@npm//esprima",
         "@npm//pdfmake",
     ],
 )
