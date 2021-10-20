@@ -53,3 +53,8 @@ dgeni_api_docs(
     },
     tags = ["docs-package"],
 )
+
+filegroup(
+    name = "source-files",
+    srcs = apiSourceFiles,
+)

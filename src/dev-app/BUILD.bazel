@@ -84,6 +84,7 @@ filegroup(
     srcs = [
         "favicon.ico",
         "index.html",
+        "//src:source-files",
         "@npm//:node_modules/@ajf/icons/css/ajf-icons.css",
         "@npm//:node_modules/@ajf/icons/fonts/ajf.eot",
         "@npm//:node_modules/@ajf/icons/fonts/ajf.svg",
