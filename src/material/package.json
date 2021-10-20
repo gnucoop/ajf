@@ -20,9 +20,7 @@
     "@angular/material": "0.0.0-ANGM",
     "@ajf/core": "0.0.0-PLACEHOLDER",
     "@ajf/icons": "0.0.0-AJFI",
-    "@gnucoop/ngx-color-picker": "0.0.0-ANGXCP",
     "flag-icon-css": "0.0.0-FIC",
-    "quill": "0.0.0-QUILL",
     "rxjs": "0.0.0-RXJS"
   },
   "dependencies": {

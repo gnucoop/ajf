@@ -59,7 +59,6 @@ PKG_EXTERNALS = [
 
     # Third-party libraries.
     "@gic/angular",
-    "@gnucoop/ngx-color-picker",
     "@ionic/angular",
     "@ionic/core",
     "@ngneat/transloco",
@@ -73,7 +72,6 @@ PKG_EXTERNALS = [
     "pdfmake/build/pdfmake",
     "pdfmake/interfaces",
     "protractor",
-    "quill",
     "rxjs",
     "rxjs/operators",
     "selenium-webdriver",

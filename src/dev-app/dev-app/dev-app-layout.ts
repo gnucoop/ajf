@@ -55,7 +55,6 @@ export class DevAppLayout {
         {name: 'Image', route: '/mat-image'},
         {name: 'Node icon', route: '/mat-node-icon'},
         {name: 'Page slider', route: '/mat-page-slider'},
-        {name: 'Report builder', route: '/mat-report-builder'},
         {name: 'Report from form', route: '/mat-report-from-form'},
         {name: 'Reports', route: '/mat-reports'},
         {name: 'Time', route: '/mat-time'},

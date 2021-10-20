@@ -41,7 +41,6 @@ ng_module(
         "//src/dev-app/mat-image",
         "//src/dev-app/mat-node-icon",
         "//src/dev-app/mat-page-slider",
-        "//src/dev-app/mat-report-builder",
         "//src/dev-app/mat-report-from-form",
         "//src/dev-app/mat-reports",
         "//src/dev-app/mat-time",

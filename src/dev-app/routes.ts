@@ -136,13 +136,6 @@ export const DEV_APP_ROUTES: Routes = [
       import('./mat-page-slider/page-slider-demo-module').then(m => m.PageSliderDemoModule),
   },
   {
-    path: 'mat-report-builder',
-    loadChildren: () =>
-      import('./mat-report-builder/report-builder-demo-module').then(
-        m => m.ReportBuilderDemoModule,
-      ),
-  },
-  {
     path: 'mat-reports',
     loadChildren: () => import('./mat-reports/reports-demo-module').then(m => m.ReportsDemoModule),
   },
