@@ -32,8 +32,9 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
+import * as chartJs from 'chart.js';
+// tslint:disable-next-line:no-duplicate-imports
 import {
-  Chart,
   ChartData,
   ChartLegendLabelItem,
   ChartOptions,
@@ -44,6 +45,8 @@ import {
 } from 'chart.js';
 
 import {ExtendedChartType} from './extended-chart-type';
+
+const {Chart} = ((chartJs as any).default || chartJs) as typeof chartJs;
 
 // We only need to set canvasDataUrl of the AjfChartWidgetInstance here,
 // avoid importing the actual interface because of the circular dependency:
