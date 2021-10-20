@@ -22,7 +22,9 @@
 
 import {AjfContext, AjfFormula, evaluateExpression} from '@ajf/core/models';
 import {vfsFonts, vfsFontsMap} from '@ajf/core/vfs-fonts';
-import {createPdf, TCreatedPdf} from 'pdfmake/build/pdfmake';
+import * as pdfMakeModule from 'pdfmake/build/pdfmake';
+// tslint:disable-next-line:no-duplicate-imports
+import {TCreatedPdf} from 'pdfmake/build/pdfmake';
 import {Content, PageOrientation, TDocumentDefinitions} from 'pdfmake/interfaces';
 
 import {AjfChoice} from '../interface/choices/choice';
@@ -35,6 +37,8 @@ import {AjfForm} from '../interface/forms/form';
 import {AjfNodeType} from '../interface/nodes/node-type';
 import {AjfRepeatingSlide} from '../interface/slides/repeating-slide';
 import {AjfSlide} from '../interface/slides/slide';
+
+const {createPdf} = ((pdfMakeModule as any).default || pdfMakeModule) as typeof pdfMakeModule;
 
 export function createFormPdf(
   form: AjfForm,

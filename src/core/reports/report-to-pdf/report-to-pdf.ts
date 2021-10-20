@@ -24,7 +24,9 @@ import {AjfImageType} from '@ajf/core/image';
 import {AjfTableCell} from '@ajf/core/table';
 import {deepCopy} from '@ajf/core/utils';
 import {vfsFonts, vfsFontsMap} from '@ajf/core/vfs-fonts';
-import {createPdf, TCreatedPdf} from 'pdfmake/build/pdfmake';
+import * as pdfMakeModule from 'pdfmake/build/pdfmake';
+// tslint:disable-next-line:no-duplicate-imports
+import {TCreatedPdf} from 'pdfmake/build/pdfmake';
 import {
   Column,
   Content,
@@ -47,6 +49,8 @@ import {AjfWidgetInstance} from '../interface/widgets-instances/widget-instance'
 import {AjfWidgetType} from '../interface/widgets/widget-type';
 
 import {ImageMap, loadReportImages} from './load-report-images';
+
+const {createPdf} = ((pdfMakeModule as any).default || pdfMakeModule) as typeof pdfMakeModule;
 
 const pageWidth = 800;
 const pageHeight = pageWidth * 1.4142; // A4 proportions

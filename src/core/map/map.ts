@@ -29,10 +29,14 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {map, Map, tileLayer} from 'leaflet';
+import * as leaflet from 'leaflet';
+// tslint:disable-next-line:no-duplicate-imports
+import {Map} from 'leaflet';
 import {Subscription} from 'rxjs';
 
 import {AjfMapContainerDirective} from './map-container-directive';
+
+const {map, tileLayer} = ((leaflet as any).default || leaflet) as typeof leaflet;
 
 @Component({
   selector: 'ajf-map',
