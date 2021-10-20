@@ -30,9 +30,11 @@ import {evaluateValidation} from './evaluate-validation';
  * It applies evaluateValidation to every validation condition and return it.
  */
 export function evaluateValidationConditions(
-    validation: AjfValidationGroup, context?: AjfContext): AjfValidationResult[] {
+  validation: AjfValidationGroup,
+  context?: AjfContext,
+): AjfValidationResult[] {
   let res: AjfValidationResult[] = [];
-  (validation.conditions || []).forEach((cond) => {
+  (validation.conditions || []).forEach(cond => {
     res.push(evaluateValidation(cond, context));
   });
   return res;

@@ -115,10 +115,10 @@ export class AjfCalendarEntryLabelPipe implements PipeTransform {
 }
 
 // @public
-export type AjfCalendarEntrySelectedState = ('none' | 'partial' | 'full');
+export type AjfCalendarEntrySelectedState = 'none' | 'partial' | 'full';
 
 // @public
-export type AjfCalendarEntryType = ('day' | 'month' | 'year');
+export type AjfCalendarEntryType = 'day' | 'month' | 'year';
 
 // @public (undocumented)
 export class AjfCalendarModule {
@@ -157,7 +157,7 @@ export class AjfCalendarPeriod {
 }
 
 // @public
-export type AjfCalendarPeriodType = ('day' | 'week' | 'month' | 'year');
+export type AjfCalendarPeriodType = 'day' | 'week' | 'month' | 'year';
 
 // @public (undocumented)
 export class AjfCalendarService {
@@ -198,10 +198,10 @@ export interface AjfCalendarView {
 }
 
 // @public
-export type AjfCalendarViewMode = ('month' | 'year' | 'decade');
+export type AjfCalendarViewMode = 'month' | 'year' | 'decade';
 
 // @public
-export type AjfCalendarWeekDay = ('monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday');
+export type AjfCalendarWeekDay = 'monday' | 'tuesday' | 'wednesday' | 'thursday' | 'friday' | 'saturday' | 'sunday';
 
 // @public (undocumented)
 export class AjfGregorianCalendarModule {

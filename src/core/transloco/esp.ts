@@ -133,5 +133,5 @@ export const ESP: Translation = {
   'Set image': 'Establecer imagen',
   'Choose type of Chart': 'Elija el tipo de gráfico',
   'Labels': 'Etiquetas',
-  'Border width': 'Ancho del borde'
+  'Border width': 'Ancho del borde',
 };

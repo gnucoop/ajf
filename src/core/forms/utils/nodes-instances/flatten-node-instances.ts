@@ -35,8 +35,9 @@ export function flattenNodeInstances(nodes: AjfNodeInstance[] = []): AjfNodeInst
   nodes.forEach((nodeInstance: AjfNodeInstance) => {
     flatNodes.push(nodeInstance);
     if (isContainerNodeInstance(nodeInstance)) {
-      flatNodes =
-          flatNodes.concat(flattenNodeInstances((nodeInstance as AjfContainerNodeInstance).nodes));
+      flatNodes = flatNodes.concat(
+        flattenNodeInstances((nodeInstance as AjfContainerNodeInstance).nodes),
+      );
     }
   });
   return flatNodes;

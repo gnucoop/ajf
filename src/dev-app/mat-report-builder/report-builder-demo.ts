@@ -39,7 +39,10 @@ export class ReportBuilderDemo {
 
   constructor(private _service: AjfReportBuilderService) {
     this.reportSaved = _service.reportSaved.pipe(
-        map((r) => r != null ? JSON.stringify(r) : ''), delay(100), startWith(''));
+      map(r => (r != null ? JSON.stringify(r) : '')),
+      delay(100),
+      startWith(''),
+    );
   }
 
   setReport(): void {

@@ -23,43 +23,40 @@
 export const testReport = {
   'header': {
     'content': [],
-    'styles': {}
+    'styles': {},
   },
   'content': {
     'content': [
       {
         'widgetType': 0,
-        'columns': [
-          -1,
-          -1
-        ],
+        'columns': [-1, -1],
         'content': [
           {
             'widgetType': 7,
             'content': [
               {
                 'widgetType': 3,
-                'htmlText': 'column 1'
-              }
-            ]
+                'htmlText': 'column 1',
+              },
+            ],
           },
           {
             'widgetType': 7,
             'content': [
               {
                 'widgetType': 3,
-                'htmlText': 'column 2'
-              }
-            ]
-          }
-        ]
+                'htmlText': 'column 2',
+              },
+            ],
+          },
+        ],
       },
       {
         'widgetType': 2,
         'imageType': 0,
         'url': {
-          'formula': '"https://i.imgur.com/4Kw1Pbc.jpg"'
-        }
+          'formula': '"https://i.imgur.com/4Kw1Pbc.jpg"',
+        },
       },
       {
         'widgetType': 5,
@@ -68,116 +65,116 @@ export const testReport = {
             {
               'label': '',
               'formula': {
-                'formula': '"1a"'
+                'formula': '"1a"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
+                'aggregation': 0,
+              },
             },
             {
               'label': '',
               'formula': {
-                'formula': '"1b"'
+                'formula': '"1b"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
+                'aggregation': 0,
+              },
             },
             {
               'label': '',
               'formula': {
-                'formula': '"1c"'
+                'formula': '"1c"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
-            }
+                'aggregation': 0,
+              },
+            },
           ],
           [
             {
               'label': '',
               'formula': {
-                'formula': '"2a"'
+                'formula': '"2a"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
+                'aggregation': 0,
+              },
             },
             {
               'label': '',
               'formula': {
-                'formula': '"2b"'
+                'formula': '"2b"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
+                'aggregation': 0,
+              },
             },
             {
               'label': '',
               'formula': {
-                'formula': '"2c"'
+                'formula': '"2c"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
-            }
+                'aggregation': 0,
+              },
+            },
           ],
           [
             {
               'label': '',
               'formula': {
-                'formula': '"3a"'
+                'formula': '"3a"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
+                'aggregation': 0,
+              },
             },
             {
               'label': '',
               'formula': {
-                'formula': '"3b"'
+                'formula': '"3b"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
+                'aggregation': 0,
+              },
             },
             {
               'label': '',
               'formula': {
-                'formula': '"3c"'
+                'formula': '"3c"',
               },
               'aggregation': {
-                'aggregation': 0
-              }
-            }
-          ]
-        ]
+                'aggregation': 0,
+              },
+            },
+          ],
+        ],
       },
       {
         'widgetType': 4,
         'chartType': 6,
         'labels': {
-          'formula': '["label1", "label2", "label3"]'
+          'formula': '["label1", "label2", "label3"]',
         },
         'dataset': [
           {
             'label': '"chart data"',
             'formula': [
               {
-                'formula': '[100, 200, 300]'
-              }
+                'formula': '[100, 200, 300]',
+              },
             ],
             'aggregation': {
-              'aggregation': 0
-            }
-          }
-        ]
-      }
+              'aggregation': 0,
+            },
+          },
+        ],
+      },
     ],
-    'styles': {}
+    'styles': {},
   },
   'footer': {
     'content': [],
-    'styles': {}
-  }
+    'styles': {},
+  },
 };

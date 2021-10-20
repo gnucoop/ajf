@@ -29,13 +29,12 @@ import {map} from 'rxjs/operators';
 import {AjfFbConditionEditor} from './condition-editor';
 import {AjfFormBuilderService} from './form-builder-service';
 
-
 @Component({
   selector: 'ajf-fb-validation-condition-editor-dialog',
   templateUrl: 'validation-condition-editor-dialog.html',
   styleUrls: ['validation-condition-editor-dialog.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfFbValidationConditionEditorDialog {
   @ViewChild(AjfFbConditionEditor, {static: false}) editor: AjfFbConditionEditor;
@@ -49,10 +48,12 @@ export class AjfFbValidationConditionEditorDialog {
   errorMessage: string;
 
   constructor(
-      service: AjfFormBuilderService,
-      public dialogRef: MatDialogRef<AjfFbValidationConditionEditorDialog>) {
+    service: AjfFormBuilderService,
+    public dialogRef: MatDialogRef<AjfFbValidationConditionEditorDialog>,
+  ) {
     this._fields = service.flatFields.pipe(
-        map((fields: AjfField[]) => fields.sort((f1, f2) => f1.name.localeCompare(f2.name))));
+      map((fields: AjfField[]) => fields.sort((f1, f2) => f1.name.localeCompare(f2.name))),
+    );
   }
 
   saveCondition(): void {

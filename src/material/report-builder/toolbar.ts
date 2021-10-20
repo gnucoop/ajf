@@ -36,7 +36,7 @@ import {AjfReportBuilderToolbarDialog} from './toolbar-dialog';
   styleUrls: ['toolbar.css'],
   templateUrl: 'toolbar.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * This class will define an ajf builder toolbar
@@ -70,8 +70,10 @@ export class AjfReportBuilderToolbar {
 
   addToList(event: CdkDragDrop<AjfReportBuilderDragData>) {
     if (event.item.data.widget != null) {
-      this._service.addCustomWidgets(
-          {json: JSON.stringify(event.item.data.widget.toJson()), type: ''});
+      this._service.addCustomWidgets({
+        json: JSON.stringify(event.item.data.widget.toJson()),
+        type: '',
+      });
     }
   }
 
@@ -79,8 +81,7 @@ export class AjfReportBuilderToolbar {
     try {
       let myObj = JSON.parse(this._service.popJsonStack() || '');
       this._service.setReport(deepCopy(myObj));
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   isZoomed() {

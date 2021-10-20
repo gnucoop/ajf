@@ -29,7 +29,7 @@ import {
   AjfFormSerializer,
   AjfRangeField,
   flattenNodes,
-  isField
+  isField,
 } from '@ajf/core/forms';
 import {AjfReport, AjfReportInstance, createReportInstance} from '@ajf/core/reports';
 import * as reportFromForm from '@ajf/core/reports/report-from-form/report-from-form';
@@ -45,22 +45,21 @@ import {formSchema as formSchemaObj} from './mockup';
   styleUrls: ['report-from-form-demo.css'],
 })
 export class ReportFromFormDemo {
-  form$: BehaviorSubject<AjfForm|null> = new BehaviorSubject<AjfForm|null>(null);
+  form$: BehaviorSubject<AjfForm | null> = new BehaviorSubject<AjfForm | null>(null);
   formId: number;
   formSchema: string = JSON.stringify(formSchemaObj);
-  reportInstance$: BehaviorSubject<AjfReportInstance|null> =
-      new BehaviorSubject<AjfReportInstance|null>(null);
-  reportSchema: AjfReport|null = null;
+  reportInstance$: BehaviorSubject<AjfReportInstance | null> =
+    new BehaviorSubject<AjfReportInstance | null>(null);
+  reportSchema: AjfReport | null = null;
   reportSchemaStringified: string = '';
 
-  constructor(
-      private _ts: TranslocoService,
-  ) {
+  constructor(private _ts: TranslocoService) {
     const form = AjfFormSerializer.fromJson(formSchemaObj);
     this.reportSchema = reportFromForm.reportFromForm(form);
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
     this.reportInstance$.next(
-        createReportInstance(this.reportSchema, {forms: this._generateRandomCtx(form)}, _ts));
+      createReportInstance(this.reportSchema, {forms: this._generateRandomCtx(form)}, _ts),
+    );
   }
 
   setSchema(): void {
@@ -81,8 +80,9 @@ export class ReportFromFormDemo {
 
   private _generateRandomCtx(formSchema: any): AjfContext[] {
     const ctxMap: AjfContext[] = [];
-    const allFields: AjfField[] =
-        flattenNodes(formSchema.nodes).filter(f => isField(f)) as AjfField[];
+    const allFields: AjfField[] = flattenNodes(formSchema.nodes).filter(f =>
+      isField(f),
+    ) as AjfField[];
     const generateRandomNumberOfContext = Math.floor(Math.random() * 100) + 1;
     for (let i = 0; i < generateRandomNumberOfContext; i++) {
       const ctx: AjfContext = {};
@@ -98,16 +98,18 @@ export class ReportFromFormDemo {
             ctx[field.name] = Math.random() < 0.5;
             break;
           case AjfFieldType.SingleChoice:
-            const singleChoices =
-                (field as AjfFieldWithChoices<any>).choicesOrigin.choices.map(c => c.value);
+            const singleChoices = (field as AjfFieldWithChoices<any>).choicesOrigin.choices.map(
+              c => c.value,
+            );
             ctx[field.name] = singleChoices[Math.floor(Math.random() * singleChoices.length)];
             break;
           case AjfFieldType.MultipleChoice:
-            const multipleChoices =
-                (field as AjfFieldWithChoices<any>).choicesOrigin.choices.map(c => c.value);
+            const multipleChoices = (field as AjfFieldWithChoices<any>).choicesOrigin.choices.map(
+              c => c.value,
+            );
             ctx[field.name] = [
               multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
-              multipleChoices[Math.floor(Math.random() * multipleChoices.length)]
+              multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
             ];
             break;
           case AjfFieldType.Range:

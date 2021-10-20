@@ -32,7 +32,6 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
   templateUrl: 'page-break.html',
   styleUrls: ['page-break.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfPageBreakComponent {
-}
+export class AjfPageBreakComponent {}

@@ -28,14 +28,7 @@ import {NgModule} from '@angular/core';
 import {MaterialFormE2E} from './mat-form-e2e';
 
 @NgModule({
-  imports: [
-    AjfFormsModule,
-    CommonModule,
-    CoreFormsModule,
-  ],
-  declarations: [
-    MaterialFormE2E,
-  ],
+  imports: [AjfFormsModule, CommonModule, CoreFormsModule],
+  declarations: [MaterialFormE2E],
 })
-export class MaterialFormE2eModule {
-}
+export class MaterialFormE2eModule {}

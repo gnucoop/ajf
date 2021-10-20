@@ -31,7 +31,7 @@ let execContext: any = {};
 
 const numbro = numbroMod.default || numbroMod;
 export interface Form {
-  [key: string]: string|number|null;
+  [key: string]: string | number | null;
 }
 
 const MAX_REPS = 30;
@@ -45,7 +45,7 @@ export const dateUtils = {
   getDay: dateFns.getDay,
   parse: dateFns.parseISO,
   startOfMonth: dateFns.startOfMonth,
-  startOfISOWeek: dateFns.startOfISOWeek
+  startOfISOWeek: dateFns.startOfISOWeek,
 };
 
 export class AjfExpressionUtils {
@@ -98,7 +98,10 @@ export class AjfExpressionUtils {
 }
 
 export function evaluateExpression(
-    expression: string, context?: AjfContext, forceFormula?: string): any {
+  expression: string,
+  context?: AjfContext,
+  forceFormula?: string,
+): any {
   let formula = forceFormula || expression || '';
   if (formula === '') {
     return '';
@@ -115,8 +118,9 @@ export function evaluateExpression(
   if (/^"[^"]*"$/.test(formula)) {
     return formula.replace(/^"+|"+$/g, '');
   }
-  const identifiers =
-      tokenize(formula).filter((t: any) => t.type === 'Identifier').map((t: any) => t.value);
+  const identifiers = tokenize(formula)
+    .filter((t: any) => t.type === 'Identifier')
+    .map((t: any) => t.value);
   const ctx: any[] = [];
   identifiers.forEach((key: string) => {
     let val: any = null;
@@ -144,7 +148,7 @@ export function evaluateExpression(
  * It returns the count of digit inside x.
  */
 export function digitCount(x: number): number {
-  if (isNaN(x) || typeof (x) !== 'number') {
+  if (isNaN(x) || typeof x !== 'number') {
     return 0;
   }
   if (!isFinite(x)) {
@@ -155,7 +159,7 @@ export function digitCount(x: number): number {
 /**
  * It is count the count of decimal digit inside s.
  */
-export function decimalCount(x: string|number): number {
+export function decimalCount(x: string | number): number {
   if (typeof x === 'string') {
     x = parseFloat(x);
   }
@@ -168,11 +172,11 @@ export function decimalCount(x: string|number): number {
 /**
  * It is true if x is an integer.
  */
-export function isInt(x: string|number): boolean {
-  if (typeof (x) === 'string') {
+export function isInt(x: string | number): boolean {
+  if (typeof x === 'string') {
     return /^-?\d+$/.test(x);
   }
-  if (typeof (x) === 'number') {
+  if (typeof x === 'number') {
     return Math.round(x) === x;
   }
   return false;
@@ -181,7 +185,7 @@ export function isInt(x: string|number): boolean {
  * It is true if x is not empty.
  */
 export function notEmpty(x: any): boolean {
-  return (typeof x !== 'undefined' && x !== null ? x.toString().length > 0 : false);
+  return typeof x !== 'undefined' && x !== null ? x.toString().length > 0 : false;
 }
 /**
  * It is true if array contains x or array is equal to x.
@@ -212,7 +216,7 @@ export function sum(array: any[]): any {
 // TODO operation: 'add/remove' = 'add', v:number)
 export function dateOperations(dString: string, period: string, operation: string, v: any): string {
   const fmt = 'mm/dd/yyyy';
-  let d = (typeof dString !== 'undefined') ? dateUtils.parse(dString) : new Date();
+  let d = typeof dString !== 'undefined' ? dateUtils.parse(dString) : new Date();
   if (operation == 'remove') {
     v = -v;
   }
@@ -235,14 +239,13 @@ export function dateOperations(dString: string, period: string, operation: strin
 /**
  * It rounds the num with the value of digits
  */
-export function round(num: number|string, digits: number): number {
+export function round(num: number | string, digits: number): number {
   digits = digits || 0;
   let f;
   if (typeof num !== 'number') {
     try {
       f = parseFloat(num);
-    } catch (e) {
-    }
+    } catch (e) {}
   } else {
     f = num;
   }
@@ -422,8 +425,8 @@ export function calculateTrendProperty(source: any[], property: string): string 
     }
   }
 
-  const lastProp = source[last] ? (source[last][property] || 0) : 0;
-  const lastLastProp = source[lastLast] ? (source[lastLast][property] || 0) : 0;
+  const lastProp = source[last] ? source[last][property] || 0 : 0;
+  const lastLastProp = source[lastLast] ? source[lastLast][property] || 0 : 0;
 
   if (lastProp == lastLastProp) {
     return '<p><i class="material-icons" style="color:blue">trending_flat</i></p>';
@@ -439,8 +442,8 @@ export function calculateTrendProperty(source: any[], property: string): string 
 export function calculateTrendByProperties(source: any[], properties: string[]): string {
   const arraysum = extractArraySum(source, properties);
 
-  const lastProp = arraysum.length > 0 ? (arraysum[arraysum.length - 1] || 0) : 0;
-  const lastLastProp = arraysum.length > 1 ? (arraysum[arraysum.length - 2] || 0) : lastProp;
+  const lastProp = arraysum.length > 0 ? arraysum[arraysum.length - 1] || 0 : 0;
+  const lastLastProp = arraysum.length > 1 ? arraysum[arraysum.length - 2] || 0 : lastProp;
 
   if (lastProp == lastLastProp) {
     return '<p><i class="material-icons" style="color:blue">trending_flat</i></p>';
@@ -454,7 +457,11 @@ export function calculateTrendByProperties(source: any[], properties: string[]):
  *
  */
 export function calculateAvgProperty(
-    source: any[], property: string, range: number, coefficient: number): number {
+  source: any[],
+  property: string,
+  range: number,
+  coefficient: number,
+): number {
   source = (source || []).slice(0);
 
   coefficient = coefficient || 1;
@@ -490,7 +497,11 @@ export function calculateAvgProperty(
 }
 
 export function calculateAvgPropertyArray(
-    source: any[], properties: string[], range: number, coefficient: number): number[] {
+  source: any[],
+  properties: string[],
+  range: number,
+  coefficient: number,
+): number[] {
   source = (source || []).slice(0);
   const resArr: any[] = [];
 
@@ -500,8 +511,10 @@ export function calculateAvgPropertyArray(
     coefficient = coefficient || 1;
     range = range || 12;
 
-    const sourceArr = properties.length > 1 ? extractArraySum(source, properties) :
-                                              extractArray(source, properties[0]);
+    const sourceArr =
+      properties.length > 1
+        ? extractArraySum(source, properties)
+        : extractArray(source, properties[0]);
 
     let l = sourceArr.length;
 
@@ -553,7 +566,7 @@ export function formatNumber(num: number, fmt?: string): string {
   return numbro(num).format(fmt);
 }
 
-export function formatDate(date: Date|string, fmt?: string): string {
+export function formatDate(date: Date | string, fmt?: string): string {
   fmt = fmt || 'mm-DD-yyyy';
   return dateUtils.format(typeof date === 'string' ? dateUtils.parse(date) : date, fmt);
 }
@@ -594,16 +607,15 @@ export function COUNTFORMS(forms: Form[], expression: string = 'true'): number {
         if (Object.keys(f).filter(key => key.includes(`__${i}`)).length === 0) {
           break;
         }
-        if (evaluateExpression(expression.replace('__', `__${i}`)), f) {
+        if ((evaluateExpression(expression.replace('__', `__${i}`)), f)) {
           count++;
         }
       }
     });
 
     return count;
-
   } else {
-    return forms.filter((f) => evaluateExpression(expression, f)).length;
+    return forms.filter(f => evaluateExpression(expression, f)).length;
   }
 }
 
@@ -613,7 +625,7 @@ export function COUNTFORMS(forms: Form[], expression: string = 'true'): number {
  */
 export function COUNTFORMS_UNIQUE(forms: Form[], fieldName: string, expression?: string): number {
   forms = (forms || []).slice(0);
-  const values: string|number[] = [];
+  const values: string | number[] = [];
 
   if (expression != null) {
     forms = forms.filter(f => evaluateExpression(expression as string, f));
@@ -638,7 +650,7 @@ export function SUM(forms: Form[], expression: string, condition?: string): numb
     return 0;
   }
   if (condition != null) {
-    forms = forms.filter((f) => evaluateExpression(condition, f));
+    forms = forms.filter(f => evaluateExpression(condition, f));
   }
   const isInRepeatingSlide = expression.includes(`__`);
   if (isInRepeatingSlide) {
@@ -654,7 +666,7 @@ export function SUM(forms: Form[], expression: string, condition?: string): numb
       }
     });
   } else {
-    forms.forEach((f) => acc += evaluateExpression(expression, f));
+    forms.forEach(f => (acc += evaluateExpression(expression, f)));
   }
 
   return acc;
@@ -666,13 +678,13 @@ export function SUM(forms: Form[], expression: string, condition?: string): numb
  */
 export function MEAN(forms: Form[], expression: string): number {
   forms = (forms || []).slice(0);
-  expression = (expression || '');
+  expression = expression || '';
   const length = forms.length;
   if (length === 0) {
     return 0;
   }
   let acc = 0;
-  forms.forEach((f) => {
+  forms.forEach(f => {
     acc += evaluateExpression(expression, f);
   });
   return Math.trunc(acc / length);
@@ -710,8 +722,11 @@ export function MAX(forms: Form[], fieldName: string): number {
   forms = (forms || []).slice(0);
   let max = 0;
   forms.forEach(form => {
-    if (form[fieldName] != null && !isNaN(form[fieldName] as number) &&
-        (form[fieldName] as number) > max) {
+    if (
+      form[fieldName] != null &&
+      !isNaN(form[fieldName] as number) &&
+      (form[fieldName] as number) > max
+    ) {
       max = form[fieldName] as number;
     }
   });
@@ -723,17 +738,17 @@ export function MAX(forms: Form[], fieldName: string): number {
  */
 export function MEDIAN(forms: Form[], fieldName: string): number {
   forms = (forms || []).slice(0);
-  const numbers: number[] =
-      forms.filter(f => f[fieldName] != null && !isNaN(f[fieldName] as number))
-          .map(f => f[fieldName] as number)
-          .sort((a, b) => a - b)
-          .filter((item, pos, self) => self.indexOf(item) == pos);
+  const numbers: number[] = forms
+    .filter(f => f[fieldName] != null && !isNaN(f[fieldName] as number))
+    .map(f => f[fieldName] as number)
+    .sort((a, b) => a - b)
+    .filter((item, pos, self) => self.indexOf(item) == pos);
 
-  return Number.isInteger(numbers.length / 2) ?
-      numbers[numbers.length / 2] :
-      (numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2] +
-       numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2 + 1]) /
-          2;
+  return Number.isInteger(numbers.length / 2)
+    ? numbers[numbers.length / 2]
+    : (numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2] +
+        numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2 + 1]) /
+        2;
 }
 
 /**
@@ -752,5 +767,7 @@ export function MODE(forms: Form[], fieldName: string): number[] {
       maxCount = map[value];
     }
   });
-  return Object.keys(map).filter(v => map[+v] === maxCount).map(v => +v);
+  return Object.keys(map)
+    .filter(v => map[+v] === maxCount)
+    .map(v => +v);
 }

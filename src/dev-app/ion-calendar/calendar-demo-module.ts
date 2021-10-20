@@ -27,13 +27,7 @@ import {RouterModule} from '@angular/router';
 import {CalendarDemo} from './calendar-demo';
 
 @NgModule({
-  imports: [
-    AjfCalendarModule,
-    RouterModule.forChild([{path: '', component: CalendarDemo}]),
-  ],
-  declarations: [
-    CalendarDemo,
-  ],
+  imports: [AjfCalendarModule, RouterModule.forChild([{path: '', component: CalendarDemo}])],
+  declarations: [CalendarDemo],
 })
-export class CalendarDemoModule {
-}
+export class CalendarDemoModule {}

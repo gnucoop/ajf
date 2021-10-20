@@ -27,13 +27,7 @@ import {RouterModule} from '@angular/router';
 import {BarcodeDemo} from './barcode-demo';
 
 @NgModule({
-  imports: [
-    AjfBarcodeModule,
-    RouterModule.forChild([{path: '', component: BarcodeDemo}]),
-  ],
-  declarations: [
-    BarcodeDemo,
-  ],
+  imports: [AjfBarcodeModule, RouterModule.forChild([{path: '', component: BarcodeDemo}])],
+  declarations: [BarcodeDemo],
 })
-export class BarcodeDemoModule {
-}
+export class BarcodeDemoModule {}

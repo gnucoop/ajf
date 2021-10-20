@@ -28,14 +28,7 @@ import {IonicModule} from '@ionic/angular';
 import {IonicDateInputFieldE2E} from './date-input-field-e2e';
 
 @NgModule({
-  imports: [
-    CoreFormsModule,
-    AjfFormsModule,
-    IonicModule,
-  ],
-  declarations: [
-    IonicDateInputFieldE2E,
-  ],
+  imports: [CoreFormsModule, AjfFormsModule, IonicModule],
+  declarations: [IonicDateInputFieldE2E],
 })
-export class IonicDateInputFieldE2eModule {
-}
+export class IonicDateInputFieldE2eModule {}

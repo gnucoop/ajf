@@ -34,7 +34,7 @@ import {
   Output,
   QueryList,
   Renderer2,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {filter, map, scan, throttleTime} from 'rxjs/operators';
@@ -42,7 +42,7 @@ import {filter, map, scan, throttleTime} from 'rxjs/operators';
 import {AjfPageSliderItem} from './page-slider-item';
 import {AjfPageSliderSlideOptions} from './page-slider-slide-options';
 
-export type AjfPageSliderOrientation = 'horizontal'|'vertical';
+export type AjfPageSliderOrientation = 'horizontal' | 'vertical';
 
 interface Point {
   x: number;
@@ -59,7 +59,7 @@ interface Movement {
 }
 
 interface MousheWheelMove {
-  dir: 'x'|'y';
+  dir: 'x' | 'y';
   amount: number;
 }
 
@@ -73,10 +73,10 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   readonly pageScrollFinish: Observable<void> = this._pageScrollFinish as Observable<void>;
 
   private _orientationChange: EventEmitter<AjfPageSliderOrientation> =
-      new EventEmitter<AjfPageSliderOrientation>();
+    new EventEmitter<AjfPageSliderOrientation>();
   @Output()
-  readonly orientationChange: Observable<AjfPageSliderOrientation> =
-      this._orientationChange as Observable<AjfPageSliderOrientation>;
+  readonly orientationChange: Observable<AjfPageSliderOrientation> = this
+    ._orientationChange as Observable<AjfPageSliderOrientation>;
 
   @Input() duration = 300;
 
@@ -131,46 +131,48 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   private _animating = false;
   private _pagesSub: Subscription = Subscription.EMPTY;
 
-  private _currentOrigin: Point|null;
+  private _currentOrigin: Point | null;
   private _mouseWheelEvt: EventEmitter<MousheWheelMove> = new EventEmitter<MousheWheelMove>();
   private _mouseWheelSub: Subscription = Subscription.EMPTY;
 
   constructor(
-      private _animationBuilder: AnimationBuilder, private _cdr: ChangeDetectorRef,
-      private _renderer: Renderer2) {
-    this._mouseWheelSub =
-        this._mouseWheelEvt
-            .pipe(
-                map(evt => {
-                  const page = this._getCurrentPage();
-                  if (page == null) {
-                    return null;
-                  }
-                  return {evt, res: page.setScroll(evt.dir, evt.amount, 0)};
-                }),
-                filter(
-                    r => r != null && r.res === false &&
-                        ((r.evt.dir === 'x' && this.orientation === 'horizontal') ||
-                         (r.evt.dir === 'y' && this.orientation === 'vertical'))),
-                map(r => r!.evt.amount),
-                scan(
-                    (acc, val) => {
-                      if (acc === 0) {
-                        return val;
-                      }
-                      if (acc / Math.abs(acc) !== val / Math.abs(val)) {
-                        return 0;
-                      }
-                      return acc + val;
-                    },
-                    0),
-                filter(val => !this._animating && Math.abs(val) > 150),
-                throttleTime(1500),
-                )
-            .subscribe(val => {
-              this._mouseWheelEvt.emit({dir: 'x', amount: val > 0 ? -1 : +1});
-              this.slide({dir: val > 0 ? 'back' : 'forward'});
-            });
+    private _animationBuilder: AnimationBuilder,
+    private _cdr: ChangeDetectorRef,
+    private _renderer: Renderer2,
+  ) {
+    this._mouseWheelSub = this._mouseWheelEvt
+      .pipe(
+        map(evt => {
+          const page = this._getCurrentPage();
+          if (page == null) {
+            return null;
+          }
+          return {evt, res: page.setScroll(evt.dir, evt.amount, 0)};
+        }),
+        filter(
+          r =>
+            r != null &&
+            r.res === false &&
+            ((r.evt.dir === 'x' && this.orientation === 'horizontal') ||
+              (r.evt.dir === 'y' && this.orientation === 'vertical')),
+        ),
+        map(r => r!.evt.amount),
+        scan((acc, val) => {
+          if (acc === 0) {
+            return val;
+          }
+          if (acc / Math.abs(acc) !== val / Math.abs(val)) {
+            return 0;
+          }
+          return acc + val;
+        }, 0),
+        filter(val => !this._animating && Math.abs(val) > 150),
+        throttleTime(1500),
+      )
+      .subscribe(val => {
+        this._mouseWheelEvt.emit({dir: 'x', amount: val > 0 ? -1 : +1});
+        this.slide({dir: val > 0 ? 'back' : 'forward'});
+      });
   }
 
   ngAfterContentInit(): void {
@@ -233,8 +235,12 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   onTouchMove(evt: TouchEvent): void {
-    if (evt.touches == null || evt.touches.length === 0 || this._currentOrigin == null ||
-        this._animating) {
+    if (
+      evt.touches == null ||
+      evt.touches.length === 0 ||
+      this._currentOrigin == null ||
+      this._animating
+    ) {
       return;
     }
     const point: Point = {x: evt.touches[0].clientX, y: evt.touches[0].clientY, time: +new Date()};
@@ -247,8 +253,11 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     const absVelocityX = Math.abs(movement.velocityX);
     const absVelocityY = Math.abs(movement.velocityY);
     if (absVelocityX > absVelocityY) {
-      if (this.orientation === 'horizontal' && absVelocityX > 1.5 &&
-          Math.abs(movement.deltaX) > 50) {
+      if (
+        this.orientation === 'horizontal' &&
+        absVelocityX > 1.5 &&
+        Math.abs(movement.deltaX) > 50
+      ) {
         this._resetCurrentOrigin();
         this.slide({dir: movement.velocityX < 0 ? 'forward' : 'back'});
       } else {
@@ -286,7 +295,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     this._currentOrigin = null;
   }
 
-  private _getCurrentPage(): AjfPageSliderItem|null {
+  private _getCurrentPage(): AjfPageSliderItem | null {
     if (this.pages == null || this.currentPage < 0 || this.currentPage >= this.pages.length) {
       return null;
     }
@@ -332,7 +341,8 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     }
     this._animating = true;
     const animation = this._animationBuilder.build(
-        animate(immediate ? 0 : this.duration, style({transform: this._getCurrentTranslation()})));
+      animate(immediate ? 0 : this.duration, style({transform: this._getCurrentTranslation()})),
+    );
 
     const player = animation.create(this.body.nativeElement);
     player.onDone(() => {
@@ -349,7 +359,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     return `translate${translation}(-${position}%)`;
   }
 
-  private _getProps(): {prop: string, removeProp: string} {
+  private _getProps(): {prop: string; removeProp: string} {
     if (this._orientation === 'vertical') {
       return {prop: 'height', removeProp: 'width'};
     }

@@ -26,7 +26,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({

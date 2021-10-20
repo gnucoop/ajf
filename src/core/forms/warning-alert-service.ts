@@ -29,5 +29,6 @@ export interface AjfWarningAlertService {
   showWarningAlertPrompt(warnings: string[]): Observable<AjfFieldWarningAlertResult>;
 }
 
-export const AJF_WARNING_ALERT_SERVICE =
-    new InjectionToken<AjfWarningAlertService>('ajf-warning-alert-service');
+export const AJF_WARNING_ALERT_SERVICE = new InjectionToken<AjfWarningAlertService>(
+  'ajf-warning-alert-service',
+);

@@ -24,51 +24,60 @@ import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
 import {Component} from '@angular/core';
 
 const formSchema: any = {
-  choicesOrigins: [{
-    type: 'fixed',
-    name: 'animals',
-    choicesType: 'string',
-    choices: [{value: 'dog', label: 'Dog'}, {value: 'cat', label: 'Cat'}]
-  }],
-  nodes: [{
-    parent: 0,
-    id: 1,
-    name: 'number1',
-    label: 'Number Field Example',
-    nodeType: 3,
-    nodes: [
-      {
-        id: 10,
-        parent: 1,
-        name: 'number',
-        label: 'Number',
-        nodeType: 0,
-        fieldType: 2,
-        hint: 'Is a field that allows only numeric inputs',
-        hintIcon: 'help-outline',
-      },
-      {
-        parent: 10,
-        id: 11,
-        name: 'pet_type',
-        label: 'Do you have a cat or a dog?',
-        nodeType: 0,
-        fieldType: 4,
-        choicesOriginRef: 'animals',
-        hint: 'which pet do you have at home?',
-      }
-    ]
-  }]
+  choicesOrigins: [
+    {
+      type: 'fixed',
+      name: 'animals',
+      choicesType: 'string',
+      choices: [
+        {value: 'dog', label: 'Dog'},
+        {value: 'cat', label: 'Cat'},
+      ],
+    },
+  ],
+  nodes: [
+    {
+      parent: 0,
+      id: 1,
+      name: 'number1',
+      label: 'Number Field Example',
+      nodeType: 3,
+      nodes: [
+        {
+          id: 10,
+          parent: 1,
+          name: 'number',
+          label: 'Number',
+          nodeType: 0,
+          fieldType: 2,
+          hint: 'Is a field that allows only numeric inputs',
+          hintIcon: 'help-outline',
+        },
+        {
+          parent: 10,
+          id: 11,
+          name: 'pet_type',
+          label: 'Do you have a cat or a dog?',
+          nodeType: 0,
+          fieldType: 4,
+          choicesOriginRef: 'animals',
+          hint: 'which pet do you have at home?',
+        },
+      ],
+    },
+  ],
 };
 
 @Component({
   selector: 'ion-form-e2e',
   templateUrl: 'ion-form-e2e.html',
-  styles: [`
+  styles: [
+    `
   ajf-form {
     display: contents;
   }
-  `]
+  `,
+  ],
 })
 export class IonicFormE2E {
   formSchema: string = JSON.stringify(formSchema);

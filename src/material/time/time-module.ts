@@ -28,17 +28,8 @@ import {MatInputModule} from '@angular/material/input';
 import {AjfTime} from './time';
 
 @NgModule({
-  imports: [
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-  ],
-  declarations: [
-    AjfTime,
-  ],
-  exports: [
-    AjfTime,
-  ],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule],
+  declarations: [AjfTime],
+  exports: [AjfTime],
 })
-export class AjfTimeModule {
-}
+export class AjfTimeModule {}

@@ -27,16 +27,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {AjfNodeIcon} from './node-icon';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatIconModule,
-  ],
-  declarations: [
-    AjfNodeIcon,
-  ],
-  exports: [
-    AjfNodeIcon,
-  ],
+  imports: [CommonModule, MatIconModule],
+  declarations: [AjfNodeIcon],
+  exports: [AjfNodeIcon],
 })
-export class AjfNodeIconModule {
-}
+export class AjfNodeIconModule {}

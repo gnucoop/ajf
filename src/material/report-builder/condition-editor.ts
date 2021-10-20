@@ -28,7 +28,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {Subscription, timer} from 'rxjs';
 
@@ -36,13 +36,12 @@ import {AjfFormVariables} from './models';
 import {AjfReportBuilderService} from './report-builder-service';
 import {sanitizeConditionString} from './utils';
 
-
 @Component({
   selector: 'ajf-report-builder-condition-editor',
   templateUrl: 'condition-editor.html',
   styleUrls: ['condition-editor.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * This class will define an ajf builder builder condition editor
@@ -63,13 +62,28 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
   a: any;
   b: any;
 
-
   @ViewChild('conditionTextArea', {static: false}) conditionTextArea: any;
 
   //  operators is an array of any type that contains all allow operators
   operators: string[] = [
-    '( )', '\' \'', '<', '<=', '==', '>=', '>', '!=', '!', '&&', '||', '+', '-', '*', '/', '%',
-    'true', 'false'
+    '( )',
+    "' '",
+    '<',
+    '<=',
+    '==',
+    '>=',
+    '>',
+    '!=',
+    '!',
+    '&&',
+    '||',
+    '+',
+    '-',
+    '*',
+    '/',
+    '%',
+    'true',
+    'false',
   ];
 
   private _conditionNamesSub: Subscription = Subscription.EMPTY;
@@ -122,7 +136,7 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
     startingString = sanitizeConditionString(startingString);
     endingString = sanitizeConditionString(endingString);
     sStart +=
-        startingString.length - initialLenght + text.length + (startingString.length > 0 ? 2 : 1);
+      startingString.length - initialLenght + text.length + (startingString.length > 0 ? 2 : 1);
     newStr = startingString.length > 0 ? `${startingString} ` : '';
     this.conditionText = `${newStr}${text} ${endingString}`;
 
@@ -167,7 +181,7 @@ export class AjfReportBuilderConditionEditor implements OnInit, OnDestroy {
       this.conditionText = '';
     }
 
-    this._conditionNamesSub = this._service.conditionNames.subscribe((x) => {
+    this._conditionNamesSub = this._service.conditionNames.subscribe(x => {
       this.formsVariables = x;
       if (x != null) {
         this.extractNames(this.formsVariables);

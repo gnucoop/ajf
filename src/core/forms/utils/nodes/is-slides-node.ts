@@ -27,6 +27,8 @@ import {AjfNodeType} from '../../interface/nodes/node-type';
  * It is true if node is AjfRepeatingSlide or AjfSlide.
  */
 export function isSlidesNode(node: AjfNode): boolean {
-  return node != null &&
-      (node.nodeType === AjfNodeType.AjfRepeatingSlide || node.nodeType === AjfNodeType.AjfSlide);
+  return (
+    node != null &&
+    (node.nodeType === AjfNodeType.AjfRepeatingSlide || node.nodeType === AjfNodeType.AjfSlide)
+  );
 }

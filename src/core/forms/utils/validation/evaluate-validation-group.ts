@@ -37,7 +37,10 @@ import {evaluateValidationNotEmpty} from './evaluate-validation-not-empty';
  * It evaluate AjfValidationGroup and returns an AjfValidationResult[].
  */
 export function evaluateValidationGroup(
-    validation: AjfValidationGroup, value: any, context?: AjfContext): AjfValidationResult[] {
+  validation: AjfValidationGroup,
+  value: any,
+  context?: AjfContext,
+): AjfValidationResult[] {
   let res: AjfValidationResult[] = [];
   let ctx = deepCopy(context);
   ctx['$value'] = value;

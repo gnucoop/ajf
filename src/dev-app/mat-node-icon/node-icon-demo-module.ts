@@ -33,9 +33,6 @@ import {NodeIconDemo} from './node-icon-demo';
     CommonModule,
     RouterModule.forChild([{path: '', component: NodeIconDemo}]),
   ],
-  declarations: [
-    NodeIconDemo,
-  ],
+  declarations: [NodeIconDemo],
 })
-export class NodeIconDemoModule {
-}
+export class NodeIconDemoModule {}

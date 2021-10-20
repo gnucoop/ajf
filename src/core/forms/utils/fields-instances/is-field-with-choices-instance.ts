@@ -30,6 +30,9 @@ import {isFieldInstance} from '../nodes-instances/is-field-instance';
  * if the node of instance is a field with choices.
  */
 export function isFieldWithChoicesInstance(nodeInstance: AjfNodeInstance): boolean {
-  return nodeInstance != null && isFieldInstance(nodeInstance) &&
-      isFieldWithChoices((nodeInstance as AjfFieldInstance).node);
+  return (
+    nodeInstance != null &&
+    isFieldInstance(nodeInstance) &&
+    isFieldWithChoices((nodeInstance as AjfFieldInstance).node)
+  );
 }

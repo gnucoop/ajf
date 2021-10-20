@@ -27,7 +27,7 @@ import {
   EventEmitter,
   Input,
   Output,
-  Renderer2
+  Renderer2,
 } from '@angular/core';
 
 @Directive({selector: '[ajfVideoDirective]'})
@@ -48,14 +48,15 @@ export class AjfVideoDirective implements AfterViewInit {
 
   private _initCam() {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia(<MediaStreamConstraints>{video: true})
-          .then((stream: MediaStream) => {
-            (this._source as any).srcObject = stream;
-            (this._source as any).play();
-          })
-          .catch((err: any) => {
-            console.log(err);
-          });
+      navigator.mediaDevices
+        .getUserMedia(<MediaStreamConstraints>{video: true})
+        .then((stream: MediaStream) => {
+          (this._source as any).srcObject = stream;
+          (this._source as any).play();
+        })
+        .catch((err: any) => {
+          console.log(err);
+        });
     }
   }
 

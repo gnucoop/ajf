@@ -47,16 +47,11 @@ import {DEV_APP_ROUTES} from './routes';
     RouterModule.forRoot(DEV_APP_ROUTES),
     AjfTranslocoModule,
   ],
-  declarations: [
-    DevAppComponent,
-  ],
+  declarations: [DevAppComponent],
   providers: [
     {provide: Directionality, useClass: DevAppDirectionality},
     {provide: OverlayContainer, useClass: FullscreenOverlayContainer},
   ],
-  bootstrap: [
-    DevAppComponent,
-  ],
+  bootstrap: [DevAppComponent],
 })
-export class MainModule {
-}
+export class MainModule {}

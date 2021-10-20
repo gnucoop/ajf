@@ -33,13 +33,17 @@ import {getAncestorRepeatingNodes} from './get-ancestor-repeating-nodes';
  * value is the position inside ancestorRepeatingNodes.
  */
 export function getAncestorRepeatingNodesNames(
-    allNodes: (AjfNode|AjfNodeInstance)[], node: AjfNode): {[prop: string]: number} {
+  allNodes: (AjfNode | AjfNodeInstance)[],
+  node: AjfNode,
+): {[prop: string]: number} {
   let names: {[prop: string]: number} = {};
   const nodeGroups = getAncestorRepeatingNodes(allNodes, node) as AjfNodeGroup[];
-  nodeGroups.forEach((n, idx) => (n.nodes || []).forEach((sn) => {
-    if (isField(sn)) {
-      names[sn.name] = idx;
-    }
-  }));
+  nodeGroups.forEach((n, idx) =>
+    (n.nodes || []).forEach(sn => {
+      if (isField(sn)) {
+        names[sn.name] = idx;
+      }
+    }),
+  );
   return names;
 }

@@ -25,8 +25,9 @@ import {AjfFieldType} from '../../interface/fields/field-type';
 import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfNodeCreate, createNode} from '../nodes/create-node';
 
-export type AjfFieldCreate =
-    Omit<AjfNodeCreate, 'nodeType'>&Pick<AjfField, 'fieldType'>&Partial<AjfField>;
+export type AjfFieldCreate = Omit<AjfNodeCreate, 'nodeType'> &
+  Pick<AjfField, 'fieldType'> &
+  Partial<AjfField>;
 /**
  * It creates an AjfField.
  * If size is not defined apply 'normal'.
@@ -35,9 +36,10 @@ export type AjfFieldCreate =
  */
 export function createField(field: AjfFieldCreate): AjfField {
   const node = createNode({...field, nodeType: AjfNodeType.AjfField});
-  const editable = field.editable != null ?
-      field.editable :
-      field.fieldType !== AjfFieldType.Formula && field.fieldType !== AjfFieldType.Table;
+  const editable =
+    field.editable != null
+      ? field.editable
+      : field.fieldType !== AjfFieldType.Formula && field.fieldType !== AjfFieldType.Table;
   return {
     ...node,
     ...field,

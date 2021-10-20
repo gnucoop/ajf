@@ -35,15 +35,7 @@ import {AjfWidgetHost} from './widget-host';
     AjfWidgetHost,
     AjfWidgetExport,
   ],
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    AjfGetColumnContentPipe,
-    AjfReportStringIdentifierPipe,
-    AjfWidgetHost,
-    AjfWidgetExport,
-  ],
+  imports: [CommonModule],
+  exports: [AjfGetColumnContentPipe, AjfReportStringIdentifierPipe, AjfWidgetHost, AjfWidgetExport],
 })
-export class AjfReportsModule {
-}
+export class AjfReportsModule {}

@@ -29,7 +29,7 @@ import {
   Injector,
   Input,
   OnInit,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 
 @Component({
@@ -44,7 +44,8 @@ import {
       Could not find example {{id}}
     </div>
   `,
-  styles: [`
+  styles: [
+    `
     .label {
       display: flex;
       justify-content: space-between;
@@ -63,7 +64,8 @@ import {
       color: #666;
       white-space: pre;
     }
-  `]
+  `,
+  ],
 })
 export class Example implements OnInit {
   /** ID of the material example to display. */
@@ -80,9 +82,11 @@ export class Example implements OnInit {
 
   title: string;
 
-  constructor(private _injector: Injector,
-              private _viewContainerRef: ViewContainerRef,
-              private _changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private _injector: Injector,
+    private _viewContainerRef: ViewContainerRef,
+    private _changeDetectorRef: ChangeDetectorRef,
+  ) {}
 
   async ngOnInit() {
     this.title = EXAMPLE_COMPONENTS[this.id].title;

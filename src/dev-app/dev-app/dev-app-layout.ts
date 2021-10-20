@@ -36,55 +36,54 @@ export class DevAppLayout {
   navGroups = [
     {
       name: 'Common',
-      children:
-          [
-            {name: 'Examples', route: '/examples'},
-            {name: 'File input', route: '/file-input'},
-            {name: 'i18n', route: '/i18n'},
-          ]
+      children: [
+        {name: 'Examples', route: '/examples'},
+        {name: 'File input', route: '/file-input'},
+        {name: 'i18n', route: '/i18n'},
+      ],
     },
     {
       name: 'Material',
-      children:
-          [
-            {name: 'Barcode', route: '/mat-barcode'},
-            {name: 'Calendar', route: '/mat-calendar'},
-            {name: 'Calendar - Ethiopian', route: '/mat-calendar-ethiopian'},
-            {name: 'Checkbox group', route: '/mat-checkbox-group'},
-            {name: 'Fields', route: '/mat-fields'},
-            {name: 'Form builder', route: '/mat-form-builder'},
-            {name: 'Forms', route: '/mat-forms'},
-            {name: 'Image', route: '/mat-image'},
-            {name: 'Node icon', route: '/mat-node-icon'},
-            {name: 'Page slider', route: '/mat-page-slider'},
-            {name: 'Report builder', route: '/mat-report-builder'},
-            {name: 'Report from form', route: '/mat-report-from-form'},
-            {name: 'Reports', route: '/mat-reports'},
-            {name: 'Time', route: '/mat-time'},
-            {name: 'Widgets', route: '/mat-widgets'},
-          ]
+      children: [
+        {name: 'Barcode', route: '/mat-barcode'},
+        {name: 'Calendar', route: '/mat-calendar'},
+        {name: 'Calendar - Ethiopian', route: '/mat-calendar-ethiopian'},
+        {name: 'Checkbox group', route: '/mat-checkbox-group'},
+        {name: 'Fields', route: '/mat-fields'},
+        {name: 'Form builder', route: '/mat-form-builder'},
+        {name: 'Forms', route: '/mat-forms'},
+        {name: 'Image', route: '/mat-image'},
+        {name: 'Node icon', route: '/mat-node-icon'},
+        {name: 'Page slider', route: '/mat-page-slider'},
+        {name: 'Report builder', route: '/mat-report-builder'},
+        {name: 'Report from form', route: '/mat-report-from-form'},
+        {name: 'Reports', route: '/mat-reports'},
+        {name: 'Time', route: '/mat-time'},
+        {name: 'Widgets', route: '/mat-widgets'},
+      ],
     },
     {
       name: 'Ionic',
-      children:
-          [
-            {name: 'Barcode', route: '/ion-barcode'},
-            {name: 'Calendar', route: '/ion-calendar'},
-            {name: 'Checkbox group', route: '/ion-checkbox-group'},
-            {name: 'Fields', route: '/ion-fields'},
-            {name: 'Forms', route: '/ion-forms'},
-            {name: 'Image', route: '/ion-image'},
-            {name: 'Node icon', route: '/ion-node-icon'},
-            {name: 'Page slider', route: '/ion-page-slider'},
-            {name: 'Reports', route: '/ion-reports'},
-            {name: 'Widgets', route: '/ion-widgets'},
-          ]
+      children: [
+        {name: 'Barcode', route: '/ion-barcode'},
+        {name: 'Calendar', route: '/ion-calendar'},
+        {name: 'Checkbox group', route: '/ion-checkbox-group'},
+        {name: 'Fields', route: '/ion-fields'},
+        {name: 'Forms', route: '/ion-forms'},
+        {name: 'Image', route: '/ion-image'},
+        {name: 'Node icon', route: '/ion-node-icon'},
+        {name: 'Page slider', route: '/ion-page-slider'},
+        {name: 'Reports', route: '/ion-reports'},
+        {name: 'Widgets', route: '/ion-widgets'},
+      ],
     },
   ];
 
   constructor(
-      private _element: ElementRef<HTMLElement>,
-      @Inject(Directionality) public dir: DevAppDirectionality, cdr: ChangeDetectorRef) {
+    private _element: ElementRef<HTMLElement>,
+    @Inject(Directionality) public dir: DevAppDirectionality,
+    cdr: ChangeDetectorRef,
+  ) {
     dir.change.subscribe(() => cdr.markForCheck());
   }
 

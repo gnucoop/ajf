@@ -30,7 +30,7 @@ import {ajfWidgetTypeStringToIcon, ajfWidgetTypeStringToLabel} from './utils';
   templateUrl: 'custom-widget-toolbar-button.html',
   styleUrls: ['custom-widget-toolbar-button.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * This class will define an ajf builder field toolbar button

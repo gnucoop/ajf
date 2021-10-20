@@ -28,17 +28,16 @@ import {
   forwardRef,
   Input,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-
 export const AJF_CHECKBOX_GROUP_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => AjfCheckboxGroup),
-  multi: true
+  multi: true,
 };
 
 export class AjfCheckboxGroupItemChange<T> {
@@ -53,10 +52,9 @@ export class AjfCheckboxGroupChange<T> {
 
 let _uniqueIdCounter = 0;
 
-
 @Directive({
   selector: 'ajf-checkbox-group,[ajf-checkbox-group]',
-  providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR]
+  providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR],
 })
 export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccessor {
   checkboxes: AjfCheckboxGroupItem<T>[] = [];
@@ -116,11 +114,13 @@ export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccess
   }
 
   /** Event emitted when the group's value changes. */
-  private _change: EventEmitter<AjfCheckboxGroupChange<T>> =
-      new EventEmitter<AjfCheckboxGroupChange<T>>();
+  private _change: EventEmitter<AjfCheckboxGroupChange<T>> = new EventEmitter<
+    AjfCheckboxGroupChange<T>
+  >();
   @Output()
-  readonly change: Observable<AjfCheckboxGroupChange<T>> =
-      this._change as Observable<AjfCheckboxGroupChange<T>>;
+  readonly change: Observable<AjfCheckboxGroupChange<T>> = this._change as Observable<
+    AjfCheckboxGroupChange<T>
+  >;
 
   /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
   onTouched: () => any = () => {};
@@ -173,13 +173,13 @@ export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccess
   }
 
   /** The method to be called in order to update ngModel. */
-  private _controlValueAccessorChangeFn: (value: any) => void = (_) => {};
+  private _controlValueAccessorChangeFn: (value: any) => void = _ => {};
 
   private _updateCheckboxesNames(): void {
     if (this.checkboxes == null) {
       return;
     }
-    this.checkboxes.forEach((checkbox) => {
+    this.checkboxes.forEach(checkbox => {
       if (checkbox == null) {
         return;
       }
@@ -287,18 +287,25 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
   readonly icon: Observable<string>;
 
   /** Event emitted when the group value changes. */
-  private _change: EventEmitter<AjfCheckboxGroupItemChange<T>> =
-      new EventEmitter<AjfCheckboxGroupItemChange<T>>();
+  private _change: EventEmitter<AjfCheckboxGroupItemChange<T>> = new EventEmitter<
+    AjfCheckboxGroupItemChange<T>
+  >();
   @Output()
-  readonly change: Observable<AjfCheckboxGroupItemChange<T>> =
-      this._change as Observable<AjfCheckboxGroupItemChange<T>>;
+  readonly change: Observable<AjfCheckboxGroupItemChange<T>> = this._change as Observable<
+    AjfCheckboxGroupItemChange<T>
+  >;
 
   constructor(checkboxGroup?: AjfCheckboxGroup<T>) {
-    this.icon = combineLatest(this._checkedState, this._checkedIconVal, this._notCheckedIconVal)
-                    .pipe(
-                        map(([checked, checkedIcon, notCheckedIcon]) =>
-                                (checked ? checkedIcon : notCheckedIcon) as string),
-                    );
+    this.icon = combineLatest(
+      this._checkedState,
+      this._checkedIconVal,
+      this._notCheckedIconVal,
+    ).pipe(
+      map(
+        ([checked, checkedIcon, notCheckedIcon]) =>
+          (checked ? checkedIcon : notCheckedIcon) as string,
+      ),
+    );
 
     if (checkboxGroup) {
       this.checkboxGroup = checkboxGroup;
@@ -311,8 +318,11 @@ export class AjfCheckboxGroupItem<T> implements OnInit {
       this.id = `ajf-checkbox-group-item-${_uniqueIdCounter++}`;
     }
 
-    if (this.checkboxGroup && this.checkboxGroup.value &&
-        this.checkboxGroup.value.indexOf(this._value) > -1) {
+    if (
+      this.checkboxGroup &&
+      this.checkboxGroup.value &&
+      this.checkboxGroup.value.indexOf(this._value) > -1
+    ) {
       this.checked = true;
     }
   }

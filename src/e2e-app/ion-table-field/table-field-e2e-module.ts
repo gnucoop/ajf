@@ -27,13 +27,7 @@ import {NgModule} from '@angular/core';
 import {IonicTableFieldE2E} from './table-field-e2e';
 
 @NgModule({
-  imports: [
-    AjfFormsModule,
-    CoreFormsModule,
-  ],
-  declarations: [
-    IonicTableFieldE2E,
-  ],
+  imports: [AjfFormsModule, CoreFormsModule],
+  declarations: [IonicTableFieldE2E],
 })
-export class IonicTableFieldE2eModule {
-}
+export class IonicTableFieldE2eModule {}

@@ -23,7 +23,7 @@
 import {AjfContainerNode} from '../../interface/nodes/container-node';
 import {AjfNodeCreate, createNode} from './create-node';
 
-export type AjfContainerNodeCreate = AjfNodeCreate&Partial<AjfContainerNode>;
+export type AjfContainerNodeCreate = AjfNodeCreate & Partial<AjfContainerNode>;
 /**
  * It creates an AjfContainerNode by schema.
  * Extends AjfNode with nodes.

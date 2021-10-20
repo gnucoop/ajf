@@ -26,7 +26,7 @@ import {EthiopianDate} from './ethiopian-date';
 @Injectable()
 @Pipe({name: 'ajfEthiopianDate'})
 export class AjfEthiopianDatePipe implements PipeTransform {
-  transform(value: any): string|null {
+  transform(value: any): string | null {
     try {
       const ed = EthiopianDate.gregorianToEthiopian(value);
       const date = `0${ed.getDate()}`.slice(-2);

@@ -27,7 +27,7 @@ import {
   OnDestroy,
   OnInit,
   Renderer2,
-  RendererStyleFlags2
+  RendererStyleFlags2,
 } from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {BehaviorSubject, Observable, Subscription} from 'rxjs';
@@ -46,49 +46,55 @@ export abstract class AjfImage implements OnDestroy, OnInit {
    *
    */
   @Input()
-  set type(type: AjfImageType|null) {
+  set type(type: AjfImageType | null) {
     this._imageType.next(type);
   }
 
   @Input()
-  set imageUrl(imageUrl: string|null) {
+  set imageUrl(imageUrl: string | null) {
     imageUrl = typeof imageUrl === 'string' ? imageUrl : '';
     this._url.next(
-        imageUrl.startsWith('data:image/svg+xml;base64,') ?
-            this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl) :
-            imageUrl);
+      imageUrl.startsWith('data:image/svg+xml;base64,')
+        ? this._domSanitizer.bypassSecurityTrustResourceUrl(imageUrl)
+        : imageUrl,
+    );
   }
 
   @Input()
-  set icon(icon: AjfImageIcon|null) {
+  set icon(icon: AjfImageIcon | null) {
     this._iconObj.next(icon);
   }
 
   @Input()
-  set flag(flag: string|null) {
+  set flag(flag: string | null) {
     this._flagName.next(flag);
   }
 
   readonly imageTypes = AjfImageType;
 
-  private _imageType = new BehaviorSubject<AjfImageType|null>(null);
-  readonly imageType: Observable<AjfImageType|null> =
-      this._imageType as Observable<AjfImageType|null>;
+  private _imageType = new BehaviorSubject<AjfImageType | null>(null);
+  readonly imageType: Observable<AjfImageType | null> = this
+    ._imageType as Observable<AjfImageType | null>;
 
-  private _url = new BehaviorSubject<string|SafeResourceUrl|null>(null);
-  readonly url: Observable<string|SafeResourceUrl|null> =
-      this._url as Observable<string|SafeResourceUrl|null>;
+  private _url = new BehaviorSubject<string | SafeResourceUrl | null>(null);
+  readonly url: Observable<string | SafeResourceUrl | null> = this._url as Observable<
+    string | SafeResourceUrl | null
+  >;
 
-  private _iconObj = new BehaviorSubject<AjfImageIcon|null>(null);
-  readonly iconObj: Observable<AjfImageIcon|null> = this._iconObj as Observable<AjfImageIcon|null>;
+  private _iconObj = new BehaviorSubject<AjfImageIcon | null>(null);
+  readonly iconObj: Observable<AjfImageIcon | null> = this
+    ._iconObj as Observable<AjfImageIcon | null>;
 
-  private _flagName = new BehaviorSubject<string|null>(null);
-  readonly flagName: Observable<string|null> = this._flagName as Observable<string|null>;
+  private _flagName = new BehaviorSubject<string | null>(null);
+  readonly flagName: Observable<string | null> = this._flagName as Observable<string | null>;
 
   private _iconSub = Subscription.EMPTY;
 
   constructor(
-      private _el: ElementRef, private _renderer: Renderer2, private _domSanitizer: DomSanitizer) {
+    private _el: ElementRef,
+    private _renderer: Renderer2,
+    private _domSanitizer: DomSanitizer,
+  ) {
     this._iconSub = this.iconObj.subscribe(() => this._updateIconSize());
   }
 

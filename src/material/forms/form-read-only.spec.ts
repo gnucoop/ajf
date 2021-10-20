@@ -33,7 +33,7 @@ import {
   AjfFieldWithChoices,
   AjfForm,
   AjfFormSerializer,
-  AjfNodeType
+  AjfNodeType,
 } from '../../core/forms';
 import {AjfTranslocoModule} from '../../core/transloco';
 
@@ -42,14 +42,13 @@ import {AjfFormsModule} from './index';
 describe('AjfFormRenderer', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [
-        AjfFormsModule,
-        NoopAnimationsModule,
-        AjfTranslocoModule,
-      ],
+      imports: [AjfFormsModule, NoopAnimationsModule, AjfTranslocoModule],
       declarations: [
-        TestComponent, TestReadOnlySingleChoiceComponent, TestReadOnlyMultipleChoiceComponent,
-        TestReadOnlyInputComponent, TestReadOnlyInputAndFormComponent
+        TestComponent,
+        TestReadOnlySingleChoiceComponent,
+        TestReadOnlyMultipleChoiceComponent,
+        TestReadOnlyInputComponent,
+        TestReadOnlyInputAndFormComponent,
       ],
     });
     await TestBed.compileComponents();
@@ -80,8 +79,11 @@ describe('AjfFormRenderer', () => {
     const spanChild: HTMLCollection = field.getElementsByTagName('span');
     // read only component structure <span> value </span>
     // this condition check if the field has a reader-only template
-    const condition = spanChild && spanChild.length === 1 && spanChild.item(0) !== null &&
-        (spanChild.item(0) as Element).textContent === 'Black Cat';
+    const condition =
+      spanChild &&
+      spanChild.length === 1 &&
+      spanChild.item(0) !== null &&
+      (spanChild.item(0) as Element).textContent === 'Black Cat';
     expect(condition).toEqual(true);
   });
 
@@ -97,8 +99,11 @@ describe('AjfFormRenderer', () => {
     const spanChild: HTMLCollection = field.getElementsByTagName('span');
     // read only component structure <span> value </span>
     // this condition check if the field has a reader-only template
-    const condition = spanChild && spanChild.length === 1 && spanChild.item(0) !== null &&
-        (spanChild.item(0) as Element).textContent === ' Black Cat ';
+    const condition =
+      spanChild &&
+      spanChild.length === 1 &&
+      spanChild.item(0) !== null &&
+      (spanChild.item(0) as Element).textContent === ' Black Cat ';
     expect(condition).toEqual(true);
   });
 
@@ -114,8 +119,11 @@ describe('AjfFormRenderer', () => {
     const spanChild: HTMLCollection = field.getElementsByTagName('span');
     // read only component structure <span> value </span>
     // this condition check if the field has a reader-only template
-    const condition = spanChild && spanChild.length === 1 && spanChild.item(0) !== null &&
-        (spanChild.item(0) as Element).textContent === '15';
+    const condition =
+      spanChild &&
+      spanChild.length === 1 &&
+      spanChild.item(0) !== null &&
+      (spanChild.item(0) as Element).textContent === '15';
     expect(condition).toEqual(true);
   });
 
@@ -131,8 +139,11 @@ describe('AjfFormRenderer', () => {
     const spanChild: HTMLCollection = field.getElementsByTagName('span');
     // read only component structure <span> value </span>
     // this condition check if the field has a reader-only template
-    const condition = spanChild && spanChild.length === 1 && spanChild.item(0) !== null &&
-        (spanChild.item(0) as Element).textContent === '15';
+    const condition =
+      spanChild &&
+      spanChild.length === 1 &&
+      spanChild.item(0) !== null &&
+      (spanChild.item(0) as Element).textContent === '15';
     expect(condition).toEqual(true);
   });
 });
@@ -150,84 +161,96 @@ const slideForm = {
       ],
     },
   ],
-  nodes: [{
-    id: 1,
-    parent: 0,
-    parentNode: 0,
-    nodeType: AjfNodeType.AjfSlide,
-    name: 'slide',
-    label: 'slide',
-    conditionalBranches: [{condition: 'true'}],
-    readonly: [{condition: 'false'}],
-    nodes: []
-  }],
+  nodes: [
+    {
+      id: 1,
+      parent: 0,
+      parentNode: 0,
+      nodeType: AjfNodeType.AjfSlide,
+      name: 'slide',
+      label: 'slide',
+      conditionalBranches: [{condition: 'true'}],
+      readonly: [{condition: 'false'}],
+      nodes: [],
+    },
+  ],
 } as any;
 
 const testForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
-testForm.nodes[0].nodes = [{
-  id: 2,
-  parent: 1,
-  parentNode: 0,
-  nodeType: AjfNodeType.AjfField,
-  name: 'field',
-  label: 'field',
-  conditionalBranches: [{condition: 'true'}],
-  fieldType: AjfFieldType.SingleChoice,
-  choicesOriginRef: 'choices',
-  validation: {notEmpty: true} as any
-} as unknown as AjfFieldWithChoices<string>];
+testForm.nodes[0].nodes = [
+  {
+    id: 2,
+    parent: 1,
+    parentNode: 0,
+    nodeType: AjfNodeType.AjfField,
+    name: 'field',
+    label: 'field',
+    conditionalBranches: [{condition: 'true'}],
+    fieldType: AjfFieldType.SingleChoice,
+    choicesOriginRef: 'choices',
+    validation: {notEmpty: true} as any,
+  } as unknown as AjfFieldWithChoices<string>,
+];
 
 const inputTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
-inputTestForm.nodes[0].nodes = [{
-  id: 2,
-  parent: 1,
-  name: 'field',
-  label: 'field',
-  nodeType: AjfNodeType.AjfField,
-  fieldType: AjfFieldType.Number,
-  editable: true,
-  validation: {notEmpty: true} as any
-} as unknown as AjfField];
+inputTestForm.nodes[0].nodes = [
+  {
+    id: 2,
+    parent: 1,
+    name: 'field',
+    label: 'field',
+    nodeType: AjfNodeType.AjfField,
+    fieldType: AjfFieldType.Number,
+    editable: true,
+    validation: {notEmpty: true} as any,
+  } as unknown as AjfField,
+];
 
 const readOnlyInputTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
-readOnlyInputTestForm.nodes[0].nodes = [{
-  id: 2,
-  parent: 1,
-  name: 'field',
-  label: 'field',
-  nodeType: AjfNodeType.AjfField,
-  fieldType: AjfFieldType.Number,
-  editable: false,
-  validation: {notEmpty: true} as any
-} as unknown as AjfField];
+readOnlyInputTestForm.nodes[0].nodes = [
+  {
+    id: 2,
+    parent: 1,
+    name: 'field',
+    label: 'field',
+    nodeType: AjfNodeType.AjfField,
+    fieldType: AjfFieldType.Number,
+    editable: false,
+    validation: {notEmpty: true} as any,
+  } as unknown as AjfField,
+];
 
 const readOnlySingleChoiceTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
-readOnlySingleChoiceTestForm.nodes[0].nodes = [{
-  id: 2,
-  parent: 1,
-  parentNode: 0,
-  nodeType: AjfNodeType.AjfField,
-  editable: false,
-  name: 'field',
-  label: 'field',
-  conditionalBranches: [{condition: 'true'}],
-  fieldType: AjfFieldType.SingleChoice,
-  choicesOriginRef: 'choices',
-  validation: {notEmpty: true} as any
-} as unknown as AjfFieldWithChoices<string>];
+readOnlySingleChoiceTestForm.nodes[0].nodes = [
+  {
+    id: 2,
+    parent: 1,
+    parentNode: 0,
+    nodeType: AjfNodeType.AjfField,
+    editable: false,
+    name: 'field',
+    label: 'field',
+    conditionalBranches: [{condition: 'true'}],
+    fieldType: AjfFieldType.SingleChoice,
+    choicesOriginRef: 'choices',
+    validation: {notEmpty: true} as any,
+  } as unknown as AjfFieldWithChoices<string>,
+];
 
 const readOnlyMultipleChoiceTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
-readOnlyMultipleChoiceTestForm.nodes[0].nodes = [{
-  id: 2,
-  parent: 1,
-  parentNode: 0,
-  nodeType: AjfNodeType.AjfField,
-  editable: false,
-  name: 'field',
-  label: 'field',
-  fieldType: AjfFieldType.MultipleChoice,
-  choicesOriginRef: 'choices',
-} as unknown as AjfFieldWithChoices<string>];
+readOnlyMultipleChoiceTestForm.nodes[0].nodes = [
+  {
+    id: 2,
+    parent: 1,
+    parentNode: 0,
+    nodeType: AjfNodeType.AjfField,
+    editable: false,
+    name: 'field',
+    label: 'field',
+    fieldType: AjfFieldType.MultipleChoice,
+    choicesOriginRef: 'choices',
+  } as unknown as AjfFieldWithChoices<string>,
+];
 @Component({
   template: '<ajf-form readonly [form]="form"></ajf-form>',
 })

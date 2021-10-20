@@ -22,7 +22,8 @@
 
 import {AjfWarning} from '../../interface/warning/warning';
 
-export function createWarning(warning: Pick<AjfWarning, 'condition'>&
-                              Partial<AjfWarning>): AjfWarning {
+export function createWarning(
+  warning: Pick<AjfWarning, 'condition'> & Partial<AjfWarning>,
+): AjfWarning {
   return {...warning, warningMessage: warning.warningMessage || 'Undefined Warning'};
 }

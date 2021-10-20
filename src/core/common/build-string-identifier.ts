@@ -45,39 +45,41 @@ const defaultOpts = {
   valuesDivider: ', ',
 };
 
-export const buildStringIdentifierOpts =
-    (opts?: BuildStringIdentifierOpts): Required<BuildStringIdentifierOpts> =>
-        ({...defaultOpts, ...opts});
+export const buildStringIdentifierOpts = (
+  opts?: BuildStringIdentifierOpts,
+): Required<BuildStringIdentifierOpts> => ({...defaultOpts, ...opts});
 
-export const buildStringIdentifier =
-    (stringIdentifier: AjfStringIdentifier[]|undefined, context: AjfContext,
-     opts?: BuildStringIdentifierOpts): string => {
-      const strings = {...defaultOpts, ...opts} as Required<BuildStringIdentifierOpts>;
-      if (stringIdentifier == null) {
-        return strings.emptyString;
-      }
-      const str: string[] = stringIdentifier.map(s => {
-        const values: string[] = [];
-        if (s.value != null && s.value.length > 0) {
-          s.value.forEach(curValue => {
-            const vp: string[] = curValue.split('.');
-            let curContext = context;
-            let val: any = null;
-            vp.forEach(k => {
-              if (curContext[k] !== undefined) {
-                val = context[k];
-                curContext = context[k];
-              }
-            });
-            if (val != null && val instanceof Array && val.length > 0) {
-              val = val.map(v => `${v}`).join(', ');
-            }
-            if (val != null) {
-              values.push(`${val}`);
-            }
-          });
+export const buildStringIdentifier = (
+  stringIdentifier: AjfStringIdentifier[] | undefined,
+  context: AjfContext,
+  opts?: BuildStringIdentifierOpts,
+): string => {
+  const strings = {...defaultOpts, ...opts} as Required<BuildStringIdentifierOpts>;
+  if (stringIdentifier == null) {
+    return strings.emptyString;
+  }
+  const str: string[] = stringIdentifier.map(s => {
+    const values: string[] = [];
+    if (s.value != null && s.value.length > 0) {
+      s.value.forEach(curValue => {
+        const vp: string[] = curValue.split('.');
+        let curContext = context;
+        let val: any = null;
+        vp.forEach(k => {
+          if (curContext[k] !== undefined) {
+            val = context[k];
+            curContext = context[k];
+          }
+        });
+        if (val != null && val instanceof Array && val.length > 0) {
+          val = val.map(v => `${v}`).join(', ');
         }
-        return `${s.label}: ${values.length > 0 ? values.join(', ') : strings.emptyString}`;
+        if (val != null) {
+          values.push(`${val}`);
+        }
       });
-      return str.join(' - ');
-    };
+    }
+    return `${s.label}: ${values.length > 0 ? values.join(', ') : strings.emptyString}`;
+  });
+  return str.join(' - ');
+};

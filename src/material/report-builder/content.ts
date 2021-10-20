@@ -30,7 +30,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {Observable, Subscription, timer} from 'rxjs';
 
@@ -48,7 +48,7 @@ import {AjfReportBuilderService} from './report-builder-service';
   styleUrls: ['content.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {'(mouseover)': 'onMouseOver()', '(mouseleave)': 'onMouseLeave()'}
+  host: {'(mouseover)': 'onMouseOver()', '(mouseleave)': 'onMouseLeave()'},
 })
 export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDestroy {
   onMouseOver(): void {
@@ -77,7 +77,6 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   // this boolean sign if is dragged a widget
   onDragged = false;
 
-
   /**
    *  observe the status of the fixed zoom
    *
@@ -88,9 +87,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   // this boolean sign if widget is in drag enter status
   onDragEnter: any = {};
 
-
   show = false;
-
 
   // this array contains all widget locate in header zone
   headerWidgets: AjfWidget[] = [];
@@ -114,7 +111,6 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   // this array contains all widget locate in footer zone
   footerWidgets: AjfWidget[] = [];
 
-
   onOver: boolean = false;
   /**
    * observe the css style of footer
@@ -123,10 +119,8 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    */
   footerStyles: Observable<AjfStyles>;
 
-
   // this is the current widget
-  currentWidget: AjfWidget|null = null;
-
+  currentWidget: AjfWidget | null = null;
 
   /**
    * if true mouse event is on dragged status
@@ -182,7 +176,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    *
    * @memberOf AjfReportBuilderContent
    */
-  onDragEnterHandler(array: string, index: number|undefined): void {
+  onDragEnterHandler(array: string, index: number | undefined): void {
     if (index == null) {
       return;
     }
@@ -198,7 +192,6 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
     this._service.dragLeave();
   }
 
-
   /**
    *  return true if array and index is === with array and index of onDragEnter
    *
@@ -208,8 +201,7 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
    * @memberOf AjfReportBuilderContent
    */
   onDragEnterCheck(array: string, index: number): boolean {
-    if ((array === this.onDragEnter.array) &&
-        ((index === this.onDragEnter.index) || (index === -1))) {
+    if (array === this.onDragEnter.array && (index === this.onDragEnter.index || index === -1)) {
       return true;
     } else {
       return false;
@@ -298,11 +290,17 @@ export class AjfReportBuilderContent implements OnInit, AfterViewChecked, OnDest
   }
 
   ngOnDestroy(): void {
-    [this._headerWidgetsSub, this._contentWidgetsSub, this._footerWidgetsSub,
-     this._currentWidgetSub, this._onDraggedSub, this._fixedZoomSub, this._onOverSub,
-     this._onDragEnterSub]
-        .forEach(s => {
-          s.unsubscribe();
-        });
+    [
+      this._headerWidgetsSub,
+      this._contentWidgetsSub,
+      this._footerWidgetsSub,
+      this._currentWidgetSub,
+      this._onDraggedSub,
+      this._fixedZoomSub,
+      this._onOverSub,
+      this._onDragEnterSub,
+    ].forEach(s => {
+      s.unsubscribe();
+    });
   }
 }

@@ -27,6 +27,8 @@ import {AjfWarningResult} from '../../interface/warning/warning-result';
 import {evaluateWarningConditions} from './evaluate-warning-conditions';
 
 export function evaluateWarningGroup(
-    warning: AjfWarningGroup, context?: AjfContext): AjfWarningResult[] {
+  warning: AjfWarningGroup,
+  context?: AjfContext,
+): AjfWarningResult[] {
   return evaluateWarningConditions(warning, context);
 }

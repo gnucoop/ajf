@@ -26,12 +26,7 @@ import {NgModule} from '@angular/core';
 import {FileInputE2E} from './file-input-e2e';
 
 @NgModule({
-  imports: [
-    AjfFileInputModule,
-  ],
-  declarations: [
-    FileInputE2E,
-  ],
+  imports: [AjfFileInputModule],
+  declarations: [FileInputE2E],
 })
-export class FileInputE2eModule {
-}
+export class FileInputE2eModule {}

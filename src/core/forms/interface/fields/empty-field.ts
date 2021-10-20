@@ -22,7 +22,6 @@
 
 import {AjfField} from './field';
 
-
 /**
  * An AjfField that contains an HTML.
  */

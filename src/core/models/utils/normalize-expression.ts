@@ -23,15 +23,20 @@
 import {tokenize} from 'esprima';
 
 export function normalizeExpression(
-    formula: string, ancestorsNames: {[prop: string]: number}, prefix: number[]): string {
+  formula: string,
+  ancestorsNames: {[prop: string]: number},
+  prefix: number[],
+): string {
   const ancestorsNameStrings = Object.keys(ancestorsNames);
   const tokens = tokenize(formula)
-                     .filter((token: any) => token.type == 'Identifier' && token.value != '$value')
-                     .map((token: any) => token.value);
+    .filter((token: any) => token.type == 'Identifier' && token.value != '$value')
+    .map((token: any) => token.value);
   tokens.forEach((t: any) => {
     if (ancestorsNameStrings.indexOf(t) > -1) {
       formula = formula.replace(
-          new RegExp(`\\b${t}\\b`, 'g'), `${t}__${prefix.slice(ancestorsNames[t]).join('__')}`);
+        new RegExp(`\\b${t}\\b`, 'g'),
+        `${t}__${prefix.slice(ancestorsNames[t]).join('__')}`,
+      );
     }
   });
   return formula;

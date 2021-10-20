@@ -27,15 +27,16 @@ import {AjfNode} from '../../interface/nodes/node';
  * The newNodes are ordered recursively by parentNode.
  * The sorting begins by parent
  */
-export function orderedNodes(nodes: AjfNode[], parent: number|null): AjfNode[] {
+export function orderedNodes(nodes: AjfNode[], parent: number | null): AjfNode[] {
   let newNodes: AjfNode[] = [];
   nodes
-      .filter(
-          (n: AjfNode) => parent != null ? n.parent == parent : n.parent == null || n.parent === 0)
-      .sort((n1: AjfNode, n2: AjfNode) => n1.parentNode - n2.parentNode)
-      .forEach((n: AjfNode) => {
-        newNodes.push(n);
-        newNodes = newNodes.concat(orderedNodes(nodes, n.id));
-      });
+    .filter((n: AjfNode) =>
+      parent != null ? n.parent == parent : n.parent == null || n.parent === 0,
+    )
+    .sort((n1: AjfNode, n2: AjfNode) => n1.parentNode - n2.parentNode)
+    .forEach((n: AjfNode) => {
+      newNodes.push(n);
+      newNodes = newNodes.concat(orderedNodes(nodes, n.id));
+    });
   return newNodes;
 }

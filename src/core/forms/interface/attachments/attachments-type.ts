@@ -23,5 +23,5 @@
 export const enum AjfAttachmentsType {
   Link,
   Pdf,
-  LENGTH
+  LENGTH,
 }

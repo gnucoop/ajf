@@ -25,7 +25,7 @@ import {
   AjfBaseFieldComponent,
   AjfDateFieldInstance,
   AjfDateValueStringPipe,
-  AjfFormRendererService
+  AjfFormRendererService,
 } from '@ajf/core/forms';
 import {
   ChangeDetectionStrategy,
@@ -33,7 +33,7 @@ import {
   Component,
   Inject,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import {MatInput} from '@angular/material/input';
@@ -49,13 +49,15 @@ import {AjfWarningAlertService} from './warning-alert-service';
 export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFieldInstance> {
   @ViewChild(MatInput, {static: false}) input: MatInput;
 
-  private _minDateStr: string|undefined;
-  private _maxDateStr: string|undefined;
+  private _minDateStr: string | undefined;
+  private _maxDateStr: string | undefined;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
-      private _dvs: AjfDateValueStringPipe) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+    private _dvs: AjfDateValueStringPipe,
+  ) {
     super(cdr, service, was);
   }
 
@@ -65,8 +67,10 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
     }
     const val = this.input.value || '';
     if (val.length > 0) {
-      if ((this._minDateStr != null && val < this._minDateStr) ||
-          (this._maxDateStr != null && val > this._maxDateStr)) {
+      if (
+        (this._minDateStr != null && val < this._minDateStr) ||
+        (this._maxDateStr != null && val > this._maxDateStr)
+      ) {
         this.input.value = '';
       }
     }

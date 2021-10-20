@@ -35,7 +35,7 @@ export class EthiopianDate {
    * @param month A zero-based numeric value for the month (0 for መስከረም, 12 for ጳጉሜን)
    * @param day A numeric value equal for the day of the month.
    */
-  constructor(val?: Date|string|number, month?: number, day?: number) {
+  constructor(val?: Date | string | number, month?: number, day?: number) {
     if (val == null && month == null && day == null) {
       const ahun = EthiopianDate.gregorianToEthiopian(new Date());
       [this._year, this._month, this._date] = [ahun.getFullYear(), ahun.getMonth(), ahun.getDate()];
@@ -46,14 +46,23 @@ export class EthiopianDate {
         if (result == null) {
           throw new Error('Invalid Argument Exception');
         }
-        [this._year, this._month, this._date] =
-            [result.getFullYear(), result.getMonth(), result.getDate()];
+        [this._year, this._month, this._date] = [
+          result.getFullYear(),
+          result.getMonth(),
+          result.getDate(),
+        ];
         this._gc = EthiopianDate.ethiopianToGregorian(this._year, this._month, this._date);
       } else if (typeof val === 'object' && val instanceof Date) {
         const result = EthiopianDate.gregorianToEthiopian(
-            val.getFullYear(), val.getMonth() + 1, val.getDate());
-        [this._year, this._month, this._date] =
-            [result.getFullYear(), result.getMonth(), result.getDate()];
+          val.getFullYear(),
+          val.getMonth() + 1,
+          val.getDate(),
+        );
+        [this._year, this._month, this._date] = [
+          result.getFullYear(),
+          result.getMonth(),
+          result.getDate(),
+        ];
         this._gc = EthiopianDate.ethiopianToGregorian(this._year, this._month, this._date);
       } else {
         throw new Error('Invalid Argument Exception');
@@ -95,14 +104,14 @@ export class EthiopianDate {
     return this._month;
   }
 
-  getMonthName(): string|null {
+  getMonthName(): string | null {
     return this._month >= 0 && this._month < MONTHS_NAMES.length ? MONTHS_NAMES[this._month] : null;
   }
 
-  getShortMonthName(): string|null {
-    return this._month >= 0 && this._month < SHORT_MONTHS_NAMES.length ?
-        SHORT_MONTHS_NAMES[this._month] :
-        null;
+  getShortMonthName(): string | null {
+    return this._month >= 0 && this._month < SHORT_MONTHS_NAMES.length
+      ? SHORT_MONTHS_NAMES[this._month]
+      : null;
   }
 
   getHours(): number {
@@ -136,8 +145,11 @@ export class EthiopianDate {
    *
    * @api public
    */
-  static ethiopianToGregorian(val?: EthiopianDate|string|number, month?: number, day?: number):
-      Date {
+  static ethiopianToGregorian(
+    val?: EthiopianDate | string | number,
+    month?: number,
+    day?: number,
+  ): Date {
     let ec: [number, number, number];
     if (val != null && month == null && day == null && typeof val !== 'number') {
       if (typeof val === 'string') {
@@ -158,8 +170,11 @@ export class EthiopianDate {
     return new Date(gc[0], gc[1] - 1, gc[2]);
   }
 
-  static gregorianToEthiopian(val?: Date|string|number, month?: number, day?: number):
-      EthiopianDate {
+  static gregorianToEthiopian(
+    val?: Date | string | number,
+    month?: number,
+    day?: number,
+  ): EthiopianDate {
     let gc: [number, number, number];
     if (val != null && month == null && day == null && typeof val !== 'number') {
       if (typeof val === 'string') {
@@ -188,7 +203,7 @@ export class EthiopianDate {
    *
    * @returns EthiopianDate
    */
-  static parse(dateString: string): EthiopianDate|null {
+  static parse(dateString: string): EthiopianDate | null {
     if (!dateString) {
       return null;
     }

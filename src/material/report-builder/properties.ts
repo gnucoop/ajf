@@ -28,7 +28,7 @@ import {
   AjfLayoutWidget,
   AjfTextWidget,
   AjfWidget,
-  AjfWidgetType
+  AjfWidgetType,
 } from '@ajf/core/reports';
 import {deepCopy} from '@ajf/core/utils';
 import {
@@ -38,7 +38,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
@@ -53,7 +53,7 @@ import {AjfReportBuilderService} from './report-builder-service';
   templateUrl: 'properties.html',
   styleUrls: ['properties.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy {
   /**
@@ -68,7 +68,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
    *
    * @memberOf AjfReportBuilderProperties
    */
-  currentWidget: AjfWidget|null = null;
+  currentWidget: AjfWidget | null = null;
   get currentLayoutWidget(): AjfLayoutWidget {
     return this.currentWidget as AjfLayoutWidget;
   }
@@ -82,7 +82,6 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
    * @memberOf AjfReportBuilderProperties
    */
   forms: AjfForm[] = [];
-
 
   colors: string[] = [];
 
@@ -104,10 +103,10 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
    */
 
   widgetName = '';
-  getHTML: Observable<string|undefined>;
-  getHeightWidget: Observable<number|undefined>;
-  getFontSizeWidget: Observable<number|undefined>;
-  getFontAlignWidget: Observable<number|undefined>;
+  getHTML: Observable<string | undefined>;
+  getHeightWidget: Observable<number | undefined>;
+  getFontSizeWidget: Observable<number | undefined>;
+  getFontAlignWidget: Observable<number | undefined>;
   getBackgroundColorWidget: Observable<string>;
   getColorWidget: Observable<string>;
   getStyle: Observable<any>;
@@ -117,28 +116,28 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
   getColor: Observable<String[]>;
 
   marginExpanded: boolean = false;
-  getMarginWidget: Observable<number[]|undefined>;
+  getMarginWidget: Observable<number[] | undefined>;
   getMarginWidgetTop: Observable<number>;
   getMarginWidgetRight: Observable<number>;
   getMarginWidgetBottom: Observable<number>;
   getMarginWidgetLeft: Observable<number>;
 
   paddingExpanded: boolean = false;
-  getPaddingWidget: Observable<number[]|undefined>;
+  getPaddingWidget: Observable<number[] | undefined>;
   getPaddingWidgetTop: Observable<number>;
   getPaddingWidgetRight: Observable<number>;
   getPaddingWidgetBottom: Observable<number>;
   getPaddingWidgetLeft: Observable<number>;
 
   borderWidthExpanded: boolean = false;
-  getBorderWidthWidget: Observable<number[]|undefined>;
+  getBorderWidthWidget: Observable<number[] | undefined>;
   getBorderWidthWidgetTop: Observable<number>;
   getBorderWidthWidgetRight: Observable<number>;
   getBorderWidthWidgetBottom: Observable<number>;
   getBorderWidthWidgetLeft: Observable<number>;
 
   borderRadiusExpanded: boolean = false;
-  getBorderRadiusWidget: Observable<number[]|undefined>;
+  getBorderRadiusWidget: Observable<number[] | undefined>;
   getBorderRadiusWidgetTopLeft: Observable<number>;
   getBorderRadiusWidgetTopRight: Observable<number>;
   getBorderRadiusWidgetBottomRight: Observable<number>;
@@ -155,42 +154,55 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
   dialogRef: MatDialogRef<AjfReportBuilderFormsAnalyzerDialog>;
   container: AjfFormVariables;
 
-
   align = [false, 'center', 'right', 'justify'];
 
   fonts = [
-    false, 'blackr', 'black-italic', 'bold', 'bold-condensed', 'bold-condensed-italic',
-    'bold-italic', 'condensed', 'condensed-italic', 'italic', 'light', 'light-italic', 'medium',
-    'medium-italic', 'thinr', 'thin-italic'
+    false,
+    'blackr',
+    'black-italic',
+    'bold',
+    'bold-condensed',
+    'bold-condensed-italic',
+    'bold-italic',
+    'condensed',
+    'condensed-italic',
+    'italic',
+    'light',
+    'light-italic',
+    'medium',
+    'medium-italic',
+    'thinr',
+    'thin-italic',
   ];
   currentModule: any = {};
   quillModules = {
     toolbar: [
-      ['formula'], ['bold', 'italic', 'underline', 'strike'],  // toggled buttons
+      ['formula'],
+      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
       // ['blockquote', 'code-block'],
 
-      [{'header': 1}, {'header': 2}],  // custom button values
+      [{'header': 1}, {'header': 2}], // custom button values
       [{'list': 'ordered'}, {'list': 'bullet'}],
-      [{'script': 'sub'}, {'script': 'super'}],  // superscript/subscript
+      [{'script': 'sub'}, {'script': 'super'}], // superscript/subscript
       // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
       // [{ 'direction': 'rtl' }],                         // text direction
 
-      [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+      [{'size': ['small', false, 'large', 'huge']}], // custom dropdown
       [{'header': [1, 2, 3, 4, 5, 6, false]}],
 
-      [{'color': this.colors}, {'background': this.colors}],  // dropdown with defaults from theme
-      [{'font': this.fonts}], [{'align': this.align}],
+      [{'color': this.colors}, {'background': this.colors}], // dropdown with defaults from theme
+      [{'font': this.fonts}],
+      [{'align': this.align}],
 
-      ['clean'],  // remove formatting button
+      ['clean'], // remove formatting button
 
       // ['link', 'class', 'video']                         // link and image, video
-    ]
+    ],
   };
 
   /**
    * CHART
    */
-
 
   getChartYLabels: Observable<string[]>;
 
@@ -211,7 +223,6 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
 
   htmlText = '';
 
-
   /**
    * these variables indicate that the user want to change section
    */
@@ -223,8 +234,8 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
   visibilitySection = false;
   currentColor = '';
 
-  private _icon: {fontSet: string, fontIcon: string}|null = null;
-  get icon(): {fontSet: string, fontIcon: string}|null {
+  private _icon: {fontSet: string; fontIcon: string} | null = null;
+  get icon(): {fontSet: string; fontIcon: string} | null {
     return this._icon;
   }
 
@@ -235,78 +246,77 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     'class': ['flag-icon'],
     'prefixClass': 'flag-icon-',
     'title': 'flags',
-    'data':
-        [
-          {'class': 'dz', 'info': 'Algeria'},
-          {'class': 'ao', 'info': 'Angola'},
-          {'class': 'bj', 'info': 'Benin'},
-          {'class': 'bw', 'info': 'Botswana'},
-          {'class': 'bf', 'info': 'Burkina Faso'},
-          {'class': 'bi', 'info': 'Burundi'},
-          {'class': 'cm', 'info': 'Cameroon'},
-          {'class': 'cv', 'info': 'Cabo Verde'},
-          {'class': 'cf', 'info': 'The Central African Republic'},
-          {'class': 'td', 'info': 'Chad'},
-          {'class': 'km', 'info': 'The Comoros'},
-          {'class': 'ci', 'info': 'Cote D\'avoire'},
-          {'class': 'cd', 'info': 'The Democratic Republic of Congo'},
-          {'class': 'dj', 'info': 'Dijibouti'},
-          {'class': 'eg', 'info': 'Egypt'},
-          {'class': 'gq', 'info': 'Equatorial Guinea'},
-          {'class': 'er', 'info': 'Eritrea'},
-          {'class': 'et', 'info': 'Ethiopia'},
-          {'class': 'tf', 'info': 'French Southern Territories'},
-          {'class': 'ga', 'info': 'Gabon'},
-          {'class': 'gm', 'info': 'The Gambia'},
-          {'class': 'gh', 'info': 'Ghana'},
-          {'class': 'gn', 'info': 'Guinea'},
-          {'class': 'gw', 'info': 'Guinea-Bissau'},
-          {'class': 'ke', 'info': 'Kenya'},
-          {'class': 'ls', 'info': 'Leshotho'},
-          {'class': 'lr', 'info': 'Liberia'},
-          {'class': 'ly', 'info': 'Libya'},
-          {'class': 'mg', 'info': 'Madagascar'},
-          {'class': 'mw', 'info': 'Malawy'},
-          {'class': 'ml', 'info': 'Mali'},
-          {'class': 'mr', 'info': 'Mauritania'},
-          {'class': 'mu', 'info': 'Mauritius'},
-          {'class': 'yt', 'info': 'Mayotte'},
-          {'class': 'ma', 'info': 'Marocco'},
-          {'class': 'mz', 'info': 'Mozambique'},
-          {'class': 'na', 'info': 'Namibia'},
-          {'class': 'ne', 'info': 'Niger'},
-          {'class': 'ng', 'info': 'Nigeria'},
-          {'class': 'cg', 'info': 'Republic of the Congo'},
-          {'class': 'rw', 'info': 'Rwnda'},
-          {'class': 're', 'info': 'rèunion'},
-          {'class': 'sh', 'info': 'Saint Helena, Ascension and Tristan da Cunha'},
-          {'class': 'st', 'info': 'Sao Tome and Principe'},
-          {'class': 'sn', 'info': 'Senegal'},
-          {'class': 'sc', 'info': 'Seychelles'},
-          {'class': 'sl', 'info': 'Sierra Leone'},
-          {'class': 'so', 'info': 'Somalia'},
-          {'class': 'za', 'info': 'South Africa'},
-          {'class': 'ss', 'info': 'South Sudan'},
-          {'class': 'sd', 'info': 'Sudan'},
-          {'class': 'sz', 'info': 'Swaziland'},
-          {'class': 'tz', 'info': 'Tanzania'},
-          {'class': 'tg', 'info': 'Togo'},
-          {'class': 'tn', 'info': 'Tunisia'},
-          {'class': 'ug', 'info': 'Uganda'},
-          {'class': 'eh', 'info': 'Western Sahara'},
-          {'class': 'zm', 'info': 'Zambia'},
-          {'class': 'zw', 'info': 'Zimbawe'},
-          {'class': 'iq', 'info': 'Iraq'},
-          {'class': 'lb', 'info': 'Lebanon'},
-          {'class': 'bd', 'info': 'Bangladesh'},
-          {'class': 'ir', 'info': 'Iran (Islamic Republic of)'},
-          {'class': 'my', 'info': 'Malaysia'},
-          {'class': 'np', 'info': 'Nepal'},
-          {'class': 'pk', 'info': 'Pakistan'},
-          {'class': 'th', 'info': 'Thailand'},
-          {'class': 'jo', 'info': 'Jordan'},
-          {'class': 'ye', 'info': 'Yemen'}
-        ]
+    'data': [
+      {'class': 'dz', 'info': 'Algeria'},
+      {'class': 'ao', 'info': 'Angola'},
+      {'class': 'bj', 'info': 'Benin'},
+      {'class': 'bw', 'info': 'Botswana'},
+      {'class': 'bf', 'info': 'Burkina Faso'},
+      {'class': 'bi', 'info': 'Burundi'},
+      {'class': 'cm', 'info': 'Cameroon'},
+      {'class': 'cv', 'info': 'Cabo Verde'},
+      {'class': 'cf', 'info': 'The Central African Republic'},
+      {'class': 'td', 'info': 'Chad'},
+      {'class': 'km', 'info': 'The Comoros'},
+      {'class': 'ci', 'info': "Cote D'avoire"},
+      {'class': 'cd', 'info': 'The Democratic Republic of Congo'},
+      {'class': 'dj', 'info': 'Dijibouti'},
+      {'class': 'eg', 'info': 'Egypt'},
+      {'class': 'gq', 'info': 'Equatorial Guinea'},
+      {'class': 'er', 'info': 'Eritrea'},
+      {'class': 'et', 'info': 'Ethiopia'},
+      {'class': 'tf', 'info': 'French Southern Territories'},
+      {'class': 'ga', 'info': 'Gabon'},
+      {'class': 'gm', 'info': 'The Gambia'},
+      {'class': 'gh', 'info': 'Ghana'},
+      {'class': 'gn', 'info': 'Guinea'},
+      {'class': 'gw', 'info': 'Guinea-Bissau'},
+      {'class': 'ke', 'info': 'Kenya'},
+      {'class': 'ls', 'info': 'Leshotho'},
+      {'class': 'lr', 'info': 'Liberia'},
+      {'class': 'ly', 'info': 'Libya'},
+      {'class': 'mg', 'info': 'Madagascar'},
+      {'class': 'mw', 'info': 'Malawy'},
+      {'class': 'ml', 'info': 'Mali'},
+      {'class': 'mr', 'info': 'Mauritania'},
+      {'class': 'mu', 'info': 'Mauritius'},
+      {'class': 'yt', 'info': 'Mayotte'},
+      {'class': 'ma', 'info': 'Marocco'},
+      {'class': 'mz', 'info': 'Mozambique'},
+      {'class': 'na', 'info': 'Namibia'},
+      {'class': 'ne', 'info': 'Niger'},
+      {'class': 'ng', 'info': 'Nigeria'},
+      {'class': 'cg', 'info': 'Republic of the Congo'},
+      {'class': 'rw', 'info': 'Rwnda'},
+      {'class': 're', 'info': 'rèunion'},
+      {'class': 'sh', 'info': 'Saint Helena, Ascension and Tristan da Cunha'},
+      {'class': 'st', 'info': 'Sao Tome and Principe'},
+      {'class': 'sn', 'info': 'Senegal'},
+      {'class': 'sc', 'info': 'Seychelles'},
+      {'class': 'sl', 'info': 'Sierra Leone'},
+      {'class': 'so', 'info': 'Somalia'},
+      {'class': 'za', 'info': 'South Africa'},
+      {'class': 'ss', 'info': 'South Sudan'},
+      {'class': 'sd', 'info': 'Sudan'},
+      {'class': 'sz', 'info': 'Swaziland'},
+      {'class': 'tz', 'info': 'Tanzania'},
+      {'class': 'tg', 'info': 'Togo'},
+      {'class': 'tn', 'info': 'Tunisia'},
+      {'class': 'ug', 'info': 'Uganda'},
+      {'class': 'eh', 'info': 'Western Sahara'},
+      {'class': 'zm', 'info': 'Zambia'},
+      {'class': 'zw', 'info': 'Zimbawe'},
+      {'class': 'iq', 'info': 'Iraq'},
+      {'class': 'lb', 'info': 'Lebanon'},
+      {'class': 'bd', 'info': 'Bangladesh'},
+      {'class': 'ir', 'info': 'Iran (Islamic Republic of)'},
+      {'class': 'my', 'info': 'Malaysia'},
+      {'class': 'np', 'info': 'Nepal'},
+      {'class': 'pk', 'info': 'Pakistan'},
+      {'class': 'th', 'info': 'Thailand'},
+      {'class': 'jo', 'info': 'Jordan'},
+      {'class': 'ye', 'info': 'Yemen'},
+    ],
   };
 
   private _currentWidgetSub: Subscription = Subscription.EMPTY;
@@ -318,21 +328,31 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
   private _originSub: Subscription = Subscription.EMPTY;
   private _stylesUpdatesSubs: Subscription = Subscription.EMPTY;
 
-  private _updateWidgetMarginEvt: EventEmitter<{idx: number, value: any}> =
-      new EventEmitter<{idx: number, value: any}>();
-  private _updateWidgetPaddingEvt: EventEmitter<{idx: number, value: any}> =
-      new EventEmitter<{idx: number, value: any}>();
-  private _updateWidgetBorderWidthEvt: EventEmitter<{idx: number, value: any}> =
-      new EventEmitter<{idx: number, value: any}>();
-  private _updateWidgetBorderRadiusEvt: EventEmitter<{idx: number, value: any}> =
-      new EventEmitter<{idx: number, value: any}>();
+  private _updateWidgetMarginEvt: EventEmitter<{idx: number; value: any}> = new EventEmitter<{
+    idx: number;
+    value: any;
+  }>();
+  private _updateWidgetPaddingEvt: EventEmitter<{idx: number; value: any}> = new EventEmitter<{
+    idx: number;
+    value: any;
+  }>();
+  private _updateWidgetBorderWidthEvt: EventEmitter<{idx: number; value: any}> = new EventEmitter<{
+    idx: number;
+    value: any;
+  }>();
+  private _updateWidgetBorderRadiusEvt: EventEmitter<{idx: number; value: any}> = new EventEmitter<{
+    idx: number;
+    value: any;
+  }>();
 
   constructor(private _dialog: MatDialog, private _service: AjfReportBuilderService) {
     this.setForms();
 
-    this.iconSet.data = Object.keys(_service.iconSets).filter(x => x != 'ajf-icon').map(i => {
-      return {name: i, icons: _service.iconSets[i]};
-    });
+    this.iconSet.data = Object.keys(_service.iconSets)
+      .filter(x => x != 'ajf-icon')
+      .map(i => {
+        return {name: i, icons: _service.iconSets[i]};
+      });
 
     this._headerStyleSub = this._service.headerStyles.subscribe(s => {
       if (s['background-color'] != null) {
@@ -354,12 +374,10 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     });
   }
 
-
   /**
    *
    * UTILS
    */
-
 
   /**
    * return a number value
@@ -387,10 +405,10 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
       return [];
     } else {
       return (value || '')
-          .replace('px', '')
-          .split(' ')
-          .filter(v => v !== '' && v != null)
-          .map(v => this.toNumber(v));
+        .replace('px', '')
+        .split(' ')
+        .filter(v => v !== '' && v != null)
+        .map(v => this.toNumber(v));
     }
   }
 
@@ -441,8 +459,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
         forms.push(deepCopy(this.formsJson.forms[i]));
       }
       this._service.setReportForms(forms);
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   /**
@@ -453,7 +470,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
    *
    * @memberOf AjfReportBuilderProperties
    */
-  instantColumnValue(col: number|null, idx: number) {
+  instantColumnValue(col: number | null, idx: number) {
     if (col === null) {
       return;
     }
@@ -517,7 +534,6 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     this.styleColor = value;
   }
 
-
   /**
    * call to service to add new style to report
    *
@@ -573,7 +589,6 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     }
   }
 
-
   /* layout functions */
 
   /**
@@ -620,7 +635,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     this._service.setImageUrl(this.imageUrl);
   }
 
-  setIcon(icon: {fontSet: string, fontIcon: string}) {
+  setIcon(icon: {fontSet: string; fontIcon: string}) {
     this._icon = icon;
     this._service.setIcon(icon);
   }
@@ -639,7 +654,7 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
     this._service.setChartType(type);
   }
 
-  setChartBorderColor(value: number|null) {
+  setChartBorderColor(value: number | null) {
     if (value == null) {
       return;
     }
@@ -719,220 +734,267 @@ export class AjfReportBuilderProperties implements OnInit, OnChanges, OnDestroy 
 
         this.quillModules = {
           toolbar: [
-            ['bold', 'italic', 'underline', 'strike'],  // toggled buttons
+            ['bold', 'italic', 'underline', 'strike'], // toggled buttons
             // ['blockquote', 'code-block'],
-            [{'header': 1}, {'header': 2}],  // custom button values
+            [{'header': 1}, {'header': 2}], // custom button values
             [{'list': 'ordered'}, {'list': 'bullet'}],
-            [{'script': 'sub'}, {'script': 'super'}],  // superscript/subscript
+            [{'script': 'sub'}, {'script': 'super'}], // superscript/subscript
             // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
             // [{ 'direction': 'rtl' }],                         // text direction
 
-            [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
+            [{'size': ['small', false, 'large', 'huge']}], // custom dropdown
             [{'header': [1, 2, 3, 4, 5, 6, false]}],
 
-            [
-              {'color': this.colors}, {'background': this.colors}
-            ],  // dropdown with defaults from theme
-            [{'font': this.fonts}], [{'align': this.align}], ['formula'],
-            ['clean'],  // remove formatting button
+            [{'color': this.colors}, {'background': this.colors}], // dropdown with defaults from theme
+            [{'font': this.fonts}],
+            [{'align': this.align}],
+            ['formula'],
+            ['clean'], // remove formatting button
 
             // ['link', 'class', 'video']                         // link and image, video
-          ]
+          ],
         };
       }
     });
 
-
     this.getHTML = this._service.currentWidget.pipe(
-        map((widget: AjfWidget|null) => {
-          if (widget != null) {
-            const myObj = <AjfTextWidget>this.currentWidget;
-            return myObj.htmlText;
-          }
-          return '';
-        }),
-        distinctUntilChanged(), startWith('<p><br></p>'));
-
+      map((widget: AjfWidget | null) => {
+        if (widget != null) {
+          const myObj = <AjfTextWidget>this.currentWidget;
+          return myObj.htmlText;
+        }
+        return '';
+      }),
+      distinctUntilChanged(),
+      startWith('<p><br></p>'),
+    );
 
     this.getHeightWidget = this._service.currentWidget.pipe(
-        filter(x => x != null), map((myObj: AjfWidget|null) => {
-          if (myObj != null) {
-            let value = this.toNumber(myObj.styles['height']);
-            if (value != null || value != null) {
-              return value;
-            }
+      filter(x => x != null),
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null) {
+          let value = this.toNumber(myObj.styles['height']);
+          if (value != null || value != null) {
+            return value;
           }
-          return undefined;
-        }),
-        distinctUntilChanged());
+        }
+        return undefined;
+      }),
+      distinctUntilChanged(),
+    );
 
     this.getFontSizeWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null) {
-            return (this.toNumber(myObj.styles['font-size']) || 12);
-          }
-          return undefined;
-        }),
-        distinctUntilChanged());
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null) {
+          return this.toNumber(myObj.styles['font-size']) || 12;
+        }
+        return undefined;
+      }),
+      distinctUntilChanged(),
+    );
 
     this.getFontAlignWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null) {
-            return ((myObj.styles['text-align']) || 'center');
-          }
-          return undefined;
-        }),
-        distinctUntilChanged());
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null) {
+          return myObj.styles['text-align'] || 'center';
+        }
+        return undefined;
+      }),
+      distinctUntilChanged(),
+    );
 
     this.getBorderWidthWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null) {
-            return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-width']));
-          }
-          return undefined;
-        }),
-        distinctUntilChanged(), startWith([0, 0, 0, 0]));
-    this.getBorderWidthWidgetTop =
-        this.getBorderWidthWidget.pipe(filter(m => m != null), map(m => m![0]));
-    this.getBorderWidthWidgetRight =
-        this.getBorderWidthWidget.pipe(filter(m => m != null), map(m => m![1]));
-    this.getBorderWidthWidgetBottom =
-        this.getBorderWidthWidget.pipe(filter(m => m != null), map(m => m![2]));
-    this.getBorderWidthWidgetLeft =
-        this.getBorderWidthWidget.pipe(filter(m => m != null), map(m => m![3]));
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null) {
+          return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-width']));
+        }
+        return undefined;
+      }),
+      distinctUntilChanged(),
+      startWith([0, 0, 0, 0]),
+    );
+    this.getBorderWidthWidgetTop = this.getBorderWidthWidget.pipe(
+      filter(m => m != null),
+      map(m => m![0]),
+    );
+    this.getBorderWidthWidgetRight = this.getBorderWidthWidget.pipe(
+      filter(m => m != null),
+      map(m => m![1]),
+    );
+    this.getBorderWidthWidgetBottom = this.getBorderWidthWidget.pipe(
+      filter(m => m != null),
+      map(m => m![2]),
+    );
+    this.getBorderWidthWidgetLeft = this.getBorderWidthWidget.pipe(
+      filter(m => m != null),
+      map(m => m![3]),
+    );
 
     this.getBorderRadiusWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null) {
-            return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-radius']));
-          }
-          return undefined;
-        }),
-        distinctUntilChanged(), startWith([0, 0, 0, 0]));
-    this.getBorderRadiusWidgetTopLeft =
-        this.getBorderRadiusWidget.pipe(filter(m => m != null), map(m => m![0]));
-    this.getBorderRadiusWidgetTopRight =
-        this.getBorderRadiusWidget.pipe(filter(m => m != null), map(m => m![1]));
-    this.getBorderRadiusWidgetBottomRight =
-        this.getBorderRadiusWidget.pipe(filter(m => m != null), map(m => m![2]));
-    this.getBorderRadiusWidgetBottomLeft =
-        this.getBorderRadiusWidget.pipe(filter(m => m != null), map(m => m![3]));
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null) {
+          return this.fillPxNumberArray(this.toNumberArray(myObj.styles['border-radius']));
+        }
+        return undefined;
+      }),
+      distinctUntilChanged(),
+      startWith([0, 0, 0, 0]),
+    );
+    this.getBorderRadiusWidgetTopLeft = this.getBorderRadiusWidget.pipe(
+      filter(m => m != null),
+      map(m => m![0]),
+    );
+    this.getBorderRadiusWidgetTopRight = this.getBorderRadiusWidget.pipe(
+      filter(m => m != null),
+      map(m => m![1]),
+    );
+    this.getBorderRadiusWidgetBottomRight = this.getBorderRadiusWidget.pipe(
+      filter(m => m != null),
+      map(m => m![2]),
+    );
+    this.getBorderRadiusWidgetBottomLeft = this.getBorderRadiusWidget.pipe(
+      filter(m => m != null),
+      map(m => m![3]),
+    );
 
     this.getMarginWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null && myObj.styles != null && myObj.styles['margin'] != null) {
-            return this.fillPxNumberArray(this.toNumberArray(myObj.styles['margin']));
-          }
-          return undefined;
-        }),
-        distinctUntilChanged(), startWith([0, 0, 0, 0]));
-    this.getMarginWidgetTop = this.getMarginWidget.pipe(filter(m => m != null), map(m => m![0]));
-    this.getMarginWidgetRight = this.getMarginWidget.pipe(filter(m => m != null), map(m => m![1]));
-    this.getMarginWidgetBottom = this.getMarginWidget.pipe(filter(m => m != null), map(m => m![2]));
-    this.getMarginWidgetLeft = this.getMarginWidget.pipe(filter(m => m != null), map(m => m![3]));
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null && myObj.styles != null && myObj.styles['margin'] != null) {
+          return this.fillPxNumberArray(this.toNumberArray(myObj.styles['margin']));
+        }
+        return undefined;
+      }),
+      distinctUntilChanged(),
+      startWith([0, 0, 0, 0]),
+    );
+    this.getMarginWidgetTop = this.getMarginWidget.pipe(
+      filter(m => m != null),
+      map(m => m![0]),
+    );
+    this.getMarginWidgetRight = this.getMarginWidget.pipe(
+      filter(m => m != null),
+      map(m => m![1]),
+    );
+    this.getMarginWidgetBottom = this.getMarginWidget.pipe(
+      filter(m => m != null),
+      map(m => m![2]),
+    );
+    this.getMarginWidgetLeft = this.getMarginWidget.pipe(
+      filter(m => m != null),
+      map(m => m![3]),
+    );
 
     this.getPaddingWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null && myObj.styles != null && myObj.styles['padding'] != null) {
-            return this.fillPxNumberArray(this.toNumberArray(myObj.styles['padding']));
-          }
-          return undefined;
-        }),
-        distinctUntilChanged());
-    this.getPaddingWidgetTop = this.getPaddingWidget.pipe(filter(m => m != null), map(m => m![0]));
-    this.getPaddingWidgetRight =
-        this.getPaddingWidget.pipe(filter(m => m != null), map(m => m![1]));
-    this.getPaddingWidgetBottom =
-        this.getPaddingWidget.pipe(filter(m => m != null), map(m => m![2]));
-    this.getPaddingWidgetLeft = this.getPaddingWidget.pipe(filter(m => m != null), map(m => m![3]));
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null && myObj.styles != null && myObj.styles['padding'] != null) {
+          return this.fillPxNumberArray(this.toNumberArray(myObj.styles['padding']));
+        }
+        return undefined;
+      }),
+      distinctUntilChanged(),
+    );
+    this.getPaddingWidgetTop = this.getPaddingWidget.pipe(
+      filter(m => m != null),
+      map(m => m![0]),
+    );
+    this.getPaddingWidgetRight = this.getPaddingWidget.pipe(
+      filter(m => m != null),
+      map(m => m![1]),
+    );
+    this.getPaddingWidgetBottom = this.getPaddingWidget.pipe(
+      filter(m => m != null),
+      map(m => m![2]),
+    );
+    this.getPaddingWidgetLeft = this.getPaddingWidget.pipe(
+      filter(m => m != null),
+      map(m => m![3]),
+    );
 
     this.getBackgroundColorWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null && myObj.styles != null) {
-            return myObj.styles['backgroundColor'] || '';
-          }
-        }),
-        distinctUntilChanged());
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null && myObj.styles != null) {
+          return myObj.styles['backgroundColor'] || '';
+        }
+      }),
+      distinctUntilChanged(),
+    );
 
     this.getColorWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null && myObj.styles != null) {
-            return myObj.styles['color'] || '';
-          }
-        }),
-        distinctUntilChanged());
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null && myObj.styles != null) {
+          return myObj.styles['color'] || '';
+        }
+      }),
+      distinctUntilChanged(),
+    );
 
     this._stylesUpdatesSubs = this._updateWidgetMarginEvt
-                                  .pipe(
-                                      withLatestFrom(this.getMarginWidget),
-                                      )
-                                  .subscribe(r => {
-                                    if (r == null) {
-                                      return;
-                                    }
-                                    const idx = r[0].idx;
-                                    const value = r[0].value;
-                                    const v = (r[1] || [0, 0, 0, 0]) as number[];
-                                    if (v == null || v.length < idx) {
-                                      return;
-                                    }
-                                    v[idx] = value;
-                                    this.setWidgetStyles('margin', v);
-                                  });
+      .pipe(withLatestFrom(this.getMarginWidget))
+      .subscribe(r => {
+        if (r == null) {
+          return;
+        }
+        const idx = r[0].idx;
+        const value = r[0].value;
+        const v = (r[1] || [0, 0, 0, 0]) as number[];
+        if (v == null || v.length < idx) {
+          return;
+        }
+        v[idx] = value;
+        this.setWidgetStyles('margin', v);
+      });
 
-    this._stylesUpdatesSubs.add(this._updateWidgetPaddingEvt
-                                    .pipe(
-                                        withLatestFrom(this.getPaddingWidget),
-                                        )
-                                    .subscribe(r => {
-                                      if (r == null) {
-                                        return;
-                                      }
-                                      const idx = r[0].idx;
-                                      const value = r[0].value;
-                                      const v = (r[1] || [0, 0, 0, 0]) as number[];
-                                      if (v == null || v.length < idx) {
-                                        return;
-                                      }
-                                      v[idx] = value;
-                                      this.setWidgetStyles('padding', v);
-                                    }));
+    this._stylesUpdatesSubs.add(
+      this._updateWidgetPaddingEvt.pipe(withLatestFrom(this.getPaddingWidget)).subscribe(r => {
+        if (r == null) {
+          return;
+        }
+        const idx = r[0].idx;
+        const value = r[0].value;
+        const v = (r[1] || [0, 0, 0, 0]) as number[];
+        if (v == null || v.length < idx) {
+          return;
+        }
+        v[idx] = value;
+        this.setWidgetStyles('padding', v);
+      }),
+    );
 
-    this._stylesUpdatesSubs.add(this._updateWidgetBorderWidthEvt
-                                    .pipe(
-                                        withLatestFrom(this.getBorderWidthWidget),
-                                        )
-                                    .subscribe(r => {
-                                      if (r == null) {
-                                        return;
-                                      }
-                                      const idx = r[0].idx;
-                                      const value = r[0].value;
-                                      const v = (r[1] || [0, 0, 0, 0]) as number[];
-                                      if (v == null || v.length < idx) {
-                                        return;
-                                      }
-                                      v[idx] = value;
-                                      this.setWidgetStyles('border-width', v);
-                                    }));
+    this._stylesUpdatesSubs.add(
+      this._updateWidgetBorderWidthEvt
+        .pipe(withLatestFrom(this.getBorderWidthWidget))
+        .subscribe(r => {
+          if (r == null) {
+            return;
+          }
+          const idx = r[0].idx;
+          const value = r[0].value;
+          const v = (r[1] || [0, 0, 0, 0]) as number[];
+          if (v == null || v.length < idx) {
+            return;
+          }
+          v[idx] = value;
+          this.setWidgetStyles('border-width', v);
+        }),
+    );
 
-    this._stylesUpdatesSubs.add(this._updateWidgetBorderRadiusEvt
-                                    .pipe(
-                                        withLatestFrom(this.getBorderRadiusWidget),
-                                        )
-                                    .subscribe(r => {
-                                      if (r == null) {
-                                        return;
-                                      }
-                                      const idx = r[0].idx;
-                                      const value = r[0].value;
-                                      const v = (r[1] || [0, 0, 0, 0]) as number[];
-                                      if (v == null || v.length < idx) {
-                                        return;
-                                      }
-                                      v[idx] = value;
-                                      this.setWidgetStyles('border-radius', v);
-                                    }));
+    this._stylesUpdatesSubs.add(
+      this._updateWidgetBorderRadiusEvt
+        .pipe(withLatestFrom(this.getBorderRadiusWidget))
+        .subscribe(r => {
+          if (r == null) {
+            return;
+          }
+          const idx = r[0].idx;
+          const value = r[0].value;
+          const v = (r[1] || [0, 0, 0, 0]) as number[];
+          if (v == null || v.length < idx) {
+            return;
+          }
+          v[idx] = value;
+          this.setWidgetStyles('border-radius', v);
+        }),
+    );
   }
 
   ngOnChanges(changes: any) {

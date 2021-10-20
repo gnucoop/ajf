@@ -20,4 +20,9 @@
  *
  */
 
-export type AjfChoicesOriginType = 'fixed'|'function'|'observable'|'observableArray'|'promise';
+export type AjfChoicesOriginType =
+  | 'fixed'
+  | 'function'
+  | 'observable'
+  | 'observableArray'
+  | 'promise';

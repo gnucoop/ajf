@@ -26,174 +26,203 @@ import {TranslocoService} from '@ajf/core/transloco';
 
 const baseWidget = {
   styles: {height: '200px'},
-  visibility: {condition: 'true'}
+  visibility: {condition: 'true'},
 };
 
-export function demoWidgets(ts: TranslocoService): {name: string, instance: AjfWidgetInstance}[] {
+export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfWidgetInstance}[] {
   return [
     {
       name: 'Layout',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Layout,
-              columns: [1, 2],
-            } as any,
-            {}, ts),
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.Layout,
+            columns: [1, 2],
+          } as any,
+          {},
+          ts,
+        ),
         content: [
           {
             ...createWidgetInstance(
-                {
-                  ...baseWidget,
-                  widgetType: AjfWidgetType.Text,
-                },
-                {}, ts),
-            htmlText: 'Column 1'
+              {
+                ...baseWidget,
+                widgetType: AjfWidgetType.Text,
+              },
+              {},
+              ts,
+            ),
+            htmlText: 'Column 1',
           },
           {
             ...createWidgetInstance(
-                {
-                  ...baseWidget,
-                  widgetType: AjfWidgetType.Text,
-                },
-                {}, ts),
-            htmlText: 'Column 2'
-          }
-        ]
+              {
+                ...baseWidget,
+                widgetType: AjfWidgetType.Text,
+              },
+              {},
+              ts,
+            ),
+            htmlText: 'Column 2',
+          },
+        ],
       } as any,
     },
     {
       name: 'Page break',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.PageBreak,
-            },
-            {}, ts),
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.PageBreak,
+          },
+          {},
+          ts,
+        ),
       },
     },
     {
       name: 'Image',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Image,
-              imageType: AjfImageType.Image,
-            } as any,
-            {}, ts),
-        url: 'http://icons.iconarchive.com/icons/designbolts/' +
-            'smurfs-movie/256/grouchy-smurf-icon.png'
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.Image,
+            imageType: AjfImageType.Image,
+          } as any,
+          {},
+          ts,
+        ),
+        url:
+          'http://icons.iconarchive.com/icons/designbolts/' +
+          'smurfs-movie/256/grouchy-smurf-icon.png',
       },
     },
     {
       name: 'Text',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Text,
-            },
-            {}, ts),
-        htmlText: 'Sample text'
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.Text,
+          },
+          {},
+          ts,
+        ),
+        htmlText: 'Sample text',
       } as any,
     },
     {
       name: 'Chart',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Chart,
-            },
-            {}, ts),
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.Chart,
+          },
+          {},
+          ts,
+        ),
         chartType: 'line',
         data: {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-          datasets: [{
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            fill: false,
-            borderColor: 'rgb(75, 192, 192)',
-            lineTension: 0.1
-          }]
-        }
+          datasets: [
+            {
+              label: 'My First Dataset',
+              data: [65, 59, 80, 81, 56, 55, 40],
+              fill: false,
+              borderColor: 'rgb(75, 192, 192)',
+              lineTension: 0.1,
+            },
+          ],
+        },
       } as any,
     },
     {
       name: 'Table',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Table,
-            },
-            {}, ts),
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.Table,
+          },
+          {},
+          ts,
+        ),
         data: [
           [{value: 'a'}, {value: 'b'}, {value: 'c'}],
           [{value: 'd'}, {value: 'e'}, {value: 'f'}],
           [{value: 'g'}, {value: 'h'}, {value: 'i'}],
-        ]
+        ],
       } as any,
     },
     {
       name: 'Map',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Map,
-              tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
-            } as any,
-            {}, ts),
-        coordinate: [51.508530, -0.076132],
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.Map,
+            tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
+          } as any,
+          {},
+          ts,
+        ),
+        coordinate: [51.50853, -0.076132],
       } as any,
     },
     {
       name: 'Column',
       instance: {
         ...createWidgetInstance({...baseWidget, widgetType: AjfWidgetType.Column}, {}, ts),
-        content: [{
-          ...createWidgetInstance(
+        content: [
+          {
+            ...createWidgetInstance(
               {
                 ...baseWidget,
                 widgetType: AjfWidgetType.Text,
               },
-              {}, ts),
-          htmlText: 'Sample column'
-        }],
+              {},
+              ts,
+            ),
+            htmlText: 'Sample column',
+          },
+        ],
       } as any,
     },
     {
       name: 'Formula',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.Formula,
-            },
-            {}, ts),
-        formula: 'Sample formula'
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.Formula,
+          },
+          {},
+          ts,
+        ),
+        formula: 'Sample formula',
       },
     },
     {
       name: 'Image container',
       instance: {
         ...createWidgetInstance(
-            {
-              ...baseWidget,
-              widgetType: AjfWidgetType.ImageContainer,
-              imageType: AjfImageType.Image,
-            } as any,
-            {}, ts),
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.ImageContainer,
+            imageType: AjfImageType.Image,
+          } as any,
+          {},
+          ts,
+        ),
         urls: [
           'http://icons.iconarchive.com/icons/designbolts/smurfs-movie/256/grouchy-smurf-icon.png',
           'http://www.iconarchive.com/download/i78313/designbolts/smurfs-movie/brainy-smurf.ico',
           'http://icons.veryicon.com/png/Movie%20%26%20TV/The%20Smurfs/Smurfette.png',
         ],
       },
-    }
+    },
   ];
 }

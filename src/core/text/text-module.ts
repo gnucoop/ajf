@@ -27,16 +27,8 @@ import {NgModule} from '@angular/core';
 import {AjfTextComponent} from './text';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AjfTranslocoModule,
-  ],
-  declarations: [
-    AjfTextComponent,
-  ],
-  exports: [
-    AjfTextComponent,
-  ]
+  imports: [CommonModule, AjfTranslocoModule],
+  declarations: [AjfTextComponent],
+  exports: [AjfTextComponent],
 })
-export class AjfTextModule {
-}
+export class AjfTextModule {}

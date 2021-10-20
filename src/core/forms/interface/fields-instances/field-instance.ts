@@ -34,7 +34,6 @@ import {AjfWarningResult} from '../warning/warning-result';
  * An AjfNodeInstance with a node of type AjfField.
  */
 export interface AjfFieldInstance extends AjfNodeInstance {
-
   /**
    * True if the field pass the validation
    */

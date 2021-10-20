@@ -25,10 +25,12 @@ import {AjfCondition} from '@ajf/core/models';
 import {getInstanceCondition} from './get-instance-condition';
 
 export function getInstanceConditions(
-    conditions: AjfCondition[], ancestorsNames: {[prop: string]: number},
-    prefix: number[]): AjfCondition[] {
+  conditions: AjfCondition[],
+  ancestorsNames: {[prop: string]: number},
+  prefix: number[],
+): AjfCondition[] {
   let changed = false;
-  const newConditions = conditions.map((condition) => {
+  const newConditions = conditions.map(condition => {
     const newCondition = getInstanceCondition(condition, ancestorsNames, prefix);
     if (newCondition !== condition) {
       changed = true;

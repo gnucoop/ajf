@@ -78,7 +78,7 @@ export interface AjfTableField extends AjfField {
    * `${table.name}__${row.idx}__${column.idx}` This name is used also as the the control name in
    * the form formGroup.registerControl(name, tableFormControl.control);
    */
-  rows: (string|AjfTableCell)[][];
+  rows: (string | AjfTableCell)[][];
 
   /**
    * The string array represents all the column labels.

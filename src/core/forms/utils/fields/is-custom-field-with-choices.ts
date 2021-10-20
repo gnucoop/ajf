@@ -29,6 +29,9 @@ import {componentsMap} from './fields-map';
  * and the field is a fieldWithChoice (componentsMap[field.fieldType].isFieldWithChoice === true)
  */
 export function isCustomFieldWithChoices(field: AjfField): boolean {
-  return field.fieldType > 100 && componentsMap[field.fieldType] != null &&
-      componentsMap[field.fieldType].isFieldWithChoice === true;
+  return (
+    field.fieldType > 100 &&
+    componentsMap[field.fieldType] != null &&
+    componentsMap[field.fieldType].isFieldWithChoice === true
+  );
 }

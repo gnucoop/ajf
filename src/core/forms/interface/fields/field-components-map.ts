@@ -32,26 +32,24 @@ import {AjfFieldInstance} from '../fields-instances/field-instance';
  * components used to render it.
  */
 export interface AjfFieldComponentsMap {
-
   /**
    * The field type.
    */
   [key: number]: {
-
     /**
      * The field component.
      */
-    component: Type<AjfBaseFieldComponent>,
+    component: Type<AjfBaseFieldComponent>;
 
     /**
      * The readonly field component.
      */
-    readOnlyComponent?: Type<AjfBaseFieldComponent>,
+    readOnlyComponent?: Type<AjfBaseFieldComponent>;
 
     /**
      * The Angular inputs of the components.
      */
-    inputs?: {[key: string]: any},
+    inputs?: {[key: string]: any};
 
     /**
      * The signature and return type of the method used for create Instance.

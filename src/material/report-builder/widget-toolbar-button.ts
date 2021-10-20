@@ -29,7 +29,7 @@ import {ajfReportBuilderWidgetToString} from './utils';
   templateUrl: 'widget-toolbar-button.html',
   styleUrls: ['widget-toolbar-button.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * This class will define an ajf builder field toolbar button

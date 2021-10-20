@@ -25,7 +25,7 @@ import {AjfSlideInstance} from '../../interface/slides-instances/slide-instance'
 import {createNodeInstance} from '../nodes-instances/create-node-instance';
 import {AjfBaseSlideInstanceCreate} from './base';
 
-export type AjfSlideInstanceCreate = AjfBaseSlideInstanceCreate&Partial<AjfSlideInstance>;
+export type AjfSlideInstanceCreate = AjfBaseSlideInstanceCreate & Partial<AjfSlideInstance>;
 
 /**
  * It creates AjfSlideInstance.
@@ -44,6 +44,6 @@ export function createSlideInstance(instance: AjfSlideInstanceCreate): AjfSlideI
     valid: false,
     position: 0,
     editable: instance.editable || true,
-    readonly: instance.node.readonly || neverCondition()
+    readonly: instance.node.readonly || neverCondition(),
   };
 }

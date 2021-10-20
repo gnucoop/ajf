@@ -32,9 +32,10 @@ export class AjfDatasetSerializer {
     if (json.formula == null || json.aggregation == null || json.label == null) {
       throw new Error('Malformed dataset');
     }
-    json.formula = json.formula instanceof Array ?
-        json.formula = json.formula.map(f => AjfFormulaSerializer.fromJson(f)) :
-        AjfFormulaSerializer.fromJson(json.formula);
+    json.formula =
+      json.formula instanceof Array
+        ? (json.formula = json.formula.map(f => AjfFormulaSerializer.fromJson(f)))
+        : AjfFormulaSerializer.fromJson(json.formula);
     json.aggregation = AjfAggregationSerializer.fromJson(json.aggregation);
     return createDataset(json);
   }

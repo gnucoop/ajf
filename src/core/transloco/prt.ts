@@ -20,7 +20,6 @@
  *
  */
 
-
 import {Translation} from '@ngneat/transloco';
 
 export const PRT: Translation = {
@@ -134,5 +133,5 @@ export const PRT: Translation = {
   'Set image': 'Definir imagem',
   'Choose type of Chart': 'Escolha o tipo de gráfico',
   'Labels': 'Etiquetas',
-  'Border width': 'Border width'
+  'Border width': 'Border width',
 };

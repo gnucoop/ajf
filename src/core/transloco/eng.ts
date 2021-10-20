@@ -20,7 +20,6 @@
  *
  */
 
-
 import {Translation} from '@ngneat/transloco';
 
 export const ENG: Translation = {
@@ -134,5 +133,5 @@ export const ENG: Translation = {
   'Set image': 'Set image',
   'Choose type of Chart': 'Choose type of Chart',
   'Labels': 'Labels',
-  'Border width': 'Border width'
+  'Border width': 'Border width',
 };

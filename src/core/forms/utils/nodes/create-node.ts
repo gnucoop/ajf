@@ -24,7 +24,7 @@ import {alwaysCondition} from '@ajf/core/models';
 
 import {AjfNode} from '../../interface/nodes/node';
 
-export type AjfNodeCreate = Pick<AjfNode, 'nodeType'|'id'|'parent'|'name'>&Partial<AjfNode>;
+export type AjfNodeCreate = Pick<AjfNode, 'nodeType' | 'id' | 'parent' | 'name'> & Partial<AjfNode>;
 /**
  * It creates an AjfNode by schema.
  * If conditionalBranches is not defined assign {condition: 'true'}.
@@ -34,9 +34,9 @@ export type AjfNodeCreate = Pick<AjfNode, 'nodeType'|'id'|'parent'|'name'>&Parti
  */
 export function createNode(node: AjfNodeCreate): AjfNode {
   const conditionalBranches =
-      node.conditionalBranches != null && node.conditionalBranches.length > 0 ?
-      node.conditionalBranches :
-      [alwaysCondition()];
+    node.conditionalBranches != null && node.conditionalBranches.length > 0
+      ? node.conditionalBranches
+      : [alwaysCondition()];
   return {
     ...node,
     parentNode: node.parentNode != null ? node.parentNode : 0,

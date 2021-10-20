@@ -31,7 +31,7 @@ import {
   ElementRef,
   OnDestroy,
   Renderer2,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {merge, Subscription} from 'rxjs';
 import {filter, map, startWith, switchMap} from 'rxjs/operators';
@@ -47,10 +47,10 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
   private _scrollSub = Subscription.EMPTY;
 
   constructor(
-      animationBuilder: AnimationBuilder,
-      cdr: ChangeDetectorRef,
-      renderer: Renderer2,
-      private _el: ElementRef,
+    animationBuilder: AnimationBuilder,
+    cdr: ChangeDetectorRef,
+    renderer: Renderer2,
+    private _el: ElementRef,
   ) {
     super(animationBuilder, cdr, renderer);
   }
@@ -58,16 +58,16 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
   override ngAfterContentInit(): void {
     super.ngAfterContentInit();
     this._scrollSub = this.pages.changes
-                          .pipe(
-                              map(() => this.pages.toArray()),
-                              startWith(this.pages.toArray()),
-                              filter(pages => pages.length > 0),
-                              switchMap(pages => merge(...pages.map(page => page.scroll))),
-                              )
-                          .subscribe(() => {
-                            this._fixRippleFromRadioButton();
-                            this._fixToggleButtons();
-                          });
+      .pipe(
+        map(() => this.pages.toArray()),
+        startWith(this.pages.toArray()),
+        filter(pages => pages.length > 0),
+        switchMap(pages => merge(...pages.map(page => page.scroll))),
+      )
+      .subscribe(() => {
+        this._fixRippleFromRadioButton();
+        this._fixToggleButtons();
+      });
   }
 
   override ngOnDestroy(): void {
@@ -90,8 +90,7 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
         remove();
         ripple.style.opacity = orig;
       });
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   private _fixToggleButtons(): void {
@@ -102,18 +101,16 @@ export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit
       for (let i = 0; i < toggleButtonsNum; i++) {
         const toggleButton = toggleButtons.item(i) as HTMLIonToggleElement;
         const inners =
-            toggleButton.shadowRoot!.firstElementChild!.getElementsByClassName('toggle-inner');
+          toggleButton.shadowRoot!.firstElementChild!.getElementsByClassName('toggle-inner');
         const inner = inners[0] as HTMLDivElement;
         inner.setAttribute('style', 'will-change: auto');
         setTimeout(() => {
           try {
             inner.removeAttribute('style');
-          } catch (e) {
-          }
+          } catch (e) {}
         }, 0);
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 
   static ngAcceptInputType_fixedOrientation: BooleanInput;

@@ -29,18 +29,8 @@ import {IonicModule} from '@ionic/angular';
 import {AjfBarcodeComponent} from './barcode';
 
 @NgModule({
-  imports: [
-    AjfCommonModule,
-    CommonModule,
-    IonicModule,
-    AjfTranslocoModule,
-  ],
-  declarations: [
-    AjfBarcodeComponent,
-  ],
-  exports: [
-    AjfBarcodeComponent,
-  ],
+  imports: [AjfCommonModule, CommonModule, IonicModule, AjfTranslocoModule],
+  declarations: [AjfBarcodeComponent],
+  exports: [AjfBarcodeComponent],
 })
-export class AjfBarcodeModule {
-}
+export class AjfBarcodeModule {}

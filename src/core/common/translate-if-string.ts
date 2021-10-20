@@ -23,7 +23,6 @@
 import {TranslocoPipe} from '@ajf/core/transloco';
 import {Pipe} from '@angular/core';
 
-
 @Pipe({name: 'ajfTranslateIfString'})
 export class TranslateIfString extends TranslocoPipe {
   override transform(query: any, ...args: any[]): any {

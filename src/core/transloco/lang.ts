@@ -35,5 +35,5 @@ export const langs: {[key: string]: Translation} = {
   FRA,
   ITA,
   PRT,
-  ETH
+  ETH,
 };

@@ -35,9 +35,6 @@ import {FormsDemo} from './forms-demo';
     IonicModule,
     RouterModule.forChild([{path: '', component: FormsDemo}]),
   ],
-  declarations: [
-    FormsDemo,
-  ],
+  declarations: [FormsDemo],
 })
-export class FormsDemoModule {
-}
+export class FormsDemoModule {}

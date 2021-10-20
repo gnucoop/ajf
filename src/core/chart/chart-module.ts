@@ -25,12 +25,7 @@ import {NgModule} from '@angular/core';
 import {AjfChartComponent} from './chart';
 
 @NgModule({
-  declarations: [
-    AjfChartComponent,
-  ],
-  exports: [
-    AjfChartComponent,
-  ],
+  declarations: [AjfChartComponent],
+  exports: [AjfChartComponent],
 })
-export class AjfChartModule {
-}
+export class AjfChartModule {}

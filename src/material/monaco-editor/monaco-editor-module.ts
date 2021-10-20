@@ -25,12 +25,7 @@ import {NgModule} from '@angular/core';
 import {AjfMonacoEditor} from './monaco-editor';
 
 @NgModule({
-  declarations: [
-    AjfMonacoEditor,
-  ],
-  exports: [
-    AjfMonacoEditor,
-  ]
+  declarations: [AjfMonacoEditor],
+  exports: [AjfMonacoEditor],
 })
-export class AjfMonacoEditorModule {
-}
+export class AjfMonacoEditorModule {}

@@ -28,7 +28,6 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
   templateUrl: 'node-icon.html',
   styleUrls: ['node-icon.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfNodeIcon extends AjfCoreNodeIcon {
-}
+export class AjfNodeIcon extends AjfCoreNodeIcon {}

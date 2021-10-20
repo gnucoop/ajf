@@ -22,7 +22,6 @@
 
 import {Component} from '@angular/core';
 
-
 @Component({
   selector: 'calendar-ethiopian-demo',
   templateUrl: 'calendar-ethiopian-demo.html',

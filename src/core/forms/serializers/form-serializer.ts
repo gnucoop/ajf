@@ -37,20 +37,21 @@ export class AjfFormSerializer {
     /**
      * create choicesOrigins by serializer
      */
-    const choicesOrigins =
-        (form.choicesOrigins || []).map(c => AjfChoicesOriginSerializer.fromJson(c));
+    const choicesOrigins = (form.choicesOrigins || []).map(c =>
+      AjfChoicesOriginSerializer.fromJson(c),
+    );
     /**
      * create attachmentsOrigins by serializer
      */
-    const attachmentsOrigins =
-        (form.attachmentsOrigins || []).map(a => AjfAttachmentsOriginSerializer.fromJson(a));
+    const attachmentsOrigins = (form.attachmentsOrigins || []).map(a =>
+      AjfAttachmentsOriginSerializer.fromJson(a),
+    );
     /**
      * create nodes by serializer
      */
-    const nodes =
-        (form.nodes || [])
-            .map(n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins)) as (
-            AjfRepeatingSlide | AjfSlide)[];
+    const nodes = (form.nodes || []).map(n =>
+      AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins),
+    ) as (AjfRepeatingSlide | AjfSlide)[];
     return {
       ...form,
       choicesOrigins,

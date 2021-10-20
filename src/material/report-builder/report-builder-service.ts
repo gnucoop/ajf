@@ -38,7 +38,7 @@ import {
   AjfWidget,
   AjfWidgetType,
   createAggregation,
-  createWidget
+  createWidget,
 } from '@ajf/core/reports';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Inject, Injectable, Optional} from '@angular/core';
@@ -51,7 +51,7 @@ import {
   refCount,
   scan,
   share,
-  startWith
+  startWith,
 } from 'rxjs/operators';
 
 import {AjfFormVariables, AjfReportIcons, AjfReportsConfig, AjfWidgetsContainer} from './models';
@@ -62,7 +62,7 @@ import {
   AjfReportFormsOperation,
   AjfStylesOperation,
   AjfWidgetOperation,
-  AjfWidgetsOperation
+  AjfWidgetsOperation,
 } from './operations';
 import {AJF_REPORTS_CONFIG} from './tokens';
 
@@ -80,7 +80,7 @@ export class AjfReportBuilderService {
    */
   private _customWidgets: Observable<AjfCustomWidget[]>;
   private _customWidgetsUpdate: Subject<AjfCustomWidgetsOperation> =
-      new Subject<AjfCustomWidgetsOperation>();
+    new Subject<AjfCustomWidgetsOperation>();
 
   /**
    * this Observable observe the name of the section that contains the current widget.
@@ -100,7 +100,7 @@ export class AjfReportBuilderService {
 
   private _jsonStack: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([]);
 
-  private _lastDeletedJson: string|undefined;
+  private _lastDeletedJson: string | undefined;
 
   private _emptyContent: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
@@ -112,10 +112,8 @@ export class AjfReportBuilderService {
   private _onDragged: Observable<boolean>;
   private _onDraggedUpdate: Subject<boolean> = new Subject<boolean>();
 
-
   private _onOver: Observable<boolean>;
   private _onOverUpdate: Subject<boolean> = new Subject<boolean>();
-
 
   /**
    * this Observable observe the status of permanent zoom
@@ -124,7 +122,6 @@ export class AjfReportBuilderService {
    */
   private _fixedZoom: Observable<boolean>;
   private _fixedZoomUpdate: Subject<boolean> = new Subject<boolean>();
-
 
   /**
    *  this Observable observe if is fired drag mouse event.
@@ -172,26 +169,51 @@ export class AjfReportBuilderService {
   private _footerWidgets: Observable<AjfWidgetsContainer>;
   private _footerWidgetsUpdate: Subject<AjfWidgetsOperation> = new Subject<AjfWidgetsOperation>();
 
-
   private _color: Observable<string[]>;
   private _colorUpdate: Subject<AjfColorOperation> = new Subject<AjfColorOperation>();
   private _defaultColor: string[] = [
-    'rgba(0, 0, 0, 1)',       'rgba(51, 153, 255, 1)',  'rgba(153, 204, 0, 1)',
-    'rgba(255, 102, 0, 1)',   'rgba(0, 204, 204, 1)',   'rgba(204, 204, 153, 1)',
-    'rgba(255, 153, 0, 1)',   'rgba(230, 0, 0, 1)',     'rgba(255, 153, 0, 1)',
-    'rgba(255, 255, 0, 1)',   'rgba(0, 138, 0, 1)',     'rgba(0, 102, 204, 1)',
-    'rgba(153, 51, 255, 1)',  'rgba(255, 255, 255, 1)', 'rgba(250, 204, 204, 1)',
-    'rgba(255, 235, 204, 1)', 'rgba(255, 255, 204, 1)', 'rgba(204, 232, 204, 1)',
-    'rgba(204, 224, 245, 1)', 'rgba(235, 214, 255, 1)', 'rgba(187, 187, 187, 1)',
-    'rgba(240, 102, 102, 1)', 'rgba(255, 194, 102, 1)', 'rgba(255, 255, 102, 1)',
-    'rgba(102, 185, 102, 1)', 'rgba(102, 163, 224, 1)', 'rgba(194, 133, 255, 1)',
-    'rgba(136, 136, 136, 1)', 'rgba(161, 0, 0, 1)',     'rgba(178, 107, 0, 1)',
-    'rgba(178, 178, 0, 1)',   'rgba(0, 97, 0, 1)',      'rgba(0, 71, 178, 1)',
-    'rgba(107, 36, 178, 1)',  'rgba(68, 68, 68, 1)',    'rgba(92, 0, 0, 1)',
-    'rgba(102, 61, 0, 1)',    'rgba(102, 102, 0, 1)',   'rgba(0, 55, 0, 1)',
-    'rgba(0, 41, 102, 1)',    'rgba(61, 20, 102, 1)'
+    'rgba(0, 0, 0, 1)',
+    'rgba(51, 153, 255, 1)',
+    'rgba(153, 204, 0, 1)',
+    'rgba(255, 102, 0, 1)',
+    'rgba(0, 204, 204, 1)',
+    'rgba(204, 204, 153, 1)',
+    'rgba(255, 153, 0, 1)',
+    'rgba(230, 0, 0, 1)',
+    'rgba(255, 153, 0, 1)',
+    'rgba(255, 255, 0, 1)',
+    'rgba(0, 138, 0, 1)',
+    'rgba(0, 102, 204, 1)',
+    'rgba(153, 51, 255, 1)',
+    'rgba(255, 255, 255, 1)',
+    'rgba(250, 204, 204, 1)',
+    'rgba(255, 235, 204, 1)',
+    'rgba(255, 255, 204, 1)',
+    'rgba(204, 232, 204, 1)',
+    'rgba(204, 224, 245, 1)',
+    'rgba(235, 214, 255, 1)',
+    'rgba(187, 187, 187, 1)',
+    'rgba(240, 102, 102, 1)',
+    'rgba(255, 194, 102, 1)',
+    'rgba(255, 255, 102, 1)',
+    'rgba(102, 185, 102, 1)',
+    'rgba(102, 163, 224, 1)',
+    'rgba(194, 133, 255, 1)',
+    'rgba(136, 136, 136, 1)',
+    'rgba(161, 0, 0, 1)',
+    'rgba(178, 107, 0, 1)',
+    'rgba(178, 178, 0, 1)',
+    'rgba(0, 97, 0, 1)',
+    'rgba(0, 71, 178, 1)',
+    'rgba(107, 36, 178, 1)',
+    'rgba(68, 68, 68, 1)',
+    'rgba(92, 0, 0, 1)',
+    'rgba(102, 61, 0, 1)',
+    'rgba(102, 102, 0, 1)',
+    'rgba(0, 55, 0, 1)',
+    'rgba(0, 41, 102, 1)',
+    'rgba(61, 20, 102, 1)',
   ];
-
 
   /**
    * this Observable observe the footer styles.
@@ -205,10 +227,9 @@ export class AjfReportBuilderService {
    *
    * @memberOf AjfReportBuilderService
    */
-  private _currentWidget: Observable<AjfWidget|null>;
-  private _currentWidgetUpdate: BehaviorSubject<AjfWidgetOperation|null> =
-      new BehaviorSubject<AjfWidgetOperation|null>(null);
-
+  private _currentWidget: Observable<AjfWidget | null>;
+  private _currentWidgetUpdate: BehaviorSubject<AjfWidgetOperation | null> =
+    new BehaviorSubject<AjfWidgetOperation | null>(null);
 
   /**
    * Observe the AjfFormVariables exploit for field selecting from forms
@@ -216,8 +237,8 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   private _formsVariables: Observable<AjfFormVariables[]>;
-  private _formsVariablesUpdate: BehaviorSubject<AjfFormVariablesOperation|null> =
-      new BehaviorSubject<AjfFormVariablesOperation|null>(null);
+  private _formsVariablesUpdate: BehaviorSubject<AjfFormVariablesOperation | null> =
+    new BehaviorSubject<AjfFormVariablesOperation | null>(null);
 
   /**
    * Observe the AjfFormVariables exploit for field selecting from forms
@@ -225,8 +246,8 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   private _conditionNames: Observable<AjfFormVariables[]>;
-  private _conditionNamesUpdate: BehaviorSubject<AjfFormVariablesOperation|null> =
-      new BehaviorSubject<AjfFormVariablesOperation|null>(null);
+  private _conditionNamesUpdate: BehaviorSubject<AjfFormVariablesOperation | null> =
+    new BehaviorSubject<AjfFormVariablesOperation | null>(null);
 
   /**
    * this BehaviorSubject update export report.
@@ -240,7 +261,7 @@ export class AjfReportBuilderService {
    *
    * @memberOf AjfReportBuilderService
    */
-  private _report: BehaviorSubject<AjfReport|null> = new BehaviorSubject<AjfReport|null>(null);
+  private _report: BehaviorSubject<AjfReport | null> = new BehaviorSubject<AjfReport | null>(null);
 
   /**
    *  this Observable observe the styles of report.
@@ -257,7 +278,7 @@ export class AjfReportBuilderService {
    */
   private _reportForms: Observable<AjfForm[]>;
   private _reportFormsUpdate: Subject<AjfReportFormsOperation> =
-      new Subject<AjfReportFormsOperation>();
+    new Subject<AjfReportFormsOperation>();
 
   /**
    * dictionary for  widgetsUpdate
@@ -269,7 +290,7 @@ export class AjfReportBuilderService {
     content: this._contentWidgetsUpdate,
     footer: this._footerWidgetsUpdate,
     color: this._colorUpdate,
-    customWidgets: this._customWidgetsUpdate
+    customWidgets: this._customWidgetsUpdate,
   };
 
   /**
@@ -323,117 +344,147 @@ export class AjfReportBuilderService {
 
     this._onDragEnter = this._onDragEnterUpdate.pipe(share());
 
-    this._reportStyles = (<Observable<AjfStylesOperation>>this._reportStylesUpdate)
-                             .pipe(scan((styles: AjfStyles, op: AjfStylesOperation) => {
-                                     return op(styles);
-                                   }, <AjfStyles>{}), share(), startWith(<AjfStyles>{}));
+    this._reportStyles = (<Observable<AjfStylesOperation>>this._reportStylesUpdate).pipe(
+      scan((styles: AjfStyles, op: AjfStylesOperation) => {
+        return op(styles);
+      }, <AjfStyles>{}),
+      share(),
+      startWith(<AjfStyles>{}),
+    );
 
-    this._reportForms = (<Observable<AjfReportFormsOperation>>this._reportFormsUpdate)
-                            .pipe(scan((forms: AjfForm[], op: AjfReportFormsOperation) => {
-                                    return op(forms);
-                                  }, []), share(), startWith([]));
+    this._reportForms = (<Observable<AjfReportFormsOperation>>this._reportFormsUpdate).pipe(
+      scan((forms: AjfForm[], op: AjfReportFormsOperation) => {
+        return op(forms);
+      }, []),
+      share(),
+      startWith([]),
+    );
 
-    this._customWidgets =
-        (<Observable<AjfCustomWidgetsOperation>>this._customWidgetsUpdate)
-            .pipe(scan((widgets: AjfCustomWidget[], op: AjfCustomWidgetsOperation) => {
-                    return op(widgets);
-                  }, []), share(), startWith([]));
+    this._customWidgets = (<Observable<AjfCustomWidgetsOperation>>this._customWidgetsUpdate).pipe(
+      scan((widgets: AjfCustomWidget[], op: AjfCustomWidgetsOperation) => {
+        return op(widgets);
+      }, []),
+      share(),
+      startWith([]),
+    );
 
-    this._formsVariables =
-        (<Observable<AjfFormVariablesOperation>>this._formsVariablesUpdate)
-            .pipe(
-                filter(s => s != null),
-                scan((variables: AjfFormVariables[], op: AjfFormVariablesOperation) => {
-                  return op(variables);
-                }, []), publishReplay(1), refCount());
+    this._formsVariables = (<Observable<AjfFormVariablesOperation>>this._formsVariablesUpdate).pipe(
+      filter(s => s != null),
+      scan((variables: AjfFormVariables[], op: AjfFormVariablesOperation) => {
+        return op(variables);
+      }, []),
+      publishReplay(1),
+      refCount(),
+    );
 
-    this._conditionNames =
-        (<Observable<AjfFormVariablesOperation>>this._conditionNamesUpdate)
-            .pipe(
-                filter(s => s != null),
-                scan((variables: AjfFormVariables[], op: AjfFormVariablesOperation) => {
-                  return op(variables);
-                }, []), share(), startWith([]));
+    this._conditionNames = (<Observable<AjfFormVariablesOperation>>this._conditionNamesUpdate).pipe(
+      filter(s => s != null),
+      scan((variables: AjfFormVariables[], op: AjfFormVariablesOperation) => {
+        return op(variables);
+      }, []),
+      share(),
+      startWith([]),
+    );
 
-    this._headerWidgets = (<Observable<AjfWidgetsOperation>>this._headerWidgetsUpdate)
-                              .pipe(
-                                  scan(
-                                      (widgets: AjfWidgetsContainer, op: AjfWidgetsOperation) => {
-                                        return op(widgets);
-                                      },
-                                      <AjfWidgetsContainer>{widgets: [], styles: {}}),
-                                  startWith(<AjfWidgetsContainer>{widgets: [], styles: {}}),
-                                  publishReplay(1), refCount());
+    this._headerWidgets = (<Observable<AjfWidgetsOperation>>this._headerWidgetsUpdate).pipe(
+      scan(
+        (widgets: AjfWidgetsContainer, op: AjfWidgetsOperation) => {
+          return op(widgets);
+        },
+        <AjfWidgetsContainer>{widgets: [], styles: {}},
+      ),
+      startWith(<AjfWidgetsContainer>{widgets: [], styles: {}}),
+      publishReplay(1),
+      refCount(),
+    );
 
-    this._headerStyles = this._headerWidgets.pipe(map((widgets: AjfWidgetsContainer) => {
-      return widgets != null ? widgets.styles : {};
-    }));
+    this._headerStyles = this._headerWidgets.pipe(
+      map((widgets: AjfWidgetsContainer) => {
+        return widgets != null ? widgets.styles : {};
+      }),
+    );
 
-    this._contentWidgets = (<Observable<AjfWidgetsOperation>>this._contentWidgetsUpdate)
-                               .pipe(
-                                   scan(
-                                       (widgets: AjfWidgetsContainer, op: AjfWidgetsOperation) => {
-                                         return op(widgets);
-                                       },
-                                       <AjfWidgetsContainer>{widgets: [], styles: {}}),
-                                   startWith(<AjfWidgetsContainer>{widgets: [], styles: {}}),
-                                   publishReplay(1), refCount());
+    this._contentWidgets = (<Observable<AjfWidgetsOperation>>this._contentWidgetsUpdate).pipe(
+      scan(
+        (widgets: AjfWidgetsContainer, op: AjfWidgetsOperation) => {
+          return op(widgets);
+        },
+        <AjfWidgetsContainer>{widgets: [], styles: {}},
+      ),
+      startWith(<AjfWidgetsContainer>{widgets: [], styles: {}}),
+      publishReplay(1),
+      refCount(),
+    );
 
-    this._contentStyles = this._contentWidgets.pipe(map((widgets: AjfWidgetsContainer) => {
-      return widgets != null ? widgets.styles : {};
-    }));
+    this._contentStyles = this._contentWidgets.pipe(
+      map((widgets: AjfWidgetsContainer) => {
+        return widgets != null ? widgets.styles : {};
+      }),
+    );
 
-    this._footerWidgets = (<Observable<AjfWidgetsOperation>>this._footerWidgetsUpdate)
-                              .pipe(
-                                  scan(
-                                      (widgets: AjfWidgetsContainer, op: AjfWidgetsOperation) => {
-                                        return op(widgets);
-                                      },
-                                      <AjfWidgetsContainer>{widgets: [], styles: {}}),
-                                  startWith(<AjfWidgetsContainer>{widgets: [], styles: {}}),
-                                  publishReplay(1), refCount());
+    this._footerWidgets = (<Observable<AjfWidgetsOperation>>this._footerWidgetsUpdate).pipe(
+      scan(
+        (widgets: AjfWidgetsContainer, op: AjfWidgetsOperation) => {
+          return op(widgets);
+        },
+        <AjfWidgetsContainer>{widgets: [], styles: {}},
+      ),
+      startWith(<AjfWidgetsContainer>{widgets: [], styles: {}}),
+      publishReplay(1),
+      refCount(),
+    );
 
-    this._footerStyles = this._footerWidgets.pipe(map((widgets: AjfWidgetsContainer) => {
-      return widgets != null ? widgets.styles : {};
-    }));
+    this._footerStyles = this._footerWidgets.pipe(
+      map((widgets: AjfWidgetsContainer) => {
+        return widgets != null ? widgets.styles : {};
+      }),
+    );
 
-    this._color = (<Observable<AjfColorOperation>>this._colorUpdate)
-                      .pipe(scan((color: string[], op: AjfColorOperation) => {
-                              return op(color);
-                            }, this._defaultColor), share(), startWith(this._defaultColor));
+    this._color = (<Observable<AjfColorOperation>>this._colorUpdate).pipe(
+      scan((color: string[], op: AjfColorOperation) => {
+        return op(color);
+      }, this._defaultColor),
+      share(),
+      startWith(this._defaultColor),
+    );
 
     this._currentWidget = this._currentWidgetUpdate.pipe(
-        filter(s => s != null),
-        map(s => s!),
-        scan(
-            (widget: AjfWidget|null, op: AjfWidgetOperation) => {
-              return op(widget);
-            },
-            null as unknown as AjfWidget),
-        publishReplay(1),
-        refCount(),
+      filter(s => s != null),
+      map(s => s!),
+      scan((widget: AjfWidget | null, op: AjfWidgetOperation) => {
+        return op(widget);
+      }, null as unknown as AjfWidget),
+      publishReplay(1),
+      refCount(),
     );
 
     this._reportForms
-        .pipe(filter(f => f.length != 0), map((forms: AjfForm[]) => {
-                return (_c: AjfFormVariables[]): AjfFormVariables[] => {
-                  return this.fillFormsVariables(forms);
-                };
-              }))
-        .subscribe(this._formsVariablesUpdate);
+      .pipe(
+        filter(f => f.length != 0),
+        map((forms: AjfForm[]) => {
+          return (_c: AjfFormVariables[]): AjfFormVariables[] => {
+            return this.fillFormsVariables(forms);
+          };
+        }),
+      )
+      .subscribe(this._formsVariablesUpdate);
 
     this._reportForms
-        .pipe(filter(f => f.length != 0), map((forms: AjfForm[]) => {
-                return (_c: AjfFormVariables[]): AjfFormVariables[] => {
-                  return this.fillFormsVariables(forms);
-                };
-              }))
-        .subscribe(this._conditionNamesUpdate);
+      .pipe(
+        filter(f => f.length != 0),
+        map((forms: AjfForm[]) => {
+          return (_c: AjfFormVariables[]): AjfFormVariables[] => {
+            return this.fillFormsVariables(forms);
+          };
+        }),
+      )
+      .subscribe(this._conditionNamesUpdate);
 
     const reportObs = this._report;
 
     reportObs
-        .pipe(map((r: AjfReport|null) => {
+      .pipe(
+        map((r: AjfReport | null) => {
           return (_colors: string[]): string[] => {
             let tempColors: string[] = this._defaultColor;
             if (r == null) {
@@ -467,11 +518,13 @@ export class AjfReportBuilderService {
             }
             return <string[]>tempColors;
           };
-        }))
-        .subscribe(this._colorUpdate);
+        }),
+      )
+      .subscribe(this._colorUpdate);
 
     reportObs
-        .pipe(map((r: AjfReport|null) => {
+      .pipe(
+        map((r: AjfReport | null) => {
           return (_styles: AjfStyles): AjfStyles => {
             if (r == null || r.styles == null) {
               return <AjfStyles>{};
@@ -479,99 +532,115 @@ export class AjfReportBuilderService {
               return <AjfStyles>r.styles;
             }
           };
-        }))
-        .subscribe(this._reportStylesUpdate);
+        }),
+      )
+      .subscribe(this._reportStylesUpdate);
 
     reportObs
-        .pipe(map((r: AjfReport|null) => {
+      .pipe(
+        map((r: AjfReport | null) => {
           return (_widgets: AjfWidgetsContainer): AjfWidgetsContainer => {
             if (r == null || r.header == null) {
               return <AjfWidgetsContainer>{widgets: [], styles: {}};
             } else {
               return <AjfWidgetsContainer>{
                 widgets: r.header.content || [],
-                styles: r.header.styles || {}
+                styles: r.header.styles || {},
               };
             }
           };
-        }))
-        .subscribe(this._headerWidgetsUpdate);
+        }),
+      )
+      .subscribe(this._headerWidgetsUpdate);
 
     reportObs
-        .pipe(map((r: AjfReport|null) => {
+      .pipe(
+        map((r: AjfReport | null) => {
           return (_widgets: AjfWidgetsContainer): AjfWidgetsContainer => {
             if (r == null || r.content == null) {
               return <AjfWidgetsContainer>{widgets: [], styles: {}};
             } else {
               return <AjfWidgetsContainer>{
                 widgets: r.content.content || [],
-                styles: r.content.styles || {}
+                styles: r.content.styles || {},
               };
             }
           };
-        }))
-        .subscribe(this._contentWidgetsUpdate);
+        }),
+      )
+      .subscribe(this._contentWidgetsUpdate);
 
     reportObs
-        .pipe(map((r: AjfReport|null) => {
+      .pipe(
+        map((r: AjfReport | null) => {
           return (_widgets: AjfWidgetsContainer): AjfWidgetsContainer => {
             if (r == null || r.footer == null) {
               return <AjfWidgetsContainer>{widgets: [], styles: {}};
             } else {
               return <AjfWidgetsContainer>{
                 widgets: r.footer.content || [],
-                styles: r.footer.styles || {}
+                styles: r.footer.styles || {},
               };
             }
           };
-        }))
-        .subscribe(this._footerWidgetsUpdate);
+        }),
+      )
+      .subscribe(this._footerWidgetsUpdate);
 
-    this._saveReport.pipe(map((json: any) => {
-      return (_r: any): any => {
-        if (json = null) {
-          return {};
-        }
-        return json;
-      };
-    }));
+    this._saveReport.pipe(
+      map((json: any) => {
+        return (_r: any): any => {
+          if ((json = null)) {
+            return {};
+          }
+          return json;
+        };
+      }),
+    );
 
     this._saveReportEvent
-        .pipe(
-            combineLatest(this.report, this.reportForms),
-            combineLatest(
-                this._headerWidgets.pipe(filter(w => w != null)),
-                this._contentWidgets.pipe(filter(w => w != null)),
-                this._footerWidgets.pipe(filter(w => w != null)),
-                this._reportStyles.pipe(filter(w => w != null)),
-                ))
-        .subscribe(r => {
-          let obj: any = {};
-          // const curRo = r[0][1];
-          // const forms = r[0][2] != null ? r[0][2] || []
-          //     : (curRo != null ? curRo.forms || [] : []);
+      .pipe(
+        combineLatest(this.report, this.reportForms),
+        combineLatest(
+          this._headerWidgets.pipe(filter(w => w != null)),
+          this._contentWidgets.pipe(filter(w => w != null)),
+          this._footerWidgets.pipe(filter(w => w != null)),
+          this._reportStyles.pipe(filter(w => w != null)),
+        ),
+      )
+      .subscribe(r => {
+        let obj: any = {};
+        // const curRo = r[0][1];
+        // const forms = r[0][2] != null ? r[0][2] || []
+        //     : (curRo != null ? curRo.forms || [] : []);
 
-          const [hco, cco, fco] = [r[1], r[2], r[3]] as AjfWidgetsContainer[];
+        const [hco, cco, fco] = [r[1], r[2], r[3]] as AjfWidgetsContainer[];
 
-          obj.header = {content: hco.widgets.map(w => deepCopy(w)), styles: hco.styles} as
-              AjfReportContainer;
-          obj.content = {content: cco.widgets.map(w => deepCopy(w)), styles: cco.styles} as
-              AjfReportContainer;
-          obj.footer = {content: fco.widgets.map(w => deepCopy(w)), styles: fco.styles} as
-              AjfReportContainer;
-          obj.styles = r[4];
+        obj.header = {
+          content: hco.widgets.map(w => deepCopy(w)),
+          styles: hco.styles,
+        } as AjfReportContainer;
+        obj.content = {
+          content: cco.widgets.map(w => deepCopy(w)),
+          styles: cco.styles,
+        } as AjfReportContainer;
+        obj.footer = {
+          content: fco.widgets.map(w => deepCopy(w)),
+          styles: fco.styles,
+        } as AjfReportContainer;
+        obj.styles = r[4];
 
-          const ro = {
-            header: {content: hco.widgets, styles: hco.styles},
-            content: {content: cco.widgets, styles: cco.styles},
-            footer: {content: fco.widgets, styles: fco.styles},
-            styles: r[4]
-          } as AjfReport;
+        const ro = {
+          header: {content: hco.widgets, styles: hco.styles},
+          content: {content: cco.widgets, styles: cco.styles},
+          footer: {content: fco.widgets, styles: fco.styles},
+          styles: r[4],
+        } as AjfReport;
 
-          this.setSaveReport(obj);
-          this._savedReportUpdate.next(ro);
-          this.pushJsonStack(JSON.stringify(obj));
-        });
+        this.setSaveReport(obj);
+        this._savedReportUpdate.next(ro);
+        this.pushJsonStack(JSON.stringify(obj));
+      });
   }
 
   /**
@@ -591,10 +660,13 @@ export class AjfReportBuilderService {
   filterNodes(nodes: AjfNode[]): AjfNode[] {
     for (let i = 0; i < nodes.length; i++) {
       const node = nodes[i];
-      if (node.nodeType === AjfNodeType.AjfNodeGroup || node.nodeType === AjfNodeType.AjfSlide ||
-          node.nodeType === AjfNodeType.AjfRepeatingSlide ||
-          (node.nodeType === AjfNodeType.AjfField &&
-           (node as AjfField).fieldType === AjfFieldType.String)) {
+      if (
+        node.nodeType === AjfNodeType.AjfNodeGroup ||
+        node.nodeType === AjfNodeType.AjfSlide ||
+        node.nodeType === AjfNodeType.AjfRepeatingSlide ||
+        (node.nodeType === AjfNodeType.AjfField &&
+          (node as AjfField).fieldType === AjfFieldType.String)
+      ) {
         nodes.splice(i, 1);
         i--;
       }
@@ -604,7 +676,7 @@ export class AjfReportBuilderService {
 
   parseColor(cssStyles: any, colors: string[]): void {
     const styleKeys = ['background-color', 'backgroundColor', 'color'];
-    styleKeys.forEach((k) => {
+    styleKeys.forEach(k => {
       if (cssStyles[k] && colors.indexOf(cssStyles[k]) == -1) {
         colors.push(cssStyles[k]);
       }
@@ -786,7 +858,6 @@ export class AjfReportBuilderService {
     this._onDraggedUpdate.next(false);
   }
 
-
   /**
    *  update _onOver with true
    *
@@ -796,7 +867,6 @@ export class AjfReportBuilderService {
   overStarted(): void {
     this._onOverUpdate.next(true);
   }
-
 
   /**
    * update _onOver with false
@@ -824,8 +894,8 @@ export class AjfReportBuilderService {
    * @readonly
    * @memberOf AjfReportBuilderService
    */
-  get report(): Observable<AjfReport|null> {
-    return this._report as Observable<AjfReport|null>;
+  get report(): Observable<AjfReport | null> {
+    return this._report as Observable<AjfReport | null>;
   }
 
   /**
@@ -841,7 +911,7 @@ export class AjfReportBuilderService {
   }
 
   saveImageFormula(formula: AjfFormula) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return widget;
       }
@@ -863,7 +933,6 @@ export class AjfReportBuilderService {
     this._emptyContent.next(val);
   }
 
-
   pushJsonStack(json: string): void {
     let currentStack = this._jsonStack.getValue();
 
@@ -874,10 +943,11 @@ export class AjfReportBuilderService {
     this._jsonStack.next(currentStack);
   }
 
-  popJsonStack(): string|undefined {
-    let emptyJson = '{"header":{"content":[],"styles":{}},' +
-        '"content":{"content":[],"styles":{}},"' +
-        'footer":{"content":[],"styles":{}},"styles":{}}';
+  popJsonStack(): string | undefined {
+    let emptyJson =
+      '{"header":{"content":[],"styles":{}},' +
+      '"content":{"content":[],"styles":{}},"' +
+      'footer":{"content":[],"styles":{}},"styles":{}}';
     let currentStack = this._jsonStack.getValue();
     currentStack.pop();
     this._lastDeletedJson = currentStack.pop();
@@ -893,7 +963,6 @@ export class AjfReportBuilderService {
 
     return this._lastDeletedJson;
   }
-
 
   /**
    * get the emitter
@@ -998,7 +1067,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   updateArrayWidgets(type: string, newWidget: AjfWidgetsContainer) {
-    if ((type !== 'header') && (type !== 'content') && (type !== 'footer')) {
+    if (type !== 'header' && type !== 'content' && type !== 'footer') {
       throw new Error('Unknown type ' + type);
     }
     this._updates[type].next((_widgets: AjfWidgetsContainer): AjfWidgetsContainer => {
@@ -1025,7 +1094,7 @@ export class AjfReportBuilderService {
    * @readonly
    * @memberOf AjfReportBuilderService
    */
-  get currentWidget(): Observable<AjfWidget|null> {
+  get currentWidget(): Observable<AjfWidget | null> {
     return this._currentWidget;
   }
 
@@ -1036,8 +1105,8 @@ export class AjfReportBuilderService {
    *
    * @memberOf AjfReportBuilderService
    */
-  updateCurrentWidget(newWidget: AjfWidget|null) {
-    this._currentWidgetUpdate.next((_widget: AjfWidget|null): AjfWidget|null => {
+  updateCurrentWidget(newWidget: AjfWidget | null) {
+    this._currentWidgetUpdate.next((_widget: AjfWidget | null): AjfWidget | null => {
       this._saveReportEvent.emit();
       return newWidget;
     });
@@ -1062,7 +1131,6 @@ export class AjfReportBuilderService {
   get reportSaved(): Observable<AjfReport> {
     return this._savedReport;
   }
-
 
   /**
    * get _reportStyles observable
@@ -1119,7 +1187,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   instantColumnValue(newValue: number, idx: number) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return widget;
       }
@@ -1135,8 +1203,8 @@ export class AjfReportBuilderService {
       let add = false;
       let foundFirstNoObj = false;
 
-      let re1 = new RegExp('(^[0]\.\[1-9][0-9]$)');
-      let re2 = new RegExp('(^[0]\.\[1-9]$)');
+      let re1 = new RegExp('(^[0].[1-9][0-9]$)');
+      let re2 = new RegExp('(^[0].[1-9]$)');
       let re3 = new RegExp('^[1]$');
 
       let oldValue = myObj.columns[idx];
@@ -1162,7 +1230,6 @@ export class AjfReportBuilderService {
         oldValue = 0.1;
       }
 
-
       if (newValue !== -1) {
         if (myObj.columns.length === 1) {
           myObj.columns[0] = 1;
@@ -1172,10 +1239,10 @@ export class AjfReportBuilderService {
         if (newValue < 0.1) {
           newValue = 0.1;
         } else if (newValue + 0.1 * (size - objNum - 1) > 1) {
-          newValue = 1 - (0.1 * (size - objNum - 1));
+          newValue = 1 - 0.1 * (size - objNum - 1);
         }
 
-        if ((oldValue === newValue) && (oldValue === 0.1)) {
+        if (oldValue === newValue && oldValue === 0.1) {
           myObj.columns[idx] = newValue;
           return myObj;
         }
@@ -1193,7 +1260,6 @@ export class AjfReportBuilderService {
         if (spreadValue < 0.01) {
           spreadValue = 0.1;
         }
-
       } else {
         myObj.columns[idx] = -1;
         objNum++;
@@ -1201,25 +1267,24 @@ export class AjfReportBuilderService {
         if (myObj.columns.length == 1) {
           spreadValue = 1;
         } else {
-          spreadValue = (oldValue) / (size - objNum);
+          spreadValue = oldValue / (size - objNum);
         }
       }
 
       for (let i = 0; i < size; i++) {
         if (myObj.columns[i] !== -1) {
-          if ((i == idx)) {
+          if (i == idx) {
             myObj.columns[idx] = newValue;
           } else {
             if (add) {
               myObj.columns[i] += spreadValue;
-              if ((myObj.columns[i] > 0.9) && (myObj.columns.length - objNum != 1)) {
-                myObj.columns[i] = 0.90;
+              if (myObj.columns[i] > 0.9 && myObj.columns.length - objNum != 1) {
+                myObj.columns[i] = 0.9;
               }
-
             } else {
               myObj.columns[i] -= spreadValue;
               if (myObj.columns[i] < 0.1) {
-                myObj.columns[i] = 0.10;
+                myObj.columns[i] = 0.1;
               }
             }
 
@@ -1246,9 +1311,13 @@ export class AjfReportBuilderService {
       }
 
       for (let j = 0; j < myObj.columns.length; j++) {
-        if (myObj.columns[j] !== -1 && !re1.test(String(myObj.columns[j])) &&
-            !re2.test(String(myObj.columns[j])) && !re3.test(String(myObj.columns[j]))) {
-          this.instantColumnValue(0.10, j);
+        if (
+          myObj.columns[j] !== -1 &&
+          !re1.test(String(myObj.columns[j])) &&
+          !re2.test(String(myObj.columns[j])) &&
+          !re3.test(String(myObj.columns[j]))
+        ) {
+          this.instantColumnValue(0.1, j);
         }
       }
       this.columnWidthChangedEmitter.emit();
@@ -1265,7 +1334,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   setImageUrl(imageUrl: string) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return null;
       }
@@ -1275,8 +1344,8 @@ export class AjfReportBuilderService {
     });
   }
 
-  setIcon(icon: {fontSet: string, fontIcon: string}) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+  setIcon(icon: {fontSet: string; fontIcon: string}) {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return null;
       }
@@ -1287,7 +1356,7 @@ export class AjfReportBuilderService {
   }
 
   setFlag(value: string) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return null;
       }
@@ -1298,7 +1367,7 @@ export class AjfReportBuilderService {
   }
 
   saveCondition(conditionText: string) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return null;
       }
@@ -1310,9 +1379,14 @@ export class AjfReportBuilderService {
   }
 
   saveChartFormula(
-      _label: string, _level: number, _mainIndex: number, _index: number, formulaText: string,
-      aggregationType: number) {
-    this._currentWidgetUpdate.next((w: AjfWidget|null): AjfWidget|null => {
+    _label: string,
+    _level: number,
+    _mainIndex: number,
+    _index: number,
+    formulaText: string,
+    aggregationType: number,
+  ) {
+    this._currentWidgetUpdate.next((w: AjfWidget | null): AjfWidget | null => {
       if (w == null) {
         return null;
       }
@@ -1355,9 +1429,13 @@ export class AjfReportBuilderService {
   }
 
   saveTableFormula(
-      _label: string, aggregationType: number, formulaText: string, _mainIndex: number,
-      _index: number) {
-    this._currentWidgetUpdate.next((w: AjfWidget|null): AjfWidget|null => {
+    _label: string,
+    aggregationType: number,
+    formulaText: string,
+    _mainIndex: number,
+    _index: number,
+  ) {
+    this._currentWidgetUpdate.next((w: AjfWidget | null): AjfWidget | null => {
       if (w == null) {
         return null;
       }
@@ -1399,7 +1477,7 @@ export class AjfReportBuilderService {
   }
 
   removeData(_mainIndex: number, _index: number) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       let myObj = <AjfDataWidget>widget;
 
       /* if (index === -1) {
@@ -1431,7 +1509,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   removeMainData(_idx: number) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       let myObj = <AjfChartWidget>widget;
       // myObj.dataset[0].splice(idx, 1);
 
@@ -1440,7 +1518,7 @@ export class AjfReportBuilderService {
   }
 
   removeRelatedData(_mainIdx: number, _idx: number) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       let myObj = <AjfChartWidget>widget;
       /* if (idx == -1) {
         myObj.dataset.splice(mainIdx + 1, 1);
@@ -1451,7 +1529,6 @@ export class AjfReportBuilderService {
       return myObj;
     });
   }
-
 
   /**
    * update backgroundColor field of AjfChartWidget current widget
@@ -1528,12 +1605,19 @@ export class AjfReportBuilderService {
    *
    * @memberOf AjfReportBuilderService
    */
-  setWidgetStyles(label: string, value: string|string[]) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+  setWidgetStyles(label: string, value: string | string[]) {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       let myObj = <AjfTextWidget>widget;
 
-      const pxStyles =
-          ['font-size', 'height', 'width', 'border-width', 'border-radius', 'padding', 'margin'];
+      const pxStyles = [
+        'font-size',
+        'height',
+        'width',
+        'border-width',
+        'border-radius',
+        'padding',
+        'margin',
+      ];
       const isPxStyle = pxStyles.indexOf(label) > -1;
       if (isPxStyle && !(value instanceof Array) && this.isNumber(value)) {
         value += 'px';
@@ -1557,7 +1641,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   setSectionStyles(origin: string, label: string, value: string) {
-    if ((origin !== 'header') && (origin !== 'content') && (origin !== 'footer')) {
+    if (origin !== 'header' && origin !== 'content' && origin !== 'footer') {
       throw new Error('uncknow origin ' + origin);
     }
 
@@ -1690,7 +1774,7 @@ export class AjfReportBuilderService {
   }
 
   unfixedColumn(idx: number) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return widget;
       }
@@ -1720,11 +1804,11 @@ export class AjfReportBuilderService {
       checkSum = Number(this.roundTo(checkSum, 2).toFixed(2));
 
       if (checkSum > 1) {
-        spreadValue = parseFloat(this.roundTo(((checkSum - 1) % 1), 2).toFixed(2));
+        spreadValue = parseFloat(this.roundTo((checkSum - 1) % 1, 2).toFixed(2));
         myObj.columns[idx] -= spreadValue;
         myObj.columns[idx] = this.roundTo(myObj.columns[idx], 2);
       } else if (checkSum < 1) {
-        myObj.columns[idx] += (1 - (checkSum % 1));
+        myObj.columns[idx] += 1 - (checkSum % 1);
         myObj.columns[idx] = Number(this.roundTo(myObj.columns[idx], 2).toFixed(2));
       }
 
@@ -1741,7 +1825,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   addColumn() {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return null;
       }
@@ -1775,11 +1859,11 @@ export class AjfReportBuilderService {
       checkSum = Number(this.roundTo(checkSum, 2).toFixed(2));
 
       if (checkSum > 1) {
-        tmpValue = parseFloat(this.roundTo(((checkSum - 1) % 1), 2).toFixed(2));
+        tmpValue = parseFloat(this.roundTo((checkSum - 1) % 1, 2).toFixed(2));
         tempObj[0] -= tmpValue;
         tempObj[0] = this.roundTo(tempObj[0], 2);
       } else if (checkSum < 1) {
-        tempObj[0] += (1 - (checkSum % 1));
+        tempObj[0] += 1 - (checkSum % 1);
         tempObj[0] = Number(this.roundTo(tempObj[0], 2).toFixed(2));
       }
 
@@ -1837,7 +1921,7 @@ export class AjfReportBuilderService {
         });
         break;
       case 'layout':
-        this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+        this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
           if (widget == null) {
             return null;
           }
@@ -1869,7 +1953,7 @@ export class AjfReportBuilderService {
       case 'column':
       case 'layoutContent':
       case 'unfixedColumn':
-        this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+        this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
           if (widget == null) {
             return null;
           }
@@ -1908,18 +1992,20 @@ export class AjfReportBuilderService {
           return myObj;
         });
         break;
-      case 'customWidgets': {
-        this._updates[node].next((widgets: AjfCustomWidget[]): AjfCustomWidget[] => {
-          if (widgets.length === 0) {
-            throw new Error('you can not remove from empty array');
-          }
-          if (widgets[idx] == null) {
-            throw new Error('invalid index');
-          }
-          widgets.splice(idx, 1);
-          return widgets;
-        });
-      } break;
+      case 'customWidgets':
+        {
+          this._updates[node].next((widgets: AjfCustomWidget[]): AjfCustomWidget[] => {
+            if (widgets.length === 0) {
+              throw new Error('you can not remove from empty array');
+            }
+            if (widgets[idx] == null) {
+              throw new Error('invalid index');
+            }
+            widgets.splice(idx, 1);
+            return widgets;
+          });
+        }
+        break;
       default:
         throw new Error('unknown node ' + node);
     }
@@ -1934,7 +2020,7 @@ export class AjfReportBuilderService {
    * @memberOf AjfReportBuilderService
    */
   addToContent(newWidget: AjfWidget, idx: number) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return null;
       }
@@ -1956,7 +2042,6 @@ export class AjfReportBuilderService {
 
       fromColumn.content.splice(fromIndex, 1);
       toColumn.content.push(widget);
-
     } else if (event.dragData && event.dragData.arrayFrom) {
       this.remove(event.dragData.arrayFrom, event.dragData.fromIndex);
       toColumn.content.push(event.dragData.widget);
@@ -2038,7 +2123,10 @@ export class AjfReportBuilderService {
   }
 
   private _addWidgetToContainer(
-      subj: Subject<AjfWidgetsOperation>, widget: AjfWidget, position?: number) {
+    subj: Subject<AjfWidgetsOperation>,
+    widget: AjfWidget,
+    position?: number,
+  ) {
     subj.next((widgets: AjfWidgetsContainer): AjfWidgetsContainer => {
       if (position != null && position >= 0) {
         widgets.widgets.splice(position, 0, widget);
@@ -2052,7 +2140,7 @@ export class AjfReportBuilderService {
   }
 
   private _setCurrentWidgetProperty(propName: string, value: any) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return null;
       }
@@ -2062,7 +2150,7 @@ export class AjfReportBuilderService {
   }
 
   private _addToCurrentWidgetArrayProperty(propName: string, value: any) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       if (widget == null) {
         return null;
       }
@@ -2074,7 +2162,7 @@ export class AjfReportBuilderService {
   }
 
   private _removeFromCurrentWidgetArrayProperty(propName: string, idx: number) {
-    this._currentWidgetUpdate.next((widget: AjfWidget|null): AjfWidget|null => {
+    this._currentWidgetUpdate.next((widget: AjfWidget | null): AjfWidget | null => {
       ((widget as any)[propName] as any[]).splice(idx, 1);
       return widget;
     });

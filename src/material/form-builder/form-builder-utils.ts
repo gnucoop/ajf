@@ -37,32 +37,27 @@ import {
  * @param content True if the current nodeEntry contains other nodeEntries.
  */
 export function onDropProcess(
-    event: CdkDragDrop<AjfFormBuilderNodeEntry>|CdkDragDrop<AjfFormBuilderNodeTypeEntry>,
-    fbService: AjfFormBuilderService,
-    nodeEntry: AjfFormBuilderNode|null,
-    content = false,
-    ): void {
+  event: CdkDragDrop<AjfFormBuilderNodeEntry> | CdkDragDrop<AjfFormBuilderNodeTypeEntry>,
+  fbService: AjfFormBuilderService,
+  nodeEntry: AjfFormBuilderNode | null,
+  content = false,
+): void {
   const itemData = event.item.data;
   const containerId = event.container.id;
   if (!itemData.node) {
     if (nodeEntry == null && containerId === 'slides-list') {
-      fbService.insertNode(
-          itemData,
-          null as any,
-          0,
-          content,
-          event.currentIndex,
-      );
+      fbService.insertNode(itemData, null as any, 0, content, event.currentIndex);
       return;
     }
-    const emptySlot = content ? {parent: (<AjfFormBuilderNodeEntry>nodeEntry).node, parentNode: 0} :
-                                <AjfFormBuilderEmptySlot>nodeEntry;
+    const emptySlot = content
+      ? {parent: (<AjfFormBuilderNodeEntry>nodeEntry).node, parentNode: 0}
+      : <AjfFormBuilderEmptySlot>nodeEntry;
     fbService.insertNode(
-        itemData as AjfFormBuilderNodeTypeEntry,
-        emptySlot.parent,
-        emptySlot.parentNode,
-        content,
-        event.currentIndex,
+      itemData as AjfFormBuilderNodeTypeEntry,
+      emptySlot.parent,
+      emptySlot.parentNode,
+      content,
+      event.currentIndex,
     );
     return;
   }

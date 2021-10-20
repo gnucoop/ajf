@@ -10,30 +10,32 @@ describe('widget-export', () => {
   const widgetExport = new AjfWidgetExport();
   const dataChart: ChartData = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [65000000, 59, 80, 81, 56, 55, 40],
-      fill: false,
-      borderColor: 'rgb(75, 192, 192)',
-      lineTension: 0.1
-    }]
+    datasets: [
+      {
+        label: 'My First Dataset',
+        data: [65000000, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        lineTension: 0.1,
+      },
+    ],
   };
 
   const dataTableXlsx: AjfTableCell[][] = [
     [
       {value: {changingThisBreaksApplicationSecurity: 'a'}},
       {value: {changingThisBreaksApplicationSecurity: 'b'}},
-      {value: {changingThisBreaksApplicationSecurity: 'c'}}
+      {value: {changingThisBreaksApplicationSecurity: 'c'}},
     ],
     [
       {value: {changingThisBreaksApplicationSecurity: 'd'}},
       {value: {changingThisBreaksApplicationSecurity: 'e'}},
-      {value: {changingThisBreaksApplicationSecurity: 'f'}}
+      {value: {changingThisBreaksApplicationSecurity: 'f'}},
     ],
     [
       {value: {changingThisBreaksApplicationSecurity: 'g'}},
       {value: {changingThisBreaksApplicationSecurity: 'h'}},
-      {value: {changingThisBreaksApplicationSecurity: 'i'}}
+      {value: {changingThisBreaksApplicationSecurity: 'i'}},
     ],
   ] as AjfTableCell[][];
 
@@ -44,7 +46,7 @@ describe('widget-export', () => {
     widgetExport.exportCsv();
     const toEqual: unknown[][] = [
       ['name', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      ['My First Dataset', 65000000, 59, 80, 81, 56, 55, 40]
+      ['My First Dataset', 65000000, 59, 80, 81, 56, 55, 40],
     ];
     expect(testSpy).toHaveBeenCalledWith(toEqual);
   });
@@ -54,7 +56,11 @@ describe('widget-export', () => {
     widgetExport.widgetType = AjfWidgetType.Table;
     const testSpy = spyOn(XLSX.utils, 'aoa_to_sheet').and.callThrough();
     widgetExport.exportCsv();
-    const toEqual: unknown[][] = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']];
+    const toEqual: unknown[][] = [
+      ['a', 'b', 'c'],
+      ['d', 'e', 'f'],
+      ['g', 'h', 'i'],
+    ];
     expect(testSpy).toHaveBeenCalledWith(toEqual);
   });
 });

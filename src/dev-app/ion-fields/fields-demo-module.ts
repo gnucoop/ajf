@@ -35,9 +35,6 @@ import {FieldsDemo} from './fields-demo';
     FormsModule,
     RouterModule.forChild([{path: '', component: FieldsDemo}]),
   ],
-  declarations: [
-    FieldsDemo,
-  ],
+  declarations: [FieldsDemo],
 })
-export class FieldsDemoModule {
-}
+export class FieldsDemoModule {}

@@ -22,4 +22,4 @@
 
 import {ChartType} from 'chart.js';
 
-export type ExtendedChartType = ChartType|'horizontalBar'|'scatter'|'pie';
+export type ExtendedChartType = ChartType | 'horizontalBar' | 'scatter' | 'pie';

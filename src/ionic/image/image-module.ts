@@ -28,16 +28,8 @@ import {IonicModule} from '@ionic/angular';
 import {AjfImage} from './image';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
-  declarations: [
-    AjfImage,
-  ],
-  exports: [
-    AjfImage,
-  ],
+  imports: [CommonModule, IonicModule],
+  declarations: [AjfImage],
+  exports: [AjfImage],
 })
-export class AjfImageModule {
-}
+export class AjfImageModule {}

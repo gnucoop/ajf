@@ -28,16 +28,8 @@ import {IonicModule} from '@ionic/angular';
 import {AjfNodeIcon} from './node-icon';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    IonicModule,
-  ],
-  declarations: [
-    AjfNodeIcon,
-  ],
-  exports: [
-    AjfNodeIcon,
-  ],
+  imports: [CommonModule, IonicModule],
+  declarations: [AjfNodeIcon],
+  exports: [AjfNodeIcon],
 })
-export class AjfNodeIconModule {
-}
+export class AjfNodeIconModule {}

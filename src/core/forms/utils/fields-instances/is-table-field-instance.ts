@@ -25,12 +25,14 @@ import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 import {isTableField} from '../fields/is-table-field';
 import {isFieldInstance} from '../nodes-instances/is-field-instance';
 
-
 /**
  * It is true if the nodeInstance is a fieldInstance and
  * if the node of instance is a Table field.
  */
 export function isTableFieldInstance(nodeInstance: AjfNodeInstance): boolean {
-  return nodeInstance != null && isFieldInstance(nodeInstance) &&
-      isTableField((nodeInstance as AjfFieldInstance).node);
+  return (
+    nodeInstance != null &&
+    isFieldInstance(nodeInstance) &&
+    isTableField((nodeInstance as AjfFieldInstance).node)
+  );
 }

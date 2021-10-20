@@ -23,7 +23,7 @@
 import {EventEmitter} from '@angular/core';
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 
-export type AjfNodeInstanceCreate = Pick<AjfNodeInstance, 'node'>&Partial<AjfNodeInstance>;
+export type AjfNodeInstanceCreate = Pick<AjfNodeInstance, 'node'> & Partial<AjfNodeInstance>;
 
 /**
  * It creates an AjfNodeInstance.
@@ -38,6 +38,6 @@ export function createNodeInstance(instance: AjfNodeInstanceCreate): AjfNodeInst
     prefix: instance.prefix ? [...instance.prefix] : [],
     visible: instance.visible != null ? instance.visible : true,
     conditionalBranches: [],
-    updatedEvt: new EventEmitter<void>()
+    updatedEvt: new EventEmitter<void>(),
   };
 }

@@ -40,12 +40,7 @@ import {MaterialTableFieldE2eModule} from './mat-table-field/table-field-e2e-mod
     MaterialTableFieldE2eModule,
     MaterialFormE2eModule,
   ],
-  declarations: [
-    E2eApp,
-  ],
-  bootstrap: [
-    E2eApp,
-  ],
+  declarations: [E2eApp],
+  bootstrap: [E2eApp],
 })
-export class MainModule {
-}
+export class MainModule {}

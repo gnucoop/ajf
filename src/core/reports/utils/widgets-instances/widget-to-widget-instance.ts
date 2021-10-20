@@ -29,17 +29,13 @@ import {chartToChartJsType} from '../../chart-utils';
 import {AjfTableDataset} from '../../interface/dataset/table-dataset';
 import {AjfChartWidgetInstance} from '../../interface/widgets-instances/chart-widget-instance';
 import {AjfFormulaWidgetInstance} from '../../interface/widgets-instances/formula-widget-instance';
-import {
-  AjfImageContainerWidgetInstance
-} from '../../interface/widgets-instances/image-container-widget-instance';
+import {AjfImageContainerWidgetInstance} from '../../interface/widgets-instances/image-container-widget-instance';
 import {AjfImageWidgetInstance} from '../../interface/widgets-instances/image-widget-instance';
 import {AjfMapWidgetInstance} from '../../interface/widgets-instances/map-widget-instance';
 import {AjfTableWidgetInstance} from '../../interface/widgets-instances/table-widget-instance';
 import {AjfTextWidgetInstance} from '../../interface/widgets-instances/text-widget-instance';
 import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instance';
-import {
-  AjfWidgetWithContentInstance
-} from '../../interface/widgets-instances/widget-with-content-instance';
+import {AjfWidgetWithContentInstance} from '../../interface/widgets-instances/widget-with-content-instance';
 import {AjfChartWidget} from '../../interface/widgets/chart-widget';
 import {AjfDynamicTableWidget} from '../../interface/widgets/dynamic-table-widget';
 import {AjfFormulaWidget} from '../../interface/widgets/formula-widget';
@@ -58,7 +54,10 @@ import {createWidgetInstance} from './create-widget-instance';
 import {trFormula} from './widget-instance-utils';
 
 export function widgetToWidgetInstance(
-    widget: AjfWidget, context: AjfContext, ts: TranslocoService): AjfWidgetInstance {
+  widget: AjfWidget,
+  context: AjfContext,
+  ts: TranslocoService,
+): AjfWidgetInstance {
   const wi = createWidgetInstance(widget, context, ts);
 
   if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
@@ -86,21 +85,22 @@ export function widgetToWidgetInstance(
       let evf = evaluateExpression(l.formula, context);
       try {
         if (evf instanceof Array) {
-          evf = evf.map(
-              v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v);
+          evf = evf.map(v =>
+            v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v,
+          );
         } else {
-          evf = evf != null && typeof evf === 'string' && evf.trim().length > 0 ?
-              ts.translate(evf) :
-              evf;
+          evf =
+            evf != null && typeof evf === 'string' && evf.trim().length > 0
+              ? ts.translate(evf)
+              : evf;
         }
-      } catch (_e) {
-      }
+      } catch (_e) {}
       return evf;
     });
     cwi.labels = cw.labels instanceof Array ? evLabels : evLabels[0];
     cwi.datasets = cw.dataset.map(d => {
       let ds: any = {
-        ...d.options || {},
+        ...(d.options || {}),
         data: evaluateAggregation(d.aggregation, d.formula, context),
       };
       if (d.chartType != null) {
@@ -121,17 +121,20 @@ export function widgetToWidgetInstance(
     cwi.data = {labels: cwi.labels, datasets: cwi.datasets};
     cwi.chartType = chartToChartJsType(cw.type || cw.chartType);
     cwi.exportable =
-        cw.exportable && (cw.exportable === true || cw.exportable === 'true') ? true : false;
+      cw.exportable && (cw.exportable === true || cw.exportable === 'true') ? true : false;
     if (cw.options != null && cw.options.plugins != null) {
       const plugins = cw.options.plugins;
       const pluginNames = Object.keys(plugins);
-      pluginNames.forEach((pluginName) => {
+      pluginNames.forEach(pluginName => {
         const plugin = plugins[pluginName];
         const pluginOptions = Object.keys(plugin);
         pluginOptions.forEach((pluginOptionName: string) => {
           const pluginOption = plugin[pluginOptionName];
-          if (typeof pluginOption !== 'string' && pluginOption != null &&
-              pluginOption.formula != null) {
+          if (
+            typeof pluginOption !== 'string' &&
+            pluginOption != null &&
+            pluginOption.formula != null
+          ) {
             plugin[pluginOptionName] = evaluateExpression(pluginOption.formula, context);
           }
         });
@@ -141,71 +144,78 @@ export function widgetToWidgetInstance(
     const tw = widget as AjfTableWidget;
     const twi = wi as AjfTableWidgetInstance;
 
-    twi.dataset = tw.dataset.map(row => row.map(cell => {
-      return cell.formula instanceof Array ?
-          cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
-          trFormula(cell.formula!, context as AjfContext, ts);
-    }));
+    twi.dataset = tw.dataset.map(row =>
+      row.map(cell => {
+        return cell.formula instanceof Array
+          ? cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts))
+          : trFormula(cell.formula!, context as AjfContext, ts);
+      }),
+    );
     twi.exportable =
-        tw.exportable && (tw.exportable === true || tw.exportable === 'true') ? true : false;
-    twi.data = (tw.dataset || []).map(row => row.map(cell => {
-      let evf = '';
-      try {
-        evf = cell.formula instanceof Array ?
-            cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
-            trFormula(cell.formula!, context as AjfContext, ts);
-      } catch (_e) {
-      }
-      return ({
-        value: evf,
-        style: {...tw.cellStyles, ...cell.style},
-        rowspan: cell.rowspan,
-        colspan: cell.colspan,
-      });
-    }));
+      tw.exportable && (tw.exportable === true || tw.exportable === 'true') ? true : false;
+    twi.data = (tw.dataset || []).map(row =>
+      row.map(cell => {
+        let evf = '';
+        try {
+          evf =
+            cell.formula instanceof Array
+              ? cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts))
+              : trFormula(cell.formula!, context as AjfContext, ts);
+        } catch (_e) {}
+        return {
+          value: evf,
+          style: {...tw.cellStyles, ...cell.style},
+          rowspan: cell.rowspan,
+          colspan: cell.colspan,
+        };
+      }),
+    );
   } else if (widget.widgetType === AjfWidgetType.DynamicTable) {
     const tdw = widget as AjfDynamicTableWidget;
     const tdwi = wi as AjfTableWidgetInstance;
 
     tdwi.dataset = tdw.dataset.map((cell: AjfTableDataset) => {
-      return cell.formula instanceof Array ?
-          cell.formula.map(f => trFormula(f as AjfFormula, context, ts)) :
-          trFormula(cell.formula!, context, ts);
+      return cell.formula instanceof Array
+        ? cell.formula.map(f => trFormula(f as AjfFormula, context, ts))
+        : trFormula(cell.formula!, context, ts);
     });
     tdwi.exportable =
-        tdw.exportable && (tdw.exportable === true || tdw.exportable === 'true') ? true : false;
+      tdw.exportable && (tdw.exportable === true || tdw.exportable === 'true') ? true : false;
 
     let dataset: AjfTableCell[][] = evaluateExpression(tdw.rowDefinition.formula, context) || [];
-    dataset = (dataset || []).map((row: AjfTableCell[]) => row.map(cell => {
-      let trf = cell.value;
-      try {
-        if (trf instanceof Array) {
-          trf = trf.map(
-              v => v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v);
-        } else {
-          trf = trf != null && typeof trf === 'string' && trf.trim().length > 0 ?
-              ts.translate(trf) :
-              trf;
-        }
-      } catch (_e) {
-      }
-      return ({...cell, value: trf});
-    }));
+    dataset = (dataset || []).map((row: AjfTableCell[]) =>
+      row.map(cell => {
+        let trf = cell.value;
+        try {
+          if (trf instanceof Array) {
+            trf = trf.map(v =>
+              v != null && typeof v === 'string' && v.trim().length > 0 ? ts.translate(v) : v,
+            );
+          } else {
+            trf =
+              trf != null && typeof trf === 'string' && trf.trim().length > 0
+                ? ts.translate(trf)
+                : trf;
+          }
+        } catch (_e) {}
+        return {...cell, value: trf};
+      }),
+    );
 
     const header = (tdw.dataset || []).map(cell => {
       let evf = '';
       try {
-        evf = cell.formula instanceof Array ?
-            cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts)) :
-            trFormula(cell.formula!, context as AjfContext, ts);
-      } catch (_e) {
-      }
-      return ({
+        evf =
+          cell.formula instanceof Array
+            ? cell.formula.map(f => trFormula(f as AjfFormula, context as AjfContext, ts))
+            : trFormula(cell.formula!, context as AjfContext, ts);
+      } catch (_e) {}
+      return {
         value: evf,
         style: {...tdw.cellStyles, ...cell.style},
         rowspan: cell.rowspan,
         colspan: cell.colspan,
-      });
+      };
     });
     tdwi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
   } else if (widget.widgetType === AjfWidgetType.Image) {
@@ -224,34 +234,37 @@ export function widgetToWidgetInstance(
     const icw = widget as AjfImageContainerWidget;
     const icwi = wi as AjfImageContainerWidgetInstance;
     if (icw.flags) {
-      icwi.flags = icw.flags instanceof Array ?
-          icw.flags.map(f => evaluateExpression(f.formula, context)) :
-          evaluateExpression(icw.flags.formula, context);
+      icwi.flags =
+        icw.flags instanceof Array
+          ? icw.flags.map(f => evaluateExpression(f.formula, context))
+          : evaluateExpression(icw.flags.formula, context);
     }
     if (icw.icons) {
-      icwi.icons = icw.icons instanceof Array ?
-          icw.icons.map(f => evaluateExpression(f.formula, context)) :
-          evaluateExpression(icw.icons.formula, context);
+      icwi.icons =
+        icw.icons instanceof Array
+          ? icw.icons.map(f => evaluateExpression(f.formula, context))
+          : evaluateExpression(icw.icons.formula, context);
     }
     if (icw.urls) {
-      icwi.urls = icw.urls instanceof Array ?
-          icw.urls.map(f => evaluateExpression(f.formula, context)) :
-          evaluateExpression(icw.urls.formula, context);
+      icwi.urls =
+        icw.urls instanceof Array
+          ? icw.urls.map(f => evaluateExpression(f.formula, context))
+          : evaluateExpression(icw.urls.formula, context);
     }
   } else if (widget.widgetType === AjfWidgetType.Text) {
     const tew = widget as AjfTextWidget;
     const tewi = wi as AjfTextWidgetInstance;
     const formulaRegEx: RegExp = /\[{2}(.+?)\]{2}/g;
-    const matches: {idx: number, len: number, formula: AjfFormula}[] = [];
-    let match: RegExpExecArray|null;
+    const matches: {idx: number; len: number; formula: AjfFormula}[] = [];
+    let match: RegExpExecArray | null;
     let htmlText = tew.htmlText;
-    while (match = formulaRegEx.exec(htmlText)) {
+    while ((match = formulaRegEx.exec(htmlText))) {
       const idx = match.index;
       const len = match[0].length;
       const formula = createFormula({formula: match[1]});
       matches.push({idx, len, formula});
     }
-    matches.reverse().forEach((m) => {
+    matches.reverse().forEach(m => {
       let calcValue;
       try {
         calcValue = evaluateExpression(m.formula.formula, context);
@@ -270,9 +283,10 @@ export function widgetToWidgetInstance(
     const mwi = wi as AjfMapWidgetInstance;
     mwi.coordinate = evaluateExpression(mw.coordinate.formula, context);
   } else if (widget.widgetType > 100) {
-    const iiFn = componentsMap[widget.widgetType] != null ?
-        componentsMap[widget.widgetType].initInstance :
-        null;
+    const iiFn =
+      componentsMap[widget.widgetType] != null
+        ? componentsMap[widget.widgetType].initInstance
+        : null;
     if (iiFn != null) {
       return iiFn(wi, context, ts);
     }

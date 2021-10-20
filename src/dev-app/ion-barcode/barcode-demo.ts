@@ -22,11 +22,9 @@
 
 import {Component} from '@angular/core';
 
-
 @Component({
   selector: 'barcode-demo',
   templateUrl: 'barcode-demo.html',
   styleUrls: ['barcode-demo.css'],
 })
-export class BarcodeDemo {
-}
+export class BarcodeDemo {}

@@ -50,9 +50,12 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
 })
 export class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService, domSanitizer: DomSanitizer,
-      httpClient: HttpClient) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+    domSanitizer: DomSanitizer,
+    httpClient: HttpClient,
+  ) {
     super(cdr, service, was, domSanitizer, httpClient);
   }
 }

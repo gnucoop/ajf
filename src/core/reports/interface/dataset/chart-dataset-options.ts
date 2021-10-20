@@ -23,7 +23,7 @@
 import {ChartColor} from 'chart.js';
 
 export interface AjfChartDatasetOptions {
-  backgroundColor?: ChartColor|ChartColor[];
+  backgroundColor?: ChartColor | ChartColor[];
   borderWidth?: number;
   borderColor?: ChartColor;
   borderCapStyle?: string;
@@ -33,16 +33,16 @@ export interface AjfChartDatasetOptions {
   fill?: boolean;
   label?: string;
   lineTension?: number;
-  pointBorderColor?: ChartColor|ChartColor[];
-  pointBackgroundColor?: ChartColor|ChartColor[];
-  pointBorderWidth?: number|number[];
-  pointRadius?: number|number[];
-  pointHoverRadius?: number|number[];
-  pointHitRadius?: number|number[];
-  pointHoverBackgroundColor?: ChartColor|ChartColor[];
-  pointHoverBorderColor?: ChartColor|ChartColor[];
-  pointHoverBorderWidth?: number|number[];
-  pointStyle?: string|string[]|HTMLImageElement|HTMLImageElement[];
+  pointBorderColor?: ChartColor | ChartColor[];
+  pointBackgroundColor?: ChartColor | ChartColor[];
+  pointBorderWidth?: number | number[];
+  pointRadius?: number | number[];
+  pointHoverRadius?: number | number[];
+  pointHitRadius?: number | number[];
+  pointHoverBackgroundColor?: ChartColor | ChartColor[];
+  pointHoverBorderColor?: ChartColor | ChartColor[];
+  pointHoverBorderWidth?: number | number[];
+  pointStyle?: string | string[] | HTMLImageElement | HTMLImageElement[];
   xAxisID?: string;
   yAxisID?: string;
   type?: string;

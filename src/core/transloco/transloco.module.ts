@@ -26,7 +26,7 @@ import {
   TRANSLOCO_MISSING_HANDLER,
   translocoConfig,
   TranslocoModule,
-  TranslocoService
+  TranslocoService,
 } from '@ngneat/transloco';
 
 import {langs} from './lang';
@@ -43,9 +43,9 @@ const availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'];
         defaultLang: 'ENG',
         reRenderOnLangChange: true,
         prodMode: false,
-      })
+      }),
     },
-    {provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler}
+    {provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler},
   ],
 })
 export class AjfTranslocoModule {
@@ -59,9 +59,7 @@ export class AjfTranslocoModule {
   static forRoot(): ModuleWithProviders<AjfTranslocoModule> {
     return {
       ngModule: AjfTranslocoModule,
-      providers: [
-        TranslocoService,
-      ]
+      providers: [TranslocoService],
     };
   }
 }

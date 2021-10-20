@@ -37,9 +37,6 @@ import {CalendarEthiopianDemo} from './calendar-ethiopian-demo';
     MatCheckboxModule,
     RouterModule.forChild([{path: '', component: CalendarEthiopianDemo}]),
   ],
-  declarations: [
-    CalendarEthiopianDemo,
-  ],
+  declarations: [CalendarEthiopianDemo],
 })
-export class CalendarEthiopianDemoModule {
-}
+export class CalendarEthiopianDemoModule {}

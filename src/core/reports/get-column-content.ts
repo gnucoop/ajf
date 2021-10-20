@@ -26,7 +26,7 @@ import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 
 @Pipe({name: 'ajfGetColumnContent'})
 export class AjfGetColumnContentPipe {
-  transform(instance: AjfLayoutWidgetInstance, column: number): AjfWidgetInstance|null {
+  transform(instance: AjfLayoutWidgetInstance, column: number): AjfWidgetInstance | null {
     return column >= 0 && column < instance.content.length ? instance.content[column] : null;
   }
 }

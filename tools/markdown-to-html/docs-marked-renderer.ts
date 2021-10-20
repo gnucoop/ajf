@@ -76,12 +76,15 @@ export class DocsMarkdownRenderer extends Renderer {
    *  turns into
    *  `<div material-docs-example="name"></div>`
    */
-   override html(html: string) {
+  override html(html: string) {
     html = html.replace(exampleCommentRegex, (_match: string, content: string) => {
       // using [\s\S]* because .* does not match line breaks
       if (content.match(/\{[\s\S]*\}/g)) {
-        const {example, file, region} =
-            JSON.parse(content) as {example: string, file: string, region: string};
+        const {example, file, region} = JSON.parse(content) as {
+          example: string;
+          file: string;
+          region: string;
+        };
         return `<div material-docs-example="${example}"
                              ${file ? `file="${file}"` : ''}
                              ${region ? `region="${region}"` : ''}></div>`;

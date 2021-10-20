@@ -23,7 +23,7 @@
 import {alwaysCondition} from '@ajf/core/models';
 import {AjfWidget} from '../../interface/widgets/widget';
 
-export type AjfWidgetCreate = Pick<AjfWidget, 'widgetType'>&Partial<AjfWidget>;
+export type AjfWidgetCreate = Pick<AjfWidget, 'widgetType'> & Partial<AjfWidget>;
 
 export function createWidget(widget: AjfWidgetCreate): AjfWidget {
   return {

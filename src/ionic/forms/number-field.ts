@@ -23,7 +23,7 @@
 import {
   AJF_WARNING_ALERT_SERVICE,
   AjfFormRendererService,
-  AjfInputFieldComponent as CoreComponent
+  AjfInputFieldComponent as CoreComponent,
 } from '@ajf/core/forms';
 import {
   ChangeDetectionStrategy,
@@ -33,7 +33,7 @@ import {
   Inject,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
@@ -48,25 +48,25 @@ import {AjfWarningAlertService} from './warning-alert-service';
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy, OnInit {
-  readonly value: Observable<number|null>;
+  readonly value: Observable<number | null>;
 
-  private _setValueEvt: EventEmitter<number|null> = new EventEmitter<number|null>();
+  private _setValueEvt: EventEmitter<number | null> = new EventEmitter<number | null>();
   private _setValueSub: Subscription = Subscription.EMPTY;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+  ) {
     super(cdr, service, was);
     this.type = 'number';
 
-    this.value = defer(
-                     () => this.control.pipe(
-                         filter(control => control != null),
-                         switchMap(
-                             control => control!.valueChanges.pipe(
-                                 startWith(control!.value),
-                                 )),
-                         )) as Observable<number|null>;
+    this.value = defer(() =>
+      this.control.pipe(
+        filter(control => control != null),
+        switchMap(control => control!.valueChanges.pipe(startWith(control!.value))),
+      ),
+    ) as Observable<number | null>;
   }
 
   override ngOnDestroy(): void {
@@ -78,16 +78,14 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
   override ngOnInit(): void {
     super.ngOnInit();
     this._setValueSub = this._setValueEvt
-                            .pipe(
-                                withLatestFrom(this.control),
-                                )
-                            .subscribe(([value, ctrl]) => {
-                              if (ctrl == null) {
-                                return;
-                              }
-                              const control = ctrl as FormControl;
-                              control.setValue(value);
-                            });
+      .pipe(withLatestFrom(this.control))
+      .subscribe(([value, ctrl]) => {
+        if (ctrl == null) {
+          return;
+        }
+        const control = ctrl as FormControl;
+        control.setValue(value);
+      });
   }
 
   setValue(value: any): void {

@@ -43,5 +43,5 @@ export enum AjfFieldType {
   Image,
   VideoUrl,
   Range,
-  LENGTH
+  LENGTH,
 }

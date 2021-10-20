@@ -3,7 +3,7 @@ import {
   AjfFieldHost,
   AjfFieldType,
   createField,
-  createFieldInstance
+  createFieldInstance,
 } from '@ajf/core/forms';
 import {AjfDateInputFieldComponent} from '@ajf/material/forms';
 import {AfterViewInit, Component, ComponentFactoryResolver, ViewChild} from '@angular/core';
@@ -32,7 +32,7 @@ export class MaterialDateInputFieldE2E implements AfterViewInit {
         name: 'date_input',
       }),
       minDate: dateLimit,
-      maxDate: dateLimit
+      maxDate: dateLimit,
     } as AjfDateField;
     componentInstance.instance = {
       ...createFieldInstance({node}, {}),

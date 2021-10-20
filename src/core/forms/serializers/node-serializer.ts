@@ -56,10 +56,10 @@ import {AjfWarningGroupSerializer} from './warning-group-serializer';
  */
 export class AjfNodeSerializer {
   static fromJson(
-      json: Partial<AjfNode>,
-      choicesOrigins?: AjfChoicesOrigin<any>[],
-      attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
-      ): AjfNode {
+    json: Partial<AjfNode>,
+    choicesOrigins?: AjfChoicesOrigin<any>[],
+    attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
+  ): AjfNode {
     const err = 'Malformed node';
     const obj = {...json} as AjfNodeCreate;
     obj.name = obj.name ?? '';
@@ -69,30 +69,32 @@ export class AjfNodeSerializer {
     if (obj.visibility) {
       obj.visibility = AjfConditionSerializer.fromJson(obj.visibility);
     }
-    obj.conditionalBranches =
-        (obj.conditionalBranches || []).map(c => AjfConditionSerializer.fromJson(c));
+    obj.conditionalBranches = (obj.conditionalBranches || []).map(c =>
+      AjfConditionSerializer.fromJson(c),
+    );
     // call serializer by nodeType and cast obj with the right interface
     switch (obj.nodeType) {
       case AjfNodeType.AjfField:
         return AjfNodeSerializer._fieldFromJson(
-            obj as AjfNodeCreate & Partial<AjfField>,
-            choicesOrigins,
-            attachmentsOrigins,
+          obj as AjfNodeCreate & Partial<AjfField>,
+          choicesOrigins,
+          attachmentsOrigins,
         );
       case AjfNodeType.AjfFieldNodeLink:
         return AjfNodeSerializer._fieldNodeLinkFromJson(
-            obj as AjfNodeCreate & Partial<AjfFieldNodeLink>);
+          obj as AjfNodeCreate & Partial<AjfFieldNodeLink>,
+        );
       case AjfNodeType.AjfNodeGroup:
         return AjfNodeSerializer._nodeGroupFromJson(
-            obj as AjfNodeCreate & Partial<AjfNodeGroup>,
-            choicesOrigins,
-            attachmentsOrigins,
+          obj as AjfNodeCreate & Partial<AjfNodeGroup>,
+          choicesOrigins,
+          attachmentsOrigins,
         );
       case AjfNodeType.AjfRepeatingSlide:
         return AjfNodeSerializer._repeatingSlideFromJson(
-            obj as AjfNodeCreate & Partial<AjfRepeatingSlide>,
-            choicesOrigins,
-            attachmentsOrigins,
+          obj as AjfNodeCreate & Partial<AjfRepeatingSlide>,
+          choicesOrigins,
+          attachmentsOrigins,
         );
       case AjfNodeType.AjfSlide:
         const slideObj = obj as AjfNodeCreate & Partial<AjfSlide>;
@@ -100,29 +102,30 @@ export class AjfNodeSerializer {
           slideObj.readonly = AjfConditionSerializer.fromJson(slideObj.readonly);
         }
         return AjfNodeSerializer._slideFromJson(
-            slideObj as AjfNodeCreate & Partial<AjfSlide>,
-            choicesOrigins,
-            attachmentsOrigins,
+          slideObj as AjfNodeCreate & Partial<AjfSlide>,
+          choicesOrigins,
+          attachmentsOrigins,
         );
     }
     throw new Error(err);
   }
 
   private static _containerNodeFromJson(
-      json: AjfNodeCreate&Partial<AjfContainerNode>,
-      choicesOrigins?: AjfChoicesOrigin<any>[],
-      attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
-      ): AjfContainerNode {
-    json.nodes = (json.nodes ||
-                  []).map(n => AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins));
+    json: AjfNodeCreate & Partial<AjfContainerNode>,
+    choicesOrigins?: AjfChoicesOrigin<any>[],
+    attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
+  ): AjfContainerNode {
+    json.nodes = (json.nodes || []).map(n =>
+      AjfNodeSerializer.fromJson(n, choicesOrigins, attachmentsOrigins),
+    );
     return createContainerNode(json);
   }
 
   private static _fieldFromJson(
-      json: AjfNodeCreate&Partial<AjfField>&Partial<{attachmentsOriginRef: string}>,
-      choicesOrigins?: AjfChoicesOrigin<any>[],
-      attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
-      ): AjfField {
+    json: AjfNodeCreate & Partial<AjfField> & Partial<{attachmentsOriginRef: string}>,
+    choicesOrigins?: AjfChoicesOrigin<any>[],
+    attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
+  ): AjfField {
     if (json.fieldType == null) {
       throw new Error('Malformed field');
     }
@@ -134,44 +137,49 @@ export class AjfNodeSerializer {
       obj.warning = AjfWarningGroupSerializer.fromJson(obj.warning);
     }
     if (json.attachmentsOriginRef) {
-      obj.attachmentOrigin =
-          (attachmentsOrigins || []).find(a => a.name === json.attachmentsOriginRef);
+      obj.attachmentOrigin = (attachmentsOrigins || []).find(
+        a => a.name === json.attachmentsOriginRef,
+      );
     }
     if (obj.nextSlideCondition) {
       obj.nextSlideCondition = AjfConditionSerializer.fromJson(obj.nextSlideCondition);
     }
-    const isCustomFieldWithChoice = obj.fieldType > 100 && componentsMap[obj.fieldType] != null &&
-        componentsMap[obj.fieldType].isFieldWithChoice === true;
+    const isCustomFieldWithChoice =
+      obj.fieldType > 100 &&
+      componentsMap[obj.fieldType] != null &&
+      componentsMap[obj.fieldType].isFieldWithChoice === true;
     if (isCustomFieldWithChoice) {
       return AjfNodeSerializer._fieldWithChoicesFromJson(
-          json as AjfFieldCreate & Partial<AjfFieldWithChoices<any>>,
-          choicesOrigins,
+        json as AjfFieldCreate & Partial<AjfFieldWithChoices<any>>,
+        choicesOrigins,
       );
     }
 
     switch (obj.fieldType) {
       case AjfFieldType.Formula:
         return AjfNodeSerializer._formulaFieldFromJson(
-            json as AjfFieldCreate & Partial<AjfFormulaField>);
+          json as AjfFieldCreate & Partial<AjfFormulaField>,
+        );
       case AjfFieldType.MultipleChoice:
       case AjfFieldType.SingleChoice:
         return AjfNodeSerializer._fieldWithChoicesFromJson(
-            json as AjfFieldCreate & Partial<AjfFieldWithChoices<any>>,
-            choicesOrigins,
+          json as AjfFieldCreate & Partial<AjfFieldWithChoices<any>>,
+          choicesOrigins,
         );
     }
     return createField(obj);
   }
 
-  private static _fieldNodeLinkFromJson(json: AjfNodeCreate&
-                                        Partial<AjfFieldNodeLink>): AjfFieldNodeLink {
+  private static _fieldNodeLinkFromJson(
+    json: AjfNodeCreate & Partial<AjfFieldNodeLink>,
+  ): AjfFieldNodeLink {
     return {...createNode(json), nodeType: AjfNodeType.AjfFieldNodeLink};
   }
 
   private static _fieldWithChoicesFromJson(
-      json: AjfFieldCreate&Partial<AjfFieldWithChoices<any>>&Partial<{choicesOriginRef: string}>,
-      choicesOrigins?: AjfChoicesOrigin<any>[],
-      ): AjfFieldWithChoices<any> {
+    json: AjfFieldCreate & Partial<AjfFieldWithChoices<any>> & Partial<{choicesOriginRef: string}>,
+    choicesOrigins?: AjfChoicesOrigin<any>[],
+  ): AjfFieldWithChoices<any> {
     const err = 'Malformed field with choices';
     if (json.choicesOriginRef == null) {
       throw new Error(err);
@@ -189,8 +197,9 @@ export class AjfNodeSerializer {
     return createFieldWithChoices<any>({...json, choicesOrigin});
   }
 
-  private static _formulaFieldFromJson(json: AjfFieldCreate&
-                                       Partial<AjfFormulaField>): AjfFormulaField {
+  private static _formulaFieldFromJson(
+    json: AjfFieldCreate & Partial<AjfFormulaField>,
+  ): AjfFormulaField {
     if (json.formula) {
       json.formula = AjfFormulaSerializer.fromJson(json.formula);
     }
@@ -201,18 +210,19 @@ export class AjfNodeSerializer {
   }
 
   private static _nodeGroupFromJson(
-      json: AjfNodeCreate&Partial<AjfNodeGroup>,
-      choicesOrigins?: AjfChoicesOrigin<any>[],
-      attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
-      ): AjfNodeGroup {
+    json: AjfNodeCreate & Partial<AjfNodeGroup>,
+    choicesOrigins?: AjfChoicesOrigin<any>[],
+    attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
+  ): AjfNodeGroup {
     return createNodeGroup({
       ...AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins),
       ...AjfNodeSerializer._repeatingNodeFromJson(json),
     });
   }
 
-  private static _repeatingNodeFromJson(json: AjfNodeCreate&
-                                        Partial<AjfRepeatingNode>): AjfRepeatingNode {
+  private static _repeatingNodeFromJson(
+    json: AjfNodeCreate & Partial<AjfRepeatingNode>,
+  ): AjfRepeatingNode {
     if (json.formulaReps) {
       json.formulaReps = AjfFormulaSerializer.fromJson(json.formulaReps);
     }
@@ -220,10 +230,10 @@ export class AjfNodeSerializer {
   }
 
   private static _repeatingSlideFromJson(
-      json: AjfNodeCreate&Partial<AjfRepeatingSlide>,
-      choicesOrigins?: AjfChoicesOrigin<any>[],
-      attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
-      ): AjfRepeatingSlide {
+    json: AjfNodeCreate & Partial<AjfRepeatingSlide>,
+    choicesOrigins?: AjfChoicesOrigin<any>[],
+    attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
+  ): AjfRepeatingSlide {
     return createRepeatingSlide({
       ...AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins),
       ...AjfNodeSerializer._repeatingNodeFromJson(json),
@@ -231,11 +241,12 @@ export class AjfNodeSerializer {
   }
 
   private static _slideFromJson(
-      json: AjfNodeCreate&Partial<AjfSlide>,
-      choicesOrigins?: AjfChoicesOrigin<any>[],
-      attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
-      ): AjfSlide {
+    json: AjfNodeCreate & Partial<AjfSlide>,
+    choicesOrigins?: AjfChoicesOrigin<any>[],
+    attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
+  ): AjfSlide {
     return createSlide(
-        AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins));
+      AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins),
+    );
   }
 }

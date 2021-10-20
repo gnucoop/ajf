@@ -27,15 +27,14 @@ import {
   Component,
   forwardRef,
   Renderer2,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
-
 
 export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => AjfBarcodeComponent),
-  multi: true
+  multi: true,
 };
 
 @Component({

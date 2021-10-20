@@ -43,11 +43,11 @@ export abstract class AjfFieldService {
    * @isFieldWithChoice If true, the field has choices.
    */
   registerCustomField(field: {
-    fieldType: number,
-    component: Type<AjfBaseFieldComponent>,
-    readOnlyComponent?: Type<AjfBaseFieldComponent>,
+    fieldType: number;
+    component: Type<AjfBaseFieldComponent>;
+    readOnlyComponent?: Type<AjfBaseFieldComponent>;
     createInstance?: (instance: AjfFieldInstanceCreate, context: AjfContext) => AjfFieldInstance;
-    isFieldWithChoice?: boolean,
+    isFieldWithChoice?: boolean;
   }): void {
     const {fieldType, component} = field;
     if (fieldType < 100) {

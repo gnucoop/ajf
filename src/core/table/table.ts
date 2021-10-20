@@ -25,7 +25,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -36,7 +36,7 @@ import {AjfTableCell} from './table-cell';
   templateUrl: 'table.html',
   styleUrls: ['table.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AjfTable {
   private _data: AjfTableCell[][];
@@ -68,8 +68,8 @@ export class AjfTable {
   constructor(private _cdr: ChangeDetectorRef, private _domSanitizer: DomSanitizer) {}
 
   private _fixData(data: AjfTableCell[][]): AjfTableCell[][] {
-    (data || []).forEach((elem) => {
-      (elem || []).forEach((subElem) => {
+    (data || []).forEach(elem => {
+      (elem || []).forEach(subElem => {
         subElem.value = this._domSanitizer.bypassSecurityTrustHtml(subElem.value);
       });
     });

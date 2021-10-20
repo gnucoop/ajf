@@ -26,14 +26,14 @@ import {
   Component,
   forwardRef,
   OnDestroy,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => AjfTime),
-  multi: true
+  multi: true,
 };
 
 @Component({

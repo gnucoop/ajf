@@ -32,7 +32,7 @@ import {
   Output,
   SimpleChange,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {AutoCompleteSingleton} from './autocomplete-singleton-model';
 import {IEditorLanguage} from './editor-language-model';
@@ -42,14 +42,13 @@ import {IEditorTheme} from './editor-theme';
 
 declare const monaco: any;
 
-
 @Component({
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'ajf-monaco-editor',
   styleUrls: ['monaco-editor.css'],
   templateUrl: 'monaco-editor.html',
-  host: {'(window:resize)': 'onResize($event)'}
+  host: {'(window:resize)': 'onResize($event)'},
 })
 export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
   @Input() experimentalScreenReader?: boolean;
@@ -94,21 +93,35 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
   @Input() formatOnType?: boolean;
   @Input() suggestOnTriggerCharacters?: boolean;
   @Input() acceptSuggestionOnEnter?: boolean;
-  @Input() snippetSuggestions?: 'top'|'bottom'|'inline'|'none';
+  @Input() snippetSuggestions?: 'top' | 'bottom' | 'inline' | 'none';
   @Input() tabCompletion?: boolean;
   @Input() wordBasedSuggestions?: boolean;
   @Input() selectionHighlight?: boolean;
   @Input() codeLens?: boolean;
   @Input() folding?: boolean;
-  @Input() renderWhitespace?: 'none'|'boundary'|'all';
+  @Input() renderWhitespace?: 'none' | 'boundary' | 'all';
   @Input() renderControlCharacters?: boolean;
   @Input() renderIndentGuides?: boolean;
   @Input() renderLineHighlight?: boolean;
   @Input() useTabStops?: boolean;
   @Input() fontFamily?: string;
   @Input()
-  fontWeight?: 'normal'|'bold'|'bolder'|'lighter'|'initial'|'inherit'|'100'|'200'|'300'|'400'|'500'|
-      '600'|'700'|'800'|'900';
+  fontWeight?:
+    | 'normal'
+    | 'bold'
+    | 'bolder'
+    | 'lighter'
+    | 'initial'
+    | 'inherit'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
   @Input() fontSize?: number;
   @Input() lineHeight?: number;
 
@@ -391,9 +404,9 @@ export class AjfMonacoEditor implements OnDestroy, AfterViewInit, OnChanges {
     options.value = this._value;
     options.language = this.language;
 
-    Object.keys(options).forEach((key) => {
+    Object.keys(options).forEach(key => {
       if ((<any>options)[key] === undefined) {
-        delete (<any>options)[key];  // Remove all undefined properties
+        delete (<any>options)[key]; // Remove all undefined properties
       }
     });
     return options;

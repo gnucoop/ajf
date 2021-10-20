@@ -31,7 +31,7 @@ import {
   OnDestroy,
   QueryList,
   ViewChildren,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 
@@ -40,22 +40,21 @@ import {
   AjfFormBuilderNode,
   AjfFormBuilderNodeEntry,
   AjfFormBuilderNodeTypeEntry,
-  AjfFormBuilderService
+  AjfFormBuilderService,
 } from './form-builder-service';
 import {
   disableFieldDropPredicate,
   disableSlideDropPredicate,
-  onDropProcess
+  onDropProcess,
 } from './form-builder-utils';
 
 const branchColors: string[] = [
-  '#F44336',  // RED
-  '#4CAF50',  // GREEN
-  '#3F51B5',  // INDIGO
-  '#FFC107',  // AMBER
-  '#795548',  // BROWN
+  '#F44336', // RED
+  '#4CAF50', // GREEN
+  '#3F51B5', // INDIGO
+  '#FFC107', // AMBER
+  '#795548', // BROWN
 ];
-
 
 @Component({
   selector: 'ajf-fb-node-entry',
@@ -63,7 +62,7 @@ const branchColors: string[] = [
   styleUrls: ['node-entry.css'],
   host: {'(window.resize)': 'onResize()'},
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   @ViewChildren(AjfFbBranchLine) branchLines: QueryList<AjfFbBranchLine>;
@@ -182,8 +181,8 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     }
   }
 
-  private _currentEditedNode: Observable<AjfFormBuilderNodeEntry|null>;
-  get currentEditedNode(): Observable<AjfFormBuilderNodeEntry|null> {
+  private _currentEditedNode: Observable<AjfFormBuilderNodeEntry | null>;
+  get currentEditedNode(): Observable<AjfFormBuilderNodeEntry | null> {
     return this._currentEditedNode;
   }
 
@@ -241,8 +240,9 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
    * @param content True if the current nodeEntry contains other nodeEntries.
    */
   onDrop(
-      event: CdkDragDrop<AjfFormBuilderNodeEntry>|CdkDragDrop<AjfFormBuilderNodeTypeEntry>,
-      content = false): void {
+    event: CdkDragDrop<AjfFormBuilderNodeEntry> | CdkDragDrop<AjfFormBuilderNodeTypeEntry>,
+    content = false,
+  ): void {
     onDropProcess(event, this._service, this._nodeEntry, content);
   }
 
@@ -272,8 +272,12 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   }
 
   private _updateBranchHeights(): void {
-    if (this.nodeEntry == null || !this.isNodeEntry || this.branchLines == null ||
-        this.childEntries == null) {
+    if (
+      this.nodeEntry == null ||
+      !this.isNodeEntry ||
+      this.branchLines == null ||
+      this.childEntries == null
+    ) {
       return;
     }
     const nodeEntry = <AjfFormBuilderNodeEntry>this.nodeEntry;

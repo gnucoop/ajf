@@ -29,13 +29,12 @@ import {map} from 'rxjs/operators';
 import {AjfFbConditionEditor} from './condition-editor';
 import {AjfFormBuilderService} from './form-builder-service';
 
-
 @Component({
   selector: 'ajf-condition-editor-dialog',
   templateUrl: 'condition-editor-dialog.html',
   styleUrls: ['condition-editor-dialog.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfFbConditionEditorDialog {
   @ViewChild(AjfFbConditionEditor, {static: false}) editor: AjfFbConditionEditor;
@@ -48,9 +47,12 @@ export class AjfFbConditionEditorDialog {
   condition: string;
 
   constructor(
-      service: AjfFormBuilderService, public dialogRef: MatDialogRef<AjfFbConditionEditorDialog>) {
+    service: AjfFormBuilderService,
+    public dialogRef: MatDialogRef<AjfFbConditionEditorDialog>,
+  ) {
     this._fields = service.flatFields.pipe(
-        map((fields: AjfField[]) => fields.sort((f1, f2) => f1.name.localeCompare(f2.name))));
+      map((fields: AjfField[]) => fields.sort((f1, f2) => f1.name.localeCompare(f2.name))),
+    );
   }
 
   saveCondition(): void {

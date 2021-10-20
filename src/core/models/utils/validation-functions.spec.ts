@@ -1,6 +1,5 @@
 import * as funcs from './expression-utils';
 
-
 describe('Validation Function', () => {
   it('digitCount should return length in digits', () => {
     let msg = '';
@@ -130,7 +129,11 @@ describe('Validation Function', () => {
   });
   it('extractArray should return the sum of the number not the concat string', () => {
     let msg = '';
-    const src = [{'a': 3, 'b': ''}, {'a': 2, 'b': 6}, {'a': 2, 'b': null}];
+    const src = [
+      {'a': 3, 'b': ''},
+      {'a': 2, 'b': 6},
+      {'a': 2, 'b': null},
+    ];
     const props = ['a', 'b'];
 
     msg = 'empty string should not be sum as string';

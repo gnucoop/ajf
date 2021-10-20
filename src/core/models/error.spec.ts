@@ -1,6 +1,5 @@
 import {AjfError} from './error';
 
-
 describe('AjfError', () => {
   it('should construct without message', () => {
     let error: AjfError = new AjfError();

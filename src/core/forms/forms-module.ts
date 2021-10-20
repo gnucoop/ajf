@@ -138,11 +138,6 @@ import {AjfValidationService} from './validation-service';
     AjfReadOnlyTableFieldComponent,
     AjfReadOnlyVideoUrlFieldComponent,
   ],
-  providers: [
-    AjfDateValueStringPipe,
-    AjfFormRendererService,
-    AjfValidationService,
-  ],
+  providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService],
 })
-export class AjfFormsModule {
-}
+export class AjfFormsModule {}

@@ -30,19 +30,8 @@ import {IonicModule} from '@ionic/angular';
 import {AjfCalendarComponent} from './calendar';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule,
-    FormsModule,
-    IonicModule,
-    AjfTranslocoModule,
-  ],
-  declarations: [
-    AjfCalendarComponent,
-  ],
-  exports: [
-    AjfCalendarComponent,
-  ],
+  imports: [CommonModule, CoreModule, FormsModule, IonicModule, AjfTranslocoModule],
+  declarations: [AjfCalendarComponent],
+  exports: [AjfCalendarComponent],
 })
-export class AjfCalendarModule {
-}
+export class AjfCalendarModule {}

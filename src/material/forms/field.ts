@@ -27,7 +27,7 @@ import {
   ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import {AjfFieldService} from './field-service';
@@ -43,7 +43,10 @@ export class AjfFormField extends CoreFormField {
   readonly componentsMap: AjfFieldComponentsMap;
 
   constructor(
-      cdr: ChangeDetectorRef, cfr: ComponentFactoryResolver, fieldService: AjfFieldService) {
+    cdr: ChangeDetectorRef,
+    cfr: ComponentFactoryResolver,
+    fieldService: AjfFieldService,
+  ) {
     super(cdr, cfr);
     this.componentsMap = fieldService.componentsMap;
   }

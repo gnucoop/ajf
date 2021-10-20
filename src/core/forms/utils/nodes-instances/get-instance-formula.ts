@@ -23,7 +23,10 @@
 import {AjfFormula, normalizeExpression} from '@ajf/core/models';
 
 export function getInstanceFormula(
-    formula: AjfFormula, ancestorsNames: {[prop: string]: number}, prefix: number[]): AjfFormula {
+  formula: AjfFormula,
+  ancestorsNames: {[prop: string]: number},
+  prefix: number[],
+): AjfFormula {
   const oldFormula = formula.formula;
   let newFormula = normalizeExpression(oldFormula, ancestorsNames, prefix);
   if (newFormula === oldFormula) {

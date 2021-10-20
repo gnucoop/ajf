@@ -29,15 +29,16 @@ import {AjfReportBuilderService} from './report-builder-service';
   selector: 'custom-widget-dialog',
   templateUrl: 'custom-widget-dialog.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderCustomWidgetDialog {
   @Input() label: string;
   @Input() position: number;
 
   constructor(
-      private _service: AjfReportBuilderService,
-      private _dialogRef: MatDialogRef<AjfReportBuilderCustomWidgetDialog>) {}
+    private _service: AjfReportBuilderService,
+    private _dialogRef: MatDialogRef<AjfReportBuilderCustomWidgetDialog>,
+  ) {}
 
   changeLabel() {
     this._service.changeLabelCustomWidget(this.label, this.position);

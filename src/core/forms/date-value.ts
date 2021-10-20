@@ -28,10 +28,10 @@ import {Pipe, PipeTransform} from '@angular/core';
  */
 @Pipe({name: 'ajfDateValue'})
 export class AjfDateValuePipe implements PipeTransform {
-  transform(date: Date|'today'|undefined): Date|null {
+  transform(date: Date | 'today' | undefined): Date | null {
     if (date == null) {
       return null;
     }
-    return date === 'today' ? new Date() : date as Date;
+    return date === 'today' ? new Date() : (date as Date);
   }
 }

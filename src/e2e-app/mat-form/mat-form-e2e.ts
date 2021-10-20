@@ -27,41 +27,48 @@ import {Observable, of} from 'rxjs';
 import {filter, startWith, switchMap} from 'rxjs/operators';
 
 const formSchema: any = {
-  choicesOrigins: [{
-    type: 'fixed',
-    name: 'animals',
-    choicesType: 'string',
-    choices: [{value: 'dog', label: 'Dog'}, {value: 'cat', label: 'Cat'}]
-  }],
-  nodes: [{
-    parent: 0,
-    id: 1,
-    name: 'number1',
-    label: 'Number Field Example',
-    nodeType: 3,
-    nodes: [
-      {
-        id: 10,
-        parent: 1,
-        name: 'number',
-        label: 'Number',
-        nodeType: 0,
-        fieldType: 2,
-        hint: 'Is a field that allows only numeric inputs',
-        hintIcon: 'help_outline',
-      },
-      {
-        parent: 10,
-        id: 11,
-        name: 'pet_type',
-        label: 'Do you have a cat or a dog?',
-        nodeType: 0,
-        fieldType: 4,
-        choicesOriginRef: 'animals',
-        hint: 'which pet do you have at home?',
-      }
-    ]
-  }]
+  choicesOrigins: [
+    {
+      type: 'fixed',
+      name: 'animals',
+      choicesType: 'string',
+      choices: [
+        {value: 'dog', label: 'Dog'},
+        {value: 'cat', label: 'Cat'},
+      ],
+    },
+  ],
+  nodes: [
+    {
+      parent: 0,
+      id: 1,
+      name: 'number1',
+      label: 'Number Field Example',
+      nodeType: 3,
+      nodes: [
+        {
+          id: 10,
+          parent: 1,
+          name: 'number',
+          label: 'Number',
+          nodeType: 0,
+          fieldType: 2,
+          hint: 'Is a field that allows only numeric inputs',
+          hintIcon: 'help_outline',
+        },
+        {
+          parent: 10,
+          id: 11,
+          name: 'pet_type',
+          label: 'Do you have a cat or a dog?',
+          nodeType: 0,
+          fieldType: 4,
+          choicesOriginRef: 'animals',
+          hint: 'which pet do you have at home?',
+        },
+      ],
+    },
+  ],
 };
 
 @Component({
@@ -73,24 +80,28 @@ export class MaterialFormE2E implements OnInit {
   form: AjfForm;
   routeStream$: Observable<Params> = this._route.queryParams;
   topBar$: Observable<boolean> = this.routeStream$.pipe(
-      filter(p => p != null), switchMap((params) => {
-        let res = false;
-        if (params.topbar != null && params.topbar === 'true') {
-          res = true;
-        }
-        return of(res);
-      }),
-      startWith(false));
+    filter(p => p != null),
+    switchMap(params => {
+      let res = false;
+      if (params.topbar != null && params.topbar === 'true') {
+        res = true;
+      }
+      return of(res);
+    }),
+    startWith(false),
+  );
 
   hideToolbar$: Observable<boolean> = this.routeStream$.pipe(
-      filter(p => p != null), switchMap((params) => {
-        let res = false;
-        if (params.hidetoolbar != null && params.hidetoolbar === 'true') {
-          res = true;
-        }
-        return of(res);
-      }),
-      startWith(false));
+    filter(p => p != null),
+    switchMap(params => {
+      let res = false;
+      if (params.hidetoolbar != null && params.hidetoolbar === 'true') {
+        res = true;
+      }
+      return of(res);
+    }),
+    startWith(false),
+  );
 
   constructor(private _route: ActivatedRoute) {}
   ngOnInit(): void {

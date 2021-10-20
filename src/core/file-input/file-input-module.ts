@@ -28,21 +28,8 @@ import {NgModule} from '@angular/core';
 import {AjfDropMessage, AjfFileInput, AjfFilePreview} from './file-input';
 
 @NgModule({
-  declarations: [
-    AjfDropMessage,
-    AjfFileInput,
-    AjfFilePreview,
-  ],
-  exports: [
-    AjfDropMessage,
-    AjfFileInput,
-    AjfFilePreview,
-  ],
-  imports: [
-    AjfCommonModule,
-    CommonModule,
-    AjfTranslocoModule,
-  ],
+  declarations: [AjfDropMessage, AjfFileInput, AjfFilePreview],
+  exports: [AjfDropMessage, AjfFileInput, AjfFilePreview],
+  imports: [AjfCommonModule, CommonModule, AjfTranslocoModule],
 })
-export class AjfFileInputModule {
-}
+export class AjfFileInputModule {}

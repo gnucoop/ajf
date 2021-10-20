@@ -28,13 +28,15 @@ import {isRepeatingContainerNode} from '../nodes/is-repeating-container-node';
  * It returns all ancestor repeatingContainerNodes of the node.
  */
 export function getAncestorRepeatingNodes(
-    allNodes: (AjfNode|AjfNodeInstance)[], node: AjfNode): AjfNode[] {
+  allNodes: (AjfNode | AjfNodeInstance)[],
+  node: AjfNode,
+): AjfNode[] {
   let nodeGroups: AjfNode[] = [];
-  let curParent: number|null = node.parent;
+  let curParent: number | null = node.parent;
   while (curParent != null) {
-    const curNode =
-        allNodes.map((n: AjfNode|AjfNodeInstance) => (n as AjfNodeInstance).node || n as AjfNode)
-            .find(n => n.id == curParent);
+    const curNode = allNodes
+      .map((n: AjfNode | AjfNodeInstance) => (n as AjfNodeInstance).node || (n as AjfNode))
+      .find(n => n.id == curParent);
     if (curNode) {
       if (isRepeatingContainerNode(curNode)) {
         nodeGroups.push(curNode);

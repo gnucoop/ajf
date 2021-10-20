@@ -31,7 +31,7 @@ import {format} from 'date-fns';
 @Injectable()
 @Pipe({name: 'ajfDateValueString'})
 export class AjfDateValueStringPipe implements PipeTransform {
-  transform(date: Date|'today'|undefined): string|undefined {
+  transform(date: Date | 'today' | undefined): string | undefined {
     if (date == null) {
       return undefined;
     }

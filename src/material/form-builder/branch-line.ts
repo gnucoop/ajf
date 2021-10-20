@@ -26,7 +26,7 @@ import {
   ElementRef,
   Input,
   Renderer2,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -34,7 +34,7 @@ import {
   templateUrl: 'branch-line.html',
   styleUrls: ['branch-line.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfFbBranchLine {
   private _offset = 0;

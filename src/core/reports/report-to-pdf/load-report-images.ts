@@ -25,9 +25,7 @@ import {AjfReportContainerInstance} from '../interface/reports-instances/report-
 import {AjfReportInstance} from '../interface/reports-instances/report-instance';
 import {AjfWidgetInstance} from '../interface/widgets-instances/widget-instance';
 import {AjfWidgetType} from '../interface/widgets/widget-type';
-import {
-  AjfWidgetWithContentInstance
-} from '../interface/widgets-instances/widget-with-content-instance';
+import {AjfWidgetWithContentInstance} from '../interface/widgets-instances/widget-with-content-instance';
 
 import {AjfImageType} from '@ajf/core/image';
 
@@ -61,8 +59,9 @@ export function loadReportImages(report: AjfReportInstance): Promise<ImageMap> {
   });
 }
 
-function loadContainerImages(container: AjfReportContainerInstance|AjfWidgetWithContentInstance):
-  Promise<ImageMap> {
+function loadContainerImages(
+  container: AjfReportContainerInstance | AjfWidgetWithContentInstance,
+): Promise<ImageMap> {
   const promises: Promise<ImageMap>[] = [];
   for (let widget of container.content) {
     promises.push(loadWidgetImages(widget));
@@ -80,36 +79,36 @@ function loadContainerImages(container: AjfReportContainerInstance|AjfWidgetWith
 
 function loadWidgetImages(widget: AjfWidgetInstance): Promise<ImageMap> {
   switch (widget.widgetType) {
-  case AjfWidgetType.Layout:
-  case AjfWidgetType.Column:
-    return loadContainerImages(widget as AjfWidgetWithContentInstance);
-  case AjfWidgetType.Image:
-    const image = widget as AjfImageWidgetInstance;
-    if (image.widget.imageType !== AjfImageType.Image) {
-      break;
-    }
-    return new Promise<ImageMap>(resolve => {
-      const req = new XMLHttpRequest();
-      req.onerror = () => resolve({}); // ignore 404's
-      req.onload = () => {
-        const r = new FileReader();
-        r.onerror = () => resolve({});
-        r.onloadend = () => {
-          const result = r.result as string;
-          if (result.startsWith('data:image')) {
-            const map: ImageMap = {};
-            map[image.url] = result;
-            resolve(map);
-          } else {
-            resolve({});
-          }
+    case AjfWidgetType.Layout:
+    case AjfWidgetType.Column:
+      return loadContainerImages(widget as AjfWidgetWithContentInstance);
+    case AjfWidgetType.Image:
+      const image = widget as AjfImageWidgetInstance;
+      if (image.widget.imageType !== AjfImageType.Image) {
+        break;
+      }
+      return new Promise<ImageMap>(resolve => {
+        const req = new XMLHttpRequest();
+        req.onerror = () => resolve({}); // ignore 404's
+        req.onload = () => {
+          const r = new FileReader();
+          r.onerror = () => resolve({});
+          r.onloadend = () => {
+            const result = r.result as string;
+            if (result.startsWith('data:image')) {
+              const map: ImageMap = {};
+              map[image.url] = result;
+              resolve(map);
+            } else {
+              resolve({});
+            }
+          };
+          r.readAsDataURL(req.response);
         };
-        r.readAsDataURL(req.response);
-      };
-      req.open('GET', image.url);
-      req.responseType = 'blob';
-      req.send();
-    });
+        req.open('GET', image.url);
+        req.responseType = 'blob';
+        req.send();
+      });
   }
   return new Promise<ImageMap>(resolve => resolve({}));
 }

@@ -33,7 +33,9 @@ import {isFieldInstance} from './is-field-instance';
  * If includeGroups is true the result also contains the containerNodeInstance.
  */
 export function flattenNodesInstances(
-    nodes: AjfNodeInstance[], includeGroups = false): AjfNodeInstance[] {
+  nodes: AjfNodeInstance[],
+  includeGroups = false,
+): AjfNodeInstance[] {
   let flatNodes: AjfNodeInstance[] = [];
   nodes.forEach((nodeInstance: AjfNodeInstance) => {
     if (isFieldInstance(nodeInstance)) {
@@ -44,7 +46,8 @@ export function flattenNodesInstances(
         flatNodes.push(nodeInstance);
       }
       flatNodes = flatNodes.concat(
-          flattenNodesInstances((nodeInstance as AjfContainerNodeInstance).nodes, includeGroups));
+        flattenNodesInstances((nodeInstance as AjfContainerNodeInstance).nodes, includeGroups),
+      );
     }
   });
   return flatNodes;

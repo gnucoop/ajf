@@ -35,9 +35,6 @@ import {CalendarDemo} from './calendar-demo';
     MatCheckboxModule,
     RouterModule.forChild([{path: '', component: CalendarDemo}]),
   ],
-  declarations: [
-    CalendarDemo,
-  ],
+  declarations: [CalendarDemo],
 })
-export class CalendarDemoModule {
-}
+export class CalendarDemoModule {}

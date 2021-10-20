@@ -27,7 +27,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {Subscription, timer} from 'rxjs';
 
@@ -43,7 +43,7 @@ import {AjfReportBuilderService} from './report-builder-service';
   templateUrl: 'column.html',
   styleUrls: ['column.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderColumn implements OnDestroy, OnInit {
   /**
@@ -57,7 +57,6 @@ export class AjfReportBuilderColumn implements OnDestroy, OnInit {
 
   // this boolean sign if is dragged a widget
   onDragged = false;
-
 
   /**
    * is the array of values

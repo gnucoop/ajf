@@ -26,14 +26,14 @@ import {
   ChangeDetectorRef,
   Component,
   forwardRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
 export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => AjfCalendarComponent),
-  multi: true
+  multi: true,
 };
 
 @Component({
@@ -42,9 +42,7 @@ export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
   styleUrls: ['calendar.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    CALENDAR_CONTROL_VALUE_ACCESSOR,
-  ]
+  providers: [CALENDAR_CONTROL_VALUE_ACCESSOR],
 })
 export class AjfCalendarComponent extends AjfCalendar {
   constructor(cdr: ChangeDetectorRef, service: AjfCalendarService) {

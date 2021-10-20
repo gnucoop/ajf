@@ -32,10 +32,7 @@ describe('AjfReportWidget', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [
-        AjfReportsModule,
-        AjfTranslocoModule,
-      ],
+      imports: [AjfReportsModule, AjfTranslocoModule],
     });
 
     ts = TestBed.get(TranslocoService);
@@ -43,8 +40,11 @@ describe('AjfReportWidget', () => {
   });
 
   it('should respect widget visibility', async () => {
-    const widget = AjfWidgetSerializer.fromJson(
-        {widgetType: AjfWidgetType.Text, htmlText: 'foo', visibility: {condition: 'false'}} as any);
+    const widget = AjfWidgetSerializer.fromJson({
+      widgetType: AjfWidgetType.Text,
+      htmlText: 'foo',
+      visibility: {condition: 'false'},
+    } as any);
     const instance = createWidgetInstance(widget, {}, ts);
 
     const fixture = TestBed.createComponent(AjfReportWidget);

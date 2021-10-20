@@ -29,13 +29,12 @@ import {map} from 'rxjs/operators';
 import {AjfFbConditionEditor} from './condition-editor';
 import {AjfFormBuilderService} from './form-builder-service';
 
-
 @Component({
   selector: 'ajf-fb-warning-condition-editor-dialog',
   templateUrl: 'warning-condition-editor-dialog.html',
   styleUrls: ['warning-condition-editor-dialog.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfFbWarningConditionEditorDialog {
   @ViewChild(AjfFbConditionEditor, {static: false}) editor: AjfFbConditionEditor;
@@ -49,10 +48,12 @@ export class AjfFbWarningConditionEditorDialog {
   warningMessage: string;
 
   constructor(
-      service: AjfFormBuilderService,
-      public dialogRef: MatDialogRef<AjfFbWarningConditionEditorDialog>) {
+    service: AjfFormBuilderService,
+    public dialogRef: MatDialogRef<AjfFbWarningConditionEditorDialog>,
+  ) {
     this._fields = service.flatFields.pipe(
-        map((fields: AjfField[]) => fields.sort((f1, f2) => f1.name.localeCompare(f2.name))));
+      map((fields: AjfField[]) => fields.sort((f1, f2) => f1.name.localeCompare(f2.name))),
+    );
   }
 
   saveCondition(): void {

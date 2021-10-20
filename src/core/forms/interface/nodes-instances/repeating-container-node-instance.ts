@@ -27,8 +27,9 @@ import {AjfRepeatingNodeInstance} from './repeating-node-instance';
 /**
  * A node instance containing an AjfRepeatingContainerNode node.
  */
-export interface AjfRepeatingContainerNodeInstance extends AjfContainerNodeInstance,
-                                                           AjfRepeatingNodeInstance {
+export interface AjfRepeatingContainerNodeInstance
+  extends AjfContainerNodeInstance,
+    AjfRepeatingNodeInstance {
   /**
    * The blueprint AjfRepeatingContainerNode.
    */

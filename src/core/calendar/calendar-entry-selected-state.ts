@@ -20,4 +20,4 @@
  *
  */
 
-export type AjfCalendarEntrySelectedState = ('none'|'partial'|'full');
+export type AjfCalendarEntrySelectedState = 'none' | 'partial' | 'full';

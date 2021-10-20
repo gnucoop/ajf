@@ -27,6 +27,7 @@ import {AjfFieldType} from '../../interface/fields/field-type';
  * It is true if the field type is a SingleChoice or MultipleChoice.
  */
 export function isFieldWithChoices(field: AjfField): boolean {
-  return field.fieldType === AjfFieldType.SingleChoice ||
-      field.fieldType === AjfFieldType.MultipleChoice;
+  return (
+    field.fieldType === AjfFieldType.SingleChoice || field.fieldType === AjfFieldType.MultipleChoice
+  );
 }

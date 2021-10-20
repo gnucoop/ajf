@@ -24,16 +24,14 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 
 import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
-import {
-  AjfFieldWithChoicesInstance
-} from './interface/fields-instances/field-with-choices-instance';
+import {AjfFieldWithChoicesInstance} from './interface/fields-instances/field-with-choices-instance';
 import {AjfFieldType} from './interface/fields/field-type';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
@@ -50,17 +48,21 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfReadOnlySelectFieldComponent extends
-    AjfBaseFieldComponent<AjfFieldWithChoicesInstance<String|number>> {
+export class AjfReadOnlySelectFieldComponent extends AjfBaseFieldComponent<
+  AjfFieldWithChoicesInstance<String | number>
+> {
   readonly multiple: Observable<boolean>;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+  ) {
     super(cdr, service, was);
 
     this.multiple = this.control.pipe(
-        filter(control => control != null),
-        map(() => this.instance.node.fieldType === AjfFieldType.MultipleChoice));
+      filter(control => control != null),
+      map(() => this.instance.node.fieldType === AjfFieldType.MultipleChoice),
+    );
   }
 }

@@ -367,17 +367,17 @@ export class AjfValidationService {
         } else {
           return [source[0], source[1], zoom];
         }
-      }`
+      }`,
   ];
 
-  private _functions: (Function|string)[] = [];
+  private _functions: (Function | string)[] = [];
   private _functionsStr: string = '';
 
   constructor() {
     this._initFunctions();
   }
 
-  addFunction(f: Function|string): void {
+  addFunction(f: Function | string): void {
     this._functions.push(f);
     this._initFunctions();
   }
@@ -389,8 +389,9 @@ export class AjfValidationService {
   }
 
   private _initFunctions(): void {
-    const functionsStr =
-        this._functions.map(f => typeof f === 'string' ? f : f.toString()).join('; ');
+    const functionsStr = this._functions
+      .map(f => (typeof f === 'string' ? f : f.toString()))
+      .join('; ');
     this._functionsStr = `${this._baseUtilFunctions.join('; ')}; ${functionsStr}`;
     AjfExpressionUtils.UTIL_FUNCTIONS = this._functionsStr;
   }

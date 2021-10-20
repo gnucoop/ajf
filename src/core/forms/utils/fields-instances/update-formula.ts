@@ -30,7 +30,9 @@ import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complet
  * if !editable evaluate expression once one time and flag changed is false
  */
 export function updateFormula(
-    instance: AjfFieldInstance, context: AjfContext): {changed: boolean, value: any} {
+  instance: AjfFieldInstance,
+  context: AjfContext,
+): {changed: boolean; value: any} {
   const formula = instance.formula;
   const editable = instance.node.editable;
   if (formula != null && instance.visible && (!editable || (editable && instance.value == null))) {

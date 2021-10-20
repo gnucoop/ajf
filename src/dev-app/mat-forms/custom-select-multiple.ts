@@ -23,7 +23,7 @@
 import {
   AJF_SEARCH_ALERT_THRESHOLD,
   AJF_WARNING_ALERT_SERVICE,
-  AjfFormRendererService
+  AjfFormRendererService,
 } from '@ajf/core/forms';
 import {AjfMultipleChoiceFieldComponent, AjfWarningAlertService} from '@ajf/material/forms';
 import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
@@ -34,9 +34,11 @@ import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
 })
 export class CustomSelectMultiple extends AjfMultipleChoiceFieldComponent<any> {
   constructor(
-      changeDetectorRef: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
-      @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number) {
+    changeDetectorRef: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+    @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number,
+  ) {
     super(changeDetectorRef, service, was, searchThreshold);
   }
 }

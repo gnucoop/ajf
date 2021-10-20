@@ -5,7 +5,7 @@ enum TestEnum {
   Foo,
   Bar,
   Baz,
-  LENGTH
+  LENGTH,
 }
 
 describe('sizedEnumToStringArray', () => {

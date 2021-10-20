@@ -27,12 +27,11 @@ import {timer} from 'rxjs';
 
 import {AjfReportBuilderService} from './report-builder-service';
 
-
 @Component({
   selector: 'ajf-report-builder-widgets-toolbar',
   templateUrl: 'widgets-toolbar.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * This class will define an Ajf builder fields toolbar
@@ -41,7 +40,6 @@ export class AjfReportBuilderWidgetsToolbar {
   // fieldTypes is an array string that contains the field options
   chartTypes: string[] = sizedEnumToStringArray(AjfChartType);
   widgetTypes: string[] = sizedEnumToStringArray(AjfWidgetType);
-
 
   /**
    *

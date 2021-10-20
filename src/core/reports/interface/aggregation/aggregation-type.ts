@@ -26,5 +26,5 @@ export enum AjfAggregationType {
   Sum,
   Average,
   WeightedAverage,
-  LENGTH
+  LENGTH,
 }

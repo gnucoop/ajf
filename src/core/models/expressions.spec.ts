@@ -15,7 +15,7 @@ describe('evaluateExpression', () => {
       opd_duration: ['Day(s)', 'Day(s)', 'Week(s)', 'Once'],
       opd_duration_day: [2, null, null, null],
       opd_duration_week: [null, 2, 2, null],
-      opd_freq: [1, 2, 8, null]
+      opd_freq: [1, 2, 8, null],
     };
     let formula = `sum(scanGroupField(opd_duration.length, [], function(result, i) {
                 result.push((opd_duration[i] == 'Day(s)' && opd_duration_day[i] * opd_freq[i]) ||
@@ -35,7 +35,7 @@ describe('evaluateExpression', () => {
       fn: (x: string) => {
         let y: any = {foo: 'bar'};
         return y[x];
-      }
+      },
     };
     expect(evaluateExpression('customFunction(z)', {z: 'foo'})).toEqual('bar');
     expect(evaluateExpression('customFunction(z)', {z: 'baz'})).toBeUndefined();

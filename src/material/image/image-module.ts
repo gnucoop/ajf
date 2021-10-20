@@ -27,16 +27,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {AjfImage} from './image';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatIconModule,
-  ],
-  declarations: [
-    AjfImage,
-  ],
-  exports: [
-    AjfImage,
-  ],
+  imports: [CommonModule, MatIconModule],
+  declarations: [AjfImage],
+  exports: [AjfImage],
 })
-export class AjfImageModule {
-}
+export class AjfImageModule {}

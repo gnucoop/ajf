@@ -20,7 +20,6 @@
  *
  */
 
-
 import {TranslocoMissingHandler} from '@ngneat/transloco';
 
 export class MissingHandler implements TranslocoMissingHandler {

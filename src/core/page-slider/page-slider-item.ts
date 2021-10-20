@@ -31,7 +31,7 @@ import {
   Output,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
@@ -49,31 +49,28 @@ export class AjfPageSliderItem implements OnDestroy {
   @ViewChild('wrapper', {static: true}) wrapper: ElementRef;
   @ViewChild('content', {static: true}) content: ElementRef;
 
-  private _scrollEvt = new EventEmitter<{x: number, y: number}>();
+  private _scrollEvt = new EventEmitter<{x: number; y: number}>();
   @Output()
-  readonly scroll: Observable<{x: number, y: number}> =
-      this._scrollEvt as Observable<{x: number, y: number}>;
+  readonly scroll: Observable<{x: number; y: number}> = this._scrollEvt as Observable<{
+    x: number;
+    y: number;
+  }>;
 
   private _scrollX = 0;
   private _scrollY = 0;
-  private _resizeObserver: ResizeObserver|null = null;
+  private _resizeObserver: ResizeObserver | null = null;
   private _resizeEvent: EventEmitter<void> = new EventEmitter<void>();
   private _resizeSub: Subscription = Subscription.EMPTY;
 
-  constructor(
-      private _el: ElementRef,
-      private _renderer: Renderer2,
-  ) {
+  constructor(private _el: ElementRef, private _renderer: Renderer2) {
     if (typeof ResizeObserver !== 'undefined') {
       this._resizeObserver = new ResizeObserver(() => this._onResize());
       this._resizeObserver.observe(this._el.nativeElement);
     }
 
     this._resizeSub = this._resizeEvent
-                          .pipe(
-                              debounceTime(300),
-                              )
-                          .subscribe(() => this._fixScrollOnResize());
+      .pipe(debounceTime(300))
+      .subscribe(() => this._fixScrollOnResize());
   }
 
   ngOnDestroy(): void {
@@ -101,8 +98,11 @@ export class AjfPageSliderItem implements OnDestroy {
       currentScroll = this._scrollY;
     }
     const maxScroll = containerSize - wrapperSize;
-    if (wrapperSize <= containerSize || (currentScroll === maxScroll && amount < 0) ||
-        (currentScroll === 0 && amount > 0)) {
+    if (
+      wrapperSize <= containerSize ||
+      (currentScroll === maxScroll && amount < 0) ||
+      (currentScroll === 0 && amount > 0)
+    ) {
       return false;
     }
     if (amount < 0) {
@@ -119,7 +119,10 @@ export class AjfPageSliderItem implements OnDestroy {
       }
     }
     this._renderer.setStyle(
-        wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`);
+      wrapper,
+      'transform',
+      `translate(${this._scrollX}px, ${this._scrollY}px)`,
+    );
     this._scrollEvt.emit({x: this._scrollX, y: this._scrollY});
     return true;
   }
@@ -136,15 +139,26 @@ export class AjfPageSliderItem implements OnDestroy {
     const wrapper = this.wrapper.nativeElement;
     const maxScrollX = Math.min(0, content.clientWidth - wrapper.clientWidth);
     const maxScrollY = Math.min(0, content.clientHeight - wrapper.clientHeight);
-    if (maxScrollX !== 0 || maxScrollY !== 0 || (maxScrollX === 0 && this._scrollX !== 0) ||
-        (maxScrollY === 0 && this._scrollY !== 0)) {
+    if (
+      maxScrollX !== 0 ||
+      maxScrollY !== 0 ||
+      (maxScrollX === 0 && this._scrollX !== 0) ||
+      (maxScrollY === 0 && this._scrollY !== 0)
+    ) {
       this._scrollX = Math.max(
-          maxScrollX, this._scrollX - (content.scrollLeft != null ? content.scrollLeft : 0));
-      this._scrollY =
-          Math.max(maxScrollY, this._scrollY - (content.scrollTop != null ? content.scrollTop : 0));
+        maxScrollX,
+        this._scrollX - (content.scrollLeft != null ? content.scrollLeft : 0),
+      );
+      this._scrollY = Math.max(
+        maxScrollY,
+        this._scrollY - (content.scrollTop != null ? content.scrollTop : 0),
+      );
       content.scrollTop = content.scrollLeft = 0;
       this._renderer.setStyle(
-          wrapper, 'transform', `translate(${this._scrollX}px, ${this._scrollY}px)`);
+        wrapper,
+        'transform',
+        `translate(${this._scrollX}px, ${this._scrollY}px)`,
+      );
       this._scrollEvt.emit({x: this._scrollX, y: this._scrollY});
     }
   }

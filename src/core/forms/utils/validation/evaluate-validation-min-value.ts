@@ -30,7 +30,9 @@ import {evaluateValidation} from './evaluate-validation';
  * minValue is the associated AjfCondition
  */
 export function evaluateValidationMinValue(
-    validation: AjfValidationGroup, value: any): AjfValidationResult|null {
+  validation: AjfValidationGroup,
+  value: any,
+): AjfValidationResult | null {
   if (validation.minValue == null) {
     return null;
   }
@@ -39,7 +41,7 @@ export function evaluateValidationMinValue(
     return {
       result: evaluateExpression(`$value.length <= ${validation.minValue}`, ctx),
       error: `Value must be >= ${validation.minValue}`,
-      clientValidation: false
+      clientValidation: false,
     };
   }
   return evaluateValidation(validation.minValue, {'$value': value});

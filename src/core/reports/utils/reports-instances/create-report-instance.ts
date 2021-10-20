@@ -29,15 +29,19 @@ import {AjfReport} from '../../interface/reports/report';
 import {createReportContainerInstance} from './create-report-container-instance';
 
 export function createReportInstance(
-    report: AjfReport, context: AjfContext, ts: TranslocoService): AjfReportInstance {
+  report: AjfReport,
+  context: AjfContext,
+  ts: TranslocoService,
+): AjfReportInstance {
   (report.variables || []).forEach(variable => {
     context[variable.name] = evaluateExpression(variable.formula.formula, context);
   });
   return {
     report,
     header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
-    content: report.content ? createReportContainerInstance(report.content, context, ts) :
-                              undefined,
+    content: report.content
+      ? createReportContainerInstance(report.content, context, ts)
+      : undefined,
     footer: report.footer ? createReportContainerInstance(report.footer, context, ts) : undefined,
     styles: report.styles || {},
   };

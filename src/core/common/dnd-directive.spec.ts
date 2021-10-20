@@ -7,33 +7,27 @@ describe('AjfDndDirective', () => {
   let fixture: ComponentFixture<TestComponent>;
 
   beforeEach(async () => {
-    await TestBed
-        .configureTestingModule({
-          declarations: [
-            AjfDndDirective,
-            TestComponent,
-          ]
-        })
-        .compileComponents();
+    await TestBed.configureTestingModule({
+      declarations: [AjfDndDirective, TestComponent],
+    }).compileComponents();
     fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
     await fixture.whenStable();
   });
 
-  it('should add ajf-dnd-over class to container on drag over and remove it on drag leave',
-     async () => {
-       const dnd = fixture.componentInstance.dnd;
-       const el = fixture.nativeElement.firstChild as HTMLDivElement;
-       expect(el.className).toBe('');
-       dnd.onDragOver(new DragEvent('dragover'));
-       fixture.detectChanges();
-       await fixture.whenStable();
-       expect(el.className).toBe('ajf-dnd-over');
-       dnd.onDragLeave(new DragEvent('dragleave'));
-       fixture.detectChanges();
-       await fixture.whenStable();
-       expect(el.className).toBe('');
-     });
+  it('should add ajf-dnd-over class to container on drag over and remove it on drag leave', async () => {
+    const dnd = fixture.componentInstance.dnd;
+    const el = fixture.nativeElement.firstChild as HTMLDivElement;
+    expect(el.className).toBe('');
+    dnd.onDragOver(new DragEvent('dragover'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(el.className).toBe('ajf-dnd-over');
+    dnd.onDragLeave(new DragEvent('dragleave'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    expect(el.className).toBe('');
+  });
 
   it('should emit a file on drop', done => {
     const dnd = fixture.componentInstance.dnd;

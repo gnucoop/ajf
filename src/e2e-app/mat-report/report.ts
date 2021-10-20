@@ -28,18 +28,22 @@ export const testReport = {
     styles: {},
   },
   content: {
-    content: [{
-      widgetType: 4,
-      chartType: 6,
-      exportable: true,
-      labels: {formula: '["label1", "label2", "label3"]'},
-      dataset: [{
-        label: '"chart data"',
-        formula: [{formula: '[100, 200, 300]'}],
-        aggregation: {aggregation: 0}
-      }]
-    } as AjfChartWidget],
-    styles: {}
+    content: [
+      {
+        widgetType: 4,
+        chartType: 6,
+        exportable: true,
+        labels: {formula: '["label1", "label2", "label3"]'},
+        dataset: [
+          {
+            label: '"chart data"',
+            formula: [{formula: '[100, 200, 300]'}],
+            aggregation: {aggregation: 0},
+          },
+        ],
+      } as AjfChartWidget,
+    ],
+    styles: {},
   },
-  footer: {content: [], styles: {}}
+  footer: {content: [], styles: {}},
 } as AjfReport;

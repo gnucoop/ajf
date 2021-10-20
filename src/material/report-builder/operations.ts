@@ -37,7 +37,7 @@ export interface AjfStylesOperation {
 }
 
 export interface AjfWidgetOperation {
-  (widget: AjfWidget|null): AjfWidget|null;
+  (widget: AjfWidget | null): AjfWidget | null;
 }
 
 export interface AjfColorOperation {

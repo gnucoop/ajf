@@ -28,7 +28,7 @@ import {
   AjfReportSerializer,
   AjfTextWidgetInstance,
   AjfWidgetType,
-  createReportInstance
+  createReportInstance,
 } from './index';
 
 describe('createReportInstance', () => {
@@ -42,12 +42,14 @@ describe('createReportInstance', () => {
   it('should support variables at report level', () => {
     const json = {
       content: {
-        content: [{
-          widgetType: AjfWidgetType.Text,
-          htmlText: '[[foo]]',
-          styles: {},
-          visibility: {condition: 'true'}
-        }],
+        content: [
+          {
+            widgetType: AjfWidgetType.Text,
+            htmlText: '[[foo]]',
+            styles: {},
+            visibility: {condition: 'true'},
+          },
+        ],
         styles: {},
       },
       styles: {},
@@ -62,18 +64,22 @@ describe('createReportInstance', () => {
   it('should support widget repetitions', () => {
     const json = {
       content: {
-        content: [{
-          widgetType: AjfWidgetType.Column,
-          styles: {},
-          visibility: {condition: 'true'},
-          repetitions: {formula: '3'},
-          content: [{
-            widgetType: AjfWidgetType.Text,
-            htmlText: '[[ foo[$repetition] ]]',
+        content: [
+          {
+            widgetType: AjfWidgetType.Column,
             styles: {},
-            visibility: {condition: 'true'}
-          }]
-        }],
+            visibility: {condition: 'true'},
+            repetitions: {formula: '3'},
+            content: [
+              {
+                widgetType: AjfWidgetType.Text,
+                htmlText: '[[ foo[$repetition] ]]',
+                styles: {},
+                visibility: {condition: 'true'},
+              },
+            ],
+          },
+        ],
         styles: {},
       },
       styles: {},

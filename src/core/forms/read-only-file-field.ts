@@ -26,7 +26,7 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
@@ -57,23 +57,24 @@ export class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
   readonly fileName: Observable<string>;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService, domSanitizer: DomSanitizer) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+    domSanitizer: DomSanitizer,
+  ) {
     super(cdr, service, was);
     this.fileIcon = domSanitizer.bypassSecurityTrustResourceUrl(fileIcon);
     const fileStream = this.control.pipe(
-        filter(control => control != null),
-        switchMap(control => {
-          control = control as FormControl;
-          return control.valueChanges.pipe(
-                     startWith(control.value),
-                     ) as Observable<AjfFile>;
-        }),
-        filter(value => value != null),
-        shareReplay(1),
+      filter(control => control != null),
+      switchMap(control => {
+        control = control as FormControl;
+        return control.valueChanges.pipe(startWith(control.value)) as Observable<AjfFile>;
+      }),
+      filter(value => value != null),
+      shareReplay(1),
     );
     this.fileUrl = fileStream.pipe(
-        map(file => domSanitizer.bypassSecurityTrustResourceUrl((file as AjfFile).content)),
+      map(file => domSanitizer.bypassSecurityTrustResourceUrl((file as AjfFile).content)),
     );
     this.fileName = fileStream.pipe(map(file => (file as AjfFile).name));
   }

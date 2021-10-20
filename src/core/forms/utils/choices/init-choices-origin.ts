@@ -21,9 +21,7 @@
  */
 
 import {AjfChoicesFunctionOrigin} from '../../interface/choices/choices-function-origin';
-import {
-  AjfChoicesObservableArrayOrigin
-} from '../../interface/choices/choices-observable-array-origin';
+import {AjfChoicesObservableArrayOrigin} from '../../interface/choices/choices-observable-array-origin';
 import {AjfChoicesObservableOrigin} from '../../interface/choices/choices-observable-origin';
 import {AjfChoicesOrigin} from '../../interface/choices/choices-origin';
 import {AjfChoicesPromiseOrigin} from '../../interface/choices/choices-promise-origin';
@@ -46,7 +44,7 @@ export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void> 
   /** modify origin.choices with result of resolved promise */
   if (origin.type === 'promise') {
     const po = origin as AjfChoicesPromiseOrigin<any>;
-    return po.generator.then(choices => po.choices = choices).then();
+    return po.generator.then(choices => (po.choices = choices)).then();
   }
   /** modify origin.choices with result of subscribed observable */
   if (origin.type === 'observable') {
@@ -55,9 +53,9 @@ export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void> 
       obso.choices = [];
       return new Promise<void>(res => {
         obso.generator.subscribe(
-            c => obso.choices.push(c),
-            () => {},
-            () => res(),
+          c => obso.choices.push(c),
+          () => {},
+          () => res(),
         );
       });
     }

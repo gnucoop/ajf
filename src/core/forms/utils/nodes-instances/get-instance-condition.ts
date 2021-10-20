@@ -23,8 +23,10 @@
 import {AjfCondition, normalizeExpression} from '@ajf/core/models';
 
 export function getInstanceCondition(
-    condition: AjfCondition, ancestorsNames: {[prop: string]: number},
-    prefix: number[]): AjfCondition {
+  condition: AjfCondition,
+  ancestorsNames: {[prop: string]: number},
+  prefix: number[],
+): AjfCondition {
   const oldCondition = condition.condition;
   let newCondition = normalizeExpression(oldCondition, ancestorsNames, prefix);
   if (newCondition === oldCondition) {

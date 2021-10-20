@@ -32,10 +32,10 @@ export interface AjfDateInputField extends AjfField {
   /**
    * The min selectable date of the calendar.
    */
-  minDate: Date|'today';
+  minDate: Date | 'today';
 
   /**
    * The max selectable date of the calendar.
    */
-  maxDate: Date|'today';
+  maxDate: Date | 'today';
 }

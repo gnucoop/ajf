@@ -41,11 +41,7 @@ import {AjfPageBreakWidgetComponent} from './page-break-widget';
 import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
-import {
-  AjfColumnWidgetComponent,
-  AjfLayoutWidgetComponent,
-  AjfReportWidget,
-} from './widget';
+import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} from './widget';
 
 @NgModule({
   imports: [
@@ -74,10 +70,6 @@ import {
     AjfTableWidgetComponent,
     AjfTextWidgetComponent,
   ],
-  exports: [
-    AjfReportRenderer,
-    AjfReportWidget,
-  ],
+  exports: [AjfReportRenderer, AjfReportWidget],
 })
-export class AjfReportsModule {
-}
+export class AjfReportsModule {}

@@ -30,7 +30,6 @@ const xlsxMod = ((XLSX as any).default || XLSX) as typeof XLSX;
 
 import {AjfWidgetType} from '../reports/interface/widgets/widget-type';
 
-
 @Component({
   selector: 'ajf-widget-export',
   templateUrl: 'widget-export.html',
@@ -40,7 +39,7 @@ import {AjfWidgetType} from '../reports/interface/widgets/widget-type';
 })
 export class AjfWidgetExport {
   @Input() widgetType: AjfWidgetType;
-  @Input() data: ChartData|AjfTableCell[][];
+  @Input() data: ChartData | AjfTableCell[][];
   @Input() overlay = true;
   @Input() enable = false;
 
@@ -67,7 +66,7 @@ export class AjfWidgetExport {
   /**
    * Export widget data in CSV or Xlsx format
    */
-  export(bookType: 'csv'|'xlsx'): void {
+  export(bookType: 'csv' | 'xlsx'): void {
     const sheetName = this._buildTitle(this.widgetType);
     const sheets: {[sheet: string]: XLSX.WorkSheet} = {};
     sheets[sheetName] = xlsxMod.utils.aoa_to_sheet(this._buildXlsxData());

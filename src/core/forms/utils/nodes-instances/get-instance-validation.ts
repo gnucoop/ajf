@@ -26,8 +26,10 @@ import {AjfValidation} from '../../interface/validation/validation';
 import {createValidation} from '../validation/create-validation';
 
 export function getInstanceValidation(
-    validation: AjfValidation, ancestorsNames: {[prop: string]: number},
-    prefix: number[]): AjfValidation {
+  validation: AjfValidation,
+  ancestorsNames: {[prop: string]: number},
+  prefix: number[],
+): AjfValidation {
   const oldValidation = validation.condition;
   let newValidation = normalizeExpression(oldValidation, ancestorsNames, prefix);
   if (newValidation === oldValidation) {

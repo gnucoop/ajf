@@ -22,11 +22,10 @@
 
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 
-
 @Component({
   templateUrl: 'field-warning-dialog.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AjfFieldWarningDialog {
   message: string;

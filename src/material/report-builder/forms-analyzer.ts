@@ -28,7 +28,7 @@ import {
   AjfDataset,
   AjfDataWidget,
   AjfWidget,
-  AjfWidgetType
+  AjfWidgetType,
 } from '@ajf/core/reports';
 import {ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
@@ -49,10 +49,10 @@ import {AjfReportBuilderService} from './report-builder-service';
   templateUrl: 'forms-analyzer.html',
   styleUrls: ['forms-analyzer.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
-  currentWidget: AjfWidget|null = null;
+  currentWidget: AjfWidget | null = null;
 
   forms: AjfForm[] = [];
 
@@ -76,8 +76,7 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
       }
     });
 
-
-    this._formAnalyzerSub = this._service.formsVariables.subscribe((x) => {
+    this._formAnalyzerSub = this._service.formsVariables.subscribe(x => {
       if (x != null) {
         this.formsVariables = x;
       }
@@ -235,13 +234,13 @@ export class AjfReportBuilderFormsAnalyzer implements OnDestroy {
       }
 
       this.dialogRef.componentInstance.labelText =
-          this._dataset[mainIndex] && this._dataset[mainIndex][index].label || '';
+        (this._dataset[mainIndex] && this._dataset[mainIndex][index].label) || '';
       /* this.dialogRef.componentInstance.formula =
         this._dataset[mainIndex] &&
         this._dataset[mainIndex][index].formula.formula || ''; */
       this.dialogRef.componentInstance.aggregation =
-          this._dataset[mainIndex] && this._dataset[mainIndex][index].aggregation.aggregation ||
-          AjfAggregationType.None;
+        (this._dataset[mainIndex] && this._dataset[mainIndex][index].aggregation.aggregation) ||
+        AjfAggregationType.None;
     } else {
       this.dialogRef.componentInstance.labelText = '';
       this.dialogRef.componentInstance.formula = '';

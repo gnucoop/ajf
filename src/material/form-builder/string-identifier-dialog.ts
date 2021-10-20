@@ -27,7 +27,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnDestroy,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
@@ -46,7 +46,7 @@ import {AjfFormBuilderService} from './form-builder-service';
 })
 export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
   readonly dataSource: MatTableDataSource<AjfFormStringIdentifier> =
-      new MatTableDataSource<AjfFormStringIdentifier>();
+    new MatTableDataSource<AjfFormStringIdentifier>();
   readonly displayedColumns = ['label', 'value', 'show', 'delete'];
   readonly fields$: Observable<string[]>;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -58,10 +58,13 @@ export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
       this.dataSource.data = [...identifier];
     });
     this.fields$ = _service.flatFields.pipe(
-        map(fields => fields.sort((f1, f2) => f1.name.localeCompare(f2.name))
-                          .map(f => f.name)
-                          .filter(f => f.length > 0)),
-        shareReplay(1),
+      map(fields =>
+        fields
+          .sort((f1, f2) => f1.name.localeCompare(f2.name))
+          .map(f => f.name)
+          .filter(f => f.length > 0),
+      ),
+      shareReplay(1),
     );
   }
 
@@ -76,8 +79,11 @@ export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
     ];
   }
 
-  addValue(row: AjfFormStringIdentifier, evt: MatChipInputEvent, valueInput: HTMLInputElement):
-      void {
+  addValue(
+    row: AjfFormStringIdentifier,
+    evt: MatChipInputEvent,
+    valueInput: HTMLInputElement,
+  ): void {
     if (evt.value.length === 0) {
       return;
     }
@@ -89,10 +95,7 @@ export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
   removeValue(row: AjfFormStringIdentifier, value: string): void {
     const idx = row.value.indexOf(value);
     if (idx > -1) {
-      row.value = [
-        ...row.value.slice(0, idx),
-        ...row.value.slice(idx + 1),
-      ];
+      row.value = [...row.value.slice(0, idx), ...row.value.slice(idx + 1)];
       this._cdr.markForCheck();
     }
   }

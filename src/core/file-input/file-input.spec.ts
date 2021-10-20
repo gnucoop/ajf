@@ -7,7 +7,7 @@ import {AjfTranslocoModule} from '../transloco';
 import {AjfFile, AjfFileInput, AjfFileInputModule} from './index';
 
 const emptyPng =
-    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 const bStr = atob(emptyPng);
 let n = bStr.length;
 const u8arr = new Uint8Array(n);
@@ -20,11 +20,9 @@ describe('AjfFileInput', () => {
   let fixture: ComponentFixture<AjfFileInput>;
 
   beforeEach(async () => {
-    await TestBed
-        .configureTestingModule({
-          imports: [AjfFileInputModule, AjfTranslocoModule],
-        })
-        .compileComponents();
+    await TestBed.configureTestingModule({
+      imports: [AjfFileInputModule, AjfTranslocoModule],
+    }).compileComponents();
     fixture = TestBed.createComponent(AjfFileInput);
     fixture.detectChanges();
   });
@@ -89,12 +87,10 @@ describe('AjfFileInput with custom drop message', () => {
   let fixture: ComponentFixture<DropMessageTestComponent>;
 
   beforeEach(async () => {
-    await TestBed
-        .configureTestingModule({
-          declarations: [DropMessageTestComponent],
-          imports: [AjfFileInputModule, AjfTranslocoModule],
-        })
-        .compileComponents();
+    await TestBed.configureTestingModule({
+      declarations: [DropMessageTestComponent],
+      imports: [AjfFileInputModule, AjfTranslocoModule],
+    }).compileComponents();
     fixture = TestBed.createComponent(DropMessageTestComponent);
     fixture.detectChanges();
     await fixture.whenStable();
@@ -113,12 +109,10 @@ describe('AjfFileInput with custom file preview', () => {
   let fixture: ComponentFixture<FilePreviewTestComponent>;
 
   beforeEach(async () => {
-    await TestBed
-        .configureTestingModule({
-          declarations: [FilePreviewTestComponent],
-          imports: [AjfFileInputModule, AjfTranslocoModule],
-        })
-        .compileComponents();
+    await TestBed.configureTestingModule({
+      declarations: [FilePreviewTestComponent],
+      imports: [AjfFileInputModule, AjfTranslocoModule],
+    }).compileComponents();
     fixture = TestBed.createComponent(FilePreviewTestComponent);
     fixture.detectChanges();
     await fixture.whenStable();
@@ -136,14 +130,14 @@ describe('AjfFileInput with custom file preview', () => {
   });
 });
 
-@Component(
-    {template: '<ajf-file-input><div ajfDropMessage>Test drop message</div></ajf-file-input>'})
-class DropMessageTestComponent {
-}
+@Component({
+  template: '<ajf-file-input><div ajfDropMessage>Test drop message</div></ajf-file-input>',
+})
+class DropMessageTestComponent {}
 
 @Component({
   template:
-      '<ajf-file-input [value]="value"><div ajfFilePreview>Test file preview</div></ajf-file-input>'
+    '<ajf-file-input [value]="value"><div ajfFilePreview>Test file preview</div></ajf-file-input>',
 })
 class FilePreviewTestComponent {
   @ViewChild(AjfFileInput) fileInput: AjfFileInput;

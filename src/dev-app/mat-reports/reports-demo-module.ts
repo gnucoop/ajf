@@ -38,10 +38,6 @@ import {ReportsDemo} from './reports-demo';
     MatGridListModule,
     RouterModule.forChild([{path: '', component: ReportsDemo}]),
   ],
-  declarations: [
-    CustomWidget,
-    ReportsDemo,
-  ],
+  declarations: [CustomWidget, ReportsDemo],
 })
-export class ReportsDemoModule {
-}
+export class ReportsDemoModule {}

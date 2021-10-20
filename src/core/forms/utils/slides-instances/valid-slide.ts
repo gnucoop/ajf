@@ -35,11 +35,11 @@ export function validSlide(slide: AjfBaseSlideInstance, idx: number): boolean {
     return true;
   }
   return slide.slideNodes[idx]
-      .map(n => {
-        if (n.visible && Object.keys(n).indexOf('valid') > -1) {
-          return (<any>n).valid;
-        }
-        return true;
-      })
-      .reduce((v1, v2) => v1 && v2, true);
+    .map(n => {
+      if (n.visible && Object.keys(n).indexOf('valid') > -1) {
+        return (<any>n).valid;
+      }
+      return true;
+    })
+    .reduce((v1, v2) => v1 && v2, true);
 }

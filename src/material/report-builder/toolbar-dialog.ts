@@ -29,19 +29,20 @@ import {AjfReportBuilderService} from './report-builder-service';
   selector: 'toolbar-dialog',
   templateUrl: 'toolbar-dialog.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderToolbarDialog {
   constructor(
-      private _service: AjfReportBuilderService,
-      private _dialogRef: MatDialogRef<AjfReportBuilderToolbarDialog>) {}
+    private _service: AjfReportBuilderService,
+    private _dialogRef: MatDialogRef<AjfReportBuilderToolbarDialog>,
+  ) {}
 
   resetReport() {
     let emptyReport: any = {
       'header': {'content': [], 'styles': {}},
       'content': {'content': [], 'styles': {}},
       'footer': {'content': [], 'styles': {}},
-      'styles': {}
+      'styles': {},
     };
     this._service.setReport(emptyReport);
     this._dialogRef.close();

@@ -27,7 +27,7 @@ export interface AjfStringIdentifier {
   /**
    * if field is inside a repeating slide it indicates which fields to show
    */
-  show?: 'all'|'first'|'last';
+  show?: 'all' | 'first' | 'last';
 
   /**
    * The field name to be associated with the label

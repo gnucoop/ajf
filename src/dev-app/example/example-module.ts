@@ -28,18 +28,8 @@ import {Example} from './example';
 import {ExampleList} from './example-list';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatExpansionModule,
-  ],
-  declarations: [
-    Example,
-    ExampleList,
-  ],
-  exports: [
-    Example,
-    ExampleList,
-  ]
+  imports: [CommonModule, MatExpansionModule],
+  declarations: [Example, ExampleList],
+  exports: [Example, ExampleList],
 })
-export class ExampleModule {
-}
+export class ExampleModule {}

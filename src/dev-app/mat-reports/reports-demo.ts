@@ -53,7 +53,7 @@ export class ReportsDemo {
       'Righa 1': 'Row 1',
       'Nome': 'Name',
       'Dessie Zuria': 'DessieT ZuriaT',
-      'Totale': 'Total'
+      'Totale': 'Total',
     };
     _ts.setTranslation(engDict, 'ENG');
     _ts.setDefaultLang('ENG');
@@ -64,7 +64,7 @@ export class ReportsDemo {
     this._populateReport();
   }
 
-  printReport(orientation: 'portrait'|'landscape') {
+  printReport(orientation: 'portrait' | 'landscape') {
     openReportPdf(this.report, orientation);
   }
 
@@ -74,7 +74,6 @@ export class ReportsDemo {
       const report = AjfReportSerializer.fromJson(schema);
       const ctx = JSON.parse(this.context);
       this.report = createReportInstance(report, ctx, this._ts);
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 }

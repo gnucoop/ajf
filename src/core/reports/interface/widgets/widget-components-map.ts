@@ -29,9 +29,12 @@ import {AjfWidgetInstance} from '../widgets-instances/widget-instance';
 
 export interface AjfWidgetComponentsMap {
   [key: number]: {
-    component: Type<AjfBaseWidgetComponent>,
-    inputs?: {[key: string]: any},
-    initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext,
-                    translateService: TranslocoService) => AjfWidgetInstance;
+    component: Type<AjfBaseWidgetComponent>;
+    inputs?: {[key: string]: any};
+    initInstance?: (
+      widgetInstance: AjfWidgetInstance,
+      context: AjfContext,
+      translateService: TranslocoService,
+    ) => AjfWidgetInstance;
   };
 }
