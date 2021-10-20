@@ -15,6 +15,5 @@
     "**/bazel-out": true,
     "**/dist": true,
   },
-  "git.ignoreLimitWarning": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "git.ignoreLimitWarning": true
 }
