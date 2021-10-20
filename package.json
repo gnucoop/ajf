@@ -63,7 +63,6 @@
     "@ionic/angular": "https://github.com/gnucoop/ionic/releases/download/5.8.1/ionic-angular-5.8.1-ng-12.tgz",
     "@ionic/core": "5.8.1",
     "@ngneat/transloco": "^3.0.5",
-    "@webcomponents/custom-elements": "^1.1.0",
     "@zxing/browser": "^0.0.9",
     "@zxing/library": "^0.18.6",
     "chart.js": "^2.9.3",
