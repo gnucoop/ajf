@@ -32,7 +32,7 @@ export const DEV_APP_ROUTES: Routes = [
   {path: 'i18n', loadChildren: 'i18n/i18n-demo-module#I18nDemoModule'},
   {
     path: 'ion-checkbox-group',
-    loadChildren: 'ion-checkbox-group/checkbox-group-demo-module#CheckboxGroupDemoModule'
+    loadChildren: 'ion-checkbox-group/checkbox-group-demo-module#CheckboxGroupDemoModule',
   },
   {path: 'ion-fields', loadChildren: 'ion-fields/fields-demo-module#FieldsDemoModule'},
   {path: 'ion-forms', loadChildren: 'ion-forms/forms-demo-module#FormsDemoModule'},
@@ -40,7 +40,7 @@ export const DEV_APP_ROUTES: Routes = [
   {path: 'ion-node-icon', loadChildren: 'ion-node-icon/node-icon-demo-module#NodeIconDemoModule'},
   {
     path: 'ion-page-slider',
-    loadChildren: 'ion-page-slider/page-slider-demo-module#PageSliderDemoModule'
+    loadChildren: 'ion-page-slider/page-slider-demo-module#PageSliderDemoModule',
   },
   {path: 'ion-reports', loadChildren: 'ion-reports/reports-demo-module#ReportsDemoModule'},
   {path: 'ion-widgets', loadChildren: 'ion-widgets/widgets-demo-module#WidgetsDemoModule'},
@@ -50,31 +50,31 @@ export const DEV_APP_ROUTES: Routes = [
   {
     path: 'mat-calendar-ethiopian',
     loadChildren:
-        'mat-calendar-ethiopian/calendar-ethiopian-demo-module#CalendarEthiopianDemoModule'
+      'mat-calendar-ethiopian/calendar-ethiopian-demo-module#CalendarEthiopianDemoModule',
   },
   {
     path: 'mat-checkbox-group',
-    loadChildren: 'mat-checkbox-group/checkbox-group-demo-module#CheckboxGroupDemoModule'
+    loadChildren: 'mat-checkbox-group/checkbox-group-demo-module#CheckboxGroupDemoModule',
   },
   {path: 'mat-fields', loadChildren: 'mat-fields/fields-demo-module#FieldsDemoModule'},
   {
     path: 'mat-form-builder',
-    loadChildren: 'mat-form-builder/form-builder-demo-module#FormBuilderDemoModule'
+    loadChildren: 'mat-form-builder/form-builder-demo-module#FormBuilderDemoModule',
   },
   {
     path: 'mat-report-from-form',
-    loadChildren: 'mat-report-from-form/report-from-form-demo-module#ReportFromFormDemoModule'
+    loadChildren: 'mat-report-from-form/report-from-form-demo-module#ReportFromFormDemoModule',
   },
   {path: 'mat-forms', loadChildren: 'mat-forms/forms-demo-module#FormsDemoModule'},
   {path: 'mat-image', loadChildren: 'mat-image/image-demo-module#ImageDemoModule'},
   {path: 'mat-node-icon', loadChildren: 'mat-node-icon/node-icon-demo-module#NodeIconDemoModule'},
   {
     path: 'mat-page-slider',
-    loadChildren: 'mat-page-slider/page-slider-demo-module#PageSliderDemoModule'
+    loadChildren: 'mat-page-slider/page-slider-demo-module#PageSliderDemoModule',
   },
   {
     path: 'mat-report-builder',
-    loadChildren: 'mat-report-builder/report-builder-demo-module#ReportBuilderDemoModule'
+    loadChildren: 'mat-report-builder/report-builder-demo-module#ReportBuilderDemoModule',
   },
   {path: 'mat-reports', loadChildren: 'mat-reports/reports-demo-module#ReportsDemoModule'},
   {path: 'mat-time', loadChildren: 'mat-time/time-demo-module#TimeDemoModule'},

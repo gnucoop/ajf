@@ -40,42 +40,48 @@ import {isField} from '../nodes/is-field';
 /**
  * It builds a string that contains information preview about the form and its context.
  */
-export const buildFormStringIdentifier =
-    (form: AjfForm, context: AjfContext, opts?: BuildStringIdentifierOpts): string => {
-      if (form == null) {
-        return '';
+export const buildFormStringIdentifier = (
+  form: AjfForm,
+  context: AjfContext,
+  opts?: BuildStringIdentifierOpts,
+): string => {
+  if (form == null) {
+    return '';
+  }
+  const stringIdentifier = form.stringIdentifier || [];
+  if (stringIdentifier.length === 0) {
+    return '';
+  }
+  const fields = flattenNodes(form.nodes).filter(
+    n => isField(n) && isFieldWithChoices(n as AjfField),
+  ) as AjfFieldWithChoices<unknown>[];
+  if (fields.length > 0) {
+    context = {...context};
+    fields.forEach(field => {
+      const value = context[field.name];
+      if (value == null) {
+        return;
       }
-      const stringIdentifier = form.stringIdentifier || [];
-      if (stringIdentifier.length === 0) {
-        return '';
+      if (field.fieldType === AjfFieldType.SingleChoice) {
+        const singleChoiceField = field as AjfSingleChoiceField<unknown>;
+        const choice = singleChoiceField.choicesOrigin.choices.find(c => c.value === value);
+        if (choice == null) {
+          return;
+        }
+        context[field.name] = choice.label;
+      } else if (
+        field.fieldType === AjfFieldType.MultipleChoice &&
+        Array.isArray(value) &&
+        value.length > 0
+      ) {
+        const strings = buildStringIdentifierOpts(opts);
+        const multipleChoiceField = field as AjfMultipleChoiceField<unknown>;
+        const choices = multipleChoiceField.choicesOrigin.choices.filter(
+          c => value.indexOf(c.value) > -1,
+        );
+        context[field.name] = choices.map(c => c.label).join(strings.valuesDivider);
       }
-      const fields =
-          flattenNodes(form.nodes).filter(n => isField(n) && isFieldWithChoices(n as AjfField)) as
-          AjfFieldWithChoices<unknown>[];
-      if (fields.length > 0) {
-        context = {...context};
-        fields.forEach(field => {
-          const value = context[field.name];
-          if (value == null) {
-            return;
-          }
-          if (field.fieldType === AjfFieldType.SingleChoice) {
-            const singleChoiceField = field as AjfSingleChoiceField<unknown>;
-            const choice = singleChoiceField.choicesOrigin.choices.find(c => c.value === value);
-            if (choice == null) {
-              return;
-            }
-            context[field.name] = choice.label;
-          } else if (
-              field.fieldType === AjfFieldType.MultipleChoice && Array.isArray(value) &&
-              value.length > 0) {
-            const strings = buildStringIdentifierOpts(opts);
-            const multipleChoiceField = field as AjfMultipleChoiceField<unknown>;
-            const choices =
-                multipleChoiceField.choicesOrigin.choices.filter(c => value.indexOf(c.value) > -1);
-            context[field.name] = choices.map(c => c.label).join(strings.valuesDivider);
-          }
-        });
-      }
-      return buildStringIdentifier(stringIdentifier, context, opts);
-    };
+    });
+  }
+  return buildStringIdentifier(stringIdentifier, context, opts);
+};

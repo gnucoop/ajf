@@ -1,10 +1,5 @@
 import {createPackageBuildTasks} from '../package-tools';
-import {
-  corePackage,
-  ionicPackage,
-  materialPackage,
-  calendarsPackage,
-} from './packages';
+import {corePackage, ionicPackage, materialPackage, calendarsPackage} from './packages';
 
 createPackageBuildTasks(corePackage);
 createPackageBuildTasks(ionicPackage);

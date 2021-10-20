@@ -27,7 +27,6 @@ import {AjfFieldType} from './interface/fields/field-type';
 import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 import {isFieldInstance} from './utils/nodes-instances/is-field-instance';
 
-
 /**
  * It checks if the AjfNodeInstance parameter is an Formula AjfField.
  *
@@ -37,7 +36,9 @@ import {isFieldInstance} from './utils/nodes-instances/is-field-instance';
 @Pipe({name: 'ajfIsReadonlyInputField'})
 export class AjfIsReadonlyInputFieldPipe implements PipeTransform {
   transform(instance: AjfNodeInstance): boolean {
-    return isFieldInstance(instance) &&
-        (instance as AjfFieldInstance).node.fieldType === AjfFieldType.Formula;
+    return (
+      isFieldInstance(instance) &&
+      (instance as AjfFieldInstance).node.fieldType === AjfFieldType.Formula
+    );
   }
 }

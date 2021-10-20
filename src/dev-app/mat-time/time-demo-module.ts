@@ -27,13 +27,7 @@ import {RouterModule} from '@angular/router';
 import {TimeDemo} from './time-demo';
 
 @NgModule({
-  imports: [
-    AjfTimeModule,
-    RouterModule.forChild([{path: '', component: TimeDemo}]),
-  ],
-  declarations: [
-    TimeDemo,
-  ],
+  imports: [AjfTimeModule, RouterModule.forChild([{path: '', component: TimeDemo}])],
+  declarations: [TimeDemo],
 })
-export class TimeDemoModule {
-}
+export class TimeDemoModule {}

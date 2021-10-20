@@ -25,7 +25,10 @@ import {AjfAggregation} from '../../interface/aggregation/aggregation';
 import {AjfAggregationType} from '../../interface/aggregation/aggregation-type';
 
 export function evaluateAggregation(
-    aggregation: AjfAggregation, formulas: AjfFormula[], context: AjfContext): number[] {
+  aggregation: AjfAggregation,
+  formulas: AjfFormula[],
+  context: AjfContext,
+): number[] {
   const data: any[] = formulas.map(f => evaluateExpression(f.formula, context));
   switch (aggregation.aggregation) {
     case AjfAggregationType.None:

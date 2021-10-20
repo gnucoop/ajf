@@ -24,20 +24,24 @@ import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfRepeatingSlideInstance} from '../../interface/slides-instances/repeating-slide-instance';
 import {AjfSlideInstanceCreate, createSlideInstance} from './create-slide-instance';
 
-export type AjfRepeatingSlideInstanceCreate = Omit<AjfSlideInstanceCreate, 'node'>&
-    Pick<AjfRepeatingSlideInstance, 'node'>&Partial<AjfRepeatingSlideInstance>;
+export type AjfRepeatingSlideInstanceCreate = Omit<AjfSlideInstanceCreate, 'node'> &
+  Pick<AjfRepeatingSlideInstance, 'node'> &
+  Partial<AjfRepeatingSlideInstance>;
 
 /**
  * It creates AjfRepeatingSlideInstance.
  * Init slideNodes, nodes and flatNodes with empty array,
  * Init reps as with 0.
  */
-export function createRepeatingSlideInstance(instance: AjfRepeatingSlideInstanceCreate):
-    AjfRepeatingSlideInstance {
+export function createRepeatingSlideInstance(
+  instance: AjfRepeatingSlideInstanceCreate,
+): AjfRepeatingSlideInstance {
   const {node, ...slideInstanceCreate} = instance;
   const {nodeType, ...slideNode} = node;
-  const slideInstance = createSlideInstance(
-      {...slideInstanceCreate, node: {nodeType: AjfNodeType.AjfSlide, ...slideNode}});
+  const slideInstance = createSlideInstance({
+    ...slideInstanceCreate,
+    node: {nodeType: AjfNodeType.AjfSlide, ...slideNode},
+  });
   return {
     ...slideInstance,
     node: instance.node,

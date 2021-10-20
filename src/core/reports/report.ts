@@ -38,8 +38,8 @@ export abstract class AjfReportRenderer {
     this._cdr.markForCheck();
   }
 
-  private _report: AjfReport|null;
-  get report(): AjfReport|null {
+  private _report: AjfReport | null;
+  get report(): AjfReport | null {
     return this._report;
   }
 

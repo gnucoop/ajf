@@ -25,12 +25,7 @@ import {NgModule} from '@angular/core';
 import {AjfPageBreakComponent} from './page-break';
 
 @NgModule({
-  declarations: [
-    AjfPageBreakComponent,
-  ],
-  exports: [
-    AjfPageBreakComponent,
-  ]
+  declarations: [AjfPageBreakComponent],
+  exports: [AjfPageBreakComponent],
 })
-export class AjfPageBreakModule {
-}
+export class AjfPageBreakModule {}

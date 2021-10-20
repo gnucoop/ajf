@@ -33,14 +33,8 @@ import {AjfFormsModule} from './index';
 describe('AjfFormRenderer', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [
-        AjfFormsModule,
-        NoopAnimationsModule,
-        AjfTranslocoModule,
-      ],
-      declarations: [
-        TestComponent,
-      ],
+      imports: [AjfFormsModule, NoopAnimationsModule, AjfTranslocoModule],
+      declarations: [TestComponent],
     });
     await TestBed.compileComponents();
   });
@@ -71,27 +65,31 @@ const testForm = {
       ],
     },
   ],
-  nodes: [{
-    id: 1,
-    parent: 0,
-    parentNode: 0,
-    nodeType: AjfNodeType.AjfSlide,
-    name: 'slide',
-    label: 'slide',
-    conditionalBranches: [{condition: 'true'}],
-    nodes: [{
-      id: 2,
-      parent: 1,
+  nodes: [
+    {
+      id: 1,
+      parent: 0,
       parentNode: 0,
-      nodeType: AjfNodeType.AjfField,
-      name: 'field',
-      label: 'field',
+      nodeType: AjfNodeType.AjfSlide,
+      name: 'slide',
+      label: 'slide',
       conditionalBranches: [{condition: 'true'}],
-      fieldType: AjfFieldType.SingleChoice,
-      choicesOriginRef: 'choices',
-      validation: {notEmpty: true} as any
-    } as unknown as AjfFieldWithChoices<string>]
-  }],
+      nodes: [
+        {
+          id: 2,
+          parent: 1,
+          parentNode: 0,
+          nodeType: AjfNodeType.AjfField,
+          name: 'field',
+          label: 'field',
+          conditionalBranches: [{condition: 'true'}],
+          fieldType: AjfFieldType.SingleChoice,
+          choicesOriginRef: 'choices',
+          validation: {notEmpty: true} as any,
+        } as unknown as AjfFieldWithChoices<string>,
+      ],
+    },
+  ],
 } as any;
 
 @Component({

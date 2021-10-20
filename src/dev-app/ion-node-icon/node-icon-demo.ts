@@ -26,7 +26,7 @@ import {Component} from '@angular/core';
 const baseField = {
   id: 1,
   name: '',
-  parent: 0
+  parent: 0,
 };
 
 @Component({
@@ -35,22 +35,22 @@ const baseField = {
   styleUrls: ['node-icon-demo.css'],
 })
 export class NodeIconDemo {
-  nodes: {name: string, node: AjfField}[] = [
+  nodes: {name: string; node: AjfField}[] = [
     {name: 'Boolean field', node: createField({...baseField, fieldType: AjfFieldType.Boolean})},
     {name: 'Date field', node: createField({...baseField, fieldType: AjfFieldType.Date})},
     {
       name: 'Date input field',
-      node: createField({...baseField, fieldType: AjfFieldType.DateInput})
+      node: createField({...baseField, fieldType: AjfFieldType.DateInput}),
     },
     {name: 'Formula field', node: createField({...baseField, fieldType: AjfFieldType.Formula})},
     {
       name: 'Multiple choice field',
-      node: createField({...baseField, fieldType: AjfFieldType.MultipleChoice})
+      node: createField({...baseField, fieldType: AjfFieldType.MultipleChoice}),
     },
     {name: 'Number field', node: createField({...baseField, fieldType: AjfFieldType.Number})},
     {
       name: 'Single choice field',
-      node: createField({...baseField, fieldType: AjfFieldType.SingleChoice})
+      node: createField({...baseField, fieldType: AjfFieldType.SingleChoice}),
     },
     {name: 'String field', node: createField({...baseField, fieldType: AjfFieldType.String})},
     {name: 'Table field', node: createField({...baseField, fieldType: AjfFieldType.Table})},

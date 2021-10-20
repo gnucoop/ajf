@@ -33,7 +33,10 @@ import {evaluateValidationGroup} from '../validation/evaluate-validation-group';
  * Updates instance.valid with the re-evaluation of validationResults in AND.
  */
 export function updateValidation(
-    instance: AjfFieldInstance, context: AjfContext, supplementaryInformations?: any): void {
+  instance: AjfFieldInstance,
+  context: AjfContext,
+  supplementaryInformations?: any,
+): void {
   const validation = instance.validation;
   if (validation == null) {
     instance.valid = true;
@@ -41,7 +44,7 @@ export function updateValidation(
   }
   // TODO what is this??
   if (supplementaryInformations) {
-    Object.keys(supplementaryInformations).forEach((key) => {
+    Object.keys(supplementaryInformations).forEach(key => {
       context[`__supplementary__${key}__`] = supplementaryInformations[key];
     });
   }
@@ -56,5 +59,7 @@ export function updateValidation(
 
   instance.validationResults = evaluateValidationGroup(validation, context[completeName], context);
   instance.valid = instance.validationResults.reduce(
-      (prev: boolean, x: AjfValidationResult) => prev && x.result, true);
+    (prev: boolean, x: AjfValidationResult) => prev && x.result,
+    true,
+  );
 }

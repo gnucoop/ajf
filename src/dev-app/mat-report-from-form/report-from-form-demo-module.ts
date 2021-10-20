@@ -50,9 +50,6 @@ import {ReportFromFormDemo} from './report-from-form-demo';
     RouterModule.forChild([{path: '', component: ReportFromFormDemo}]),
     AjfTranslocoModule,
   ],
-  declarations: [
-    ReportFromFormDemo,
-  ],
+  declarations: [ReportFromFormDemo],
 })
-export class ReportFromFormDemoModule {
-}
+export class ReportFromFormDemoModule {}

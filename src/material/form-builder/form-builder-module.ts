@@ -63,14 +63,32 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
 
 @NgModule({
   imports: [
-    AjfMonacoEditorModule, AjfNodeIconModule,     CommonModule,        DragDropModule,
-    FormsModule,           MatAutocompleteModule, MatButtonModule,     MatCardModule,
-    MatCheckboxModule,     MatChipsModule,        MatDialogModule,     MatFormFieldModule,
-    MatIconModule,         MatInputModule,        MatListModule,       MatMenuModule,
-    MatSelectModule,       MatSidenavModule,      MatSliderModule,     MatTableModule,
-    MatToolbarModule,      MatTooltipModule,      ReactiveFormsModule, AjfTranslocoModule,
-    MatExpansionModule,    MatSlideToggleModule,
-
+    AjfMonacoEditorModule,
+    AjfNodeIconModule,
+    CommonModule,
+    DragDropModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatTableModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    AjfTranslocoModule,
+    MatExpansionModule,
+    MatSlideToggleModule,
   ],
   declarations: [
     AjfFbBranchLine,
@@ -86,12 +104,7 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
     AjfFbWarningConditionEditorDialog,
     AjfFormBuilder,
   ],
-  exports: [
-    AjfFormBuilder,
-  ],
-  providers: [
-    AjfFormBuilderService,
-  ],
+  exports: [AjfFormBuilder],
+  providers: [AjfFormBuilderService],
 })
-export class AjfFormBuilderModule {
-}
+export class AjfFormBuilderModule {}

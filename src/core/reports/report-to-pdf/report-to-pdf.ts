@@ -31,7 +31,7 @@ import {
   ContentStack,
   PageOrientation,
   TableCell,
-  TDocumentDefinitions
+  TDocumentDefinitions,
 } from 'pdfmake/interfaces';
 
 import {AjfReportContainerInstance} from '../interface/reports-instances/report-container-instance';
@@ -53,17 +53,20 @@ const pageHeight = pageWidth * 1.4142; // A4 proportions
 const pageMargins: [number, number] = [40, 60];
 
 export function openReportPdf(
-  report: AjfReportInstance, orientation: PageOrientation = 'portrait', icons: ImageMap = {}) {
-
+  report: AjfReportInstance,
+  orientation: PageOrientation = 'portrait',
+  icons: ImageMap = {},
+) {
   createReportPdf(report, orientation, icons).then(pdf => {
     pdf.open();
   });
 }
 
 export function createReportPdf(
-    report: AjfReportInstance, orientation: PageOrientation = 'portrait', icons: ImageMap = {}
-  ): Promise<TCreatedPdf> {
-
+  report: AjfReportInstance,
+  orientation: PageOrientation = 'portrait',
+  icons: ImageMap = {},
+): Promise<TCreatedPdf> {
   return new Promise<TCreatedPdf>(resolve => {
     loadReportImages(report).then(images => {
       let width = pageWidth - pageMargins[0] * 2;
@@ -80,7 +83,10 @@ export function createReportPdf(
 }
 
 function reportToPdf(
-    report: AjfReportInstance, images: ImageMap, width: number): TDocumentDefinitions {
+  report: AjfReportInstance,
+  images: ImageMap,
+  width: number,
+): TDocumentDefinitions {
   const stack: Content[] = [];
   if (report.header != null) {
     stack.push(containerToPdf(report.header, images, width));
@@ -95,7 +101,10 @@ function reportToPdf(
 }
 
 function containerToPdf(
-    container: AjfReportContainerInstance, images: ImageMap, width: number): Content {
+  container: AjfReportContainerInstance,
+  images: ImageMap,
+  width: number,
+): Content {
   return {stack: container.content.map(w => widgetToPdf(w, images, width))};
 }
 
@@ -162,7 +171,7 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
     return {text: ''};
   }
   const w = image.styles.width;
-  if (typeof (w) === 'string' && w.endsWith('px')) {
+  if (typeof w === 'string' && w.endsWith('px')) {
     width = Number(w.slice(0, -2));
   }
   return {image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets]};
@@ -170,7 +179,7 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
 
 function htmlTextToPdfText(htmlText: string, images: ImageMap): string {
   const iconText = images[htmlText];
-  if (typeof(iconText) === 'string') {
+  if (typeof iconText === 'string') {
     return iconText;
   }
   return stripHTML(htmlText);
@@ -200,7 +209,7 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
     const bodyRow: TableCell[] = [];
     for (const cell of dataRow) {
       let text = '';
-      switch (typeof(cell.value)) {
+      switch (typeof cell.value) {
         case 'number':
           text = String(cell.value);
           break;
@@ -209,7 +218,7 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
           break;
         case 'object':
           let val = cell.value.changingThisBreaksApplicationSecurity;
-          if (typeof(val) === 'number') {
+          if (typeof val === 'number') {
             val = String(val);
           }
           text = htmlTextToPdfText(val || '', images);

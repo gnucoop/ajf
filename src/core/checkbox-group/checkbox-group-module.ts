@@ -25,17 +25,9 @@ import {FormsModule} from '@angular/forms';
 
 import {AjfCheckboxGroup} from './checkbox-group';
 
-
 @NgModule({
-  imports: [
-    FormsModule,
-  ],
-  declarations: [
-    AjfCheckboxGroup,
-  ],
-  exports: [
-    AjfCheckboxGroup,
-  ]
+  imports: [FormsModule],
+  declarations: [AjfCheckboxGroup],
+  exports: [AjfCheckboxGroup],
 })
-export class AjfCheckboxGroupModule {
-}
+export class AjfCheckboxGroupModule {}

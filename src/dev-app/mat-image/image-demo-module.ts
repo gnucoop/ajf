@@ -27,13 +27,7 @@ import {RouterModule} from '@angular/router';
 import {ImageDemo} from './image-demo';
 
 @NgModule({
-  imports: [
-    AjfImageModule,
-    RouterModule.forChild([{path: '', component: ImageDemo}]),
-  ],
-  declarations: [
-    ImageDemo,
-  ],
+  imports: [AjfImageModule, RouterModule.forChild([{path: '', component: ImageDemo}])],
+  declarations: [ImageDemo],
 })
-export class ImageDemoModule {
-}
+export class ImageDemoModule {}

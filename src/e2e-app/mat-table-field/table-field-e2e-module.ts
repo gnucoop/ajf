@@ -27,14 +27,7 @@ import {NgModule} from '@angular/core';
 import {MaterialTableFieldE2E} from './table-field-e2e';
 
 @NgModule({
-  imports: [
-    AjfFormsModule,
-    AjfCoreFormsModule,
-    CommonModule,
-  ],
-  declarations: [
-    MaterialTableFieldE2E,
-  ],
+  imports: [AjfFormsModule, AjfCoreFormsModule, CommonModule],
+  declarations: [MaterialTableFieldE2E],
 })
-export class MaterialTableFieldE2eModule {
-}
+export class MaterialTableFieldE2eModule {}

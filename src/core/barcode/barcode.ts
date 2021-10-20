@@ -86,38 +86,37 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     this._init();
 
     this._startDetectionSub = (this.startDetection as Observable<void>)
-                                  .pipe(
-                                      debounceTime(300),
-                                      switchMap(() => {
-                                        const data: string =
-                                            this._getDataFromVideo(this.videoSource);
-                                        return this._readBarcodeFromData(data);
-                                      }),
-                                      catchError(() => {
-                                        return of({} as Result);
-                                      }),
-                                      )
-                                  .subscribe((result: any) => {
-                                    if (!result.text) {
-                                      this.startDetection.emit();
-                                    } else {
-                                      this.toggle = 'drop';
-                                      this.value = result.text;
-                                    }
-                                  });
+      .pipe(
+        debounceTime(300),
+        switchMap(() => {
+          const data: string = this._getDataFromVideo(this.videoSource);
+          return this._readBarcodeFromData(data);
+        }),
+        catchError(() => {
+          return of({} as Result);
+        }),
+      )
+      .subscribe((result: any) => {
+        if (!result.text) {
+          this.startDetection.emit();
+        } else {
+          this.toggle = 'drop';
+          this.value = result.text;
+        }
+      });
 
     this._startCalculationSub = (this.startCalculation as Observable<string>)
-                                    .pipe(
-                                        switchMap((data: string) => {
-                                          return this._readBarcodeFromData(data);
-                                        }),
-                                        )
-                                    .subscribe((result: any) => {
-                                      if (result.text) {
-                                        this.toggle = 'drop';
-                                        this.value = result.text;
-                                      }
-                                    });
+      .pipe(
+        switchMap((data: string) => {
+          return this._readBarcodeFromData(data);
+        }),
+      )
+      .subscribe((result: any) => {
+        if (result.text) {
+          this.toggle = 'drop';
+          this.value = result.text;
+        }
+      });
   }
 
   reset(): void {
@@ -180,7 +179,6 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     this._video.width = 640;
   }
 
-
   private _onSelect(files: FileList): void {
     if (files != null && files.length > 0 && files[0]) {
       let reader = new FileReader();
@@ -214,9 +212,7 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
    */
   private _readBarcodeFromImage(img: HTMLImageElement): Observable<Result> {
     const decode = from(this.codeReader.decodeFromImageElement(img)) as Observable<Result>;
-    return decode.pipe(
-               catchError(e => of(e)),
-               ) as Observable<Result>;
+    return decode.pipe(catchError(e => of(e))) as Observable<Result>;
   }
 
   /**

@@ -8,7 +8,7 @@ export const commitMessage: CommitMessageConfig = {
   minBodyLength: 0,
   minBodyLengthTypeExcludes: ['docs'],
   scopes: [
-    'multiple',  // For when a commit applies to multiple components.
+    'multiple', // For when a commit applies to multiple components.
     'core/barcode',
     'core/calendar',
     'core/chart',

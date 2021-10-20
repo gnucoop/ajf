@@ -24,7 +24,7 @@ import {
   AJF_WARNING_ALERT_SERVICE,
   AjfBaseFieldComponent,
   AjfFormRendererService,
-  AjfFormulaFieldInstance
+  AjfFormulaFieldInstance,
 } from '@ajf/core/forms';
 import {
   ChangeDetectionStrategy,
@@ -34,7 +34,7 @@ import {
   Inject,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {IonInput} from '@ionic/angular';
@@ -50,8 +50,10 @@ import {AjfWarningAlertService} from './warning-alert-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfFormulaFieldComponent extends
-    AjfBaseFieldComponent<AjfFormulaFieldInstance> implements OnDestroy {
+export class AjfFormulaFieldComponent
+  extends AjfBaseFieldComponent<AjfFormulaFieldInstance>
+  implements OnDestroy
+{
   @ViewChild(IonInput, {static: true}) input: IonInput;
 
   readonly value: Observable<any>;
@@ -60,35 +62,30 @@ export class AjfFormulaFieldComponent extends
   private _onChangeSub = Subscription.EMPTY;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+  ) {
     super(cdr, service, was);
 
     const control$ = this.control.pipe(
-                         filter(control => control != null),
-                         ) as Observable<FormControl>;
+      filter(control => control != null),
+    ) as Observable<FormControl>;
     const controlValue$ = control$.pipe(
-                              switchMap(
-                                  control => this._onChangeEvt.pipe(
-                                      map(value => ({control, value})),
-                                      )),
-                              ) as Observable<{control: FormControl, value: any}>;
+      switchMap(control => this._onChangeEvt.pipe(map(value => ({control, value})))),
+    ) as Observable<{control: FormControl; value: any}>;
 
     this._onChangeSub = controlValue$.subscribe(({control, value}) => {
       try {
         const v = parseFloat(value);
         value = v;
-      } catch (e) {
-      }
+      } catch (e) {}
       control.setValue(value);
     });
 
     this.value = this.control.pipe(
-        filter(control => control != null),
-        switchMap(
-            control => control!.valueChanges.pipe(
-                startWith(control!.value),
-                )),
+      filter(control => control != null),
+      switchMap(control => control!.valueChanges.pipe(startWith(control!.value))),
     );
   }
 

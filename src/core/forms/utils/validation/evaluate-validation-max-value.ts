@@ -30,7 +30,9 @@ import {evaluateValidation} from './evaluate-validation';
  * maxValue is the associated AjfCondition
  */
 export function evaluateValidationMaxValue(
-    validation: AjfValidationGroup, value: any): AjfValidationResult|null {
+  validation: AjfValidationGroup,
+  value: any,
+): AjfValidationResult | null {
   if (validation.maxValue == null) {
     return null;
   }
@@ -39,7 +41,7 @@ export function evaluateValidationMaxValue(
     return {
       result: evaluateExpression(`$value.length <= ${validation.maxValue}`, ctx),
       error: `Value must be <= ${validation.maxValue}`,
-      clientValidation: false
+      clientValidation: false,
     };
   }
   return evaluateValidation(validation.maxValue, {'$value': value});

@@ -26,7 +26,7 @@ import {
   AjfFormSerializer,
   AjfReadOnlyFieldComponent,
   createFieldWithChoicesInstance,
-  createFormPdf
+  createFormPdf,
 } from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
 import {AjfFieldService} from '@ajf/material/forms';
@@ -36,7 +36,6 @@ import {BehaviorSubject} from 'rxjs';
 import {CustomSelectMultiple} from './custom-select-multiple';
 import {formContext, formSchema} from './form';
 
-
 @Component({
   selector: 'forms-demo',
   templateUrl: 'forms-demo.html',
@@ -44,7 +43,7 @@ import {formContext, formSchema} from './form';
 })
 export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
-  form$: BehaviorSubject<AjfForm|null> = new BehaviorSubject<AjfForm|null>(null);
+  form$: BehaviorSubject<AjfForm | null> = new BehaviorSubject<AjfForm | null>(null);
 
   context: string = JSON.stringify(formContext);
 
@@ -56,10 +55,7 @@ export class FormsDemo {
   }
   private _readonly = false;
 
-  constructor(
-      fieldService: AjfFieldService,
-      private _formRendererService: AjfFormRendererService,
-  ) {
+  constructor(fieldService: AjfFieldService, private _formRendererService: AjfFormRendererService) {
     fieldService.registerCustomField({
       fieldType: 101,
       component: CustomSelectMultiple,
@@ -100,13 +96,15 @@ export class FormsDemo {
   printPdf() {
     const form = this.form$.getValue() as AjfForm;
     const ctx = this._formRendererService.getFormValue();
-    const header: any = [{
-      text: 'Test Form',
-      fontSize: 22,
-      bold: true,
-      alignment: 'center',
-      margin: [0, 0, 0, 10]
-    }];
+    const header: any = [
+      {
+        text: 'Test Form',
+        fontSize: 22,
+        bold: true,
+        alignment: 'center',
+        margin: [0, 0, 0, 10],
+      },
+    ];
     createFormPdf(form, undefined, undefined, header, ctx).open();
   }
 }

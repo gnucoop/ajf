@@ -23,15 +23,15 @@
 import {AjfContext} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 
-import {
-  AjfReportContainerInstance
-} from '../../interface/reports-instances/report-container-instance';
+import {AjfReportContainerInstance} from '../../interface/reports-instances/report-container-instance';
 import {AjfReportContainer} from '../../interface/reports/report-container';
 import {widgetToWidgetInstance} from '../widgets-instances/widget-to-widget-instance';
 
 export function createReportContainerInstance(
-    container: AjfReportContainer, context: AjfContext,
-    ts: TranslocoService): AjfReportContainerInstance {
+  container: AjfReportContainer,
+  context: AjfContext,
+  ts: TranslocoService,
+): AjfReportContainerInstance {
   const content = container.content.map(c => widgetToWidgetInstance(c, context, ts));
   return {
     container,

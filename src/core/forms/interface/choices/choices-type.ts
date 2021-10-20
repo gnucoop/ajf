@@ -23,5 +23,5 @@
 export const enum AjfChoicesType {
   String,
   Number,
-  LENGTH
+  LENGTH,
 }

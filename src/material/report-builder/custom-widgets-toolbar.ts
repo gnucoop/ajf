@@ -25,7 +25,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 
@@ -47,13 +47,12 @@ export interface CustomWidgets {
   widgets: CustomWidget[];
 }
 
-
 @Component({
   selector: 'ajf-report-builder-custom-widgets-toolbar',
   styleUrls: ['custom-widgets-toolbar.css'],
   templateUrl: 'custom-widgets-toolbar.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * This class will define an ajf builder toolbar
@@ -66,19 +65,20 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
 
   private _dialogRef: MatDialogRef<AjfReportBuilderCustomWidgetDialog>;
 
-  private _threeColumnsLayout: string = '{"widgetType":0,' +
-      '"content":[],"styles":{},"visibility":{"condition":"true"},"columns":[0.34,0.33,0.33],' +
-      '"content":' +
-      '[{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
-      '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
-      '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]}]}';
+  private _threeColumnsLayout: string =
+    '{"widgetType":0,' +
+    '"content":[],"styles":{},"visibility":{"condition":"true"},"columns":[0.34,0.33,0.33],' +
+    '"content":' +
+    '[{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
+    '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
+    '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]}]}';
   private _fourColumnsLayout: string =
-      '{"widgetType":0,"content":[],"styles":{},"visibility":{"condition":"true"},' +
-      '"columns":[0.25,0.25,0.25,0.25],"content":' +
-      '[{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
-      '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
-      '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
-      '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]}]}';
+    '{"widgetType":0,"content":[],"styles":{},"visibility":{"condition":"true"},' +
+    '"columns":[0.25,0.25,0.25,0.25],"content":' +
+    '[{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
+    '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
+    '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]},' +
+    '{"widgetType":7,"content":[],"styles":{},"visibility":{"condition":"true"},"content":[]}]}';
 
   constructor(private _service: AjfReportBuilderService, public dialog: MatDialog) {}
 
@@ -87,7 +87,6 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
     this._dialogRef.componentInstance.label = this.customWidgets[idx].type;
     this._dialogRef.componentInstance.position = idx;
   }
-
 
   /**
    *  sign the start of mouse drag with 200 ms of delay
@@ -132,8 +131,10 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
   ngOnInit(): void {
     this._customWidgetsSub = this._service.customWidgets.subscribe(x => {
       this.customWidgets = x;
-      if (this.customWidgets.length > 0 &&
-          this.customWidgets[this.customWidgets.length - 1].type == '') {
+      if (
+        this.customWidgets.length > 0 &&
+        this.customWidgets[this.customWidgets.length - 1].type == ''
+      ) {
         this.openDialog(this.customWidgets.length - 1);
       }
     });
@@ -141,8 +142,10 @@ export class AjfReportBuilderCustomWidgetsToolbar implements OnDestroy, OnInit {
       json: this._threeColumnsLayout,
       type: 'LayoutWidgetWith3Columns',
     });
-    this._service.addCustomWidgets(
-        {json: this._fourColumnsLayout, type: 'LayoutWidgetWith4Columns'});
+    this._service.addCustomWidgets({
+      json: this._fourColumnsLayout,
+      type: 'LayoutWidgetWith4Columns',
+    });
   }
 
   ngOnDestroy(): void {

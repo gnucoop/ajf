@@ -29,9 +29,7 @@ import {RouterModule} from '@angular/router';
 import {FileInputDemo} from './file-input-demo';
 
 @NgModule({
-  declarations: [
-    FileInputDemo,
-  ],
+  declarations: [FileInputDemo],
   imports: [
     AjfFileInputModule,
     CommonModule,
@@ -39,5 +37,4 @@ import {FileInputDemo} from './file-input-demo';
     RouterModule.forChild([{path: '', component: FileInputDemo}]),
   ],
 })
-export class FileInputDemoModule {
-}
+export class FileInputDemoModule {}

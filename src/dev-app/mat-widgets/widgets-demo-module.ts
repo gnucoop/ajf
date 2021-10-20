@@ -35,9 +35,6 @@ import {WidgetsDemo} from './widgets-demo';
     FormsModule,
     RouterModule.forChild([{path: '', component: WidgetsDemo}]),
   ],
-  declarations: [
-    WidgetsDemo,
-  ],
+  declarations: [WidgetsDemo],
 })
-export class WidgetsDemoModule {
-}
+export class WidgetsDemoModule {}

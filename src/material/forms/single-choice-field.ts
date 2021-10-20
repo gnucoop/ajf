@@ -24,7 +24,7 @@ import {
   AJF_SEARCH_ALERT_THRESHOLD,
   AJF_WARNING_ALERT_SERVICE,
   AjfFieldWithChoicesComponent,
-  AjfFormRendererService
+  AjfFormRendererService,
 } from '@ajf/core/forms';
 import {
   ChangeDetectionStrategy,
@@ -32,7 +32,7 @@ import {
   Component,
   Inject,
   Optional,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
@@ -45,9 +45,11 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfSingleChoiceFieldComponent<T> extends AjfFieldWithChoicesComponent<T> {
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
-      @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+    @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number,
+  ) {
     super(cdr, service, was, searchThreshold);
   }
 }

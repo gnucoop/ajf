@@ -38,12 +38,7 @@ import {FormBuilderDemo} from './form-builder-demo';
     MatButtonModule,
     RouterModule.forChild([{path: '', component: FormBuilderDemo}]),
   ],
-  declarations: [
-    FormBuilderDemo,
-  ],
-  providers: [
-    AjfValidationService,
-  ],
+  declarations: [FormBuilderDemo],
+  providers: [AjfValidationService],
 })
-export class FormBuilderDemoModule {
-}
+export class FormBuilderDemoModule {}

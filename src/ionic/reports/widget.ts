@@ -108,11 +108,13 @@ export class AjfColumnWidgetComponent extends AjfBaseWidgetComponent<AjfColumnWi
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfLayoutWidgetComponent extends
-    AjfBaseWidgetComponent<AjfLayoutWidgetInstance> implements AfterContentChecked {
+export class AjfLayoutWidgetComponent
+  extends AjfBaseWidgetComponent<AjfLayoutWidgetInstance>
+  implements AfterContentChecked
+{
   private _allcolumnsRendered$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly allcolumnsRendered$: Observable<boolean> =
-      this._allcolumnsRendered$ as Observable<boolean>;
+  readonly allcolumnsRendered$: Observable<boolean> = this
+    ._allcolumnsRendered$ as Observable<boolean>;
 
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {
     super(cdr, el);

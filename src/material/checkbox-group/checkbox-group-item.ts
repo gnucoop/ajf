@@ -22,7 +22,7 @@
 
 import {
   AjfCheckboxGroup,
-  AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem
+  AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem,
 } from '@ajf/core/checkbox-group';
 import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@angular/core';
 
@@ -35,14 +35,14 @@ import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@
   host: {
     '[attr.id]': 'id',
     '[class.ajf-checkbox-group-checked]': 'checked',
-    '[class.ajf-checkbox-group-disable]': 'disabled'
+    '[class.ajf-checkbox-group-disable]': 'disabled',
   },
 })
 export class CheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T> {
   constructor(
-      // `AjfCheckboxGroupItem` is commonly used in combination with a `AjfCheckboxGroup`.
-      // tslint:disable-next-line: lightweight-tokens
-      @Optional() checkboxGroup: AjfCheckboxGroup<T>,
+    // `AjfCheckboxGroupItem` is commonly used in combination with a `AjfCheckboxGroup`.
+    // tslint:disable-next-line: lightweight-tokens
+    @Optional() checkboxGroup: AjfCheckboxGroup<T>,
   ) {
     super(checkboxGroup);
     this.checkedIcon = 'check_box';

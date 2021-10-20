@@ -37,13 +37,7 @@ import {AjfPageSlider} from './page-slider';
     MatIconModule,
     MatToolbarModule,
   ],
-  declarations: [
-    AjfPageSlider,
-  ],
-  exports: [
-    AjfCorePageSliderModule,
-    AjfPageSlider,
-  ],
+  declarations: [AjfPageSlider],
+  exports: [AjfCorePageSliderModule, AjfPageSlider],
 })
-export class AjfPageSliderModule {
-}
+export class AjfPageSliderModule {}

@@ -44,14 +44,8 @@ describe('AjfFormRenderer', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [
-        AjfFormsModule,
-        NoopAnimationsModule,
-        AjfTranslocoModule,
-      ],
-      declarations: [
-        TestComponent,
-      ],
+      imports: [AjfFormsModule, NoopAnimationsModule, AjfTranslocoModule],
+      declarations: [TestComponent],
     });
 
     service = TestBed.get(AjfFormRendererService);
@@ -60,25 +54,29 @@ describe('AjfFormRenderer', () => {
 
   it('should update slide validation based on fields value', async () => {
     const form = AjfFormSerializer.fromJson({
-      nodes: [{
-        id: 1,
-        parent: 0,
-        parentNode: 0,
-        name: 'slide',
-        label: 'slide',
-        nodeType: 3,
-        conditionalBranches: [{condition: 'true'}],
-        nodes: [{
-          id: 2,
-          parent: 1,
+      nodes: [
+        {
+          id: 1,
+          parent: 0,
           parentNode: 0,
-          name: 'foo',
-          label: 'foo',
-          nodeType: AjfNodeType.AjfField,
-          fieldType: AjfFieldType.String,
-          validation: {notEmpty: true},
-        } as any]
-      }]
+          name: 'slide',
+          label: 'slide',
+          nodeType: 3,
+          conditionalBranches: [{condition: 'true'}],
+          nodes: [
+            {
+              id: 2,
+              parent: 1,
+              parentNode: 0,
+              name: 'foo',
+              label: 'foo',
+              nodeType: AjfNodeType.AjfField,
+              fieldType: AjfFieldType.String,
+              validation: {notEmpty: true},
+            } as any,
+          ],
+        },
+      ],
     });
 
     const fixture = TestBed.createComponent(AjfFormRenderer);
@@ -86,7 +84,7 @@ describe('AjfFormRenderer', () => {
     cmp.form = form;
 
     let nodesTree: AjfSlideInstance[] = [];
-    service.nodesTree.pipe(take(1)).subscribe(r => nodesTree = r);
+    service.nodesTree.pipe(take(1)).subscribe(r => (nodesTree = r));
 
     fixture.detectChanges();
     await fixture.whenStable();
@@ -140,33 +138,36 @@ describe('AjfFormRenderer', () => {
 
   it('should be valid if no validation rule is defined', async () => {
     const form = AjfFormSerializer.fromJson({
-      nodes: [{
-        id: 1,
-        parent: 0,
-        parentNode: 0,
-        name: 'slide',
-        label: 'slide',
-        nodeType: 3,
-        conditionalBranches: [{condition: 'true'}],
-        nodes: [{
-          id: 2,
-          parent: 1,
+      nodes: [
+        {
+          id: 1,
+          parent: 0,
           parentNode: 0,
-          name: 'foo',
-          label: 'foo',
-          nodeType: AjfNodeType.AjfField,
-          fieldType: AjfFieldType.String,
-        } as any]
-      }]
+          name: 'slide',
+          label: 'slide',
+          nodeType: 3,
+          conditionalBranches: [{condition: 'true'}],
+          nodes: [
+            {
+              id: 2,
+              parent: 1,
+              parentNode: 0,
+              name: 'foo',
+              label: 'foo',
+              nodeType: AjfNodeType.AjfField,
+              fieldType: AjfFieldType.String,
+            } as any,
+          ],
+        },
+      ],
     });
-
 
     const fixture = TestBed.createComponent(AjfFormRenderer);
     const cmp = fixture.componentInstance;
     cmp.form = form;
 
     let nodesTree: AjfSlideInstance[] = [];
-    service.nodesTree.pipe(take(1)).subscribe(r => nodesTree = r);
+    service.nodesTree.pipe(take(1)).subscribe(r => (nodesTree = r));
 
     fixture.detectChanges();
     await fixture.whenStable();
@@ -190,27 +191,31 @@ const testForm = {
       ],
     },
   ],
-  nodes: [{
-    id: 1,
-    parent: 0,
-    parentNode: 0,
-    nodeType: AjfNodeType.AjfSlide,
-    name: 'slide',
-    label: 'slide',
-    conditionalBranches: [{condition: 'true'}],
-    nodes: [{
-      id: 2,
-      parent: 1,
+  nodes: [
+    {
+      id: 1,
+      parent: 0,
       parentNode: 0,
-      nodeType: AjfNodeType.AjfField,
-      name: 'field',
-      label: 'field',
+      nodeType: AjfNodeType.AjfSlide,
+      name: 'slide',
+      label: 'slide',
       conditionalBranches: [{condition: 'true'}],
-      fieldType: AjfFieldType.SingleChoice,
-      choicesOriginRef: 'choices',
-      validation: {notEmpty: true} as any
-    } as unknown as AjfFieldWithChoices<string>]
-  }],
+      nodes: [
+        {
+          id: 2,
+          parent: 1,
+          parentNode: 0,
+          nodeType: AjfNodeType.AjfField,
+          name: 'field',
+          label: 'field',
+          conditionalBranches: [{condition: 'true'}],
+          fieldType: AjfFieldType.SingleChoice,
+          choicesOriginRef: 'choices',
+          validation: {notEmpty: true} as any,
+        } as unknown as AjfFieldWithChoices<string>,
+      ],
+    },
+  ],
 } as any;
 
 @Component({

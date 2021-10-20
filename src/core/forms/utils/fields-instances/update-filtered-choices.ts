@@ -22,12 +22,12 @@
 
 import {AjfContext, evaluateExpression} from '@ajf/core/models';
 
-import {
-  AjfFieldWithChoicesInstance
-} from '../../interface/fields-instances/field-with-choices-instance';
+import {AjfFieldWithChoicesInstance} from '../../interface/fields-instances/field-with-choices-instance';
 
 export function updateFilteredChoices(
-    instance: AjfFieldWithChoicesInstance<any>, context: AjfContext): void {
+  instance: AjfFieldWithChoicesInstance<any>,
+  context: AjfContext,
+): void {
   if (instance.choicesFilter != null) {
     instance.filteredChoices = instance.node.choicesOrigin.choices.filter(c => {
       context.$choice = c;

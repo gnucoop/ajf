@@ -25,7 +25,7 @@ import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfContainerNodeCreate, createContainerNode} from './create-container-node';
 import {AjfRepeatingNodeCreate, createRepeatingNode} from './create-repeating-node';
 
-export type AjfNodeGroupCreate = AjfContainerNodeCreate&AjfRepeatingNodeCreate;
+export type AjfNodeGroupCreate = AjfContainerNodeCreate & AjfRepeatingNodeCreate;
 
 /**
  * It creates a AjfNodeGroup

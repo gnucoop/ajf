@@ -39,12 +39,7 @@ import {AjfBarcodeComponent} from './barcode';
     MatIconModule,
     AjfTranslocoModule,
   ],
-  declarations: [
-    AjfBarcodeComponent,
-  ],
-  exports: [
-    AjfBarcodeComponent,
-  ],
+  declarations: [AjfBarcodeComponent],
+  exports: [AjfBarcodeComponent],
 })
-export class AjfBarcodeModule {
-}
+export class AjfBarcodeModule {}

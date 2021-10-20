@@ -29,8 +29,10 @@ import {isContainerNodeInstance} from './is-container-node-instance';
  * Otherwise search it recursively inside all containerNodieInstance.
  * If found return the container of node instance and the index position inside him.
  */
-export function findNodeInstanceInTree(nodes: AjfNodeInstance[], node: AjfNodeInstance):
-    {container: AjfNodeInstance[], index: number} {
+export function findNodeInstanceInTree(
+  nodes: AjfNodeInstance[],
+  node: AjfNodeInstance,
+): {container: AjfNodeInstance[]; index: number} {
   const index = nodes.indexOf(node);
   if (index > -1) {
     return {container: nodes, index: index};

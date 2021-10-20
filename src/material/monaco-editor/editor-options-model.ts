@@ -260,7 +260,7 @@ export class IEditorOptions {
   /**
    * Enable snippet suggestions. Default to 'true'.
    */
-  snippetSuggestions?: 'top'|'bottom'|'inline'|'none';
+  snippetSuggestions?: 'top' | 'bottom' | 'inline' | 'none';
   /**
    * Enable tab completion. Defaults to 'false'
    */
@@ -288,7 +288,7 @@ export class IEditorOptions {
    * Enable rendering of whitespace.
    * Defaults to none.
    */
-  renderWhitespace?: 'none'|'boundary'|'all';
+  renderWhitespace?: 'none' | 'boundary' | 'all';
   /**
    * Enable rendering of control characters.
    * Defaults to false.
@@ -315,8 +315,22 @@ export class IEditorOptions {
   /**
    * The font weight
    */
-  fontWeight?: 'normal'|'bold'|'bolder'|'lighter'|'initial'|'inherit'|'100'|'200'|'300'|'400'|'500'|
-      '600'|'700'|'800'|'900';
+  fontWeight?:
+    | 'normal'
+    | 'bold'
+    | 'bolder'
+    | 'lighter'
+    | 'initial'
+    | 'inherit'
+    | '100'
+    | '200'
+    | '300'
+    | '400'
+    | '500'
+    | '600'
+    | '700'
+    | '800'
+    | '900';
   /**
    * The font size
    */

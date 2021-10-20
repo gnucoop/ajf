@@ -25,22 +25,18 @@ import {
   alwaysCondition,
   createCondition,
   createFormula,
-  normalizeExpression
+  normalizeExpression,
 } from '@ajf/core/models';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
-import {
-  AjfFieldWithChoicesInstance
-} from '../../interface/fields-instances/field-with-choices-instance';
+import {AjfFieldWithChoicesInstance} from '../../interface/fields-instances/field-with-choices-instance';
 import {AjfField} from '../../interface/fields/field';
 import {AjfFieldType} from '../../interface/fields/field-type';
 import {AjfFieldWithChoices} from '../../interface/fields/field-with-choices';
 import {AjfTableField} from '../../interface/fields/table-field';
 import {AjfNodeGroupInstance} from '../../interface/nodes-instances/node-group-instance';
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
-import {
-  AjfRepeatingContainerNodeInstance
-} from '../../interface/nodes-instances/repeating-container-node-instance';
+import {AjfRepeatingContainerNodeInstance} from '../../interface/nodes-instances/repeating-container-node-instance';
 import {AjfNode} from '../../interface/nodes/node';
 import {AjfNodeGroup} from '../../interface/nodes/node-group';
 import {AjfNodeType} from '../../interface/nodes/node-type';
@@ -48,9 +44,7 @@ import {AjfRepeatingSlideInstance} from '../../interface/slides-instances/repeat
 import {AjfRepeatingSlide} from '../../interface/slides/repeating-slide';
 import {AjfSlide} from '../../interface/slides/slide';
 import {createFieldInstance} from '../fields-instances/create-field-instance';
-import {
-  createFieldWithChoicesInstance
-} from '../fields-instances/create-field-with-choices-instance';
+import {createFieldWithChoicesInstance} from '../fields-instances/create-field-with-choices-instance';
 import {createTableFieldInstance} from '../fields-instances/create-table-field-instance';
 import {isFieldWithChoicesInstance} from '../fields-instances/is-field-with-choices-instance';
 import {componentsMap} from '../fields/fields-map';
@@ -76,18 +70,25 @@ import {isRepeatingSlideInstance} from './is-repeating-slide-instance';
  * If the prefix is ​​defined all formulas and conditions are calculated based on it.
  */
 export function nodeToNodeInstance(
-    allNodes: AjfNode[]|AjfNodeInstance[], node: AjfNode, prefix: number[],
-    context: AjfContext): AjfNodeInstance|null {
-  let instance: AjfNodeInstance|null = null;
+  allNodes: AjfNode[] | AjfNodeInstance[],
+  node: AjfNode,
+  prefix: number[],
+  context: AjfContext,
+): AjfNodeInstance | null {
+  let instance: AjfNodeInstance | null = null;
   const nodeType = node.nodeType;
   switch (nodeType) {
     case AjfNodeType.AjfField:
       const field = node as AjfField;
       if (field.fieldType > 100) {
-        if (componentsMap[field.fieldType] != null &&
-            componentsMap[field.fieldType].createInstance != null) {
-          instance = componentsMap[field.fieldType].createInstance!
-                     ({node: node as AjfField, prefix}, context);
+        if (
+          componentsMap[field.fieldType] != null &&
+          componentsMap[field.fieldType].createInstance != null
+        ) {
+          instance = componentsMap[field.fieldType].createInstance!(
+            {node: node as AjfField, prefix},
+            context,
+          );
         } else {
           instance = createFieldInstance({node: node as AjfField, prefix}, context);
         }
@@ -96,7 +97,9 @@ export function nodeToNodeInstance(
           case AjfFieldType.SingleChoice:
           case AjfFieldType.MultipleChoice:
             instance = createFieldWithChoicesInstance(
-                {node: node as AjfFieldWithChoices<any>, prefix}, context);
+              {node: node as AjfFieldWithChoices<any>, prefix},
+              context,
+            );
             break;
           case AjfFieldType.Table:
             instance = createTableFieldInstance({node: node as AjfTableField, prefix}, context);
@@ -125,17 +128,21 @@ export function nodeToNodeInstance(
       if (node.visibility != null) {
         const oldVisibility = node.visibility.condition;
         const newVisibility = normalizeExpression(oldVisibility, ancestorsNames, prefix);
-        instance.visibility = newVisibility !== oldVisibility ?
-            createCondition({condition: newVisibility}) :
-            node.visibility;
+        instance.visibility =
+          newVisibility !== oldVisibility
+            ? createCondition({condition: newVisibility})
+            : node.visibility;
       }
 
-      const conditionalBranches = instance.node.conditionalBranches != null &&
-              instance.node.conditionalBranches.length > 0 ?
-          instance.node.conditionalBranches :
-          [alwaysCondition()];
-      instance.conditionalBranches =
-          getInstanceConditions(conditionalBranches, ancestorsNames, prefix);
+      const conditionalBranches =
+        instance.node.conditionalBranches != null && instance.node.conditionalBranches.length > 0
+          ? instance.node.conditionalBranches
+          : [alwaysCondition()];
+      instance.conditionalBranches = getInstanceConditions(
+        conditionalBranches,
+        ancestorsNames,
+        prefix,
+      );
 
       if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
         const ngInstance = instance as AjfNodeGroupInstance | AjfRepeatingSlideInstance;
@@ -144,7 +151,7 @@ export function nodeToNodeInstance(
           const oldFormula = formulaReps.formula;
           let newFormula = normalizeExpression(oldFormula, ancestorsNames, prefix);
           ngInstance.formulaReps =
-              newFormula !== oldFormula ? createFormula({formula: newFormula}) : formulaReps;
+            newFormula !== oldFormula ? createFormula({formula: newFormula}) : formulaReps;
         }
       } else if (nodeType === AjfNodeType.AjfField) {
         const fInstance = instance as AjfFieldInstance;
@@ -155,8 +162,11 @@ export function nodeToNodeInstance(
         }
 
         if (fNode.validation != null) {
-          const newConditions =
-              getInstanceValidations(fNode.validation.conditions, ancestorsNames, prefix);
+          const newConditions = getInstanceValidations(
+            fNode.validation.conditions,
+            ancestorsNames,
+            prefix,
+          );
           if (newConditions !== fNode.validation.conditions) {
             fInstance.validation = createValidationGroup(fNode.validation);
             fInstance.validation.conditions = newConditions;
@@ -176,29 +186,38 @@ export function nodeToNodeInstance(
         }
 
         if (fNode.nextSlideCondition != null) {
-          fInstance.nextSlideCondition =
-              getInstanceCondition(fNode.nextSlideCondition, ancestorsNames, prefix);
+          fInstance.nextSlideCondition = getInstanceCondition(
+            fNode.nextSlideCondition,
+            ancestorsNames,
+            prefix,
+          );
         }
 
         if (isFieldWithChoices(fNode)) {
           const fwcInstance = instance as AjfFieldWithChoicesInstance<any>;
           const fwcNode = fwcInstance.node;
           if (fwcNode.choicesFilter != null) {
-            fwcInstance.choicesFilter =
-                getInstanceFormula(fwcNode.choicesFilter, ancestorsNames, prefix);
+            fwcInstance.choicesFilter = getInstanceFormula(
+              fwcNode.choicesFilter,
+              ancestorsNames,
+              prefix,
+            );
           }
           if (fwcNode.triggerConditions != null) {
-            fwcInstance.triggerConditions =
-                getInstanceConditions(fwcNode.triggerConditions, ancestorsNames, prefix);
+            fwcInstance.triggerConditions = getInstanceConditions(
+              fwcNode.triggerConditions,
+              ancestorsNames,
+              prefix,
+            );
           }
         }
       }
     } else {
       instance.visibility = instance.node.visibility;
-      const conditionalBranches = instance.node.conditionalBranches != null &&
-              instance.node.conditionalBranches.length > 0 ?
-          instance.node.conditionalBranches :
-          [alwaysCondition()];
+      const conditionalBranches =
+        instance.node.conditionalBranches != null && instance.node.conditionalBranches.length > 0
+          ? instance.node.conditionalBranches
+          : [alwaysCondition()];
       instance.conditionalBranches = conditionalBranches;
       if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
         const rgInstance = instance as AjfRepeatingContainerNodeInstance;

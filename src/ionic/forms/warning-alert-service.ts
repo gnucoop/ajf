@@ -22,7 +22,7 @@
 
 import {
   AjfFieldWarningAlertResult,
-  AjfWarningAlertService as CoreWarningAlertService
+  AjfWarningAlertService as CoreWarningAlertService,
 } from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 import {AlertController} from '@ionic/angular';
@@ -35,29 +35,29 @@ export class AjfWarningAlertService implements CoreWarningAlertService {
   showWarningAlertPrompt(warnings: string[]): Observable<AjfFieldWarningAlertResult> {
     return new Observable<AjfFieldWarningAlertResult>(subscriber => {
       this._alertCtrl
-          .create({
-            header: 'Warning',
-            message: warnings.join('\n'),
-            buttons: [
-              {
-                text: 'No',
-                handler: () => {
-                  subscriber.next(<AjfFieldWarningAlertResult>{result: false});
-                  subscriber.complete();
-                }
+        .create({
+          header: 'Warning',
+          message: warnings.join('\n'),
+          buttons: [
+            {
+              text: 'No',
+              handler: () => {
+                subscriber.next(<AjfFieldWarningAlertResult>{result: false});
+                subscriber.complete();
               },
-              {
-                text: 'Yes',
-                handler: () => {
-                  subscriber.next(<AjfFieldWarningAlertResult>{result: true});
-                  subscriber.complete();
-                }
-              }
-            ]
-          })
-          .then((alert) => {
-            alert.present();
-          });
+            },
+            {
+              text: 'Yes',
+              handler: () => {
+                subscriber.next(<AjfFieldWarningAlertResult>{result: true});
+                subscriber.complete();
+              },
+            },
+          ],
+        })
+        .then(alert => {
+          alert.present();
+        });
     });
   }
 }

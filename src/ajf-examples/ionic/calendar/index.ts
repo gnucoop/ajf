@@ -3,20 +3,13 @@ import {NgModule} from '@angular/core';
 
 import {IonicCalendarSimpleExample} from './ionic-calendar-simple/calendar-simple-example';
 
-export {
-  IonicCalendarSimpleExample,
-};
+export {IonicCalendarSimpleExample};
 
-const EXAMPLES = [
-  IonicCalendarSimpleExample,
-];
+const EXAMPLES = [IonicCalendarSimpleExample];
 
 @NgModule({
-  imports: [
-    AjfCalendarModule,
-  ],
+  imports: [AjfCalendarModule],
   declarations: EXAMPLES,
   exports: EXAMPLES,
 })
-export class CalendarExamplesModule {
-}
+export class CalendarExamplesModule {}

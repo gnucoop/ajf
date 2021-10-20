@@ -30,5 +30,5 @@ export enum AjfNodeType {
   AjfNodeGroup,
   AjfSlide,
   AjfRepeatingSlide,
-  LENGTH
+  LENGTH,
 }

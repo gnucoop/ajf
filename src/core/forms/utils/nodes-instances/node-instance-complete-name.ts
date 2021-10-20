@@ -28,7 +28,7 @@ import {nodeInstanceSuffix} from './node-instance-suffix';
  * It creates the complete name of the instance.
  */
 export function nodeInstanceCompleteName(instance: AjfNodeInstance): string {
-  return instance != null && instance.node != null ?
-      `${instance.node.name}${nodeInstanceSuffix(instance)}` :
-      '';
+  return instance != null && instance.node != null
+    ? `${instance.node.name}${nodeInstanceSuffix(instance)}`
+    : '';
 }

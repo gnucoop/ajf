@@ -84,7 +84,7 @@ export const ITA: Translation = {
   'Error message': 'Messaggio di errore',
   'Warning message': 'Messaggio di avviso',
   'Invalid condition! Please check syntax.':
-      'Condizione non valida! Si prega di controllare la sintassi.',
+    'Condizione non valida! Si prega di controllare la sintassi.',
   'Drop here': 'Rilascia qui',
   'Main Data': 'Dati principali',
   'Edit': 'modificare',
@@ -134,5 +134,5 @@ export const ITA: Translation = {
   'Set image': 'Imposta immagine',
   'Choose type of Chart': 'Scegli il tipo di grafico',
   'Labels': 'etichette',
-  'Border width': 'Larghezza del bordo'
+  'Border width': 'Larghezza del bordo',
 };

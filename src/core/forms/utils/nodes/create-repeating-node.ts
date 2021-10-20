@@ -23,7 +23,7 @@
 import {AjfRepeatingNode} from '../../interface/nodes/repeating-node';
 import {AjfNodeCreate, createNode} from './create-node';
 
-export type AjfRepeatingNodeCreate = AjfNodeCreate&Partial<AjfRepeatingNode>;
+export type AjfRepeatingNodeCreate = AjfNodeCreate & Partial<AjfRepeatingNode>;
 /**
  * It creates an AjfRepeatingNode.
  * It extends AjfNode with formulaReps, minReps, maxReps by schema.

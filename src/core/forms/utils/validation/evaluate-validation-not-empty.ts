@@ -25,13 +25,14 @@ import {AjfValidationGroup} from '../../interface/validation/validation-group';
 import {AjfValidationResult} from '../../interface/validation/validation-results';
 import {evaluateValidation} from './evaluate-validation';
 
-
 /**
  * Basic validation function that cheecks the value is not null
  * notEmpty is the associated AjfCondition
  */
 export function evaluateValidationNotEmpty(
-    validation: AjfValidationGroup, value: any): AjfValidationResult|null {
+  validation: AjfValidationGroup,
+  value: any,
+): AjfValidationResult | null {
   if (validation.notEmpty == null) {
     return null;
   }
@@ -40,7 +41,7 @@ export function evaluateValidationNotEmpty(
     return {
       result: evaluateExpression(`notEmpty($value) === ${validation.notEmpty}`, ctx),
       error: 'Value must not be empty',
-      clientValidation: false
+      clientValidation: false,
     };
   }
   return evaluateValidation(validation.notEmpty, ctx);

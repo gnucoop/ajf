@@ -20,4 +20,4 @@
  *
  */
 
-export type AjfCalendarViewMode = ('month'|'year'|'decade');
+export type AjfCalendarViewMode = 'month' | 'year' | 'decade';

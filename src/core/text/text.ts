@@ -26,7 +26,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
 
@@ -40,7 +40,7 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
   templateUrl: 'text.html',
   styleUrls: ['text.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfTextComponent {
   /**
@@ -51,9 +51,9 @@ export class AjfTextComponent {
   set htmlText(htmlText: string) {
     // type checking and length checking for instant method
     const htmlTextToBeTranslate: string =
-        htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0 ?
-        this._ts.translate(htmlText) :
-        htmlText;
+      htmlText != null && typeof htmlText === 'string' && htmlText.trim().length > 0
+        ? this._ts.translate(htmlText)
+        : htmlText;
     this._htmlText = this._domSanitizer.bypassSecurityTrustHtml(htmlTextToBeTranslate);
     this._cdr.markForCheck();
   }
@@ -63,6 +63,8 @@ export class AjfTextComponent {
   }
 
   constructor(
-      private _cdr: ChangeDetectorRef, private _domSanitizer: DomSanitizer,
-      private _ts: TranslocoService) {}
+    private _cdr: ChangeDetectorRef,
+    private _domSanitizer: DomSanitizer,
+    private _ts: TranslocoService,
+  ) {}
 }

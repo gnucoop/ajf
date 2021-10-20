@@ -2,7 +2,6 @@ import {alwaysCondition, createCondition, createFormula, neverCondition} from '.
 
 import {AjfFieldType, AjfNodeType, createField, createNode} from './index';
 
-
 describe('createNode', () => {
   it('should create a node with a parent and a parent node', () => {
     let node = createNode({id: 1, name: 'foo', nodeType: AjfNodeType.AjfField, parent: 0});
@@ -38,7 +37,7 @@ describe('createField', () => {
       visibility: neverCondition(),
       conditionalBranches: [createCondition({condition: 'a > 2'}), alwaysCondition()],
       formula: createFormula({formula: '3 * 4'}),
-      defaultValue: 4
+      defaultValue: 4,
     });
 
     expect(field.fieldType).toEqual(AjfFieldType.Number);

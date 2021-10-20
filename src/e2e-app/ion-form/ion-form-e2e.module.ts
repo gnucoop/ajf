@@ -27,13 +27,7 @@ import {NgModule} from '@angular/core';
 import {IonicFormE2E} from './ion-form-e2e';
 
 @NgModule({
-  imports: [
-    AjfFormsModule,
-    CoreFormsModule,
-  ],
-  declarations: [
-    IonicFormE2E,
-  ],
+  imports: [AjfFormsModule, CoreFormsModule],
+  declarations: [IonicFormE2E],
 })
-export class IonicFormE2eModule {
-}
+export class IonicFormE2eModule {}

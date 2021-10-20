@@ -21,5 +21,5 @@
  */
 
 export type AjfValidationFn = {
-  fn: any
+  fn: any;
 };

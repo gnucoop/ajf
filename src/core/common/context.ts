@@ -21,5 +21,5 @@
  */
 
 export type AjfContext = {
-  [key: string]: any
+  [key: string]: any;
 };

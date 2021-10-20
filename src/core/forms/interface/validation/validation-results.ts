@@ -20,9 +20,9 @@
  *
  */
 
- /**
-  * The result of the evaluation of a validation condition
-  */
+/**
+ * The result of the evaluation of a validation condition
+ */
 export interface AjfValidationResult {
   /**
    * True if the condition is valid

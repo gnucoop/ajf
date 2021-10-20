@@ -27,7 +27,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 @Component({
@@ -36,8 +36,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfImageContainerWidgetComponent extends
-    AjfBaseWidgetComponent<AjfImageContainerWidgetInstance> {
+export class AjfImageContainerWidgetComponent extends AjfBaseWidgetComponent<AjfImageContainerWidgetInstance> {
   readonly imageTypes = AjfImageType;
 
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

@@ -25,5 +25,5 @@ export enum AjfImageType {
   Image,
   Flag,
   Icon,
-  LENGTH
+  LENGTH,
 }

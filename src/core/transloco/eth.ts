@@ -133,5 +133,5 @@ export const ETH: Translation = {
   'Set image': 'የመጀመሪያ6',
   'Choose type of Chart': 'የመጀመሪያ7',
   'Labels': 'የመጀመሪያ8',
-  'Border width': 'የመጀመሪያ9'
+  'Border width': 'የመጀመሪያ9',
 };

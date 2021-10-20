@@ -26,7 +26,10 @@ import {AjfWarning} from '../../interface/warning/warning';
 import {createWarning} from '../warning/create-warning';
 
 export function getInstanceWarning(
-    warning: AjfWarning, ancestorsNames: {[prop: string]: number}, prefix: number[]): AjfWarning {
+  warning: AjfWarning,
+  ancestorsNames: {[prop: string]: number},
+  prefix: number[],
+): AjfWarning {
   const oldWarning = warning.condition;
   let newWarning = normalizeExpression(oldWarning, ancestorsNames, prefix);
   if (newWarning === oldWarning) {

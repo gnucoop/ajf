@@ -33,9 +33,6 @@ import {CheckboxGroupDemo} from './checkbox-group-demo';
     FormsModule,
     RouterModule.forChild([{path: '', component: CheckboxGroupDemo}]),
   ],
-  declarations: [
-    CheckboxGroupDemo,
-  ],
+  declarations: [CheckboxGroupDemo],
 })
-export class CheckboxGroupDemoModule {
-}
+export class CheckboxGroupDemoModule {}

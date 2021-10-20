@@ -23,21 +23,20 @@
 import {AjfContext} from '@ajf/core/models';
 import {EventEmitter} from '@angular/core';
 
-import {
-  AjfFieldWithChoicesInstance
-} from '../../interface/fields-instances/field-with-choices-instance';
+import {AjfFieldWithChoicesInstance} from '../../interface/fields-instances/field-with-choices-instance';
 import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instance';
 
-export type AjfFieldWithChoicesInstanceCreate<T> =
-    AjfFieldInstanceCreate&Partial<AjfFieldWithChoicesInstance<T>>;
+export type AjfFieldWithChoicesInstanceCreate<T> = AjfFieldInstanceCreate &
+  Partial<AjfFieldWithChoicesInstance<T>>;
 /**
  * Create a field with choices instance.
  * Extends simple field instance with
  * filteredChoices,firstTriggerConditionDone and selectionTrigger
  */
 export function createFieldWithChoicesInstance<T>(
-    instance: AjfFieldWithChoicesInstanceCreate<T>,
-    context: AjfContext): AjfFieldWithChoicesInstance<T> {
+  instance: AjfFieldWithChoicesInstanceCreate<T>,
+  context: AjfContext,
+): AjfFieldWithChoicesInstance<T> {
   const fieldInstance = createFieldInstance(instance, context);
   return {
     ...fieldInstance,

@@ -30,7 +30,9 @@ import {evaluateValidation} from './evaluate-validation';
  * maxDigits is the associated AjfCondition
  */
 export function evaluateValidationMaxDigits(
-    validation: AjfValidationGroup, value: any): AjfValidationResult|null {
+  validation: AjfValidationGroup,
+  value: any,
+): AjfValidationResult | null {
   if (validation.maxDigits == null) {
     return null;
   }
@@ -39,7 +41,7 @@ export function evaluateValidationMaxDigits(
     return {
       result: evaluateExpression(`$value.toString().length <= ${validation.maxDigits}`, ctx),
       error: `Digits count must be <= ${validation.maxDigits}`,
-      clientValidation: false
+      clientValidation: false,
     };
   }
   return evaluateValidation(validation.maxDigits, ctx);

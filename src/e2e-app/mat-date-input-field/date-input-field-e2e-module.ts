@@ -27,13 +27,7 @@ import {NgModule} from '@angular/core';
 import {MaterialDateInputFieldE2E} from './date-input-field-e2e';
 
 @NgModule({
-  imports: [
-    AjfFormsModule,
-    CoreFormsModule,
-  ],
-  declarations: [
-    MaterialDateInputFieldE2E,
-  ],
+  imports: [AjfFormsModule, CoreFormsModule],
+  declarations: [MaterialDateInputFieldE2E],
 })
-export class MaterialDateInputFieldE2eModule {
-}
+export class MaterialDateInputFieldE2eModule {}

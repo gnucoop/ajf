@@ -51,10 +51,6 @@ import {FormsDemo} from './forms-demo';
     RouterModule.forChild([{path: '', component: FormsDemo}]),
     AjfTranslocoModule,
   ],
-  declarations: [
-    CustomSelectMultiple,
-    FormsDemo,
-  ],
+  declarations: [CustomSelectMultiple, FormsDemo],
 })
-export class FormsDemoModule {
-}
+export class FormsDemoModule {}

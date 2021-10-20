@@ -28,7 +28,6 @@ import {delay} from 'rxjs/operators';
 
 import {formSchema} from './form';
 
-
 @Component({
   selector: 'form-builder-demo',
   templateUrl: 'form-builder-demo.html',
@@ -37,7 +36,7 @@ import {formSchema} from './form';
 export class FormBuilderDemo implements AfterViewInit, OnDestroy {
   form: AjfForm;
   formSchema: string;
-  error: string|null;
+  error: string | null;
 
   private _currentFormSub: Subscription = Subscription.EMPTY;
 
@@ -50,13 +49,12 @@ export class FormBuilderDemo implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this._currentFormSub = this._service.getCurrentForm()
-                               .pipe(
-                                   delay(0),
-                                   )
-                               .subscribe(form => {
-                                 this.formSchema = JSON.stringify(form);
-                               });
+    this._currentFormSub = this._service
+      .getCurrentForm()
+      .pipe(delay(0))
+      .subscribe(form => {
+        this.formSchema = JSON.stringify(form);
+      });
   }
 
   setForm(): void {

@@ -28,7 +28,7 @@ import {
   Component,
   Input,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 declare var monaco: any;
@@ -38,7 +38,7 @@ declare var monaco: any;
   templateUrl: 'fb-condition-editor.html',
   styleUrls: ['fb-condition-editor.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AjfFbConditionEditor {
   @ViewChild(AjfMonacoEditor, {static: true}) monacoEditor: AjfMonacoEditor;
@@ -62,7 +62,7 @@ export class AjfFbConditionEditor {
     if (this.monacoEditor != null && this.monacoEditor.editor != null) {
       const editor = this.monacoEditor.editor;
       let value: string[] = editor.getValue().split('\n');
-      let position: {column: number, lineNumber: number} = editor.getPosition();
+      let position: {column: number; lineNumber: number} = editor.getPosition();
       const ln = position.lineNumber - 1;
       let line = value[ln];
       let col = position.column - 1;
@@ -77,30 +77,36 @@ export class AjfFbConditionEditor {
   }
 
   onEditorInit(): void {
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions(
-        {noSemanticValidation: false, noSyntaxValidation: false});
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+      noSemanticValidation: false,
+      noSyntaxValidation: false,
+    });
 
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
       target: monaco.languages.typescript.ScriptTarget.ES2015,
       allowNonTsExtensions: true,
       allowJs: true,
-      module: monaco.languages.typescript.ModuleKind.None
+      module: monaco.languages.typescript.ModuleKind.None,
     });
 
     try {
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
-          '', 'condition-editor-variables.d.ts');
+        '',
+        'condition-editor-variables.d.ts',
+      );
     } catch (e) {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-variables.d.ts'] =
-          '';
+        '';
     }
 
     try {
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
-          '', 'condition-editor-functions.d.ts');
+        '',
+        'condition-editor-functions.d.ts',
+      );
     } catch (e) {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
-          '';
+        '';
     }
 
     this._updateVariables();
@@ -113,24 +119,22 @@ export class AjfFbConditionEditor {
     }
     try {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-variables.d.ts'] =
-          this._fields
-              .map((field: AjfField) => {
-                return `declare const ${field.name}: ${this._fieldVarType(field.fieldType)};`;
-              })
-              .join('\n');
-    } catch (e) {
-    }
+        this._fields
+          .map((field: AjfField) => {
+            return `declare const ${field.name}: ${this._fieldVarType(field.fieldType)};`;
+          })
+          .join('\n');
+    } catch (e) {}
   }
 
   private _updateFunctions(): void {
     try {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
-          AjfExpressionUtils.UTIL_FUNCTIONS;
-    } catch (e) {
-    }
+        AjfExpressionUtils.UTIL_FUNCTIONS;
+    } catch (e) {}
   }
 
-  private _fieldVarType(fieldType: AjfFieldType): string|null {
+  private _fieldVarType(fieldType: AjfFieldType): string | null {
     switch (fieldType) {
       case AjfFieldType.Boolean:
         return 'boolean';

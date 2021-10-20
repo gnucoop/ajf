@@ -26,7 +26,6 @@ import {AjfCondition} from '@ajf/core/models';
  * An AjfCondition with the clientValidation option and a custom error message
  */
 export interface AjfValidation extends AjfCondition {
-
   /**
    * True if client validation is enabled
    */

@@ -29,7 +29,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
@@ -40,12 +40,12 @@ import {AjfReportBuilderService} from './report-builder-service';
   selector: 'theme-color-dialog',
   templateUrl: 'theme-color-dialog.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderThemeColorDialog implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('colorpic', {static: true}) elem: any;
 
-  currentWidget: AjfWidget|null = null;
+  currentWidget: AjfWidget | null = null;
 
   currentColor = 'rgb(255,255,255,0)';
   section: string = 'color';
@@ -53,8 +53,9 @@ export class AjfReportBuilderThemeColorDialog implements OnInit, AfterViewInit, 
   private _currentWidgetSub: Subscription = Subscription.EMPTY;
 
   constructor(
-      private _service: AjfReportBuilderService,
-      private _dialogRef: MatDialogRef<AjfReportBuilderThemeColorDialog>) {}
+    private _service: AjfReportBuilderService,
+    private _dialogRef: MatDialogRef<AjfReportBuilderThemeColorDialog>,
+  ) {}
 
   setWidgetStyles(value: any) {
     this._service.setWidgetStyles(this.section, value);

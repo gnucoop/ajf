@@ -32,7 +32,7 @@ import {AjfTableCell} from './interface/fields/table-field';
  */
 @Pipe({name: 'ajfIsCellEditable'})
 export class AjfIsCellEditablePipe implements PipeTransform {
-  transform(cell: string|AjfTableCell): boolean {
+  transform(cell: string | AjfTableCell): boolean {
     if (cell == null || typeof cell === 'string') {
       return false;
     }

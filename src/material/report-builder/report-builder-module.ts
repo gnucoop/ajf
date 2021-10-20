@@ -72,12 +72,30 @@ import {AjfReportBuilderWidgetsToolbar} from './widgets-toolbar';
 
 @NgModule({
   imports: [
-    AjfCommonModule,    AjfImageModule,  AjfMapModule,      AjfMonacoEditorModule,
-    AjfTableModule,     AjfTextModule,   ColorPickerModule, CommonModule,
-    DragDropModule,     FormsModule,     MatButtonModule,   MatButtonToggleModule,
-    MatCardModule,      MatDialogModule, MatGridListModule, MatIconModule,
-    MatListModule,      MatSelectModule, MatSidenavModule,  MatSlideToggleModule,
-    MatSliderModule,    MatTabsModule,   MatToolbarModule,  MatTooltipModule,
+    AjfCommonModule,
+    AjfImageModule,
+    AjfMapModule,
+    AjfMonacoEditorModule,
+    AjfTableModule,
+    AjfTextModule,
+    ColorPickerModule,
+    CommonModule,
+    DragDropModule,
+    FormsModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatIconModule,
+    MatListModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
     AjfTranslocoModule,
   ],
   declarations: [
@@ -103,12 +121,7 @@ import {AjfReportBuilderWidgetsToolbar} from './widgets-toolbar';
     AjfReportBuilderWidgetToolbarButton,
     AjfReportBuilder,
   ],
-  exports: [
-    AjfReportBuilder,
-  ],
-  providers: [
-    AjfReportBuilderService,
-  ],
+  exports: [AjfReportBuilder],
+  providers: [AjfReportBuilderService],
 })
-export class AjfReportBuilderModule {
-}
+export class AjfReportBuilderModule {}

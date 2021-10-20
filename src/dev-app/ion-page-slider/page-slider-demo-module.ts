@@ -35,9 +35,6 @@ import {PageSliderDemo} from './page-slider-demo';
     RouterModule.forChild([{path: '', component: PageSliderDemo}]),
     IonicModule,
   ],
-  declarations: [
-    PageSliderDemo,
-  ],
+  declarations: [PageSliderDemo],
 })
-export class PageSliderDemoModule {
-}
+export class PageSliderDemoModule {}

@@ -28,21 +28,9 @@ import {MatIconModule} from '@angular/material/icon';
 
 import {CheckboxGroupItem} from './checkbox-group-item';
 
-
 @NgModule({
-  imports: [
-    AjfCoreCheckboxGroupModule,
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  declarations: [
-    CheckboxGroupItem,
-  ],
-  exports: [
-    AjfCoreCheckboxGroupModule,
-    CheckboxGroupItem,
-  ],
+  imports: [AjfCoreCheckboxGroupModule, CommonModule, MatButtonModule, MatIconModule],
+  declarations: [CheckboxGroupItem],
+  exports: [AjfCoreCheckboxGroupModule, CheckboxGroupItem],
 })
-export class AjfCheckboxGroupModule {
-}
+export class AjfCheckboxGroupModule {}

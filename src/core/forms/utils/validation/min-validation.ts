@@ -30,6 +30,6 @@ import {createValidation} from './create-validation';
 export function minValidation(minValue: number): AjfValidation {
   return createValidation({
     condition: '$value >= ' + minValue.toString(),
-    errorMessage: 'Value must be >= ' + minValue.toString()
+    errorMessage: 'Value must be >= ' + minValue.toString(),
   });
 }

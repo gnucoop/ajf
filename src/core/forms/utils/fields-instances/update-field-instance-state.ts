@@ -35,7 +35,10 @@ import {updateWarning} from './update-warning';
  * It grab all the field instance update functions.
  */
 export function updateFieldInstanceState(
-    instance: AjfFieldInstance, context: AjfContext, branchVisibility = true): void {
+  instance: AjfFieldInstance,
+  context: AjfContext,
+  branchVisibility = true,
+): void {
   updateVisibility(instance, context, branchVisibility);
   updateConditionalBranches(instance, context);
   updateFormula(instance as AjfFormulaFieldInstance, context);

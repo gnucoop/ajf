@@ -20,17 +20,14 @@
  *
  */
 
-import {
-  AJF_WARNING_ALERT_SERVICE,
-  AjfFormRendererService,
-} from '@ajf/core/forms';
+import {AJF_WARNING_ALERT_SERVICE, AjfFormRendererService} from '@ajf/core/forms';
 import {AjfRange} from '@ajf/core/range';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Inject,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import {AjfWarningAlertService} from './warning-alert-service';
@@ -44,8 +41,10 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfRangeFieldComponent extends AjfRange {
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+  ) {
     super(cdr, service, was);
   }
 }

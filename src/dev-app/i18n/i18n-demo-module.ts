@@ -30,7 +30,6 @@ import {RouterModule} from '@angular/router';
 
 import {I18nDemo} from './i18n-demo';
 
-
 @NgModule({
   declarations: [I18nDemo],
   imports: [
@@ -42,5 +41,4 @@ import {I18nDemo} from './i18n-demo';
     AjfTranslocoModule,
   ],
 })
-export class I18nDemoModule {
-}
+export class I18nDemoModule {}

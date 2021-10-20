@@ -50,14 +50,7 @@ import {DevAppLayout} from './dev-app-layout';
     RouterModule,
     AjfTranslocoModule,
   ],
-  declarations: [
-    DevApp404,
-    DevAppLayout,
-    DevAppHome,
-  ],
-  exports: [
-    DevAppLayout,
-  ],
+  declarations: [DevApp404, DevAppLayout, DevAppHome],
+  exports: [DevAppLayout],
 })
-export class DevAppModule {
-}
+export class DevAppModule {}

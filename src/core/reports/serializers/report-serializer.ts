@@ -30,8 +30,9 @@ export class AjfReportSerializer {
     const containers: (keyof AjfReport)[] = ['header', 'footer', 'content'];
     containers.forEach(c => {
       if (json[c]) {
-        (json[c] as AjfReportContainer) =
-            AjfReportContainerSerializer.fromJson(json[c] as Partial<AjfReportContainer>);
+        (json[c] as AjfReportContainer) = AjfReportContainerSerializer.fromJson(
+          json[c] as Partial<AjfReportContainer>,
+        );
       }
     });
     return createReport(json);

@@ -26,7 +26,7 @@ import {
   Input,
   OnInit,
   Renderer2,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
@@ -63,8 +63,12 @@ export abstract class AjfReportWidget implements OnInit {
   }
 
   private _loadComponent(): void {
-    if (!this._init || this._instance == null || this.widgetHost == null ||
-        !this.instance.visible) {
+    if (
+      !this._init ||
+      this._instance == null ||
+      this.widgetHost == null ||
+      !this.instance.visible
+    ) {
       return;
     }
 
@@ -83,9 +87,11 @@ export abstract class AjfReportWidget implements OnInit {
       Object.keys(this._instance.widget.styles).forEach((style: string) => {
         try {
           this._renderer.setStyle(
-              componentInstance.el.nativeElement, style, `${this._instance.widget.styles[style]}`);
-        } catch (e) {
-        }
+            componentInstance.el.nativeElement,
+            style,
+            `${this._instance.widget.styles[style]}`,
+          );
+        } catch (e) {}
       });
 
       componentInstance.instance = this._instance;
@@ -96,7 +102,6 @@ export abstract class AjfReportWidget implements OnInit {
           }
         });
       }
-    } catch (e) {
-    }
+    } catch (e) {}
   }
 }

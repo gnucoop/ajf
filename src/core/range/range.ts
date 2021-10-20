@@ -25,17 +25,19 @@ import {
   AjfBaseFieldComponent,
   AjfFormRendererService,
   AjfRangeFieldInstance,
-  AjfWarningAlertService
+  AjfWarningAlertService,
 } from '@ajf/core/forms';
 import {ChangeDetectorRef, Directive, Inject, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
 
 @Directive()
-export abstract class AjfRange extends AjfBaseFieldComponent<AjfRangeFieldInstance> implements
-    ControlValueAccessor, OnInit {
+export abstract class AjfRange
+  extends AjfBaseFieldComponent<AjfRangeFieldInstance>
+  implements ControlValueAccessor, OnInit
+{
   private _end: number = 10;
   private _name: string = '';
-  private _onChangeCallback: (value: any) => void = (_) => {};
+  private _onChangeCallback: (value: any) => void = _ => {};
 
   private _onTouchedCallback: () => void = () => {};
 
@@ -44,49 +46,51 @@ export abstract class AjfRange extends AjfBaseFieldComponent<AjfRangeFieldInstan
   private _value: number = 1;
 
   constructor(
-      public cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    public cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+  ) {
     super(cdr, service, was);
   }
 
-  get end(): number|undefined {
+  get end(): number | undefined {
     return this._end;
   }
   @Input()
-  set end(newEnd: number|undefined) {
+  set end(newEnd: number | undefined) {
     if (newEnd != null && this._end != newEnd) {
       this._end = newEnd as number;
       this.cdr.detectChanges();
     }
   }
 
-  get name(): string|undefined {
+  get name(): string | undefined {
     return this._name;
   }
   @Input()
-  set name(newName: string|undefined) {
+  set name(newName: string | undefined) {
     if (newName != null && this._name != newName) {
       this._name = newName;
       this.cdr.detectChanges();
     }
   }
 
-  get start(): number|undefined {
+  get start(): number | undefined {
     return this._start;
   }
   @Input()
-  set start(newStart: number|undefined) {
+  set start(newStart: number | undefined) {
     if (newStart != null && this._start != newStart) {
       this._start = newStart;
       this.cdr.detectChanges();
     }
   }
 
-  get step(): number|undefined {
+  get step(): number | undefined {
     return this._step;
   }
   @Input()
-  set step(newStep: number|undefined) {
+  set step(newStep: number | undefined) {
     if (newStep != null && this._step !== newStep) {
       this._step = newStep;
       this.cdr.detectChanges();

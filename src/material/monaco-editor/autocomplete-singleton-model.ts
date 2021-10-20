@@ -43,7 +43,7 @@ export class AutoCompleteSingleton {
     return this._autoCompleteValues;
   }
 
-  private static _instance: AutoCompleteSingleton|null = null;
+  private static _instance: AutoCompleteSingleton | null = null;
   private _autoCompleteValues: {[key: string]: AutoCompleteItem[]} = {};
 
   private constructor() {}
@@ -61,7 +61,7 @@ export class AutoCompleteSingleton {
 
     // This event is fired when the user press Ctrl + Space, to show Intelissense (Autocomplete)
     monaco.languages.registerCompletionItemProvider(language, {
-      provideCompletionItems: function(model: any) {
+      provideCompletionItems: function (model: any) {
         // Get new autoComplete list for the current content
         AutoCompleteSingleton.getInstance().parseAutoCompleteValues(language, model.getValue());
         return AutoCompleteSingleton.getInstance().autoCompleteValues[language.toString()];
@@ -96,15 +96,16 @@ export class AutoCompleteSingleton {
 
     for (let i = 0; i < tags.length; i++) {
       // Add TAG only if it not already existing in autoComplete list and in tempList
-      if (!this._autoCompleteValues[IEditorLanguage.XML].find(
-              obj => obj.label === tags[i].tagName) &&
-          !tempList.find(obj => obj.label === tags[i].tagName)) {
+      if (
+        !this._autoCompleteValues[IEditorLanguage.XML].find(obj => obj.label === tags[i].tagName) &&
+        !tempList.find(obj => obj.label === tags[i].tagName)
+      ) {
         // Create autoComplete object
         let obj = new AutoCompleteItem()
-                      .setLabel(tags[i].tagName)
-                      .setKind(monaco.languages.CompletionItemKind.Function)
-                      .setDocumentation('')
-                      .setInsertText(`<${tags[i].tagName}><${tags[i].tagName}>`);
+          .setLabel(tags[i].tagName)
+          .setKind(monaco.languages.CompletionItemKind.Function)
+          .setDocumentation('')
+          .setInsertText(`<${tags[i].tagName}><${tags[i].tagName}>`);
 
         tempList.push(obj);
       }
@@ -113,7 +114,7 @@ export class AutoCompleteSingleton {
     // Add tempList list in the _autoCompleteValues, to maintain a list updated
     if (tempList.length > 0) {
       this._autoCompleteValues[IEditorLanguage.XML.toString()] =
-          this._autoCompleteValues[IEditorLanguage.XML.toString()].concat(tempList);
+        this._autoCompleteValues[IEditorLanguage.XML.toString()].concat(tempList);
     }
 
     return tempList;
@@ -122,7 +123,7 @@ export class AutoCompleteSingleton {
   private _parseJsonAutoComplete(content: string): AutoCompleteItem[] {
     /* tslint:disable-next-line */
     const regex =
-        /(?:\'|\')([^']*)(?:\'|\')(?=:)(?:\:\s*)(?:\'|\')?(true|false|[0-9a-zA-Z\+\-\,\.\$]*)/g;
+      /(?:\'|\')([^']*)(?:\'|\')(?=:)(?:\:\s*)(?:\'|\')?(true|false|[0-9a-zA-Z\+\-\,\.\$]*)/g;
     let tempList: AutoCompleteItem[] = [];
     let m: any;
 
@@ -133,13 +134,16 @@ export class AutoCompleteSingleton {
       }
 
       // Add Element only if it not already existing in autoComplete list and in tempList
-      if (m[1] && !this._autoCompleteValues[IEditorLanguage.JSON].find(obj => obj.label === m[1]) &&
-          !tempList.find(obj => obj.label === m[1])) {
+      if (
+        m[1] &&
+        !this._autoCompleteValues[IEditorLanguage.JSON].find(obj => obj.label === m[1]) &&
+        !tempList.find(obj => obj.label === m[1])
+      ) {
         let obj = new AutoCompleteItem()
-                      .setLabel(m[1])
-                      .setKind(monaco.languages.CompletionItemKind.Value)
-                      .setDocumentation('')
-                      .setInsertText(`'${m[1]}':`);
+          .setLabel(m[1])
+          .setKind(monaco.languages.CompletionItemKind.Value)
+          .setDocumentation('')
+          .setInsertText(`'${m[1]}':`);
 
         tempList.push(obj);
       }
@@ -148,7 +152,7 @@ export class AutoCompleteSingleton {
     // Add tempList list in the _autoCompleteValues, to maintain a list updated
     if (tempList.length > 0) {
       this._autoCompleteValues[IEditorLanguage.JSON.toString()] =
-          this._autoCompleteValues[IEditorLanguage.JSON.toString()].concat(tempList);
+        this._autoCompleteValues[IEditorLanguage.JSON.toString()].concat(tempList);
     }
 
     return tempList;

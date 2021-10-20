@@ -22,7 +22,6 @@
 
 import {Pipe, PipeTransform} from '@angular/core';
 
-
 /**
  * It casts a boolean as number.
  */

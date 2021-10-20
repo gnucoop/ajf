@@ -32,7 +32,7 @@ import {demoWidgets} from './widgets';
   styleUrls: ['widgets-demo.css'],
 })
 export class WidgetsDemo {
-  widgets: {name: string, instance: AjfWidgetInstance}[];
+  widgets: {name: string; instance: AjfWidgetInstance}[];
 
   constructor(ts: TranslocoService) {
     this.widgets = demoWidgets(ts);

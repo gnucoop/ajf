@@ -24,7 +24,7 @@ import {AjfFormula} from '@ajf/core/models';
 import {AjfAggregation} from '../aggregation/aggregation';
 
 export interface AjfDataset {
-  formula?: AjfFormula|AjfFormula[];
+  formula?: AjfFormula | AjfFormula[];
   aggregation: AjfAggregation;
   label?: string;
 }

@@ -25,13 +25,12 @@ import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@ang
 
 import {ChoicesOriginChoiceEntry, ChoicesOriginDataSource} from './choices-origin-data-source';
 
-
 @Component({
   selector: 'ajf-fb-choices-origin-editor',
   templateUrl: 'choices-origin-editor.html',
   styleUrls: ['choices-origin-editor.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfFbChoicesOriginEditor {
   private _displayedColumns: string[] = ['label', 'value', 'delete'];

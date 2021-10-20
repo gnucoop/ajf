@@ -52,72 +52,72 @@ import {AjfVideoUrlFieldComponent} from './video-url-field';
 export class AjfFieldService extends CoreService {
   constructor() {
     super();
-    this.componentsMap[AjfFieldType.String] = {
-      component: AjfInputFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
-    },
-    this.componentsMap[AjfFieldType.Text] = {
-      component: AjfTextFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
-    },
-    this.componentsMap[AjfFieldType.Number] = {
+    (this.componentsMap[AjfFieldType.String] = {
       component: AjfInputFieldComponent,
       readOnlyComponent: AjfReadOnlyFieldComponent,
-      inputs: {type: 'number'}
-    },
-    this.componentsMap[AjfFieldType.Boolean] = {
-      component: AjfBooleanFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
-    },
-    this.componentsMap[AjfFieldType.Formula] = {
-      component: AjfInputFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent,
-      inputs: {readonly: true}
-    },
-    this.componentsMap[AjfFieldType.Date] = {
-      component: AjfDateFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
-    },
-    this.componentsMap[AjfFieldType.DateInput] = {
-      component: AjfDateInputFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
-    },
-    this.componentsMap[AjfFieldType.Table] = {
-      component: AjfTableFieldComponent,
-      readOnlyComponent: AjfReadOnlyTableFieldComponent
-    },
-    this.componentsMap[AjfFieldType.Empty] = {component: AjfEmptyFieldComponent},
-    this.componentsMap[AjfFieldType.SingleChoice] = {
-      component: AjfSingleChoiceFieldComponent,
-      readOnlyComponent: AjfReadOnlySelectFieldComponent
-    },
-    this.componentsMap[AjfFieldType.MultipleChoice] = {
-      component: AjfMultipleChoiceFieldComponent,
-      readOnlyComponent: AjfReadOnlySelectFieldComponent
-    },
-    this.componentsMap[AjfFieldType.Time] = {
-      component: AjfTimeFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
-    },
-    this.componentsMap[AjfFieldType.Barcode] = {
-      component: AjfBarcodeFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
-    };
+    }),
+      (this.componentsMap[AjfFieldType.Text] = {
+        component: AjfTextFieldComponent,
+        readOnlyComponent: AjfReadOnlyFieldComponent,
+      }),
+      (this.componentsMap[AjfFieldType.Number] = {
+        component: AjfInputFieldComponent,
+        readOnlyComponent: AjfReadOnlyFieldComponent,
+        inputs: {type: 'number'},
+      }),
+      (this.componentsMap[AjfFieldType.Boolean] = {
+        component: AjfBooleanFieldComponent,
+        readOnlyComponent: AjfReadOnlyFieldComponent,
+      }),
+      (this.componentsMap[AjfFieldType.Formula] = {
+        component: AjfInputFieldComponent,
+        readOnlyComponent: AjfReadOnlyFieldComponent,
+        inputs: {readonly: true},
+      }),
+      (this.componentsMap[AjfFieldType.Date] = {
+        component: AjfDateFieldComponent,
+        readOnlyComponent: AjfReadOnlyFieldComponent,
+      }),
+      (this.componentsMap[AjfFieldType.DateInput] = {
+        component: AjfDateInputFieldComponent,
+        readOnlyComponent: AjfReadOnlyFieldComponent,
+      }),
+      (this.componentsMap[AjfFieldType.Table] = {
+        component: AjfTableFieldComponent,
+        readOnlyComponent: AjfReadOnlyTableFieldComponent,
+      }),
+      (this.componentsMap[AjfFieldType.Empty] = {component: AjfEmptyFieldComponent}),
+      (this.componentsMap[AjfFieldType.SingleChoice] = {
+        component: AjfSingleChoiceFieldComponent,
+        readOnlyComponent: AjfReadOnlySelectFieldComponent,
+      }),
+      (this.componentsMap[AjfFieldType.MultipleChoice] = {
+        component: AjfMultipleChoiceFieldComponent,
+        readOnlyComponent: AjfReadOnlySelectFieldComponent,
+      }),
+      (this.componentsMap[AjfFieldType.Time] = {
+        component: AjfTimeFieldComponent,
+        readOnlyComponent: AjfReadOnlyFieldComponent,
+      }),
+      (this.componentsMap[AjfFieldType.Barcode] = {
+        component: AjfBarcodeFieldComponent,
+        readOnlyComponent: AjfReadOnlyFieldComponent,
+      });
     this.componentsMap[AjfFieldType.File] = {
       component: AjfFileFieldComponent,
-      readOnlyComponent: AjfReadOnlyFileFieldComponent
+      readOnlyComponent: AjfReadOnlyFileFieldComponent,
     };
     this.componentsMap[AjfFieldType.Image] = {
       component: AjfImageFieldComponent,
-      readOnlyComponent: AjfReadOnlyImageFieldComponent
+      readOnlyComponent: AjfReadOnlyImageFieldComponent,
     };
     this.componentsMap[AjfFieldType.VideoUrl] = {
       component: AjfVideoUrlFieldComponent,
-      readOnlyComponent: AjfReadOnlyVideoUrlFieldComponent
+      readOnlyComponent: AjfReadOnlyVideoUrlFieldComponent,
     };
     this.componentsMap[AjfFieldType.Range] = {
       component: AjfRangeFieldComponent,
-      readOnlyComponent: AjfReadOnlyFieldComponent
+      readOnlyComponent: AjfReadOnlyFieldComponent,
     };
   }
 }

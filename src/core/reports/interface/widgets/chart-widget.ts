@@ -31,7 +31,7 @@ import {AjfDataWidget} from './data-widget';
 export interface AjfChartWidget extends AjfDataWidget {
   chartType: AjfChartType;
   type?: AjfChartType;
-  labels: AjfFormula|AjfFormula[];
+  labels: AjfFormula | AjfFormula[];
   dataset: AjfChartDataset[];
   options: ChartOptions;
   exportable?: boolean;

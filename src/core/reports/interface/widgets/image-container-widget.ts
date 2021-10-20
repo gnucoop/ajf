@@ -26,7 +26,7 @@ import {AjfWidget} from './widget';
 
 export interface AjfImageContainerWidget extends AjfWidget {
   imageType: AjfImageType;
-  icons?: AjfFormula|AjfFormula[];
-  flags?: AjfFormula|AjfFormula[];
-  urls?: AjfFormula|AjfFormula[];
+  icons?: AjfFormula | AjfFormula[];
+  flags?: AjfFormula | AjfFormula[];
+  urls?: AjfFormula | AjfFormula[];
 }

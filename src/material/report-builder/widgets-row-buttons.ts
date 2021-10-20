@@ -27,7 +27,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 
@@ -39,7 +39,7 @@ import {ajfWidgetTypeToLabel, widgetReportBuilderIconName} from './utils';
   templateUrl: 'widgets-row-buttons.html',
   styleUrls: ['widgets-row-buttons.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   @Input() from: string;
@@ -48,7 +48,7 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   @Input() widget: AjfWidget;
   @Input() child: boolean;
   @Input() isOver = false;
-  currentWidget: AjfWidget|null = null;
+  currentWidget: AjfWidget | null = null;
   isClicked = false;
   color: string[] = [];
 
@@ -65,7 +65,6 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   private _currentWidgetSub: Subscription = Subscription.EMPTY;
   private _onDraggedSub: Subscription = Subscription.EMPTY;
   private _onOverSub: Subscription = Subscription.EMPTY;
-
 
   /**
    *
@@ -97,10 +96,16 @@ export class AjfReportBuilderWidgetsRowButtons implements OnDestroy, OnInit {
   changeColumn(direction: string) {
     if (direction == 'back') {
       this._service.changeColumn(
-          this.position, this.position - 1, <AjfLayoutWidget>this.fromWidget);
+        this.position,
+        this.position - 1,
+        <AjfLayoutWidget>this.fromWidget,
+      );
     } else {
       this._service.changeColumn(
-          this.position, this.position + 1, <AjfLayoutWidget>this.fromWidget);
+        this.position,
+        this.position + 1,
+        <AjfLayoutWidget>this.fromWidget,
+      );
     }
   }
   isColumn(): boolean {

@@ -33,5 +33,5 @@ export enum AjfWidgetType {
   Formula,
   ImageContainer,
   DynamicTable,
-  LENGTH
+  LENGTH,
 }

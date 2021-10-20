@@ -35,9 +35,6 @@ import {PageSliderDemo} from './page-slider-demo';
     MatSlideToggleModule,
     RouterModule.forChild([{path: '', component: PageSliderDemo}]),
   ],
-  declarations: [
-    PageSliderDemo,
-  ],
+  declarations: [PageSliderDemo],
 })
-export class PageSliderDemoModule {
-}
+export class PageSliderDemoModule {}

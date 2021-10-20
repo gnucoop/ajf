@@ -27,5 +27,4 @@ import {Component} from '@angular/core';
   templateUrl: 'time-demo.html',
   styleUrls: ['time-demo.css'],
 })
-export class TimeDemo {
-}
+export class TimeDemo {}

@@ -39,198 +39,79 @@ import {
   slideContentStyle,
   slideTitleStyle,
   widgetStyle,
-  widgetTitleStyle
+  widgetTitleStyle,
 } from './styles';
 
 function createBooleanWidget(field: AjfField): AjfWidget {
   return createWidget({
     widgetType: AjfWidgetType.Column,
-    content: [createWidget({
-      widgetType: AjfWidgetType.Chart,
-      type: AjfChartType.Pie,
-      labels: {formula: '[\'True\', \'False\']'},
-      dataset: [createDataset({
-                  label: 'true',
-                  formula: [createFormula({
-                    formula: `[COUNTFORMS(forms,"${field.name}===true"),COUNTFORMS(forms,"${
-                        field.name}===false")]`
-                  })],
-                  options: {backgroundColor: ['green', 'red']}
-                } as Partial<AjfDataset>) as AjfDataset],
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {display: true, position: 'bottom'}
-      },
-      styles: {width: '100%', height: '400px'},
-      exportable: true
-    } as AjfWidgetCreate)],
+    content: [
+      createWidget({
+        widgetType: AjfWidgetType.Chart,
+        type: AjfChartType.Pie,
+        labels: {formula: "['True', 'False']"},
+        dataset: [
+          createDataset({
+            label: 'true',
+            formula: [
+              createFormula({
+                formula: `[COUNTFORMS(forms,"${field.name}===true"),COUNTFORMS(forms,"${field.name}===false")]`,
+              }),
+            ],
+            options: {backgroundColor: ['green', 'red']},
+          } as Partial<AjfDataset>) as AjfDataset,
+        ],
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {display: true, position: 'bottom'},
+        },
+        styles: {width: '100%', height: '400px'},
+        exportable: true,
+      } as AjfWidgetCreate),
+    ],
   } as AjfWidgetCreate);
 }
 function createMultipleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
   const choices = field.choicesOrigin.choices;
   let dataset: AjfDataset[] = choices.map(
-      (c, index) =>
-          createDataset({
-            label: `${c.label}`,
-            formula: [createFormula(
-                {formula: `[COUNTFORMS(forms,"${field.name}.indexOf('${c.value}') > -1")]`})],
-            options: {
-              backgroundColor: backgroundColor[index],
-              stack: `Stack ${index}`,
-            }
-          } as Partial<AjfDataset>) as AjfDataset);
+    (c, index) =>
+      createDataset({
+        label: `${c.label}`,
+        formula: [
+          createFormula({
+            formula: `[COUNTFORMS(forms,"${field.name}.indexOf('${c.value}') > -1")]`,
+          }),
+        ],
+        options: {
+          backgroundColor: backgroundColor[index],
+          stack: `Stack ${index}`,
+        },
+      } as Partial<AjfDataset>) as AjfDataset,
+  );
   let chartType = AjfChartType.Bar;
   let labels = {formula: `[]`};
 
   return createWidget({
     widgetType: AjfWidgetType.Column,
-    content: [createWidget({
-      widgetType: AjfWidgetType.Chart,
-      type: chartType,
-      labels,
-      dataset,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {display: true, position: 'bottom'}
-      },
-      styles: {width: '100%', height: '400px'},
-      exportable: true
-    } as AjfWidgetCreate)],
+    content: [
+      createWidget({
+        widgetType: AjfWidgetType.Chart,
+        type: chartType,
+        labels,
+        dataset,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {display: true, position: 'bottom'},
+        },
+        styles: {width: '100%', height: '400px'},
+        exportable: true,
+      } as AjfWidgetCreate),
+    ],
   } as AjfWidgetCreate);
 }
 function createNumberWidget(field: AjfField): AjfWidget {
-  return createWidget({
-    widgetType: AjfWidgetType.Column,
-    styles: widgetStyle,
-    content: [createWidget({
-      widgetType: AjfWidgetType.Layout,
-      columns: [0.33, 0.33, 0.33],
-      content: [
-        createWidget({
-          widgetType: AjfWidgetType.Column,
-          styles: boxStyle,
-          content: [
-            createWidget({
-              widgetType: AjfWidgetType.Text,
-              htmlText: `<div color="primary"><h5>Mean</h5></div>`,
-              styles: widgetTitleStyle,
-            } as AjfWidgetCreate),
-            createWidget({
-              widgetType: AjfWidgetType.Text,
-              'htmlText': `<p>[[MEAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
-              styles: widgetTitleStyle,
-            } as AjfWidgetCreate)
-          ]
-        } as AjfWidgetCreate),
-        createWidget({
-          widgetType: AjfWidgetType.Column,
-          styles: boxStyle,
-          content: [
-            createWidget({
-              widgetType: AjfWidgetType.Text,
-              htmlText: `<div color="primary"><h5>Median</h5></div>`,
-              styles: widgetTitleStyle,
-            } as AjfWidgetCreate),
-            createWidget({
-              widgetType: AjfWidgetType.Text,
-              'htmlText':
-                  `<p>[[MEDIAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
-              styles: widgetTitleStyle,
-            } as AjfWidgetCreate)
-          ]
-        } as AjfWidgetCreate),
-        createWidget({
-          widgetType: AjfWidgetType.Column,
-          styles: boxStyle,
-          content: [
-            createWidget({
-              widgetType: AjfWidgetType.Text,
-              htmlText: `<div color="primary"><h5>Mode</h5></div>`,
-              styles: widgetTitleStyle,
-            } as AjfWidgetCreate),
-            createWidget({
-              widgetType: AjfWidgetType.Text,
-              htmlText: `<p>[[MODE(forms,"${field.name}")]]</p>`,
-              styles: widgetTitleStyle,
-            } as AjfWidgetCreate)
-          ]
-        } as AjfWidgetCreate),
-      ]
-    } as AjfWidgetCreate)]
-  } as AjfWidgetCreate);
-}
-function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
-  const choices = field.choicesOrigin.choices;
-  let dataset: AjfDataset[] = [];
-  let chartType = AjfChartType.Bar;
-  let labels = {formula: `[]`};
-
-  if (choices.length > 5) {
-    labels = {formula: `[${choices.map(c => `${JSON.stringify(c.label)}`)}]`};
-    chartType = AjfChartType.Pie;
-    dataset =
-        [createDataset({
-           label: field.label,
-           formula: [createFormula({
-             formula: `[${
-                 choices.map((choice) => `COUNTFORMS(forms,"${field.name}==='${choice.value}'")`)
-                     .toString()}]`
-
-           })],
-           options: {backgroundColor}
-         } as any) as AjfDataset];
-  } else {
-    dataset = choices.map(
-        (c, index) => createDataset({
-                        label: `${c.label}`,
-                        formula: [createFormula(
-                            {formula: `[COUNTFORMS(forms,"${field.name}==='${c.value}'")]`})],
-                        options: {
-                          backgroundColor: backgroundColor[index],
-                          stack: `Stack ${index}`,
-                        }
-                      } as Partial<AjfDataset>) as AjfDataset);
-  }
-
-  return createWidget({
-    widgetType: AjfWidgetType.Column,
-    content: [createWidget({
-      widgetType: AjfWidgetType.Chart,
-      type: chartType,
-      labels,
-      dataset,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {display: true, position: 'bottom'}
-      },
-      styles: {width: '100%', height: '400px'},
-      exportable: true
-    } as AjfWidgetCreate)],
-  } as AjfWidgetCreate);
-}
-
-function createRangeWidget(field: AjfRangeField): AjfWidget {
-  const end = field.end ?? 11;
-  const start = field.start ?? 1;
-  let choices = [];
-  for (let i = start; i <= end; i++) {
-    choices.push(i);
-  }
-
-  let labels = {formula: `[${JSON.stringify(field.label)}]`};
-  let dataset: AjfDataset[] = choices.map(
-      (_, index) => createDataset({
-                      label: `${index + start}`,
-                      formula: [createFormula(
-                          {formula: `[COUNTFORMS(forms,"${field.name}===${index + 1 + start}")]`})],
-                      options: {
-                        backgroundColor: backgroundColor[index],
-                        stack: `Stack ${index}`,
-                      }
-                    } as Partial<AjfDataset>) as AjfDataset);
   return createWidget({
     widgetType: AjfWidgetType.Column,
     styles: widgetStyle,
@@ -250,11 +131,10 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
               } as AjfWidgetCreate),
               createWidget({
                 widgetType: AjfWidgetType.Text,
-                'htmlText':
-                    `<p>[[MEAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
+                'htmlText': `<p>[[MEAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
                 styles: widgetTitleStyle,
-              } as AjfWidgetCreate)
-            ]
+              } as AjfWidgetCreate),
+            ],
           } as AjfWidgetCreate),
           createWidget({
             widgetType: AjfWidgetType.Column,
@@ -267,11 +147,10 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
               } as AjfWidgetCreate),
               createWidget({
                 widgetType: AjfWidgetType.Text,
-                'htmlText':
-                    `<p>[[MEDIAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
+                'htmlText': `<p>[[MEDIAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
                 styles: widgetTitleStyle,
-              } as AjfWidgetCreate)
-            ]
+              } as AjfWidgetCreate),
+            ],
           } as AjfWidgetCreate),
           createWidget({
             widgetType: AjfWidgetType.Column,
@@ -286,10 +165,149 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
                 widgetType: AjfWidgetType.Text,
                 htmlText: `<p>[[MODE(forms,"${field.name}")]]</p>`,
                 styles: widgetTitleStyle,
-              } as AjfWidgetCreate)
-            ]
+              } as AjfWidgetCreate),
+            ],
           } as AjfWidgetCreate),
-        ]
+        ],
+      } as AjfWidgetCreate),
+    ],
+  } as AjfWidgetCreate);
+}
+function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
+  const choices = field.choicesOrigin.choices;
+  let dataset: AjfDataset[] = [];
+  let chartType = AjfChartType.Bar;
+  let labels = {formula: `[]`};
+
+  if (choices.length > 5) {
+    labels = {formula: `[${choices.map(c => `${JSON.stringify(c.label)}`)}]`};
+    chartType = AjfChartType.Pie;
+    dataset = [
+      createDataset({
+        label: field.label,
+        formula: [
+          createFormula({
+            formula: `[${choices
+              .map(choice => `COUNTFORMS(forms,"${field.name}==='${choice.value}'")`)
+              .toString()}]`,
+          }),
+        ],
+        options: {backgroundColor},
+      } as any) as AjfDataset,
+    ];
+  } else {
+    dataset = choices.map(
+      (c, index) =>
+        createDataset({
+          label: `${c.label}`,
+          formula: [createFormula({formula: `[COUNTFORMS(forms,"${field.name}==='${c.value}'")]`})],
+          options: {
+            backgroundColor: backgroundColor[index],
+            stack: `Stack ${index}`,
+          },
+        } as Partial<AjfDataset>) as AjfDataset,
+    );
+  }
+
+  return createWidget({
+    widgetType: AjfWidgetType.Column,
+    content: [
+      createWidget({
+        widgetType: AjfWidgetType.Chart,
+        type: chartType,
+        labels,
+        dataset,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          legend: {display: true, position: 'bottom'},
+        },
+        styles: {width: '100%', height: '400px'},
+        exportable: true,
+      } as AjfWidgetCreate),
+    ],
+  } as AjfWidgetCreate);
+}
+
+function createRangeWidget(field: AjfRangeField): AjfWidget {
+  const end = field.end ?? 11;
+  const start = field.start ?? 1;
+  let choices = [];
+  for (let i = start; i <= end; i++) {
+    choices.push(i);
+  }
+
+  let labels = {formula: `[${JSON.stringify(field.label)}]`};
+  let dataset: AjfDataset[] = choices.map(
+    (_, index) =>
+      createDataset({
+        label: `${index + start}`,
+        formula: [
+          createFormula({formula: `[COUNTFORMS(forms,"${field.name}===${index + 1 + start}")]`}),
+        ],
+        options: {
+          backgroundColor: backgroundColor[index],
+          stack: `Stack ${index}`,
+        },
+      } as Partial<AjfDataset>) as AjfDataset,
+  );
+  return createWidget({
+    widgetType: AjfWidgetType.Column,
+    styles: widgetStyle,
+    content: [
+      createWidget({
+        widgetType: AjfWidgetType.Layout,
+        columns: [0.33, 0.33, 0.33],
+        content: [
+          createWidget({
+            widgetType: AjfWidgetType.Column,
+            styles: boxStyle,
+            content: [
+              createWidget({
+                widgetType: AjfWidgetType.Text,
+                htmlText: `<div color="primary"><h5>Mean</h5></div>`,
+                styles: widgetTitleStyle,
+              } as AjfWidgetCreate),
+              createWidget({
+                widgetType: AjfWidgetType.Text,
+                'htmlText': `<p>[[MEAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
+                styles: widgetTitleStyle,
+              } as AjfWidgetCreate),
+            ],
+          } as AjfWidgetCreate),
+          createWidget({
+            widgetType: AjfWidgetType.Column,
+            styles: boxStyle,
+            content: [
+              createWidget({
+                widgetType: AjfWidgetType.Text,
+                htmlText: `<div color="primary"><h5>Median</h5></div>`,
+                styles: widgetTitleStyle,
+              } as AjfWidgetCreate),
+              createWidget({
+                widgetType: AjfWidgetType.Text,
+                'htmlText': `<p>[[MEDIAN(forms,"${field.name}")]] / [[MAX(forms,"${field.name}")]]</p>`,
+                styles: widgetTitleStyle,
+              } as AjfWidgetCreate),
+            ],
+          } as AjfWidgetCreate),
+          createWidget({
+            widgetType: AjfWidgetType.Column,
+            styles: boxStyle,
+            content: [
+              createWidget({
+                widgetType: AjfWidgetType.Text,
+                htmlText: `<div color="primary"><h5>Mode</h5></div>`,
+                styles: widgetTitleStyle,
+              } as AjfWidgetCreate),
+              createWidget({
+                widgetType: AjfWidgetType.Text,
+                htmlText: `<p>[[MODE(forms,"${field.name}")]]</p>`,
+                styles: widgetTitleStyle,
+              } as AjfWidgetCreate),
+            ],
+          } as AjfWidgetCreate),
+        ],
       } as AjfWidgetCreate),
       createWidget({
         widgetType: AjfWidgetType.Chart,
@@ -299,12 +317,12 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          legend: {display: true, position: 'bottom'}
+          legend: {display: true, position: 'bottom'},
         },
         styles: {width: '100%', height: '400px'},
-        exportable: true
-      } as AjfWidgetCreate)
-    ]
+        exportable: true,
+      } as AjfWidgetCreate),
+    ],
   } as AjfWidgetCreate);
 }
 
@@ -328,15 +346,14 @@ export function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport {
       // create the title of the widget.
       const fieldTitleWidget: AjfWidget = createWidget({
         widgetType: AjfWidgetType.Text,
-        htmlText: `<div color="primary"><h5>${field.label} - [[COUNTFORMS(forms,"${
-            field.name} != null")]] answers</h5></div>`,
-        styles: widgetTitleStyle
+        htmlText: `<div color="primary"><h5>${field.label} - [[COUNTFORMS(forms,"${field.name} != null")]] answers</h5></div>`,
+        styles: widgetTitleStyle,
       } as AjfWidgetCreate);
       slideWidgets.push(fieldTitleWidget);
 
       switch (field.fieldType) {
         default:
-          slideWidgets.pop();  // remove the title of empty widget
+          slideWidgets.pop(); // remove the title of empty widget
           break;
         case AjfFieldType.Number:
           slideWidgets.push(createNumberWidget(field));
@@ -361,7 +378,7 @@ export function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport {
       const slideTitleWidget: AjfWidget = createWidget({
         widgetType: AjfWidgetType.Text,
         htmlText: `<div color="primary"><h1>${slide.label}</h1></div>`,
-        styles: slideTitleStyle
+        styles: slideTitleStyle,
       } as AjfWidgetCreate);
       reportWidgets.push(slideTitleWidget);
       // create the column with the slide widgets.

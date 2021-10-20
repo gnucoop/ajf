@@ -27,16 +27,8 @@ import {NgModule} from '@angular/core';
 import {AjfTable} from './table';
 
 @NgModule({
-  imports: [
-    AjfCommonModule,
-    CommonModule,
-  ],
-  declarations: [
-    AjfTable,
-  ],
-  exports: [
-    AjfTable,
-  ]
+  imports: [AjfCommonModule, CommonModule],
+  declarations: [AjfTable],
+  exports: [AjfTable],
 })
-export class AjfTableModule {
-}
+export class AjfTableModule {}

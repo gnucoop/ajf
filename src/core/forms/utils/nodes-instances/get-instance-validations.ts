@@ -24,10 +24,12 @@ import {AjfValidation} from '../../interface/validation/validation';
 import {getInstanceValidation} from './get-instance-validation';
 
 export function getInstanceValidations(
-    validations: AjfValidation[], ancestorsNames: {[prop: string]: number},
-    prefix: number[]): AjfValidation[] {
+  validations: AjfValidation[],
+  ancestorsNames: {[prop: string]: number},
+  prefix: number[],
+): AjfValidation[] {
   let changed = false;
-  const newValidations = validations.map((validation) => {
+  const newValidations = validations.map(validation => {
     const newValidation = getInstanceValidation(validation, ancestorsNames, prefix);
     if (newValidation !== validation) {
       changed = true;

@@ -32,6 +32,6 @@ export {
   TRANSLOCO_MISSING_HANDLER,
   TRANSLOCO_SCOPE,
   translocoConfig,
-  HashMap
+  HashMap,
 } from '@ngneat/transloco';
 export * from './lang';

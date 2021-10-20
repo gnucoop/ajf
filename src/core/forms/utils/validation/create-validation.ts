@@ -24,11 +24,12 @@ import {AjfValidation} from '../../interface/validation/validation';
 /**
  *  Create a AjfValidation, apply clientValidation and errorMessage defaults when it missing
  */
-export function createValidation(validation: Pick<AjfValidation, 'condition'>&
-                                 Partial<AjfValidation>): AjfValidation {
+export function createValidation(
+  validation: Pick<AjfValidation, 'condition'> & Partial<AjfValidation>,
+): AjfValidation {
   return {
     ...validation,
     clientValidation: validation.clientValidation || false,
-    errorMessage: validation.errorMessage || 'Undefined Error'
+    errorMessage: validation.errorMessage || 'Undefined Error',
   };
 }

@@ -26,20 +26,12 @@ import {AjfCalendarEntryLabelPipe} from './calendar-entry-label';
 import {AjfCalendarService} from './calendar-service';
 
 @NgModule({
-  declarations: [
-    AjfCalendarEntryLabelPipe,
-  ],
-  exports: [
-    AjfCalendarEntryLabelPipe,
-  ],
+  declarations: [AjfCalendarEntryLabelPipe],
+  exports: [AjfCalendarEntryLabelPipe],
 })
-export class AjfCalendarModule {
-}
+export class AjfCalendarModule {}
 
 @NgModule({
-  providers: [
-    AjfCalendarService,
-  ],
+  providers: [AjfCalendarService],
 })
-export class AjfGregorianCalendarModule {
-}
+export class AjfGregorianCalendarModule {}

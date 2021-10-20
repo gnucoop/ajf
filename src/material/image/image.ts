@@ -26,7 +26,7 @@ import {
   Component,
   ElementRef,
   Renderer2,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 

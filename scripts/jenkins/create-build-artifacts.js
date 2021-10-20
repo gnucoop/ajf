@@ -4,12 +4,7 @@ const childProcess = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const packages = [
-  'calendars',
-  'core',
-  'ionic',
-  'material',
-];
+const packages = ['calendars', 'core', 'ionic', 'material'];
 const cwd = process.cwd();
 const mainPackage = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json'), 'utf8'));
 const baseVersion = mainPackage.version;

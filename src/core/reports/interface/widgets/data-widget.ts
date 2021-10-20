@@ -24,5 +24,5 @@ import {AjfDataset} from '../dataset/dataset';
 import {AjfWidget} from './widget';
 
 export interface AjfDataWidget extends AjfWidget {
-  dataset: AjfDataset[]|AjfDataset[][];
+  dataset: AjfDataset[] | AjfDataset[][];
 }

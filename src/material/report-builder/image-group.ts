@@ -26,7 +26,7 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import {AjfReportBuilderService} from './report-builder-service';
@@ -56,13 +56,13 @@ import {AjfReportBuilderService} from './report-builder-service';
   templateUrl: 'image-group.html',
   styleUrls: ['image-group.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderImageGroup {
-  private _icon: {fontSet: string, fontIcon: string}|null = null;
+  private _icon: {fontSet: string; fontIcon: string} | null = null;
   private _classes: string = '';
 
-  get icon(): {fontSet: string, fontIcon: string}|null {
+  get icon(): {fontSet: string; fontIcon: string} | null {
     return this._icon;
   }
   get classes(): string {
@@ -82,7 +82,6 @@ export class AjfReportBuilderImageGroup {
   @Output() readonly formulaClick: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private _service: AjfReportBuilderService) {}
-
 
   setIcon(fontSet: string, fontIcon: string) {
     this._icon = {fontSet, fontIcon};

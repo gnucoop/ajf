@@ -29,5 +29,4 @@ import {Component} from '@angular/core';
     <p>Open the sidenav to select a demo.</p>
   `,
 })
-export class DevAppHome {
-}
+export class DevAppHome {}

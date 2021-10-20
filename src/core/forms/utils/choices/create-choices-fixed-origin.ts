@@ -23,13 +23,14 @@
 import {AjfChoicesFixedOrigin} from '../../interface/choices/choices-fixed-origin';
 import {AjfChoicesOriginCreate, createChoicesOrigin} from './create-choices-origin';
 
-export type AjfChoicesFixedOriginCreate<T> =
-    Omit<AjfChoicesOriginCreate<T>, 'type'>&Partial<AjfChoicesFixedOrigin<T>>;
+export type AjfChoicesFixedOriginCreate<T> = Omit<AjfChoicesOriginCreate<T>, 'type'> &
+  Partial<AjfChoicesFixedOrigin<T>>;
 /**
  *  Create a AjfChoicesOrigin&lt;T&gt;, apply type attrinute as 'fixed'
  */
 export function createChoicesFixedOrigin<T = string | number>(
-    origin: AjfChoicesFixedOriginCreate<T>): AjfChoicesFixedOrigin<T> {
+  origin: AjfChoicesFixedOriginCreate<T>,
+): AjfChoicesFixedOrigin<T> {
   const type = 'fixed';
   return {...createChoicesOrigin({...origin, type}), type};
 }

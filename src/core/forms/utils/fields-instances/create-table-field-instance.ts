@@ -27,7 +27,7 @@ import {AjfTableCell, AjfTableField} from '../../interface/fields/table-field';
 
 import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instance';
 
-export type AjfTableFieldInstanceCreate = AjfFieldInstanceCreate&Partial<AjfTableFieldInstance>;
+export type AjfTableFieldInstanceCreate = AjfFieldInstanceCreate & Partial<AjfTableFieldInstance>;
 /**
  * to mantain retrocompatibility with old string type convert string to AjfTableCell
  * check  node.rows: (string|AjfTableCell)[][];
@@ -50,7 +50,9 @@ function normalizeRows(node: AjfTableField): void {
  * Assign empty array to controls
  */
 export function createTableFieldInstance(
-    instance: AjfTableFieldInstanceCreate, context: AjfContext): AjfTableFieldInstance {
+  instance: AjfTableFieldInstanceCreate,
+  context: AjfContext,
+): AjfTableFieldInstance {
   normalizeRows(instance.node as AjfTableField);
   const fieldInstance = createFieldInstance(instance, context);
   return {
@@ -58,6 +60,6 @@ export function createTableFieldInstance(
     node: instance.node,
     context,
     hideEmptyRows: instance.hideEmptyRows || false,
-    controls: []
+    controls: [],
   };
 }

@@ -38,27 +38,31 @@ export async function expectToExist(selector: string, expected = true) {
  * Asserts that an element is focused.
  */
 export async function expectFocusOn(element: FinderResult, expected = true) {
-  expect(await browser.driver.switchTo().activeElement().getId())
-      .toBe(
-          await getElement(element).getId(),
-          `Expected element${expected ? '' : ' not'} to be focused.`);
+  expect(await browser.driver.switchTo().activeElement().getId()).toBe(
+    await getElement(element).getId(),
+    `Expected element${expected ? '' : ' not'} to be focused.`,
+  );
 }
 
 /**
  * Asserts that an element has a certain location.
  */
 export async function expectLocation(element: FinderResult, {x, y}: Point) {
-  await getElement(element).getLocation().then((location: Point) => {
-    expect(Math.round(location.x)).toEqual(Math.round(x));
-    expect(Math.round(location.y)).toEqual(Math.round(y));
-  });
+  await getElement(element)
+    .getLocation()
+    .then((location: Point) => {
+      expect(Math.round(location.x)).toEqual(Math.round(x));
+      expect(Math.round(location.y)).toEqual(Math.round(y));
+    });
 }
 
 /**
  * Asserts that one element is aligned with another.
  */
 export async function expectAlignedWith(element: FinderResult, otherElement: FinderResult) {
-  await getElement(otherElement).getLocation().then((location: Point) => {
-    expectLocation(getElement(element), location);
-  });
+  await getElement(otherElement)
+    .getLocation()
+    .then((location: Point) => {
+      expectLocation(getElement(element), location);
+    });
 }

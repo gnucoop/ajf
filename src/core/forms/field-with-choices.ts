@@ -24,9 +24,7 @@ import {ChangeDetectorRef} from '@angular/core';
 
 import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
-import {
-  AjfFieldWithChoicesInstance
-} from './interface/fields-instances/field-with-choices-instance';
+import {AjfFieldWithChoicesInstance} from './interface/fields-instances/field-with-choices-instance';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 /**
@@ -37,8 +35,9 @@ import {AjfWarningAlertService} from './warning-alert-service';
  * @class AjfFieldWithChoicesComponent
  * @template T
  */
-export abstract class AjfFieldWithChoicesComponent<T> extends
-    AjfBaseFieldComponent<AjfFieldWithChoicesInstance<T>> {
+export abstract class AjfFieldWithChoicesComponent<T> extends AjfBaseFieldComponent<
+  AjfFieldWithChoicesInstance<T>
+> {
   private _searchThreshold: number = 6;
 
   /**
@@ -52,8 +51,11 @@ export abstract class AjfFieldWithChoicesComponent<T> extends
   }
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      warningAlertService: AjfWarningAlertService, searchThreshold: number) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    warningAlertService: AjfWarningAlertService,
+    searchThreshold: number,
+  ) {
     super(cdr, service, warningAlertService);
     if (searchThreshold != null) {
       this._searchThreshold = searchThreshold;

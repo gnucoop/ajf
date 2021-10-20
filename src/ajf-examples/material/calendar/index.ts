@@ -3,20 +3,13 @@ import {NgModule} from '@angular/core';
 
 import {MaterialCalendarSimpleExample} from './material-calendar-simple/calendar-simple-example';
 
-export {
-  MaterialCalendarSimpleExample,
-};
+export {MaterialCalendarSimpleExample};
 
-const EXAMPLES = [
-  MaterialCalendarSimpleExample,
-];
+const EXAMPLES = [MaterialCalendarSimpleExample];
 
 @NgModule({
-  imports: [
-    AjfCalendarModule,
-  ],
+  imports: [AjfCalendarModule],
   declarations: EXAMPLES,
   exports: EXAMPLES,
 })
-export class CalendarExamplesModule {
-}
+export class CalendarExamplesModule {}

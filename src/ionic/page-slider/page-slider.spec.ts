@@ -8,22 +8,17 @@ import {AjfPageSlider, AjfPageSliderModule} from './index';
 
 describe('AjfPageSlider', () => {
   beforeEach(async(() => {
-    TestBed
-        .configureTestingModule({
-          imports: [
-            BrowserAnimationsModule,
-            AjfPageSliderModule,
-            IonicModule.forRoot(),
-          ],
-          declarations: [TestComponent],
-        })
-        .compileComponents();
+    TestBed.configureTestingModule({
+      imports: [BrowserAnimationsModule, AjfPageSliderModule, IonicModule.forRoot()],
+      declarations: [TestComponent],
+    }).compileComponents();
   }));
 
-  it('should scroll slides up / down and to specified index', (done) => {
+  it('should scroll slides up / down and to specified index', done => {
     const fixture = TestBed.createComponent(TestComponent);
-    const slider =
-        <AjfPageSlider>fixture.debugElement.query(By.directive(AjfPageSlider)).componentInstance;
+    const slider = <AjfPageSlider>(
+      fixture.debugElement.query(By.directive(AjfPageSlider)).componentInstance
+    );
 
     fixture.detectChanges();
     fixture.whenStable().then(() => {
@@ -63,7 +58,6 @@ describe('AjfPageSlider', () => {
     </ajf-page-slider>
   `,
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-class TestComponent {
-}
+class TestComponent {}

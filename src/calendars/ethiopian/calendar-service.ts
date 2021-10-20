@@ -25,7 +25,7 @@ import {
   AjfCalendarParams,
   AjfCalendarService,
   AjfCalendarView,
-  AjfCalendarViewMode
+  AjfCalendarViewMode,
 } from '@ajf/core/calendar';
 import {Injectable} from '@angular/core';
 import {
@@ -37,7 +37,7 @@ import {
   setISODay,
   startOfISOWeek,
   startOfWeek,
-  subWeeks
+  subWeeks,
 } from 'date-fns';
 
 import {EthiopianDate} from './ethiopian-date';
@@ -49,7 +49,7 @@ function getMonthDays(month: number, year: number): number {
   return year % 4 === 3 ? 6 : 5;
 }
 
-function getMonthBounds(date: EthiopianDate): {start: EthiopianDate, end: EthiopianDate} {
+function getMonthBounds(date: EthiopianDate): {start: EthiopianDate; end: EthiopianDate} {
   const year = date.getFullYear();
   const month = date.getMonth();
   const start = new EthiopianDate(year, month, 1);
@@ -101,7 +101,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
     return `${ecDate.getFullYear()}`;
   }
 
-  override monthBounds(date: Date, isoMode: boolean): {start: Date, end: Date} {
+  override monthBounds(date: Date, isoMode: boolean): {start: Date; end: Date} {
     if (!isoMode) {
       const ecDate = EthiopianDate.gregorianToEthiopian(date);
       const {start, end} = getMonthBounds(ecDate);

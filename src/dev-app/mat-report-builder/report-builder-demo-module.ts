@@ -37,9 +37,6 @@ import {ReportBuilderDemo} from './report-builder-demo';
     MatGridListModule,
     RouterModule.forChild([{path: '', component: ReportBuilderDemo}]),
   ],
-  declarations: [
-    ReportBuilderDemo,
-  ],
+  declarations: [ReportBuilderDemo],
 })
-export class ReportBuilderDemoModule {
-}
+export class ReportBuilderDemoModule {}

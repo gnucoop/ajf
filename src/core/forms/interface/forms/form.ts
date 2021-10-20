@@ -33,7 +33,7 @@ export interface AjfForm {
   /**
    * The slides containing the Form nodes.
    */
-  nodes: (AjfRepeatingSlide|AjfSlide)[];
+  nodes: (AjfRepeatingSlide | AjfSlide)[];
 
   /**
    * The options for the single or multiple choices nodes.
@@ -53,7 +53,7 @@ export interface AjfForm {
    * A context specifying the initial state and values of a form.
    * It can be complemented and/or overwritten by the actual data.
    */
-  initContext?: {[key: string]: string|string[]|number|number[]};
+  initContext?: {[key: string]: string | string[] | number | number[]};
 
   /**
    * Any additional informations related to the Form.

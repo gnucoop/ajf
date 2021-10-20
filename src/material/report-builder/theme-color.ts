@@ -28,7 +28,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
@@ -47,10 +47,10 @@ import {AjfReportBuilderThemeColorDialog} from './theme-color-dialog';
   templateUrl: 'theme-color.html',
   styleUrls: ['theme-color.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
-  currentWidget: AjfWidget|null = null;
+  currentWidget: AjfWidget | null = null;
 
   alphaColor: number = 1;
   colors: string[];
@@ -210,12 +210,13 @@ export class AjfReportBuilderThemeColor implements OnInit, OnDestroy {
     });
 
     this.getColorWidget = this._service.currentWidget.pipe(
-        map((myObj: AjfWidget|null) => {
-          if (myObj != null) {
-            return myObj.styles['color'] || '';
-          }
-        }),
-        distinctUntilChanged());
+      map((myObj: AjfWidget | null) => {
+        if (myObj != null) {
+          return myObj.styles['color'] || '';
+        }
+      }),
+      distinctUntilChanged(),
+    );
 
     this._originSub = this._service.origin.subscribe(s => {
       this.origin = s;

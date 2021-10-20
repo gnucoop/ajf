@@ -30,7 +30,6 @@ import {AjfNode} from './node';
  * N times, where N is the value of the "formulaReps" property.
  */
 export interface AjfRepeatingNode extends AjfNode {
-
   /**
    * Is the number of node repetition
    * Example: "opd_treatment == 'Yes' && ($groupReps || 1) || 0"

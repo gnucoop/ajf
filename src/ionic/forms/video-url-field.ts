@@ -31,7 +31,7 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 
@@ -45,9 +45,12 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfVideoUrlFieldComponent extends CoreComponent {
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService, domSanitizer: DomSanitizer,
-      httpClient: HttpClient) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+    domSanitizer: DomSanitizer,
+    httpClient: HttpClient,
+  ) {
     super(cdr, service, was, domSanitizer, httpClient);
   }
 }

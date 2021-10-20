@@ -30,7 +30,10 @@ import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
  * If instance.visible changes return true.
  */
 export function updateVisibility(
-    instance: AjfNodeInstance, context: AjfContext, branchVisibility = true): boolean {
+  instance: AjfNodeInstance,
+  context: AjfContext,
+  branchVisibility = true,
+): boolean {
   if (instance.visibility == null) {
     instance.visible = false;
     return false;
@@ -39,7 +42,7 @@ export function updateVisibility(
 
   const oldVisibility: boolean = instance.visible;
   let newVisibility: boolean =
-      branchVisibility && evaluateExpression(visibility.condition, context);
+    branchVisibility && evaluateExpression(visibility.condition, context);
   if (newVisibility !== instance.visible) {
     instance.visible = newVisibility;
   }

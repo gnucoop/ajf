@@ -27,16 +27,8 @@ import {IonicModule} from '@ionic/angular';
 import {AjfTime} from './time';
 
 @NgModule({
-  imports: [
-    FormsModule,
-    IonicModule,
-  ],
-  declarations: [
-    AjfTime,
-  ],
-  exports: [
-    AjfTime,
-  ]
+  imports: [FormsModule, IonicModule],
+  declarations: [AjfTime],
+  exports: [AjfTime],
 })
-export class AjfTimeModule {
-}
+export class AjfTimeModule {}

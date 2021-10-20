@@ -28,14 +28,7 @@ import {NgModule} from '@angular/core';
 import {IonicReportE2E} from './ion-report-e2e';
 
 @NgModule({
-  imports: [
-    AjfReportsModule,
-    CommonModule,
-    CoreReportsModule,
-  ],
-  declarations: [
-    IonicReportE2E,
-  ],
+  imports: [AjfReportsModule, CommonModule, CoreReportsModule],
+  declarations: [IonicReportE2E],
 })
-export class IonicReportE2eModule {
-}
+export class IonicReportE2eModule {}

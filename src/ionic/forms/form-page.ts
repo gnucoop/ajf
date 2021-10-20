@@ -23,5 +23,4 @@
 import {Directive} from '@angular/core';
 
 @Directive({selector: '[ajfFormPage]'})
-export class AjfFormPage {
-}
+export class AjfFormPage {}

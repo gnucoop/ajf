@@ -22,7 +22,7 @@
 
 import {
   AjfFieldWarningAlertResult,
-  AjfWarningAlertService as CoreWarningAlertService
+  AjfWarningAlertService as CoreWarningAlertService,
 } from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';

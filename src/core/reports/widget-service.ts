@@ -39,9 +39,9 @@ export abstract class AjfWidgetService {
   }
 
   registerCustomWidget(widget: {
-    widgetType: number,
-    component: Type<AjfBaseWidgetComponent>,
-    inputs?: {[key: string]: any},
+    widgetType: number;
+    component: Type<AjfBaseWidgetComponent>;
+    inputs?: {[key: string]: any};
   }): void {
     const {widgetType, component} = widget;
     if (widgetType < 100) {

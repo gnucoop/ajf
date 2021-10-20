@@ -27,7 +27,7 @@ import {
   Input,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {map, Map, tileLayer} from 'leaflet';
 import {Subscription} from 'rxjs';
@@ -39,7 +39,7 @@ import {AjfMapContainerDirective} from './map-container-directive';
   templateUrl: 'map.html',
   styleUrls: ['map.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AjfMapComponent implements AfterViewInit, OnDestroy {
   @ViewChild(AjfMapContainerDirective, {static: true}) mapContainer: AjfMapContainerDirective;
@@ -126,7 +126,7 @@ export class AjfMapComponent implements AfterViewInit, OnDestroy {
     if (this._map == null || this._tileLayer == null) {
       return;
     }
-    this._map.eachLayer((l) => this._map.removeLayer(l));
+    this._map.eachLayer(l => this._map.removeLayer(l));
     tileLayer(this._tileLayer, {attribution: this._attribution}).addTo(this._map);
   }
 

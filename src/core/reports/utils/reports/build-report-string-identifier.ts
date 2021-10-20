@@ -20,22 +20,21 @@
  *
  */
 
-import {
-  AjfContext,
-  buildStringIdentifier,
-  BuildStringIdentifierOpts,
-} from '@ajf/core/common';
+import {AjfContext, buildStringIdentifier, BuildStringIdentifierOpts} from '@ajf/core/common';
 
 import {AjfReport} from '../../interface/reports/report';
 
-export const buildReportStringIdentifier =
-    (report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string => {
-      if (report == null) {
-        return '';
-      }
-      const stringIdentifier = report.stringIdentifier || [];
-      if (stringIdentifier.length === 0) {
-        return '';
-      }
-      return buildStringIdentifier(stringIdentifier, context, opts);
-    };
+export const buildReportStringIdentifier = (
+  report: AjfReport,
+  context: AjfContext,
+  opts?: BuildStringIdentifierOpts,
+): string => {
+  if (report == null) {
+    return '';
+  }
+  const stringIdentifier = report.stringIdentifier || [];
+  if (stringIdentifier.length === 0) {
+    return '';
+  }
+  return buildStringIdentifier(stringIdentifier, context, opts);
+};

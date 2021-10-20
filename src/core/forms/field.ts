@@ -28,7 +28,7 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {Subscription} from 'rxjs';
 
@@ -123,9 +123,10 @@ export abstract class AjfFormField implements OnDestroy, OnInit {
     if (componentDef == null) {
       return;
     }
-    const component = this._readonly && componentDef.readOnlyComponent ?
-        componentDef.readOnlyComponent :
-        componentDef.component;
+    const component =
+      this._readonly && componentDef.readOnlyComponent
+        ? componentDef.readOnlyComponent
+        : componentDef.component;
     try {
       const componentFactory = this._cfr.resolveComponentFactory(component);
       const componentRef = vcr.createComponent(componentFactory);

@@ -25,18 +25,17 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
-
 
 @Component({
   selector: 'ajf-fb-node-type-entry',
   templateUrl: 'node-type-entry.html',
   styleUrls: ['node-type-entry.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfFbNodeTypeEntry {
   private _nodeType: AjfFormBuilderNodeTypeEntry;

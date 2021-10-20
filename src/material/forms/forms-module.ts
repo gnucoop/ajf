@@ -66,30 +66,64 @@ import {AjfWarningAlertService} from './warning-alert-service';
 
 @NgModule({
   imports: [
-    AjfBarcodeModule,       AjfCalendarModule,    AjfCommonModule,  AjfCoreFormsModule,
-    AjfCheckboxGroupModule, AjfPageSliderModule,  AjfTimeModule,    AjfTranslocoModule,
-    CommonModule,           MatButtonModule,      MatCardModule,    MatDialogModule,
-    MatFormFieldModule,     MatIconModule,        MatInputModule,   MatRadioModule,
-    MatSelectModule,        MatSlideToggleModule, MatToolbarModule, MatTooltipModule,
-    ReactiveFormsModule,    TextFieldModule,      MatSliderModule
+    AjfBarcodeModule,
+    AjfCalendarModule,
+    AjfCommonModule,
+    AjfCoreFormsModule,
+    AjfCheckboxGroupModule,
+    AjfPageSliderModule,
+    AjfTimeModule,
+    AjfTranslocoModule,
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    TextFieldModule,
+    MatSliderModule,
   ],
   declarations: [
-    AjfBarcodeFieldComponent, AjfBooleanFieldComponent, AjfDateFieldComponent,
-    AjfDateInputFieldComponent, AjfEmptyFieldComponent, AjfFieldWarningDialog, AjfFormField,
-    AjfFormRenderer, AjfInputFieldComponent, AjfMultipleChoiceFieldComponent,
-    AjfRangeFieldComponent, AjfSingleChoiceFieldComponent, AjfTableFieldComponent,
-    AjfTextFieldComponent, AjfTimeFieldComponent, AjfVideoUrlFieldComponent
-  ],
-  entryComponents: [
-    AjfBarcodeFieldComponent, AjfBooleanFieldComponent, AjfDateFieldComponent,
-    AjfDateInputFieldComponent, AjfEmptyFieldComponent, AjfInputFieldComponent,
-    AjfMultipleChoiceFieldComponent, AjfRangeFieldComponent, AjfSingleChoiceFieldComponent,
-    AjfTableFieldComponent, AjfTextFieldComponent, AjfTimeFieldComponent, AjfVideoUrlFieldComponent
-  ],
-  exports: [
+    AjfBarcodeFieldComponent,
+    AjfBooleanFieldComponent,
+    AjfDateFieldComponent,
+    AjfDateInputFieldComponent,
+    AjfEmptyFieldComponent,
+    AjfFieldWarningDialog,
     AjfFormField,
     AjfFormRenderer,
+    AjfInputFieldComponent,
+    AjfMultipleChoiceFieldComponent,
+    AjfRangeFieldComponent,
+    AjfSingleChoiceFieldComponent,
+    AjfTableFieldComponent,
+    AjfTextFieldComponent,
+    AjfTimeFieldComponent,
+    AjfVideoUrlFieldComponent,
   ],
+  entryComponents: [
+    AjfBarcodeFieldComponent,
+    AjfBooleanFieldComponent,
+    AjfDateFieldComponent,
+    AjfDateInputFieldComponent,
+    AjfEmptyFieldComponent,
+    AjfInputFieldComponent,
+    AjfMultipleChoiceFieldComponent,
+    AjfRangeFieldComponent,
+    AjfSingleChoiceFieldComponent,
+    AjfTableFieldComponent,
+    AjfTextFieldComponent,
+    AjfTimeFieldComponent,
+    AjfVideoUrlFieldComponent,
+  ],
+  exports: [AjfFormField, AjfFormRenderer],
   providers: [
     AjfFieldService,
     {provide: AJF_WARNING_ALERT_SERVICE, useClass: AjfWarningAlertService},
@@ -99,9 +133,7 @@ export class AjfFormsModule {
   static forRoot(): ModuleWithProviders<AjfFormsModule> {
     return {
       ngModule: AjfFormsModule,
-      providers: [
-        AjfFieldService,
-      ],
+      providers: [AjfFieldService],
     };
   }
 }

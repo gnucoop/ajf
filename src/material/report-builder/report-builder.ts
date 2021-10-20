@@ -27,7 +27,7 @@ import {
   Component,
   Input,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
 
@@ -38,7 +38,7 @@ import {AjfReportBuilderService} from './report-builder-service';
   templateUrl: 'report-builder.html',
   styleUrls: ['report-builder.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 /**
  * This class will define an ajf form builderx

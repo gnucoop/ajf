@@ -30,6 +30,6 @@ import {createValidation} from './create-validation';
 export function minDigitsValidation(minValue: number): AjfValidation {
   return createValidation({
     condition: `$value ? $value.toString().length >= ${minValue.toString()} : false`,
-    errorMessage: 'Digits count must be >= ' + minValue.toString()
+    errorMessage: 'Digits count must be >= ' + minValue.toString(),
   });
 }

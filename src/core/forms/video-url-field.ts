@@ -31,7 +31,7 @@ import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
-export type AjfVideoProvider = 'youtube'|'vimeo';
+export type AjfVideoProvider = 'youtube' | 'vimeo';
 
 interface VideoInfo {
   provider: AjfVideoProvider;
@@ -49,28 +49,29 @@ export class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
   readonly videoThumbnail: Observable<SafeResourceUrl>;
 
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService, domSanitizer: DomSanitizer,
-      httpClient: HttpClient) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+    domSanitizer: DomSanitizer,
+    httpClient: HttpClient,
+  ) {
     super(cdr, service, was);
 
     const video = this.control.pipe(
-        filter(control => control != null),
-        switchMap(control => {
-          control = control as FormControl;
-          return control.valueChanges.pipe(
-              startWith(control.value),
-          );
-        }),
-        filter(value => value != null),
-        map(value => getVideoProviderAndId(value as string)),
+      filter(control => control != null),
+      switchMap(control => {
+        control = control as FormControl;
+        return control.valueChanges.pipe(startWith(control.value));
+      }),
+      filter(value => value != null),
+      map(value => getVideoProviderAndId(value as string)),
     );
     this.validUrl = video.pipe(map(v => v != null));
     this.videoThumbnail = video.pipe(
-        filter(info => info != null),
-        switchMap(info => videoPreviewUrl(httpClient, info as VideoInfo)),
-        filter(url => url != null),
-        map(url => domSanitizer.bypassSecurityTrustResourceUrl(url as string)),
+      filter(info => info != null),
+      switchMap(info => videoPreviewUrl(httpClient, info as VideoInfo)),
+      filter(url => url != null),
+      map(url => domSanitizer.bypassSecurityTrustResourceUrl(url as string)),
     );
   }
 }
@@ -82,18 +83,19 @@ export class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
  * @param video
  * @return {*}
  */
-function videoPreviewUrl(httpClient: HttpClient, video: VideoInfo): Observable<string|null> {
+function videoPreviewUrl(httpClient: HttpClient, video: VideoInfo): Observable<string | null> {
   if (video.provider === 'youtube') {
     return obsOf(`https://img.youtube.com/vi/${video.id}/default.jpg`);
   }
   if (video.provider === 'vimeo') {
     return httpClient
-               .get<{thumbnail_url: string}>(
-                   `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${video.id}`)
-               .pipe(
-                   map(response => response.thumbnail_url),
-                   catchError(() => obsOf(null)),
-                   ) as Observable<string|null>;
+      .get<{thumbnail_url: string}>(
+        `https://vimeo.com/api/oembed.json?url=https://vimeo.com/${video.id}`,
+      )
+      .pipe(
+        map(response => response.thumbnail_url),
+        catchError(() => obsOf(null)),
+      ) as Observable<string | null>;
   }
   return obsOf('');
 }
@@ -105,9 +107,9 @@ function videoPreviewUrl(httpClient: HttpClient, video: VideoInfo): Observable<s
  * @param url
  * @return {*}
  */
-function getVideoProviderAndId(url: string): VideoInfo|null {
-  let provider: AjfVideoProvider|null = null;
-  let id: string|null = null;
+function getVideoProviderAndId(url: string): VideoInfo | null {
+  let provider: AjfVideoProvider | null = null;
+  let id: string | null = null;
   if (/youtube|youtu\.be|y2u\.be|i.ytimg\./.test(url)) {
     provider = 'youtube';
     id = getYouTubeVideoId(url);
@@ -127,7 +129,7 @@ function getVideoProviderAndId(url: string): VideoInfo|null {
  * @param url
  * @return {*}
  */
-function getVimeoVideoId(url: string): string|null {
+function getVimeoVideoId(url: string): string | null {
   if (url.includes('#')) {
     url = url.split('#')[0];
   }
@@ -135,12 +137,15 @@ function getVimeoVideoId(url: string): string|null {
     url = url.split('?')[0];
   }
 
-  let id: string|null = null;
+  let id: string | null = null;
   let arr: string[];
 
   const vimeoPipe = [
-    'https?:\/\/vimeo\.com\/[0-9]+$', 'https?:\/\/player\.vimeo\.com\/video\/[0-9]+$',
-    'https?:\/\/vimeo\.com\/channels', 'groups', 'album'
+    'https?://vimeo.com/[0-9]+$',
+    'https?://player.vimeo.com/video/[0-9]+$',
+    'https?://vimeo.com/channels',
+    'groups',
+    'album',
   ].join('|');
 
   const vimeoRegex = new RegExp(vimeoPipe, 'gim');
@@ -166,7 +171,7 @@ function getVimeoVideoId(url: string): string|null {
  * @param url
  * @return {*}
  */
-function getYouTubeVideoId(url: string): string|null {
+function getYouTubeVideoId(url: string): string | null {
   const shortcode = /youtube:\/\/|https?:\/\/youtu\.be\/|http:\/\/y2u\.be\//g;
   if (shortcode.test(url)) {
     const shortcodeId = url.split(shortcode)[1];

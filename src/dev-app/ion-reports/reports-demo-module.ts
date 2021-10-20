@@ -36,10 +36,6 @@ import {ReportsDemo} from './reports-demo';
     RouterModule.forChild([{path: '', component: ReportsDemo}]),
     IonicModule,
   ],
-  declarations: [
-    CustomWidget,
-    ReportsDemo,
-  ],
+  declarations: [CustomWidget, ReportsDemo],
 })
-export class ReportsDemoModule {
-}
+export class ReportsDemoModule {}

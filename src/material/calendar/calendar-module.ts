@@ -30,19 +30,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {AjfCalendarComponent} from './calendar';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule,
-    FormsModule,
-    MatButtonModule,
-    AjfTranslocoModule,
-  ],
-  declarations: [
-    AjfCalendarComponent,
-  ],
-  exports: [
-    AjfCalendarComponent,
-  ],
+  imports: [CommonModule, CoreModule, FormsModule, MatButtonModule, AjfTranslocoModule],
+  declarations: [AjfCalendarComponent],
+  exports: [AjfCalendarComponent],
 })
-export class AjfCalendarModule {
-}
+export class AjfCalendarModule {}

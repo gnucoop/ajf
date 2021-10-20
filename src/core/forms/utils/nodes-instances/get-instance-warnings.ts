@@ -24,10 +24,12 @@ import {AjfWarning} from '../../interface/warning/warning';
 import {getInstanceWarning} from './get-instance-warning';
 
 export function getInstanceWarnings(
-    warnings: AjfWarning[], ancestorsNames: {[prop: string]: number},
-    prefix: number[]): AjfWarning[] {
+  warnings: AjfWarning[],
+  ancestorsNames: {[prop: string]: number},
+  prefix: number[],
+): AjfWarning[] {
   let changed = false;
-  const newWarnings = warnings.map((warning) => {
+  const newWarnings = warnings.map(warning => {
     const newWarning = getInstanceWarning(warning, ancestorsNames, prefix);
     if (newWarning !== warning) {
       changed = true;

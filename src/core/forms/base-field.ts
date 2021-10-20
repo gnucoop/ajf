@@ -30,7 +30,6 @@ import {AjfFormRendererService} from './form-renderer';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfWarningAlertService} from './warning-alert-service';
 
-
 /**
  * It rappresents the base field component, the first overlay of ajfFieldInstance.
  * It keeps a reference to the relative control of the form.
@@ -44,7 +43,8 @@ import {AjfWarningAlertService} from './warning-alert-service';
  */
 @Directive()
 export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFieldInstance>
-    implements OnDestroy, OnInit {
+  implements OnDestroy, OnInit
+{
   private _instance: T;
   get instance(): T {
     return this._instance;
@@ -57,8 +57,8 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     }
   }
 
-  private _control: Observable<FormControl|null>;
-  get control(): Observable<FormControl|null> {
+  private _control: Observable<FormControl | null>;
+  get control(): Observable<FormControl | null> {
     return this._control;
   }
 
@@ -66,51 +66,51 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
   private _instanceUpdateSub: Subscription = Subscription.EMPTY;
 
   constructor(
-      protected _changeDetectorRef: ChangeDetectorRef,
-      private _service: AjfFormRendererService,
-      private _warningAlertService: AjfWarningAlertService,
+    protected _changeDetectorRef: ChangeDetectorRef,
+    private _service: AjfFormRendererService,
+    private _warningAlertService: AjfWarningAlertService,
   ) {
-    this._control = defer(
-                        () => this._service.getControl(this.instance)
-                                  .pipe(
-                                      map(ctrl => (ctrl || new FormControl()) as FormControl),
-                                      )) as Observable<FormControl|null>;
+    this._control = defer(() =>
+      this._service
+        .getControl(this.instance)
+        .pipe(map(ctrl => (ctrl || new FormControl()) as FormControl)),
+    ) as Observable<FormControl | null>;
   }
 
   ngOnInit(): void {
     if (this.instance != null) {
-      this._warningTriggerSub =
-          this.instance.warningTrigger
-              .pipe(
-                  withLatestFrom(this.control),
-                  filter(([_, ctrl]) => ctrl != null),
-                  )
-              .subscribe(([_, ctrl]) => {
-                if (this.instance.warningResults == null) {
-                  return;
+      this._warningTriggerSub = this.instance.warningTrigger
+        .pipe(
+          withLatestFrom(this.control),
+          filter(([_, ctrl]) => ctrl != null),
+        )
+        .subscribe(([_, ctrl]) => {
+          if (this.instance.warningResults == null) {
+            return;
+          }
+          const control = ctrl as FormControl;
+          const s = this._warningAlertService
+            .showWarningAlertPrompt(
+              this.instance.warningResults.filter(w => w.result).map(w => w.warning),
+            )
+            .subscribe(
+              (r: AjfFieldWarningAlertResult) => {
+                if (r.result) {
+                  control!.setValue(null);
                 }
-                const control = ctrl as FormControl;
-                const s =
-                    this._warningAlertService
-                        .showWarningAlertPrompt(
-                            this.instance.warningResults.filter(w => w.result).map(w => w.warning))
-                        .subscribe(
-                            (r: AjfFieldWarningAlertResult) => {
-                              if (r.result) {
-                                control!.setValue(null);
-                              }
-                            },
-                            (_e: any) => {
-                              if (s) {
-                                s.unsubscribe();
-                              }
-                            },
-                            () => {
-                              if (s) {
-                                s.unsubscribe();
-                              }
-                            });
-              });
+              },
+              (_e: any) => {
+                if (s) {
+                  s.unsubscribe();
+                }
+              },
+              () => {
+                if (s) {
+                  s.unsubscribe();
+                }
+              },
+            );
+        });
     }
   }
 
@@ -128,8 +128,7 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
         if (this._changeDetectorRef) {
           try {
             this._changeDetectorRef.detectChanges();
-          } catch (e) {
-          }
+          } catch (e) {}
         }
       });
     } else {

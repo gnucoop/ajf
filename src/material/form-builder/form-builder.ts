@@ -33,7 +33,7 @@ import {
   Input,
   OnDestroy,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
@@ -45,7 +45,7 @@ import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {
   AjfFormBuilderNodeEntry,
   AjfFormBuilderNodeTypeEntry,
-  AjfFormBuilderService
+  AjfFormBuilderService,
 } from './form-builder-service';
 import {disableFieldDropPredicate, onDropProcess} from './form-builder-utils';
 import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
@@ -55,7 +55,7 @@ import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
   templateUrl: 'form-builder.html',
   styleUrls: ['form-builder.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDestroy {
   @ViewChild('designer', {static: true}) designerCont: ElementRef;
@@ -106,11 +106,11 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
 
   private _init = false;
   private _editConditionSub: Subscription = Subscription.EMPTY;
-  private _editConditionDialog: MatDialogRef<AjfFbConditionEditorDialog>|null;
+  private _editConditionDialog: MatDialogRef<AjfFbConditionEditorDialog> | null;
   private _beforeNodesUpdateSub: Subscription = Subscription.EMPTY;
   private _editChoicesOriginSub: Subscription = Subscription.EMPTY;
-  private _editChoicesOriginDialog: MatDialogRef<AjfFbChoicesOriginEditorDialog>|null;
-  private _stringIdentifierDialog: MatDialogRef<AjfFbStringIdentifierDialogComponent>|null;
+  private _editChoicesOriginDialog: MatDialogRef<AjfFbChoicesOriginEditorDialog> | null;
+  private _stringIdentifierDialog: MatDialogRef<AjfFbStringIdentifierDialogComponent> | null;
   private _stringIdentifierSub: Subscription = Subscription.EMPTY;
 
   private _lastScrollTop: number;
@@ -119,28 +119,32 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     this._nodeTypes = _service.availableNodeTypes;
     this._nodeEntriesTree = _service.nodeEntriesTree;
     this._choicesOrigins = _service.choicesOrigins;
-    this._editConditionSub =
-        this._service.editedCondition.subscribe((condition: AjfCondition|null) => {
-          if (this._editConditionDialog != null) {
-            this._editConditionDialog.close();
-            this._editConditionDialog = null;
-          }
-          if (condition != null) {
-            this._editConditionDialog =
-                this._dialog.open(AjfFbConditionEditorDialog, {disableClose: true});
-          }
-        });
-    this._editChoicesOriginSub =
-        this._service.editedChoicesOrigin.subscribe((choicesOrigin: AjfChoicesOrigin<any>|null) => {
-          if (this._editChoicesOriginDialog != null) {
-            this._editChoicesOriginDialog.close();
-            this._editChoicesOriginDialog = null;
-          }
-          if (choicesOrigin != null) {
-            this._editChoicesOriginDialog =
-                this._dialog.open(AjfFbChoicesOriginEditorDialog, {disableClose: true});
-          }
-        });
+    this._editConditionSub = this._service.editedCondition.subscribe(
+      (condition: AjfCondition | null) => {
+        if (this._editConditionDialog != null) {
+          this._editConditionDialog.close();
+          this._editConditionDialog = null;
+        }
+        if (condition != null) {
+          this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog, {
+            disableClose: true,
+          });
+        }
+      },
+    );
+    this._editChoicesOriginSub = this._service.editedChoicesOrigin.subscribe(
+      (choicesOrigin: AjfChoicesOrigin<any> | null) => {
+        if (this._editChoicesOriginDialog != null) {
+          this._editChoicesOriginDialog.close();
+          this._editChoicesOriginDialog = null;
+        }
+        if (choicesOrigin != null) {
+          this._editChoicesOriginDialog = this._dialog.open(AjfFbChoicesOriginEditorDialog, {
+            disableClose: true,
+          });
+        }
+      },
+    );
 
     this._beforeNodesUpdateSub = this._service.beforeNodesUpdate.subscribe(() => {
       if (this.designerCont == null) {
@@ -149,7 +153,7 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       this._lastScrollTop = this.designerCont.nativeElement.scrollTop;
     });
 
-    this.nodeEntriesTree.pipe(sample((<Observable<void>>this._vc))).subscribe(() => {
+    this.nodeEntriesTree.pipe(sample(<Observable<void>>this._vc)).subscribe(() => {
       if (this.designerCont == null) {
         return;
       }
@@ -194,8 +198,9 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
    * @param content True if the current nodeEntry contains other nodeEntries.
    */
   onDrop(
-      event: CdkDragDrop<AjfFormBuilderNodeEntry>|CdkDragDrop<AjfFormBuilderNodeTypeEntry>,
-      content = false): void {
+    event: CdkDragDrop<AjfFormBuilderNodeEntry> | CdkDragDrop<AjfFormBuilderNodeTypeEntry>,
+    content = false,
+  ): void {
     onDropProcess(event, this._service, null, content);
   }
 
@@ -208,8 +213,11 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       this._stringIdentifierDialog.close();
       this._stringIdentifierDialog = null;
     }
-    this._stringIdentifierDialog = this._dialog.open(
-        AjfFbStringIdentifierDialogComponent, {disableClose: true, width: '60%', height: '60%'});
+    this._stringIdentifierDialog = this._dialog.open(AjfFbStringIdentifierDialogComponent, {
+      disableClose: true,
+      width: '60%',
+      height: '60%',
+    });
   }
 
   expandAll() {

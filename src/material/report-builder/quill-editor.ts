@@ -33,20 +33,19 @@ import {
   Output,
   Renderer2,
   SimpleChanges,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
-  Validator
+  Validator,
 } from '@angular/forms';
 import {default as Quill} from 'quill';
 import {Subscription} from 'rxjs';
 
 import {AjfReportBuilderService} from './report-builder-service';
-
 
 @Component({
   selector: 'ajf-quill-editor',
@@ -55,14 +54,15 @@ import {AjfReportBuilderService} from './report-builder-service';
   `,
   providers: [
     {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => AjfQuillEditor), multi: true},
-    {provide: NG_VALIDATORS, useExisting: forwardRef(() => AjfQuillEditor), multi: true}
+    {provide: NG_VALIDATORS, useExisting: forwardRef(() => AjfQuillEditor), multi: true},
   ],
   styleUrls: ['quill-editor.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy,
-                                       Validator {
+export class AjfQuillEditor
+  implements AfterViewInit, ControlValueAccessor, OnChanges, OnDestroy, Validator
+{
   quillEditor: any;
   editorElem: HTMLElement;
   emptyArray: any[] = [];
@@ -77,48 +77,58 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
     {
       'label': 'June 23rd 2017, 12:39:12 pm',
       'value': 'MMMM Do YYYY, h:mm:ss a',
-      'validator': 'MMMMDoYYYYhmmssa'
+      'validator': 'MMMMDoYYYYhmmssa',
     },
     {'label': 'Friday', 'value': 'dddd', 'validator': 'dddd'},
-    {'label': 'Jun 23rd 17', 'value': 'MMM Do YY', 'validator': 'MMMDoYY'}
+    {'label': 'Jun 23rd 17', 'value': 'MMM Do YY', 'validator': 'MMMDoYY'},
   ];
 
-
   fonts = [
-    false, 'blackr', 'black-italic', 'bold', 'bold-condensed', 'bold-condensed-italic',
-    'bold-italic', 'condensed', 'condensed-italic', 'italic', 'light', 'light-italic', 'medium',
-    'medium-italic', 'thinr', 'thin-italic'
+    false,
+    'blackr',
+    'black-italic',
+    'bold',
+    'bold-condensed',
+    'bold-condensed-italic',
+    'bold-italic',
+    'condensed',
+    'condensed-italic',
+    'italic',
+    'light',
+    'light-italic',
+    'medium',
+    'medium-italic',
+    'thinr',
+    'thin-italic',
   ];
 
   defaultModules = {
     formula: true,
-    toolbar:
-        [
-          ['formula'], ['bold', 'italic', 'underline', 'strike'],  // toggled buttons
-          // ['blockquote', 'code-block'],
+    toolbar: [
+      ['formula'],
+      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+      // ['blockquote', 'code-block'],
 
-          [{'header': 1}, {'header': 2}],  // custom button values
-          [{'list': 'ordered'}, {'list': 'bullet'}],
-          [{'script': 'sub'}, {'script': 'super'}],  // superscript/subscript
-          // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-          // [{ 'direction': 'rtl' }],                         // text direction
+      [{'header': 1}, {'header': 2}], // custom button values
+      [{'list': 'ordered'}, {'list': 'bullet'}],
+      [{'script': 'sub'}, {'script': 'super'}], // superscript/subscript
+      // [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+      // [{ 'direction': 'rtl' }],                         // text direction
 
-          [{'size': ['small', false, 'large', 'huge']}],  // custom dropdown
-          [{'header': [1, 2, 3, 4, 5, 6, false]}],
+      [{'size': ['small', false, 'large', 'huge']}], // custom dropdown
+      [{'header': [1, 2, 3, 4, 5, 6, false]}],
 
-          [
-            {'color': this.emptyArray.slice()}, {'background': this.emptyArray.slice()}
-          ],  // dropdown with defaults from theme
-          [{'font': this.fonts}], [{'align': this.emptyArray.slice()}],
+      [{'color': this.emptyArray.slice()}, {'background': this.emptyArray.slice()}], // dropdown with defaults from theme
+      [{'font': this.fonts}],
+      [{'align': this.emptyArray.slice()}],
 
-          ['clean'],  // remove formatting button
+      ['clean'], // remove formatting button
 
-          // ['link', 'image', 'video']                         // link and image, video
-        ]
+      // ['link', 'image', 'video']                         // link and image, video
+    ],
   };
 
   font = Quill.import('formats/font');
-
 
   @Input() theme: string;
   @Input() modules: Object;
@@ -133,7 +143,6 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
   @Output() readonly contentChanged: EventEmitter<any> = new EventEmitter();
   @Output() readonly selectionChanged: EventEmitter<any> = new EventEmitter();
 
-
   /**
    * this event is fired when the user click on formula button on quill editor rool barƒ
    *
@@ -141,16 +150,17 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
    */
   @Output() readonly formulaClick: EventEmitter<any> = new EventEmitter<any>();
 
-
   onModelChange: Function = () => {};
   onModelTouched: Function = () => {};
 
-  private _formulas: {formula: any, unlisten: Function|null}[] = [];
+  private _formulas: {formula: any; unlisten: Function | null}[] = [];
   private _formulaTextSub: Subscription = Subscription.EMPTY;
 
   constructor(
-      private _elementRef: ElementRef, private _renderer: Renderer2,
-      private _service: AjfReportBuilderService) {
+    private _elementRef: ElementRef,
+    private _renderer: Renderer2,
+    private _service: AjfReportBuilderService,
+  ) {
     this.font.whitelist = this.fonts;
     this.font.whitelist.push('regular');
 
@@ -185,7 +195,7 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
         const linkLabel = this._renderer.createText(event.formula);
         this._renderer.appendChild(link, linkLabel);
         // add listener related on the click event of the new formula
-        const unlisten = this._renderer.listen(link, 'click', (_) => {
+        const unlisten = this._renderer.listen(link, 'click', _ => {
           let obj = {'formula': this.check(event.formula), 'reference': link};
           this.formulaClick.emit(obj);
         });
@@ -224,7 +234,9 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
       modules['formula'] = true;
     }
     this._elementRef.nativeElement.insertAdjacentHTML(
-        'beforeend', '<div quill-editor-element></div>');
+      'beforeend',
+      '<div quill-editor-element></div>',
+    );
 
     this.editorElem = this._elementRef.nativeElement.querySelector('[quill-editor-element]');
 
@@ -233,17 +245,20 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
       placeholder: this.placeholder || 'Insert text here ...',
       readOnly: this.readOnly || false,
       theme: this.theme || 'snow',
-      formats: this.formats
+      formats: this.formats,
     });
-
 
     this.editorCreated.emit(this.quillEditor);
     this.setHTML();
 
     // mark model as touched if editor lost focus
     this.quillEditor.on('selection-change', (range: any, oldRange: any, source: string) => {
-      this.selectionChanged.emit(
-          {editor: this.quillEditor, range: range, oldRange: oldRange, source: source});
+      this.selectionChanged.emit({
+        editor: this.quillEditor,
+        range: range,
+        oldRange: oldRange,
+        source: source,
+      });
 
       if (!range) {
         this.onModelTouched();
@@ -267,12 +282,12 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
         text: text,
         delta: delta,
         oldDelta: oldDelta,
-        source: source
+        source: source,
       });
     });
 
     let elem = this._elementRef.nativeElement.querySelector('.ajf-ql-formula');
-    this.listenFunc = this._renderer.listen(elem, 'click', (_) => {
+    this.listenFunc = this._renderer.listen(elem, 'click', _ => {
       this.formulaClick.emit();
     });
   }
@@ -287,7 +302,7 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
           editor.innerHTML = this.initHTML;
           let allFormulas = this._elementRef.nativeElement.querySelectorAll('[formula]');
           allFormulas.forEach((elem: any) => {
-            const unlisten = this._renderer.listen(elem, 'click', (_) => {
+            const unlisten = this._renderer.listen(elem, 'click', _ => {
               let obj = {'formula': this.check(elem.innerText), 'reference': elem};
               this.formulaClick.emit(obj);
             });
@@ -318,10 +333,10 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
     }
 
     let err: {
-      minLengthError?: {given: number, minLength: number};
-      maxLengthError?: {given: number, maxLength: number};
-    } = {},
-  valid = true;
+        minLengthError?: {given: number; minLength: number};
+        maxLengthError?: {given: number; maxLength: number};
+      } = {},
+      valid = true;
 
     const textLength = this.quillEditor.getText().trim().length;
 
@@ -351,7 +366,7 @@ export class AjfQuillEditor implements AfterViewInit, ControlValueAccessor, OnCh
         placeholder: this.placeholder || 'Insert text here ...',
         readOnly: this.readOnly || false,
         theme: this.theme || 'snow',
-        formats: this.formats
+        formats: this.formats,
       });
       this._elementRef.nativeElement.children[0].remove();
     }

@@ -31,5 +31,5 @@ export enum AjfChartType {
   Pie,
   PolarArea,
   Bubble,
-  LENGTH
+  LENGTH,
 }

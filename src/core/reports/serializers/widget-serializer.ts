@@ -40,8 +40,9 @@ export class AjfWidgetSerializer {
     if (json.widgetType == null) {
       throw new Error('Malformed widget');
     }
-    json.visibility =
-        json.visibility ? AjfConditionSerializer.fromJson(json.visibility) : alwaysCondition();
+    json.visibility = json.visibility
+      ? AjfConditionSerializer.fromJson(json.visibility)
+      : alwaysCondition();
     json.styles = json.styles || {};
     const obj = json as AjfWidget;
     if (obj.widgetType === AjfWidgetType.Layout || obj.widgetType === AjfWidgetType.Column) {
@@ -66,14 +67,15 @@ export class AjfWidgetSerializer {
     return obj;
   }
 
-  private static _dataWidgetFromJson(json: AjfWidget&Partial<AjfDataWidget>): AjfDataWidget {
-    let dataset: AjfDataset[]|AjfDataset[][];
+  private static _dataWidgetFromJson(json: AjfWidget & Partial<AjfDataWidget>): AjfDataWidget {
+    let dataset: AjfDataset[] | AjfDataset[][];
     if (json.dataset == null) {
       dataset = [];
     } else {
       if (json.widgetType === AjfWidgetType.Table) {
-        dataset = (json.dataset as AjfTableDataset[][])
-                      .map(row => row.map(cell => AjfDatasetSerializer.fromJson(cell)));
+        dataset = (json.dataset as AjfTableDataset[][]).map(row =>
+          row.map(cell => AjfDatasetSerializer.fromJson(cell)),
+        );
       } else {
         dataset = (json.dataset as AjfChartDataset[]).map(d => AjfDatasetSerializer.fromJson(d));
       }
@@ -81,8 +83,9 @@ export class AjfWidgetSerializer {
     return {...createWidget(json), dataset};
   }
 
-  private static _widgetWithContentFromJson(json: AjfWidget&
-                                            Partial<AjfWidgetWithContent>): AjfWidgetWithContent {
+  private static _widgetWithContentFromJson(
+    json: AjfWidget & Partial<AjfWidgetWithContent>,
+  ): AjfWidgetWithContent {
     const content = (json.content || []).map(c => AjfWidgetSerializer.fromJson(c));
     return {...createWidget(json), content};
   }

@@ -28,14 +28,7 @@ import {NgModule} from '@angular/core';
 import {MaterialReportE2E} from './mat-report-e2e';
 
 @NgModule({
-  imports: [
-    AjfReportsModule,
-    CommonModule,
-    CoreReportsModule,
-  ],
-  declarations: [
-    MaterialReportE2E,
-  ],
+  imports: [AjfReportsModule, CommonModule, CoreReportsModule],
+  declarations: [MaterialReportE2E],
 })
-export class MaterialReportE2eModule {
-}
+export class MaterialReportE2eModule {}

@@ -39,8 +39,10 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
  */
 export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTableFieldInstance> {
   constructor(
-      cdr: ChangeDetectorRef, service: AjfFormRendererService,
-      @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService) {
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+  ) {
     super(cdr, service, was);
   }
 
@@ -53,9 +55,11 @@ export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTa
    * @return {*}
    */
   goToNextCell(ev: Event, row: number, column: number): void {
-    if (this.instance.controls.length < row ||
-        (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
-        this.instance.controls[row][1].length < column) {
+    if (
+      this.instance.controls.length < row ||
+      (this.instance.controls.length >= row && this.instance.controls[row].length < 1) ||
+      this.instance.controls[row][1].length < column
+    ) {
       return;
     }
     const rowLength = this.instance.controls[row][1].length;
@@ -96,11 +100,13 @@ export abstract class AjfTableFieldComponent extends AjfBaseFieldComponent<AjfTa
    * @private
    */
   private _resetControls(): void {
-    this.instance.controls.forEach(row => row[1].forEach(cell => {
-      if (typeof cell !== 'string') {
-        (cell as AjfTableFormControl).show = false;
-      }
-    }));
+    this.instance.controls.forEach(row =>
+      row[1].forEach(cell => {
+        if (typeof cell !== 'string') {
+          (cell as AjfTableFormControl).show = false;
+        }
+      }),
+    );
   }
 
   /**

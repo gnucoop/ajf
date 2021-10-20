@@ -30,7 +30,9 @@ import {evaluateValidation} from './evaluate-validation';
  * minDigits is the associated AjfCondition
  */
 export function evaluateValidationMinDigits(
-    validation: AjfValidationGroup, value: any): AjfValidationResult|null {
+  validation: AjfValidationGroup,
+  value: any,
+): AjfValidationResult | null {
   if (validation.minDigits == null) {
     return null;
   }
@@ -39,7 +41,7 @@ export function evaluateValidationMinDigits(
     return {
       result: evaluateExpression(`$value.toString().length >= ${validation.minDigits}`, ctx),
       error: `Digits count must be >= ${validation.minDigits}`,
-      clientValidation: false
+      clientValidation: false,
     };
   }
   return evaluateValidation(validation.minDigits, ctx);

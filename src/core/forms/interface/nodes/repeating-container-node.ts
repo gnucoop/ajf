@@ -29,4 +29,4 @@ import {AjfRepeatingNode} from './repeating-node';
  * the same node group N times, where N is the value of the "formulaReps" property.
  * (eg. N = number of children, then fill data for each of N children).
  */
-export type AjfRepeatingContainerNode = AjfContainerNode&AjfRepeatingNode;
+export type AjfRepeatingContainerNode = AjfContainerNode & AjfRepeatingNode;

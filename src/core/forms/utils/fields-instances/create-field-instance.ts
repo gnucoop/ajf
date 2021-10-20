@@ -27,7 +27,7 @@ import {AjfFieldInstance} from '../../interface/fields-instances/field-instance'
 import {AjfNodeInstanceCreate, createNodeInstance} from '../nodes-instances/create-node-instance';
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
 
-export type AjfFieldInstanceCreate = AjfNodeInstanceCreate&Partial<AjfFieldInstance>;
+export type AjfFieldInstanceCreate = AjfNodeInstanceCreate & Partial<AjfFieldInstance>;
 
 /**
  * Create a field instance and init the value of the field by cascade conditions.
@@ -42,7 +42,9 @@ export type AjfFieldInstanceCreate = AjfNodeInstanceCreate&Partial<AjfFieldInsta
  * Init valid with false.
  */
 export function createFieldInstance(
-    instance: AjfFieldInstanceCreate, context: AjfContext): AjfFieldInstance {
+  instance: AjfFieldInstanceCreate,
+  context: AjfContext,
+): AjfFieldInstance {
   const nodeInstance = createNodeInstance(instance);
   let value: any = null;
   if (nodeInstance.node != null && context != null) {

@@ -20,4 +20,4 @@
  *
  */
 
-export type AjfPageSliderItemScrollDirection = 'x'|'y';
+export type AjfPageSliderItemScrollDirection = 'x' | 'y';

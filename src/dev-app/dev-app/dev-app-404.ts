@@ -30,5 +30,4 @@ import {Component} from '@angular/core';
   `,
   host: {'class': 'mat-typography'},
 })
-export class DevApp404 {
-}
+export class DevApp404 {}

@@ -115,10 +115,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfTimeFieldComponent,
     AjfVideoUrlFieldComponent,
   ],
-  exports: [
-    AjfFormField,
-    AjfFormRenderer,
-  ],
+  exports: [AjfFormField, AjfFormRenderer],
   providers: [
     AjfFieldService,
     {provide: AJF_WARNING_ALERT_SERVICE, useClass: AjfWarningAlertService},
@@ -128,9 +125,7 @@ export class AjfFormsModule {
   static forRoot(): ModuleWithProviders<AjfFormsModule> {
     return {
       ngModule: AjfFormsModule,
-      providers: [
-        AjfFieldService,
-      ],
+      providers: [AjfFieldService],
     };
   }
 }

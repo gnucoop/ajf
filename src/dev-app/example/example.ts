@@ -37,7 +37,8 @@ import {Component, Injector, Input, OnInit, ViewContainerRef} from '@angular/cor
       Could not find example {{id}}
     </div>
   `,
-  styles: [`
+  styles: [
+    `
     .label {
       display: flex;
       justify-content: space-between;
@@ -56,7 +57,8 @@ import {Component, Injector, Input, OnInit, ViewContainerRef} from '@angular/cor
       color: #666;
       white-space: pre;
     }
-  `]
+  `,
+  ],
 })
 export class Example implements OnInit {
   /** ID of the material example to display. */

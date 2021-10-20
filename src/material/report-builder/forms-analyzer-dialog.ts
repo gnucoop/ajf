@@ -28,7 +28,7 @@ import {
   AjfDataset,
   AjfDataWidget,
   AjfImageWidget,
-  AjfWidget
+  AjfWidget,
 } from '@ajf/core/reports';
 import {sizedEnumToStringArray} from '@ajf/core/utils';
 import {AjfMonacoEditor} from '@ajf/material/monaco-editor';
@@ -40,7 +40,7 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
@@ -52,7 +52,7 @@ export const enum AjfDataType {
   MainData,
   Dataset,
   RelatedData,
-  LENGTH
+  LENGTH,
 }
 declare var monaco: any;
 
@@ -61,15 +61,31 @@ declare var monaco: any;
   templateUrl: 'forms-analyzer-dialog.html',
   styleUrls: ['forms-analyzer-dialog.css'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChecked, OnDestroy {
   aggregationTypes: string[] = sizedEnumToStringArray(AjfAggregationType);
 
   //  operators is an array of any type that contains all allow operators
   operators: string[] = [
-    'true', 'false', '( )', '\' \'', '<', '<=', '>=', '>', '!=', '!', '&&', '||', '+', '-', '*',
-    '/', '%', '=='
+    'true',
+    'false',
+    '( )',
+    "' '",
+    '<',
+    '<=',
+    '>=',
+    '>',
+    '!=',
+    '!',
+    '&&',
+    '||',
+    '+',
+    '-',
+    '*',
+    '/',
+    '%',
+    '==',
   ];
 
   formulaText: string = '';
@@ -82,7 +98,7 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   currentId: number = 0;
   currentIndex: number = 0;
   labels: string[] = [];
-  currentWidget: AjfWidget|null = null;
+  currentWidget: AjfWidget | null = null;
   formsVariables: AjfFormVariables[];
   formsVariablesName: string[] = [];
   formsVariablesType: string[] = [];
@@ -113,9 +129,10 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   private _first: boolean = true;
 
   constructor(
-      private _service: AjfReportBuilderService,
-      private _dialogRef: MatDialogRef<AjfReportBuilderFormsAnalyzerDialog>,
-      _: AjfValidationService) {
+    private _service: AjfReportBuilderService,
+    private _dialogRef: MatDialogRef<AjfReportBuilderFormsAnalyzerDialog>,
+    _: AjfValidationService,
+  ) {
     if (this.init == false) {
       this.formulaText = '';
       this.aggregationType = AjfAggregationType.Sum;
@@ -127,15 +144,15 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
         if (this.currentWidget.widgetType == 2) {
           let myObj: AjfImageWidget = <AjfImageWidget>this.currentWidget;
           if (myObj.imageType == AjfImageType.Flag) {
-            this.formula = (myObj.flag) ? myObj.flag.formula : '';
+            this.formula = myObj.flag ? myObj.flag.formula : '';
           } else {
-            this.formula = (myObj.icon) ? myObj.icon.formula : '';
+            this.formula = myObj.icon ? myObj.icon.formula : '';
           }
         }
       }
     });
 
-    this._formAnalyzerSub = this._service.formsVariables.subscribe((x) => {
+    this._formAnalyzerSub = this._service.formsVariables.subscribe(x => {
       if (x != null) {
         this.formsVariables = x;
       }
@@ -143,29 +160,35 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
   }
 
   onEditorInit(): void {
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions(
-        {noSemanticValidation: false, noSyntaxValidation: false});
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+      noSemanticValidation: false,
+      noSyntaxValidation: false,
+    });
 
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
       target: monaco.languages.typescript.ScriptTarget.ES2015,
       allowNonTsExtensions: true,
       allowJs: true,
-      module: monaco.languages.typescript.ModuleKind.None
+      module: monaco.languages.typescript.ModuleKind.None,
     });
 
     try {
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
-          '', 'condition-editor-variables.d.ts');
+        '',
+        'condition-editor-variables.d.ts',
+      );
     } catch (e) {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-variables.d.ts'] =
-          '';
+        '';
     }
     try {
       monaco.languages.typescript.javascriptDefaults.addExtraLib(
-          '', 'condition-editor-functions.d.ts');
+        '',
+        'condition-editor-functions.d.ts',
+      );
     } catch (e) {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
-          '';
+        '';
     }
 
     this._initFormsVariablesNames();
@@ -173,18 +196,16 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
     this._updateFunctions();
   }
 
-
   private _initFormsVariablesNames(): void {
-    this.formsVariables.forEach((formVar) => {
-      formVar.names.forEach((name) => {
+    this.formsVariables.forEach(formVar => {
+      formVar.names.forEach(name => {
         this.formsVariablesName.push(name);
       });
-      formVar.types.forEach((type) => {
+      formVar.types.forEach(type => {
         this.formsVariablesType.push(this._fieldVarType(type) || '');
       });
     });
   }
-
 
   private _updateVariables(): void {
     if (this.formsVariables == null) {
@@ -199,20 +220,18 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
 
       value += `\n`;
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-variables.d.ts'] =
-          value;
-    } catch (e) {
-    }
+        value;
+    } catch (e) {}
   }
 
   private _updateFunctions(): void {
     try {
       monaco.languages.typescript.javascriptDefaults._extraLibs['condition-editor-functions.d.ts'] =
-          AjfExpressionUtils.UTIL_FUNCTIONS;
-    } catch (e) {
-    }
+        AjfExpressionUtils.UTIL_FUNCTIONS;
+    } catch (e) {}
   }
 
-  private _fieldVarType(fieldType: AjfFieldType): string|null {
+  private _fieldVarType(fieldType: AjfFieldType): string | null {
     switch (fieldType) {
       case AjfFieldType.Boolean:
         return 'boolean';
@@ -309,19 +328,30 @@ export class AjfReportBuilderFormsAnalyzerDialog implements OnInit, AfterViewChe
 
   saveChartFormula(): void {
     this._service.saveChartFormula(
-        this.label, this.level, this.mainIndex, this.index, this.formulaText, this.aggregationType);
+      this.label,
+      this.level,
+      this.mainIndex,
+      this.index,
+      this.formulaText,
+      this.aggregationType,
+    );
   }
 
   saveTableFormula(): void {
     this._service.saveTableFormula(
-        this.label, this.aggregationType, this.formulaText, this.mainIndex, this.index);
+      this.label,
+      this.aggregationType,
+      this.formulaText,
+      this.mainIndex,
+      this.index,
+    );
   }
 
   insertVariable(variable: string): void {
     if (this.monacoEditor != null && this.monacoEditor.editor != null) {
       const editor = this.monacoEditor.editor;
       let value: string[] = editor.getValue().split('\n');
-      let position: {column: number, lineNumber: number} = editor.getPosition();
+      let position: {column: number; lineNumber: number} = editor.getPosition();
       const ln = position.lineNumber - 1;
       let line = value[ln];
       let col = position.column - 1;

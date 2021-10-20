@@ -40,7 +40,7 @@ export function createForm(form: AjfFormCreate = {}): AjfForm {
     choicesOrigins: form.choicesOrigins || [],
     attachmentsOrigins: form.attachmentsOrigins || [],
     initContext: form.initContext || {},
-    stringIdentifier: form.stringIdentifier || [] as AjfFormStringIdentifier[],
+    stringIdentifier: form.stringIdentifier || ([] as AjfFormStringIdentifier[]),
     supplementaryInformations: form.supplementaryInformations,
   };
 }

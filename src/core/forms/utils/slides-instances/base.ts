@@ -23,4 +23,4 @@
 import {AjfBaseSlideInstance} from '../../interface/slides-instances/base-slide-instance';
 import {AjfNodeInstanceCreate} from '../nodes-instances/create-node-instance';
 
-export type AjfBaseSlideInstanceCreate = AjfNodeInstanceCreate&Partial<AjfBaseSlideInstance>;
+export type AjfBaseSlideInstanceCreate = AjfNodeInstanceCreate & Partial<AjfBaseSlideInstance>;

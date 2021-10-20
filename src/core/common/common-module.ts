@@ -47,5 +47,4 @@ import {AjfVideoDirective} from './video.directive';
     TranslateIfString,
   ],
 })
-export class AjfCommonModule {
-}
+export class AjfCommonModule {}

@@ -25,12 +25,7 @@ import {NgModule} from '@angular/core';
 import {AjfPageSliderItem} from './page-slider-item';
 
 @NgModule({
-  declarations: [
-    AjfPageSliderItem,
-  ],
-  exports: [
-    AjfPageSliderItem,
-  ]
+  declarations: [AjfPageSliderItem],
+  exports: [AjfPageSliderItem],
 })
-export class AjfPageSliderModule {
-}
+export class AjfPageSliderModule {}

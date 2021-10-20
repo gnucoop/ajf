@@ -37,7 +37,7 @@ export function getContextString(context?: AjfContext): string {
         if (val instanceof Array) {
           for (let i = 0; i < val.length; i++) {
             val[i] =
-                (val == null || isNaN(Number(val[i])) || val[i] === '') && val[i] || Number(val[i]);
+              ((val == null || isNaN(Number(val[i])) || val[i] === '') && val[i]) || Number(val[i]);
           }
         }
         val = JSON.stringify(val);
