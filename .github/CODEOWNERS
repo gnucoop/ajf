@@ -37,7 +37,6 @@
 /src/material/node-icon/*                          @peppedeka
 /src/material/page-slider/*                        @peppedeka
 /src/material/range/*                              @peppedeka
-/src/material/report-builder/**/*                  @peppedeka
 /src/material/reports/*                            @peppedeka
 /src/material/time/*                               @peppedeka
 
@@ -93,7 +92,6 @@
 /src/dev-app/mat-image/**                          @peppedeka
 /src/dev-app/mat-node-icon/**                      @peppedeka
 /src/dev-app/mat-page-slider/**                    @peppedeka
-/src/dev-app/mat-report-builder/**                 @peppedeka
 /src/dev-app/mat-report-from-form/**               @peppedeka
 /src/dev-app/mat-reports/**                        @peppedeka
 /src/dev-app/mat-time/**                           @peppedeka

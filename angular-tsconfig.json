@@ -23,8 +23,7 @@
     "node_modules/@angular/**/*",
     "node_modules/@gic/angular/**/*",
     "node_modules/@ionic/angular/**/*",
-    "node_modules/@ngneat/**/*",
-    "node_modules/ngx-color-picker/**/*"
+    "node_modules/@ngneat/**/*"
   ],
   "exclude": [
     "node_modules/@angular/**/schematics/**",

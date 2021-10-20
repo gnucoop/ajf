@@ -9,7 +9,6 @@ entryPoints = [
     "monaco-editor",
     "node-icon",
     "page-slider",
-    "report-builder",
     "reports",
     "time",
 ]
