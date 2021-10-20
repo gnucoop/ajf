@@ -19,9 +19,8 @@ ng_module(
         "//src/core/common",
         "//src/core/utils",
         "@npm//@angular/core",
-        "@npm//@types/esprima",
         "@npm//date-fns",
-        "@npm//esprima",
+        "@npm//meriyah",
         "@npm//numbro",
     ],
 )

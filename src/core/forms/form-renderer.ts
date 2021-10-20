@@ -20,11 +20,10 @@
  *
  */
 
-import {AjfCondition, AjfContext} from '@ajf/core/models';
+import {AjfCondition, AjfContext, getCodeIdentifiers} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
-import {tokenize} from 'esprima';
 import {
   BehaviorSubject,
   from,
@@ -313,10 +312,21 @@ export class AjfFormRendererService {
       withLatestFrom(this._nodes, this._form),
       filter(
         ([_, __, form]) =>
-          form != null && (form as {form: AjfForm | null; context?: AjfContext}).form != null,
+          form != null &&
+          (
+            form as {
+              form: AjfForm | null;
+              context?: AjfContext;
+            }
+          ).form != null,
       ),
       map(([_, nodes, formDef]) => {
-        const form = (formDef as {form: AjfForm | null; context?: AjfContext}).form as AjfForm;
+        const form = (
+          formDef as {
+            form: AjfForm | null;
+            context?: AjfContext;
+          }
+        ).form as AjfForm;
         let currentPosition = 0;
         const errors: number[] = [];
         (nodes as AjfNodeInstance[]).forEach(node => {
@@ -493,9 +503,17 @@ export class AjfFormRendererService {
             let nodes: AjfNodeInstance[];
             if (
               formDef != null &&
-              (formDef as {form: AjfForm | null; context?: AjfContext}).form != null
+              (
+                formDef as {
+                  form: AjfForm | null;
+                  context?: AjfContext;
+                }
+              ).form != null
             ) {
-              const form = formDef as {form: AjfForm; context: AjfContext};
+              const form = formDef as {
+                form: AjfForm;
+                context: AjfContext;
+              };
               const baseNodes = form.form.nodes;
               nodes = this._orderedNodesInstancesTree(
                 flattenNodes(baseNodes),
@@ -828,10 +846,10 @@ export class AjfFormRendererService {
           let updatedNodes: AjfNodeInstance[] = [];
 
           /*
-                for each field update all properties map
-                with the following rule  "if fieldname is in map update it" and
-                push on updateNodes the node instance that wrap field
-              */
+                        for each field update all properties map
+                        with the following rule  "if fieldname is in map update it" and
+                        push on updateNodes the node instance that wrap field
+                      */
           delta.forEach(fieldName => {
             updatedNodes = updatedNodes.concat(
               nodes.filter(n => nodeInstanceCompleteName(n) === fieldName),
@@ -892,7 +910,8 @@ export class AjfFormRendererService {
 
             if (conditionalBranchesMap[fieldName] != null) {
               conditionalBranchesMap[fieldName].forEach(nodeInstance => {
-                // const branchChanged = nodeInstance.updateConditionalBranches(newFormValue);
+                // const branchChanged =
+                // nodeInstance.updateConditionalBranches(newFormValue);
                 updateConditionalBranches(nodeInstance, newFormValue);
                 // if (branchChanged) {
                 const verifiedBranch = nodeInstance.verifiedBranch;
@@ -1447,19 +1466,16 @@ export class AjfFormRendererService {
     nodeInstance: AjfNodeInstance,
     formula: string,
   ): void {
-    let tokens = tokenize(formula).filter(
-      (token: any) => token.type == 'Identifier' && token.value != '$value',
-    );
+    const tokens = getCodeIdentifiers(formula);
     if (tokens.length > 0) {
       nodesMap.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
-        tokens.forEach((token: any) => {
-          let tokenName = token.value;
-          if (vmap[tokenName] != null) {
-            const idx = vmap[tokenName].indexOf(nodeInstance);
+        tokens.forEach(token => {
+          if (vmap[token] != null) {
+            const idx = vmap[token].indexOf(nodeInstance);
             if (idx > -1) {
-              vmap[tokenName].splice(idx, 1);
-              if (vmap[tokenName].length == 0) {
-                delete vmap[tokenName];
+              vmap[token].splice(idx, 1);
+              if (vmap[token].length == 0) {
+                delete vmap[token];
               }
             }
           }
@@ -1514,18 +1530,15 @@ export class AjfFormRendererService {
     nodeInstance: AjfNodeInstance,
     formula: string,
   ): void {
-    let tokens = tokenize(formula).filter(
-      (token: any) => token.type == 'Identifier' && token.value != '$value',
-    );
+    const tokens = getCodeIdentifiers(formula);
     if (tokens.length > 0) {
       nodesMap.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
-        tokens.forEach((token: any) => {
-          let tokenName = token.value;
-          if (vmap[tokenName] == null) {
-            vmap[tokenName] = [];
+        tokens.forEach(token => {
+          if (vmap[token] == null) {
+            vmap[token] = [];
           }
-          if (vmap[tokenName].indexOf(nodeInstance) === -1) {
-            vmap[tokenName].push(nodeInstance);
+          if (vmap[token].indexOf(nodeInstance) === -1) {
+            vmap[token].push(nodeInstance);
           }
         });
         return vmap;
