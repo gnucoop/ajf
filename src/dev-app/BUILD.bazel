@@ -84,7 +84,6 @@ filegroup(
     srcs = [
         "favicon.ico",
         "index.html",
-        "//src:source-files",
         "@npm//:node_modules/@ajf/icons/css/ajf-icons.css",
         "@npm//:node_modules/@ajf/icons/fonts/ajf.eot",
         "@npm//:node_modules/@ajf/icons/fonts/ajf.svg",
@@ -102,7 +101,10 @@ filegroup(
 
 dev_server(
     name = "devserver",
-    srcs = [":dev_app_static_files"],
+    srcs = [
+        ":dev_app_static_files",
+        "//src:source-files",
+    ],
     additional_root_paths = [
         "npm/node_modules",
         # Needed for compatibility with "pkg_web" which always uses the tree
