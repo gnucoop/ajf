@@ -56,7 +56,7 @@ yarn_install(
     # that Yarn will rerun whenever one of these files has been modified.
     data = [
         "//:tools/postinstall/apply-patches.js",
-        "//:tools/postinstall/patch-gic-ionic-package.js",
+        "//:tools/postinstall/patch-packages.js",
         "//:tools/postinstall/update-ngcc-main-fields.js",
     ],
     package_json = "//:package.json",
