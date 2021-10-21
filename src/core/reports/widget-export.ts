@@ -97,27 +97,61 @@ export class AjfWidgetExport {
           xlsxData.push(row);
         }
         break;
+      case AjfWidgetType.DynamicTable:
       case AjfWidgetType.Table:
-        this.data = this.data as AjfTableCell[][];
-        this.data.forEach((row: AjfTableCell[], idxRow: number) => {
-          const res: unknown[] = [];
-          if (idxRow === 0) {
-            row.forEach((elem: AjfTableCell) => {
-              labels.push(elem.value.changingThisBreaksApplicationSecurity);
+        const tableData = this.data as AjfTableCell[][];
+        if (tableData.length > 1) {
+          xlsxData = [];
+          const nextRows: unknown[][] = [];
+          let nextRow: unknown[] = [];
+          let totRowSpan = 0;
+          let nextRowspanNum = 0;
+
+          for (let i = 0; i < tableData.length; i++) {
+            let isNewRowAfterRowspan = false;
+            let res: unknown[] = [];
+
+            nextRow = [];
+            if (totRowSpan > 0) {
+              res = [...nextRows[nextRowspanNum - 1]];
+              isNewRowAfterRowspan = true;
+            }
+            tableData[i].forEach((elem: AjfTableCell, idxElem: number) => {
+              res.push(elem.value.changingThisBreaksApplicationSecurity);
+
               if (elem.colspan && elem.colspan > 1) {
-                for (let i = 1; i < elem.colspan; i++) {
-                  labels.push(' ');
+                for (let j = 1; j < elem.colspan; j++) {
+                  res.push(' ');
+                }
+              }
+              if (isNewRowAfterRowspan) {
+                if (elem.rowspan && elem.rowspan > 1) {
+                  for (let idx = 1; idx < elem.rowspan; idx++) {
+                    nextRow.push(' ');
+                    nextRows[nextRowspanNum] = nextRows[nextRowspanNum].concat(nextRow);
+                  }
+                }
+                if (idxElem === tableData[i].length - 1 && nextRowspanNum > 0) {
+                  nextRowspanNum++;
+                  if (nextRowspanNum === totRowSpan) {
+                    totRowSpan = 0;
+                    nextRowspanNum = 0;
+                  }
+                }
+              } else {
+                if (elem.rowspan && elem.rowspan > 1) {
+                  totRowSpan = elem.rowspan;
+                  nextRowspanNum = 1;
+                  for (let idx = 1; idx < elem.rowspan; idx++) {
+                    nextRow.push(' ');
+                    nextRows[idx - 1] = nextRow;
+                  }
                 }
               }
             });
-            xlsxData.push(labels);
-          } else {
-            row.forEach((elem: AjfTableCell) => {
-              res.push(elem.value.changingThisBreaksApplicationSecurity);
-            });
             xlsxData.push(res);
           }
-        });
+        }
         break;
     }
 

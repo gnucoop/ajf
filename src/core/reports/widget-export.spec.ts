@@ -23,8 +23,7 @@ describe('widget-export', () => {
 
   const dataTableXlsx: AjfTableCell[][] = [
     [
-      {value: {changingThisBreaksApplicationSecurity: 'a'}},
-      {value: {changingThisBreaksApplicationSecurity: 'b'}},
+      {value: {changingThisBreaksApplicationSecurity: 'a'}, colspan: 2},
       {value: {changingThisBreaksApplicationSecurity: 'c'}},
     ],
     [
@@ -57,7 +56,7 @@ describe('widget-export', () => {
     const testSpy = spyOn(XLSX.utils, 'aoa_to_sheet').and.callThrough();
     widgetExport.exportCsv();
     const toEqual: unknown[][] = [
-      ['a', 'b', 'c'],
+      ['a', ' ', 'c'],
       ['d', 'e', 'f'],
       ['g', 'h', 'i'],
     ];
