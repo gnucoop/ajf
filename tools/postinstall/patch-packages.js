@@ -23,6 +23,7 @@ const cleanDirs = [
   '@angular/core/schematics',
   '@angular/cdk/schematics',
   '@angular/material/schematics',
+  '@ionic/angular/schematics',
   '@ngneat/transloco/schematics',
 ];
 cleanDirs.forEach(cleanDir => {
