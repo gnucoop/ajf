@@ -60,6 +60,7 @@ export const testReport = {
       },
       {
         'widgetType': 5,
+        'exportable': true,
         'dataset': [
           [
             {
@@ -70,6 +71,7 @@ export const testReport = {
               'aggregation': {
                 'aggregation': 0,
               },
+              'colspan': 2,
             },
             {
               'label': '',
@@ -103,6 +105,15 @@ export const testReport = {
             {
               'label': '',
               'formula': {
+                'formula': '"2a1"',
+              },
+              'aggregation': {
+                'aggregation': 0,
+              },
+            },
+            {
+              'label': '',
+              'formula': {
                 'formula': '"2b"',
               },
               'aggregation': {
@@ -124,6 +135,15 @@ export const testReport = {
               'label': '',
               'formula': {
                 'formula': '"3a"',
+              },
+              'aggregation': {
+                'aggregation': 0,
+              },
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '"3a1"',
               },
               'aggregation': {
                 'aggregation': 0,
@@ -168,6 +188,37 @@ export const testReport = {
               'aggregation': 0,
             },
           },
+        ],
+      },
+      {
+        'widgetType': 5,
+        'exportable': true,
+        'dataset': [
+          [
+            {
+              'label': '',
+              'formula': {'formula': '"Header A "'},
+              'aggregation': {'aggregation': 0},
+              'rowspan': 2,
+            },
+            {
+              'label': '',
+              'formula': {'formula': '"Header B "'},
+              'aggregation': {'aggregation': 0},
+              'rowspan': 2,
+            },
+            {
+              'label': '',
+              'formula': {'formula': '"Header C "'},
+              'aggregation': {'aggregation': 0},
+            },
+          ],
+          [{'label': '', 'formula': {'formula': '"2c"'}, 'aggregation': {'aggregation': 0}}],
+          [
+            {'label': '', 'formula': {'formula': '"3a"'}, 'aggregation': {'aggregation': 0}},
+            {'label': '', 'formula': {'formula': '"3b"'}, 'aggregation': {'aggregation': 0}},
+            {'label': '', 'formula': {'formula': '"3c"'}, 'aggregation': {'aggregation': 0}},
+          ],
         ],
       },
     ],
