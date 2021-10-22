@@ -141,7 +141,7 @@
     "dgeni-packages": "^0.28.4",
     "diff": "^5.0.0",
     "firebase-tools": "^9.2.1",
-    "fontsource-roboto": "^3.0.3",
+    "fontsource-roboto": "^4.0.0",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "gulp": "^4.0.2",
