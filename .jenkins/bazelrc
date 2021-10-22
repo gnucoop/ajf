@@ -19,3 +19,4 @@ build --remote_upload_local_results=true
 # and we don't want to accidentally run out of memory.
 build --local_ram_resources=14336
 build --local_cpu_resources=8
+startup --host_jvm_args="-Xmx14g"
