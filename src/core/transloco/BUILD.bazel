@@ -2,7 +2,6 @@ load(
     "//tools:defaults.bzl",
     "markdown_to_html",
     "ng_module",
-    "sass_library",
 )
 
 package(default_visibility = ["//visibility:public"])
@@ -17,12 +16,6 @@ ng_module(
         "@npm//@angular/core",
         "@npm//@ngneat/transloco",
     ],
-)
-
-sass_library(
-    name = "transloco_scss_lib",
-    srcs = glob(["**/_*.scss"]),
-    deps = [],
 )
 
 markdown_to_html(
