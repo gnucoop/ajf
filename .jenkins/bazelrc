@@ -2,14 +2,14 @@
 # Bazel issues that show up on CircleCI.
 common --announce_rc
 
-# build --remote_http_cache=https://storage.googleapis.com/ajf-bazel-remote-cache
-# build --google_default_credentials
+build --remote_http_cache=https://storage.googleapis.com/ajf-bazel-remote-cache
+build --google_default_credentials
 
 # Save downloaded repositories in a location that can be cached by CircleCI. This helps us
 # speeding up the analysis time significantly with Bazel managed node dependencies on the CI.
 build --repository_cache=/home/jenkins/bazel_repository_cache
 
-# build --remote_upload_local_results=true
+build --remote_upload_local_results=true
 
 
 # Workaround https://github.com/bazelbuild/bazel/issues/3645. Bazel doesn't calculate the
