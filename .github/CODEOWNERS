@@ -14,6 +14,7 @@
 /src/core/node-icon/*                              @peppedeka
 /src/core/page-break/*                             @peppedeka
 /src/core/page-slider/*                            @peppedeka
+/src/core/pdfmake/*                                @peppedeka
 /src/core/range/*                                  @peppedeka
 /src/core/reports/**/*                             @peppedeka
 /src/core/reports/report-to-pdf/*                  @robzan8
@@ -23,7 +24,6 @@
 /src/core/text/*                                   @peppedeka
 /src/core/time/*                                   @peppedeka
 /src/core/utils/*                                  @peppedeka
-/src/core/vfs-fonts/*                              @peppedeka
 
 # Ajf material
 /src/material/*                                    @peppedeka
