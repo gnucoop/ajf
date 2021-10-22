@@ -20,5 +20,15 @@
  *
  */
 
-export * from './vfs-fonts';
-export * from './vfs-fonts-map';
+import * as pdfMakeModule from 'pdfmake/build/pdfmake';
+// tslint:disable-next-line:no-duplicate-imports
+import {TCreatedPdf} from 'pdfmake/build/pdfmake';
+import {TDocumentDefinitions} from 'pdfmake/interfaces';
+import {vfsFonts} from './vfs-fonts';
+import {vfsFontsMap} from './vfs-fonts-map';
+
+const pdfMake = ((pdfMakeModule as any).default || pdfMakeModule) as typeof pdfMakeModule;
+
+export const createPdf = (document: TDocumentDefinitions): TCreatedPdf => {
+  return pdfMake.createPdf(document, undefined, vfsFontsMap, vfsFonts);
+};

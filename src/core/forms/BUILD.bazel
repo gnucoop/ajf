@@ -31,15 +31,13 @@ ng_module(
         "//src/core/file-input",
         "//src/core/models",
         "//src/core/page-slider",
+        "//src/core/pdfmake",
         "//src/core/transloco",
         "//src/core/utils",
-        "//src/core/vfs-fonts",
         "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//@angular/platform-browser",
-        "@npm//@types/pdfmake",
         "@npm//date-fns",
-        "@npm//pdfmake",
     ],
 )
 
