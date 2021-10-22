@@ -39,7 +39,7 @@ ng_test_library(
         exclude = ["**/*.e2e.spec.ts"],
     ),
     deps = [
-        ":vfs-fonts",
+        ":pdfmake",
         "@npm//@angular/platform-browser",
     ],
 )
