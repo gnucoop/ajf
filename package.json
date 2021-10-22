@@ -75,7 +75,7 @@
     "flat": "^5.0.2",
     "leaflet": "^1.6.0",
     "meriyah": "^4.2.0",
-    "numbro": "^2.3.1",
+    "numbro": "^2.3.5",
     "pdfmake": "^0.1.68",
     "rxjs": "^6.5.3",
     "rxjs-tslint-rules": "^4.33.1",
