@@ -1,29 +1,29 @@
 # List of all entry-points of the Ajf core package.
 CORE_ENTRYPOINTS_WITHOUT_STYLES = [
+    "barcode",
+    "calendar",
+    "checkbox-group",
+    "common",
+    "image",
+    "models",
+    "node-icon",
+    "range",
+    "time",
+    "transloco",
+    "utils",
     "vfs-fonts",
 ]
 
 CORE_ENTRYPOINTS_WITH_STYLES = [
-    "barcode",
-    "calendar",
     "chart",
-    "checkbox-group",
-    "common",
     "file-input",
     "forms",
-    "image",
     "map",
-    "models",
-    "node-icon",
     "page-break",
     "page-slider",
-    "range",
     "reports",
     "table",
     "text",
-    "time",
-    "transloco",
-    "utils",
 ]
 
 CORE_ENTRYPOINTS = CORE_ENTRYPOINTS_WITHOUT_STYLES + CORE_ENTRYPOINTS_WITH_STYLES
