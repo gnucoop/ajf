@@ -73,7 +73,7 @@
     "date-fns": "^2.25.0",
     "flag-icon-css": "^3.5.0",
     "flat": "^5.0.2",
-    "leaflet": "^1.6.0",
+    "leaflet": "^1.7.1",
     "meriyah": "^4.2.0",
     "numbro": "^2.3.5",
     "pdfmake": "^0.2.2",
