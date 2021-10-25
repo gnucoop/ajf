@@ -21,20 +21,18 @@
  */
 
 import {AjfImageType} from '@ajf/core/image';
-import {AjfTableCell} from '@ajf/core/table';
-import {deepCopy} from '@ajf/core/utils';
-import {vfsFonts, vfsFontsMap} from '@ajf/core/vfs-fonts';
-import * as pdfMakeModule from 'pdfmake/build/pdfmake';
-// tslint:disable-next-line:no-duplicate-imports
-import {TCreatedPdf} from 'pdfmake/build/pdfmake';
 import {
   Column,
   Content,
   ContentStack,
+  createPdf,
   PageOrientation,
   TableCell,
+  TCreatedPdf,
   TDocumentDefinitions,
-} from 'pdfmake/interfaces';
+} from '@ajf/core/pdfmake';
+import {AjfTableCell} from '@ajf/core/table';
+import {deepCopy} from '@ajf/core/utils';
 
 import {AjfReportContainerInstance} from '../interface/reports-instances/report-container-instance';
 import {AjfReportInstance} from '../interface/reports-instances/report-instance';
@@ -49,8 +47,6 @@ import {AjfWidgetInstance} from '../interface/widgets-instances/widget-instance'
 import {AjfWidgetType} from '../interface/widgets/widget-type';
 
 import {ImageMap, loadReportImages} from './load-report-images';
-
-const {createPdf} = ((pdfMakeModule as any).default || pdfMakeModule) as typeof pdfMakeModule;
 
 const pageWidth = 800;
 const pageHeight = pageWidth * 1.4142; // A4 proportions
@@ -81,7 +77,7 @@ export function createReportPdf(
       pdfDef.pageSize = {width: pageWidth, height: pageHeight};
       pdfDef.pageMargins = pageMargins;
       pdfDef.pageOrientation = orientation;
-      resolve(createPdf(pdfDef, undefined, vfsFontsMap, vfsFonts));
+      resolve(createPdf(pdfDef));
     });
   });
 }

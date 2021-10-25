@@ -1,4 +1,5 @@
-import {VfsFont, vfsFonts, vfsFontsMap} from './index';
+import {vfsFonts} from './vfs-fonts';
+import {VfsFont, vfsFontsMap} from './vfs-fonts-map';
 
 describe('vfsFonts', () => {
   it('should contain the default fonts', () => {

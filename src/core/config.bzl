@@ -7,11 +7,11 @@ CORE_ENTRYPOINTS_WITHOUT_STYLES = [
     "image",
     "models",
     "node-icon",
+    "pdfmake",
     "range",
     "time",
     "transloco",
     "utils",
-    "vfs-fonts",
 ]
 
 CORE_ENTRYPOINTS_WITH_STYLES = [

@@ -21,12 +21,15 @@ generate_vfs_fonts(
 )
 
 ng_module(
-    name = "vfs-fonts",
+    name = "pdfmake",
     srcs = [":vfs-fonts-lib.ts"] + glob(
         ["**/*.ts"],
         exclude = ["**/*.spec.ts"],
     ),
-    deps = [],
+    deps = [
+        "@npm//@types/pdfmake",
+        "@npm//pdfmake",
+    ],
 )
 
 ng_test_library(
@@ -48,7 +51,7 @@ ng_web_test_suite(
 
 markdown_to_html(
     name = "overview",
-    srcs = ["vfs-fonts.md"],
+    srcs = ["pdfmake.md"],
 )
 
 filegroup(
