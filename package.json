@@ -120,7 +120,7 @@
     "@types/gulp": "4.0.8",
     "@types/inquirer": "^7.3.1",
     "@types/jasmine": "^3.6.0",
-    "@types/leaflet": "^1.5.12",
+    "@types/leaflet": "^1.7.1",
     "@types/marked": "^2.0.0",
     "@types/merge2": "^0.3.30",
     "@types/minimist": "^1.2.0",
