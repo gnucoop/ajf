@@ -29,6 +29,6 @@ const cleanDirs = [
 cleanDirs.forEach(cleanDir => {
   const cleanDirPath = path.join('node_modules', cleanDir);
   if (fs.existsSync(cleanDirPath) && fs.statSync(cleanDirPath).isDirectory()) {
-    fs.rmdirSync(cleanDirPath, {recursive: true});
+    fs.rmSync(cleanDirPath, {recursive: true});
   }
 });
