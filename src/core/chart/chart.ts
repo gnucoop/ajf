@@ -170,8 +170,8 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  private _fixChartOptions(options: ChartOptions): ChartOptions {
-    options = options || {};
+  private _fixChartOptions(chartOptions: ChartOptions): ChartOptions {
+    const options = deepCopy(chartOptions) || {};
     if (options.legendCallback) {
       const legendCallback = (
         typeof options.legendCallback === 'string'
@@ -313,7 +313,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     if (options.scales.yAxes == null) {
       options.scales.yAxes = [];
     }
-    options.scales.yAxes.forEach(yAxe => {
+    options.scales.yAxes.forEach((yAxe: any) => {
       if (yAxe.ticks && yAxe.ticks.callback) {
         const callback = (
           typeof yAxe.ticks.callback === 'string'
@@ -323,7 +323,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
         yAxe.ticks.callback = callback;
       }
     });
-    options.scales.xAxes.forEach(xAxe => {
+    options.scales.xAxes.forEach((xAxe: any) => {
       if (xAxe.ticks && xAxe.ticks.callback) {
         const callback = (
           typeof xAxe.ticks.callback === 'string'
@@ -334,7 +334,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
       }
     });
     if (this.chartType == 'pie') {
-      let newOptions = <any>options;
+      let newOptions = deepCopy(options);
       newOptions.pieceLabel = {
         ...{
           render: function (args: any) {
