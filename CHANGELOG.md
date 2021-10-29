@@ -1,3 +1,15 @@
+<a name="13.0.0-rc.0"></a>
+# 13.0.0-rc.0 "technical-starfish" (2021-10-29)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [1a9537256](https://github.com/gnucoop/ajf/commit/1a953725693bc045cae488172134cd1c1c9150e3) | fix | **chart:** Fixed chart pieceLabel assignment |
+| [60a2b4cd9](https://github.com/gnucoop/ajf/commit/60a2b4cd9517e75f37e1d703747ded0f854da7ef) | fix | **reports:** export also dynamic table widget both with rowspan or colspan |
+## Special Thanks
+Marco Marche, Marco Tozzi, sara and trik
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="12.1.6"></a>
 # 12.1.6 "key-toad" (2021-10-20)
 ## Special Thanks

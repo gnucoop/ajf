@@ -47,7 +47,7 @@
     "i18n:extract": "transloco-keys-manager extract",
     "i18n:find": "transloco-keys-manager find"
   },
-  "version": "13.0.0-next.10",
+  "version": "13.0.0-rc.0",
   "dependencies": {
     "@ajf/icons": "^1.0.0",
     "@angular/animations": "13.0.0-next.15",
