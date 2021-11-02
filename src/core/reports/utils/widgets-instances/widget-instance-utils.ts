@@ -38,5 +38,11 @@ export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslocoServi
         ? ts.translate(formula)
         : formula;
   }
-  return evaluateExpression(formula, context);
+  let res;
+  try {
+    res = evaluateExpression(formula, context);
+  } catch (_) {
+    res = formula;
+  }
+  return res;
 }

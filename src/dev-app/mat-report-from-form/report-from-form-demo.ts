@@ -20,17 +20,7 @@
  *
  */
 
-import {AjfContext} from '@ajf/core/common';
-import {
-  AjfField,
-  AjfFieldType,
-  AjfFieldWithChoices,
-  AjfForm,
-  AjfFormSerializer,
-  AjfRangeField,
-  flattenNodes,
-  isField,
-} from '@ajf/core/forms';
+import {AjfForm, AjfFormSerializer, generateRandomCtx} from '@ajf/core/forms';
 import {AjfReport, AjfReportInstance, createReportInstance} from '@ajf/core/reports';
 import * as reportFromForm from '@ajf/core/reports/report-from-form/report-from-form';
 import {Component} from '@angular/core';
@@ -58,7 +48,7 @@ export class ReportFromFormDemo {
     this.reportSchema = reportFromForm.reportFromForm(form);
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
     this.reportInstance$.next(
-      createReportInstance(this.reportSchema, {forms: this._generateRandomCtx(form)}, _ts),
+      createReportInstance(this.reportSchema, {forms: generateRandomCtx(form)}, _ts),
     );
   }
 
@@ -66,62 +56,14 @@ export class ReportFromFormDemo {
     if (this.formSchema == null) {
       return;
     }
-    let forms;
     const schemaObj = JSON.parse(this.formSchema);
     const form = AjfFormSerializer.fromJson(schemaObj);
     this.reportSchema = reportFromForm.reportFromForm(form, this.formId);
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
-    forms = this._generateRandomCtx(form);
+    const forms = generateRandomCtx(form);
     if (this.formId != null) {
       forms[this.formId] = forms;
     }
     this.reportInstance$.next(createReportInstance(this.reportSchema, {forms}, this._ts));
-  }
-
-  private _generateRandomCtx(formSchema: any): AjfContext[] {
-    const ctxMap: AjfContext[] = [];
-    const allFields: AjfField[] = flattenNodes(formSchema.nodes).filter(f =>
-      isField(f),
-    ) as AjfField[];
-    const generateRandomNumberOfContext = Math.floor(Math.random() * 100) + 1;
-    for (let i = 0; i < generateRandomNumberOfContext; i++) {
-      const ctx: AjfContext = {};
-      allFields.forEach(field => {
-        switch (field.fieldType) {
-          default:
-            ctx[field.name] = 0;
-            break;
-          case AjfFieldType.Number:
-            ctx[field.name] = Math.floor(Math.random() * 1000) + 1;
-            break;
-          case AjfFieldType.Boolean:
-            ctx[field.name] = Math.random() < 0.5;
-            break;
-          case AjfFieldType.SingleChoice:
-            const singleChoices = (field as AjfFieldWithChoices<any>).choicesOrigin.choices.map(
-              c => c.value,
-            );
-            ctx[field.name] = singleChoices[Math.floor(Math.random() * singleChoices.length)];
-            break;
-          case AjfFieldType.MultipleChoice:
-            const multipleChoices = (field as AjfFieldWithChoices<any>).choicesOrigin.choices.map(
-              c => c.value,
-            );
-            ctx[field.name] = [
-              multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
-              multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
-            ];
-            break;
-          case AjfFieldType.Range:
-            const rangeField = field as AjfRangeField;
-            const end = rangeField.end ?? 10;
-            const start = rangeField.start ?? 1;
-            const value = Math.floor(start + Math.random() * (end + 1 - start));
-            ctx[field.name] = value;
-        }
-      });
-      ctxMap.push(ctx);
-    }
-    return ctxMap;
   }
 }
