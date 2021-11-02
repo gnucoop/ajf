@@ -118,6 +118,13 @@ export const DEV_APP_ROUTES: Routes = [
       ),
   },
   {
+    path: 'mat-report-from-xls',
+    loadChildren: () =>
+      import('./mat-report-from-xls/report-from-xls-demo-module').then(
+        m => m.ReportFromXlsDemoModule,
+      ),
+  },
+  {
     path: 'mat-forms',
     loadChildren: () => import('./mat-forms/forms-demo-module').then(m => m.FormsDemoModule),
   },

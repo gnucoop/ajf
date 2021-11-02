@@ -58,7 +58,7 @@ NO_STAMP_NPM_PACKAGE_SUBSTITUTIONS = dict(NPM_PACKAGE_SUBSTITUTIONS, **{
 
 ANGULAR_PACKAGES_CONFIG = [
     ("@angular/animations", struct(entry_points = ["browser"])),
-    ("@angular/cdk", struct(entry_points = ["a11y", "accordion", "bidi", "coercion", "collections", "drag-drop", "keycodes", "layout", "observers", "overlay", "platform", "portal", "scrolling", "table", "text-field"])),
+    ("@angular/cdk", struct(entry_points = ["a11y", "accordion", "bidi", "clipboard", "coercion", "collections", "drag-drop", "keycodes", "layout", "observers", "overlay", "platform", "portal", "scrolling", "table", "text-field"])),
     ("@angular/common", struct(entry_points = ["http/testing", "http", "testing"])),
     ("@angular/compiler", struct(entry_points = ["testing"])),
     ("@angular/core", struct(entry_points = ["testing"])),

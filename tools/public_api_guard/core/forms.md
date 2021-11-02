@@ -1288,6 +1288,13 @@ export interface AjfWarningResult {
     warning: string;
 }
 
+// @public (undocumented)
+export function buildformDatas(formSchemas: {
+    [name: string]: AjfFormCreate;
+}): {
+    [name: string]: AjfContext_2[];
+};
+
 // @public
 export const buildFormStringIdentifier: (form: AjfForm, context: AjfContext_2, opts?: BuildStringIdentifierOpts | undefined) => string;
 
@@ -1350,6 +1357,9 @@ export function fieldIconName(type: AjfFieldType): string;
 
 // @public
 export function flattenNodes(nodes: AjfNode[]): AjfNode[];
+
+// @public (undocumented)
+export function generateRandomCtx(formSchema: AjfFormCreate): AjfContext_2[];
 
 // @public
 export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void>;
