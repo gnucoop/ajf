@@ -5,6 +5,7 @@
 ```ts
 
 import { AjfContext as AjfContext_2 } from '@ajf/core/common';
+import { AjfTableCell } from '@ajf/core/table';
 import * as dateFns_2 from 'date-fns';
 
 // @public
@@ -63,7 +64,13 @@ function alert_2(source: any[], property: string, threshold: number): string;
 export { alert_2 as alert }
 
 // @public
+export function ALL_VALUES_OF(forms: Form[], fieldName: string): string[];
+
+// @public
 export function alwaysCondition(): AjfCondition;
+
+// @public (undocumented)
+export function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
 
 // @public (undocumented)
 export function calculateAvgProperty(source: any[], property: string, range: number, coefficient: number): number;
@@ -187,6 +194,12 @@ export function notEmpty(x: any): boolean;
 
 // @public
 export function PERCENT(value1: number, value2: number): string;
+
+// @public (undocumented)
+export function plainArray(params: any[]): any[];
+
+// @public (undocumented)
+export function REPEAT(values: string[], forms: Form[], fn: AjfValidationFn, param1: string, param2: string): any[];
 
 // @public
 export function round(num: number | string, digits: number): number;

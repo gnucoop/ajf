@@ -1,0 +1,50 @@
+<div class="demo-forms">
+  <h2>{{'REPORT FROM XLS'|transloco}}</h2>
+  <h4>add json form schemas and relative id</h4>
+  <table>
+    <tr>
+      <th>id</th>
+      <th>schema</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let elem of formSchemaObj|keyvalue">
+      <td>{{elem.key}}</td>
+      <td><button (click)="removeSchema(elem.key)">X</button></td>
+    </tr>
+  </table>
+  <form [formGroup]="schemaForms" (ngSubmit)="addFormSchema()">
+    <table>
+      <tr>
+        <th>schema</th>
+        <th>id</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>
+          <textarea id="schema" type="text" formControlName="schema"></textarea>
+        </td>
+        <td>
+          <input id="id" type="text" formControlName="id" />
+        </td>
+        <td>
+          <button type="submit" [disabled]="!schemaForms.valid">add</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <div>
+    <label for="xls" class="btn">choose excel file: </label>
+    <input type="file" #xls (change)="onFileChange($event)" accept=".xls, .xlsx" />
+  </div>
+  <button
+    *ngIf="reportSchemaStringified$|async as reportSchemaStringified"
+    [cdkCopyToClipboard]="reportSchemaStringified"
+  >
+    copy report schema
+  </button>
+  <div>
+    <ng-container *ngIf="reportInstance$|async as reportInstance">
+      <ajf-report [instance]="reportInstance"></ajf-report>
+    </ng-container>
+  </div>
+</div>
