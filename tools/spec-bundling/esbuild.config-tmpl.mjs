@@ -14,8 +14,9 @@ import {
 
 // Conditionally, based on whether partial compilation is enabled, we run the
 // linker on all files part of the test.
-const plugins = TMPL_PARTIAL_COMPILATION_ENABLED ?
-  [await createLinkerEsbuildPlugin(/.*/, /* ensureNoPartialDeclaration */ true)] : []
+const plugins = TMPL_PARTIAL_COMPILATION_ENABLED
+  ? [await createLinkerEsbuildPlugin(/.*/, /* ensureNoPartialDeclaration */ true)]
+  : [];
 
 export default {
   // `tslib` sets the `module` condition to resolve to ESM.
