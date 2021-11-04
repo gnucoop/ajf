@@ -16,6 +16,7 @@ ng_module(
     ),
     deps = [
         "//src/core/common",
+        "//src/core/table",
         "//src/core/utils",
         "@npm//@angular/core",
         "@npm//date-fns",

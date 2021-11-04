@@ -72,6 +72,10 @@ export const DEV_APP_ROUTES: Routes = [
     path: 'mat-page-slider',
     loadChildren: 'mat-page-slider/page-slider-demo-module#PageSliderDemoModule',
   },
+  {
+    path: 'mat-report-from-xls',
+    loadChildren: 'mat-report-from-xls/report-from-xls-demo-module#ReportFromXlsDemoModule',
+  },
   {path: 'mat-reports', loadChildren: 'mat-reports/reports-demo-module#ReportsDemoModule'},
   {path: 'mat-time', loadChildren: 'mat-time/time-demo-module#TimeDemoModule'},
   {path: 'mat-widgets', loadChildren: 'mat-widgets/widgets-demo-module#WidgetsDemoModule'},

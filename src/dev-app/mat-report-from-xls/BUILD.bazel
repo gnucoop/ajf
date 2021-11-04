@@ -1,0 +1,23 @@
+load("//tools:defaults.bzl", "ng_module", "sass_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "mat-report-from-xls",
+    srcs = glob(["**/*.ts"]),
+    assets = [
+        "report-from-xls-demo.html",
+        ":report_from_xls_demo_scss",
+    ],
+    deps = [
+        "//src/material/forms",
+        "//src/material/reports",
+        "@npm//@angular/router",
+        "@npm//rxjs",
+    ],
+)
+
+sass_binary(
+    name = "report_from_xls_demo_scss",
+    src = "report-from-xls-demo.scss",
+)

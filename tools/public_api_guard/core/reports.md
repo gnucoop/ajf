@@ -699,6 +699,9 @@ export function openReportPdf(report: AjfReportInstance, orientation?: PageOrien
 // @public
 export function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport;
 
+// @public
+export function reportFromXls(file: string): AjfReport;
+
 // @public (undocumented)
 export function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext_2, ts: TranslocoService): AjfWidgetInstance;
 
