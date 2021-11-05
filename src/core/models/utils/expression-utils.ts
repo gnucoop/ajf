@@ -863,11 +863,11 @@ export function buildDataset(
  * &current is an anchor key, The params with &current will be modified with the iteration values.
  */
 export function REPEAT(
-  values: string[],
   forms: Form[],
+  values: string[],
   fn: AjfValidationFn,
   param1: string,
-  param2: string,
+  param2: string = 'true',
 ): any[] {
   const res: any[] = [];
   const newExp1 =
