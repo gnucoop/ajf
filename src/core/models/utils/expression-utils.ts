@@ -617,8 +617,23 @@ export function getCoordinate(source: any, zoom?: number): [number, number, numb
  */
 export function ALL_VALUES_OF(forms: Form[], fieldName: string): string[] {
   forms = (forms || []).slice(0);
+  const isInRepeatingSlide = fieldName.includes(`__`);
+  if (isInRepeatingSlide) {
+    const repeation: any[] = [];
 
-  return [...new Set(forms.map(f => `${f[fieldName]}`))];
+    forms.forEach(f => {
+      for (let i = 0; i <= MAX_REPS; i++) {
+        const fieldRepetion = `${fieldName}${i}`;
+        if (f[fieldRepetion] == null) {
+          break;
+        }
+        repeation.push(f[fieldRepetion]);
+      }
+    });
+    return [...new Set(repeation)];
+  } else {
+    return [...new Set(forms.map(f => `${f[fieldName]}`))];
+  }
 }
 
 export function plainArray(params: any[]): any[] {
@@ -694,29 +709,56 @@ export function SUM(forms: Form[], expression: string, condition?: string): numb
   if (expression == null) {
     return 0;
   }
-  if (condition != null) {
-    forms = forms.filter(f => evaluateExpression(condition, f));
-  }
-  const isInRepeatingSlide = expression.includes(`__`);
-  if (isInRepeatingSlide) {
-    forms.forEach(f => {
-      for (let i = 0; i <= MAX_REPS; i++) {
-        if (Object.keys(f).filter(key => key.includes(`__${i}`)).length === 0) {
-          break;
-        }
-        const evaluatedExpression = evaluateExpression(expression.replace('__', `__${i}`), f);
-        if (Number.isFinite(evaluateExpression)) {
-          acc += +evaluatedExpression;
-        }
-      }
-    });
-  } else {
-    forms.forEach(f => (acc += +evaluateExpression(expression, f)));
-  }
+  const expressionConditions = generateExpressionConditions(forms, expression, condition);
+  expressionConditions.forEach(exp => {
+    acc += +exp;
+  });
 
   return acc;
 }
 
+function generateExpressionConditions(
+  forms: Form[],
+  expression: string,
+  condition = 'true',
+): number[] {
+  const res: number[] = [];
+  const conditionIsReps = condition?.includes('__');
+  const expressionIsReps = expression.includes('__');
+  forms.forEach(f => {
+    if (conditionIsReps) {
+      const repeatedFieldCondition = `${condition.split('__')[0]}__`;
+      const keys = Object.keys(f).filter(frm => frm.includes(repeatedFieldCondition));
+      keys.forEach(key => {
+        const index = +key.split('__')[1];
+        const rCondition = condition.replace(/__/g, `__${index}`);
+        if (evaluateExpression(rCondition, f)) {
+          const rExpression = expression.replace(/__/g, `__${index}`);
+          res.push(evaluateExpression(rExpression, f));
+        }
+      });
+    } else {
+      if (expressionIsReps) {
+        const repeatedFieldExpression = `${expression.split('__')[0]}__`;
+        const evaluatedCondition = evaluateExpression(condition, f);
+        if (evaluatedCondition) {
+          const keys = Object.keys(f).filter(frm => frm.includes(repeatedFieldExpression));
+          keys.forEach(key => {
+            const index = +key.split('__')[1];
+            const rExpression = expression.replace(/__/g, `__${index}`);
+            res.push(evaluateExpression(rExpression, f));
+          });
+        }
+      } else {
+        const evaluatedCondition = evaluateExpression(condition, f);
+        if (evaluatedCondition) {
+          res.push(evaluateExpression(expression, f));
+        }
+      }
+    }
+  });
+  return res;
+}
 /**
  * Calculates the mean of a simple or derived value. An optional condition can be added to
  * discriminate which forms to take for the sum.
@@ -854,8 +896,8 @@ export function buildDataset(
 
 /**
  *
- * @param values all values of iteration
  * @param forms the form data
+ * @param values all values of iteration
  * @param fn the fuction of expression-utils to apply at iteration
  * @param param1 first param of fn
  * @param param2 second param of fn
@@ -871,12 +913,12 @@ export function REPEAT(
 ): any[] {
   const res: any[] = [];
   const newExp1 =
-    param1 != null && param1.includes('&current')
-      ? (v: any) => param1.replace('&current', `"${v}"`)
+    param1 != null && param1.includes('current')
+      ? (v: any) => param1.replace('current', `"${v}"`)
       : () => param1;
   const newExp2 =
-    param2 != null && param2.includes('&current')
-      ? (v: any) => param2.replace('&current', `"${v}"`)
+    param2 != null && param2.includes('current')
+      ? (v: any) => param2.replace('current', `"${v}"`)
       : () => param2;
   values.forEach(v => {
     const vv = (fn as any)(forms, newExp1(v), newExp2(v));
