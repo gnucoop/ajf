@@ -199,7 +199,7 @@ export function PERCENT(value1: number, value2: number): string;
 export function plainArray(params: any[]): any[];
 
 // @public (undocumented)
-export function REPEAT(values: string[], forms: Form[], fn: AjfValidationFn, param1: string, param2: string): any[];
+export function REPEAT(forms: Form[], values: string[], fn: AjfValidationFn, param1: string, param2?: string): any[];
 
 // @public
 export function round(num: number | string, digits: number): number;
