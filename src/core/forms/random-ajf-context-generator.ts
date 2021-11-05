@@ -21,20 +21,46 @@
  */
 
 import {AjfContext} from '@ajf/core/common';
+import {deepCopy} from '@ajf/core/utils';
 import {AjfField} from './interface/fields/field';
 import {AjfFieldType} from './interface/fields/field-type';
 import {AjfFieldWithChoices} from './interface/fields/field-with-choices';
 import {AjfRangeField} from './interface/fields/range-field';
+import {AjfContainerNode} from './interface/nodes/container-node';
+import {AjfNode} from './interface/nodes/node';
 import {AjfFormSerializer} from './serializers/form-serializer';
 import {AjfFormCreate} from './utils/forms/create-form';
-import {flattenNodes} from './utils/nodes/flatten-nodes';
+import {isContainerNode} from './utils/nodes/is-container-node';
 import {isField} from './utils/nodes/is-field';
+
+function generateRandomInstanceFields(fields: AjfField[]): AjfField[] {
+  const fieldReps: AjfField[] = [];
+  fields.forEach(f => {
+    for (let i = 0; i < 5; i++) {
+      const newReps = deepCopy(f);
+      newReps.name = `${newReps.name}__${i}`;
+      fieldReps.push(newReps);
+    }
+  });
+  return fieldReps;
+}
+function flattenFields(nodes: AjfNode[]): AjfField[] {
+  let flatFields: AjfField[] = [];
+  nodes.forEach((node: AjfNode) => {
+    if (isField(node)) {
+      flatFields.push(node as AjfField);
+    }
+    if (isContainerNode(node)) {
+      const childs = generateRandomInstanceFields((node as AjfContainerNode).nodes as AjfField[]);
+      flatFields = flatFields.concat(flattenFields(childs));
+    }
+  });
+  return flatFields;
+}
 
 export function generateRandomCtx(formSchema: AjfFormCreate): AjfContext[] {
   const ctxMap: AjfContext[] = [];
-  const allFields: AjfField[] = flattenNodes(formSchema.nodes!).filter(f =>
-    isField(f),
-  ) as AjfField[];
+  const allFields: AjfField[] = flattenFields(formSchema.nodes!);
   const generateRandomNumberOfContext = Math.floor(Math.random() * 100) + 1;
   for (let i = 0; i < generateRandomNumberOfContext; i++) {
     const ctx: AjfContext = {};
