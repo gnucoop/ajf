@@ -570,6 +570,9 @@ export type AjfWidgetCreate = Pick<AjfWidget, 'widgetType'> & Partial<AjfWidget>
 // @public (undocumented)
 export class AjfWidgetExport {
     constructor();
+    static addIcons(icons: {
+        [html: string]: string;
+    }): void;
     // (undocumented)
     data: ChartData | AjfTableCell[][];
     // (undocumented)

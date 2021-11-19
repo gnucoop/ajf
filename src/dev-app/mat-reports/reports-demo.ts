@@ -23,6 +23,7 @@
 import {
   AjfReportInstance,
   AjfReportSerializer,
+  AjfWidgetExport,
   createReportInstance,
   openReportPdf,
 } from '@ajf/core/reports';
@@ -58,6 +59,8 @@ export class ReportsDemo {
     _ts.setTranslation(engDict, 'ENG');
     _ts.setDefaultLang('ENG');
     this._populateReport();
+
+    AjfWidgetExport.addIcons({'3a': '3a export icon!'});
   }
 
   setReport(): void {
