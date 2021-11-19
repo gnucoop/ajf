@@ -43,6 +43,15 @@ export class AjfWidgetExport {
   @Input() overlay = true;
   @Input() enable = false;
 
+  private static _iconsMap: {[html: string]: string} = {};
+
+  /**
+   * Allows rendering html icons as text.
+   */
+  static addIcons(icons: {[html: string]: string}) {
+    AjfWidgetExport._iconsMap = {...AjfWidgetExport._iconsMap, ...icons};
+  }
+
   constructor() {}
 
   /**
@@ -78,6 +87,7 @@ export class AjfWidgetExport {
   }
 
   private _buildXlsxData(): unknown[][] {
+    const iconsMap = AjfWidgetExport._iconsMap;
     let xlsxData: unknown[][] = [];
     let labels: string[] = [];
     switch (this.widgetType) {
@@ -117,7 +127,11 @@ export class AjfWidgetExport {
               isNewRowAfterRowspan = true;
             }
             tableData[i].forEach((elem: AjfTableCell, idxElem: number) => {
-              res.push(elem.value.changingThisBreaksApplicationSecurity);
+              let val = elem.value.changingThisBreaksApplicationSecurity;
+              if (iconsMap[val]) {
+                val = iconsMap[val];
+              }
+              res.push(val);
 
               if (elem.colspan && elem.colspan > 1) {
                 for (let j = 1; j < elem.colspan; j++) {
