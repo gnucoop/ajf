@@ -212,7 +212,7 @@ export class AjfEthiopianCalendarService extends AjfCalendarService {
     const ecDate = EthiopianDate.gregorianToEthiopian(viewDate);
     let curYear: number = ecDate.getFullYear();
     let firstYear = curYear - (curYear % 10) + 1;
-    let curDate: Date = EthiopianDate.ethiopianToGregorian(firstYear, 1, 1);
+    let curDate: Date = EthiopianDate.ethiopianToGregorian(firstYear, 0, 1);
 
     let rows: AjfCalendarEntry[][] = [];
     for (let i = 0; i < 4; i++) {

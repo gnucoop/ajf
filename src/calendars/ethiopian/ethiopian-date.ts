@@ -53,11 +53,7 @@ export class EthiopianDate {
         ];
         this._gc = EthiopianDate.ethiopianToGregorian(this._year, this._month, this._date);
       } else if (typeof val === 'object' && val instanceof Date) {
-        const result = EthiopianDate.gregorianToEthiopian(
-          val.getFullYear(),
-          val.getMonth() + 1,
-          val.getDate(),
-        );
+        const result = EthiopianDate.gregorianToEthiopian(val);
         [this._year, this._month, this._date] = [
           result.getFullYear(),
           result.getMonth(),
@@ -140,7 +136,7 @@ export class EthiopianDate {
    * @param val - A numeric year value if the second and third parameters are
    *                                   provided, it should be a date string if not
    * @param month A zero-based numeric value for the month
-   *                         (0 for January, 11 for December)
+   *                         (0 for መስከረም, 12 for ጳጉሜን)
    * @param day A numeric value equal for the day of the month.
    *
    * @api public
@@ -170,6 +166,16 @@ export class EthiopianDate {
     return new Date(gc[0], gc[1] - 1, gc[2]);
   }
 
+  /**
+   *
+   * @param val - A numeric year value if the second and third parameters are
+   *                                   provided, it should be a date string if not
+   * @param month A zero-based numeric value for the month
+   *                         (0 for January, 11 for December)
+   * @param day A numeric value equal for the day of the month.
+   *
+   * @api public
+   */
   static gregorianToEthiopian(
     val?: Date | string | number,
     month?: number,
