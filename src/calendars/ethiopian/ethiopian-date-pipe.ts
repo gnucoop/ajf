@@ -30,7 +30,7 @@ export class AjfEthiopianDatePipe implements PipeTransform {
     try {
       const ed = EthiopianDate.gregorianToEthiopian(value);
       const date = `0${ed.getDate()}`.slice(-2);
-      const month = `0${ed.getMonth()}`.slice(-2);
+      const month = `0${ed.getMonth() + 1}`.slice(-2);
       return `${date}/${month}/${ed.getFullYear()}`;
     } catch (e) {
       return null;
