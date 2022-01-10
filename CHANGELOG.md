@@ -1,3 +1,24 @@
+<a name="13.0.0-rc.1"></a>
+# 13.0.0-rc.1 "evolutionary-lamprey" (2022-01-10)
+### calendars
+| Commit | Type | Description |
+| -- | -- | -- |
+| [efc186e9b](https://github.com/gnucoop/ajf/commit/efc186e9b32fe4c2a8c689588e30cf98dca979fd) | fix | **ethiopian:** fix month number in ethiopian pipe |
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [3c62783e1](https://github.com/gnucoop/ajf/commit/3c62783e131fc487ddea3ca83d25f1c86f742253) | feat | **reports:** add report builder by xls |
+| [5b2c3ffad](https://github.com/gnucoop/ajf/commit/5b2c3ffad176ad5eb4ff2df8f35f3e2ec3ac1423) | feat | **reports:** expression-utils functions implemented in hindikit-parser |
+| [5a662c6ba](https://github.com/gnucoop/ajf/commit/5a662c6ba761958c61f032b7461b67d1c3d9b941) | feat | **reports:** html icons to text in csv/xlsx widget export |
+### multiple
+| Commit | Type | Description |
+| -- | -- | -- |
+| [fdffd9425](https://github.com/gnucoop/ajf/commit/fdffd942547d45f789d5499b2a76b79ea61b63c3) | fix | report from xls |
+## Special Thanks
+Roberto Zanotto, peppedeka, sara and trik
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.0.0-rc.0"></a>
 # 13.0.0-rc.0 "technical-starfish" (2021-10-29)
 ### core
