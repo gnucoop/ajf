@@ -1,3 +1,26 @@
+<a name="12.1.7"></a>
+# 12.1.7 "dark-parrot" (2022-01-10)
+### calendars
+| Commit | Type | Description |
+| -- | -- | -- |
+| [2d8bc05ce](https://github.com/gnucoop/ajf/commit/2d8bc05ced1cf63733a1a193e27228b94624874f) | fix | **ethiopian:** fix month number in ethiopian pipe |
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [05f6bf3d0](https://github.com/gnucoop/ajf/commit/05f6bf3d063a45ae529d6465be03f8f731b14601) | feat | **reports:** add report builder by xls |
+| [2c2b027e1](https://github.com/gnucoop/ajf/commit/2c2b027e1f8c96e0d62150bd2da3a24007e45976) | feat | **reports:** expression-utils functions implemented in hindikit-parser |
+| [b211ce879](https://github.com/gnucoop/ajf/commit/b211ce8799474ef40ba7233a48ac2aeeb74fc32e) | feat | **reports:** html icons to text in csv/xlsx widget export |
+| [d2b00a530](https://github.com/gnucoop/ajf/commit/d2b00a53056409bf01fad1a04efcdb75a4e88cfa) | fix | **chart:** Fixed chart pieceLabel assignment |
+| [0d19c887f](https://github.com/gnucoop/ajf/commit/0d19c887f4b51718f910d6be76ba5e7b622fa1b9) | fix | **reports:** export also dynamic table widget both with rowspan or colspan |
+### multiple
+| Commit | Type | Description |
+| -- | -- | -- |
+| [fc3b0e02f](https://github.com/gnucoop/ajf/commit/fc3b0e02f5774fe5986555ed5e8029319d9dc6c5) | fix | report from xls |
+## Special Thanks
+Marco Tozzi, Roberto Zanotto, peppedeka, sara and trik
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="12.1.6"></a>
 # 12.1.6 "key-toad" (2021-10-20)
 ## Special Thanks
