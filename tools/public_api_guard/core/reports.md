@@ -5,9 +5,10 @@
 ```ts
 
 import { AjfCondition } from '@ajf/core/models';
-import { AjfContext } from '@ajf/core/common';
-import { AjfContext as AjfContext_2 } from '@ajf/core/models';
+import { AjfContext } from '@ajf/core/models';
+import { AjfContext as AjfContext_2 } from '@ajf/core/common';
 import { AjfForm } from '@ajf/core/forms';
+import { AjfFormCreate } from '@ajf/core/forms';
 import { AjfFormula } from '@ajf/core/models';
 import { AjfImageIcon } from '@ajf/core/image';
 import { AjfImageType } from '@ajf/core/image';
@@ -22,8 +23,10 @@ import { ChartOptions } from 'chart.js';
 import { ComponentFactoryResolver } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ExtendedChartType } from '@ajf/core/chart';
+import { HttpClient } from '@angular/common/http';
 import * as i0 from '@angular/core';
 import * as i5 from '@angular/common';
+import { Observable } from 'rxjs';
 import { OnInit } from '@angular/core';
 import { PageOrientation } from '@ajf/core/pdfmake';
 import { PipeTransform } from '@angular/core';
@@ -453,7 +456,7 @@ export type AjfReportStringIdentifier = AjfStringIdentifier;
 // @public (undocumented)
 export class AjfReportStringIdentifierPipe implements PipeTransform {
     // (undocumented)
-    transform(report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string;
+    transform(report: AjfReport, context: AjfContext_2, opts?: BuildStringIdentifierOpts): string;
     // (undocumented)
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfReportStringIdentifierPipe, never>;
     // (undocumented)
@@ -543,6 +546,8 @@ export interface AjfTextWidgetInstance extends AjfWidgetInstance {
 // @public (undocumented)
 export interface AjfWidget {
     // (undocumented)
+    filter?: AjfFilter;
+    // (undocumented)
     repetitions?: AjfFormula;
     // (undocumented)
     styles: AjfStyles;
@@ -560,7 +565,7 @@ export interface AjfWidgetComponentsMap {
         inputs?: {
             [key: string]: any;
         };
-        initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext_2, translateService: TranslocoService) => AjfWidgetInstance;
+        initInstance?: (widgetInstance: AjfWidgetInstance, context: AjfContext, translateService: TranslocoService) => AjfWidgetInstance;
     };
 }
 
@@ -605,6 +610,8 @@ export class AjfWidgetHost {
 
 // @public (undocumented)
 export interface AjfWidgetInstance {
+    // (undocumented)
+    filter?: AjfFilterInstance;
     // (undocumented)
     repetitions?: number;
     // (undocumented)
@@ -678,6 +685,9 @@ export interface AjfWidgetWithContentInstance extends AjfWidgetInstance {
     content: AjfWidgetInstance[];
 }
 
+// @public
+export function automaticReport(form: Partial<AjfForm>, id?: number): AjfReport;
+
 // @public (undocumented)
 export function chartToChartJsType(chartType?: AjfChartType): ExtendedChartType;
 
@@ -685,7 +695,7 @@ export function chartToChartJsType(chartType?: AjfChartType): ExtendedChartType;
 export function createAggregation(aggregation: AjfAggregationCreate): AjfAggregation;
 
 // @public (undocumented)
-export function createReportInstance(report: AjfReport, context: AjfContext_2, ts: TranslocoService): AjfReportInstance;
+export function createReportInstance(report: AjfReport, context: AjfContext, ts: TranslocoService): AjfReportInstance;
 
 // @public (undocumented)
 export function createReportPdf(report: AjfReportInstance, orientation?: PageOrientation, icons?: ImageMap): Promise<TCreatedPdf>;
@@ -694,19 +704,16 @@ export function createReportPdf(report: AjfReportInstance, orientation?: PageOri
 export function createWidget(widget: AjfWidgetCreate): AjfWidget;
 
 // @public (undocumented)
-export function createWidgetInstance(widget: AjfWidget, context: AjfContext_2, _ts: TranslocoService): AjfWidgetInstance;
+export function createWidgetInstance(widget: AjfWidget, context: AjfContext, _ts: TranslocoService, variables?: AjfReportVariable[]): AjfWidgetInstance;
 
 // @public (undocumented)
 export function openReportPdf(report: AjfReportInstance, orientation?: PageOrientation, icons?: ImageMap): void;
 
-// @public
-export function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport;
-
-// @public
-export function reportFromXls(file: string): AjfReport;
-
 // @public (undocumented)
-export function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext_2, ts: TranslocoService): AjfWidgetInstance;
+export function widgetToWidgetInstance(widget: AjfWidget, context: AjfContext, ts: TranslocoService, variables?: AjfReportVariable[]): AjfWidgetInstance;
+
+// @public
+export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>;
 
 // (No @packageDocumentation comment for this package)
 

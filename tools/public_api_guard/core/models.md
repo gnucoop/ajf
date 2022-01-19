@@ -70,6 +70,9 @@ export function ALL_VALUES_OF(forms: Form[], fieldName: string): string[];
 export function alwaysCondition(): AjfCondition;
 
 // @public (undocumented)
+export function APPLY(forms: Form[], fn: AjfValidationFn, param1: string, param2?: string, param3?: string): any[];
+
+// @public (undocumented)
 export function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
 
 // @public (undocumented)
@@ -110,6 +113,7 @@ export const dateUtils: {
     parse: typeof dateFns_2.parseISO;
     startOfMonth: typeof dateFns_2.startOfMonth;
     startOfISOWeek: typeof dateFns_2.startOfISOWeek;
+    isBefore: typeof dateFns_2.isBefore;
 };
 
 // @public
@@ -120,6 +124,9 @@ export function digitCount(x: number): number;
 
 // @public
 export function drawThreshold(source: any[], property: string, threshold: any[]): any[];
+
+// @public (undocumented)
+export function EVALUATE(condition: string, branch1: any, branch2: any): any;
 
 // @public (undocumented)
 export function evaluateExpression(expression: string, context?: AjfContext_2, forceFormula?: string): any;
@@ -137,6 +144,12 @@ export function extractDates(source: any[], property: string, fmt: string): stri
 export function extractSum(source: any[], properties: string[]): number;
 
 // @public (undocumented)
+export function FILTERBY(forms: Form[], expression: string): Form[];
+
+// @public (undocumented)
+export function FLATINSTANCES(forms: Form[], schema?: any): Form[];
+
+// @public (undocumented)
 export interface Form {
     // (undocumented)
     [key: string]: string | number | null;
@@ -149,6 +162,9 @@ export function formatDate(date: Date | string, fmt?: string): string;
 export function formatNumber(num: number, fmt?: string): string;
 
 // @public (undocumented)
+export function GETAGE(dob: string): number;
+
+// @public (undocumented)
 export const getCodeIdentifiers: (source: string, includeDollarValue?: boolean) => string[];
 
 // @public (undocumented)
@@ -157,14 +173,23 @@ export function getContextString(context?: AjfContext_2): string;
 // @public (undocumented)
 export function getCoordinate(source: any, zoom?: number): [number, number, number];
 
+// @public (undocumented)
+export function ISAFTER(date: string, dateToCompare: string): boolean;
+
+// @public (undocumented)
+export function ISBEFORE(date: string, dateToCompare: string): boolean;
+
 // @public
 export function isInt(x: string | number): boolean;
 
 // @public (undocumented)
 export function isoMonth(date: Date, fmt?: string): string;
 
+// @public (undocumented)
+export function ISWITHININTERVAL(date: string, dateStart: string, dateEnd: string): boolean;
+
 // @public
-export function LAST(forms: Form[], expression: string, date?: string): number;
+export function LAST(forms: Form[], expression: string, date?: string): string;
 
 // @public
 export function lastProperty(source: any, property: string): any;
@@ -173,10 +198,10 @@ export function lastProperty(source: any, property: string): any;
 export function MAX(forms: Form[], fieldName: string): number;
 
 // @public
-export function MEAN(forms: Form[], expression: string): number;
+export function MEAN(forms: Form[], expression: string): string;
 
 // @public
-export function MEDIAN(forms: Form[], fieldName: string): number;
+export function MEDIAN(forms: Form[], fieldName: string): string;
 
 // @public
 export function MODE(forms: Form[], fieldName: string): number[];
@@ -201,6 +226,9 @@ export function plainArray(params: any[]): any[];
 // @public (undocumented)
 export function REPEAT(forms: Form[], values: string[], fn: AjfValidationFn, param1: string, param2?: string): any[];
 
+// @public (undocumented)
+export function ROUND(value: number): string;
+
 // @public
 export function round(num: number | string, digits: number): number;
 
@@ -215,6 +243,9 @@ export function sum(array: any[]): any;
 
 // @public
 export function sumLastProperties(source: any[], properties: string[]): number;
+
+// @public (undocumented)
+export function TODAY(format?: string): string;
 
 // @public (undocumented)
 export function validateExpression(str: string, context?: AjfContext_2): boolean;

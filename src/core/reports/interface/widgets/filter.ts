@@ -20,30 +20,8 @@
  *
  */
 
-import {AjfChartWidget, AjfReport} from '@ajf/core/reports';
+import {AjfFormCreate} from '@ajf/core/forms';
 
-export const testReport = {
-  header: {
-    content: [],
-    styles: {},
-  },
-  content: {
-    content: [
-      {
-        widgetType: 4,
-        chartType: 6,
-        exportable: true,
-        labels: {formula: '["label1", "label2", "label3"]'},
-        dataset: [
-          {
-            label: '"chart data"',
-            formula: [{formula: '[100, 200, 300]'}],
-            aggregation: {aggregation: 0},
-          },
-        ],
-      } as AjfChartWidget,
-    ],
-    styles: {},
-  },
-  footer: {content: [], styles: {}},
-} as AjfReport;
+export interface AjfFilter {
+  schema: AjfFormCreate;
+}

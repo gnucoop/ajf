@@ -38,11 +38,15 @@ export function createReportInstance(
   });
   return {
     report,
-    header: report.header ? createReportContainerInstance(report.header, context, ts) : undefined,
-    content: report.content
-      ? createReportContainerInstance(report.content, context, ts)
+    header: report.header
+      ? createReportContainerInstance(report.header, context, ts, report.variables)
       : undefined,
-    footer: report.footer ? createReportContainerInstance(report.footer, context, ts) : undefined,
+    content: report.content
+      ? createReportContainerInstance(report.content, context, ts, report.variables)
+      : undefined,
+    footer: report.footer
+      ? createReportContainerInstance(report.footer, context, ts, report.variables)
+      : undefined,
     styles: report.styles || {},
   };
 }

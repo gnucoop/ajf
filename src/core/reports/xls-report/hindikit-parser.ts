@@ -351,6 +351,58 @@ function parseFunctionCall(name: string, revToks: Token[]): string {
       return parseLast(revToks);
     case 'REPEAT':
       return parseRepeat(revToks);
+    case 'EVALUATE':
+      consume(revToks, TokenType.LParen);
+      js = 'EVALUATE(' + parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += parseExpression(revToks, TokenType.Comma) + ')';
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'FILTERBY':
+      consume(revToks, TokenType.LParen);
+      js = 'FILTERBY(' + parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += `\`${parseExpression(revToks, TokenType.Comma)}\`)`;
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'ISBEFORE':
+    case 'ISAFTER':
+      consume(revToks, TokenType.LParen);
+      js = `${name}(${parseExpression(revToks, TokenType.Comma)}, `;
+      consume(revToks, TokenType.Comma);
+      js += `${parseExpression(revToks, TokenType.Comma)})`;
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'ISWITHININTERVAL':
+      consume(revToks, TokenType.LParen);
+      js = 'ISWITHININTERVAL(' + parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += parseExpression(revToks, TokenType.Comma) + ')';
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'TODAY':
+      return 'TODAY()';
+    case 'APPLY':
+      consume(revToks, TokenType.LParen);
+      const form = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const funcIdent = consume(revToks, TokenType.Indent).text;
+      consume(revToks, TokenType.Comma);
+      const exp1 = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const exp2 = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const exp3 = parseExpression(revToks, TokenType.Comma);
+      return `APPLY(${form}, ${funcIdent}, \`${exp1}\`, \`${exp2}\`, \`${exp3}\`)`;
+    case 'GETAGE':
+      consume(revToks, TokenType.LParen);
+      js = `GETAGE(${parseExpression(revToks, TokenType.RParen)})`;
+      consume(revToks, TokenType.RParen);
+      return js;
     default:
       throw new Error('unsupported function: ' + name);
   }

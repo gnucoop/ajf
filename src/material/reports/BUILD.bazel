@@ -21,6 +21,7 @@ ng_module(
     assets = [
         ":chart-widget.css",
         ":column-widget.css",
+        ":filter-widget.css",
         ":formula-widget.css",
         ":image-container-widget.css",
         ":image-widget.css",
@@ -41,6 +42,7 @@ ng_module(
         "//src/core/table",
         "//src/core/text",
         "//src/core/transloco",
+        "//src/material/forms",
         "//src/material/image",
         "@npm//@angular/common",
         "@npm//@angular/core",
@@ -62,6 +64,12 @@ sass_binary(
 sass_binary(
     name = "column_widget_scss",
     src = "column-widget.scss",
+    deps = [],
+)
+
+sass_binary(
+    name = "filter_widget_scss",
+    src = "filter-widget.scss",
     deps = [],
 )
 

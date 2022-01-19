@@ -8,6 +8,7 @@ import { AfterContentChecked } from '@angular/core';
 import { AjfBaseWidgetComponent } from '@ajf/core/reports';
 import { AjfChartWidgetInstance } from '@ajf/core/reports';
 import { AjfColumnWidgetInstance } from '@ajf/core/reports';
+import { AjfFormRendererService } from '@ajf/core/forms';
 import { AjfFormulaWidgetInstance } from '@ajf/core/reports';
 import { AjfImageContainerWidgetInstance } from '@ajf/core/reports';
 import { AjfImageType } from '@ajf/core/image';
@@ -19,23 +20,29 @@ import { AjfReportWidget as AjfReportWidget_2 } from '@ajf/core/reports';
 import { AjfTableWidgetInstance } from '@ajf/core/reports';
 import { AjfTextWidgetInstance } from '@ajf/core/reports';
 import { AjfWidgetComponentsMap } from '@ajf/core/reports';
+import { AjfWidgetInstance } from '@ajf/core/reports';
 import { AjfWidgetService as AjfWidgetService_2 } from '@ajf/core/reports';
 import { ChangeDetectorRef } from '@angular/core';
 import { ComponentFactoryResolver } from '@angular/core';
 import { ElementRef } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 import * as i0 from '@angular/core';
-import * as i11 from '@ajf/core/chart';
-import * as i12 from '@ajf/core/common';
-import * as i13 from '@ajf/material/image';
-import * as i14 from '@ajf/core/map';
-import * as i15 from '@ajf/core/page-break';
-import * as i16 from '@ajf/core/table';
-import * as i17 from '@ajf/core/text';
-import * as i18 from '@angular/common';
-import * as i19 from '@ajf/core/reports';
-import * as i20 from '@ajf/core/transloco';
+import * as i12 from '@ajf/core/chart';
+import * as i13 from '@ajf/core/common';
+import * as i14 from '@ajf/material/image';
+import * as i15 from '@ajf/core/map';
+import * as i16 from '@ajf/core/page-break';
+import * as i17 from '@ajf/core/table';
+import * as i18 from '@ajf/core/text';
+import * as i19 from '@ajf/material/forms';
+import * as i20 from '@angular/common';
+import * as i21 from '@ajf/core/reports';
+import * as i22 from '@ajf/core/transloco';
 import { Observable } from 'rxjs';
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Renderer2 } from '@angular/core';
+import { TranslocoService } from '@ajf/core/transloco';
 
 // @public (undocumented)
 export class AjfChartWidgetComponent extends AjfBaseWidgetComponent<AjfChartWidgetInstance> {
@@ -53,6 +60,21 @@ export class AjfColumnWidgetComponent extends AjfBaseWidgetComponent<AjfColumnWi
     static ɵcmp: i0.ɵɵComponentDeclaration<AjfColumnWidgetComponent, "ng-component", never, {}, {}, never, never>;
     // (undocumented)
     static ɵfac: i0.ɵɵFactoryDeclaration<AjfColumnWidgetComponent, never>;
+}
+
+// @public (undocumented)
+export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetInstance> implements OnInit, OnDestroy {
+    constructor(cdr: ChangeDetectorRef, el: ElementRef, _ts: TranslocoService, _formRenderer: AjfFormRendererService);
+    // (undocumented)
+    readonly filteredInstance: EventEmitter<AjfWidgetInstance>;
+    // (undocumented)
+    ngOnDestroy(): void;
+    // (undocumented)
+    ngOnInit(): void;
+    // (undocumented)
+    static ɵcmp: i0.ɵɵComponentDeclaration<AjfFilterWidgetComponent, "ajf-filter-widget", never, { "instance": "instance"; }, { "filteredInstance": "filteredInstance"; }, never, never>;
+    // (undocumented)
+    static ɵfac: i0.ɵɵFactoryDeclaration<AjfFilterWidgetComponent, never>;
 }
 
 // @public (undocumented)
@@ -131,7 +153,7 @@ export class AjfReportsModule {
     // (undocumented)
     static ɵinj: i0.ɵɵInjectorDeclaration<AjfReportsModule>;
     // (undocumented)
-    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfReportsModule, [typeof i1.AjfChartWidgetComponent, typeof i2.AjfColumnWidgetComponent, typeof i3.AjfFormulaWidgetComponent, typeof i4.AjfImageContainerWidgetComponent, typeof i5.AjfImageWidgetComponent, typeof i2.AjfLayoutWidgetComponent, typeof i6.AjfMapWidgetComponent, typeof i7.AjfPageBreakWidgetComponent, typeof i8.AjfReportRenderer, typeof i2.AjfReportWidget, typeof i9.AjfTableWidgetComponent, typeof i10.AjfTextWidgetComponent], [typeof i11.AjfChartModule, typeof i12.AjfCommonModule, typeof i13.AjfImageModule, typeof i14.AjfMapModule, typeof i15.AjfPageBreakModule, typeof i16.AjfTableModule, typeof i17.AjfTextModule, typeof i18.CommonModule, typeof i19.AjfReportsModule, typeof i20.AjfTranslocoModule], [typeof i8.AjfReportRenderer, typeof i2.AjfReportWidget]>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<AjfReportsModule, [typeof i1.AjfChartWidgetComponent, typeof i2.AjfColumnWidgetComponent, typeof i3.AjfFilterWidgetComponent, typeof i4.AjfFormulaWidgetComponent, typeof i5.AjfImageContainerWidgetComponent, typeof i6.AjfImageWidgetComponent, typeof i2.AjfLayoutWidgetComponent, typeof i7.AjfMapWidgetComponent, typeof i8.AjfPageBreakWidgetComponent, typeof i9.AjfReportRenderer, typeof i2.AjfReportWidget, typeof i10.AjfTableWidgetComponent, typeof i11.AjfTextWidgetComponent], [typeof i12.AjfChartModule, typeof i13.AjfCommonModule, typeof i14.AjfImageModule, typeof i15.AjfMapModule, typeof i16.AjfPageBreakModule, typeof i17.AjfTableModule, typeof i18.AjfTextModule, typeof i19.AjfFormsModule, typeof i20.CommonModule, typeof i21.AjfReportsModule, typeof i22.AjfTranslocoModule], [typeof i9.AjfReportRenderer, typeof i2.AjfReportWidget]>;
 }
 
 // @public (undocumented)

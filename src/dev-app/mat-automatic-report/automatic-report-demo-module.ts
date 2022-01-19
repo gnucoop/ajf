@@ -33,7 +33,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {RouterModule} from '@angular/router';
 
-import {ReportFromFormDemo} from './report-from-form-demo';
+import {AutomaticReportDemo} from './automatic-report-demo';
 
 @NgModule({
   imports: [
@@ -47,9 +47,9 @@ import {ReportFromFormDemo} from './report-from-form-demo';
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
-    RouterModule.forChild([{path: '', component: ReportFromFormDemo}]),
+    RouterModule.forChild([{path: '', component: AutomaticReportDemo}]),
     AjfTranslocoModule,
   ],
-  declarations: [ReportFromFormDemo],
+  declarations: [AutomaticReportDemo],
 })
 export class ReportFromFormDemoModule {}

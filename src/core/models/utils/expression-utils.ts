@@ -70,6 +70,7 @@ export const dateUtils = {
   parse: dateFns.parseISO,
   startOfMonth: dateFns.startOfMonth,
   startOfISOWeek: dateFns.startOfISOWeek,
+  isBefore: dateFns.isBefore,
 };
 
 export class AjfExpressionUtils {
@@ -121,7 +122,16 @@ export class AjfExpressionUtils {
     MODE: {fn: MODE},
     ALL_VALUES_OF: {fn: ALL_VALUES_OF},
     REPEAT: {fn: REPEAT},
+    EVALUATE: {fn: EVALUATE},
     buildDataset: {fn: buildDataset},
+    FILTERBY: {fn: FILTERBY},
+    ISBEFORE: {fn: ISBEFORE},
+    ISAFTER: {fn: ISAFTER},
+    ISWITHININTERVAL: {fn: ISWITHININTERVAL},
+    APPLY: {fn: APPLY},
+    TODAY: {fn: TODAY},
+    GETAGE: {fn: GETAGE},
+    FLATINSTANCES: {fn: FLATINSTANCES},
   };
 }
 
@@ -763,33 +773,41 @@ function generateExpressionConditions(
  * Calculates the mean of a simple or derived value. An optional condition can be added to
  * discriminate which forms to take for the sum.
  */
-export function MEAN(forms: Form[], expression: string): number {
+export function MEAN(forms: Form[], expression: string): string {
   forms = (forms || []).slice(0);
+  const isInRepeatingSlide = expression.includes(`__`);
   expression = expression || '';
-  const length = forms.length;
-  if (length === 0) {
-    return 0;
-  }
+  let length = 0;
   let acc = 0;
   forms.forEach(f => {
-    acc += evaluateExpression(expression, f);
+    if (isInRepeatingSlide) {
+      Object.keys(f)
+        .filter(key => key.includes(expression))
+        .forEach(rsVal => {
+          acc += evaluateExpression(rsVal, f);
+          length++;
+        });
+    } else {
+      acc += evaluateExpression(expression, f);
+      length++;
+    }
   });
-  return Math.trunc(acc / length);
+  return ROUND(acc / length);
 }
 
 /**
  * Calculates the % between two members.
  */
 export function PERCENT(value1: number, value2: number): string {
-  const res = +value1 / +value2;
-
-  return Number.isFinite(res) ? `${res}%` : 'err';
+  const res = (+value1 * 100) / +value2;
+  return Number.isFinite(res) ? `${ROUND(res)}%` : 'infinite';
 }
 
 /**
  * Calculates the expression in the last form by date.
  */
-export function LAST(forms: Form[], expression: string, date = 'date_end'): number {
+export function LAST(forms: Form[], expression: string, date = 'date_end'): string {
+  const isInRepeatingSlide = expression.includes(`__`);
   forms = (forms || []).slice(0).sort((a, b) => {
     const dateA = new Date(b[date] as string).getTime();
     const dateB = new Date(a[date] as string).getTime();
@@ -797,9 +815,19 @@ export function LAST(forms: Form[], expression: string, date = 'date_end'): numb
   });
   if (forms.length > 0 && expression != null) {
     const lastForm = forms[forms.length - 1] || [];
-    return evaluateExpression(expression, lastForm);
+    if (isInRepeatingSlide) {
+      const res: (string | number)[] = [];
+      Object.keys(lastForm)
+        .filter(key => key.includes(expression))
+        .forEach(rsField => {
+          res.push(evaluateExpression(rsField, lastForm));
+        });
+      return res.toString();
+    } else {
+      return evaluateExpression(expression, lastForm);
+    }
   }
-  return 0;
+  return '0';
 }
 
 /**
@@ -807,14 +835,29 @@ export function LAST(forms: Form[], expression: string, date = 'date_end'): numb
  */
 export function MAX(forms: Form[], fieldName: string): number {
   forms = (forms || []).slice(0);
+  const isInRepeatingSlide = fieldName.includes(`__`);
   let max = 0;
   forms.forEach(form => {
-    if (
-      form[fieldName] != null &&
-      !isNaN(form[fieldName] as number) &&
-      (form[fieldName] as number) > max
-    ) {
-      max = form[fieldName] as number;
+    if (isInRepeatingSlide) {
+      Object.keys(form)
+        .filter(key => key.includes(fieldName))
+        .forEach(rsField => {
+          if (
+            form[rsField] != null &&
+            !isNaN(form[rsField] as number) &&
+            (form[rsField] as number) > max
+          ) {
+            max = form[rsField] as number;
+          }
+        });
+    } else {
+      if (
+        form[fieldName] != null &&
+        !isNaN(form[fieldName] as number) &&
+        (form[fieldName] as number) > max
+      ) {
+        max = form[fieldName] as number;
+      }
     }
   });
   return max;
@@ -823,19 +866,36 @@ export function MAX(forms: Form[], fieldName: string): number {
 /**
  * Calculates the median value of the field.
  */
-export function MEDIAN(forms: Form[], fieldName: string): number {
+export function MEDIAN(forms: Form[], fieldName: string): string {
   forms = (forms || []).slice(0);
-  const numbers: number[] = forms
-    .filter(f => f[fieldName] != null && !isNaN(f[fieldName] as number))
-    .map(f => f[fieldName] as number)
-    .sort((a, b) => a - b)
-    .filter((item, pos, self) => self.indexOf(item) == pos);
+  let numbers: number[] = [];
+  const isInRepeatingSlide = fieldName.includes(`__`);
+  if (isInRepeatingSlide) {
+    forms.forEach(form => {
+      Object.keys(form)
+        .filter(key => key.includes(fieldName))
+        .forEach(rsField => {
+          if (form[rsField] != null && !isNaN(form[rsField] as number)) {
+            numbers.push(form[rsField] as number);
+          }
+        });
+    });
+    numbers = numbers.sort((a, b) => a - b).filter((item, pos, self) => self.indexOf(item) == pos);
+  } else {
+    numbers = forms
+      .filter(f => f[fieldName] != null && !isNaN(f[fieldName] as number))
+      .map(f => f[fieldName] as number)
+      .sort((a, b) => a - b)
+      .filter((item, pos, self) => self.indexOf(item) == pos);
+  }
 
-  return Number.isInteger(numbers.length / 2)
+  const res = Number.isInteger(numbers.length / 2)
     ? numbers[numbers.length / 2]
     : (numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2] +
         numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2 + 1]) /
-        2;
+      2;
+
+  return ROUND(res);
 }
 
 /**
@@ -845,13 +905,28 @@ export function MODE(forms: Form[], fieldName: string): number[] {
   forms = (forms || []).slice(0);
   let maxCount = 0;
   const map: {[key: number]: number} = {};
+  const isInRepeatingSlide = fieldName.includes(`__`);
   forms.forEach(f => {
-    const value = f[fieldName] as number;
-    if (value != null) {
-      map[value] = map[value] != null ? map[value] + 1 : 1;
-    }
-    if (map[value] > maxCount) {
-      maxCount = map[value];
+    if (isInRepeatingSlide) {
+      Object.keys(f)
+        .filter(key => key.includes(fieldName))
+        .forEach(rsField => {
+          const value = f[rsField] as number;
+          if (value != null) {
+            map[value] = map[value] != null ? map[value] + 1 : 1;
+          }
+          if (map[value] > maxCount) {
+            maxCount = map[value];
+          }
+        });
+    } else {
+      const value = f[fieldName] as number;
+      if (value != null) {
+        map[value] = map[value] != null ? map[value] + 1 : 1;
+      }
+      if (map[value] > maxCount) {
+        maxCount = map[value];
+      }
     }
   });
   return Object.keys(map)
@@ -925,4 +1000,206 @@ export function REPEAT(
     res.push(vv);
   });
   return res;
+}
+
+export function APPLY(
+  forms: Form[],
+  fn: AjfValidationFn,
+  param1: string,
+  param2: string = 'true',
+  param3: string = 'true',
+): any[] {
+  const res: any[] = [];
+  const newExp1 = (v: any) => (v[param1] != null ? v[param1] : param1);
+  const newExp2 = (v: any) => (v[param2] != null ? v[param2] : param2);
+  const newExp3 = (v: any) => (v[param3] != null ? v[param3] : param3);
+
+  forms.forEach(v => {
+    const vv = (fn as any)(forms, newExp1(v), newExp2(v), newExp3(v));
+    res.push(vv);
+  });
+  return res;
+}
+
+export function ROUND(value: number): string {
+  if (Number.isNaN(value)) {
+    return `${value}`;
+  }
+  const fixed = value % 1 === 0 ? 0 : 2;
+  return parseFloat(`${value}`).toFixed(fixed);
+}
+
+export function EVALUATE(condition: string, branch1: any, branch2: any): any {
+  if (evaluateExpression(condition)) {
+    return branch1;
+  } else {
+    return branch2;
+  }
+}
+export function FLATINSTANCES(forms: Form[], schema?: any): Form[] {
+  const generateMetadata = (slideName: string, slideInstance: number) => {
+    const res: {[sname: string]: number} = {};
+    res[`${slideName}_rep`] = slideInstance;
+    return res;
+  };
+  function cartesian(args: any[]): any[] {
+    let r: any[] = [];
+    const max = args.length - 1;
+    function helper(arr: any[], i: number) {
+      for (let j = 0, l = args[i].length; j < l; j++) {
+        const a = arr.slice(0);
+        a.push(args[i][j]);
+        if (i == max) r.push(a);
+        else helper([...a], i + 1);
+      }
+    }
+    helper([], 0);
+    return r;
+  }
+  forms = (forms || []).slice(0);
+  let flatted: Form[] = [];
+  if (schema != null) {
+    const repeatingSlides: any[] = schema.nodes.filter((node: any) => node.nodeType === 4);
+    const obj: {[fieldName: string]: string} = {};
+    const instances: {[slideName: string]: any} = {};
+    repeatingSlides.forEach(slide => {
+      let nodeFields = slide.nodes.map((n: any) => n.name);
+      nodeFields.forEach((nodeField: string) => {
+        obj[nodeField] = slide.name;
+      });
+    });
+    forms.forEach((f, formIdx) => {
+      const noSlideFields: Form = {};
+      const fKeys: string[] = Object.keys(f);
+      fKeys.forEach(fkey => {
+        const splittedKey = fkey.split('__');
+        const fieldName = splittedKey[0];
+        const slideInstance = splittedKey[1] != null ? +splittedKey[1] : null;
+        if (slideInstance != null) {
+          const slideName = obj[fieldName];
+          instances[slideName] = instances[slideName] != null ? instances[slideName] : [];
+          instances[slideName][slideInstance] =
+            instances[slideName][slideInstance] != null
+              ? instances[slideName][slideInstance]
+              : generateMetadata(slideName, slideInstance);
+          instances[slideName][slideInstance][fieldName] = f[fkey];
+        } else {
+          noSlideFields[fieldName] = f[fieldName];
+        }
+      });
+      noSlideFields[`ajf_form_id`] = formIdx;
+      Object.keys(instances).forEach(slide => {
+        const instanceKeys = Object.keys(instances[slide]);
+        noSlideFields[`${slide}_max_reps`] = instanceKeys.length;
+        for (let i = 0; i < instanceKeys.length; i++) {
+          instances[slide][instanceKeys[i]] = {
+            ...instances[slide][instanceKeys[i]],
+            ...noSlideFields,
+          };
+        }
+      });
+      const cartesianRes = cartesian(Object.keys(instances).map(i => instances[i])).map(
+        (listArr: any[]) => listArr.reduce((acc, val) => [...acc, ...val], {}),
+      );
+      flatted = [...flatted, ...cartesianRes];
+    });
+
+    return flatted;
+  } else {
+    forms.forEach(f => {
+      for (let i = 0; i <= MAX_REPS; i++) {
+        const fKeys: string[] = Object.keys(f);
+        const noRepeatingFields: string[] = fKeys.filter(fkey => fkey.indexOf('__') === -1);
+        const onlyCurrentInstanceKeys: string[] = fKeys.filter(fkey => fkey.indexOf(`__${i}`) > -1);
+        // se il numero di attributi coincide il form data non ha repeatingslides
+        if (i === 0 && onlyCurrentInstanceKeys.length === 0) {
+          flatted.push(f);
+          break;
+        }
+        if (onlyCurrentInstanceKeys.length === 0) {
+          break;
+        }
+        let res: Form = {};
+        [...onlyCurrentInstanceKeys, ...noRepeatingFields].forEach(key => {
+          const splittedKey = key.split('__');
+          const fieldName = splittedKey[0];
+          const slideInstance = splittedKey[1] != null ? +splittedKey[1] : null;
+          res[fieldName] = f[key];
+          res['rep'] = slideInstance != null ? slideInstance : res['rep'];
+        });
+
+        flatted.push(res);
+      }
+    });
+    return flatted;
+  }
+}
+export function FILTERBY(forms: Form[], expression: string): Form[] {
+  forms = (forms || []).slice(0);
+  let res: Form[] = [];
+  if (expression === 'true') {
+    return forms;
+  }
+  if (forms.length === 0) {
+    return [];
+  }
+  const isInRepeatingSlide = expression.includes(`__`);
+  if (isInRepeatingSlide) {
+    forms.forEach(f => {
+      for (let i = 0; i <= MAX_REPS; i++) {
+        const fKeys = Object.keys(f);
+        if (fKeys.filter(key => key.includes(`__${i}`)).length === 0) {
+          break;
+        }
+        if ((evaluateExpression(expression.replace('__', `__${i}`)), f)) {
+          const onlyCurrentInstanceKeys = fKeys.filter(
+            fkey => fkey.indexOf('__') === -1 || fkey.indexOf(`__${1}`) > -1,
+          );
+          const instanceForm: Form = {};
+          onlyCurrentInstanceKeys.forEach(k => {
+            instanceForm[k] = f[k];
+          });
+          res.push(instanceForm);
+        }
+      }
+    });
+    return res;
+  } else {
+    const asd = forms.filter(f => {
+      const cexpression = expression
+        .split("'")
+        .map(s => (f[s] != null ? f[s] : s))
+        .join("'");
+      return evaluateExpression(cexpression, f);
+    });
+    return asd;
+  }
+}
+
+export function TODAY(format = 'yyyy-MM-dd'): string {
+  return dateFns.format(new Date(), format);
+}
+
+export function GETAGE(dob: string): number {
+  const date = new Date(dob);
+  const age: number = dateFns.differenceInYears(new Date(), date);
+  return age;
+}
+
+export function ISBEFORE(date: string, dateToCompare: string): boolean {
+  const dateA: Date = dateFns.parseISO(date);
+  const dateB: Date = dateFns.parseISO(dateToCompare);
+  return dateFns.isBefore(dateA, dateB);
+}
+
+export function ISAFTER(date: string, dateToCompare: string): boolean {
+  const dateA: Date = dateFns.parseISO(date);
+  const dateB: Date = dateFns.parseISO(dateToCompare);
+  return dateFns.isAfter(dateA, dateB);
+}
+
+export function ISWITHININTERVAL(date: string, dateStart: string, dateEnd: string): boolean {
+  const dateToCompare: Date = dateFns.parseISO(date);
+  const interval: Interval = {start: dateFns.parseISO(dateStart), end: dateFns.parseISO(dateEnd)};
+  return dateFns.isWithinInterval(dateToCompare, interval);
 }

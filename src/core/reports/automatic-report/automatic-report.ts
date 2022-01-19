@@ -20,7 +20,14 @@
  *
  */
 
-import {AjfField, AjfFieldType, AjfFieldWithChoices, AjfForm, AjfRangeField} from '@ajf/core/forms';
+import {
+  AjfField,
+  AjfFieldType,
+  AjfFieldWithChoices,
+  AjfForm,
+  AjfNodeType,
+  AjfRangeField,
+} from '@ajf/core/forms';
 import {createFormula} from '@ajf/core/models';
 
 import {AjfChartType} from '../interface/charts/chart-type';
@@ -63,10 +70,10 @@ function createBooleanWidget(field: AjfField): AjfWidget {
         ],
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           legend: {display: true, position: 'bottom'},
         },
-        styles: {width: '100%', height: '400px'},
+        styles: {width: '100%', height: '100%'},
         exportable: true,
       } as AjfWidgetCreate),
     ],
@@ -102,10 +109,10 @@ function createMultipleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget 
         dataset,
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           legend: {display: true, position: 'bottom'},
         },
-        styles: {width: '100%', height: '400px'},
+        styles: {width: '100%', height: '100%'},
         exportable: true,
       } as AjfWidgetCreate),
     ],
@@ -219,10 +226,10 @@ function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
         dataset,
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           legend: {display: true, position: 'bottom'},
         },
-        styles: {width: '100%', height: '400px'},
+        styles: {width: '100%', height: '100%'},
         exportable: true,
       } as AjfWidgetCreate),
     ],
@@ -316,10 +323,10 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
         dataset,
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           legend: {display: true, position: 'bottom'},
         },
-        styles: {width: '100%', height: '400px'},
+        styles: {width: '100%', height: '100%'},
         exportable: true,
       } as AjfWidgetCreate),
     ],
@@ -332,7 +339,7 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
  * @param form the form schema
  * @param [id] the id of the form inside the plathform.
  */
-export function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport {
+export function automaticReport(form: Partial<AjfForm>, id?: number): AjfReport {
   const report: AjfReport = {};
   const reportWidgets: AjfWidget[] = [];
   // we assume that the array of forms passed to the report is called 'forms'.
@@ -341,8 +348,10 @@ export function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport {
   }
   form.nodes?.forEach(slide => {
     const slideWidgets: AjfWidget[] = [];
+    const isInRepeating = slide.nodeType === AjfNodeType.AjfRepeatingSlide;
 
     (slide.nodes as AjfField[]).forEach((field: AjfField) => {
+      field.name = isInRepeating ? field.name + '__' : field.name;
       // create the title of the widget.
       const fieldTitleWidget: AjfWidget = createWidget({
         widgetType: AjfWidgetType.Text,

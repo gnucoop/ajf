@@ -62,8 +62,8 @@ export const DEV_APP_ROUTES: Routes = [
     loadChildren: 'mat-form-builder/form-builder-demo-module#FormBuilderDemoModule',
   },
   {
-    path: 'mat-report-from-form',
-    loadChildren: 'mat-report-from-form/report-from-form-demo-module#ReportFromFormDemoModule',
+    path: 'mat-automatic-report',
+    loadChildren: 'mat-automatic-report/automatic-report-demo-module#ReportFromFormDemoModule',
   },
   {path: 'mat-forms', loadChildren: 'mat-forms/forms-demo-module#FormsDemoModule'},
   {path: 'mat-image', loadChildren: 'mat-image/image-demo-module#ImageDemoModule'},
@@ -73,8 +73,8 @@ export const DEV_APP_ROUTES: Routes = [
     loadChildren: 'mat-page-slider/page-slider-demo-module#PageSliderDemoModule',
   },
   {
-    path: 'mat-report-from-xls',
-    loadChildren: 'mat-report-from-xls/report-from-xls-demo-module#ReportFromXlsDemoModule',
+    path: 'mat-xls-report',
+    loadChildren: 'mat-xls-report/xls-report-demo-module#ReportFromXlsDemoModule',
   },
   {path: 'mat-reports', loadChildren: 'mat-reports/reports-demo-module#ReportsDemoModule'},
   {path: 'mat-time', loadChildren: 'mat-time/time-demo-module#TimeDemoModule'},
