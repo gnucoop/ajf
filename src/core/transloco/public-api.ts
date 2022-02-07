@@ -23,6 +23,7 @@
 export * from './transloco.module';
 export * from './transloco-missing-handler';
 export {
+  FunctionalTranspiler,
   TranslocoService,
   TranslocoPipe,
   Translation,
@@ -31,6 +32,7 @@ export {
   TRANSLOCO_LOADER,
   TRANSLOCO_MISSING_HANDLER,
   TRANSLOCO_SCOPE,
+  TRANSLOCO_TRANSPILER,
   translocoConfig,
   HashMap,
 } from '@ngneat/transloco';

@@ -1,4 +1,4 @@
 <h1>Report Example</h1>
-<section>
+<section *ngIf="report$|async as report">
   <ajf-report [instance]="report"></ajf-report>
 </section>

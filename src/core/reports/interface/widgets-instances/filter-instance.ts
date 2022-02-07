@@ -20,17 +20,12 @@
  *
  */
 
-import {AjfCondition, AjfFormula} from '@ajf/core/models';
+import {AjfForm} from '@ajf/core/forms';
+import {AjfContext} from '@ajf/core/models';
+import {AjfReportVariable} from '../reports/report-variable';
 
-import {AjfStyles} from '../styles';
-import {AjfFilter} from './filter';
-
-import {AjfWidgetType} from './widget-type';
-
-export interface AjfWidget {
-  widgetType: AjfWidgetType;
-  styles: AjfStyles;
-  visibility: AjfCondition;
-  repetitions?: AjfFormula;
-  filter?: AjfFilter;
+export interface AjfFilterInstance {
+  form: AjfForm;
+  variables: AjfReportVariable[];
+  context: AjfContext;
 }

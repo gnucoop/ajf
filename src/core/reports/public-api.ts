@@ -85,6 +85,6 @@ export * from './utils/widgets/create-widget';
 export * from './utils/widgets-instances/create-widget-instance';
 export * from './utils/widgets-instances/widget-to-widget-instance';
 
-export * from './report-from-form/report-from-form';
-export * from './report-from-xls/report-from-xls';
+export * from './automatic-report/automatic-report';
+export * from './xls-report/xls-report';
 export * from './report-to-pdf/report-to-pdf';

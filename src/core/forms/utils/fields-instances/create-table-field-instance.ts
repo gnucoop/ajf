@@ -21,6 +21,7 @@
  */
 
 import {AjfContext} from '@ajf/core/models';
+import {deepCopy} from '@ajf/core/utils';
 
 import {AjfTableFieldInstance} from '../../interface/fields-instances/table-field-instance';
 import {AjfTableCell, AjfTableField} from '../../interface/fields/table-field';
@@ -53,6 +54,7 @@ export function createTableFieldInstance(
   instance: AjfTableFieldInstanceCreate,
   context: AjfContext,
 ): AjfTableFieldInstance {
+  instance = deepCopy(instance);
   normalizeRows(instance.node as AjfTableField);
   const fieldInstance = createFieldInstance(instance, context);
   return {

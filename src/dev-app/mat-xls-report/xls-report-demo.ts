@@ -26,17 +26,18 @@ import {
   AjfReportSerializer,
   createReportInstance,
 } from '@ajf/core/reports';
-import * as reportFromXls from '@ajf/core/reports/report-from-xls/report-from-xls';
+import * as xlsReport from '@ajf/core/reports/xls-report/xls-report';
 import {Component} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {TranslocoService} from '@ngneat/transloco';
 import {BehaviorSubject} from 'rxjs';
 import {buildformDatas} from '@ajf/core/forms';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
-  selector: 'report-from-xls-demo',
-  templateUrl: 'report-from-xls-demo.html',
-  styleUrls: ['report-from-xls-demo.css'],
+  selector: 'xls-report-demo',
+  templateUrl: 'xls-report-demo.html',
+  styleUrls: ['xls-report-demo.css'],
 })
 export class ReportFromXlsDemo {
   formSchemaObj: {[id: string]: any} = {};
@@ -50,7 +51,7 @@ export class ReportFromXlsDemo {
     id: new FormControl(''),
   });
 
-  constructor(private _ts: TranslocoService) {
+  constructor(private _ts: TranslocoService, private _http: HttpClient) {
     const localSchema: any = localStorage.getItem('xls-form-schemas');
     if (localSchema != null) {
       this.formSchemaObj = JSON.parse(localSchema);
@@ -84,13 +85,15 @@ export class ReportFromXlsDemo {
 
   saveExcel(file: string): void {
     if (file != null) {
-      const forms = buildformDatas(this.formSchemaObj);
-      const reportSchema: AjfReport = AjfReportSerializer.fromJson(
-        reportFromXls.reportFromXls(file),
-      );
-      this.reportSchemaStringified$.next(JSON.stringify(reportSchema));
+      xlsReport.xlsReport(file, this._http).subscribe((r: AjfReport) => {
+        const forms = buildformDatas(this.formSchemaObj);
+        const reportSchema: AjfReport = AjfReportSerializer.fromJson(r);
 
-      this.reportInstance$.next(createReportInstance(reportSchema, {forms}, this._ts));
+        this.reportSchemaStringified$.next(JSON.stringify(reportSchema));
+        this.reportInstance$.next(
+          createReportInstance(reportSchema, {forms, schemas: this.formSchemaObj}, this._ts),
+        );
+      });
     }
   }
 }

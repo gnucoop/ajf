@@ -111,18 +111,16 @@ export const DEV_APP_ROUTES: Routes = [
       import('./mat-form-builder/form-builder-demo-module').then(m => m.FormBuilderDemoModule),
   },
   {
-    path: 'mat-report-from-form',
+    path: 'mat-automatic-report',
     loadChildren: () =>
-      import('./mat-report-from-form/report-from-form-demo-module').then(
+      import('./mat-automatic-report/automatic-report-demo-module').then(
         m => m.ReportFromFormDemoModule,
       ),
   },
   {
-    path: 'mat-report-from-xls',
+    path: 'mat-xls-report',
     loadChildren: () =>
-      import('./mat-report-from-xls/report-from-xls-demo-module').then(
-        m => m.ReportFromXlsDemoModule,
-      ),
+      import('./mat-xls-report/xls-report-demo-module').then(m => m.ReportFromXlsDemoModule),
   },
   {
     path: 'mat-forms',
