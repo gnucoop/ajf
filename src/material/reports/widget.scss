@@ -2,7 +2,7 @@ ajf-widget {
   display: flex;
   flex: 1 1 auto;
   box-sizing: border-box;
-
+  flex-direction: column;
   > ng-component {
     flex: 1 1 auto;
     display: flex;

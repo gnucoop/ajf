@@ -329,9 +329,10 @@ function parseFunctionCall(name: string, revToks: Token[]): string {
       return parseMathFunction(name, revToks);
     case 'ALL_VALUES_OF':
       return parseFieldFunction(name, revToks, true, false);
-    case 'COUNTFORMS':
+    case 'COUNT_FORMS':
+    case 'COUNT_REPS':
       return parseFieldFunction(name, revToks, false, true);
-    case 'COUNTFORMS_UNIQUE':
+    case 'COUNT_FORMS_UNIQUE':
       return parseFieldFunction(name, revToks, true, true);
     case 'INCLUDES':
       consume(revToks, TokenType.LParen);
@@ -351,6 +352,171 @@ function parseFunctionCall(name: string, revToks: Token[]): string {
       return parseLast(revToks);
     case 'REPEAT':
       return parseRepeat(revToks);
+    case 'EVALUATE':
+      consume(revToks, TokenType.LParen);
+      js = 'EVALUATE(' + parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += parseExpression(revToks, TokenType.Comma) + ')';
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'FILTER_BY':
+      consume(revToks, TokenType.LParen);
+      js = 'FILTER_BY(' + parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += `\`${parseExpression(revToks, TokenType.Comma)}\`)`;
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'ISBEFORE':
+    case 'ISAFTER':
+      consume(revToks, TokenType.LParen);
+      js = `${name}(${parseExpression(revToks, TokenType.Comma)}, `;
+      consume(revToks, TokenType.Comma);
+      js += `${parseExpression(revToks, TokenType.Comma)})`;
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'ISWITHININTERVAL':
+      consume(revToks, TokenType.LParen);
+      js = 'ISWITHININTERVAL(' + parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += parseExpression(revToks, TokenType.Comma) + ', ';
+      consume(revToks, TokenType.Comma);
+      js += parseExpression(revToks, TokenType.Comma) + ')';
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'TODAY':
+      return 'TODAY()';
+    case 'APPLY':
+      consume(revToks, TokenType.LParen);
+      const form = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const field = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const expression = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.RParen);
+      return `APPLY(${form}, \`${field}\`, \"${expression}\")`;
+    case 'GET_AGE':
+    case 'LEN':
+    case 'CONSOLE_LOG':
+      consume(revToks, TokenType.LParen);
+      js = `${name}(${parseExpression(revToks, TokenType.RParen)})`;
+      consume(revToks, TokenType.RParen);
+      return js;
+    case 'JOIN_FORMS':
+      consume(revToks, TokenType.LParen);
+      const formA = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const formB = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const fieldA = parseExpression(revToks, TokenType.Comma);
+      const tok = revToks.pop() as Token;
+      switch (tok.type) {
+        case TokenType.RParen:
+          return `${name}(${formA}, ${formB},\`${fieldA}\`)`;
+        case TokenType.Comma:
+          const fieldB = parseExpression(revToks, TokenType.Comma);
+          consume(revToks, TokenType.RParen);
+          return `${name}(${formA}, ${formB},\`${fieldA}\`,\`${fieldB}\`)`;
+        default:
+          throw unexpectedTokenError(tok, revToks);
+      }
+    case 'JOIN_REPEATING_SLIDES':
+      consume(revToks, TokenType.LParen);
+      const mformA = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const mformB = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const mfieldA = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const mfieldB = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const msubFieldA = parseExpression(revToks, TokenType.Comma);
+      const mtok = revToks.pop() as Token;
+      switch (mtok.type) {
+        case TokenType.RParen:
+          return `${name}(${mformA}, ${mformB},\`${mfieldA}\`,\`${mfieldB}\`,\`${msubFieldA}\`)`;
+        case TokenType.Comma:
+          const msubFieldB = parseExpression(revToks, TokenType.Comma);
+          consume(revToks, TokenType.RParen);
+          return `${name}(${mformA}, ${mformB},\`${mfieldA}\`,\`${mfieldB}\`,\`${msubFieldA}\`,\`${msubFieldB}\`)`;
+        default:
+          throw unexpectedTokenError(mtok, revToks);
+      }
+    case 'FROM_REPS':
+      consume(revToks, TokenType.LParen);
+      const mainFormFROM_REPS = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const exprFROM_REPS = parseExpression(revToks, TokenType.RParen);
+      consume(revToks, TokenType.RParen);
+      return `${name}(${mainFormFROM_REPS},\`${exprFROM_REPS}\`)`;
+    case 'ISIN':
+      consume(revToks, TokenType.LParen);
+      const mainFormISIN = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const exprISIN = parseExpression(revToks, TokenType.RParen);
+      consume(revToks, TokenType.RParen);
+      return `${name}(${mainFormISIN},${exprISIN})`;
+    case 'OP':
+      consume(revToks, TokenType.LParen);
+      const datasetA = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const datasetB = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const expr = parseExpression(revToks, TokenType.RParen);
+      consume(revToks, TokenType.RParen);
+      return `${name}(${datasetA},${datasetB},\`${expr}\`)`;
+    case 'GET_LABELS':
+      consume(revToks, TokenType.LParen);
+      const schemaGET_LABELS = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const fieldGET_LABELS = parseExpression(revToks, TokenType.RParen);
+      consume(revToks, TokenType.RParen);
+      return `${name}(${schemaGET_LABELS},${fieldGET_LABELS})`;
+    case 'BUILD_DATASET':
+      consume(revToks, TokenType.LParen);
+      const formsBUILD_DATASET = parseExpression(revToks, TokenType.Comma);
+      const tokBUILD_DATASET = revToks.pop() as Token;
+      switch (tokBUILD_DATASET.type) {
+        case TokenType.RParen:
+          return `BUILD_DATASET(${formsBUILD_DATASET})`;
+        case TokenType.Comma:
+          const schemaBUILD_DATASET = parseExpression(revToks, TokenType.RParen);
+          consume(revToks, TokenType.RParen);
+          return `BUILD_DATASET(${formsBUILD_DATASET}, ${schemaBUILD_DATASET})`;
+        default:
+          throw unexpectedTokenError(tokBUILD_DATASET, revToks);
+      }
+    case 'ROUND':
+      consume(revToks, TokenType.LParen);
+      const valROUND = parseExpression(revToks, TokenType.RParen);
+      const tokROUND = revToks.pop() as Token;
+      switch (tokROUND.type) {
+        case TokenType.RParen:
+          return `ROUND(${valROUND})`;
+        case TokenType.Comma:
+          const digitsROUND = parseExpression(revToks, TokenType.RParen);
+          consume(revToks, TokenType.RParen);
+          return `ROUND(${valROUND}, ${digitsROUND})`;
+        default:
+          throw unexpectedTokenError(tokROUND, revToks);
+      }
+    case 'IS_BEFORE':
+    case 'IS_AFTER':
+      consume(revToks, TokenType.LParen);
+      const dateIS = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const dateToCompareIS = parseExpression(revToks, TokenType.RParen);
+      return `${name}(\`${dateIS}\`, \`${dateToCompareIS}\`)`;
+    case 'IS_WITHIN_INTERVAL':
+      consume(revToks, TokenType.LParen);
+      const dateIS_IS_WITHIN_INTERVAL = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const dateStartIS_IS_WITHIN_INTERVAL = parseExpression(revToks, TokenType.Comma);
+      consume(revToks, TokenType.Comma);
+      const dateEndIS_IS_WITHIN_INTERVAL = parseExpression(revToks, TokenType.RParen);
+      consume(revToks, TokenType.RParen);
+      return `IS_WITHIN_INTERVAL(\`${dateIS_IS_WITHIN_INTERVAL}\`, \`${dateStartIS_IS_WITHIN_INTERVAL}\`, \`${dateEndIS_IS_WITHIN_INTERVAL}\`)`;
     default:
       throw new Error('unsupported function: ' + name);
   }
@@ -434,11 +600,11 @@ function parseRepeat(revToks: Token[]): string {
   const tok = revToks.pop() as Token;
   switch (tok.type) {
     case TokenType.RParen:
-      return `REPEAT(${form}, ${array}, ${funcIdent}, \`${exp}\`)`;
+      return `REPEAT(${form}, ${array}, ${funcIdent}, \"${exp}\")`;
     case TokenType.Comma:
       const condition = parseExpression(revToks, TokenType.Comma);
       consume(revToks, TokenType.RParen);
-      return `REPEAT(${form}, ${array}, ${funcIdent}, \`${exp}\`, \`${condition}\`)`;
+      return `REPEAT(${form}, ${array}, ${funcIdent}, \"${exp}\", \"${condition}\")`;
     default:
       throw unexpectedTokenError(tok, revToks);
   }

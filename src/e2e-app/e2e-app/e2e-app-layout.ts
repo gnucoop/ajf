@@ -22,6 +22,7 @@ export class E2eAppLayout {
     {path: 'mat-date-input-field', title: 'Material - Date Input Field'},
     {path: 'mat-form', title: 'Material - Form'},
     {path: 'mat-report', title: 'Material - Report'},
+    {path: 'mat-report-with-filter', title: 'Material - Report with filter'},
     {path: 'mat-table-field', title: 'Material - Table Field'},
   ];
 }

@@ -27,6 +27,7 @@ import {deepCopy} from '@ajf/core/utils';
 
 import {chartToChartJsType} from '../../chart-utils';
 import {AjfTableDataset} from '../../interface/dataset/table-dataset';
+import {AjfReportVariable} from '../../interface/reports/report-variable';
 import {AjfChartWidgetInstance} from '../../interface/widgets-instances/chart-widget-instance';
 import {AjfFormulaWidgetInstance} from '../../interface/widgets-instances/formula-widget-instance';
 import {AjfImageContainerWidgetInstance} from '../../interface/widgets-instances/image-container-widget-instance';
@@ -57,8 +58,9 @@ export function widgetToWidgetInstance(
   widget: AjfWidget,
   context: AjfContext,
   ts: TranslocoService,
+  variables: AjfReportVariable[] = [],
 ): AjfWidgetInstance {
-  const wi = createWidgetInstance(widget, context, ts);
+  const wi = createWidgetInstance(widget, context, ts, variables);
 
   if (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout) {
     const wwc = widget as AjfWidgetWithContent;
@@ -69,16 +71,16 @@ export function widgetToWidgetInstance(
         wwci.repetitions = evaluateExpression(wwc.repetitions.formula, context);
         if (typeof wwci.repetitions === 'number' && wwci.repetitions > 0) {
           for (let i = 0; i < wwci.repetitions; i++) {
-            content.push(widgetToWidgetInstance(c, {...context, '$repetition': i}, ts));
+            content.push(widgetToWidgetInstance(c, {...context, '$repetition': i}, ts, variables));
           }
         }
       } else {
-        content.push(widgetToWidgetInstance(c, context, ts));
+        content.push(widgetToWidgetInstance(c, context, ts, variables));
       }
       wwci.content = content;
     });
   } else if (widget.widgetType === AjfWidgetType.Chart) {
-    const cw = widget as AjfChartWidget;
+    const cw = {...{option: {}}, ...(widget as AjfChartWidget)};
     const cwi = wi as AjfChartWidgetInstance;
     const labels = cw.labels instanceof Array ? cw.labels : [cw.labels];
     const evLabels = labels.map(l => {
