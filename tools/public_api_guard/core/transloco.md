@@ -4,6 +4,7 @@
 
 ```ts
 
+import { FunctionalTranspiler } from '@ngneat/transloco';
 import { HashMap } from '@ngneat/transloco';
 import * as i0 from '@angular/core';
 import * as i1 from '@ngneat/transloco';
@@ -13,6 +14,7 @@ import { TRANSLOCO_CONFIG } from '@ngneat/transloco';
 import { TRANSLOCO_LOADER } from '@ngneat/transloco';
 import { TRANSLOCO_MISSING_HANDLER } from '@ngneat/transloco';
 import { TRANSLOCO_SCOPE } from '@ngneat/transloco';
+import { TRANSLOCO_TRANSPILER } from '@ngneat/transloco';
 import { translocoConfig } from '@ngneat/transloco';
 import { TranslocoLoader } from '@ngneat/transloco';
 import { TranslocoMissingHandler } from '@ngneat/transloco';
@@ -31,6 +33,8 @@ export class AjfTranslocoModule {
     // (undocumented)
     static ɵmod: i0.ɵɵNgModuleDeclaration<AjfTranslocoModule, never, [typeof i1.TranslocoModule], [typeof i1.TranslocoModule]>;
 }
+
+export { FunctionalTranspiler }
 
 export { HashMap }
 
@@ -54,6 +58,8 @@ export { TRANSLOCO_LOADER }
 export { TRANSLOCO_MISSING_HANDLER }
 
 export { TRANSLOCO_SCOPE }
+
+export { TRANSLOCO_TRANSPILER }
 
 export { translocoConfig }
 

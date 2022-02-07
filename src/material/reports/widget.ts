@@ -41,6 +41,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {AjfFormRendererService} from '@ajf/core/forms';
 
 import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
@@ -80,6 +81,7 @@ export class AjfWidgetService extends CoreService {
   styleUrls: ['widget.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [AjfFormRendererService],
 })
 export class AjfReportWidget extends CoreComponent {
   readonly widgetsMap: AjfWidgetComponentsMap;

@@ -25,14 +25,18 @@ import {TranslocoService} from '@ajf/core/transloco';
 
 import {AjfReportContainerInstance} from '../../interface/reports-instances/report-container-instance';
 import {AjfReportContainer} from '../../interface/reports/report-container';
+import {AjfReportVariable} from '../../interface/reports/report-variable';
 import {widgetToWidgetInstance} from '../widgets-instances/widget-to-widget-instance';
 
 export function createReportContainerInstance(
   container: AjfReportContainer,
   context: AjfContext,
   ts: TranslocoService,
+  variables: AjfReportVariable[] = [],
 ): AjfReportContainerInstance {
-  const content = container.content.map(c => widgetToWidgetInstance(c, context, ts));
+  const content = container.content.map(c => {
+    return widgetToWidgetInstance(c, context, ts, variables);
+  });
   return {
     container,
     content,

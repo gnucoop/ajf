@@ -20,7 +20,14 @@
  *
  */
 
-import {AjfField, AjfFieldType, AjfFieldWithChoices, AjfForm, AjfRangeField} from '@ajf/core/forms';
+import {
+  AjfField,
+  AjfFieldType,
+  AjfFieldWithChoices,
+  AjfForm,
+  AjfNodeType,
+  AjfRangeField,
+} from '@ajf/core/forms';
 import {createFormula} from '@ajf/core/models';
 
 import {AjfChartType} from '../interface/charts/chart-type';
@@ -55,7 +62,7 @@ function createBooleanWidget(field: AjfField): AjfWidget {
             label: 'true',
             formula: [
               createFormula({
-                formula: `[COUNTFORMS(forms,"${field.name}===true"),COUNTFORMS(forms,"${field.name}===false")]`,
+                formula: `[COUNT_FORMS(forms,"${field.name}===true"),COUNT_FORMS(forms,"${field.name}===false")]`,
               }),
             ],
             options: {backgroundColor: ['green', 'red']},
@@ -63,10 +70,10 @@ function createBooleanWidget(field: AjfField): AjfWidget {
         ],
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           legend: {display: true, position: 'bottom'},
         },
-        styles: {width: '100%', height: '400px'},
+        styles: {width: '100%', height: '100%'},
         exportable: true,
       } as AjfWidgetCreate),
     ],
@@ -80,7 +87,7 @@ function createMultipleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget 
         label: `${c.label}`,
         formula: [
           createFormula({
-            formula: `[COUNTFORMS(forms,"${field.name}.indexOf('${c.value}') > -1")]`,
+            formula: `[COUNT_FORMS(forms,"${field.name}.indexOf('${c.value}') > -1")]`,
           }),
         ],
         options: {
@@ -102,10 +109,10 @@ function createMultipleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget 
         dataset,
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           legend: {display: true, position: 'bottom'},
         },
-        styles: {width: '100%', height: '400px'},
+        styles: {width: '100%', height: '100%'},
         exportable: true,
       } as AjfWidgetCreate),
     ],
@@ -188,7 +195,7 @@ function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
         formula: [
           createFormula({
             formula: `[${choices
-              .map(choice => `COUNTFORMS(forms,"${field.name}==='${choice.value}'")`)
+              .map(choice => `COUNT_FORMS(forms,"${field.name}==='${choice.value}'")`)
               .toString()}]`,
           }),
         ],
@@ -200,7 +207,9 @@ function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
       (c, index) =>
         createDataset({
           label: `${c.label}`,
-          formula: [createFormula({formula: `[COUNTFORMS(forms,"${field.name}==='${c.value}'")]`})],
+          formula: [
+            createFormula({formula: `[COUNT_FORMS(forms,"${field.name}==='${c.value}'")]`}),
+          ],
           options: {
             backgroundColor: backgroundColor[index],
             stack: `Stack ${index}`,
@@ -219,10 +228,10 @@ function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
         dataset,
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           legend: {display: true, position: 'bottom'},
         },
-        styles: {width: '100%', height: '400px'},
+        styles: {width: '100%', height: '100%'},
         exportable: true,
       } as AjfWidgetCreate),
     ],
@@ -243,7 +252,7 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
       createDataset({
         label: `${index + start}`,
         formula: [
-          createFormula({formula: `[COUNTFORMS(forms,"${field.name}===${index + 1 + start}")]`}),
+          createFormula({formula: `[COUNT_FORMS(forms,"${field.name}===${index + 1 + start}")]`}),
         ],
         options: {
           backgroundColor: backgroundColor[index],
@@ -316,10 +325,10 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
         dataset,
         options: {
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           legend: {display: true, position: 'bottom'},
         },
-        styles: {width: '100%', height: '400px'},
+        styles: {width: '100%', height: '100%'},
         exportable: true,
       } as AjfWidgetCreate),
     ],
@@ -332,7 +341,7 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
  * @param form the form schema
  * @param [id] the id of the form inside the plathform.
  */
-export function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport {
+export function automaticReport(form: Partial<AjfForm>, id?: number): AjfReport {
   const report: AjfReport = {};
   const reportWidgets: AjfWidget[] = [];
   // we assume that the array of forms passed to the report is called 'forms'.
@@ -341,12 +350,14 @@ export function reportFromForm(form: Partial<AjfForm>, id?: number): AjfReport {
   }
   form.nodes?.forEach(slide => {
     const slideWidgets: AjfWidget[] = [];
+    const isInRepeating = slide.nodeType === AjfNodeType.AjfRepeatingSlide;
 
     (slide.nodes as AjfField[]).forEach((field: AjfField) => {
+      field.name = isInRepeating ? field.name + '__' : field.name;
       // create the title of the widget.
       const fieldTitleWidget: AjfWidget = createWidget({
         widgetType: AjfWidgetType.Text,
-        htmlText: `<div color="primary"><h5>${field.label} - [[COUNTFORMS(forms,"${field.name} != null")]] answers</h5></div>`,
+        htmlText: `<div color="primary"><h5>${field.label} - [[COUNT_FORMS(forms,"${field.name} != null")]] answers</h5></div>`,
         styles: widgetTitleStyle,
       } as AjfWidgetCreate);
       slideWidgets.push(fieldTitleWidget);

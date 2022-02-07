@@ -92,8 +92,8 @@
 /src/dev-app/mat-image/**                          @peppedeka
 /src/dev-app/mat-node-icon/**                      @peppedeka
 /src/dev-app/mat-page-slider/**                    @peppedeka
-/src/dev-app/mat-report-from-form/**               @peppedeka
-/src/dev-app/mat-report-from-xls/**                @peppedeka
+/src/dev-app/mat-automatic-report/**               @peppedeka
+/src/dev-app/mat-xls-report/**                     @peppedeka
 /src/dev-app/mat-reports/**                        @peppedeka
 /src/dev-app/mat-time/**                           @peppedeka
 /src/dev-app/mat-widgets/**                        @peppedeka

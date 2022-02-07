@@ -31,8 +31,10 @@ import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfImageModule} from '@ajf/material/image';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {AjfFormsModule} from '@ajf/material/forms';
 
 import {AjfChartWidgetComponent} from './chart-widget';
+import {AjfFilterWidgetComponent} from './filter-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
@@ -52,6 +54,7 @@ import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} fro
     AjfPageBreakModule,
     AjfTableModule,
     AjfTextModule,
+    AjfFormsModule,
     CommonModule,
     CoreModule,
     AjfTranslocoModule,
@@ -59,6 +62,7 @@ import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} fro
   declarations: [
     AjfChartWidgetComponent,
     AjfColumnWidgetComponent,
+    AjfFilterWidgetComponent,
     AjfFormulaWidgetComponent,
     AjfImageContainerWidgetComponent,
     AjfImageWidgetComponent,

@@ -1,5 +1,5 @@
 <div class="demo-forms">
-  <h4 class="demo-section-header">{{'report from form'|transloco}}</h4>
+  <h4 class="demo-section-header">{{'Automatic Report'|transloco}}</h4>
   <br /><br />
   <section>
     <mat-grid-list [cols]="2" rowHeight="230px">
@@ -16,11 +16,7 @@
         </div>
       </mat-grid-tile>
     </mat-grid-list>
-    <input
-      mat-input
-      [placeholder]="'type form id' | transloco"
-      [(ngModel)]="formId"
-    />
+    <input mat-input [placeholder]="'type form id' | transloco" [(ngModel)]="formId" />
     <button (click)="setSchema()" mat-raised-button color="primary">
       {{'Set schema'|transloco}}
     </button>

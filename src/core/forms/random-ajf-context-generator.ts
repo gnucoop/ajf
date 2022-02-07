@@ -30,8 +30,8 @@ import {AjfContainerNode} from './interface/nodes/container-node';
 import {AjfNode} from './interface/nodes/node';
 import {AjfFormSerializer} from './serializers/form-serializer';
 import {AjfFormCreate} from './utils/forms/create-form';
-import {isContainerNode} from './utils/nodes/is-container-node';
 import {isField} from './utils/nodes/is-field';
+import {isRepeatingSlide} from './utils/nodes/is-repeating-slide';
 
 function generateRandomInstanceFields(fields: AjfField[]): AjfField[] {
   const fieldReps: AjfField[] = [];
@@ -44,15 +44,17 @@ function generateRandomInstanceFields(fields: AjfField[]): AjfField[] {
   });
   return fieldReps;
 }
-function flattenFields(nodes: AjfNode[]): AjfField[] {
+
+function flattenFields(slides: AjfNode[]): AjfField[] {
   let flatFields: AjfField[] = [];
-  nodes.forEach((node: AjfNode) => {
-    if (isField(node)) {
-      flatFields.push(node as AjfField);
-    }
-    if (isContainerNode(node)) {
-      const childs = generateRandomInstanceFields((node as AjfContainerNode).nodes as AjfField[]);
+  slides.forEach((slide: AjfNode) => {
+    if (isField(slide)) {
+      flatFields.push(slide as AjfField);
+    } else if (isRepeatingSlide(slide)) {
+      const childs = generateRandomInstanceFields((slide as AjfContainerNode).nodes as AjfField[]);
       flatFields = flatFields.concat(flattenFields(childs));
+    } else {
+      flatFields = flatFields.concat([...((slide as AjfContainerNode).nodes as AjfField[])]);
     }
   });
   return flatFields;
