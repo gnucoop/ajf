@@ -166,13 +166,15 @@ function cloneMainForms(forms: MainForm[]): MainForm[] {
     let reps: Instances = {};
     if (form == null) {
       res.push(null as unknown as MainForm);
-    } else if (form.reps != null) {
-      Object.keys(form.reps).forEach(key => {
-        reps[key] = form.reps![key].slice(0);
-      });
+    } else {
+      if (form.reps != null) {
+        Object.keys(form.reps).forEach(key => {
+          reps[key] = form.reps![key].slice(0);
+        });
+      }
+      const f = {...form, reps};
+      res.push(f);
     }
-    const f = {...form, reps};
-    res.push(f);
   });
   return res;
 }
@@ -712,7 +714,7 @@ export function COUNT_FORMS(formList: MainForm[], expression: string = 'true'): 
     identifiers.forEach(identifier => {
       const change = mainForm[identifier] ? mainForm[identifier] : null;
       if (change != null) {
-        exxpr = exxpr.split(identifier).join(change as string);
+        exxpr = exxpr.split(identifier).join(JSON.stringify(change as string));
       }
     });
     if (mainForm.reps != null) {
@@ -726,7 +728,7 @@ export function COUNT_FORMS(formList: MainForm[], expression: string = 'true'): 
       }
     }
 
-    if (evaluateExpression(expression, mainForm)) {
+    if (evaluateExpression(exxpr, mainForm)) {
       count++;
     }
   }
@@ -762,7 +764,7 @@ export function COUNT_REPS(formList: MainForm[], expression: string = 'true'): n
     identifiers.forEach(identifier => {
       const change = mainForm[identifier] ? mainForm[identifier] : null;
       if (change) {
-        exxpr = expression.split(identifier).join(change as string);
+        exxpr = expression.split(identifier).join(JSON.stringify(change as string));
       }
     });
     if (evaluateExpression(exxpr, mainForm)) {
@@ -1329,7 +1331,7 @@ export function FILTER_BY(formList: MainForm[], expression: string): MainForm[] 
     identifiers.forEach(identifier => {
       const change = mainForm[identifier] ? mainForm[identifier] : null;
       if (change) {
-        expr = expr.split(identifier).join(`\`${change}\``);
+        expr = expr.split(identifier).join(JSON.stringify(change));
       }
     });
     /* if that's already true push it in res */
@@ -1349,7 +1351,7 @@ export function FILTER_BY(formList: MainForm[], expression: string): MainForm[] 
           identifiers.forEach(identifier => {
             const changeInRep = form[identifier] ? form[identifier] : null;
             if (changeInRep) {
-              repExpr = repExpr.split(identifier).join(`\`${changeInRep}\``);
+              repExpr = repExpr.split(identifier).join(JSON.stringify(changeInRep));
             }
           });
           return evaluateExpression(repExpr, form);
