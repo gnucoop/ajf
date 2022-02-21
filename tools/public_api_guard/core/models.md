@@ -97,7 +97,7 @@ export function CONSOLE_LOG(val: any, text?: string): void;
 export function COUNT_FORMS(formList: MainForm[], expression?: string): number;
 
 // @public
-export function COUNT_FORMS_UNIQUE(forms: Form[], fieldName: string, expression?: string): number;
+export function COUNT_FORMS_UNIQUE(formList: MainForm[], fieldName: string, expression?: string): number;
 
 // @public
 export function COUNT_REPS(formList: MainForm[], expression?: string): number;
