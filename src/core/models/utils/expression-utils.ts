@@ -778,24 +778,48 @@ export function COUNT_REPS(formList: MainForm[], expression: string = 'true'): n
  * Counts the amount of unique form values for a specific field. The form name must be specified. An
  * optional condition can be added to discriminate which forms to count in
  */
-export function COUNT_FORMS_UNIQUE(forms: Form[], fieldName: string, expression?: string): number {
-  forms = (forms || []).slice(0);
-  const values: string | number[] = [];
+export function COUNT_FORMS_UNIQUE(
+  formList: MainForm[],
+  fieldName: string,
+  expression: string = 'true',
+): number {
+  const forms: MainForm[] = (formList || []).slice(0).filter((f: MainForm) => f != null);
+  const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
+  let values: any[] = [];
 
-  if (expression != null) {
-    forms = forms.filter(f => evaluateExpression(expression as string, f));
+  if (forms.length === 0) {
+    return 0;
   }
-
-  forms.forEach(f => {
-    values.push(evaluateExpression(fieldName, f));
-  });
-  const aa = values.reduce((obj: any, b) => {
-    obj[b] = ++obj[b] || 1;
-    return obj;
-  }, {});
-  return Object.keys(aa)
-    .map((d: any) => aa[d])
-    .filter((q: number) => q === 1).length;
+  for (let i = 0; i < forms.length; i++) {
+    const mainForm = forms[i];
+    let exxpr = expression;
+    identifiers.forEach(identifier => {
+      const change = mainForm[identifier] ? mainForm[identifier] : null;
+      if (change != null) {
+        exxpr = exxpr.split(identifier).join(JSON.stringify(change as string));
+      }
+    });
+    if (mainForm.reps != null) {
+      const fieldNameInMain = evaluateExpression(fieldName, mainForm);
+      const allreps: any[] = Object.keys(mainForm.reps)
+        .map((key: string) => (mainForm.reps as Instances)[key])
+        .reduce((acc, val) => acc.concat(val), [])
+        .filter((child: Form) => evaluateExpression(exxpr, child))
+        .map((child: Form) =>
+          fieldNameInMain != null ? fieldNameInMain : evaluateExpression(fieldName, child),
+        );
+      if (allreps.length > 0) {
+        values = [...values, ...allreps];
+      }
+    }
+    if (evaluateExpression(exxpr, mainForm)) {
+      const mValue = evaluateExpression(fieldName, mainForm);
+      if (mValue != null) {
+        values.push(mValue);
+      }
+    }
+  }
+  return [...new Set(values)].length;
 }
 
 /**
