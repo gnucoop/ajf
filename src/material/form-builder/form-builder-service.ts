@@ -32,6 +32,7 @@ import {
   AjfNodeGroup,
   AjfNodesOperation,
   AjfNodeType,
+  AjfRangeField,
   AjfRepeatingContainerNode,
   AjfRepeatingSlide,
   AjfSlide,
@@ -47,6 +48,7 @@ import {
   isContainerNode,
   isField,
   isFieldWithChoices,
+  isRangeField,
   isRepeatingContainerNode,
   isSlidesNode,
   maxDigitsValidation,
@@ -890,6 +892,13 @@ export class AjfFormBuilderService {
               fwc.triggerConditions = (properties.triggerConditions || []).map((t: string) =>
                 createCondition({condition: t}),
               );
+            }
+
+            if (isRangeField(field)) {
+              const rf = field as AjfRangeField;
+              rf.start = properties.start;
+              rf.end = properties.end;
+              rf.step = properties.step;
             }
           }
 

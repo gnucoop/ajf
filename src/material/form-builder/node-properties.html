@@ -231,6 +231,38 @@
             </mat-form-field>
           </div>
         </ng-template>
+        <ng-template [ngIf]="isRangeField(ne!.node)">
+          <div class="ajf-prop">
+            <mat-form-field>
+              <input
+                matInput
+                type="number"
+                formControlName="start"
+                [placeholder]="'Start' | transloco"
+              />
+            </mat-form-field>
+          </div>
+          <div class="ajf-prop">
+            <mat-form-field>
+              <input
+                matInput
+                type="number"
+                formControlName="end"
+                [placeholder]="'End' | transloco"
+              />
+            </mat-form-field>
+          </div>
+          <div class="ajf-prop">
+            <mat-form-field>
+              <input
+                matInput
+                type="number"
+                formControlName="step"
+                [placeholder]="'Step' | transloco"
+              />
+            </mat-form-field>
+          </div>
+        </ng-template>
         <div class="ajf-prop">
           <div class="ajf-header">
             <label>{{ 'Validation' | transloco }}</label>
