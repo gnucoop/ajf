@@ -1381,6 +1381,9 @@ export function isFieldWithChoices(field: AjfField): boolean;
 export function isNumberField(field: AjfField): boolean;
 
 // @public
+export function isRangeField(field: AjfField): boolean;
+
+// @public
 export function isRepeatingContainerNode(node: AjfNode): boolean;
 
 // @public
