@@ -159,6 +159,7 @@ export * from './utils/fields/create-field';
 export * from './utils/fields/is-custom-field-with-choices';
 export * from './utils/fields/is-field-with-choices';
 export * from './utils/fields/is-number-field';
+export * from './utils/fields/is-range-field';
 export * from './utils/fields-instances/create-field-instance';
 export * from './utils/fields-instances/create-field-with-choices-instance';
 export * from './utils/forms/build-form-string-identifier';

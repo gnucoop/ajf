@@ -309,6 +309,8 @@ class AjfFbNodeProperties implements OnDestroy {
     // (undocumented)
     isNumericField(node: AjfNode): boolean;
     // (undocumented)
+    isRangeField(node: AjfNode): boolean;
+    // (undocumented)
     isRepeatingContainerNode: (nodeEntry: AjfFormBuilderNodeEntry | null) => boolean;
     // (undocumented)
     get nextSlideCondition(): string;

@@ -26,10 +26,12 @@ import {
   AjfFieldWithChoices,
   AjfNode,
   AjfNumberField,
+  AjfRangeField,
   AjfRepeatingContainerNode,
   isField,
   isFieldWithChoices,
   isNumberField,
+  isRangeField,
   isRepeatingContainerNode,
 } from '@ajf/core/forms';
 import {AjfCondition, alwaysCondition, neverCondition} from '@ajf/core/models';
@@ -81,6 +83,14 @@ function checkDigitsValidity(c: AbstractControl): {[key: string]: any} | null {
   const maxDigits = c.value.maxDigits;
   if (minDigits != null && maxDigits != null && minDigits > maxDigits) {
     return {digits: 'Min digits cannot be greater than max digits'};
+  }
+  return null;
+}
+
+function checkRangeValidity(c: AbstractControl): {[key: string]: any} | null {
+  const {start, end} = c.value;
+  if (start != null && end != null && start > end) {
+    return {range: 'End must be greater than start'};
   }
   return null;
 }
@@ -394,6 +404,10 @@ export class AjfFbNodeProperties implements OnDestroy {
     return isField(node) && isFieldWithChoices(node as AjfField);
   }
 
+  isRangeField(node: AjfNode): boolean {
+    return isField(node) && isRangeField(node as AjfField);
+  }
+
   save(): void {
     this._saveEvt.emit();
   }
@@ -447,6 +461,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       .subscribe(([_, formGroup]) => {
         const fg = formGroup as FormGroup;
         const val = {...fg.value, conditionalBranches: this._conditionalBranches};
+        console.log(val);
         this._service.saveNodeEntry(val);
       });
   }
@@ -571,6 +586,17 @@ export class AjfFbNodeProperties implements OnDestroy {
 
           validators.push(checkValueLimitsValidity);
           validators.push(checkDigitsValidity);
+        }
+
+        if (this.isRangeField(n.node)) {
+          const rangeField = <AjfRangeField>n.node;
+          const {start, end, step} = rangeField;
+
+          controls.start = start;
+          controls.end = end;
+          controls.step = step;
+
+          validators.push(checkRangeValidity);
         }
 
         if (this.isFieldWithChoices(n.node)) {
