@@ -1,3 +1,26 @@
+<a name="13.0.0"></a>
+# 13.0.0 "successive-tahr" (2022-03-10)
+### core
+| Commit | Type | Description |
+| -- | -- | -- |
+| [083440a92](https://github.com/gnucoop/ajf/commit/083440a9224f4e1a9ff34d8c1796d1ced127b5d8) | feat | **reports:** add filter widget |
+| [b93407817](https://github.com/gnucoop/ajf/commit/b93407817c2544d250f2597351094f9b0a1f0065) | fix | **forms:** classes using Angular features need to be decorated |
+| [3c7524545](https://github.com/gnucoop/ajf/commit/3c75245450d276679a52012e424373e3e3443afb) | fix | **forms:** unable to create node instance if no validation condition has been defined |
+| [2f19941ff](https://github.com/gnucoop/ajf/commit/2f19941ff8a3eececec9a0d3392c0ad7ed05a1a1) | fix | **report:** fix expression-utils functions |
+| [1aa7c3536](https://github.com/gnucoop/ajf/commit/1aa7c3536df61717187bc2be185a845719845f4d) | fix | fix COUNT_FORMS_UNIQUE |
+### material
+| Commit | Type | Description |
+| -- | -- | -- |
+| [2747ff2ce](https://github.com/gnucoop/ajf/commit/2747ff2ce9f65d47b1e2a84d7633ad3e0f8fd564) | feat | **form-builder:** add support for range field properties |
+### multiple
+| Commit | Type | Description |
+| -- | -- | -- |
+| [417b470e2](https://github.com/gnucoop/ajf/commit/417b470e276e1a8e826425d0be64ac5b6dfbb689) | feat | add support for TypeScript 4.4 |
+## Special Thanks
+Marco Marche, peppedeka and trik
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.0.0-rc.1"></a>
 # 13.0.0-rc.1 "evolutionary-lamprey" (2022-01-10)
 ### calendars
