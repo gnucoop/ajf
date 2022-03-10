@@ -27,6 +27,8 @@ import {
   translocoConfig,
   TranslocoModule,
   TranslocoService,
+  TRANSLOCO_TRANSPILER,
+  FunctionalTranspiler,
 } from '@ngneat/transloco';
 
 import {langs} from './lang';
@@ -41,11 +43,14 @@ const availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'];
       useValue: translocoConfig({
         availableLangs,
         defaultLang: 'ENG',
-        reRenderOnLangChange: true,
         prodMode: false,
       }),
     },
     {provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler},
+    {
+      provide: TRANSLOCO_TRANSPILER,
+      useClass: FunctionalTranspiler,
+    },
   ],
 })
 export class AjfTranslocoModule {

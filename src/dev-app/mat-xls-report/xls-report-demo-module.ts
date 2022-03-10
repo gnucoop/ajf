@@ -35,7 +35,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import {RouterModule} from '@angular/router';
 
-import {ReportFromXlsDemo} from './report-from-xls-demo';
+import {ReportFromXlsDemo} from './xls-report-demo';
 
 @NgModule({
   imports: [

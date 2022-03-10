@@ -1,0 +1,20 @@
+ajf-filter-widget {
+  .ajf-filter-container {
+    ajf-page-slider-item {
+      flex: auto !important;
+    }
+    ajf-page-slider-item .ajf-page-slider-item-content {
+      position: relative;
+    }
+    .ajf-form-container {
+      position: relative;
+      .mat-card-header {
+        display: none;
+      }
+    }
+  }
+  .ajf-field-entry {
+    width: unset !important;
+    min-width: 200px;
+  }
+}

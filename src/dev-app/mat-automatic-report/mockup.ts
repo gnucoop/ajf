@@ -291,7 +291,7 @@ export const formSchema: any = {
         {
           parent: 5,
           id: 5001,
-          name: 'name',
+          name: 'sname',
           label: "Child's name",
           nodeType: 0,
           fieldType: 0,
@@ -299,7 +299,7 @@ export const formSchema: any = {
         {
           parent: 5001,
           id: 5002,
-          name: 'birthweight',
+          name: 'sbirthweight',
           label: "Child's birthweight",
           nodeType: 0,
           fieldType: 2,
@@ -317,7 +317,7 @@ export const formSchema: any = {
         {
           parent: 500,
           id: 500001,
-          name: 'name',
+          name: 'mname',
           label: "Child's name",
           nodeType: 0,
           fieldType: 0,
@@ -326,7 +326,7 @@ export const formSchema: any = {
         {
           parent: 500001,
           id: 500002,
-          name: 'birthweight',
+          name: 'mbirthweight',
           label: "Child's birthweight",
           nodeType: 0,
           fieldType: 2,

@@ -23,18 +23,34 @@
 import {AjfReportInstance, AjfReportSerializer, createReportInstance} from '@ajf/core/reports';
 import {TranslocoService} from '@ajf/core/transloco';
 import {Component} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
-import {testReport} from './report';
+import {defaultReport, filterReport, globalFilterReport} from './reports';
 
 @Component({
   selector: 'mat-report-e2e',
   templateUrl: 'mat-report-e2e.html',
 })
 export class MaterialReportE2E {
-  readonly report: AjfReportInstance;
+  readonly report$: Observable<AjfReportInstance>;
+  readonly routeStream$: Observable<Params> = this._route.queryParams;
 
-  constructor(ts: TranslocoService) {
-    const report = AjfReportSerializer.fromJson(testReport);
-    this.report = createReportInstance(report, {}, ts);
+  constructor(ts: TranslocoService, private _route: ActivatedRoute) {
+    this.report$ = this.routeStream$.pipe(
+      map(param => {
+        if (param != null && param.filter === 'filter') {
+          return filterReport;
+        }
+        if (param != null && param.filter === 'global') {
+          return globalFilterReport;
+        }
+
+        return defaultReport;
+      }),
+      map(report => AjfReportSerializer.fromJson(report)),
+      map(r => createReportInstance(r, {}, ts)),
+    );
   }
 }

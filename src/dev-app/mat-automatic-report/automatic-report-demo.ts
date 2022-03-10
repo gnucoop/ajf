@@ -22,21 +22,22 @@
 
 import {AjfForm, AjfFormSerializer, generateRandomCtx} from '@ajf/core/forms';
 import {AjfReport, AjfReportInstance, createReportInstance} from '@ajf/core/reports';
-import * as reportFromForm from '@ajf/core/reports/report-from-form/report-from-form';
-import {Component} from '@angular/core';
+import * as automaticReport from '@ajf/core/reports/automatic-report/automatic-report';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {TranslocoService} from '@ngneat/transloco';
 import {BehaviorSubject} from 'rxjs';
 
 import {formSchema as formSchemaObj} from './mockup';
 
 @Component({
-  selector: 'report-from-form-demo',
-  templateUrl: 'report-from-form-demo.html',
-  styleUrls: ['report-from-form-demo.css'],
+  selector: 'automatic-report-demo',
+  templateUrl: 'automatic-report-demo.html',
+  styleUrls: ['automatic-report-demo.css'],
+  encapsulation: ViewEncapsulation.None,
 })
-export class ReportFromFormDemo {
+export class AutomaticReportDemo {
   form$: BehaviorSubject<AjfForm | null> = new BehaviorSubject<AjfForm | null>(null);
-  formId: number;
+  formId: number | undefined = undefined;
   formSchema: string = JSON.stringify(formSchemaObj);
   reportInstance$: BehaviorSubject<AjfReportInstance | null> =
     new BehaviorSubject<AjfReportInstance | null>(null);
@@ -45,7 +46,7 @@ export class ReportFromFormDemo {
 
   constructor(private _ts: TranslocoService) {
     const form = AjfFormSerializer.fromJson(formSchemaObj);
-    this.reportSchema = reportFromForm.reportFromForm(form);
+    this.reportSchema = automaticReport.automaticReport(form);
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
     this.reportInstance$.next(
       createReportInstance(this.reportSchema, {forms: generateRandomCtx(form)}, _ts),
@@ -58,7 +59,7 @@ export class ReportFromFormDemo {
     }
     const schemaObj = JSON.parse(this.formSchema);
     const form = AjfFormSerializer.fromJson(schemaObj);
-    this.reportSchema = reportFromForm.reportFromForm(form, this.formId);
+    this.reportSchema = automaticReport.automaticReport(form, this.formId);
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
     const forms = generateRandomCtx(form);
     if (this.formId != null) {

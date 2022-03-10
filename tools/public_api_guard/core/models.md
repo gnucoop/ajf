@@ -64,10 +64,16 @@ function alert_2(source: any[], property: string, threshold: number): string;
 export { alert_2 as alert }
 
 // @public
-export function ALL_VALUES_OF(forms: Form[], fieldName: string): string[];
+export function ALL_VALUES_OF(mainforms: MainForm[], fieldName: string): string[];
 
 // @public
 export function alwaysCondition(): AjfCondition;
+
+// @public
+export function APPLY(formList: MainForm[], field: string, expression: string): MainForm[];
+
+// @public
+export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[];
 
 // @public (undocumented)
 export function buildDataset(dataset: (string | number | string[] | number[])[], colspans: number[]): AjfTableCell[][];
@@ -85,10 +91,16 @@ export function calculateTrendByProperties(source: any[], properties: string[]):
 export function calculateTrendProperty(source: any[], property: string): string;
 
 // @public
-export function COUNTFORMS(forms: Form[], expression?: string): number;
+export function CONSOLE_LOG(val: any, text?: string): void;
 
 // @public
-export function COUNTFORMS_UNIQUE(forms: Form[], fieldName: string, expression?: string): number;
+export function COUNT_FORMS(formList: MainForm[], expression?: string): number;
+
+// @public
+export function COUNT_FORMS_UNIQUE(forms: Form[], fieldName: string, expression?: string): number;
+
+// @public
+export function COUNT_REPS(formList: MainForm[], expression?: string): number;
 
 // @public
 export function createCondition(condition?: Partial<AjfCondition>): AjfCondition;
@@ -110,6 +122,7 @@ export const dateUtils: {
     parse: typeof dateFns_2.parseISO;
     startOfMonth: typeof dateFns_2.startOfMonth;
     startOfISOWeek: typeof dateFns_2.startOfISOWeek;
+    isBefore: typeof dateFns_2.isBefore;
 };
 
 // @public
@@ -120,6 +133,9 @@ export function digitCount(x: number): number;
 
 // @public
 export function drawThreshold(source: any[], property: string, threshold: any[]): any[];
+
+// @public
+export function EVALUATE(condition: string, branch1: any, branch2: any): any;
 
 // @public (undocumented)
 export function evaluateExpression(expression: string, context?: AjfContext_2, forceFormula?: string): any;
@@ -136,6 +152,9 @@ export function extractDates(source: any[], property: string, fmt: string): stri
 // @public
 export function extractSum(source: any[], properties: string[]): number;
 
+// @public
+export function FILTER_BY(formList: MainForm[], expression: string): MainForm[];
+
 // @public (undocumented)
 export interface Form {
     // (undocumented)
@@ -148,6 +167,15 @@ export function formatDate(date: Date | string, fmt?: string): string;
 // @public (undocumented)
 export function formatNumber(num: number, fmt?: string): string;
 
+// @public
+export function FROM_REPS(mainForm: MainForm, expression: string): any[];
+
+// @public
+export function GET_AGE(dob: string | null): number;
+
+// @public
+export function GET_LABELS(schema: any, fieldNames: string[]): string[];
+
 // @public (undocumented)
 export const getCodeIdentifiers: (source: string, includeDollarValue?: boolean) => string[];
 
@@ -157,6 +185,24 @@ export function getContextString(context?: AjfContext_2): string;
 // @public (undocumented)
 export function getCoordinate(source: any, zoom?: number): [number, number, number];
 
+// @public (undocumented)
+export interface Instances {
+    // (undocumented)
+    [instance: string]: Form[];
+}
+
+// @public
+export function IS_AFTER(date: string, dateToCompare: string): boolean;
+
+// @public
+export function IS_BEFORE(date: string, dateToCompare: string): boolean;
+
+// @public
+export function IS_WITHIN_INTERVAL(date: string, dateStart: string, dateEnd: string): boolean;
+
+// @public
+export function ISIN(dataset: any[], value: any): boolean;
+
 // @public
 export function isInt(x: string | number): boolean;
 
@@ -164,22 +210,39 @@ export function isInt(x: string | number): boolean;
 export function isoMonth(date: Date, fmt?: string): string;
 
 // @public
-export function LAST(forms: Form[], expression: string, date?: string): number;
+export function JOIN_FORMS(formsA: (MainForm | Form)[], formsB: (MainForm | Form)[], keyA: string, keyB?: string): (MainForm | Form)[];
+
+// @public
+export function JOIN_REPEATING_SLIDES(formsA: MainForm[], formsB: MainForm[], keyA: string, keyB: string, subKeyA: string, subKeyB?: string): MainForm[];
+
+// @public
+export function LAST(forms: (Form | MainForm)[], expression: string, date?: string): string;
 
 // @public
 export function lastProperty(source: any, property: string): any;
 
 // @public
-export function MAX(forms: Form[], fieldName: string): number;
+export function LEN(dataset: MainForm | any[]): number;
+
+// @public (undocumented)
+export interface MainForm {
+    // (undocumented)
+    [key: string]: string | number | null | Instances | undefined | null;
+    // (undocumented)
+    reps?: Instances;
+}
 
 // @public
-export function MEAN(forms: Form[], expression: string): number;
+export function MAX(forms: (Form | MainForm)[], fieldName: string): number;
 
 // @public
-export function MEDIAN(forms: Form[], fieldName: string): number;
+export function MEAN(forms: (Form | MainForm)[], fieldName: string): string;
 
 // @public
-export function MODE(forms: Form[], fieldName: string): number[];
+export function MEDIAN(forms: (Form | MainForm)[], fieldName: string): string;
+
+// @public
+export function MODE(forms: (Form | MainForm)[], fieldName: string): number[];
 
 // @public
 export function neverCondition(): AjfCondition;
@@ -193,28 +256,37 @@ export function normalizeExpression(formula: string, ancestorsNames: {
 export function notEmpty(x: any): boolean;
 
 // @public
+export function OP(datasetA: number[], datasetB: number[], expression: string): number[];
+
+// @public
 export function PERCENT(value1: number, value2: number): string;
 
 // @public (undocumented)
 export function plainArray(params: any[]): any[];
 
 // @public (undocumented)
-export function REPEAT(forms: Form[], values: string[], fn: AjfValidationFn, param1: string, param2?: string): any[];
+export function REPEAT(forms: MainForm[], iterations: string[], fn: AjfValidationFn, param1: string, param2?: string): any[];
 
 // @public
-export function round(num: number | string, digits: number): number;
+export function ROUND(num: number | string, digits?: number): number;
+
+// @public
+export function round(num: number | string, digits?: number): number;
 
 // @public
 export function scanGroupField(reps: number, acc: any, callback: any): any;
 
 // @public
-export function SUM(forms: Form[], expression: string, condition?: string): number;
+export function SUM(mainForms: (MainForm | Form)[], field: string, condition?: string): number;
 
 // @public
 export function sum(array: any[]): any;
 
 // @public
 export function sumLastProperties(source: any[], properties: string[]): number;
+
+// @public
+export function TODAY(format?: string): string;
 
 // @public (undocumented)
 export function validateExpression(str: string, context?: AjfContext_2): boolean;

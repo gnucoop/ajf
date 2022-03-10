@@ -1,0 +1,44 @@
+automatic-report-demo {
+  .demo-forms-header-box {
+    flex: 1;
+    padding: 0 10px;
+
+    textarea {
+      width: 100%;
+      height: 120px;
+    }
+  }
+
+  .demo-f2r-container {
+    display: block;
+    position: relative;
+    ajf-form {
+      order: 0;
+      flex: 0 1 auto;
+      align-self: auto;
+    }
+  }
+  .ajf-column-container {
+    ajf-widget {
+      ng-component {
+        max-height: unset !important;
+      }
+      canvas {
+        height: inherit;
+        width: auto !important;
+        max-height: 600px;
+        margin: auto;
+      }
+    }
+  }
+  ajf-report,
+  ajf-widget,
+  ajf-column {
+    display: block !important;
+  }
+  ajf-text {
+    max-width: 100%;
+    display: block;
+    overflow-x: scroll;
+  }
+}

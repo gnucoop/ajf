@@ -24,7 +24,7 @@ import {ChartColor} from 'chart.js';
 import * as XLSX from 'xlsx';
 
 import {AjfFormula, createFormula} from '@ajf/core/models';
-import {backgroundColor} from '../report-from-form/styles';
+import {backgroundColor} from '../automatic-report/styles';
 
 import {indicatorToJs} from './hindikit-parser';
 import {htmlWidget, widgetStyle} from './styles';
@@ -39,7 +39,12 @@ import {AjfChartType} from '../interface/charts/chart-type';
 import {AjfWidget} from '../interface/widgets/widget';
 import {AjfReport} from '../interface/reports/report';
 import {AjfReportVariable} from '../interface/reports/report-variable';
-import {AjfReportContainer} from '../interface/reports/report-container';
+import {deepCopy} from '@ajf/core/utils';
+import {HttpClient} from '@angular/common/http';
+import {forkJoin, Observable, of} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {AjfLayoutWidget} from '../interface/widgets/layout-widget';
+import {AjfColumnWidget} from '../interface/widgets/column-widget';
 
 /**
  * This function returns a basic report for any form passed in input.
@@ -47,49 +52,111 @@ import {AjfReportContainer} from '../interface/reports/report-container';
  * @param form the form schema
  * @param [id] the id of the form inside the plathform.
  */
-export function reportFromXls(file: string): AjfReport {
+export function xlsReport(file: string, http: HttpClient): Observable<AjfReport> {
   const workbook = XLSX.read(file, {type: 'binary'});
   const report: AjfReport = {};
   const reportWidgets: AjfWidget[] = [];
+
   const variables: AjfReportVariable[] = [];
-
-  workbook.SheetNames.forEach(sheetName => {
+  const filters: {[sheetName: string]: Observable<any>} = {};
+  // create filters
+  workbook.SheetNames.forEach((sheetName, index) => {
     const sheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
-    const json = XLSX.utils.sheet_to_json(sheet) as {name: string; value: string}[];
-
-    if (sheetName === 'variables') {
-      json
-        .filter(e => e != null && e.name != null && e.value != null)
-        .forEach(elem => {
-          let indicator = elem.value;
-          try {
-            indicator = indicatorToJs(elem.value);
-          } catch (e) {
-            console.log(e);
-          }
-          variables.push({name: elem.name, formula: {formula: indicator}} as AjfReportVariable);
-        });
-    } else {
-      if (sheetName.includes('table')) {
-        const tableWidget = _buildTable(json);
-        reportWidgets.push(tableWidget);
-      } else if (sheetName.includes('chart')) {
-        const chartWidget = _buildChart(json);
-        reportWidgets.push(chartWidget);
-      } else if (sheetName.includes('html')) {
-        const chartWidget = _buildHtml(json);
-        reportWidgets.push(chartWidget);
-      }
+    if (sheetName.includes('filter') && index + 1 < workbook.SheetNames.length) {
+      const nextSheet = sheetName.includes('global')
+        ? 'global_filter'
+        : workbook.SheetNames[index + 1];
+      filters[nextSheet] = _buildFilter(workbook, sheet, http);
     }
   });
 
-  report.variables = variables;
-  report.content = createReportContainer({content: [...reportWidgets]} as AjfReportContainer);
+  const obsFilterValues: Observable<any>[] = Object.keys(filters).map(key => filters[key]);
+  const filterNames: string[] = Object.keys(filters);
 
-  return report;
+  return forkJoin(obsFilterValues.length > 0 ? obsFilterValues : of([])).pipe(
+    map(f => {
+      workbook.SheetNames.forEach(sheetName => {
+        const sheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
+        const json = XLSX.utils.sheet_to_json(sheet) as {name: string; value: string}[];
+
+        if (sheetName === 'variables') {
+          json
+            .filter(e => e != null && e.name != null && e.value != null)
+            .forEach(elem => {
+              let indicator = elem.value;
+              try {
+                indicator = indicatorToJs(elem.value);
+              } catch (e) {
+                console.log(e);
+              }
+              variables.push({name: elem.name, formula: {formula: indicator}} as AjfReportVariable);
+            });
+        } else {
+          const idx = filterNames.indexOf(sheetName);
+
+          if (sheetName.includes('table')) {
+            const tableWidget = _buildTable(json);
+            reportWidgets.push(tableWidget);
+          } else if (sheetName.includes('chart')) {
+            const chartWidget = _buildChart(sheetName, json);
+            reportWidgets.push(chartWidget);
+          } else if (sheetName.includes('html')) {
+            const chartWidget = _buildHtml(json);
+            reportWidgets.push(chartWidget);
+          }
+
+          if (idx >= 0) {
+            reportWidgets[reportWidgets.length - 1].filter = {schema: f[idx]};
+          }
+        }
+      });
+      const globalFilterIdx = filterNames.indexOf('global_filter');
+      const layoutWidget: AjfLayoutWidget = {
+        widgetType: AjfWidgetType.Layout,
+        content: [
+          createWidget({
+            widgetType: AjfWidgetType.Column,
+            content: [...reportWidgets],
+            filter: globalFilterIdx >= 0 ? {schema: f[globalFilterIdx]} : undefined,
+          } as AjfColumnWidget),
+        ],
+        columns: [1],
+        visibility: {
+          condition: 'true',
+        },
+        styles: {},
+      };
+
+      report.variables = variables;
+      report.content = createReportContainer(layoutWidget);
+
+      return report;
+    }),
+  );
 }
 
-function _buildChart(json: {[key: string]: string}[]): AjfWidget {
+function _buildFilter(
+  wbook: XLSX.WorkBook,
+  sheet: XLSX.WorkSheet,
+  http: HttpClient,
+): Observable<any> {
+  const data = new FormData();
+  const filterBook: XLSX.WorkBook = deepCopy(wbook);
+  const filterSheet: XLSX.WorkSheet = deepCopy(sheet);
+  const choicesSheet: XLSX.WorkSheet = deepCopy(wbook.Sheets['choices']);
+  filterBook.SheetNames = ['survey', 'choices'];
+  filterBook.Sheets = {survey: filterSheet, choices: choicesSheet};
+  const filterXlsx = XLSX.write(filterBook, {
+    bookType: 'xlsx',
+    type: 'array',
+  });
+  const file = new File([filterXlsx], 'filter.xlsx');
+  data.append('excelFile', file);
+
+  return http.post('https://formconv.herokuapp.com/result.json', data);
+}
+
+function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
   const optionLabels = ['chartType', 'title'];
   const chartOptions: {[key: string]: string} = {};
   const datasetObj: {[key: string]: any} = {};
@@ -117,7 +184,9 @@ function _buildChart(json: {[key: string]: string}[]): AjfWidget {
     });
   });
   if (datasetObj.labels != null) {
-    labels = {formula: `plainArray([${datasetObj.labels}])`};
+    labels = {
+      formula: `plainArray([${datasetObj.labels.map((label: string) => indicatorToJs(label))}])`,
+    };
     delete datasetObj.labels;
   }
   Object.keys(datasetObj).forEach((datasetObjKey, index) => {
@@ -138,7 +207,8 @@ function _buildChart(json: {[key: string]: string}[]): AjfWidget {
     } as AjfChartDataset);
   });
 
-  return _buildWidget({
+  return createWidget({
+    name,
     widgetType: AjfWidgetType.Chart,
     type: AjfChartType[chartOptions.chartType as any] as unknown as AjfChartType,
     labels,
@@ -149,7 +219,7 @@ function _buildChart(json: {[key: string]: string}[]): AjfWidget {
       legend: {display: true, position: 'bottom'},
       title: {display: true, text: `${chartOptions.title || ''}`.replace(/"/gi, '')},
     },
-    styles: {width: '100%', height: '500px'},
+    styles: {...{width: '100%', height: '100%', padding: '20px'}, ...widgetStyle},
     exportable: true,
   } as AjfWidgetCreate);
 }
@@ -157,7 +227,7 @@ function _buildChart(json: {[key: string]: string}[]): AjfWidget {
 function _buildHtml(json: {[key: string]: string}[]): AjfWidget {
   const firstRow = json.length > 0 && json[0].html != null ? json[0] : {html: ''};
 
-  return _buildWidget({
+  return createWidget({
     widgetType: AjfWidgetType.Text,
     htmlText: `${firstRow.html}`,
     styles: htmlWidget,
@@ -208,7 +278,7 @@ function _buildTable(json: {[key: string]: string}[]): AjfWidget {
     });
   }
 
-  return _buildWidget({
+  return createWidget({
     widgetType: AjfWidgetType.DynamicTable,
     rowDefinition: {
       formula: `buildDataset([${dataElements}],${JSON.stringify(colspans)})`,
@@ -223,14 +293,5 @@ function _buildTable(json: {[key: string]: string}[]): AjfWidget {
     styles: {
       borderCollapse: 'collapse',
     },
-  } as AjfWidgetCreate);
-}
-
-function _buildWidget(widget: AjfWidgetCreate): AjfWidget {
-  return createWidget({
-    widgetType: AjfWidgetType.Column,
-    columns: [1],
-    content: [createWidget(widget)],
-    styles: widgetStyle,
   } as AjfWidgetCreate);
 }
