@@ -35,6 +35,8 @@ pipeline {
     stage('Build release') {
       steps {
         sh './scripts/release.mjs'
+        sh './scripts/jenkins/create-build-artifacts.mjs'
+        archiveArtifacts 'dist/**/*.tgz'
       }
     }
     stage('Publish snapshots') {
