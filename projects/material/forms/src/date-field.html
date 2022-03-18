@@ -1,0 +1,8 @@
+<ajf-calendar
+  *ngIf="control|async as ctrl"
+  selectionMode="day"
+  [dateOnlyForDay]="true"
+  [minDate]="instance!.node.minDate|ajfDateValue"
+  [maxDate]="instance!.node.maxDate|ajfDateValue"
+  [formControl]="ctrl!"
+></ajf-calendar>

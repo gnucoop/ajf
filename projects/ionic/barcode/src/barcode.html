@@ -1,0 +1,41 @@
+<ng-container *ngIf="value; else barcode">
+  <div class="ajf-code-container">
+    <span>{{ value }}</span>
+    <ion-button (click)="reset()">
+      <ion-icon
+        slot="icon-only"
+        style="transform: rotate(90deg)"
+        name="reorder"
+      ></ion-icon>
+    </ion-button>
+  </div>
+</ng-container>
+<ng-template #barcode>
+  <ion-segment [value]="toggle">
+    <ion-segment-button
+      (click)="toggle = 'drop' ; fileInput.click()"
+      layout="icon-end"
+    >
+      <ion-icon name="add-circle-outline"></ion-icon>
+      <span>{{'Upload image'|transloco}}</span>
+      <input
+        #fileInput
+        type="file"
+        (change)="onSelectFile($event)"
+        multiple
+        style="display: none"
+      />
+    </ion-segment-button>
+    <ion-segment-button (click)="toggle = 'camera'">
+      <span>{{'Camera'|transloco}}</span>
+    </ion-segment-button>
+  </ion-segment>
+  <ng-container *ngIf="toggle === 'camera'">
+    <div
+      ajfVideoDirective
+      [source]="videoSource"
+      class="left"
+      (isInit)="takeSnapshot()"
+    ></div>
+  </ng-container>
+</ng-template>

@@ -1,0 +1,27 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "../../out-tsc/material-spec",
+    "types": [
+      "jasmine"
+    ],
+    "paths": {
+      "@ajf/core": ["../core"],
+      "@ajf/core/*": ["../core/*"],
+      "@ajf/material": ["."],
+      "@ajf/material/*": ["./*"]
+    }
+  },
+  "files": [
+    "src/test.ts"
+  ],
+  "include": [
+    "**/*.spec.ts",
+    "**/*.d.ts"
+  ],
+  "exclude": [
+    "cypress/**/*.ts"
+  ]
+}

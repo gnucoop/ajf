@@ -1,0 +1,490 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "core": {
+      "projectType": "library",
+      "root": "projects/core",
+      "sourceRoot": "projects/core/src",
+      "prefix": "ajf",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/core/src/test.ts",
+            "tsConfig": "projects/core/tsconfig.spec.json",
+            "karmaConfig": "projects/core/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/core/**/*.ts",
+              "projects/core/**/*.html"
+            ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "e2e-app:serve",
+            "configFile": "projects/core/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/core/cypress.json"
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "e2e-app:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "material": {
+      "projectType": "library",
+      "root": "projects/material",
+      "sourceRoot": "projects/material/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/material/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/material/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/material/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/material/src/test.ts",
+            "tsConfig": "projects/material/tsconfig.spec.json",
+            "karmaConfig": "projects/material/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/material/**/*.ts",
+              "projects/material/**/*.html"
+            ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "e2e-app:serve",
+            "configFile": "projects/material/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/material/cypress.json"
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "e2e-app:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "ionic": {
+      "projectType": "library",
+      "root": "projects/ionic",
+      "sourceRoot": "projects/ionic/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ionic/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ionic/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ionic/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ionic/src/test.ts",
+            "tsConfig": "projects/ionic/tsconfig.spec.json",
+            "karmaConfig": "projects/ionic/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ionic/**/*.ts",
+              "projects/ionic/**/*.html"
+            ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "e2e-app:serve",
+            "configFile": "projects/ionic/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/ionic/cypress.json"
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "e2e-app:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "calendars": {
+      "projectType": "library",
+      "root": "projects/calendars",
+      "sourceRoot": "projects/calendars/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/calendars/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/calendars/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/calendars/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/calendars/src/test.ts",
+            "tsConfig": "projects/calendars/tsconfig.spec.json",
+            "karmaConfig": "projects/calendars/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/calendars/**/*.ts",
+              "projects/calendars/**/*.html"
+            ]
+          }
+        },
+        "cypress-run": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "e2e-app:serve",
+            "configFile": "projects/calendars/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        },
+        "cypress-open": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "watch": true,
+            "headless": false,
+            "configFile": "projects/calendars/cypress.json"
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "e2e-app:serve",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "e2e-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/e2e-app",
+      "sourceRoot": "projects/e2e-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/e2e-app",
+            "index": "projects/e2e-app/src/index.html",
+            "main": "projects/e2e-app/src/main.ts",
+            "polyfills": "projects/e2e-app/src/polyfills.ts",
+            "tsConfig": "projects/e2e-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/e2e-app/src/favicon.ico",
+              "projects/e2e-app/src/assets"
+            ],
+            "styles": [
+              "node_modules/@ajf/icons/css/ajf-icons.css",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@ionic/angular/css/ionic.bundle.css",
+              "node_modules/flag-icon-css/css/flag-icons.min.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "projects/e2e-app/src/styles.scss"
+            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "pdfmake/build/pdfmake"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10kb",
+                  "maximumError": "20kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "e2e-app:build:production"
+            },
+            "development": {
+              "browserTarget": "e2e-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "dev-app": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/dev-app",
+      "sourceRoot": "projects/dev-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/dev-app",
+            "index": "projects/dev-app/src/index.html",
+            "main": "projects/dev-app/src/main.ts",
+            "polyfills": "projects/dev-app/src/polyfills.ts",
+            "tsConfig": "projects/dev-app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/dev-app/src/favicon.ico",
+              "projects/dev-app/src/assets"
+            ],
+            "styles": [
+              "node_modules/@ajf/icons/css/ajf-icons.css",
+              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@ionic/angular/css/ionic.bundle.css",
+              "node_modules/flag-icon-css/css/flag-icons.min.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "projects/dev-app/src/styles.scss"
+            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "chart.js",
+              "pdfmake/build/pdfmake"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10kb",
+                  "maximumError": "20kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "dev-app:build:production"
+            },
+            "development": {
+              "browserTarget": "dev-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
+    "ajf-examples": {
+      "projectType": "library",
+      "root": "projects/ajf-examples",
+      "sourceRoot": "projects/ajf-examples/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ajf-examples/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ajf-examples/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ajf-examples/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    }
+  },
+  "defaultProject": "core",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
+}

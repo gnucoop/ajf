@@ -3,9 +3,9 @@
  * multiple markdown files into the equivalent HTML output.
  */
 
-import {readFileSync, writeFileSync} from 'fs';
+import {existsSync, mkdirSync, readFileSync, writeFileSync} from 'fs';
 import marked from 'marked';
-import {join} from 'path';
+import {dirname, join} from 'path';
 import {highlightCodeBlock} from '../highlight-files/highlight-code-block';
 import {DocsMarkdownRenderer} from './docs-marked-renderer';
 
@@ -26,7 +26,14 @@ if (require.main === module) {
   // Walk through each input file and write transformed markdown output to the specified
   // Bazel bin directory.
   inputFiles.forEach(inputPath => {
-    const outputPath = join(bazelBinPath, inputPath.replace(markdownExtension, '.html'));
+    const outputPath = join(
+      bazelBinPath,
+      inputPath.replace(/^projects\//, '').replace(markdownExtension, '.html'),
+    );
+    const outDir = dirname(outputPath);
+    if (!existsSync(outDir)) {
+      mkdirSync(outDir, {recursive: true});
+    }
     const htmlOutput = markdownRenderer.finalizeOutput(
       marked(readFileSync(inputPath, 'utf8')),
       inputPath,

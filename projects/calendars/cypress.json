@@ -1,0 +1,9 @@
+{
+  "integrationFolder": "projects/calendars/cypress/integration",
+  "supportFile": "projects/calendars/cypress/support/index.ts",
+  "videosFolder": "projects/calendars/cypress/videos",
+  "screenshotsFolder": "projects/calendars/cypress/screenshots",
+  "pluginsFile": "projects/calendars/cypress/plugins/index.ts",
+  "fixturesFolder": "projects/calendars/cypress/fixtures",
+  "baseUrl": "http://localhost:4200"
+}

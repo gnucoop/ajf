@@ -1,0 +1,7 @@
+<div class="ajf-widget-wrapper" (mouseenter)="showOverlay = true" (mouseleave)="showOverlay = false" [class.ajf-show-overlay]="showOverlay">
+  <ng-content></ng-content>
+  <div *ngIf="enable" class="ajf-export-menu" [class.ajf-export-menu-overlay]="overlay">
+      <button (click)="export('csv')">CSV</button>
+      <button (click)="export('xlsx')">XLSX</button>
+  </div>
+</div>

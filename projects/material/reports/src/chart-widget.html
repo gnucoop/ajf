@@ -1,0 +1,11 @@
+<ajf-widget-export *ngIf="instance"
+    [widgetType]="instance.widgetType"
+    [data]="instance.data"
+    [enable]="instance.exportable">
+  <ajf-chart
+      [chartType]="instance.chartType"
+      [options]="instance.widget.options"
+      [data]="instance.data"
+      [instance]="instance">
+  </ajf-chart>
+</ajf-widget-export>

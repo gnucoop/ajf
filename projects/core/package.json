@@ -1,0 +1,36 @@
+{
+  "name": "@ajf/core",
+  "version": "0.0.0-PLACEHOLDER",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnucoop/ajf.git"
+  },
+  "keywords": [],
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/gnucoop/ajf/issues"
+  },
+  "homepage": "https://github.com/gnucoop/ajf#readme",
+  "peerDependencies": {
+    "@angular/cdk": "0.0.0-NGC",
+    "@angular/common": "0.0.0-NGF",
+    "@angular/core": "0.0.0-NGF",
+    "@angular/forms": "0.0.0-NGF",
+    "@angular/platform-browser": "0.0.0-NGF",
+    "@ngneat/transloco": "0.0.0-TRANSLOCO",
+    "@zxing/browser": "0.0.0-ZXING-BROWSER",
+    "@zxing/library": "0.0.0-ZXING-LIBRARY",
+    "chart.js": "0.0.0-CHARTJS",
+    "date-fns": "0.0.0-DATE-FNS",
+    "flag-icon-css": "0.0.0-FLAG-ICON-CSS",
+    "leaflet": "0.0.0-LEAFLET",
+    "meriyah": "0.0.0-MERIYAH",
+    "numbro": "0.0.0-NUMBRO",
+    "pdfmake": "0.0.0-PDFMAKE",
+    "xlsx": "0.0.0-XLSX"
+  },
+  "dependencies": {
+    "tslib": "0.0.0-TSLIB"
+  }
+}

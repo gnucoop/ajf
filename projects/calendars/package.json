@@ -1,0 +1,23 @@
+{
+  "name": "@ajf/calendars",
+  "version": "0.0.0-PLACEHOLDER",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnucoop/ajf.git"
+  },
+  "keywords": [],
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/gnucoop/ajf/issues"
+  },
+  "homepage": "https://github.com/gnucoop/ajf#readme",
+  "peerDependencies": {
+    "@ajf/core": "0.0.0-PLACEHOLDER",
+    "@angular/core": "0.0.0-NGF",
+    "date-fns": "0.0.0-DATE-FNS"
+  },
+  "dependencies": {
+    "tslib": "0.0.0-TSLIB"
+  }
+}

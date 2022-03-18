@@ -1,0 +1,298 @@
+<ng-container *ngIf="formGroup|async as currentFormGroup">
+  <form novalidate [formGroup]="currentFormGroup!">
+    <div class="ajf-form-container">
+      <ion-toolbar *ngIf="!hideTopToolbar && topBar" class="ajf-btn-strip">
+        <div class="ajf-topbar-buttons">
+          <ng-container *ngFor="let slideInstance of (slides|async)">
+            <ion-button
+              class="ajf-topbar-button"
+              *ngIf="slideInstance.node && slideInstance.node.label && slideInstance.node.label.length > 0"
+              (click)="scrollToSlide(slideInstance)"
+              >{{slideInstance.node.label | transloco}}</ion-button
+            >
+          </ng-container>
+        </div>
+      </ion-toolbar>
+      <ion-toolbar *ngIf="!hideTopToolbar">
+        {{ title | transloco }}
+        <ion-buttons slot="end">
+          <!-- this content projection  allow to add buttons on toolbar-->
+          <ng-content select="[ajfFormTopToolbarButtons]"></ng-content>
+          <!-- apply a default save button only when ajfFormSaveButton is empty-->
+          <span *ngIf="!saveDisabled" (click)="onSave($event)">
+            <span #saveButton
+              ><ng-content select="[ajfFormSaveButton]"></ng-content
+            ></span>
+            <ion-button
+              *ngIf="saveButton && saveButton.childNodes && saveButton.childNodes.length === 0"
+              >{{ 'Save' | transloco }}</ion-button
+            >
+          </span>
+        </ion-buttons>
+      </ion-toolbar>
+      <div class="ajf-slider-container">
+        <ajf-page-slider
+          (orientationChange)="orientationChangeHandler($event)"
+          [hideNavigationButtons]="hideNavigationButtons"
+          [fixedOrientation]="fixedOrientation"
+          [orientation]="orientation"
+          #formSlider
+        >
+          <ng-container *ngIf="(slides|async) as curSlides">
+            <ng-container
+              *ngIf="curSlides && curSlides!.length > 0 && hasStartMessage"
+            >
+              <ajf-page-slider-item>
+                <div ajfFormPage class="ajf-form-page">
+                  <ion-card>
+                    <ion-card-header>
+                      <div class="ajf-page-slider-item-header">
+                        <h2>
+                          <span class="ajf-form-header-number"> 1 &rarr; </span>
+                          <span class="ajf-title">
+                            <ng-content
+                              select="[ajfFormStartMessageTitle]"
+                            ></ng-content>
+                          </span>
+                        </h2>
+                      </div>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <ng-content select="[ajfFormStartMessage]"></ng-content>
+                    </ion-card-content>
+                  </ion-card>
+                </div>
+              </ajf-page-slider-item>
+            </ng-container>
+            <ng-container
+              *ngFor="let slideInstance of curSlides; trackBy: trackNodeById"
+            >
+              <ng-container
+                *ngIf="(!(slideInstance|ajfIsRepeatingSlideInstance)) && slideInstance.visible"
+              >
+                <ajf-page-slider-item>
+                  <div ajfFormPage class="ajf-form-page">
+                    <ion-card>
+                      <ion-card-header>
+                        <div class="ajf-page-slider-item-header">
+                          <h2>
+                            <span class="ajf-form-header-number"
+                              >{{ slideInstance.position + (hasStartMessage |
+                              ajfBoolToInt) }} &rarr;</span
+                            >
+                            <span class="ajf-title"
+                              >{{ slideInstance.node.label | transloco}}</span
+                            >
+                          </h2>
+                          <ion-icon
+                            color="danger"
+                            name="warning"
+                            *ngIf="!slideInstance.valid"
+                          ></ion-icon>
+                          <ion-icon
+                            color="secondary"
+                            name="checkmark"
+                            *ngIf="slideInstance.valid"
+                          ></ion-icon>
+                        </div>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <ng-container
+                          *ngFor="let fieldInstance of slideInstance.flatNodes; trackBy: trackNodeById"
+                        >
+                          <div
+                            [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size"
+                            class="ajf-field-entry"
+                            *ngIf="fieldInstance.visible"
+                          >
+                            <i
+                              [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon"
+                              item-right
+                            ></i>
+                            <p>
+                              {{
+                              (fieldInstance|ajfAsFieldInstance).node.description
+                              }}
+                            </p>
+                            <ion-label
+                              [innerHTML]="fieldInstance.node.label | transloco"
+                            ></ion-label>
+                            <ion-icon
+                              *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint"
+                              [name]="(fieldInstance|ajfAsFieldInstance).node?.hintIcon || 'help-outline'"
+                              (click)="openPopover($event, hint)"
+                            ></ion-icon>
+                            <ajf-field
+                              [instance]="fieldInstance|ajfAsFieldInstance"
+                              [readonly]="readonly || !slideInstance.editable"
+                            >
+                            </ajf-field>
+                          </div>
+                        </ng-container>
+                      </ion-card-content>
+                    </ion-card>
+                  </div>
+                </ajf-page-slider-item>
+              </ng-container>
+              <ng-container
+                *ngIf="(slideInstance|ajfIsRepeatingSlideInstance) && slideInstance.visible"
+              >
+                <ajf-page-slider-item
+                  *ngFor="let curRep of ((slideInstance|ajfAsRepeatingSlideInstance).reps|ajfRange); let idx = index; let lastSlide = last"
+                >
+                  <div ajfFormPage class="ajf-form-page">
+                    <ion-card>
+                      <ion-card-header>
+                        <div class="ajf-page-slider-item-header">
+                          <h2>
+                            <span class="ajf-form-header-number"
+                              >{{ slideInstance.position|ajfIncrement:idx }}
+                              &rarr;</span
+                            >
+                            <span class="ajf-title"
+                              >{{ slideInstance.node.label | transloco }}</span
+                            >
+                          </h2>
+                          <ion-icon
+                            color="danger"
+                            name="ajf-warning"
+                            *ngIf="!(slideInstance|ajfValidSlide:idx)"
+                          ></ion-icon>
+                          <ion-icon
+                            color="secondary"
+                            name="checkmark"
+                            *ngIf="(slideInstance|ajfValidSlide:idx)"
+                          ></ion-icon>
+                        </div>
+                        <div
+                          *ngIf="lastSlide && !readonly"
+                          class="ajf-group-actions"
+                        >
+                          <ion-fab-button
+                            size="small"
+                            (click)="addGroup(slideInstance)"
+                            [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval && !slideInstance.valid)"
+                          >
+                            <ion-icon name="add"></ion-icon>
+                          </ion-fab-button>
+                          <ion-fab-button
+                            size="small"
+                            (click)="removeGroup(slideInstance)"
+                            [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove || (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval"
+                          >
+                            <ion-icon name="remove"></ion-icon>
+                          </ion-fab-button>
+                        </div>
+                      </ion-card-header>
+                      <ion-card-content>
+                        <ng-container
+                          *ngFor="let fieldInstance of slideInstance.slideNodes[idx]; trackBy: trackNodeById"
+                        >
+                          <div
+                            [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size"
+                            class="ajf-field-entry"
+                            *ngIf="fieldInstance.visible"
+                          >
+                            <i
+                              [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon"
+                              item-right
+                            ></i>
+                            <p>
+                              {{
+                              (fieldInstance|ajfAsFieldInstance).node.description
+                              }}
+                            </p>
+                            <ion-label
+                              [innerHTML]="fieldInstance.node.label | transloco"
+                            ></ion-label>
+                            <ajf-field
+                              [instance]="fieldInstance|ajfAsFieldInstance"
+                              [readonly]="readonly || (!lastSlide && (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval)"
+                            ></ajf-field>
+                          </div>
+                        </ng-container>
+                        <div
+                          *ngIf="lastSlide && longSlide"
+                          class="ajf-group-actions ajf-group-actions-bottom"
+                        >
+                          <ion-fab-button
+                            size="small"
+                            (click)="addGroup(slideInstance)"
+                            [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd"
+                            mat-mini-fab
+                          >
+                            <ion-icon name="add"></ion-icon>
+                          </ion-fab-button>
+                          <ion-fab-button
+                            size="small"
+                            (click)="removeGroup(slideInstance)"
+                            [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove"
+                            mat-mini-fab
+                          >
+                            <ion-icon name="remove"></ion-icon>
+                          </ion-fab-button>
+                        </div>
+                      </ion-card-content>
+                    </ion-card>
+                  </div>
+                </ajf-page-slider-item>
+              </ng-container>
+            </ng-container>
+            <ng-container
+              *ngIf="curSlides && curSlides!.length > 0 && hasEndMessage"
+            >
+              <ajf-page-slider-item>
+                <div ajfFormPage class="ajf-form-page">
+                  <ion-card>
+                    <ion-card-header>
+                      <div class="ajf-page-slider-item-header">
+                        <h2>
+                          <span
+                            *ngIf="(slidesNum|async) as snum"
+                            class="ajf-form-header-number"
+                          >
+                            {{ snum! + (hasStartMessage | ajfBoolToInt) + 1 }}
+                            &rarr;
+                          </span>
+                          <span class="ajf-title">
+                            <ng-content
+                              select="[ajfFormEndMessageTitle]"
+                            ></ng-content>
+                          </span>
+                        </h2>
+                      </div>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <ng-content select="[ajfFormEndMessage]"></ng-content>
+                    </ion-card-content>
+                  </ion-card>
+                </div>
+              </ajf-page-slider-item>
+            </ng-container>
+          </ng-container>
+          <div ajfPageSliderBar *ngIf="!hideBottomToolbar">
+            <div class="ajf-left-bar">
+              <ion-buttons
+                class="ajf-errors"
+                *ngIf="((errors | async) || 0) > 0"
+              >
+                <ion-button (click)="goToPrevError()" color="danger">
+                  <ion-icon name="arrow-up"></ion-icon>
+                </ion-button>
+                <ion-button (click)="goToNextError()" color="danger">
+                  <ion-icon name="arrow-down"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+              <div class="ajf-info-box ajf-error">
+                <div class="ajf-title">{{'Errors'|transloco}}</div>
+                <div class="ajf-content">
+                  {{ errors | async }} / {{ slidesNum|async }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </ajf-page-slider>
+      </div>
+    </div>
+  </form>
+</ng-container>

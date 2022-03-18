@@ -40,7 +40,7 @@ export function getInheritedDocsOfClass(
       // An example is the use of mixins. Type-wise mixins are not like real classes, because
       // they are composed through an intersection type. In order to handle this pattern, we
       // need to handle intersection types manually and resolve them to Dgeni API documents.
-      const resolvedType = typeChecker.getTypeAtLocation(info.type);
+      const resolvedType = typeChecker.getTypeAtLocation(info.type) as any;
       const docs = getClassLikeDocsFromType(resolvedType, doc, exportSymbolsToDocsMap);
       // Add direct class-like types resolved from the expression.
       result.push(...docs);
@@ -68,7 +68,7 @@ function getClassLikeDocsFromType(
   // specifiers. We need to resolve the aliased symbol back to the declaration symbol.
   if (symbol && (symbol.flags & ts.SymbolFlags.Alias) !== 0) {
     aliasSymbol = symbol;
-    symbol = typeChecker.getAliasedSymbol(symbol);
+    symbol = typeChecker.getAliasedSymbol(symbol as any) as any;
   }
 
   // Intersection types are commonly used in TypeScript mixins to express the
@@ -88,9 +88,19 @@ function getClassLikeDocsFromType(
     }
     let createdDoc: InheritanceCreatedClassLikeDoc | null = null;
     if ((symbol.flags & ts.SymbolFlags.Class) !== 0) {
-      createdDoc = new ClassExportDoc(baseDoc.host, baseDoc.moduleDoc, symbol, aliasSymbol);
+      createdDoc = new ClassExportDoc(
+        baseDoc.host,
+        baseDoc.moduleDoc,
+        symbol as any,
+        aliasSymbol as any,
+      );
     } else if ((symbol.flags & ts.SymbolFlags.Interface) !== 0) {
-      createdDoc = new InterfaceExportDoc(baseDoc.host, baseDoc.moduleDoc, symbol, aliasSymbol);
+      createdDoc = new InterfaceExportDoc(
+        baseDoc.host,
+        baseDoc.moduleDoc,
+        symbol as any,
+        aliasSymbol as any,
+      );
     }
 
     if (createdDoc) {

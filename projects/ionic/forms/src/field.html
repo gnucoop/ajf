@@ -1,0 +1,21 @@
+<div
+    *ngIf="instance"
+    [ngClass]="'ajf-field-' + (instance|ajfNodeCompleteName)"
+    [class.ajf-validated]="instance.validationResults|ajfFieldIsValid"
+>
+  <ng-template ajf-field-host></ng-template>
+</div>
+<ng-container *ngIf="instance && instance.node.attachments">
+  <ng-container *ngFor="let attachment of instance.node.attachments">
+    <a [href]="attachment.value" target="_blank">{{attachment.label}}</a>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="!readonly && instance && instance.validationResults">
+  <div class="ajf-errors">
+    <ng-container *ngFor="let res of instance.validationResults">
+      <div class="error" *ngIf="!res.result">
+        {{ res.error | transloco }}
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

@@ -97,67 +97,69 @@ export class EntryPointGrouper implements Processor {
     const entryPoints = new Map<string, EntryPointDoc>();
 
     docs.forEach(doc => {
-      const moduleInfo = this._getModulePackageInfo(doc);
+      try {
+        const moduleInfo = this._getModulePackageInfo(doc);
 
-      const packageName = moduleInfo.packageName;
-      let packageDisplayName = '';
-      switch (packageName) {
-        case 'core':
-          packageDisplayName = 'Core';
-          break;
-        case 'ionic':
-          packageDisplayName = 'Ionic';
-          break;
-        case 'material':
-          packageDisplayName = 'Material';
-      }
-
-      const moduleImportPath = `@ajf/${packageName}/${moduleInfo.entryPointName}`;
-      const entryPointName = packageName + '-' + moduleInfo.name;
-
-      // Compute a public URL that refers to the document. This is helpful if we want to
-      // make references to other API documents. e.g. showing the extended class.
-      doc.publicUrl = computeApiDocumentUrl(doc, moduleInfo);
-
-      // Get the entry-point for this doc, or, if one does not exist, create it.
-      let entryPoint;
-      if (entryPoints.has(entryPointName)) {
-        entryPoint = entryPoints.get(entryPointName)!;
-      } else {
-        entryPoint = new EntryPointDoc(entryPointName);
-        entryPoints.set(entryPointName, entryPoint);
-      }
-
-      entryPoint.displayName = moduleInfo.name;
-      entryPoint.moduleImportPath = moduleImportPath;
-      entryPoint.packageName = packageName;
-      entryPoint.packageDisplayName = packageDisplayName;
-
-      // Put this doc into the appropriate list in the entry-point doc.
-      if (doc.isDirective) {
-        entryPoint.directives.push(doc);
-      } else if (doc.isService) {
-        entryPoint.services.push(doc);
-      } else if (doc.isNgModule) {
-        entryPoint.exportedNgModules.push(doc);
-      } else if (doc.docType === 'class') {
-        entryPoint.classes.push(doc);
-        if (doc.isTestHarness) {
-          entryPoint.testHarnesses.push(doc);
+        const packageName = moduleInfo.packageName;
+        let packageDisplayName = '';
+        switch (packageName) {
+          case 'core':
+            packageDisplayName = 'Core';
+            break;
+          case 'ionic':
+            packageDisplayName = 'Ionic';
+            break;
+          case 'material':
+            packageDisplayName = 'Material';
         }
-      } else if (doc.docType === 'interface') {
-        entryPoint.interfaces.push(doc);
-      } else if (doc.docType === 'type-alias') {
-        entryPoint.typeAliases.push(doc);
-      } else if (doc.docType === 'function') {
-        entryPoint.functions.push(doc);
-      } else if (doc.docType === 'const') {
-        entryPoint.constants.push(doc);
-      }
 
-      if (isPrimaryExportDoc(doc)) {
-        entryPoint.primaryExportName = doc.name;
-      }
+        const moduleImportPath = `@ajf/${packageName}/${moduleInfo.entryPointName}`;
+        const entryPointName = packageName + '-' + moduleInfo.name;
+
+        // Compute a public URL that refers to the document. This is helpful if we want to
+        // make references to other API documents. e.g. showing the extended class.
+        doc.publicUrl = computeApiDocumentUrl(doc, moduleInfo);
+
+        // Get the entry-point for this doc, or, if one does not exist, create it.
+        let entryPoint;
+        if (entryPoints.has(entryPointName)) {
+          entryPoint = entryPoints.get(entryPointName)!;
+        } else {
+          entryPoint = new EntryPointDoc(entryPointName);
+          entryPoints.set(entryPointName, entryPoint);
+        }
+
+        entryPoint.displayName = moduleInfo.name;
+        entryPoint.moduleImportPath = moduleImportPath;
+        entryPoint.packageName = packageName;
+        entryPoint.packageDisplayName = packageDisplayName;
+
+        // Put this doc into the appropriate list in the entry-point doc.
+        if (doc.isDirective) {
+          entryPoint.directives.push(doc);
+        } else if (doc.isService) {
+          entryPoint.services.push(doc);
+        } else if (doc.isNgModule) {
+          entryPoint.exportedNgModules.push(doc);
+        } else if (doc.docType === 'class') {
+          entryPoint.classes.push(doc);
+          if (doc.isTestHarness) {
+            entryPoint.testHarnesses.push(doc);
+          }
+        } else if (doc.docType === 'interface') {
+          entryPoint.interfaces.push(doc);
+        } else if (doc.docType === 'type-alias') {
+          entryPoint.typeAliases.push(doc);
+        } else if (doc.docType === 'function') {
+          entryPoint.functions.push(doc);
+        } else if (doc.docType === 'const') {
+          entryPoint.constants.push(doc);
+        }
+
+        if (isPrimaryExportDoc(doc)) {
+          entryPoint.primaryExportName = doc.name;
+        }
+      } catch (e) {}
     });
 
     // For each entry-point where no explicit primary export has been specified

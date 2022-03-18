@@ -33,8 +33,8 @@ export function getDirectiveMetadata(classDoc: CategorizedClassDoc): Map<string,
   }
 
   const expression = declaration.decorators
-    .filter(decorator => decorator.expression && isCallExpression(decorator.expression))
-    .map(decorator => decorator.expression as CallExpression)
+    .filter(decorator => decorator.expression && isCallExpression(decorator.expression as any))
+    .map(decorator => decorator.expression as any)
     .find(
       callExpression =>
         callExpression.expression.getText() === 'Component' ||

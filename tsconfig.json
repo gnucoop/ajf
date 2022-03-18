@@ -1,55 +1,48 @@
-// TypeScript config file that matches all source files in the project. This file is read by
-// IDEs and TSLint. For IDEs it ensures that `experimentalDecorator` warnings are not showing up.
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/packages/all",
-    "experimentalDecorators": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "noUnusedParameters": false,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": false,
-    "strictNullChecks": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "strictFunctionTypes": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "skipLibCheck": true,
-    "strictBindCallApply": true,
-    "target": "es2020",
-    "lib": ["es2020", "dom"],
-    "types": ["jasmine"],
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
-      "@ajf/ajf-examples": ["./src/packages/ajf-examples"],
-      "@ajf/ajf-examples/*": ["./src/packages/ajf-examples/*"],
-      "@ajf/calendars/*": ["./src/calendars/*"],
-      "@ajf/core": ["./src/core"],
-      "@ajf/core/*": ["./src/core/*"],
-      "@ajf/ionic/*": ["./src/ionic/*"],
-      "@ajf/material/*": ["./src/material/*"]
-    }
+      "@ajf/calendars": ["./projects/calendars"],
+      "@ajf/calendars/*": ["./projects/calendars/*"],
+      "@ajf/core": ["./projects/core"],
+      "@ajf/core/*": ["./projects/core/*"],
+      "@ajf/ionic": ["./projects/ionic"],
+      "@ajf/ionic/*": ["./projects/ionic/*"],
+      "@ajf/material": ["./projects/material"],
+      "@ajf/material/*": [
+        "./projects/material/*"
+      ],
+      "ajf-examples": [
+        "dist/ajf-examples/ajf-examples",
+        "dist/ajf-examples"
+      ]
+    },
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ]
   },
-  "include": [
-    "src/**/*.ts",
-    "e2e/**/*.ts",
-    "test/**/*.ts",
-    "tools/**/*.ts",
-    "integration/**/*.ts",
-    "scripts/**/*.ts"
-  ],
-  "exclude": [
-    // Exclude files that depend on Node APIs because those depend on the Node types and therefore
-    // cause ambiguous imports. For example `setTimeout()` will return a Timer instead of a number.
-    "./src/universal-app/prerender.ts",
-
-    // Exclude the API goldens in order to not slow-down IDE's using this tsconfig file
-    "tools/public_api_guard/**/*.d.ts",
-
-    // IDEs should not type-check the different node_modules directories of the different packages.
-    // This would cause the IDEs to be slower and also linters would check the node_modules.
-    "node_modules/"
-  ]
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
 }

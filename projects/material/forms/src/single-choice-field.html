@@ -1,0 +1,20 @@
+<ng-container *ngIf="instance">
+  <ng-container *ngIf="!(instance|ajfExpandFieldWithChoices:searchThreshold) ; else expanded">
+    <mat-select *ngIf="control|async as ctrl" [formControl]="ctrl!">
+      <mat-option [value]="choice.value"
+          *ngFor="let choice of instance!.filteredChoices">
+        {{ choice.label | transloco }}
+      </mat-option>
+    </mat-select>
+  </ng-container>
+</ng-container>
+<ng-template #expanded>
+  <mat-radio-group *ngIf="control|async as ctrl" class="ajf-choices-container"
+      [attr.aria-labelledby]="instance!.node.name"
+      [formControl]="ctrl!">
+    <mat-radio-button [value]="choice.value"
+        *ngFor="let choice of instance!.filteredChoices">
+      {{ choice.label | transloco }}
+    </mat-radio-button>
+  </mat-radio-group>
+</ng-template>

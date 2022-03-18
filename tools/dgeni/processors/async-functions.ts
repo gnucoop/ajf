@@ -51,7 +51,7 @@ function getTypeOfFunctionLikeDoc(doc: FunctionLikeDoc): string | null {
     return doc.type;
   }
 
-  const decl = doc.declaration as ts.MethodDeclaration | ts.FunctionDeclaration;
+  const decl = doc.declaration as any;
   const signature = doc.typeChecker.getSignatureFromDeclaration(decl);
 
   if (!signature) {

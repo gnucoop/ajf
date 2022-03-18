@@ -1,0 +1,8 @@
+<mat-form-field *ngIf="control|async as ctrl">
+  <input matInput type="date"
+      [attr.aria-label]="instance!|ajfNodeCompleteName"
+      [min]="instance!.node.minDate|ajfDateValueString"
+      [max]="instance!.node.maxDate|ajfDateValueString"
+      (change)="onChange()"
+      [formControl]="ctrl!">
+</mat-form-field>

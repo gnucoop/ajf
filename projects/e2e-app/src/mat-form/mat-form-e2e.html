@@ -1,0 +1,9 @@
+<h1>Number Field Example</h1>
+<section>
+  <ajf-form
+    *ngIf="form"
+    [form]="form"
+    [topBar]="(topBar$|async)|| false"
+    [hideTopToolbar]="(hideToolbar$|async)|| false"
+  ></ajf-form>
+</section>
