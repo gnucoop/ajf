@@ -3,6 +3,8 @@ pipeline {
   environment {
     scmInfo = checkout scm
     gitBranch = scmInfo.GIT_BRANCH.replace("origin/", "")
+    NODEJS_HOME = "${tool 'node-16'}"
+    PATH="${NODEJS_HOME}/bin:${env.PATH}"
   }
   stages {
     stage('Setup') {
