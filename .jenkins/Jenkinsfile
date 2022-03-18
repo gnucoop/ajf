@@ -1,4 +1,5 @@
 pipeline {
+  agent any
   environment {
     scmInfo = checkout scm
     gitBranch = scmInfo.GIT_BRANCH.replace("origin/", "")
