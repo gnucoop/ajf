@@ -53,6 +53,17 @@
             }
           }
         },
+        "cypress-run-ci": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "configFile": "projects/core/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        },
         "cypress-open": {
           "builder": "@cypress/schematic:cypress",
           "options": {
@@ -118,6 +129,17 @@
           "builder": "@cypress/schematic:cypress",
           "options": {
             "devServerTarget": "e2e-app:serve",
+            "configFile": "projects/material/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        },
+        "cypress-run-ci": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
             "configFile": "projects/material/cypress.json"
           },
           "configurations": {
@@ -199,6 +221,17 @@
             }
           }
         },
+        "cypress-run-ci": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "configFile": "projects/ionic/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        },
         "cypress-open": {
           "builder": "@cypress/schematic:cypress",
           "options": {
@@ -264,6 +297,17 @@
           "builder": "@cypress/schematic:cypress",
           "options": {
             "devServerTarget": "e2e-app:serve",
+            "configFile": "projects/calendars/cypress.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "e2e-app:serve:production"
+            }
+          }
+        },
+        "cypress-run-ci": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
             "configFile": "projects/calendars/cypress.json"
           },
           "configurations": {
