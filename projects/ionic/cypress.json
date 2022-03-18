@@ -5,5 +5,6 @@
   "screenshotsFolder": "projects/ionic/cypress/screenshots",
   "pluginsFile": "projects/ionic/cypress/plugins/index.ts",
   "fixturesFolder": "projects/ionic/cypress/fixtures",
+  "video": false,
   "baseUrl": "http://localhost:4200"
 }

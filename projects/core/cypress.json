@@ -5,5 +5,6 @@
   "screenshotsFolder": "projects/core/cypress/screenshots",
   "pluginsFile": "projects/core/cypress/plugins/index.ts",
   "fixturesFolder": "projects/core/cypress/fixtures",
+  "video": false,
   "baseUrl": "http://localhost:4200"
 }

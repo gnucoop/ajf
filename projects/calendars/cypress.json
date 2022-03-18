@@ -5,5 +5,6 @@
   "screenshotsFolder": "projects/calendars/cypress/screenshots",
   "pluginsFile": "projects/calendars/cypress/plugins/index.ts",
   "fixturesFolder": "projects/calendars/cypress/fixtures",
+  "video": false,
   "baseUrl": "http://localhost:4200"
 }
