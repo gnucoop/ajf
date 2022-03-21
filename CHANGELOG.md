@@ -1,3 +1,26 @@
+<a name="13.1.0"></a>
+# 13.1.0 "unwilling-tapir" (2022-03-21)
+### Bug Fixes
+* **calendars/ethiopian:** fix month number in ethiopian pipe ([7805c31](https://github.com/gnucoop/ajf/commit/7805c31657fa898b057fa8afca1a2dae28f57936))
+* **core/chart:** Fixed chart pieceLabel assignment ([1a95372](https://github.com/gnucoop/ajf/commit/1a953725693bc045cae488172134cd1c1c9150e3))
+* **core/forms:** form-to-pdf: fix printing of formula fields ([65fd4a7](https://github.com/gnucoop/ajf/commit/65fd4a71ea5c29d20142f9202c4a8ec18ef109f9))
+* **core/forms:** trigger form state updates on group removal ([ae0c55d](https://github.com/gnucoop/ajf/commit/ae0c55d487bf3880bff691e2ba0839e320a86698))
+* **core/report:** fix expression-utils functions ([32b4f31](https://github.com/gnucoop/ajf/commit/32b4f31b5b5e97dc17ca6777d33593441463b907))
+* **core/reports:** export also dynamic table widget both with rowspan or colspan ([60a2b4c](https://github.com/gnucoop/ajf/commit/60a2b4cd9517e75f37e1d703747ded0f854da7ef))
+* **core:** fix COUNT_FORMS_UNIQUE ([cab93d5](https://github.com/gnucoop/ajf/commit/cab93d5dfec9fe9d71f33d0be6f5e2175b373227))
+* **multiple:** report from xls ([8489fda](https://github.com/gnucoop/ajf/commit/8489fdad9072e55a81e950230551ce2f29e79225))
+### Features
+* **core/reports:** add filter widget ([eea3db2](https://github.com/gnucoop/ajf/commit/eea3db213e7cb81374c87f64a0c403bdee688e30))
+* **core/reports:** add report builder by xls ([9ef65dd](https://github.com/gnucoop/ajf/commit/9ef65dd20de6b6c7a12575d7dbdf8a60edee3a45))
+* **core/reports:** expression-utils functions implemented in hindikit-parser ([d31953a](https://github.com/gnucoop/ajf/commit/d31953af7097e86fd3a996a1ccc1811322fe02d1))
+* **core/reports:** html icons to text in csv/xlsx widget export ([0dc2248](https://github.com/gnucoop/ajf/commit/0dc2248a2cebfd141ba23a37652d3f845c807ffd))
+* **material/form-builder:** add support for range field properties ([e55d51f](https://github.com/gnucoop/ajf/commit/e55d51fc1f9c1445cc192335115b428b7f8c2f08))
+* **material/forms:** add slides validation indicator in breadcrumbs ([cbe9f36](https://github.com/gnucoop/ajf/commit/cbe9f360667c7d1614026b9ae3692bf675a20a71))
+### Reverts
+* Revert "ci: disable remote http bazel cache" ([16df869](https://github.com/gnucoop/ajf/commit/16df869a91ee56f67d796a4b2bc45a2c39493e4f))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.0.0"></a>
 # 13.0.0 "successive-tahr" (2022-03-10)
 ### core
