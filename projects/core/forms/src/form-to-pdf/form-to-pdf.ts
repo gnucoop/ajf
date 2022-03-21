@@ -209,11 +209,16 @@ function fieldToPdf(
         {table: {widths: ['*'], body: [[lookupString(field.name)]]}, margin: [5, 0, 0, 5]},
       ];
     case AjfFieldType.Formula:
-      const formula = ((field as AjfFormulaField).formula as AjfFormula).formula;
-      const value = evaluateExpression(formula, context);
+      const formulaField = field as AjfFormulaField;
+      let value = lookupString(formulaField.name);
+      if (value === ' ') {
+        // If the value of the field is not in the context, recompute the formula.
+        const formula = formulaField.formula as AjfFormula;
+        value = String(evaluateExpression(formula.formula, context));
+      }
       return [
         borderlessCell(translate(field.label)),
-        {table: {widths: ['*'], body: [[String(value)]]}, margin: [5, 0, 0, 5]},
+        {table: {widths: ['*'], body: [[value]]}, margin: [5, 0, 0, 5]},
       ];
     case AjfFieldType.Number:
     case AjfFieldType.Boolean:
