@@ -1,23 +1,33 @@
 import {TestBed} from '@angular/core/testing';
+import {FormGroup} from '@angular/forms';
+import {firstValueFrom, Subscription, timer} from 'rxjs';
+import {filter} from 'rxjs/operators';
 
 import {
+  AjfField,
   AjfFieldInstance,
+  AjfFieldType,
   AjfForm,
   AjfFormRendererService,
   AjfFormSerializer,
   AjfFormsModule,
+  AjfNodeType,
+  AjfRepeatingSlideInstance,
+  AjfSlideInstance,
 } from './public_api';
 
 describe('formula field', () => {
+  let formRenderer: AjfFormRendererService;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AjfFormsModule],
     }).compileComponents();
+    formRenderer = TestBed.inject(AjfFormRendererService);
   });
 
   it('the sum of two formulae should produce a number \
   and not a string concatenation', done => {
-    const formRenderer: AjfFormRendererService = TestBed.get(AjfFormRendererService);
     const json = {
       nodes: [
         {
@@ -69,7 +79,6 @@ describe('formula field', () => {
 
   it('the sum of two number input should produce a number \
      and not a string concatenation when some number input are null', done => {
-    const formRenderer: AjfFormRendererService = TestBed.get(AjfFormRendererService);
     const json = {
       nodes: [
         {
@@ -129,7 +138,6 @@ describe('formula field', () => {
   });
 
   it('check field default value', done => {
-    const formRenderer: AjfFormRendererService = TestBed.get(AjfFormRendererService);
     const json = {
       nodes: [
         {
@@ -168,3 +176,103 @@ describe('formula field', () => {
     formRenderer.setForm(form);
   });
 });
+
+const smallDelay = async () => await firstValueFrom(timer(300));
+
+describe('repeating slides', () => {
+  let service: AjfFormRendererService;
+  let formGroupSub = Subscription.EMPTY;
+  let nodesSub = Subscription.EMPTY;
+  let slides: AjfSlideInstance[];
+  let formGroup: FormGroup;
+
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [AjfFormsModule],
+    });
+
+    service = TestBed.inject(AjfFormRendererService);
+    const form = AjfFormSerializer.fromJson(testFormRepSlides);
+    formGroupSub = service.formGroup
+      .pipe(filter(fg => fg != null))
+      .subscribe(fg => (formGroup = fg!));
+    nodesSub = service.nodesTree.subscribe(nodes => (slides = nodes));
+    service.setForm(form);
+  });
+
+  afterEach(() => {
+    nodesSub.unsubscribe();
+    formGroupSub.unsubscribe();
+  });
+
+  it('should update depending fields on slide deletion', async () => {
+    const repSlide = slides[0] as unknown as AjfRepeatingSlideInstance;
+    formGroup.patchValue({num__0: 1});
+    await smallDelay();
+    expect(formGroup.value.osnum).toBe(1);
+    let res = await firstValueFrom(service.addGroup(repSlide));
+    expect(res).toBe(true);
+    formGroup.patchValue({num__1: 2});
+    await smallDelay();
+    expect(formGroup.value.osnum).toBe(3);
+    res = await firstValueFrom(service.removeGroup(repSlide));
+    expect(res).toBe(true);
+    await smallDelay();
+    await smallDelay();
+    await smallDelay();
+    expect(formGroup.value.osnum).toBe(1);
+  });
+});
+
+const testFormRepSlides = {
+  choicesOrigins: [],
+  attachmentsOrigins: [],
+  stringIdentifier: [],
+  nodes: [
+    {
+      id: 1,
+      nodeType: AjfNodeType.AjfRepeatingSlide,
+      parent: 0,
+      parentNode: 0,
+      conditionalBranches: [{condition: 'true'}],
+      name: 'rep_slide',
+      label: 'repeating slide',
+      nodes: [
+        {
+          id: 1001,
+          nodeType: AjfNodeType.AjfField,
+          fieldType: AjfFieldType.Number,
+          parent: 1,
+          parentNode: 0,
+          conditionalBranches: [{condition: 'true'}],
+          name: 'num',
+          label: 'num',
+        },
+      ],
+    },
+    {
+      id: 2,
+      nodeType: AjfNodeType.AjfSlide,
+      parent: 1,
+      parentNode: 0,
+      conditionalBranches: [{condition: 'true'}],
+      name: 'other_slide',
+      label: 'other slide',
+      nodes: [
+        {
+          id: 2001,
+          nodeType: AjfNodeType.AjfField,
+          fieldType: AjfFieldType.Formula,
+          parent: 2,
+          parentNode: 0,
+          conditionalBranches: [{condition: 'true'}],
+          name: 'osnum',
+          label: 'osnum',
+          formula: {
+            formula: '(num__0 || 0) + (num__1 || 0) + (num__2 || 0)',
+          },
+        } as AjfField,
+      ],
+    },
+  ],
+} as AjfForm;
