@@ -29,7 +29,7 @@ publishPackage() {
   packageName=${1}
   packageRepo=${2}
 
-  buildDir="$(pwd)/dist/${packageName}"
+  buildDir="$(pwd)/dist/artifacts/${packageName}"
   buildVersion=$(node -pe "require('./package.json').version")
   branchName=${CIRCLE_BRANCH:-'master'}
 
