@@ -10,27 +10,25 @@ ajf-form {
     bottom: 0;
     left: 0;
 
-    mat-toolbar.ajf-btn-strip {
-      overflow: auto;
-
-      button.ajf-topbar-button.mat-button {
-        flex: 1 1 auto;
-
-        * {
-          display: block;
-          width: 100%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-
     mat-toolbar.ajf-hidden {
       opacity: 0;
     }
 
+    .ajf-btn-strip {
+      .mat-button-toggle-group {
+        overflow-x: auto;
+      }
+    }
+
     .ajf-topbar-button {
-      margin-right: 10px;
+      font-size: 0.8em;
+    }
+
+    mat-icon.ajf-warning {
+      color: #f53d3d;
+    }
+    mat-icon.ajf-success {
+      color: #32db64;
     }
 
     > .ajf-slider-container {
@@ -108,13 +106,6 @@ ajf-form {
             > .ajf-form-header-number {
               margin-right: 0.5em;
             }
-          }
-
-          mat-icon.ajf-warning {
-            color: #f53d3d;
-          }
-          mat-icon.ajf-success {
-            color: #32db64;
           }
 
           h2 > .ajf-title {
