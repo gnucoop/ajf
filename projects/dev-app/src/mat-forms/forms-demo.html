@@ -24,7 +24,7 @@
       </mat-grid-tile>
     </mat-grid-list>
     <div class="demo-form-container" *ngIf="form$|async as form">
-      <ajf-form [form]="form" [hasStartMessage]="false" [hasEndMessage]="false" [readonly]="readonly">
+      <ajf-form [form]="form" [topBar]="true" [hasStartMessage]="false" [hasEndMessage]="false" [readonly]="readonly">
         <button ajfFormTopToolbarButtons mat-button default>button added by form demo</button>
       </ajf-form>
     </div>

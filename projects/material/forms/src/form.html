@@ -2,21 +2,19 @@
   <form novalidate [formGroup]="fg!">
     <div class="ajf-form-container">
       <mat-toolbar *ngIf="!hideTopToolbar && topBar" class="ajf-btn-strip">
-        <ng-template
-          ngFor
-          let-slideInstance
-          [ngForOf]="slides|async"
-          [ngForTrackBy]="trackNodeById"
-        >
-          <button
-            mat-button
-            class="ajf-topbar-button"
-            *ngIf="slideInstance.node.label && slideInstance.node.label.length > 0"
-            (click)="scrollToSlide(slideInstance)"
-          >
-            {{slideInstance.node.label | transloco}}
-          </button>
-        </ng-template>
+        <mat-button-toggle-group>
+          <ng-container *ngFor="let slideInstance of (slides|async); trackBy: trackNodeById">
+            <mat-button-toggle
+              *ngIf="slideInstance.node.label && slideInstance.node.label.length > 0"
+              class="ajf-topbar-button"
+              (click)="scrollToSlide(slideInstance)"
+            >
+              {{slideInstance.node.label | transloco}}
+              <mat-icon *ngIf="!slideInstance.valid" class="ajf-warning">warning</mat-icon>
+              <mat-icon *ngIf="slideInstance.valid" class="ajf-success">check</mat-icon>
+            </mat-button-toggle>
+          </ng-container>
+        </mat-button-toggle-group>
       </mat-toolbar>
       <mat-toolbar *ngIf="!hideTopToolbar">
         {{ title }}
