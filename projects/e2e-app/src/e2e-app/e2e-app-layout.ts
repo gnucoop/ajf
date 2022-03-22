@@ -13,6 +13,7 @@ export class E2eAppLayout {
 
   navLinks = [
     {path: 'file-input', title: 'File Input'},
+    {path: 'transloco', title: 'Transloco'},
     {path: 'ion-calendar', title: 'Ionic - Calendar'},
     {path: 'ion-date-input-field', title: 'Ionic - Date Input Field'},
     {path: 'ion-form', title: 'Ionic - Form'},

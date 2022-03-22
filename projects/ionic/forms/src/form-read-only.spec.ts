@@ -32,7 +32,7 @@ import {AjfFormsModule} from './public_api';
 describe('AjfFormRenderer', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [AjfFormsModule, NoopAnimationsModule, AjfTranslocoModule],
+      imports: [AjfFormsModule, NoopAnimationsModule, AjfTranslocoModule.forRoot()],
       declarations: [TestComponent],
     });
     await TestBed.compileComponents();

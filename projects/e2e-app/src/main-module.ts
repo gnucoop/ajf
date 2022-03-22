@@ -19,6 +19,7 @@ import {MaterialDateInputFieldE2eModule} from './mat-date-input-field/date-input
 import {MaterialFormE2eModule} from './mat-form/mat-form-e2e.module';
 import {MaterialReportE2eModule} from './mat-report/mat-report-e2e.module';
 import {MaterialTableFieldE2eModule} from './mat-table-field/table-field-e2e-module';
+import {TranslocoE2eModule} from './transloco/transloco-e2e-module';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import {MaterialTableFieldE2eModule} from './mat-table-field/table-field-e2e-mod
     MaterialReportE2eModule,
     MaterialTableFieldE2eModule,
     MaterialFormE2eModule,
+    TranslocoE2eModule,
   ],
   declarations: [E2eApp],
   bootstrap: [E2eApp],
