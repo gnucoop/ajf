@@ -29,22 +29,26 @@ const prepareRelease = async () => {
     choices.push({name: `Next major: ${newVersion}`, value: newVersion});
   }
   choices.push({name: `Custom`, value: 'custom'});
-  newVersion = (await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'newVersion',
-      message: 'What version do you want to cut?',
-      choices,
-    },
-  ])).newVersion;
-  if (newVersion === 'custom') {
-    newVersion = (await inquirer.prompt([
+  newVersion = (
+    await inquirer.prompt([
       {
-        type: 'input',
+        type: 'list',
         name: 'newVersion',
-        message: 'Please enter a new version:',
+        message: 'What version do you want to cut?',
+        choices,
       },
-    ])).newVersion;
+    ])
+  ).newVersion;
+  if (newVersion === 'custom') {
+    newVersion = (
+      await inquirer.prompt([
+        {
+          type: 'input',
+          name: 'newVersion',
+          message: 'Please enter a new version:',
+        },
+      ])
+    ).newVersion;
     if (semver.parse(newVersion) == null) {
       shell.echo('Invalid version');
       shell.exit(1);
@@ -53,31 +57,36 @@ const prepareRelease = async () => {
   content.version = newVersion;
   writeFileSync(packageFile, JSON.stringify(content, null, 2));
   changelog();
-  let confirm = (await inquirer.prompt([
-    {
-      type: 'confirm',
-      name: 'confirm',
-      message: 'Please review the staged changelog. Do you want to commit changes? (Y/N)',
-    },
-  ])).confirm;
+  let confirm = (
+    await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'confirm',
+        message: 'Please review the staged changelog. Do you want to commit changes? (Y/N)',
+      },
+    ])
+  ).confirm;
   if (confirm === false) {
     shell.exit(0);
   }
   shell.exec(`git add package.json CHANGELOG.md`);
   shell.exec(`git commit -m "release: cut the v${newVersion} release"`, {silent: true});
   shell.exec(`git tag v${newVersion}`, {silent: true});
-  confirm = (await inquirer.prompt([
-    {
-      type: 'confirm',
-      name: 'confirm',
-      message: 'Do you want to push this version? (Y/N)',
-    },
-  ])).confirm;
+  confirm = (
+    await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'confirm',
+        message: 'Do you want to push this version? (Y/N)',
+      },
+    ])
+  ).confirm;
   if (confirm === false) {
     shell.exec(`Please push with "git push --tags" when ready.`);
     shell.exit(0);
   }
   shell.exec(`git push --tags`);
+  shell.exec(`git push`);
 };
 
 if (esMain(import.meta)) {
