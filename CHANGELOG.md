@@ -1,3 +1,10 @@
+<a name="13.1.1"></a>
+# 13.1.1 "deliberate-gibbon" (2022-03-22)
+### Features
+* **core/transloco:** support override of default transloco configuration ([aa82786](https://github.com/gnucoop/ajf/commit/aa827863d1d05c46d34b4cde7eb4cc7a002beb5a))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.1.0"></a>
 # 13.1.0 "unwilling-tapir" (2022-03-21)
 ### Bug Fixes
