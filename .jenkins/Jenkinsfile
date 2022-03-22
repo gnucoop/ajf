@@ -9,6 +9,7 @@ pipeline {
   stages {
     stage('Setup') {
       steps {
+        sh 'rm -rf dist'
         sh 'yarn install --frozen-lockfile --non-interactive'
       }
     }
