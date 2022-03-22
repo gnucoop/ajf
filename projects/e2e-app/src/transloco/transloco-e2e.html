@@ -1,0 +1,10 @@
+<h1>Transloco Example</h1>
+<section>
+  <mat-form-field>
+    <mat-label>Select a language</mat-label>
+    <mat-select (selectionChange)="selectLang($event)" [value]="langs[0]">
+      <mat-option *ngFor="let lang of langs" [value]="lang">{{ lang }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngFor="let str of strings" class="test-string">{{ str|transloco }}</div>
+</section>

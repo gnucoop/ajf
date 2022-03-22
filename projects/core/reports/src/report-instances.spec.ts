@@ -35,8 +35,8 @@ describe('createReportInstance', () => {
   let ts: TranslocoService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({imports: [AjfTranslocoModule]});
-    ts = TestBed.get(TranslocoService);
+    TestBed.configureTestingModule({imports: [AjfTranslocoModule.forRoot()]});
+    ts = TestBed.inject(TranslocoService);
   });
 
   it('should support variables at report level', () => {

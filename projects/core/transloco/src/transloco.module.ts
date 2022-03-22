@@ -25,6 +25,7 @@ import {
   TRANSLOCO_CONFIG,
   TRANSLOCO_MISSING_HANDLER,
   translocoConfig,
+  TranslocoConfig,
   TranslocoModule,
   TranslocoService,
   TRANSLOCO_TRANSPILER,
@@ -33,19 +34,13 @@ import {
 
 import {langs} from './lang';
 import {MissingHandler} from './transloco-missing-handler';
+
 const availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'];
+
 @NgModule({
   imports: [TranslocoModule],
   exports: [TranslocoModule],
   providers: [
-    {
-      provide: TRANSLOCO_CONFIG,
-      useValue: translocoConfig({
-        availableLangs,
-        defaultLang: 'ENG',
-        prodMode: false,
-      }),
-    },
     {provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler},
     {
       provide: TRANSLOCO_TRANSPILER,
@@ -61,10 +56,23 @@ export class AjfTranslocoModule {
       }
     });
   }
-  static forRoot(): ModuleWithProviders<AjfTranslocoModule> {
+
+  static forRoot(
+    config?: Partial<TranslocoConfig> | undefined,
+  ): ModuleWithProviders<AjfTranslocoModule> {
     return {
       ngModule: AjfTranslocoModule,
-      providers: [TranslocoService],
+      providers: [
+        TranslocoService,
+        {
+          provide: TRANSLOCO_CONFIG,
+          useValue: translocoConfig({
+            ...config,
+            availableLangs,
+            defaultLang: 'ENG',
+          }),
+        },
+      ],
     };
   }
 }
