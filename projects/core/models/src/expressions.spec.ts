@@ -1,4 +1,4 @@
-import {AjfExpressionUtils, evaluateExpression, validateExpression} from './public_api';
+import {AjfExpressionUtils, evaluateExpression, FILTER_BY, validateExpression} from './public_api';
 
 describe('evaluateExpression', () => {
   it('should evalute expressions given a context', () => {
@@ -49,5 +49,17 @@ describe('validateExpression', () => {
     expect(validateExpression('(foo + 2) / 3', {'foo': 1})).toBe(true);
 
     expect(validateExpression('(foo + 2) / 3')).toBe(false);
+  });
+});
+
+describe('FILTER_BY', () => {
+  it('should not generate invalid expressions when variables have common prefixes', () => {
+    const formula = 'pp > pp_a';
+    const forms = [
+      {pp: 7, pp_a: 3},
+      {pp: 2, pp_a: 8},
+    ];
+    const result = FILTER_BY(forms, formula).filter(form => form != null);
+    expect(result.length).toBe(1);
   });
 });

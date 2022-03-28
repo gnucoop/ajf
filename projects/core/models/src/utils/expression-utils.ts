@@ -64,7 +64,7 @@ export const getCodeIdentifiers = (
     console.log(source);
     console.log(e);
   }
-  return identifiers;
+  return identifiers.sort((i1, i2) => i2.localeCompare(i1));
 };
 
 export const dateUtils = {
