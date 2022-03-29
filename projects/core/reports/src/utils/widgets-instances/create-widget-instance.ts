@@ -47,5 +47,5 @@ export function createWidgetInstance(
     visible: evaluateExpression(widget.visibility.condition, context),
     styles: widget.styles || {},
     filter,
-  };
+  } as AjfWidgetInstance;
 }

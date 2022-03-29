@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfNodeIcon as AjfCoreNodeIcon} from '@ajf/core/node-icon';
+import {AjfNodeIcon as CoreNodeIcon} from '@ajf/core/node-icon';
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
@@ -30,4 +30,4 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfNodeIcon extends AjfCoreNodeIcon {}
+export class AjfNodeIcon extends CoreNodeIcon {}

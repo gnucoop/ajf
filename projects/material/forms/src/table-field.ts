@@ -23,7 +23,7 @@
 import {
   AJF_WARNING_ALERT_SERVICE,
   AjfFormRendererService,
-  AjfTableFieldComponent as AjfCoreTableFieldComponent,
+  AjfTableFieldComponent as CoreTableFieldComponent,
 } from '@ajf/core/forms';
 import {
   ChangeDetectionStrategy,
@@ -41,7 +41,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfTableFieldComponent extends AjfCoreTableFieldComponent {
+export class AjfTableFieldComponent extends CoreTableFieldComponent {
   constructor(
     cdr: ChangeDetectorRef,
     service: AjfFormRendererService,

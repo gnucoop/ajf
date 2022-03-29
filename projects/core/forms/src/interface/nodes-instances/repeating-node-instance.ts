@@ -22,12 +22,12 @@
 
 import {AjfFormula} from '@ajf/core/models';
 import {AjfRepeatingNode} from '../../interface/nodes/repeating-node';
-import {AjfNodeInstance} from './node-instance';
+import {AjfBaseNodeInstance} from './base-node-instance';
 
 /**
  * A node instance containing an AjfRepeatingNode node.
  */
-export interface AjfRepeatingNodeInstance extends AjfNodeInstance {
+export interface AjfRepeatingNodeInstance extends AjfBaseNodeInstance {
   /**
    * The blueprint AjfRepeatingNode.
    */

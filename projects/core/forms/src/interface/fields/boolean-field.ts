@@ -20,12 +20,12 @@
  *
  */
 
-import {AjfField} from './field';
+import {AjfBaseField} from './base-field';
 import {AjfFieldType} from './field-type';
 
 /**
  * An AjfField of type Boolean
  */
-export interface AjfBooleanField extends AjfField {
+export interface AjfBooleanField extends AjfBaseField {
   fieldType: AjfFieldType.Boolean;
 }

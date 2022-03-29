@@ -20,6 +20,9 @@
  *
  */
 
-import {AjfWidget} from './widget';
+import {AjfBaseWidget} from './base-widget';
+import {AjfWidgetType} from './widget-type';
 
-export type AjfPageBreakWidget = AjfWidget;
+export interface AjfPageBreakWidget extends AjfBaseWidget {
+  widgetType: AjfWidgetType.PageBreak;
+}

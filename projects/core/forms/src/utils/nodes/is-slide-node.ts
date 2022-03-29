@@ -22,10 +22,11 @@
 
 import {AjfNode} from '../../interface/nodes/node';
 import {AjfNodeType} from '../../interface/nodes/node-type';
+import {AjfSlide} from '../../interface/slides/slide';
 
 /**
  * It is true if node is AjfSlide.
  */
-export function isSlideNode(node: AjfNode): boolean {
+export function isSlideNode(node: AjfNode): node is AjfSlide {
   return node != null && node.nodeType === AjfNodeType.AjfSlide;
 }

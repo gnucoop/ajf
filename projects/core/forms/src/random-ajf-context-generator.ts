@@ -24,8 +24,6 @@ import {AjfContext} from '@ajf/core/common';
 import {deepCopy} from '@ajf/core/utils';
 import {AjfField} from './interface/fields/field';
 import {AjfFieldType} from './interface/fields/field-type';
-import {AjfFieldWithChoices} from './interface/fields/field-with-choices';
-import {AjfRangeField} from './interface/fields/range-field';
 import {AjfContainerNode} from './interface/nodes/container-node';
 import {AjfNode} from './interface/nodes/node';
 import {AjfFormSerializer} from './serializers/form-serializer';
@@ -47,11 +45,11 @@ function generateRandomInstanceFields(fields: AjfField[]): AjfField[] {
 
 function flattenFields(slides: AjfNode[]): AjfField[] {
   let flatFields: AjfField[] = [];
-  slides.forEach((slide: AjfNode) => {
+  slides.forEach(slide => {
     if (isField(slide)) {
-      flatFields.push(slide as AjfField);
+      flatFields.push(slide);
     } else if (isRepeatingSlide(slide)) {
-      const childs = generateRandomInstanceFields((slide as AjfContainerNode).nodes as AjfField[]);
+      const childs = generateRandomInstanceFields(slide.nodes as AjfField[]);
       flatFields = flatFields.concat(flattenFields(childs));
     } else {
       flatFields = flatFields.concat([...((slide as AjfContainerNode).nodes as AjfField[])]);
@@ -78,24 +76,19 @@ export function generateRandomCtx(formSchema: AjfFormCreate): AjfContext[] {
           ctx[field.name] = Math.random() < 0.5;
           break;
         case AjfFieldType.SingleChoice:
-          const singleChoices = (field as AjfFieldWithChoices<any>).choicesOrigin.choices.map(
-            c => c.value,
-          );
+          const singleChoices = field.choicesOrigin.choices.map(c => c.value);
           ctx[field.name] = singleChoices[Math.floor(Math.random() * singleChoices.length)];
           break;
         case AjfFieldType.MultipleChoice:
-          const multipleChoices = (field as AjfFieldWithChoices<any>).choicesOrigin.choices.map(
-            c => c.value,
-          );
+          const multipleChoices = field.choicesOrigin.choices.map(c => c.value);
           ctx[field.name] = [
             multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
             multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
           ];
           break;
         case AjfFieldType.Range:
-          const rangeField = field as AjfRangeField;
-          const end = rangeField.end ?? 10;
-          const start = rangeField.start ?? 1;
+          const end = field.end ?? 10;
+          const start = field.start ?? 1;
           const value = Math.floor(start + Math.random() * (end + 1 - start));
           ctx[field.name] = value;
       }

@@ -23,9 +23,9 @@
 import {AjfImageIcon} from '@ajf/core/image';
 
 import {AjfImageWidget} from '../widgets/image-widget';
-import {AjfWidgetInstance} from './widget-instance';
+import {AjfBaseWidgetInstance} from './base-widget-instance';
 
-export interface AjfImageWidgetInstance extends AjfWidgetInstance {
+export interface AjfImageWidgetInstance extends AjfBaseWidgetInstance {
   widget: AjfImageWidget;
   icon: AjfImageIcon;
   flag: string;

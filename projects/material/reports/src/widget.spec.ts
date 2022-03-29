@@ -43,7 +43,7 @@ describe('AjfReportWidget', () => {
       widgetType: AjfWidgetType.Text,
       htmlText: 'foo',
       visibility: {condition: 'false'},
-    } as any);
+    });
     const instance = createWidgetInstance(widget, {}, ts);
 
     const fixture = TestBed.createComponent(AjfReportWidget);

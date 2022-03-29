@@ -27,13 +27,11 @@ import {
   BuildStringIdentifierOpts,
 } from '@ajf/core/common';
 
-import {AjfField} from '../../interface/fields/field';
-import {AjfFieldType} from '../../interface/fields/field-type';
 import {AjfFieldWithChoices} from '../../interface/fields/field-with-choices';
-import {AjfMultipleChoiceField} from '../../interface/fields/multiple-choice-field';
-import {AjfSingleChoiceField} from '../../interface/fields/single-choice-field';
 import {AjfForm} from '../../interface/forms/form';
 import {isFieldWithChoices} from '../fields/is-field-with-choices';
+import {isMultipleChoiceField} from '../fields/is-multiple-choice-field';
+import {isSingleChoiceField} from '../fields/is-single-choice-field';
 import {flattenNodes} from '../nodes/flatten-nodes';
 import {isField} from '../nodes/is-field';
 
@@ -53,7 +51,7 @@ export const buildFormStringIdentifier = (
     return '';
   }
   const fields = flattenNodes(form.nodes).filter(
-    n => isField(n) && isFieldWithChoices(n as AjfField),
+    n => isField(n) && isFieldWithChoices(n),
   ) as AjfFieldWithChoices<unknown>[];
   if (fields.length > 0) {
     context = {...context};
@@ -62,23 +60,15 @@ export const buildFormStringIdentifier = (
       if (value == null) {
         return;
       }
-      if (field.fieldType === AjfFieldType.SingleChoice) {
-        const singleChoiceField = field as AjfSingleChoiceField<unknown>;
-        const choice = singleChoiceField.choicesOrigin.choices.find(c => c.value === value);
+      if (isSingleChoiceField(field)) {
+        const choice = field.choicesOrigin.choices.find(c => c.value === value);
         if (choice == null) {
           return;
         }
         context[field.name] = choice.label;
-      } else if (
-        field.fieldType === AjfFieldType.MultipleChoice &&
-        Array.isArray(value) &&
-        value.length > 0
-      ) {
+      } else if (isMultipleChoiceField(field) && Array.isArray(value) && value.length > 0) {
         const strings = buildStringIdentifierOpts(opts);
-        const multipleChoiceField = field as AjfMultipleChoiceField<unknown>;
-        const choices = multipleChoiceField.choicesOrigin.choices.filter(
-          c => value.indexOf(c.value) > -1,
-        );
+        const choices = field.choicesOrigin.choices.filter(c => value.indexOf(c.value) > -1);
         context[field.name] = choices.map(c => c.label).join(strings.valuesDivider);
       }
     });

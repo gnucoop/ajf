@@ -24,7 +24,6 @@ import {ExtendedChartType} from '@ajf/core/chart';
 import {ChartData, ChartDataSets} from 'chart.js';
 
 import {AjfChartWidget} from '../widgets/chart-widget';
-
 import {AjfDataWidgetInstance} from './data-widget-instance';
 
 export interface AjfChartWidgetInstance extends AjfDataWidgetInstance {

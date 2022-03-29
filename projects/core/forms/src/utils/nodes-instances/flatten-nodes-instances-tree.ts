@@ -33,9 +33,8 @@ export function flattenNodesInstancesTree(nodes: AjfNodeInstance[]): AjfSlideIns
   let flatTree: AjfSlideInstance[] = [];
   nodes.forEach((nodeInstance: AjfNodeInstance) => {
     if (isSlidesInstance(nodeInstance)) {
-      const ni = nodeInstance as AjfSlideInstance;
-      flatTree.push(ni);
-      ni.flatNodes = flattenNodesInstances(ni.nodes);
+      flatTree.push(nodeInstance as AjfSlideInstance);
+      nodeInstance.flatNodes = flattenNodesInstances(nodeInstance.nodes);
     }
   });
   return flatTree;

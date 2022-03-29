@@ -53,7 +53,7 @@ export function onDropProcess(
       ? {parent: (<AjfFormBuilderNodeEntry>nodeEntry).node, parentNode: 0}
       : <AjfFormBuilderEmptySlot>nodeEntry;
     fbService.insertNode(
-      itemData as AjfFormBuilderNodeTypeEntry,
+      itemData,
       emptySlot.parent,
       emptySlot.parentNode,
       content,

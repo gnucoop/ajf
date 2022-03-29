@@ -20,7 +20,6 @@
  *
  */
 
-import {FormGroup} from '@angular/forms';
 import {AjfFormRendererService} from '@ajf/core/forms';
 import {evaluateExpression} from '@ajf/core/models';
 import {
@@ -38,6 +37,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
+import {FormGroup} from '@angular/forms';
 import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -78,7 +78,7 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
           newConst,
           this._ts,
           filter.variables,
-        ) as AjfWidgetInstance;
+        );
         return this.instance;
       }),
     );

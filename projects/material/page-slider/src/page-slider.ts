@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfPageSlider as AjfCorePageSlider} from '@ajf/core/page-slider';
+import {AjfPageSlider as CorePageSlider} from '@ajf/core/page-slider';
 import {AnimationBuilder} from '@angular/animations';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {
@@ -38,7 +38,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfPageSlider extends AjfCorePageSlider {
+export class AjfPageSlider extends CorePageSlider {
   constructor(animationBuilder: AnimationBuilder, cdr: ChangeDetectorRef, renderer: Renderer2) {
     super(animationBuilder, cdr, renderer);
   }

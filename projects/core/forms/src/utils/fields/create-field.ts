@@ -20,21 +20,22 @@
  *
  */
 
+import {AjfBaseField} from '../../interface/fields/base-field';
 import {AjfField} from '../../interface/fields/field';
 import {AjfFieldType} from '../../interface/fields/field-type';
 import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfNodeCreate, createNode} from '../nodes/create-node';
 
 export type AjfFieldCreate = Omit<AjfNodeCreate, 'nodeType'> &
-  Pick<AjfField, 'fieldType'> &
-  Partial<AjfField>;
+  Pick<AjfBaseField, 'fieldType'> &
+  Partial<AjfBaseField>;
 /**
  * It creates an AjfField.
  * If size is not defined apply 'normal'.
  * If defaultValue is not defined apply null.
  * If editable is not defined return true if field type is'nt formula or table
  */
-export function createField(field: AjfFieldCreate): AjfField {
+export function createField<T extends AjfField = AjfField>(field: AjfFieldCreate): T {
   const node = createNode({...field, nodeType: AjfNodeType.AjfField});
   const editable =
     field.editable != null
@@ -47,5 +48,5 @@ export function createField(field: AjfFieldCreate): AjfField {
     editable,
     defaultValue: field.defaultValue != null ? field.defaultValue : null,
     size: field.size || 'normal',
-  };
+  } as T;
 }

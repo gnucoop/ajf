@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 import {AjfFormsModule} from '@ajf/material/forms';
@@ -39,9 +39,9 @@ import {FormsDemo} from './forms-demo';
 @NgModule({
   imports: [
     AjfCheckboxGroupModule,
-    AjfCoreFormsModule,
     AjfFormsModule,
     CommonModule,
+    CoreFormsModule,
     FormsModule,
     MatButtonModule,
     MatCheckboxModule,

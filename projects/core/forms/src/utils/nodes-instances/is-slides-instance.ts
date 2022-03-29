@@ -21,11 +21,15 @@
  */
 
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
+import {AjfRepeatingSlideInstance} from '../../interface/slides-instances/repeating-slide-instance';
+import {AjfSlideInstance} from '../../interface/slides-instances/slide-instance';
 import {isSlidesNode} from '../nodes/is-slides-node';
 
 /**
  * It is true if nodeInstance is relative to AjfRepeatingSlide node or AjfSlide node.
  */
-export function isSlidesInstance(nodeInstance: AjfNodeInstance): boolean {
+export function isSlidesInstance(
+  nodeInstance: AjfNodeInstance,
+): nodeInstance is AjfRepeatingSlideInstance | AjfSlideInstance {
   return nodeInstance != null && nodeInstance.node != null && isSlidesNode(nodeInstance.node);
 }

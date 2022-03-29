@@ -24,7 +24,7 @@ import {AjfCondition, AjfFormula} from '@ajf/core/models';
 import {EventEmitter} from '@angular/core';
 
 import {AjfField} from '../fields/field';
-import {AjfNodeInstance} from '../nodes-instances/node-instance';
+import {AjfBaseNodeInstance} from '../nodes-instances/base-node-instance';
 import {AjfValidationGroup} from '../validation/validation-group';
 import {AjfValidationResult} from '../validation/validation-results';
 import {AjfWarningGroup} from '../warning/warning-group';
@@ -33,7 +33,7 @@ import {AjfWarningResult} from '../warning/warning-result';
 /**
  * An AjfNodeInstance with a node of type AjfField.
  */
-export interface AjfFieldInstance extends AjfNodeInstance {
+export interface AjfFieldInstance extends AjfBaseNodeInstance {
   /**
    * True if the field pass the validation
    */

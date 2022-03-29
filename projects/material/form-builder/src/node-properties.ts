@@ -399,15 +399,15 @@ export class AjfFbNodeProperties implements OnDestroy {
   }
 
   isNumericField(node: AjfNode): boolean {
-    return isField(node) && isNumberField(node as AjfField);
+    return isField(node) && isNumberField(node);
   }
 
   isFieldWithChoices(node: AjfNode): boolean {
-    return isField(node) && isFieldWithChoices(node as AjfField);
+    return isField(node) && isFieldWithChoices(node);
   }
 
   isRangeField(node: AjfNode): boolean {
-    return isField(node) && isRangeField(node as AjfField);
+    return isField(node) && isRangeField(node);
   }
 
   save(): void {

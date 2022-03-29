@@ -21,9 +21,10 @@
  */
 
 import {EventEmitter} from '@angular/core';
-import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
+import {AjfBaseNodeInstance} from '../../interface/nodes-instances/base-node-instance';
 
-export type AjfNodeInstanceCreate = Pick<AjfNodeInstance, 'node'> & Partial<AjfNodeInstance>;
+export type AjfNodeInstanceCreate = Pick<AjfBaseNodeInstance, 'node'> &
+  Partial<AjfBaseNodeInstance>;
 
 /**
  * It creates an AjfNodeInstance.
@@ -32,7 +33,7 @@ export type AjfNodeInstanceCreate = Pick<AjfNodeInstance, 'node'> & Partial<AjfN
  * Assign empty array to conditionalBranches.
  * Assign new eventEmitter to updatedEvt.
  */
-export function createNodeInstance(instance: AjfNodeInstanceCreate): AjfNodeInstance {
+export function createNodeInstance(instance: AjfNodeInstanceCreate): AjfBaseNodeInstance {
   return {
     node: instance.node,
     prefix: instance.prefix ? [...instance.prefix] : [],

@@ -20,12 +20,15 @@
  *
  */
 
-import {AjfChoice} from './choice';
-import {AjfChoicesOriginType} from './choices-origin-type';
+import {AjfChoicesFixedOrigin} from './choices-fixed-origin';
+import {AjfChoicesFunctionOrigin} from './choices-function-origin';
+import {AjfChoicesObservableArrayOrigin} from './choices-observable-array-origin';
+import {AjfChoicesObservableOrigin} from './choices-observable-origin';
+import {AjfChoicesPromiseOrigin} from './choices-promise-origin';
 
-export interface AjfChoicesOrigin<T> {
-  type: AjfChoicesOriginType;
-  name: string;
-  label: string;
-  choices: AjfChoice<T>[];
-}
+export type AjfChoicesOrigin<T> =
+  | AjfChoicesFixedOrigin<T>
+  | AjfChoicesFunctionOrigin<T>
+  | AjfChoicesObservableArrayOrigin<T>
+  | AjfChoicesObservableOrigin<T>
+  | AjfChoicesPromiseOrigin<T>;

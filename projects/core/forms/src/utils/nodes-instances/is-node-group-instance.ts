@@ -21,11 +21,14 @@
  */
 
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
+import {AjfNodeGroupInstance} from '../../interface/nodes-instances/node-group-instance';
 import {isNodeGroup} from '../nodes/is-node-group';
 
 /**
  * It is true if nodeInstance is relative to a AjfNodeGroup.
  */
-export function isNodeGroupInstance(nodeInstance: AjfNodeInstance): boolean {
+export function isNodeGroupInstance(
+  nodeInstance: AjfNodeInstance,
+): nodeInstance is AjfNodeGroupInstance {
   return nodeInstance != null && nodeInstance.node != null && isNodeGroup(nodeInstance.node);
 }

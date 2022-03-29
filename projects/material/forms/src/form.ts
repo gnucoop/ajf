@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
+import {AjfFormRenderer as CoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
@@ -37,7 +37,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfFormRenderer extends AjfCoreFormRenderer {
+export class AjfFormRenderer extends CoreFormRenderer {
   @Input() topBar: boolean = false;
 
   constructor(rendererService: AjfFormRendererService, changeDetectorRef: ChangeDetectorRef) {

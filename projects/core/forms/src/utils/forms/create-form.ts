@@ -21,7 +21,6 @@
  */
 
 import {AjfForm} from '../../interface/forms/form';
-import {AjfFormStringIdentifier} from '../../interface/forms/form-string-identifier';
 
 export type AjfFormCreate = Partial<AjfForm>;
 
@@ -40,7 +39,7 @@ export function createForm(form: AjfFormCreate = {}): AjfForm {
     choicesOrigins: form.choicesOrigins || [],
     attachmentsOrigins: form.attachmentsOrigins || [],
     initContext: form.initContext || {},
-    stringIdentifier: form.stringIdentifier || ([] as AjfFormStringIdentifier[]),
+    stringIdentifier: form.stringIdentifier || [],
     supplementaryInformations: form.supplementaryInformations,
   };
 }

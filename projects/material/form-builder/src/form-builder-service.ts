@@ -25,14 +25,12 @@ import {
   AjfChoicesOrigin,
   AjfField,
   AjfFieldType,
-  AjfFieldWithChoices,
   AjfForm,
   AjfFormStringIdentifier,
   AjfNode,
   AjfNodeGroup,
   AjfNodesOperation,
   AjfNodeType,
-  AjfRangeField,
   AjfRepeatingContainerNode,
   AjfRepeatingSlide,
   AjfSlide,
@@ -560,12 +558,13 @@ export class AjfFormBuilderService {
     ]).pipe(
       filter(([form]) => form != null),
       map(([form, nodes, attachmentsOrigins, choicesOrigins, stringIdentifier]) => {
+        const supplementaryInformations = (form || {}).supplementaryInformations;
         return createForm({
-          choicesOrigins: (choicesOrigins as AjfChoicesOrigin<any>[]).slice(0),
-          attachmentsOrigins: (attachmentsOrigins as AjfAttachmentsOrigin<any>[]).slice(0),
-          stringIdentifier: ((stringIdentifier || []) as AjfFormStringIdentifier[]).slice(0),
-          nodes: (nodes as AjfSlide[]).slice(0),
-          supplementaryInformations: (form as AjfForm).supplementaryInformations,
+          choicesOrigins: [...choicesOrigins],
+          attachmentsOrigins: [...attachmentsOrigins],
+          stringIdentifier: [...(stringIdentifier || [])],
+          nodes: [...nodes],
+          supplementaryInformations,
         });
       }),
     );
@@ -807,10 +806,9 @@ export class AjfFormBuilderService {
           }
 
           if (isField(node)) {
-            const field = node as AjfField;
-            field.description = properties.description;
-            field.defaultValue = properties.defaultValue;
-            field.formula =
+            node.description = properties.description;
+            node.defaultValue = properties.defaultValue;
+            node.formula =
               properties.formula != null ? createFormula({formula: properties.formula}) : undefined;
             const forceValue = properties.value;
             const notEmpty = properties.notEmpty;
@@ -840,7 +838,7 @@ export class AjfFormBuilderService {
               minDigits != null ||
               maxDigits != null
             ) {
-              const validation = field.validation || createValidationGroup({});
+              const validation = node.validation || createValidationGroup({});
               validation.forceValue = forceValue;
               validation.notEmpty = notEmpty ? notEmptyValidation() : undefined;
               validation.minValue = minValue != null ? minValidation(minValue) : undefined;
@@ -854,9 +852,9 @@ export class AjfFormBuilderService {
                     errorMessage: c.errorMessage,
                   }),
               );
-              field.validation = validation;
+              node.validation = validation;
             } else {
-              field.validation = undefined;
+              node.validation = undefined;
             }
             const notEmptyWarn = properties.notEmptyWarning;
             const warningConditions = properties.warningConditions;
@@ -864,7 +862,7 @@ export class AjfFormBuilderService {
               notEmptyWarn != null ||
               (warningConditions != null && warningConditions.length > 0)
             ) {
-              const warning = field.warning || createWarningGroup({});
+              const warning = node.warning || createWarningGroup({});
               warning.notEmpty = notEmptyWarn ? notEmptyWarning() : undefined;
               warning.conditions = (warningConditions || []).map(
                 (w: {condition: string; warningMessage: string}) =>
@@ -873,32 +871,30 @@ export class AjfFormBuilderService {
                     warningMessage: w.warningMessage,
                   }),
               );
-              field.warning = warning;
+              node.warning = warning;
             } else {
-              field.warning = undefined;
+              node.warning = undefined;
             }
-            field.nextSlideCondition =
+            node.nextSlideCondition =
               properties.nextSlideCondition != null
                 ? createCondition({condition: properties.nextSlideCondition})
                 : undefined;
-            field.size = properties.size;
-            field.defaultValue = properties.defaultValue;
+            node.size = properties.size;
+            node.defaultValue = properties.defaultValue;
 
-            if (isFieldWithChoices(field)) {
-              const fwc = <AjfFieldWithChoices<any>>field;
-              (fwc as any).choicesOriginRef = properties.choicesOriginRef;
-              fwc.forceExpanded = properties.forceExpanded;
-              fwc.forceNarrow = properties.forceNarrow;
-              fwc.triggerConditions = (properties.triggerConditions || []).map((t: string) =>
+            if (isFieldWithChoices(node)) {
+              (node as any).choicesOriginRef = properties.choicesOriginRef;
+              node.forceExpanded = properties.forceExpanded;
+              node.forceNarrow = properties.forceNarrow;
+              node.triggerConditions = (properties.triggerConditions || []).map((t: string) =>
                 createCondition({condition: t}),
               );
             }
 
-            if (isRangeField(field)) {
-              const rf = field as AjfRangeField;
-              rf.start = properties.start;
-              rf.end = properties.end;
-              rf.step = properties.step;
+            if (isRangeField(node)) {
+              node.start = properties.start;
+              node.end = properties.end;
+              node.step = properties.step;
             }
           }
 
@@ -1011,14 +1007,8 @@ export class AjfFormBuilderService {
       let currentNode = nodesList[idx];
       currentNode.id = contId * 1000 + idx + 1;
       currentNode.parent = idx == 0 ? contId : contId * 1000 + idx;
-      if (
-        currentNode.nodeType == AjfNodeType.AjfSlide ||
-        currentNode.nodeType == AjfNodeType.AjfRepeatingSlide
-      ) {
-        const currentSlide = currentNode as AjfSlide;
-        if (currentSlide.nodes) {
-          this._updateNodesList(currentSlide.id, currentSlide.nodes);
-        }
+      if (isSlidesNode(currentNode)) {
+        this._updateNodesList(currentNode.id, currentNode.nodes);
       }
     }
     return nodesList;

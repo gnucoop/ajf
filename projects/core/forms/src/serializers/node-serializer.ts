@@ -61,7 +61,7 @@ export class AjfNodeSerializer {
     attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
   ): AjfNode {
     const err = 'Malformed node';
-    const obj = {...json} as AjfNodeCreate;
+    const obj = {...json};
     obj.name = obj.name ?? '';
     if (obj.id == null || obj.parent == null || obj.nodeType == null) {
       throw new Error(err);

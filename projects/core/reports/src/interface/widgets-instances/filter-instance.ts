@@ -22,6 +22,7 @@
 
 import {AjfForm} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
+
 import {AjfReportVariable} from '../reports/report-variable';
 
 export interface AjfFilterInstance {

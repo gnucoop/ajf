@@ -21,11 +21,12 @@
  */
 
 import {AjfField} from '../../interface/fields/field';
+import {AjfRangeField} from '../../interface/fields/range-field';
 import {AjfFieldType} from '../../interface/fields/field-type';
 
 /**
  * It is true if the field is a range field
  */
-export function isRangeField(field: AjfField): boolean {
+export function isRangeField(field: AjfField): field is AjfRangeField {
   return field.fieldType === AjfFieldType.Range;
 }

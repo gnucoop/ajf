@@ -22,7 +22,7 @@
 
 import {
   AjfCheckboxGroup,
-  AjfCheckboxGroupItem as AjfCoreCheckboxGroupItem,
+  AjfCheckboxGroupItem as CoreCheckboxGroupItem,
 } from '@ajf/core/checkbox-group';
 import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@angular/core';
 
@@ -39,7 +39,7 @@ import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@
     '[class.ajf-checkbox-group-disable]': 'disabled',
   },
 })
-export class AjfCheckboxGroupItem<T> extends AjfCoreCheckboxGroupItem<T> {
+export class AjfCheckboxGroupItem<T> extends CoreCheckboxGroupItem<T> {
   constructor(
     // `AjfCheckboxGroupItem` is commonly used in combination with a `AjfCheckboxGroup`.
     // tslint:disable-next-line: lightweight-tokens

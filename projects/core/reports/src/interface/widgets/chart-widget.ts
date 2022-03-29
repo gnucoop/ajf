@@ -25,10 +25,11 @@ import {ChartOptions} from 'chart.js';
 
 import {AjfChartType} from '../charts/chart-type';
 import {AjfChartDataset} from '../dataset/chart-dataset';
-
 import {AjfDataWidget} from './data-widget';
+import {AjfWidgetType} from './widget-type';
 
 export interface AjfChartWidget extends AjfDataWidget {
+  widgetType: AjfWidgetType.Chart;
   chartType: AjfChartType;
   type?: AjfChartType;
   labels: AjfFormula | AjfFormula[];

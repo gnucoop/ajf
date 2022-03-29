@@ -20,17 +20,36 @@
  *
  */
 
-import {AjfCondition, AjfFormula} from '@ajf/core/models';
-
-import {AjfStyles} from '../styles';
-import {AjfFilter} from './filter';
-
+import {AjfBaseWidget} from './base-widget';
+import {AjfChartWidget} from './chart-widget';
+import {AjfColumnWidget} from './column-widget';
+import {AjfDataWidget} from './data-widget';
+import {AjfDynamicTableWidget} from './dynamic-table-widget';
+import {AjfFormulaWidget} from './formula-widget';
+import {AjfImageContainerWidget} from './image-container-widget';
+import {AjfImageWidget} from './image-widget';
+import {AjfLayoutWidget} from './layout-widget';
+import {AjfPageBreakWidget} from './page-break-widget';
+import {AjfMapWidget} from './map-widget';
+import {AjfTextWidget} from './text-widget';
+import {AjfWidgetWithContent} from './widget-with-content';
 import {AjfWidgetType} from './widget-type';
 
-export interface AjfWidget {
-  widgetType: AjfWidgetType;
-  styles: AjfStyles;
-  visibility: AjfCondition;
-  repetitions?: AjfFormula;
-  filter?: AjfFilter;
+export interface AjfUnknownWidget extends AjfBaseWidget {
+  widgetType: AjfWidgetType.LENGTH;
 }
+
+export type AjfWidget =
+  | AjfChartWidget
+  | AjfColumnWidget
+  | AjfDataWidget
+  | AjfDynamicTableWidget
+  | AjfFormulaWidget
+  | AjfImageContainerWidget
+  | AjfImageWidget
+  | AjfLayoutWidget
+  | AjfMapWidget
+  | AjfPageBreakWidget
+  | AjfTextWidget
+  | AjfUnknownWidget
+  | AjfWidgetWithContent;

@@ -20,13 +20,13 @@
  *
  */
 
-import {AjfField} from './field';
+import {AjfBaseField} from './base-field';
 import {AjfFieldType} from './field-type';
 
 /**
  * An AjfField of type DateInput
  */
-export interface AjfDateInputField extends AjfField {
+export interface AjfDateInputField extends AjfBaseField {
   fieldType: AjfFieldType.DateInput;
 
   /**

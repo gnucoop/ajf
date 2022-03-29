@@ -20,8 +20,8 @@
  *
  */
 
-import {AjfChoicesOrigin} from './choices-origin';
+import {AjfBaseChoicesOrigin} from './base-choices-origin';
 
-export interface AjfChoicesFixedOrigin<T> extends AjfChoicesOrigin<T> {
+export interface AjfChoicesFixedOrigin<T> extends AjfBaseChoicesOrigin<T> {
   type: 'fixed';
 }

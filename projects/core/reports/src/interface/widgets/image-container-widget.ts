@@ -22,9 +22,12 @@
 
 import {AjfImageType} from '@ajf/core/image';
 import {AjfFormula} from '@ajf/core/models';
-import {AjfWidget} from './widget';
 
-export interface AjfImageContainerWidget extends AjfWidget {
+import {AjfBaseWidget} from './base-widget';
+import {AjfWidgetType} from './widget-type';
+
+export interface AjfImageContainerWidget extends AjfBaseWidget {
+  widgetType: AjfWidgetType.ImageContainer;
   imageType: AjfImageType;
   icons?: AjfFormula | AjfFormula[];
   flags?: AjfFormula | AjfFormula[];

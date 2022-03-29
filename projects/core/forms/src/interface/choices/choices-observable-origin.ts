@@ -22,10 +22,10 @@
 
 import {Observable} from 'rxjs';
 
+import {AjfBaseChoicesOrigin} from './base-choices-origin';
 import {AjfChoice} from './choice';
-import {AjfChoicesOrigin} from './choices-origin';
 
-export interface AjfChoicesObservableOrigin<T> extends AjfChoicesOrigin<T> {
+export interface AjfChoicesObservableOrigin<T> extends AjfBaseChoicesOrigin<T> {
   type: 'observable';
   generator: Observable<AjfChoice<T>>;
 }

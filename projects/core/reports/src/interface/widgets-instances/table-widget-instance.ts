@@ -24,7 +24,6 @@ import {AjfTableCell} from '@ajf/core/table';
 import {Subject} from 'rxjs';
 
 import {AjfTableWidget} from '../widgets/table-widget';
-
 import {AjfDataWidgetInstance} from './data-widget-instance';
 
 export interface AjfTableWidgetInstance extends AjfDataWidgetInstance {

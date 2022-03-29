@@ -28,7 +28,7 @@ import {
   AjfTextWidget,
 } from '@ajf/core/reports';
 
-export const defaultReport = {
+export const defaultReport: AjfReport = {
   header: {
     content: [],
     styles: {},
@@ -47,12 +47,15 @@ export const defaultReport = {
             aggregation: {aggregation: 0},
           },
         ],
-      } as AjfChartWidget,
+        options: {},
+        visibility: {condition: 'true'},
+        styles: {},
+      },
     ],
     styles: {},
   },
   footer: {content: [], styles: {}},
-} as AjfReport;
+};
 
 export const filterReport: AjfReport = {
   content: {
@@ -133,7 +136,7 @@ export const filterReport: AjfReport = {
       },
     },
   ],
-} as AjfReport;
+};
 
 export const globalFilterReport = {
   variables: [
@@ -312,7 +315,7 @@ export const globalFilterReport = {
         } as unknown as AjfFilter,
         styles: {},
         visibility: {condition: 'true'},
-      } as AjfColumnWidget,
+      },
     ],
     columns: [1],
     visibility: {condition: 'true'},

@@ -22,7 +22,6 @@
 
 import {Pipe, PipeTransform} from '@angular/core';
 
-import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldType} from './interface/fields/field-type';
 import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 import {isFieldInstance} from './utils/nodes-instances/is-field-instance';
@@ -36,9 +35,6 @@ import {isFieldInstance} from './utils/nodes-instances/is-field-instance';
 @Pipe({name: 'ajfIsReadonlyInputField'})
 export class AjfIsReadonlyInputFieldPipe implements PipeTransform {
   transform(instance: AjfNodeInstance): boolean {
-    return (
-      isFieldInstance(instance) &&
-      (instance as AjfFieldInstance).node.fieldType === AjfFieldType.Formula
-    );
+    return isFieldInstance(instance) && instance.node.fieldType === AjfFieldType.Formula;
   }
 }

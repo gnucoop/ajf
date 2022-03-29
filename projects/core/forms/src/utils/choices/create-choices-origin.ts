@@ -33,5 +33,5 @@ export function createChoicesOrigin<T>(origin: AjfChoicesOriginCreate<T>): AjfCh
     type: origin.type, // TODO why?
     label: origin.label || '',
     choices: origin.choices || [],
-  };
+  } as AjfChoicesOrigin<T>;
 }

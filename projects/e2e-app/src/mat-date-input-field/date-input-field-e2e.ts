@@ -24,7 +24,7 @@ export class MaterialDateInputFieldE2E implements AfterViewInit {
     const componentRef = vcr.createComponent(componentFactory);
     const componentInstance = componentRef.instance;
     const dateLimit = new Date(2019, 0, 5);
-    const node = {
+    const node: AjfDateField = {
       ...createField({
         id: 1,
         parent: 0,
@@ -33,7 +33,7 @@ export class MaterialDateInputFieldE2E implements AfterViewInit {
       }),
       minDate: dateLimit,
       maxDate: dateLimit,
-    } as AjfDateField;
+    };
     componentInstance.instance = {
       ...createFieldInstance({node}, {}),
       node,

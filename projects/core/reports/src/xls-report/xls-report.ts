@@ -95,7 +95,7 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
               variables.push({
                 name: elem.name,
                 formula: {formula: indicator},
-              } as AjfReportVariable);
+              });
             });
         } else {
           const idx = filterNames.indexOf(sheetName);
@@ -251,7 +251,7 @@ function _buildHtml(json: {[key: string]: string}[]): AjfWidget {
     widgetType: AjfWidgetType.Text,
     htmlText: `${firstRow['html']}`,
     styles: htmlWidget,
-  } as AjfWidgetCreate);
+  });
 }
 
 function _buildTable(json: {[key: string]: string}[]): AjfWidget {
@@ -260,22 +260,19 @@ function _buildTable(json: {[key: string]: string}[]): AjfWidget {
   const titles = Object.keys(json[0]);
   const colspans: number[] = (Object.values(json[0]) as string[]).map(r => +r);
   delete json[0];
-  const tableHeader: AjfTableDataset[] = titles.map(
-    (title, index) =>
-      ({
-        label: '',
-        formula: {formula: `\"${title}\"`},
-        aggregation: {aggregation: 0},
-        colspan: colspans[index],
-        rowspan,
-        style: {
-          textAlign: 'center',
-          fontWeight: 'bold',
-          color: 'white',
-          backgroundColor: '#3f51b5',
-        },
-      } as AjfTableDataset),
-  );
+  const tableHeader: AjfTableDataset[] = titles.map((title, index) => ({
+    label: '',
+    formula: {formula: `\"${title}\"`},
+    aggregation: {aggregation: 0},
+    colspan: colspans[index],
+    rowspan,
+    style: {
+      textAlign: 'center',
+      fontWeight: 'bold',
+      color: 'white',
+      backgroundColor: '#3f51b5',
+    },
+  }));
 
   json.forEach(row => {
     const elems: any[] = [];
@@ -306,5 +303,5 @@ function _buildTable(json: {[key: string]: string}[]): AjfWidget {
     styles: {
       borderCollapse: 'collapse',
     },
-  } as AjfWidgetCreate);
+  });
 }

@@ -25,6 +25,7 @@ import {TestBed} from '@angular/core/testing';
 import {AjfTranslocoModule, TranslocoService} from '../../transloco';
 import {
   AjfColumnWidgetInstance,
+  AjfReport,
   AjfReportSerializer,
   AjfTextWidgetInstance,
   AjfWidgetType,
@@ -54,7 +55,7 @@ describe('createReportInstance', () => {
       },
       styles: {},
       variables: [{name: 'foo', formula: {formula: '1 + 2'}}],
-    };
+    } as Partial<AjfReport>;
     const report = AjfReportSerializer.fromJson(json);
     const reportInstance = createReportInstance(report, {}, ts);
     const widget = reportInstance.content!.content[0] as AjfTextWidgetInstance;
@@ -83,7 +84,7 @@ describe('createReportInstance', () => {
         styles: {},
       },
       styles: {},
-    };
+    } as Partial<AjfReport>;
     const ctx = {
       foo: ['bar', 'baz', 'quz'],
     };

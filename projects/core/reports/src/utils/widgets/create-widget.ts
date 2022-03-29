@@ -30,5 +30,5 @@ export function createWidget(widget: AjfWidgetCreate): AjfWidget {
     ...widget,
     styles: widget.styles || {},
     visibility: widget.visibility || alwaysCondition(),
-  };
+  } as AjfWidget;
 }

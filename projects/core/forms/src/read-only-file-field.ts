@@ -74,8 +74,8 @@ export class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
       shareReplay(1),
     );
     this.fileUrl = fileStream.pipe(
-      map(file => domSanitizer.bypassSecurityTrustResourceUrl((file as AjfFile).content)),
+      map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)),
     );
-    this.fileName = fileStream.pipe(map(file => (file as AjfFile).name));
+    this.fileName = fileStream.pipe(map(file => file.name));
   }
 }

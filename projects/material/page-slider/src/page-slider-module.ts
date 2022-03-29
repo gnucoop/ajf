@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfPageSliderModule as AjfCorePageSliderModule} from '@ajf/core/page-slider';
+import {AjfPageSliderModule as CorePageSliderModule} from '@ajf/core/page-slider';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -30,14 +30,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {AjfPageSlider} from './page-slider';
 
 @NgModule({
-  imports: [
-    AjfCorePageSliderModule,
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-  ],
+  imports: [CommonModule, CorePageSliderModule, MatButtonModule, MatIconModule, MatToolbarModule],
   declarations: [AjfPageSlider],
-  exports: [AjfCorePageSliderModule, AjfPageSlider],
+  exports: [CorePageSliderModule, AjfPageSlider],
 })
 export class AjfPageSliderModule {}

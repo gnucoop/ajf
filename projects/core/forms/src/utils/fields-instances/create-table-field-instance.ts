@@ -24,7 +24,7 @@ import {AjfContext} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 
 import {AjfTableFieldInstance} from '../../interface/fields-instances/table-field-instance';
-import {AjfTableCell, AjfTableField} from '../../interface/fields/table-field';
+import {AjfTableField} from '../../interface/fields/table-field';
 
 import {AjfFieldInstanceCreate, createFieldInstance} from './create-field-instance';
 
@@ -38,7 +38,7 @@ function normalizeRows(node: AjfTableField): void {
   node.rows.forEach((row, rowIdx) => {
     row.forEach((elem, elemIdx) => {
       if (typeof elem === 'string') {
-        node.rows[rowIdx][elemIdx] = {formula: elem, editable: node.editable} as AjfTableCell;
+        node.rows[rowIdx][elemIdx] = {formula: elem, editable: node.editable};
       }
     });
   });

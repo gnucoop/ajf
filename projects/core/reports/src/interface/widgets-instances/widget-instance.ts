@@ -20,16 +20,37 @@
  *
  */
 
-import {AjfStyles} from '../styles';
-import {AjfWidget} from '../widgets/widget';
-import {AjfWidgetType} from '../widgets/widget-type';
-import {AjfFilterInstance} from './filter-instance';
+import {AjfUnknownWidget} from '../widgets/widget';
+import {AjfBaseWidgetInstance} from './base-widget-instance';
+import {AjfChartWidgetInstance} from './chart-widget-instance';
+import {AjfColumnWidgetInstance} from './column-widget-instance';
+import {AjfDataWidgetInstance} from './data-widget-instance';
+import {AjfDynamicTableWidgetInstance} from './dynamic-table-widget-instance';
+import {AjfFormulaWidgetInstance} from './formula-widget-instance';
+import {AjfImageContainerWidgetInstance} from './image-container-widget-instance';
+import {AjfImageWidgetInstance} from './image-widget-instance';
+import {AjfLayoutWidgetInstance} from './layout-widget-instance';
+import {AjfMapWidgetInstance} from './map-widget-instance';
+import {AjfPageBreakWidgetInstance} from './page-break-widget-instance';
+import {AjfTableWidgetInstance} from './table-widget-instance';
+import {AjfTextWidgetInstance} from './text-widget-instance';
+import {AjfWidgetWithContentInstance} from './widget-with-content-instance';
 
-export interface AjfWidgetInstance {
-  widget: AjfWidget;
-  visible: boolean;
-  styles: AjfStyles;
-  widgetType: AjfWidgetType;
-  filter?: AjfFilterInstance;
-  repetitions?: number;
+export interface AjfUnknownWidgetInstance extends AjfBaseWidgetInstance {
+  widget: AjfUnknownWidget;
 }
+
+export type AjfWidgetInstance =
+  | AjfChartWidgetInstance
+  | AjfColumnWidgetInstance
+  | AjfDataWidgetInstance
+  | AjfDynamicTableWidgetInstance
+  | AjfFormulaWidgetInstance
+  | AjfImageContainerWidgetInstance
+  | AjfImageWidgetInstance
+  | AjfLayoutWidgetInstance
+  | AjfMapWidgetInstance
+  | AjfPageBreakWidgetInstance
+  | AjfTableWidgetInstance
+  | AjfTextWidgetInstance
+  | AjfWidgetWithContentInstance;

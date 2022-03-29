@@ -21,8 +21,8 @@
  */
 
 import {AjfPageBreakWidget} from '../widgets/page-break-widget';
-import {AjfWidgetInstance} from './widget-instance';
+import {AjfBaseWidgetInstance} from './base-widget-instance';
 
-export interface AjfPageBreakWidgetInstance extends AjfWidgetInstance {
+export interface AjfPageBreakWidgetInstance extends AjfBaseWidgetInstance {
   widget: AjfPageBreakWidget;
 }

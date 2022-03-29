@@ -47,12 +47,7 @@ import {
 } from 'rxjs/operators';
 
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
-import {AjfFieldWithChoicesInstance} from './interface/fields-instances/field-with-choices-instance';
-import {AjfFormulaFieldInstance} from './interface/fields-instances/formula-field-instance';
-import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
-import {AjfEmptyField} from './interface/fields/empty-field';
 import {AjfFieldType} from './interface/fields/field-type';
-import {AjfTableCell} from './interface/fields/table-field';
 import {AjfForm} from './interface/forms/form';
 import {AjfTableFormControl} from './interface/forms/table-form-control';
 import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-instance';
@@ -78,12 +73,13 @@ import {updateTriggerConditions} from './utils/fields-instances/update-trigger-c
 import {updateValidation} from './utils/fields-instances/update-validation';
 import {updateWarning} from './utils/fields-instances/update-warning';
 import {createField} from './utils/fields/create-field';
-import {isCustomFieldWithChoices} from './utils/fields/is-custom-field-with-choices';
-import {isFieldWithChoices} from './utils/fields/is-field-with-choices';
 import {flattenNodesInstances} from './utils/nodes-instances/flatten-nodes-instances';
 import {flattenNodesInstancesTree} from './utils/nodes-instances/flatten-nodes-instances-tree';
 import {isFieldInstance} from './utils/nodes-instances/is-field-instance';
 import {isNodeGroupInstance} from './utils/nodes-instances/is-node-group-instance';
+import {isRepeatingContainerNodeInstance} from './utils/nodes-instances/is-repeating-container-node-instance';
+import {isRepeatingGroupInstance} from './utils/nodes-instances/is-repeating-group-instance';
+import {isRepeatingSlideInstance} from './utils/nodes-instances/is-repeating-slide-instance';
 import {isSlideInstance} from './utils/nodes-instances/is-slide-instance';
 import {isSlidesInstance} from './utils/nodes-instances/is-slides-instance';
 import {nodeInstanceCompleteName} from './utils/nodes-instances/node-instance-complete-name';
@@ -94,7 +90,6 @@ import {updateEditability} from './utils/nodes-instances/update-editability';
 import {updateVisibility} from './utils/nodes-instances/update-visibility';
 import {flattenNodes} from './utils/nodes/flatten-nodes';
 import {isContainerNode} from './utils/nodes/is-container-node';
-import {isRepeatingContainerNode} from './utils/nodes/is-repeating-container-node';
 import {orderedNodes} from './utils/nodes/ordered-nodes';
 import {updateRepsNum} from './utils/slides-instances/update-reps-num';
 import {validSlide} from './utils/slides-instances/valid-slide';
@@ -110,7 +105,7 @@ const updateSlideValidity = (slide: AjfRepeatingSlideInstance | AjfSlideInstance
   let valid = true;
   for (let i = 0; i < subNodesNum; i++) {
     const subNode = slide.flatNodes[i];
-    if (subNode.visible && isFieldInstance(subNode) && !(subNode as AjfFieldInstance).valid) {
+    if (subNode.visible && isFieldInstance(subNode) && !subNode.valid) {
       valid = false;
       break;
     }
@@ -335,26 +330,24 @@ export class AjfFormRendererService {
         ).form as AjfForm;
         let currentPosition = 0;
         const errors: number[] = [];
-        (nodes as AjfNodeInstance[]).forEach(node => {
-          if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-            const rsNode = node as AjfRepeatingSlideInstance;
-            for (let i = 0; i < rsNode.reps; i++) {
+        nodes.forEach(node => {
+          if (isRepeatingSlideInstance(node)) {
+            for (let i = 0; i < node.reps; i++) {
               if (node.visible) {
                 currentPosition++;
                 if (i == 0) {
-                  rsNode.position = currentPosition;
+                  node.position = currentPosition;
                 }
-                if (!validSlide(rsNode, i)) {
+                if (!validSlide(node, i)) {
                   errors.push(currentPosition);
                 }
               }
             }
-          } else if (node.node.nodeType === AjfNodeType.AjfSlide) {
-            const sNode = node as AjfSlideInstance;
-            if (sNode.visible) {
+          } else if (isSlideInstance(node)) {
+            if (node.visible) {
               currentPosition++;
-              sNode.position = currentPosition;
-              if (!sNode.valid) {
+              node.position = currentPosition;
+              if (!node.valid) {
                 errors.push(currentPosition);
               }
             }
@@ -374,13 +367,14 @@ export class AjfFormRendererService {
   }
 
   private _initUpdateMapStreams(): void {
+    const startValue = (): AjfRendererUpdateMap => ({});
     this._editabilityNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
       this._editabilityNodesMapUpdates
     )).pipe(
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._visibilityNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -389,7 +383,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._repetitionNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -398,7 +392,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._conditionalBranchNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -407,7 +401,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._formulaNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -416,7 +410,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._validationNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -425,7 +419,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._warningNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -434,7 +428,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._filteredChoicesNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -443,7 +437,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._triggerConditionsNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -452,7 +446,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
     this._nextSlideConditionsNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -461,7 +455,7 @@ export class AjfFormRendererService {
       scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
         return op(rmap);
       }, {}),
-      startWith({} as AjfRendererUpdateMap),
+      startWith(startValue()),
       share(),
     );
 
@@ -531,21 +525,19 @@ export class AjfFormRendererService {
             }
             let currentPosition = 0;
             nodes.forEach(node => {
-              if (node.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-                const rsNode = node as AjfRepeatingSlideInstance;
-                for (let i = 0; i < rsNode.reps; i++) {
+              if (isRepeatingSlideInstance(node)) {
+                for (let i = 0; i < node.reps; i++) {
                   if (node.visible) {
                     currentPosition++;
                     if (i == 0) {
-                      rsNode.position = currentPosition;
+                      node.position = currentPosition;
                     }
                   }
                 }
-              } else if (node.node.nodeType === AjfNodeType.AjfSlide) {
-                const sNode = node as AjfSlideInstance;
-                if (sNode.visible) {
+              } else if (isSlideInstance(node)) {
+                if (node.visible) {
                   currentPosition++;
-                  sNode.position = currentPosition;
+                  node.position = currentPosition;
                 }
               }
             });
@@ -564,89 +556,86 @@ export class AjfFormRendererService {
     branchVisibility = true,
   ): AjfNodeInstance | null {
     let instance = nodeToNodeInstance(allNodes, node, prefix, context);
-    if (instance != null) {
-      const nodeType = instance.node.nodeType;
-      if (nodeType === AjfNodeType.AjfNodeGroup || nodeType === AjfNodeType.AjfRepeatingSlide) {
-        this._explodeRepeatingNode(
-          allNodes,
-          instance as AjfNodeGroupInstance | AjfRepeatingSlideInstance,
-          context,
-        );
-      } else if (nodeType === AjfNodeType.AjfSlide) {
-        const sInstance = instance as AjfSlideInstance;
-        sInstance.nodes = this._orderedNodesInstancesTree(
-          allNodes,
-          sInstance.node.nodes,
-          sInstance.node.id,
-          prefix,
-          context,
-        );
-      }
-      updateVisibility(instance, context, branchVisibility);
-      updateConditionalBranches(instance, context);
-      if (nodeType === AjfNodeType.AjfField) {
-        const fInstance = instance as AjfFieldInstance;
-
-        if (isCustomFieldWithChoices(fInstance.node) || isFieldWithChoices(fInstance.node)) {
-          updateFilteredChoices(fInstance as AjfFieldWithChoicesInstance<any>, context);
-        } else {
-          if (isTableFieldInstance(fInstance)) {
-            const tfInstance = fInstance as AjfTableFieldInstance;
-            const tNode = tfInstance.node;
-            tfInstance.context = context[nodeInstanceCompleteName(tfInstance)] || context;
-            const formGroup = this._formGroup.getValue();
-            let controlsWithLabels: [string, (string | AjfTableFormControl)[]][] = [];
-            controlsWithLabels.push([node.label, tNode.columnLabels]);
-            if (formGroup != null) {
-              tNode.rows.forEach((row, rowIdx) => {
-                let r: AjfTableFormControl[] = [];
-                (row as AjfTableCell[]).forEach((cell, idx) => {
-                  /*
-                  every control is registered with the cell position
-                  inside the form control matrix
-                  with this mask `${tNode.name}__${rowIdx}__${idx}`
-                  */
-                  const name = `${tNode.name}__${rowIdx}__${idx}`;
-                  const type = (tNode.columnTypes && tNode.columnTypes[idx]) || 'number';
-                  const tableFormControl: AjfTableFormControl = {
-                    control: new FormControl(),
-                    show: false,
-                    type,
-                  };
-                  const value =
-                    tfInstance.context[cell.formula] && type === 'number'
-                      ? +tfInstance.context[cell.formula]
-                      : tfInstance.context[cell.formula];
-                  tableFormControl.control.setValue(value);
-                  formGroup.registerControl(name, tableFormControl.control);
-                  r.push(tableFormControl);
-                  /* create a object that respect the instance interface
-                  with the minimum defined properties to allow to run addToNodeFormula map*/
-                  const fakeInstance = {
-                    formula: {formula: cell.formula},
-                    node: {name, nodeType: 0, editable: false},
-                    visible: true,
-                    prefix: [],
-                    conditionalBranches: [],
-                    updatedEvt: new EventEmitter<void>(),
-                  } as unknown as AjfNodeInstance;
-                  this._addToNodesFormulaMap(fakeInstance, cell.formula);
-                });
-                controlsWithLabels.push([tNode.rowLabels[rowIdx], r]);
-              });
-              tfInstance.controls = controlsWithLabels;
-            }
-          } else {
-            fInstance.value = context[nodeInstanceCompleteName(instance)];
-          }
-        }
-        updateFieldInstanceState(fInstance, context);
-      }
-      if (nodeType === AjfNodeType.AjfSlide) {
-        updateEditability(instance as AjfSlideInstance, context);
-      }
-      this._addNodeInstance(instance);
+    if (instance == null) {
+      return null;
     }
+    if (isRepeatingGroupInstance(instance)) {
+      this._explodeRepeatingNode(allNodes, instance, context);
+    } else if (isSlideInstance(instance)) {
+      instance.nodes = this._orderedNodesInstancesTree(
+        allNodes,
+        instance.node.nodes,
+        instance.node.id,
+        prefix,
+        context,
+      );
+      updateEditability(instance, context);
+    }
+    updateVisibility(instance, context, branchVisibility);
+    updateConditionalBranches(instance, context);
+    if (isFieldInstance(instance)) {
+      if (isFieldWithChoicesInstance(instance)) {
+        updateFilteredChoices(instance, context);
+      } else {
+        if (isTableFieldInstance(instance)) {
+          const {node} = instance;
+          instance.context = context[nodeInstanceCompleteName(instance)] || context;
+          const formGroup = this._formGroup.getValue();
+          let controlsWithLabels: [string, (string | AjfTableFormControl)[]][] = [];
+          controlsWithLabels.push([node.label, node.columnLabels]);
+          if (formGroup != null) {
+            const rowsNum = node.rows.length;
+            for (let rowIdx = 0; rowIdx < rowsNum; rowIdx++) {
+              const row = node.rows[rowIdx];
+              let r: AjfTableFormControl[] = [];
+              const cellNum = row.length;
+              for (let idx = 0; idx < cellNum; idx++) {
+                let cell = row[idx];
+                if (typeof cell === 'string') {
+                  cell = {formula: cell};
+                }
+                /*
+                every control is registered with the cell position
+                inside the form control matrix
+                with this mask `${tNode.name}__${rowIdx}__${idx}`
+                */
+                const name = `${node.name}__${rowIdx}__${idx}`;
+                const type = (node.columnTypes && node.columnTypes[idx]) || 'number';
+                const tableFormControl: AjfTableFormControl = {
+                  control: new FormControl(),
+                  show: false,
+                  type,
+                };
+                const value =
+                  instance.context[cell.formula] && type === 'number'
+                    ? +instance.context[cell.formula]
+                    : instance.context[cell.formula];
+                tableFormControl.control.setValue(value);
+                formGroup.registerControl(name, tableFormControl.control);
+                r.push(tableFormControl);
+                /* create a object that respect the instance interface
+                with the minimum defined properties to allow to run addToNodeFormula map*/
+                const fakeInstance = {
+                  formula: {formula: cell.formula},
+                  node: {name, nodeType: 0, editable: false},
+                  visible: true,
+                  prefix: [],
+                  conditionalBranches: [],
+                  updatedEvt: new EventEmitter<void>(),
+                } as unknown as AjfNodeInstance;
+                this._addToNodesFormulaMap(fakeInstance, cell.formula);
+              }
+              controlsWithLabels.push([node.rowLabels[rowIdx], r]);
+            }
+            instance.controls = controlsWithLabels;
+          }
+        } else {
+          instance.value = context[nodeInstanceCompleteName(instance)];
+        }
+      }
+      updateFieldInstanceState(instance, context);
+    }
+    this._addNodeInstance(instance);
     return instance;
   }
 
@@ -676,7 +665,7 @@ export class AjfFormRendererService {
           parent: -1,
           fieldType: AjfFieldType.Empty,
           label: instance.node.label,
-        }) as AjfEmptyField;
+        });
         const newInstance = this._initNodeInstance(
           allNodes,
           node,
@@ -720,16 +709,14 @@ export class AjfFormRendererService {
       }
     }
     instance.flatNodes = flattenNodesInstances(instance.nodes);
-    if (instance.node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-      const rsInstance = instance as AjfRepeatingSlideInstance;
+    if (isRepeatingSlideInstance(instance)) {
       const slideNodes: AjfNodeInstance[][] = [];
-      const nodesPerSlide =
-        rsInstance.nodes != null ? rsInstance.nodes.length / rsInstance.reps : 0;
+      const nodesPerSlide = instance.nodes != null ? instance.nodes.length / instance.reps : 0;
       for (let i = 0; i < instance.reps; i++) {
         const startNode = i * nodesPerSlide;
         slideNodes.push(instance.nodes.slice(startNode, startNode + nodesPerSlide));
       }
-      rsInstance.slideNodes = slideNodes;
+      instance.slideNodes = slideNodes;
     }
     return result;
   }
@@ -850,8 +837,7 @@ export class AjfFormRendererService {
           if (editability[fieldName] != null) {
             editability[fieldName].forEach(nodeInstance => {
               if (isSlideInstance(nodeInstance)) {
-                const slideInstance = nodeInstance as AjfSlideInstance;
-                updateEditability(slideInstance, newFormValue);
+                updateEditability(nodeInstance, newFormValue);
               }
             });
           }
@@ -923,8 +909,7 @@ export class AjfFormRendererService {
             if (
               nextSlideConditionsMap[fieldName].filter(nodeInstance => {
                 if (isFieldInstance(nodeInstance)) {
-                  const fInstance = nodeInstance as AjfFieldInstance;
-                  return updateNextSlideCondition(fInstance, newFormValue);
+                  return updateNextSlideCondition(nodeInstance, newFormValue);
                 }
                 return false;
               }).length == 1
@@ -944,20 +929,13 @@ export class AjfFormRendererService {
 
           if (deltaLen == 1 && triggerConditionsMap[fieldName] != null) {
             const res = triggerConditionsMap[fieldName].filter(nodeInstance => {
-              if (!isFieldInstance(nodeInstance)) {
+              if (!isFieldWithChoicesInstance(nodeInstance)) {
                 return false;
               }
-              const fInstance = nodeInstance as AjfFieldInstance;
-              if (!isFieldWithChoices(fInstance.node)) {
-                return false;
-              }
-              return updateTriggerConditions(
-                fInstance as AjfFieldWithChoicesInstance<any>,
-                newFormValue,
-              );
+              return updateTriggerConditions(nodeInstance, newFormValue);
             });
-            if (res.length == 1) {
-              (res[0] as AjfFieldWithChoicesInstance<any>).selectionTrigger.emit();
+            if (res.length == 1 && isFieldWithChoicesInstance(res[0])) {
+              res[0].selectionTrigger.emit();
             }
           }
         });
@@ -967,7 +945,7 @@ export class AjfFormRendererService {
           while (idx >= 0) {
             const curNode = nodes[idx];
             if (isSlidesInstance(curNode)) {
-              updateSlideValidity(curNode as AjfRepeatingSlideInstance | AjfSlideInstance);
+              updateSlideValidity(curNode);
               curNode.updatedEvt.emit();
             }
             idx--;
@@ -1028,7 +1006,9 @@ export class AjfFormRendererService {
         (isContainer && (<AjfNodeGroup>node.node).nodes.find(cn => cn.id == n.node.id) == null)
       ) {
         updateVisibility(n, context, visible);
-        updateFormula(n as AjfFormulaFieldInstance, context);
+        if (isFieldInstance(n)) {
+          updateFormula(n, context);
+        }
         this._updateSubtreeVisibility(context, nodes, n, visible);
       }
     });
@@ -1078,11 +1058,11 @@ export class AjfFormRendererService {
     this._removeNodesTriggerConditionsMapIndex(nodeName);
     if (isSlidesInstance(nodeInstance)) {
       this._removeNodesEditabilityMapIndex(nodeName);
-      return this._removeSlideInstance(nodeInstance as AjfBaseSlideInstance);
-    } else if (isRepeatingContainerNode(nodeInstance.node)) {
-      this._removeNodeGroupInstance(nodeInstance as AjfRepeatingContainerNodeInstance);
+      return this._removeSlideInstance(nodeInstance);
+    } else if (isRepeatingContainerNodeInstance(nodeInstance)) {
+      this._removeNodeGroupInstance(nodeInstance);
     } else if (isFieldInstance(nodeInstance)) {
-      this._removeFieldInstance(nodeInstance as AjfFieldInstance);
+      this._removeFieldInstance(nodeInstance);
     }
 
     return nodeInstance;
@@ -1140,10 +1120,9 @@ export class AjfFormRendererService {
     }
 
     // TODO: check this, probably is never verified
-    if (isRepeatingContainerNode(fieldInstance.node)) {
-      const rcInstance = fieldInstance as AjfNodeInstance as AjfRepeatingContainerNodeInstance;
-      if (rcInstance.formulaReps != null) {
-        this._removeFromNodesRepetitionMap(fieldInstance, rcInstance.formulaReps.formula);
+    if (isRepeatingContainerNodeInstance(fieldInstance)) {
+      if (fieldInstance.formulaReps != null) {
+        this._removeFromNodesRepetitionMap(fieldInstance, fieldInstance.formulaReps.formula);
       }
     }
 
@@ -1166,12 +1145,11 @@ export class AjfFormRendererService {
       );
     }
 
-    if (isFieldWithChoices(fieldInstance.node)) {
-      const fwcInstance = fieldInstance as AjfFieldWithChoicesInstance<any>;
-      if (fwcInstance.choicesFilter != null) {
-        this._removeFromNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
-        if (fwcInstance.triggerConditions != null) {
-          fwcInstance.triggerConditions.forEach(condition => {
+    if (isFieldWithChoicesInstance(fieldInstance)) {
+      if (fieldInstance.choicesFilter != null) {
+        this._removeFromNodesFilteredChoicesMap(fieldInstance, fieldInstance.choicesFilter.formula);
+        if (fieldInstance.triggerConditions != null) {
+          fieldInstance.triggerConditions.forEach(condition => {
             this._removeFromNodesTriggerConditionsMap(fieldInstance, condition.condition);
           });
         }
@@ -1182,12 +1160,12 @@ export class AjfFormRendererService {
   }
 
   private _addNodeInstance(nodeInstance: AjfNodeInstance): AjfNodeInstance {
-    if (isRepeatingContainerNode(nodeInstance.node)) {
-      return this._addNodeGroupInstance(nodeInstance as AjfRepeatingContainerNodeInstance);
+    if (isRepeatingContainerNodeInstance(nodeInstance)) {
+      return this._addNodeGroupInstance(nodeInstance);
     } else if (isSlideInstance(nodeInstance)) {
-      return this._addSlideInstance(nodeInstance as AjfSlideInstance);
+      return this._addSlideInstance(nodeInstance);
     } else if (isFieldInstance(nodeInstance)) {
-      return this._addFieldInstance(nodeInstance as AjfFieldInstance);
+      return this._addFieldInstance(nodeInstance);
     }
 
     return nodeInstance;
@@ -1228,9 +1206,8 @@ export class AjfFormRendererService {
     }
 
     if (isNodeGroupInstance(fieldInstance)) {
-      const ngInstance = fieldInstance as AjfNodeInstance as AjfNodeGroupInstance;
-      if (ngInstance.formulaReps != null) {
-        this._addToNodesRepetitionMap(fieldInstance, ngInstance.formulaReps.formula);
+      if (fieldInstance.formulaReps != null) {
+        this._addToNodesRepetitionMap(fieldInstance, fieldInstance.formulaReps.formula);
       }
     }
 
@@ -1253,13 +1230,12 @@ export class AjfFormRendererService {
       );
     }
 
-    if (isCustomFieldWithChoices(fieldInstance.node) || isFieldWithChoicesInstance(fieldInstance)) {
-      const fwcInstance = fieldInstance as AjfFieldWithChoicesInstance<any>;
-      if (fwcInstance.choicesFilter != null) {
-        this._addToNodesFilteredChoicesMap(fieldInstance, fwcInstance.choicesFilter.formula);
+    if (isFieldWithChoicesInstance(fieldInstance)) {
+      if (fieldInstance.choicesFilter != null) {
+        this._addToNodesFilteredChoicesMap(fieldInstance, fieldInstance.choicesFilter.formula);
       }
-      if (fwcInstance.triggerConditions != null) {
-        fwcInstance.triggerConditions.forEach((condition: AjfCondition) => {
+      if (fieldInstance.triggerConditions != null) {
+        fieldInstance.triggerConditions.forEach((condition: AjfCondition) => {
           this._addToNodesTriggerConditionsMap(fieldInstance, condition.condition);
         });
       }
@@ -1505,11 +1481,11 @@ const updateVisibilityMapEntry = (
       });
     }
     if (isField) {
-      (nodeInstance as AjfFieldInstance).value = null;
+      nodeInstance.value = null;
     }
   } else if (visibilityChanged && nodeInstance.visible && isField) {
     const fg = formGroup.getValue();
-    const res = updateFormula(nodeInstance as AjfFieldInstance, newFormValue);
+    const res = updateFormula(nodeInstance, newFormValue);
     if (fg != null && res.changed) {
       fg.controls[completeName].setValue(res.value);
     }
@@ -1527,11 +1503,10 @@ const updateRepetitionMapEntry = (
     context: AjfContext,
   ) => {added: AjfNodeInstance[] | null; removed: AjfNodeInstance[] | null},
 ) => {
-  if (isRepeatingContainerNode(nodeInstance.node)) {
-    const rnInstance = nodeInstance as AjfRepeatingContainerNodeInstance;
-    const oldReps = updateRepsNum(rnInstance, newFormValue);
-    if (oldReps !== rnInstance.reps) {
-      cb(nodes, rnInstance, oldReps, newFormValue);
+  if (isRepeatingContainerNodeInstance(nodeInstance)) {
+    const oldReps = updateRepsNum(nodeInstance, newFormValue);
+    if (oldReps !== nodeInstance.reps) {
+      cb(nodes, nodeInstance, oldReps, newFormValue);
     }
   }
 };
@@ -1574,11 +1549,10 @@ const updateFormulaMapEntry = (
   formGroup: BehaviorSubject<FormGroup | null>,
 ) => {
   if (isFieldInstance(nodeInstance)) {
-    const fInstance = nodeInstance as AjfFieldInstance;
-    const res = updateFormula(fInstance, newFormValue);
+    const res = updateFormula(nodeInstance, newFormValue);
     const fg = formGroup.getValue();
     if (fg != null && res.changed) {
-      updateValidation(fInstance, newFormValue);
+      updateValidation(nodeInstance, newFormValue);
       fg.controls[nodeInstanceCompleteName(nodeInstance)].setValue(res.value);
     }
   }
@@ -1586,30 +1560,25 @@ const updateFormulaMapEntry = (
 
 const updateValidationMapEntry = (nodeInstance: AjfNodeInstance, newFormValue: any, supp: any) => {
   if (isFieldInstance(nodeInstance)) {
-    const fInstance = nodeInstance as AjfFieldInstance;
     newFormValue.$value = newFormValue[nodeInstanceCompleteName(nodeInstance)];
-    updateValidation(fInstance, newFormValue, supp);
+    updateValidation(nodeInstance, newFormValue, supp);
   }
 };
 
 const updateWarningMapEntry = (nodeInstance: AjfNodeInstance, newFormValue: any) => {
   if (isFieldInstance(nodeInstance)) {
-    const fInstance = nodeInstance as AjfFieldInstance;
-    updateWarning(fInstance, newFormValue);
+    updateWarning(nodeInstance, newFormValue);
     if (
-      fInstance.warningResults != null &&
-      fInstance.warningResults.filter(warning => warning.result).length > 0
+      nodeInstance.warningResults != null &&
+      nodeInstance.warningResults.filter(warning => warning.result).length > 0
     ) {
-      fInstance.warningTrigger.emit();
+      nodeInstance.warningTrigger.emit();
     }
   }
 };
 
 const updateFilteredChoicesMapEntry = (nodeInstance: AjfNodeInstance, newFormValue: any) => {
-  if (isFieldInstance(nodeInstance)) {
-    const fInstance = nodeInstance as AjfFieldInstance;
-    if (isFieldWithChoices(fInstance.node)) {
-      updateFilteredChoices(fInstance as AjfFieldWithChoicesInstance<any>, newFormValue);
-    }
+  if (isFieldWithChoicesInstance(nodeInstance)) {
+    updateFilteredChoices(nodeInstance, newFormValue);
   }
 };

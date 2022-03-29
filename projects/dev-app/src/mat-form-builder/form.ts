@@ -21,275 +21,1030 @@
  */
 
 export const formSchema: any = {
-  choicesOrigins: [
+  'nodes': [
     {
-      type: 'fixed',
-      name: 'animals',
-      choicesType: 'string',
-      choices: [
-        {value: 'dog', label: 'Dog'},
-        {value: 'cat', label: 'Cat'},
-      ],
-    },
-    {
-      type: 'fixed',
-      name: 'mchoice2',
-      choicesType: 'string',
-      choices: [
-        {value: 'option1', label: 'Option1'},
-        {value: 'option2', label: 'Option2'},
-        {value: 'option3', label: 'Option3'},
-        {value: 'option4', label: 'Option4'},
-        {value: 'option5', label: 'Option5'},
-      ],
-    },
-    {
-      type: 'fixed',
-      name: 'mchoice3',
-      choicesType: 'string',
-      choices: [
-        {value: 'option1', label: 'Option1'},
-        {value: 'option2', label: 'Option2'},
-        {value: 'option3', label: 'Option3'},
-        {value: 'option4', label: 'Option4'},
-        {value: 'option5', label: 'Option5'},
-        {value: 'option6', label: 'Option6'},
-        {value: 'option7', label: 'Option7'},
-        {value: 'option8', label: 'Option8'},
-        {value: 'option9', label: 'Option9'},
-        {value: 'option10', label: 'Option10'},
-        {value: 'option11', label: 'Option11'},
-        {value: 'option12', label: 'Option12'},
-        {value: 'option13', label: 'Option13'},
-        {value: 'option14', label: 'Option14'},
-        {value: 'option15', label: 'Option15'},
-      ],
-    },
-    {
-      type: 'fixed',
-      name: 'schoice',
-      choicesType: 'string',
-      choices: [
-        {value: 'option1', label: 'Option1'},
-        {value: 'option2', label: 'Option2'},
-        {value: 'option3', label: 'Option3'},
-      ],
-    },
-  ],
-  nodes: [
-    {
-      parent: 0,
-      id: 1,
-      name: 'information',
-      label: 'General fields',
-      nodeType: 3,
-      nodes: [
+      'id': 3,
+      'name': 'supplemention',
+      'label': '3. SUPPLEMENTATION',
+      'nodes': [
         {
-          parent: 1,
-          id: 1001,
-          name: 'number',
-          label: '64-bit floating point number',
-          nodeType: 0,
-          fieldType: 2,
-          validation: {notEmpty: true},
-        },
-        {
-          parent: 1001,
-          id: 1002,
-          name: 'number',
-          label: 'A number with the added constraint of being an integer',
-          hint: 'A number with the added constraint of being an integer hint',
-          nodeType: 0,
-          fieldType: 2,
-          validation: {
-            conditions: [
+          'id': 3003,
+          'name': 'vitamin_a_table',
+          'rows': [
+            [
+              'vitamin_a_table__0__0',
+              'vitamin_a_table__0__1',
               {
-                'condition': 'isInt(number)',
-                'clientValidation': true,
-                'errorMessage': 'The field value must be an integer.',
-              },
-              {
-                'condition': 'number < 150',
-                'clientValidation': true,
-                'errorMessage': 'minore di 150',
+                'formula':
+                  "dob&&vitamin_a_table__0__0?(Date.parse(vitamin_a_table__0__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__0__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__0__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
               },
             ],
+            [
+              'vitamin_a_table__1__0',
+              'vitamin_a_table__1__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__1__0?(Date.parse(vitamin_a_table__1__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__1__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__1__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+            [
+              'vitamin_a_table__2__0',
+              'vitamin_a_table__2__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__2__0?(Date.parse(vitamin_a_table__2__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__2__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__2__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+            [
+              'vitamin_a_table__3__0',
+              'vitamin_a_table__3__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__3__0?(Date.parse(vitamin_a_table__3__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__3__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__3__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+            [
+              'vitamin_a_table__4__0',
+              'vitamin_a_table__4__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__4__0?(Date.parse(vitamin_a_table__4__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__4__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__4__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+            [
+              'vitamin_a_table__5__0',
+              'vitamin_a_table__5__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__5__0?(Date.parse(vitamin_a_table__5__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__5__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__5__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+            [
+              'vitamin_a_table__6__0',
+              'vitamin_a_table__6__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__6__0?(Date.parse(vitamin_a_table__6__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__6__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__6__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+            [
+              'vitamin_a_table__7__0',
+              'vitamin_a_table__7__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__7__0?(Date.parse(vitamin_a_table__7__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__7__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__7__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+            [
+              'vitamin_a_table__8__0',
+              'vitamin_a_table__8__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__8__0?(Date.parse(vitamin_a_table__8__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__8__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__8__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+            [
+              'vitamin_a_table__9__0',
+              'vitamin_a_table__9__1',
+              {
+                'formula':
+                  "dob&&vitamin_a_table__9__0?(Date.parse(vitamin_a_table__9__0)-Date.parse(dob))/3.154e10 >= 1 ? Math.floor((Date.parse(vitamin_a_table__9__0)-Date.parse(dob))/3.154e10) + ' years' : Math.floor((Date.parse(vitamin_a_table__9__0)-Date.parse(dob))/2.628e9) + ' months':''",
+                'editable': false,
+              },
+            ],
+          ],
+          'size': 'normal',
+          'label': 'Vitamin A',
+          'parent': 3,
+          'editable': true,
+          'nodeType': 0,
+          'fieldType': 11,
+          'rowLabels': [
+            '1\u00b0',
+            '2\u00b0',
+            '3\u00b0',
+            '4\u00b0',
+            '5\u00b0',
+            '6\u00b0',
+            '7\u00b0',
+            '8\u00b0',
+            '9\u00b0',
+            '10\u00b0',
+          ],
+          'parentNode': 0,
+          'visibility': {
+            'condition': 'vit_a',
           },
+          'columnTypes': ['date', 'text'],
+          'columnLabels': ['date', 'ass.', 'age'],
+          'defaultValue': null,
+          'conditionalBranches': [],
         },
-        {
-          parent: 1002,
-          id: 1003,
-          name: 'string',
-          label: 'Free text response',
-          nodeType: 0,
-          fieldType: 0,
-        },
-        {
-          parent: 1003,
-          id: 1004,
-          name: 'boolean',
-          label: 'Boolean answer (a checkbox)',
-          nodeType: 0,
-          fieldType: 3,
-        },
-        {
-          parent: 1004,
-          id: 1005,
-          name: 'empty',
-          label: '',
-          nodeType: 0,
-          fieldType: 7,
-          HTML: 'Inserts an HTML note in the form',
-        },
-        {parent: 1005, id: 1006, name: 'date input', label: 'A date', nodeType: 0, fieldType: 9},
-        {parent: 1006, id: 1007, name: 'time', label: 'Time', nodeType: 0, fieldType: 10},
-        {parent: 1007, id: 1008, name: 'barcode', label: 'Barcode', nodeType: 0, fieldType: 13},
-        {parent: 1008, id: 1009, name: 'range', label: 'Range', nodeType: 0, fieldType: 17},
       ],
+      'parent': 0,
+      'nodeType': 3,
+    },
+  ],
+  'choicesOrigins': [
+    {
+      'name': 'district',
+      'type': 'fixed',
+      'choices': [
+        {
+          'label': 'Ancuabe',
+          'value': 'ancuabe',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Balama',
+          'value': 'balama',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Chiure',
+          'value': 'chiure',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Ibo',
+          'value': 'ibo',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Macomia',
+          'value': 'macomia',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Mac\u00f9fi',
+          'value': 'mac\u00f9fi',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Maluc',
+          'value': 'maluc',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Mociba da Praia',
+          'value': 'mociba_da_praia',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Montepuez',
+          'value': 'montepuez',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Mueda',
+          'value': 'mueda',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Muidumbe',
+          'value': 'muidumbe',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Namuno',
+          'value': 'namuno',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Nandade',
+          'value': 'nandade',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Palma',
+          'value': 'palma',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Pemba-Metuge',
+          'value': 'pemba_metuge',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Quissanga',
+          'value': 'quissanga',
+          'province': 'cabo_delgado',
+        },
+        {
+          'label': 'Bilene',
+          'value': 'bilene',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Chibuto',
+          'value': 'chibuto',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Chicualacuala',
+          'value': 'chicualacuala',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Chigubo',
+          'value': 'chigubo',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Chokwe',
+          'value': 'chokwe',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Chonguene',
+          'value': 'chonguene',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Guija',
+          'value': 'guija',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Limpopo',
+          'value': 'limpopo',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Mabalane',
+          'value': 'mabalane',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Manjacaze',
+          'value': 'manjacaze',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Mapai',
+          'value': 'mapai',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Massangena',
+          'value': 'massangena',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Massingir',
+          'value': 'massingir',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Xai-Xai',
+          'value': 'xai_xai',
+          'province': 'gaza',
+        },
+        {
+          'label': 'Funhalouro',
+          'value': 'funhalouro',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Govuro',
+          'value': 'govuro',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Homoine',
+          'value': 'homoine',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Inharrime',
+          'value': 'inharrime',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Inhassoro',
+          'value': 'inhassoro',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Jangamo',
+          'value': 'jangamo',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Mabote',
+          'value': 'mabote',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Massinga',
+          'value': 'massinga',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Morrumbene',
+          'value': 'morrumbene',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Panda',
+          'value': 'panda',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Vilanculos',
+          'value': 'vilanculos',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'Zavala',
+          'value': 'zavala',
+          'province': 'inhambane',
+        },
+        {
+          'label': 'B\u00e1ru\u00e8',
+          'value': 'b\u00e1ru\u00e8',
+          'province': 'manica',
+        },
+        {
+          'label': 'Gondola',
+          'value': 'gondola',
+          'province': 'manica',
+        },
+        {
+          'label': 'Guro',
+          'value': 'guro',
+          'province': 'manica',
+        },
+        {
+          'label': 'Machaze',
+          'value': 'machaze',
+          'province': 'manica',
+        },
+        {
+          'label': 'Macossa',
+          'value': 'macossa',
+          'province': 'manica',
+        },
+        {
+          'label': 'Manica',
+          'value': 'manica',
+          'province': 'manica',
+        },
+        {
+          'label': 'Mossurize',
+          'value': 'mossurize',
+          'province': 'manica',
+        },
+        {
+          'label': 'Sussundenga',
+          'value': 'sussundenga',
+          'province': 'manica',
+        },
+        {
+          'label': 'Tambara',
+          'value': 'tambara',
+          'province': 'manica',
+        },
+        {
+          'label': 'Maputo',
+          'value': 'maputo',
+          'province': 'maputo_city',
+        },
+        {
+          'label': 'Boane',
+          'value': 'boane',
+          'province': 'maputo_province',
+        },
+        {
+          'label': 'Magude',
+          'value': 'magude',
+          'province': 'maputo_province',
+        },
+        {
+          'label': 'Manhi\u00e7a',
+          'value': 'manhi\u00e7a',
+          'province': 'maputo_province',
+        },
+        {
+          'label': 'Marracuene',
+          'value': 'marracuene',
+          'province': 'maputo_province',
+        },
+        {
+          'label': 'Matutu\u00edne',
+          'value': 'matutu\u00edne',
+          'province': 'maputo_province',
+        },
+        {
+          'label': 'Moamba',
+          'value': 'moamba',
+          'province': 'maputo_province',
+        },
+        {
+          'label': 'Namaacha',
+          'value': 'namaacha',
+          'province': 'maputo_province',
+        },
+        {
+          'label': 'Angoche',
+          'value': 'angoche',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Er\u00e1ti',
+          'value': 'er\u00e1ti',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Lalaua',
+          'value': 'lalaua',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Malema',
+          'value': 'malema',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Meconta',
+          'value': 'meconta',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Mecub\u00fari',
+          'value': 'mecuburi',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Memba',
+          'value': 'memba',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Mogincual',
+          'value': 'mogincual',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Mogovolas',
+          'value': 'mogovolas',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Moma',
+          'value': 'moma',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Monapo',
+          'value': 'monapo',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Mossuril',
+          'value': 'mossuril',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Muecate',
+          'value': 'muecate',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Murrupula',
+          'value': 'murrupula',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Nacala-a-Velha',
+          'value': 'nacala_a_velha',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Nacar\u00f4a',
+          'value': 'nacaroa',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Nampula',
+          'value': 'nampula',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Rib\u00e1u\u00e8',
+          'value': 'ribaue',
+          'province': 'nampula',
+        },
+        {
+          'label': 'Cuamba',
+          'value': 'cuamba',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Lago',
+          'value': 'lago',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Lichinga',
+          'value': 'lichinga',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Majune',
+          'value': 'majune',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Mandimba',
+          'value': 'mandimba',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Marrupa',
+          'value': 'marrupa',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Ma\u00faa',
+          'value': 'maua',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Mavagoago',
+          'value': 'mavagoago',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Mecanhelas',
+          'value': 'mecanhelas',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Mecula',
+          'value': 'mecula',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Metarica',
+          'value': 'metarica',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Muembe',
+          'value': 'muembe',
+          'province': 'niassa',
+        },
+        {
+          'label': "N'gauma",
+          'value': 'ngauma',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Nipepe',
+          'value': 'nipepe',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Sanga',
+          'value': 'sanga',
+          'province': 'niassa',
+        },
+        {
+          'label': 'Buzi',
+          'value': 'buzi',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Caia',
+          'value': 'caia',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Chemba',
+          'value': 'chemba',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Cheringoma',
+          'value': 'cheringoma',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Chibabava',
+          'value': 'chibabava',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Dondo',
+          'value': 'dondo',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Gorongosa',
+          'value': 'gorongosa',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Marromeu',
+          'value': 'marromeu',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Machanga',
+          'value': 'machanga',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Maringu\u00e9',
+          'value': 'maringue',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Muanza',
+          'value': 'muanza',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Nhamatanda',
+          'value': 'nhamatanda',
+          'province': 'sofala',
+        },
+        {
+          'label': 'Ang\u00f3nia',
+          'value': 'angonia',
+          'province': 'tete',
+        },
+        {
+          'label': 'Cahora-Bassa',
+          'value': 'cahora_bassa',
+          'province': 'tete',
+        },
+        {
+          'label': 'Changara',
+          'value': 'changara',
+          'province': 'tete',
+        },
+        {
+          'label': 'Chifunde',
+          'value': 'chifunde',
+          'province': 'tete',
+        },
+        {
+          'label': 'Chiuta',
+          'value': 'chiuta',
+          'province': 'tete',
+        },
+        {
+          'label': 'Macanga',
+          'value': 'macanga',
+          'province': 'tete',
+        },
+        {
+          'label': 'Mago\u00e9',
+          'value': 'magoe',
+          'province': 'tete',
+        },
+        {
+          'label': 'Mar\u00e1via',
+          'value': 'maravia',
+          'province': 'tete',
+        },
+        {
+          'label': 'Moatize',
+          'value': 'moatize',
+          'province': 'tete',
+        },
+        {
+          'label': 'Mutarara',
+          'value': 'mutarara',
+          'province': 'tete',
+        },
+        {
+          'label': 'Tsangano',
+          'value': 'tsangano',
+          'province': 'tete',
+        },
+        {
+          'label': 'Zumbo',
+          'value': 'zumbo',
+          'province': 'tete',
+        },
+        {
+          'label': 'Alto Molocue',
+          'value': 'alto_molocue',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Chinde',
+          'value': 'chinde',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Gil\u00e9',
+          'value': 'gil\u00e9',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Guru\u00e9',
+          'value': 'guru\u00e9',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Ile',
+          'value': 'ile',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Inhassunge',
+          'value': 'inhassunge',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Lugela',
+          'value': 'lugela',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Maganja da Costa District',
+          'value': 'maganja_costa_district',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Milange',
+          'value': 'milange',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Mocuba',
+          'value': 'mocuba',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Mopeia',
+          'value': 'mopeia',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Morrumbala',
+          'value': 'morrumbala',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Namacurra',
+          'value': 'namacurra',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Namarroi',
+          'value': 'namarroi',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Nicoadala',
+          'value': 'nicoadala',
+          'province': 'zambesia',
+        },
+        {
+          'label': 'Pebane',
+          'value': 'pebane',
+          'province': 'zambesia',
+        },
+      ],
+      'choicesType': 'string',
     },
     {
-      parent: 1,
-      id: 2,
-      name: 'choice',
-      label: 'Choice Fileds',
-      nodeType: 3,
-      nodes: [
+      'name': 'id_child_co',
+      'type': 'fixed',
+      'choices': [
         {
-          parent: 2,
-          id: 2001,
-          name: 'singlechoice',
-          label: 'Single choice answer',
-          nodeType: 0,
-          fieldType: 4,
-          choicesOriginRef: 'schoice',
-        },
-        {
-          parent: 2001,
-          id: 2002,
-          name: 'multiplechoice',
-          label: 'Multiple choice answer 6 options',
-          nodeType: 0,
-          fieldType: 5,
-          choicesOriginRef: 'mchoice2',
-        },
-        {
-          parent: 2002,
-          id: 2003,
-          name: 'multiplechoice',
-          label: 'Multiple choice answer more than 6 options',
-          nodeType: 0,
-          fieldType: 5,
-          choicesOriginRef: 'mchoice3',
+          'label': 'No option',
+          'value': 'no_option',
         },
       ],
+      'choicesType': 'string',
     },
     {
-      parent: 2,
-      id: 3,
-      name: 'relevant',
-      label: 'Hidden fileds with Relevant',
-      nodeType: 3,
-      nodes: [
+      'name': 'mf',
+      'type': 'fixed',
+      'choices': [
         {
-          parent: 3,
-          id: 3001,
-          name: 'pet_type',
-          label: 'Do you have a cat or a dog?',
-          nodeType: 0,
-          fieldType: 4,
-          choicesOriginRef: 'animals',
+          'label': 'Female',
+          'value': 'f',
         },
         {
-          parent: 3001,
-          id: 3002,
-          name: 'cat_name',
-          label: 'Name of your cat:',
-          nodeType: 0,
-          fieldType: 0,
-          'visibility': {'condition': "pet_type === 'cat'"},
-        },
-        {
-          parent: 3002,
-          id: 3003,
-          name: 'dog_name',
-          label: 'Name of your dog:',
-          nodeType: 0,
-          fieldType: 0,
-          'visibility': {'condition': "pet_type === 'dog'"},
+          'label': 'Male',
+          'value': 'm',
         },
       ],
+      'choicesType': 'string',
     },
     {
-      parent: 3,
-      id: 4,
-      name: 'calculation',
-      label: 'Calculation fields',
-      nodeType: 3,
-      nodes: [
+      'name': 'province',
+      'type': 'fixed',
+      'choices': [
         {
-          parent: 4,
-          id: 4001,
-          name: 'amount',
-          label: 'Price of your meal:',
-          nodeType: 0,
-          fieldType: 2,
-          validation: {notEmpty: true},
+          'label': 'Cabo Delgado',
+          'value': 'cabo_delgado',
         },
         {
-          parent: 4001,
-          id: 4002,
-          name: 'tip',
-          label: '5% tip is:',
-          nodeType: 0,
-          fieldType: 6,
-          formula: {formula: 'amount*0.05'},
+          'label': 'Gaza',
+          'value': 'gaza',
         },
         {
-          parent: 4002,
-          id: 4003,
-          name: 'total',
-          label: 'Total is:',
-          nodeType: 0,
-          fieldType: 6,
-          formula: {formula: 'amount + tip'},
+          'label': 'Inhambane',
+          'value': 'inhambane',
+        },
+        {
+          'label': 'Manica',
+          'value': 'manica',
+        },
+        {
+          'label': 'Maputo City',
+          'value': 'maputo_city',
+        },
+        {
+          'label': 'Maputo Province',
+          'value': 'maputo_province',
+        },
+        {
+          'label': 'Nampula',
+          'value': 'nampula',
+        },
+        {
+          'label': 'Niassa',
+          'value': 'niassa',
+        },
+        {
+          'label': 'Sofala',
+          'value': 'sofala',
+        },
+        {
+          'label': 'Tete',
+          'value': 'tete',
+        },
+        {
+          'label': 'Zambesia',
+          'value': 'zambesia',
         },
       ],
+      'choicesType': 'string',
     },
     {
-      parent: 4,
-      id: 5,
-      name: 'repeat',
-      label: 'Multiple Slide',
-      nodeType: 4,
-      nodes: [
-        {parent: 5, id: 5001, name: name, label: "Child's name", nodeType: 0, fieldType: 0},
+      'name': 'village',
+      'type': 'fixed',
+      'choices': [
         {
-          parent: 5001,
-          id: 5002,
-          name: 'birthweight',
-          label: "Child's birthweight",
-          nodeType: 0,
-          fieldType: 2,
+          'label': 'Chipenhane',
+          'value': 'chipenhane',
+          'district': 'chonguene',
+        },
+        {
+          'label': 'Tetene',
+          'value': 'tetene',
+          'district': 'chonguene',
+        },
+        {
+          'label': 'Nhahulene',
+          'value': 'nhahulene',
+          'district': 'chonguene',
+        },
+        {
+          'label': 'Emilia Dausse',
+          'value': 'emilia dausse',
+          'district': 'chonguene',
+        },
+        {
+          'label': 'Selevene',
+          'value': 'selevene',
+          'district': 'chonguene',
+        },
+        {
+          'label': 'Agostinho Neto',
+          'value': 'agostinho_neto',
+          'district': 'limpopo',
+        },
+        {
+          'label': 'Chipenhe',
+          'value': 'chipenhe',
+          'district': 'limpopo',
+        },
+        {
+          'label': 'Quinto Congresso',
+          'value': 'quinto_congresso',
+          'district': 'limpopo',
+        },
+        {
+          'label': 'Cumbane',
+          'value': 'cumbane',
+          'district': 'limpopo',
+        },
+        {
+          'label': 'Chicumbane-Sede',
+          'value': 'chicumbane_sede',
+          'district': 'limpopo',
+        },
+        {
+          'label': 'Chiconela',
+          'value': 'chiconela',
+          'district': 'limpopo',
+        },
+        {
+          'label': 'Nwadjahane',
+          'value': 'nwadjahane',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Laranjeiras',
+          'value': 'laranjeiras',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Guachene',
+          'value': 'guachene',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Chibonzane',
+          'value': 'chibonzane',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Chigivitane',
+          'value': 'chigivitane',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Mavie',
+          'value': 'mavie',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Bahule',
+          'value': 'bahule',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Dengoine',
+          'value': 'dengoine',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Madendere',
+          'value': 'madendere',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Mutane',
+          'value': 'mutane',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Matsinhane',
+          'value': 'matsinhane',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Cuco',
+          'value': 'cuco',
+          'district': 'manjacaze',
+        },
+        {
+          'label': 'Chilaulene',
+          'value': 'chilaulene',
+          'district': 'xai_xai',
+        },
+        {
+          'label': 'Zimilene',
+          'value': 'zimilene',
+          'district': 'xai_xai',
         },
       ],
+      'choicesType': 'string',
     },
     {
-      parent: 5,
-      id: 6,
-      name: 'custom',
-      label: 'Custom field',
-      nodeType: 4,
-      nodes: [
+      'name': 'yn',
+      'type': 'fixed',
+      'choices': [
         {
-          parent: 6,
-          id: 6001,
-          name: 'customfield',
-          label: 'Custom multiple choice field',
-          nodeType: 0,
-          fieldType: 101,
-          choicesOriginRef: 'mchoice3',
+          'label': 'Yes',
+          'value': 'yes',
+        },
+        {
+          'label': 'No',
+          'value': 'no',
         },
       ],
+      'choicesType': 'string',
     },
   ],
 };

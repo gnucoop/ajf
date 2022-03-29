@@ -175,7 +175,7 @@ const slideForm = {
   ],
 } as any;
 
-const testForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
+const testForm: AjfForm = JSON.parse(JSON.stringify(slideForm));
 testForm.nodes[0].nodes = [
   {
     id: 2,
@@ -191,7 +191,7 @@ testForm.nodes[0].nodes = [
   } as unknown as AjfFieldWithChoices<string>,
 ];
 
-const inputTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
+const inputTestForm: AjfForm = JSON.parse(JSON.stringify(slideForm));
 inputTestForm.nodes[0].nodes = [
   {
     id: 2,
@@ -205,7 +205,7 @@ inputTestForm.nodes[0].nodes = [
   } as unknown as AjfField,
 ];
 
-const readOnlyInputTestForm = JSON.parse(JSON.stringify(slideForm)) as AjfForm;
+const readOnlyInputTestForm: AjfForm = JSON.parse(JSON.stringify(slideForm));
 readOnlyInputTestForm.nodes[0].nodes = [
   {
     id: 2,

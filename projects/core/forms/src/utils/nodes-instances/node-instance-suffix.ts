@@ -20,13 +20,13 @@
  *
  */
 
-import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
+import {AjfBaseNodeInstance} from '../../interface/nodes-instances/base-node-instance';
 
 // TODO: add details
 /**
  * It creates the node instance suffix.
  */
-export function nodeInstanceSuffix(instance: AjfNodeInstance): string {
+export function nodeInstanceSuffix(instance: AjfBaseNodeInstance): string {
   if (instance.prefix == null || instance.prefix.length == 0) {
     return '';
   }

@@ -43,5 +43,5 @@ export function createNode(node: AjfNodeCreate): AjfNode {
     label: node.label || '',
     visibility: node.visibility || alwaysCondition(),
     conditionalBranches,
-  };
+  } as AjfNode;
 }

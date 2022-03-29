@@ -20,12 +20,12 @@
  *
  */
 
-import {AjfField} from './field';
+import {AjfBaseField} from './base-field';
 import {AjfFieldType} from './field-type';
 
 /**
  * An AjfField of type Barcode
  */
-export interface AjfBarcodeField extends AjfField {
+export interface AjfBarcodeField extends AjfBaseField {
   fieldType: AjfFieldType.Barcode;
 }

@@ -24,12 +24,15 @@ import {AjfCondition, AjfFormula} from '@ajf/core/models';
 
 import {AjfChoice} from '../choices/choice';
 import {AjfChoicesOrigin} from '../choices/choices-origin';
-import {AjfField} from './field';
+import {AjfBaseField} from './base-field';
+import {AjfFieldType} from './field-type';
 
 /**
  * An AjfField of type AjfFieldWithChoices.
  */
-export interface AjfFieldWithChoices<T> extends AjfField {
+export interface AjfFieldWithChoices<T> extends AjfBaseField {
+  fieldType: AjfFieldType.MultipleChoice | AjfFieldType.SingleChoice;
+
   /**
    * The choices for the select element after choicesFilter
    */

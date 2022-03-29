@@ -21,7 +21,12 @@
  */
 
 import {AjfImageType} from '@ajf/core/image';
-import {AjfWidgetInstance, AjfWidgetType, createWidgetInstance} from '@ajf/core/reports';
+import {
+  AjfChartType,
+  AjfWidgetInstance,
+  AjfWidgetType,
+  createWidgetInstance,
+} from '@ajf/core/reports';
 import {TranslocoService} from '@ajf/core/transloco';
 
 const baseWidget = {
@@ -30,7 +35,7 @@ const baseWidget = {
 };
 
 export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfWidgetInstance}[] {
-  return [
+  const widgets: {name: string; instance: AjfWidgetInstance}[] = [
     {
       name: 'Layout',
       instance: {
@@ -39,7 +44,8 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             ...baseWidget,
             widgetType: AjfWidgetType.Layout,
             columns: [1, 2],
-          } as any,
+            content: [],
+          },
           {},
           ts,
         ),
@@ -49,6 +55,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
               {
                 ...baseWidget,
                 widgetType: AjfWidgetType.Text,
+                htmlText: '',
               },
               {},
               ts,
@@ -60,6 +67,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
               {
                 ...baseWidget,
                 widgetType: AjfWidgetType.Text,
+                htmlText: '',
               },
               {},
               ts,
@@ -67,7 +75,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             htmlText: 'Column 2',
           },
         ],
-      } as any,
+      },
     },
     {
       name: 'Page break',
@@ -90,7 +98,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             ...baseWidget,
             widgetType: AjfWidgetType.Image,
             imageType: AjfImageType.Image,
-          } as any,
+          },
           {},
           ts,
         ),
@@ -106,12 +114,13 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
           {
             ...baseWidget,
             widgetType: AjfWidgetType.Text,
+            htmlText: '',
           },
           {},
           ts,
         ),
         htmlText: 'Sample text',
-      } as any,
+      },
     },
     {
       name: 'Chart',
@@ -120,6 +129,9 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
           {
             ...baseWidget,
             widgetType: AjfWidgetType.Chart,
+            chartType: AjfChartType.Line,
+            labels: [],
+            dataset: [],
           },
           {},
           ts,
@@ -137,7 +149,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             },
           ],
         },
-      } as any,
+      },
     },
     {
       name: 'Table',
@@ -146,16 +158,29 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
           {
             ...baseWidget,
             widgetType: AjfWidgetType.Table,
+            dataset: [],
           },
           {},
           ts,
         ),
         data: [
-          [{value: 'a'}, {value: 'b'}, {value: 'c'}],
-          [{value: 'd'}, {value: 'e'}, {value: 'f'}],
-          [{value: 'g'}, {value: 'h'}, {value: 'i'}],
+          [
+            {value: 'a', style: {}},
+            {value: 'b', style: {}},
+            {value: 'c', style: {}},
+          ],
+          [
+            {value: 'd', style: {}},
+            {value: 'e', style: {}},
+            {value: 'f', style: {}},
+          ],
+          [
+            {value: 'g', style: {}},
+            {value: 'h', style: {}},
+            {value: 'i', style: {}},
+          ],
         ],
-      } as any,
+      },
     },
     {
       name: 'Map',
@@ -165,23 +190,29 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             ...baseWidget,
             widgetType: AjfWidgetType.Map,
             tileLayer: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
-          } as any,
+            dataset: [],
+          },
           {},
           ts,
         ),
         coordinate: [51.50853, -0.076132],
-      } as any,
+      },
     },
     {
       name: 'Column',
       instance: {
-        ...createWidgetInstance({...baseWidget, widgetType: AjfWidgetType.Column}, {}, ts),
+        ...createWidgetInstance(
+          {...baseWidget, widgetType: AjfWidgetType.Column, content: []},
+          {},
+          ts,
+        ),
         content: [
           {
             ...createWidgetInstance(
               {
                 ...baseWidget,
                 widgetType: AjfWidgetType.Text,
+                htmlText: '',
               },
               {},
               ts,
@@ -189,7 +220,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             htmlText: 'Sample column',
           },
         ],
-      } as any,
+      },
     },
     {
       name: 'Formula',
@@ -198,6 +229,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
           {
             ...baseWidget,
             widgetType: AjfWidgetType.Formula,
+            formula: {formula: ''},
           },
           {},
           ts,
@@ -213,7 +245,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             ...baseWidget,
             widgetType: AjfWidgetType.ImageContainer,
             imageType: AjfImageType.Image,
-          } as any,
+          },
           {},
           ts,
         ),
@@ -225,4 +257,5 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
       },
     },
   ];
+  return widgets;
 }

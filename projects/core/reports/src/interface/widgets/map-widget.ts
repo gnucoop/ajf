@@ -21,9 +21,12 @@
  */
 
 import {AjfFormula} from '@ajf/core/models';
+
 import {AjfDataWidget} from './data-widget';
+import {AjfWidgetType} from './widget-type';
 
 export interface AjfMapWidget extends AjfDataWidget {
+  widgetType: AjfWidgetType.Map;
   coordinate: AjfFormula;
   tileLayer: string;
   attribution: string;

@@ -20,6 +20,9 @@
  *
  */
 
+import {AjfWidgetType} from './widget-type';
 import {AjfWidgetWithContent} from './widget-with-content';
 
-export type AjfColumnWidget = AjfWidgetWithContent;
+export interface AjfColumnWidget extends AjfWidgetWithContent {
+  widgetType: AjfWidgetType.Column;
+}

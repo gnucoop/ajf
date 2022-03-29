@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCheckboxGroupModule as AjfCoreCheckboxGroupModule} from '@ajf/core/checkbox-group';
+import {AjfCheckboxGroupModule as CoreCheckboxGroupModule} from '@ajf/core/checkbox-group';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
@@ -28,8 +28,8 @@ import {IonicModule} from '@ionic/angular';
 import {AjfCheckboxGroupItem} from './checkbox-group-item';
 
 @NgModule({
-  imports: [AjfCoreCheckboxGroupModule, CommonModule, IonicModule],
+  imports: [CommonModule, CoreCheckboxGroupModule, IonicModule],
   declarations: [AjfCheckboxGroupItem],
-  exports: [AjfCheckboxGroupItem, AjfCoreCheckboxGroupModule],
+  exports: [AjfCheckboxGroupItem, CoreCheckboxGroupModule],
 })
 export class AjfCheckboxGroupModule {}

@@ -21,12 +21,13 @@
  */
 
 import {AjfField} from '../../interface/fields/field';
+import {AjfFieldWithChoices} from '../../interface/fields/field-with-choices';
 import {AjfFieldType} from '../../interface/fields/field-type';
 
 /**
  * It is true if the field type is a SingleChoice or MultipleChoice.
  */
-export function isFieldWithChoices(field: AjfField): boolean {
+export function isFieldWithChoices<T = any>(field: AjfField): field is AjfFieldWithChoices<T> {
   return (
     field.fieldType === AjfFieldType.SingleChoice || field.fieldType === AjfFieldType.MultipleChoice
   );

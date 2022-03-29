@@ -20,7 +20,6 @@
  *
  */
 
-import {AjfContainerNode} from '../../interface/nodes/container-node';
 import {AjfNode} from '../../interface/nodes/node';
 import {isContainerNode} from './is-container-node';
 /**
@@ -33,7 +32,7 @@ export function flattenNodes(nodes: AjfNode[]): AjfNode[] {
   nodes.forEach((node: AjfNode) => {
     flatNodes.push(node);
     if (isContainerNode(node)) {
-      flatNodes = flatNodes.concat(flattenNodes((node as AjfContainerNode).nodes));
+      flatNodes = flatNodes.concat(flattenNodes(node.nodes));
     }
   });
   return flatNodes;

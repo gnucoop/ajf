@@ -26,7 +26,6 @@ import {Subscription} from 'rxjs';
 import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
 import {AjfTableFieldInstance} from './interface/fields-instances/table-field-instance';
-import {AjfTableFormControl} from './interface/forms/table-form-control';
 import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert-service';
 
 /**
@@ -71,7 +70,7 @@ export abstract class AjfTableFieldComponent
       return;
     }
     const rowLength = this.instance.controls[row][1].length;
-    const currentCell = this.instance.controls[row][1][column] as AjfTableFormControl;
+    const currentCell = this.instance.controls[row][1][column];
     if (column + 1 >= rowLength) {
       column = 0;
       if (row + 1 >= this.instance.controls.length) {
@@ -155,7 +154,7 @@ export abstract class AjfTableFieldComponent
     this.instance.controls.forEach(row =>
       row[1].forEach(cell => {
         if (typeof cell !== 'string') {
-          (cell as AjfTableFormControl).show = false;
+          cell.show = false;
         }
       }),
     );
@@ -177,7 +176,7 @@ export abstract class AjfTableFieldComponent
     ) {
       return;
     }
-    const nextCell = this.instance.controls[row][1][column] as AjfTableFormControl;
+    const nextCell = this.instance.controls[row][1][column];
     if (typeof nextCell !== 'string') {
       nextCell.show = true;
     }

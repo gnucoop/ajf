@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfPageSliderModule as AjfCorePageSliderModule} from '@ajf/core/page-slider';
+import {AjfPageSliderModule as CorePageSliderModule} from '@ajf/core/page-slider';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {IonicModule} from '@ionic/angular';
@@ -28,8 +28,8 @@ import {IonicModule} from '@ionic/angular';
 import {AjfPageSlider} from './page-slider';
 
 @NgModule({
-  imports: [AjfCorePageSliderModule, CommonModule, IonicModule],
+  imports: [CommonModule, CorePageSliderModule, IonicModule],
   declarations: [AjfPageSlider],
-  exports: [AjfCorePageSliderModule, AjfPageSlider],
+  exports: [AjfPageSlider, CorePageSliderModule],
 })
 export class AjfPageSliderModule {}

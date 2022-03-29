@@ -22,8 +22,10 @@
 
 import {AjfTableDataset} from '../dataset/table-dataset';
 import {AjfDataWidget} from './data-widget';
+import {AjfWidgetType} from './widget-type';
 
 export interface AjfTableWidget extends AjfDataWidget {
+  widgetType: AjfWidgetType.Table;
   cellStyles: any;
   dataset: AjfTableDataset[][];
   exportable?: boolean;

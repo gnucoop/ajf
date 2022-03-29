@@ -20,18 +20,7 @@
  *
  */
 
-import {AjfRepeatingContainerNode} from '../nodes/repeating-container-node';
-import {AjfContainerNodeInstance} from './container-node-instance';
-import {AjfRepeatingNodeInstance} from './repeating-node-instance';
+import {AjfRepeatingSlideInstance} from '../slides-instances/repeating-slide-instance';
+import {AjfNodeGroupInstance} from './node-group-instance';
 
-/**
- * A node instance containing an AjfRepeatingContainerNode node.
- */
-export interface AjfRepeatingContainerNodeInstance
-  extends AjfContainerNodeInstance,
-    AjfRepeatingNodeInstance {
-  /**
-   * The blueprint AjfRepeatingContainerNode.
-   */
-  node: AjfRepeatingContainerNode;
-}
+export type AjfRepeatingContainerNodeInstance = AjfNodeGroupInstance | AjfRepeatingSlideInstance;

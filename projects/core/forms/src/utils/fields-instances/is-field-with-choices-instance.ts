@@ -20,8 +20,9 @@
  *
  */
 
-import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
+import {AjfFieldWithChoicesInstance} from '../../interface/fields-instances/field-with-choices-instance';
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
+import {isCustomFieldWithChoices} from '../fields/is-custom-field-with-choices';
 import {isFieldWithChoices} from '../fields/is-field-with-choices';
 import {isFieldInstance} from '../nodes-instances/is-field-instance';
 
@@ -29,10 +30,12 @@ import {isFieldInstance} from '../nodes-instances/is-field-instance';
  * It is true if the nodeInstance is a fieldInstance and
  * if the node of instance is a field with choices.
  */
-export function isFieldWithChoicesInstance(nodeInstance: AjfNodeInstance): boolean {
+export function isFieldWithChoicesInstance(
+  instance: AjfNodeInstance,
+): instance is AjfFieldWithChoicesInstance<any> {
   return (
-    nodeInstance != null &&
-    isFieldInstance(nodeInstance) &&
-    isFieldWithChoices((nodeInstance as AjfFieldInstance).node)
+    instance != null &&
+    isFieldInstance(instance) &&
+    (isCustomFieldWithChoices(instance.node) || isFieldWithChoices(instance.node))
   );
 }

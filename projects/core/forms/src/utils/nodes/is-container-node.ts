@@ -21,11 +21,12 @@
  */
 
 import {AjfNode} from '../../interface/nodes/node';
+import {AjfContainerNode} from '../../interface/nodes/container-node';
 import {AjfNodeType} from '../../interface/nodes/node-type';
 import {isSlidesNode} from './is-slides-node';
 /**
  * It is true if node is AjfNodeGroup or slides nodes.
  */
-export function isContainerNode(node: AjfNode): boolean {
+export function isContainerNode(node: AjfNode): node is AjfContainerNode {
   return node != null && (node.nodeType === AjfNodeType.AjfNodeGroup || isSlidesNode(node));
 }

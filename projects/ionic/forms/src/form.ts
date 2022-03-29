@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfFormRenderer as AjfCoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
+import {AjfFormRenderer as CoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {
   AfterViewInit,
@@ -49,7 +49,7 @@ import {AjfPopover} from './popover';
  * @implements : AfterViewInit
  * @implements : AfterViewInit
  */
-export class AjfFormRenderer extends AjfCoreFormRenderer implements AfterViewInit, OnDestroy {
+export class AjfFormRenderer extends CoreFormRenderer implements AfterViewInit, OnDestroy {
   @Input() topBar: boolean = false;
 
   private _longSlide = false;

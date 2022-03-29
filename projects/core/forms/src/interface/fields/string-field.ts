@@ -20,12 +20,12 @@
  *
  */
 
-import {AjfField} from './field';
+import {AjfBaseField} from './base-field';
 import {AjfFieldType} from './field-type';
 
 /**
  * An AjfField of type String.
  */
-export interface AjfStringField extends AjfField {
+export interface AjfStringField extends AjfBaseField {
   fieldType: AjfFieldType.String;
 }

@@ -20,58 +20,46 @@
  *
  */
 
-import {AjfChoicesFunctionOrigin} from '../../interface/choices/choices-function-origin';
-import {AjfChoicesObservableArrayOrigin} from '../../interface/choices/choices-observable-array-origin';
-import {AjfChoicesObservableOrigin} from '../../interface/choices/choices-observable-origin';
+import {firstValueFrom} from 'rxjs';
+import {toArray} from 'rxjs/operators';
+
 import {AjfChoicesOrigin} from '../../interface/choices/choices-origin';
-import {AjfChoicesPromiseOrigin} from '../../interface/choices/choices-promise-origin';
 /**
  * Called by form-rederer
  * take as param an AjfChoicesOrigin&lt;any&gt; and return an Promise&lt;void&gt; for handling async
  * event
  */
-export function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void> {
+export async function initChoicesOrigin(origin: AjfChoicesOrigin<any>): Promise<void> {
   /** fixed don't use async evente the promise is resolved */
   if (origin.type === 'fixed') {
-    return Promise.resolve();
+    return;
   }
   /** apply function and than return resolve promise */
   if (origin.type === 'function') {
-    const fo = origin as AjfChoicesFunctionOrigin<any>;
-    fo.choices = fo.generator();
-    return Promise.resolve();
+    origin.choices = origin.generator();
+    return;
   }
   /** modify origin.choices with result of resolved promise */
   if (origin.type === 'promise') {
-    const po = origin as AjfChoicesPromiseOrigin<any>;
-    return po.generator.then(choices => (po.choices = choices)).then();
+    return origin.generator.then(choices => (origin.choices = choices)).then();
   }
   /** modify origin.choices with result of subscribed observable */
   if (origin.type === 'observable') {
-    const obso = origin as AjfChoicesObservableOrigin<any>;
-    if (obso.generator != null) {
-      obso.choices = [];
-      return new Promise<void>(res => {
-        obso.generator.subscribe(
-          c => obso.choices.push(c),
-          () => {},
-          () => res(),
-        );
-      });
+    if (origin.generator != null) {
+      origin.choices = [];
+      return firstValueFrom(origin.generator.pipe(toArray()))
+        .then(choices => (origin.choices = choices))
+        .then();
     }
   }
   /** modify origin.choices with result of subscribed observable */
   if (origin.type === 'observableArray') {
-    const aoo = origin as AjfChoicesObservableArrayOrigin<any>;
-    if (aoo.generator != null) {
-      aoo.choices = [];
-      return new Promise<void>(res => {
-        aoo.generator.subscribe(choices => {
-          aoo.choices = choices;
-          res();
-        });
-      });
+    if (origin.generator != null) {
+      origin.choices = [];
+      return firstValueFrom(origin.generator)
+        .then(choices => (origin.choices = choices))
+        .then();
     }
   }
-  return Promise.resolve();
+  return;
 }

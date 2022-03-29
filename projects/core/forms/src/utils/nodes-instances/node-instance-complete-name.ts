@@ -20,14 +20,14 @@
  *
  */
 
-import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
+import {AjfBaseNodeInstance} from '../../interface/nodes-instances/base-node-instance';
 import {nodeInstanceSuffix} from './node-instance-suffix';
 
 // TODO: add details
 /**
  * It creates the complete name of the instance.
  */
-export function nodeInstanceCompleteName(instance: AjfNodeInstance): string {
+export function nodeInstanceCompleteName(instance: AjfBaseNodeInstance): string {
   return instance != null && instance.node != null
     ? `${instance.node.name}${nodeInstanceSuffix(instance)}`
     : '';

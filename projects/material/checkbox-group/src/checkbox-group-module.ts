@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCheckboxGroupModule as AjfCoreCheckboxGroupModule} from '@ajf/core/checkbox-group';
+import {AjfCheckboxGroupModule as CoreCheckboxGroupModule} from '@ajf/core/checkbox-group';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -29,8 +29,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {CheckboxGroupItem} from './checkbox-group-item';
 
 @NgModule({
-  imports: [AjfCoreCheckboxGroupModule, CommonModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, CoreCheckboxGroupModule, MatButtonModule, MatIconModule],
   declarations: [CheckboxGroupItem],
-  exports: [AjfCoreCheckboxGroupModule, CheckboxGroupItem],
+  exports: [CheckboxGroupItem, CoreCheckboxGroupModule],
 })
 export class AjfCheckboxGroupModule {}

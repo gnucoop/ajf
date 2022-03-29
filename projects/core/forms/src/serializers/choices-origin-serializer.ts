@@ -26,11 +26,11 @@ import {AjfChoicesOriginCreate, createChoicesOrigin} from '../utils/choices/crea
  *  Create an AjfChoicesOrigin by json schema, apply a default value for type and name
  */
 export class AjfChoicesOriginSerializer {
-  static fromJson(origin: Partial<AjfChoicesOrigin<any>>): AjfChoicesOrigin<any> {
-    return createChoicesOrigin<any>({
+  static fromJson<T = any>(origin: Partial<AjfChoicesOrigin<T>>): AjfChoicesOrigin<T> {
+    return createChoicesOrigin<T>({
       ...origin,
       type: origin.type || 'fixed',
       name: origin.name || '',
-    } as AjfChoicesOriginCreate<any>);
+    } as AjfChoicesOriginCreate<T>);
   }
 }

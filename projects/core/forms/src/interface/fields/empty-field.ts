@@ -20,11 +20,13 @@
  *
  */
 
-import {AjfField} from './field';
+import {AjfBaseField} from './base-field';
+import {AjfFieldType} from './field-type';
 
 /**
  * An AjfField that contains an HTML.
  */
-export interface AjfEmptyField extends AjfField {
+export interface AjfEmptyField extends AjfBaseField {
+  fieldType: AjfFieldType.Empty;
   HTML: string;
 }

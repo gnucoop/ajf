@@ -20,8 +20,10 @@
  *
  */
 
-import {AjfWidget} from './widget';
+import {AjfBaseWidget} from './base-widget';
+import {AjfWidgetType} from './widget-type';
 
-export interface AjfTextWidget extends AjfWidget {
+export interface AjfTextWidget extends AjfBaseWidget {
+  widgetType: AjfWidgetType.Text;
   htmlText: string;
 }

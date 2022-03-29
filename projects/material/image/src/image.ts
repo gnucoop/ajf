@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfImage as AjfCoreImage} from '@ajf/core/image';
+import {AjfImage as CoreImage} from '@ajf/core/image';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -37,7 +37,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfImage extends AjfCoreImage {
+export class AjfImage extends CoreImage {
   constructor(el: ElementRef, renderer: Renderer2, ds: DomSanitizer) {
     super(el, renderer, ds);
   }

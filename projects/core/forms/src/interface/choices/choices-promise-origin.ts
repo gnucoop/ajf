@@ -20,10 +20,10 @@
  *
  */
 
+import {AjfBaseChoicesOrigin} from './base-choices-origin';
 import {AjfChoice} from './choice';
-import {AjfChoicesOrigin} from './choices-origin';
 
-export interface AjfChoicesPromiseOrigin<T> extends AjfChoicesOrigin<T> {
+export interface AjfChoicesPromiseOrigin<T> extends AjfBaseChoicesOrigin<T> {
   type: 'promise';
   generator: Promise<AjfChoice<T>[]>;
 }

@@ -21,7 +21,9 @@
  */
 
 import {AjfWidgetWithContent} from './widget-with-content';
+import {AjfWidgetType} from './widget-type';
 
 export interface AjfLayoutWidget extends AjfWidgetWithContent {
+  widgetType: AjfWidgetType.Layout;
   columns: number[];
 }

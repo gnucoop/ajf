@@ -22,7 +22,7 @@
 
 import {AjfChartWidget, AjfReport} from '@ajf/core/reports';
 
-export const testReport = {
+export const testReport: AjfReport = {
   header: {
     content: [],
     styles: {},
@@ -41,9 +41,12 @@ export const testReport = {
             aggregation: {aggregation: 0},
           },
         ],
-      } as AjfChartWidget,
+        options: {},
+        visibility: {condition: 'true'},
+        styles: {},
+      },
     ],
     styles: {},
   },
   footer: {content: [], styles: {}},
-} as AjfReport;
+};

@@ -52,7 +52,7 @@ import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
 
 const defaultWidgetsFactory = (): AjfWidgetComponentsMap => {
-  const defaultWidgets = {} as AjfWidgetComponentsMap;
+  const defaultWidgets: AjfWidgetComponentsMap = {};
   defaultWidgets[wt.Layout] = {component: AjfLayoutWidgetComponent};
   defaultWidgets[wt.PageBreak] = {component: AjfPageBreakWidgetComponent};
   defaultWidgets[wt.Image] = {component: AjfImageWidgetComponent};

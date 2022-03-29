@@ -21,7 +21,7 @@
  */
 
 import {AjfCommonModule} from '@ajf/core/common';
-import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfBarcodeModule} from '@ajf/ionic/barcode';
 import {AjfCalendarModule} from '@ajf/ionic/calendar';
@@ -64,10 +64,10 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfCalendarModule,
     AjfCheckboxGroupModule,
     AjfCommonModule,
-    AjfCoreFormsModule,
     AjfPageSliderModule,
     AjfTimeModule,
     CommonModule,
+    CoreFormsModule,
     FormsModule,
     GicModule,
     IonicModule,

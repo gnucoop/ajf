@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfPageSlider as AjfCorePageSlider} from '@ajf/core/page-slider';
+import {AjfPageSlider as CorePageSlider} from '@ajf/core/page-slider';
 import {AnimationBuilder} from '@angular/animations';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {
@@ -43,7 +43,7 @@ import {filter, map, startWith, switchMap} from 'rxjs/operators';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfPageSlider extends AjfCorePageSlider implements AfterContentInit, OnDestroy {
+export class AjfPageSlider extends CorePageSlider implements AfterContentInit, OnDestroy {
   private _scrollSub = Subscription.EMPTY;
 
   constructor(

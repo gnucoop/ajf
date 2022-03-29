@@ -21,8 +21,11 @@
  */
 
 import {AjfFormula} from '@ajf/core/models';
-import {AjfWidget} from './widget';
 
-export interface AjfFormulaWidget extends AjfWidget {
+import {AjfBaseWidget} from './base-widget';
+import {AjfWidgetType} from './widget-type';
+
+export interface AjfFormulaWidget extends AjfBaseWidget {
+  widgetType: AjfWidgetType.Formula;
   formula: AjfFormula;
 }

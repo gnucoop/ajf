@@ -61,10 +61,11 @@ export class AjfFilePreview implements OnDestroy {
 
   constructor(vcr: ViewContainerRef) {
     const input = vcr.parentInjector.get(AjfFileInput, null);
+    const isValueGuard = (value: AjfFile | undefined): value is AjfFile => value != null;
     if (input) {
       this._value = input.value;
-      this._valueSub = input.valueChange.pipe(filter(value => value != null)).subscribe(value => {
-        this._value = value as AjfFile;
+      this._valueSub = input.valueChange.pipe(filter(isValueGuard)).subscribe(value => {
+        this._value = value;
       });
     }
   }
@@ -116,10 +117,7 @@ export class AjfFileInput implements ControlValueAccessor {
       if (value.length === 1) {
         this._processFileUpload(value[0]);
       }
-    } else if (
-      value == null ||
-      (isAjfFile(value) && isValidMimeType((value as AjfFile).type, this.accept))
-    ) {
+    } else if (value == null || (isAjfFile(value) && isValidMimeType(value.type, this.accept))) {
       this._value = value;
       this._valueChange.emit(this._value);
       this._cdr.detectChanges();
@@ -213,7 +211,7 @@ const ajfFileKeys = JSON.stringify(['content', 'name', 'size', 'type']);
 /**
  * Test if a value is an AjfFile interface.
  */
-function isAjfFile(value: any): boolean {
+function isAjfFile(value: any): value is AjfFile {
   if (typeof value !== 'object') {
     return false;
   }

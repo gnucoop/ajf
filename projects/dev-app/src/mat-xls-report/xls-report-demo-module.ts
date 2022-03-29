@@ -21,7 +21,7 @@
  */
 
 import {AjfFileInputModule} from '@ajf/core/file-input';
-import {AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfFormsModule} from '@ajf/material/forms';
 import {AjfReportsModule} from '@ajf/material/reports';
@@ -40,10 +40,10 @@ import {ReportFromXlsDemo} from './xls-report-demo';
 @NgModule({
   imports: [
     AjfReportsModule,
-    AjfCoreFormsModule,
     AjfFileInputModule,
     AjfFormsModule,
     CommonModule,
+    CoreFormsModule,
     ClipboardModule,
     FormsModule,
     MatButtonModule,

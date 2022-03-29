@@ -21,7 +21,7 @@
  */
 
 import {AjfCommonModule} from '@ajf/core/common';
-import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as AjfCoreFormsModule} from '@ajf/core/forms';
+import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfBarcodeModule} from '@ajf/material/barcode';
 import {AjfCalendarModule} from '@ajf/material/calendar';
@@ -70,12 +70,12 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfBarcodeModule,
     AjfCalendarModule,
     AjfCommonModule,
-    AjfCoreFormsModule,
     AjfCheckboxGroupModule,
     AjfPageSliderModule,
     AjfTimeModule,
     AjfTranslocoModule,
     CommonModule,
+    CoreFormsModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,

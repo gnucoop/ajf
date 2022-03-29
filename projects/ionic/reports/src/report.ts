@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfReportRenderer as AjfCoreReportRenderer} from '@ajf/core/reports';
+import {AjfReportRenderer as CoreReportRenderer} from '@ajf/core/reports';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -35,7 +35,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfReportRenderer extends AjfCoreReportRenderer {
+export class AjfReportRenderer extends CoreReportRenderer {
   constructor(cdr: ChangeDetectorRef) {
     super(cdr);
   }
