@@ -11,7 +11,6 @@ describe('ajf-form test top toolbar input', () => {
   it(`topbar input is true and hideTopToolbar is false:
   should show one mat toolbar(pageSliderToolBar)`, () => {
     cy.visit('/mat-form/?topbar=true&hidetoolbar=false');
-    const toolbars = [] as JQuery<HTMLElement>[];
     cy.get('mat-toolbar').then(tbs => {
       cy.wrap(tbs).should('have.length', 3);
       cy.wrap(tbs[0]).should('contain.text', 'Number Field Example');

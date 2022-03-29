@@ -192,7 +192,7 @@ export class AjfFileInput implements ControlValueAccessor {
     if (!isValidMimeType(type, this.accept)) {
       return;
     }
-    reader.onload = (e: ProgressEvent<FileReader>) => {
+    reader.onload = (_: ProgressEvent<FileReader>) => {
       const content = reader.result;
       if (typeof content !== 'string') {
         return;

@@ -946,7 +946,7 @@ export function MAX(forms: (Form | MainForm)[], fieldName: string): number {
   forms.forEach(form => {
     if (form[fieldName] == null && form.reps != null) {
       Object.keys(form.reps as Instances).forEach(rep => {
-        ((form.reps as Instances)[rep] as Form[]).forEach(rform => {
+        ((form.reps as Instances)[rep] as Form[]).forEach(_rform => {
           if (
             form[fieldName] != null &&
             !isNaN(form[fieldName] as number) &&
