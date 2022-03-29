@@ -1,6 +1,14 @@
 ajf-form {
   display: block;
 
+  .ajf-form-readonly {
+    .ajf-field-entry {
+      > label {
+        font-weight: bold;
+      }
+    }
+  }
+
   .ajf-form-container {
     display: flex;
     flex-direction: column;

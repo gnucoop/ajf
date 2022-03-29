@@ -2,6 +2,14 @@ ajf-form {
   display: block;
   position: relative;
 
+  .ajf-form-readonly {
+    .ajf-field-entry {
+      > ion-label {
+        font-weight: bold;
+      }
+    }
+  }
+
   form {
     display: block;
     position: absolute;

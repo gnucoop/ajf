@@ -1,5 +1,5 @@
 <ng-container *ngIf="formGroup|async as currentFormGroup">
-  <form novalidate [formGroup]="currentFormGroup!">
+  <form [class.ajf-form-readonly]="readonly" novalidate [formGroup]="currentFormGroup!">
     <div class="ajf-form-container">
       <ion-toolbar *ngIf="!hideTopToolbar && topBar" class="ajf-btn-strip">
         <div class="ajf-topbar-buttons">
