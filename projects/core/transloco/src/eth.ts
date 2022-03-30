@@ -134,4 +134,6 @@ export const ETH: Translation = {
   'Choose type of Chart': 'የመጀመሪያ7',
   'Labels': 'የመጀመሪያ8',
   'Border width': 'የመጀመሪያ9',
+  'Hide empty rows': 'ባዶ ረድፎችን ደብቅ',
+  'Table definition': 'የሠንጠረዥ ትርጉም',
 };

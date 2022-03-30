@@ -31,7 +31,6 @@ import {
   AjfNodeGroup,
   AjfNodesOperation,
   AjfNodeType,
-  AjfRepeatingContainerNode,
   AjfRepeatingSlide,
   AjfSlide,
   createChoicesFixedOrigin,
@@ -49,6 +48,7 @@ import {
   isRangeField,
   isRepeatingContainerNode,
   isSlidesNode,
+  isTableField,
   maxDigitsValidation,
   maxValidation,
   minDigitsValidation,
@@ -789,13 +789,12 @@ export class AjfFormBuilderService {
           const newConditionalBranches = node.conditionalBranches.length;
 
           if (isRepeatingContainerNode(node)) {
-            const repNode = <AjfRepeatingContainerNode>node;
-            repNode.formulaReps =
+            node.formulaReps =
               properties.formulaReps != null
                 ? createFormula({formula: properties.formulaReps})
                 : undefined;
-            repNode.minReps = properties.minReps;
-            repNode.maxReps = properties.maxReps;
+            node.minReps = properties.minReps;
+            node.maxReps = properties.maxReps;
           }
 
           if (isField(node)) {
@@ -888,6 +887,15 @@ export class AjfFormBuilderService {
               node.start = properties.start;
               node.end = properties.end;
               node.step = properties.step;
+            }
+
+            if (isTableField(node)) {
+              let {columnTypes, rows, columnLabels, rowLabels} = JSON.parse(properties.tableDef);
+              node.columnTypes = columnTypes || [];
+              node.rows = rows || [];
+              node.columnLabels = columnLabels || [];
+              node.rowLabels = rowLabels || [];
+              node.hideEmptyRows = properties.hideEmptyRows;
             }
           }
 

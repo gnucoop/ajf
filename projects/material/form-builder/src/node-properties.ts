@@ -22,17 +22,18 @@
 
 import {
   AjfChoicesOrigin,
-  AjfField,
   AjfFieldWithChoices,
   AjfNode,
   AjfNumberField,
   AjfRangeField,
   AjfRepeatingContainerNode,
+  AjfTableField,
   isField,
   isFieldWithChoices,
   isNumberField,
   isRangeField,
   isRepeatingContainerNode,
+  isTableField,
 } from '@ajf/core/forms';
 import {AjfCondition, alwaysCondition, neverCondition} from '@ajf/core/models';
 import {
@@ -391,16 +392,20 @@ export class AjfFbNodeProperties implements OnDestroy {
     return nodeEntry != null && isField(nodeEntry.node);
   }
 
-  isNumericField(node: AjfNode): boolean {
+  isNumericField(node: AjfNode): node is AjfNumberField {
     return isField(node) && isNumberField(node);
   }
 
-  isFieldWithChoices(node: AjfNode): boolean {
+  isFieldWithChoices(node: AjfNode): node is AjfFieldWithChoices<any> {
     return isField(node) && isFieldWithChoices(node);
   }
 
-  isRangeField(node: AjfNode): boolean {
+  isRangeField(node: AjfNode): node is AjfRangeField {
     return isField(node) && isRangeField(node);
+  }
+
+  isTableField(node: AjfNode): node is AjfTableField {
+    return isField(node) && isTableField(node);
   }
 
   save(): void {
@@ -473,7 +478,9 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (this._conditionalBranchesSub != null) {
           this._conditionalBranchesSub.unsubscribe();
         }
-        n = n!;
+        if (n == null) {
+          return this._fb.group({});
+        }
 
         const visibility = n.node.visibility != null ? n.node.visibility.condition : null;
         const visibilityOpt =
@@ -501,43 +508,43 @@ export class AjfFbNodeProperties implements OnDestroy {
           validators.push(checkRepsValidity);
         }
 
-        if (this.isField(n)) {
-          const field = <AjfField>n.node;
+        const {node} = n;
 
+        if (isField(node)) {
           let forceValue: string | null = null;
           let notEmpty: boolean = false;
           let validationConditions: ValidationCondition[] = [];
-          if (field.validation != null) {
-            if (field.validation.forceValue != null) {
-              forceValue = field.validation.forceValue.condition;
+          if (node.validation != null) {
+            if (node.validation.forceValue != null) {
+              forceValue = node.validation.forceValue.condition;
             }
-            notEmpty = field.validation.notEmpty != null;
-            validationConditions = (field.validation.conditions || []).map(c => {
+            notEmpty = node.validation.notEmpty != null;
+            validationConditions = (node.validation.conditions || []).map(c => {
               return {condition: c.condition, errorMessage: c.errorMessage};
             });
           }
 
           let notEmptyW: boolean = false;
           let warningConditions: WarningCondition[] = [];
-          if (field.warning != null) {
-            notEmptyW = field.warning.notEmpty != null;
-            warningConditions = (field.warning.conditions || []).map(w => {
+          if (node.warning != null) {
+            notEmptyW = node.warning.notEmpty != null;
+            warningConditions = (node.warning.conditions || []).map(w => {
               return {condition: w.condition, warningMessage: w.warningMessage};
             });
           }
-          const formula = field.formula != null ? field.formula.formula : null;
+          const formula = node.formula != null ? node.formula.formula : null;
 
-          controls.description = field.description;
-          controls.defaultValue = field.defaultValue;
-          controls.hint = field.hint;
-          controls.size = field.size;
+          controls.description = node.description;
+          controls.defaultValue = node.defaultValue;
+          controls.hint = node.hint;
+          controls.size = node.size;
           controls.formula = formula;
           controls.forceValue = forceValue;
           controls.notEmpty = notEmpty;
           controls.validationConditions = [validationConditions, []];
           controls.notEmptyWarning = notEmptyW;
           controls.warningConditions = [warningConditions, []];
-          controls.nextSlideCondition = [field.nextSlideCondition];
+          controls.nextSlideCondition = [node.nextSlideCondition];
 
           this._curForceValue = forceValue;
           this._curFormula = formula;
@@ -545,28 +552,26 @@ export class AjfFbNodeProperties implements OnDestroy {
           this._warningConditions = warningConditions;
         }
 
-        if (this.isNumericField(n.node)) {
-          const numField = <AjfNumberField>n.node;
-
+        if (this.isNumericField(node)) {
           let minValue: any;
           let maxValue: any;
           let minDigits: any;
           let maxDigits: any;
-          if (numField.validation != null) {
-            if (numField.validation.minValue != null) {
-              minValue = (numField.validation.minValue.condition || '').replace('$value >= ', '');
+          if (node.validation != null) {
+            if (node.validation.minValue != null) {
+              minValue = (node.validation.minValue.condition || '').replace('$value >= ', '');
             }
-            if (numField.validation.maxValue != null) {
-              maxValue = (numField.validation.maxValue.condition || '').replace('$value <= ', '');
+            if (node.validation.maxValue != null) {
+              maxValue = (node.validation.maxValue.condition || '').replace('$value <= ', '');
             }
-            if (numField.validation.minDigits != null) {
-              minDigits = (numField.validation.minDigits.condition || '').replace(
+            if (node.validation.minDigits != null) {
+              minDigits = (node.validation.minDigits.condition || '').replace(
                 '$value.toString().length >= ',
                 '',
               );
             }
-            if (numField.validation.maxDigits != null) {
-              maxDigits = (numField.validation.maxDigits.condition || '').replace(
+            if (node.validation.maxDigits != null) {
+              maxDigits = (node.validation.maxDigits.condition || '').replace(
                 '$value.toString().length <= ',
                 '',
               );
@@ -582,9 +587,8 @@ export class AjfFbNodeProperties implements OnDestroy {
           validators.push(checkDigitsValidity);
         }
 
-        if (this.isRangeField(n.node)) {
-          const rangeField = <AjfRangeField>n.node;
-          const {start, end, step} = rangeField;
+        if (this.isRangeField(node)) {
+          const {start, end, step} = node;
 
           controls.start = start;
           controls.end = end;
@@ -593,21 +597,23 @@ export class AjfFbNodeProperties implements OnDestroy {
           validators.push(checkRangeValidity);
         }
 
-        if (this.isFieldWithChoices(n.node)) {
-          const fieldWithChoices = <AjfFieldWithChoices<any>>n.node;
+        if (this.isFieldWithChoices(node)) {
+          let triggerConditions: string[] = (node.triggerConditions || []).map(c => c.condition);
 
-          let triggerConditions: string[] = (fieldWithChoices.triggerConditions || []).map(
-            c => c.condition,
-          );
-
-          controls.choicesOriginRef = (fieldWithChoices as any).choicesOriginRef;
-          controls.choicesFilter =
-            fieldWithChoices.choicesFilter != null ? fieldWithChoices.choicesFilter.formula : null;
-          controls.forceExpanded = fieldWithChoices.forceExpanded;
-          controls.forceNarrow = fieldWithChoices.forceNarrow;
+          controls.choicesOriginRef = (node as any).choicesOriginRef;
+          controls.choicesFilter = node.choicesFilter != null ? node.choicesFilter.formula : null;
+          controls.forceExpanded = node.forceExpanded;
+          controls.forceNarrow = node.forceNarrow;
           controls.triggerConditions = triggerConditions;
 
           this._triggerConditions = triggerConditions;
+        }
+
+        if (this.isTableField(node)) {
+          const {columnTypes, rows, columnLabels, rowLabels} = node;
+          const tableDef = {columnTypes, rows, columnLabels, rowLabels};
+          controls.tableDef = JSON.stringify(tableDef, undefined, 2);
+          controls.hideEmptyRows = node.hideEmptyRows;
         }
 
         const fg = this._fb.group(controls);

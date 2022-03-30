@@ -21,11 +21,12 @@
  */
 
 import {AjfField} from '../../interface/fields/field';
+import {AjfNumberField} from '../../interface/fields/number-field';
 import {AjfFieldType} from '../../interface/fields/field-type';
 
 /**
  * It is true if the field type is Number.
  */
-export function isNumberField(field: AjfField): boolean {
+export function isNumberField(field: AjfField): field is AjfNumberField {
   return field.fieldType === AjfFieldType.Number;
 }
