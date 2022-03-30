@@ -24,7 +24,6 @@ import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {
   AfterViewInit,
   ChangeDetectorRef,
-  ComponentFactoryResolver,
   Directive,
   Input,
   OnDestroy,
@@ -99,7 +98,7 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
   protected abstract componentsMap: AjfFieldComponentsMap;
   private _updatedSub = Subscription.EMPTY;
 
-  constructor(private _cdr: ChangeDetectorRef, private _cfr: ComponentFactoryResolver) {}
+  constructor(private _cdr: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this._loadComponent();
@@ -138,8 +137,7 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
         ? componentDef.readOnlyComponent
         : componentDef.component;
     try {
-      const componentFactory = this._cfr.resolveComponentFactory(component);
-      const componentRef = vcr.createComponent(componentFactory);
+      const componentRef = vcr.createComponent(component);
       this._componentInstance = componentRef.instance;
       this._componentInstance.instance = this._instance;
       const componentInstance = this._componentInstance as any;

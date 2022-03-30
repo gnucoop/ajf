@@ -24,7 +24,7 @@ import {AjfFormula, createFormula} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {HttpClient} from '@angular/common/http';
 import {ChartColor} from 'chart.js';
-import {forkJoin, Observable, of} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import * as XLSX from 'xlsx';
 
@@ -73,7 +73,7 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
   const obsFilterValues: Observable<any>[] = Object.values(filters);
   const filterNames: string[] = Object.keys(filters);
 
-  return forkJoin(obsFilterValues.length > 0 ? obsFilterValues : of([])).pipe(
+  return forkJoin(obsFilterValues.length > 0 ? obsFilterValues : []).pipe(
     map(f => {
       workbook.SheetNames.forEach(sheetName => {
         const sheet: XLSX.WorkSheet = workbook.Sheets[sheetName];

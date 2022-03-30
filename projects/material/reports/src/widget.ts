@@ -34,7 +34,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ComponentFactoryResolver,
   ElementRef,
   Injectable,
   Renderer2,
@@ -84,8 +83,8 @@ export class AjfWidgetService extends CoreService {
 export class AjfReportWidget extends CoreComponent {
   readonly widgetsMap: AjfWidgetComponentsMap;
 
-  constructor(cfr: ComponentFactoryResolver, renderer: Renderer2, widgetService: AjfWidgetService) {
-    super(cfr, renderer);
+  constructor(renderer: Renderer2, widgetService: AjfWidgetService) {
+    super(renderer);
     this.widgetsMap = widgetService.componentsMap;
   }
 }

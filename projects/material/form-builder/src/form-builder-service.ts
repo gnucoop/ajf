@@ -61,7 +61,7 @@ import {deepCopy} from '@ajf/core/utils';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {EventEmitter, Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of as obsOf, Subject, Subscription} from 'rxjs';
-import {filter, map, publishReplay, refCount, scan, withLatestFrom} from 'rxjs/operators';
+import {filter, map, shareReplay, scan, withLatestFrom} from 'rxjs/operators';
 
 import {
   AjfAttachmentsOriginsOperation,
@@ -691,8 +691,7 @@ export class AjfFormBuilderService {
       scan((choicesOrigins: AjfChoicesOrigin<any>[], op: AjfChoicesOriginsOperation) => {
         return op(choicesOrigins);
       }, []),
-      publishReplay(1),
-      refCount(),
+      shareReplay(1),
     );
   }
 
@@ -704,8 +703,7 @@ export class AjfFormBuilderService {
         },
         [],
       ),
-      publishReplay(1),
-      refCount(),
+      shareReplay(1),
     );
   }
 
@@ -714,8 +712,7 @@ export class AjfFormBuilderService {
       scan((stringIdentifier: AjfFormStringIdentifier[], op: AjfFormStringIdentifierOperation) => {
         return op(stringIdentifier);
       }, []),
-      publishReplay(1),
-      refCount(),
+      shareReplay(1),
     );
   }
 
@@ -724,8 +721,7 @@ export class AjfFormBuilderService {
       scan((nodes: AjfNode[], op: AjfNodesOperation) => {
         return op(nodes);
       }, []),
-      publishReplay(1),
-      refCount(),
+      shareReplay(1),
     );
 
     this._nodesWithoutChoiceOrigins = (this._nodes as Observable<AjfSlide[]>).pipe(
@@ -751,20 +747,17 @@ export class AjfFormBuilderService {
 
     this._flatNodes = this._nodes.pipe(
       map((nodes: AjfNode[]) => flattenNodes(nodes)),
-      publishReplay(1),
-      refCount(),
+      shareReplay(1),
     );
 
     this._flatFields = this._flatNodes.pipe(
       map((nodes: AjfNode[]) => <AjfField[]>nodes.filter(n => !isContainerNode(n))),
-      publishReplay(1),
-      refCount(),
+      shareReplay(1),
     );
 
     this._nodeEntriesTree = this._nodes.pipe(
       map(nodes => <AjfFormBuilderNodeEntry[]>this._buildFormBuilderNodesTree(nodes)),
-      publishReplay(1),
-      refCount(),
+      shareReplay(1),
     );
   }
 

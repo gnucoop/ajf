@@ -93,23 +93,23 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
             .showWarningAlertPrompt(
               this.instance.warningResults.filter(w => w.result).map(w => w.warning),
             )
-            .subscribe(
-              (r: AjfFieldWarningAlertResult) => {
+            .subscribe({
+              next: (r: AjfFieldWarningAlertResult) => {
                 if (r.result) {
                   control!.setValue(null);
                 }
               },
-              (_e: any) => {
+              error: (_e: any) => {
                 if (s) {
                   s.unsubscribe();
                 }
               },
-              () => {
+              complete: () => {
                 if (s) {
                   s.unsubscribe();
                 }
               },
-            );
+            });
         });
     }
   }

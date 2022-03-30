@@ -46,14 +46,7 @@ import {
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
-import {
-  distinctUntilChanged,
-  filter,
-  map,
-  publishReplay,
-  refCount,
-  withLatestFrom,
-} from 'rxjs/operators';
+import {distinctUntilChanged, filter, map, shareReplay, withLatestFrom} from 'rxjs/operators';
 
 import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {AjfFormBuilderNodeEntry, AjfFormBuilderService} from './form-builder-service';
@@ -636,8 +629,7 @@ export class AjfFbNodeProperties implements OnDestroy {
 
         return fg;
       }),
-      publishReplay(1),
-      refCount(),
+      shareReplay(1),
     );
   }
 
