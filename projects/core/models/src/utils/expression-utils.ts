@@ -152,6 +152,8 @@ export class AjfExpressionUtils {
   };
 }
 
+const nonNullInstances = (reps: Instances | undefined): reps is Instances => reps != null;
+
 /**
  * UTILITY FUNCION
  * This function provide a deep copy builder of array of main forms.
@@ -669,16 +671,22 @@ export function getCoordinate(source: any, zoom?: number): [number, number, numb
  * Calculates all the possible results that a field has taken
  */
 export function ALL_VALUES_OF(mainforms: MainForm[], fieldName: string): string[] {
-  const allreps = (mainforms || [])
-    .slice(0)
-    .map(m => m.reps)
-    .filter(c => c != null)
-    .map((i: unknown) =>
-      Object.keys(i as Instances)
-        .map(k => (i as Instances)[k])
-        .flat(),
-    )
-    .flat();
+  const forms = [...(mainforms || [])];
+  const allreps = [
+    ...forms.map(form => {
+      const {reps, ...v} = form;
+      return v;
+    }),
+    ...forms
+      .map(m => m.reps)
+      .filter(nonNullInstances)
+      .map(i =>
+        Object.keys(i)
+          .map(k => i[k])
+          .flat(),
+      )
+      .flat(),
+  ];
 
   return [...new Set(allreps.filter(f => f[fieldName] != null).map(f => `${f[fieldName]}`))];
 }
