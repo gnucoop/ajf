@@ -33,7 +33,7 @@ import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {timer} from 'rxjs';
+import {firstValueFrom, timer} from 'rxjs';
 import {take} from 'rxjs/operators';
 
 import {AjfFormsModule} from './public_api';
@@ -58,7 +58,7 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    await timer(200).pipe(take(1)).toPromise();
+    await firstValueFrom(timer(200).pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
 

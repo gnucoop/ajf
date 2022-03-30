@@ -33,7 +33,7 @@ import {Component} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {timer} from 'rxjs';
+import {firstValueFrom, timer} from 'rxjs';
 import {take} from 'rxjs/operators';
 
 import {AjfFormRenderer, AjfFormsModule} from './public_api';
@@ -87,11 +87,11 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    await timer(200).pipe(take(1)).toPromise();
+    await firstValueFrom(timer(200).pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const formGroup = (await cmp.formGroup.pipe(take(1)).toPromise())!;
+    const formGroup = (await firstValueFrom(cmp.formGroup.pipe(take(1))))!;
     expect(formGroup).toBeDefined();
 
     expect(nodesTree[0].valid).toBeFalsy();
@@ -100,7 +100,7 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    await timer(200).pipe(take(1)).toPromise();
+    await firstValueFrom(timer(200).pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -111,7 +111,7 @@ describe('AjfFormRenderer', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
     await fixture.whenStable();
-    await timer(200).pipe(take(1)).toPromise();
+    await firstValueFrom(timer(200).pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -125,7 +125,7 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    await timer(200).pipe(take(1)).toPromise();
+    await firstValueFrom(timer(200).pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
 
@@ -172,11 +172,11 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    await timer(100).pipe(take(1)).toPromise();
+    await firstValueFrom(timer(100).pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const formGroup = (await cmp.formGroup.pipe(take(1)).toPromise())!;
+    const formGroup = (await firstValueFrom(cmp.formGroup.pipe(take(1))))!;
     const ctx = service.getFormValue();
 
     expect(formGroup).toBeDefined();
@@ -220,7 +220,7 @@ describe('AjfFormRenderer', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    await timer(200).pipe(take(1)).toPromise();
+    await firstValueFrom(timer(200).pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
 

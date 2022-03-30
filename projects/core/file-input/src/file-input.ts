@@ -60,7 +60,7 @@ export class AjfFilePreview implements OnDestroy {
   private _valueSub = Subscription.EMPTY;
 
   constructor(vcr: ViewContainerRef) {
-    const input = vcr.parentInjector.get(AjfFileInput, null);
+    const input = vcr.injector.get(AjfFileInput, null);
     const isValueGuard = (value: AjfFile | undefined): value is AjfFile => value != null;
     if (input) {
       this._value = input.value;

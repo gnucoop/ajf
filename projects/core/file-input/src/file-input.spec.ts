@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {firstValueFrom} from 'rxjs';
 import {shareReplay, take} from 'rxjs/operators';
 
 import {AjfTranslocoModule} from '../../transloco';
@@ -31,14 +32,14 @@ describe('AjfFileInput', () => {
     const fileInput = fixture.componentInstance;
     fileInput.value = emptyPngFile;
     const lastValue = fileInput.valueChange.pipe(shareReplay(1));
-    await lastValue.pipe(take(1)).toPromise();
+    await firstValueFrom(lastValue.pipe(take(1)));
     const {name, size, type, content} = fileInput.value as AjfFile;
     expect(name).toEqual(emptyPngFile.name);
     expect(size).toEqual(emptyPngFile.size);
     expect(type).toEqual(emptyPngFile.type);
     expect(content).toEqual(`data:image/png;base64,${emptyPng}`);
     fileInput.resetValue();
-    await lastValue.pipe(take(1)).toPromise();
+    await firstValueFrom(lastValue.pipe(take(1)));
     expect(fileInput.value).toBeNull();
   });
 
@@ -53,7 +54,7 @@ describe('AjfFileInput', () => {
     };
     const lastValue = fileInput.valueChange.pipe(shareReplay(1));
     fileInput.onSelectFile();
-    await lastValue.pipe(take(1)).toPromise();
+    await firstValueFrom(lastValue.pipe(take(1)));
     const {name, size, type, content} = fileInput.value as AjfFile;
     expect(name).toEqual(emptyPngFile.name);
     expect(size).toEqual(emptyPngFile.size);
@@ -73,7 +74,7 @@ describe('AjfFileInput', () => {
     const el = fixture.nativeElement as HTMLElement;
     const fileInput = fixture.componentInstance;
     fileInput.value = emptyPngFile;
-    await fileInput.valueChange.pipe(take(1)).toPromise();
+    await firstValueFrom(fileInput.valueChange.pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
     const filePreviews = el.getElementsByClassName('ajf-file-info-content');
@@ -119,7 +120,7 @@ describe('AjfFileInput with custom file preview', () => {
   });
 
   it('should display the custom file preview', async () => {
-    await fixture.componentInstance.fileInput.valueChange.pipe(take(1)).toPromise();
+    await firstValueFrom(fixture.componentInstance.fileInput.valueChange.pipe(take(1)));
     fixture.detectChanges();
     await fixture.whenStable();
     const el = fixture.nativeElement as HTMLElement;

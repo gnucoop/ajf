@@ -20,14 +20,7 @@
  *
  */
 
-import {
-  ComponentFactoryResolver,
-  Directive,
-  Input,
-  OnInit,
-  Renderer2,
-  ViewChild,
-} from '@angular/core';
+import {Directive, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
 
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 import {AjfWidgetComponentsMap} from './interface/widgets/widget-components-map';
@@ -55,7 +48,7 @@ export abstract class AjfReportWidget implements OnInit {
 
   private _init = false;
 
-  constructor(private _cfr: ComponentFactoryResolver, private _renderer: Renderer2) {}
+  constructor(private _renderer: Renderer2) {}
 
   ngOnInit(): void {
     this._init = true;
@@ -81,8 +74,7 @@ export abstract class AjfReportWidget implements OnInit {
     }
     const component = componentDef.component;
     try {
-      const componentFactory = this._cfr.resolveComponentFactory(component);
-      const componentRef = vcr.createComponent(componentFactory);
+      const componentRef = vcr.createComponent(component);
       const componentInstance = componentRef.instance;
 
       Object.keys(this._instance.widget.styles).forEach((style: string) => {

@@ -242,23 +242,23 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     let s = this._rendererService
       .addGroup(nodeGroup as AjfNodeGroupInstance)
       .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
-      .subscribe(
-        r => {
+      .subscribe({
+        next: r => {
           if (r && this.formSlider != null) {
             this.formSlider.slide({dir: 'down'});
           }
         },
-        _e => {
+        error: _e => {
           if (s) {
             s.unsubscribe();
           }
         },
-        () => {
+        complete: () => {
           if (s) {
             s.unsubscribe();
           }
         },
-      );
+      });
   }
 
   /**
@@ -270,23 +270,23 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     let s = this._rendererService
       .removeGroup(nodeGroup as AjfNodeGroupInstance)
       .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
-      .subscribe(
-        r => {
+      .subscribe({
+        next: r => {
           if (r && this.formSlider != null) {
             this.formSlider.slide({dir: 'up'});
           }
         },
-        _e => {
+        error: _e => {
           if (s) {
             s.unsubscribe();
           }
         },
-        () => {
+        complete: () => {
           if (s) {
             s.unsubscribe();
           }
         },
-      );
+      });
   }
 
   onSave(_evt: any): void {

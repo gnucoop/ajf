@@ -42,7 +42,7 @@ describe('widget-export', () => {
     widgetExport.data = dataChart;
     widgetExport.widgetType = AjfWidgetType.Chart;
     const testSpy = spyOn(XLSX.utils, 'aoa_to_sheet').and.callThrough();
-    widgetExport.exportCsv();
+    widgetExport.export('csv');
     const toEqual: unknown[][] = [
       ['name', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
       ['My First Dataset', 65000000, 59, 80, 81, 56, 55, 40],
@@ -54,7 +54,7 @@ describe('widget-export', () => {
     widgetExport.data = dataTableXlsx;
     widgetExport.widgetType = AjfWidgetType.Table;
     const testSpy = spyOn(XLSX.utils, 'aoa_to_sheet').and.callThrough();
-    widgetExport.exportCsv();
+    widgetExport.export('csv');
     const toEqual: unknown[][] = [
       ['a', ' ', 'c'],
       ['d', 'e', 'f'],

@@ -266,7 +266,7 @@ export function widgetToWidgetInstance(
       } catch (e) {
         calcValue = '';
       }
-      htmlText = `${htmlText.substr(0, m.idx)}${calcValue}${htmlText.substr(m.idx + m.len)}`;
+      htmlText = `${htmlText.substring(0, m.idx)}${calcValue}${htmlText.substring(m.idx + m.len)}`;
     });
     wi.htmlText = htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
   } else if (isFormulaWidget(widget) && isFormulaWidgetInstance(wi)) {
