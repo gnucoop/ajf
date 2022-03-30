@@ -424,6 +424,19 @@
             </div>
           </div>
         </ng-template>
+        <ng-container *ngIf="isTableField(ne!.node)">
+          <div class="ajf-prop">
+            <mat-checkbox formControlName="hideEmptyRows">{{'Hide empty rows'|transloco}}</mat-checkbox>
+            <mat-form-field>
+              <textarea
+                matInput
+                type="number"
+                formControlName="tableDef"
+                [placeholder]="'Table definition' | transloco"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </ng-container>
       </ng-template>
     </form>
   </ng-container>

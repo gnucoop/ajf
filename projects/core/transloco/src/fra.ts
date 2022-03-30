@@ -135,4 +135,6 @@ export const FRA: Translation = {
   'Choose type of Chart': 'Choisissez le type de graphique',
   'Labels': 'Étiquettes',
   'Border width': 'Largeur de la bordure',
+  'Hide empty rows': 'Masquer les lignes vides',
+  'Table definition': 'Définition du tableau',
 };

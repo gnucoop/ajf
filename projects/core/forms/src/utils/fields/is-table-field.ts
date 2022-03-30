@@ -21,11 +21,12 @@
  */
 
 import {AjfField} from '../../interface/fields/field';
+import {AjfTableField} from '../../interface/fields/table-field';
 import {AjfFieldType} from '../../interface/fields/field-type';
 
 /**
  * It is true if the field type is Table.
  */
-export function isTableField(field: AjfField): boolean {
+export function isTableField(field: AjfField): field is AjfTableField {
   return field.fieldType === AjfFieldType.Table;
 }

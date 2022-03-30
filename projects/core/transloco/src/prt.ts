@@ -134,4 +134,6 @@ export const PRT: Translation = {
   'Choose type of Chart': 'Escolha o tipo de gráfico',
   'Labels': 'Etiquetas',
   'Border width': 'Border width',
+  'Hide empty rows': 'Ocultar linhas vazias',
+  'Table definition': 'Definição da tabela',
 };

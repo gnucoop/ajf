@@ -134,4 +134,6 @@ export const ESP: Translation = {
   'Choose type of Chart': 'Elija el tipo de gráfico',
   'Labels': 'Etiquetas',
   'Border width': 'Ancho del borde',
+  'Hide empty rows': 'Ocultar filas vacías',
+  'Table definition': 'Definición de la tabla',
 };
