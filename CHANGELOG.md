@@ -1,3 +1,15 @@
+<a name="13.1.2"></a>
+# 13.1.2 "determined-toucan" (2022-03-31)
+### Bug Fixes
+* **core/models:** ALL_VALUES_OF is not extracting values from main forms ([3da14e6](https://github.com/gnucoop/ajf/commit/3da14e6c5f9af75f1418b06dd5756764ceb5be60))
+* **core/models:** sort code identifiers ([6eb6093](https://github.com/gnucoop/ajf/commit/6eb6093912bd12300aa6aff87b54471a64a1ac2e))
+* **core/reports:** hindikit: generalized function parsing ([2a60233](https://github.com/gnucoop/ajf/commit/2a602331718aebb6ed58c2168947e46af37d1401))
+### Features
+* **material/form-builder:** add support for table fields ([662d6a1](https://github.com/gnucoop/ajf/commit/662d6a1f5623c99599f18a93a281cecdeac6fd3f))
+* **multiple:** bold form labels in readonly mode ([bed736f](https://github.com/gnucoop/ajf/commit/bed736fc6aef1924f2d71d0e0089fbf92dce99d4))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.1.1"></a>
 # 13.1.1 "deliberate-gibbon" (2022-03-22)
 ### Features
