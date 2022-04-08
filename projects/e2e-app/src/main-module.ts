@@ -9,6 +9,7 @@ import {E2eApp} from './e2e-app';
 import {E2eAppModule} from './e2e-app/e2e-app-module';
 import {E2E_APP_ROUTES} from './routes';
 import {FileInputE2eModule} from './file-input/file-input-e2e-module';
+import {GraphE2eModule} from './graph/graph-e2e-module';
 import {IonicCalendarE2eModule} from './ion-calendar/calendar-e2e-module';
 import {IonicDateInputFieldE2eModule} from './ion-date-input-field/date-input-field-e2e-module';
 import {IonicFormE2eModule} from './ion-form/ion-form-e2e.module';
@@ -32,6 +33,7 @@ import {TranslocoE2eModule} from './transloco/transloco-e2e-module';
 
     // E2E demos
     FileInputE2eModule,
+    GraphE2eModule,
     IonicCalendarE2eModule,
     IonicDateInputFieldE2eModule,
     IonicFormE2eModule,
