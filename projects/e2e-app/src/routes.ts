@@ -2,6 +2,7 @@ import {Routes} from '@angular/router';
 
 import {Home} from './e2e-app/e2e-app-layout';
 import {FileInputE2E} from './file-input/file-input-e2e';
+import {GraphE2E} from './graph/graph-e2e';
 import {IonicCalendarE2E} from './ion-calendar/calendar-e2e';
 import {IonicDateInputFieldE2E} from './ion-date-input-field/date-input-field-e2e';
 import {IonicFormE2E} from './ion-form/ion-form-e2e';
@@ -17,6 +18,7 @@ import {TranslocoE2E} from './transloco/transloco-e2e';
 export const E2E_APP_ROUTES: Routes = [
   {path: '', component: Home},
   {path: 'file-input', component: FileInputE2E},
+  {path: 'graph', component: GraphE2E},
   {path: 'transloco', component: TranslocoE2E},
   {path: 'ion-calendar', component: IonicCalendarE2E},
   {path: 'ion-date-input-field', component: IonicDateInputFieldE2E},
