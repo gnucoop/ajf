@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, AjfFormula, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, AjfFormula, createFormula, evaluateExpression} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 
 export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslocoService): any {
@@ -45,4 +45,36 @@ export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslocoServi
     res = formula;
   }
   return res;
+}
+
+/**
+ * Evaluate a string with expression inside, identified by double square brackets
+ * Example: "Number of positive identified: [[n_positive_campaign]]"
+ */
+export function evaluateProperty(
+  expression: string,
+  context: AjfContext,
+  ts: TranslocoService,
+): string {
+  const formulaRegEx: RegExp = /\[{2}(.+?)\]{2}/g;
+  const matches: {idx: number; len: number; formula: AjfFormula}[] = [];
+  let match: RegExpExecArray | null;
+  let htmlText = expression;
+  while ((match = formulaRegEx.exec(htmlText))) {
+    const idx = match.index;
+    const len = match[0].length;
+    const formula = createFormula({formula: match[1]});
+    matches.push({idx, len, formula});
+  }
+  matches.reverse().forEach(m => {
+    let calcValue;
+    try {
+      calcValue = evaluateExpression(m.formula.formula, context);
+    } catch (e) {
+      calcValue = '';
+    }
+    htmlText = `${htmlText.substring(0, m.idx)}${calcValue}${htmlText.substring(m.idx + m.len)}`;
+  });
+  htmlText = htmlText === '[[]]' ? 'false' : htmlText;
+  return htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
 }

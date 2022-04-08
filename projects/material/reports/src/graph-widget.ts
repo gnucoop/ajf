@@ -20,19 +20,24 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  Graph,
-  LENGTH,
+import {AjfBaseWidgetComponent, AjfGraphWidgetInstance} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation,
+} from '@angular/core';
+
+@Component({
+  selector: 'ajf-graph-widget',
+  templateUrl: 'graph-widget.html',
+  styleUrls: ['graph-widget.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfGraphWidgetComponent extends AjfBaseWidgetComponent<AjfGraphWidgetInstance> {
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
+  }
 }

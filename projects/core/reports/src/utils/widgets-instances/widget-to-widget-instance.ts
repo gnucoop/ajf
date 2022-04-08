@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, AjfFormula, createFormula, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateExpression} from '@ajf/core/models';
 import {AjfTableCell} from '@ajf/core/table';
 import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
@@ -34,6 +34,7 @@ import {evaluateAggregation} from '../aggregation/evaluate-aggregation';
 import {isChartWidget} from '../widgets/is-chart-widget';
 import {isDynamicTableWidget} from '../widgets/is-dynamic-table-widget';
 import {isFormulaWidget} from '../widgets/is-formula-widget';
+import {isGraphWidget} from '../widgets/is-graph-widget';
 import {isImageContainerWidget} from '../widgets/is-image-container-widget';
 import {isImageWidget} from '../widgets/is-image-widget';
 import {isMapWidget} from '../widgets/is-map-widget';
@@ -44,6 +45,7 @@ import {componentsMap} from '../widgets/widgets-map';
 import {isChartWidgetInstance} from '../widgets-instances/is-chart-widget-instance';
 import {isDynamicTableWidgetInstance} from '../widgets-instances/is-dynamic-table-widget-instance';
 import {isFormulaWidgetInstance} from '../widgets-instances/is-formula-widget-instance';
+import {isGraphWidgetInstance} from '../widgets-instances/is-graph-widget-instance';
 import {isImageContainerWidgetInstance} from '../widgets-instances/is-image-container-widget-instance';
 import {isImageWidgetInstance} from '../widgets-instances/is-image-widget-instance';
 import {isMapWidgetInstance} from '../widgets-instances/is-map-widget-instance';
@@ -52,7 +54,8 @@ import {isTextWidgetInstance} from '../widgets-instances/is-text-widget-instance
 import {isWidgetWithContentInstance} from '../widgets-instances/is-widget-with-content-instance';
 
 import {createWidgetInstance} from './create-widget-instance';
-import {trFormula} from './widget-instance-utils';
+import {evaluateProperty, trFormula} from './widget-instance-utils';
+import {AjfGraphNode} from '@ajf/core/graph';
 
 export function widgetToWidgetInstance(
   widget: AjfWidget,
@@ -249,30 +252,25 @@ export function widgetToWidgetInstance(
           : evaluateExpression(widget.urls.formula, context);
     }
   } else if (isTextWidget(widget) && isTextWidgetInstance(wi)) {
-    const formulaRegEx: RegExp = /\[{2}(.+?)\]{2}/g;
-    const matches: {idx: number; len: number; formula: AjfFormula}[] = [];
-    let match: RegExpExecArray | null;
-    let htmlText = widget.htmlText;
-    while ((match = formulaRegEx.exec(htmlText))) {
-      const idx = match.index;
-      const len = match[0].length;
-      const formula = createFormula({formula: match[1]});
-      matches.push({idx, len, formula});
-    }
-    matches.reverse().forEach(m => {
-      let calcValue;
-      try {
-        calcValue = evaluateExpression(m.formula.formula, context);
-      } catch (e) {
-        calcValue = '';
-      }
-      htmlText = `${htmlText.substring(0, m.idx)}${calcValue}${htmlText.substring(m.idx + m.len)}`;
-    });
-    wi.htmlText = htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
+    wi.htmlText = evaluateProperty(widget.htmlText, context, ts);
   } else if (isFormulaWidget(widget) && isFormulaWidgetInstance(wi)) {
     wi.formula = evaluateExpression(widget.formula.formula, context);
   } else if (isMapWidget(widget) && isMapWidgetInstance(wi)) {
     wi.coordinate = evaluateExpression(widget.coordinate.formula, context);
+  } else if (isGraphWidget(widget) && isGraphWidgetInstance(wi)) {
+    if (widget.nodes != null) {
+      wi.nodes = widget.nodes.map(ds => {
+        let node: any = {
+          ...ds,
+        };
+        node.label = ds.label != null ? evaluateProperty(ds.label, context, ts) : ds.id;
+        node.red = evaluateExpression(ds.red, context);
+        node.yellow = evaluateExpression(ds.yellow, context);
+        node.green = evaluateExpression(ds.green, context);
+        node.color = ds.color ? evaluateExpression(ds.color, context) : undefined;
+        return node as AjfGraphNode;
+      });
+    }
   } else if (widget.widgetType > 100) {
     const iiFn =
       componentsMap[widget.widgetType] != null

@@ -20,19 +20,12 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  Graph,
-  LENGTH,
+export interface AjfGraphNode {
+  id: string;
+  label: string;
+  parentId: string | string[] | null;
+  green: boolean;
+  red: boolean;
+  yellow: boolean;
+  color?: string;
 }

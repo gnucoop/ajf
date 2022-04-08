@@ -1,7 +1,7 @@
 import {existsSync, readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 
-export const versionReplacements = (packages) => {
+export const versionReplacements = packages => {
   const mainPackage = JSON.parse(readFileSync('package.json', 'utf-8'));
   const mainDeps = {...mainPackage.devDependencies, ...mainPackage.dependencies};
 
@@ -14,12 +14,14 @@ export const versionReplacements = (packages) => {
     ['@zxing/browser', 'ZXING-BROWSER'],
     ['@zxing/library', 'ZXING-LIBRARY'],
     ['chart.js', 'CHARTJS'],
+    ['dagre', 'DAGRE'],
     ['date-fns', 'DATE-FNS'],
     ['flag-icon-css', 'FLAG-ICON-CSS'],
     ['leaflet', 'LEAFLET'],
     ['meriyah', 'MERIYAH'],
     ['numbro', 'NUMBRO'],
     ['pdfmake', 'PDFMAKE'],
+    ['svg-pan-zoom', 'SVG-PAN-ZOOM'],
     ['tslib', 'TSLIB'],
     ['xlsx', 'XLSX'],
   ];

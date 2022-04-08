@@ -377,6 +377,8 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "chart.js",
+              "dagre",
+              "svg-pan-zoom",
               "pdfmake/build/pdfmake"
             ]
           },
@@ -459,6 +461,8 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "chart.js",
+              "dagre",
+              "svg-pan-zoom",
               "pdfmake/build/pdfmake"
             ]
           },

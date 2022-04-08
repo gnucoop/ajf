@@ -1,0 +1,27 @@
+ajf-graph {
+  width: 100%;
+  height: 600px;
+
+  .buttons {
+    position: absolute;
+    z-index: 100;
+  }
+  .wrapper {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 600px;
+    overflow: scroll;
+  }
+  svg {
+    display: block;
+    cursor: move;
+    height: 600px;
+    .edge {
+      fill: none;
+      stroke: gray;
+      stroke-width: 2px;
+    }
+  }
+}

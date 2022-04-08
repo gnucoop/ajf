@@ -44,12 +44,15 @@ import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
 import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} from './widget';
+import {AjfGraphWidgetComponent} from './graph-widget';
+import {AjfGraphModule} from '@ajf/core/graph';
 
 @NgModule({
   imports: [
     AjfChartModule,
     AjfCommonModule,
     AjfImageModule,
+    AjfGraphModule,
     AjfMapModule,
     AjfPageBreakModule,
     AjfTableModule,
@@ -66,6 +69,7 @@ import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} fro
     AjfFormulaWidgetComponent,
     AjfImageContainerWidgetComponent,
     AjfImageWidgetComponent,
+    AjfGraphWidgetComponent,
     AjfLayoutWidgetComponent,
     AjfMapWidgetComponent,
     AjfPageBreakWidgetComponent,

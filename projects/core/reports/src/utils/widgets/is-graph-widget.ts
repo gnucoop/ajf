@@ -20,19 +20,10 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  Graph,
-  LENGTH,
-}
+import {AjfGraphWidget} from '../../interface/widgets/graph-widget';
+import {AjfWidget} from '../../interface/widgets/widget';
+import {AjfWidgetType} from '../../interface/widgets/widget-type';
+
+export const isGraphWidget = (widget: AjfWidget): widget is AjfGraphWidget => {
+  return widget != null && widget.widgetType === AjfWidgetType.Graph;
+};
