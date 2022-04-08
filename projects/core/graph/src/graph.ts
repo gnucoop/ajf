@@ -33,11 +33,13 @@ import {
 import {AjfGraphNode} from './graph-node';
 import {BehaviorSubject} from 'rxjs';
 import * as dagre from 'dagre';
-import * as SvgPanZoom from 'svg-pan-zoom';
+import * as svgPanZoom from 'svg-pan-zoom';
 
 const TEXT_END = 20;
 const LINE_HEIGHT = 40;
 const BOX_WIDTH = 170;
+
+const SvgPanZoom = ((svgPanZoom as any).default || svgPanZoom) as typeof svgPanZoom;
 
 interface Box {
   green: boolean;
@@ -137,7 +139,9 @@ export class AjfGraphComponent implements OnInit {
       });
       try {
         SvgPanZoom(this.graphElement.nativeElement, {controlIconsEnabled: true});
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     dagre.layout(this.graph);
