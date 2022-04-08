@@ -20,19 +20,11 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  Graph,
-  LENGTH,
+import {AjfGraphNodeDataset} from '../dataset/graph-dataset';
+import {AjfBaseWidget} from './base-widget';
+import {AjfWidgetType} from './widget-type';
+
+export interface AjfGraphWidget extends AjfBaseWidget {
+  widgetType: AjfWidgetType.Graph;
+  nodes: AjfGraphNodeDataset[];
 }

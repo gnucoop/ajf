@@ -34,6 +34,7 @@ import {AjfMapWidget} from './map-widget';
 import {AjfTextWidget} from './text-widget';
 import {AjfWidgetWithContent} from './widget-with-content';
 import {AjfWidgetType} from './widget-type';
+import {AjfGraphWidget} from './graph-widget';
 
 export interface AjfUnknownWidget extends AjfBaseWidget {
   widgetType: AjfWidgetType.LENGTH;
@@ -45,6 +46,7 @@ export type AjfWidget =
   | AjfDataWidget
   | AjfDynamicTableWidget
   | AjfFormulaWidget
+  | AjfGraphWidget
   | AjfImageContainerWidget
   | AjfImageWidget
   | AjfLayoutWidget

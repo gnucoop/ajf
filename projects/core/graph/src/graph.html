@@ -1,0 +1,34 @@
+<div class="wrapper">
+  <svg #graph viewBox="0 0 1000 2000" width="100%" height="100%">
+    <g *ngFor="let edge of edges$|async">
+      <path class="edge" [attr.d]="edge.path" fill="none" stroke="gray" stroke-wodth="2px"></path>
+    </g>
+    <g
+      *ngFor="let box of boxes$|async"
+      [attr.fill]="box.color? box.color:'#d95989'"
+      [attr.stroke]="box.color !== 'white' ? 'white' : 'black'"
+      stroke-width="1px"
+      transition="fill 0.2s"
+    >
+      <rect
+        [attr.x]="box.x -(box.width/2)"
+        [attr.y]="box.y - (box.height/2)"
+        [attr.width]="box.width"
+        [attr.height]="box.height"
+        [attr.stroke]="box.red === true ? 'red' : box.yellow === true ? 'yellow' : box.green === true ? 'green' : 'black'"
+        style="stroke-width:6"
+      />
+      <ng-container *ngFor="let line of lines(box.label);let idx= index">
+        <text
+          class="text"
+          [attr.x]="box.x"
+          [attr.y]="box.y - (box.height/2) + 30 +(30*idx)"
+          dominant-baseline="middle"
+          text-anchor="middle"
+        >
+          {{ line }}
+        </text>
+      </ng-container>
+    </g>
+  </svg>
+</div>

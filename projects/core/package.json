@@ -22,12 +22,14 @@
     "@zxing/browser": "0.0.0-ZXING-BROWSER",
     "@zxing/library": "0.0.0-ZXING-LIBRARY",
     "chart.js": "0.0.0-CHARTJS",
+    "dagre": "0.0.0-DAGRE",
     "date-fns": "0.0.0-DATE-FNS",
     "flag-icon-css": "0.0.0-FLAG-ICON-CSS",
     "leaflet": "0.0.0-LEAFLET",
     "meriyah": "0.0.0-MERIYAH",
     "numbro": "0.0.0-NUMBRO",
     "pdfmake": "0.0.0-PDFMAKE",
+    "svg-pan-zoom": "0.0.0-SVG-PAN-ZOOM",
     "xlsx": "0.0.0-XLSX"
   },
   "dependencies": {

@@ -43,6 +43,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 
 import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
+import {AjfGraphWidgetComponent} from './graph-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
 import {AjfMapWidgetComponent} from './map-widget';
@@ -63,6 +64,7 @@ const defaultWidgetsFactory = (): AjfWidgetComponentsMap => {
   defaultWidgets[wt.Column] = {component: AjfColumnWidgetComponent};
   defaultWidgets[wt.Formula] = {component: AjfFormulaWidgetComponent};
   defaultWidgets[wt.ImageContainer] = {component: AjfImageContainerWidgetComponent};
+  defaultWidgets[wt.Graph] = {component: AjfGraphWidgetComponent};
   return defaultWidgets;
 };
 

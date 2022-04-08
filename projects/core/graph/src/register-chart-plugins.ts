@@ -20,19 +20,10 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  Graph,
-  LENGTH,
+import {Chart} from 'chart.js';
+
+export function registerChartPlugins(plugins: any[]) {
+  if (plugins != null && plugins.length > 0) {
+    plugins.forEach(plugin => Chart.plugins.register(plugin));
+  }
 }

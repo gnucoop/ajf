@@ -20,19 +20,13 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  Graph,
-  LENGTH,
-}
+import {NgModule} from '@angular/core';
+import {AjfGraphComponent} from './graph';
+import {CommonModule} from '@angular/common';
+
+@NgModule({
+  declarations: [AjfGraphComponent],
+  exports: [AjfGraphComponent],
+  imports: [CommonModule],
+})
+export class AjfGraphModule {}
