@@ -5,19 +5,34 @@
       <ion-icon
         slot="icon-only"
         style="transform: rotate(90deg)"
-        name="reorder"
+        name="barcode-outline"
       ></ion-icon>
     </ion-button>
   </div>
 </ng-container>
 <ng-template #barcode>
-  <ion-segment [value]="toggle">
-    <ion-segment-button
-      (click)="toggle = 'drop' ; fileInput.click()"
-      layout="icon-end"
-    >
-      <ion-icon name="add-circle-outline"></ion-icon>
-      <span>{{'Upload image'|transloco}}</span>
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button [selected]="currentTab === 'image'" (click)="selectTab('image')">
+        <ion-label>{{ 'Image'| transloco }}</ion-label>
+      </ion-tab-button>
+      <ion-tab-button [selected]="currentTab === 'camera'" (click)="selectTab('camera')">
+        <ion-label>{{ 'Camera'| transloco }}</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+  <ion-slides>
+    <ion-slide>
+      <div class="ajf-drop-container">
+        <div class="ajf-dropzone" ajfDnd (file)="onSelectDrop($event)">
+          <div class="ajf-text-wrapper">
+            <div class="ajf-centered">
+              <a mat-button (click)="fileInput.click()">{{'Drop your image here or click to select'|transloco}}</a>
+            </div>
+          </div>
+        </div>
+        <div #barcodeImagePreview class="ajf-barcode-image-preview"></div>
+      </div>
       <input
         #fileInput
         type="file"
@@ -25,17 +40,22 @@
         multiple
         style="display: none"
       />
-    </ion-segment-button>
-    <ion-segment-button (click)="toggle = 'camera'">
-      <span>{{'Camera'|transloco}}</span>
-    </ion-segment-button>
-  </ion-segment>
-  <ng-container *ngIf="toggle === 'camera'">
-    <div
-      ajfVideoDirective
-      [source]="videoSource"
-      class="left"
-      (isInit)="takeSnapshot()"
-    ></div>
-  </ng-container>
+    </ion-slide>
+    <ion-slide>
+      <div class="ajf-barcode-video">
+        <ng-container *ngIf="supportsVideoStream; else noVideo">
+          <div *ngIf="showSwitchButton" class="ajf-barcode-switch-camera">
+            <button mat-icon-button (click)="switchCamera()"><ion-icon name="camera-reverse-outline"></ion-icon></button>
+          </div>
+          <div #barcodeVideoPreview class="ajf-video-preview ajf-video-preview-hidden">
+            <div *ngIf="value && value.length > 0">{{ value }}</div>
+          </div>
+          <video #barcodeVideo autoplay playsinline muted></video>
+        </ng-container>
+        <ng-template #noVideo>
+
+        </ng-template>
+      </div>
+    </ion-slide>
+  </ion-slides>
 </ng-template>

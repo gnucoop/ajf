@@ -22,14 +22,19 @@
 
 import {AjfBarcode} from '@ajf/core/barcode';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   forwardRef,
+  OnDestroy,
   Renderer2,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {IonSlides} from '@ionic/angular';
+import {Subscription} from 'rxjs';
 
 export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -45,8 +50,47 @@ export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [BARCODE_CONTROL_VALUE_ACCESSOR],
 })
-export class AjfBarcodeComponent extends AjfBarcode {
+export class AjfBarcodeComponent extends AjfBarcode implements AfterViewInit, OnDestroy {
+  @ViewChild(IonSlides) slides!: IonSlides;
+
+  private _currentTab = 'image';
+  get currentTab(): string {
+    return this._currentTab;
+  }
+
+  private _slidesSub = Subscription.EMPTY;
+
   constructor(cdr: ChangeDetectorRef, renderer: Renderer2) {
     super(cdr, renderer);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.slides == null) {
+      return;
+    }
+    const slides = this.slides;
+    this._slidesSub = slides.ionSlideDidChange.subscribe(() => {
+      slides.getActiveIndex().then(idx => {
+        const currentTab = idx === 0 ? 'image' : 'camera';
+        if (this._currentTab !== currentTab) {
+          this._currentTab = currentTab;
+          this._cdr.markForCheck();
+        }
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._slidesSub.unsubscribe();
+  }
+
+  selectTab(tab: 'image' | 'camera'): void {
+    const idx = tab === 'image' ? 0 : 1;
+    this._currentTab = tab;
+    this.onTabChange(idx);
+    if (this.slides != null) {
+      this.slides.slideTo(idx);
+    }
+    this._cdr.markForCheck();
   }
 }
