@@ -7,10 +7,18 @@
   </div>
 </ng-container>
 <ng-template #barcode>
-  <mat-button-toggle-group [value]="toggle">
-    <mat-button-toggle (click)="toggle = 'drop'; fileInput.click()">
-      <span>{{'Upload image'|transloco}}</span>
-      <mat-icon>add_circle_outline</mat-icon>
+  <mat-tab-group (selectedIndexChange)="onTabChange($event)">
+    <mat-tab [label]="'Image'| transloco">
+      <div class="ajf-drop-container">
+        <div class="ajf-dropzone" ajfDnd (file)="onSelectDrop($event)">
+          <div class="ajf-text-wrapper">
+            <div class="ajf-centered">
+              <a mat-button (click)="fileInput.click()">{{'Drop your image here or click to select'|transloco}}</a>
+            </div>
+          </div>
+        </div>
+        <div #barcodeImagePreview class="ajf-barcode-image-preview"></div>
+      </div>
       <input
         #fileInput
         type="file"
@@ -18,33 +26,22 @@
         multiple
         style="display: none"
       />
-    </mat-button-toggle>
-    <mat-button-toggle (click)="toggle = 'drop'">
-      <span>{{'Drop image'|transloco}}</span>
-    </mat-button-toggle>
-    <mat-button-toggle (click)="toggle = 'camera'">
-      <span>{{'Camera'|transloco}}</span>
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-  <ng-container [ngSwitch]="toggle">
-    <ng-container *ngSwitchCase="'drop'">
-      <div class="ajf-drop-container">
-        <div class="ajf-dropzone" ajfDnd (file)="onSelectDrop($event)">
-          <div class="ajf-text-wrapper">
-            <div class="ajf-centered">
-              {{'Drop your image here!'|transloco}}
-            </div>
+    </mat-tab>
+    <mat-tab [label]="'Camera'|transloco">
+      <div class="ajf-barcode-video">
+        <ng-container *ngIf="supportsVideoStream; else noVideo">
+          <div *ngIf="showSwitchButton" class="ajf-barcode-switch-camera">
+            <button mat-icon-button (click)="switchCamera()"><mat-icon>switch_camera</mat-icon></button>
           </div>
-        </div>
+          <div #barcodeVideoPreview class="ajf-video-preview ajf-video-preview-hidden">
+            <div *ngIf="value && value.length > 0">{{ value }}</div>
+          </div>
+          <video #barcodeVideo autoplay playsinline muted></video>
+        </ng-container>
+        <ng-template #noVideo>
+
+        </ng-template>
       </div>
-    </ng-container>
-    <ng-container *ngSwitchCase="'camera'">
-      <div
-        ajfVideoDirective
-        [source]="videoSource"
-        class="left"
-        (isInit)="takeSnapshot()"
-      ></div>
-    </ng-container>
-  </ng-container>
+    </mat-tab>
+  </mat-tab-group>
 </ng-template>

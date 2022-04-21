@@ -20,27 +20,19 @@
  *
  */
 
-import {ChangeDetectorRef, Directive, EventEmitter, OnDestroy, Renderer2} from '@angular/core';
+import {ChangeDetectorRef, Directive, ElementRef, Renderer2, ViewChild} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
-import {BrowserMultiFormatReader} from '@zxing/browser';
-import {Result} from '@zxing/library';
-import {from, Observable, of, Subscription} from 'rxjs';
-import {catchError, debounceTime, switchMap} from 'rxjs/operators';
+import {BrowserMultiFormatReader, IScannerControls} from '@zxing/browser';
+
+type AjfVideoFacingMode = 'user' | 'environment';
 
 @Directive()
-export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
-  readonly codeReader = new BrowserMultiFormatReader();
-
-  readonly startDetection = new EventEmitter<void>();
-  readonly startCalculation = new EventEmitter<string>();
-
-  readonly _startDetectionSub: Subscription = Subscription.EMPTY;
-  readonly _startCalculationSub: Subscription = Subscription.EMPTY;
-
-  private _canvas?: HTMLCanvasElement;
-  get canvasCtx(): CanvasRenderingContext2D | undefined {
-    return this._canvas?.getContext('2d')!;
-  }
+export abstract class AjfBarcode implements ControlValueAccessor {
+  @ViewChild('barcodeVideo', {read: ElementRef}) barcodeVideo!: ElementRef<HTMLVideoElement>;
+  @ViewChild('barcodeVideoPreview', {read: ElementRef})
+  barcodeVideoPreview!: ElementRef<HTMLDivElement>;
+  @ViewChild('barcodeImagePreview', {read: ElementRef})
+  barcodeImagePreview!: ElementRef<HTMLImageElement>;
 
   /**
    * A html video element created at runtime
@@ -70,6 +62,11 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     }
   }
 
+  private _supportsVideoStream = false;
+  get supportsVideoStream(): boolean {
+    return this._supportsVideoStream;
+  }
+
   private _toggle = 'drop';
   get toggle() {
     return this._toggle;
@@ -79,55 +76,31 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     this._cdr.markForCheck();
   }
 
+  private _showSwitchButton = false;
+  get showSwitchButton(): boolean {
+    return this._showSwitchButton;
+  }
+
+  private _deviceId?: string;
+  private _streams = [] as AjfVideoFacingMode[];
+  private _currentStream = -1;
+  private _scannerControls?: IScannerControls;
+  private _codeReader = new BrowserMultiFormatReader();
+
   private _onChangeCallback = (_: any) => {};
   private _onTouchedCallback = () => {};
 
-  constructor(private _cdr: ChangeDetectorRef, private _renderer: Renderer2) {
-    this._init();
-
-    if (this.videoSource != null) {
-      this._startDetectionSub = (this.startDetection as Observable<void>)
-        .pipe(
-          debounceTime(300),
-          switchMap(() => {
-            const data: string = this._getDataFromVideo(this.videoSource!);
-            return this._readBarcodeFromData(data);
-          }),
-          catchError(() => {
-            return of({} as Result);
-          }),
-        )
-        .subscribe((result: any) => {
-          if (!result.text) {
-            this.startDetection.emit();
-          } else {
-            this.toggle = 'drop';
-            this.value = result.text;
-          }
-        });
-    }
-
-    this._startCalculationSub = (this.startCalculation as Observable<string>)
-      .pipe(
-        switchMap((data: string) => {
-          return this._readBarcodeFromData(data);
-        }),
-      )
-      .subscribe((result: any) => {
-        if (result.text) {
-          this.toggle = 'drop';
-          this.value = result.text;
-        }
-      });
+  constructor(protected _cdr: ChangeDetectorRef, private _renderer: Renderer2) {
+    this._supportsVideoStream =
+      navigator.mediaDevices != null &&
+      navigator.mediaDevices.enumerateDevices != null &&
+      navigator.mediaDevices.getUserMedia != null;
+    this._initVideoStreams();
   }
 
   reset(): void {
     this.value = '';
     this._onTouchedCallback();
-  }
-
-  takeSnapshot(): void {
-    this.startDetection.emit();
   }
 
   onSelectFile(evt: Event): void {
@@ -146,6 +119,61 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     this._onSelect(files);
   }
 
+  onTabChange(idx: number): void {
+    if (this._scannerControls != null) {
+      this._scannerControls.stop();
+      this._scannerControls = undefined;
+    }
+    if (idx === 1) {
+      this._setCurrentStream();
+      if (this.barcodeVideo == null || this.barcodeVideoPreview == null) {
+        return;
+      }
+      const video = this.barcodeVideo.nativeElement;
+      const preview = this.barcodeVideoPreview.nativeElement;
+      this._renderer.addClass(preview, 'ajf-video-preview-hidden');
+      this._codeReader
+        .decodeFromVideoElement(video, result => {
+          if (result == null) {
+            return;
+          }
+          if (this._scannerControls != null) {
+            this._scannerControls.stop();
+          }
+          video.pause();
+          const points = result.getResultPoints();
+          const nw = points[0];
+          const se = points[1];
+          const lx = Math.max((nw.getX() / video.videoWidth) * video.clientWidth, -10, 0);
+          const ly = Math.max((nw.getY() / video.videoHeight) * video.clientHeight - 10, 0);
+          const rx = Math.min(
+            (se.getX() / video.videoWidth) * video.clientWidth + 10,
+            video.clientWidth,
+          );
+          const ry = Math.min(
+            (se.getY() / video.videoHeight) * video.clientHeight + 10,
+            video.clientHeight,
+          );
+          this._renderer.setStyle(preview, 'top', `${ly}px`);
+          this._renderer.setStyle(preview, 'left', `${lx}px`);
+          this._renderer.setStyle(preview, 'width', `${rx - lx}px`);
+          this._renderer.setStyle(preview, 'height', `${ry - ly}px`);
+          this._renderer.removeClass(preview, 'ajf-video-preview-hidden');
+          this.value = result.getText();
+        })
+        .then(controls => (this._scannerControls = controls));
+    }
+  }
+
+  switchCamera(): void {
+    const newStream = (this._currentStream + 1) % this._streams.length;
+    if (newStream === this._currentStream) {
+      return;
+    }
+    this._currentStream = newStream;
+    this._setCurrentStream();
+  }
+
   /** ControlValueAccessor implements */
   writeValue(value: string) {
     this._barcodeValue = value;
@@ -159,95 +187,114 @@ export abstract class AjfBarcode implements ControlValueAccessor, OnDestroy {
     this._onTouchedCallback = fn;
   }
 
-  ngOnDestroy(): void {
-    this._startCalculationSub.unsubscribe();
-    this._startDetectionSub.unsubscribe();
-  }
-
-  private _init(): void {
-    this._initCanvas();
-    this._initVideo();
-  }
-
-  private _initCanvas(): void {
-    this._canvas = this._renderer.createElement('canvas');
-    if (this._canvas == null) {
-      return;
-    }
-    this._canvas.height = 480;
-    this._canvas.width = 640;
-  }
-
-  private _initVideo(): void {
-    this._video = this._renderer.createElement('video');
-    if (this._video == null) {
-      return;
-    }
-    this._video.height = 480;
-    this._video.width = 640;
-  }
-
   private _onSelect(files: FileList): void {
     if (files != null && files.length > 0 && files[0]) {
       let reader = new FileReader();
 
       reader.readAsDataURL(files[0]);
       reader.onload = (ev: ProgressEvent) => {
-        const data: string = (ev.target as FileReader).result as string;
-        this.startCalculation.emit(data);
-        this._cdr.detectChanges();
+        if (!ev.loaded) {
+          return;
+        }
+        const data = reader.result as string;
+        this._setImagePreview(`url(${data})`);
+        this._codeReader
+          .decodeFromImageUrl(data)
+          .then(res => {
+            this.value = res.getText();
+          })
+          .catch(() => {});
       };
     }
   }
 
-  /**
-   * write a frame of HTMLVideoElement into HTMLCanvasElement and
-   * return the result of toDataURL('image/png')
-   *
-   * @param video
-   * @memberof AjfBarcode
-   */
-  private _getDataFromVideo(video: HTMLVideoElement): string {
-    if (this.canvasCtx == null || this._canvas == null) {
-      return '';
+  private _setImagePreview(img: string): void {
+    if (this.barcodeImagePreview != null) {
+      this._renderer.setStyle(this.barcodeImagePreview.nativeElement, 'background-image', img);
     }
-    this.canvasCtx.drawImage(video, 0, 0, 640, 480);
-    return this._canvas.toDataURL('image/png');
   }
 
-  /**
-   * call @zxing library method with HTMLImageElement as parameter
-   *
-   * @param img
-   * @memberof AjfBarcode
-   */
-  private _readBarcodeFromImage(img: HTMLImageElement): Observable<Result> {
-    const decode = from(this.codeReader.decodeFromImageElement(img)) as Observable<Result>;
-    return decode.pipe(catchError(e => of(e))) as Observable<Result>;
-  }
-
-  /**
-   * build an image by data and call _readBarcodeFromImage
-   *
-   * @param data
-   * @memberof AjfBarcode
-   */
-  private _readBarcodeFromData(data: string): Observable<Result> {
-    const image: HTMLImageElement = this._createImage(data);
-    return this._readBarcodeFromImage(image);
-  }
-
-  /**
-   * build an image by data
-   *
-   * @param data
-   * @memberof AjfBarcode
-   */
-  private _createImage(data: string): HTMLImageElement {
-    const image: HTMLImageElement = this._renderer.createElement('img');
-    if (data !== null && typeof data === 'string') {
-      image.src = data;
+  private _initVideoStreams(): void {
+    if (!this._supportsVideoStream) {
+      return;
     }
-    return image;
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then(devices => {
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+        if (videoDevices.length === 0) {
+          this._supportsVideoStream = false;
+          throw new Error('No video device found');
+        }
+        return videoDevices[0];
+      })
+      .then(device => {
+        const {deviceId} = device;
+        const facingModes = ['environment', 'user'] as AjfVideoFacingMode[];
+        const streamQueries = facingModes.map(facingMode => {
+          return navigator.mediaDevices
+            .getUserMedia({
+              audio: false,
+              video: {deviceId, advanced: [{facingMode}]},
+            })
+            .then(stream => ({stream, facingMode}));
+        });
+        this._deviceId = deviceId;
+        return Promise.all(streamQueries);
+      })
+      .then(streams => {
+        this._streams = [];
+        const tracksIds = [] as string[];
+        const tracksLabels = [] as string[];
+        streams.forEach(({stream, facingMode}) => {
+          if (stream == null) {
+            return;
+          }
+          const tracks = stream.getTracks();
+          let addStream = false;
+          if (
+            tracks.find(t => tracksIds.indexOf(t.id) === -1 && tracksLabels.indexOf(t.label) === -1)
+          ) {
+            tracks.forEach(t => {
+              tracksIds.push(t.id);
+              tracksLabels.push(t.label);
+            });
+            addStream = true;
+          }
+          if (addStream) {
+            this._streams.push(facingMode);
+          }
+        });
+        if (this._streams.length === 0) {
+          throw new Error('No stream available');
+        }
+        this._showSwitchButton = this._streams.length > 1;
+        this._currentStream = 0;
+        this._setCurrentStream();
+      })
+      .catch(() => (this._supportsVideoStream = false))
+      .finally(() => this._cdr.markForCheck());
+  }
+
+  private _setCurrentStream(): void {
+    if (
+      this.barcodeVideo == null ||
+      this._deviceId == null ||
+      this._streams.length === 0 ||
+      this._currentStream < 0 ||
+      this._currentStream >= this._streams.length
+    ) {
+      return;
+    }
+    const video = this.barcodeVideo.nativeElement;
+    const facingMode = this._streams[this._currentStream];
+    navigator.mediaDevices
+      .getUserMedia({
+        audio: false,
+        video: {deviceId: this._deviceId, advanced: [{facingMode}]},
+      })
+      .then(stream => {
+        video.srcObject = stream;
+      });
   }
 }
