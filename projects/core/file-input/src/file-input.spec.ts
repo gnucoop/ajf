@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {firstValueFrom} from 'rxjs';
 import {shareReplay, take} from 'rxjs/operators';
 
@@ -16,6 +17,12 @@ while (n--) {
   u8arr[n] = bStr.charCodeAt(n);
 }
 const emptyPngFile = new File([u8arr], 'empty.png', {type: 'image/png'});
+const emptyPngValue = {
+  content: `data:image/png;base64,${emptyPng}`,
+  name: 'empty.png',
+  size: n,
+  type: 'image/png',
+};
 
 describe('AjfFileInput', () => {
   let fixture: ComponentFixture<AjfFileInput>;
@@ -40,7 +47,7 @@ describe('AjfFileInput', () => {
     expect(content).toEqual(`data:image/png;base64,${emptyPng}`);
     fileInput.resetValue();
     await firstValueFrom(lastValue.pipe(take(1)));
-    expect(fileInput.value).toBeNull();
+    expect(fileInput.value).toBeFalsy();
   });
 
   it('should set its value on file selection.', async () => {
@@ -131,6 +138,33 @@ describe('AjfFileInput with custom file preview', () => {
   });
 });
 
+describe('AjfFileInput in reactive forms', () => {
+  let fixture: ComponentFixture<ReactiveFormsTestComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ReactiveFormsTestComponent],
+      imports: [AjfFileInputModule, AjfTranslocoModule, ReactiveFormsModule],
+    }).compileComponents();
+    fixture = TestBed.createComponent(ReactiveFormsTestComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+  });
+
+  it('should update value of container form', async () => {
+    const cmp = fixture.componentInstance;
+    expect(cmp.formGroup.value['file_upload']).toBeFalsy();
+
+    cmp.fileInput.value = emptyPngValue;
+    await fixture.whenStable();
+    expect(cmp.formGroup.value['file_upload']['name']).toBe('empty.png');
+
+    cmp.fileInput.resetValue();
+    await fixture.whenStable();
+    expect(cmp.formGroup.value['file_upload']).toBeFalsy();
+  });
+});
+
 @Component({
   template: '<ajf-file-input><div ajfDropMessage>Test drop message</div></ajf-file-input>',
 })
@@ -143,4 +177,18 @@ class DropMessageTestComponent {}
 class FilePreviewTestComponent {
   @ViewChild(AjfFileInput) fileInput!: AjfFileInput;
   value = emptyPngFile;
+}
+
+@Component({
+  template: `
+    <div [formGroup]="formGroup">
+      <ajf-file-input formControlName="file_upload"></ajf-file-input>
+    </div>
+  `,
+})
+class ReactiveFormsTestComponent {
+  @ViewChild(AjfFileInput) fileInput!: AjfFileInput;
+  formGroup = new FormGroup({
+    file_upload: new FormControl(),
+  });
 }
