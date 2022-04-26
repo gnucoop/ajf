@@ -24,7 +24,7 @@ import {AjfFormula, createFormula} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {HttpClient} from '@angular/common/http';
 import {ChartColor} from 'chart.js';
-import {forkJoin, Observable} from 'rxjs';
+import {forkJoin, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import * as XLSX from 'xlsx';
 
@@ -45,6 +45,7 @@ import {AjfReport} from '../interface/reports/report';
 import {AjfReportVariable} from '../interface/reports/report-variable';
 import {AjfLayoutWidget} from '../interface/widgets/layout-widget';
 import {AjfColumnWidget} from '../interface/widgets/column-widget';
+import {AjfGraphNodeDataset} from '../interface/dataset/graph-dataset';
 
 /**
  * This function returns a basic report for any form passed in input.
@@ -70,10 +71,12 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
     }
   });
 
-  const obsFilterValues: Observable<any>[] = Object.values(filters);
+  const obsFilterValues: Observable<any>[] = Object.values(filters).length
+    ? Object.values(filters)
+    : [of({})];
   const filterNames: string[] = Object.keys(filters);
 
-  return forkJoin(obsFilterValues.length > 0 ? obsFilterValues : []).pipe(
+  return forkJoin(obsFilterValues).pipe(
     map(f => {
       workbook.SheetNames.forEach(sheetName => {
         const sheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
@@ -109,6 +112,9 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
           } else if (sheetName.includes('html')) {
             const chartWidget = _buildHtml(json);
             reportWidgets.push(chartWidget);
+          } else if (sheetName.includes('graph')) {
+            const graphWidget = _buildGraph(sheetName, json);
+            reportWidgets.push(graphWidget);
           }
 
           if (idx >= 0) {
@@ -241,6 +247,32 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
       ...widgetStyle,
     },
     exportable: true,
+  } as AjfWidgetCreate);
+}
+
+function _buildGraph(name: string, json: {[key: string]: string}[]): AjfWidget {
+  const nodes: AjfGraphNodeDataset[] = [];
+
+  json.forEach(row => {
+    const rowKeys = Object.keys(row);
+    if (rowKeys.includes('id') && row['id']) {
+      const rowId = row['id'].trim().replace(/^["]|["]$/g, '');
+      if (rowId && rowId.length) {
+        let graphNodeObj: {[key: string]: any} = {};
+        rowKeys.forEach(rowKey => {
+          const value = row[rowKey].toString();
+          graphNodeObj[rowKey] = value;
+        });
+        graphNodeObj['id'] = rowId;
+        nodes.push(graphNodeObj as AjfGraphNodeDataset);
+      }
+    }
+  });
+
+  return createWidget({
+    widgetType: AjfWidgetType.Graph,
+    nodes,
+    styles: {},
   } as AjfWidgetCreate);
 }
 
