@@ -315,7 +315,7 @@ function _buildTable(json: {[key: string]: string}[]): AjfWidget {
       } catch (err) {
         elem = `${row[title]}`;
       }
-      elems.push(elem.replace(/[\*\/\r\n]|@[\w-]+/g, ''));
+      elems.push(elem.replace(/[\*\r\n]|@[\w-]+/g, ''));
     });
     dataElements.push(elems);
   });
