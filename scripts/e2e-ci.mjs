@@ -18,7 +18,10 @@ const runE2eApp = async () => {
 };
 
 const runPackageE2e = async pkg => {
-  const res = shell.exec(`yarn -s ng run ${pkg}:cypress-run-ci`, {async: true, silent: false});
+  const res = shell.exec(`NO_COLOR=1 yarn -s ng run ${pkg}:cypress-run-ci`, {
+    async: true,
+    silent: false,
+  });
   let stdErr = '';
   return new Promise((resolve, reject) => {
     res.stderr.on('data', data => (stdErr = `${stdErr}${data}`));
