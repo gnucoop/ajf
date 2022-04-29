@@ -1,3 +1,17 @@
+<a name="13.1.4"></a>
+# 13.1.4 "brief-ape" (2022-04-29)
+### Bug Fixes
+* **core/file-input:** update angular form value on input reset ([84e535e](https://github.com/gnucoop/ajf/commit/84e535e87dbd1bf7c635685dd07dbf7d955d7939))
+* **core/graph:** fix svg-pan-zoom import ([921bd39](https://github.com/gnucoop/ajf/commit/921bd39bdf9cc631b7cce3bbd7787f430a04389c))
+* **core/graph:** remove unused file ([319483b](https://github.com/gnucoop/ajf/commit/319483b639774ae5a37557ff7ad9f65f6fc923c6))
+### Features
+* **core/graph:** add e2e test ([d7d4833](https://github.com/gnucoop/ajf/commit/d7d4833b4aee0aa025b28e5f6b44fea57707c4f0))
+* **core/graph:** add new graph widget ([fb5817e](https://github.com/gnucoop/ajf/commit/fb5817e08583a7969dafd2e0978c0a60a46b0d87))
+* **core/reports:** add graph in xls report ([2590bd0](https://github.com/gnucoop/ajf/commit/2590bd0d507391c7df94a419127c2f655560ab77))
+* **multiple:** switch front/back camera in barcode video ([99064ec](https://github.com/gnucoop/ajf/commit/99064ecd6338c8f07fda8d605cffdb2c6bb861d6))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.1.3"></a>
 # 13.1.3 "satisfied-tarsier" (2022-04-05)
 
