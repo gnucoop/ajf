@@ -81,8 +81,8 @@ export function widgetToWidgetInstance(
       wi.content = content;
     });
   } else if (isChartWidget(widget) && isChartWidgetInstance(wi)) {
-    if ((widget as any).option == null) {
-      (widget as any).option = {};
+    if (widget.options == null) {
+      widget.options = {};
     }
     const labels = widget.labels instanceof Array ? widget.labels : [widget.labels];
     const evLabels = labels.map(l => {
