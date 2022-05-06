@@ -1,3 +1,10 @@
+<a name="13.1.5"></a>
+# 13.1.5 "wonderful-crocodile" (2022-05-06)
+### Bug Fixes
+* **core/reports:** widget.options misspell in widgetToWidgetInstance ([6c96a41](https://github.com/gnucoop/ajf/commit/6c96a41888ecd70c5588ea481593edc988d35dcd))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.1.4"></a>
 # 13.1.4 "brief-ape" (2022-04-29)
 ### Bug Fixes
