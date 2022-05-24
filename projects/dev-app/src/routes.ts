@@ -27,9 +27,17 @@ import {DevAppHome} from './dev-app/dev-app-home';
 export const DEV_APP_ROUTES: Routes = [
   {path: '', component: DevAppHome},
   {
+    path: 'echarts',
+    loadChildren: () => import('./echarts/echarts-demo-module').then(m => m.EchartsDemoModule),
+  },
+  {
     path: 'file-input',
     loadChildren: () =>
       import('./file-input/file-input-demo-module').then(m => m.FileInputDemoModule),
+  },
+  {
+    path: 'heat-map',
+    loadChildren: () => import('./heat-map/heat-map-demo-module').then(m => m.HeatMapDemoModule),
   },
   {
     path: 'ion-barcode',
