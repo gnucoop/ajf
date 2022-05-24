@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfEchartsModule} from '@ajf/core/echarts';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {Directionality} from '@angular/cdk/bidi';
 import {FullscreenOverlayContainer, OverlayContainer} from '@angular/cdk/overlay';
@@ -45,6 +46,7 @@ import {DEV_APP_ROUTES} from './routes';
     HttpClientModule,
     IonicModule.forRoot(),
     RouterModule.forRoot(DEV_APP_ROUTES),
+    AjfEchartsModule.forRoot(),
     AjfTranslocoModule.forRoot(),
   ],
   declarations: [DevAppComponent],

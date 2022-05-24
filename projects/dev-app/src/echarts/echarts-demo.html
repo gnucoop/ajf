@@ -1,0 +1,7 @@
+<div class="demo-calendar">
+  <h4 class="demo-section-header">Echarts</h4>
+  <section>
+    <mat-slide-toggle [(ngModel)]="dark">Dark mode</mat-slide-toggle>
+    <div ajfEcharts [options]="options" [theme]="dark ? 'dark': undefined"></div>
+  </section>
+</div>

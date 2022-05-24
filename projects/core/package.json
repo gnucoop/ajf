@@ -24,6 +24,7 @@
     "chart.js": "0.0.0-CHARTJS",
     "dagre": "0.0.0-DAGRE",
     "date-fns": "0.0.0-DATE-FNS",
+    "echarts": "0.0.0-ECHARTS",
     "flag-icon-css": "0.0.0-FLAG-ICON-CSS",
     "leaflet": "0.0.0-LEAFLET",
     "meriyah": "0.0.0-MERIYAH",

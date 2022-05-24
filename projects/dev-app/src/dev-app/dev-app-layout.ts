@@ -37,7 +37,9 @@ export class DevAppLayout {
     {
       name: 'Common',
       children: [
+        {name: 'Echarts', route: '/echarts'},
         {name: 'File input', route: '/file-input'},
+        {name: 'Heat map', route: '/heat-map'},
         {name: 'i18n', route: '/i18n'},
       ],
     },
