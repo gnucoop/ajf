@@ -20,17 +20,11 @@
  *
  */
 
-export * from './chart-widget';
-export * from './dialog-widget';
-export * from './filter-widget';
-export * from './formula-widget';
-export * from './image-container-widget';
-export * from './image-widget';
-export * from './map-widget';
-export * from './page-break-widget';
-export * from './paginated-list-widget';
-export * from './report';
-export * from './reports-module';
-export * from './table-widget';
-export * from './text-widget';
-export * from './widget';
+import {AjfDialogWidget} from '../widgets/dialog-widget';
+import {AjfWidgetInstance} from './widget-instance';
+import {AjfWidgetWithContentInstance} from './widget-with-content-instance';
+
+export interface AjfDialogWidgetInstance extends AjfWidgetWithContentInstance {
+  widget: AjfDialogWidget;
+  toggle: AjfWidgetInstance;
+}

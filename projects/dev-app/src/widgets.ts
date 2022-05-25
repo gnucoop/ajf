@@ -292,6 +292,51 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
         })),
       },
     },
+    {
+      name: 'Dialog',
+      instance: {
+        ...createWidgetInstance(
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.Dialog,
+            toggle: {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Text,
+              htmlText: '',
+            },
+            content: [],
+          },
+          {},
+          ts,
+        ),
+        toggle: {
+          ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Text,
+              htmlText: '',
+            },
+            {},
+            ts,
+          ),
+          htmlText: `Dialog toggle`,
+        },
+        content: [
+          {
+            ...createWidgetInstance(
+              {
+                ...baseWidget,
+                widgetType: AjfWidgetType.Text,
+                htmlText: '',
+              },
+              {},
+              ts,
+            ),
+            htmlText: `Dialog content`,
+          },
+        ],
+      },
+    },
   ];
   return widgets;
 }

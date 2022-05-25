@@ -42,6 +42,7 @@ import {
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {AjfChartWidgetComponent} from './chart-widget';
+import {AjfDialogWidgetComponent} from './dialog-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfGraphWidgetComponent} from './graph-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
@@ -67,6 +68,7 @@ const defaultWidgetsFactory = (): AjfWidgetComponentsMap => {
   defaultWidgets[wt.ImageContainer] = {component: AjfImageContainerWidgetComponent};
   defaultWidgets[wt.Graph] = {component: AjfGraphWidgetComponent};
   defaultWidgets[wt.PaginatedList] = {component: AjfPaginatedListWidgetComponent};
+  defaultWidgets[wt.Dialog] = {component: AjfDialogWidgetComponent};
   return defaultWidgets;
 };
 

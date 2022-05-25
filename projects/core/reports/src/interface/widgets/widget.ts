@@ -24,6 +24,7 @@ import {AjfBaseWidget} from './base-widget';
 import {AjfChartWidget} from './chart-widget';
 import {AjfColumnWidget} from './column-widget';
 import {AjfDataWidget} from './data-widget';
+import {AjfDialogWidget} from './dialog-widget';
 import {AjfDynamicTableWidget} from './dynamic-table-widget';
 import {AjfFormulaWidget} from './formula-widget';
 import {AjfImageContainerWidget} from './image-container-widget';
@@ -45,6 +46,7 @@ export type AjfWidget =
   | AjfChartWidget
   | AjfColumnWidget
   | AjfDataWidget
+  | AjfDialogWidget
   | AjfDynamicTableWidget
   | AjfFormulaWidget
   | AjfGraphWidget

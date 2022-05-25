@@ -1,0 +1,10 @@
+<a *ngIf="instance" class="ajf-dialog-toggle" (click)="openDialog()">
+  <ajf-widget [instance]="instance.toggle"></ajf-widget>
+</a>
+<ng-template #dialogContent>
+  <ng-container *ngIf="instance">
+    <ng-container *ngFor="let item of instance.content">
+      <ajf-widget [instance]="item"></ajf-widget>
+    </ng-container>
+  </ng-container>
+</ng-template>
