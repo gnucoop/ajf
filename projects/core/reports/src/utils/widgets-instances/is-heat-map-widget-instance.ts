@@ -20,18 +20,12 @@
  *
  */
 
-export * from './chart-widget';
-export * from './dialog-widget';
-export * from './filter-widget';
-export * from './formula-widget';
-export * from './heat-map-widget';
-export * from './image-container-widget';
-export * from './image-widget';
-export * from './map-widget';
-export * from './page-break-widget';
-export * from './paginated-list-widget';
-export * from './report';
-export * from './reports-module';
-export * from './table-widget';
-export * from './text-widget';
-export * from './widget';
+import {AjfHeatMapWidgetInstance} from '../../interface/widgets-instances/heat-map-widget-instance';
+import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instance';
+import {isHeatMapWidget} from '../widgets/is-heat-map-widget';
+
+export const isHeatMapWidgetInstance = (
+  instance: AjfWidgetInstance,
+): instance is AjfHeatMapWidgetInstance => {
+  return instance != null && isHeatMapWidget(instance.widget);
+};

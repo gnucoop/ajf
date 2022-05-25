@@ -36,5 +36,6 @@ export enum AjfWidgetType {
   Graph,
   PaginatedList,
   Dialog,
+  HeatMap,
   LENGTH,
 }

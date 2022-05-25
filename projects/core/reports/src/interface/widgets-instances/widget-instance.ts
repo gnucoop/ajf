@@ -29,6 +29,7 @@ import {AjfDialogWidgetInstance} from './dialog-widget-instance';
 import {AjfDynamicTableWidgetInstance} from './dynamic-table-widget-instance';
 import {AjfFormulaWidgetInstance} from './formula-widget-instance';
 import {AjfGraphWidgetInstance} from './graph-widget-instance';
+import {AjfHeatMapWidgetInstance} from './heat-map-widget-instance';
 import {AjfImageContainerWidgetInstance} from './image-container-widget-instance';
 import {AjfImageWidgetInstance} from './image-widget-instance';
 import {AjfLayoutWidgetInstance} from './layout-widget-instance';
@@ -51,6 +52,7 @@ export type AjfWidgetInstance =
   | AjfDynamicTableWidgetInstance
   | AjfFormulaWidgetInstance
   | AjfGraphWidgetInstance
+  | AjfHeatMapWidgetInstance
   | AjfImageContainerWidgetInstance
   | AjfImageWidgetInstance
   | AjfLayoutWidgetInstance
