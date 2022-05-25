@@ -33,6 +33,8 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
+import {AjfDialogModal} from './dialog-modal';
+import {AjfDialogWidgetComponent} from './dialog-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
@@ -60,6 +62,8 @@ import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} fro
   declarations: [
     AjfChartWidgetComponent,
     AjfColumnWidgetComponent,
+    AjfDialogModal,
+    AjfDialogWidgetComponent,
     AjfFormulaWidgetComponent,
     AjfImageContainerWidgetComponent,
     AjfImageWidgetComponent,

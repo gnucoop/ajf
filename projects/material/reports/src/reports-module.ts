@@ -33,8 +33,10 @@ import {AjfFormsModule} from '@ajf/material/forms';
 import {AjfImageModule} from '@ajf/material/image';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import {AjfChartWidgetComponent} from './chart-widget';
+import {AjfDialogWidgetComponent} from './dialog-widget';
 import {AjfFilterWidgetComponent} from './filter-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
@@ -62,10 +64,12 @@ import {AjfGraphWidgetComponent} from './graph-widget';
     AjfTranslocoModule,
     CommonModule,
     CoreModule,
+    MatDialogModule,
   ],
   declarations: [
     AjfChartWidgetComponent,
     AjfColumnWidgetComponent,
+    AjfDialogWidgetComponent,
     AjfFilterWidgetComponent,
     AjfFormulaWidgetComponent,
     AjfImageContainerWidgetComponent,

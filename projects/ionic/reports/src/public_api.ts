@@ -21,6 +21,7 @@
  */
 
 export * from './chart-widget';
+export * from './dialog-widget';
 export * from './formula-widget';
 export * from './image-container-widget';
 export * from './image-widget';

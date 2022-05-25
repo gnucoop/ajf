@@ -32,6 +32,7 @@ import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instan
 import {AjfWidget} from '../../interface/widgets/widget';
 import {evaluateAggregation} from '../aggregation/evaluate-aggregation';
 import {isChartWidget} from '../widgets/is-chart-widget';
+import {isDialogWidget} from '../widgets/is-dialog-widget';
 import {isDynamicTableWidget} from '../widgets/is-dynamic-table-widget';
 import {isFormulaWidget} from '../widgets/is-formula-widget';
 import {isGraphWidget} from '../widgets/is-graph-widget';
@@ -43,6 +44,7 @@ import {isTableWidget} from '../widgets/is-table-widget';
 import {isTextWidget} from '../widgets/is-text-widget';
 import {componentsMap} from '../widgets/widgets-map';
 import {isChartWidgetInstance} from '../widgets-instances/is-chart-widget-instance';
+import {isDialogWidgetInstance} from '../widgets-instances/is-dialog-widget-instance';
 import {isDynamicTableWidgetInstance} from '../widgets-instances/is-dynamic-table-widget-instance';
 import {isFormulaWidgetInstance} from '../widgets-instances/is-formula-widget-instance';
 import {isGraphWidgetInstance} from '../widgets-instances/is-graph-widget-instance';
@@ -271,6 +273,8 @@ export function widgetToWidgetInstance(
         return node as AjfGraphNode;
       });
     }
+  } else if (isDialogWidget(widget) && isDialogWidgetInstance(wi)) {
+    wi.toggle = widgetToWidgetInstance(widget.toggle, context, ts, variables);
   } else if (widget.widgetType > 100) {
     const iiFn =
       componentsMap[widget.widgetType] != null

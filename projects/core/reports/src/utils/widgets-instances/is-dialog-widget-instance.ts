@@ -20,17 +20,12 @@
  *
  */
 
-export * from './chart-widget';
-export * from './dialog-widget';
-export * from './filter-widget';
-export * from './formula-widget';
-export * from './image-container-widget';
-export * from './image-widget';
-export * from './map-widget';
-export * from './page-break-widget';
-export * from './paginated-list-widget';
-export * from './report';
-export * from './reports-module';
-export * from './table-widget';
-export * from './text-widget';
-export * from './widget';
+import {AjfDialogWidgetInstance} from '../../interface/widgets-instances/dialog-widget-instance';
+import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instance';
+import {isDialogWidget} from '../widgets/is-dialog-widget';
+
+export const isDialogWidgetInstance = (
+  instance: AjfWidgetInstance,
+): instance is AjfDialogWidgetInstance => {
+  return instance != null && isDialogWidget(instance.widget);
+};

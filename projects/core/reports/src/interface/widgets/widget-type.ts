@@ -35,5 +35,6 @@ export enum AjfWidgetType {
   DynamicTable,
   Graph,
   PaginatedList,
+  Dialog,
   LENGTH,
 }

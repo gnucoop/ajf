@@ -25,6 +25,7 @@ import {AjfBaseWidgetInstance} from './base-widget-instance';
 import {AjfChartWidgetInstance} from './chart-widget-instance';
 import {AjfColumnWidgetInstance} from './column-widget-instance';
 import {AjfDataWidgetInstance} from './data-widget-instance';
+import {AjfDialogWidgetInstance} from './dialog-widget-instance';
 import {AjfDynamicTableWidgetInstance} from './dynamic-table-widget-instance';
 import {AjfFormulaWidgetInstance} from './formula-widget-instance';
 import {AjfGraphWidgetInstance} from './graph-widget-instance';
@@ -46,6 +47,7 @@ export type AjfWidgetInstance =
   | AjfChartWidgetInstance
   | AjfColumnWidgetInstance
   | AjfDataWidgetInstance
+  | AjfDialogWidgetInstance
   | AjfDynamicTableWidgetInstance
   | AjfFormulaWidgetInstance
   | AjfGraphWidgetInstance
