@@ -1,0 +1,18 @@
+<div class="ajf-paginated-list" *ngIf="instance && pages > 0">
+  <div class="ajf-paginated-list-title-container">
+    <div class="ajf-paginated-list-title">{{ instance.widget.title }}</div>
+    <div class="ajf-spacer"></div>
+    <div class="ajf-paginated-list-paginator">
+      <a (click)="goToPage('previous')" class="ajf-paginated-list-btn ajf-paginated-list-back-btn"
+          [class.ajf-paginated-list-btn-disabled]="canGoBackward === false"></a>
+      <div class="ajf-paginated-list-paginator-page">{{ currentPage }}</div>
+      <div class="ajf-paginated-list-paginator-separator"></div>
+      <div class="ajf-paginated-list-paginator-pages">{{ pages }}</div>
+      <a (click)="goToPage('next')" class="ajf-paginated-list-btn ajf-paginated-list-forward-btn"
+        [class.ajf-paginated-list-btn-disabled]="canGoForward === false"></a>
+    </div>
+  </div>
+  <div class="ajf-paginated-list-item" *ngFor="let item of currentContent">
+    <ajf-widget [instance]="item"></ajf-widget>
+  </div>
+</div>

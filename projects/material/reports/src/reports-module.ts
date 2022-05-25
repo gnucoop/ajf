@@ -22,16 +22,17 @@
 
 import {AjfChartModule} from '@ajf/core/chart';
 import {AjfCommonModule} from '@ajf/core/common';
+import {AjfGraphModule} from '@ajf/core/graph';
 import {AjfMapModule} from '@ajf/core/map';
 import {AjfPageBreakModule} from '@ajf/core/page-break';
 import {AjfReportsModule as CoreModule} from '@ajf/core/reports';
 import {AjfTableModule} from '@ajf/core/table';
 import {AjfTextModule} from '@ajf/core/text';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
+import {AjfFormsModule} from '@ajf/material/forms';
 import {AjfImageModule} from '@ajf/material/image';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {AjfFormsModule} from '@ajf/material/forms';
 
 import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfFilterWidgetComponent} from './filter-widget';
@@ -40,27 +41,27 @@ import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
+import {AjfPaginatedListWidgetComponent} from './paginated-list-widget';
 import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
 import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} from './widget';
 import {AjfGraphWidgetComponent} from './graph-widget';
-import {AjfGraphModule} from '@ajf/core/graph';
 
 @NgModule({
   imports: [
     AjfChartModule,
     AjfCommonModule,
     AjfImageModule,
+    AjfFormsModule,
     AjfGraphModule,
     AjfMapModule,
     AjfPageBreakModule,
     AjfTableModule,
     AjfTextModule,
-    AjfFormsModule,
+    AjfTranslocoModule,
     CommonModule,
     CoreModule,
-    AjfTranslocoModule,
   ],
   declarations: [
     AjfChartWidgetComponent,
@@ -73,6 +74,7 @@ import {AjfGraphModule} from '@ajf/core/graph';
     AjfLayoutWidgetComponent,
     AjfMapWidgetComponent,
     AjfPageBreakWidgetComponent,
+    AjfPaginatedListWidgetComponent,
     AjfReportRenderer,
     AjfReportWidget,
     AjfTableWidgetComponent,

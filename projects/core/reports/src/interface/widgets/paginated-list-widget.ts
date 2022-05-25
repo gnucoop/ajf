@@ -19,3 +19,12 @@
  * If not, see http://www.gnu.org/licenses/.
  *
  */
+
+import {AjfWidgetWithContent} from './widget-with-content';
+import {AjfWidgetType} from './widget-type';
+
+export interface AjfPaginatedListWidget extends AjfWidgetWithContent {
+  widgetType: AjfWidgetType.PaginatedList;
+  title: string;
+  pageSize: number;
+}

@@ -243,6 +243,10 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
         ...createWidgetInstance(
           {
             ...baseWidget,
+            styles: {
+              ...baseWidget.styles,
+              overflow: 'hidden',
+            },
             widgetType: AjfWidgetType.ImageContainer,
             imageType: AjfImageType.Image,
           },
@@ -254,6 +258,38 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
           'http://www.iconarchive.com/download/i78313/designbolts/smurfs-movie/brainy-smurf.ico',
           'http://icons.veryicon.com/png/Movie%20%26%20TV/The%20Smurfs/Smurfette.png',
         ],
+      },
+    },
+    {
+      name: 'Paginated list',
+      instance: {
+        ...createWidgetInstance(
+          {
+            ...baseWidget,
+            styles: {
+              ...baseWidget.styles,
+              height: 'auto',
+            },
+            widgetType: AjfWidgetType.PaginatedList,
+            pageSize: 2,
+            title: 'Paginated list title',
+            content: [],
+          },
+          {},
+          ts,
+        ),
+        content: [1, 2, 3, 4, 5].map(idx => ({
+          ...createWidgetInstance(
+            {
+              ...baseWidget,
+              widgetType: AjfWidgetType.Text,
+              htmlText: '',
+            },
+            {},
+            ts,
+          ),
+          htmlText: `Item ${idx}`,
+        })),
       },
     },
   ];

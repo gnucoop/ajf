@@ -47,6 +47,7 @@ import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
+import {AjfPaginatedListWidgetComponent} from './paginated-list-widget';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
 
@@ -63,6 +64,7 @@ const defaultWidgetsFactory = (): AjfWidgetComponentsMap => {
   defaultWidgets[wt.Column] = {component: AjfColumnWidgetComponent};
   defaultWidgets[wt.Formula] = {component: AjfFormulaWidgetComponent};
   defaultWidgets[wt.ImageContainer] = {component: AjfImageContainerWidgetComponent};
+  defaultWidgets[wt.PaginatedList] = {component: AjfPaginatedListWidgetComponent};
   return defaultWidgets;
 };
 
