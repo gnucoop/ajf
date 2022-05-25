@@ -20,18 +20,10 @@
  *
  */
 
-export * from './chart-widget';
-export * from './dialog-widget';
-export * from './filter-widget';
-export * from './formula-widget';
-export * from './heat-map-widget';
-export * from './image-container-widget';
-export * from './image-widget';
-export * from './map-widget';
-export * from './page-break-widget';
-export * from './paginated-list-widget';
-export * from './report';
-export * from './reports-module';
-export * from './table-widget';
-export * from './text-widget';
-export * from './widget';
+import {AjfHeatMapWidget} from '../../interface/widgets/heat-map-widget';
+import {AjfWidget} from '../../interface/widgets/widget';
+import {AjfWidgetType} from '../../interface/widgets/widget-type';
+
+export const isHeatMapWidget = (widget: AjfWidget): widget is AjfHeatMapWidget => {
+  return widget != null && widget.widgetType === AjfWidgetType.HeatMap;
+};

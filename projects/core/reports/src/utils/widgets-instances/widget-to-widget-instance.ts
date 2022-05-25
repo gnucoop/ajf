@@ -36,6 +36,7 @@ import {isDialogWidget} from '../widgets/is-dialog-widget';
 import {isDynamicTableWidget} from '../widgets/is-dynamic-table-widget';
 import {isFormulaWidget} from '../widgets/is-formula-widget';
 import {isGraphWidget} from '../widgets/is-graph-widget';
+import {isHeatMapWidget} from '../widgets/is-heat-map-widget';
 import {isImageContainerWidget} from '../widgets/is-image-container-widget';
 import {isImageWidget} from '../widgets/is-image-widget';
 import {isMapWidget} from '../widgets/is-map-widget';
@@ -48,6 +49,7 @@ import {isDialogWidgetInstance} from '../widgets-instances/is-dialog-widget-inst
 import {isDynamicTableWidgetInstance} from '../widgets-instances/is-dynamic-table-widget-instance';
 import {isFormulaWidgetInstance} from '../widgets-instances/is-formula-widget-instance';
 import {isGraphWidgetInstance} from '../widgets-instances/is-graph-widget-instance';
+import {isHeatMapWidgetInstance} from '../widgets-instances/is-heat-map-widget-instance';
 import {isImageContainerWidgetInstance} from '../widgets-instances/is-image-container-widget-instance';
 import {isImageWidgetInstance} from '../widgets-instances/is-image-widget-instance';
 import {isMapWidgetInstance} from '../widgets-instances/is-map-widget-instance';
@@ -275,6 +277,15 @@ export function widgetToWidgetInstance(
     }
   } else if (isDialogWidget(widget) && isDialogWidgetInstance(wi)) {
     wi.toggle = widgetToWidgetInstance(widget.toggle, context, ts, variables);
+  } else if (isHeatMapWidget(widget) && isHeatMapWidgetInstance(wi)) {
+    wi.idProp = widget.idProp || 'id';
+    wi.features = (typeof widget.features === 'string'
+      ? JSON.parse(widget.features)
+      : widget.features) || {type: 'FeatureCollection', features: []};
+    wi.startColor = widget.startColor || '#ffeb3b';
+    wi.endColor = widget.endColor || '#f44336';
+    wi.highlightColor = widget.highlightColor || '#009688';
+    wi.showVisualMap = widget.showVisualMap === true;
   } else if (widget.widgetType > 100) {
     const iiFn =
       componentsMap[widget.widgetType] != null

@@ -27,6 +27,7 @@ import {AjfDataWidget} from './data-widget';
 import {AjfDialogWidget} from './dialog-widget';
 import {AjfDynamicTableWidget} from './dynamic-table-widget';
 import {AjfFormulaWidget} from './formula-widget';
+import {AjfHeatMapWidget} from './heat-map-widget';
 import {AjfImageContainerWidget} from './image-container-widget';
 import {AjfImageWidget} from './image-widget';
 import {AjfLayoutWidget} from './layout-widget';
@@ -50,6 +51,7 @@ export type AjfWidget =
   | AjfDynamicTableWidget
   | AjfFormulaWidget
   | AjfGraphWidget
+  | AjfHeatMapWidget
   | AjfImageContainerWidget
   | AjfImageWidget
   | AjfLayoutWidget

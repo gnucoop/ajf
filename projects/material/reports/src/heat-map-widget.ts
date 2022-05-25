@@ -20,18 +20,23 @@
  *
  */
 
-export * from './chart-widget';
-export * from './dialog-widget';
-export * from './filter-widget';
-export * from './formula-widget';
-export * from './heat-map-widget';
-export * from './image-container-widget';
-export * from './image-widget';
-export * from './map-widget';
-export * from './page-break-widget';
-export * from './paginated-list-widget';
-export * from './report';
-export * from './reports-module';
-export * from './table-widget';
-export * from './text-widget';
-export * from './widget';
+import {AjfBaseWidgetComponent, AjfHeatMapWidgetInstance} from '@ajf/core/reports';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewEncapsulation,
+} from '@angular/core';
+
+@Component({
+  templateUrl: 'heat-map-widget.html',
+  styleUrls: ['heat-map-widget.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfHeatMapWidgetComponent extends AjfBaseWidgetComponent<AjfHeatMapWidgetInstance> {
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
+  }
+}

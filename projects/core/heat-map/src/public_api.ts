@@ -20,4 +20,5 @@
  *
  */
 
+export * from './heat-map';
 export * from './heat-map-module';

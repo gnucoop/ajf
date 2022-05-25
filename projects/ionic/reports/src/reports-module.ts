@@ -22,6 +22,7 @@
 
 import {AjfChartModule} from '@ajf/core/chart';
 import {AjfCommonModule} from '@ajf/core/common';
+import {AjfHeatMapModule} from '@ajf/core/heat-map';
 import {AjfMapModule} from '@ajf/core/map';
 import {AjfPageBreakModule} from '@ajf/core/page-break';
 import {AjfReportsModule as CoreModule} from '@ajf/core/reports';
@@ -36,6 +37,7 @@ import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfDialogModal} from './dialog-modal';
 import {AjfDialogWidgetComponent} from './dialog-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
+import {AjfHeatMapWidgetComponent} from './heat-map-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
 import {AjfMapWidgetComponent} from './map-widget';
@@ -50,6 +52,7 @@ import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} fro
   imports: [
     AjfChartModule,
     AjfCommonModule,
+    AjfHeatMapModule,
     AjfImageModule,
     AjfMapModule,
     AjfPageBreakModule,
@@ -65,6 +68,7 @@ import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} fro
     AjfDialogModal,
     AjfDialogWidgetComponent,
     AjfFormulaWidgetComponent,
+    AjfHeatMapWidgetComponent,
     AjfImageContainerWidgetComponent,
     AjfImageWidgetComponent,
     AjfLayoutWidgetComponent,

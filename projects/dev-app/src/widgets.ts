@@ -29,6 +29,8 @@ import {
 } from '@ajf/core/reports';
 import {TranslocoService} from '@ajf/core/transloco';
 
+import {features, values} from './heat-map/features';
+
 const baseWidget = {
   styles: {height: '200px'},
   visibility: {condition: 'true'},
@@ -335,6 +337,28 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             htmlText: `Dialog content`,
           },
         ],
+      },
+    },
+    {
+      name: 'Heat map',
+      instance: {
+        ...createWidgetInstance(
+          {
+            ...baseWidget,
+            widgetType: AjfWidgetType.HeatMap,
+            idProp: '',
+            features: '',
+            values: '',
+          },
+          {},
+          ts,
+        ),
+        features,
+        values,
+        idProp: 'GID_1',
+        startColor: '#ffeb3b',
+        endColor: '#f44336',
+        highlightColor: '#009688',
       },
     },
   ];
