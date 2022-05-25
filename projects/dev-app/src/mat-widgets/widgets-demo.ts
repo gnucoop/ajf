@@ -24,7 +24,7 @@ import {AjfWidgetInstance} from '@ajf/core/reports';
 import {TranslocoService} from '@ajf/core/transloco';
 import {Component} from '@angular/core';
 
-import {demoWidgets} from './widgets';
+import {demoWidgets} from '../widgets';
 
 @Component({
   selector: 'widgets-demo',

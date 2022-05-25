@@ -38,6 +38,7 @@ import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
+import {AjfPaginatedListWidgetComponent} from './paginated-list-widget';
 import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
@@ -52,9 +53,9 @@ import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} fro
     AjfPageBreakModule,
     AjfTableModule,
     AjfTextModule,
+    AjfTranslocoModule,
     CommonModule,
     CoreModule,
-    AjfTranslocoModule,
   ],
   declarations: [
     AjfChartWidgetComponent,
@@ -65,6 +66,7 @@ import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} fro
     AjfLayoutWidgetComponent,
     AjfMapWidgetComponent,
     AjfPageBreakWidgetComponent,
+    AjfPaginatedListWidgetComponent,
     AjfReportRenderer,
     AjfReportWidget,
     AjfTableWidgetComponent,

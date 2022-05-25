@@ -33,6 +33,7 @@ import {AjfImageWidgetInstance} from './image-widget-instance';
 import {AjfLayoutWidgetInstance} from './layout-widget-instance';
 import {AjfMapWidgetInstance} from './map-widget-instance';
 import {AjfPageBreakWidgetInstance} from './page-break-widget-instance';
+import {AjfPaginatedListWidgetInstance} from './paginated-list-widget-instance';
 import {AjfTableWidgetInstance} from './table-widget-instance';
 import {AjfTextWidgetInstance} from './text-widget-instance';
 import {AjfWidgetWithContentInstance} from './widget-with-content-instance';
@@ -53,6 +54,7 @@ export type AjfWidgetInstance =
   | AjfLayoutWidgetInstance
   | AjfMapWidgetInstance
   | AjfPageBreakWidgetInstance
+  | AjfPaginatedListWidgetInstance
   | AjfTableWidgetInstance
   | AjfTextWidgetInstance
   | AjfWidgetWithContentInstance;

@@ -20,21 +20,9 @@
  *
  */
 
-import {AjfWidgetInstance} from '@ajf/core/reports';
-import {TranslocoService} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {AjfPaginatedListWidget} from '../widgets/paginated-list-widget';
+import {AjfWidgetWithContentInstance} from './widget-with-content-instance';
 
-import {demoWidgets} from '../widgets';
-
-@Component({
-  selector: 'widgets-demo',
-  templateUrl: 'widgets-demo.html',
-  styleUrls: ['widgets-demo.scss'],
-})
-export class WidgetsDemo {
-  widgets: {name: string; instance: AjfWidgetInstance}[];
-
-  constructor(ts: TranslocoService) {
-    this.widgets = demoWidgets(ts);
-  }
+export interface AjfPaginatedListWidgetInstance extends AjfWidgetWithContentInstance {
+  widget: AjfPaginatedListWidget;
 }

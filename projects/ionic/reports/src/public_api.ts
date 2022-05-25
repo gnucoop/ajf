@@ -26,6 +26,7 @@ export * from './image-container-widget';
 export * from './image-widget';
 export * from './map-widget';
 export * from './page-break-widget';
+export * from './paginated-list-widget';
 export * from './report';
 export * from './reports-module';
 export * from './table-widget';
