@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfFormula} from '@ajf/core/models';
 import {AjfHeatMapFeatureCollection} from '@ajf/core/heat-map';
 
 import {AjfBaseWidget} from './base-widget';
@@ -29,7 +30,7 @@ export interface AjfHeatMapWidget extends AjfBaseWidget {
   widgetType: AjfWidgetType.HeatMap;
   idProp?: string;
   features: AjfHeatMapFeatureCollection | string;
-  values: string | number[];
+  values: AjfFormula;
   startColor?: string;
   endColor?: string;
   highlightColor?: string;

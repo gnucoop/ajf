@@ -282,8 +282,7 @@ export function widgetToWidgetInstance(
     wi.features = (typeof widget.features === 'string'
       ? JSON.parse(widget.features)
       : widget.features) || {type: 'FeatureCollection', features: []};
-    wi.values =
-      (typeof widget.values === 'string' ? JSON.parse(widget.values) : widget.values) || [];
+    wi.values = evaluateExpression(widget.values.formula, context);
     wi.startColor = widget.startColor || '#ffeb3b';
     wi.endColor = widget.endColor || '#f44336';
     wi.highlightColor = widget.highlightColor || '#009688';

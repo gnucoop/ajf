@@ -348,7 +348,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             widgetType: AjfWidgetType.HeatMap,
             idProp: '',
             features: '',
-            values: '',
+            values: {formula: ''},
           },
           {},
           ts,
