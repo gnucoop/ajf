@@ -116,6 +116,9 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
           } else if (sheetName.includes('graph')) {
             const graphWidget = _buildGraph(sheetName, json);
             reportWidgets.push(graphWidget);
+          } else if (sheetName.indexOf('heatmap')) {
+            const heatmapWidget = _buildHeatmap(sheetName, json);
+            reportWidgets.push(heatmapWidget);
           }
 
           if (idx >= 0) {
@@ -369,3 +372,28 @@ function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWid
     },
   });
 }
+
+const _buildHeatmap = (_: string, json: {[key: string]: string}[]): AjfWidget => {
+  const defaultFeatures = {
+    type: 'FeatureCollection',
+    features: [],
+  };
+  const options = {
+    values: '[]',
+    idProp: 'id',
+    features: JSON.stringify(defaultFeatures),
+    startColor: '#ffeb3b',
+    endColor: '#f44336',
+    highlightColor: '#009688',
+    showVisualMap: false,
+    ...(json.length > 0 ? json[0] : {}),
+  };
+  return createWidget({
+    widgetType: AjfWidgetType.HeatMap,
+    ...options,
+    values: {formula: options.values},
+    styles: {
+      minHeight: '200px',
+    },
+  });
+};
