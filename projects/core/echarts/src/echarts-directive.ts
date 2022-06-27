@@ -35,17 +35,16 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import type {ECharts, EChartsOption} from 'echarts';
 import {Subscription} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 
-import {AjfEchartsProvider, AJF_ECHARTS_PROVIDER, EchartsModule} from './echarts-config';
+import {AjfEchartsProvider, AJF_ECHARTS_PROVIDER} from './echarts-config';
 
 export type EChartsRenderer = 'canvas' | 'svg';
 
 export interface AjfEchartsInitEvent {
-  echarts: EchartsModule;
-  chart: ECharts;
+  echarts: any;
+  chart: echarts.ECharts;
 }
 
 @Directive({selector: '[ajfEcharts]', exportAs: 'ajfEcharts'})
@@ -63,17 +62,17 @@ export class AjfEchartsDirective implements OnChanges, OnDestroy, OnInit {
   private _renderer: EChartsRenderer = 'canvas';
 
   @Input()
-  set options(options: EChartsOption | undefined) {
+  set options(options: echarts.EChartsOption | undefined) {
     this._options = options;
   }
-  private _options?: EChartsOption;
+  private _options?: echarts.EChartsOption;
 
   @Output()
   readonly chartInit = new EventEmitter<AjfEchartsInitEvent>();
 
-  private _echarts?: EchartsModule;
+  private _echarts?: any;
   private _container: HTMLElement;
-  private _chart?: ECharts;
+  private _chart?: echarts.ECharts;
   private _resizeObserver?: ResizeObserver;
   private _resizeEvent = new EventEmitter<void>();
   private _resizeSub = Subscription.EMPTY;
@@ -143,6 +142,9 @@ export class AjfEchartsDirective implements OnChanges, OnDestroy, OnInit {
       return;
     }
     this._chart = this._echarts.init(this._container, this._theme, {renderer: this._renderer});
+    if (this._chart == null) {
+      return;
+    }
     if (this._options) {
       this._chart.setOption(this._options);
     }

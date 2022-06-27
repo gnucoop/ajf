@@ -22,12 +22,7 @@
 
 import {ModuleWithProviders, NgModule} from '@angular/core';
 
-import {
-  AjfEchartsConfig,
-  AjfEchartsProvider,
-  AJF_ECHARTS_PROVIDER,
-  EchartsModule,
-} from './echarts-config';
+import {AjfEchartsConfig, AjfEchartsProvider, AJF_ECHARTS_PROVIDER} from './echarts-config';
 import {AjfEchartsDirective} from './echarts-directive';
 
 @NgModule({
@@ -35,11 +30,8 @@ import {AjfEchartsDirective} from './echarts-directive';
   exports: [AjfEchartsDirective],
 })
 export class AjfEchartsModule {
-  static forRoot(config?: AjfEchartsConfig): ModuleWithProviders<AjfEchartsModule> {
-    let echarts: EchartsModule | AjfEchartsProvider | undefined = (config || {}).echarts;
-    if (echarts == null) {
-      echarts = () => import('echarts');
-    }
+  static forRoot(config: AjfEchartsConfig): ModuleWithProviders<AjfEchartsModule> {
+    let echarts: any | AjfEchartsProvider = config.echarts;
     if (typeof echarts !== 'function') {
       echarts = (async () => echarts) as AjfEchartsProvider;
     }

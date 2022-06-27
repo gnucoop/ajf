@@ -34,8 +34,7 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
-import type {EChartsOption, MapSeriesOption} from 'echarts';
-import type {Feature, FeatureCollection, Geometry} from 'geojson';
+import {Feature, FeatureCollection, Geometry} from 'geojson';
 
 let heatMapIdx = 0;
 
@@ -106,10 +105,10 @@ export class AjfHeatMap implements OnChanges, OnDestroy {
   @Output()
   readonly featureSelected = new EventEmitter<AjfHeatMapFeatureSelected>();
 
-  get chartOptions(): EChartsOption | undefined {
+  get chartOptions(): echarts.EChartsOption | undefined {
     return this._chartOptions;
   }
-  private _chartOptions?: EChartsOption;
+  private _chartOptions?: echarts.EChartsOption;
   private _name = `ajf_heatmap_${heatMapIdx++}`;
   private _echarts?: EchartsModule;
 
@@ -179,7 +178,7 @@ export class AjfHeatMap implements OnChanges, OnDestroy {
     this._cdr.detectChanges();
   }
 
-  private _getChartSeries(): MapSeriesOption[] {
+  private _getChartSeries(): echarts.MapSeriesOption[] {
     const data = this._getFeaturesData();
     if (data.length === 0) {
       return [];

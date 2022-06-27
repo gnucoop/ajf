@@ -21,14 +21,13 @@
  */
 
 import {InjectionToken} from '@angular/core';
-import type * as echarts from 'echarts';
 
-export type EchartsModule = typeof echarts;
+export type EchartsModule = any;
 
 export type AjfEchartsProvider = () => Promise<EchartsModule>;
 
 export interface AjfEchartsConfig {
-  echarts?: EchartsModule | AjfEchartsProvider;
+  echarts: EchartsModule | AjfEchartsProvider;
 }
 
 export const AJF_ECHARTS_PROVIDER = new InjectionToken<AjfEchartsProvider>('AJF_ECHARTS_PROVIDER');

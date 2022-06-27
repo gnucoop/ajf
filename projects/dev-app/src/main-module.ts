@@ -46,7 +46,7 @@ import {DEV_APP_ROUTES} from './routes';
     HttpClientModule,
     IonicModule.forRoot(),
     RouterModule.forRoot(DEV_APP_ROUTES),
-    AjfEchartsModule.forRoot(),
+    AjfEchartsModule.forRoot({echarts: () => import('echarts')}),
     AjfTranslocoModule.forRoot(),
   ],
   declarations: [DevAppComponent],

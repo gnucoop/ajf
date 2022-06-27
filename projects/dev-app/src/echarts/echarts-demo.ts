@@ -20,8 +20,9 @@
  *
  */
 
+import 'echarts';
+
 import {Component} from '@angular/core';
-import {EChartsOption} from 'echarts';
 
 @Component({
   selector: 'echarts-demo',
@@ -31,7 +32,7 @@ import {EChartsOption} from 'echarts';
 export class EchartsDemo {
   dark: boolean = false;
 
-  readonly options: EChartsOption = {
+  readonly options: echarts.EChartsOption = {
     xAxis: {
       type: 'category',
       data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],

@@ -7,7 +7,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": [],
+    "types": ["echarts"],
     "paths": {
       "@ajf/core": ["../../dist/core"],
       "@ajf/core/*": ["../../dist/core/*"]
