@@ -5,6 +5,7 @@
     "baseUrl": "./",
     "outDir": "../../out-tsc/ionic-spec",
     "types": [
+      "echarts",
       "jasmine"
     ],
     "paths": {
