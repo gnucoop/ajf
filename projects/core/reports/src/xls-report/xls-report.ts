@@ -48,10 +48,7 @@ import {AjfColumnWidget} from '../interface/widgets/column-widget';
 import {AjfGraphNodeDataset} from '../interface/dataset/graph-dataset';
 
 /**
- * This function returns a basic report for any form passed in input.
- *
- * @param form the form schema
- * @param [id] the id of the form inside the plathform.
+ * This function builds a report from an excel file.
  */
 export function xlsReport(file: string, http: HttpClient): Observable<AjfReport> {
   const workbook = XLSX.read(file, {type: 'binary'});
@@ -83,28 +80,32 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
         const json = XLSX.utils.sheet_to_json(sheet) as {
           name: string;
           value: string;
+          __rowNum__: string;
         }[];
 
         if (sheetName === 'variables') {
           json
-            .filter(e => e != null && e.name != null && e.value != null)
+            .filter(e => e != null && e.name != null && e.name !== '')
             .forEach(elem => {
-              let indicator = elem.value;
+              let js: string;
               try {
-                indicator = indicatorToJs(elem.value);
-              } catch (e) {
-                console.log(e);
+                js = indicatorToJs(elem.value);
+              } catch (err: any) {
+                const r = elem.__rowNum__;
+                err = new Error(`Error in variable "${elem.name}" (row ${r}): ${err.message}`);
+                window.alert(err.message);
+                throw err;
               }
               variables.push({
                 name: elem.name,
-                formula: {formula: indicator},
+                formula: {formula: js},
               });
             });
         } else {
           const idx = filterNames.indexOf(sheetName);
 
           if (sheetName.includes('table')) {
-            const tableWidget = _buildTable(json);
+            const tableWidget = _buildTable(sheetName, json);
             reportWidgets.push(tableWidget);
           } else if (sheetName.includes('chart')) {
             const chartWidget = _buildChart(sheetName, json);
@@ -175,7 +176,7 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
   const chartOptions: {[key: string]: string} = {};
   const datasetObj: {[key: string]: any} = {};
   const dataset: AjfChartDataset[] = [];
-  let labels: AjfFormula = {formula: `[]`};
+  let labels: AjfFormula = {formula: '[]'};
 
   if (json.length > 0) {
     const firstRow = json[0];
@@ -199,21 +200,34 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
   });
   const doLabels = datasetObj['labels'];
   if (doLabels != null) {
-    labels = {
-      formula: `plainArray([${doLabels.map((label: string) => indicatorToJs(label))}])`,
-    };
+    let labelsJs: string;
+    try {
+      labelsJs = indicatorToJs('[' + doLabels.join() + ']');
+    } catch (err: any) {
+      err = new Error(`Error in "labels" of chart "${chartOptions['title']}": ${err.message}`);
+      window.alert(err.message);
+      throw err;
+    }
+    labels = {formula: `plainArray(${labelsJs})`};
     delete datasetObj['labels'];
   }
   Object.keys(datasetObj).forEach((datasetObjKey, index) => {
-    const datasetRow = datasetObj[datasetObjKey].map((r: string) => indicatorToJs(`${r}`));
+    let datasetJs: string;
+    try {
+      datasetJs = indicatorToJs('[' + datasetObj[datasetObjKey].join() + ']');
+    } catch (err: any) {
+      err = new Error(`Error in "${datasetObjKey}" of chart "${chartOptions['title']}": ${err.message}`);
+      window.alert(err.message);
+      throw err;
+    }
 
     const chartType = chartOptions['chartType'];
     const colorCondition =
       chartType === 'Pie' || chartType === 'PolarArea' || chartType === 'Doughnut';
     const backColor = colorCondition ? backgroundColor : backgroundColor[index];
-    const formula: AjfFormula[] = [
-      createFormula({formula: `plainArray([${datasetRow.toString()}])`}),
-    ];
+    const formula: AjfFormula[] = [createFormula({
+      formula: `plainArray(${datasetJs})`
+    })];
     const datasetOptions: AjfChartDatasetOptions = {
       backgroundColor: backColor as ChartColor,
     };
@@ -239,7 +253,7 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
       legend: {display: true, position: 'bottom'},
       title: {
         display: true,
-        text: `${chartOptions['title'] || ''}`.replace(/"/gi, ''),
+        text: chartOptions['title'] || '',
       },
     },
     styles: {
@@ -256,12 +270,22 @@ function _buildGraph(name: string, json: {[key: string]: string}[]): AjfWidget {
   json.forEach(row => {
     const rowKeys = Object.keys(row);
     if (rowKeys.includes('id') && row['id']) {
-      const rowId = row['id'].trim().replace(/^["]|["]$/g, '');
+      const rowId = row['id'].trim().replace(/"/g, '');
       if (rowId && rowId.length) {
         let graphNodeObj: {[key: string]: any} = {};
         rowKeys.forEach(rowKey => {
-          const value = row[rowKey].toString();
-          graphNodeObj[rowKey] = value;
+          let js: string;
+          try {
+            js = indicatorToJs(row[rowKey]);
+          } catch (err: any) {
+            const rowNum = row['__rowNum__'];
+            err = new Error(
+              `Error in "${name}", row ${rowNum}, column "${rowKey}": ${err.message}`
+            );
+            window.alert(err.message);
+            throw err;
+          }
+          graphNodeObj[rowKey] = js;
         });
         graphNodeObj['id'] = rowId;
         nodes.push(graphNodeObj as AjfGraphNodeDataset);
@@ -281,20 +305,19 @@ function _buildHtml(json: {[key: string]: string}[]): AjfWidget {
 
   return createWidget({
     widgetType: AjfWidgetType.Text,
-    htmlText: `${firstRow['html']}`,
+    htmlText: String(firstRow['html']),
     styles: htmlWidget,
   });
 }
 
-function _buildTable(json: {[key: string]: string}[]): AjfWidget {
+function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWidget {
   const rowspan = 1;
-  const dataElements: any[][] = [];
   const titles = Object.keys(json[0]);
   const colspans: number[] = (Object.values(json[0]) as string[]).map(r => +r);
   delete json[0];
   const tableHeader: AjfTableDataset[] = titles.map((title, index) => ({
     label: '',
-    formula: {formula: `\"${title}\"`},
+    formula: {formula: `"${title}"`},
     aggregation: {aggregation: 0},
     colspan: colspans[index],
     rowspan,
@@ -306,24 +329,33 @@ function _buildTable(json: {[key: string]: string}[]): AjfWidget {
     },
   }));
 
+  console.log(json);
+  let dataRows = '[';
   json.forEach(row => {
-    const elems: any[] = [];
+    let dataRow = '[';
     titles.forEach(title => {
-      let elem: string = row[title] || `\"\"`;
+      let elem = row[title] || `''`;
       try {
         elem = indicatorToJs(elem);
-      } catch (err) {
-        elem = `${row[title]}`;
+      } catch (err: any) {
+        const rowNum = row['__rowNum__'];
+        err = new Error(
+          `Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`
+        );
+        window.alert(err.message);
+        throw err;
       }
-      elems.push(elem.replace(/[\*\r\n]|@[\w-]+/g, ''));
+      dataRow += elem + ',';
     });
-    dataElements.push(elems);
+    dataRow += ']';
+    dataRows += dataRow + ',';
   });
+  dataRows += ']';
 
   return createWidget({
     widgetType: AjfWidgetType.DynamicTable,
     rowDefinition: {
-      formula: `buildDataset([${dataElements}],${JSON.stringify(colspans)})`,
+      formula: `buildDataset(${dataRows},${JSON.stringify(colspans)})`,
     },
     dataset: tableHeader,
     exportable: true,
