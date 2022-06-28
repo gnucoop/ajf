@@ -14,13 +14,13 @@
     "npm": "Please use Yarn instead of NPM to install dependencies. See: https://yarnpkg.com/lang/en/docs/install/"
   },
   "scripts": {
-    "postinstall": "scripts/postinstall.mjs",
+    "postinstall": "node scripts/postinstall.mjs",
     "ng": "ng",
-    "build": "scripts/build.mjs",
-    "build-docs-content": "scripts/build-docs.mjs",
+    "build": "node scripts/build.mjs",
+    "build-docs-content": "node scripts/build-docs.mjs",
     "dev-app": "ng serve dev-app",
     "test": "ng test",
-    "test:ci": "CI_TEST=1 ng test --no-watch",
+    "test:ci": "node scripts/test-ci.mjs",
     "e2e-app": "ng serve e2e-app",
     "e2e:calendars": "ng run calendars:cypress-open",
     "e2e:core": "ng run core:cypress-open",
@@ -32,8 +32,8 @@
     "e2e-ionic": "concurrently \"yarn e2e-app\" \"yarn e2e:ionic\"",
     "e2e-material": "concurrently \"yarn e2e-app\" \"yarn e2e:material\"",
     "lint": "ng lint",
-    "prepare-release": "scripts/prepare-release.mjs",
-    "release": "scripts/release.mjs",
+    "prepare-release": "node scripts/prepare-release.mjs",
+    "release": "node scripts/release.mjs",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },

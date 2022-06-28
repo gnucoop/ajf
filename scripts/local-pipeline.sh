@@ -9,16 +9,16 @@ echo "Lint"
 yarn -s lint
 
 echo "Build"
-./scripts/build.mjs
+node ./scripts/build.mjs
 
 echo "Unit tests"
-yarn -s test:ci
+node ./scripts/test-ci.mjs
 
 echo "E2E tests"
-./scripts/e2e-ci.mjs
+node ./scripts/e2e-ci.mjs
 
 echo "Build release"
-./scripts/release.mjs
+node ./scripts/release.mjs
 
 echo "Build docs"
-./scripts/build-docs.mjs
+node ./scripts/build-docs.mjs

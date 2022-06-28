@@ -18,7 +18,8 @@ const runE2eApp = async () => {
 };
 
 const runPackageE2e = async pkg => {
-  const res = shell.exec(`NO_COLOR=1 yarn -s ng run ${pkg}:cypress-run-ci`, {
+  shell.env['NO_COLOR'] = '1';
+  const res = shell.exec(`yarn -s ng run ${pkg}:cypress-run-ci`, {
     async: true,
     silent: false,
   });
