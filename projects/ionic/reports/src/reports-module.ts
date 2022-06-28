@@ -34,19 +34,23 @@ import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 
 import {AjfChartWidgetComponent} from './chart-widget';
-import {AjfDialogModal} from './dialog-modal';
-import {AjfDialogWidgetComponent} from './dialog-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfHeatMapWidgetComponent} from './heat-map-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
-import {AjfPaginatedListWidgetComponent} from './paginated-list-widget';
 import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
-import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} from './widget';
+import {
+  AjfColumnWidgetComponent,
+  AjfDialogModal,
+  AjfDialogWidgetComponent,
+  AjfLayoutWidgetComponent,
+  AjfPaginatedListWidgetComponent,
+  AjfReportWidget,
+} from './widget';
 
 @NgModule({
   imports: [

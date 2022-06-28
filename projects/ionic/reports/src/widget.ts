@@ -23,9 +23,12 @@
 import {
   AjfBaseWidgetComponent,
   AjfColumnWidgetInstance,
+  AjfDialogWidgetInstance,
   AjfLayoutWidgetInstance,
+  AjfPaginatedListWidgetInstance,
   AjfReportWidget as CoreComponent,
   AjfWidgetComponentsMap,
+  AjfWidgetInstance,
   AjfWidgetService as CoreService,
   AjfWidgetType as wt,
 } from '@ajf/core/reports';
@@ -36,20 +39,24 @@ import {
   Component,
   ElementRef,
   Injectable,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
   Renderer2,
+  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
+import {ModalController} from '@ionic/angular';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {AjfChartWidgetComponent} from './chart-widget';
-import {AjfDialogWidgetComponent} from './dialog-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfHeatMapWidgetComponent} from './heat-map-widget';
 import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
-import {AjfPaginatedListWidgetComponent} from './paginated-list-widget';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
 
@@ -126,5 +133,144 @@ export class AjfLayoutWidgetComponent
   }
   ngAfterContentChecked(): void {
     this._allcolumnsRendered$.next(true);
+  }
+}
+
+@Component({
+  templateUrl: 'dialog-widget.html',
+  styleUrls: ['dialog-widget.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfDialogWidgetComponent
+  extends AjfBaseWidgetComponent<AjfDialogWidgetInstance>
+  implements OnDestroy
+{
+  private _modal?: HTMLIonModalElement;
+
+  constructor(cdr: ChangeDetectorRef, el: ElementRef, private _modalCtrl: ModalController) {
+    super(cdr, el);
+  }
+
+  ngOnDestroy(): void {
+    if (this._modal) {
+      this._modal.dismiss();
+    }
+  }
+
+  openDialog(): void {
+    if (this.instance == null || this.instance.content.length === 0) {
+      return;
+    }
+    this._modalCtrl
+      .create({
+        component: AjfDialogModal,
+        componentProps: {
+          content: this.instance.content,
+        },
+      })
+      .then(modal => {
+        this._modal = modal;
+        modal.present();
+      });
+  }
+}
+
+@Component({
+  templateUrl: 'dialog-modal.html',
+  styleUrls: ['dialog-modal.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfDialogModal {
+  @Input() content: AjfWidgetInstance[] = [];
+}
+
+@Component({
+  templateUrl: 'paginated-list-widget.html',
+  styleUrls: ['paginated-list-widget.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfPaginatedListWidgetComponent
+  extends AjfBaseWidgetComponent<AjfPaginatedListWidgetInstance>
+  implements OnChanges, OnInit
+{
+  get currentPage(): number {
+    return this._currentPage;
+  }
+  private _currentPage = 0;
+
+  get pages(): number {
+    return this._pages;
+  }
+  private _pages = 0;
+
+  get currentContent(): AjfWidgetInstance[] {
+    return this._currentContent;
+  }
+  private _currentContent: AjfWidgetInstance[] = [];
+
+  get canGoForward(): boolean {
+    return this._canGoForward;
+  }
+  private _canGoForward = false;
+
+  get canGoBackward(): boolean {
+    return this._canGoBackward;
+  }
+  private _canGoBackward = false;
+
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['instance']) {
+      this._updateCurrentContent();
+    }
+  }
+
+  ngOnInit(): void {
+    this._updateCurrentContent();
+  }
+
+  goToPage(direction: 'next' | 'previous'): void {
+    const diff = direction === 'next' ? 1 : -1;
+    const newPage = this._currentPage + diff;
+    if (newPage <= 0 || newPage > this._pages) {
+      return;
+    }
+    this._currentPage = newPage;
+    this._canGoForward = newPage < this._pages;
+    this._canGoBackward = newPage > 1;
+    this._fillCurrentContent();
+  }
+
+  private _updateCurrentContent(): void {
+    this._canGoBackward = false;
+    if (this.instance == null || this.instance.content.length === 0) {
+      this._currentPage = 0;
+      this._pages = 0;
+    } else {
+      this._currentPage = 1;
+      const {content} = this.instance;
+      const {pageSize} = this.instance.widget;
+      this._pages = Math.ceil(content.length / pageSize);
+      this._canGoForward = this._pages > 1;
+    }
+    this._fillCurrentContent();
+  }
+
+  private _fillCurrentContent(): void {
+    if (this.instance == null || this.instance.content.length === 0) {
+      this._currentContent = [];
+      return;
+    }
+    const {content} = this.instance;
+    const {pageSize} = this.instance.widget;
+    const start = (this._currentPage - 1) * pageSize;
+    this._currentContent = content.slice(start, start + pageSize);
+    this._cdr.markForCheck();
   }
 }

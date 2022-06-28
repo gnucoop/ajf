@@ -37,7 +37,6 @@ import {NgModule} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
 
 import {AjfChartWidgetComponent} from './chart-widget';
-import {AjfDialogWidgetComponent} from './dialog-widget';
 import {AjfFilterWidgetComponent} from './filter-widget';
 import {AjfFormulaWidgetComponent} from './formula-widget';
 import {AjfHeatMapWidgetComponent} from './heat-map-widget';
@@ -45,11 +44,16 @@ import {AjfImageContainerWidgetComponent} from './image-container-widget';
 import {AjfImageWidgetComponent} from './image-widget';
 import {AjfMapWidgetComponent} from './map-widget';
 import {AjfPageBreakWidgetComponent} from './page-break-widget';
-import {AjfPaginatedListWidgetComponent} from './paginated-list-widget';
 import {AjfReportRenderer} from './report';
 import {AjfTableWidgetComponent} from './table-widget';
 import {AjfTextWidgetComponent} from './text-widget';
-import {AjfColumnWidgetComponent, AjfLayoutWidgetComponent, AjfReportWidget} from './widget';
+import {
+  AjfColumnWidgetComponent,
+  AjfDialogWidgetComponent,
+  AjfLayoutWidgetComponent,
+  AjfPaginatedListWidgetComponent,
+  AjfReportWidget,
+} from './widget';
 import {AjfGraphWidgetComponent} from './graph-widget';
 
 @NgModule({
