@@ -147,6 +147,16 @@ function tokenize(s: string): Token[] {
 }
 
 export function indicatorToJs(formula: string): string {
+  switch (typeof(formula)) {
+    case 'string':
+      break;
+    case 'number':
+    case 'boolean':
+      formula = String(formula);
+      break;
+    default:
+      throw new Error('formula is not a string');
+  }
   return parseExpression(tokenize(formula).reverse(), TokenType.END);
 }
 
