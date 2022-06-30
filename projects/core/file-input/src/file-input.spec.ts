@@ -24,6 +24,14 @@ const emptyPngValue = {
   type: 'image/png',
 };
 
+const emptyPngValueWithUrl = {
+  content: '',
+  name: 'empty.png',
+  size: n,
+  type: 'image/png',
+  url: 'http://empty.png',
+};
+
 describe('AjfFileInput', () => {
   let fixture: ComponentFixture<AjfFileInput>;
 
@@ -88,6 +96,23 @@ describe('AjfFileInput', () => {
     expect(filePreviews.length).toBe(1);
     const filePreview = filePreviews[0];
     expect(filePreview.innerHTML).toMatch(/empty\.png/);
+  });
+
+  it('should set to deleted value with url', async () => {
+    const fileInput = fixture.componentInstance;
+    fileInput.value = emptyPngFile;
+    const lastValue = fileInput.valueChange.pipe(shareReplay(1));
+    await firstValueFrom(lastValue.pipe(take(1)));
+    const {name, size, type} = fileInput.value as AjfFile;
+    fileInput.value.url = emptyPngValueWithUrl.url;
+    expect(name).toEqual(emptyPngFile.name);
+    expect(size).toEqual(emptyPngFile.size);
+    expect(type).toEqual(emptyPngFile.type);
+    fileInput.resetValue();
+    await firstValueFrom(lastValue.pipe(take(1)));
+    expect(fileInput.value.deleteUrl).toBeTrue();
+    expect(fileInput.value.url).toEqual(emptyPngValueWithUrl.url);
+    expect(fileInput.value.content).toBeNull();
   });
 });
 

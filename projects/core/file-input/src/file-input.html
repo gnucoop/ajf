@@ -1,5 +1,5 @@
 <div ajfDnd (file)="onFileDrop($event)" class="ajf-drop-zone">
-  <div *ngIf="value === undefined; else fileInfo" class="ajf-drop-message" (click)="triggerNativeInput()">
+  <div *ngIf="emptyFile; else fileInfo" class="ajf-drop-message" (click)="triggerNativeInput()">
     <ng-container *ngIf="_dropMessageChildren?.length; else defaultDropMessage">
       <ng-content select="[ajfDropMessage]"></ng-content>
     </ng-container>
