@@ -51,7 +51,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfImageFieldComponent extends AjfBaseFieldComponent {
-  readonly imageUrl: Observable<SafeResourceUrl>;
+  readonly imageUrl: Observable<SafeResourceUrl | null>;
 
   constructor(
     cdr: ChangeDetectorRef,
@@ -70,7 +70,14 @@ export class AjfImageFieldComponent extends AjfBaseFieldComponent {
       shareReplay(1),
     );
     this.imageUrl = fileStream.pipe(
-      map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)),
+      map(file => {
+        if (file.content && file.content.length) {
+          return domSanitizer.bypassSecurityTrustResourceUrl(file.content);
+        } else if (file.url && file.url.length) {
+          return domSanitizer.bypassSecurityTrustResourceUrl(file.url);
+        }
+        return null;
+      }),
     );
   }
 }

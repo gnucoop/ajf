@@ -1,4 +1,4 @@
-<a *ngIf="fileUrl|async as fu ; else noFile" [href]="fu" [download]="fileName|async">
+<a *ngIf="fileUrl|async as fu ; else noFile" [href]="fu" [download]="fileName|async" target="_blank">
   <img [src]="fileIcon"> {{ fileName|async }}
 </a>
 <ng-template #noFile>

@@ -58,17 +58,23 @@ export interface AjfFormActionEvent {
 
 @Directive()
 export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit, OnDestroy {
-  // formGroup is an Observable FormGroup type
+  /**
+   * formGroup is an Observable FormGroup type
+   */
   readonly formGroup: Observable<FormGroup | null>;
 
-  //  slides is an observable AjfSlide array type
+  /**
+   * slides is an observable AjfSlide array type
+   */
   readonly slides: Observable<AjfSlideInstance[]>;
+
   readonly slidesNum: Observable<number>;
   readonly errors: Observable<number>;
   readonly formIsInit: Observable<boolean>;
 
-  // ajfFieldTypes [ Text, Number, Boolean, SingleChoice, MultipleChoice,
-  // Formula, Empty, Composed, LENGTH ]
+  /**
+   * The available ajf field types.
+   */
   readonly ajfFieldTypes = AjfFieldType;
 
   @Input() title: string = '';
@@ -180,12 +186,16 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
 
   private _errorMoveEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  // _errorPositions is a private subject structure that contains next and prev
+  /**
+   * Is a private subject structure that contains next and prev
+   */
   private _errorPositions: Observable<number[]>;
 
-  // _form is a private ajFForm
+  /**
+   * is a private AjfForm
+   */
   private _form: AjfForm | undefined;
-  // _init is a private boolean
+
   private _init = false;
 
   private _nextSlideSubscription: Subscription = Subscription.EMPTY;

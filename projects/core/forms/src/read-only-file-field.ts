@@ -53,7 +53,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
 })
 export class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
   readonly fileIcon: SafeResourceUrl;
-  readonly fileUrl: Observable<SafeResourceUrl>;
+  readonly fileUrl: Observable<SafeResourceUrl | null>;
   readonly fileName: Observable<string>;
 
   constructor(
@@ -74,7 +74,14 @@ export class AjfReadOnlyFileFieldComponent extends AjfBaseFieldComponent {
       shareReplay(1),
     );
     this.fileUrl = fileStream.pipe(
-      map(file => domSanitizer.bypassSecurityTrustResourceUrl(file.content)),
+      map(file => {
+        if (file.content && file.content.length) {
+          return domSanitizer.bypassSecurityTrustResourceUrl(file.content);
+        } else if (file.url && file.url.length && !file.deleteUrl) {
+          return domSanitizer.bypassSecurityTrustResourceUrl(file.url);
+        }
+        return null;
+      }),
     );
     this.fileName = fileStream.pipe(map(file => file.name));
   }

@@ -75,6 +75,12 @@ export class AjfFilePreview implements OnDestroy {
   }
 }
 
+/**
+ * It allows the upload of a file inside an AjfForm.
+ *
+ * @export
+ * @class AjfFileInput
+ */
 @Component({
   selector: 'ajf-file-input',
   templateUrl: './file-input.html',
@@ -96,13 +102,27 @@ export class AjfFilePreview implements OnDestroy {
 export class AjfFileInput implements ControlValueAccessor {
   @ContentChildren(AjfDropMessage, {descendants: false})
   _dropMessageChildren!: QueryList<AjfDropMessage>;
+
   @ContentChildren(AjfFilePreview, {descendants: false})
   _filePreviewChildren!: QueryList<AjfFilePreview>;
+
   @ViewChild('nativeInput') _nativeInput!: ElementRef<HTMLInputElement>;
 
   readonly fileIcon: SafeResourceUrl;
   readonly removeIcon: SafeResourceUrl;
 
+  /**
+   * Enable drop for a new file to upload
+   */
+  private _emptyFile: boolean;
+  get emptyFile(): boolean {
+    return this._emptyFile;
+  }
+
+  /**
+   * Accepted MimeType
+   * Es. "image/*" or "application/pdf"
+   */
   @Input() accept: string | undefined;
 
   private _value: any;
@@ -119,6 +139,9 @@ export class AjfFileInput implements ControlValueAccessor {
       }
     } else if (value == null || (isAjfFile(value) && isValidMimeType(value.type, this.accept))) {
       this._value = value;
+      if (isAjfFile(value)) {
+        this._emptyFile = false;
+      }
       this._valueChange.emit(this._value);
       if (this._controlValueAccessorChangeFn != null) {
         this._controlValueAccessorChangeFn(this.value);
@@ -133,13 +156,25 @@ export class AjfFileInput implements ControlValueAccessor {
     AjfFile | undefined
   >;
 
-  /** The method to be called in order to update ngModel. */
+  /**
+   * Event emitter for the delete file action
+   */
+  private _deleteFile = new EventEmitter<string>();
+  @Output()
+  readonly deleteFile: Observable<string> = this._deleteFile as Observable<string>;
+
+  /**
+   * The method to be called in order to update ngModel.
+   */
   _controlValueAccessorChangeFn: (value: any) => void = () => {};
 
-  /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+  /**
+   * onTouch function registered via registerOnTouch (ControlValueAccessor).
+   */
   _onTouched: () => any = () => {};
 
   constructor(domSanitizer: DomSanitizer, private _cdr: ChangeDetectorRef) {
+    this._emptyFile = true;
     this.fileIcon = domSanitizer.bypassSecurityTrustResourceUrl(fileIcon);
     this.removeIcon = domSanitizer.bypassSecurityTrustResourceUrl(trashIcon);
   }
@@ -173,8 +208,20 @@ export class AjfFileInput implements ControlValueAccessor {
   }
 
   resetValue(): void {
-    this.value = null;
+    if (this.value !== null) {
+      if (this.value.url && this.value.url.length) {
+        this._deleteFile.emit(this.value.url);
+        this.value.deleteUrl = true;
+        this.value.content = null;
+        this.value.name = null;
+        this.value.size = 0;
+      } else {
+        this.value = null;
+      }
+    }
     this._nativeInput.nativeElement.value = '';
+    this._emptyFile = true;
+    this._cdr.markForCheck();
   }
 
   triggerNativeInput(): void {
@@ -186,6 +233,11 @@ export class AjfFileInput implements ControlValueAccessor {
 
   writeValue(value: any) {
     this.value = value;
+    if (value == null || value == undefined || (value !== null && value.deleteUrl)) {
+      this._emptyFile = true;
+    } else {
+      this._emptyFile = false;
+    }
     this._cdr.markForCheck();
   }
 
@@ -201,22 +253,25 @@ export class AjfFileInput implements ControlValueAccessor {
         return;
       }
       this.value = {name, size, type, content};
+      this._emptyFile = false;
     };
     reader.readAsDataURL(file);
   }
 }
 
-const ajfFileKeys = JSON.stringify(['content', 'name', 'size', 'type']);
-
 /**
  * Test if a value is an AjfFile interface.
+ * The AjfFile is valid if it contains the name and
+ * the content or the url of the file
  */
 function isAjfFile(value: any): value is AjfFile {
-  if (typeof value !== 'object') {
+  if (value == null || typeof value !== 'object') {
     return false;
   }
-  const keys = Object.keys(value).sort((a, b) => a.localeCompare(b));
-  return JSON.stringify(keys) === ajfFileKeys;
+  if ('name' in value && ('content' in value || 'url' in value)) {
+    return true;
+  }
+  return false;
 }
 
 function isValidMimeType(mimeType: string, accept: string | undefined): boolean {
