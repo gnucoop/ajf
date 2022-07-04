@@ -1,3 +1,20 @@
+<a name="13.2.0"></a>
+# 13.2.0 "jittery-dormouse" (2022-07-04)
+### Bug Fixes
+* **core/echarts:** make echarts module options required ([787f0e0](https://github.com/gnucoop/ajf/commit/787f0e082ad50ab457d8d1e8415e87d558fdc138))
+* **core/reports:** missing props in heat map widget instance ([7ccd7d6](https://github.com/gnucoop/ajf/commit/7ccd7d6685ee9016b68bb488b8cb6454c1e749b7))
+### Features
+* **core/file-input:** add upload to storage options in file field ([e48bd88](https://github.com/gnucoop/ajf/commit/e48bd88493d94df63f594e8bf30870a86d6d9947))
+* **core/heat-map:** add heat map component ([686d978](https://github.com/gnucoop/ajf/commit/686d9787a8f8e11d838ae8a66e5c1806e8f6dfc6))
+* **core/reports:** add support for heatmap widgets in xlsreports ([2955009](https://github.com/gnucoop/ajf/commit/2955009eb4d554a2a01c6bd3ecbb52b775bee21a))
+* **core/reports:** heatmap widget values from formula ([5efbb82](https://github.com/gnucoop/ajf/commit/5efbb82dbf0471131293e9a23f06ae559b7a31fd))
+* **core/reports:** xlsreport: improved error reporting ([7025985](https://github.com/gnucoop/ajf/commit/7025985a565dc5c6f522c6d5059f4059a61263c4))
+* **reports:** add dialog widget ([ad9358f](https://github.com/gnucoop/ajf/commit/ad9358fe1b56053a436797a51b1ee727b9134745))
+* **reports:** add heat map widget ([a2a5674](https://github.com/gnucoop/ajf/commit/a2a567465e2ee10e2e18698fc4ba6a1396e63a26))
+* **reports:** add paginated list widget ([e123bd1](https://github.com/gnucoop/ajf/commit/e123bd16c2ff4bc505ade520a871eaf2d83cb9ab))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.1.5"></a>
 # 13.1.5 "wonderful-crocodile" (2022-05-06)
 ### Bug Fixes
