@@ -116,7 +116,7 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
           } else if (sheetName.includes('graph')) {
             const graphWidget = _buildGraph(sheetName, json);
             reportWidgets.push(graphWidget);
-          } else if (sheetName.indexOf('heatmap')) {
+          } else if (sheetName.includes('heatmap')) {
             const heatmapWidget = _buildHeatmap(sheetName, json);
             reportWidgets.push(heatmapWidget);
           }
@@ -219,7 +219,9 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
     try {
       datasetJs = indicatorToJs('[' + datasetObj[datasetObjKey].join() + ']');
     } catch (err: any) {
-      err = new Error(`Error in "${datasetObjKey}" of chart "${chartOptions['title']}": ${err.message}`);
+      err = new Error(
+        `Error in "${datasetObjKey}" of chart "${chartOptions['title']}": ${err.message}`,
+      );
       window.alert(err.message);
       throw err;
     }
@@ -228,9 +230,11 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
     const colorCondition =
       chartType === 'Pie' || chartType === 'PolarArea' || chartType === 'Doughnut';
     const backColor = colorCondition ? backgroundColor : backgroundColor[index];
-    const formula: AjfFormula[] = [createFormula({
-      formula: `plainArray(${datasetJs})`
-    })];
+    const formula: AjfFormula[] = [
+      createFormula({
+        formula: `plainArray(${datasetJs})`,
+      }),
+    ];
     const datasetOptions: AjfChartDatasetOptions = {
       backgroundColor: backColor as ChartColor,
     };
@@ -283,7 +287,7 @@ function _buildGraph(name: string, json: {[key: string]: string}[]): AjfWidget {
           } catch (err: any) {
             const rowNum = row['__rowNum__'];
             err = new Error(
-              `Error in "${name}", row ${rowNum}, column "${rowKey}": ${err.message}`
+              `Error in "${name}", row ${rowNum}, column "${rowKey}": ${err.message}`,
             );
             window.alert(err.message);
             throw err;
@@ -343,7 +347,7 @@ function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWid
       } catch (err: any) {
         const rowNum = row['__rowNum__'];
         err = new Error(
-          `Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`
+          `Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`,
         );
         window.alert(err.message);
         throw err;

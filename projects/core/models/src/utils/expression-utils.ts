@@ -25,7 +25,6 @@ import * as dateFns from 'date-fns';
 import {parseScript} from 'meriyah';
 import * as numbroMod from 'numbro';
 import {AjfTableCell} from '@ajf/core/table';
-
 import {AjfValidationFn} from '../interface/validation-function';
 
 let execContext: any = {};
@@ -132,10 +131,13 @@ export class AjfExpressionUtils {
     REPEAT: {fn: REPEAT},
     EVALUATE: {fn: EVALUATE},
     buildDataset: {fn: buildDataset},
+    buildFormDataset: {fn: buildFormDataset},
+    buildWidgetDataset: {fn: buildWidgetDataset},
     FILTER_BY: {fn: FILTER_BY},
     IS_BEFORE: {fn: IS_BEFORE},
     IS_AFTER: {fn: IS_AFTER},
     IS_WITHIN_INTERVAL: {fn: IS_WITHIN_INTERVAL},
+    COMPARE_DATE: {fn: COMPARE_DATE},
     APPLY: {fn: APPLY},
     TODAY: {fn: TODAY},
     GET_AGE: {fn: GET_AGE},
@@ -1042,6 +1044,12 @@ export function MODE(forms: (Form | MainForm)[], fieldName: string): number[] {
     .map(v => +v);
 }
 
+/**
+ * Build a dataset for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param colspans colspan for each value in the dataset
+ * @returns An AjfTableCell list
+ */
 export function buildDataset(
   dataset: (string | number | string[] | number[])[],
   colspans: number[],
@@ -1074,6 +1082,106 @@ export function buildDataset(
     });
     res.push(row);
   });
+  return res;
+}
+
+/**
+ * Build a dataset based on a list of Forms, for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param fields the list of fields name for each row
+ * @param backgroundColorA the first backgroud color
+ * @param backgroundColorB the second backgroud color
+ * @returns An AjfTableCell list
+ */
+export function buildFormDataset(
+  dataset: MainForm[],
+  fields: string[],
+  backgroundColorA?: string,
+  backgroundColorB?: string,
+): AjfTableCell[][] {
+  const res: AjfTableCell[][] = [];
+  if (backgroundColorA == null) {
+    backgroundColorA = 'white';
+  }
+  if (backgroundColorB == null) {
+    backgroundColorB = '#ddd';
+  }
+  if (dataset) {
+    dataset.forEach((data: MainForm, index: number) => {
+      if (data) {
+        const row: AjfTableCell[] = [];
+        fields.forEach((field: string) => {
+          row.push({
+            value: data[field],
+            colspan: 1,
+            rowspan: 1,
+            style: {
+              textAlign: 'center',
+              color: 'black',
+              backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB,
+            },
+          });
+        });
+        res.push(row);
+      }
+    });
+  }
+  return res;
+}
+
+/**
+ * create a widget dataset into a content list, based on a list of Forms, for paginated widget
+ *
+ * @param dataset the dataset for the widgets
+ * @param fields the list of fields name for each row
+ * @param backgroundColor the backgroud color
+ * @returns An AjfWidget list
+ */
+export function buildWidgetDataset(
+  dataset: MainForm[],
+  fields: string[],
+  backgroundColor?: string,
+): any[] {
+  const res: {[key: string]: any}[] = [];
+  if (backgroundColor == null) {
+    backgroundColor = '#ddd';
+  }
+  if (dataset) {
+    dataset.forEach((data: MainForm, index: number) => {
+      if (data) {
+        const row: {[key: string]: any} = {
+          styles: {
+            'text-align': 'right',
+            'border-collapse': 'collapse',
+          },
+          visibility: {condition: 'true'},
+          widgetType: 5,
+          dataset: [[]] as any[][],
+          cellStyles: {'border-top': '1px solid grey'},
+        };
+
+        fields.forEach((field: string) => {
+          row['dataset'][0].push({
+            label: '',
+            style: {
+              textAlign: 'center',
+              color: 'black',
+              backgroundColor: index % 2 === 0 ? 'white' : backgroundColor,
+            },
+            formula: {
+              formula: '"' + data[field] + '"',
+            },
+            colspan: 1,
+            rowspan: 1,
+            aggregation: {
+              aggregation: 0,
+            },
+          });
+        });
+        res.push(row);
+      }
+    });
+  }
   return res;
 }
 
@@ -1508,6 +1616,45 @@ export function IS_WITHIN_INTERVAL(date: string, dateStart: string, dateEnd: str
     end: dateFns.parseISO(dateEnd),
   };
   return dateFns.isWithinInterval(dateToCompare, interval);
+}
+
+/**
+ * compare a date with two dates interval. Return '-1' (or the first element of labels array) if date
+ * is before the dateStart, '1' (or the second element) if date is after the dateEnd
+ * or '0' (or the last element) if date is within inteval.
+ *
+ * @export
+ * @param {string} date
+ * @param {string} dateStart
+ * @param {string} dateEnd
+ * @param {string[]} labels an optional array of string for the output values
+ * @return {*}  {string}
+ */
+export function COMPARE_DATE(
+  date: string,
+  dateStart: string,
+  dateEnd: string,
+  labels?: string[],
+): string {
+  let res = '';
+  const dateToCompare: Date = dateFns.parseISO(date);
+  const dateA: Date = dateFns.parseISO(dateStart);
+  const dateB: Date = dateFns.parseISO(dateEnd);
+  const interval: Interval = {
+    start: dateA,
+    end: dateB,
+  };
+  if (labels == null) {
+    labels = ['-1', '1', '0'];
+  }
+  if (dateFns.isBefore(dateToCompare, dateA)) {
+    res = labels[0];
+  } else if (dateFns.isAfter(dateToCompare, dateB)) {
+    res = labels[1];
+  } else if (dateFns.isWithinInterval(dateToCompare, interval)) {
+    res = labels[2];
+  }
+  return res;
 }
 
 /**

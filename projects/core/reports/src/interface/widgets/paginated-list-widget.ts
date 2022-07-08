@@ -20,11 +20,13 @@
  *
  */
 
-import {AjfWidgetWithContent} from './widget-with-content';
 import {AjfWidgetType} from './widget-type';
+import {AjfFormula} from '@ajf/core/models';
+import {AjfWidgetWithContent} from './widget-with-content';
 
 export interface AjfPaginatedListWidget extends AjfWidgetWithContent {
   widgetType: AjfWidgetType.PaginatedList;
   title: string;
   pageSize: number;
+  contentDefinition: AjfFormula;
 }

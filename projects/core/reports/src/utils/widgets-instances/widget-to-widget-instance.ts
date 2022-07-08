@@ -43,6 +43,7 @@ import {isMapWidget} from '../widgets/is-map-widget';
 import {isWidgetWithContent} from '../widgets/is-widget-with-content';
 import {isTableWidget} from '../widgets/is-table-widget';
 import {isTextWidget} from '../widgets/is-text-widget';
+import {isPaginatedListWidget} from '../widgets/is-paginated-list-widget';
 import {componentsMap} from '../widgets/widgets-map';
 import {isChartWidgetInstance} from '../widgets-instances/is-chart-widget-instance';
 import {isDialogWidgetInstance} from '../widgets-instances/is-dialog-widget-instance';
@@ -56,6 +57,7 @@ import {isMapWidgetInstance} from '../widgets-instances/is-map-widget-instance';
 import {isTableWidgetInstance} from '../widgets-instances/is-table-widget-instance';
 import {isTextWidgetInstance} from '../widgets-instances/is-text-widget-instance';
 import {isWidgetWithContentInstance} from '../widgets-instances/is-widget-with-content-instance';
+import {isPaginatedListWidgetInstance} from '../widgets-instances/is-paginated-list-widget-instance';
 
 import {createWidgetInstance} from './create-widget-instance';
 import {evaluateProperty, trFormula} from './widget-instance-utils';
@@ -84,6 +86,9 @@ export function widgetToWidgetInstance(
       }
       wi.content = content;
     });
+    if (isDialogWidget(widget) && isDialogWidgetInstance(wi)) {
+      wi.toggle = widgetToWidgetInstance(widget.toggle, context, ts, variables);
+    }
   } else if (isChartWidget(widget) && isChartWidgetInstance(wi)) {
     if (widget.options == null) {
       widget.options = {};
@@ -226,6 +231,14 @@ export function widgetToWidgetInstance(
       };
     });
     wi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
+  } else if (isPaginatedListWidget(widget) && isPaginatedListWidgetInstance(wi)) {
+    let contentDefinition: AjfWidget[] =
+      evaluateExpression(widget.contentDefinition.formula, context) || [];
+    let content: AjfWidgetInstance[] = [];
+    contentDefinition.forEach(c => {
+      content.push(widgetToWidgetInstance(c, context, ts, variables));
+    });
+    wi.content = content;
   } else if (isImageWidget(widget) && isImageWidgetInstance(wi)) {
     if (widget.flag) {
       wi.flag = evaluateExpression(widget.flag.formula, context);
@@ -275,8 +288,6 @@ export function widgetToWidgetInstance(
         return node as AjfGraphNode;
       });
     }
-  } else if (isDialogWidget(widget) && isDialogWidgetInstance(wi)) {
-    wi.toggle = widgetToWidgetInstance(widget.toggle, context, ts, variables);
   } else if (isHeatMapWidget(widget) && isHeatMapWidgetInstance(wi)) {
     wi.idProp = widget.idProp || 'id';
     wi.features = (typeof widget.features === 'string'

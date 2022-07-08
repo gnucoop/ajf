@@ -21,15 +21,18 @@
  */
 
 import {AjfColumnWidget} from '../../interface/widgets/column-widget';
+import {AjfDialogWidget} from '../../interface/widgets/dialog-widget';
 import {AjfLayoutWidget} from '../../interface/widgets/layout-widget';
 import {AjfWidget} from '../../interface/widgets/widget';
 import {AjfWidgetType} from '../../interface/widgets/widget-type';
 
 export const isWidgetWithContent = (
   widget: AjfWidget,
-): widget is AjfColumnWidget | AjfLayoutWidget => {
+): widget is AjfColumnWidget | AjfLayoutWidget | AjfDialogWidget => {
   return (
     widget != null &&
-    (widget.widgetType === AjfWidgetType.Column || widget.widgetType === AjfWidgetType.Layout)
+    (widget.widgetType === AjfWidgetType.Column ||
+      widget.widgetType === AjfWidgetType.Layout ||
+      widget.widgetType === AjfWidgetType.Dialog)
   );
 };
