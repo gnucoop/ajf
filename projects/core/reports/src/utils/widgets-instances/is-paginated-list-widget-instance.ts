@@ -20,14 +20,12 @@
  *
  */
 
-import {AjfColumnWidgetInstance} from '../../interface/widgets-instances/column-widget-instance';
-import {AjfDialogWidgetInstance} from '../../interface/widgets-instances/dialog-widget-instance';
-import {AjfLayoutWidgetInstance} from '../../interface/widgets-instances/layout-widget-instance';
+import {AjfPaginatedListWidgetInstance} from '../../interface/widgets-instances/paginated-list-widget-instance';
 import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instance';
-import {isWidgetWithContent} from '../widgets/is-widget-with-content';
+import {isPaginatedListWidget} from '../widgets/is-paginated-list-widget';
 
-export const isWidgetWithContentInstance = (
+export const isPaginatedListWidgetInstance = (
   instance: AjfWidgetInstance,
-): instance is AjfColumnWidgetInstance | AjfLayoutWidgetInstance | AjfDialogWidgetInstance => {
-  return instance != null && isWidgetWithContent(instance.widget);
+): instance is AjfPaginatedListWidgetInstance => {
+  return instance != null && isPaginatedListWidget(instance.widget);
 };

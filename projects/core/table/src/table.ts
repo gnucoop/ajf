@@ -25,6 +25,7 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  SecurityContext,
   ViewEncapsulation,
 } from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -70,7 +71,10 @@ export class AjfTable {
   private _fixData(data: AjfTableCell[][]): AjfTableCell[][] {
     (data || []).forEach(elem => {
       (elem || []).forEach(subElem => {
-        subElem.value = this._domSanitizer.bypassSecurityTrustHtml(subElem.value);
+        subElem.value = this._domSanitizer.sanitize(
+          SecurityContext.HTML,
+          this._domSanitizer.bypassSecurityTrustHtml(subElem.value),
+        );
       });
     });
     return data;
