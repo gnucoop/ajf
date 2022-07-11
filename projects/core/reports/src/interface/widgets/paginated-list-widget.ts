@@ -28,5 +28,5 @@ export interface AjfPaginatedListWidget extends AjfWidgetWithContent {
   widgetType: AjfWidgetType.PaginatedList;
   title: string;
   pageSize: number;
-  contentDefinition: AjfFormula;
+  contentDefinition?: AjfFormula;
 }

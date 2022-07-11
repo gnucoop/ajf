@@ -232,12 +232,18 @@ export function widgetToWidgetInstance(
     });
     wi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
   } else if (isPaginatedListWidget(widget) && isPaginatedListWidgetInstance(wi)) {
-    let contentDefinition: AjfWidget[] =
-      evaluateExpression(widget.contentDefinition.formula, context) || [];
     let content: AjfWidgetInstance[] = [];
-    contentDefinition.forEach(c => {
-      content.push(widgetToWidgetInstance(c, context, ts, variables));
-    });
+    if (widget.contentDefinition) {
+      let contentDefinition: AjfWidget[] =
+        evaluateExpression(widget.contentDefinition.formula, context) || [];
+      contentDefinition.forEach(c => {
+        content.push(widgetToWidgetInstance(c, context, ts, variables));
+      });
+    } else if (widget.content) {
+      widget.content.forEach(c => {
+        content.push(widgetToWidgetInstance(c, context, ts, variables));
+      });
+    }
     wi.content = content;
   } else if (isImageWidget(widget) && isImageWidgetInstance(wi)) {
     if (widget.flag) {
