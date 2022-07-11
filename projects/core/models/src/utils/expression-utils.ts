@@ -1134,25 +1134,61 @@ export function buildFormDataset(
  *
  * @param dataset the dataset for the widgets
  * @param fields the list of fields name for each row
- * @param backgroundColor the backgroud color
- * @returns An AjfWidget list
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
+ * @param cellStyles css styles for cells
+ * @param rowStyle css styles for rows
+ * @param percWidth an array with the same length of fields param, with the width for the columns.
+ * ie: ['10%', '30%', '10%', '25%', '15%', '10%']
+ * @param backgroundColorA the first backgroud color
+ * @param backgroundColorB the second backgroud color
+ * @returns An AjfTableWidget list
  */
 export function buildWidgetDataset(
   dataset: MainForm[],
   fields: string[],
-  backgroundColor?: string,
+  rowLink: {link: string; position: number} | null,
+  cellStyles: {[key: string]: any} | null,
+  rowStyle: {[key: string]: any} | null,
+  percWidth: string[],
+  backgroundColorA?: string,
+  backgroundColorB?: string,
 ): any[] {
   const res: {[key: string]: any}[] = [];
-  if (backgroundColor == null) {
-    backgroundColor = '#ddd';
+  if (backgroundColorA == null) {
+    backgroundColorA = 'white';
   }
+  if (backgroundColorB == null) {
+    backgroundColorB = '#ddd';
+  }
+  if (rowStyle == null) {
+    rowStyle = {
+      'text-align': 'right',
+      'margin-bottom': 0,
+      'border-collapse': 'collapse',
+    };
+  }
+  if (cellStyles == null) {
+    cellStyles = {
+      textAlign: 'center',
+      color: 'black',
+    };
+  }
+  if (percWidth == null || percWidth.length !== fields.length) {
+    const cellWidth = 100 / fields.length + '%';
+    percWidth = [];
+    fields.forEach(_ => percWidth.push(cellWidth));
+  }
+
   if (dataset) {
     dataset.forEach((data: MainForm, index: number) => {
       if (data) {
         const row: {[key: string]: any} = {
           styles: {
             'text-align': 'right',
+            'margin-bottom': 0,
             'border-collapse': 'collapse',
+            ...rowStyle,
           },
           visibility: {condition: 'true'},
           widgetType: 5,
@@ -1160,16 +1196,23 @@ export function buildWidgetDataset(
           cellStyles: {'border-top': '1px solid grey'},
         };
 
-        fields.forEach((field: string) => {
+        fields.forEach((field: string, cellIdx: number) => {
+          let formulaCell = '"' + data[field] + '"';
+          if (rowLink != null && cellIdx === rowLink['position']) {
+            formulaCell = `"<a href='${data[rowLink['link']]}'> ${data[field]}</a>"`;
+          }
+
           row['dataset'][0].push({
             label: '',
             style: {
               textAlign: 'center',
               color: 'black',
-              backgroundColor: index % 2 === 0 ? 'white' : backgroundColor,
+              backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB,
+              ...cellStyles,
+              width: percWidth[cellIdx],
             },
             formula: {
-              formula: '"' + data[field] + '"',
+              formula: formulaCell,
             },
             colspan: 1,
             rowspan: 1,
