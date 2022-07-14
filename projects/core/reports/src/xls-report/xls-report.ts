@@ -362,7 +362,7 @@ function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWid
   return createWidget({
     widgetType: AjfWidgetType.DynamicTable,
     rowDefinition: {
-      formula: `buildDataset(${dataRows},${JSON.stringify(colspans)})`,
+      formula: `buildDataset(plainArray(${dataRows}),${JSON.stringify(colspans)})`,
     },
     dataset: tableHeader,
     exportable: true,

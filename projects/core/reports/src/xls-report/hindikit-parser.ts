@@ -420,4 +420,5 @@ const functionParams: {[name: string]: boolean[]} = {
   'IS_BEFORE':     [false, false],
   'IS_AFTER':      [false, false],
   'IS_WITHIN_INTERVAL': [false, false, false],
+  'COMPARE_DATE': [false, false, false, false],
 }
