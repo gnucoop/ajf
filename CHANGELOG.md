@@ -1,3 +1,13 @@
+<a name="13.2.1"></a>
+# 13.2.1 "parallel-wolverine" (2022-07-14)
+### Bug Fixes
+* **core/reports:** convert rows for table into plain array. Add new function for compare date. ([e3e1bf0](https://github.com/gnucoop/ajf/commit/e3e1bf02e48b2a4cd4b73648d196cd4f0ca073b9))
+### Features
+* **core/reports:** add formula for paginated widget and function for formdata in dynamic table ([a2f60af](https://github.com/gnucoop/ajf/commit/a2f60af4a6ce3211111cc0eefc2c0d9e950a1cdd))
+* **core/reports:** add report functions for dynamic form table and paginated lists ([ddb66fa](https://github.com/gnucoop/ajf/commit/ddb66faf7604cfdf6a352e8d8c6cbd125574cb92))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.0"></a>
 # 13.2.0 "jittery-dormouse" (2022-07-04)
 ### Bug Fixes
