@@ -359,6 +359,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
         startColor: '#ffeb3b',
         endColor: '#f44336',
         highlightColor: '#009688',
+        action: 'alert(v["feature"]["properties"]["NAME_1"]);',
       },
     },
   ];

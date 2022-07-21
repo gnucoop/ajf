@@ -411,7 +411,7 @@ const functionParams: {[name: string]: boolean[]} = {
   'CONSOLE_LOG':   [false, false],
   'JOIN_FORMS':    [false, false, true, true],
   'JOIN_REPEATING_SLIDES': [false, false, true, true, true, true],
-  'FROM_REPS':     [false, true],
+  'FROM_REPS':     [false, false],
   'ISIN':          [false, false],
   'OP':            [false, false, true],
   'GET_LABELS':    [false, false],

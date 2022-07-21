@@ -90,6 +90,16 @@ export class AjfHeatMap implements OnChanges, OnDestroy {
   }
   private _values: string | number[] = 'properties.value';
 
+  /**
+   * The codo to execute when an element is selected on heatmap.
+   * It is inserted into a function, which receives the selected object as input
+   */
+  @Input()
+  set action(action: string) {
+    this._action = action;
+  }
+  private _action: string = '';
+
   @Input()
   set idProp(idProp: string) {
     this._idProp = idProp;
@@ -143,6 +153,12 @@ export class AjfHeatMap implements OnChanges, OnDestroy {
       }
       const feature = this._features.features[idx];
       this.featureSelected.emit({feature});
+      if (this._action && this._action.length) {
+        try {
+          const actionFunction = new Function('v', this._action);
+          actionFunction({feature});
+        } catch (e) {}
+      }
     });
     this._updateChartOptions();
   }

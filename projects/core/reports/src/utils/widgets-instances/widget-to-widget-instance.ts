@@ -304,6 +304,9 @@ export function widgetToWidgetInstance(
     wi.endColor = widget.endColor || '#f44336';
     wi.highlightColor = widget.highlightColor || '#009688';
     wi.showVisualMap = widget.showVisualMap === true;
+    if (widget.action) {
+      wi.action = widget.action;
+    }
   } else if (widget.widgetType > 100) {
     const iiFn =
       componentsMap[widget.widgetType] != null

@@ -1089,6 +1089,8 @@ export function buildDataset(
  * Build a dataset based on a list of Forms, for ajf dynamic table
  * @param dataset the dataset for the table
  * @param fields the list of fields name for each row
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
  * @param backgroundColorA the first backgroud color
  * @param backgroundColorB the second backgroud color
  * @returns An AjfTableCell list
@@ -1096,6 +1098,7 @@ export function buildDataset(
 export function buildFormDataset(
   dataset: MainForm[],
   fields: string[],
+  rowLink: {link: string; position: number} | null,
   backgroundColorA?: string,
   backgroundColorB?: string,
 ): AjfTableCell[][] {
@@ -1107,12 +1110,18 @@ export function buildFormDataset(
     backgroundColorB = '#ddd';
   }
   if (dataset) {
-    dataset.forEach((data: MainForm, index: number) => {
+    let index: number = 0;
+    dataset.forEach((data: MainForm) => {
       if (data) {
+        index++;
         const row: AjfTableCell[] = [];
-        fields.forEach((field: string) => {
+        fields.forEach((field: string, cellIdx: number) => {
+          let cellValue = data[field] || '';
+          if (rowLink != null && cellIdx === rowLink['position']) {
+            cellValue = `<a href='${data[rowLink['link']]}'> ${data[field]}</a>`;
+          }
           row.push({
-            value: data[field],
+            value: cellValue,
             colspan: 1,
             rowspan: 1,
             style: {
@@ -1181,8 +1190,10 @@ export function buildWidgetDataset(
   }
 
   if (dataset) {
-    dataset.forEach((data: MainForm, index: number) => {
+    let index: number = 0;
+    dataset.forEach((data: MainForm) => {
       if (data) {
+        index++;
         const row: {[key: string]: any} = {
           styles: {
             'text-align': 'right',
@@ -1197,9 +1208,12 @@ export function buildWidgetDataset(
         };
 
         fields.forEach((field: string, cellIdx: number) => {
-          let formulaCell = '"' + data[field] + '"';
-          if (rowLink != null && cellIdx === rowLink['position']) {
-            formulaCell = `"<a href='${data[rowLink['link']]}'> ${data[field]}</a>"`;
+          let formulaCell = '""';
+          if (data[field] != null) {
+            formulaCell = '"' + data[field] + '"';
+            if (rowLink != null && cellIdx === rowLink['position']) {
+              formulaCell = `"<a href='${data[rowLink['link']]}'> ${data[field]}</a>"`;
+            }
           }
 
           row['dataset'][0].push({

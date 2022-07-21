@@ -36,4 +36,5 @@ export class HeatMapDemo {
   endColor = '#cddc39';
   highlightColor = '#ff9800';
   showVisualMap = true;
+  action = 'alert(v["feature"]["properties"]["NAME_1"]);';
 }
