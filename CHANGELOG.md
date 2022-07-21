@@ -1,3 +1,10 @@
+<a name="13.2.2"></a>
+# 13.2.2 "wandering-harrier" (2022-07-21)
+### Features
+* **core/reports:** Add action in heatmap. Add dynamic formdata list in xlsreports. ([9c6869b](https://github.com/gnucoop/ajf/commit/9c6869bd901735ed9fb5bbf23a519be3e2d85939))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.1"></a>
 # 13.2.1 "parallel-wolverine" (2022-07-14)
 ### Bug Fixes
