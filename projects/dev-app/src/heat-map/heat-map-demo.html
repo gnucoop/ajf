@@ -3,24 +3,26 @@
   <section>
     <mat-form-field>
       <mat-label>Start color</mat-label>
-      <input matInput [(ngModel)]="startColor">
+      <input matInput [(ngModel)]="startColor" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>End color</mat-label>
-      <input matInput [(ngModel)]="endColor">
+      <input matInput [(ngModel)]="endColor" />
     </mat-form-field>
     <mat-form-field>
       <mat-label>Highlight color</mat-label>
-      <input matInput [(ngModel)]="highlightColor">
+      <input matInput [(ngModel)]="highlightColor" />
     </mat-form-field>
     <mat-slide-toggle [(ngModel)]="showVisualMap">Show visual map</mat-slide-toggle>
     <ajf-heat-map
-        idProp="GID_1"
-        [features]="features"
-        [values]="values"
-        [startColor]="startColor"
-        [endColor]="endColor"
-        [highlightColor]="highlightColor"
-        [showVisualMap]="showVisualMap"></ajf-heat-map>
+      idProp="GID_1"
+      [features]="features"
+      [values]="values"
+      [startColor]="startColor"
+      [endColor]="endColor"
+      [highlightColor]="highlightColor"
+      [showVisualMap]="showVisualMap"
+      [action]="action"
+    ></ajf-heat-map>
   </section>
 </div>

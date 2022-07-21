@@ -119,6 +119,12 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
           } else if (sheetName.includes('heatmap')) {
             const heatmapWidget = _buildHeatmap(sheetName, json);
             reportWidgets.push(heatmapWidget);
+          } else if (sheetName.includes('formlist')) {
+            const formListWidget = _buildFormListTable(sheetName, json);
+            reportWidgets.push(formListWidget);
+          } else if (sheetName.includes('paginatedlist')) {
+            const pagListWidget = _buildPaginatedListTable(sheetName, json);
+            reportWidgets.push(pagListWidget);
           }
 
           if (idx >= 0) {
@@ -373,6 +379,131 @@ function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWid
     },
     styles: {
       borderCollapse: 'collapse',
+    },
+  });
+}
+
+/**
+ * Create a widget with a dynamic table based on a list of Forms
+ * @param sheetName
+ * @param json
+ * @returns a DynamicTable AjfWidget with a formula like this:
+ * buildFormDataset(projectsDataset, ['id_p','donors','budget','dino_area_name','calc_progress',])"
+ */
+function _buildFormListTable(_: string, json: {[key: string]: string}[]): AjfWidget {
+  let tableHeader: AjfTableDataset[] = [];
+  let dataset: string = '';
+  let formula = '';
+  if (json.length > 1) {
+    const rowspan = 1;
+    const titles = Object.keys(json[0]);
+    const headerColspans: number[] = (Object.values(json[0]) as string[]).map(r => +r);
+    tableHeader = titles.map((title, index) => ({
+      label: '',
+      formula: {formula: `"${title}"`},
+      aggregation: {aggregation: 0},
+      colspan: headerColspans[index],
+      rowspan,
+      style: {
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: 'white',
+        backgroundColor: '#3f51b5',
+      },
+    }));
+
+    let fields = '[';
+    Object.keys(json[0]).forEach(fieldColName => {
+      let elem = json[1][fieldColName] ? `'${json[1][fieldColName]}'` : `''`;
+      fields += elem + ',';
+    });
+    fields += ']';
+    dataset = json[1]['dataset'] as string;
+    const linkField = json[1]['link_field'] as string;
+    const linkPos = json[1]['link_position'] ? +json[1]['link_position'] : 0;
+    const rowLink =
+      linkField && linkField.length ? `{'link': '${linkField}', 'position': ${linkPos}}` : null;
+
+    const backgroundColorA = json[1]['backgroundColorA'] || null;
+    const backgroundColorB = json[1]['backgroundColorB'] || null;
+
+    formula = `buildFormDataset(${dataset}, ${fields}, ${rowLink}, ${JSON.stringify(
+      backgroundColorA,
+    )}, ${JSON.stringify(backgroundColorB)})`;
+  }
+
+  return createWidget({
+    widgetType: AjfWidgetType.DynamicTable,
+    rowDefinition: {
+      formula: formula,
+    },
+    dataset: tableHeader,
+    exportable: true,
+    cellStyles: {
+      textAlign: 'center',
+      color: 'black',
+      backgroundColor: 'white',
+    },
+    styles: {
+      borderCollapse: 'collapse',
+    },
+  });
+}
+
+/**
+ * Create a widget with a dynamic paginated table based on a list of Forms
+ * @param sheetName
+ * @param json
+ * @returns a Paginated AjfWidget with a formula like this:
+ * buildWidgetDataset(projectsDataset, ['id_p','donors','budget','dino_area_name','calc_progress','home_link_text',],
+ *   {'link': 'home_link', 'position': 5}, {'border': 'none'},{'width': '900px'}, ['10%','30%','10%','25%','15%','10%'], \"#f0f0f0\", \"white\")"
+ */
+function _buildPaginatedListTable(_: string, json: {[key: string]: string}[]): AjfWidget {
+  let formula = '';
+  let pageSize = 10;
+  let dataset: string = '';
+  let title = '';
+  if (json.length > 1) {
+    const colsPercentage: string = (Object.values(json[0]) as string[])
+      .map(r => `'${r}%'`)
+      .join(',');
+    const colsPercentageArray = `[${colsPercentage}]`;
+
+    let fields = '[';
+    Object.keys(json[0]).forEach(fieldColName => {
+      let elem = json[1][fieldColName] ? `'${json[1][fieldColName]}'` : `''`;
+      fields += elem + ',';
+    });
+    fields += ']';
+
+    dataset = json[1]['dataset'] as string;
+    title = json[1]['title'] as string;
+    pageSize = json[1]['pageSize'] ? +json[1]['pageSize'] : 10;
+    const linkField = json[1]['link_field'] as string;
+    const linkPos = json[1]['link_position'] ? +json[1]['link_position'] : 0;
+    const rowLink =
+      linkField && linkField.length ? `{'link': '${linkField}', 'position': ${linkPos}}` : null;
+    const cellStyles = json[1]['cellStyles'];
+    const rowStyle = json[1]['rowStyle'];
+    const backgroundColorA = json[1]['backgroundColorA'] as string;
+    const backgroundColorB = json[1]['backgroundColorB'] as string;
+
+    formula =
+      `buildWidgetDataset(${dataset}, ${fields}, ${rowLink}, ${cellStyles},` +
+      `${rowStyle}, ${colsPercentageArray}, ${JSON.stringify(backgroundColorA)}, ${JSON.stringify(
+        backgroundColorB,
+      )})`;
+  }
+  return createWidget({
+    widgetType: AjfWidgetType.PaginatedList,
+    pageSize: pageSize,
+    title: title,
+    contentDefinition: {
+      formula: formula,
+    },
+    exportable: true,
+    styles: {
+      height: '500px',
     },
   });
 }

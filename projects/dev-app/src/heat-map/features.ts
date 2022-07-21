@@ -1,4 +1,4 @@
-import type {FeatureCollection,  Geometry} from 'geojson';
+import type {FeatureCollection, Geometry} from 'geojson';
 
 export const features: FeatureCollection<Geometry, {[key: string]: any}> = {
   'type': 'FeatureCollection',
