@@ -1,3 +1,11 @@
+<a name="13.2.3"></a>
+# 13.2.3 "evident-magpie" (2022-07-29)
+### Features
+* **core/reports:** add xls function for paginated table with dialog ([49fca66](https://github.com/gnucoop/ajf/commit/49fca662dab0206d752e6a757e7f0d5b7eefcaaf))
+* **core/reports:** js in xlsreport formulas ([08118fd](https://github.com/gnucoop/ajf/commit/08118fd9228cf220ae78c21e52b07ea6c264e39c))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.2"></a>
 # 13.2.2 "wandering-harrier" (2022-07-21)
 ### Features
