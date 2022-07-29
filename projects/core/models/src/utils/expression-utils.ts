@@ -133,6 +133,8 @@ export class AjfExpressionUtils {
     buildDataset: {fn: buildDataset},
     buildFormDataset: {fn: buildFormDataset},
     buildWidgetDataset: {fn: buildWidgetDataset},
+    buildWidgetDatasetWithDialog: {fn: buildWidgetDatasetWithDialog},
+    FILTER_BY_VARS: {fn: FILTER_BY_VARS},
     FILTER_BY: {fn: FILTER_BY},
     IS_BEFORE: {fn: IS_BEFORE},
     IS_AFTER: {fn: IS_AFTER},
@@ -149,6 +151,7 @@ export class AjfExpressionUtils {
     ISIN: {fn: ISIN},
     OP: {fn: OP},
     GET_LABELS: {fn: GET_LABELS},
+    APPLY_LABELS: {fn: APPLY_LABELS},
     ROUND: {fn: ROUND},
     CONSOLE_LOG: {fn: CONSOLE_LOG},
   };
@@ -1194,6 +1197,7 @@ export function buildWidgetDataset(
     dataset.forEach((data: MainForm) => {
       if (data) {
         index++;
+        // Row is an AjfTableWidget
         const row: {[key: string]: any} = {
           styles: {
             'text-align': 'right',
@@ -1236,6 +1240,148 @@ export function buildWidgetDataset(
           });
         });
         res.push(row);
+      }
+    });
+  }
+  return res;
+}
+
+/**
+ * create a widget dataset into a content list, based on a list of Forms, for paginated widget.
+ * Each row is a AjfDialogWidget and, on click, open a dialog.
+ *
+ * @param dataset the dataset for the widgets
+ * @param fields the list of fields name for each row
+ * @param dialogFields the list of fields name to show in the dialog
+ * @param dialogLabelFields the list of labels for each dialogFields
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
+ * @param cellStyles css styles for cells
+ * @param rowStyle css styles for rows
+ * @param percWidth an array with the same length of fields param, with the width for the columns.
+ * ie: ['10%', '30%', '10%', '25%', '15%', '10%']
+ * @param backgroundColorA the first backgroud color
+ * @param backgroundColorB the second backgroud color
+ * @returns An AjfDialogWidget list
+ */
+export function buildWidgetDatasetWithDialog(
+  dataset: MainForm[],
+  fields: string[],
+  dialogFields: string[],
+  dialogLabelFields: string[],
+  cellStyles: {[key: string]: any} | null,
+  rowStyle: {[key: string]: any} | null,
+  percWidth: string[],
+  backgroundColorA?: string,
+  backgroundColorB?: string,
+): any[] {
+  const res: {[key: string]: any}[] = [];
+  if (backgroundColorA == null) {
+    backgroundColorA = 'white';
+  }
+  if (backgroundColorB == null) {
+    backgroundColorB = '#ddd';
+  }
+  if (rowStyle == null) {
+    rowStyle = {
+      'text-align': 'right',
+      'margin-bottom': 0,
+      'border-collapse': 'collapse',
+    };
+  }
+  if (cellStyles == null) {
+    cellStyles = {
+      textAlign: 'center',
+      color: 'black',
+    };
+  }
+  if (percWidth == null || percWidth.length !== fields.length) {
+    const cellWidth = 100 / fields.length + '%';
+    percWidth = [];
+    fields.forEach(_ => percWidth.push(cellWidth));
+  }
+
+  if (dataset) {
+    let index: number = 0;
+    dataset.forEach((data: MainForm) => {
+      if (data) {
+        index++;
+        // Row is an AjfTableWidget
+        const row: {[key: string]: any} = {
+          styles: {
+            'text-align': 'right',
+            'margin-bottom': 0,
+            'border-collapse': 'collapse',
+            ...rowStyle,
+          },
+          visibility: {condition: 'true'},
+          widgetType: 5,
+          dataset: [[]] as any[][],
+          cellStyles: {'border-top': '1px solid grey'},
+        };
+
+        fields.forEach((field: string, cellIdx: number) => {
+          let formulaCell = '""';
+          if (data[field] != null) {
+            formulaCell = '"' + data[field] + '"';
+          }
+
+          row['dataset'][0].push({
+            label: '',
+            style: {
+              textAlign: 'center',
+              color: 'black',
+              backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB,
+              ...cellStyles,
+              width: percWidth[cellIdx],
+            },
+            formula: {
+              formula: formulaCell,
+            },
+            colspan: 1,
+            rowspan: 1,
+            aggregation: {
+              aggregation: 0,
+            },
+          });
+        });
+
+        let htmlDialog: string[] = [];
+        dialogFields.forEach((field: string, cellIdx: number) => {
+          let fieldValue = '""';
+          if (data[field] != null) {
+            fieldValue =
+              "<p class='dialog-item'><b>" +
+              dialogLabelFields[cellIdx] +
+              '</b> <span>' +
+              data[field] +
+              '</span></p>';
+            htmlDialog.push(fieldValue);
+          }
+        });
+
+        const dialogContent: {[key: string]: any} = {
+          widgetType: 3,
+          styles: {
+            'margin': '0 1em',
+            'padding': '5px 10px',
+            'max-height': '360px',
+          },
+          visibility: {condition: 'true'},
+          htmlText: htmlDialog.join(' '),
+        };
+
+        // This is a Dialog Widget, added as comtainer for each table widget
+        const dialogRow: {[key: string]: any} = {
+          widgetType: 13,
+          styles: {
+            'margin': '0',
+          },
+          visibility: {condition: 'true'},
+          toggle: row,
+          content: [dialogContent],
+        };
+        res.push(dialogRow);
       }
     });
   }
@@ -1419,6 +1565,7 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
         obj[nodeField] = slide.name;
       });
     });
+
     forms.forEach((f, formIdx) => {
       const mainForm: MainForm = {reps: {}};
       const fKeys: string[] = Object.keys(f);
@@ -1489,6 +1636,77 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
 
     return res;
   }
+}
+
+/**
+ * This function take a list of forms, an ajf schema and a list of field names as input and builds
+ * a data structure that replace a list of label matched inside a schema choiche origins.
+ *
+ * @param {MainForm[]} formList
+ * @param {*} schema the ajf schema
+ * @param {string[]} fieldNames
+ * @return {*}  {MainForm[]}
+ */
+export function APPLY_LABELS(formList: MainForm[], schema: any, fieldNames: string[]): MainForm[] {
+  formList = cloneMainForms(formList);
+
+  const choiceLabels: {[fieldName: string]: string} = {};
+  if (schema != null && schema.choicesOrigins != null) {
+    (schema.choicesOrigins as any[]).forEach(choice => {
+      if (choice != null && choice.choices != null) {
+        (choice.choices as any[]).forEach(element => {
+          // TODO fix: add a prefix for each choice, to avoid duplicated values
+          // choice.name + '_' + element.value
+          choiceLabels[element.value] = element.label;
+        });
+      }
+    });
+  }
+
+  for (let i = 0; i < formList.length; i++) {
+    if (formList[i] == null) {
+      continue;
+    }
+    if (formList[i].reps != null) {
+      const f = formList[i];
+      const fKeys: string[] = Object.keys(f);
+      fKeys.forEach(fkey => {
+        if (fieldNames.includes(fkey) && f[fkey] !== null) {
+          let choiceValue: string[] = [];
+          if (Array.isArray(f[fkey])) {
+            choiceValue = f[fkey] as unknown as string[];
+          } else {
+            const multipleVals = (f[fkey] as string).split(',');
+            if (multipleVals.length > 1) {
+              choiceValue = multipleVals;
+            } else {
+              choiceValue = [f[fkey] as string];
+            }
+          }
+          if (choiceValue != null) {
+            const labels = choiceValue.map(val =>
+              choiceLabels[val] != null ? choiceLabels[val] : val,
+            );
+            if (labels && labels.length) {
+              const labelFieldName = fkey + '_choicesLabel';
+              formList[i][labelFieldName] = labels.length > 1 ? labels.join(', ') : labels[0];
+            }
+          }
+        }
+      });
+    }
+  }
+  return formList;
+}
+
+/**
+ *
+ * @param {MainForm[]} formList a set of main forms
+ * @param {string} expression to be evaluated, also with report variables values.
+ * @return {*}  {MainForm[]}
+ */
+export function FILTER_BY_VARS(formList: MainForm[], expression: string): MainForm[] {
+  return FILTER_BY(formList, expression);
 }
 
 /**
@@ -1927,15 +2145,15 @@ export function OP(datasetA: number[], datasetB: number[], expression: string): 
 }
 
 /**
- * this function take a ajf schema and a list of field names as input and
+ * this function take a ajf schema and a list of values as input and
  * returns a list of label matched inside a schema choiche origins.
  *
  * @export
  * @param {*} schema
- * @param {string[]} fieldNames
+ * @param {string[]} values
  * @return {*}  {string[]}
  */
-export function GET_LABELS(schema: any, fieldNames: string[]): string[] {
+export function GET_LABELS(schema: any, values: string[]): string[] {
   const labels: {[fieldName: string]: string} = {};
 
   if (schema != null && schema.choicesOrigins != null) {
@@ -1947,6 +2165,5 @@ export function GET_LABELS(schema: any, fieldNames: string[]): string[] {
       }
     });
   }
-
-  return fieldNames.map(fieldName => (labels[fieldName] != null ? labels[fieldName] : fieldName));
+  return values.map(val => (labels[val] != null ? labels[val] : val));
 }

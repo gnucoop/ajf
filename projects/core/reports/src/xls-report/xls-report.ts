@@ -125,6 +125,9 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
           } else if (sheetName.includes('paginatedlist')) {
             const pagListWidget = _buildPaginatedListTable(sheetName, json);
             reportWidgets.push(pagListWidget);
+          } else if (sheetName.includes('paginatedDialogList')) {
+            const pagListWidget = _buildPaginatedListTableWithDialog(sheetName, json);
+            reportWidgets.push(pagListWidget);
           }
 
           if (idx >= 0) {
@@ -451,7 +454,7 @@ function _buildFormListTable(_: string, json: {[key: string]: string}[]): AjfWid
 }
 
 /**
- * Create a widget with a dynamic paginated table based on a list of Forms
+ * Create a widget with a dynamic paginated table based on a list of Forms. Each row is an AjfTable.
  * @param sheetName
  * @param json
  * @returns a Paginated AjfWidget with a formula like this:
@@ -490,6 +493,71 @@ function _buildPaginatedListTable(_: string, json: {[key: string]: string}[]): A
 
     formula =
       `buildWidgetDataset(${dataset}, ${fields}, ${rowLink}, ${cellStyles},` +
+      `${rowStyle}, ${colsPercentageArray}, ${JSON.stringify(backgroundColorA)}, ${JSON.stringify(
+        backgroundColorB,
+      )})`;
+  }
+  return createWidget({
+    widgetType: AjfWidgetType.PaginatedList,
+    pageSize: pageSize,
+    title: title,
+    contentDefinition: {
+      formula: formula,
+    },
+    exportable: true,
+    styles: {
+      height: '500px',
+    },
+  });
+}
+
+/**
+ * Create a widget with a dynamic paginated table based on a list of Forms. Each row is an AjfDialogWidget with an AjfTable
+ * that open, on click, a dialog.
+ * @param sheetName
+ * @param json
+ * @returns a Paginated AjfWidget with a formula like this:
+ * buildWidgetDatasetWithDialog(projectsDataset, ['id_p','donors','province_choicesLabel','dino_area_name','calc_progress','home_link_text',],
+ *  ['id_p','donors','province_choicesLabel','dino_area_name'], ['Codice progetto','Donors','Provinces','Settore di attivita'],
+ *  {'border': 'none'},{'width': '900px'}, ['10%','30%','10%','25%','15%','10%'], \"#f0f0f0\", \"white\")
+ */
+function _buildPaginatedListTableWithDialog(_: string, json: {[key: string]: string}[]): AjfWidget {
+  let formula = '';
+  let pageSize = 10;
+  let dataset: string = '';
+  let title = '';
+  if (json.length > 1) {
+    const colsPercentage: string = (Object.values(json[0]) as string[])
+      .map(r => `'${r}%'`)
+      .join(',');
+    const colsPercentageArray = `[${colsPercentage}]`;
+
+    let fields = '[';
+    Object.keys(json[0]).forEach(fieldColName => {
+      let elem = json[1][fieldColName] ? `'${json[1][fieldColName]}'` : `''`;
+      fields += elem + ',';
+    });
+    fields += ']';
+
+    let dialogFields = '[';
+    let dialogLabelFields = '[';
+    if (json.length > 3) {
+      dialogLabelFields += (Object.values(json[2]) as string[]).map(v => `'${v}'`).join(',');
+      dialogFields += (Object.values(json[3]) as string[]).map(v => `'${v}'`).join(',');
+    }
+    dialogFields += ']';
+    dialogLabelFields += ']';
+
+    dataset = json[1]['dataset'] as string;
+    title = json[1]['title'] as string;
+    pageSize = json[1]['pageSize'] ? +json[1]['pageSize'] : 10;
+    const cellStyles = json[1]['cellStyles'];
+    const rowStyle = json[1]['rowStyle'];
+    const backgroundColorA = json[1]['backgroundColorA'] as string;
+    const backgroundColorB = json[1]['backgroundColorB'] as string;
+
+    formula =
+      `buildWidgetDatasetWithDialog(${dataset}, ${fields}, ${dialogFields}, ${dialogLabelFields}, ${cellStyles},` +
       `${rowStyle}, ${colsPercentageArray}, ${JSON.stringify(backgroundColorA)}, ${JSON.stringify(
         backgroundColorB,
       )})`;
