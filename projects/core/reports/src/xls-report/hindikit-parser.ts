@@ -147,10 +147,10 @@ function tokenize(s: string): Token[] {
 }
 
 export function indicatorToJs(formula: string): string {
-  switch (typeof(formula)) {
+  switch (typeof formula) {
     case 'string':
       if (formula.startsWith('js:')) {
-        return formula.slice(3).trim()
+        return formula.slice(3).trim();
       }
       break;
     case 'number':
@@ -365,7 +365,11 @@ function parseFunctionCall(name: string, revToks: Token[]): string {
     SUM(forms[0], `age`, `gender === 'male'`)
   stringifyParams.length >= 2 and the last parameter is considered optional.
 */
-function parseFunctionWithParams(name: string, revToks: Token[], ...stringifyParams: boolean[]): string {
+function parseFunctionWithParams(
+  name: string,
+  revToks: Token[],
+  ...stringifyParams: boolean[]
+): string {
   if (stringifyParams.length < 2) {
     throw new Error('parseFunctionWithParams only works with at least 2 parameters');
   }
@@ -394,34 +398,36 @@ function parseFunctionWithParams(name: string, revToks: Token[], ...stringifyPar
 }
 
 const functionParams: {[name: string]: boolean[]} = {
-  'SUM':           [false, true, true],
-  'MEAN':          [false, true, true],
-  'MAX':           [false, true, true],
-  'MEDIAN':        [false, true, true],
-  'MODE':          [false, true, true],
-  'COUNT_FORMS':   [false, true],
-  'COUNT_REPS':    [false, true],
-  'COUNT_FORMS_UNIQUE': [false, true, true],
-  'ALL_VALUES_OF': [false, true],
-  'PERCENT':       [false, false],
-  'LAST':          [false, true, false],
-  'REPEAT':        [false, false, false, true, true],
-  'EVALUATE':      [false, false, false],
-  'FILTER_BY':     [false, true],
-  'APPLY':         [false, true, true],
-  'GET_AGE':       [false, false],
-  'LEN':           [false, false],
-  'CONSOLE_LOG':   [false, false],
-  'JOIN_FORMS':    [false, false, true, true],
-  'JOIN_REPEATING_SLIDES': [false, false, true, true, true, true],
-  'FROM_REPS':     [false, false],
-  'ISIN':          [false, false],
-  'OP':            [false, false, true],
-  'GET_LABELS':    [false, false],
-  'BUILD_DATASET': [false, false],
-  'ROUND':         [false, false],
-  'IS_BEFORE':     [false, false],
-  'IS_AFTER':      [false, false],
-  'IS_WITHIN_INTERVAL': [false, false, false],
-  'COMPARE_DATE': [false, false, false, false],
-}
+  SUM: [false, true, true],
+  MEAN: [false, true, true],
+  MAX: [false, true, true],
+  MEDIAN: [false, true, true],
+  MODE: [false, true, true],
+  COUNT_FORMS: [false, true],
+  COUNT_REPS: [false, true],
+  COUNT_FORMS_UNIQUE: [false, true, true],
+  ALL_VALUES_OF: [false, true],
+  PERCENT: [false, false],
+  LAST: [false, true, false],
+  REPEAT: [false, false, false, true, true],
+  EVALUATE: [false, false, false],
+  FILTER_BY_VARS: [false, false],
+  FILTER_BY: [false, true],
+  APPLY: [false, true, true],
+  GET_AGE: [false, false],
+  LEN: [false, false],
+  CONSOLE_LOG: [false, false],
+  JOIN_FORMS: [false, false, true, true],
+  JOIN_REPEATING_SLIDES: [false, false, true, true, true, true],
+  FROM_REPS: [false, false],
+  ISIN: [false, false],
+  OP: [false, false, true],
+  GET_LABELS: [false, false],
+  APPLY_LABELS: [false, false, false],
+  BUILD_DATASET: [false, false],
+  ROUND: [false, false],
+  IS_BEFORE: [false, false],
+  IS_AFTER: [false, false],
+  IS_WITHIN_INTERVAL: [false, false, false],
+  COMPARE_DATE: [false, false, false, false],
+};
