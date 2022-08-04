@@ -1,3 +1,8 @@
+<a name="13.2.4"></a>
+# 13.2.4 "yearning-earwig" (2022-08-04)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.3"></a>
 # 13.2.3 "evident-magpie" (2022-07-29)
 ### Features
