@@ -1,3 +1,10 @@
+<a name="13.2.6"></a>
+# 13.2.6 "assistant-canid" (2022-09-06)
+### Bug Fixes
+* **core/reports:** export correct value for tables ([45351e5](https://github.com/gnucoop/ajf/commit/45351e5eb4a1468e80a3393866029d155e09d57d))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.5"></a>
 # 13.2.5 "retail-flyingfish" (2022-09-06)
 ### Bug Fixes
