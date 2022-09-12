@@ -40,10 +40,11 @@ import {isHeatMapWidget} from '../widgets/is-heat-map-widget';
 import {isImageContainerWidget} from '../widgets/is-image-container-widget';
 import {isImageWidget} from '../widgets/is-image-widget';
 import {isMapWidget} from '../widgets/is-map-widget';
+import {isPaginatedListWidget} from '../widgets/is-paginated-list-widget';
+import {isPaginatedTableWidget} from '../widgets/is-paginated-table-widget';
 import {isWidgetWithContent} from '../widgets/is-widget-with-content';
 import {isTableWidget} from '../widgets/is-table-widget';
 import {isTextWidget} from '../widgets/is-text-widget';
-import {isPaginatedListWidget} from '../widgets/is-paginated-list-widget';
 import {componentsMap} from '../widgets/widgets-map';
 import {isChartWidgetInstance} from '../widgets-instances/is-chart-widget-instance';
 import {isDialogWidgetInstance} from '../widgets-instances/is-dialog-widget-instance';
@@ -54,10 +55,11 @@ import {isHeatMapWidgetInstance} from '../widgets-instances/is-heat-map-widget-i
 import {isImageContainerWidgetInstance} from '../widgets-instances/is-image-container-widget-instance';
 import {isImageWidgetInstance} from '../widgets-instances/is-image-widget-instance';
 import {isMapWidgetInstance} from '../widgets-instances/is-map-widget-instance';
+import {isPaginatedListWidgetInstance} from '../widgets-instances/is-paginated-list-widget-instance';
+import {isPaginatedTableWidgetInstance} from './is-paginated-table-widget-instance';
 import {isTableWidgetInstance} from '../widgets-instances/is-table-widget-instance';
 import {isTextWidgetInstance} from '../widgets-instances/is-text-widget-instance';
 import {isWidgetWithContentInstance} from '../widgets-instances/is-widget-with-content-instance';
-import {isPaginatedListWidgetInstance} from '../widgets-instances/is-paginated-list-widget-instance';
 
 import {createWidgetInstance} from './create-widget-instance';
 import {evaluateProperty, trFormula} from './widget-instance-utils';
@@ -184,7 +186,10 @@ export function widgetToWidgetInstance(
         };
       }),
     );
-  } else if (isDynamicTableWidget(widget) && isDynamicTableWidgetInstance(wi)) {
+  } else if (
+    (isDynamicTableWidget(widget) && isDynamicTableWidgetInstance(wi)) ||
+    (isPaginatedTableWidget(widget) && isPaginatedTableWidgetInstance(wi))
+  ) {
     wi.dataset = widget.dataset.map((cell: AjfTableDataset) => {
       return cell.formula instanceof Array
         ? cell.formula.map(f => trFormula(f, context, ts))
@@ -231,6 +236,7 @@ export function widgetToWidgetInstance(
       };
     });
     wi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
+    wi.styles = {...wi.styles, alignItems: 'flex-start'};
   } else if (isPaginatedListWidget(widget) && isPaginatedListWidgetInstance(wi)) {
     let content: AjfWidgetInstance[] = [];
     if (widget.contentDefinition) {

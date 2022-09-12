@@ -20,23 +20,10 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  Graph,
-  PaginatedList,
-  Dialog,
-  HeatMap,
-  PaginatedTable,
-  LENGTH,
-}
+import {AjfPaginatedTableWidget} from '../../interface/widgets/paginated-table-widget';
+import {AjfWidget} from '../../interface/widgets/widget';
+import {AjfWidgetType} from '../../interface/widgets/widget-type';
+
+export const isPaginatedTableWidget = (widget: AjfWidget): widget is AjfPaginatedTableWidget => {
+  return widget != null && widget.widgetType === AjfWidgetType.PaginatedTable;
+};

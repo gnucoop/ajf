@@ -39,6 +39,7 @@ import {AjfPaginatedListWidgetInstance} from './paginated-list-widget-instance';
 import {AjfTableWidgetInstance} from './table-widget-instance';
 import {AjfTextWidgetInstance} from './text-widget-instance';
 import {AjfWidgetWithContentInstance} from './widget-with-content-instance';
+import {AjfPaginatedTableWidgetInstance} from './paginated-table-widget-instance';
 
 export interface AjfUnknownWidgetInstance extends AjfBaseWidgetInstance {
   widget: AjfUnknownWidget;
@@ -61,4 +62,5 @@ export type AjfWidgetInstance =
   | AjfPaginatedListWidgetInstance
   | AjfTableWidgetInstance
   | AjfTextWidgetInstance
-  | AjfWidgetWithContentInstance;
+  | AjfWidgetWithContentInstance
+  | AjfPaginatedTableWidgetInstance;

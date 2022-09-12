@@ -1,0 +1,39 @@
+<div class="ajf-paginated-table" *ngIf="instance">
+  <div class="ajf-paginated-table-title-container" *ngIf="pages > 0">
+    <div class="ajf-paginated-table-page-selector">
+      <mat-label class="ajf-paginated-table-page-selector-label"
+        >{{'Items per page:'|transloco}}</mat-label
+      >
+      <mat-select
+        [value]="paginatorConfig.pageSize"
+        (selectionChange)="onPageSizeChange($event.value)"
+      >
+        <mat-option
+          [value]="pageSizeOpt"
+          *ngFor="let pageSizeOpt of paginatorConfig.pageSizeOptions"
+        >
+          {{ pageSizeOpt }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="ajf-spacer"></div>
+    <div class="ajf-paginated-table-paginator">
+      <a
+        (click)="goToPage('previous')"
+        class="ajf-paginated-table-btn ajf-paginated-table-back-btn"
+        [class.ajf-paginated-table-btn-disabled]="canGoBackward === false"
+      ></a>
+      <div class="ajf-paginated-table-paginator-page">{{ currentPage }}</div>
+      <div class="ajf-paginated-table-paginator-separator"></div>
+      <div class="ajf-paginated-table-paginator-pages">{{ pages }}</div>
+      <a
+        (click)="goToPage('next')"
+        class="ajf-paginated-table-btn ajf-paginated-table-forward-btn"
+        [class.ajf-paginated-table-btn-disabled]="canGoForward === false"
+      ></a>
+    </div>
+  </div>
+  <div class="ajf-paginated-table-item">
+    <ajf-table [data]="currentContent"></ajf-table>
+  </div>
+</div>

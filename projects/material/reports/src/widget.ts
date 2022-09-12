@@ -26,12 +26,14 @@ import {
   AjfDialogWidgetInstance,
   AjfLayoutWidgetInstance,
   AjfPaginatedListWidgetInstance,
+  AjfPaginatedTableWidgetInstance,
   AjfReportWidget as CoreComponent,
   AjfWidgetComponentsMap,
   AjfWidgetInstance,
   AjfWidgetService as CoreService,
   AjfWidgetType as wt,
 } from '@ajf/core/reports';
+import {AjfTableCell} from '@ajf/core/table';
 import {
   AfterContentChecked,
   ChangeDetectionStrategy,
@@ -76,6 +78,8 @@ const defaultWidgetsFactory = (): AjfWidgetComponentsMap => {
   defaultWidgets[wt.ImageContainer] = {component: AjfImageContainerWidgetComponent};
   defaultWidgets[wt.Graph] = {component: AjfGraphWidgetComponent};
   defaultWidgets[wt.PaginatedList] = {component: AjfPaginatedListWidgetComponent};
+  defaultWidgets[wt.PaginatedTable] = {component: AjfPaginatedTableWidgetComponent};
+
   defaultWidgets[wt.Dialog] = {component: AjfDialogWidgetComponent};
   defaultWidgets[wt.HeatMap] = {component: AjfHeatMapWidgetComponent};
   return defaultWidgets;
@@ -241,6 +245,138 @@ export class AjfPaginatedListWidgetComponent
     const {pageSize} = this.instance.widget;
     const start = (this._currentPage - 1) * pageSize;
     this._currentContent = content.slice(start, start + pageSize);
+    this._cdr.markForCheck();
+  }
+}
+
+@Component({
+  templateUrl: 'paginated-table-widget.html',
+  styleUrls: ['paginated-table-widget.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfPaginatedTableWidgetComponent
+  extends AjfBaseWidgetComponent<AjfPaginatedTableWidgetInstance>
+  implements OnChanges, OnInit
+{
+  readonly paginatorConfig = {
+    pageSize: 10,
+    pageSizeOptions: [5, 10, 15, 20, 25, 30, 50, 100, 500],
+  };
+
+  get currentPage(): number {
+    return this._currentPage;
+  }
+  private _currentPage = 0;
+
+  get pages(): number {
+    return this._pages;
+  }
+  private _pages = 0;
+
+  get orderBy(): number {
+    return this._orderBy;
+  }
+  private _orderBy = 0;
+
+  get currentContent(): AjfTableCell[][] {
+    return this._currentContent;
+  }
+  private _currentContent: AjfTableCell[][] = [];
+
+  get headerContent(): AjfTableCell[] {
+    return this._headerContent;
+  }
+  private _headerContent: AjfTableCell[] = [];
+
+  get canGoForward(): boolean {
+    return this._canGoForward;
+  }
+  private _canGoForward = false;
+
+  get canGoBackward(): boolean {
+    return this._canGoBackward;
+  }
+  private _canGoBackward = false;
+
+  constructor(cdr: ChangeDetectorRef, el: ElementRef) {
+    super(cdr, el);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['instance']) {
+      if (
+        this.instance != null &&
+        this.instance.widget.pageSize &&
+        this.instance.widget.pageSize > 0
+      ) {
+        this.paginatorConfig.pageSize = this.instance.widget.pageSize;
+      }
+      this._updateCurrentContent();
+    }
+  }
+
+  ngOnInit(): void {
+    if (
+      this.instance != null &&
+      this.instance.widget.pageSize &&
+      this.instance.widget.pageSize > 0
+    ) {
+      this.paginatorConfig.pageSize = this.instance.widget.pageSize;
+    }
+    this._updateCurrentContent();
+  }
+
+  goToPage(direction: 'next' | 'previous'): void {
+    const diff = direction === 'next' ? 1 : -1;
+    const newPage = this._currentPage + diff;
+    if (newPage <= 0 || newPage > this._pages) {
+      return;
+    }
+    this._currentPage = newPage;
+    this._canGoForward = newPage < this._pages;
+    this._canGoBackward = newPage > 1;
+    this._fillCurrentContent();
+  }
+
+  onPageSizeChange(_pageSize: number) {
+    this.paginatorConfig.pageSize = _pageSize;
+    this._updateCurrentContent();
+  }
+
+  private _updateCurrentContent(): void {
+    this._canGoBackward = false;
+    if (this.instance == null || this.instance.data.length === 0) {
+      this._currentPage = 0;
+      this._pages = 0;
+    } else {
+      this._currentPage = 1;
+      const {data} = this.instance;
+
+      this._pages = Math.ceil((data.length - 1) / this.paginatorConfig.pageSize);
+      this._canGoForward = this._pages > 1;
+    }
+    this._fillCurrentContent();
+  }
+
+  private _fillCurrentContent(): void {
+    if (this.instance == null || this.instance.data.length === 0) {
+      this._headerContent = [];
+      this._currentContent = [];
+      return;
+    }
+
+    this._headerContent = this.instance.data[0];
+    if (this.instance.data.length === 1) {
+      this._currentContent = [this._headerContent];
+    } else {
+      const data = this.instance.data.slice(1);
+      const start = (this._currentPage - 1) * this.paginatorConfig.pageSize;
+      this._currentContent = [
+        this._headerContent,
+        ...data.slice(start, start + this.paginatorConfig.pageSize),
+      ];
+    }
     this._cdr.markForCheck();
   }
 }

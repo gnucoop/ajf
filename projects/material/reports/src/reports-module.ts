@@ -35,6 +35,7 @@ import {AjfImageModule} from '@ajf/material/image';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 
 import {AjfChartWidgetComponent} from './chart-widget';
 import {AjfFilterWidgetComponent} from './filter-widget';
@@ -52,6 +53,7 @@ import {
   AjfDialogWidgetComponent,
   AjfLayoutWidgetComponent,
   AjfPaginatedListWidgetComponent,
+  AjfPaginatedTableWidgetComponent,
   AjfReportWidget,
 } from './widget';
 import {AjfGraphWidgetComponent} from './graph-widget';
@@ -72,6 +74,7 @@ import {AjfGraphWidgetComponent} from './graph-widget';
     CommonModule,
     CoreModule,
     MatDialogModule,
+    MatSelectModule,
   ],
   declarations: [
     AjfChartWidgetComponent,
@@ -87,6 +90,7 @@ import {AjfGraphWidgetComponent} from './graph-widget';
     AjfMapWidgetComponent,
     AjfPageBreakWidgetComponent,
     AjfPaginatedListWidgetComponent,
+    AjfPaginatedTableWidgetComponent,
     AjfReportRenderer,
     AjfReportWidget,
     AjfTableWidgetComponent,

@@ -119,9 +119,6 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
           } else if (sheetName.includes('heatmap')) {
             const heatmapWidget = _buildHeatmap(sheetName, json);
             reportWidgets.push(heatmapWidget);
-          } else if (sheetName.includes('formlist')) {
-            const formListWidget = _buildFormListTable(sheetName, json);
-            reportWidgets.push(formListWidget);
           } else if (sheetName.includes('paginatedlist')) {
             const pagListWidget = _buildPaginatedListTable(sheetName, json);
             reportWidgets.push(pagListWidget);
@@ -327,130 +324,142 @@ function _buildHtml(json: {[key: string]: string}[]): AjfWidget {
 }
 
 function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWidget {
-  const rowspan = 1;
-  const titles = Object.keys(json[0]);
-  const colspans: number[] = (Object.values(json[0]) as string[]).map(r => +r);
-  delete json[0];
-  const tableHeader: AjfTableDataset[] = titles.map((title, index) => ({
-    label: '',
-    formula: {formula: `"${title}"`},
-    aggregation: {aggregation: 0},
-    colspan: colspans[index],
-    rowspan,
-    style: {
-      textAlign: 'center',
-      fontWeight: 'bold',
-      color: 'white',
-      backgroundColor: '#3f51b5',
-    },
-  }));
-
-  console.log(json);
-  let dataRows = '[';
-  json.forEach(row => {
-    let dataRow = '[';
-    titles.forEach(title => {
-      let elem = row[title] || `''`;
-      try {
-        elem = indicatorToJs(elem);
-      } catch (err: any) {
-        const rowNum = row['__rowNum__'];
-        err = new Error(
-          `Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`,
-        );
-        window.alert(err.message);
-        throw err;
-      }
-      dataRow += elem + ',';
-    });
-    dataRow += ']';
-    dataRows += dataRow + ',';
-  });
-  dataRows += ']';
-
-  return createWidget({
-    widgetType: AjfWidgetType.DynamicTable,
-    rowDefinition: {
-      formula: `buildDataset(plainArray(${dataRows}),${JSON.stringify(colspans)})`,
-    },
-    dataset: tableHeader,
-    exportable: true,
-    cellStyles: {
-      textAlign: 'center',
-      color: 'black',
-      backgroundColor: 'white',
-    },
-    styles: {
-      borderCollapse: 'collapse',
-    },
-  });
-}
-
-/**
- * Create a widget with a dynamic table based on a list of Forms
- * @param sheetName
- * @param json
- * @returns a DynamicTable AjfWidget with a formula like this:
- * buildFormDataset(projectsDataset, ['id_p','donors','budget','dino_area_name','calc_progress',])"
- */
-function _buildFormListTable(_: string, json: {[key: string]: string}[]): AjfWidget {
   let tableHeader: AjfTableDataset[] = [];
-  let dataset: string = '';
+  let dataRows = '[]';
   let formula = '';
+  let pageSize = 0;
   if (json.length > 1) {
     const rowspan = 1;
     const titles = Object.keys(json[0]);
-    const headerColspans: number[] = (Object.values(json[0]) as string[]).map(r => +r);
+    const colspans: number[] = (Object.values(json[0]) as string[]).map(r => +r.charAt(0));
+    const textAlign: string[] = (Object.values(json[0]) as string[]).map(r => {
+      switch (r.charAt(1)) {
+        case 'l':
+          return 'left';
+        case 'r':
+          return 'right';
+        case 'c':
+          return 'center';
+        default:
+          return 'center';
+      }
+    });
     tableHeader = titles.map((title, index) => ({
       label: '',
       formula: {formula: `"${title}"`},
       aggregation: {aggregation: 0},
-      colspan: headerColspans[index],
+      colspan: colspans[index],
       rowspan,
       style: {
         textAlign: 'center',
         fontWeight: 'bold',
         color: 'white',
         backgroundColor: '#3f51b5',
+        borderBottom: '2px solid #ddd',
       },
     }));
+    pageSize = json[1]['pageSize'] ? +json[1]['pageSize'] : 0;
 
+    if ('dataset' in json[1]) {
+      formula = _buildFormListTable(json, colspans, textAlign);
+    } else {
+      delete json[0];
+      console.log(json);
+      dataRows = '[';
+      json.forEach(row => {
+        let dataRow = '[';
+        titles.forEach(title => {
+          let elem = row[title] || `''`;
+          try {
+            elem = indicatorToJs(elem);
+          } catch (err: any) {
+            const rowNum = row['__rowNum__'];
+            err = new Error(
+              `Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`,
+            );
+            window.alert(err.message);
+            throw err;
+          }
+          dataRow += elem + ',';
+        });
+        dataRow += ']';
+        dataRows += dataRow + ',';
+      });
+      dataRows += ']';
+      formula = `buildAlignedDataset(plainArray(${dataRows}),${JSON.stringify(
+        colspans,
+      )},${JSON.stringify(textAlign)})`;
+    }
+  }
+
+  if (pageSize > 0) {
+    return createWidget({
+      widgetType: AjfWidgetType.PaginatedTable,
+      pageSize: pageSize,
+      rowDefinition: {
+        formula: formula,
+      },
+      dataset: tableHeader,
+      exportable: true,
+      cellStyles: {
+        textAlign: 'center',
+        color: 'black',
+        backgroundColor: 'white',
+      },
+      styles: {
+        borderCollapse: 'collapse',
+      },
+    });
+  } else {
+    return createWidget({
+      widgetType: AjfWidgetType.DynamicTable,
+      rowDefinition: {
+        formula: formula,
+      },
+      dataset: tableHeader,
+      exportable: true,
+      cellStyles: {
+        textAlign: 'center',
+        color: 'black',
+        backgroundColor: 'white',
+      },
+      styles: {
+        borderCollapse: 'collapse',
+      },
+    });
+  }
+}
+
+/**
+ * Create a formula for a dynamic table widget, based on a list of Forms
+ * @param json
+ * @returns the formula for the DynamicTable AjfWidget, like this:
+ * buildFormDataset(projectsDataset, ['id_p','donors','budget','dino_area_name','calc_progress',])"
+ */
+function _buildFormListTable(
+  json: {[key: string]: string}[],
+  colspans: number[],
+  textAlign: string[],
+): string {
+  let formula = '';
+  if (json.length > 1) {
     let fields = '[';
     Object.keys(json[0]).forEach(fieldColName => {
       let elem = json[1][fieldColName] ? `'${json[1][fieldColName]}'` : `''`;
       fields += elem + ',';
     });
     fields += ']';
-    dataset = json[1]['dataset'] as string;
+    const dataset = json[1]['dataset'] as string;
     const linkField = json[1]['link_field'] as string;
     const linkPos = json[1]['link_position'] ? +json[1]['link_position'] : 0;
     const rowLink =
       linkField && linkField.length ? `{'link': '${linkField}', 'position': ${linkPos}}` : null;
 
-    const backgroundColorA = json[1]['backgroundColorA'] || null;
-    const backgroundColorB = json[1]['backgroundColorB'] || null;
-
-    formula = `buildFormDataset(${dataset}, ${fields}, ${rowLink}, ${JSON.stringify(
-      backgroundColorA,
-    )}, ${JSON.stringify(backgroundColorB)})`;
+    formula = `buildAlignedFormDataset(${dataset}, ${fields}, ${JSON.stringify(
+      colspans,
+    )}, ${JSON.stringify(textAlign)}, ${rowLink})`;
   }
-
-  return createWidget({
-    widgetType: AjfWidgetType.DynamicTable,
-    rowDefinition: {
-      formula: formula,
-    },
-    dataset: tableHeader,
-    exportable: true,
-    cellStyles: {
-      textAlign: 'center',
-      color: 'black',
-      backgroundColor: 'white',
-    },
-    styles: {
-      borderCollapse: 'collapse',
-    },
-  });
+  return formula;
 }
 
 /**

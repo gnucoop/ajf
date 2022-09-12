@@ -130,6 +130,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
         ...createWidgetInstance(
           {
             ...baseWidget,
+            styles: {height: '980px'},
             widgetType: AjfWidgetType.Chart,
             chartType: AjfChartType.Line,
             labels: [],
@@ -159,6 +160,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
         ...createWidgetInstance(
           {
             ...baseWidget,
+            styles: {height: '300px'},
             widgetType: AjfWidgetType.Table,
             dataset: [],
           },
@@ -180,6 +182,64 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             {value: 'g', style: {}},
             {value: 'h', style: {}},
             {value: 'i', style: {}},
+          ],
+        ],
+      },
+    },
+    {
+      name: 'Paginated Table',
+      instance: {
+        ...createWidgetInstance(
+          {
+            ...baseWidget,
+            styles: {height: '500px', alignItems: 'flex-start'},
+            widgetType: AjfWidgetType.PaginatedTable,
+            pageSize: 2,
+            dataset: [],
+          },
+          {},
+          ts,
+        ),
+        data: [
+          [
+            {value: 'header 1', style: {}},
+            {value: 'header 2', style: {}},
+            {value: 'header 3', style: {}},
+          ],
+          [
+            {value: 'a', style: {}},
+            {value: 'b', style: {}},
+            {value: 'c', style: {}},
+          ],
+          [
+            {value: 'd', style: {}},
+            {value: 'e', style: {}},
+            {value: 'f', style: {}},
+          ],
+          [
+            {value: 'g', style: {}},
+            {value: 'h', style: {}},
+            {value: 'i', style: {}},
+          ],
+          [
+            {value: 'j', style: {}},
+            {value: 'k', style: {}},
+            {value: 'l', style: {}},
+          ],
+          [
+            {value: 'm', style: {}},
+            {value: 'n', style: {}},
+            {value: 'o', style: {}},
+          ],
+          [
+            {value: 'p', style: {}},
+            {value: 'q', style: {}},
+            {value: 'r', style: {}},
+          ],
+          [
+            {value: 's', style: {}},
+            {value: 't', style: {}},
+            {value: 'u', style: {}},
           ],
         ],
       },

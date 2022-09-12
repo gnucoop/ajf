@@ -131,7 +131,9 @@ export class AjfExpressionUtils {
     REPEAT: {fn: REPEAT},
     EVALUATE: {fn: EVALUATE},
     buildDataset: {fn: buildDataset},
+    buildAlignedDataset: {fn: buildAlignedDataset},
     buildFormDataset: {fn: buildFormDataset},
+    buildAlignedFormDataset: {fn: buildAlignedFormDataset},
     buildWidgetDataset: {fn: buildWidgetDataset},
     buildWidgetDatasetWithDialog: {fn: buildWidgetDatasetWithDialog},
     FILTER_BY_VARS: {fn: FILTER_BY_VARS},
@@ -1049,15 +1051,24 @@ export function MODE(forms: (Form | MainForm)[], fieldName: string): number[] {
     .map(v => +v);
 }
 
+export function buildDataset(
+  dataset: (string | number | string[] | number[])[],
+  colspans: number[],
+): AjfTableCell[][] {
+  return buildAlignedDataset(dataset, colspans, []);
+}
+
 /**
  * Build a dataset for ajf dynamic table
  * @param dataset the dataset for the table
  * @param colspans colspan for each value in the dataset
+ * @param textAlign alignment for each value in the dataset
  * @returns An AjfTableCell list
  */
-export function buildDataset(
+export function buildAlignedDataset(
   dataset: (string | number | string[] | number[])[],
   colspans: number[],
+  textAlign: string[],
 ): AjfTableCell[][] {
   const res: AjfTableCell[][] = [];
   const normalizeDataset: any[][] = [];
@@ -1079,7 +1090,7 @@ export function buildDataset(
         colspan: colspans[cellIndex],
         rowspan: 1,
         style: {
-          textAlign: 'center',
+          textAlign: textAlign[cellIndex] ? textAlign[cellIndex] : 'center',
           color: 'black',
           backgroundColor: index % 2 === 0 ? 'white' : '#ddd',
         },
@@ -1104,16 +1115,33 @@ export function buildFormDataset(
   dataset: MainForm[],
   fields: string[],
   rowLink: {link: string; position: number} | null,
-  backgroundColorA?: string,
-  backgroundColorB?: string,
+  _backgroundColorA?: string,
+  _backgroundColorB?: string,
+): AjfTableCell[][] {
+  return buildAlignedFormDataset(dataset, fields, [], [], rowLink);
+}
+
+/**
+ * Build a dataset based on a list of Forms, for ajf dynamic table
+ * @param dataset the dataset for the table
+ * @param fields the list of fields name for each row
+ * @param colspans colspan for each value in the dataset
+ * @param textAlign alignment for each value in the dataset
+ * @param rowLink the http link for the row, with the form field name with the link value and the column position for the link.
+ * ie: {'link': 'home_link', 'position': 0}
+ * @returns An AjfTableCell list
+ */
+export function buildAlignedFormDataset(
+  dataset: MainForm[],
+  fields: string[],
+  colspans: number[],
+  textAlign: string[],
+  rowLink: {link: string; position: number} | null,
 ): AjfTableCell[][] {
   const res: AjfTableCell[][] = [];
-  if (backgroundColorA == null) {
-    backgroundColorA = 'white';
-  }
-  if (backgroundColorB == null) {
-    backgroundColorB = '#ddd';
-  }
+
+  const backgroundColorA = 'white';
+  const backgroundColorB = '#ddd';
   if (dataset) {
     let index: number = 0;
     dataset.forEach((data: MainForm) => {
@@ -1127,10 +1155,10 @@ export function buildFormDataset(
           }
           row.push({
             value: cellValue,
-            colspan: 1,
+            colspan: colspans[cellIdx] && colspans[cellIdx] > 0 ? colspans[cellIdx] : 1,
             rowspan: 1,
             style: {
-              textAlign: 'center',
+              textAlign: textAlign[cellIdx] ? textAlign[cellIdx] : 'center',
               color: 'black',
               backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB,
             },
