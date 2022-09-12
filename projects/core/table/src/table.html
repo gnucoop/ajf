@@ -1,11 +1,24 @@
 <table *ngIf="data">
-  <tr *ngFor="let row of data">
-    <td *ngFor="let cell of row"
+  <tr *ngIf="data.length > 0">
+    <th
+      *ngFor="let headerCell of data[0]"
+      [applyStyles]="headerCell.style"
+      [ngStyle]="{'padding': cellpadding}"
+      [attr.colspan]="headerCell.colspan"
+      [attr.rowspan]="headerCell.rowspan"
+      [innerHTML]="headerCell.value"
+    ></th>
+  </tr>
+  <ng-container *ngIf="data.length > 1">
+    <tr *ngFor="let row of data.slice(1)">
+      <td
+        *ngFor="let cell of row"
         [applyStyles]="cell.style"
         [ngStyle]="{'padding': cellpadding}"
         [attr.colspan]="cell.colspan"
         [attr.rowspan]="cell.rowspan"
-        [innerHTML]="cell.value">
-    </td>
-  </tr>
+        [innerHTML]="cell.value"
+      ></td>
+    </tr>
+  </ng-container>
 </table>

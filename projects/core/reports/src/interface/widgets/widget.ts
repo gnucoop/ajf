@@ -38,6 +38,7 @@ import {AjfTextWidget} from './text-widget';
 import {AjfWidgetWithContent} from './widget-with-content';
 import {AjfWidgetType} from './widget-type';
 import {AjfGraphWidget} from './graph-widget';
+import {AjfPaginatedTableWidget} from './paginated-table-widget';
 
 export interface AjfUnknownWidget extends AjfBaseWidget {
   widgetType: AjfWidgetType.LENGTH;
@@ -60,4 +61,5 @@ export type AjfWidget =
   | AjfPaginatedListWidget
   | AjfTextWidget
   | AjfUnknownWidget
-  | AjfWidgetWithContent;
+  | AjfWidgetWithContent
+  | AjfPaginatedTableWidget;

@@ -20,23 +20,20 @@
  *
  */
 
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfWidgetType {
-  Layout,
-  PageBreak,
-  Image,
-  Text,
-  Chart,
-  Table,
-  Map,
-  Column,
-  Formula,
-  ImageContainer,
-  DynamicTable,
-  Graph,
-  PaginatedList,
-  Dialog,
-  HeatMap,
-  PaginatedTable,
-  LENGTH,
+import {AjfWidgetType} from './widget-type';
+import {AjfFormula} from '@ajf/core/models';
+import {AjfDataWidget} from './data-widget';
+import {AjfTableDataset} from '../dataset/table-dataset';
+
+export interface AjfPaginatedTableWidget extends AjfDataWidget {
+  widgetType: AjfWidgetType.PaginatedTable;
+  pageSize: number;
+
+  /**
+   * it should return a AjfTableCell[][]
+   */
+  rowDefinition: AjfFormula;
+  cellStyles: any;
+  dataset: AjfTableDataset[];
+  exportable?: boolean;
 }

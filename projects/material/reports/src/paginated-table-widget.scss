@@ -1,0 +1,91 @@
+table {
+  border-spacing: 0;
+  td {
+    padding: 10px;
+  }
+}
+
+.ajf-paginated-table {
+  width: 100%;
+  table {
+    width: 100%;
+  }
+}
+
+.ajf-paginated-table-page-selector {
+  display: flex;
+  align-items: baseline;
+
+  .ajf-paginated-table-page-selector-label {
+    white-space: nowrap;
+    margin-right: 4px;
+    font-size: 0.9em;
+  }
+  mat-select {
+    width: 50px;
+    font-size: 0.9em;
+  }
+}
+
+.ajf-paginated-table-title-container {
+  display: flex;
+  align-items: center;
+}
+
+.ajf-spacer {
+  flex: 1 0 auto;
+}
+
+.ajf-paginated-table-btn {
+  cursor: pointer;
+  display: block;
+  width: 32px;
+  height: 32px;
+  position: relative;
+
+  &::after {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.ajf-paginated-table-paginator-separator {
+  width: 16px;
+  height: 32px;
+  position: relative;
+
+  &::after {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    content: '/';
+  }
+}
+
+.ajf-paginated-table-btn-disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.ajf-paginated-table-back-btn::after {
+  content: '<';
+}
+
+.ajf-paginated-table-forward-btn::after {
+  content: '>';
+}
+
+.ajf-paginated-table-paginator {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+
+  > * {
+    margin: 0 0.5em;
+  }
+}
