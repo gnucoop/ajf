@@ -146,6 +146,8 @@ export class AjfExpressionUtils {
     BUILD_DATASET: {fn: BUILD_DATASET},
     JOIN_FORMS: {fn: JOIN_FORMS},
     LEN: {fn: LEN},
+    CONCAT: {fn: CONCAT},
+    REMOVE_DUPLICATES: {fn: REMOVE_DUPLICATES},
     JOIN_REPEATING_SLIDES: {fn: JOIN_REPEATING_SLIDES},
     FROM_REPS: {fn: FROM_REPS},
     ISIN: {fn: ISIN},
@@ -1845,6 +1847,29 @@ export function LEN(dataset: MainForm | any[]): number {
   }
 
   return (dataset as any[]).length || 0;
+}
+
+/**
+ * Array concatenation.
+ *
+ * @export
+ * @param {any[]} a
+ * @param {any[]} b
+ * @return {*}  {any[]}
+ */
+export function CONCAT(a: any[], b: any[]): any[] {
+  return a.concat(b);
+}
+
+/**
+ * Removes duplicate elements from an array.
+ *
+ * @export
+ * @param {any[]} arr
+ * @return {*}  {any[]}
+ */
+export function REMOVE_DUPLICATES(arr: any[]): any[] {
+  return [...(new Map(arr.map(v => [JSON.stringify(v), v]))).values()];
 }
 
 /**
