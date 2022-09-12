@@ -416,6 +416,8 @@ const functionParams: {[name: string]: boolean[]} = {
   APPLY: [false, true, true],
   GET_AGE: [false, false],
   LEN: [false, false],
+  CONCAT: [false, false],
+  REMOVE_DUPLICATES: [false, false],
   CONSOLE_LOG: [false, false],
   JOIN_FORMS: [false, false, true, true],
   JOIN_REPEATING_SLIDES: [false, false, true, true, true, true],
