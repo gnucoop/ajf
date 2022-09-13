@@ -22,12 +22,13 @@
 
 import {AjfCommonModule} from '@ajf/core/common';
 import {CommonModule} from '@angular/common';
+import {MatSortModule} from '@angular/material/sort';
 import {NgModule} from '@angular/core';
 
 import {AjfTable} from './table';
 
 @NgModule({
-  imports: [AjfCommonModule, CommonModule],
+  imports: [AjfCommonModule, CommonModule, MatSortModule],
   declarations: [AjfTable],
   exports: [AjfTable],
 })

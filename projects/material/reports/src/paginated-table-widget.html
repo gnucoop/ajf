@@ -34,6 +34,6 @@
     </div>
   </div>
   <div class="ajf-paginated-table-item">
-    <ajf-table [data]="currentContent"></ajf-table>
+    <ajf-table [data]="currentContent" (sortSelected)="sortPaginatedData($event)"></ajf-table>
   </div>
 </div>

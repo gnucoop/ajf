@@ -50,6 +50,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import {Sort} from '@angular/material/sort';
 import {BehaviorSubject, Observable} from 'rxjs';
 
 import {AjfChartWidgetComponent} from './chart-widget';
@@ -284,6 +285,8 @@ export class AjfPaginatedTableWidgetComponent
   }
   private _currentContent: AjfTableCell[][] = [];
 
+  private _allDataContent: AjfTableCell[][] = [];
+
   get headerContent(): AjfTableCell[] {
     return this._headerContent;
   }
@@ -303,6 +306,10 @@ export class AjfPaginatedTableWidgetComponent
     super(cdr, el);
   }
 
+  /**
+   * Set initial data for the table on instance changes
+   * @param changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['instance']) {
       if (
@@ -327,6 +334,11 @@ export class AjfPaginatedTableWidgetComponent
     this._updateCurrentContent();
   }
 
+  /**
+   * Got to next or previous page
+   * @param direction
+   * @returns
+   */
   goToPage(direction: 'next' | 'previous'): void {
     const diff = direction === 'next' ? 1 : -1;
     const newPage = this._currentPage + diff;
@@ -344,37 +356,65 @@ export class AjfPaginatedTableWidgetComponent
     this._updateCurrentContent();
   }
 
+  /**
+   * Sort all data for the table, not only current page data
+   * @param sort
+   * @returns
+   */
+  sortPaginatedData(sort: Sort): void {
+    if (!sort.active || sort.direction === '') {
+      return;
+    }
+    if (this._allDataContent.length > 1) {
+      this._currentPage = 1;
+      this._canGoForward = this._currentPage < this._pages;
+      this._canGoBackward = false;
+
+      this._allDataContent = this._allDataContent.sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+        return this._compare(a[0], b[0], isAsc);
+      });
+      this._fillCurrentContent();
+    }
+  }
+
+  private _compare(a: AjfTableCell, b: AjfTableCell, isAsc: boolean) {
+    return (a.value < b.value ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  /**
+   * Set current header and data for the table, starting from page 1
+   */
   private _updateCurrentContent(): void {
     this._canGoBackward = false;
     if (this.instance == null || this.instance.data.length === 0) {
       this._currentPage = 0;
       this._pages = 0;
+      this._headerContent = [];
+      this._currentContent = [];
+      this._allDataContent = [];
     } else {
+      this._headerContent = this.instance.data[0];
+      this._allDataContent = this.instance.data.slice(1);
       this._currentPage = 1;
-      const {data} = this.instance;
 
-      this._pages = Math.ceil((data.length - 1) / this.paginatorConfig.pageSize);
+      this._pages = Math.ceil(this._allDataContent.length / this.paginatorConfig.pageSize);
       this._canGoForward = this._pages > 1;
     }
     this._fillCurrentContent();
   }
 
+  /**
+   * Update current data for the table, using page and sorted data
+   */
   private _fillCurrentContent(): void {
-    if (this.instance == null || this.instance.data.length === 0) {
-      this._headerContent = [];
-      this._currentContent = [];
-      return;
-    }
-
-    this._headerContent = this.instance.data[0];
-    if (this.instance.data.length === 1) {
+    if (this._allDataContent.length === 0 && this._headerContent.length > 0) {
       this._currentContent = [this._headerContent];
     } else {
-      const data = this.instance.data.slice(1);
       const start = (this._currentPage - 1) * this.paginatorConfig.pageSize;
       this._currentContent = [
         this._headerContent,
-        ...data.slice(start, start + this.paginatorConfig.pageSize),
+        ...this._allDataContent.slice(start, start + this.paginatorConfig.pageSize),
       ];
     }
     this._cdr.markForCheck();

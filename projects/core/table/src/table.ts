@@ -24,12 +24,15 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
+  OnDestroy,
+  Output,
   SecurityContext,
   ViewEncapsulation,
 } from '@angular/core';
+import {Sort} from '@angular/material/sort';
 import {DomSanitizer} from '@angular/platform-browser';
-
 import {AjfTableCell} from './table-cell';
 
 @Component({
@@ -39,7 +42,10 @@ import {AjfTableCell} from './table-cell';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfTable {
+export class AjfTable implements OnDestroy {
+  /**
+   * data to be shown in the table
+   */
   private _data: AjfTableCell[][] = [];
   get data(): AjfTableCell[][] {
     return this._data;
@@ -50,6 +56,9 @@ export class AjfTable {
     this._cdr.markForCheck();
   }
 
+  /**
+   * cellpadding for all rows, include header
+   */
   private _cellpadding: string = '';
   get cellpadding(): string {
     return this._cellpadding;
@@ -59,6 +68,12 @@ export class AjfTable {
     this._cellpadding = cellpadding;
     this._cdr.markForCheck();
   }
+
+  /**
+   * Emit an event when sort arrows are selected
+   */
+  @Output()
+  readonly sortSelected = new EventEmitter<Sort>();
 
   /**
    * Creates an instance of TableComponent.
@@ -78,5 +93,30 @@ export class AjfTable {
       });
     });
     return data;
+  }
+
+  /**
+   * Sort visible data and emit an event to use for paginated table
+   * @param sort
+   * @returns
+   */
+  sortData(sort: Sort): void {
+    if (!sort.active || sort.direction === '') {
+      return;
+    }
+    const sortedData = this._data.slice(1).sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      return this._compare(a[0], b[0], isAsc);
+    });
+    this._data = [this._data[0], ...sortedData];
+    this.sortSelected.emit(sort);
+  }
+
+  private _compare(a: AjfTableCell, b: AjfTableCell, isAsc: boolean) {
+    return (a.value < b.value ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  ngOnDestroy(): void {
+    this.sortSelected.complete();
   }
 }
