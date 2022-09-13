@@ -1,13 +1,15 @@
-<table *ngIf="data">
+<table *ngIf="data" matSort (matSortChange)="sortData($event)">
   <tr *ngIf="data.length > 0">
     <th
-      *ngFor="let headerCell of data[0]"
+      *ngFor="let headerCell of data[0]; let idx = index"
       [applyStyles]="headerCell.style"
       [ngStyle]="{'padding': cellpadding}"
       [attr.colspan]="headerCell.colspan"
       [attr.rowspan]="headerCell.rowspan"
-      [innerHTML]="headerCell.value"
-    ></th>
+      [mat-sort-header]="'column' + idx"
+    >
+      {{headerCell.value}}
+    </th>
   </tr>
   <ng-container *ngIf="data.length > 1">
     <tr *ngFor="let row of data.slice(1)">

@@ -323,11 +323,15 @@ function _buildHtml(json: {[key: string]: string}[]): AjfWidget {
   });
 }
 
-function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWidget {
+function _buildTable(
+  sheetName: string,
+  json: {[key: string]: string | number | boolean}[],
+): AjfWidget {
   let tableHeader: AjfTableDataset[] = [];
   let dataRows = '[]';
   let formula = '';
-  let pageSize = 0;
+  let pageSize = 10;
+  let pagination = false;
   if (json.length > 1) {
     const rowspan = 1;
     const titles = Object.keys(json[0]);
@@ -358,7 +362,7 @@ function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWid
         borderBottom: '2px solid #ddd',
       },
     }));
-    pageSize = json[1]['pageSize'] ? +json[1]['pageSize'] : 0;
+    pagination = json[1]['pagination'] ? (json[1]['pagination'] as boolean) : false;
 
     if ('dataset' in json[1]) {
       formula = _buildFormListTable(json, colspans, textAlign);
@@ -371,7 +375,7 @@ function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWid
         titles.forEach(title => {
           let elem = row[title] || `''`;
           try {
-            elem = indicatorToJs(elem);
+            elem = indicatorToJs(elem as string);
           } catch (err: any) {
             const rowNum = row['__rowNum__'];
             err = new Error(
@@ -392,7 +396,7 @@ function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWid
     }
   }
 
-  if (pageSize > 0) {
+  if (pagination) {
     return createWidget({
       widgetType: AjfWidgetType.PaginatedTable,
       pageSize: pageSize,
@@ -437,7 +441,7 @@ function _buildTable(sheetName: string, json: {[key: string]: string}[]): AjfWid
  * buildFormDataset(projectsDataset, ['id_p','donors','budget','dino_area_name','calc_progress',])"
  */
 function _buildFormListTable(
-  json: {[key: string]: string}[],
+  json: {[key: string]: string | number | boolean}[],
   colspans: number[],
   textAlign: string[],
 ): string {
