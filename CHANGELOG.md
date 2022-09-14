@@ -1,3 +1,12 @@
+<a name="13.2.7"></a>
+# 13.2.7 "fortunate-barnacle" (2022-09-14)
+### Features
+* **core/reports:** add new widget for paginated tables ([14c6241](https://github.com/gnucoop/ajf/commit/14c62411860a1f96f6557bf3e01bde5a657417b9))
+* **core/reports:** xlsreport: new array functions ([33b4420](https://github.com/gnucoop/ajf/commit/33b4420a5b77ff18a3ac49580d9e83d9455934a1))
+* **core/table:** add sort in table ([46b752b](https://github.com/gnucoop/ajf/commit/46b752ba103c547ef8e00867d0993b98fda45c2d))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.6"></a>
 # 13.2.6 "assistant-canid" (2022-09-06)
 ### Bug Fixes
