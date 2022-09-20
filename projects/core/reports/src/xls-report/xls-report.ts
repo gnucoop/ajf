@@ -365,10 +365,31 @@ function _buildTable(
     pagination = json[1]['pagination'] ? (json[1]['pagination'] as boolean) : false;
 
     if ('dataset' in json[1]) {
-      formula = _buildFormListTable(json, colspans, textAlign);
+      const dialogFields = json[1]['dialog_fields']
+        ? (json[1]['dialog_fields'] as string).split(',').map(v => v.trim())
+        : [];
+      const dialogLabelFields = json[1]['dialog_fields_labels']
+        ? (json[1]['dialog_fields_labels'] as string).split(',').map(v => v.trim())
+        : [];
+      formula = _buildFormListTable(json, colspans, textAlign, dialogFields, dialogLabelFields);
+      if (dialogFields && dialogFields.length) {
+        tableHeader.push({
+          label: '',
+          formula: {formula: `" "`},
+          aggregation: {aggregation: 0},
+          colspan: 1,
+          rowspan,
+          style: {
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: 'white',
+            backgroundColor: '#3f51b5',
+            borderBottom: '2px solid #ddd',
+          },
+        });
+      }
     } else {
       delete json[0];
-      console.log(json);
       dataRows = '[';
       json.forEach(row => {
         let dataRow = '[';
@@ -444,6 +465,8 @@ function _buildFormListTable(
   json: {[key: string]: string | number | boolean}[],
   colspans: number[],
   textAlign: string[],
+  dialogFields: string[],
+  dialogLabelFields: string[],
 ): string {
   let formula = '';
   if (json.length > 1) {
@@ -461,7 +484,9 @@ function _buildFormListTable(
 
     formula = `buildAlignedFormDataset(${dataset}, ${fields}, ${JSON.stringify(
       colspans,
-    )}, ${JSON.stringify(textAlign)}, ${rowLink})`;
+    )}, ${JSON.stringify(textAlign)}, ${rowLink}, ${JSON.stringify(dialogFields)}, ${JSON.stringify(
+      dialogLabelFields,
+    )})`;
   }
   return formula;
 }
