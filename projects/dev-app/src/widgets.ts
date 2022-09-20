@@ -169,14 +169,30 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
         ),
         data: [
           [
-            {value: 'a', style: {}},
+            {value: 'header 1', style: {}},
+            {value: 'header 2', style: {}},
+            {value: 'header 3', style: {}},
+          ],
+          [
+            {value: '<b>a</b>', style: {}},
             {value: 'b', style: {}},
-            {value: 'c', style: {}},
+            {
+              value:
+                '<div class="read_more_cell"><p class="read_more_text">Read more</p><b class="material-icons">add_circle_outline</b></div>',
+              style: {},
+              dialogHtml: '<b>my dialog title</b><br/><div>one line</div><div>two line</div>',
+            },
           ],
           [
             {value: 'd', style: {}},
             {value: 'e', style: {}},
-            {value: 'f', style: {}},
+            {
+              value:
+                '<div class="read_more_cell"><p class="read_more_text">Read more</p><b class="material-icons">add_circle_outline</b></div>',
+              style: {},
+              dialogHtml:
+                '<b>my second row dialog title</b><br/><div>one 1 line</div><div>two 2 line</div>',
+            },
           ],
           [
             {value: 'g', style: {}},

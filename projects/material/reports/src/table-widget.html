@@ -1,7 +1,8 @@
-<ajf-widget-export *ngIf="instance"
+<ajf-widget-export
+  *ngIf="instance"
   [widgetType]="instance.widgetType"
   [data]="instance.data"
   [enable]="instance.exportable"
 >
-    <ajf-table [data]="instance.data"></ajf-table>
+  <ajf-table [data]="instance.data"></ajf-table>
 </ajf-widget-export>

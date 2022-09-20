@@ -680,7 +680,7 @@ export function getCoordinate(source: any, zoom?: number): [number, number, numb
  * Calculates all the possible results that a field has taken
  */
 export function ALL_VALUES_OF(mainforms: MainForm[], fieldName: string): string[] {
-  const forms = [...(mainforms || [])];
+  const forms = [...(mainforms.filter(form => form != null) || [])];
   const allreps = [
     ...forms.map(form => {
       const {reps, ...v} = form;
@@ -696,9 +696,9 @@ export function ALL_VALUES_OF(mainforms: MainForm[], fieldName: string): string[
       )
       .flat(),
   ];
-
   return [...new Set(allreps.filter(f => f[fieldName] != null).map(f => `${f[fieldName]}`))];
 }
+
 export function plainArray(params: any[]): any[] {
   let res: any[] = [];
   params.forEach(param => {
@@ -734,7 +734,9 @@ export function COUNT_FORMS(formList: MainForm[], expression: string = 'true'): 
         exxpr = exxpr.split(identifier).join(JSON.stringify(change as string));
       }
     });
-    if (mainForm.reps != null) {
+    if (evaluateExpression(exxpr, mainForm)) {
+      count++;
+    } else if (mainForm.reps != null) {
       const allreps: number = Object.keys(mainForm.reps)
         .map((key: string) => (mainForm.reps as Instances)[key])
         .flat()
@@ -743,10 +745,6 @@ export function COUNT_FORMS(formList: MainForm[], expression: string = 'true'): 
       if (allreps > 0) {
         count++;
       }
-    }
-
-    if (evaluateExpression(exxpr, mainForm)) {
-      count++;
     }
   }
   return count;
@@ -1118,7 +1116,7 @@ export function buildFormDataset(
   _backgroundColorA?: string,
   _backgroundColorB?: string,
 ): AjfTableCell[][] {
-  return buildAlignedFormDataset(dataset, fields, [], [], rowLink);
+  return buildAlignedFormDataset(dataset, fields, [], [], rowLink, [], []);
 }
 
 /**
@@ -1137,6 +1135,8 @@ export function buildAlignedFormDataset(
   colspans: number[],
   textAlign: string[],
   rowLink: {link: string; position: number} | null,
+  dialogFields: string[],
+  dialogLabelFields: string[],
 ): AjfTableCell[][] {
   const res: AjfTableCell[][] = [];
 
@@ -1164,6 +1164,35 @@ export function buildAlignedFormDataset(
             },
           });
         });
+
+        if (dialogFields && dialogFields.length) {
+          let dialogHtml: string[] = [];
+          dialogFields.forEach((field: string, cellIdx: number) => {
+            let fieldValue = '""';
+            if (data[field] != null) {
+              fieldValue =
+                "<p class='dialog-item'><b>" +
+                dialogLabelFields[cellIdx].replace(/['\"]+/g, '') +
+                '</b> <span>' +
+                data[field] +
+                '</span></p>';
+              dialogHtml.push(fieldValue);
+            }
+          });
+
+          row.push({
+            value:
+              '<div class="read_more_cell"><p class="read_more_text">Read more</p><b class="material-icons">add_circle_outline</b></div>',
+            dialogHtml: dialogHtml.join(' '),
+            colspan: 1,
+            rowspan: 1,
+            style: {
+              textAlign: 'center',
+              color: 'black',
+              backgroundColor: index % 2 === 0 ? backgroundColorA : backgroundColorB,
+            },
+          });
+        }
         res.push(row);
       }
     });
@@ -1897,7 +1926,7 @@ export function CONCAT(a: any[], b: any[]): any[] {
  * @return {*}  {any[]}
  */
 export function REMOVE_DUPLICATES(arr: any[]): any[] {
-  return [...(new Map(arr.map(v => [JSON.stringify(v), v]))).values()];
+  return [...new Map(arr.map(v => [JSON.stringify(v), v])).values()];
 }
 
 /**

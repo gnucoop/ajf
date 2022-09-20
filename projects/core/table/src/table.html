@@ -20,7 +20,12 @@
         [attr.colspan]="cell.colspan"
         [attr.rowspan]="cell.rowspan"
         [innerHTML]="cell.value"
+        (click)="openDialog(cell.dialogHtml)"
       ></td>
     </tr>
   </ng-container>
 </table>
+
+<ng-template #dialogContent let-data>
+  <div [innerHTML]="data.content"></div>
+</ng-template>

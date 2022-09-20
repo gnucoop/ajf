@@ -25,4 +25,5 @@ export interface AjfTableCell {
   style: any;
   colspan?: number;
   rowspan?: number;
+  dialogHtml?: string;
 }

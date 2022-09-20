@@ -29,8 +29,11 @@ import {
   OnDestroy,
   Output,
   SecurityContext,
+  TemplateRef,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Sort} from '@angular/material/sort';
 import {DomSanitizer} from '@angular/platform-browser';
 import {AjfTableCell} from './table-cell';
@@ -75,13 +78,19 @@ export class AjfTable implements OnDestroy {
   @Output()
   readonly sortSelected = new EventEmitter<Sort>();
 
+  @ViewChild('dialogContent', {read: TemplateRef}) dialogContent!: TemplateRef<HTMLElement>;
+
   /**
    * Creates an instance of TableComponent.
    *
    *
    * @memberOf TableComponent
    */
-  constructor(private _cdr: ChangeDetectorRef, private _domSanitizer: DomSanitizer) {}
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    private _domSanitizer: DomSanitizer,
+    private _dialog: MatDialog,
+  ) {}
 
   private _fixData(data: AjfTableCell[][]): AjfTableCell[][] {
     (data || []).forEach(elem => {
@@ -114,6 +123,21 @@ export class AjfTable implements OnDestroy {
 
   private _compare(a: AjfTableCell, b: AjfTableCell, isAsc: boolean) {
     return (a.value < b.value ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  /**
+   * open a dialog when click on cell, if dialogHtmlContent is valid
+   * @param dialogHtmlContent the html to show in the dialog
+   */
+  openDialog(dialogHtmlContent: string | undefined): void {
+    if (dialogHtmlContent) {
+      const dialogConfig = {
+        data: {
+          content: dialogHtmlContent,
+        },
+      } as MatDialogConfig;
+      this._dialog.open(this.dialogContent, dialogConfig);
+    }
   }
 
   ngOnDestroy(): void {
