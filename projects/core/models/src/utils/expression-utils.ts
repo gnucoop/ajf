@@ -37,7 +37,7 @@ export interface Instances {
   [instance: string]: Form[];
 }
 export interface MainForm {
-  [key: string]: string | number | null | Instances | undefined | null;
+  [key: string]: string | number | boolean | null | Instances | undefined | null;
   reps?: Instances;
 }
 
@@ -838,16 +838,14 @@ export function COUNT_FORMS_UNIQUE(
 }
 
 /**
- * Aggregates and sums the values of one or more. An optional condition can be added to discriminate
+ * Aggregates and sums the values of one field. An optional condition can be added to discriminate
  * which forms to take for the sum.
  */
 export function SUM(mainForms: (MainForm | Form)[], field: string, condition = 'true'): number {
-  // const forms: MainForm[] = deepCopy(mainForms).filter((f: MainForm) => f != null);
   const forms: (MainForm | Form)[] = (mainForms || [])
     .slice(0)
     .filter((f: MainForm | Form) => f != null);
-  const identifiers = getCodeIdentifiers(condition, true);
-  let exxpr = condition;
+
   let count = 0;
 
   if (forms.length === 0) {
@@ -855,27 +853,22 @@ export function SUM(mainForms: (MainForm | Form)[], field: string, condition = '
   }
   for (let i = 0; i < forms.length; i++) {
     const mainForm = forms[i];
-    if (mainForm.reps != null) {
-      const allreps: Form[] = Object.keys(mainForm.reps)
-        .map((key: string) => (mainForm.reps as Instances)[key])
-        .flat();
-      allreps
-        .filter(c => c[field] != null)
-        .forEach((child: Form) => {
-          if (evaluateExpression(condition, child)) {
-            count += +(child[field] as number) || 0;
-          }
-        });
-    }
 
-    identifiers.forEach(identifier => {
-      const change = mainForm[identifier] ? mainForm[identifier] : null;
-      if (change) {
-        exxpr = condition.split(identifier).join(JSON.stringify(change) as string);
-      }
-    });
-    if (evaluateExpression(exxpr, mainForm) && mainForm[field] != null) {
+    if (evaluateExpression(condition, mainForm)) {
       count += +(mainForm[field] as number) || 0;
+    } else {
+      if (mainForm.reps != null) {
+        const allreps: Form[] = Object.keys(mainForm.reps)
+          .map((key: string) => (mainForm.reps as Instances)[key])
+          .flat();
+        allreps
+          .filter(c => c[field] != null)
+          .forEach((child: Form) => {
+            if (evaluateExpression(condition, child)) {
+              count += +(child[field] as number) || 0;
+            }
+          });
+      }
     }
   }
   return count;
@@ -920,7 +913,7 @@ export function PERCENT(value1: number, value2: number): string {
 /**
  * Calculates the expression in the last form by date.
  */
-export function LAST(forms: (Form | MainForm)[], expression: string, date = 'date_end'): string {
+export function LAST(forms: (Form | MainForm)[], expression: string, date = 'created_at'): string {
   forms = (forms || []).slice(0).sort((a, b) => {
     const dateA = new Date(b[date] as string).getTime();
     const dateB = new Date(a[date] as string).getTime();
@@ -1698,6 +1691,56 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
 }
 
 /**
+ * UTILITY FUNCION
+ * This function take an ajf schema as input and extract a
+ * dict that match each choice value (also with choicesOrigin name prefix) with its label
+ * @param schema the ajf schema
+ * @returns A dict with:
+ *  {[choicesOriginName_choiceValue: string]: [choiceLabel: string]}
+ *  {[choiceValue: string]: [choiceLabel: string]}
+ */
+function extractLabelsBySchemaChoices(schema: any): {[choiceValue: string]: string} {
+  const choiceLabels: {[choiceValue: string]: string} = {};
+  if (schema && schema.choicesOrigins != null) {
+    (schema.choicesOrigins as any[]).forEach(choicesOrigin => {
+      if (choicesOrigin != null && choicesOrigin.choices != null) {
+        (choicesOrigin.choices as any[]).forEach(choice => {
+          choiceLabels[choicesOrigin.name + '_' + choice.value] = choice.label;
+          choiceLabels[choice.value] = choice.label;
+        });
+      }
+    });
+  }
+  return choiceLabels;
+}
+
+/**
+ * UTILITY FUNCION
+ * This function take an ajf schema as input and extract a one
+ * dimensional array of AjfNode for each slide's field
+ *
+ * @param schema the ajf schema
+ * @returns An object with all fields:
+ *  {[fieldName: string]: ajf field}
+ */
+function extractFlattenNodes(schema: any): {[field: string]: any} {
+  const fieldNodes: {[field: string]: any} = {};
+  if (schema && schema.nodes) {
+    const slides: any[] = schema.nodes.filter(
+      (node: any) => node.nodeType === 3 || node.nodeType === 4,
+    );
+    slides.forEach(slide => {
+      slide.nodes
+        .filter((node: any) => node.nodeType === 0)
+        .forEach((fieldNode: any) => {
+          fieldNodes[fieldNode.name] = fieldNode;
+        });
+    });
+  }
+  return fieldNodes;
+}
+
+/**
  * This function take a list of forms, an ajf schema and a list of field names as input and builds
  * a data structure that replace a list of label matched inside a schema choiche origins.
  *
@@ -1708,19 +1751,8 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
  */
 export function APPLY_LABELS(formList: MainForm[], schema: any, fieldNames: string[]): MainForm[] {
   formList = cloneMainForms(formList);
-
-  const choiceLabels: {[fieldName: string]: string} = {};
-  if (schema != null && schema.choicesOrigins != null) {
-    (schema.choicesOrigins as any[]).forEach(choice => {
-      if (choice != null && choice.choices != null) {
-        (choice.choices as any[]).forEach(element => {
-          // TODO fix: add a prefix for each choice, to avoid duplicated values
-          // choice.name + '_' + element.value
-          choiceLabels[element.value] = element.label;
-        });
-      }
-    });
-  }
+  const choiceLabels: {[fieldName: string]: string} = extractLabelsBySchemaChoices(schema);
+  const flattenNodes = extractFlattenNodes(schema);
 
   for (let i = 0; i < formList.length; i++) {
     if (formList[i] == null) {
@@ -1730,12 +1762,16 @@ export function APPLY_LABELS(formList: MainForm[], schema: any, fieldNames: stri
       const f = formList[i];
       const fKeys: string[] = Object.keys(f);
       fKeys.forEach(fkey => {
+        const fieldNode = flattenNodes[fkey];
+        const choiceOriginNamePrefix =
+          fieldNode && fieldNode.choicesOriginRef ? fieldNode.choicesOriginRef + '_' : '';
+
         if (fieldNames.includes(fkey) && f[fkey] !== null) {
           let choiceValue: string[] = [];
           if (Array.isArray(f[fkey])) {
             choiceValue = f[fkey] as unknown as string[];
           } else {
-            const multipleVals = (f[fkey] as string).split(',');
+            const multipleVals = (f[fkey] as string).split(',').map(v => v.trim());
             if (multipleVals.length > 1) {
               choiceValue = multipleVals;
             } else {
@@ -1743,9 +1779,14 @@ export function APPLY_LABELS(formList: MainForm[], schema: any, fieldNames: stri
             }
           }
           if (choiceValue != null) {
-            const labels = choiceValue.map(val =>
-              choiceLabels[val] != null ? choiceLabels[val] : val,
-            );
+            const labels = choiceValue.map(val => {
+              const valWithPrefix = choiceOriginNamePrefix + val;
+              return choiceLabels[valWithPrefix] != null
+                ? choiceLabels[valWithPrefix]
+                : choiceLabels[val] != null
+                ? choiceLabels[val]
+                : val;
+            });
             if (labels && labels.length) {
               const labelFieldName = fkey + '_choicesLabel';
               formList[i][labelFieldName] = labels.length > 1 ? labels.join(', ') : labels[0];
@@ -2236,16 +2277,6 @@ export function OP(datasetA: number[], datasetB: number[], expression: string): 
  * @return {*}  {string[]}
  */
 export function GET_LABELS(schema: any, values: string[]): string[] {
-  const labels: {[fieldName: string]: string} = {};
-
-  if (schema != null && schema.choicesOrigins != null) {
-    (schema.choicesOrigins as any[]).forEach(choice => {
-      if (choice != null && choice.choices != null) {
-        (choice.choices as any[]).forEach(element => {
-          labels[element.value] = element.label;
-        });
-      }
-    });
-  }
-  return values.map(val => (labels[val] != null ? labels[val] : val));
+  const choiceLabels: {[fieldName: string]: string} = extractLabelsBySchemaChoices(schema);
+  return values.map(val => (choiceLabels[val] != null ? choiceLabels[val] : val));
 }
