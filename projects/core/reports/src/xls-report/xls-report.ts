@@ -335,8 +335,9 @@ function _buildTable(
   if (json.length > 1) {
     const rowspan = 1;
     const titles = Object.keys(json[0]);
-    const colspans: number[] = (Object.values(json[0]) as string[]).map(r => +r.charAt(0));
-    const textAlign: string[] = (Object.values(json[0]) as string[]).map(r => {
+    const colspanRowValues = Object.values(json[0]).map(v => (v ? v.toString() : ''));
+    const colspans: number[] = colspanRowValues.map(r => +r.charAt(0));
+    const textAlign: string[] = colspanRowValues.map(r => {
       switch (r.charAt(1)) {
         case 'l':
           return 'left';

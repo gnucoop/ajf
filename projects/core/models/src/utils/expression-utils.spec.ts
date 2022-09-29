@@ -1,4 +1,12 @@
-import {ALL_VALUES_OF, MainForm} from './expression-utils';
+import {ALL_VALUES_OF, SUM, MainForm} from './expression-utils';
+
+const forms: MainForm[] = [
+  {dog_name: 'dog1', dog_puppies: 3, to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1'}]}},
+  {},
+  {dog_name: 'dog2', to_check: true, dog_puppies: 2, reps: {'rep_1': [{dog_type: 'dogtype1'}]}},
+  {dog_name: 'dog3', to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1'}]}},
+  {dog_name: 'dog4', dog_puppies: 1, reps: {'rep_1': [{dog_type: 'dogtype2'}]}},
+];
 
 describe('ALL_VALUES_OF', () => {
   it('should get all values by key in dataset', () => {
@@ -11,9 +19,10 @@ describe('ALL_VALUES_OF', () => {
   });
 });
 
-const forms: MainForm[] = [
-  {dog_name: 'dog1', reps: {'rep_1': [{dog_name: 'dog4'}]}},
-  {},
-  {dog_name: 'dog2'},
-  {dog_name: 'dog3'},
-];
+describe('SUM', () => {
+  it('should sum the values of one field in dataset', () => {
+    const result = SUM(forms, 'dog_puppies', 'to_check === true');
+    const dog_puppies = 5;
+    expect(result).toBe(dog_puppies);
+  });
+});
