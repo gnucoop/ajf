@@ -1,3 +1,14 @@
+<a name="13.2.8"></a>
+# 13.2.8 "popular-shrew" (2022-09-30)
+### Bug Fixes
+* **core/model:** fix SUM and APPLY_LABELS report functions ([f4703c5](https://github.com/gnucoop/ajf/commit/f4703c5a5f0d4c0b3166fc3f0c4d2d2664496cc2))
+* **core/models:** filter dataset from null forms ([309ad0d](https://github.com/gnucoop/ajf/commit/309ad0dc96d60b4ad1579c840d0ce46f809b7072))
+### Features
+* **material/forms:** range value in form always visible ([197406e](https://github.com/gnucoop/ajf/commit/197406eec900f0b5f13541b5d2549fb446912db7))
+* **material/reports:** add optional dialog with form fields values for table rows ([1eb819c](https://github.com/gnucoop/ajf/commit/1eb819c472fa0220cd22fe97247f5da99b4e4b85))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.7"></a>
 # 13.2.7 "fortunate-barnacle" (2022-09-14)
 ### Features
