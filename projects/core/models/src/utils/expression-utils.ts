@@ -351,7 +351,7 @@ export function round(num: number | string, digits?: number): number {
  * else if only property is defined return him.
  */
 export function extractArray(source: any[], property: string, property2?: string): any[] {
-  source = (source || []).slice(0);
+  source = (source || []).slice(0).filter((f: any) => f != null);
   const l = source.length;
   const res: any[] = [];
   for (let i = 0; i < l; i++) {
@@ -411,7 +411,7 @@ export function extractArraySum(source: any[], properties: string[]): any[] {
  * Draw a threshold line on chart related to the property.
  */
 export function drawThreshold(source: any[], property: string, threshold: any[]): any[] {
-  source = (source || []).slice(0);
+  source = (source || []).slice(0).filter((f: any) => f != null);
   threshold = threshold || [0];
   if (!(threshold instanceof Array)) {
     threshold = [threshold];
@@ -435,7 +435,7 @@ export function drawThreshold(source: any[], property: string, threshold: any[])
  * Extract the dates of the source object with property != null
  */
 export function extractDates(source: any[], property: string, fmt: string): string[] {
-  source = (source || []).slice(0);
+  source = (source || []).slice(0).filter((f: any) => f != null);
   const l = source.length;
   const res: any = [];
   let prefix = '';
@@ -464,7 +464,7 @@ export function extractDates(source: any[], property: string, fmt: string): stri
  * Extract the last property contains in source != null
  */
 export function lastProperty(source: any, property: string): any {
-  source = (source || []).slice(0);
+  source = (source || []).slice(0).filter((f: any) => f != null);
   let l = source.length - 1;
 
   while (l >= 0 && source[l][property] == null) {
@@ -479,7 +479,7 @@ export function lastProperty(source: any, property: string): any {
  * It sum the LAst properties of source.
  */
 export function sumLastProperties(source: any[], properties: string[]): number {
-  source = (source || []).slice(0);
+  source = (source || []).slice(0).filter((f: any) => f != null);
   let sumVal = 0;
   let val = 0;
   for (let i = 0; i < properties.length; i++) {
@@ -494,7 +494,7 @@ export function sumLastProperties(source: any[], properties: string[]): number {
  * Compute the trend of the property contained on the source.
  */
 export function calculateTrendProperty(source: any[], property: string): string {
-  source = (source || []).slice(0);
+  source = (source || []).slice(0).filter((f: any) => f != null);
   let last = source.length - 1;
   while (source[last][property] == null) {
     if (last == 0) {
@@ -552,7 +552,7 @@ export function calculateAvgProperty(
   range: number,
   coefficient: number,
 ): number {
-  source = (source || []).slice(0);
+  source = (source || []).slice(0).filter((f: any) => f != null);
 
   coefficient = coefficient || 1;
   range = range || 12;
@@ -592,7 +592,7 @@ export function calculateAvgPropertyArray(
   range: number,
   coefficient: number,
 ): number[] {
-  source = (source || []).slice(0);
+  source = (source || []).slice(0).filter((f: any) => f != null);
   const resArr: any[] = [];
 
   if (properties && properties.length > 0) {
@@ -715,7 +715,6 @@ export function plainArray(params: any[]): any[] {
  * in any reps. If expression is true in reps the form is counted
  */
 export function COUNT_FORMS(formList: MainForm[], expression: string = 'true'): number {
-  // const forms: MainForm[] = deepCopy(formList).filter((f: MainForm) => f != null);
   const forms: MainForm[] = (formList || []).slice(0).filter((f: MainForm) => f != null);
   const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
   let count = 0;
@@ -879,7 +878,7 @@ export function SUM(mainForms: (MainForm | Form)[], field: string, condition = '
  * discriminate which forms to take for the sum.
  */
 export function MEAN(forms: (Form | MainForm)[], fieldName: string): string {
-  forms = (forms || []).slice(0);
+  forms = (forms || []).slice(0).filter((f: MainForm | Form) => f != null);
   fieldName = fieldName || '';
   let length = 0;
   let acc = 0;
@@ -914,11 +913,14 @@ export function PERCENT(value1: number, value2: number): string {
  * Calculates the expression in the last form by date.
  */
 export function LAST(forms: (Form | MainForm)[], expression: string, date = 'created_at'): string {
-  forms = (forms || []).slice(0).sort((a, b) => {
-    const dateA = new Date(b[date] as string).getTime();
-    const dateB = new Date(a[date] as string).getTime();
-    return dateA - dateB;
-  });
+  forms = (forms || [])
+    .slice(0)
+    .filter((f: MainForm | Form) => f != null)
+    .sort((a, b) => {
+      const dateA = new Date(b[date] as string).getTime();
+      const dateB = new Date(a[date] as string).getTime();
+      return dateA - dateB;
+    });
   if (forms.length > 0 && expression != null) {
     const identifiers = getCodeIdentifiers(expression, true);
     const lastForm = forms[forms.length - 1] || [];
@@ -949,7 +951,7 @@ export function LAST(forms: (Form | MainForm)[], expression: string, date = 'cre
  * Calculates the max value of the field.
  */
 export function MAX(forms: (Form | MainForm)[], fieldName: string): number {
-  forms = (forms || []).slice(0);
+  forms = (forms || []).slice(0).filter((f: MainForm | Form) => f != null);
   let max = 0;
   forms.forEach(form => {
     if (form[fieldName] == null && form.reps != null) {
@@ -981,7 +983,7 @@ export function MAX(forms: (Form | MainForm)[], fieldName: string): number {
  * Calculates the median value of the field.
  */
 export function MEDIAN(forms: (Form | MainForm)[], fieldName: string): string {
-  forms = (forms || []).slice(0);
+  forms = (forms || []).slice(0).filter((f: MainForm | Form) => f != null);
   let numbers: number[] = [];
   forms.forEach(form => {
     if (form[fieldName] == null && form.reps != null) {
@@ -1011,7 +1013,7 @@ export function MEDIAN(forms: (Form | MainForm)[], fieldName: string): string {
  * Calculates the mode value of the field.
  */
 export function MODE(forms: (Form | MainForm)[], fieldName: string): number[] {
-  forms = (forms || []).slice(0);
+  forms = (forms || []).slice(0).filter((f: MainForm | Form) => f != null);
   let maxCount = 0;
   const map: {[key: number]: number} = {};
   forms.forEach(f => {
