@@ -1,4 +1,4 @@
-import {ALL_VALUES_OF, SUM, MainForm} from './expression-utils';
+import {ALL_VALUES_OF, SUM, MainForm, MEAN} from './expression-utils';
 
 const forms: MainForm[] = [
   {dog_name: 'dog1', dog_puppies: 3, to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1'}]}},
@@ -24,5 +24,13 @@ describe('SUM', () => {
     const result = SUM(forms, 'dog_puppies', 'to_check === true');
     const dog_puppies = 5;
     expect(result).toBe(dog_puppies);
+  });
+});
+
+describe('MEAN', () => {
+  it('should calculate the mean of a value in dataset', () => {
+    const result = MEAN(forms, 'dog_puppies');
+    const dog_puppies_mean = '2';
+    expect(result).toBe(dog_puppies_mean);
   });
 });
