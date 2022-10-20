@@ -1,7 +1,7 @@
-<table *ngIf="data" matSort (matSortChange)="sortData($event)">
-  <tr *ngIf="data.length > 0">
+<table *ngIf="sortedData" matSort (matSortChange)="sortData($event)">
+  <tr *ngIf="sortedData.length > 0">
     <th
-      *ngFor="let headerCell of data[0]; let idx = index"
+      *ngFor="let headerCell of sortedData[0]; let idx = index"
       [applyStyles]="headerCell.style"
       [ngStyle]="{'padding': cellpadding}"
       [attr.colspan]="headerCell.colspan"
@@ -11,8 +11,8 @@
       {{headerCell.value}}
     </th>
   </tr>
-  <ng-container *ngIf="data.length > 1">
-    <tr *ngFor="let row of data.slice(1)">
+  <ng-container *ngIf="sortedData.length > 1">
+    <tr *ngFor="let row of sortedData.slice(1)">
       <td
         *ngFor="let cell of row"
         [applyStyles]="cell.style"
