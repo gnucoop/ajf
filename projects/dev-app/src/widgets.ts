@@ -174,8 +174,8 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             {value: 'header 3', style: {}},
           ],
           [
-            {value: '<b>a</b>', style: {}},
-            {value: 'b', style: {}},
+            {value: 'a', style: {}},
+            {value: '120', style: {}},
             {
               value:
                 '<div class="read_more_cell"><p class="read_more_text">Read more</p><b class="material-icons">add_circle_outline</b></div>',
@@ -184,8 +184,8 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             },
           ],
           [
-            {value: 'd', style: {}},
-            {value: 'e', style: {}},
+            {value: 'b', style: {}},
+            {value: '-', style: {}},
             {
               value:
                 '<div class="read_more_cell"><p class="read_more_text">Read more</p><b class="material-icons">add_circle_outline</b></div>',
@@ -195,8 +195,8 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
             },
           ],
           [
-            {value: 'g', style: {}},
-            {value: 'h', style: {}},
+            {value: 'c', style: {}},
+            {value: '0', style: {}},
             {value: 'i', style: {}},
           ],
         ],

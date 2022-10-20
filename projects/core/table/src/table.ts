@@ -56,7 +56,16 @@ export class AjfTable implements OnDestroy {
   @Input()
   set data(data: AjfTableCell[][]) {
     this._data = this._fixData(data);
+    this._sortedData = [...this._data];
     this._cdr.markForCheck();
+  }
+
+  /**
+   * sorted data to be shown in the table
+   */
+  private _sortedData: AjfTableCell[][] = [];
+  get sortedData(): AjfTableCell[][] {
+    return this._sortedData;
   }
 
   /**
@@ -111,13 +120,15 @@ export class AjfTable implements OnDestroy {
    */
   sortData(sort: Sort): void {
     if (!sort.active || sort.direction === '') {
-      return;
+      this._sortedData = [...this._data];
+    } else {
+      const columnIdx = parseInt(sort.active.slice(-1)) || 0;
+      const sortedData = this._data.slice(1).sort((a, b) => {
+        const isAsc = sort.direction === 'asc';
+        return this._compare(a[columnIdx], b[columnIdx], isAsc);
+      });
+      this._sortedData = [this._data[0], ...sortedData];
     }
-    const sortedData = this._data.slice(1).sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      return this._compare(a[0], b[0], isAsc);
-    });
-    this._data = [this._data[0], ...sortedData];
     this.sortSelected.emit(sort);
   }
 
