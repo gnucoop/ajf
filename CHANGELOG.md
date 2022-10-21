@@ -1,3 +1,10 @@
+<a name="13.2.9"></a>
+# 13.2.9 "deaf-lion" (2022-10-21)
+### Bug Fixes
+* **core/table:** fixed^Corting on table columns ([8701be1](https://github.com/gnucoop/ajf/commit/8701be1daa2ecfdcf0750a74b4818e2412cf5c68))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.8"></a>
 # 13.2.8 "popular-shrew" (2022-09-30)
 ### Bug Fixes
