@@ -6,27 +6,23 @@ table.ajf-table-field {
   tr {
     td {
       position: relative;
-      min-width: 1em;
+      min-width: 2em;
+      border-top: solid 1px #cccccc;
+      border-left: solid 1px #cccccc;
 
       span, input {
         cursor: text;
-        position: absolute;
         width: 100%;
         box-sizing: border-box;
         outline: none;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
         display: inline-block;
-        border-top: solid 1px #cccccc;
-        border-right: solid 1px transparent;
-        border-bottom: solid 1px transparent;
-        border-left: solid 1px #cccccc;
         font-family: inherit;
         font-size: inherit;
         line-height: inherit;
         text-align: center;
+        position: relative;
+        min-height: 22px;
+        border: none;
       }
 
       &:last-child {

@@ -9,13 +9,19 @@
         </td>
         <ng-container *ngIf="columns && columns.length > 1 && columns[1]">
           <td *ngFor="let c of columns[1]; let column = index">
-            <ng-container *ngIf="c|ajfGetTableCellControl as contr">
-              <ng-container *ngIf="contr">
-                <span *ngIf="row > 0; else labelCell"
-                  class="ajf-table-cell">{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span>
-                <ng-template #labelCell>{{ contr | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</ng-template>
-              </ng-container>
+            <ng-container *ngIf="row === 0; else controlCell">
+              {{ c | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
             </ng-container>
+            <ng-template #controlCell>
+              <ng-container *ngIf="c|ajfGetTableCellControl as contr">
+                <ng-container *ngIf="contr">
+                  <span class="ajf-table-cell"
+                    >{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2'
+                    }}</span
+                  >
+                </ng-container>
+              </ng-container>
+            </ng-template>
           </td>
         </ng-container>
       </tr>
