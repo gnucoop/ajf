@@ -18,9 +18,7 @@
                   <ng-container
                     *ngIf="contr!.show && (node.rows[row-1][column]|ajfIsCellEditable); else plainTextCell"
                   >
-                    <ng-container
-                      *ngIf="contr.type === 'number';else genericInput"
-                    >
+                    <ng-container *ngIf="contr.type === 'number';else genericInput">
                       <input
                         (focusout)="contr!.show = false"
                         type="number"
@@ -42,8 +40,8 @@
 
                   <ng-template #plainTextCell>
                     <span class="ajf-table-cell" (click)="goToCell(row, column)"
-                      >{{ contr.control!.value | ajfTranslateIfString |
-                      ajfFormatIfNumber: '.0-2' }}</span
+                      >{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2'
+                      }}</span
                     >
                   </ng-template>
                 </ng-container>
