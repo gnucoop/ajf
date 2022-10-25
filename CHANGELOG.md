@@ -1,3 +1,10 @@
+<a name="13.2.10"></a>
+# 13.2.10 "voluminous-goldfish" (2022-10-25)
+### Bug Fixes
+* **material/forms:** add header in readonly table and fix cell height ([6ad5ce2](https://github.com/gnucoop/ajf/commit/6ad5ce252fd61c5a2185047469e30d4ff7d253bb))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.9"></a>
 # 13.2.9 "deaf-lion" (2022-10-21)
 ### Bug Fixes
