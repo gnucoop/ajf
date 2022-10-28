@@ -1,15 +1,28 @@
 <table *ngIf="sortedData" matSort (matSortChange)="sortData($event)">
   <tr *ngIf="sortedData.length > 0">
-    <th
-      *ngFor="let headerCell of sortedData[0]; let idx = index"
-      [applyStyles]="headerCell.style"
-      [ngStyle]="{'padding': cellpadding}"
-      [attr.colspan]="headerCell.colspan"
-      [attr.rowspan]="headerCell.rowspan"
-      [mat-sort-header]="'column' + idx"
-    >
-      {{headerCell.value}}
-    </th>
+    <ng-container *ngFor="let headerCell of sortedData[0]; let idx = index">
+      <ng-container *ngIf="headerCell.sorted; else noSortedHeader">
+        <th
+          [applyStyles]="headerCell.style"
+          [ngStyle]="{'padding': cellpadding}"
+          [attr.colspan]="headerCell.colspan"
+          [attr.rowspan]="headerCell.rowspan"
+          [mat-sort-header]="'column' + idx"
+        >
+          {{headerCell.value}}
+        </th>
+      </ng-container>
+      <ng-template #noSortedHeader>
+        <th
+          [applyStyles]="headerCell.style"
+          [ngStyle]="{'padding': cellpadding}"
+          [attr.colspan]="headerCell.colspan"
+          [attr.rowspan]="headerCell.rowspan"
+        >
+          {{headerCell.value}}
+        </th>
+      </ng-template>
+    </ng-container>
   </tr>
   <ng-container *ngIf="sortedData.length > 1">
     <tr *ngFor="let row of sortedData.slice(1)">

@@ -28,4 +28,5 @@ export interface AjfTableDataset extends AjfDataset {
   colspan: number;
   rowspan: number;
   style: any;
+  sorted?: boolean;
 }

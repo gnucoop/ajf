@@ -21,9 +21,37 @@
  */
 
 export interface AjfTableCell {
+  /**
+   * The value to show into the table cell. It can be a string, a number, or html text.
+   * If there is a dialog box to open on click, you can use something like this:
+   * '<div class="read_more_cell"><p class="read_more_text">Read more</p><b class="material-icons">add_circle_outline</b></div>'
+   *
+   */
   value: any;
+
+  /**
+   * the css style for the cell.
+   * ie: {textAlign: 'left', color: 'black'}
+   */
   style: any;
+
+  /**
+   * the colspan for the cell
+   */
   colspan?: number;
+
+  /**
+   * the rowspan for the cell
+   */
   rowspan?: number;
+
+  /**
+   * if true and if this is a header cell, sorting is enabled on this column
+   */
+  sorted?: boolean;
+
+  /**
+   * contains the html to be displayed in a dialog box when you click on this cell
+   */
   dialogHtml?: string;
 }
