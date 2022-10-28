@@ -169,9 +169,9 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
         ),
         data: [
           [
-            {value: 'header 1', style: {}},
-            {value: 'header 2', style: {}},
-            {value: 'header 3', style: {}},
+            {value: 'header 1', style: {}, sorted: true},
+            {value: 'header 2', style: {}, sorted: false},
+            {value: 'header 3', style: {}, sorted: true},
           ],
           [
             {value: 'a', style: {}},
@@ -219,7 +219,7 @@ export function demoWidgets(ts: TranslocoService): {name: string; instance: AjfW
         data: [
           [
             {value: 'header 1', style: {}},
-            {value: 'header 2', style: {}},
+            {value: 'header 2', style: {}, sorted: true},
             {value: 'header 3', style: {}},
           ],
           [

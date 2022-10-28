@@ -343,18 +343,20 @@ function _buildTable(
           return 'left';
         case 'r':
           return 'right';
-        case 'c':
-          return 'center';
         default:
           return 'center';
       }
     });
+    const sortCols: boolean[] = colspanRowValues.map(r =>
+      r.charAt(2) && r.charAt(2) === 's' ? true : false,
+    );
     tableHeader = titles.map((title, index) => ({
       label: '',
       formula: {formula: `"${title}"`},
       aggregation: {aggregation: 0},
       colspan: colspans[index],
       rowspan,
+      sorted: sortCols[index],
       style: {
         textAlign: 'center',
         fontWeight: 'bold',

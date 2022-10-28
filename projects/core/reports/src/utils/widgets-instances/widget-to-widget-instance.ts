@@ -183,6 +183,7 @@ export function widgetToWidgetInstance(
           style: {...widget.cellStyles, ...cell.style},
           rowspan: cell.rowspan,
           colspan: cell.colspan,
+          sorted: cell.sorted ?? false,
         };
       }),
     );
@@ -233,6 +234,7 @@ export function widgetToWidgetInstance(
         style: {...widget.cellStyles, ...cell.style},
         rowspan: cell.rowspan,
         colspan: cell.colspan,
+        sorted: cell.sorted ?? false,
       };
     });
     wi.data = header.length === 0 ? [...dataset] : [[...header], ...dataset];
