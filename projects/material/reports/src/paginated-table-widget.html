@@ -34,6 +34,13 @@
     </div>
   </div>
   <div class="ajf-paginated-table-item">
-    <ajf-table [data]="currentContent" (sortSelected)="sortPaginatedData($event)"></ajf-table>
+    <ajf-widget-export
+      *ngIf="instance"
+      [widgetType]="instance.widgetType"
+      [data]="currentContent"
+      [enable]="instance.exportable"
+    >
+      <ajf-table [data]="currentContent" (sortSelected)="sortPaginatedData($event)"></ajf-table>
+    </ajf-widget-export>
   </div>
 </div>

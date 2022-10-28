@@ -112,6 +112,7 @@ export class AjfWidgetExport {
         break;
       case AjfWidgetType.DynamicTable:
       case AjfWidgetType.Table:
+      case AjfWidgetType.PaginatedTable:
         const tableData = this.data as AjfTableCell[][];
         if (tableData.length > 1) {
           xlsxData = [];
