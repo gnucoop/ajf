@@ -1,11 +1,24 @@
-import {ALL_VALUES_OF, SUM, MainForm, MEAN} from './expression-utils';
+import {ALL_VALUES_OF, SUM, MainForm, MEAN, COUNT_FORMS} from './expression-utils';
 
 const forms: MainForm[] = [
-  {dog_name: 'dog1', dog_puppies: 3, to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1'}]}},
+  {
+    dog_name: 'dog1',
+    dog_puppies: 3,
+    to_check: true,
+    reps: {'rep_1': [{dog_type: 'dogtype1', score: 3}]},
+  },
   {},
-  {dog_name: 'dog2', to_check: true, dog_puppies: 2, reps: {'rep_1': [{dog_type: 'dogtype1'}]}},
-  {dog_name: 'dog3', to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1'}]}},
-  {dog_name: 'dog4', dog_puppies: 1, reps: {'rep_1': [{dog_type: 'dogtype2'}]}},
+  {
+    dog_name: 'dog2',
+    to_check: true,
+    dog_puppies: 2,
+    reps: {
+      'rep_1': [{dog_type: 'dogtype1', score: 6}],
+      'rep_2': [{dog_type: 'dogtype2', score: 4}],
+    },
+  },
+  {dog_name: 'dog3', to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1', score: 5}]}},
+  {dog_name: 'dog4', dog_puppies: 1, reps: {'rep_1': [{dog_type: 'dogtype1', score: 1}]}},
 ];
 
 describe('ALL_VALUES_OF', () => {
@@ -24,6 +37,32 @@ describe('SUM', () => {
     const result = SUM(forms, 'dog_puppies', 'to_check === true');
     const dog_puppies = 5;
     expect(result).toBe(dog_puppies);
+  });
+
+  it('should sum the values of one field in repeating slide', () => {
+    const result = SUM(forms, 'score', 'to_check === true');
+    const score = 18;
+    expect(result).toBe(score);
+  });
+
+  it('should sum the values of one field in repeating slide with condition in rep slide', () => {
+    const result = SUM(forms, 'score', 'dog_type === "dogtype1"');
+    const score = 15;
+    expect(result).toBe(score);
+  });
+});
+
+describe('COUNT_FORMS', () => {
+  it('should count the forms in dataset with condition', () => {
+    const result = COUNT_FORMS(forms, 'to_check === true');
+    const count = 3;
+    expect(result).toBe(count);
+  });
+
+  it('should count the forms with condition in repeating slide', () => {
+    const result = COUNT_FORMS(forms, 'dog_type === "dogtype1"');
+    const count = 4;
+    expect(result).toBe(count);
   });
 });
 
