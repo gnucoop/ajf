@@ -854,7 +854,20 @@ export function SUM(mainForms: (MainForm | Form)[], field: string, condition = '
     const mainForm = forms[i];
 
     if (evaluateExpression(condition, mainForm)) {
-      count += +(mainForm[field] as number) || 0;
+      if (field in mainForm && mainForm[field] != null) {
+        count += +(mainForm[field] as number) || 0;
+      } else {
+        if (mainForm.reps != null) {
+          const allreps: Form[] = Object.keys(mainForm.reps)
+            .map((key: string) => (mainForm.reps as Instances)[key])
+            .flat();
+          allreps
+            .filter(c => c[field] != null)
+            .forEach((child: Form) => {
+              count += +(child[field] as number) || 0;
+            });
+        }
+      }
     } else {
       if (mainForm.reps != null) {
         const allreps: Form[] = Object.keys(mainForm.reps)
