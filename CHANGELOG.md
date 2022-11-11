@@ -1,3 +1,13 @@
+<a name="13.2.11"></a>
+# 13.2.11 "brief-harrier" (2022-11-11)
+### Bug Fixes
+* **core/models:** SUM function fixed for repeating slide ([863d531](https://github.com/gnucoop/ajf/commit/863d53146f44414d228112f4d23bcec5fae5d15a))
+* **core/reports:** paginated dynamic table should be exportable ([cf182f6](https://github.com/gnucoop/ajf/commit/cf182f642da84298f3308202b78c04ff8ef8793a))
+### Features
+* **core/reports:** select in xlsreport wich columns should be sortable ([755165a](https://github.com/gnucoop/ajf/commit/755165a4d2c37f3ddc27dfa4fa3d2ef02854afd1))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.10"></a>
 # 13.2.10 "voluminous-goldfish" (2022-10-25)
 ### Bug Fixes
