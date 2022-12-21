@@ -115,7 +115,7 @@ export type AjfFormBuilderNode = AjfFormBuilderNodeEntry | AjfFormBuilderEmptySl
 export type AjfContainerNode = AjfSlide | AjfRepeatingSlide | AjfNodeGroup;
 
 function getNodeContainer(c: {nodes: AjfNode[]}, node: AjfNode): {nodes: AjfNode[]} | null {
-  if (c.nodes.indexOf(node) > -1) {
+  if (c.nodes.indexOf(node) > -1 || c.nodes.map(n => n.id).indexOf(node.id) > -1) {
     return c;
   }
   const cns = c.nodes.filter(n => isContainerNode(n));
@@ -127,6 +127,25 @@ function getNodeContainer(c: {nodes: AjfNode[]}, node: AjfNode): {nodes: AjfNode
     }
   }
   return null;
+}
+
+function getDefaultValue(
+  value: any,
+  node: AjfField<any>,
+): string | string[] | number | boolean | null {
+  let defaultValue = value && (value as string).trim() != '' ? (value as string) : null;
+  if (defaultValue) {
+    switch (node.fieldType) {
+      case AjfFieldType.Boolean:
+        return defaultValue === 'true' || defaultValue === '1';
+      case AjfFieldType.MultipleChoice:
+        return [defaultValue];
+      case AjfFieldType.Number:
+        const v = +defaultValue;
+        return isNaN(v) ? 0 : v;
+    }
+  }
+  return defaultValue;
 }
 
 function buildFormBuilderNodesSubtree(
@@ -799,7 +818,7 @@ export class AjfFormBuilderService {
 
           if (isField(node)) {
             node.description = properties.description;
-            node.defaultValue = properties.defaultValue;
+            node.defaultValue = getDefaultValue(properties.defaultValue, node);
             node.formula =
               properties.formula != null ? createFormula({formula: properties.formula}) : undefined;
             const forceValue = properties.value;
@@ -872,7 +891,6 @@ export class AjfFormBuilderService {
                 ? createCondition({condition: properties.nextSlideCondition})
                 : undefined;
             node.size = properties.size;
-            node.defaultValue = properties.defaultValue;
 
             if (isFieldWithChoices(node)) {
               (node as any).choicesOriginRef = properties.choicesOriginRef;
@@ -907,7 +925,7 @@ export class AjfFormBuilderService {
               // TODO: @trik check this, was always true?
               // if (cn instanceof AjfNode) {
               const replaceNodes = cn.nodes === nodes;
-              const idx = cn.nodes.indexOf(origNode);
+              const idx = cn.nodes.map(n => n.id).indexOf(origNode.id);
               let newNodes = cn.nodes.slice(0, idx);
               newNodes.push(node);
               newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
@@ -944,7 +962,7 @@ export class AjfFormBuilderService {
             let cn = getNodeContainer({nodes}, node);
             if (cn != null) {
               const replaceNodes = cn.nodes === nodes;
-              const idx = cn.nodes.indexOf(node);
+              const idx = cn.nodes.map(n => n.id).indexOf(node.id);
               let newNodes = cn.nodes.slice(0, idx);
               newNodes = newNodes.concat(cn.nodes.slice(idx + 1));
               cn.nodes = newNodes;

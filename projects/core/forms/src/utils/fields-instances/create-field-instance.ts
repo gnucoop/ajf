@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext} from '@ajf/core/models';
+import {AjfContext, evaluateExpression} from '@ajf/core/models';
 import {EventEmitter} from '@angular/core';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
@@ -54,7 +54,11 @@ export function createFieldInstance(
     } else if (context[completeName] != null) {
       value = context[completeName];
     } else if (instance.node.defaultValue != null) {
-      context[completeName] = instance.node.defaultValue;
+      if (instance.node.defaultValue.formula != null) {
+        context[completeName] = evaluateExpression(instance.node.defaultValue.formula, context);
+      } else {
+        context[completeName] = instance.node.defaultValue;
+      }
       value = context[completeName];
     }
   }

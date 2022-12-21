@@ -52,7 +52,6 @@ export interface AjfBaseField extends AjfBaseNode {
   /**
    * If set to true the Field input is editable
    */
-  // @TODO(Marco, Peppe, Sara): Check if it is actually used and works as intended
   editable: boolean;
 
   /**
@@ -62,7 +61,8 @@ export interface AjfBaseField extends AjfBaseNode {
   formula?: AjfFormula;
 
   /**
-   * The default value of the Field
+   * The default value of the Field. It could be a value or a formula.
+   * Is used only when the value is null.
    */
   defaultValue: any;
 

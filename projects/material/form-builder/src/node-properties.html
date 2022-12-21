@@ -399,7 +399,7 @@
               >
             </div>
             <div
-              *ngIf="triggerConditions.length === 0"
+              *ngIf="!triggerConditions || triggerConditions.length === 0"
               class="ajf-validation-row ajf-emph"
             >
               {{'No trigger condition'|transloco}}
