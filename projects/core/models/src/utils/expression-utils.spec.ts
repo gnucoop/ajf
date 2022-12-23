@@ -4,6 +4,7 @@ const forms: MainForm[] = [
   {
     dog_name: 'dog1',
     dog_puppies: 3,
+    dog_point: 0.1,
     to_check: true,
     reps: {'rep_1': [{dog_type: 'dogtype1', score: 3}]},
   },
@@ -12,6 +13,7 @@ const forms: MainForm[] = [
     dog_name: 'dog2',
     to_check: true,
     dog_puppies: 2,
+    dog_point: 0.2,
     reps: {
       'rep_1': [{dog_type: 'dogtype1', score: 6}],
       'rep_2': [{dog_type: 'dogtype2', score: 4}],
@@ -48,6 +50,11 @@ describe('SUM', () => {
   it('should sum the values of one field in repeating slide with condition in rep slide', () => {
     const result = SUM(forms, 'score', 'dog_type === "dogtype1"');
     const score = 15;
+    expect(result).toBe(score);
+  });
+  it('should sum the values with corrent decimal numbers', () => {
+    const result = SUM(forms, 'dog_point', 'to_check === true');
+    const score = 0.3;
     expect(result).toBe(score);
   });
 });
