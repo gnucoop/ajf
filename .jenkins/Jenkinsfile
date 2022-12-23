@@ -49,7 +49,6 @@ pipeline {
       steps {
         sh './scripts/build-docs.mjs'
         sh './scripts/jenkins/publish-snapshots.sh'
-        sh 'node ./scripts/deploy-dev-app.js'
       }
     }
     stage('Publish') {
