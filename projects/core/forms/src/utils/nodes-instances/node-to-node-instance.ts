@@ -49,6 +49,7 @@ import {createValidationGroup} from '../validation/create-validation-group';
 import {createWarningGroup} from '../warning/create-warning-group';
 
 import {getAncestorRepeatingNodesNames} from './get-ancestor-repeating-nodes-names';
+import {getContainerNode} from './get-container-node';
 import {getInstanceCondition} from './get-instance-condition';
 import {getInstanceConditions} from './get-instance-conditions';
 import {getInstanceFormula} from './get-instance-formula';
@@ -93,7 +94,8 @@ export function nodeToNodeInstance(
             instance = createTableFieldInstance({node: field, prefix}, context);
             break;
           default:
-            instance = createFieldInstance({node: field, prefix}, context);
+            const containerNode = getContainerNode(allNodes, node);
+            instance = createFieldInstance({node: field, prefix}, context, containerNode);
             break;
         }
       }
