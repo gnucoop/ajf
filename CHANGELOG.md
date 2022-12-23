@@ -1,3 +1,13 @@
+<a name="13.2.12"></a>
+# 13.2.12 "joint-possum" (2022-12-23)
+### Bug Fixes
+* **core/model:** fix decimals for sum between floats ([a786c1f](https://github.com/gnucoop/ajf/commit/a786c1fa070d3b4fae2fd4b4670bb797c61fa9a6))
+### Features
+* **core/forms:** accept formula in defaultValue ([a7295b8](https://github.com/gnucoop/ajf/commit/a7295b82809514212db539bd69445ba79c15da3a))
+* **core/forms:** evaluate formula for defaultValue only when field is visible ([2a3eddb](https://github.com/gnucoop/ajf/commit/2a3eddbb472940efc0f9425d014d0fce68e6e9b4))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.11"></a>
 # 13.2.11 "brief-harrier" (2022-11-11)
 ### Bug Fixes
