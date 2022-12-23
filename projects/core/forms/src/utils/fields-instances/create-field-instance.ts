@@ -24,6 +24,7 @@ import {AjfContext, evaluateExpression} from '@ajf/core/models';
 import {EventEmitter} from '@angular/core';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
+import {AjfNode} from '../../interface/nodes/node';
 import {AjfNodeInstanceCreate, createNodeInstance} from '../nodes-instances/create-node-instance';
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
 
@@ -44,6 +45,7 @@ export type AjfFieldInstanceCreate = AjfNodeInstanceCreate & Partial<AjfFieldIns
 export function createFieldInstance(
   instance: AjfFieldInstanceCreate,
   context: AjfContext,
+  containerNode?: AjfNode | null,
 ): AjfFieldInstance {
   const nodeInstance = createNodeInstance(instance);
   let value: any = null;
@@ -55,7 +57,13 @@ export function createFieldInstance(
       value = context[completeName];
     } else if (instance.node.defaultValue != null) {
       if (instance.node.defaultValue.formula != null) {
-        context[completeName] = evaluateExpression(instance.node.defaultValue.formula, context);
+        let visibility: boolean = nodeInstance.visible ? nodeInstance.visible : false;
+        if (visibility && containerNode && containerNode.visibility) {
+          visibility = evaluateExpression(containerNode.visibility.condition, context);
+        }
+        if (visibility) {
+          context[completeName] = evaluateExpression(instance.node.defaultValue.formula, context);
+        }
       } else {
         context[completeName] = instance.node.defaultValue;
       }
