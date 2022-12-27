@@ -1,3 +1,8 @@
+<a name="13.2.13"></a>
+# 13.2.13 "wispy-alligator" (2022-12-27)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.12"></a>
 # 13.2.12 "joint-possum" (2022-12-23)
 ### Bug Fixes
