@@ -34,6 +34,6 @@
     "xlsx": "0.0.0-XLSX"
   },
   "dependencies": {
-    "tslib": "0.0.0-TSLIB"
+    "tslib": "^2.3.0"
   }
 }

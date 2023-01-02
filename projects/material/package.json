@@ -23,6 +23,6 @@
     "@angular/platform-browser": "0.0.0-NGF"
   },
   "dependencies": {
-    "tslib": "0.0.0-TSLIB"
+    "tslib": "^2.3.0"
   }
 }
