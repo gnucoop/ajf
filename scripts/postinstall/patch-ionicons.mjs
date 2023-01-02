@@ -5,8 +5,8 @@ export const patchIonicons = () => {
   const patchFile = 'node_modules/ionicons/dist/types/components.d.ts';
 
   const content = readFileSync(patchFile, 'utf-8')
-    .replace('"ariaHidden"?: string', '"ariaHidden": string')
-    .replace('"ariaLabel"?: string', '"ariaLabel": string');
+    .replace('"ariaHidden"?: string', '"ariaHidden": string|null')
+    .replace('"ariaLabel"?: string', '"ariaLabel": string|null');
   writeFileSync(patchFile, content);
 };
 
