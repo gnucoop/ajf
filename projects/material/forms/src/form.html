@@ -133,7 +133,7 @@
                                 [matTooltip]="hint"
                                 matTooltipPosition="right"
                               >
-                                {{(fieldInstance|ajfAsFieldInstance).node?.hintIcon
+                                {{(fieldInstance|ajfAsFieldInstance).node.hintIcon
                                 || 'help'}}</mat-icon
                               >
                               <ajf-field
@@ -187,14 +187,14 @@
                           >
                             <button
                               (click)="addGroup(slideInstance)"
-                              [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval && !slideInstance.valid)"
+                              [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval && !slideInstance.valid)"
                               mat-mini-fab
                             >
                               <mat-icon>add</mat-icon>
                             </button>
                             <button
                               (click)="removeGroup(slideInstance)"
-                              [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove || (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval"
+                              [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove || (slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval"
                               mat-mini-fab
                             >
                               <mat-icon>remove</mat-icon>
@@ -230,12 +230,12 @@
                                 [matTooltip]="hint"
                                 matTooltipPosition="right"
                               >
-                                {{(fieldInstance|ajfAsFieldInstance).node?.hintIcon
+                                {{(fieldInstance|ajfAsFieldInstance).node.hintIcon
                                 || 'help'}}</mat-icon
                               >
                               <ajf-field
                                 [instance]="fieldInstance|ajfAsFieldInstance"
-                                [readonly]="readonly || (!lastSlide && (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval)"
+                                [readonly]="readonly || (!lastSlide && (slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval)"
                               >
                               </ajf-field>
                             </div>

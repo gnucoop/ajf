@@ -41,7 +41,7 @@
                   </ng-container>
                   <ng-template #plainTextCell>
                     <span class="ajf-table-cell" (click)="goToCell(row, column)"
-                      >{{ contr.control?.value | ajfTranslateIfString |
+                      >{{ contr.control.value | ajfTranslateIfString |
                       ajfFormatIfNumber: '.0-2' }}</span
                     >
                   </ng-template>
