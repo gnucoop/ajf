@@ -119,7 +119,7 @@
                             ></ion-label>
                             <ion-icon
                               *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint"
-                              [name]="(fieldInstance|ajfAsFieldInstance).node?.hintIcon || 'help-outline'"
+                              [name]="(fieldInstance|ajfAsFieldInstance).node.hintIcon || 'help-outline'"
                               (click)="openPopover($event, hint)"
                             ></ion-icon>
                             <ajf-field
@@ -171,14 +171,14 @@
                           <ion-fab-button
                             size="small"
                             (click)="addGroup(slideInstance)"
-                            [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval && !slideInstance.valid)"
+                            [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval && !slideInstance.valid)"
                           >
                             <ion-icon name="add"></ion-icon>
                           </ion-fab-button>
                           <ion-fab-button
                             size="small"
                             (click)="removeGroup(slideInstance)"
-                            [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove || (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval"
+                            [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove || (slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval"
                           >
                             <ion-icon name="remove"></ion-icon>
                           </ion-fab-button>
@@ -207,7 +207,7 @@
                             ></ion-label>
                             <ajf-field
                               [instance]="fieldInstance|ajfAsFieldInstance"
-                              [readonly]="readonly || (!lastSlide && (slideInstance|ajfAsRepeatingSlideInstance).node?.disableRemoval)"
+                              [readonly]="readonly || (!lastSlide && (slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval)"
                             ></ajf-field>
                           </div>
                         </ng-container>
