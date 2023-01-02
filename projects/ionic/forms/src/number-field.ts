@@ -35,7 +35,7 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, startWith, switchMap, withLatestFrom} from 'rxjs/operators';
 
@@ -83,7 +83,7 @@ export class AjfNumberFieldComponent extends CoreComponent implements OnDestroy,
         if (ctrl == null) {
           return;
         }
-        const control = ctrl as FormControl;
+        const control = ctrl as UntypedFormControl;
         control.setValue(value);
       });
   }

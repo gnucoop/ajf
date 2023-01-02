@@ -28,7 +28,7 @@ import {
   Inject,
   ViewEncapsulation,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {Observable} from 'rxjs';
 import {filter, map, shareReplay, startWith, switchMap} from 'rxjs/operators';
@@ -63,7 +63,7 @@ export class AjfImageFieldComponent extends AjfBaseFieldComponent {
     const fileStream = this.control.pipe(
       filter(control => control != null),
       switchMap(control => {
-        control = control as FormControl;
+        control = control as UntypedFormControl;
         return control.valueChanges.pipe(startWith(control.value)) as Observable<AjfFile>;
       }),
       filter(value => value != null),

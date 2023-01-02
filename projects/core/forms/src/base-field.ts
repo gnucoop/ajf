@@ -21,7 +21,7 @@
  */
 
 import {ChangeDetectorRef, Directive, OnDestroy, OnInit} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, map, withLatestFrom} from 'rxjs/operators';
 
@@ -57,8 +57,8 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     }
   }
 
-  private _control: Observable<FormControl | null>;
-  get control(): Observable<FormControl | null> {
+  private _control: Observable<UntypedFormControl | null>;
+  get control(): Observable<UntypedFormControl | null> {
     return this._control;
   }
 
@@ -73,8 +73,8 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     this._control = defer(() =>
       this._service
         .getControl(this.instance)
-        .pipe(map(ctrl => (ctrl || new FormControl()) as FormControl)),
-    ) as Observable<FormControl | null>;
+        .pipe(map(ctrl => (ctrl || new UntypedFormControl()) as UntypedFormControl)),
+    ) as Observable<UntypedFormControl | null>;
   }
 
   ngOnInit(): void {
@@ -88,7 +88,7 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
           if (this.instance == null || this.instance.warningResults == null) {
             return;
           }
-          const control = ctrl as FormControl;
+          const control = ctrl as UntypedFormControl;
           const s = this._warningAlertService
             .showWarningAlertPrompt(
               this.instance.warningResults.filter(w => w.result).map(w => w.warning),

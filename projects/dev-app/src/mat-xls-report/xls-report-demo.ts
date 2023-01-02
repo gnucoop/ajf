@@ -30,7 +30,7 @@ import {
 } from '@ajf/core/reports';
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {TranslocoService} from '@ngneat/transloco';
 import {BehaviorSubject} from 'rxjs';
 
@@ -46,9 +46,9 @@ export class ReportFromXlsDemo {
   reportSchemaStringified$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(
     null,
   );
-  schemaForms = new FormGroup({
-    schema: new FormControl(''),
-    id: new FormControl(''),
+  schemaForms = new UntypedFormGroup({
+    schema: new UntypedFormControl(''),
+    id: new UntypedFormControl(''),
   });
 
   constructor(private _ts: TranslocoService, private _http: HttpClient) {

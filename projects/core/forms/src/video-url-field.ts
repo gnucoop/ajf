@@ -22,7 +22,7 @@
 
 import {HttpClient} from '@angular/common/http';
 import {ChangeDetectorRef, Directive, Inject} from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {Observable, of as obsOf} from 'rxjs';
 import {catchError, filter, map, startWith, switchMap} from 'rxjs/operators';
@@ -61,7 +61,7 @@ export class AjfVideoUrlFieldComponent extends AjfBaseFieldComponent {
     const video = this.control.pipe(
       filter(control => control != null),
       switchMap(control => {
-        control = control as FormControl;
+        control = control as UntypedFormControl;
         return control.valueChanges.pipe(startWith(control.value));
       }),
       filter(value => value != null),
