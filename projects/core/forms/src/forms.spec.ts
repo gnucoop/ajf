@@ -1,5 +1,5 @@
 import {TestBed} from '@angular/core/testing';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {firstValueFrom, Subscription, timer} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
@@ -184,7 +184,7 @@ describe('repeating slides', () => {
   let formGroupSub = Subscription.EMPTY;
   let nodesSub = Subscription.EMPTY;
   let slides: AjfSlideInstance[];
-  let formGroup: FormGroup;
+  let formGroup: UntypedFormGroup;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

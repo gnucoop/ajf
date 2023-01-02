@@ -35,7 +35,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
 import {delayWhen, map, withLatestFrom} from 'rxjs/operators';
 
@@ -61,7 +61,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   /**
    * formGroup is an Observable FormGroup type
    */
-  readonly formGroup: Observable<FormGroup | null>;
+  readonly formGroup: Observable<UntypedFormGroup | null>;
 
   /**
    * slides is an observable AjfSlide array type

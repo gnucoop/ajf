@@ -23,7 +23,7 @@
 import {AjfCondition, AjfContext, getCodeIdentifiers} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {
   BehaviorSubject,
   from,
@@ -161,11 +161,11 @@ export class AjfFormRendererService {
   readonly formInitEvent: Observable<AjfFormInitStatus> = this
     ._formInitEvent as Observable<AjfFormInitStatus>;
 
-  private _formGroup: BehaviorSubject<FormGroup | null> = new BehaviorSubject<FormGroup | null>(
+  private _formGroup: BehaviorSubject<UntypedFormGroup | null> = new BehaviorSubject<UntypedFormGroup | null>(
     null,
   );
-  readonly formGroup: Observable<FormGroup | null> = this
-    ._formGroup as Observable<FormGroup | null>;
+  readonly formGroup: Observable<UntypedFormGroup | null> = this
+    ._formGroup as Observable<UntypedFormGroup | null>;
 
   private _form: BehaviorSubject<{
     form: AjfForm | null;
@@ -478,7 +478,7 @@ export class AjfFormRendererService {
     formObs
       .pipe(
         map(_form => {
-          return this._initFormGroupStreams(new FormGroup({}));
+          return this._initFormGroupStreams(new UntypedFormGroup({}));
         }),
       )
       .subscribe(this._formGroup);
@@ -602,7 +602,7 @@ export class AjfFormRendererService {
                 const name = `${node.name}__${rowIdx}__${idx}`;
                 const type = (node.columnTypes && node.columnTypes[idx]) || 'number';
                 const tableFormControl: AjfTableFormControl = {
-                  control: new FormControl(),
+                  control: new UntypedFormControl(),
                   show: false,
                   type,
                 };
@@ -728,7 +728,7 @@ export class AjfFormRendererService {
         filter(([_, fg]) => fg !== null),
       )
       .subscribe(([_, fg]) => {
-        const form = fg as FormGroup;
+        const form = fg as UntypedFormGroup;
         form.updateValueAndValidity();
       });
   }
@@ -780,7 +780,7 @@ export class AjfFormRendererService {
     return allKeys.filter(k => oldValue[k] !== newValue[k]);
   }
 
-  private _initFormGroupStreams(formGroup: FormGroup): FormGroup {
+  private _initFormGroupStreams(formGroup: UntypedFormGroup): UntypedFormGroup {
     this._formGroupSubscription.unsubscribe();
     let init = true;
     let initForm = true;
@@ -1175,7 +1175,7 @@ export class AjfFormRendererService {
     const formGroup = this._formGroup.getValue();
     const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
     if (formGroup != null && !formGroup.contains(fieldInstanceName)) {
-      const control = new FormControl();
+      const control = new UntypedFormControl();
       control.setValue(fieldInstance.value);
       formGroup.registerControl(fieldInstanceName, control);
     }
@@ -1276,7 +1276,7 @@ export class AjfFormRendererService {
       let formGroup = this._formGroup.getValue();
       let nodeGroupInstanceName = nodeInstanceCompleteName(nodeGroupInstance);
       if (formGroup != null && !formGroup.contains(nodeGroupInstanceName)) {
-        const control = new FormControl();
+        const control = new UntypedFormControl();
         control.setValue(nodeGroupInstance.reps);
         formGroup.registerControl(nodeGroupInstanceName, control);
       }
@@ -1464,7 +1464,7 @@ export class AjfFormRendererService {
 
 const updateVisibilityMapEntry = (
   nodeInstance: AjfNodeInstance,
-  formGroup: BehaviorSubject<FormGroup | null>,
+  formGroup: BehaviorSubject<UntypedFormGroup | null>,
   newFormValue: any,
 ) => {
   const completeName = nodeInstanceCompleteName(nodeInstance);
@@ -1548,7 +1548,7 @@ const updateConditionalBranchesMapEntry = (
 const updateFormulaMapEntry = (
   nodeInstance: AjfNodeInstance,
   newFormValue: any,
-  formGroup: BehaviorSubject<FormGroup | null>,
+  formGroup: BehaviorSubject<UntypedFormGroup | null>,
 ) => {
   if (isFieldInstance(nodeInstance)) {
     const res = updateFormula(nodeInstance, newFormValue);

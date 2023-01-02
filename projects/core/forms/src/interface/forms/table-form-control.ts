@@ -20,7 +20,7 @@
  *
  */
 
-import {FormControl} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 export type InputType =
   | 'button'
@@ -53,7 +53,7 @@ export interface AjfTableFormControl {
   /**
    * The ng FormControl
    */
-  control: FormControl;
+  control: UntypedFormControl;
 
   /**
    * If set to true, the FormControl is allocated.

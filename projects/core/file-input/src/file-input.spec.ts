@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, ReactiveFormsModule} from '@angular/forms';
 import {firstValueFrom} from 'rxjs';
 import {shareReplay, take} from 'rxjs/operators';
 
@@ -213,7 +213,7 @@ class FilePreviewTestComponent {
 })
 class ReactiveFormsTestComponent {
   @ViewChild(AjfFileInput) fileInput!: AjfFileInput;
-  formGroup = new FormGroup({
-    file_upload: new FormControl(),
+  formGroup = new UntypedFormGroup({
+    file_upload: new UntypedFormControl(),
   });
 }
