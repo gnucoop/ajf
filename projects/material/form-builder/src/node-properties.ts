@@ -44,7 +44,7 @@ import {
   OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {distinctUntilChanged, filter, map, shareReplay, withLatestFrom} from 'rxjs/operators';
@@ -133,8 +133,8 @@ export class AjfFbNodeProperties implements OnDestroy {
     return this._enabled;
   }
 
-  private _propertiesForm!: Observable<FormGroup>;
-  get propertiesForm(): Observable<FormGroup> {
+  private _propertiesForm!: Observable<UntypedFormGroup>;
+  get propertiesForm(): Observable<UntypedFormGroup> {
     return this._propertiesForm;
   }
 
@@ -274,7 +274,7 @@ export class AjfFbNodeProperties implements OnDestroy {
     private _cdr: ChangeDetectorRef,
     private _service: AjfFormBuilderService,
     private _dialog: MatDialog,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
   ) {
     this._nodeEntry = _service.editedNodeEntry;
     this._choicesOriginsSub = _service.choicesOrigins.subscribe(
@@ -459,7 +459,7 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._saveSub = this._saveEvt
       .pipe(withLatestFrom(this.propertiesForm))
       .subscribe(([_, formGroup]) => {
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const val = {...fg.value, conditionalBranches: this._conditionalBranches};
         this._service.saveNodeEntry(val);
       });
@@ -679,7 +679,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['triggerConditions'];
         let vcs = (ctrl.value || []).slice(0);
         if (vcIdx < 0 || vcIdx >= vcs.length) {
@@ -697,7 +697,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['triggerConditions'];
         let vcs = (ctrl.value || []).slice(0);
         vcs.push('');
@@ -738,7 +738,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['warningConditions'];
         let vcs = (ctrl.value || []).slice(0);
         if (vcIdx < 0 || vcIdx >= vcs.length) {
@@ -756,7 +756,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['warningConditions'];
         let vcs = (ctrl.value || []).slice(0);
         vcs.push({condition: '', errorMessage: ''});
@@ -797,7 +797,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['validationConditions'];
         let vcs = (ctrl.value || []).slice(0);
         if (vcIdx < 0 || vcIdx >= vcs.length) {
@@ -815,7 +815,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['validationConditions'];
         let vcs = (ctrl.value || []).slice(0);
         vcs.push({condition: '', errorMessage: ''});
@@ -859,7 +859,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['forceValue'];
         this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
         this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -884,7 +884,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['nextSlideCondition'];
         this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
         this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -911,7 +911,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['formula'];
         this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
         this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -936,7 +936,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['formulaReps'];
         this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
         this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -961,7 +961,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['choicesFilter'];
         this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
         this._editConditionDialog.componentInstance.condition = ctrl.value;
@@ -1009,7 +1009,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (formGroup == null) {
           return;
         }
-        const fg = formGroup as FormGroup;
+        const fg = formGroup as UntypedFormGroup;
         const ctrl = fg.controls['visibility'];
         const condition = ctrl.value;
         this._editConditionDialog = this._dialog.open(AjfFbConditionEditorDialog);
@@ -1027,7 +1027,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleTriggerCondtionsChange(fg: FormGroup): void {
+  private _handleTriggerCondtionsChange(fg: UntypedFormGroup): void {
     this._triggerConditionsSub = fg.valueChanges
       .pipe(
         distinctUntilChanged(
@@ -1040,7 +1040,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleWarningCondtionsChange(fg: FormGroup): void {
+  private _handleWarningCondtionsChange(fg: UntypedFormGroup): void {
     this._warningConditionsSub = fg.valueChanges
       .pipe(
         distinctUntilChanged(
@@ -1053,7 +1053,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleValidationCondtionsChange(fg: FormGroup): void {
+  private _handleValidationCondtionsChange(fg: UntypedFormGroup): void {
     this._validationConditionsSub = fg.valueChanges
       .pipe(
         distinctUntilChanged(
@@ -1067,7 +1067,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleForceValueChange(fg: FormGroup): void {
+  private _handleForceValueChange(fg: UntypedFormGroup): void {
     this._forceValueSub = fg.valueChanges
       .pipe(distinctUntilChanged((v1, v2) => v1.forceValue === v2.forceValue))
       .subscribe((v: any) => {
@@ -1076,7 +1076,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleNextSlideConditionChange(fg: FormGroup): void {
+  private _handleNextSlideConditionChange(fg: UntypedFormGroup): void {
     this._formulaSub = fg.valueChanges
       .pipe(distinctUntilChanged((v1, v2) => v1.nextSlideCondition === v2.nextSlideCondition))
       .subscribe((v: any) => {
@@ -1091,7 +1091,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleFormulaChange(fg: FormGroup): void {
+  private _handleFormulaChange(fg: UntypedFormGroup): void {
     this._formulaSub = fg.valueChanges
       .pipe(distinctUntilChanged((v1, v2) => v1.formula === v2.formula))
       .subscribe((v: any) => {
@@ -1100,7 +1100,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleFormulaRepsChange(fg: FormGroup): void {
+  private _handleFormulaRepsChange(fg: UntypedFormGroup): void {
     this._formulaRepsSub = fg.valueChanges
       .pipe(distinctUntilChanged((v1, v2) => v1.formulaReps === v2.formulaReps))
       .subscribe((v: any) => {
@@ -1109,7 +1109,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleChoicesFilterChange(fg: FormGroup): void {
+  private _handleChoicesFilterChange(fg: UntypedFormGroup): void {
     this._choicesFilterSub = fg.valueChanges
       .pipe(distinctUntilChanged((v1, v2) => v1.choicesFilter === v2.choicesFilter))
       .subscribe((v: any) => {
@@ -1118,7 +1118,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleConditionalBranchesChange(fg: FormGroup): void {
+  private _handleConditionalBranchesChange(fg: UntypedFormGroup): void {
     this._conditionalBranchesSub = fg.valueChanges
       .pipe(
         distinctUntilChanged((v1, v2) => v1.conditionalBranchesNum === v2.conditionalBranchesNum),
@@ -1139,7 +1139,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       });
   }
 
-  private _handleVisibilityChange(fg: FormGroup): void {
+  private _handleVisibilityChange(fg: UntypedFormGroup): void {
     this._visibilitySub = fg.valueChanges
       .pipe(distinctUntilChanged((v1, v2) => v1.visibilityOpt === v2.visibilityOpt))
       .subscribe(v => {

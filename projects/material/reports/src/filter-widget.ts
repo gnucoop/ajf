@@ -37,7 +37,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {UntypedFormGroup} from '@angular/forms';
 import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
@@ -62,7 +62,7 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
 
     this.filteredInstance = this._formRenderer.formGroup.pipe(
       filter(fg => this.instance != null && this.instance.filter != null && fg != null),
-      switchMap(formGroup => (formGroup as FormGroup).valueChanges),
+      switchMap(formGroup => (formGroup as UntypedFormGroup).valueChanges),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
       map(a => {
         const instance = this.instance as AjfWidgetInstance;
