@@ -38,13 +38,6 @@
           }
         ],
         "@angular-eslint/no-output-native": 0,
-        "@typescript-eslint/no-unused-vars": [
-          "error",
-          {
-            "argsIgnorePattern": "^_",
-            "ignoreRestSiblings": true
-          }
-        ],
         "object-curly-spacing": ["error", "never"]
       }
     },

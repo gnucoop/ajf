@@ -73,10 +73,10 @@ const formSchema: any = {
   templateUrl: 'ion-form-e2e.html',
   styles: [
     `
-  ajf-form {
-    display: contents;
-  }
-  `,
+      ajf-form {
+        display: contents;
+      }
+      `,
   ],
 })
 export class IonicFormE2E {

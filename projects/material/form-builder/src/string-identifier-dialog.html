@@ -22,15 +22,15 @@
       <mat-header-cell *matHeaderCellDef>{{'Value'|transloco}}</mat-header-cell>
       <mat-cell *matCellDef="let row; let idx = index">
         <mat-form-field>
-          <mat-chip-list #chipList>
-            <mat-chip
+          <mat-chip-grid #chipList>
+            <mat-chip-row
               *ngFor="let field of row.value"
               (removed)="removeValue(row, field)"
             >
               {{ field }}
               <mat-icon matChipRemove>cancel</mat-icon>
-            </mat-chip>
-          </mat-chip-list>
+            </mat-chip-row>
+          </mat-chip-grid>
           <input
             #valueInput
             [ngModel]="row.value"

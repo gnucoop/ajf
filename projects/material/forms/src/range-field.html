@@ -1,14 +1,13 @@
 <ng-container *ngIf="control|async as ctrl">
   <mat-slider
-    thumbLabel
-    [formControl]="ctrl!"
-    [tickInterval]="step"
+    discrete
+    showTickMarks
     [step]="step"
     [min]="start"
     [max]="end"
     [attr.aria-label]="name"
     [attr.name]="name"
-  ></mat-slider>
+  ><input matSliderThumb [value]="ctrl.value"></mat-slider>
   <div class="ajf-range-label">
     <label>{{ctrl.value}}</label>
   </div>
