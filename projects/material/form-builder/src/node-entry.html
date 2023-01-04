@@ -19,14 +19,14 @@
     ></div>
     <ng-template [ngIf]="isNodeEntry">
       <ng-container *ngIf="!isDraggable; else draggable">
-        <mat-card>
+        <mat-card appearance="outlined">
           <ng-container *ngTemplateOutlet="cardTitle"></ng-container>
           <ng-container *ngTemplateOutlet="cardContent"></ng-container>
         </mat-card>
       </ng-container>
 
       <ng-template #draggable>
-        <mat-card cdkDrag [cdkDragData]="realNodeEntry" class="ajf-draggable-box">
+        <mat-card appearance="outlined" cdkDrag [cdkDragData]="realNodeEntry" class="ajf-draggable-box">
           <ng-container
             *ngIf="isSlide(realNodeEntry.node); else fieldPanel"
           >
@@ -102,6 +102,7 @@
             [isExpanded]="isExpanded"
           ></ajf-fb-node-entry>
           <mat-card
+            appearance="outlined"
             class="ajf-empty"
             *ngIf="realNodeEntry.content.length === 0"
             cdkDropList
@@ -134,6 +135,7 @@
 <ng-template #rootEmpty>
   <div class="mat-card-container">
     <mat-card
+      appearance="outlined"
       class="ajf-empty"
       cdkDropList
       [cdkDropListEnterPredicate]="emptyAreaDropPredicate()"

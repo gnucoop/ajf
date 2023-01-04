@@ -7,9 +7,9 @@ import {TableFieldE2E} from '../table-field';
   templateUrl: 'table-field-e2e.html',
   styles: [
     `
-        .ajf-slider-container {
-          min-height: 400px;
-        }`,
+            .ajf-slider-container {
+              min-height: 400px;
+            }`,
   ],
   encapsulation: ViewEncapsulation.None,
 })
