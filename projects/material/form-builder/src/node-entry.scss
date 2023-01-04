@@ -1,7 +1,6 @@
 ajf-fb-node-entry {
   display: block;
   position: relative;
-
   .mat-card-container {
     position: relative;
 
@@ -15,8 +14,7 @@ ajf-fb-node-entry {
       border-left: 2px solid;
       border-bottom-left-radius: 0.5em;
     }
-
-    mat-card {
+    .mat-mdc-card {
       margin-left: 50px;
       padding: 0.5em 1em;
       margin-top: 0.2em;

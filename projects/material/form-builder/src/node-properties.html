@@ -59,12 +59,11 @@
         <div>
           <mat-slider
             formControlName="conditionalBranchesNum"
-            thumbLabel
-            tickInterval="auto"
+            discrete
             min="1"
             max="5"
             step="1"
-          ></mat-slider>
+          ><input matSliderThumb /></mat-slider>
         </div>
         <div *ngFor="let branch of conditionalBranches; let idx = index">
           <button
@@ -98,23 +97,21 @@
           <div>
             <mat-slider
               formControlName="minReps"
-              thumbLabel
-              tickInterval="auto"
+              discrete
               min="1"
               max="5"
               step="1"
-            ></mat-slider>
+            ><input matSliderThumb /></mat-slider>
           </div>
           <div><label>{{'Max repetitions'|transloco}}</label></div>
           <div>
             <mat-slider
               formControlName="maxReps"
-              thumbLabel
-              tickInterval="auto"
+              discrete
               min="1"
               max="5"
               step="1"
-            ></mat-slider>
+            ><input matSliderThumb /></mat-slider>
           </div>
         </div>
       </ng-template>
