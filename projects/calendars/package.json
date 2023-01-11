@@ -18,6 +18,6 @@
     "date-fns": "0.0.0-DATE-FNS"
   },
   "dependencies": {
-    "tslib": "0.0.0-TSLIB"
+    "tslib": "^2.3.0"
   }
 }
