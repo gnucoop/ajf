@@ -6,7 +6,7 @@
     "core": {
       "projectType": "library",
       "root": "projects/core",
-      "sourceRoot": "projects/core/src",
+      "sourceRoot": "projects/core",
       "prefix": "ajf",
       "architect": {
         "build": {
@@ -90,7 +90,7 @@
     "material": {
       "projectType": "library",
       "root": "projects/material",
-      "sourceRoot": "projects/material/src",
+      "sourceRoot": "projects/material",
       "prefix": "lib",
       "architect": {
         "build": {
@@ -174,7 +174,7 @@
     "ionic": {
       "projectType": "library",
       "root": "projects/ionic",
-      "sourceRoot": "projects/ionic/src",
+      "sourceRoot": "projects/ionic",
       "prefix": "lib",
       "architect": {
         "build": {
@@ -258,7 +258,7 @@
     "calendars": {
       "projectType": "library",
       "root": "projects/calendars",
-      "sourceRoot": "projects/calendars/src",
+      "sourceRoot": "projects/calendars",
       "prefix": "lib",
       "architect": {
         "build": {
