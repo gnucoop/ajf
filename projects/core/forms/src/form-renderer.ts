@@ -1477,7 +1477,9 @@ const updateVisibilityMapEntry = (
         if (s && !s.closed) {
           s.unsubscribe();
         }
-        fg.controls[completeName].setValue(null);
+        if (fg.controls != null && fg.controls[completeName] != null) {
+          fg.controls[completeName].setValue(null);
+        }
       });
     }
     if (isField) {
@@ -1486,7 +1488,7 @@ const updateVisibilityMapEntry = (
   } else if (visibilityChanged && nodeInstance.visible && isField) {
     const fg = formGroup.getValue();
     const res = updateFormula(nodeInstance, newFormValue);
-    if (fg != null && res.changed) {
+    if (fg != null && res.changed && fg.controls != null && fg.controls[completeName] != null) {
       fg.controls[completeName].setValue(res.value);
     }
   }
