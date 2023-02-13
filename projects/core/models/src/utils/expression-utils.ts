@@ -1667,7 +1667,7 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
               : generateMetadata(slideName, slideInstance);
           instances[slideName][slideInstance][fieldName] = f[fkey];
         } else {
-          mainForm[fieldName] = f[fieldName];
+          mainForm[fkey] = f[fkey];
         }
       });
       mainForm[`ajf_form_id`] = formIdx;
@@ -1682,7 +1682,13 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
   } else {
     forms.forEach(form => {
       const fKeys: string[] = Object.keys(form);
-      const noRepeatingFields: string[] = fKeys.filter(fkey => fkey.indexOf('__') === -1);
+      const noRepeatingFields: string[] = fKeys.filter(fkey => {
+        const splittedKey: string[] = fkey.split('__');
+        if (splittedKey.length === 2) {
+          return false;
+        }
+        return true;
+      });
       const noRepForm: Form = {};
 
       noRepeatingFields.forEach(field => {
@@ -1693,7 +1699,13 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
 
       for (let i = 0; i <= MAX_REPS; i++) {
         const currentSlide: Form = {};
-        const onlyCurrentInstanceKeys: string[] = fKeys.filter(fkey => fkey.indexOf(`__${i}`) > -1);
+        const onlyCurrentInstanceKeys: string[] = fKeys.filter(fkey => {
+          const splittedKey: string[] = fkey.split('__');
+          if (splittedKey.length === 2) {
+            return fkey.indexOf(`__${i}`) > -1;
+          }
+          return false;
+        });
         // se il numero di attributi coincide il form data non ha repeatingslides
         if (onlyCurrentInstanceKeys.length === 0) {
           mainForm['ajf_rep_count'] = i;
