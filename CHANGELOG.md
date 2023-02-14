@@ -1,3 +1,11 @@
+<a name="13.2.14"></a>
+# 13.2.14 "silent-capybara" (2023-02-14)
+### Bug Fixes
+* **core/forms:** add null check before reset value ([7b64348](https://github.com/gnucoop/ajf/commit/7b643480d3a800a1225515a6c8d231fdc977fd94))
+* **core/models:** fix report build dataset function for table fields ([5675da4](https://github.com/gnucoop/ajf/commit/5675da4ae1a0eb9856bb34fb7ce5b865228b9511))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.13"></a>
 # 13.2.13 "wispy-alligator" (2022-12-27)
 
