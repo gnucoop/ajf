@@ -41,6 +41,18 @@ export interface MainForm {
   reps?: Instances;
 }
 
+function allReps(form: MainForm): Form[] {
+  if (form.reps == null) {
+    return [];
+  }
+  const reps: Form[] = [];
+  for (const key in form.reps) {
+    const r = form.reps[key];
+    reps.push(...r);
+  }
+  return reps;
+}
+
 const MAX_REPS = 30;
 
 export const getCodeIdentifiers = (
@@ -161,8 +173,6 @@ export class AjfExpressionUtils {
   };
 }
 
-const nonNullInstances = (reps: Instances | undefined): reps is Instances => reps != null;
-
 /**
  * UTILITY FUNCION
  * This function provide a deep copy builder of array of main forms.
@@ -173,20 +183,19 @@ const nonNullInstances = (reps: Instances | undefined): reps is Instances => rep
  */
 function cloneMainForms(forms: MainForm[]): MainForm[] {
   let res: MainForm[] = [];
-  forms.forEach(form => {
-    let reps: Instances = {};
+  for (const form of forms) {
     if (form == null) {
-      res.push(null as unknown as MainForm);
-    } else {
-      if (form.reps != null) {
-        Object.keys(form.reps).forEach(key => {
-          reps[key] = form.reps![key].slice(0);
-        });
-      }
-      const f = {...form, reps};
-      res.push(f);
+      res.push(form);
+      continue;
     }
-  });
+    let reps: Instances = {};
+    if (form.reps != null) {
+      for (const key in form.reps) {
+        reps[key] = [...form.reps[key]];
+      }
+    }
+    res.push({...form, reps});
+  }
   return res;
 }
 export function evaluateExpression(
@@ -333,7 +342,7 @@ export function dateOperations(dString: string, period: string, operation: strin
  * @param num
  * @returns
  */
-function floatify(num: number) {
+function truncate10(num: number) {
   return parseFloat(num.toFixed(10));
 }
 
@@ -362,14 +371,13 @@ export function round(num: number | string, digits?: number): number {
  * else if only property is defined return him.
  */
 export function extractArray(source: any[], property: string, property2?: string): any[] {
-  source = (source || []).slice(0).filter((f: any) => f != null);
-  const l = source.length;
+  source = (source || []).filter((f: any) => f != null);
   const res: any[] = [];
-  for (let i = 0; i < l; i++) {
-    if (source[i][property] != null && property2 != null && source[i][property2] != null) {
-      res.push(Number(source[i][property]) + Number(source[i][property2]));
-    } else if (source[i][property] != null) {
-      res.push(source[i][property]);
+  for (const s of source) {
+    if (s[property] != null && property2 != null && s[property2] != null) {
+      res.push(Number(s[property]) + Number(s[property2]));
+    } else if (s[property] != null) {
+      res.push(s[property]);
     }
   }
   return res;
@@ -378,16 +386,14 @@ export function extractArray(source: any[], property: string, property2?: string
  * It returns the sum of all defined properties of each element of source.
  */
 export function extractSum(source: any[], properties: string[]): number {
-  let sumVal = 0;
-  properties = (properties || []).slice(0);
-  const l = properties.length;
+  properties = [...(properties || [])];
 
-  for (let i = 0; i < l; i++) {
-    const array = extractArray(source, properties[i]);
-    const leng = array.length;
-    for (let j = 0; j < leng; j++) {
-      if (!isNaN(Number(array[j]))) {
-        sumVal += Number(array[j]);
+  let sumVal = 0;
+  for (const prop of properties) {
+    const array = extractArray(source, prop);
+    for (const a of array) {
+      if (!isNaN(Number(a))) {
+        sumVal += Number(a);
       }
     }
   }
@@ -399,7 +405,7 @@ export function extractSum(source: any[], properties: string[]): number {
  */
 export function extractArraySum(source: any[], properties: string[]): any[] {
   const arrays: any[] = [];
-  properties = (properties || []).slice(0);
+  properties = [...(properties || [])];
 
   for (let i = 0; i < properties.length; i++) {
     const array = extractArray(source, properties[i]);
@@ -422,7 +428,7 @@ export function extractArraySum(source: any[], properties: string[]): any[] {
  * Draw a threshold line on chart related to the property.
  */
 export function drawThreshold(source: any[], property: string, threshold: any[]): any[] {
-  source = (source || []).slice(0).filter((f: any) => f != null);
+  source = (source || []).filter((f: any) => f != null);
   threshold = threshold || [0];
   if (!(threshold instanceof Array)) {
     threshold = [threshold];
@@ -446,7 +452,7 @@ export function drawThreshold(source: any[], property: string, threshold: any[])
  * Extract the dates of the source object with property != null
  */
 export function extractDates(source: any[], property: string, fmt: string): string[] {
-  source = (source || []).slice(0).filter((f: any) => f != null);
+  source = (source || []).filter((f: any) => f != null);
   const l = source.length;
   const res: any = [];
   let prefix = '';
@@ -475,7 +481,7 @@ export function extractDates(source: any[], property: string, fmt: string): stri
  * Extract the last property contains in source != null
  */
 export function lastProperty(source: any, property: string): any {
-  source = (source || []).slice(0).filter((f: any) => f != null);
+  source = (source || []).filter((f: any) => f != null);
   let l = source.length - 1;
 
   while (l >= 0 && source[l][property] == null) {
@@ -490,7 +496,7 @@ export function lastProperty(source: any, property: string): any {
  * It sum the LAst properties of source.
  */
 export function sumLastProperties(source: any[], properties: string[]): number {
-  source = (source || []).slice(0).filter((f: any) => f != null);
+  source = (source || []).filter((f: any) => f != null);
   let sumVal = 0;
   let val = 0;
   for (let i = 0; i < properties.length; i++) {
@@ -505,7 +511,7 @@ export function sumLastProperties(source: any[], properties: string[]): number {
  * Compute the trend of the property contained on the source.
  */
 export function calculateTrendProperty(source: any[], property: string): string {
-  source = (source || []).slice(0).filter((f: any) => f != null);
+  source = (source || []).filter((f: any) => f != null);
   let last = source.length - 1;
   while (source[last][property] == null) {
     if (last == 0) {
@@ -563,7 +569,7 @@ export function calculateAvgProperty(
   range: number,
   coefficient: number,
 ): number {
-  source = (source || []).slice(0).filter((f: any) => f != null);
+  source = (source || []).filter((f: any) => f != null);
 
   coefficient = coefficient || 1;
   range = range || 12;
@@ -603,7 +609,7 @@ export function calculateAvgPropertyArray(
   range: number,
   coefficient: number,
 ): number[] {
-  source = (source || []).slice(0).filter((f: any) => f != null);
+  source = (source || []).filter((f: any) => f != null);
   const resArr: any[] = [];
 
   if (properties && properties.length > 0) {
@@ -653,7 +659,7 @@ export function calculateAvgPropertyArray(
 }
 
 export function alert(source: any[], property: string, threshold: number): string {
-  source = (source || []).slice(0);
+  source = [...(source || [])];
 
   if (lastProperty(source, property) > threshold) {
     return '<p><i class="material-icons" style="color:red">warning</i></p>';
@@ -688,244 +694,137 @@ export function getCoordinate(source: any, zoom?: number): [number, number, numb
 }
 
 /**
- * Calculates all the possible results that a field has taken
+ * Returns an array containing all the values that the specified field takes in the forms.
+ * The values are converted to strings.
  */
-export function ALL_VALUES_OF(mainforms: MainForm[], fieldName: string): string[] {
-  const forms = [...(mainforms.filter(form => form != null) || [])];
-  const allreps = [
-    ...forms.map(form => {
-      const {reps, ...v} = form;
-      return v;
-    }),
-    ...forms
-      .map(m => m.reps)
-      .filter(nonNullInstances)
-      .map(i =>
-        Object.keys(i)
-          .map(k => i[k])
-          .flat(),
-      )
-      .flat(),
-  ];
-  return [...new Set(allreps.filter(f => f[fieldName] != null).map(f => `${f[fieldName]}`))];
+export function ALL_VALUES_OF(forms: MainForm[], field: string): string[] {
+  forms = (forms || []).filter(f => f != null);
+  const allreps = forms;
+  for (const form of forms) {
+    allreps.push(...allReps(form));
+  }
+  return [...new Set(allreps.filter(f => f[field] != null).map(f => String(f[field])))];
 }
 
 export function plainArray(params: any[]): any[] {
-  let res: any[] = [];
-  params.forEach(param => {
-    param = Array.isArray(param) ? param : [param];
-    res = [...res, ...param];
-  });
-
+  const res: any[] = [];
+  for (const param of params) {
+    if (Array.isArray(param)) {
+      res.push(...param);
+    } else {
+      res.push(param);
+    }
+  }
   return res;
 }
 /**
- * Counts the collected forms. The form name must be specified. An optional condition can be added
- * to discriminate which forms to count in.
- * the expression is first evaluated in mainForm if false the evaluation of expression is calculated
- * in any reps. If expression is true in reps the form is counted
+ * Returns the number of forms for which filterExpression evaluates to true,
+ * for the form itself or for any of its repetitions.
  */
-export function COUNT_FORMS(formList: MainForm[], expression: string = 'true'): number {
-  const forms: MainForm[] = (formList || []).slice(0).filter((f: MainForm) => f != null);
-  const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
-  let count = 0;
+export function COUNT_FORMS(forms: MainForm[], expression: string = 'true'): number {
+  forms = (forms || []).filter(f => f != null);
   if (expression === 'true') {
     return forms.length;
   }
-  if (forms.length === 0) {
-    return 0;
-  }
-  for (let i = 0; i < forms.length; i++) {
-    const mainForm = forms[i];
-    let exxpr = expression;
-    identifiers.forEach(identifier => {
-      const change = mainForm[identifier] ? mainForm[identifier] : null;
-      if (change != null) {
-        exxpr = exxpr.split(identifier).join(JSON.stringify(change as string));
-      }
-    });
-    if (evaluateExpression(exxpr, mainForm)) {
+  let count = 0;
+  for (const form of forms) {
+    if (evaluateExpression(expression, form)) {
       count++;
-    } else if (mainForm.reps != null) {
-      const allreps: number = Object.keys(mainForm.reps)
-        .map((key: string) => (mainForm.reps as Instances)[key])
-        .flat()
-        .map((child: Form) => evaluateExpression(exxpr, child))
-        .reduce((a, b) => (a += +b), 0);
-      if (allreps > 0) {
+      continue;
+    }
+    for (const rep of allReps(form)) {
+      if (evaluateExpression(expression, {...form, ...rep})) {
+        count++;
+        break;
+      }
+    }
+  }
+  return count;
+}
+/**
+ * Counts the forms and all of their repetitions for which the expression evaluates to true.
+ */
+export function COUNT_REPS(forms: MainForm[], expression: string = 'true'): number {
+  forms = (forms || []).filter(f => f != null);
+  let count = 0;
+  for (const form of forms) {
+    if (evaluateExpression(expression, form)) {
+      count++;
+    }
+    for (const rep of allReps(form)) {
+      if (evaluateExpression(expression, {...form, ...rep})) {
         count++;
       }
     }
   }
   return count;
 }
-/**
- * Counts the reps of the form.
- * the expression is first evaluated in mainForm  if true return all reps counting else the evaluation of expression is calculated
- * in any reps and return the count of all reps that satisfied the expression.
- */
-export function COUNT_REPS(formList: MainForm[], expression: string = 'true'): number {
-  const forms: MainForm[] = cloneMainForms(formList).filter((f: MainForm) => f != null);
-  const identifiers = getCodeIdentifiers(expression, true);
-  let exxpr = expression;
-  let count = 0;
-
-  if (forms.length === 0) {
-    return 0;
-  }
-  for (let i = 0; i < forms.length; i++) {
-    const mainForm = forms[i];
-    if (mainForm.reps != null) {
-      const allreps: Form[] = Object.keys(mainForm.reps)
-        .map((key: string) => (mainForm.reps as Instances)[key])
-        .flat();
-      allreps.forEach((child: Form) => {
-        if (evaluateExpression(expression, child)) {
-          count++;
-        }
-      });
-    }
-
-    identifiers.forEach(identifier => {
-      const change = mainForm[identifier] ? mainForm[identifier] : null;
-      if (change) {
-        exxpr = expression.split(identifier).join(JSON.stringify(change as string));
-      }
-    });
-    if (evaluateExpression(exxpr, mainForm)) {
-      count++;
-    }
-  }
-  return count;
-}
 
 /**
- * Counts the amount of unique form values for a specific field. The form name must be specified. An
- * optional condition can be added to discriminate which forms to count in
+ * Counts the different values that the specified field takes in the forms (and their repetitions).
  */
 export function COUNT_FORMS_UNIQUE(
-  formList: MainForm[],
-  fieldName: string,
+  forms: MainForm[],
+  field: string,
   expression: string = 'true',
 ): number {
-  const forms: MainForm[] = (formList || []).slice(0).filter((f: MainForm) => f != null);
-  const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
+  forms = (forms || []).filter(f => f != null);
   let values: any[] = [];
-
-  if (forms.length === 0) {
-    return 0;
-  }
-  for (let i = 0; i < forms.length; i++) {
-    const mainForm = forms[i];
-    let exxpr = expression;
-    identifiers.forEach(identifier => {
-      const change = mainForm[identifier] ? mainForm[identifier] : null;
-      if (change != null) {
-        exxpr = exxpr.split(identifier).join(JSON.stringify(change as string));
-      }
-    });
-    if (mainForm.reps != null) {
-      const fieldNameInMain = evaluateExpression(fieldName, mainForm);
-      const allreps: any[] = Object.keys(mainForm.reps)
-        .map((key: string) => (mainForm.reps as Instances)[key])
-        .flat()
-        .filter((child: Form) => evaluateExpression(exxpr, child))
-        .map((child: Form) =>
-          fieldNameInMain != null ? fieldNameInMain : evaluateExpression(fieldName, child),
-        );
-      if (allreps.length > 0) {
-        values = [...values, ...allreps];
-      }
+  for (const form of forms) {
+    if (form[field] != null && evaluateExpression(expression, form)) {
+      values.push(form[field]);
     }
-    if (evaluateExpression(exxpr, mainForm)) {
-      const mValue = evaluateExpression(fieldName, mainForm);
-      if (mValue != null) {
-        values.push(mValue);
+    for (const rep of allReps(form)) {
+      if (rep[field] != null && evaluateExpression(expression, {...form, ...rep})) {
+        values.push(rep[field]);
       }
     }
   }
   return [...new Set(values)].length;
 }
 
-/**
- * Aggregates and sums the values of one field. An optional condition can be added to discriminate
- * which forms to take for the sum.
- */
-export function SUM(mainForms: (MainForm | Form)[], field: string, condition = 'true'): number {
-  const forms: (MainForm | Form)[] = (mainForms || [])
-    .slice(0)
-    .filter((f: MainForm | Form) => f != null);
-
-  let count = 0;
-
-  if (forms.length === 0) {
-    return 0;
-  }
-  for (let i = 0; i < forms.length; i++) {
-    const mainForm = forms[i];
-
-    if (evaluateExpression(condition, mainForm)) {
-      if (field in mainForm && mainForm[field] != null) {
-        count += +(mainForm[field] as number) || 0;
-        count = floatify(count);
-      } else {
-        if (mainForm.reps != null) {
-          const allreps: Form[] = Object.keys(mainForm.reps)
-            .map((key: string) => (mainForm.reps as Instances)[key])
-            .flat();
-          allreps
-            .filter(c => c[field] != null)
-            .forEach((child: Form) => {
-              count += +(child[field] as number) || 0;
-              count = floatify(count);
-            });
-        }
-      }
-    } else {
-      if (mainForm.reps != null) {
-        const allreps: Form[] = Object.keys(mainForm.reps)
-          .map((key: string) => (mainForm.reps as Instances)[key])
-          .flat();
-        allreps
-          .filter(c => c[field] != null)
-          .forEach((child: Form) => {
-            if (evaluateExpression(condition, child)) {
-              count += +(child[field] as number) || 0;
-              count = floatify(count);
-            }
-          });
+function getNumericValues(forms: (MainForm | Form)[], field: string, expression = 'true'): number[] {
+  forms = (forms || []).filter(f => f != null);
+  let values: number[] = [];
+  for (const form of forms) {
+    const val = form[field];
+    if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, form)) {
+      values.push(Number(val));
+    }
+    for (const rep of allReps(form)) {
+      const val = rep[field];
+      if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, {...form, ...rep})) {
+        values.push(Number(val));
       }
     }
   }
-  return count;
+  return values;
 }
 
 /**
- * Calculates the mean of a simple or derived value. An optional condition can be added to
- * discriminate which forms to take for the sum.
+ * Aggregates and sums the values of the specified field.
+ * An optional expression can be added to filter which forms to take for the sum.
  */
-export function MEAN(forms: (Form | MainForm)[], fieldName: string): string {
-  forms = (forms || []).slice(0).filter((f: MainForm | Form) => f != null);
-  fieldName = fieldName || '';
-  let length = 0;
-  let acc = 0;
-  forms.forEach(form => {
-    if (form[fieldName] == null && form.reps != null) {
-      Object.keys(form.reps as Instances).forEach(rep => {
-        ((form.reps as Instances)[rep] as Form[]).forEach(rform => {
-          const rsVal = rform[fieldName];
-          if (rsVal != null) {
-            acc += evaluateExpression(`${rsVal}`, form);
-            length++;
-          }
-        });
-      });
-    } else {
-      acc += evaluateExpression(fieldName, form);
-      length++;
-    }
-  });
-  return `${ROUND(acc / length)}`;
+export function SUM(forms: (MainForm | Form)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(forms, field, expression);
+  let sum = 0;
+  for (const val of values) {
+    sum += val;
+  }
+  return truncate10(sum);
+}
+
+/**
+ * Computes the mean of the values of the specified field.
+ * An optional expression can be added to filter which forms to take for the sum.
+ */
+export function MEAN(forms: (Form | MainForm)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(forms, field, expression);
+  let sum = 0;
+  for (const val of values) {
+    sum += val;
+  }
+  return truncate10(sum / values.length);
 }
 
 /**
@@ -937,138 +836,70 @@ export function PERCENT(value1: number, value2: number): string {
 }
 
 /**
- * Calculates the expression in the last form by date.
+ * Evaluates the expression in the last form by date.
  */
-export function LAST(forms: (Form | MainForm)[], expression: string, date = 'created_at'): string {
-  forms = (forms || [])
-    .slice(0)
-    .filter((f: MainForm | Form) => f != null)
-    .sort((a, b) => {
-      const dateA = new Date(b[date] as string).getTime();
-      const dateB = new Date(a[date] as string).getTime();
-      return dateA - dateB;
-    });
-  if (forms.length > 0 && expression != null) {
-    const identifiers = getCodeIdentifiers(expression, true);
-    const lastForm = forms[forms.length - 1] || [];
-    let exxpr = expression;
-    identifiers.forEach(identifier => {
-      const change = lastForm[identifier] ? lastForm[identifier] : null;
-      if (change != null) {
-        exxpr = exxpr.split(identifier).join(change as string);
-      }
-    });
-    const formEval = evaluateExpression(expression, lastForm);
-    if (formEval == false && lastForm.reps != null) {
-      const allreps: number = Object.keys(lastForm.reps)
-        .map((key: string) => (lastForm.reps as Instances)[key])
-        .flat()
-        .map((rep: Form) => evaluateExpression(exxpr, rep))
-        .reduce((a, b) => (a += +b), 0);
-      if (allreps > 0) {
-        return `${allreps}`;
-      }
-    }
-    return formEval;
+export function LAST(forms: (Form | MainForm)[], expression: string, date = 'created_at'): any {
+  forms = (forms || []).filter(f => f != null).sort((a, b) => {
+    const dateA = new Date(b[date] as string).getTime();
+    const dateB = new Date(a[date] as string).getTime();
+    return dateA - dateB;
+  });
+  if (forms.length === 0 || expression == null) {
+    return undefined;
   }
-  return '0';
+  return evaluateExpression(expression, forms[forms.length - 1]);
 }
 
 /**
- * Calculates the max value of the field.
+ * Computes the max value of the field.
  */
-export function MAX(forms: (Form | MainForm)[], fieldName: string): number {
-  forms = (forms || []).slice(0).filter((f: MainForm | Form) => f != null);
-  let max = 0;
-  forms.forEach(form => {
-    if (form[fieldName] == null && form.reps != null) {
-      Object.keys(form.reps as Instances).forEach(rep => {
-        ((form.reps as Instances)[rep] as Form[]).forEach(_rform => {
-          if (
-            form[fieldName] != null &&
-            !isNaN(form[fieldName] as number) &&
-            (form[fieldName] as number) > max
-          ) {
-            max = form[fieldName] as number;
-          }
-        });
-      });
-    } else {
-      if (
-        form[fieldName] != null &&
-        !isNaN(form[fieldName] as number) &&
-        (form[fieldName] as number) > max
-      ) {
-        max = form[fieldName] as number;
-      }
+export function MAX(forms: (Form | MainForm)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(forms, field, expression);
+  let max = -Infinity;
+  for (const val of values) {
+    if (val > max) {
+      max = val;
     }
-  });
+  }
   return max;
 }
 
 /**
- * Calculates the median value of the field.
+ * Computes the median value of the field.
  */
-export function MEDIAN(forms: (Form | MainForm)[], fieldName: string): string {
-  forms = (forms || []).slice(0).filter((f: MainForm | Form) => f != null);
-  let numbers: number[] = [];
-  forms.forEach(form => {
-    if (form[fieldName] == null && form.reps != null) {
-      Object.keys(form.reps as Instances).forEach(rep => {
-        ((form.reps as Instances)[rep] as Form[]).forEach(rform => {
-          if (rform[fieldName] != null) {
-            numbers.push(rform[fieldName] as number);
-          }
-        });
-      });
-    } else {
-      numbers.push((form as Form)[fieldName] as number);
-    }
-  });
-
-  numbers = numbers.sort((a, b) => a - b).filter((item, pos, self) => self.indexOf(item) == pos);
-  const res = Number.isInteger(numbers.length / 2)
-    ? numbers[numbers.length / 2]
-    : (numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2] +
-        numbers[+parseInt(`${numbers.length - 1 / 2}`) / 2 + 1]) /
-      2;
-
-  return `${ROUND(res)}`;
+export function MEDIAN(forms: (Form | MainForm)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(forms, field, expression).sort();
+  if (values.length === 0) {
+    return NaN;
+  }
+  return values[Math.floor(values.length / 2)];
 }
 
 /**
- * Calculates the mode value of the field.
+ * Computes the mode value of the field.
  */
-export function MODE(forms: (Form | MainForm)[], fieldName: string): number[] {
-  forms = (forms || []).slice(0).filter((f: MainForm | Form) => f != null);
-  let maxCount = 0;
-  const map: {[key: number]: number} = {};
-  forms.forEach(f => {
-    if (f[fieldName] == null && f.reps != null) {
-      Object.keys(f)
-        .filter(key => key.includes(fieldName))
-        .forEach(rsField => {
-          const value = f[rsField] as number;
-          if (value != null) {
-            map[value] = map[value] != null ? map[value] + 1 : 1;
-          }
-          if (map[value] > maxCount) {
-            maxCount = map[value];
-          }
-        });
+export function MODE(forms: (Form | MainForm)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(forms, field, expression);
+  const counters: {[val: number]: number} = {};
+  for (const val of values) {
+    if (counters[val] == null) {
+      counters[val] = 1;
     } else {
-      const value = f[fieldName] as number;
-      if (value != null) {
-        map[value] = map[value] != null ? map[value] + 1 : 1;
-      }
-      if (map[value] > maxCount) {
-        maxCount = map[value];
-      }
+      counters[val]++;
     }
-  });
-  return Object.keys(map)
-    .filter(v => map[+v] === maxCount)
-    .map(v => +v);
+  }
+  let maxCount = 0;
+  for (const val in counters) {
+    if (counters[val] > maxCount) {
+      maxCount = counters[val];
+    }
+  }
+  for (const val in counters) {
+    if (counters[val] === maxCount) {
+      return Number(val);
+    }
+  }
+  return NaN;
 }
 
 export function buildDataset(
@@ -1635,7 +1466,7 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
     return resg;
   };
 
-  forms = (forms || []).slice(0);
+  forms = [...(forms || [])];
 
   if (schema != null) {
     const repeatingSlides: any[] = schema.nodes.filter((node: any) => node.nodeType === 4);
@@ -1866,7 +1697,7 @@ export function FILTER_BY_VARS(formList: MainForm[], expression: string): MainFo
  * @return {*}  {MainForm[]}
  */
 export function FILTER_BY(formList: MainForm[], expression: string): MainForm[] {
-  const forms: MainForm[] = cloneMainForms(formList || []).filter((f: MainForm) => f != null);
+  const forms: MainForm[] = cloneMainForms(formList || []).filter(f => f != null);
   const identifiers = [...new Set(getCodeIdentifiers(expression, true))];
   let res: MainForm[] = [];
   if (expression === 'true') {
