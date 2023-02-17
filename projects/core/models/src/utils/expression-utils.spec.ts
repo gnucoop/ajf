@@ -76,7 +76,7 @@ describe('COUNT_FORMS', () => {
 describe('MEAN', () => {
   it('should calculate the mean of a value in dataset', () => {
     const result = MEAN(forms, 'dog_puppies');
-    const dog_puppies_mean = '2';
+    const dog_puppies_mean = 2;
     expect(result).toBe(dog_puppies_mean);
   });
 });
