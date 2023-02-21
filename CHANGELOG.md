@@ -1,3 +1,28 @@
+<a name="13.2.15"></a>
+# 13.2.15 "breakable-mole" (2023-02-21)
+### Bug Fixes
+* **core/forms:** add null check before reset value ([7b64348](https://github.com/gnucoop/ajf/commit/7b643480d3a800a1225515a6c8d231fdc977fd94))
+* **core/model:** fix decimals for sum between floats ([a786c1f](https://github.com/gnucoop/ajf/commit/a786c1fa070d3b4fae2fd4b4670bb797c61fa9a6))
+* **core/model:** fix SUM and APPLY_LABELS report functions ([f4703c5](https://github.com/gnucoop/ajf/commit/f4703c5a5f0d4c0b3166fc3f0c4d2d2664496cc2))
+* **core/models:** filter dataset from null forms ([309ad0d](https://github.com/gnucoop/ajf/commit/309ad0dc96d60b4ad1579c840d0ce46f809b7072))
+* **core/models:** fix report build dataset function for table fields ([5675da4](https://github.com/gnucoop/ajf/commit/5675da4ae1a0eb9856bb34fb7ce5b865228b9511))
+* **core/models:** SUM function fixed for repeating slide ([863d531](https://github.com/gnucoop/ajf/commit/863d53146f44414d228112f4d23bcec5fae5d15a))
+* **core/reports:** fix some expression utils functions ([9320297](https://github.com/gnucoop/ajf/commit/9320297fc6169e6af5ade3ce4cdcf6212458264d))
+* **core/reports:** paginated dynamic table should be exportable ([cf182f6](https://github.com/gnucoop/ajf/commit/cf182f642da84298f3308202b78c04ff8ef8793a))
+* **core/table:** fixed^Corting on table columns ([8701be1](https://github.com/gnucoop/ajf/commit/8701be1daa2ecfdcf0750a74b4818e2412cf5c68))
+* **material/forms:** add header in readonly table and fix cell height ([6ad5ce2](https://github.com/gnucoop/ajf/commit/6ad5ce252fd61c5a2185047469e30d4ff7d253bb))
+### Features
+* **core/forms:** accept formula in defaultValue ([a7295b8](https://github.com/gnucoop/ajf/commit/a7295b82809514212db539bd69445ba79c15da3a))
+* **core/forms:** evaluate formula for defaultValue only when field is visible ([2a3eddb](https://github.com/gnucoop/ajf/commit/2a3eddbb472940efc0f9425d014d0fce68e6e9b4))
+* **core/reports:** add new widget for paginated tables ([14c6241](https://github.com/gnucoop/ajf/commit/14c62411860a1f96f6557bf3e01bde5a657417b9))
+* **core/reports:** select in xlsreport wich columns should be sortable ([755165a](https://github.com/gnucoop/ajf/commit/755165a4d2c37f3ddc27dfa4fa3d2ef02854afd1))
+* **core/reports:** xlsreport: new array functions ([33b4420](https://github.com/gnucoop/ajf/commit/33b4420a5b77ff18a3ac49580d9e83d9455934a1))
+* **core/table:** add sort in table ([46b752b](https://github.com/gnucoop/ajf/commit/46b752ba103c547ef8e00867d0993b98fda45c2d))
+* **material/forms:** range value in form always visible ([197406e](https://github.com/gnucoop/ajf/commit/197406eec900f0b5f13541b5d2549fb446912db7))
+* **material/reports:** add optional dialog with form fields values for table rows ([1eb819c](https://github.com/gnucoop/ajf/commit/1eb819c472fa0220cd22fe97247f5da99b4e4b85))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.14"></a>
 # 13.2.14 "silent-capybara" (2023-02-14)
 ### Bug Fixes
