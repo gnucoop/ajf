@@ -35,7 +35,7 @@ import {
 import {langs} from './lang';
 import {MissingHandler} from './transloco-missing-handler';
 
-const availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH'];
+const availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH', 'UKR'];
 
 @NgModule({
   imports: [TranslocoModule],
