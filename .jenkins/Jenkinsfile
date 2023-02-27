@@ -47,7 +47,7 @@ pipeline {
         }
       }
       steps {
-        sh './scripts/build-docs.mjs'
+        // sh './scripts/build-docs.mjs'
         sh './scripts/jenkins/publish-snapshots.sh'
       }
     }
