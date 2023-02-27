@@ -9,7 +9,7 @@
   },
   "license": "AGPL-3.0-or-later",
   "engines": {
-    "node": ">=16.13.0 <=18.12.1",
+    "node": ">=16.13.0",
     "yarn": ">= 1.0.0",
     "npm": "Please use Yarn instead of NPM to install dependencies. See: https://yarnpkg.com/lang/en/docs/install/"
   },
@@ -37,7 +37,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
-  "version": "13.2.15",
+  "version": "15.0.0",
   "private": true,
   "dependencies": {
     "@ajf/icons": "^1.0.0",
