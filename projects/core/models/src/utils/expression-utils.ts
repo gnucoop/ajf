@@ -142,6 +142,7 @@ export class AjfExpressionUtils {
     ALL_VALUES_OF: {fn: ALL_VALUES_OF},
     REPEAT: {fn: REPEAT},
     EVALUATE: {fn: EVALUATE},
+    INCLUDES: {fn: INCLUDES},
     buildDataset: {fn: buildDataset},
     buildAlignedDataset: {fn: buildAlignedDataset},
     buildFormDataset: {fn: buildFormDataset},
@@ -721,19 +722,20 @@ export function plainArray(params: any[]): any[] {
  * Returns the number of forms for which filterExpression evaluates to true,
  * for the form itself or for any of its repetitions.
  */
-export function COUNT_FORMS(forms: MainForm[], expression: string = 'true'): number {
+export function COUNT_FORMS(this: AjfContext|void, forms: MainForm[], expression: string = 'true'): number {
+  const varsContext = this || {};
   forms = (forms || []).filter(f => f != null);
   if (expression === 'true') {
     return forms.length;
   }
   let count = 0;
   for (const form of forms) {
-    if (evaluateExpression(expression, form)) {
+    if (evaluateExpression(expression, {...varsContext, ...form})) {
       count++;
       continue;
     }
     for (const rep of allReps(form)) {
-      if (evaluateExpression(expression, {...form, ...rep})) {
+      if (evaluateExpression(expression, {...varsContext, ...form, ...rep})) {
         count++;
         break;
       }
@@ -744,15 +746,16 @@ export function COUNT_FORMS(forms: MainForm[], expression: string = 'true'): num
 /**
  * Counts the forms and all of their repetitions for which the expression evaluates to true.
  */
-export function COUNT_REPS(forms: MainForm[], expression: string = 'true'): number {
+export function COUNT_REPS(this: AjfContext|void, forms: MainForm[], expression: string = 'true'): number {
+  const varsContext = this || {};
   forms = (forms || []).filter(f => f != null);
   let count = 0;
   for (const form of forms) {
-    if (evaluateExpression(expression, form)) {
+    if (evaluateExpression(expression, {...varsContext, ...form})) {
       count++;
     }
     for (const rep of allReps(form)) {
-      if (evaluateExpression(expression, {...form, ...rep})) {
+      if (evaluateExpression(expression, {...varsContext, ...form, ...rep})) {
         count++;
       }
     }
@@ -764,18 +767,20 @@ export function COUNT_REPS(forms: MainForm[], expression: string = 'true'): numb
  * Counts the different values that the specified field takes in the forms (and their repetitions).
  */
 export function COUNT_FORMS_UNIQUE(
+  this: AjfContext,
   forms: MainForm[],
   field: string,
   expression: string = 'true',
 ): number {
+  const varsContext = this || {};
   forms = (forms || []).filter(f => f != null);
   let values: any[] = [];
   for (const form of forms) {
-    if (form[field] != null && evaluateExpression(expression, form)) {
+    if (form[field] != null && evaluateExpression(expression, {...varsContext, ...form})) {
       values.push(form[field]);
     }
     for (const rep of allReps(form)) {
-      if (rep[field] != null && evaluateExpression(expression, {...form, ...rep})) {
+      if (rep[field] != null && evaluateExpression(expression, {...varsContext, ...form, ...rep})) {
         values.push(rep[field]);
       }
     }
@@ -783,17 +788,22 @@ export function COUNT_FORMS_UNIQUE(
   return [...new Set(values)].length;
 }
 
-function getNumericValues(forms: (MainForm | Form)[], field: string, expression = 'true'): number[] {
+function getNumericValues(
+  varsContext: AjfContext|void,
+  forms: (MainForm | Form)[],
+  field: string, expression = 'true'
+): number[] {
+  varsContext = varsContext || {};
   forms = (forms || []).filter(f => f != null);
   let values: number[] = [];
   for (const form of forms) {
     const val = form[field];
-    if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, form)) {
+    if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, {...varsContext, ...form})) {
       values.push(Number(val));
     }
     for (const rep of allReps(form)) {
       const val = rep[field];
-      if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, {...form, ...rep})) {
+      if (val != null && !isNaN(Number(val)) && evaluateExpression(expression, {...varsContext, ...form, ...rep})) {
         values.push(Number(val));
       }
     }
@@ -805,8 +815,8 @@ function getNumericValues(forms: (MainForm | Form)[], field: string, expression 
  * Aggregates and sums the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-export function SUM(forms: (MainForm | Form)[], field: string, expression = 'true'): number {
-  const values = getNumericValues(forms, field, expression);
+export function SUM(this: AjfContext|void, forms: (MainForm | Form)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(this, forms, field, expression);
   let sum = 0;
   for (const val of values) {
     sum += val;
@@ -818,8 +828,8 @@ export function SUM(forms: (MainForm | Form)[], field: string, expression = 'tru
  * Computes the mean of the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-export function MEAN(forms: (Form | MainForm)[], field: string, expression = 'true'): number {
-  const values = getNumericValues(forms, field, expression);
+export function MEAN(this: AjfContext|void, forms: (Form | MainForm)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(this, forms, field, expression);
   let sum = 0;
   for (const val of values) {
     sum += val;
@@ -838,7 +848,8 @@ export function PERCENT(value1: number, value2: number): string {
 /**
  * Evaluates the expression in the last form by date.
  */
-export function LAST(forms: (Form | MainForm)[], expression: string, date = 'created_at'): any {
+export function LAST(this: AjfContext|void, forms: (Form | MainForm)[], expression: string, date = 'created_at'): any {
+  const varsContext = this || {};
   forms = (forms || []).filter(f => f != null).sort((a, b) => {
     const dateA = new Date(b[date] as string).getTime();
     const dateB = new Date(a[date] as string).getTime();
@@ -847,14 +858,14 @@ export function LAST(forms: (Form | MainForm)[], expression: string, date = 'cre
   if (forms.length === 0 || expression == null) {
     return undefined;
   }
-  return evaluateExpression(expression, forms[forms.length - 1]);
+  return evaluateExpression(expression, {...varsContext, ...forms[forms.length - 1]});
 }
 
 /**
  * Computes the max value of the field.
  */
-export function MAX(forms: (Form | MainForm)[], field: string, expression = 'true'): number {
-  const values = getNumericValues(forms, field, expression);
+export function MAX(this: AjfContext|void, forms: (Form | MainForm)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(this, forms, field, expression);
   let max = -Infinity;
   for (const val of values) {
     if (val > max) {
@@ -867,8 +878,8 @@ export function MAX(forms: (Form | MainForm)[], field: string, expression = 'tru
 /**
  * Computes the median value of the field.
  */
-export function MEDIAN(forms: (Form | MainForm)[], field: string, expression = 'true'): number {
-  const values = getNumericValues(forms, field, expression).sort();
+export function MEDIAN(this: AjfContext|void, forms: (Form | MainForm)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(this, forms, field, expression).sort();
   if (values.length === 0) {
     return NaN;
   }
@@ -878,8 +889,8 @@ export function MEDIAN(forms: (Form | MainForm)[], field: string, expression = '
 /**
  * Computes the mode value of the field.
  */
-export function MODE(forms: (Form | MainForm)[], field: string, expression = 'true'): number {
-  const values = getNumericValues(forms, field, expression);
+export function MODE(this: AjfContext|void, forms: (Form | MainForm)[], field: string, expression = 'true'): number {
+  const values = getNumericValues(this, forms, field, expression);
   const counters: {[val: number]: number} = {};
   for (const val of values) {
     if (counters[val] == null) {
@@ -1383,13 +1394,7 @@ export function ROUND(num: number | string, digits?: number): number {
 }
 
 /**
- * this function evalueate a condition if true return branch1 else branch2
- *
- * @export
- * @param {string} condition
- * @param {*} branch1
- * @param {*} branch2
- * @return {*}  {*}
+ * Deprecated. Use IF_THEN_ELSE
  */
 export function EVALUATE(condition: string, branch1: any, branch2: any): any {
   if (evaluateExpression(condition)) {
@@ -1398,6 +1403,14 @@ export function EVALUATE(condition: string, branch1: any, branch2: any): any {
     return branch2;
   }
 }
+
+/**
+ * Tells if arr includes elem
+ */
+export function INCLUDES(arr: any[], elem: any): boolean {
+  return arr.includes(elem);
+}
+
 /**
  * This function builds a data structure that allows the use of the hindikit formulas
  * for every forms with repeating slides.
@@ -1672,10 +1685,7 @@ export function APPLY_LABELS(formList: MainForm[], schema: any, fieldNames: stri
 }
 
 /**
- *
- * @param {MainForm[]} formList a set of main forms
- * @param {string} expression to be evaluated, also with report variables values.
- * @return {*}  {MainForm[]}
+ * Deprecated. Use FILTER_BY
  */
 export function FILTER_BY_VARS(formList: MainForm[], expression: string): MainForm[] {
   return FILTER_BY(formList, expression);
@@ -2091,12 +2101,7 @@ export function FROM_REPS(mainForm: MainForm, expression: string): any[] {
 }
 
 /**
- * this function return true if value is inside of dataset
- *
- * @export
- * @param {any[]} dataset
- * @param {*} value
- * @return {*}  {boolean}
+ * Deprecated. Use INCLUDES
  */
 export function ISIN(dataset: any[], value: any): boolean {
   if (dataset == null || value == null) {
