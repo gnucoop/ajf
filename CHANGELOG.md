@@ -1,3 +1,12 @@
+<a name="15.0.1"></a>
+# 15.0.1 "cool-possum" (2023-02-28)
+### Bug Fixes
+* Changed sourceRoot in angular.json for all libraries ([992a702](https://github.com/gnucoop/ajf/commit/992a702b6ace14e84bdb96103cb027ec2f68e238))
+* **material/forms:** Added Datepicker to Date-input-field ([281a191](https://github.com/gnucoop/ajf/commit/281a191d4c2ca3f3755b125a4963f318d292a7be))
+* **material/forms:** Range Field template fix (formContol directive missing in input) ([db8f7f3](https://github.com/gnucoop/ajf/commit/db8f7f3a401ef37935aa425f39478178abbb4927))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="13.2.15"></a>
 # 13.2.15 "breakable-mole" (2023-02-21)
 ### Bug Fixes
