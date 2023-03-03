@@ -3,13 +3,18 @@
     <div class="ajf-form-container">
       <mat-toolbar *ngIf="!hideTopToolbar && topBar" class="ajf-btn-strip">
         <mat-button-toggle-group>
-          <ng-container *ngFor="let slideInstance of (slides|async); trackBy: trackNodeById">
+          <ng-container
+            *ngFor="let slideInstance of (slides|async); let idx = index; trackBy: trackNodeById"
+          >
             <mat-button-toggle
               *ngIf="slideInstance.node.label && slideInstance.node.label.length > 0"
               class="ajf-topbar-button"
               (click)="scrollToSlide(slideInstance)"
+              [checked]="isSlideToggleChecked(slideInstance, formSlider.currentPage)"
+              [disabled]="slideInstance.visible === false"
             >
-              {{slideInstance.node.label | transloco}}
+              {{slideInstance.node.label | transloco}} {{ getRepeatingSlideRepIndex(slideInstance,
+              formSlider.currentPage)|async}}
               <mat-icon *ngIf="!slideInstance.valid" class="ajf-warning">warning</mat-icon>
               <mat-icon *ngIf="slideInstance.valid" class="ajf-success">check</mat-icon>
             </mat-button-toggle>
@@ -23,9 +28,7 @@
         <ng-content select="[ajfFormTopToolbarButtons]"></ng-content>
         <!-- apply a default save button only when ajfFormSaveButton is empty -->
         <span *ngIf="!saveDisabled" (click)="onSave($event)">
-          <span #saveButton
-            ><ng-content select="[ajfFormSaveButton]"></ng-content
-          ></span>
+          <span #saveButton><ng-content select="[ajfFormSaveButton]"></ng-content></span>
           <button
             *ngIf="saveButton && saveButton.childNodes && saveButton.childNodes.length === 0"
             mat-button
@@ -53,9 +56,7 @@
                         <h2>
                           <span class="ajf-form-header-number"> 1 &rarr; </span>
                           <span class="ajf-title">
-                            <ng-content
-                              select="[ajfFormStartMessageTitle]"
-                            ></ng-content>
+                            <ng-content select="[ajfFormStartMessageTitle]"></ng-content>
                           </span>
                         </h2>
                       </div>
@@ -67,14 +68,10 @@
                 </div>
               </ajf-page-slider-item>
             </ng-container>
-            <ng-container
-              *ngFor="let slideInstance of curSlides; trackBy:trackNodeById"
-            >
+            <ng-container *ngFor="let slideInstance of curSlides; trackBy:trackNodeById">
               <!-- non repeating slides -->
               <ng-container *ngIf="slideInstance.visible">
-                <ng-container
-                  *ngIf="!(slideInstance|ajfIsRepeatingSlideInstance)"
-                >
+                <ng-container *ngIf="!(slideInstance|ajfIsRepeatingSlideInstance)">
                   <ajf-page-slider-item>
                     <div class="ajf-form-page">
                       <mat-card appearance="outlined">
@@ -82,21 +79,15 @@
                           <div class="ajf-page-slider-item-header">
                             <h2>
                               <span class="ajf-form-header-number"
-                                >{{ slideInstance.position + (hasStartMessage |
-                                ajfBoolToInt) }} &rarr;</span
+                                >{{ slideInstance.position + (hasStartMessage | ajfBoolToInt) }}
+                                &rarr;</span
                               >
-                              <span
-                                [innerHTML]="slideInstance.node.label | transloco"
-                              ></span>
+                              <span [innerHTML]="slideInstance.node.label | transloco"></span>
                             </h2>
-                            <mat-icon
-                              class="ajf-warning"
-                              *ngIf="!slideInstance.valid"
+                            <mat-icon class="ajf-warning" *ngIf="!slideInstance.valid"
                               >warning</mat-icon
                             >
-                            <mat-icon
-                              class="ajf-success"
-                              *ngIf="slideInstance.valid"
+                            <mat-icon class="ajf-success" *ngIf="slideInstance.valid"
                               >check</mat-icon
                             >
                           </div>
@@ -118,9 +109,8 @@
                                 item-right
                               ></i>
                               <p>
-                                {{
-                                ((fieldInstance|ajfAsFieldInstance).node.description
-                                || '') | transloco }}
+                                {{ ((fieldInstance|ajfAsFieldInstance).node.description || '') |
+                                transloco }}
                               </p>
                               <label
                                 [attr.id]="fieldInstance.node.name"
@@ -133,8 +123,8 @@
                                 [matTooltip]="hint"
                                 matTooltipPosition="right"
                               >
-                                {{(fieldInstance|ajfAsFieldInstance).node.hintIcon
-                                || 'help'}}</mat-icon
+                                {{(fieldInstance|ajfAsFieldInstance).node.hintIcon ||
+                                'help'}}</mat-icon
                               >
                               <ajf-field
                                 [instance]="fieldInstance|ajfAsFieldInstance"
@@ -149,9 +139,7 @@
                   </ajf-page-slider-item>
                 </ng-container>
                 <!-- repeating slides -->
-                <ng-container
-                  *ngIf="(slideInstance|ajfIsRepeatingSlideInstance)"
-                >
+                <ng-container *ngIf="(slideInstance|ajfIsRepeatingSlideInstance)">
                   <ajf-page-slider-item
                     *ngFor="let curRep of ((slideInstance|ajfAsRepeatingSlideInstance).reps|ajfRange); let idx = index; let lastSlide = last"
                   >
@@ -161,30 +149,21 @@
                           <div class="ajf-page-slider-item-header">
                             <h2>
                               <span class="ajf-form-header-number"
-                                >{{ slideInstance.position|ajfIncrement:idx +
-                                (hasStartMessage | ajfBoolToInt) }} &rarr;</span
+                                >{{ slideInstance.position|ajfIncrement:idx + (hasStartMessage |
+                                ajfBoolToInt) }} &rarr;</span
                               >
-                              <span
-                                [innerHTML]="slideInstance.node.label | transloco"
-                              ></span>
+                              <span [innerHTML]="slideInstance.node.label | transloco"></span>
                             </h2>
-                            <mat-icon
-                              class="ajf-warning"
-                              *ngIf="!(slideInstance|ajfValidSlide:idx)"
+                            <mat-icon class="ajf-warning" *ngIf="!(slideInstance|ajfValidSlide:idx)"
                               >warning</mat-icon
                             >
-                            <mat-icon
-                              class="ajf-success"
-                              *ngIf="(slideInstance|ajfValidSlide:idx)"
+                            <mat-icon class="ajf-success" *ngIf="(slideInstance|ajfValidSlide:idx)"
                               >check</mat-icon
                             >
                           </div>
                         </mat-card-header>
                         <mat-card-content>
-                          <div
-                            *ngIf="lastSlide && !readonly"
-                            class="ajf-group-actions"
-                          >
+                          <div *ngIf="lastSlide && !readonly" class="ajf-group-actions">
                             <button
                               (click)="addGroup(slideInstance)"
                               [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval && !slideInstance.valid)"
@@ -216,9 +195,8 @@
                                 item-right
                               ></i>
                               <p>
-                                {{
-                                ((fieldInstance|ajfAsFieldInstance).node.description
-                                || '') | transloco }}
+                                {{ ((fieldInstance|ajfAsFieldInstance).node.description || '') |
+                                transloco }}
                               </p>
                               <label
                                 [attr.id]="fieldInstance.node.name"
@@ -230,8 +208,8 @@
                                 [matTooltip]="hint"
                                 matTooltipPosition="right"
                               >
-                                {{(fieldInstance|ajfAsFieldInstance).node.hintIcon
-                                || 'help'}}</mat-icon
+                                {{(fieldInstance|ajfAsFieldInstance).node.hintIcon ||
+                                'help'}}</mat-icon
                               >
                               <ajf-field
                                 [instance]="fieldInstance|ajfAsFieldInstance"
@@ -247,26 +225,18 @@
                 </ng-container>
               </ng-container>
             </ng-container>
-            <ng-container
-              *ngIf="curSlides && curSlides!.length > 0 && hasEndMessage"
-            >
+            <ng-container *ngIf="curSlides && curSlides!.length > 0 && hasEndMessage">
               <ajf-page-slider-item>
                 <div class="ajf-form-page">
                   <mat-card appearance="outlined">
                     <mat-card-header>
                       <div class="ajf-page-slider-item-header">
                         <h2>
-                          <span
-                            *ngIf="(slidesNum|async) as snum"
-                            class="ajf-form-header-number"
-                          >
-                            {{ snum! + (hasStartMessage | ajfBoolToInt ) + 1 }}
-                            &rarr;
+                          <span *ngIf="(slidesNum|async) as snum" class="ajf-form-header-number">
+                            {{ snum! + (hasStartMessage | ajfBoolToInt ) + 1 }} &rarr;
                           </span>
                           <span class="ajf-title">
-                            <ng-content
-                              select="[ajfFormEndMessageTitle]"
-                            ></ng-content>
+                            <ng-content select="[ajfFormEndMessageTitle]"></ng-content>
                           </span>
                         </h2>
                       </div>
@@ -291,9 +261,7 @@
               </div>
               <div class="ajf-info-box ajf-error">
                 <div class="ajf-title">{{'Errors'|transloco}}</div>
-                <div class="ajf-content">
-                  {{ errors | async }} / {{ slidesNum|async }}
-                </div>
+                <div class="ajf-content">{{ errors | async }} / {{ slidesNum|async }}</div>
               </div>
             </div>
           </div>
