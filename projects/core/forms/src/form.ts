@@ -37,7 +37,7 @@ import {
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
-import {delayWhen, map, withLatestFrom} from 'rxjs/operators';
+import {delayWhen, map, startWith, withLatestFrom} from 'rxjs/operators';
 
 import {AjfFormField} from './field';
 import {AjfFormInitStatus, AjfFormRendererService} from './form-renderer';
@@ -48,6 +48,7 @@ import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-insta
 import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 import {AjfRepeatingSlideInstance} from './interface/slides-instances/repeating-slide-instance';
 import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
+import {isRepeatingSlideInstance} from './utils/nodes-instances/is-repeating-slide-instance';
 import {nodeInstanceCompleteName} from './utils/nodes-instances/node-instance-complete-name';
 
 export interface AjfFormActionEvent {
@@ -377,7 +378,55 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   }
 
   scrollToSlide(slide: AjfSlideInstance): void {
-    this.formSlider.slide({to: slide.position - 1});
+    let scrollToPos = slide.position - 1;
+    if (isRepeatingSlideInstance(slide)) {
+      scrollToPos = scrollToPos - 1 + (slide as AjfRepeatingSlideInstance).reps;
+    }
+    this.formSlider.slide({to: scrollToPos});
+  }
+
+  /**
+   * Return a repeating slide repetition index (eg. 2/5)
+   * @param slide The repeating slide
+   * @param currentPage The formslider current page number
+   * @returns The rep slide index string
+   */
+  getRepeatingSlideRepIndex(
+    slide: AjfSlideInstance,
+    currentPage: number,
+  ): Observable<string | null> {
+    return this.formSlider.pageScrollFinish.pipe(
+      startWith(null),
+      map(() => {
+        if (isRepeatingSlideInstance(slide)) {
+          const repSlide = slide as AjfRepeatingSlideInstance;
+          const repsTotal = repSlide.reps;
+          let currentRep = repsTotal;
+          if (currentPage + 1 >= slide.position && currentPage + 1 < slide.position + repsTotal) {
+            currentRep = currentPage + 2 - slide.position;
+          }
+          return `(${currentRep}/${repsTotal})`;
+        }
+        return null;
+      }),
+    );
+  }
+
+  /**
+   * True if the slide toggle should be checked
+   * @param slide The repeating slide
+   * @param currentPage The formslider current page number
+   * @returns The checked state
+   */
+  isSlideToggleChecked(slide: AjfSlideInstance, currentPage: number): boolean {
+    let isChecked = slide.position === currentPage + 1;
+    if (isRepeatingSlideInstance(slide)) {
+      const repSlide = slide as AjfRepeatingSlideInstance;
+      isChecked =
+        currentPage + 1 >= repSlide.position && repSlide.position + repSlide.reps > currentPage + 1;
+    }
+
+    return isChecked;
   }
 
   orientationChangeHandler(orientation: AjfPageSliderOrientation): void {
