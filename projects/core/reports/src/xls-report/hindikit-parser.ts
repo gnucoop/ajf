@@ -44,7 +44,7 @@ const enum TokenType {
   Not,
   String,
   Number,
-  Indent,
+  Ident,
   Name, // The name of a field: an identifier starting with $
 }
 
@@ -125,7 +125,7 @@ function firstToken(s: string): Token {
   }
   m = s.match(/^[a-zA-Z_]\w*/);
   if (m !== null) {
-    return {type: TokenType.Indent, text: m[0]};
+    return {type: TokenType.Ident, text: m[0]};
   }
   if (s.match(/^\s/) !== null) {
     throw new Error('string s has a leading whitespace');
@@ -222,7 +222,7 @@ function parseExpression(revToks: Token[], expectedEnd: TokenType): ParsingResul
     let tok = revToks.pop() as Token;
     let next: Token;
     switch (tok.type) {
-      case TokenType.Indent:
+      case TokenType.Ident:
         next = revToks[revToks.length - 1];
         if (next.type === TokenType.LParen) {
           const func = parseFunctionCall(tok.text, revToks);
@@ -295,7 +295,7 @@ function parseExpression(revToks: Token[], expectedEnd: TokenType): ParsingResul
       continue;
     }
     switch (tok.type) {
-      case TokenType.Indent:
+      case TokenType.Ident:
         if (tok.text === 'AND') {
           js += ' && ';
           break;
@@ -380,7 +380,7 @@ function parseFunctionCall(name: string, revToks: Token[]): ParsingResult {
   can be parsed with
     parseFunctionWithArgs('SUM', revToks, ['arg', 'field', 'formula?'])
   resulting in the following JavaScript:
-    SUM(forms[0], "age", "gender === \"male\"")
+    SUM(forms[0], 'age', "gender === \"male\"")
 */
 function parseFunctionWithArgs(name: string, revToks: Token[], args: string[]): ParsingResult {
   consume(revToks, TokenType.LParen);
@@ -399,22 +399,34 @@ function parseFunctionWithArgs(name: string, revToks: Token[], args: string[]): 
       consume(revToks, TokenType.Comma);
       argsJs += ', ';
     }
-    const arg = argType === 'field' ?
-      {js: consume(revToks, TokenType.Name).text.slice(1), vars: []} :
-      parseExpression(revToks, TokenType.Comma);
-    argsJs += argType === 'field' || argType === 'formula' ? quote(arg.js) : arg.js;
+    const firstArgTok = revToks[revToks.length - 1];
+    const arg = parseExpression(revToks, TokenType.Comma);
     allVars.push(...arg.vars);
     if (argType === 'formula') {
       formulaVars.push(...arg.vars);
+      arg.js = quote(arg.js);
+    } else if (argType === 'field' && firstArgTok.type === TokenType.Name && isIdentifier(arg.js)) {
+      arg.js = `'${arg.js}'`;
     }
+    argsJs += arg.js;
   }
   consume(revToks, TokenType.RParen);
 
-  if (formulaVars.length === 0) {
+  const varsSet = new Set(formulaVars);
+  if (name === 'MAP') {
+    varsSet.delete('elem');
+  } else if (name === 'OP') {
+    varsSet.delete('elemA');
+    varsSet.delete('elemB');
+  }
+  if (varsSet.size === 0) {
     return {js: `${name}(${argsJs})`, vars: allVars};
   }
-  formulaVars = [...new Set(formulaVars)];
-  return {js: `${name}.call({${formulaVars.join(', ')}}, ${argsJs})`, vars: allVars};
+  return {js: `${name}.call({${[...varsSet].join(', ')}}, ${argsJs})`, vars: allVars};
+}
+
+function isIdentifier(js: string): boolean {
+  return /^[a-zA-Z_]\w*$/.test(js);
 }
 
 function quote(s: string): string {
@@ -432,11 +444,10 @@ const functionArgs: {[name: string]: string[]} = {
   MODE: ["arg", "field", "formula?"],
   COUNT_FORMS: ["arg", "field"],
   COUNT_REPS: ["arg", "field"],
-  COUNT_FORMS_UNIQUE: ["arg", "field", "formula?"],
-  ALL_VALUES_OF: ["arg", "field"],
+  ALL_VALUES_OF: ["arg", "field", "formula?"],
   PERCENT: ["arg", "arg"],
   LAST: ["arg", "field", "arg?"],
-  REPEAT: ["arg", "arg", "arg", "formula", "formula?"],
+  MAP: ["arg", "formula"],
   INCLUDES: ["arg", "arg"],
   FILTER_BY: ["arg", "formula"],
   APPLY: ["arg", "field", "formula"],

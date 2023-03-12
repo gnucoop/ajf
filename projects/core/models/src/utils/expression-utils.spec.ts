@@ -1,4 +1,4 @@
-import {ALL_VALUES_OF, SUM, MainForm, MEAN, COUNT_FORMS} from './expression-utils';
+import {ALL_VALUES_OF, SUM, MainForm, MEAN, COUNT_FORMS, JOIN_FORMS, FILTER_BY} from './expression-utils';
 
 const forms: MainForm[] = [
   {
@@ -78,5 +78,29 @@ describe('MEAN', () => {
     const result = MEAN(forms, 'dog_puppies');
     const dog_puppies_mean = 2;
     expect(result).toBe(dog_puppies_mean);
+  });
+});
+
+describe('JOIN_FORMS', () => {
+  it('JOIN_FORMS', () => {
+    const age = [{name: 'pippo', age: 10}, {name: 'pluto', age: 20}];
+    const gender = [{name: 'pippo', gender: 'm'}, {name: 'pluto', gender: 'm'}];
+    const expected = [
+      {name: 'pippo', age: 10, gender: 'm', reps: {}},
+      {name: 'pluto', age: 20, gender: 'm', reps: {}},
+    ];
+    const result = JOIN_FORMS(age, gender, 'name');
+    expect(result).toEqual(expected);
+  });
+});
+
+describe('FILTER_BY', () => {
+  it('FILTER_BY', () => {
+    const nums = [{num: 1}, {num: 2}, {num: 3},
+      {ajf_foo_count: 2, reps: {foo: [{num: 4}, {num: 0}]}}] as MainForm[];
+    const expected = [{num: 3, reps: {}},
+      {ajf_foo_count: 1, reps: {foo: [{num: 4}]}}] as MainForm[];
+    const result = FILTER_BY(nums, "num > 2");
+    expect(result).toEqual(expected);
   });
 });
