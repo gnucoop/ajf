@@ -45,7 +45,7 @@ const enum TokenType {
   String,
   Number,
   Ident,
-  Name, // The name of a field: an identifier starting with $
+  Field, // an identifier starting with $
 }
 
 interface Token {
@@ -102,7 +102,7 @@ function firstToken(s: string): Token {
       if (m === null) {
         throw new Error('invalid field name in: ' + s);
       }
-      return {type: TokenType.Name, text: m[0]};
+      return {type: TokenType.Field, text: m[0]};
     case '"':
       m = s.match(/^"(\\\\|\\"|[^"])*"/);
       if (m === null) {
@@ -160,7 +160,7 @@ export function indicatorToJs(formula: string): string {
     default:
       throw new Error('formula is not a string');
   }
-  return parseExpression(tokenize(formula).reverse(), TokenType.END).js;
+  return parseExpression(tokenize(formula).reverse(), TokenType.END);
 }
 
 function unexpectedTokenError(tok: Token, rest: Token[]): Error {
@@ -195,17 +195,12 @@ function consume(revToks: Token[], expectedType: TokenType): Token {
   return tok;
 }
 
-interface ParsingResult {
-  js: string;
-  vars: string[];
-}
-
 // parseExpression parses the first expression in revToks
 // and returns its JavaScript/ajf translation.
 // revToks is reversed, the first token of the expression being at index length-1;
 // this way, tokens can be consumed efficiently with revToks.pop().
 // After the expression, the function expects to find the token expectedEnd.
-function parseExpression(revToks: Token[], expectedEnd: TokenType): ParsingResult {
+function parseExpression(revToks: Token[], expectedEnd: TokenType): string {
   if (
     expectedEnd !== TokenType.END &&
     expectedEnd !== TokenType.RParen &&
@@ -216,7 +211,6 @@ function parseExpression(revToks: Token[], expectedEnd: TokenType): ParsingResul
   }
 
   let js = '';
-  const vars: string[] = [];
   while (true) {
     // Expression.
     let tok = revToks.pop() as Token;
@@ -225,22 +219,18 @@ function parseExpression(revToks: Token[], expectedEnd: TokenType): ParsingResul
       case TokenType.Ident:
         next = revToks[revToks.length - 1];
         if (next.type === TokenType.LParen) {
-          const func = parseFunctionCall(tok.text, revToks);
-          js += func.js;
-          vars.push(...func.vars);
+          js += parseFunctionCall(tok.text, revToks);
         } else if (next.type === TokenType.LBracket) {
           consume(revToks, TokenType.LBracket);
           const index = parseExpression(revToks, TokenType.RBracket);
           consume(revToks, TokenType.RBracket);
-          js += `${tok.text}[${index.js}]`;
-          vars.push(tok.text, ...index.vars);
+          js += `${tok.text}[${index}]`;
         } else {
           js += tok.text;
-          vars.push(tok.text);
         }
         break;
-      case TokenType.Name:
-        js += tok.text.slice(1);
+      case TokenType.Field:
+        js += 'form.' + tok.text.slice('$'.length);
         break;
       case TokenType.String:
       case TokenType.Number:
@@ -258,16 +248,12 @@ function parseExpression(revToks: Token[], expectedEnd: TokenType): ParsingResul
         js += '!';
         continue;
       case TokenType.LParen:
-        const paren = parseExpression(revToks, TokenType.RParen);
+        js += '(' + parseExpression(revToks, TokenType.RParen) + ')';
         consume(revToks, TokenType.RParen);
-        js += '(' + paren.js + ')';
-        vars.push(...paren.vars);
         break;
       case TokenType.LBracket:
-        const list = parseList(revToks, TokenType.RBracket);
+        js += '[' + parseList(revToks, TokenType.RBracket) + ']';
         consume(revToks, TokenType.RBracket);
-        js += '[' + list.js + ']';
-        vars.push(...list.vars);
         break;
       default:
         throw unexpectedTokenError(tok, revToks);
@@ -285,7 +271,7 @@ function parseExpression(revToks: Token[], expectedEnd: TokenType): ParsingResul
       (expectedEnd === TokenType.Comma && type === TokenType.RParen) ||
       (expectedEnd === TokenType.RBracket && type === TokenType.Comma)
     ) {
-      return {js, vars};
+      return js;
     }
 
     // Operator.
@@ -320,24 +306,21 @@ function parseExpression(revToks: Token[], expectedEnd: TokenType): ParsingResul
 // parseList parses a comma-separated list of expressions.
 // expectedEnd is Comma for function arguments and RBracket for arrays,
 // according to the behavior of parseExpression.
-function parseList(revToks: Token[], expectedEnd: TokenType): ParsingResult {
+function parseList(revToks: Token[], expectedEnd: TokenType): string {
   if (expectedEnd !== TokenType.Comma && expectedEnd !== TokenType.RBracket) {
     throw new Error('invalid expectedEnd');
   }
-  let js = '';
-  const vars: string[] = [];
   let next = revToks[revToks.length - 1];
   if (next.type === TokenType.RParen || next.type === TokenType.RBracket) {
     // empty list
-    return {js, vars};
+    return '';
   }
+  let js = '';
   while (true) {
-    const elem = parseExpression(revToks, expectedEnd);
-    js += elem.js;
-    vars.push(...elem.vars);
+    js += parseExpression(revToks, expectedEnd);
     next = revToks[revToks.length - 1];
     if (next.type === TokenType.RParen || next.type === TokenType.RBracket) {
-      return {js, vars};
+      return js;
     }
     consume(revToks, TokenType.Comma);
     js += ', ';
@@ -348,26 +331,20 @@ function parseList(revToks: Token[], expectedEnd: TokenType): ParsingResult {
 // The list of supported functions is in
 //   projects/core/models/utils/expression-utils.ts
 // The function name has already been scanned.
-function parseFunctionCall(name: string, revToks: Token[]): ParsingResult {
+function parseFunctionCall(name: string, revToks: Token[]): string {
   const args = functionArgs[name];
   if (args) {
     return parseFunctionWithArgs(name, revToks, args);
   }
   if (name === 'IF_THEN_ELSE') {
     consume(revToks, TokenType.LParen);
-    const cond = parseExpression(revToks, TokenType.Comma);
-    let js = '(' + cond.js + ' ? ';
-    const vars = cond.vars;
+    let js = '(' + parseExpression(revToks, TokenType.Comma) + ' ? ';
     consume(revToks, TokenType.Comma);
-    const then = parseExpression(revToks, TokenType.Comma);
-    js += then.js + ' : ';
-    vars.push(...then.vars);
+    js += parseExpression(revToks, TokenType.Comma) + ' : ';
     consume(revToks, TokenType.Comma);
-    const otherwise = parseExpression(revToks, TokenType.Comma);
-    js += otherwise.js + ')';
-    vars.push(...otherwise.vars);
+    js += parseExpression(revToks, TokenType.Comma) + ')';
     consume(revToks, TokenType.RParen);
-    return {js, vars};
+    return js;
   }
   throw new Error('unsupported function: ' + name);
 }
@@ -378,15 +355,13 @@ function parseFunctionCall(name: string, revToks: Token[]): ParsingResult {
   For example, the indicator function
     SUM(forms[0], $age, $gender = "male")
   can be parsed with
-    parseFunctionWithArgs('SUM', revToks, ['arg', 'field', 'formula?'])
+    parseFunctionWithArgs('SUM', revToks, ['arg', 'field', 'func(form)?'])
   resulting in the following JavaScript:
-    SUM(forms[0], 'age', "gender === \"male\"")
+    SUM(forms[0], 'age', (form) => form.gender === "male")
 */
-function parseFunctionWithArgs(name: string, revToks: Token[], args: string[]): ParsingResult {
+function parseFunctionWithArgs(name: string, revToks: Token[], args: string[]): string {
   consume(revToks, TokenType.LParen);
   let argsJs = '';
-  const allVars: string[] = [];
-  let formulaVars: string[] = [];
   for (let i = 0; i < args.length; i++) {
     let argType = args[i];
     if (argType.endsWith('?') && revToks[revToks.length-1].type === TokenType.RParen) {
@@ -399,58 +374,38 @@ function parseFunctionWithArgs(name: string, revToks: Token[], args: string[]): 
       consume(revToks, TokenType.Comma);
       argsJs += ', ';
     }
-    const firstArgTok = revToks[revToks.length - 1];
-    const arg = parseExpression(revToks, TokenType.Comma);
-    allVars.push(...arg.vars);
-    if (argType === 'formula') {
-      formulaVars.push(...arg.vars);
-      arg.js = quote(arg.js);
-    } else if (argType === 'field' && firstArgTok.type === TokenType.Name && isIdentifier(arg.js)) {
-      arg.js = `'${arg.js}'`;
+    let argJs = parseExpression(revToks, TokenType.Comma);
+    if (argType === 'field' && isField(argJs)) {
+      argJs = "'" + argJs.slice('form.'.length) + "'";
+    } else if (argType.startsWith('func')) {
+      argJs = argType.slice('func'.length) + ' => ' + argJs;
     }
-    argsJs += arg.js;
+    argsJs += argJs;
   }
   consume(revToks, TokenType.RParen);
-
-  const varsSet = new Set(formulaVars);
-  if (name === 'MAP') {
-    varsSet.delete('elem');
-  } else if (name === 'OP') {
-    varsSet.delete('elemA');
-    varsSet.delete('elemB');
-  }
-  if (varsSet.size === 0) {
-    return {js: `${name}(${argsJs})`, vars: allVars};
-  }
-  return {js: `${name}.call({${[...varsSet].join(', ')}}, ${argsJs})`, vars: allVars};
+  return `${name}(${argsJs})`;
 }
 
-function isIdentifier(js: string): boolean {
-  return /^[a-zA-Z_]\w*$/.test(js);
-}
-
-function quote(s: string): string {
-  if (typeof(s) !== 'string') {
-    throw new Error('quote argument is not a string');
-  }
-  return JSON.stringify(s);
+function isField(js: string): boolean {
+  return /^form\.[a-zA-Z_]\w*$/.test(js);
 }
 
 const functionArgs: {[name: string]: string[]} = {
-  SUM: ["arg", "field", "formula?"],
-  MEAN: ["arg", "field", "formula?"],
-  MAX: ["arg", "field", "formula?"],
-  MEDIAN: ["arg", "field", "formula?"],
-  MODE: ["arg", "field", "formula?"],
-  COUNT_FORMS: ["arg", "field"],
-  COUNT_REPS: ["arg", "field"],
-  ALL_VALUES_OF: ["arg", "field", "formula?"],
+  SUM: ["arg", "field", "func(form)?"],
+  MEAN: ["arg", "field", "func(form)?"],
+  MAX: ["arg", "field", "func(form)?"],
+  MEDIAN: ["arg", "field", "func(form)?"],
+  MODE: ["arg", "field", "func(form)?"],
+  COUNT_FORMS: ["arg", "func(form)"],
+  COUNT_REPS: ["arg", "func(form)"],
+  ALL_VALUES_OF: ["arg", "field", "func(form)?"],
   PERCENT: ["arg", "arg"],
+  FIRST: ["arg", "field", "arg?"],
   LAST: ["arg", "field", "arg?"],
-  MAP: ["arg", "formula"],
+  MAP: ["arg", "func(elem)"],
   INCLUDES: ["arg", "arg"],
-  FILTER_BY: ["arg", "formula"],
-  APPLY: ["arg", "field", "formula"],
+  FILTER_BY: ["arg", "func(form)"],
+  APPLY: ["arg", "field", "func(form)"],
   GET_AGE: ["arg"],
   LEN: ["arg"],
   CONCAT: ["arg", "arg"],
@@ -458,8 +413,8 @@ const functionArgs: {[name: string]: string[]} = {
   CONSOLE_LOG: ["arg"],
   JOIN_FORMS: ["arg", "arg", "field", "field?"],
   JOIN_REPEATING_SLIDES: ["arg", "arg", "field", "field", "field", "field?"],
-  FROM_REPS: ["arg", "formula"],
-  OP: ["arg", "arg", "formula"],
+  FROM_REPS: ["arg", "func(form)"],
+  OP: ["arg", "arg", "func(elemA, elemB)"],
   GET_LABELS: ["arg", "arg"],
   APPLY_LABELS: ["arg", "arg", "arg"],
   BUILD_DATASET: ["arg", "arg?"],

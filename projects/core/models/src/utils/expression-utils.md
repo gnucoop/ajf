@@ -25,6 +25,9 @@ Returns an array containing all the values that the specified field takes in the
 The values are converted to strings.
 An optional expression can be added to filter which forms to consider in the computation.
 
+`FIRST(forms, expression, dateField = "created_at")`  
+Evaluates the expression in the first form by date.
+
 `LAST(forms, expression, dateField = "created_at")`  
 Evaluates the expression in the last form by date.
 
