@@ -36,13 +36,13 @@ describe('ALL_VALUES_OF', () => {
 
 describe('SUM', () => {
   it('should sum the values of one field in dataset', () => {
-    const result = SUM(forms, 'dog_puppies', 'to_check === true');
+    const result = SUM(forms, 'dog_puppies', (form: any) => form.to_check === true);
     const dog_puppies = 5;
     expect(result).toBe(dog_puppies);
   });
 
   it('should sum the values of one field in repeating slide', () => {
-    const result = SUM(forms, 'score', 'to_check === true');
+    const result = SUM(forms, 'score', (form: any) => form.to_check === true);
     const score = 18;
     expect(result).toBe(score);
   });
