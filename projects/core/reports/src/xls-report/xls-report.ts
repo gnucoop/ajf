@@ -91,7 +91,7 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
               try {
                 js = indicatorToJs(elem.value);
               } catch (err: any) {
-                const r = elem.__rowNum__;
+                const r = Number(elem.__rowNum__) + 1;
                 err = new Error(`Error in variable "${elem.name}" (row ${r}): ${err.message}`);
                 window.alert(err.message);
                 throw err;
@@ -291,7 +291,7 @@ function _buildGraph(name: string, json: {[key: string]: string}[]): AjfWidget {
           try {
             js = indicatorToJs(row[rowKey]);
           } catch (err: any) {
-            const rowNum = row['__rowNum__'];
+            const rowNum = Number(row['__rowNum__']) + 1;
             err = new Error(
               `Error in "${name}", row ${rowNum}, column "${rowKey}": ${err.message}`,
             );
@@ -401,7 +401,7 @@ function _buildTable(
           try {
             elem = indicatorToJs(elem as string);
           } catch (err: any) {
-            const rowNum = row['__rowNum__'];
+            const rowNum = Number(row['__rowNum__']) + 1;
             err = new Error(
               `Error in "${sheetName}", row ${rowNum}, column "${title}": ${err.message}`,
             );
