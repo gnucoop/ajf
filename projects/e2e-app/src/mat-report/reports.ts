@@ -62,7 +62,7 @@ export const filterReport: AjfReport = {
     content: [
       {
         widgetType: 3,
-        htmlText: '[[displayed_zone]]',
+        htmlText: "[[selected_zone === 'first' ? firstLabels : (selected_zone === 'second' ? secondLabels : defaultLabels)]]",
         filter: {
           schema: {
             choicesOrigins: [
@@ -126,13 +126,6 @@ export const filterReport: AjfReport = {
       name: 'defaultLabels',
       formula: {
         formula: "['defaultLabelA', 'defaultLabelB', 'defaultLabelC']",
-      },
-    },
-    {
-      name: 'displayed_zone',
-      formula: {
-        formula:
-          "EVALUATE(selected_zone === 'first', firstLabels, EVALUATE(selected_zone === 'second', secondLabels, defaultLabels))",
       },
     },
   ],
