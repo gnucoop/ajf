@@ -213,20 +213,20 @@ type Func = (c?: AjfContext) => any;
 
 export function createFunction(expression: string): Func {
   if (!expression) {
-    return c => '';
+    return _ => '';
   }
   if (expression === 'true') {
-    return c => true;
+    return _ => true;
   }
   if (expression === 'false') {
-    return c => false;
+    return _ => false;
   }
   if (/^[a-zA-Z_$][\w$]*$/.test(expression)) { // expression is an identifier
     return c => c == null || c[expression] === undefined ? null : c[expression];
   }
   if (/^"[^"]*"$/.test(expression) || /^'[^']*'$/.test(expression)) {
     let str = expression.slice(1, -1);
-    return c => str;
+    return _ => str;
   }
 
   const argNames = [...new Set(getCodeIdentifiers(expression, true)).add('execContext')];
@@ -234,7 +234,7 @@ export function createFunction(expression: string): Func {
   try {
     func = new Function(...argNames, 'return ' + expression);
   } catch {
-    return c => false;
+    return _ => false;
   }
   return context => {
     const argValues = argNames.map(name => {
