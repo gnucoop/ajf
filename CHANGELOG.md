@@ -1,3 +1,18 @@
+<a name="15.1.0"></a>
+# 15.1.0 "definite-primate" (2023-03-16)
+### Bug Fixes
+* Changed sourceRoot in angular.json for all libraries ([992a702](https://github.com/gnucoop/ajf/commit/992a702b6ace14e84bdb96103cb027ec2f68e238))
+* **core/reports:** enable variables in indicator expressions ([82c8c14](https://github.com/gnucoop/ajf/commit/82c8c14eda01b8eaddf192af7ec1c662d2a57b6f))
+* **core/reports:** fix more expression utils functions ([3209b56](https://github.com/gnucoop/ajf/commit/3209b56f235fa3c460512a3cc5a3bb35cefd6046))
+* **core/reports:** fix xlsreport errors row number ([97bbdd4](https://github.com/gnucoop/ajf/commit/97bbdd49ea04fc3c10c5bafb3664759f2f6887c2))
+* **core/reports:** improve expression utils API and performance ([fe3e277](https://github.com/gnucoop/ajf/commit/fe3e2778e0c5cd9ba5c91d37e370949e53c6e3b6))
+* **material/forms:** Added Datepicker to Date-input-field ([281a191](https://github.com/gnucoop/ajf/commit/281a191d4c2ca3f3755b125a4963f318d292a7be))
+* **material/forms:** Range Field template fix (formContol directive missing in input) ([db8f7f3](https://github.com/gnucoop/ajf/commit/db8f7f3a401ef37935aa425f39478178abbb4927))
+### Features
+* **core/material/forms:** Added visual cues and UI improvements for repeating slides in ajf topbar of Page Slider. ([148b64b](https://github.com/gnucoop/ajf/commit/148b64b574ca3a4261e5d7d82034c8100128a3cd))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.0.1"></a>
 # 15.0.1 "cool-possum" (2023-02-28)
 ### Bug Fixes
