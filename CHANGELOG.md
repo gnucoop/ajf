@@ -1,3 +1,11 @@
+<a name="15.1.1"></a>
+# 15.1.1 "decisive-mammal" (2023-03-16)
+### Bug Fixes
+* **core/reports:** fix e2e test ([9773fbd](https://github.com/gnucoop/ajf/commit/9773fbd20283222ab9c6035bb228801cf7aa3e21))
+* **core/reports:** lint ([8dc334b](https://github.com/gnucoop/ajf/commit/8dc334b81a536294d33ea8a80c58d5e2774395f2))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.1.0"></a>
 # 15.1.0 "definite-primate" (2023-03-16)
 ### Bug Fixes
