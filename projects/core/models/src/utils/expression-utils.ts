@@ -212,9 +212,10 @@ export function evaluateExpression(
 type Func = (c?: AjfContext) => any;
 
 export function createFunction(expression: string): Func {
-  if (!expression) {
-    return _ => '';
+  if (expression == null) {
+    return _ => null;
   }
+  expression = String(expression);
   if (expression === 'true') {
     return _ => true;
   }
@@ -1347,23 +1348,14 @@ export function REPEAT(
   forms: MainForm[],
   array: string[],
   fn: any,
-  a: string,
-  b: string = 'true',
+  arg1: string,
+  arg2: string = 'true',
 ): any[] {
-  let funcA: Func;
-  const isFuncA = fn === COUNT_FORMS || fn === COUNT_REPS || fn === FILTER_BY || fn === FROM_REPS;
-  if (isFuncA) {
-    funcA = createFunction(a);
-  }
-  let funcB: Func;
-  const isFuncB = fn !== FIRST && fn !== LAST && fn !== APPLY_LABELS;
-  if (isFuncB) {
-    funcB = createFunction(b);
-  }
-  return array.map(current => {
-    const currentA = isFuncA ? (ctx?: AjfContext) => funcA({...ctx, current}) : a;
-    const currentB = isFuncB ? (ctx?: AjfContext) => funcB({...ctx, current}) : b;
-    return (fn as any)(forms, currentA, currentB);
+  return array.map(v => {
+    const s = JSON.stringify(v);
+    const current1 = (arg1 as any).replaceAll('current', s);
+    const current2 = (arg2 as any).replaceAll('current', s);
+    return fn(forms, current1, current2);
   });
 }
 
@@ -1986,7 +1978,11 @@ export function ISIN(dataset: any[], value: any): boolean {
  * Applies the operator to every pair of elements (arrayA[i], arrayB[i]),
  * returning the array of results.
  */
-export function OP(arrayA: any[], arrayB: any[], operator: (a: any, b: any) => any): any[] {
+export function OP(arrayA: any[], arrayB: any[], operator: ((a: any, b: any) => any)|string): any[] {
+  if (typeof(operator) === 'string') {
+    const func = createFunction(operator);
+    operator = (elemA, elemB) => func({elemA, elemB});
+  }
   const res: any[] = [];
   for (let i = 0; i < Math.min(arrayA.length, arrayB.length); i++) {
     const val = operator(arrayA[i], arrayB[i]);
