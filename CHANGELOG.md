@@ -1,3 +1,10 @@
+<a name="15.1.2"></a>
+# 15.1.2 "modern-parakeet" (2023-03-17)
+### Bug Fixes
+* **core/reports:** fix repeat function ([1ed9ad4](https://github.com/gnucoop/ajf/commit/1ed9ad4d3fcf2eb9d555d37632921d3542b44bc5))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.1.1"></a>
 # 15.1.1 "decisive-mammal" (2023-03-16)
 ### Bug Fixes
