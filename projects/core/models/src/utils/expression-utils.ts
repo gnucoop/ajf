@@ -1346,16 +1346,24 @@ export function buildWidgetDatasetWithDialog(
 export function REPEAT(
   forms: MainForm[],
   array: string[],
-  fn: AjfValidationFn,
-  field: string,
-  filter: Func|string = 'true',
+  fn: any,
+  a: string,
+  b: string = 'true',
 ): any[] {
-  if (typeof(filter) === 'string') {
-    filter = createFunction(filter);
+  let funcA: Func;
+  const isFuncA = fn === COUNT_FORMS || fn === COUNT_REPS || fn === FILTER_BY || fn === FROM_REPS;
+  if (isFuncA) {
+    funcA = createFunction(a);
+  }
+  let funcB: Func;
+  const isFuncB = fn !== FIRST && fn !== LAST && fn !== APPLY_LABELS;
+  if (isFuncB) {
+    funcB = createFunction(b);
   }
   return array.map(current => {
-    const currentFilter = (ctx?: AjfContext) => (filter as Func)({...ctx, current});
-    return (fn as any)(forms, field, currentFilter);
+    const currentA = isFuncA ? (ctx?: AjfContext) => funcA({...ctx, current}) : a;
+    const currentB = isFuncB ? (ctx?: AjfContext) => funcB({...ctx, current}) : b;
+    return (fn as any)(forms, currentA, currentB);
   });
 }
 
