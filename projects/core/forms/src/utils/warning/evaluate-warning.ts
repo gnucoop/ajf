@@ -28,10 +28,9 @@ import {AjfWarningResult} from '../../interface/warning/warning-result';
 export function evaluateWarning(
   warning: AjfWarning,
   context?: AjfContext,
-  forceFormula?: string,
 ): AjfWarningResult {
   return {
-    result: evaluateExpression(warning.condition, context, forceFormula),
+    result: evaluateExpression(warning.condition, context),
     warning: warning.warningMessage,
   };
 }

@@ -201,12 +201,8 @@ function cloneMainForms(forms: MainForm[]): MainForm[] {
   return res;
 }
 
-export function evaluateExpression(
-  expression: string,
-  context?: AjfContext,
-  forceFormula?: string,
-): any {
-  return createFunction(forceFormula || expression)(context);
+export function evaluateExpression(expression: string, context?: AjfContext): any {
+  return createFunction(expression)(context);
 }
 
 type Func = (c?: AjfContext) => any;

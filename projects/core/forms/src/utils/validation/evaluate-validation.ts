@@ -31,10 +31,9 @@ import {AjfValidationResult} from '../../interface/validation/validation-results
 export function evaluateValidation(
   validation: AjfValidation,
   context?: AjfContext,
-  forceFormula?: string,
 ): AjfValidationResult {
   return {
-    result: evaluateExpression(validation.condition, context, forceFormula),
+    result: evaluateExpression(validation.condition, context),
     error: validation.errorMessage,
     clientValidation: validation.clientValidation,
   };
