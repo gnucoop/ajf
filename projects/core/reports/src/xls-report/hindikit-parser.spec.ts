@@ -13,7 +13,7 @@ describe('indicatorToJs', () => {
     expect(result).toBe("SUM(forms, 'pippo')");
   });
 
-  const indicator3 = '[forms[0], 4+(5), IF_THEN_ELSE(foo, pippo, pluto)]';
+  const indicator3 = '[forms[0], 4+(5), IF(foo, pippo, pluto)]';
   it(indicator3, () => {
     const result = indicatorToJs(indicator3);
     expect(result).toBe("[forms[0], 4 + (5), (foo ? pippo : pluto)]");
