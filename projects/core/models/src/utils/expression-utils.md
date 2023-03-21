@@ -9,9 +9,9 @@ lists all the functions that are available in the language.
 Logs val to the console.
 
 `EVALUATE(condition, then, otherwise)`  
-Renamed to IF_THEN_ELSE.
+Renamed to IF.
 
-`IF_THEN_ELSE(condition, then, otherwise)`  
+`IF(condition, then, otherwise)`  
 If the condition is true, evaluates and returns then, otherwise otherwise.
 
 ## Forms manipulation functions
