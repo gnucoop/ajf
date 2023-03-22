@@ -38,6 +38,7 @@ export class I18nDemo {
     this._ts.setTranslation({'hello': 'Bonjour le monde!'}, 'FRA');
     this._ts.setTranslation({'hello': 'ሰላም ልዑል!'}, 'ETH');
     this._ts.setTranslation({'hello': 'привіт світ!'}, 'UKR');
+    this._ts.setTranslation({'hello': 'مرحبا بالعالم'}, 'ARA');
   }
 
   changeLang(lang: string): void {

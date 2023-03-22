@@ -29,6 +29,7 @@ import {FRA} from './fra';
 import {ITA} from './ita';
 import {PRT} from './prt';
 import {UKR} from './ukr';
+import {ARA} from './ara';
 
 export const langs: {[key: string]: Translation} = {
   ENG,
@@ -38,4 +39,5 @@ export const langs: {[key: string]: Translation} = {
   PRT,
   ETH,
   UKR,
+  ARA,
 };
