@@ -5,7 +5,6 @@
     [attr.aria-label]="instance!|ajfNodeCompleteName"
     [min]="instance!.node.minDate|ajfDateValueString"
     [max]="instance!.node.maxDate|ajfDateValueString"
-    (change)="onChange()"
     [formControl]="ctrl!"
   />
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
