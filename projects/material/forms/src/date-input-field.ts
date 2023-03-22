@@ -53,27 +53,4 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
   ) {
     super(cdr, service, was);
   }
-
-  // TODO is this function useful??
-  /*
-  onChange(event: MatDatepickerInputEvent<Date>): void {
-    if (event.value == null) {
-      return;
-    }
-    if (
-      (this._minDateStr != null && event.value < new Date(this._minDateStr)) ||
-      (this._maxDateStr != null && event.value > new Date(this._maxDateStr))
-    ) {
-      this.input.value = '';
-    }
-
-  }
-
-  protected override _onInstanceChange(): void {
-    if (this.instance == null) {
-      return;
-    }
-    this._minDateStr = this._dvs.transform(this.instance.node.minDate);
-    this._maxDateStr = this._dvs.transform(this.instance.node.maxDate);
-  }*/
 }

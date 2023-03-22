@@ -20,22 +20,9 @@
  *
  */
 
-import {format} from 'date-fns';
-
 function functionSerializer(_: any, v: any): any {
   if (typeof v === 'function') {
     return v.toString().replace(/[\r\n]+/g, ' ');
-  }
-  if (isNaN(v) && typeof v === 'string') {
-    try {
-      const d = new Date(v);
-      if (d instanceof Date) {
-        return format(d, 'yyyy-MM-dd');
-      }
-    } catch (e) {}
-  }
-  if (typeof v === 'object' && v instanceof Date) {
-    return format(v, 'yyyy-MM-dd');
   }
   return v;
 }
