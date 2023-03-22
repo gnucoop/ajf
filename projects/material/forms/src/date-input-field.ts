@@ -24,7 +24,6 @@ import {
   AJF_WARNING_ALERT_SERVICE,
   AjfBaseFieldComponent,
   AjfDateFieldInstance,
-  AjfDateValueStringPipe,
   AjfFormRendererService,
 } from '@ajf/core/forms';
 import {
