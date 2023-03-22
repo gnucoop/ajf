@@ -1,3 +1,17 @@
+<a name="15.1.3"></a>
+# 15.1.3 "past-earthworm" (2023-03-22)
+### Bug Fixes
+* **core/forms:** format date values in form renderer ([77b1e70](https://github.com/gnucoop/ajf/commit/77b1e70d1276a1126f08d25056ab164660609eed))
+* **core/models:** remove forceFormula from evaluateExpression ([d0952ec](https://github.com/gnucoop/ajf/commit/d0952eca98f891f672d627e18d34dee87442b349))
+* **core/reports:** expression utils small fixes ([fe805a1](https://github.com/gnucoop/ajf/commit/fe805a1fb48fd7a2505bdd4406f301fe326aa92c))
+* **core/reports:** IF_THEN_ELSE renamed to IF ([4dd3ef4](https://github.com/gnucoop/ajf/commit/4dd3ef44f6e8cd73f0f651b551726f5c729f184d))
+* **core/utils:** format date values in the deepCopy of a form ([8cd3566](https://github.com/gnucoop/ajf/commit/8cd35664c4f7a4d7f17cbf853d66cfa46abe54b7))
+* **material/forms:** lint ([90d6357](https://github.com/gnucoop/ajf/commit/90d635757da21e41a317847ae477b928a9c633f5))
+### Features
+* **core/transloco:** add arabic language ([9aee359](https://github.com/gnucoop/ajf/commit/9aee3592d2690a710adc2eeeca55baad8e2797a6))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.1.2"></a>
 # 15.1.2 "modern-parakeet" (2023-03-17)
 ### Bug Fixes
