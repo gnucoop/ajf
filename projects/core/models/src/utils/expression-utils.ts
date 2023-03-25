@@ -167,6 +167,7 @@ export class AjfExpressionUtils {
     JOIN_REPEATING_SLIDES: {fn: JOIN_REPEATING_SLIDES},
     FROM_REPS: {fn: FROM_REPS},
     ISIN: {fn: ISIN},
+    MAP: {fn: MAP},
     OP: {fn: OP},
     GET_LABELS: {fn: GET_LABELS},
     APPLY_LABELS: {fn: APPLY_LABELS},
@@ -1400,7 +1401,10 @@ export function EVALUATE(condition: string, branch1: any, branch2: any): any {
 /**
  * Tells if arr includes elem
  */
-export function INCLUDES(arr: any[], elem: any): boolean {
+export function INCLUDES(arr: (any[])|string, elem: any): boolean {
+  if (!Array.isArray(arr) && typeof(arr) !== 'string') {
+    return false;
+  }
   return arr.includes(elem);
 }
 
