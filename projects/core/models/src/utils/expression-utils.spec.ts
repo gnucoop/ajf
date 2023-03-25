@@ -1,4 +1,4 @@
-import {ALL_VALUES_OF, SUM, MainForm, MEAN, COUNT_FORMS, JOIN_FORMS, FILTER_BY} from './expression-utils';
+import {ALL_VALUES_OF, SUM, MainForm, MEAN, COUNT_FORMS, JOIN_FORMS, FILTER_BY, evaluateExpression} from './expression-utils';
 
 const forms: MainForm[] = [
   {
@@ -102,5 +102,17 @@ describe('FILTER_BY', () => {
       {ajf_foo_count: 1, reps: {foo: [{num: 4}]}}] as MainForm[];
     const result = FILTER_BY(nums, "num > 2");
     expect(result).toEqual(expected);
+  });
+});
+
+describe('MAP', () => {
+  it('MAP', () => {
+    const forms = [{menu: ['pizza', 'fries']}, {menu: ['pizza', 'burger']}];
+    const items = ['pizza', 'fries', 'cheese'];
+    const result = evaluateExpression(
+      "MAP(items, (elem) => COUNT_FORMS(forms, (form) => INCLUDES(form.menu, elem)))",
+      {forms, items},
+    );
+    expect(result).toEqual([2, 1, 0]);
   });
 });
