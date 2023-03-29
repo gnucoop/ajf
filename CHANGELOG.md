@@ -1,3 +1,10 @@
+<a name="15.1.4"></a>
+# 15.1.4 "stale-rabbit" (2023-03-29)
+### Bug Fixes
+* **core/reports:** fix expression utils function signatures ([897b924](https://github.com/gnucoop/ajf/commit/897b924709cb4b48bedfc497ce090897c0a19fc5))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.1.3"></a>
 # 15.1.3 "past-earthworm" (2023-03-22)
 ### Bug Fixes
