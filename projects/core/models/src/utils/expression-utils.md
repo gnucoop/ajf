@@ -131,8 +131,16 @@ For example, `OP([1, 2, 3], [10, 20, 30], elemA + elemB)` returns `[11, 22, 33]`
 
 ## Date functions
 
+Dates are strings in the format 2000-12-31, unless otherwise specified.
+
 `TODAY(format = "yyyy-MM-dd")`  
 Returns today's date.
+
+`ADD_DAYS(date, days)`  
+Returns the date obtained by adding days to date.
+
+`DAYS_DIFF(a, b)`  
+Returns the difference in days (a - b) between the two dates.
 
 `IS_BEFORE(date, dateToCompare)`  
 Returns true if date is before dateToCompare.

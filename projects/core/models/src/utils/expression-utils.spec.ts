@@ -1,4 +1,15 @@
-import {ALL_VALUES_OF, SUM, MainForm, MEAN, COUNT_FORMS, JOIN_FORMS, FILTER_BY, evaluateExpression} from './expression-utils';
+import {
+  MainForm,
+  evaluateExpression,
+  ALL_VALUES_OF,
+  SUM,
+  MEAN,
+  COUNT_FORMS,
+  JOIN_FORMS,
+  FILTER_BY,
+  ADD_DAYS,
+  DAYS_DIFF,
+} from './expression-utils';
 
 const forms: MainForm[] = [
   {
@@ -114,5 +125,16 @@ describe('MAP', () => {
       {forms, items},
     );
     expect(result).toEqual([2, 1, 0]);
+  });
+});
+
+describe('date functions', () => {
+  it('ADD_DAYS', () => {
+    expect(ADD_DAYS('2000-12-31', 1)).toBe('2001-01-01');
+    expect(ADD_DAYS('2000-12-30', -15)).toBe('2000-12-15');
+  });
+  it('DAYS_DIFF', () => {
+    expect(DAYS_DIFF('2000-12-31', '2000-12-29')).toBe(2);
+    expect(DAYS_DIFF('1998-12-31', '1999-12-31')).toBe(-365);
   });
 });

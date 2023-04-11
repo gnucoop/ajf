@@ -419,6 +419,8 @@ const functionArgs: {[name: string]: string[]} = {
   APPLY_LABELS: ["arg", "arg", "arg"],
   BUILD_DATASET: ["arg", "arg?"],
   ROUND: ["arg", "arg?"],
+  ADD_DAYS: ["arg", "arg"],
+  DAYS_DIFF: ["arg", "arg"],
   IS_BEFORE: ["arg", "arg"],
   IS_AFTER: ["arg", "arg"],
   IS_WITHIN_INTERVAL: ["arg", "arg", "arg"],
