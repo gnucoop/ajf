@@ -1,3 +1,12 @@
+<a name="15.1.5"></a>
+# 15.1.5 "royal-weasel" (2023-04-11)
+### Bug Fixes
+* **core/reports:** fix expression utils function signatures ([897b924](https://github.com/gnucoop/ajf/commit/897b924709cb4b48bedfc497ce090897c0a19fc5))
+### Features
+* **core/reports:** xlsreport date functions ([8fce741](https://github.com/gnucoop/ajf/commit/8fce7411d4f8bc578d18aacdc49fd00875d0cee4))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.1.4"></a>
 # 15.1.4 "stale-rabbit" (2023-03-29)
 ### Bug Fixes
