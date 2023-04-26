@@ -39,6 +39,8 @@ import {
 })
 export class AjfFormRenderer extends CoreFormRenderer {
   @Input() topBar: boolean = false;
+  @Input() centeredFieldsContent: boolean = false;
+  @Input() maxColumns: 1 | 2 | 3 = 1;
 
   constructor(rendererService: AjfFormRendererService, changeDetectorRef: ChangeDetectorRef) {
     super(rendererService, changeDetectorRef);

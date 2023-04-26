@@ -4,6 +4,15 @@ ajf-field {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: stretch;
+    ajf-checkbox-group-item {
+      width: 100%;
+      .mat-mdc-button {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: center;
+      }
+    }
   }
 
   .ajf-item-container {
@@ -16,9 +25,8 @@ ajf-field {
   }
 
   tr.ajf-row-odd {
-      background-color: grey;
+    background-color: grey;
   }
-
 }
 
 table {
@@ -29,7 +37,8 @@ table {
     td {
       position: relative;
 
-      span, input {
+      span,
+      input {
         cursor: text;
         position: absolute;
         width: 100%;
@@ -51,7 +60,8 @@ table {
       }
 
       &:last-child {
-        span, input {
+        span,
+        input {
           border-right-color: #cccccc;
         }
       }
@@ -59,7 +69,8 @@ table {
 
     &:last-of-type {
       td {
-        span, input {
+        span,
+        input {
           border-bottom-color: #cccccc;
         }
       }
@@ -69,6 +80,6 @@ table {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
