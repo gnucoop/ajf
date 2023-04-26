@@ -2,6 +2,7 @@
     *ngIf="instance"
     [ngClass]="'ajf-field-' + (instance|ajfNodeCompleteName)"
     [class.ajf-validated]="instance.validationResults|ajfFieldIsValid"
+    (keydown)="tabEvent($event, instance)"
 >
   <ng-template ajf-field-host></ng-template>
 </div>

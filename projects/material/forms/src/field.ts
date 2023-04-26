@@ -20,7 +20,11 @@
  *
  */
 
-import {AjfFieldComponentsMap, AjfFormField as CoreFormField} from '@ajf/core/forms';
+import {
+  AjfFieldComponentsMap,
+  AjfFieldInstance,
+  AjfFormField as CoreFormField,
+} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
@@ -44,6 +48,19 @@ export class AjfFormField extends CoreFormField {
   constructor(cdr: ChangeDetectorRef, fieldService: AjfFieldService) {
     super(cdr);
     this.componentsMap = fieldService.componentsMap;
+  }
+
+  tabEvent(evt: KeyboardEvent, instance: AjfFieldInstance) {
+    if (evt.code != 'Tab') return;
+    const isShiftKey: boolean = evt.shiftKey;
+    const cardIdNext = 'field_entry_' + (isShiftKey ? instance.node.id - 1 : instance.node.id + 1);
+
+    const targetElement = document.querySelector(`#${cardIdNext}`) as HTMLElement;
+
+    if (targetElement == null || instance == null) {
+      evt.preventDefault();
+      evt.stopPropagation();
+    }
   }
 
   static ngAcceptInputType_readonly: BooleanInput;

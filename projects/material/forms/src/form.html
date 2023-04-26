@@ -99,8 +99,11 @@
                             [ngForOf]="slideInstance.flatNodes"
                             [ngForTrackBy]="trackNodeById"
                           >
-                            <div
-                              [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size"
+                            <mat-card
+                              appearance="outlined"
+                              [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size +
+                              ' ajf-max-columns-' + maxColumns +
+                              (centeredFieldsContent ? ' ajf-centered-field' : '')"
                               class="ajf-field-entry"
                               *ngIf="fieldInstance.visible"
                             >
@@ -112,26 +115,51 @@
                                 {{ ((fieldInstance|ajfAsFieldInstance).node.description || '') |
                                 transloco }}
                               </p>
-                              <label
-                                [attr.id]="fieldInstance.node.name"
-                                *ngIf="(fieldInstance|ajfAsFieldInstance).node.fieldType !== 7"
-                                [innerHTML]="fieldInstance.node.label | transloco"
-                              ></label>
-                              <mat-icon
-                                class="ajf-tooltip-icon"
-                                *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint"
-                                [matTooltip]="hint"
-                                matTooltipPosition="right"
+
+                              <mat-card-header>
+                                <mat-card-title>
+                                  <label
+                                    [attr.id]="fieldInstance.node.name"
+                                    *ngIf="(fieldInstance|ajfAsFieldInstance).node.fieldType !== 7"
+                                    [innerHTML]="fieldInstance.node.label | transloco"
+                                  ></label>
+                                </mat-card-title>
+                                <mat-icon
+                                  class="ajf-tooltip-icon"
+                                  *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint"
+                                  [matTooltip]="hint"
+                                  matTooltipPosition="right"
+                                >
+                                  {{(fieldInstance|ajfAsFieldInstance).node.hintIcon ||
+                                  'help'}}</mat-icon
+                                ></mat-card-header
                               >
-                                {{(fieldInstance|ajfAsFieldInstance).node.hintIcon ||
-                                'help'}}</mat-icon
+                              <mat-card-content>
+                                <ajf-field
+                                  [instance]="fieldInstance|ajfAsFieldInstance"
+                                  [readonly]="readonly || !slideInstance.editable"
+                                  [id]="'field_entry_' + fieldInstance.node.id"
+                                >
+                                </ajf-field>
+                              </mat-card-content>
+                              <mat-card-actions
+                                [ngClass]="(fieldInstance|ajfAsFieldInstance)?.valid ?
+                                'ajf-valid-field'
+                                : 'ajf-invalid-field'"
                               >
-                              <ajf-field
-                                [instance]="fieldInstance|ajfAsFieldInstance"
-                                [readonly]="readonly || !slideInstance.editable"
-                              >
-                              </ajf-field>
-                            </div>
+                                <ng-container
+                                  *ngIf="(fieldInstance|ajfAsFieldInstance)?.valid !== true; else ajfValidFieldTemplate"
+                                >
+                                  <span class="ajf-field-error-message"
+                                    >{{(fieldInstance|ajfAsFieldInstanceErrors)}}</span
+                                  >
+                                  <mat-icon class="ajf-warning">warning</mat-icon>
+                                </ng-container>
+                                <ng-template #ajfValidFieldTemplate>
+                                  <mat-icon class="ajf-success">check</mat-icon>
+                                </ng-template>
+                              </mat-card-actions>
+                            </mat-card>
                           </ng-template>
                         </mat-card-content>
                       </mat-card>
@@ -185,8 +213,11 @@
                             [ngForOf]="slideInstance.slideNodes[idx]"
                             [ngForTrackBy]="trackNodeById"
                           >
-                            <div
-                              [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size"
+                            <mat-card
+                              appearance="outlined"
+                              [ngClass]="'ajf-' + (fieldInstance|ajfAsFieldInstance).node.size +
+                              ' ajf-max-columns-' + maxColumns +
+                              (centeredFieldsContent ? ' ajf-centered-field' : '')"
                               class="ajf-field-entry"
                               *ngIf="fieldInstance.visible"
                             >
@@ -198,25 +229,51 @@
                                 {{ ((fieldInstance|ajfAsFieldInstance).node.description || '') |
                                 transloco }}
                               </p>
-                              <label
-                                [attr.id]="fieldInstance.node.name"
-                                [innerHTML]="fieldInstance.node.label | transloco"
-                              ></label>
-                              <mat-icon
-                                class="ajf-tooltip-icon"
-                                *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint"
-                                [matTooltip]="hint"
-                                matTooltipPosition="right"
+
+                              <mat-card-header>
+                                <mat-card-title>
+                                  <label
+                                    [attr.id]="fieldInstance.node.name"
+                                    *ngIf="(fieldInstance|ajfAsFieldInstance).node.fieldType !== 7"
+                                    [innerHTML]="fieldInstance.node.label | transloco"
+                                  ></label>
+                                </mat-card-title>
+                                <mat-icon
+                                  class="ajf-tooltip-icon"
+                                  *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint"
+                                  [matTooltip]="hint"
+                                  matTooltipPosition="right"
+                                >
+                                  {{(fieldInstance|ajfAsFieldInstance).node.hintIcon ||
+                                  'help'}}</mat-icon
+                                ></mat-card-header
                               >
-                                {{(fieldInstance|ajfAsFieldInstance).node.hintIcon ||
-                                'help'}}</mat-icon
+                              <mat-card-content>
+                                <ajf-field
+                                  [instance]="fieldInstance|ajfAsFieldInstance"
+                                  [readonly]="readonly || !slideInstance.editable"
+                                  [id]="'field_entry_' + fieldInstance.node.id"
+                                >
+                                </ajf-field>
+                              </mat-card-content>
+                              <mat-card-actions
+                                [ngClass]="(fieldInstance|ajfAsFieldInstance)?.valid ?
+                                'ajf-valid-field'
+                                : 'ajf-invalid-field'"
                               >
-                              <ajf-field
-                                [instance]="fieldInstance|ajfAsFieldInstance"
-                                [readonly]="readonly || (!lastSlide && (slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval)"
-                              >
-                              </ajf-field>
-                            </div>
+                                <ng-container
+                                  *ngIf="(fieldInstance|ajfAsFieldInstance)?.valid !== true; else ajfValidFieldTemplate"
+                                >
+                                  <span class="ajf-field-error-message"
+                                    >{{(fieldInstance|ajfAsFieldInstanceErrors)}}</span
+                                  >
+                                  <mat-icon class="ajf-warning">warning</mat-icon>
+                                </ng-container>
+                                <ng-template #ajfValidFieldTemplate>
+                                  <mat-icon class="ajf-success">check</mat-icon>
+                                </ng-template>
+                              </mat-card-actions>
+                            </mat-card>
                           </ng-template>
                         </mat-card-content>
                       </mat-card>
