@@ -9,18 +9,24 @@ import {
   FILTER_BY,
   ADD_DAYS,
   DAYS_DIFF,
+  FIRST,
+  LAST,
 } from './expression-utils';
 
 const forms: MainForm[] = [
   {
+    created_at: '0000-00-00',
     dog_name: 'dog1',
     dog_puppies: 3,
     dog_point: 0.1,
     to_check: true,
     reps: {'rep_1': [{dog_type: 'dogtype1', score: 3}]},
   },
-  {},
   {
+    created_at: '2023-02-19',
+  },
+  {
+    created_at: '9999-99-99',
     dog_name: 'dog2',
     to_check: true,
     dog_puppies: 2,
@@ -136,5 +142,14 @@ describe('date functions', () => {
   it('DAYS_DIFF', () => {
     expect(DAYS_DIFF('2000-12-31', '2000-12-29')).toBe(2);
     expect(DAYS_DIFF('1998-12-31', '1999-12-31')).toBe(-365);
+  });
+});
+
+describe('FIRST/LAST', () => {
+  it('FIRST', () => {
+    expect(FIRST(forms, 'dog_name')).toBe('dog1');
+  });
+  it('LAST', () => {
+    expect(LAST(forms, (f: any) => f.dog_name, 'created_at')).toBe('dog2');
   });
 });

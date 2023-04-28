@@ -861,15 +861,19 @@ export function PERCENT(value1: number, value2: number): string {
   if (typeof(expression) === 'string') {
     expression = createFunction(expression);
   }
-  forms = (forms || []).filter(f => f != null).sort((a, b) => {
-    const dateA = new Date(b[date] as string).getTime();
-    const dateB = new Date(a[date] as string).getTime();
-    return dateA - dateB;
-  });
+  forms = (forms || []).filter(f => f != null && f[date] != null);
   if (forms.length === 0) {
     return undefined;
   }
-  return expression(forms[0]);
+  let form = forms[0];
+  let minDate = form[date] as string;
+  for (let i = 1; i < forms.length; i++) {
+    if (forms[i][date] as string < minDate) {
+      form = forms[i];
+      minDate = form[date] as string;
+    }
+  }
+  return expression(form);
 }
 
 /**
@@ -879,15 +883,19 @@ export function LAST(forms: (Form | MainForm)[], expression: Func|string, date =
   if (typeof(expression) === 'string') {
     expression = createFunction(expression);
   }
-  forms = (forms || []).filter(f => f != null).sort((a, b) => {
-    const dateA = new Date(b[date] as string).getTime();
-    const dateB = new Date(a[date] as string).getTime();
-    return dateA - dateB;
-  });
+  forms = (forms || []).filter(f => f != null && f[date] != null);
   if (forms.length === 0) {
     return undefined;
   }
-  return expression(forms[forms.length - 1]);
+  let form = forms[forms.length - 1];
+  let maxDate = form[date] as string;
+  for (let i = forms.length - 2; i >= 0; i--) {
+    if (forms[i][date] as string > maxDate) {
+      form = forms[i];
+      maxDate = form[date] as string;
+    }
+  }
+  return expression(form);
 }
 
 /**
