@@ -292,10 +292,10 @@ function parseExpression(revToks: Token[], expectedEnd: TokenType): string {
         }
         throw unexpectedTokenError(tok, revToks);
       case TokenType.Equal:
-        js += ' === ';
+        js += ' == ';
         break;
       case TokenType.NotEqual:
-        js += ' !== ';
+        js += ' != ';
         break;
       default:
         throw unexpectedTokenError(tok, revToks);
