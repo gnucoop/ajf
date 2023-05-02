@@ -123,11 +123,7 @@ export class AjfExpressionUtils {
     formatDate: {fn: formatDate},
     isoMonth: {fn: isoMonth},
     getCoordinate: {fn: getCoordinate},
-    Math: {fn: Math},
-    parseInt: {fn: parseInt},
-    parseFloat: {fn: parseFloat},
     parseDate: {fn: dateUtils.parse},
-    Date: {fn: Date},
     plainArray: {fn: plainArray},
     COUNT_FORMS: {fn: COUNT_FORMS},
     COUNT_FORMS_UNIQUE: {fn: COUNT_FORMS_UNIQUE},
@@ -208,6 +204,11 @@ export function evaluateExpression(expression: string, context?: AjfContext): an
   return createFunction(expression)(context);
 }
 
+const globals = [
+  'this', 'true', 'false', 'null', 'undefined', 'Infinity', 'NaN', 'isNaN', 'isFinite',
+  'Object', 'String', 'Array', 'Set', 'Map', 'Number', 'Date', 'Math', 'parseInt', 'parseFloat',
+];
+
 type Func = (c?: AjfContext) => any;
 
 export function createFunction(expression: string): Func {
@@ -229,7 +230,11 @@ export function createFunction(expression: string): Func {
     return _ => str;
   }
 
-  const argNames = [...new Set(getCodeIdentifiers(expression, true)).add('execContext')];
+  const identifiers = new Set(getCodeIdentifiers(expression, true)).add('execContext');
+  for (const ide of globals) {
+    identifiers.delete(ide);
+  }
+  const argNames = [...identifiers];
   let func: Function;
   try {
     func = new Function(...argNames, 'return ' + expression);
