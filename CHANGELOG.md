@@ -1,3 +1,15 @@
+<a name="15.2.0"></a>
+# 15.2.0 "everyday-kangaroo" (2023-05-04)
+### Bug Fixes
+* **core/reports:** evaluateExpression stops messing with predefined identifiers ([7e7306e](https://github.com/gnucoop/ajf/commit/7e7306e65091358e14dab0e381808a2035fa69ba))
+* **core/reports:** fix first and last functions ([6af2d3f](https://github.com/gnucoop/ajf/commit/6af2d3f32120e0a51706f77f7dcd82db89015eaf))
+* **core/reports:** use non-strict equality in indicators language ([c33aa93](https://github.com/gnucoop/ajf/commit/c33aa93e865a6d3bbe70ffcf72ab4f6885541469))
+### Features
+* **core/forms:** Added Pipe that returns a string with all validation errors of a FieldInstance. ([3947d75](https://github.com/gnucoop/ajf/commit/3947d759725edd780d5cf4bec1874d052bf8fcca))
+* **material/forms:** AjfForm new "card" UI. Added "centeredFieldsContent" and "maxColumns" inputs to form. ([38a0bb7](https://github.com/gnucoop/ajf/commit/38a0bb75b6f6459a266e00b7f8a379e10344596a))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.1.5"></a>
 # 15.1.5 "royal-weasel" (2023-04-11)
 ### Bug Fixes
