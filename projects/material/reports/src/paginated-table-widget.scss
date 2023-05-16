@@ -7,8 +7,9 @@ table {
 
 .ajf-paginated-table {
   width: 100%;
+  overflow-x: auto;
   table {
-    width: 100%;
+    min-width: 100%;
   }
 }
 
@@ -22,7 +23,7 @@ table {
     font-size: 0.9em;
   }
   .mat-mdc-select {
-    width: 50px;
+    width: 70px;
     font-size: 0.9em;
   }
 }
