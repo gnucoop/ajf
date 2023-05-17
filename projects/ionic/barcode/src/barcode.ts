@@ -65,6 +65,7 @@ export class AjfBarcodeComponent extends AjfBarcode implements AfterViewInit, On
   }
 
   ngAfterViewInit(): void {
+    this.initVideoStreams();
     if (this.slides == null) {
       return;
     }
@@ -81,6 +82,7 @@ export class AjfBarcodeComponent extends AjfBarcode implements AfterViewInit, On
   }
 
   ngOnDestroy(): void {
+    this.stopCurrentStream();
     this._slidesSub.unsubscribe();
   }
 
