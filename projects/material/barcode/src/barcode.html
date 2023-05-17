@@ -13,7 +13,9 @@
         <div class="ajf-dropzone" ajfDnd (file)="onSelectDrop($event)">
           <div class="ajf-text-wrapper">
             <div class="ajf-centered">
-              <a mat-button (click)="fileInput.click()">{{'Drop your image here or click to select'|transloco}}</a>
+              <a mat-button (click)="fileInput.click()"
+                >{{'Drop your image here or click to select'|transloco}}</a
+              >
             </div>
           </div>
         </div>
@@ -28,18 +30,26 @@
       />
     </mat-tab>
     <mat-tab [label]="'Camera'|transloco">
+      <mat-form-field
+        appearance="fill"
+        class="ajf-video-device-select"
+      >
+        <mat-label>Choose Video source</mat-label>
+        <mat-select #videoSourceSelect
+          ><mat-option *ngFor="let device of videoDevices|async" [value]="device.deviceId">
+            {{device.label}}
+          </mat-option></mat-select
+        ></mat-form-field
+      >
       <div class="ajf-barcode-video">
         <ng-container *ngIf="supportsVideoStream; else noVideo">
-          <div *ngIf="showSwitchButton" class="ajf-barcode-switch-camera">
-            <button mat-icon-button (click)="switchCamera()"><mat-icon>switch_camera</mat-icon></button>
-          </div>
           <div #barcodeVideoPreview class="ajf-video-preview ajf-video-preview-hidden">
             <div *ngIf="value && value.length > 0">{{ value }}</div>
           </div>
           <video #barcodeVideo autoplay playsinline muted></video>
         </ng-container>
         <ng-template #noVideo>
-
+          <div>NO VIDEO</div>
         </ng-template>
       </div>
     </mat-tab>

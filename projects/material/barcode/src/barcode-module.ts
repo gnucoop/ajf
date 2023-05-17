@@ -29,14 +29,18 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 
 import {AjfBarcodeComponent} from './barcode';
+import {MatSelectModule} from '@angular/material/select';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
     AjfCommonModule,
     AjfTranslocoModule,
     CommonModule,
+    FormsModule,
     MatButtonModule,
     MatIconModule,
+    MatSelectModule,
     MatTabsModule,
   ],
   declarations: [AjfBarcodeComponent],

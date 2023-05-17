@@ -22,14 +22,18 @@
 
 import {AjfBarcode} from '@ajf/core/barcode';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   forwardRef,
+  OnDestroy,
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {Subscription} from 'rxjs';
+import {switchMap} from 'rxjs/operators';
 
 export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -48,8 +52,30 @@ export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [BARCODE_CONTROL_VALUE_ACCESSOR],
 })
-export class AjfBarcodeComponent extends AjfBarcode {
+export class AjfBarcodeComponent extends AjfBarcode implements OnDestroy, AfterViewInit {
+  sourceSelectSub: Subscription = Subscription.EMPTY;
+  resetSub: Subscription = Subscription.EMPTY;
   constructor(cdr: ChangeDetectorRef, renderer: Renderer2) {
     super(cdr, renderer);
+    this.resetSub = this.resetEvt.subscribe(() => this.setupVideoSourceSub());
+  }
+
+  setupVideoSourceSub() {
+    if (this.videoSourceSelect == undefined) return;
+    this.sourceSelectSub.unsubscribe();
+    this.sourceSelectSub = this.videoSourceSelect.valueChange
+      .pipe(switchMap(() => this.getStream()))
+      .subscribe(c => console.log(c));
+  }
+
+  ngAfterViewInit(): void {
+    this.initVideoStreams();
+    this.setupVideoSourceSub();
+  }
+
+  ngOnDestroy(): void {
+    this.stopCurrentStream();
+    this.sourceSelectSub.unsubscribe();
+    this.resetSub.unsubscribe();
   }
 }
