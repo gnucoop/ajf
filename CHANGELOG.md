@@ -1,3 +1,10 @@
+<a name="15.2.1"></a>
+# 15.2.1 "confidential-shark" (2023-05-22)
+### Bug Fixes
+* **core/reports:** make reports responsive ([c96d3d5](https://github.com/gnucoop/ajf/commit/c96d3d54425cd48c1b6a353298c4f540eaa362fe))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.2.0"></a>
 # 15.2.0 "everyday-kangaroo" (2023-05-04)
 ### Bug Fixes
