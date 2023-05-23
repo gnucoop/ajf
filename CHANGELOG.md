@@ -1,3 +1,8 @@
+<a name="15.2.2"></a>
+# 15.2.2 "weird-cockroach" (2023-05-23)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.2.1"></a>
 # 15.2.1 "confidential-shark" (2023-05-22)
 ### Bug Fixes
