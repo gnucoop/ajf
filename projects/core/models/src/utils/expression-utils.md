@@ -6,7 +6,7 @@ lists all the functions that are available in the language.
 ## Utilities
 
 `CONSOLE_LOG(val)`  
-Logs val to the console.
+Logs val to the console and returns it.
 
 `EVALUATE(condition, then, otherwise)`  
 Renamed to IF.
