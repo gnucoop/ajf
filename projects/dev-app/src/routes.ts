@@ -91,6 +91,11 @@ export const DEV_APP_ROUTES: Routes = [
     loadChildren: () => import('./mat-barcode/barcode-demo-module').then(m => m.BarcodeDemoModule),
   },
   {
+    path: 'mat-geolocation',
+    loadChildren: () =>
+      import('./mat-geolocation/geolocation-demo-module').then(m => m.GeolocationDemoModule),
+  },
+  {
     path: 'mat-calendar',
     loadChildren: () =>
       import('./mat-calendar/calendar-demo-module').then(m => m.CalendarDemoModule),

@@ -27,6 +27,7 @@ import {
   AjfImageFieldComponent,
   AjfReadOnlyFieldComponent,
   AjfReadOnlyFileFieldComponent,
+  AjfReadOnlyGeolocationFieldComponent,
   AjfReadOnlyImageFieldComponent,
   AjfReadOnlySelectFieldComponent,
   AjfReadOnlyTableFieldComponent,
@@ -40,6 +41,7 @@ import {AjfDateFieldComponent} from './date-field';
 import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfInputFieldComponent} from './input-field';
+import {AjfGeolocationFieldComponent} from './geolocation-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfRangeFieldComponent} from './range-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
@@ -103,6 +105,10 @@ export class AjfFieldService extends CoreService {
         component: AjfBarcodeFieldComponent,
         readOnlyComponent: AjfReadOnlyFieldComponent,
       });
+    this.componentsMap[AjfFieldType.Geolocation] = {
+      component: AjfGeolocationFieldComponent,
+      readOnlyComponent: AjfReadOnlyGeolocationFieldComponent,
+    };
     this.componentsMap[AjfFieldType.File] = {
       component: AjfFileFieldComponent,
       readOnlyComponent: AjfReadOnlyFileFieldComponent,

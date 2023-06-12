@@ -52,6 +52,7 @@ export * from './is-repeating-slide';
 export * from './node-complete-name';
 export * from './range';
 export * from './read-only-file-field';
+export * from './read-only-geolocation-field';
 export * from './read-only-image-field';
 export * from './read-only-select-field';
 export * from './read-only-video-url-field';

@@ -53,6 +53,7 @@ export class DevAppLayout {
         {name: 'Fields', route: '/mat-fields'},
         {name: 'Form builder', route: '/mat-form-builder'},
         {name: 'Forms', route: '/mat-forms'},
+        {name: 'Geolocation', route: '/mat-geolocation'},
         {name: 'Image', route: '/mat-image'},
         {name: 'Node icon', route: '/mat-node-icon'},
         {name: 'Page slider', route: '/mat-page-slider'},
