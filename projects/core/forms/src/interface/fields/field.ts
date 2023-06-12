@@ -28,6 +28,7 @@ import {AjfEmptyField} from './empty-field';
 import {AjfFileField} from './file-field';
 import {AjfFieldWithChoices} from './field-with-choices';
 import {AjfFormulaField} from './formula-field';
+import {AjfGeolocationField} from './geolocation-field';
 import {AjfImageField} from './image-field';
 import {AjfMultipleChoiceField} from './multiple-choice-field';
 import {AjfNumberField} from './number-field';
@@ -47,6 +48,7 @@ export type AjfField<T = any> =
   | AjfFieldWithChoices<T>
   | AjfFileField
   | AjfFormulaField
+  | AjfGeolocationField
   | AjfImageField
   | AjfMultipleChoiceField<T>
   | AjfNumberField

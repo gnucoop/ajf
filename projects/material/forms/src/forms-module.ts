@@ -26,6 +26,7 @@ import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfBarcodeModule} from '@ajf/material/barcode';
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
+import {AjfGeolocationModule} from '@ajf/material/geolocation';
 import {AjfPageSliderModule} from '@ajf/material/page-slider';
 import {AjfTimeModule} from '@ajf/material/time';
 import {TextFieldModule} from '@angular/cdk/text-field';
@@ -57,6 +58,7 @@ import {AjfFormField} from './field';
 import {AjfFieldService} from './field-service';
 import {AjfFieldWarningDialog} from './field-warning-dialog';
 import {AjfFormRenderer} from './form';
+import {AjfGeolocationFieldComponent} from './geolocation-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfRangeFieldComponent} from './range-field';
@@ -73,6 +75,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfCalendarModule,
     AjfCommonModule,
     AjfCheckboxGroupModule,
+    AjfGeolocationModule,
     AjfPageSliderModule,
     AjfTimeModule,
     AjfTranslocoModule,
@@ -105,6 +108,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfFieldWarningDialog,
     AjfFormField,
     AjfFormRenderer,
+    AjfGeolocationFieldComponent,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
     AjfRangeFieldComponent,

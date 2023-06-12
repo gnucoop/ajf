@@ -1,0 +1,24 @@
+ajf-geolocation {
+  display: block;
+
+  button {
+    background: none;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .flex-child {
+    white-space: nowrap;
+    p {
+      display: inline-block;
+      min-width: 80px;
+    }
+  }
+
+  .flex-child:first-child {
+      margin-right: 5px;
+  }
+}

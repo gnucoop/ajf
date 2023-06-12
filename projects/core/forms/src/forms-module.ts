@@ -50,6 +50,7 @@ import {AjfNodeCompleteNamePipe} from './node-complete-name';
 import {AjfRangePipe} from './range';
 import {AjfReadOnlyFieldComponent} from './read-only-field';
 import {AjfReadOnlyFileFieldComponent} from './read-only-file-field';
+import {AjfReadOnlyGeolocationFieldComponent} from './read-only-geolocation-field';
 import {AjfReadOnlyImageFieldComponent} from './read-only-image-field';
 import {AjfReadOnlySelectFieldComponent} from './read-only-select-field';
 import {AjfReadOnlyTableFieldComponent} from './read-only-table-field';
@@ -84,6 +85,7 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfRangePipe,
     AjfReadOnlyFieldComponent,
     AjfReadOnlyFileFieldComponent,
+    AjfReadOnlyGeolocationFieldComponent,
     AjfReadOnlyImageFieldComponent,
     AjfReadOnlySelectFieldComponent,
     AjfReadOnlyTableFieldComponent,
@@ -123,6 +125,7 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfRangePipe,
     AjfReadOnlyFieldComponent,
     AjfReadOnlyFileFieldComponent,
+    AjfReadOnlyGeolocationFieldComponent,
     AjfReadOnlyImageFieldComponent,
     AjfReadOnlySelectFieldComponent,
     AjfReadOnlyTableFieldComponent,
