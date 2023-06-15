@@ -151,7 +151,7 @@
                                   *ngIf="(fieldInstance|ajfAsFieldInstance)?.valid !== true; else ajfValidFieldTemplate"
                                 >
                                   <span class="ajf-field-error-message"
-                                    >{{(fieldInstance|ajfAsFieldInstanceErrors)}}</span
+                                    >{{(fieldInstance|ajfAsFieldInstanceErrors|transloco)}}</span
                                   >
                                   <mat-icon class="ajf-warning">warning</mat-icon>
                                 </ng-container>
