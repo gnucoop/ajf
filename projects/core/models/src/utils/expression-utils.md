@@ -131,9 +131,9 @@ For example, `OP([1, 2, 3], [10, 20, 30], elemA + elemB)` returns `[11, 22, 33]`
 
 ## Date functions
 
-Dates are strings in the format 2000-12-31, unless otherwise specified.
+Dates are strings in the format 2000-12-31.
 
-`TODAY(format = "yyyy-MM-dd")`  
+`TODAY()`  
 Returns today's date.
 
 `ADD_DAYS(date, days)`  
@@ -157,5 +157,6 @@ Returns '-1' (or the first element of labels) if date is before dateStart,
 '0' (or the second element) if date is between dateStart and dateEnd,
 '1' (or the third element) if date is after dateEnd.
 
-`GET_AGE(dob)`  
-Computes the current age in years, given the date of birth.
+`GET_AGE(dob, when = TODAY())`  
+Computes the age of a person in the moment "when", given their date of birth "dob".
+The second argument can be omitted and defaults to TODAY().

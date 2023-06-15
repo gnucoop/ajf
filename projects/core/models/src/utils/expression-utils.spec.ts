@@ -11,6 +11,7 @@ import {
   DAYS_DIFF,
   FIRST,
   LAST,
+  GET_AGE,
 } from './expression-utils';
 
 const forms: MainForm[] = [
@@ -151,5 +152,20 @@ describe('FIRST/LAST', () => {
   });
   it('LAST', () => {
     expect(LAST(forms, (f: any) => f.dog_name, 'created_at')).toBe('dog2');
+  });
+});
+
+describe('GET_AGE', () => {
+  it("GET_AGE('1989-02-19', '1989-02-19')", () => {
+    expect(GET_AGE('1989-02-19', '1989-02-19')).toBe(0);
+  });
+  it("GET_AGE('1989-02-19', '1989-02-18')", () => {
+    expect(GET_AGE('1989-02-19', '1989-02-18')).toBe(-1);
+  });
+  it("GET_AGE('1989-02-19', '1992-06-15')", () => {
+    expect(GET_AGE('1989-02-19', '1992-06-15')).toBe(3);
+  });
+  it("GET_AGE('1989-02-19', '2023-06-15')", () => {
+    expect(GET_AGE('1989-02-19', '2023-06-15')).toBe(34);
   });
 });
