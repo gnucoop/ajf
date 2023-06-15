@@ -1,3 +1,14 @@
+<a name="15.2.3"></a>
+# 15.2.3 "psychological-gecko" (2023-06-15)
+### Bug Fixes
+* **core/reports:** fix date functions ([17b5e98](https://github.com/gnucoop/ajf/commit/17b5e98f3a1e2955ff92a0d40c02c964461e4a9a))
+* **material/forms:** add translation for error messages ([af26549](https://github.com/gnucoop/ajf/commit/af26549724e0fd58c2e89105ab48afa06685997d))
+### Features
+* **core/reports:** CONSOLE_LOG returns the value to be logged ([c37c974](https://github.com/gnucoop/ajf/commit/c37c974028359b93497815dd2ff769e97c86cc22))
+* **material/forms:** Add geolocation field ([f0f3313](https://github.com/gnucoop/ajf/commit/f0f331381173480375aa63eab60965116524ef3c))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.2.2"></a>
 # 15.2.2 "weird-cockroach" (2023-05-23)
 
