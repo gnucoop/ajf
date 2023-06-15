@@ -1740,11 +1740,10 @@ export function FILTER_BY(forms: MainForm[], expression: Func|string): MainForm[
  * Returns today's date.
  *
  * @export
- * @param {string} [format='yyyy-MM-dd']
  * @return {*}  {string}
  */
-export function TODAY(format = 'yyyy-MM-dd'): string {
-  return dateFns.format(new Date(), format);
+export function TODAY(): string {
+  return new Date().toJSON().slice(0, 10);
 }
 
 /**
@@ -1763,13 +1762,21 @@ export function CONSOLE_LOG(val: any): any {
  *
  * @export
  * @param {(string | null)} dob
+ * @param {(string | undefined)} when
  * @return {*}  {number}
  */
-export function GET_AGE(dob: string | null): number {
+export function GET_AGE(dob: string|null, when?: string): number {
   if (dob == null) {
     return NaN;
   }
-  return dateFns.differenceInYears(new Date(), new Date(dob));
+  if (when == null) {
+    when = TODAY();
+  }
+  let yearsDiff = Number(when.slice(0, 4)) - Number(dob.slice(0, 4));
+  if (when.slice(5) < dob.slice(5)) { // birthday not reached yet in current year
+    yearsDiff--;
+  }
+  return yearsDiff;
 }
 
 /**
@@ -1843,9 +1850,7 @@ export function DAYS_DIFF(a: string, b: string): number {
  * @return {*}  {boolean}
  */
 export function IS_BEFORE(date: string, dateToCompare: string): boolean {
-  const dateA: Date = dateFns.parseISO(date);
-  const dateB: Date = dateFns.parseISO(dateToCompare);
-  return dateFns.isBefore(dateA, dateB);
+  return date < dateToCompare;
 }
 
 /**
@@ -1857,9 +1862,7 @@ export function IS_BEFORE(date: string, dateToCompare: string): boolean {
  * @return {*}  {boolean}
  */
 export function IS_AFTER(date: string, dateToCompare: string): boolean {
-  const dateA: Date = dateFns.parseISO(date);
-  const dateB: Date = dateFns.parseISO(dateToCompare);
-  return dateFns.isAfter(dateA, dateB);
+  return date > dateToCompare;
 }
 
 /**
@@ -1872,12 +1875,7 @@ export function IS_AFTER(date: string, dateToCompare: string): boolean {
  * @return {*}  {boolean}
  */
 export function IS_WITHIN_INTERVAL(date: string, dateStart: string, dateEnd: string): boolean {
-  const dateToCompare: Date = dateFns.parseISO(date);
-  const interval: Interval = {
-    start: dateFns.parseISO(dateStart),
-    end: dateFns.parseISO(dateEnd),
-  };
-  return dateFns.isWithinInterval(dateToCompare, interval);
+  return date >= dateStart && date <= dateEnd;
 }
 
 /**
@@ -1899,23 +1897,16 @@ export function COMPARE_DATE(
   dateEnd: string,
   labels?: string[],
 ): string {
-  const dateToCompare: Date = dateFns.parseISO(date);
-  const dateA: Date = dateFns.parseISO(dateStart);
-  const dateB: Date = dateFns.parseISO(dateEnd);
-  const interval: Interval = {
-    start: dateA,
-    end: dateB,
-  };
   if (labels == null) {
     labels = ['-1', '0', '1'];
   }
-  if (dateFns.isBefore(dateToCompare, dateA)) {
+  if (IS_BEFORE(date, dateStart)) {
     return labels[0];
   }
-  if (dateFns.isWithinInterval(dateToCompare, interval)) {
+  if (IS_WITHIN_INTERVAL(date, dateStart, dateEnd)) {
     return labels[1];
   }
-  if (dateFns.isAfter(dateToCompare, dateB)) {
+  if (IS_AFTER(date, dateEnd)) {
     return labels[2];
   }
   return '';
