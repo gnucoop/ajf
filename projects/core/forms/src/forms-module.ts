@@ -49,6 +49,7 @@ import {AjfIsRepeatingSlideInstancePipe} from './is-repeating-slide';
 import {AjfNodeCompleteNamePipe} from './node-complete-name';
 import {AjfRangePipe} from './range';
 import {AjfReadOnlyFieldComponent} from './read-only-field';
+import {AjfReadOnlyDateFieldComponent} from './read-only-date-field';
 import {AjfReadOnlyFileFieldComponent} from './read-only-file-field';
 import {AjfReadOnlyGeolocationFieldComponent} from './read-only-geolocation-field';
 import {AjfReadOnlyImageFieldComponent} from './read-only-image-field';
@@ -84,6 +85,7 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfNodeCompleteNamePipe,
     AjfRangePipe,
     AjfReadOnlyFieldComponent,
+    AjfReadOnlyDateFieldComponent,
     AjfReadOnlyFileFieldComponent,
     AjfReadOnlyGeolocationFieldComponent,
     AjfReadOnlyImageFieldComponent,
@@ -124,6 +126,7 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfNodeCompleteNamePipe,
     AjfRangePipe,
     AjfReadOnlyFieldComponent,
+    AjfReadOnlyDateFieldComponent,
     AjfReadOnlyFileFieldComponent,
     AjfReadOnlyGeolocationFieldComponent,
     AjfReadOnlyImageFieldComponent,

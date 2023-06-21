@@ -25,6 +25,7 @@ import {
   AjfFieldType,
   AjfFileFieldComponent,
   AjfImageFieldComponent,
+  AjfReadOnlyDateFieldComponent,
   AjfReadOnlyFieldComponent,
   AjfReadOnlyFileFieldComponent,
   AjfReadOnlyGeolocationFieldComponent,
@@ -82,7 +83,7 @@ export class AjfFieldService extends CoreService {
       }),
       (this.componentsMap[AjfFieldType.DateInput] = {
         component: AjfDateInputFieldComponent,
-        readOnlyComponent: AjfReadOnlyFieldComponent,
+        readOnlyComponent: AjfReadOnlyDateFieldComponent,
       }),
       (this.componentsMap[AjfFieldType.Table] = {
         component: AjfTableFieldComponent,
