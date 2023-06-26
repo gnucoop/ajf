@@ -44,7 +44,13 @@ import {
   OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
-import {AbstractControl, UntypedFormBuilder, UntypedFormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
 import {distinctUntilChanged, filter, map, shareReplay, withLatestFrom} from 'rxjs/operators';

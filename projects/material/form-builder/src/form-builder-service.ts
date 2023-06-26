@@ -115,7 +115,7 @@ export type AjfFormBuilderNode = AjfFormBuilderNodeEntry | AjfFormBuilderEmptySl
 export type AjfContainerNode = AjfSlide | AjfRepeatingSlide | AjfNodeGroup;
 
 function getNodeContainer(c: {nodes: AjfNode[]}, node: AjfNode): {nodes: AjfNode[]} | null {
-  if (c.nodes.indexOf(node) > -1 || c.nodes.map(n => n.id).indexOf(node.id) > -1) {
+  if (c.nodes.indexOf(node) > -1 || c.nodes.map(n => n.id).indexOf(node?.id) > -1) {
     return c;
   }
   const cns = c.nodes.filter(n => isContainerNode(n));
@@ -817,6 +817,7 @@ export class AjfFormBuilderService {
           }
 
           if (isField(node)) {
+            node.hint = properties.hint;
             node.description = properties.description;
             node.defaultValue = getDefaultValue(properties.defaultValue, node);
             node.formula =
