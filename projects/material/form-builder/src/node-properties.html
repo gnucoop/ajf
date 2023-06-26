@@ -1,7 +1,4 @@
-<div
-  [style.display]="(enabled|async) ? 'none' : 'block'"
-  class="ajf-disabled-overlay"
-></div>
+<div [style.display]="(enabled|async) ? 'none' : 'block'" class="ajf-disabled-overlay"></div>
 <div class="ajf-header">
   <h3>{{'Properties'|transloco}}</h3>
   <mat-icon (click)="save()">save</mat-icon>
@@ -12,34 +9,21 @@
     <form [formGroup]="pf!" novalidate>
       <div class="ajf-prop">
         <mat-form-field>
-          <input
-            matInput
-            formControlName="name"
-            [placeholder]="'Name' | transloco"
-          />
+          <input matInput formControlName="name" [placeholder]="'Name' | transloco" />
         </mat-form-field>
       </div>
       <div class="ajf-prop">
         <mat-form-field>
-          <input
-            matInput
-            formControlName="label"
-            [placeholder]="'Label' | transloco"
-          />
+          <input matInput formControlName="label" [placeholder]="'Label' | transloco" />
         </mat-form-field>
       </div>
       <div class="ajf-prop">
         <mat-form-field>
           <mat-label>{{'Visibility'|transloco}}</mat-label>
-          <mat-select
-            formControlName="visibilityOpt"
-            [placeholder]="'Visible' | transloco"
-          >
+          <mat-select formControlName="visibilityOpt" [placeholder]="'Visible' | transloco">
             <mat-option value="always">{{'Always'|transloco}}</mat-option>
             <mat-option value="never">{{'Never'|transloco}}</mat-option>
-            <mat-option value="condition"
-              >{{'Condition...'|transloco}}</mat-option
-            >
+            <mat-option value="condition">{{'Condition...'|transloco}}</mat-option>
           </mat-select>
         </mat-form-field>
         <button
@@ -57,20 +41,12 @@
       <div class="ajf-prop">
         <div><label>{{'Branches'|transloco}}</label></div>
         <div>
-          <mat-slider
-            formControlName="conditionalBranchesNum"
-            discrete
-            min="1"
-            max="5"
-            step="1"
-          ><input matSliderThumb /></mat-slider>
+          <mat-slider discrete min="1" max="5" step="1"
+            ><input matSliderThumb formControlName="conditionalBranchesNum"
+          /></mat-slider>
         </div>
         <div *ngFor="let branch of conditionalBranches; let idx = index">
-          <button
-            (click)="editConditionalBranch(idx)"
-            mat-raised-button
-            [matTooltip]="branch"
-          >
+          <button (click)="editConditionalBranch(idx)" mat-raised-button [matTooltip]="branch">
             <div class="ajf-icon-cont">
               <mat-icon>edit</mat-icon>
               <span>{{ branch }}</span>
@@ -95,23 +71,15 @@
           </div>
           <div><label>{{'Min repetitions'|transloco}}</label></div>
           <div>
-            <mat-slider
-              formControlName="minReps"
-              discrete
-              min="1"
-              max="5"
-              step="1"
-            ><input matSliderThumb /></mat-slider>
+            <mat-slider formControlName="minReps" discrete min="1" max="5" step="1"
+              ><input matSliderThumb
+            /></mat-slider>
           </div>
           <div><label>{{'Max repetitions'|transloco}}</label></div>
           <div>
-            <mat-slider
-              formControlName="maxReps"
-              discrete
-              min="1"
-              max="5"
-              step="1"
-            ><input matSliderThumb /></mat-slider>
+            <mat-slider formControlName="maxReps" discrete min="1" max="5" step="1"
+              ><input matSliderThumb
+            /></mat-slider>
           </div>
         </div>
       </ng-template>
@@ -119,14 +87,8 @@
         <div class="ajf-prop">
           <mat-form-field>
             <mat-label>{{'Field size'|transloco}}</mat-label>
-            <mat-select
-              formControlName="size"
-              [placeholder]="'Size' | transloco"
-            >
-              <mat-option
-                *ngFor="let fieldSize of fieldSizes"
-                [value]="fieldSize.value"
-              >
+            <mat-select formControlName="size" [placeholder]="'Size' | transloco">
+              <mat-option *ngFor="let fieldSize of fieldSizes" [value]="fieldSize.value">
                 {{ fieldSize.label|transloco }}
               </mat-option>
             </mat-select>
@@ -134,11 +96,7 @@
         </div>
         <div class="ajf-prop">
           <mat-form-field>
-            <input
-              matInput
-              formControlName="hint"
-              [placeholder]="'Hint' | transloco"
-            />
+            <input matInput formControlName="hint" [placeholder]="'Hint' | transloco" />
           </mat-form-field>
         </div>
         <div class="ajf-prop">
@@ -162,11 +120,7 @@
         <div class="ajf-prop">
           <div><label>{{'Formula'|transloco}}</label></div>
           <div>
-            <button
-              (click)="editFormula()"
-              mat-raised-button
-              [matTooltip]="curFormula || ''"
-            >
+            <button (click)="editFormula()" mat-raised-button [matTooltip]="curFormula || ''">
               <div class="ajf-icon-cont">
                 <mat-icon>edit</mat-icon>
                 <span>{{ curFormula }}</span>
@@ -186,27 +140,17 @@
           </div>
         </div> -->
         <div class="ajf-prop">
-          <mat-checkbox formControlName="notEmpty"
-            >{{'Not empty'|transloco}}</mat-checkbox
-          >
+          <mat-checkbox formControlName="notEmpty">{{'Not empty'|transloco}}</mat-checkbox>
         </div>
         <ng-template [ngIf]="isNumericField(ne!.node)">
           <div class="ajf-prop">
             <mat-form-field>
-              <input
-                matInput
-                formControlName="minValue"
-                [placeholder]="'Min value' | transloco"
-              />
+              <input matInput formControlName="minValue" [placeholder]="'Min value' | transloco" />
             </mat-form-field>
           </div>
           <div class="ajf-prop">
             <mat-form-field>
-              <input
-                matInput
-                formControlName="maxValue"
-                [placeholder]="'Max value' | transloco"
-              />
+              <input matInput formControlName="maxValue" [placeholder]="'Max value' | transloco" />
             </mat-form-field>
           </div>
           <div class="ajf-prop">
@@ -267,10 +211,7 @@
               >add_circle_outline</mat-icon
             >
           </div>
-          <div
-            *ngIf="validationConditions.length === 0"
-            class="ajf-validation-row ajf-emph"
-          >
+          <div *ngIf="validationConditions.length === 0" class="ajf-validation-row ajf-emph">
             {{'No conditions'|transloco}}
           </div>
           <div
@@ -287,9 +228,7 @@
                 <span>{{ validationCondition.condition }}</span>
               </div>
             </button>
-            <mat-icon
-              class="ajf-pointer"
-              (click)="removeValidationCondition(idx)"
+            <mat-icon class="ajf-pointer" (click)="removeValidationCondition(idx)"
               >remove_circle_outline</mat-icon
             >
           </div>
@@ -306,10 +245,7 @@
               >add_circle_outline</mat-icon
             >
           </div>
-          <div
-            *ngIf="warningConditions.length === 0"
-            class="ajf-validation-row ajf-emph"
-          >
+          <div *ngIf="warningConditions.length === 0" class="ajf-validation-row ajf-emph">
             {{'No warnings'|transloco}}
           </div>
           <div
@@ -350,10 +286,7 @@
           <div class="ajf-prop">
             <mat-form-field>
               <mat-label>{{'Choices origins'|transloco}}</mat-label>
-              <mat-select
-                formControlName="choicesOriginRef"
-                [placeholder]="'Choices' | transloco"
-              >
+              <mat-select formControlName="choicesOriginRef" [placeholder]="'Choices' | transloco">
                 <mat-option
                   *ngFor="let choicesOrigin of choicesOrigins"
                   [value]="choicesOrigin.name"
@@ -423,7 +356,9 @@
         </ng-template>
         <ng-container *ngIf="isTableField(ne!.node)">
           <div class="ajf-prop">
-            <mat-checkbox formControlName="hideEmptyRows">{{'Hide empty rows'|transloco}}</mat-checkbox>
+            <mat-checkbox formControlName="hideEmptyRows"
+              >{{'Hide empty rows'|transloco}}</mat-checkbox
+            >
             <mat-form-field>
               <textarea
                 matInput
