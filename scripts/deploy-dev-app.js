@@ -22,6 +22,4 @@ const distPath = 'dist/dev-app';
 // Build web package output.
 exec(`yarn -s ng build dev-app --configuration production`);
 
-cp('-R', 'node_modules/monaco-editor/min/vs', distPath);
-
 exec(`tar cfj - -C ${distPath} . | ssh gnucoopajfdev@dev-app.ajf.rocks "tar xfj - -C /web"`);
