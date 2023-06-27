@@ -9,20 +9,18 @@ ajf-condition-editor {
     display: flex;
     flex-direction: row;
     align-items: stretch;
-
-    monaco-editor {
-      flex: 1 0 auto;
-      min-width: 512px;
-      min-height: 256px;
-    }
   }
 
   .ajf-editor-panel {
     flex: 0.25 0 auto;
     overflow-y: auto;
+    .mat-mdc-nav-list {
+      max-height: 30vh;
+      overflow-y: auto;
+    }
   }
 
-  ajf-monaco-editor {
-    min-width: 400px;
+  .ajf-formula-editor {
+    min-width: 40vw;
   }
 }

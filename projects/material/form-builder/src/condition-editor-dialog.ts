@@ -59,7 +59,11 @@ export class AjfFbConditionEditorDialog {
     if (this.editor == null) {
       return;
     }
-    const newValue = this.editor.editedValue;
+    const newValue = this.editor.formulaEditorControl.value;
     this.dialogRef.close(newValue);
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close(this.editor.formulaEditorControl.value);
   }
 }

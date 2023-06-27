@@ -1,16 +1,17 @@
 <div class="ajf-editor">
-  <ajf-monaco-editor
-      (init)="onEditorInit()"
-      (valueChange)="editedValue = $event"
-      [value]="condition" language="javascript"></ajf-monaco-editor>
+  <mat-form-field class="ajf-formula-editor">
+    <code><input matInput type="text" [formControl]="formulaEditorControl" /></code>
+  </mat-form-field>
 </div>
 <div class="ajf-editor-panel">
   <ng-container *ngIf="fields as curFields">
     <mat-nav-list dense *ngIf="curFields!.length > 0">
-      <a mat-list-item
-          (click)="insertVariable(field.name)"
-          [matTooltip]="field.label"
-          *ngFor="let field of curFields!">
+      <a
+        mat-list-item
+        (click)="insertVariable(field.name)"
+        [matTooltip]="field.label"
+        *ngFor="let field of curFields!"
+      >
         <ajf-node-icon [node]="field"></ajf-node-icon>
         {{ field.name }}
       </a>

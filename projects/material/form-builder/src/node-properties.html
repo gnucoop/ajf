@@ -34,7 +34,7 @@
         >
           <div class="ajf-icon-cont">
             <mat-icon>edit</mat-icon>
-            <span>{{ curVisibility }}</span>
+            <span><code>{{ curVisibility }}</code></span>
           </div>
         </button>
       </div>
@@ -49,7 +49,7 @@
           <button (click)="editConditionalBranch(idx)" mat-raised-button [matTooltip]="branch">
             <div class="ajf-icon-cont">
               <mat-icon>edit</mat-icon>
-              <span>{{ branch }}</span>
+              <span><code>{{ branch }}</code></span>
             </div>
           </button>
         </div>
@@ -65,7 +65,7 @@
             >
               <div class="ajf-icon-cont">
                 <mat-icon>edit</mat-icon>
-                <span>{{ curFormulaReps }}</span>
+                <span><code>{{ curFormulaReps }}</code></span>
               </div>
             </button>
           </div>
@@ -123,7 +123,7 @@
             <button (click)="editFormula()" mat-raised-button [matTooltip]="curFormula || ''">
               <div class="ajf-icon-cont">
                 <mat-icon>edit</mat-icon>
-                <span>{{ curFormula }}</span>
+                <span><code>{{ curFormula }}</code></span>
               </div>
             </button>
           </div>
@@ -225,7 +225,7 @@
             >
               <div class="ajf-icon-cont">
                 <mat-icon>edit</mat-icon>
-                <span>{{ validationCondition.condition }}</span>
+                <span><code>{{ validationCondition.condition }}</code></span>
               </div>
             </button>
             <mat-icon class="ajf-pointer" (click)="removeValidationCondition(idx)"
@@ -259,7 +259,7 @@
             >
               <div class="ajf-icon-cont">
                 <mat-icon>edit</mat-icon>
-                <span>{{ warningCondition.condition }}</span>
+                <span><code>{{ warningCondition.condition }}</code></span>
               </div>
             </button>
             <mat-icon class="ajf-pointer" (click)="removeWarningCondition(idx)"
@@ -277,7 +277,7 @@
             >
               <div class="ajf-icon-cont">
                 <mat-icon>edit</mat-icon>
-                <span>{{ nextSlideCondition }}</span>
+                <span><code>{{ nextSlideCondition }}</code></span>
               </div>
             </button>
           </div>
@@ -306,7 +306,7 @@
               >
                 <div class="ajf-icon-cont">
                   <mat-icon>edit</mat-icon>
-                  <span>{{ curChoicesFilter }}</span>
+                  <span><code>{{ curChoicesFilter }}</code></span>
                 </div>
               </button>
             </div>
@@ -345,7 +345,7 @@
               >
                 <div class="ajf-icon-cont">
                   <mat-icon>edit</mat-icon>
-                  <span>{{ triggerCondition }}</span>
+                  <span><code>{{ triggerCondition }}</code></span>
                 </div>
               </button>
               <mat-icon class="pointer" (click)="removeTriggerCondition(idx)"

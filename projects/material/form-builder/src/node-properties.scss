@@ -49,13 +49,18 @@ ajf-fb-node-properties {
       display: flex;
       flex-direction: row;
       align-items: center;
+      position: relative;
+      max-width: 200px;
 
       span {
         flex: 1 1 auto;
         overflow: hidden;
         text-overflow: ellipsis;
         display: block;
-        min-height: 36px;
+        margin: auto;
+        position: relative;
+        max-height: 30px;
+        max-width: 80%;
       }
     }
   }

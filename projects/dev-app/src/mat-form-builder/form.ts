@@ -90,6 +90,9 @@ export const formSchema: AjfForm = {
           defaultValue: null,
           conditionalBranches: [],
           hideEmptyRows: false,
+          visibility: {
+            condition: '!notEmpty(field_1)',
+          },
         },
       ],
       conditionalBranches: [],

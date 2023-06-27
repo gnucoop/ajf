@@ -21,7 +21,6 @@
  */
 
 import {AjfTranslocoModule} from '@ajf/core/transloco';
-import {AjfMonacoEditorModule} from '@ajf/material/monaco-editor';
 import {AjfNodeIconModule} from '@ajf/material/node-icon';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {CommonModule} from '@angular/common';
@@ -63,7 +62,6 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
 
 @NgModule({
   imports: [
-    AjfMonacoEditorModule,
     AjfNodeIconModule,
     CommonModule,
     DragDropModule,
