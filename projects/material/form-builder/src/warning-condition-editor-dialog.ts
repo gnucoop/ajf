@@ -60,7 +60,11 @@ export class AjfFbWarningConditionEditorDialog {
     if (this.editor == null) {
       return;
     }
-    const newValue = this.editor.editedValue;
+    const newValue = this.editor.formulaEditorControl.value;
     this.dialogRef.close({condition: newValue, warningMessage: this.warningMessage});
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close(this.editor.formulaEditorControl.value);
   }
 }

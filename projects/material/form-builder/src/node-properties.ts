@@ -1150,6 +1150,7 @@ export class AjfFbNodeProperties implements OnDestroy {
       .pipe(distinctUntilChanged((v1, v2) => v1.visibilityOpt === v2.visibilityOpt))
       .subscribe(v => {
         const visibilityOpt = v.visibilityOpt;
+        const visibility: string = v.visibility;
         let newCondition: string | null;
         switch (visibilityOpt) {
           case 'always':
@@ -1158,11 +1159,15 @@ export class AjfFbNodeProperties implements OnDestroy {
           case 'never':
             newCondition = neverCondition().condition;
             break;
+          case 'condition':
+            newCondition = visibility && visibility.length ? visibility : null;
+            break;
           default:
             newCondition = null;
         }
         this._curVisibility = newCondition;
         fg.controls['visibility'].setValue(newCondition);
+        this._cdr.markForCheck();
       });
     this._visibilitySub = fg.valueChanges
       .pipe(
