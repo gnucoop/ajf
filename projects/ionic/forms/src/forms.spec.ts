@@ -71,7 +71,7 @@ describe('AjfFormRenderer', () => {
               label: 'foo',
               nodeType: AjfNodeType.AjfField,
               fieldType: AjfFieldType.String,
-              validation: {notEmpty: true},
+              validation: {notEmpty: "The field's value must not be empty."},
             } as any,
           ],
         },
