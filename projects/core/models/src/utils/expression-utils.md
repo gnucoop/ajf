@@ -73,6 +73,11 @@ Deprecated. Use LEN(ALL_VALUES_OF).
 `PERCENT(a, b)`  
 Returns the percentage of a/b as string. Example: PERCENT(3, 10) = "30%"
 
+`PERCENTAGE_CHANGE(a, b)`  
+Returns the percentage change between a value and his reference value b as number.
+Example 1: PERCENTAGE_CHANGE(3, 10) = -70
+Example 2: PERCENTAGE_CHANGE("3%", "10%") = -70
+
 `ROUND(num, digits?)`  
 Rounds num to the specified number of digits after the point (or zero).
 
