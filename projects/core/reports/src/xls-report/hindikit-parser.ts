@@ -422,6 +422,7 @@ const functionArgs: {[name: string]: string[]} = {
   MODE: ["arg", "field", "func(form)?"],
   OP: ["arg", "arg", "func(elemA, elemB)"],
   PERCENT: ["arg", "arg"],
+  PERCENTAGE_CHANGE: ["arg", "arg"],
   REMOVE_DUPLICATES: ["arg"],
   ROUND: ["arg", "arg?"],
   SUM: ["arg", "field", "func(form)?"],

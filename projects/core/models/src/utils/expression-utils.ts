@@ -166,6 +166,7 @@ export class AjfExpressionUtils {
     MODE: {fn: MODE},
     OP: {fn: OP},
     PERCENT: {fn: PERCENT},
+    PERCENTAGE_CHANGE: {fn: PERCENTAGE_CHANGE},
     REMOVE_DUPLICATES: {fn: REMOVE_DUPLICATES},
     REPEAT: {fn: REPEAT},
     ROUND: {fn: ROUND},
@@ -205,8 +206,25 @@ export function evaluateExpression(expression: string, context?: AjfContext): an
 }
 
 const globals = [
-  'this', 'true', 'false', 'null', 'undefined', 'Infinity', 'NaN', 'isNaN', 'isFinite',
-  'Object', 'String', 'Array', 'Set', 'Map', 'Number', 'Date', 'Math', 'parseInt', 'parseFloat',
+  'this',
+  'true',
+  'false',
+  'null',
+  'undefined',
+  'Infinity',
+  'NaN',
+  'isNaN',
+  'isFinite',
+  'Object',
+  'String',
+  'Array',
+  'Set',
+  'Map',
+  'Number',
+  'Date',
+  'Math',
+  'parseInt',
+  'parseFloat',
 ];
 
 type Func = (c?: AjfContext) => any;
@@ -222,8 +240,9 @@ export function createFunction(expression: string): Func {
   if (expression === 'false') {
     return _ => false;
   }
-  if (/^[a-zA-Z_$][\w$]*$/.test(expression)) { // expression is an identifier
-    return c => c == null || c[expression] === undefined ? null : c[expression];
+  if (/^[a-zA-Z_$][\w$]*$/.test(expression)) {
+    // expression is an identifier
+    return c => (c == null || c[expression] === undefined ? null : c[expression]);
   }
   if (/^"[^"]*"$/.test(expression) || /^'[^']*'$/.test(expression)) {
     let str = expression.slice(1, -1);
@@ -716,9 +735,13 @@ export function getCoordinate(source: any, zoom?: number): [number, number, numb
  * Returns an array containing all the values that the specified field takes in the forms.
  * The values are converted to strings.
  */
-export function ALL_VALUES_OF(forms: MainForm[], field: string, filter: Func|string = 'true'): string[] {
+export function ALL_VALUES_OF(
+  forms: MainForm[],
+  field: string,
+  filter: Func | string = 'true',
+): string[] {
   forms = (forms || []).filter(f => f != null);
-  if (typeof(filter) === 'string') {
+  if (typeof filter === 'string') {
     filter = createFunction(filter);
   }
   let values: string[] = [];
@@ -751,12 +774,12 @@ export function plainArray(params: any[]): any[] {
  * Returns the number of forms for which filter evaluates to true,
  * for the form itself or for any of its repetitions.
  */
-export function COUNT_FORMS(forms: MainForm[], filter: Func|string = 'true'): number {
+export function COUNT_FORMS(forms: MainForm[], filter: Func | string = 'true'): number {
   forms = (forms || []).filter(f => f != null);
   if (filter === 'true') {
     return forms.length;
   }
-  if (typeof(filter) === 'string') {
+  if (typeof filter === 'string') {
     filter = createFunction(filter);
   }
   let count = 0;
@@ -778,9 +801,9 @@ export function COUNT_FORMS(forms: MainForm[], filter: Func|string = 'true'): nu
 /**
  * Counts the forms and all of their repetitions for which filter evaluates to true.
  */
-export function COUNT_REPS(forms: MainForm[], filter: Func|string = 'true'): number {
+export function COUNT_REPS(forms: MainForm[], filter: Func | string = 'true'): number {
   forms = (forms || []).filter(f => f != null);
-  if (typeof(filter) === 'string') {
+  if (typeof filter === 'string') {
     filter = createFunction(filter);
   }
   let count = 0;
@@ -800,13 +823,21 @@ export function COUNT_REPS(forms: MainForm[], filter: Func|string = 'true'): num
 /**
  * Deprecated. Use LEN(ALL_VALUES_OF)
  */
-export function COUNT_FORMS_UNIQUE(forms: MainForm[], field: string, filter: Func|string = 'true'): number {
+export function COUNT_FORMS_UNIQUE(
+  forms: MainForm[],
+  field: string,
+  filter: Func | string = 'true',
+): number {
   return ALL_VALUES_OF(forms, field, filter).length;
 }
 
-function getNumericValues(forms: (MainForm | Form)[], field: string, filter: Func|string = 'true'): number[] {
+function getNumericValues(
+  forms: (MainForm | Form)[],
+  field: string,
+  filter: Func | string = 'true',
+): number[] {
   forms = (forms || []).filter(f => f != null);
-  if (typeof(filter) === 'string') {
+  if (typeof filter === 'string') {
     filter = createFunction(filter);
   }
   let values: number[] = [];
@@ -829,7 +860,11 @@ function getNumericValues(forms: (MainForm | Form)[], field: string, filter: Fun
  * Aggregates and sums the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-export function SUM(forms: (MainForm | Form)[], field: string, filter: Func|string = 'true'): number {
+export function SUM(
+  forms: (MainForm | Form)[],
+  field: string,
+  filter: Func | string = 'true',
+): number {
   const values = getNumericValues(forms, field, filter);
   let sum = 0;
   for (const val of values) {
@@ -842,7 +877,11 @@ export function SUM(forms: (MainForm | Form)[], field: string, filter: Func|stri
  * Computes the mean of the values of the specified field.
  * An optional expression can be added to filter which forms to take for the sum.
  */
-export function MEAN(forms: (Form | MainForm)[], field: string, filter: Func|string = 'true'): number {
+export function MEAN(
+  forms: (Form | MainForm)[],
+  field: string,
+  filter: Func | string = 'true',
+): number {
   const values = getNumericValues(forms, field, filter);
   let sum = 0;
   for (const val of values) {
@@ -856,14 +895,40 @@ export function MEAN(forms: (Form | MainForm)[], field: string, filter: Func|str
  */
 export function PERCENT(value1: number, value2: number): string {
   const res = (+value1 * 100) / +value2;
-  return Number.isFinite(res) ? Math.round(res)+'%' : 'infinite';
+  return Number.isFinite(res) ? Math.round(res) + '%' : 'infinite';
+}
+
+/**
+ * Calculates the percentage change between a value and his base reference value.
+ */
+export function PERCENTAGE_CHANGE(
+  value: number | string,
+  reference_value: number | string,
+): number | string {
+  let curr = Number(value);
+  let ref = Number(reference_value);
+  if (typeof value === 'string' && isNaN(curr)) {
+    curr = Number(value.slice(0, -1));
+  }
+  if (typeof reference_value === 'string' && isNaN(ref)) {
+    ref = Number(reference_value.slice(0, -1));
+  }
+  if (!isNaN(curr) && !isNaN(ref) && ref > 0) {
+    const res = ((curr - ref) / ref) * 100;
+    return Number.isFinite(res) ? Math.round(res) : 0;
+  }
+  return '-';
 }
 
 /**
  * Evaluates the expression in the first form by date.
  */
- export function FIRST(forms: (Form | MainForm)[], expression: Func|string, date = 'created_at'): any {
-  if (typeof(expression) === 'string') {
+export function FIRST(
+  forms: (Form | MainForm)[],
+  expression: Func | string,
+  date = 'created_at',
+): any {
+  if (typeof expression === 'string') {
     expression = createFunction(expression);
   }
   forms = (forms || []).filter(f => f != null && f[date] != null);
@@ -873,7 +938,7 @@ export function PERCENT(value1: number, value2: number): string {
   let form = forms[0];
   let minDate = form[date] as string;
   for (let i = 1; i < forms.length; i++) {
-    if (forms[i][date] as string < minDate) {
+    if ((forms[i][date] as string) < minDate) {
       form = forms[i];
       minDate = form[date] as string;
     }
@@ -884,8 +949,12 @@ export function PERCENT(value1: number, value2: number): string {
 /**
  * Evaluates the expression in the last form by date.
  */
-export function LAST(forms: (Form | MainForm)[], expression: Func|string, date = 'created_at'): any {
-  if (typeof(expression) === 'string') {
+export function LAST(
+  forms: (Form | MainForm)[],
+  expression: Func | string,
+  date = 'created_at',
+): any {
+  if (typeof expression === 'string') {
     expression = createFunction(expression);
   }
   forms = (forms || []).filter(f => f != null && f[date] != null);
@@ -895,7 +964,7 @@ export function LAST(forms: (Form | MainForm)[], expression: Func|string, date =
   let form = forms[forms.length - 1];
   let maxDate = form[date] as string;
   for (let i = forms.length - 2; i >= 0; i--) {
-    if (forms[i][date] as string > maxDate) {
+    if ((forms[i][date] as string) > maxDate) {
       form = forms[i];
       maxDate = form[date] as string;
     }
@@ -906,7 +975,11 @@ export function LAST(forms: (Form | MainForm)[], expression: Func|string, date =
 /**
  * Computes the max value of the field.
  */
-export function MAX(forms: (Form | MainForm)[], field: string, filter: Func|string = 'true'): number {
+export function MAX(
+  forms: (Form | MainForm)[],
+  field: string,
+  filter: Func | string = 'true',
+): number {
   const values = getNumericValues(forms, field, filter);
   let max = -Infinity;
   for (const val of values) {
@@ -920,7 +993,11 @@ export function MAX(forms: (Form | MainForm)[], field: string, filter: Func|stri
 /**
  * Computes the median value of the field.
  */
-export function MEDIAN(forms: (Form | MainForm)[], field: string, filter: Func|string = 'true'): number {
+export function MEDIAN(
+  forms: (Form | MainForm)[],
+  field: string,
+  filter: Func | string = 'true',
+): number {
   const values = getNumericValues(forms, field, filter).sort();
   if (values.length === 0) {
     return NaN;
@@ -931,7 +1008,11 @@ export function MEDIAN(forms: (Form | MainForm)[], field: string, filter: Func|s
 /**
  * Computes the mode value of the field.
  */
-export function MODE(forms: (Form | MainForm)[], field: string, filter: Func|string = 'true'): number {
+export function MODE(
+  forms: (Form | MainForm)[],
+  field: string,
+  filter: Func | string = 'true',
+): number {
   const values = getNumericValues(forms, field, filter);
   const counters: {[val: number]: number} = {};
   for (const val of values) {
@@ -1382,9 +1463,9 @@ export function MAP(array: any[], func: (a: any) => any): any[] {
  * For each form in forms, the specified field is set with the value given by expression.
  * The form's fields can be used inside expression.
  */
-export function APPLY(forms: MainForm[], field: string, expression: Func|string): MainForm[] {
+export function APPLY(forms: MainForm[], field: string, expression: Func | string): MainForm[] {
   forms = cloneMainForms(forms);
-  if (typeof(expression) === 'string') {
+  if (typeof expression === 'string') {
     expression = createFunction(expression);
   }
   for (const form of forms) {
@@ -1416,8 +1497,8 @@ export function EVALUATE(condition: string, branch1: any, branch2: any): any {
 /**
  * Tells if arr includes elem
  */
-export function INCLUDES(arr: (any[])|string, elem: any): boolean {
-  if (!Array.isArray(arr) && typeof(arr) !== 'string') {
+export function INCLUDES(arr: any[] | string, elem: any): boolean {
+  if (!Array.isArray(arr) && typeof arr !== 'string') {
     return false;
   }
   return arr.includes(elem);
@@ -1706,12 +1787,12 @@ export function FILTER_BY_VARS(formList: MainForm[], expression: string): MainFo
 /**
  * Returns a copy of forms and its repetitions, keeping only the ones for which expression evaluates to true.
  */
-export function FILTER_BY(forms: MainForm[], expression: Func|string): MainForm[] {
+export function FILTER_BY(forms: MainForm[], expression: Func | string): MainForm[] {
   forms = forms || [];
   if (expression === 'true') {
     return cloneMainForms(forms);
   }
-  if (typeof(expression) === 'string') {
+  if (typeof expression === 'string') {
     expression = createFunction(expression);
   }
   const res: MainForm[] = [];
@@ -1721,9 +1802,7 @@ export function FILTER_BY(forms: MainForm[], expression: Func|string): MainForm[
     let someReps = false;
     if (form.reps != null) {
       for (const key in form.reps) {
-        filteredReps[key] = form.reps[key].filter(rep =>
-          (expression as Func)({...form, ...rep})
-        );
+        filteredReps[key] = form.reps[key].filter(rep => (expression as Func)({...form, ...rep}));
         form[`ajf_${key}_count`] = filteredReps[key].length;
         someReps ||= filteredReps[key].length > 0;
       }
@@ -1748,7 +1827,7 @@ export function TODAY(): string {
 
 /**
  * Logs val to the console.
- * 
+ *
  * @export
  * @param {*} val
  */
@@ -1765,7 +1844,7 @@ export function CONSOLE_LOG(val: any): any {
  * @param {(string | undefined)} when
  * @return {*}  {number}
  */
-export function GET_AGE(dob: string|null, when?: string): number {
+export function GET_AGE(dob: string | null, when?: string): number {
   if (dob == null) {
     return NaN;
   }
@@ -1773,7 +1852,8 @@ export function GET_AGE(dob: string|null, when?: string): number {
     when = TODAY();
   }
   let yearsDiff = Number(when.slice(0, 4)) - Number(dob.slice(0, 4));
-  if (when.slice(5) < dob.slice(5)) { // birthday not reached yet in current year
+  if (when.slice(5) < dob.slice(5)) {
+    // birthday not reached yet in current year
     yearsDiff--;
   }
   return yearsDiff;
@@ -1981,13 +2061,11 @@ export function JOIN_REPEATING_SLIDES(
  * @param {string} expression
  * @return {*}  {any[]}
  */
-export function FROM_REPS(form: MainForm, expression: Func|string): any[] {
-  if (typeof(expression) === 'string') {
+export function FROM_REPS(form: MainForm, expression: Func | string): any[] {
+  if (typeof expression === 'string') {
     expression = createFunction(expression);
   }
-  return allReps(form || {}).map(rep =>
-    (expression as Func)({...form, ...rep})
-  );
+  return allReps(form || {}).map(rep => (expression as Func)({...form, ...rep}));
 }
 
 /**
@@ -2004,8 +2082,12 @@ export function ISIN(dataset: any[], value: any): boolean {
  * Applies the operator to every pair of elements (arrayA[i], arrayB[i]),
  * returning the array of results.
  */
-export function OP(arrayA: any[], arrayB: any[], operator: ((a: any, b: any) => any)|string): any[] {
-  if (typeof(operator) === 'string') {
+export function OP(
+  arrayA: any[],
+  arrayB: any[],
+  operator: ((a: any, b: any) => any) | string,
+): any[] {
+  if (typeof operator === 'string') {
     const func = createFunction(operator);
     operator = (elemA, elemB) => func({elemA, elemB});
   }
@@ -2028,5 +2110,5 @@ export function OP(arrayA: any[], arrayB: any[], operator: ((a: any, b: any) => 
  */
 export function GET_LABELS(schema: any, values: string[]): string[] {
   const choiceLabels = extractLabelsBySchemaChoices(schema);
-  return values.map(val => choiceLabels[val] != null ? choiceLabels[val] : val);
+  return values.map(val => (choiceLabels[val] != null ? choiceLabels[val] : val));
 }
