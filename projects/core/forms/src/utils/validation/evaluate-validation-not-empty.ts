@@ -20,7 +20,8 @@
  *
  */
 
-import {evaluateExpression} from '@ajf/core/models';
+import {notEmpty} from '@ajf/core/models';
+import {AjfValidation} from '../../interface/validation/validation';
 import {AjfValidationGroup} from '../../interface/validation/validation-group';
 import {AjfValidationResult} from '../../interface/validation/validation-results';
 import {evaluateValidation} from './evaluate-validation';
@@ -33,16 +34,19 @@ export function evaluateValidationNotEmpty(
   validation: AjfValidationGroup,
   value: any,
 ): AjfValidationResult | null {
-  if (validation.notEmpty == null) {
+  let ne = validation.notEmpty as AjfValidation | boolean | string | undefined;
+  if (ne == null || ne === false) {
     return null;
   }
-  const ctx = {'$value': value};
-  if (typeof validation.notEmpty === 'boolean') {
+  if (ne === true) {
+    ne = 'Value must not be empty';
+  }
+  if (typeof ne === 'string') {
     return {
-      result: evaluateExpression(`notEmpty($value) === ${validation.notEmpty}`, ctx),
-      error: 'Value must not be empty',
+      result: notEmpty(value),
+      error: ne,
       clientValidation: false,
     };
   }
-  return evaluateValidation(validation.notEmpty, ctx);
+  return evaluateValidation(ne as AjfValidation, {'$value': value});
 }
