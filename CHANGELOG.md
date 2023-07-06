@@ -1,3 +1,14 @@
+<a name="15.2.4"></a>
+# 15.2.4 "wonderful-butterfly" (2023-07-06)
+### Bug Fixes
+* **core/forms:** change readonly data field format based on language ([60bccbc](https://github.com/gnucoop/ajf/commit/60bccbc18474e31fd795d21855c9270d626ab6db))
+* **material/form-builder:** Fixed various bugs (Could not add new slides, could not save Hints etc.). ([3cf94a8](https://github.com/gnucoop/ajf/commit/3cf94a88d03ba42659155872aef24749c9d78acc))
+### Features
+* **core/forms:** customizable notEmpty message ([eda13f5](https://github.com/gnucoop/ajf/commit/eda13f54548d312579045848a5eeb0180b0071a2))
+* **core/report:** add single indicator widget in xls report ([afdfb11](https://github.com/gnucoop/ajf/commit/afdfb113f9759df30432d92c7f761ae521e56e18))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.2.3"></a>
 # 15.2.3 "psychological-gecko" (2023-06-15)
 ### Bug Fixes
