@@ -34,19 +34,16 @@ export function evaluateValidationNotEmpty(
   validation: AjfValidationGroup,
   value: any,
 ): AjfValidationResult | null {
-  let ne = validation.notEmpty as AjfValidation | boolean | string | undefined;
+  const ne = validation.notEmpty as AjfValidation | boolean | undefined;
   if (ne == null || ne === false) {
     return null;
   }
   if (ne === true) {
-    ne = 'Value must not be empty';
-  }
-  if (typeof ne === 'string') {
     return {
       result: notEmpty(value),
-      error: ne,
+      error: validation.notEmptyMessage || 'Value must not be empty',
       clientValidation: false,
     };
   }
-  return evaluateValidation(ne as AjfValidation, {'$value': value});
+  return evaluateValidation(ne, {'$value': value});
 }
