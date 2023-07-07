@@ -1,3 +1,10 @@
+<a name="15.2.5"></a>
+# 15.2.5 "respective-whale" (2023-07-07)
+### Bug Fixes
+* **core/forms:** notEmptyMessage reimplemented in retro-compatible way ([c3b9f94](https://github.com/gnucoop/ajf/commit/c3b9f94b314e01a73d625fb5ef106e43a738168b))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.2.4"></a>
 # 15.2.4 "wonderful-butterfly" (2023-07-06)
 ### Bug Fixes
