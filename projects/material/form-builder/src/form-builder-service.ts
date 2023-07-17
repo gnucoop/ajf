@@ -71,11 +71,7 @@ import {
 
 export interface AjfFormBuilderNodeTypeEntry {
   label: string;
-  icon: {fontSet: string; fontIcon: string};
-  nodeType: {
-    node: AjfNodeType;
-    field?: AjfFieldType;
-  };
+  node: any;
   isSlide?: boolean;
 }
 
@@ -245,75 +241,77 @@ export class AjfFormBuilderService {
   private _availableNodeTypes: AjfFormBuilderNodeTypeEntry[] = [
     {
       label: 'Slide',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-slide'},
-      nodeType: {node: AjfNodeType.AjfSlide},
+      node: {nodeType: AjfNodeType.AjfSlide},
       isSlide: true,
     },
     {
       label: 'Repeating slide',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-repeatingslide'},
-      nodeType: {node: AjfNodeType.AjfRepeatingSlide},
+      node: {nodeType: AjfNodeType.AjfRepeatingSlide},
       isSlide: true,
     },
     {
       label: 'String',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-string'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.String},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.String},
     },
     {
       label: 'Text',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-text'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Text},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Text},
     },
     {
       label: 'Number',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-number'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Number},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Number},
     },
     {
       label: 'Boolean',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-boolean'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Boolean},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Boolean},
     },
     {
       label: 'Single choice',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-singlechoice'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.SingleChoice},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.SingleChoice},
     },
     {
       label: 'Multiple choice',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-multiplechoice'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.MultipleChoice},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.MultipleChoice},
     },
     {
       label: 'Formula',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-formula'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Formula},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Formula},
     },
     {
       label: 'Date',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-date'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Date},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Date},
     },
     {
       label: 'Date input',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-dateinput'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateInput},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.DateInput},
     },
     {
       label: 'Time',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-time'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Time},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Time},
     },
     {
       label: 'Table',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-table'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Table},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Table},
+    },
+    {
+      label: 'Geolocation',
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Geolocation},
+    },
+    {
+      label: 'Barcode',
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Barcode},
+    },
+    {
+      label: 'File',
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.File},
+    },
+    {
+      label: 'Image',
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Image},
     },
     {
       label: 'Range',
-      icon: {fontSet: 'ajf-icon', fontIcon: 'field-range'},
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Range},
+      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Range},
     },
   ];
   /**
@@ -505,12 +503,12 @@ export class AjfFormBuilderService {
   ): void {
     let node: AjfNode | AjfField;
     const id = ++nodeUniqueId;
-    const isFieldNode = nodeType.nodeType?.field != null;
+    const isFieldNode = nodeType.node.fieldType != null;
     if (isFieldNode) {
       node = createField({
         id,
         nodeType: AjfNodeType.AjfField,
-        fieldType: nodeType.nodeType.field!,
+        fieldType: nodeType.node.fieldType!,
         parent: parent.id,
         parentNode,
         name: '',
@@ -518,7 +516,7 @@ export class AjfFormBuilderService {
     } else {
       node = createContainerNode({
         id,
-        nodeType: nodeType.nodeType.node,
+        nodeType: nodeType.node.nodeType,
         parent: 0,
         parentNode,
         name: '',
