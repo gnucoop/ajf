@@ -96,14 +96,15 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     }
   }
 
-  private _fixedOrientation = false;
+  private _fixedOrientation = true;
   get fixedOrientation(): boolean {
     return this._fixedOrientation;
   }
   @Input()
-  set fixedOrientation(fixedOrientation: boolean) {
-    this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
-    this._cdr.markForCheck();
+  set fixedOrientation(_: boolean) {
+    // Keep true to disable the change orientation button
+    // this._fixedOrientation = coerceBooleanProperty(fixedOrientation);
+    // this._cdr.markForCheck();
   }
 
   private _currentPage = -1;
