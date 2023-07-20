@@ -47,6 +47,9 @@ export class AjfFbNodeTypeEntry {
     this._nodeType = nodeType;
     this._cdr.markForCheck();
   }
+  get node(): any {
+    return {nodeType: this.nodeType?.nodeType.node, fieldType: this.nodeType?.nodeType.field};
+  }
 
   constructor(private _cdr: ChangeDetectorRef) {}
 }
