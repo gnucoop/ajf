@@ -71,7 +71,7 @@ import {
 
 export interface AjfFormBuilderNodeTypeEntry {
   label: string;
-  node: any;
+  nodeType: {node: AjfNodeType, field?: AjfFieldType};
   isSlide?: boolean;
 }
 
@@ -241,77 +241,77 @@ export class AjfFormBuilderService {
   private _availableNodeTypes: AjfFormBuilderNodeTypeEntry[] = [
     {
       label: 'Slide',
-      node: {nodeType: AjfNodeType.AjfSlide},
+      nodeType: {node: AjfNodeType.AjfSlide},
       isSlide: true,
     },
     {
       label: 'Repeating slide',
-      node: {nodeType: AjfNodeType.AjfRepeatingSlide},
+      nodeType: {node: AjfNodeType.AjfRepeatingSlide},
       isSlide: true,
     },
     {
       label: 'String',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.String},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.String},
     },
     {
       label: 'Text',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Text},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Text},
     },
     {
       label: 'Number',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Number},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Number},
     },
     {
       label: 'Boolean',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Boolean},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Boolean},
     },
     {
       label: 'Single choice',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.SingleChoice},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.SingleChoice},
     },
     {
       label: 'Multiple choice',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.MultipleChoice},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.MultipleChoice},
     },
     {
       label: 'Formula',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Formula},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Formula},
     },
     {
       label: 'Date',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Date},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Date},
     },
     {
       label: 'Date input',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.DateInput},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateInput},
     },
     {
       label: 'Time',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Time},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Time},
     },
     {
       label: 'Table',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Table},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Table},
     },
     {
       label: 'Geolocation',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Geolocation},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Geolocation},
     },
     {
       label: 'Barcode',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Barcode},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Barcode},
     },
     {
       label: 'File',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.File},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.File},
     },
     {
       label: 'Image',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Image},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Image},
     },
     {
       label: 'Range',
-      node: {nodeType: AjfNodeType.AjfField, fieldType: AjfFieldType.Range},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Range},
     },
   ];
   /**
@@ -503,12 +503,12 @@ export class AjfFormBuilderService {
   ): void {
     let node: AjfNode | AjfField;
     const id = ++nodeUniqueId;
-    const isFieldNode = nodeType.node.fieldType != null;
+    const isFieldNode = nodeType.nodeType?.field != null;
     if (isFieldNode) {
       node = createField({
         id,
         nodeType: AjfNodeType.AjfField,
-        fieldType: nodeType.node.fieldType!,
+        fieldType: nodeType.nodeType.field!,
         parent: parent.id,
         parentNode,
         name: '',
@@ -516,7 +516,7 @@ export class AjfFormBuilderService {
     } else {
       node = createContainerNode({
         id,
-        nodeType: nodeType.node.nodeType,
+        nodeType: nodeType.nodeType.node,
         parent: 0,
         parentNode,
         name: '',
