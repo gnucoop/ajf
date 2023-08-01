@@ -1,3 +1,14 @@
+<a name="15.2.6"></a>
+# 15.2.6 "parental-pike" (2023-08-01)
+### Bug Fixes
+* **core/forms:** remove orientation changer in page slider ([1251ab6](https://github.com/gnucoop/ajf/commit/1251ab6ad79d6c5089d50cf3507ac4c4932745ce))
+* **material/forms:** fix bug with form builder icons ([6e3f24b](https://github.com/gnucoop/ajf/commit/6e3f24b8bb62ec64c762945c37e447e93978be2f))
+* **material/forms:** fix page slider wheel event ([2ff6e00](https://github.com/gnucoop/ajf/commit/2ff6e00e389cb565b664a67c92a75dd52d3a608b))
+### Features
+* **material/forms:** replace ajf-icons with material icons ([105ad5d](https://github.com/gnucoop/ajf/commit/105ad5d3905742909bfc2a58b4889b9bbc7b7aa0))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.2.5"></a>
 # 15.2.5 "respective-whale" (2023-07-07)
 ### Bug Fixes
