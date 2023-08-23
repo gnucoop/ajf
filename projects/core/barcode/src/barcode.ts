@@ -37,7 +37,9 @@ import {catchError, map, take, tap} from 'rxjs/operators';
 @Directive()
 export abstract class AjfBarcode implements ControlValueAccessor {
   resetEvt: EventEmitter<void> = new EventEmitter<void>();
-  @ViewChild('barcodeVideo', {read: ElementRef}) barcodeVideo!: ElementRef<HTMLVideoElement>;
+  @ViewChild('barcodeVideo', {read: ElementRef}) barcodeVideo:
+    | ElementRef<HTMLVideoElement>
+    | undefined;
   @ViewChild('barcodeVideoPreview', {read: ElementRef})
   barcodeVideoPreview!: ElementRef<HTMLDivElement>;
   @ViewChild('barcodeImagePreview', {read: ElementRef})
@@ -124,10 +126,12 @@ export abstract class AjfBarcode implements ControlValueAccessor {
 
   reset(): void {
     this.value = '';
-    const video = this.barcodeVideo.nativeElement;
+    const video = this.barcodeVideo?.nativeElement ?? null;
     this.resetEvt.emit();
     this.initVideoStreams();
-    video.play();
+    if (video) {
+      video.play();
+    }
     this._onTouchedCallback();
   }
 
@@ -283,11 +287,16 @@ export abstract class AjfBarcode implements ControlValueAccessor {
    */
   private _gotStream(stream: MediaStream | null) {
     this._currentVideoStream = stream;
-    this.barcodeVideo.nativeElement.srcObject = stream;
+    if (this.barcodeVideo) {
+      this.barcodeVideo.nativeElement.srcObject = stream;
+    }
     this._cdr.markForCheck();
   }
 
   stopCurrentStream(): void {
+    if (this.barcodeVideo == undefined) {
+      return;
+    }
     const video = this.barcodeVideo.nativeElement;
     const stream: MediaStream | null = video.srcObject as MediaStream | null;
     if (stream == null) return;
