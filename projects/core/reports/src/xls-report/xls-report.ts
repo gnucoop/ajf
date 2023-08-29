@@ -338,10 +338,11 @@ function getTrendWidget(
   }
   return createWidget({
     widgetType: AjfWidgetType.Text,
-    htmlText: `<i class=\"material-icons\" style=\"vertical-align: bottom\">${icon}</i>${percValue}`,
+    htmlText: `<i class=\"material-icons\" style=\"vertical-align: bottom; color: ${color}\">${icon}</i><span style=\"color: ${color}\">${percValue}</span>`,
     styles: {
       ...htmlWidget,
       color: color,
+      fontSize: '16px',
       justifyContent: 'center',
     },
     visibility: {
@@ -381,6 +382,7 @@ function _buildSingleIndicator(json: {[key: string]: string}[]): AjfWidget[] {
         marginBottom,
         fontSize: '90px',
         fontWeight: 'bold',
+        lineHeight: '1',
         justifyContent: 'center',
       },
     }),
