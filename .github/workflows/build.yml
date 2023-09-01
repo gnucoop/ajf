@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
-      - main # Cambia questo in base al tuo branch predefinito
+      - master # Cambia questo in base al tuo branch predefinito
 
 jobs:
   build:
