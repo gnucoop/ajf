@@ -1,0 +1,55 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main # Cambia questo in base al tuo branch predefinito
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install Dependencies
+        run: |
+          rm -rf dist
+          yarn install --frozen-lockfile --non-interactive
+          export PATH=$HOME/.yarn/bin:$PATH
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Build
+        run: ./scripts/build.mjs
+
+      - name: Unit tests
+        run: yarn test:ci
+
+      - name: E2E tests
+        run: ./scripts/e2e-ci.mjs
+
+      - name: Build release
+        run: |
+          ./scripts/release.mjs
+          ./scripts/jenkins/create-build-artifacts.mjs
+          mkdir -p dist/artifacts
+          mv dist/*.tgz dist/artifacts/
+        artifacts:
+          name: build-artifacts
+          path: dist/artifacts/*.tgz
+
+            #      - name: Publish snapshots
+            #if: github.ref == 'refs/heads/main' # Cambia questo in base al tuo branch predefinito
+            #run: ./scripts/jenkins/publish-snapshots.sh
+
+            #- name: Publish
+            #run: ./scripts/publish.mjs
+
