@@ -40,12 +40,15 @@ jobs:
         run: |
           ./scripts/release.mjs
           ./scripts/jenkins/create-build-artifacts.mjs
-          mkdir -p dist/artifacts
+          mkdir -p build-artifacts
           mv dist/*.tgz dist/artifacts/
-        artifacts:
+          zip -r build-artifacts.zip build-artifacts
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
           name: build-artifacts
-          path: dist/artifacts/*.tgz
-
+          path: build-artifacts.zip
+        
             #      - name: Publish snapshots
             #if: github.ref == 'refs/heads/main' # Cambia questo in base al tuo branch predefinito
             #run: ./scripts/jenkins/publish-snapshots.sh
