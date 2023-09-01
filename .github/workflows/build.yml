@@ -41,7 +41,9 @@ jobs:
           ./scripts/release.mjs
           ./scripts/jenkins/create-build-artifacts.mjs
           mkdir -p build-artifacts
-          mv dist/*.tgz dist/artifacts/
+          mv dist/artifacts/material/*.tgz build-artifacts/
+          mv dist/artifacts/core/*.tgz build-artifacts/
+          mv dist/artifacts/calandars/*.tgz build-artifacts/
           zip -r build-artifacts.zip build-artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
