@@ -43,7 +43,7 @@ jobs:
           mkdir -p build-artifacts
           mv dist/artifacts/material/*.tgz build-artifacts/
           mv dist/artifacts/core/*.tgz build-artifacts/
-          mv dist/artifacts/calandars/*.tgz build-artifacts/
+          mv dist/artifacts/calendars/*.tgz build-artifacts/
           zip -r build-artifacts.zip build-artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
