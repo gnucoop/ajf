@@ -54,7 +54,8 @@ jobs:
             #run: ./scripts/jenkins/publish-snapshots.sh
 
       - name: Publish
-        env: 
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: ./scripts/publish.mjs
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
 
