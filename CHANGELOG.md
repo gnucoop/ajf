@@ -1,3 +1,11 @@
+<a name="15.3.0"></a>
+# 15.3.0 "willing-hyena" (2023-09-04)
+### Bug Fixes
+* **core/barcode:** Fixed a bug caused by a missing undefined check on the barcode video element when resetting or stopping streams. ([111c647](https://github.com/gnucoop/ajf/commit/111c6476916c3ba420fe8e9756dd71d9186fe26c))
+* **core/reports:** Add css for single indicator widget ([886ce13](https://github.com/gnucoop/ajf/commit/886ce13b9c83546669959f0a1d5aabad23259d7f))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.2.6"></a>
 # 15.2.6 "parental-pike" (2023-08-01)
 ### Bug Fixes
