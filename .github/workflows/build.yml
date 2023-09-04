@@ -42,6 +42,7 @@ jobs:
           ./scripts/jenkins/create-build-artifacts.mjs
           mkdir -p build-artifacts
           mv dist/artifacts/**/*.tgz build-artifacts/
+          zip -r build-artifacts.zip build-artifacts
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -53,5 +54,7 @@ jobs:
             #run: ./scripts/jenkins/publish-snapshots.sh
 
       - name: Publish
+        env: 
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: ./scripts/publish.mjs
 
