@@ -52,6 +52,6 @@ jobs:
             #if: github.ref == 'refs/heads/main' # Cambia questo in base al tuo branch predefinito
             #run: ./scripts/jenkins/publish-snapshots.sh
 
-            #- name: Publish
-            #run: ./scripts/publish.mjs
+      - name: Publish
+        run: ./scripts/publish.mjs
 
