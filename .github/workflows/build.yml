@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -52,11 +53,7 @@ jobs:
             #if: github.ref == 'refs/heads/main' # Cambia questo in base al tuo branch predefinito
             #run: ./scripts/jenkins/publish-snapshots.sh
 
-      - name: Get Latest Tag
-        id: vars
-        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
       - name: Publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          LATEST_TAG: ${{ steps.vars.outputs.tag }}
         run: ./scripts/publish.mjs
