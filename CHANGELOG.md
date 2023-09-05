@@ -1,3 +1,8 @@
+<a name="15.3.1"></a>
+# 15.3.1 "mathematical-shrew" (2023-09-05)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.0"></a>
 # 15.3.0 "willing-hyena" (2023-09-04)
 ### Bug Fixes
