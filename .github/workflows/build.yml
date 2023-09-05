@@ -53,10 +53,12 @@ jobs:
             #if: github.ref == 'refs/heads/main' # Cambia questo in base al tuo branch predefinito
             #run: ./scripts/jenkins/publish-snapshots.sh
 
+      - name: Get Latest Tag
+        id: vars
+        uses: actions/checkout@v2
+        run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
       - name: Publish
-        run: |
-          ./scripts/publish.mjs
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          
-
+          LATEST_TAG: ${{ steps.vars.outputs.tag }}
+        run: ./scripts/publish.mjs

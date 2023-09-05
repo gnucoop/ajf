@@ -14,7 +14,7 @@ const publish = async () => {
     shell.exit(1);
   }
   const nmpRc = `//registry.npmjs.org/:_authToken=${npmToken}`;
-  const curTag = shell.exec(`git describe --abbrev=0 --tags --exact-match 2> /dev/null`, {silent: true}).stdout;
+  const curTag = process.env.LATEST_TAG;
   if (curTag == null || curTag.length === 0) {
     shell.echo('No version tag defined');
     shell.exit(0);
