@@ -1,3 +1,8 @@
+<a name="15.3.2"></a>
+# 15.3.2 "brave-elephant" (2023-09-05)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.1"></a>
 # 15.3.1 "mathematical-shrew" (2023-09-05)
 
