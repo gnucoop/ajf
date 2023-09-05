@@ -55,7 +55,6 @@ jobs:
 
       - name: Get Latest Tag
         id: vars
-        uses: actions/checkout@v2
         run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
       - name: Publish
         env:
