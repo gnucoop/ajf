@@ -1,1 +1,7 @@
-<span *ngIf="date|async as dateVal">{{dateVal}}</span>
+<ng-container *ngIf="control|async as ctrl">
+
+  <span *ngIf="date|async as dateVal; else dateCtrl">{{dateVal}}</span>
+  <ng-template #dateCtrl>
+    {{formatDateField(ctrl.value)}}
+  </ng-template>
+</ng-container>
