@@ -65,26 +65,28 @@ export class AjfReadOnlyDateFieldComponent extends CoreComponent {
       filter(control => control != null),
       map(ctrl => {
         if (ctrl) {
-          const val = ctrl.value;
-          if (val == null) {
-            return '';
-          }
-
-          let dt = null;
-          if (typeof val === 'string') {
-            dt = parse(val, 'yyyy-MM-dd', new Date());
-          } else {
-            dt = toDate(val);
-          }
-          if (!isNaN(dt.valueOf())) {
-            const datePipe = new DatePipe(this._getCurrentLocale());
-            return datePipe.transform(dt, 'shortDate') as string;
-          }
-          return '';
+          this.formatDateField(ctrl.value);
         }
         return '';
       }),
     );
+  }
+
+  formatDateField(val: any): string {
+    if (val == null) {
+      return '';
+    }
+    let dt = null;
+    if (typeof val === 'string') {
+      dt = parse(val, 'yyyy-MM-dd', new Date());
+    } else {
+      dt = toDate(val);
+    }
+    if (!isNaN(dt.valueOf())) {
+      const datePipe = new DatePipe(this._getCurrentLocale());
+      return datePipe.transform(dt, 'shortDate') as string;
+    }
+    return '';
   }
 
   private _getCurrentLocale(): string {
