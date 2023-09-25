@@ -5,6 +5,10 @@
     </ng-template>
   </div>
   <div *ngIf="instance.content" @.disabled [applyStyles]="instance.content.styles" class="ajf-report-content">
+    <ajf-widget-export *ngIf="enableExportAll"
+      [overlay]="false"
+      [widgets]="instance.content.content"
+      [enable]="true"></ajf-widget-export>
     <ng-template ngFor let-instance [ngForOf]="instance.content.content">
       <ajf-widget *ngIf="instance.visible" [instance]="instance"></ajf-widget>
     </ng-template>

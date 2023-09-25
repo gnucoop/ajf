@@ -20,13 +20,14 @@
  *
  */
 
-import {ChangeDetectorRef, Directive, Input} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Directive, Input} from '@angular/core';
 
 import {AjfReportInstance} from './interface/reports-instances/report-instance';
 import {AjfReport} from './interface/reports/report';
+import {exportableWidgetTypes} from './widget-export';
 
 @Directive()
-export abstract class AjfReportRenderer {
+export abstract class AjfReportRenderer implements AfterViewInit {
   private _instance: AjfReportInstance | undefined;
   get instance(): AjfReportInstance | undefined {
     return this._instance;
@@ -38,10 +39,29 @@ export abstract class AjfReportRenderer {
     this._cdr.markForCheck();
   }
 
+  @Input() enableExportAll: boolean = false;
+
   private _report: AjfReport | null = null;
   get report(): AjfReport | null {
     return this._report;
   }
 
+  private _enableExport: boolean = true;
+  get enableExport(): boolean {
+    return this._enableExport;
+  }
+
   constructor(private _cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit(): void {
+    this._enableExport =
+      this.enableExportAll &&
+      this._instance != null &&
+      this._instance.content &&
+      this._instance.content.content &&
+      this._instance.content.content.some(inst => exportableWidgetTypes.includes(inst.widgetType))
+        ? true
+        : false;
+    this._cdr.markForCheck();
+  }
 }

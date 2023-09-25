@@ -25,8 +25,181 @@ import {ChangeDetectionStrategy, Component, Input, ViewEncapsulation} from '@ang
 import {ChartData} from 'chart.js';
 import {format} from 'date-fns';
 import {utils, WorkBook, WorkSheet, writeFile} from 'xlsx';
+import {AjfReportInstance} from './interface/reports-instances/report-instance';
+import {AjfChartWidgetInstance} from './interface/widgets-instances/chart-widget-instance';
+import {AjfTableWidgetInstance} from './interface/widgets-instances/table-widget-instance';
+import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 
 import {AjfWidgetType} from './interface/widgets/widget-type';
+
+export const exportableWidgetTypes = [
+  AjfWidgetType.Chart,
+  AjfWidgetType.Table,
+  AjfWidgetType.DynamicTable,
+  AjfWidgetType.PaginatedTable,
+];
+
+/**
+ * Export all widgets data in Xlsx format, one per sheet
+ * @param report the ajf report instance
+ * @param iconsMap
+ */
+export function exportReportXlsx(
+  report: AjfReportInstance,
+  iconsMap: {[html: string]: string} | undefined,
+) {
+  iconsMap = iconsMap ? iconsMap : {};
+  const widgetInstances = report && report.content ? report.content.content : undefined;
+  exportAllWidgets(widgetInstances, iconsMap);
+}
+
+/**
+ * Build xlsx data for export
+ * @param widgetType
+ * @param data
+ * @param iconsMap
+ */
+function buildXlsxData(
+  widgetType: AjfWidgetType | undefined,
+  data: ChartData | AjfTableCell[][] | undefined,
+  iconsMap: {[html: string]: string},
+): unknown[][] {
+  let xlsxData: unknown[][] = [];
+  let labels: string[] = [];
+  switch (widgetType) {
+    default:
+    case AjfWidgetType.Chart:
+      data = data as ChartData;
+      const datasets = data.datasets || [];
+      labels = ['name'].concat(data.labels as string[]);
+      xlsxData.push(labels);
+      for (let i = 0; i < datasets.length; i++) {
+        const row: unknown[] = [];
+        const data = datasets[i].data || [];
+        row.push(datasets[i].label);
+        for (let j = 0; j < data.length; j++) {
+          row.push(data[j]);
+        }
+        xlsxData.push(row);
+      }
+      break;
+    case AjfWidgetType.DynamicTable:
+    case AjfWidgetType.Table:
+    case AjfWidgetType.PaginatedTable:
+      const tableData = data as AjfTableCell[][];
+      if (tableData.length > 1) {
+        xlsxData = [];
+        const nextRows: unknown[][] = [];
+        let nextRow: unknown[] = [];
+        let totRowSpan = 0;
+        let nextRowspanNum = 0;
+
+        for (let i = 0; i < tableData.length; i++) {
+          let isNewRowAfterRowspan = false;
+          let res: unknown[] = [];
+
+          nextRow = [];
+          if (totRowSpan > 0) {
+            res = [...nextRows[nextRowspanNum - 1]];
+            isNewRowAfterRowspan = true;
+          }
+          tableData[i].forEach((elem: AjfTableCell, idxElem: number) => {
+            let val = elem.value.changingThisBreaksApplicationSecurity;
+            if (val === undefined) {
+              val = elem.value;
+            }
+            if (val != null && iconsMap[val]) {
+              val = iconsMap[val];
+            }
+            res.push(val);
+
+            if (elem.colspan && elem.colspan > 1) {
+              for (let j = 1; j < elem.colspan; j++) {
+                res.push(' ');
+              }
+            }
+            if (isNewRowAfterRowspan) {
+              if (elem.rowspan && elem.rowspan > 1) {
+                for (let idx = 1; idx < elem.rowspan; idx++) {
+                  nextRow.push(' ');
+                  nextRows[nextRowspanNum] = nextRows[nextRowspanNum].concat(nextRow);
+                }
+              }
+              if (idxElem === tableData[i].length - 1 && nextRowspanNum > 0) {
+                nextRowspanNum++;
+                if (nextRowspanNum === totRowSpan) {
+                  totRowSpan = 0;
+                  nextRowspanNum = 0;
+                }
+              }
+            } else {
+              if (elem.rowspan && elem.rowspan > 1) {
+                totRowSpan = elem.rowspan;
+                nextRowspanNum = 1;
+                for (let idx = 1; idx < elem.rowspan; idx++) {
+                  nextRow.push(' ');
+                  nextRows[idx - 1] = nextRow;
+                }
+              }
+            }
+          });
+          xlsxData.push(res);
+        }
+      }
+      break;
+  }
+
+  return xlsxData;
+}
+
+/**
+ * Export all widgets data in Xlsx format, one per sheet
+ */
+function exportAllWidgets(
+  widgets: AjfWidgetInstance[] | undefined,
+  iconsMap: {[html: string]: string},
+): void {
+  const bookType = 'xlsx';
+  if (
+    widgets &&
+    widgets.length &&
+    widgets.some(inst => exportableWidgetTypes.includes(inst.widgetType))
+  ) {
+    const sheets: {[sheet: string]: WorkSheet} = {};
+    const sheetNames: string[] = [];
+
+    let idx = 0;
+    let fileName = `AllWidgets_${format(new Date(), `yyyy-MM-dd`)}`;
+    widgets.forEach(instance => {
+      if (exportableWidgetTypes.includes(instance.widgetType)) {
+        sheetNames[idx] = `${idx}_${AjfWidgetType[instance.widgetType]}`;
+        switch (instance.widgetType) {
+          case AjfWidgetType.Chart:
+            const chartInstance = instance as AjfChartWidgetInstance;
+            sheets[sheetNames[idx]] = utils.aoa_to_sheet(
+              buildXlsxData(chartInstance.widgetType, chartInstance.data, iconsMap),
+            );
+            break;
+          case AjfWidgetType.DynamicTable:
+          case AjfWidgetType.Table:
+          case AjfWidgetType.PaginatedTable:
+            const tableInstance = instance as AjfTableWidgetInstance;
+            sheets[sheetNames[idx]] = utils.aoa_to_sheet(
+              buildXlsxData(tableInstance.widgetType, tableInstance.data, iconsMap),
+            );
+            break;
+        }
+        idx++;
+      }
+    });
+
+    const workBook: WorkBook = {Sheets: sheets, SheetNames: sheetNames};
+    writeFile(workBook, `${fileName}.${bookType}`, {
+      bookType,
+      type: 'array',
+    });
+  }
+}
 
 @Component({
   selector: 'ajf-widget-export',
@@ -38,6 +211,7 @@ import {AjfWidgetType} from './interface/widgets/widget-type';
 export class AjfWidgetExport {
   @Input() widgetType: AjfWidgetType | undefined;
   @Input() data: ChartData | AjfTableCell[][] | undefined;
+  @Input() widgets: AjfWidgetInstance[] | undefined;
   @Input() overlay = true;
   @Input() enable = false;
 
@@ -73,6 +247,13 @@ export class AjfWidgetExport {
   }
 
   /**
+   * Export all widgets data in Xlsx format, one per sheet
+   */
+  exportAll(): void {
+    exportAllWidgets(this.widgets, AjfWidgetExport._iconsMap);
+  }
+
+  /**
    * Export widget data in CSV or Xlsx format
    */
   export(bookType: 'csv' | 'xlsx'): void {
@@ -81,102 +262,14 @@ export class AjfWidgetExport {
     }
     const sheetName = this._buildTitle(this.widgetType);
     const sheets: {[sheet: string]: WorkSheet} = {};
-    sheets[sheetName] = utils.aoa_to_sheet(this._buildXlsxData());
+    sheets[sheetName] = utils.aoa_to_sheet(
+      buildXlsxData(this.widgetType, this.data, AjfWidgetExport._iconsMap),
+    );
     const workBook: WorkBook = {Sheets: sheets, SheetNames: [sheetName]};
     writeFile(workBook, `${sheetName}.${bookType}`, {
       bookType,
       type: 'array',
     });
-  }
-
-  private _buildXlsxData(): unknown[][] {
-    const iconsMap = AjfWidgetExport._iconsMap;
-    let xlsxData: unknown[][] = [];
-    let labels: string[] = [];
-    switch (this.widgetType) {
-      default:
-      case AjfWidgetType.Chart:
-        this.data = this.data as ChartData;
-        const datasets = this.data.datasets || [];
-        labels = ['name'].concat(this.data.labels as string[]);
-        xlsxData.push(labels);
-        for (let i = 0; i < datasets.length; i++) {
-          const row: unknown[] = [];
-          const data = datasets[i].data || [];
-          row.push(datasets[i].label);
-          for (let j = 0; j < data.length; j++) {
-            row.push(data[j]);
-          }
-          xlsxData.push(row);
-        }
-        break;
-      case AjfWidgetType.DynamicTable:
-      case AjfWidgetType.Table:
-      case AjfWidgetType.PaginatedTable:
-        const tableData = this.data as AjfTableCell[][];
-        if (tableData.length > 1) {
-          xlsxData = [];
-          const nextRows: unknown[][] = [];
-          let nextRow: unknown[] = [];
-          let totRowSpan = 0;
-          let nextRowspanNum = 0;
-
-          for (let i = 0; i < tableData.length; i++) {
-            let isNewRowAfterRowspan = false;
-            let res: unknown[] = [];
-
-            nextRow = [];
-            if (totRowSpan > 0) {
-              res = [...nextRows[nextRowspanNum - 1]];
-              isNewRowAfterRowspan = true;
-            }
-            tableData[i].forEach((elem: AjfTableCell, idxElem: number) => {
-              let val = elem.value.changingThisBreaksApplicationSecurity;
-              if (val === undefined) {
-                val = elem.value;
-              }
-              if (val != null && iconsMap[val]) {
-                val = iconsMap[val];
-              }
-              res.push(val);
-
-              if (elem.colspan && elem.colspan > 1) {
-                for (let j = 1; j < elem.colspan; j++) {
-                  res.push(' ');
-                }
-              }
-              if (isNewRowAfterRowspan) {
-                if (elem.rowspan && elem.rowspan > 1) {
-                  for (let idx = 1; idx < elem.rowspan; idx++) {
-                    nextRow.push(' ');
-                    nextRows[nextRowspanNum] = nextRows[nextRowspanNum].concat(nextRow);
-                  }
-                }
-                if (idxElem === tableData[i].length - 1 && nextRowspanNum > 0) {
-                  nextRowspanNum++;
-                  if (nextRowspanNum === totRowSpan) {
-                    totRowSpan = 0;
-                    nextRowspanNum = 0;
-                  }
-                }
-              } else {
-                if (elem.rowspan && elem.rowspan > 1) {
-                  totRowSpan = elem.rowspan;
-                  nextRowspanNum = 1;
-                  for (let idx = 1; idx < elem.rowspan; idx++) {
-                    nextRow.push(' ');
-                    nextRows[idx - 1] = nextRow;
-                  }
-                }
-              }
-            });
-            xlsxData.push(res);
-          }
-        }
-        break;
-    }
-
-    return xlsxData;
   }
 
   private _buildTitle(widgetType: AjfWidgetType): string {
