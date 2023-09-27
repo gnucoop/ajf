@@ -24,7 +24,6 @@ import {AfterViewInit, ChangeDetectorRef, Directive, Input} from '@angular/core'
 
 import {AjfReportInstance} from './interface/reports-instances/report-instance';
 import {AjfReport} from './interface/reports/report';
-import {exportableWidgetTypes} from './widget-export';
 
 @Directive()
 export abstract class AjfReportRenderer implements AfterViewInit {
@@ -58,8 +57,7 @@ export abstract class AjfReportRenderer implements AfterViewInit {
       this.enableExportAll &&
       this._instance != null &&
       this._instance.content &&
-      this._instance.content.content &&
-      this._instance.content.content.some(inst => exportableWidgetTypes.includes(inst.widgetType))
+      this._instance.content.content
         ? true
         : false;
     this._cdr.markForCheck();
