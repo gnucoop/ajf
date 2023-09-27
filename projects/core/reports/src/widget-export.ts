@@ -27,17 +27,13 @@ import {format} from 'date-fns';
 import {utils, WorkBook, WorkSheet, writeFile} from 'xlsx';
 import {AjfReportInstance} from './interface/reports-instances/report-instance';
 import {AjfChartWidgetInstance} from './interface/widgets-instances/chart-widget-instance';
+import {AjfColumnWidgetInstance} from './interface/widgets-instances/column-widget-instance';
+import {AjfLayoutWidgetInstance} from './interface/widgets-instances/layout-widget-instance';
 import {AjfTableWidgetInstance} from './interface/widgets-instances/table-widget-instance';
+import {AjfTextWidgetInstance} from './interface/widgets-instances/text-widget-instance';
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 
 import {AjfWidgetType} from './interface/widgets/widget-type';
-
-export const exportableWidgetTypes = [
-  AjfWidgetType.Chart,
-  AjfWidgetType.Table,
-  AjfWidgetType.DynamicTable,
-  AjfWidgetType.PaginatedTable,
-];
 
 /**
  * Export all widgets data in Xlsx format, one per sheet
@@ -47,10 +43,10 @@ export const exportableWidgetTypes = [
 export function exportReportXlsx(
   report: AjfReportInstance,
   iconsMap: {[html: string]: string} | undefined,
-) {
+): boolean {
   iconsMap = iconsMap ? iconsMap : {};
   const widgetInstances = report && report.content ? report.content.content : undefined;
-  exportAllWidgets(widgetInstances, iconsMap);
+  return exportAllWidgets(widgetInstances, iconsMap);
 }
 
 /**
@@ -152,53 +148,67 @@ function buildXlsxData(
   return xlsxData;
 }
 
+function addExportableWidgetsToSheets(
+  widget: AjfWidgetInstance,
+  iconsMap: {[html: string]: string},
+  sheets: {[sheet: string]: WorkSheet},
+): void {
+  const idx = Object.keys(sheets).length;
+  const sheetName = `${idx}_${AjfWidgetType[widget.widgetType]}`;
+  switch (widget.widget.widgetType) {
+    case AjfWidgetType.Layout:
+      const lw = widget as AjfLayoutWidgetInstance;
+      lw.content.map(w => addExportableWidgetsToSheets(w, iconsMap, sheets));
+      break;
+    case AjfWidgetType.Column:
+      const cw = widget as AjfColumnWidgetInstance;
+      cw.content.map(w => addExportableWidgetsToSheets(w, iconsMap, sheets));
+      break;
+    case AjfWidgetType.Chart:
+      const chartInstance = widget as AjfChartWidgetInstance;
+      sheets[sheetName] = utils.aoa_to_sheet(
+        buildXlsxData(chartInstance.widgetType, chartInstance.data, iconsMap),
+      );
+      break;
+    case AjfWidgetType.Text:
+      const tw = widget as AjfTextWidgetInstance;
+      sheets[sheetName] = utils.aoa_to_sheet([[tw.htmlText]]);
+      break;
+    case AjfWidgetType.Table:
+    case AjfWidgetType.DynamicTable:
+    case AjfWidgetType.PaginatedTable:
+      const tableInstance = widget as AjfTableWidgetInstance;
+      sheets[sheetName] = utils.aoa_to_sheet(
+        buildXlsxData(tableInstance.widgetType, tableInstance.data, iconsMap),
+      );
+      break;
+  }
+}
+
 /**
- * Export all widgets data in Xlsx format, one per sheet
+ * Export all exportable widgets in Xlsx format, one per sheet
  */
 function exportAllWidgets(
   widgets: AjfWidgetInstance[] | undefined,
   iconsMap: {[html: string]: string},
-): void {
+): boolean {
   const bookType = 'xlsx';
-  if (
-    widgets &&
-    widgets.length &&
-    widgets.some(inst => exportableWidgetTypes.includes(inst.widgetType))
-  ) {
-    const sheets: {[sheet: string]: WorkSheet} = {};
-    const sheetNames: string[] = [];
-
-    let idx = 0;
-    let fileName = `AllWidgets_${format(new Date(), `yyyy-MM-dd`)}`;
+  const sheets: {[sheet: string]: WorkSheet} = {};
+  let fileName = `AllWidgets_${format(new Date(), `yyyy-MM-dd`)}`;
+  if (widgets && widgets.length) {
     widgets.forEach(instance => {
-      if (exportableWidgetTypes.includes(instance.widgetType)) {
-        sheetNames[idx] = `${idx}_${AjfWidgetType[instance.widgetType]}`;
-        switch (instance.widgetType) {
-          case AjfWidgetType.Chart:
-            const chartInstance = instance as AjfChartWidgetInstance;
-            sheets[sheetNames[idx]] = utils.aoa_to_sheet(
-              buildXlsxData(chartInstance.widgetType, chartInstance.data, iconsMap),
-            );
-            break;
-          case AjfWidgetType.DynamicTable:
-          case AjfWidgetType.Table:
-          case AjfWidgetType.PaginatedTable:
-            const tableInstance = instance as AjfTableWidgetInstance;
-            sheets[sheetNames[idx]] = utils.aoa_to_sheet(
-              buildXlsxData(tableInstance.widgetType, tableInstance.data, iconsMap),
-            );
-            break;
-        }
-        idx++;
-      }
+      addExportableWidgetsToSheets(instance, iconsMap, sheets);
     });
-
-    const workBook: WorkBook = {Sheets: sheets, SheetNames: sheetNames};
+  }
+  if (Object.keys(sheets).length) {
+    const workBook: WorkBook = {Sheets: sheets, SheetNames: Object.keys(sheets)};
     writeFile(workBook, `${fileName}.${bookType}`, {
       bookType,
       type: 'array',
     });
+    return true;
   }
+  return false;
 }
 
 @Component({
