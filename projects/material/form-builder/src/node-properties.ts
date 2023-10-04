@@ -53,7 +53,7 @@ import {
 } from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Observable, Subscription} from 'rxjs';
-import {distinctUntilChanged, filter, map, shareReplay, withLatestFrom} from 'rxjs/operators';
+import {distinctUntilChanged, filter, map, shareReplay, take, withLatestFrom} from 'rxjs/operators';
 
 import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {AjfFormBuilderNodeEntry, AjfFormBuilderService} from './form-builder-service';
@@ -404,6 +404,16 @@ export class AjfFbNodeProperties implements OnDestroy {
 
   isFieldWithChoices(node: AjfNode): node is AjfFieldWithChoices<any> {
     return isField(node) && isFieldWithChoices(node);
+  }
+
+  hasChoicesOriginRef(): Observable<boolean> {
+    return this._propertiesForm.pipe(
+      map(fg => {
+        const value = fg.get('choicesOriginRef')?.value != null;
+        return value;
+      }),
+      take(1),
+    );
   }
 
   isRangeField(node: AjfNode): node is AjfRangeField {
