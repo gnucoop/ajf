@@ -12,7 +12,25 @@ import {
   FIRST,
   LAST,
   GET_AGE,
+  APPLY_LABELS,
 } from './expression-utils';
+
+const schema = {
+  choicesOrigins: [
+    {
+      choices: [
+        {
+          value: 'choiceValue1',
+          label: 'choiceLabel1',
+        },
+        {
+          value: 'choiceValue2',
+          label: 'choiceLabel2',
+        },
+      ]
+    }
+  ]
+};
 
 const forms: MainForm[] = [
   {
@@ -21,7 +39,8 @@ const forms: MainForm[] = [
     dog_puppies: 3,
     dog_point: 0.1,
     to_check: true,
-    reps: {'rep_1': [{dog_type: 'dogtype1', score: 3}]},
+    single_choice: 'choiceValue1',
+    reps: {'rep_1': [{dog_type: 'dogtype1', score: 3, multiple_choice: ['choiceValue2'] as any}]},
   },
   {
     created_at: '2023-02-19',
@@ -167,5 +186,13 @@ describe('GET_AGE', () => {
   });
   it("GET_AGE('1989-02-19', '2023-06-15')", () => {
     expect(GET_AGE('1989-02-19', '2023-06-15')).toBe(34);
+  });
+});
+
+describe('APPLY_LABELS', () => {
+  it('APPLY_LABELS', () => {
+    const form = APPLY_LABELS(forms, schema, ['single_choice', 'multiple_choice'])[0] as any;
+    expect(form.single_choice).toBe('choiceLabel1');
+    expect(form.reps.rep_1[0].multiple_choice[0]).toBe('choiceLabel2');
   });
 });
