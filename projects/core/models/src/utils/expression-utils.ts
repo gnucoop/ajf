@@ -1669,112 +1669,57 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
 }
 
 /**
- * UTILITY FUNCION
- * This function take an ajf schema as input and extract a
- * dict that match each choice value (also with choicesOrigin name prefix) with its label
+ * This function takes an ajf schema as input and extracts a
+ * dict that matches each choice value with its label
  * @param schema the ajf schema
  * @returns A dict with:
- *  {[choicesOriginName_choiceValue: string]: [choiceLabel: string]}
  *  {[choiceValue: string]: [choiceLabel: string]}
  */
-function extractLabelsBySchemaChoices(schema: any): {[choiceValue: string]: string} {
-  const choiceLabels: {[choiceValue: string]: string} = {};
+function extractLabelsFromChoices(schema: any): {[value: string]: string} {
+  const labels: {[value: string]: string} = {};
   if (schema && schema.choicesOrigins != null) {
-    (schema.choicesOrigins as any[]).forEach(choicesOrigin => {
-      if (choicesOrigin != null && choicesOrigin.choices != null) {
-        (choicesOrigin.choices as any[]).forEach(choice => {
-          choiceLabels[choicesOrigin.name + '_' + choice.value] = choice.label;
-          choiceLabels[choice.value] = choice.label;
-        });
+    for (const origin of schema.choicesOrigins) {
+      if (origin != null && origin.choices != null) {
+        for (const c of origin.choices) {
+          labels[c.value] = c.label;
+        }
       }
-    });
+    }
   }
-  return choiceLabels;
-}
-
-/**
- * UTILITY FUNCION
- * This function take an ajf schema as input and extract a one
- * dimensional array of AjfNode for each slide's field
- *
- * @param schema the ajf schema
- * @returns An object with all fields:
- *  {[fieldName: string]: ajf field}
- */
-function extractFlattenNodes(schema: any): {[field: string]: any} {
-  const fieldNodes: {[field: string]: any} = {};
-  if (schema && schema.nodes) {
-    const slides: any[] = schema.nodes.filter(
-      (node: any) => node.nodeType === 3 || node.nodeType === 4,
-    );
-    slides.forEach(slide => {
-      slide.nodes
-        .filter((node: any) => node.nodeType === 0)
-        .forEach((fieldNode: any) => {
-          fieldNodes[fieldNode.name] = fieldNode;
-        });
-    });
-  }
-  return fieldNodes;
+  return labels;
 }
 
 /**
  * Returns a clone of forms, where the specified fields are replaced by the corresponding labels,
  * as defined by the choice origins in schema.
  *
- * @param {MainForm[]} formList
+ * @param {MainForm[]} forms
  * @param {*} schema the ajf schema
- * @param {string[]} fieldNames
- * @return {*}  {MainForm[]}
+ * @param {string[]} fields
+ * @return {*} {MainForm[]}
  */
-export function APPLY_LABELS(formList: MainForm[], schema: any, fieldNames: string[]): MainForm[] {
-  formList = cloneMainForms(formList);
-  const choiceLabels: {[fieldName: string]: string} = extractLabelsBySchemaChoices(schema);
-  const flattenNodes = extractFlattenNodes(schema);
+export function APPLY_LABELS(forms: MainForm[], schema: any, fields: string[]): MainForm[] {
+  forms = cloneMainForms(forms);
+  const labels: {[value: string]: string} = extractLabelsFromChoices(schema);
 
-  for (let i = 0; i < formList.length; i++) {
-    if (formList[i] == null) {
+  for (const form of forms) {
+    if (form == null) {
       continue;
     }
-    if (formList[i].reps != null) {
-      const f = formList[i];
-      const fKeys: string[] = Object.keys(f);
-      fKeys.forEach(fkey => {
-        const fieldNode = flattenNodes[fkey];
-        const choiceOriginNamePrefix =
-          fieldNode && fieldNode.choicesOriginRef ? fieldNode.choicesOriginRef + '_' : '';
-
-        if (fieldNames.includes(fkey) && f[fkey] !== null) {
-          let choiceValue: string[] = [];
-          if (Array.isArray(f[fkey])) {
-            choiceValue = f[fkey] as unknown as string[];
-          } else {
-            const multipleVals = (f[fkey] as string).split(',').map(v => v.trim());
-            if (multipleVals.length > 1) {
-              choiceValue = multipleVals;
-            } else {
-              choiceValue = [f[fkey] as string];
-            }
-          }
-          if (choiceValue != null) {
-            const labels = choiceValue.map(val => {
-              const valWithPrefix = choiceOriginNamePrefix + val;
-              return choiceLabels[valWithPrefix] != null
-                ? choiceLabels[valWithPrefix]
-                : choiceLabels[val] != null
-                ? choiceLabels[val]
-                : val;
-            });
-            if (labels && labels.length) {
-              const labelFieldName = fkey + '_choicesLabel';
-              formList[i][labelFieldName] = labels.length > 1 ? labels.join(', ') : labels[0];
-            }
-          }
+    const reps = allReps(form);
+    reps.push(form as Form);
+    for (const rep of reps) {
+      for (const field of fields) {
+        const val = rep[field];
+        if (typeof(val) === 'string' && labels[val] != null) { // single choice
+          rep[field] = labels[val];
+        } else if (Array.isArray(val)) { // multiple choice
+          rep[field] = val.map(v => labels[v] != null ? labels[v] : v) as any;
         }
-      });
+      }
     }
   }
-  return formList;
+  return forms;
 }
 
 /**
@@ -2109,6 +2054,6 @@ export function OP(
  * @return {*}  {string[]}
  */
 export function GET_LABELS(schema: any, values: string[]): string[] {
-  const choiceLabels = extractLabelsBySchemaChoices(schema);
+  const choiceLabels = extractLabelsFromChoices(schema);
   return values.map(val => (choiceLabels[val] != null ? choiceLabels[val] : val));
 }
