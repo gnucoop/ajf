@@ -71,7 +71,7 @@ import {
 
 export interface AjfFormBuilderNodeTypeEntry {
   label: string;
-  nodeType: {node: AjfNodeType, field?: AjfFieldType};
+  nodeType: {node: AjfNodeType; field?: AjfFieldType};
   isSlide?: boolean;
 }
 
@@ -601,12 +601,14 @@ export class AjfFormBuilderService {
 
   saveChoicesOrigin(params: {label: string; name: string; choices: any[]}): void {
     const choicesOrigin = this._editedChoicesOrigin.getValue();
+    const choicesOriginPreviousName: string | undefined = choicesOrigin?.name;
     if (choicesOrigin != null) {
       choicesOrigin.label = params.label;
       choicesOrigin.name = params.name;
       if (isChoicesFixedOrigin(choicesOrigin)) {
         choicesOrigin.choices = params.choices;
       }
+      this._updateChoicesOriginRefInNodes(choicesOriginPreviousName, params.name);
       this._choicesOriginsUpdates.next(choicesOrigins => {
         const idx = choicesOrigins.indexOf(choicesOrigin);
         if (idx > -1) {
@@ -626,6 +628,33 @@ export class AjfFormBuilderService {
 
   saveStringIdentifier(identifier: AjfFormStringIdentifier[]): void {
     this._stringIdentifierUpdates.next(() => [...identifier]);
+  }
+
+  /**
+   * Searches the form nodes for field nodes with choicesOriginRef corresponding
+   * to an edited choicesOrigin and updates it with the new name.
+   * @param previous_name The choicesOrigin previous name
+   * @param new_name The choicesOrigin new name
+   */
+  private _updateChoicesOriginRefInNodes(previous_name?: string, new_name?: string): void {
+    if (!previous_name || !new_name) return;
+    const currentForm: AjfForm | null = this._form.value;
+    if (!currentForm) return;
+    const updatedNodes: AjfNode[] = [];
+    const currentSlides: (AjfSlide | AjfRepeatingSlide)[] = currentForm.nodes;
+    for (let slide of currentSlides) {
+      if (!slide.nodes || !slide.nodes.length) continue;
+      for (let node of slide.nodes) {
+        const nodeObj = node as {[key: string]: any};
+        if (nodeObj['choicesOriginRef'] && nodeObj['choicesOriginRef'] === previous_name) {
+          nodeObj['choicesOriginRef'] = new_name;
+          updatedNodes.push(nodeObj as AjfNode);
+        }
+      }
+    }
+    this._nodesUpdates.next((_nodes: AjfNode[]): AjfNode[] => {
+      return currentForm.nodes.slice(0);
+    });
   }
 
   private _buildFormBuilderNodesTree(nodes: AjfNode[]): (AjfFormBuilderNode | null)[] {
