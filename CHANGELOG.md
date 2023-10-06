@@ -1,3 +1,15 @@
+<a name="15.3.3"></a>
+# 15.3.3 "rich-bovid" (2023-10-06)
+### Bug Fixes
+* **core/forms:** prints date even when formcontrol changes ([1a61104](https://github.com/gnucoop/ajf/commit/1a6110433d39e75316b155e4486b482da270e603))
+* **core/reports:** fix and test APPLY_LABELS function ([aa86918](https://github.com/gnucoop/ajf/commit/aa869185c3eb27fa8c2d2c3177ea02308fc79bdd))
+* **material/form-builder:** Fixed a bug causing ChoicesOriginRef not to be updated when a Choices Origin is edited. ([d3d4428](https://github.com/gnucoop/ajf/commit/d3d4428a522e8cbaf99aef3e94dc9cdfc03c0a9e))
+### Features
+* **core/reports:** add export all report widgets function ([71949e2](https://github.com/gnucoop/ajf/commit/71949e2d4cbde412112311a5a97e4b4a325d5a9b))
+* **core/reports:** export all exportable widgets in columns and layout ([4d7dc7b](https://github.com/gnucoop/ajf/commit/4d7dc7bdb337bac6ce51a4b0ec1b6993f9a66276))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.2"></a>
 # 15.3.2 "brave-elephant" (2023-09-05)
 
