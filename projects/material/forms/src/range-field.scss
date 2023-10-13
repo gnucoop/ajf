@@ -1,4 +1,10 @@
-.ajf-range-label {
+ajf-range {
+
   display: inline-block;
-  padding: 0 10px;
+  padding-top: 20px;
+
+  .ajf-range-label {
+    display: inline-block;
+    padding: 0 10px;
+  }
 }
