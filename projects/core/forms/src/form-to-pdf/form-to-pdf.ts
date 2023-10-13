@@ -225,6 +225,7 @@ function fieldToPdf(
     case AjfFieldType.Boolean:
     case AjfFieldType.DateInput:
     case AjfFieldType.Time:
+    case AjfFieldType.Range:
       let val = lookupString(field.name);
       // for boolean fields in compiled forms, a null value is printed as 'no':
       if (field.fieldType === AjfFieldType.Boolean && context != null && val === ' ') {
