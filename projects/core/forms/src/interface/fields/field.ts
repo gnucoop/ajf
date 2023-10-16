@@ -33,6 +33,7 @@ import {AjfImageField} from './image-field';
 import {AjfMultipleChoiceField} from './multiple-choice-field';
 import {AjfNumberField} from './number-field';
 import {AjfRangeField} from './range-field';
+import {AjfSignatureField} from './signature-field';
 import {AjfSingleChoiceField} from './single-choice-field';
 import {AjfStringField} from './string-field';
 import {AjfTableField} from './table-field';
@@ -53,6 +54,7 @@ export type AjfField<T = any> =
   | AjfMultipleChoiceField<T>
   | AjfNumberField
   | AjfRangeField
+  | AjfSignatureField
   | AjfSingleChoiceField<T>
   | AjfStringField
   | AjfTableField
