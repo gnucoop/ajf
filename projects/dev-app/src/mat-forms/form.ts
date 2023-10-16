@@ -163,6 +163,15 @@ export const formSchema: any = {
         {parent: 10061, id: 1007, name: 'time', label: 'Time', nodeType: 0, fieldType: 10},
         {parent: 1007, id: 1008, name: 'barcode', label: 'Barcode', nodeType: 0, fieldType: 13},
         {parent: 1008, id: 1009, name: 'range', label: 'Range', nodeType: 0, fieldType: 17},
+        {
+          parent: 1009,
+          id: 1010,
+          name: 'signature',
+          label: 'Signature',
+          nodeType: 0,
+          fieldType: 18,
+          validation: {notEmpty: true},
+        },
       ],
     },
     {

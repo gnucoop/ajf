@@ -136,4 +136,5 @@ export const ESP: Translation = {
   'Border width': 'Ancho del borde',
   'Hide empty rows': 'Ocultar filas vacías',
   'Table definition': 'Definición de la tabla',
+  'Please sign here': 'Firme aquí',
 };

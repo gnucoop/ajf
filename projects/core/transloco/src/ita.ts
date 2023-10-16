@@ -137,4 +137,5 @@ export const ITA: Translation = {
   'Border width': 'Larghezza del bordo',
   'Hide empty rows': 'Nascondi righe vuote',
   'Table definition': 'Definizione della tabella',
+  'Please sign here': 'Firma qui',
 };
