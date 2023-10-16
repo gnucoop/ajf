@@ -302,6 +302,10 @@ export class AjfFormBuilderService {
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Barcode},
     },
     {
+      label: 'Signature',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Signature},
+    },
+    {
       label: 'File',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.File},
     },
@@ -845,6 +849,7 @@ export class AjfFormBuilderService {
 
           if (isField(node)) {
             node.hint = properties.hint;
+            node.editable = !properties.readonlyField;
             node.description = properties.description;
             node.defaultValue = getDefaultValue(properties.defaultValue, node);
             node.formula =
