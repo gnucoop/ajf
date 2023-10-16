@@ -158,6 +158,11 @@ export const DEV_APP_ROUTES: Routes = [
     loadChildren: () => import('./mat-reports/reports-demo-module').then(m => m.ReportsDemoModule),
   },
   {
+    path: 'mat-signature',
+    loadChildren: () =>
+      import('./mat-signature/signature-demo-module').then(m => m.SignatureDemoModule),
+  },
+  {
     path: 'mat-time',
     loadChildren: () => import('./mat-time/time-demo-module').then(m => m.TimeDemoModule),
   },

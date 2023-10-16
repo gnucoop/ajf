@@ -60,6 +60,7 @@ export class DevAppLayout {
         {name: 'Automatic Report', route: '/mat-automatic-report'},
         {name: 'XLS Report', route: '/mat-xls-report'},
         {name: 'Reports', route: '/mat-reports'},
+        {name: 'Signature', route: '/mat-signature'},
         {name: 'Time', route: '/mat-time'},
         {name: 'Widgets', route: '/mat-widgets'},
       ],

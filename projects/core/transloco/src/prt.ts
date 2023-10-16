@@ -136,4 +136,5 @@ export const PRT: Translation = {
   'Border width': 'Border width',
   'Hide empty rows': 'Ocultar linhas vazias',
   'Table definition': 'Definição da tabela',
+  'Please sign here': 'Por favor, assine aqui',
 };

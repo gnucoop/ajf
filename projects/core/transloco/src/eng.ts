@@ -136,4 +136,5 @@ export const ENG: Translation = {
   'Border width': 'Border width',
   'Hide empty rows': 'Hide empty rows',
   'Table definition': 'Table definition',
+  'Please sign here': 'Please sign here',
 };
