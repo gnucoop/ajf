@@ -99,6 +99,9 @@
       </ng-template>
       <ng-template [ngIf]="isField(ne)">
         <div class="ajf-prop">
+          <mat-checkbox formControlName="readonlyField">{{'Readonly'|transloco}}</mat-checkbox>
+        </div>
+        <div class="ajf-prop">
           <mat-form-field>
             <mat-label>{{'Field size'|transloco}}</mat-label>
             <mat-select formControlName="size" [placeholder]="'Size' | transloco">

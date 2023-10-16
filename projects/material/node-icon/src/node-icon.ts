@@ -73,6 +73,8 @@ export class AjfNodeIcon extends CoreNodeIcon {
         return 'image';
       case AjfFieldType.VideoUrl:
         return 'videocam';
+      case AjfFieldType.Signature:
+        return 'draw';
       default:
         return 'broken_image';
     }

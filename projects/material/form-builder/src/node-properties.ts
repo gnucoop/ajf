@@ -559,6 +559,7 @@ export class AjfFbNodeProperties implements OnDestroy {
           controls.notEmpty = notEmpty;
           controls.validationConditions = [validationConditions, []];
           controls.notEmptyWarning = notEmptyW;
+          controls.readonlyField = node.editable != null ? !node.editable : false;
           controls.warningConditions = [warningConditions, []];
           controls.nextSlideCondition = [node.nextSlideCondition];
 
