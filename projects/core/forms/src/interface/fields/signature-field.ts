@@ -20,29 +20,12 @@
  *
  */
 
+import {AjfBaseField} from './base-field';
+import {AjfFieldType} from './field-type';
+
 /**
- * The available ajf field types.
+ * An AjfField of type Signature.
  */
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfFieldType {
-  String,
-  Text,
-  Number,
-  Boolean,
-  SingleChoice,
-  MultipleChoice,
-  Formula,
-  Empty,
-  Date,
-  DateInput,
-  Time,
-  Table,
-  Geolocation,
-  Barcode,
-  File,
-  Image,
-  VideoUrl,
-  Range,
-  Signature,
-  LENGTH,
+export interface AjfSignatureField extends AjfBaseField {
+  fieldType: AjfFieldType.Signature;
 }
