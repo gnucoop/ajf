@@ -1,3 +1,24 @@
+<a name="15.3.4"></a>
+# 15.3.4 "tight-llama" (2023-10-16)
+### Bug Fixes
+* **core/forms:** prints date even when formcontrol changes ([1a61104](https://github.com/gnucoop/ajf/commit/1a6110433d39e75316b155e4486b482da270e603))
+* **core/reports:** fix and test APPLY_LABELS function ([aa86918](https://github.com/gnucoop/ajf/commit/aa869185c3eb27fa8c2d2c3177ea02308fc79bdd))
+* **material/form-builder:** Fixed a bug causing ChoicesOriginRef not to be updated when a Choices Origin is edited. ([d3d4428](https://github.com/gnucoop/ajf/commit/d3d4428a522e8cbaf99aef3e94dc9cdfc03c0a9e))
+* **material/form-builder:** Save in properties is now disabled if name or label field are empty. ([a638fd4](https://github.com/gnucoop/ajf/commit/a638fd40cc5bf971714739c15811d79ed5c4948e))
+* **material/forms:** add padding-top for range tooltip ([79d1885](https://github.com/gnucoop/ajf/commit/79d1885479adb9d59ee03b8fea288804473546c2))
+### Features
+* **core/forms:** add range field available in form-to-pdf ([01d2091](https://github.com/gnucoop/ajf/commit/01d20917d95fe5ba923fac6c556ada5f7bcc046b))
+* **core/forms:** Added Signature field and field type. ([cb700ec](https://github.com/gnucoop/ajf/commit/cb700ec9142df4dc424c0012e1ff707cb9f996e1))
+* **core/reports:** add export all report widgets function ([71949e2](https://github.com/gnucoop/ajf/commit/71949e2d4cbde412112311a5a97e4b4a325d5a9b))
+* **core/reports:** export all exportable widgets in columns and layout ([4d7dc7b](https://github.com/gnucoop/ajf/commit/4d7dc7bdb337bac6ce51a4b0ec1b6993f9a66276))
+* **core/signature:** Added core class AjfSignature and SignatureType. ([d6e023b](https://github.com/gnucoop/ajf/commit/d6e023b76c7eca06677e71208a8524fc339a4ae0))
+* **dev-app:** Added Signature field to Dev App demo. ([ead4455](https://github.com/gnucoop/ajf/commit/ead44551434b4c365e4109b8ec26b8ab8d463677))
+* **material/form-builder:** Added Signature Field to Form Builder. Added readonly flag to form builder field properties. ([b7e4e39](https://github.com/gnucoop/ajf/commit/b7e4e39525d5e5081d2f417fd30cb2d74495c124))
+* **material/forms:** Added Signature Field to material forms module and field-service. ([fe4abdf](https://github.com/gnucoop/ajf/commit/fe4abdf7df65c68cd9c322a72033a16543cc01a2))
+* **material/signature:** Added Material Signature module and component. ([4b3ea1b](https://github.com/gnucoop/ajf/commit/4b3ea1b4e157a93d252d1957058afde78c47beed))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.3"></a>
 # 15.3.3 "rich-bovid" (2023-10-06)
 ### Bug Fixes
