@@ -503,7 +503,7 @@ export class AjfFbNodeProperties implements OnDestroy {
           n.node.visibility != null ? this._guessVisibilityOpt(n.node.visibility) : null;
         let controls: any = {
           name: [n.node.name, Validators.required],
-          label: n.node.label,
+          label: [n.node.label, Validators.required],
           visibilityOpt: [visibilityOpt, Validators.required],
           visibility: [visibility, Validators.required],
           conditionalBranchesNum: n.node.conditionalBranches.length,

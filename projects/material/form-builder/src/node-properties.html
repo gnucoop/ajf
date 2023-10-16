@@ -1,25 +1,25 @@
 <div [style.display]="(enabled|async) ? 'none' : 'block'" class="ajf-disabled-overlay"></div>
 <ng-container *ngIf="nodeEntry|async as ne">
-  <div class="ajf-header">
-    <h3>{{'Properties'|transloco}}</h3>
-    <button
-      *ngIf="isFieldWithChoices(ne.node) && (hasChoicesOriginRef()|async) === false; else readysavebtn"
-      mat-icon-button
-      color="warn"
-      [matTooltip]="'Please select a Choice Origin for this field'"
-    >
-      <mat-icon>save</mat-icon>
-    </button>
-    <ng-template #readysavebtn
-      ><button mat-icon-button (click)="save()">
-        <mat-icon>save</mat-icon>
-      </button></ng-template
-    >
-    <button mat-icon-button (click)="cancel()">
-      <mat-icon>cancel</mat-icon>
-    </button>
-  </div>
   <ng-container *ngIf="propertiesForm|async as pf">
+    <div class="ajf-header">
+      <h3>{{'Properties'|transloco}}</h3>
+      <button
+        *ngIf="isFieldWithChoices(ne.node) && (hasChoicesOriginRef()|async) === false; else readysavebtn"
+        mat-icon-button
+        color="warn"
+        [matTooltip]="'Please select a Choice Origin for this field'"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+      <ng-template #readysavebtn>
+        <button mat-icon-button [disabled]="!pf.value.name || !pf.value.label" (click)="save()">
+          <mat-icon>save</mat-icon>
+        </button></ng-template
+      >
+      <button mat-icon-button (click)="cancel()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
     <form [formGroup]="pf!" novalidate>
       <div class="ajf-prop">
         <mat-form-field>
