@@ -1,0 +1,47 @@
+ajf-signature {
+  display: block;
+
+  .ajf-signature-container {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+    .ajf-signature-preview {
+      max-width: 200px;
+      max-height: 100px;
+      margin: auto;
+      padding: 5px;
+    }
+
+    .ajf-signature-canvas {
+      margin: auto;
+      border-radius: 10px;
+      border: 2px solid rgba(0, 0, 0, 0.4);
+    }
+
+    .ajf-signature-actions {
+      flex: 1 0 auto;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+      .mdc-fab {
+        margin: 10px;
+        .mat-icon {
+          margin-left: 0px !important;
+        }
+      }
+      .ajf-signature-action-clear {
+        background-color: rgba(245, 61, 61, 0.6);
+      }
+      .ajf-signature-action-accept {
+        &[disabled='true'] {
+          background-color: rgba(0, 0, 0, 0.12);
+          color: rgba(0, 0, 0, 0.38);
+        }
+        background-color: rgba(50, 219, 100, 0.6);
+      }
+    }
+  }
+}

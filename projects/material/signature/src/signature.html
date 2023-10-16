@@ -1,0 +1,21 @@
+<div class="ajf-signature-container">
+  <p class="ajf-signature-text">{{'Please sign here'|transloco}}</p>
+  <canvas
+    class="ajf-signature-canvas"
+    #sigPad
+    (mousedown)="onMouseDown($event)"
+    (mousemove)="onMouseMove($event)"
+    (touchstart)="onMouseDown($event)"
+    (touchmove)="onMouseMove($event)"
+  ></canvas>
+  <div class="ajf-signature-actions">
+    <button mat-fab (click)="clear()" class="ajf-signature-action-clear">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button mat-fab (click)="accept()" color="primary" [disabled]="!isDrawn" class="ajf-signature-action-accept">
+      <mat-icon>check</mat-icon>
+    </button>
+  </div>
+
+  <img class="ajf-signature-preview" [src]="value?.content" />
+</div>
