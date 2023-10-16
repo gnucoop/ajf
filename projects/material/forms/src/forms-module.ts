@@ -62,12 +62,14 @@ import {AjfGeolocationFieldComponent} from './geolocation-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfRangeFieldComponent} from './range-field';
+import {AjfSignatureFieldComponent} from './signature-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfWarningAlertService} from './warning-alert-service';
+import {AjfSignatureModule} from '@ajf/material/signature';
 
 @NgModule({
   imports: [
@@ -77,6 +79,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfCheckboxGroupModule,
     AjfGeolocationModule,
     AjfPageSliderModule,
+    AjfSignatureModule,
     AjfTimeModule,
     AjfTranslocoModule,
     CommonModule,
@@ -112,6 +115,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
     AjfRangeFieldComponent,
+    AjfSignatureFieldComponent,
     AjfSingleChoiceFieldComponent,
     AjfTableFieldComponent,
     AjfTextFieldComponent,

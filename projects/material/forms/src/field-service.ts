@@ -50,6 +50,7 @@ import {AjfTableFieldComponent} from './table-field';
 import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
+import {AjfSignatureFieldComponent} from './signature-field';
 
 @Injectable({providedIn: 'root'})
 export class AjfFieldService extends CoreService {
@@ -106,6 +107,10 @@ export class AjfFieldService extends CoreService {
         component: AjfBarcodeFieldComponent,
         readOnlyComponent: AjfReadOnlyFieldComponent,
       });
+    this.componentsMap[AjfFieldType.Signature] = {
+      component: AjfSignatureFieldComponent,
+      readOnlyComponent: AjfReadOnlyImageFieldComponent,
+    };
     this.componentsMap[AjfFieldType.Geolocation] = {
       component: AjfGeolocationFieldComponent,
       readOnlyComponent: AjfReadOnlyGeolocationFieldComponent,
