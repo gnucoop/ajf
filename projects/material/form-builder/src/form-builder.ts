@@ -89,11 +89,6 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     return this._choicesOrigins;
   }
 
-  private _globalExpanded = false;
-  get isGlobalExpanded(): boolean {
-    return this._globalExpanded;
-  }
-
   /**
    * The list of the ids of all the dropLists connected to the formbuilder source list.
    */
@@ -178,6 +173,8 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     this._editChoicesOriginSub.unsubscribe();
     this._stringIdentifierSub.unsubscribe();
     this._service.setForm(null);
+    this._service.resetNodeEntriesTreeExpandedStatus();
+    this._service.resetEmptyCounters();
   }
 
   createChoicesOrigin(): void {
@@ -221,11 +218,11 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   }
 
   expandAll() {
-    this._globalExpanded = true;
+    this._service.expandAll();
   }
 
   collapseAll() {
-    this._globalExpanded = false;
+    this._service.collapseAll();
   }
 
   expandToggle(evt: MatSlideToggleChange) {

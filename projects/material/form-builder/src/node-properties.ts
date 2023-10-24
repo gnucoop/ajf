@@ -59,6 +59,8 @@ import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
 import {AjfFormBuilderNodeEntry, AjfFormBuilderService} from './form-builder-service';
 import {AjfFbValidationConditionEditorDialog} from './validation-condition-editor-dialog';
 import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dialog';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {AjfNodePropertiesNameMatchValidator} from './node-properties-name-validator';
 
 function checkRepsValidity(c: AbstractControl): {[key: string]: any} | null {
   const minReps = c.value.minReps;
@@ -281,6 +283,7 @@ export class AjfFbNodeProperties implements OnDestroy {
     private _service: AjfFormBuilderService,
     private _dialog: MatDialog,
     private _fb: UntypedFormBuilder,
+    private _nodeNameValidator: AjfNodePropertiesNameMatchValidator,
   ) {
     this._nodeEntry = _service.editedNodeEntry;
     this._choicesOriginsSub = _service.choicesOrigins.subscribe(
@@ -424,6 +427,15 @@ export class AjfFbNodeProperties implements OnDestroy {
     return isField(node) && isTableField(node);
   }
 
+  forceCheckbox(checked: boolean, checkbox: MatCheckbox): void {
+    if (!checked || !checkbox) {
+      return;
+    }
+    if (checkbox.checked) {
+      checkbox.toggle();
+    }
+  }
+
   save(): void {
     this._saveEvt.emit();
   }
@@ -432,7 +444,19 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._service.cancelNodeEntryEdit();
   }
 
+  fieldErrorMessage(formControl: AbstractControl | null, fieldName: string): string | null {
+    if (!formControl || !fieldName) return null;
+    if (formControl.hasError('required')) {
+      return `You must enter a value for ${fieldName}`;
+    }
+    if (formControl.hasError('name_exists')) {
+      return `This ${fieldName} has already been used`;
+    }
+    return null;
+  }
+
   ngOnDestroy(): void {
+    this.cancel();
     this._choicesOriginsSub.unsubscribe();
 
     this._visibilityOptSub.unsubscribe();
@@ -502,7 +526,11 @@ export class AjfFbNodeProperties implements OnDestroy {
         const visibilityOpt =
           n.node.visibility != null ? this._guessVisibilityOpt(n.node.visibility) : null;
         let controls: any = {
-          name: [n.node.name, Validators.required],
+          name: [
+            n.node.name,
+            Validators.required,
+            this._nodeNameValidator.sameValueCheck(this._cdr, n.node.id),
+          ],
           label: [n.node.label, Validators.required],
           visibilityOpt: [visibilityOpt, Validators.required],
           visibility: [visibility, Validators.required],

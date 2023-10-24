@@ -9,7 +9,7 @@
 
   <div
     class="mat-card-container"
-    [class.ajf-highlight]="(currentEditedNode|async) === nodeEntry"
+    [class.ajf-highlighted-formbuilder-node]="(currentEditedNode|async) === nodeEntry"
   >
     <div
       *ngIf="!isFirst"
@@ -26,10 +26,13 @@
       </ng-container>
 
       <ng-template #draggable>
-        <mat-card appearance="outlined" cdkDrag [cdkDragData]="realNodeEntry" class="ajf-draggable-box">
-          <ng-container
-            *ngIf="isSlide(realNodeEntry.node); else fieldPanel"
-          >
+        <mat-card
+          appearance="outlined"
+          cdkDrag
+          [cdkDragData]="realNodeEntry"
+          class="ajf-draggable-box"
+        >
+          <ng-container *ngIf="isSlide(realNodeEntry.node); else fieldPanel">
             <ng-container *ngTemplateOutlet="slidePanel"></ng-container>
           </ng-container>
         </mat-card>
@@ -37,9 +40,9 @@
 
       <ng-template #slidePanel>
         <mat-expansion-panel
-          [expanded]="isExpanded"
-          (opened)="isExpanded = true"
-          (closed)="isExpanded = false"
+          [expanded]="isExpanded()|async"
+          (opened)="updateExpandedStatus(true)"
+          (closed)="updateExpandedStatus(false)"
           class="mat-elevation-z"
         >
           <mat-expansion-panel-header>
@@ -76,11 +79,7 @@
             >
               <mat-icon>edit</mat-icon>
             </button>
-            <button
-              [disabled]="(currentEditedNode|async) === null"
-              (click)="delete($event)"
-              mat-icon-button
-            >
+            <button (click)="delete($event)" mat-icon-button>
               <mat-icon>delete</mat-icon>
             </button>
           </span>
@@ -100,7 +99,6 @@
             [nodeEntry]="contentEntry"
             [cdkDropListEnterPredicate]="disableSlideDrop"
             (cdkDropListDropped)="onDrop($event, true)"
-            [isExpanded]="isExpanded"
           ></ajf-fb-node-entry>
           <mat-card
             appearance="outlined"
@@ -118,16 +116,13 @@
   </div>
 
   <ng-template [ngIf]="isNodeEntry">
-    <ng-container
-      *ngFor="let childNodeEntry of realNodeEntry.children; let idx = index"
-    >
+    <ng-container *ngFor="let childNodeEntry of realNodeEntry.children; let idx = index">
       <ajf-fb-node-entry
         *ngIf="!isLastNode()"
         [level]="level"
         [originOffset]="idx"
         [firstBranchColor]="branchColors[idx]"
         [nodeEntry]="childNodeEntry"
-        [isExpanded]="isExpanded"
       ></ajf-fb-node-entry>
     </ng-container>
   </ng-template>

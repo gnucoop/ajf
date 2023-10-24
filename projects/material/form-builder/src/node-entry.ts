@@ -33,7 +33,7 @@ import {
   ViewChildren,
   ViewEncapsulation,
 } from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, Subscription, of as obsOf} from 'rxjs';
 
 import {AjfFbBranchLine} from './branch-line';
 import {
@@ -86,16 +86,6 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   private _isNodeEntry = false;
   get isNodeEntry(): boolean {
     return this._isNodeEntry;
-  }
-
-  private _isExpanded = false;
-  get isExpanded(): boolean {
-    return this._isExpanded;
-  }
-  @Input()
-  set isExpanded(exp: boolean) {
-    this._isExpanded = exp;
-    setTimeout(() => this._updateBranchHeights(), 400);
   }
 
   private _nodeEntry: AjfFormBuilderNode | undefined;
@@ -209,6 +199,7 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     if (this.nodeEntry == null || !this.isNodeEntry) {
       return;
     }
+    this._service.cancelNodeEntryEdit();
     this._service.deleteNodeEntry(<AjfFormBuilderNodeEntry>this.nodeEntry);
   }
 
@@ -223,10 +214,17 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return isSlidesNode(node);
   }
 
+  isExpanded(): Observable<boolean> {
+    if (this._nodeEntry && 'node' in this._nodeEntry) {
+      return this._service.getExpandedStatus(this._nodeEntry.node.name);
+    }
+    return obsOf(false);
+  }
+
   ngAfterViewInit(): void {
-    setTimeout(() => this._updateBranchHeights());
+    this.updateBranchHeights();
     this._childEntriesSubscription = this.childEntries.changes.subscribe(() => {
-      this._updateBranchHeights();
+      this.updateBranchHeights();
     });
   }
 
@@ -275,27 +273,36 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     };
   }
 
-  private _updateBranchHeights(): void {
-    if (
-      this.nodeEntry == null ||
-      !this.isNodeEntry ||
-      this.branchLines == null ||
-      this.childEntries == null
-    ) {
-      return;
-    }
-    const nodeEntry = <AjfFormBuilderNodeEntry>this.nodeEntry;
-    const branchLines: AjfFbBranchLine[] = this.branchLines.toArray();
-    const sliceIdx = nodeEntry.content != null ? nodeEntry.content.length : 0;
-    const childEntries: ElementRef[] = this.childEntries.toArray().slice(sliceIdx);
+  updateBranchHeights(delay: number = 0): void {
+    setTimeout(() => {
+      if (
+        this.nodeEntry == null ||
+        !this.isNodeEntry ||
+        this.branchLines == null ||
+        this.childEntries == null
+      ) {
+        return;
+      }
+      const nodeEntry = <AjfFormBuilderNodeEntry>this.nodeEntry;
+      const branchLines: AjfFbBranchLine[] = this.branchLines.toArray();
+      const sliceIdx = nodeEntry.content != null ? nodeEntry.content.length : 0;
+      const childEntries: ElementRef[] = this.childEntries.toArray().slice(sliceIdx);
 
-    if (branchLines.length != childEntries.length) {
-      return;
-    }
+      if (branchLines.length != childEntries.length) {
+        return;
+      }
 
-    branchLines.forEach((bl: AjfFbBranchLine, idx: number) => {
-      const ce: ElementRef = childEntries[idx];
-      bl.height = ce.nativeElement.offsetTop;
-    });
+      branchLines.forEach((bl: AjfFbBranchLine, idx: number) => {
+        const ce: ElementRef = childEntries[idx];
+        bl.height = ce.nativeElement.offsetTop;
+      });
+    }, delay);
+  }
+
+  updateExpandedStatus(expanded: boolean) {
+    if (this._nodeEntry && 'node' in this._nodeEntry) {
+      this._service.updateExpandedStatus(this._nodeEntry.node.name, expanded);
+      this.updateBranchHeights(400);
+    }
   }
 }

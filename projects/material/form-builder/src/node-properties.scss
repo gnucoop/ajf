@@ -1,6 +1,7 @@
 ajf-fb-node-properties {
   display: block;
-  padding: 1em;
+  padding: 2px;
+  padding-left: 5px;
 
   position: relative;
 
@@ -14,7 +15,8 @@ ajf-fb-node-properties {
     align-items: center;
     flex-wrap: nowrap;
 
-    > h3, > label {
+    > h3,
+    > label {
       flex: 1 0 auto;
       margin-right: 0.5em;
     }
@@ -50,7 +52,6 @@ ajf-fb-node-properties {
       flex-direction: row;
       align-items: center;
       position: relative;
-      max-width: 200px;
 
       span {
         flex: 1 1 auto;
@@ -60,7 +61,7 @@ ajf-fb-node-properties {
         margin: auto;
         position: relative;
         max-height: 30px;
-        max-width: 80%;
+        max-width: 100%;
       }
     }
   }
@@ -84,7 +85,9 @@ ajf-fb-node-properties {
     margin: 0.5em 0;
   }
 
-  mat-form-field, mat-slider, [mat-raised-button] {
+  mat-form-field,
+  mat-slider,
+  [mat-raised-button] {
     width: 100%;
   }
 }
