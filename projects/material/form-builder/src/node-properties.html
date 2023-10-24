@@ -12,7 +12,11 @@
         <mat-icon>save</mat-icon>
       </button>
       <ng-template #readysavebtn>
-        <button mat-icon-button [disabled]="!pf.value.name || !pf.value.label" (click)="save()">
+        <button
+          mat-icon-button
+          [disabled]="pf.get('name')?.invalid || pf.get('label')?.invalid"
+          (click)="save()"
+        >
           <mat-icon>save</mat-icon>
         </button></ng-template
       >
@@ -24,11 +28,17 @@
       <div class="ajf-prop">
         <mat-form-field>
           <input matInput formControlName="name" [placeholder]="'Name' | transloco" />
+          <mat-error *ngIf="pf.get('name')?.invalid">
+            {{fieldErrorMessage(pf.get('name'), 'Name')}}
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="ajf-prop">
         <mat-form-field>
           <input matInput formControlName="label" [placeholder]="'Label' | transloco" />
+          <mat-error *ngIf="pf.get('label')?.invalid">
+            {{fieldErrorMessage(pf.get('label'), 'Label')}}
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="ajf-prop">
@@ -329,12 +339,18 @@
             </div>
           </div>
           <div class="ajf-prop">
-            <mat-checkbox formControlName="forceExpanded"
+            <mat-checkbox
+              formControlName="forceExpanded"
+              #forceExpanded
+              (change)="forceCheckbox($event.checked, forceNarrow)"
               >{{'Force expanded selection'|transloco}}</mat-checkbox
             >
           </div>
           <div class="ajf-prop">
-            <mat-checkbox formControlName="forceNarrow"
+            <mat-checkbox
+              formControlName="forceNarrow"
+              #forceNarrow
+              (change)="forceCheckbox($event.checked, forceExpanded)"
               >{{'Force narrow selection'|transloco}}</mat-checkbox
             >
           </div>

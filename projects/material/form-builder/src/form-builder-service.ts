@@ -385,6 +385,20 @@ export class AjfFormBuilderService {
     return this._connectedDropLists;
   }
 
+  /**
+   * A dictionary of the 'expanded' status of all nodeEntries in the tree {node.name: boolean}
+   */
+  private _nodeEntriesTreeExpandedStatus: BehaviorSubject<{[name: string]: boolean}> =
+    new BehaviorSubject<{[name: string]: boolean}>({});
+  get nodeEntriesTreeExpandedStatus(): BehaviorSubject<{[name: string]: boolean}> {
+    return this._nodeEntriesTreeExpandedStatus;
+  }
+
+  /**
+   * Determines the default expanded state of nodeEntries when the FormBuilder loads
+   */
+  private _defaultExpanded: boolean = false;
+
   private _editedNodeEntry: BehaviorSubject<AjfFormBuilderNodeEntry | null> =
     new BehaviorSubject<AjfFormBuilderNodeEntry | null>(null);
   private _editedNodeEntryObs: Observable<AjfFormBuilderNodeEntry | null> = this
@@ -441,6 +455,12 @@ export class AjfFormBuilderService {
    * Subscribes to the moveNodeEntryEvent event emitter;
    */
   private _moveNodeSub: Subscription = Subscription.EMPTY;
+
+  /**
+   * Counters for default name assigned to inserted fields/slides
+   */
+  private _emptyFieldCounter: number = 1;
+  private _emptySlideCounter: number = 1;
 
   constructor() {
     this._initChoicesOriginsStreams();
@@ -515,17 +535,21 @@ export class AjfFormBuilderService {
         fieldType: nodeType.nodeType.field!,
         parent: parent.id,
         parentNode,
-        name: '',
+        name: `new_field_${this._emptyFieldCounter}`,
+        label: `New ${AjfFieldType[nodeType.nodeType.field!]} field ${this._emptyFieldCounter}`,
       });
+      this._emptyFieldCounter++;
     } else {
       node = createContainerNode({
         id,
         nodeType: nodeType.nodeType.node,
         parent: 0,
         parentNode,
-        name: '',
+        name: `new_slide_${this._emptySlideCounter}`,
+        label: `New Slide ${this._emptySlideCounter}`,
         nodes: [],
       });
+      this._emptySlideCounter++;
     }
     this._beforeNodesUpdate.emit();
     this._nodesUpdates.next((nodes: AjfNode[]): AjfNode[] => {
@@ -546,6 +570,7 @@ export class AjfFormBuilderService {
       }
       return nodes;
     });
+    this.cancelNodeEntryEdit();
   }
 
   saveNodeEntry(properties: any): void {
@@ -567,6 +592,7 @@ export class AjfFormBuilderService {
   moveNodeEntry(nodeEntry: AjfFormBuilderNodeEntry, from: number, to: number): void {
     const moveEvent: AjfFormBuilderMoveEvent = {nodeEntry: nodeEntry, fromIndex: from, toIndex: to};
     this._moveNodeEntryEvent.next(moveEvent);
+    this.cancelNodeEntryEdit();
   }
 
   getCurrentForm(): Observable<AjfForm> {
@@ -632,6 +658,81 @@ export class AjfFormBuilderService {
 
   saveStringIdentifier(identifier: AjfFormStringIdentifier[]): void {
     this._stringIdentifierUpdates.next(() => [...identifier]);
+  }
+
+  /**
+   * Resets the nodeEntriesTreeExpandedStatus dictionary to an empty object.
+   */
+  resetNodeEntriesTreeExpandedStatus(): void {
+    this._nodeEntriesTreeExpandedStatus.next({});
+  }
+
+  /**
+   * Gets the expanded status of an entry in the nodeEntriesTreeExpandedStatus dictionary
+   * @param nodeName The unique name of the nodeEntry
+   */
+  getExpandedStatus(nodeName: string): Observable<boolean> {
+    return this._nodeEntriesTreeExpandedStatus.pipe(
+      map(tree => {
+        if (nodeName in tree) {
+          return tree[nodeName];
+        }
+        return this._defaultExpanded;
+      }),
+    );
+  }
+
+  /**
+   * Upserts an entry in the nodeEntriesTreeExpandedStatus dictionary
+   * @param nodeName The unique name of the nodeEntry
+   * @param expanded True if the nodeEntry is expanded
+   */
+  updateExpandedStatus(nodeName: string, expanded: boolean): void {
+    if (!nodeName) return;
+    const dictValue = this._nodeEntriesTreeExpandedStatus.value;
+    this._nodeEntriesTreeExpandedStatus.next({...dictValue, [nodeName]: expanded});
+  }
+
+  /**
+   * Removes an entry from the nodeEntriesTreeExpandedStatus dictionary
+   * @param nodeName The unique name of the nodeEntry
+   */
+  removeExpandedStatus(nodeName: string): void {
+    const dictValue = this._nodeEntriesTreeExpandedStatus.value;
+    delete dictValue[nodeName];
+    this._nodeEntriesTreeExpandedStatus.next(dictValue);
+  }
+
+  /**
+   * Sets expanded to true for each entry in the nodeEntriesTreeExpandedStatus dictionary
+   */
+  expandAll() {
+    const dictValue = this._nodeEntriesTreeExpandedStatus.value;
+    for (let nodeName in dictValue) {
+      dictValue[nodeName] = true;
+    }
+    this._defaultExpanded = true;
+    this._nodeEntriesTreeExpandedStatus.next(dictValue);
+  }
+
+  /**
+   * Sets expanded to false for each entry in the nodeEntriesTreeExpandedStatus dictionary
+   */
+  collapseAll() {
+    const dictValue = this._nodeEntriesTreeExpandedStatus.value;
+    for (let nodeName in dictValue) {
+      dictValue[nodeName] = false;
+    }
+    this._defaultExpanded = false;
+    this._nodeEntriesTreeExpandedStatus.next(dictValue);
+  }
+
+  /**
+   * Resets the empty fields/slides counters
+   */
+  resetEmptyCounters() {
+    this._emptyFieldCounter = 1;
+    this._emptySlideCounter = 1;
   }
 
   /**
@@ -990,6 +1091,7 @@ export class AjfFormBuilderService {
       .pipe(
         map((nodeEntry: AjfFormBuilderNodeEntry) => {
           this._beforeNodesUpdate.emit();
+          this.removeExpandedStatus(nodeEntry.node.name);
           return (nodes: AjfNode[]): AjfNode[] => {
             const node = nodeEntry.node;
             let cn = getNodeContainer({nodes}, node);

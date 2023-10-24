@@ -4,8 +4,13 @@ ajf-form-builder {
   min-height: 300px;
   flex-direction: column;
   align-items: stretch;
+  overflow-y: auto;
 
-  mat-toolbar {
+  mat-toolbar.ajf-formbuilder-toolbar {
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+    padding: 2px 0px;
     mat-menu {
       div[mat-menu-item] {
         > button[mat-button] {
@@ -17,15 +22,27 @@ ajf-form-builder {
       }
     }
   }
-  mat-drawer-container {
-    flex: 1;
-
-    mat-drawer {
-      max-width: 20%;
+  .ajf-formtree-container {
+    display: flex;
+    flex-flow: row;
+    align-items: start;
+    justify-content: space-between;
+    mat-drawer-container.ajf-formtree-drawer-container {
+      flex: 1 0 auto;
+      min-height: 50vh;
+      mat-drawer {
+        max-width: 20%;
+      }
+      .ajf-designer {
+        padding: 2;
+      }
+      .mat-expansion-panel-body {
+        padding: 10px;
+      }
     }
-
-    .ajf-designer {
-      padding: 1em;
+    .ajf-formtree-properties {
+      flex: 0 1 auto;
+      max-width: 20%;
     }
   }
 
