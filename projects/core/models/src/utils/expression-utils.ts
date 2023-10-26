@@ -126,6 +126,7 @@ export class AjfExpressionUtils {
     notEmpty: {fn: notEmpty},
     parseDate: {fn: dateUtils.parse},
     plainArray: {fn: plainArray},
+    buildPointData: {fn: buildPointData},
     round: {fn: round},
     scanGroupField: {fn: scanGroupField},
     sum: {fn: sum},
@@ -768,6 +769,23 @@ export function plainArray(params: any[]): any[] {
     }
   }
   return res;
+}
+
+interface Point {
+  x: number;
+  y: number;
+  r?: number;
+}
+
+export function buildPointData(xs: number[], ys: number[], rs?: number[]): Point[] {
+  xs = xs || [];
+  ys = ys || [];
+  rs = rs || [];
+  const points: Point[] = [];
+  for (let i = 0; i < xs.length; i++) {
+    points.push({x: xs[i], y: ys[i], r: rs[i]});
+  }
+  return points;
 }
 
 /**
