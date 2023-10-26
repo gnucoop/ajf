@@ -183,67 +183,84 @@ function _buildFilter(
   return http.post('https://formconv.herokuapp.com/result.json', data);
 }
 
-function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
-  const optionLabels = ['chartType', 'title'];
-  const chartOptions: {[key: string]: string} = {};
-  const datasetObj: {[key: string]: any} = {};
+function alertAndThrow(err: string) {
+  window.alert(err);
+  throw new Error(err);
+}
+
+function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget {
+  if (sheet == null || sheet.length === 0) {
+    alertAndThrow('Empty sheet for chart ' + name);
+  }
+  const data = sheet[0];
+  const optionsNames = ['chartType', 'title'];
+  const options: {[key: string]: string} = {};
+  for (const name of optionsNames) {
+    if (data[name] != null) {
+      options[name] = data[name];
+      delete data[name];
+    }
+  }
+  const type = AjfChartType[options['chartType'] as any] as unknown as AjfChartType;
+  if (type == null) {
+    alertAndThrow('Invalid chart type for chart ' + name);
+  }
+  if (type !== AjfChartType.Scatter && type !== AjfChartType.Bubble && sheet.length !== 1) {
+    alertAndThrow(`Chart "${name}" must have 1 row of data`);
+  }
+  if (type === AjfChartType.Scatter && sheet.length !== 2) {
+    alertAndThrow(`Scatter chart "${name}" must have 2 rows of data`);
+  }
+  if (type === AjfChartType.Bubble && sheet.length !== 3) {
+    alertAndThrow(`Bubble chart "${name}" must have 3 rows of data`);
+  }
+  const labels = data['labels'];
+  let labelsFormula: AjfFormula = {formula: '[]'};
+  if (labels != null) {
+    delete data['labels'];
+    let labelsJs = '';
+    try {
+      labelsJs = indicatorToJs(labels);
+    } catch (err: any) {
+      alertAndThrow(`Error in labels of chart ${name}: ${err.message}`);
+    }
+    labelsFormula = {formula: labelsJs};
+  }
+
   const dataset: AjfChartDataset[] = [];
-  let labels: AjfFormula = {formula: '[]'};
-
-  if (json.length > 0) {
-    const firstRow = json[0];
-    optionLabels.forEach(optionLabel => {
-      if (firstRow[optionLabel] != null) {
-        chartOptions[optionLabel] = firstRow[optionLabel];
-        delete firstRow[optionLabel];
-      }
-    });
-  }
-  json.forEach(row => {
-    const rowKeys = Object.keys(row);
-    rowKeys.forEach(rowKey => {
-      const value = row[rowKey];
-      if (datasetObj[rowKey] == null) {
-        datasetObj[rowKey] = [value];
-      } else {
-        datasetObj[rowKey].push(value);
-      }
-    });
-  });
-  const doLabels = datasetObj['labels'];
-  if (doLabels != null) {
-    let labelsJs: string;
+  Object.keys(data).forEach((key, index) => {
+    let xs = '';
     try {
-      labelsJs = indicatorToJs('[' + doLabels.join() + ']');
+      xs = indicatorToJs(data[key]);
     } catch (err: any) {
-      err = new Error(`Error in "labels" of chart "${chartOptions['title']}": ${err.message}`);
-      window.alert(err.message);
-      throw err;
+      alertAndThrow(`Error in X data "${key}" of chart "${name}": ${err.message}`);
     }
-    labels = {formula: `plainArray(${labelsJs})`};
-    delete datasetObj['labels'];
-  }
-  Object.keys(datasetObj).forEach((datasetObjKey, index) => {
-    let datasetJs: string;
-    try {
-      datasetJs = indicatorToJs('[' + datasetObj[datasetObjKey].join() + ']');
-    } catch (err: any) {
-      err = new Error(
-        `Error in "${datasetObjKey}" of chart "${chartOptions['title']}": ${err.message}`,
-      );
-      window.alert(err.message);
-      throw err;
+    let ys = '';
+    if (type === AjfChartType.Scatter || type === AjfChartType.Bubble) {
+      try {
+        ys = indicatorToJs(sheet[1][key]);
+      } catch (err: any) {
+        alertAndThrow(`Error in Y data "${key}" of chart "${name}": ${err.message}`);
+      }
+    }
+    let rs = 'undefined';
+    if (type === AjfChartType.Bubble) {
+      try {
+        rs = indicatorToJs(sheet[2][key]);
+      } catch (err: any) {
+        alertAndThrow(`Error in radius data "${key}" of chart "${name}": ${err.message}`);
+      }
+    }
+    let formula: AjfFormula[];
+    if (type === AjfChartType.Scatter || type === AjfChartType.Bubble) {
+      formula = [createFormula({formula: `buildPointData(${xs}, ${ys}, ${rs})`})];
+    } else {
+      formula = [createFormula({formula: xs})];
     }
 
-    const chartType = chartOptions['chartType'];
-    const colorCondition =
-      chartType === 'Pie' || chartType === 'PolarArea' || chartType === 'Doughnut';
-    const backColor = colorCondition ? backgroundColor : backgroundColor[index];
-    const formula: AjfFormula[] = [
-      createFormula({
-        formula: `plainArray(${datasetJs})`,
-      }),
-    ];
+    const multipleColors = type === AjfChartType.Pie ||
+      type === AjfChartType.PolarArea || type === AjfChartType.Doughnut;
+    const backColor = multipleColors ? backgroundColor : backgroundColor[index];
     const datasetOptions: AjfChartDatasetOptions = {
       backgroundColor: backColor as ChartColor,
     };
@@ -251,7 +268,7 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
       ...createDataset({
         aggregation: {aggregation: 0},
         formula,
-        label: datasetObjKey,
+        label: key,
       }),
       options: datasetOptions,
     } as AjfChartDataset);
@@ -260,8 +277,8 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
   return createWidget({
     name,
     widgetType: AjfWidgetType.Chart,
-    type: AjfChartType[chartOptions['chartType'] as any] as unknown as AjfChartType,
-    labels,
+    type,
+    labels: labelsFormula,
     dataset,
     options: {
       responsive: true,
@@ -269,12 +286,12 @@ function _buildChart(name: string, json: {[key: string]: string}[]): AjfWidget {
       legend: {display: true, position: 'bottom'},
       title: {
         display: true,
-        text: chartOptions['title'] || '',
+        text: options['title'] || '',
       },
     },
     styles: {
-      ...{width: '100%', height: '100%', padding: '20px'},
       ...widgetStyle,
+      ...{width: '100%', height: '100%', padding: '20px'},
     },
     exportable: true,
   } as AjfWidgetCreate);
