@@ -1,3 +1,10 @@
+<a name="15.3.5"></a>
+# 15.3.5 "nearby-hoverfly" (2023-10-30)
+### Features
+* **core/reports:** implement scatter and bubble charts in xlsreport ([6ada13e](https://github.com/gnucoop/ajf/commit/6ada13e0e3958f44be0b52dccbd1785f5c336bf6))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.4"></a>
 # 15.3.4 "tight-llama" (2023-10-16)
 ### Bug Fixes
