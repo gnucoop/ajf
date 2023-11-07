@@ -38,7 +38,6 @@ import {
   ChartData,
   ChartLegendLabelItem,
   ChartOptions,
-  ChartPoint,
   ChartSize,
   ChartTooltipItem,
   ChartTooltipModel,
@@ -69,7 +68,6 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
 
   private _chart: Chart | null = null;
   private _chartCanvasElement: HTMLCanvasElement | null = null;
-  private _chartTypesNeedPoints: ExtendedChartType[] = ['scatter', 'bubble'];
 
   constructor(private _el: ElementRef, private _renderer: Renderer2) {}
 
@@ -93,7 +91,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  private _fixData(chartType: ExtendedChartType, data: ChartData): ChartData {
+  private _fixData(data: ChartData): ChartData {
     const newData: ChartData = deepCopy(data);
     let maxPointsNum = 0;
     (newData.datasets || []).forEach(dataset => {
@@ -101,15 +99,6 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
         dataset.label = '';
       }
       maxPointsNum = Math.max(maxPointsNum, (dataset.data || []).length);
-      const datasetType = dataset.type != null ? <ExtendedChartType>dataset.type : chartType;
-      if (this._chartTypesNeedPoints.indexOf(datasetType) > -1) {
-        dataset.data = (<any[]>(dataset.data || [])).map((d, idx) => {
-          if (typeof d === 'number') {
-            return <any>{x: idx, y: d, r: d};
-          }
-          return <ChartPoint>d;
-        });
-      }
     });
     const labels = newData.labels || [];
     if (maxPointsNum > 0 && labels.length < maxPointsNum) {
@@ -168,7 +157,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
         const ctx = this._chartCanvasElement!.getContext('2d') as CanvasRenderingContext2D;
         this._chart = new Chart(ctx, {
           type: this.chartType,
-          data: this._fixData(this.chartType, this.data),
+          data: this._fixData(this.data),
           options: this._fixChartOptions(this.options),
         });
       }
@@ -176,7 +165,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
   }
 
   private _fixChartOptions(chartOptions: ChartOptions | undefined): ChartOptions {
-    const options = deepCopy(chartOptions || {}) || {};
+    const options = deepCopy(chartOptions || {});
     if (options.legendCallback) {
       const legendCallback = (
         typeof options.legendCallback === 'string'

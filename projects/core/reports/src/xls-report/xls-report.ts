@@ -23,7 +23,6 @@
 import {AjfFormula, createFormula} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {HttpClient} from '@angular/common/http';
-import {ChartColor} from 'chart.js';
 import {forkJoin, Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import * as XLSX from 'xlsx';
@@ -38,7 +37,6 @@ import {AjfWidgetCreate, createWidget} from '../utils/widgets/create-widget';
 import {AjfWidgetType} from '../interface/widgets/widget-type';
 import {AjfTableDataset} from '../interface/dataset/table-dataset';
 import {AjfChartDataset} from '../interface/dataset/chart-dataset';
-import {AjfChartDatasetOptions} from '../interface/dataset/chart-dataset-options';
 import {AjfChartType} from '../interface/charts/chart-type';
 import {AjfWidget} from '../interface/widgets/widget';
 import {AjfReport} from '../interface/reports/report';
@@ -193,7 +191,7 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     alertAndThrow('Empty sheet for chart ' + name);
   }
   const data = sheet[0];
-  const optionsNames = ['chartType', 'title'];
+  const optionsNames = ['chartType', 'title', 'stacked', 'beginAtZeroX', 'beginAtZeroY'];
   const options: {[key: string]: string} = {};
   for (const name of optionsNames) {
     if (data[name] != null) {
@@ -260,10 +258,13 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
 
     const multipleColors = type === AjfChartType.Pie ||
       type === AjfChartType.PolarArea || type === AjfChartType.Doughnut;
-    const backColor = multipleColors ? backgroundColor : backgroundColor[index];
-    const datasetOptions: AjfChartDatasetOptions = {
-      backgroundColor: backColor as ChartColor,
-    };
+    const color = multipleColors ? backgroundColor : backgroundColor[index];
+    const datasetOptions: any = {backgroundColor: color, tension: 0};
+    if (type === AjfChartType.Line && !options['stacked']) {
+      datasetOptions.backgroundColor = 'transparent';
+      datasetOptions.borderColor = color;
+      datasetOptions.pointBackgroundColor = color;
+    }
     dataset.push({
       ...createDataset({
         aggregation: {aggregation: 0},
@@ -288,10 +289,19 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
         display: true,
         text: options['title'] || '',
       },
+      scales: {
+        xAxes: [{
+          ticks: {beginAtZero: options['beginAtZeroX']},
+        }],
+        yAxes: [{
+          stacked: options['stacked'],
+          ticks: {beginAtZero: options['stacked'] || options['beginAtZeroY']},
+        }],
+      },
     },
     styles: {
       ...widgetStyle,
-      ...{width: '100%', height: '100%', padding: '20px'},
+      ...{width: '100%', height: '400px', padding: '10px'},
     },
     exportable: true,
   } as AjfWidgetCreate);
