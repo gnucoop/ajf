@@ -27,6 +27,7 @@ import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/fo
 import {format} from 'date-fns';
 import {
   BehaviorSubject,
+  combineLatest,
   from,
   Observable,
   of as obsOf,
@@ -802,11 +803,17 @@ export class AjfFormRendererService {
     let init = true;
     let initForm = true;
     this._formInitEvent.emit(AjfFormInitStatus.Initializing);
-    this._formGroupSubscription = formGroup.valueChanges
-      .pipe(
+    this._formGroupSubscription = combineLatest([
+      formGroup.valueChanges.pipe(
         startWith({}),
-        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+        distinctUntilChanged((a, b) => {
+          return JSON.stringify(a) === JSON.stringify(b);
+        }),
         pairwise(),
+      ),
+      this._flatNodes,
+    ])
+      .pipe(
         withLatestFrom(
           this._nodesMaps[0],
           this._nodesMaps[1],
@@ -818,13 +825,12 @@ export class AjfFormRendererService {
           this._nodesMaps[7],
           this._nodesMaps[8],
           this._nodesMaps[9],
-          this._flatNodes,
         ),
       )
       .subscribe(v => {
-        const oldFormValue = (init && {}) || v[0][0];
+        const oldFormValue = (init && {}) || v[0][0][0];
         init = false;
-        const newFormValue = v[0][1];
+        const newFormValue = v[0][0][1];
         const editability = v[1];
         const visibilityMap = v[2];
         const repetitionMap = v[3];
@@ -835,7 +841,7 @@ export class AjfFormRendererService {
         const nextSlideConditionsMap = v[8];
         const filteredChoicesMap = v[9];
         const triggerConditionsMap = v[10];
-        const nodes = v[11];
+        const nodes = v[0][1];
 
         // takes the names of the fields that have changed
         const delta = this._formValueDelta(oldFormValue, newFormValue);
