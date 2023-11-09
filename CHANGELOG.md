@@ -1,3 +1,13 @@
+<a name="15.3.6"></a>
+# 15.3.6 "conservative-barracuda" (2023-11-09)
+### Bug Fixes
+* **core/forms:** combine form init event with flat nodes ([94311da](https://github.com/gnucoop/ajf/commit/94311da6b343d01f8f57ee288e2ccef317125215))
+* **material/form-builder:** fix formbuilder sticky bar ([af21ea4](https://github.com/gnucoop/ajf/commit/af21ea48c79f844c54880799fac245a67273a2ae))
+### Features
+* **core/reports:** xlsreport chart options ([02e3c77](https://github.com/gnucoop/ajf/commit/02e3c77509c7377ab3d383460335e480bc9b0294))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.5"></a>
 # 15.3.5 "nearby-hoverfly" (2023-10-30)
 ### Features
