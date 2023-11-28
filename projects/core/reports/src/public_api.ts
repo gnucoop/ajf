@@ -102,3 +102,4 @@ export * from './utils/widgets-instances/widget-to-widget-instance';
 export * from './automatic-report/automatic-report';
 export * from './xls-report/xls-report';
 export * from './report-to-pdf/report-to-pdf';
+export * from './report-to-pdf/report-to-doc';
