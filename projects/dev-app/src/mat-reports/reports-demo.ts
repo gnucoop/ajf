@@ -25,6 +25,7 @@ import {
   AjfReportSerializer,
   AjfWidgetExport,
   createReportInstance,
+  downloadReportDoc,
   openReportPdf,
 } from '@ajf/core/reports';
 import {TranslocoService} from '@ajf/core/transloco';
@@ -72,6 +73,13 @@ export class ReportsDemo {
       return;
     }
     openReportPdf(this.report, orientation);
+  }
+
+  downloadReportDoc() {
+    if (this.report == null) {
+      return;
+    }
+    downloadReportDoc(this.report);
   }
 
   private _populateReport(): void {

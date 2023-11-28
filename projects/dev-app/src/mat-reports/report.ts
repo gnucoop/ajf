@@ -28,6 +28,14 @@ export const testReport = {
   'content': {
     'content': [
       {
+        'widgetType': 3,
+        'htmlText': '<h1>Heading 1</h1>',
+      },
+      {
+        'widgetType': 3,
+        'htmlText': '<h2>Heading 2</h2>',
+      },
+      {
         'widgetType': 0,
         'columns': [-1, -1],
         'content': [
@@ -188,37 +196,6 @@ export const testReport = {
               'aggregation': 0,
             },
           },
-        ],
-      },
-      {
-        'widgetType': 5,
-        'exportable': true,
-        'dataset': [
-          [
-            {
-              'label': '',
-              'formula': {'formula': '"Header A "'},
-              'aggregation': {'aggregation': 0},
-              'rowspan': 2,
-            },
-            {
-              'label': '',
-              'formula': {'formula': '"Header B "'},
-              'aggregation': {'aggregation': 0},
-              'rowspan': 2,
-            },
-            {
-              'label': '',
-              'formula': {'formula': '"Header C "'},
-              'aggregation': {'aggregation': 0},
-            },
-          ],
-          [{'label': '', 'formula': {'formula': '"2c"'}, 'aggregation': {'aggregation': 0}}],
-          [
-            {'label': '', 'formula': {'formula': '"3a"'}, 'aggregation': {'aggregation': 0}},
-            {'label': '', 'formula': {'formula': '"3b"'}, 'aggregation': {'aggregation': 0}},
-            {'label': '', 'formula': {'formula': '"3c"'}, 'aggregation': {'aggregation': 0}},
-          ],
         ],
       },
     ],

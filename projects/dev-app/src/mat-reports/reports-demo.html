@@ -23,6 +23,9 @@
     &nbsp;
     <button (click)="printReport('landscape')" mat-raised-button
       color="primary">Print pdf (landscape)</button>
+    &nbsp;
+    <button (click)="downloadReportDoc()" mat-raised-button
+      color="primary">Download doc</button>
     <div class="demo-form-builder-container">
       <ajf-report [instance]="report" [enableExportAll]="true"></ajf-report>
     </div>
