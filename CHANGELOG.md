@@ -1,3 +1,12 @@
+<a name="15.3.7"></a>
+# 15.3.7 "interesting-bird" (2023-11-29)
+### Bug Fixes
+* **core/transloco:** modified some spanish translations ([dc3819f](https://github.com/gnucoop/ajf/commit/dc3819fd079c6e30986f46469ad113229bc98630))
+### Features
+* **core/reports:** download reports as docx files ([0ed23d8](https://github.com/gnucoop/ajf/commit/0ed23d853d87a854abbd42cb4b26185395eeeda6))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.6"></a>
 # 15.3.6 "conservative-barracuda" (2023-11-09)
 ### Bug Fixes
