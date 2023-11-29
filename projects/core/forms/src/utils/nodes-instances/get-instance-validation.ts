@@ -35,5 +35,5 @@ export function getInstanceValidation(
   if (newValidation === oldValidation) {
     return validation;
   }
-  return createValidation({condition: newValidation});
+  return createValidation({...validation, condition: newValidation});
 }
