@@ -16,6 +16,7 @@ export const versionReplacements = packages => {
     ['chart.js', 'CHARTJS'],
     ['dagre', 'DAGRE'],
     ['date-fns', 'DATE-FNS'],
+    ['docx', 'DOCX'],
     ['echarts', 'ECHARTS'],
     ['flag-icon-css', 'FLAG-ICON-CSS'],
     ['leaflet', 'LEAFLET'],
