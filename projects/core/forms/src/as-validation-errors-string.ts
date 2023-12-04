@@ -28,7 +28,7 @@ import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 /**
  * It casts an AjfNodeInstance as a string of all validation errors of an AjfFieldInstance.
  */
-@Pipe({name: 'ajfAsFieldInstanceErrors'})
+@Pipe({name: 'ajfAsFieldInstanceErrors', pure: false})
 export class AjfAsFieldInstanceErrorsPipe implements PipeTransform {
   transform(instance: AjfNodeInstance): string | null {
     const fieldInstance = instance as AjfFieldInstance;
