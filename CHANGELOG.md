@@ -1,3 +1,12 @@
+<a name="15.3.8"></a>
+# 15.3.8 "provincial-tiger" (2023-12-04)
+### Bug Fixes
+* **core/forms:** add all info when create a new validation ([cd1572f](https://github.com/gnucoop/ajf/commit/cd1572f282d66154144488efb4c714e3c5912738))
+* **core/forms:** validation message will always be updated by the pipeline on multiple conditions ([f8723cf](https://github.com/gnucoop/ajf/commit/f8723cf1397b28c8df2a5607cdb9322ce13291b2))
+* **core/reports:** fix docx library inclusion ([cf56b42](https://github.com/gnucoop/ajf/commit/cf56b4233f7129f9272faafd3ce236895858ecfc))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.7"></a>
 # 15.3.7 "interesting-bird" (2023-11-29)
 ### Bug Fixes
