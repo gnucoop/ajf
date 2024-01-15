@@ -186,12 +186,20 @@ function alertAndThrow(err: string) {
   throw new Error(err);
 }
 
+// converts to boolean an option from an excel cell
+function bool(cell: undefined | null | string | boolean): boolean {
+  if (!cell || cell === 'false') {
+    return false;
+  }
+  return true;
+}
+
 function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget {
   if (sheet == null || sheet.length === 0) {
     alertAndThrow('Empty sheet for chart ' + name);
   }
   const data = sheet[0];
-  const optionsNames = ['chartType', 'title', 'stacked', 'beginAtZeroX', 'beginAtZeroY'];
+  const optionsNames = ['chartType', 'title', 'stacked', 'beginAtZeroX', 'beginAtZeroY', 'maintainAspectRatio'];
   const options: {[key: string]: string} = {};
   for (const name of optionsNames) {
     if (data[name] != null) {
@@ -225,6 +233,7 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     labelsFormula = {formula: labelsJs};
   }
 
+  const stacked = bool(options['stacked']);
   const dataset: AjfChartDataset[] = [];
   Object.keys(data).forEach((key, index) => {
     let xs = '';
@@ -260,7 +269,7 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
       type === AjfChartType.PolarArea || type === AjfChartType.Doughnut;
     const color = multipleColors ? backgroundColor : backgroundColor[index];
     const datasetOptions: any = {backgroundColor: color, tension: 0};
-    if (type === AjfChartType.Line && !options['stacked']) {
+    if (type === AjfChartType.Line && !stacked) {
       datasetOptions.backgroundColor = 'transparent';
       datasetOptions.borderColor = color;
       datasetOptions.pointBackgroundColor = color;
@@ -275,6 +284,7 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     } as AjfChartDataset);
   });
 
+  const maintainAspectRatio = bool(options['maintainAspectRatio']);
   return createWidget({
     name,
     widgetType: AjfWidgetType.Chart,
@@ -283,25 +293,20 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     dataset,
     options: {
       responsive: true,
-      maintainAspectRatio: false,
+      maintainAspectRatio,
       legend: {display: true, position: 'bottom'},
       title: {
         display: true,
         text: options['title'] || '',
       },
       scales: {
-        xAxes: [{
-          ticks: {beginAtZero: options['beginAtZeroX']},
-        }],
-        yAxes: [{
-          stacked: options['stacked'],
-          ticks: {beginAtZero: options['stacked'] || options['beginAtZeroY']},
-        }],
+        xAxes: [{stacked, ticks: {beginAtZero: bool(options['beginAtZeroX'])}}],
+        yAxes: [{stacked, ticks: {beginAtZero: stacked || bool(options['beginAtZeroY'])}}],
       },
     },
     styles: {
       ...widgetStyle,
-      ...{width: '100%', height: '400px', padding: '10px'},
+      ...{width: '100%', height: maintainAspectRatio ? undefined : '400px', padding: '10px'},
     },
     exportable: true,
   } as AjfWidgetCreate);
