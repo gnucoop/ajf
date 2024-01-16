@@ -125,6 +125,9 @@ export abstract class AjfRange
       if (node.name != null) {
         this.name = node.name;
       }
+      if (this.instance != null && this.instance.value != null) {
+        this.value = this.instance.value;
+      }
     }
   }
 
