@@ -83,6 +83,10 @@ ajf-fb-node-properties {
 
   .ajf-prop {
     margin: 0.5em 0;
+    
+    .mdc-button__label {
+      max-width: 100%;
+    }
   }
 
   mat-form-field,
