@@ -32,6 +32,8 @@ ajf-fb-node-entry {
           flex: 1 1 auto;
           font-size: 10px;
           color: #999;
+          max-height: 100px;
+          max-width: 500px;
         }
 
         > .ajf-actions {
