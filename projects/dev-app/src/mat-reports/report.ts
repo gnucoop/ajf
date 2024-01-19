@@ -29,11 +29,17 @@ export const testReport = {
     'content': [
       {
         'widgetType': 3,
-        'htmlText': '<h1>Heading 1</h1>',
-      },
-      {
-        'widgetType': 3,
-        'htmlText': '<h2>Heading 2</h2>',
+        'htmlText':
+`<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<p>
+Lorem ipsum dolor sit amet, <b>consectetur</b> adipiscing elit,
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</p>
+<ul>
+  <li><i>Duis aute irure dolor in <b>reprehenderit</b> in voluptate</i></li>
+  <li>velit esse cillum dolore eu fugiat nulla pariatur.</li>
+</ul>`,
       },
       {
         'widgetType': 0,

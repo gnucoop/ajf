@@ -31,7 +31,7 @@ import {
   Table,
   TableCell,
   TableRow,
-  WidthType,
+  TextRun,
 } from 'docx';
 
 import {AjfReportInstance} from '../interface/reports-instances/report-instance';
@@ -58,16 +58,16 @@ function downloadBlob(b: Blob) {
   URL.revokeObjectURL(url);
 }
 
-export function downloadReportDoc(report: AjfReportInstance, icons: ImageMap = {}) {
-  createReportDoc(report, icons).then(blob => {
+export function downloadReportDoc(report: AjfReportInstance) {
+  createReportDoc(report).then(blob => {
     downloadBlob(blob);
   });
 }
 
-export function createReportDoc(report: AjfReportInstance, icons: ImageMap = {}): Promise<Blob> {
+export function createReportDoc(report: AjfReportInstance): Promise<Blob> {
   return new Promise<Blob>(resolve => {
     loadReportImages(report).then(images => {
-      const doc = reportToDoc(report, {...images, ...icons});
+      const doc = reportToDoc(report, images);
       Packer.toBlob(doc).then(blob => resolve(blob));
     });
   });
@@ -111,7 +111,7 @@ function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap): SectionChild[
     case AjfWidgetType.Image:
       return [imageToDoc(widget as AjfImageWidgetInstance, images), marginBetweenWidgets];
     case AjfWidgetType.Text:
-      return [textToDoc(widget as AjfTextWidgetInstance, images), marginBetweenWidgets];
+      return [...textToDoc(widget as AjfTextWidgetInstance), marginBetweenWidgets];
     case AjfWidgetType.Chart:
       const chart = widget as AjfChartWidgetInstance;
       const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
@@ -124,7 +124,7 @@ function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap): SectionChild[
       ];
     case AjfWidgetType.Table:
     case AjfWidgetType.DynamicTable:
-      return [tableToDoc(widget as AjfTableWidgetInstance, images), marginBetweenWidgets];
+      return [tableToDoc(widget as AjfTableWidgetInstance), marginBetweenWidgets];
     case AjfWidgetType.Formula:
       return [new Paragraph((widget as AjfFormulaWidgetInstance).formula), marginBetweenWidgets];
     default:
@@ -148,30 +148,70 @@ function imageToDoc(image: AjfImageWidgetInstance, images: ImageMap): Paragraph 
   })]});
 }
 
-function htmlTextToDocText(htmlText: string, images: ImageMap): string {
-  const iconText = images[htmlText];
-  if (typeof iconText === 'string') {
-    return iconText;
-  }
-  return stripHTML(htmlText);
+function textToDoc(tw: AjfTextWidgetInstance): Paragraph[] {
+  const paragraphs = tw.htmlText.split(/(?=<p>|<h1>|<h2>|<h3>|<li>)/);
+  return paragraphs.map(paragraphToDoc);
 }
 
-function textToDoc(tw: AjfTextWidgetInstance, images: ImageMap): Paragraph {
+function paragraphToDoc(par: string): Paragraph {
   let heading: HeadingLevel|undefined = undefined;
-  if (tw.htmlText.startsWith('<h1>')) {
+  if (par.startsWith('<h1>')) {
     heading = HeadingLevel.HEADING_1;
-  } else if (tw.htmlText.startsWith('<h2>')) {
+  } else if (par.startsWith('<h2>')) {
     heading = HeadingLevel.HEADING_2;
+  } else if (par.startsWith('<h3>')) {
+    heading = HeadingLevel.HEADING_3;
   }
-  return new Paragraph({text: htmlTextToDocText(tw.htmlText, images), heading});
+  if (heading !== undefined) {
+    return new Paragraph({text: stripHTML(par).trim(), heading});
+  }
+
+  let bullet: {level: number}|undefined = undefined;
+  if (par.startsWith('<li>')) {
+    bullet = {level: 0};
+  }
+  return new Paragraph({children: textRuns(par), bullet});
 }
 
-function tableToDoc(table: AjfTableWidgetInstance, images: ImageMap): Table {
+function textRuns(par: string): TextRun[] {
+  const strings = par.split(/(?=<b>|<\/b>|<i>|<\/i>)/);
+  let bold = false;
+  let italics = false;
+  const runs: TextRun[] = [];
+  for (let i = 0; i < strings.length; i++) {
+    let s = strings[i];
+    if (s.startsWith('<b>')) {
+      bold = true;
+    } else if (s.startsWith('</b>')) {
+      bold = false;
+    } else if (s.startsWith('<i>')) {
+      italics = true;
+    } else if (s.startsWith('</i>')) {
+      italics = false;
+    }
+    s = stripHTML(s);
+    if (i === 0) {
+      s = s.trimStart();
+    }
+    if (i === strings.length - 1) {
+      s = s.trimEnd();
+    }
+    runs.push(new TextRun({text: s, bold, italics}));
+  }
+  return runs;
+}
+
+function tableToDoc(table: AjfTableWidgetInstance): Table {
   if (table.data == null || table.data.length === 0) {
     return new Paragraph('[empty table]');
   }
+  const pageWidth = 9000;
+  let numCols = 0;
+  for (const cell of table.data[0]) {
+    numCols += cell.colspan || 1;
+  }
   return new Table({
-    width: {size: 100, type: WidthType.PERCENTAGE},
+    columnWidths: Array(numCols).fill(pageWidth / numCols),
     rows: table.data.map(row => new TableRow({
       children: row.map(cell => {
         let text = '';
@@ -180,14 +220,14 @@ function tableToDoc(table: AjfTableWidgetInstance, images: ImageMap): Table {
             text = String(cell.value);
             break;
           case 'string':
-            text = htmlTextToDocText(cell.value, images);
+            text = stripHTML(cell.value);
             break;
           case 'object':
             let val = cell.value.changingThisBreaksApplicationSecurity;
             if (typeof val === 'number') {
               val = String(val);
             }
-            text = htmlTextToDocText(val || '', images);
+            text = stripHTML(val || '');
             break;
         }
         return new TableCell({
