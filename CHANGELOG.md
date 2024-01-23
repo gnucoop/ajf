@@ -1,3 +1,14 @@
+<a name="15.3.9"></a>
+# 15.3.9 "jolly-salamander" (2024-01-23)
+### Bug Fixes
+* **core/range:** set correct value for range slider when min or max change ([4c5b368](https://github.com/gnucoop/ajf/commit/4c5b368721b6e54d29b8980f913ed724f1ed03cf))
+* **core/reports:** xlsreport charts various fixes ([a7e564a](https://github.com/gnucoop/ajf/commit/a7e564a4897c6c520196ab14e9bdf43cd7e5ed03))
+* **material/form-builder:** set max width for very long formulae ([cb42fe4](https://github.com/gnucoop/ajf/commit/cb42fe46860f0b41a782bb975322a61dedeb369c))
+### Features
+* **core/reports:** docx printing of html tags in text widgets ([3baf2d2](https://github.com/gnucoop/ajf/commit/3baf2d2a0c1617fde7a5c4b7e22718473d10b9e5))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.8"></a>
 # 15.3.8 "provincial-tiger" (2023-12-04)
 ### Bug Fixes
