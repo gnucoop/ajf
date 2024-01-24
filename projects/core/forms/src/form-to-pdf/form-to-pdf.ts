@@ -145,7 +145,7 @@ function slideToPdf(
 ): Content[] {
   let label = translate(slide.label);
   if (rep != null) {
-    label = `${label} (${translate('repeat')} ${rep})`;
+    label = `${label} (${translate('repeat')} ${rep + 1})`;
   }
   const content: Content[] = [{text: label, fontSize: 18, bold: true, margin: [0, 15, 0, 10]}];
   for (const field of slide.nodes) {
