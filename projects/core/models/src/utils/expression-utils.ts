@@ -2020,15 +2020,24 @@ export function JOIN_REPEATING_SLIDES(
  * Returns the array obtained by evaluating expression for every repetition of form.
  *
  * @export
- * @param {MainForm} form
+ * @param {MainForm | MainForm[]} forms
  * @param {string} expression
  * @return {*}  {any[]}
  */
-export function FROM_REPS(form: MainForm, expression: Func | string): any[] {
+export function FROM_REPS(forms: MainForm | MainForm[], expression: Func | string): any[] {
   if (typeof expression === 'string') {
     expression = createFunction(expression);
   }
-  return allReps(form || {}).map(rep => (expression as Func)({...form, ...rep}));
+  if (forms == null) {
+    forms = [];
+  }
+  if (!Array.isArray(forms)) {
+    forms = [forms];
+  }
+  const func = expression;
+  return forms.map(
+    form => allReps(form || {}).map(rep => func({...form, ...rep}))
+  ).flat();
 }
 
 /**
