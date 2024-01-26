@@ -51,8 +51,8 @@ The form's fields can be used inside expression.
 Returns a clone of forms, where the specified fields are replaced by the corresponding labels,
 as defined by the choice origins in schema.
 
-`FROM_REPS(forms, expression)`  
-Returns the array obtained by evaluating expression for every repetition of form.
+`FROM_REPS(form | forms, expression)`  
+Returns the array obtained by evaluating expression for every repetition of every input form.
 
 `GET_LABELS(schema, values)`  
 Given an array of values, returns the corresponding array of labels,
