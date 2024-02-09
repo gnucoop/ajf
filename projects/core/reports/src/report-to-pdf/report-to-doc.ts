@@ -22,6 +22,7 @@
 
 import {AjfImageType} from '@ajf/core/image';
 import {
+  AlignmentType,
   Document,
   HeadingLevel,
   ImageRun,
@@ -149,28 +150,37 @@ function imageToDoc(image: AjfImageWidgetInstance, images: ImageMap): Paragraph 
 }
 
 function textToDoc(tw: AjfTextWidgetInstance): Paragraph[] {
-  const paragraphs = tw.htmlText.split(/(?=<p>|<h1>|<h2>|<h3>|<li>)/);
+  const paragraphs = tw.htmlText.split(/(?=<p|<h1|<h2|<h3|<li)/);
   return paragraphs.map(paragraphToDoc);
 }
 
 function paragraphToDoc(par: string): Paragraph {
+  let alignment: AlignmentType|undefined = undefined;
+  if (/^<\w\w? align="center"/.test(par)) {
+    alignment = AlignmentType.CENTER;
+  } else if (/^<\w\w? align="right"/.test(par)) {
+    alignment = AlignmentType.RIGHT;
+  } else if (/^<\w\w? align="justify"/.test(par)) {
+    alignment = AlignmentType.JUSTIFIED;
+  }
+
   let heading: HeadingLevel|undefined = undefined;
-  if (par.startsWith('<h1>')) {
+  if (par.startsWith('<h1')) {
     heading = HeadingLevel.HEADING_1;
-  } else if (par.startsWith('<h2>')) {
+  } else if (par.startsWith('<h2')) {
     heading = HeadingLevel.HEADING_2;
-  } else if (par.startsWith('<h3>')) {
+  } else if (par.startsWith('<h3')) {
     heading = HeadingLevel.HEADING_3;
   }
   if (heading !== undefined) {
-    return new Paragraph({text: stripHTML(par).trim(), heading});
+    return new Paragraph({text: stripHTML(par).trim(), heading, alignment});
   }
 
   let bullet: {level: number}|undefined = undefined;
-  if (par.startsWith('<li>')) {
+  if (par.startsWith('<li')) {
     bullet = {level: 0};
   }
-  return new Paragraph({children: textRuns(par), bullet});
+  return new Paragraph({children: textRuns(par), bullet, alignment});
 }
 
 function textRuns(par: string): TextRun[] {
