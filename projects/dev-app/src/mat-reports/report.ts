@@ -30,7 +30,7 @@ export const testReport = {
       {
         'widgetType': 3,
         'htmlText':
-`<h1>Heading 1</h1>
+`<h1 align="center">Heading 1</h1>
 <h2>Heading 2</h2>
 <p>
 Lorem ipsum dolor sit amet, <b>consectetur</b> adipiscing elit,
