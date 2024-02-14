@@ -1,3 +1,10 @@
+<a name="15.3.11"></a>
+# 15.3.11 "wasteful-lemming" (2024-02-14)
+### Bug Fixes
+* **material/forms:** fix choice fields with few choices ([8ad4a8c](https://github.com/gnucoop/ajf/commit/8ad4a8c207f6dee4965e6e8ac58efa8aed8d6d25))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.10"></a>
 # 15.3.10 "economic-salmon" (2024-02-14)
 ### Bug Fixes
