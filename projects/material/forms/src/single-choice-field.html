@@ -1,8 +1,15 @@
 <ng-container *ngIf="instance">
   <ng-container *ngIf="!(instance|ajfExpandFieldWithChoices:searchThreshold) ; else expanded">
     <mat-select *ngIf="control|async as ctrl" [formControl]="ctrl!">
-      <mat-option [value]="choice.value"
-          *ngFor="let choice of instance!.filteredChoices">
+      <mat-option [style.backgroundColor]="'white'">
+        <ngx-mat-select-search
+          [formControl]="searchFilterCtrl"
+          [placeholderLabel]="'Search'|transloco"
+          [noEntriesFoundLabel]="'Nothing found'|transloco"
+          [enableClearOnEscapePressed]="true">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option [value]="choice.value" *ngFor="let choice of filteredChoices">
         {{ choice.label | transloco }}
       </mat-option>
     </mat-select>
@@ -12,8 +19,7 @@
   <mat-radio-group *ngIf="control|async as ctrl" class="ajf-choices-container"
       [attr.aria-labelledby]="instance!.node.name"
       [formControl]="ctrl!">
-    <mat-radio-button [value]="choice.value"
-        *ngFor="let choice of instance!.filteredChoices">
+    <mat-radio-button [value]="choice.value" *ngFor="let choice of filteredChoices">
       {{ choice.label | transloco }}
     </mat-radio-button>
   </mat-radio-group>

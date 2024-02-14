@@ -21,6 +21,7 @@ export const versionReplacements = packages => {
     ['flag-icon-css', 'FLAG-ICON-CSS'],
     ['leaflet', 'LEAFLET'],
     ['meriyah', 'MERIYAH'],
+    ['ngx-mat-select-search', 'NGX-MAT-SELECT-SEARCH'],
     ['numbro', 'NUMBRO'],
     ['pdfmake', 'PDFMAKE'],
     ['svg-pan-zoom', 'SVG-PAN-ZOOM'],
