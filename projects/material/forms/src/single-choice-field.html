@@ -19,7 +19,7 @@
   <mat-radio-group *ngIf="control|async as ctrl" class="ajf-choices-container"
       [attr.aria-labelledby]="instance!.node.name"
       [formControl]="ctrl!">
-    <mat-radio-button [value]="choice.value" *ngFor="let choice of filteredChoices">
+    <mat-radio-button [value]="choice.value" *ngFor="let choice of instance!.filteredChoices">
       {{ choice.label | transloco }}
     </mat-radio-button>
   </mat-radio-group>
