@@ -69,6 +69,7 @@ import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfWarningAlertService} from './warning-alert-service';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {AjfSignatureModule} from '@ajf/material/signature';
 
 @NgModule({
@@ -101,6 +102,7 @@ import {AjfSignatureModule} from '@ajf/material/signature';
     ReactiveFormsModule,
     TextFieldModule,
     MatSliderModule,
+    NgxMatSelectSearchModule,
   ],
   declarations: [
     AjfBarcodeFieldComponent,

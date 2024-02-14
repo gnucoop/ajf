@@ -23,17 +23,22 @@
 import {
   AJF_SEARCH_ALERT_THRESHOLD,
   AJF_WARNING_ALERT_SERVICE,
+  AjfChoice,
   AjfFieldWithChoicesComponent,
   AjfFormRendererService,
 } from '@ajf/core/forms';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Inject,
+  OnDestroy,
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {Subscription} from 'rxjs';
 
 import {AjfWarningAlertService} from './warning-alert-service';
 
@@ -43,7 +48,14 @@ import {AjfWarningAlertService} from './warning-alert-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfMultipleChoiceFieldComponent<T> extends AjfFieldWithChoicesComponent<T> {
+export class AjfMultipleChoiceFieldComponent<T>
+  extends AjfFieldWithChoicesComponent<T> implements AfterViewInit, OnDestroy {
+
+  readonly searchFilterCtrl = new FormControl<string>('');
+  private searchFilterSub: Subscription;
+
+  filteredChoices: AjfChoice<any>[] = [];
+
   constructor(
     cdr: ChangeDetectorRef,
     service: AjfFormRendererService,
@@ -51,5 +63,29 @@ export class AjfMultipleChoiceFieldComponent<T> extends AjfFieldWithChoicesCompo
     @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number,
   ) {
     super(cdr, service, was, searchThreshold);
+
+    this.searchFilterSub = this.searchFilterCtrl.valueChanges.subscribe(() => {
+      this.filterChoices();
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.filteredChoices = this.instance?.filteredChoices || [];
+  }
+
+  private filterChoices() {
+    const choices = this.instance?.filteredChoices || [];
+    let search = this.searchFilterCtrl.value;
+    if (!search) {
+      this.filteredChoices = choices;
+      return;
+    }
+    search = search.toLowerCase();
+    this.filteredChoices = choices.filter(c => c.label.toLowerCase().includes(search!));
+  }
+
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.searchFilterSub.unsubscribe();
   }
 }
