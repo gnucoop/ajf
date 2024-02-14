@@ -1,3 +1,14 @@
+<a name="15.3.10"></a>
+# 15.3.10 "economic-salmon" (2024-02-14)
+### Bug Fixes
+* **core/forms:** pdf printing of repeating slide number starts at 1 ([a464783](https://github.com/gnucoop/ajf/commit/a46478354184dc87e16c1d402826cb9a379494bf))
+* **core/reports:** fix FROM_REPS function ([992f9cf](https://github.com/gnucoop/ajf/commit/992f9cf01f26712b977199019b4167ef532d2223))
+### Features
+* **core/reports:** align attribute in html text widget ([21f5a4c](https://github.com/gnucoop/ajf/commit/21f5a4cfadbbbd24b1bb6f14ba4698cd67f20314))
+* **material/forms:** search filter for choice fields ([4319fe1](https://github.com/gnucoop/ajf/commit/4319fe1206e8ffdce1b09368f45e2ba50663c050))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.9"></a>
 # 15.3.9 "jolly-salamander" (2024-01-23)
 ### Bug Fixes
