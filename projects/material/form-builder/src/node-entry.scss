@@ -34,6 +34,8 @@ ajf-fb-node-entry {
           color: #999;
           max-height: 100px;
           max-width: 500px;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         > .ajf-actions {
