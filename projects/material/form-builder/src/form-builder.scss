@@ -42,6 +42,10 @@ ajf-form-builder {
     .ajf-formtree-properties {
       flex: 0 1 auto;
       max-width: 20%;
+      max-height: 60vh;
+      overflow-y: auto;
+      position: sticky;
+      top: 32px;
     }
   }
 
