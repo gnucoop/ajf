@@ -1,5 +1,5 @@
 import {Injector, Type, createNgModuleRef} from '@angular/core';
-import {EXAMPLE_COMPONENTS} from '../example-module';
+import {EXAMPLE_COMPONENTS} from '../src/example-module';
 
 /**
  * Asynchronously loads the specified example and returns its component and
