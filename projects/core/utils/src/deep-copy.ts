@@ -35,7 +35,7 @@ function functionDeserializer(_: any, v: any): any {
       const bodyMatch = v.match(/\{(.*)\}/);
       if (bodyMatch != null && bodyMatch.length > 1) {
         const body = bodyMatch[1];
-        const fx = args.concat(body);
+        const fx = args.concat(body as any);
         return Function.apply(null, fx);
       }
     }
