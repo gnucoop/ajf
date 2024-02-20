@@ -9,7 +9,6 @@ export const versionReplacements = packages => {
     ['@angular/core', 'NGF'],
     ['@angular/cdk', 'NGC'],
     ['@gic/angular', 'GIC'],
-    ['@ionic/angular', 'IONIC'],
     ['@ngneat/transloco', 'TRANSLOCO'],
     ['@zxing/browser', 'ZXING-BROWSER'],
     ['@zxing/library', 'ZXING-LIBRARY'],

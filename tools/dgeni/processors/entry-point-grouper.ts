@@ -106,9 +106,6 @@ export class EntryPointGrouper implements Processor {
           case 'core':
             packageDisplayName = 'Core';
             break;
-          case 'ionic':
-            packageDisplayName = 'Ionic';
-            break;
           case 'material':
             packageDisplayName = 'Material';
         }

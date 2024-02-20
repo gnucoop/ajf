@@ -16,12 +16,6 @@
       "@ajf/core/*": [
         "./projects/core/*"
       ],
-      "@ajf/ionic": [
-        "./projects/ionic"
-      ],
-      "@ajf/ionic/*": [
-        "./projects/ionic/*"
-      ],
       "@ajf/material": [
         "./projects/material"
       ],

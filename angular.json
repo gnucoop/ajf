@@ -35,10 +35,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/core/**/*.ts",
-              "projects/core/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/core/**/*.ts", "projects/core/**/*.html"]
           }
         },
         "cypress-run": {
@@ -119,10 +116,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/material/**/*.ts",
-              "projects/material/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/material/**/*.ts", "projects/material/**/*.html"]
           }
         },
         "cypress-run": {
@@ -154,90 +148,6 @@
             "watch": true,
             "headless": false,
             "configFile": "projects/material/cypress.config.ts"
-          }
-        },
-        "e2e": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "e2e-app:serve",
-            "watch": true,
-            "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "e2e-app:serve:production"
-            }
-          }
-        }
-      }
-    },
-    "ionic": {
-      "projectType": "library",
-      "root": "projects/ionic",
-      "sourceRoot": "projects/ionic",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/ionic/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/ionic/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/ionic/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ionic/src/test.ts",
-            "tsConfig": "projects/ionic/tsconfig.spec.json",
-            "karmaConfig": "projects/ionic/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/ionic/**/*.ts",
-              "projects/ionic/**/*.html"
-            ]
-          }
-        },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "e2e-app:serve",
-            "configFile": "projects/ionic/cypress.config.ts"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "e2e-app:serve:production"
-            }
-          }
-        },
-        "cypress-run-ci": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "configFile": "projects/ionic/cypress.config.ts"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "e2e-app:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false,
-            "configFile": "projects/ionic/cypress.config.ts"
           }
         },
         "e2e": {
@@ -287,10 +197,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/calendars/**/*.ts",
-              "projects/calendars/**/*.html"
-            ]
+            "lintFilePatterns": ["projects/calendars/**/*.ts", "projects/calendars/**/*.html"]
           }
         },
         "cypress-run": {
@@ -362,14 +269,10 @@
             "polyfills": "projects/e2e-app/src/polyfills.ts",
             "tsConfig": "projects/e2e-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/e2e-app/src/favicon.ico",
-              "projects/e2e-app/src/assets"
-            ],
+            "assets": ["projects/e2e-app/src/favicon.ico", "projects/e2e-app/src/assets"],
             "styles": [
               "node_modules/@ajf/icons/css/ajf-icons.css",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/@ionic/angular/css/ionic.bundle.css",
               "node_modules/flag-icon-css/css/flag-icons.min.css",
               "node_modules/leaflet/dist/leaflet.css",
               "projects/e2e-app/src/styles.scss"
@@ -446,14 +349,10 @@
             "polyfills": "projects/dev-app/src/polyfills.ts",
             "tsConfig": "projects/dev-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/dev-app/src/favicon.ico",
-              "projects/dev-app/src/assets"
-            ],
+            "assets": ["projects/dev-app/src/favicon.ico", "projects/dev-app/src/assets"],
             "styles": [
               "node_modules/@ajf/icons/css/ajf-icons.css",
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/@ionic/angular/css/ionic.bundle.css",
               "node_modules/flag-icon-css/css/flag-icons.min.css",
               "node_modules/leaflet/dist/leaflet.css",
               "projects/dev-app/src/styles.scss"
@@ -532,9 +431,7 @@
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ],
+    "schematicCollections": ["@angular-eslint/schematics"],
     "analytics": false
   }
 }

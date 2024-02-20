@@ -16,8 +16,8 @@ if [ -z ${AJF_BUILDS_TOKEN} ]; then
 fi
 
 # Ajf packages that need to published.
-PACKAGES=(core ionic material calendars)
-REPOSITORIES=(ajf-core-builds ajf-ionic-builds ajf-material-builds ajf-calendars-builds)
+PACKAGES=(core material calendars)
+REPOSITORIES=(ajf-core-builds ajf-material-builds ajf-calendars-builds)
 
 # Command line arguments.
 COMMAND_ARGS=${*}
