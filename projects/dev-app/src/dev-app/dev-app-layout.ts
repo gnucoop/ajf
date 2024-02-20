@@ -65,21 +65,6 @@ export class DevAppLayout {
         {name: 'Widgets', route: '/mat-widgets'},
       ],
     },
-    {
-      name: 'Ionic',
-      children: [
-        {name: 'Barcode', route: '/ion-barcode'},
-        {name: 'Calendar', route: '/ion-calendar'},
-        {name: 'Checkbox group', route: '/ion-checkbox-group'},
-        {name: 'Fields', route: '/ion-fields'},
-        {name: 'Forms', route: '/ion-forms'},
-        {name: 'Image', route: '/ion-image'},
-        {name: 'Node icon', route: '/ion-node-icon'},
-        {name: 'Page slider', route: '/ion-page-slider'},
-        {name: 'Reports', route: '/ion-reports'},
-        {name: 'Widgets', route: '/ion-widgets'},
-      ],
-    },
   ];
 
   constructor(

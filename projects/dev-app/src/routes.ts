@@ -39,53 +39,8 @@ export const DEV_APP_ROUTES: Routes = [
     path: 'heat-map',
     loadChildren: () => import('./heat-map/heat-map-demo-module').then(m => m.HeatMapDemoModule),
   },
-  {
-    path: 'ion-barcode',
-    loadChildren: () => import('./ion-barcode/barcode-demo-module').then(m => m.BarcodeDemoModule),
-  },
-  {
-    path: 'ion-calendar',
-    loadChildren: () =>
-      import('./ion-calendar/calendar-demo-module').then(m => m.CalendarDemoModule),
-  },
   {path: 'i18n', loadChildren: () => import('./i18n/i18n-demo-module').then(m => m.I18nDemoModule)},
-  {
-    path: 'ion-checkbox-group',
-    loadChildren: () =>
-      import('./ion-checkbox-group/checkbox-group-demo-module').then(
-        m => m.CheckboxGroupDemoModule,
-      ),
-  },
-  {
-    path: 'ion-fields',
-    loadChildren: () => import('./ion-fields/fields-demo-module').then(m => m.FieldsDemoModule),
-  },
-  {
-    path: 'ion-forms',
-    loadChildren: () => import('./ion-forms/forms-demo-module').then(m => m.FormsDemoModule),
-  },
-  {
-    path: 'ion-image',
-    loadChildren: () => import('./ion-image/image-demo-module').then(m => m.ImageDemoModule),
-  },
-  {
-    path: 'ion-node-icon',
-    loadChildren: () =>
-      import('./ion-node-icon/node-icon-demo-module').then(m => m.NodeIconDemoModule),
-  },
-  {
-    path: 'ion-page-slider',
-    loadChildren: () =>
-      import('./ion-page-slider/page-slider-demo-module').then(m => m.PageSliderDemoModule),
-  },
-  {
-    path: 'ion-reports',
-    loadChildren: () => import('./ion-reports/reports-demo-module').then(m => m.ReportsDemoModule),
-  },
-  {
-    path: 'ion-widgets',
-    loadChildren: () => import('./ion-widgets/widgets-demo-module').then(m => m.WidgetsDemoModule),
-  },
+
   {
     path: 'mat-barcode',
     loadChildren: () => import('./mat-barcode/barcode-demo-module').then(m => m.BarcodeDemoModule),
