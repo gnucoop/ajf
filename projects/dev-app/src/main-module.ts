@@ -29,8 +29,6 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule} from '@angular/router';
-import {GicModule} from '@gic/angular';
-import {IonicModule} from '@ionic/angular';
 
 import {DevAppComponent} from './dev-app';
 import {DevAppDirectionality} from './dev-app/dev-app-directionality';
@@ -42,9 +40,7 @@ import {DEV_APP_ROUTES} from './routes';
     BrowserAnimationsModule,
     BrowserModule,
     DevAppModule,
-    GicModule.forRoot(),
     HttpClientModule,
-    IonicModule.forRoot(),
     RouterModule.forRoot(DEV_APP_ROUTES),
     AjfEchartsModule.forRoot({echarts: () => import('echarts')}),
     AjfTranslocoModule.forRoot(),
