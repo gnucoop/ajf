@@ -6,7 +6,7 @@ import {
   createFieldInstance,
 } from '@ajf/core/forms';
 import {AjfDateInputFieldComponent} from '@ajf/ionic/forms';
-import {AfterViewInit, Component, ComponentFactoryResolver, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'ion-date-input-field-e2e',
@@ -15,13 +15,12 @@ import {AfterViewInit, Component, ComponentFactoryResolver, ViewChild} from '@an
 export class IonicDateInputFieldE2E implements AfterViewInit {
   @ViewChild(AjfFieldHost, {static: true}) fieldHost!: AjfFieldHost;
 
-  constructor(private _cfr: ComponentFactoryResolver) {}
+  constructor() {}
 
   ngAfterViewInit(): void {
     const vcr = this.fieldHost.viewContainerRef;
     vcr.clear();
-    const componentFactory = this._cfr.resolveComponentFactory(AjfDateInputFieldComponent);
-    const componentRef = vcr.createComponent(componentFactory);
+    const componentRef = vcr.createComponent(AjfDateInputFieldComponent);
     const componentInstance = componentRef.instance;
     const dateLimit = new Date(2019, 0, 5);
     const node: AjfDateField = {
