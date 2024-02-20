@@ -2234,23 +2234,6 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@gic/angular@^5.8.1":
-  version "5.8.1"
-  resolved "https://registry.yarnpkg.com/@gic/angular/-/angular-5.8.1.tgz#fe18e5eab295bd1b9f5785e40b3e7bbda1831576"
-  integrity sha512-BnqM7CNWsVAM1xhaPKWFSW0CfaETmYJMXcp2myrjwbmzxPczrIHw0oti2t9OyyaQ4Wc9b8oagg/s3KGAtY6x8g==
-  dependencies:
-    "@gic/core" "5.8.1"
-    tslib "^2.1.0"
-
-"@gic/core@5.8.1":
-  version "5.8.1"
-  resolved "https://registry.yarnpkg.com/@gic/core/-/core-5.8.1.tgz#9e4bfc4818f239df2221cc1102395adb9e13083f"
-  integrity sha512-nmxOvySUAWNyzxjh+mXtgZpK12E7efZYnOwpVMwFh+7lYm+LlBitL6szB6Qz9W5QoWbJUCNbAUNB0cNC8w+TLA==
-  dependencies:
-    "@ionic/core" "~5.8.1"
-    "@stencil/core" "^2.4.0"
-    tslib "^2.1.0"
-
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"
@@ -2274,32 +2257,6 @@
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@hutson/parse-repository-url/-/parse-repository-url-3.0.2.tgz#98c23c950a3d9b6c8f0daed06da6c3af06981340"
   integrity sha512-H9XAx3hc0BQHY6l+IFSWHDySypcXsvsuLhgYLUGywmJ5pswRVQJUHpOsobnLYp2ZUaUlKiKDrgWWhosOwAEM8Q==
-
-"@ionic/angular@5.8.1":
-  version "5.8.1"
-  resolved "https://registry.yarnpkg.com/@ionic/angular/-/angular-5.8.1.tgz#8e0353466df2ddd7081963f5ffaba2df7353472e"
-  integrity sha512-VKgq71yPPyiS+wN8cyfTsVmp0EEamUAGaYq7lZuupnhZ+/8LNyo5Xp/kl8txtCnGFTNIDZpMpmI8+/7KnU8Zuw==
-  dependencies:
-    "@ionic/core" "5.8.1"
-    tslib "^1.9.3"
-
-"@ionic/core@5.8.1":
-  version "5.8.1"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.8.1.tgz#9f0b4869d3e7010103b7107b77040e6a55b03cb8"
-  integrity sha512-twAPHhrGMYvHW0NgebMBfN70xDUkFxW+Zcxeus7jrhuJh1uWp/3MwawLi4InCwpyuFQiBo8yAaqC1hB1wTZmLA==
-  dependencies:
-    "@stencil/core" "^2.4.0"
-    ionicons "^5.5.3"
-    tslib "^2.1.0"
-
-"@ionic/core@~5.8.1":
-  version "5.8.5"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-5.8.5.tgz#c967fdfa6e554f63f90227c04d2821c758a680cb"
-  integrity sha512-KUT3kKcON606FBJBZcAZn2c62OfPhVR/LQO260FH3znUmpZbqD2/Zm1LOTCxluiG9H6UIe8TVo9n8BgsKxCygA==
-  dependencies:
-    "@stencil/core" "^2.4.0"
-    ionicons "^5.5.3"
-    tslib "^2.1.0"
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -3409,16 +3366,6 @@
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
-
-"@stencil/core@^2.4.0":
-  version "2.14.1"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.14.1.tgz#1ec324182b80225bb8d36254e1ff400cdd2f2a91"
-  integrity sha512-G58fJeDbi58+7uQnyaGInnehfub9tJikFZ4PkT/FuelMV9wGq2FKB0fxKctKQ3mhhHAiFDuGNzRD1isZZQvUCg==
-
-"@stencil/core@~2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.10.0.tgz#acf44b9ae6578a20f0d09bf94296e833beadc885"
-  integrity sha512-15rWMTPQ/sp0lSV82HVCXkIya3QLN+uBl7pqK4JnTrp4HiLrzLmNbWjbvgCs55gw0lULbCIGbRIEsFz+Pe/Q+A==
 
 "@tootallnate/once@1":
   version "1.1.2"
@@ -8058,13 +8005,6 @@ interpret@^1.0.0:
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.4.0.tgz#665ab8bc4da27a774a40584e812e3e0fa45b1a1e"
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
-ionicons@5.5.4, ionicons@^5.5.3:
-  version "5.5.4"
-  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-5.5.4.tgz#5fef0c44038a630f5bb5f9a7dc83ec158bab95b1"
-  integrity sha512-3ph8X9my3inhabWEZ7N0XRA0MnnNQ1v9a602mLNgWsIXnxE9G5BybIZ/pws/OZZ/hoNlvSjk801N03yL9/FNgQ==
-  dependencies:
-    "@stencil/core" "~2.10.0"
-
 ip@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ip/-/ip-2.0.0.tgz#4cf4ab182fee2314c75ede1276f8c80b479936da"
@@ -12000,7 +11940,7 @@ tslib@2.6.1:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.1.tgz#fd8c9a0ff42590b25703c0acb3de3d3f4ede0410"
   integrity sha512-t0hLfiEKfMUoqhG+U1oid7Pva4bbDPHYfJNiB7BiIjRkj1pyC++4N3huJfqY6aRH6VTB0rvtzQwjM4K6qpfOig==
 
-tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
