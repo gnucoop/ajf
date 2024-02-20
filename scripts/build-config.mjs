@@ -1,1 +1,1 @@
-export const packages = ['core', 'ionic', 'material', 'calendars'];
+export const packages = ['core', 'material', 'calendars'];
