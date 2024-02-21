@@ -28,7 +28,6 @@ import {
   AjfFormRendererService,
 } from '@ajf/core/forms';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -49,12 +48,10 @@ import {AjfWarningAlertService} from './warning-alert-service';
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfSingleChoiceFieldComponent<T>
-  extends AjfFieldWithChoicesComponent<T> implements AfterViewInit, OnDestroy {
+  extends AjfFieldWithChoicesComponent<T> implements OnDestroy {
 
   readonly searchFilterCtrl = new FormControl<string>('');
   private searchFilterSub: Subscription;
-
-  filteredChoices: AjfChoice<any>[] = [];
 
   constructor(
     cdr: ChangeDetectorRef,
@@ -65,23 +62,18 @@ export class AjfSingleChoiceFieldComponent<T>
     super(cdr, service, was, searchThreshold);
 
     this.searchFilterSub = this.searchFilterCtrl.valueChanges.subscribe(() => {
-      this.filterChoices();
+      cdr.markForCheck();
     });
   }
 
-  ngAfterViewInit(): void {
-    this.filteredChoices = this.instance?.filteredChoices || [];
-  }
-
-  private filterChoices() {
+  filteredChoices(): AjfChoice<any>[] {
     const choices = this.instance?.filteredChoices || [];
     let search = this.searchFilterCtrl.value;
     if (!search) {
-      this.filteredChoices = choices;
-      return;
+      return choices;
     }
     search = search.toLowerCase();
-    this.filteredChoices = choices.filter(c => c.label.toLowerCase().includes(search!));
+    return choices.filter(c => c.label.toLowerCase().includes(search!));
   }
 
   override ngOnDestroy(): void {
