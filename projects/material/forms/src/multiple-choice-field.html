@@ -9,7 +9,7 @@
           [enableClearOnEscapePressed]="true">
         </ngx-mat-select-search>
       </mat-option>
-      <mat-option [value]="choice.value" *ngFor="let choice of filteredChoices">
+      <mat-option [value]="choice.value" *ngFor="let choice of filteredChoices()">
         {{ choice.label | transloco }}
       </mat-option>
     </mat-select>
