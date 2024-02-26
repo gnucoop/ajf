@@ -15,8 +15,8 @@
             >
               {{slideInstance.node.label | transloco}} {{ getRepeatingSlideRepIndex(slideInstance,
               formSlider.currentPage)|async}}
-              <mat-icon *ngIf="!slideInstance.valid" class="ajf-warning">warning</mat-icon>
-              <mat-icon *ngIf="slideInstance.valid" class="ajf-success">check</mat-icon>
+              <mat-icon *ngIf="!slideInstance.valid && slideInstance.visible !== false" class="ajf-warning">warning</mat-icon>
+              <mat-icon *ngIf="slideInstance.valid && slideInstance.visible !== false" class="ajf-success">check</mat-icon>
             </mat-button-toggle>
           </ng-container>
         </mat-button-toggle-group>
