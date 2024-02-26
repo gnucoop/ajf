@@ -1508,11 +1508,27 @@ const updateVisibilityMapEntry = (
     if (isField) {
       nodeInstance.value = null;
     }
-  } else if (visibilityChanged && nodeInstance.visible && isField) {
+  } else if (visibilityChanged && nodeInstance.visible) {
     const fg = formGroup.getValue();
-    const res = updateFormula(nodeInstance, newFormValue);
-    if (fg != null && res.changed && fg.controls != null && fg.controls[completeName] != null) {
-      fg.controls[completeName].setValue(res.value);
+    if (isField) {
+      const res = updateFormula(nodeInstance, newFormValue);
+      if (fg != null && res.changed && fg.controls != null && fg.controls[completeName] != null) {
+        fg.controls[completeName].setValue(res.value);
+      }
+    } else if (isRepeatingContainerNodeInstance(nodeInstance)) {
+      const s2 = timer(200).subscribe(() => {
+        if (s2 && !s2.closed) {
+          s2.unsubscribe();
+        }
+        if (
+          fg != null &&
+          fg.controls != null &&
+          fg.controls[completeName] != null &&
+          isRepeatingContainerNodeInstance(nodeInstance)
+        ) {
+          fg.controls[completeName].setValue(nodeInstance.reps);
+        }
+      });
     }
   }
 };
