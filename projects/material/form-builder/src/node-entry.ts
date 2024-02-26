@@ -27,6 +27,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  forwardRef,
   Input,
   OnDestroy,
   QueryList,
@@ -67,7 +68,8 @@ const branchColors: string[] = [
 })
 export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   @ViewChildren(AjfFbBranchLine) branchLines!: QueryList<AjfFbBranchLine>;
-  @ViewChildren(AjfFbNodeEntry, {read: ElementRef}) childEntries!: QueryList<ElementRef>;
+  @ViewChildren(forwardRef(() => AjfFbNodeEntry), {read: ElementRef})
+  childEntries!: QueryList<ElementRef>;
 
   private _hasContent = false;
   get hasContent(): boolean {
