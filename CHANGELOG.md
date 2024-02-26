@@ -1,3 +1,13 @@
+<a name="15.3.12"></a>
+# 15.3.12 "electric-silverfish" (2024-02-26)
+### Bug Fixes
+* **core/forms:** set reps values in formgroup after visibility update ([c81fa53](https://github.com/gnucoop/ajf/commit/c81fa5364e2e67402314fbfd052e7e217743abba))
+* **material/formbuilder:** Small css fixes to visibility condition overflow and formtree properties. ([f8552e2](https://github.com/gnucoop/ajf/commit/f8552e2e2615f232a476e9ecc3d3a56f7678f0c8))
+* **material/forms:** fix choice fields with filter ([ff54e91](https://github.com/gnucoop/ajf/commit/ff54e913e05b54c851ce9b94e3b866591e39eac7))
+* **material/forms:** remove validity icon from slide tab when slide is not visible ([0b38e7b](https://github.com/gnucoop/ajf/commit/0b38e7b8840be99d907bbfafecd6eb4b419e049c))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.11"></a>
 # 15.3.11 "wasteful-lemming" (2024-02-14)
 ### Bug Fixes
