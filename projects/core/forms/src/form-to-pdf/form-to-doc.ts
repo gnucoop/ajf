@@ -22,12 +22,16 @@
 
 import {AjfContext, evaluateExpression} from '@ajf/core/models';
 import {
-  createPdf,
-  Content,
-  PageOrientation,
-  TCreatedPdf,
-  TDocumentDefinitions,
-} from '@ajf/core/pdfmake';
+  BorderStyle,
+  Document,
+  HeadingLevel,
+  ITableCellBorders,
+  Packer,
+  Paragraph,
+  Table,
+  TableCell,
+  TableRow,
+} from 'docx';
 
 import {AjfChoice} from '../interface/choices/choice';
 import {AjfEmptyField} from '../interface/fields/empty-field';
@@ -42,16 +46,43 @@ import {isField} from '../utils/nodes/is-field';
 import {isRepeatingSlide} from '../utils/nodes/is-repeating-slide';
 import {isSlideNode} from '../utils/nodes/is-slide-node';
 
-export function createFormPdf(
+function downloadBlob(b: Blob) {
+  const url = URL.createObjectURL(b);
+  const a = document.createElement('a');
+  a.setAttribute('style', 'display: none');
+  a.href = url;
+  a.target = '_blank';
+  a.download = 'form.docx';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+type TranslateFunc = (text: string) => string;
+
+export function downloadFormDoc(
   form: AjfForm,
-  translate?: (_: string) => string,
-  orientation?: PageOrientation,
-  header?: Content[],
-  context?: AjfContext,
-): TCreatedPdf {
-  const t = translate ? translate : (s: string) => s;
-  const pdfDef = formToPdf(form, t, orientation, header, context);
-  return createPdf(pdfDef);
+  translate?: TranslateFunc, 
+  header?: Paragraph[],
+  context?: AjfContext
+) {
+  createFormDoc(form, translate, header, context).then(blob => {
+    downloadBlob(blob);
+  });
+}
+
+export function createFormDoc(
+  form: AjfForm,
+  translate?: TranslateFunc, 
+  header?: Paragraph[],
+  context?: AjfContext
+): Promise<Blob> {
+  return new Promise<Blob>(resolve => {
+    const t = translate ? translate : (s: string) => s;
+    const doc = formToDoc(form, t, header, context);
+    Packer.toBlob(doc).then(blob => resolve(blob));
+  });
 }
 
 // ChoicesMap maps a choicesOriginRef to the list the choices.
@@ -64,22 +95,22 @@ function stripHTML(s: string): string {
 }
 
 // Given a context, lookupStringFunction returns a function that allows to retrieve
-// the field values from the context. The values are returned as print-friendly strings.
+// the field values from the context. The values are returned as doc-friendly strings.
 // rep is the index of the repeating slide, if the field belongs to one.
 function lookupStringFunction(context?: AjfContext, rep?: number): (name: string) => string {
   if (context == null) {
-    return (_: string) => ' ';
+    return (_: string) => '';
   }
   return (name: string) => {
     if (name == null) {
-      return ' ';
+      return '';
     }
     if (rep != null) {
       name = name + '__' + rep;
     }
     const val = context[name];
     if (val == null) {
-      return ' ';
+      return '';
     }
     if (val === true) {
       return 'yes';
@@ -112,56 +143,56 @@ function lookupArrayFunction(context?: AjfContext, rep?: number): (name: string)
   };
 }
 
-// Given an AjfForm, returns its pdfmake pdf document definition.
-function formToPdf(
+type SectionChild = Paragraph | Table;
+
+function formToDoc(
   form: AjfForm,
   translate: (s: string) => string,
-  orientation?: PageOrientation,
-  header?: Content[],
+  header?: Paragraph[],
   context?: AjfContext,
-): TDocumentDefinitions {
+): Document {
   const choicesMap: ChoicesMap = {};
   for (const o of form.choicesOrigins) {
     choicesMap[o.name] = o.choices;
   }
 
-  const content = header ? [...header] : [];
+  const children: SectionChild[] = header ? [...header] : [];
   for (const slide of form.nodes) {
     if (isSlideNode(slide)) {
-      content.push(...slideToPdf(slide, choicesMap, translate, context));
+      children.push(...slideToDoc(slide, choicesMap, translate, context));
     } else if (isRepeatingSlide(slide)) {
-      content.push(...repeatingSlideToPdf(slide, choicesMap, translate, context));
+      children.push(...repeatingSlideToDoc(slide, choicesMap, translate, context));
     }
   }
-  return {content, pageOrientation: orientation};
+  return new Document({sections: [{children}]});
 }
 
-function slideToPdf(
+function slideToDoc(
   slide: AjfSlide | AjfRepeatingSlide,
   choicesMap: ChoicesMap,
   translate: (s: string) => string,
   context?: AjfContext,
   rep?: number,
-): Content[] {
+): SectionChild[] {
   let label = translate(slide.label);
   if (rep != null) {
     label = `${label} (${translate('repeat')} ${rep + 1})`;
   }
-  const content: Content[] = [{text: label, fontSize: 18, bold: true, margin: [0, 15, 0, 10]}];
+  const children: SectionChild[] = [new Paragraph({text: label, heading: HeadingLevel.HEADING_2})];
   for (const field of slide.nodes) {
     if (isField(field)) {
-      content.push(...fieldToPdf(field, choicesMap, translate, context, rep));
+      children.push(...fieldToDoc(field, choicesMap, translate, context, rep));
     }
   }
-  return content;
+  return children;
 }
 
-function repeatingSlideToPdf(
+function repeatingSlideToDoc(
   slide: AjfRepeatingSlide,
   choicesMap: ChoicesMap,
   translate: (s: string) => string,
   context?: AjfContext,
-): Content[] {
+): SectionChild[] {
   let repeats = 3; // default, if no formData
   const maxRepeats = 20;
   if (context != null && slide.name != null) {
@@ -171,24 +202,45 @@ function repeatingSlideToPdf(
     }
   }
 
-  const content = [];
+  const children = [];
   for (let r = 0; r < repeats; r++) {
-    content.push(...slideToPdf(slide, choicesMap, translate, context, r));
+    children.push(...slideToDoc(slide, choicesMap, translate, context, r));
   }
-  return content;
+  return children;
 }
 
-function borderlessCell(text: string, bold?: boolean): Content {
-  return {table: {body: [[{text, bold, border: [false, false, false, false]}]]}};
+function tableCell(text: string, borders?: ITableCellBorders): TableCell {
+  return new TableCell({children: [new Paragraph(text)], borders});
 }
 
-function fieldToPdf(
+const tableWidth = 9000;
+
+function singleColTable(text: string) {
+  return new Table({
+    columnWidths: [tableWidth],
+    rows: [new TableRow({children: [tableCell(text)]})],
+  });
+}
+
+const noBorder = {style: BorderStyle.NONE};
+const noBorders = {top: noBorder, bottom: noBorder, left: noBorder, right: noBorder};
+
+function doubleColTable(l: string, r: string) {
+  return new Table({
+    columnWidths: [tableWidth/2, tableWidth/2],
+    rows: [new TableRow({children: [tableCell(l, noBorders), tableCell(r)]})],
+  });
+}
+
+const marginAfterFields = new Paragraph('');
+
+function fieldToDoc(
   field: AjfField | AjfEmptyField,
   choicesMap: ChoicesMap,
   translate: (s: string) => string,
   context?: AjfContext,
   rep?: number,
-): Content[] {
+): SectionChild[] {
   if (field.nodeType !== AjfNodeType.AjfField) {
     throw new Error('not a field');
   }
@@ -207,19 +259,21 @@ function fieldToPdf(
     case AjfFieldType.String:
     case AjfFieldType.Text:
       return [
-        borderlessCell(translate(field.label)),
-        {table: {widths: ['*'], body: [[lookupString(field.name)]]}, margin: [5, 0, 0, 5]},
+        new Paragraph(translate(field.label)),
+        singleColTable(lookupString(field.name)),
+        marginAfterFields,
       ];
     case AjfFieldType.Formula:
       let value = lookupString(field.name);
-      if (value === ' ') {
+      if (value === '') {
         // If the value of the field is not in the context, recompute the formula.
         const formula = field.formula || {formula: ''};
         value = String(evaluateExpression(formula.formula, context));
       }
       return [
-        borderlessCell(translate(field.label)),
-        {table: {widths: ['*'], body: [[value]]}, margin: [5, 0, 0, 5]},
+        new Paragraph(translate(field.label)),
+        singleColTable(value),
+        marginAfterFields,
       ];
     case AjfFieldType.Number:
     case AjfFieldType.Boolean:
@@ -228,23 +282,16 @@ function fieldToPdf(
     case AjfFieldType.Range:
       let val = lookupString(field.name);
       // for boolean fields in compiled forms, a null value is printed as 'no':
-      if (field.fieldType === AjfFieldType.Boolean && context != null && val === ' ') {
+      if (field.fieldType === AjfFieldType.Boolean && context != null && val === '') {
         val = 'no';
       }
-      return [
-        {
-          table: {
-            widths: ['*', '*'],
-            body: [[{text: translate(field.label), border: [false, false, false, false]}, val]],
-          },
-        },
-      ];
+      return [doubleColTable(translate(field.label), val), marginAfterFields];
     case AjfFieldType.SingleChoice:
     case AjfFieldType.MultipleChoice:
       const choices = choicesMap[(field as any).choicesOriginRef];
       if (context == null) {
         // empty form
-        return choiceToPdf(field, choices, translate);
+        return [...choiceToDoc(field, choices, translate), marginAfterFields];
       }
       // compiled form, only print choices that are selected
       const selectedValues =
@@ -261,34 +308,23 @@ function fieldToPdf(
           value: v,
         }));
       }
-      return choiceToPdf(field, selectedChoices, translate, context);
+      return [...choiceToDoc(field, selectedChoices, translate, context), marginAfterFields];
     case AjfFieldType.Empty:
-      const text = stripHTML(translate(field.HTML));
-      return [borderlessCell(text, true)];
+      return [new Paragraph(stripHTML(translate(field.HTML))), marginAfterFields];
     case AjfFieldType.Table:
-      return tableToPdf(field, lookupString, translate);
+      return [...tableToPdf(field, lookupString, translate), marginAfterFields];
     default:
       // yet unsupported field type
       return [];
   }
 }
 
-function choiceToPdf(
+function choiceToDoc(
   field: AjfField,
   choices: AjfChoice<any>[],
   translate: (s: string) => string,
   context?: AjfContext,
-): Content[] {
-  let choiceLabels: string[];
-  if (choices == null || choices.length === 0) {
-    choiceLabels = [' '];
-  } else {
-    choiceLabels = choices.map(c => c.label);
-  }
-  const body = [];
-  for (const c of choiceLabels) {
-    body.push([translate(c)]);
-  }
+): SectionChild[] {
   let question = translate(field.label);
   // If the form is empty (to be compiled),
   // help the user distinguish between single- and multiple-choice questions:
@@ -298,25 +334,35 @@ function choiceToPdf(
   if (context == null && field.fieldType === AjfFieldType.MultipleChoice) {
     question += ` (${translate('multiple choice')})`;
   }
-  return [
-    {
-      columns: [
-        borderlessCell(question),
-        {
-          table: {widths: ['*'], body},
-        },
-      ],
-      margin: [0, 0, 0, 5],
-    },
-  ];
+  let choiceLabels: string[];
+  if (choices == null || choices.length === 0) {
+    choiceLabels = [''];
+  } else {
+    choiceLabels = choices.map(c => c.label);
+  }
+  const rows = [new TableRow({children: [
+    new TableCell({
+      children: [new Paragraph(question)],
+      rowSpan: choiceLabels.length,
+      borders: noBorders
+    }),
+    tableCell(translate(choiceLabels[0])),
+  ]})];
+  for (let i = 1; i < choiceLabels.length; i++) {
+    rows.push(new TableRow({children: [tableCell(translate(choiceLabels[i]))]}));
+  }
+  return [new Table({columnWidths: [tableWidth/2, tableWidth/2], rows})];
 }
 
 function tableToPdf(
   table: AjfTableField,
   lookupString: (s: string) => string,
   translate: (s: string) => string,
-): Content[] {
-  const body: string[][] = [['', ...table.columnLabels.map(translate)]];
+): SectionChild[] {
+  const rows = [new TableRow({children: [
+    tableCell(''),
+    ...table.columnLabels.map(label => tableCell(translate(label))),
+  ]})];
   for (let i = 0; i < table.rows.length; i++) {
     const row = [...table.rows[i]];
     for (let j = 0; j < row.length; j++) {
@@ -326,10 +372,14 @@ function tableToPdf(
       }
     }
     const valsRow = (row as string[]).map(lookupString).map(translate);
-    body.push([translate(table.rowLabels[i]), ...valsRow]);
+    rows.push(new TableRow({children: [
+      tableCell(translate(table.rowLabels[i])),
+      ...valsRow.map(val => tableCell(val)),
+    ]}));
   }
+  const cols = table.columnLabels.length + 1;
   return [
-    borderlessCell(translate(table.label)),
-    {table: {body, widths: Array(table.columnLabels.length + 1).fill('*')}, margin: [5, 0, 0, 5]},
+    new Paragraph(translate(table.label)),
+    new Table({columnWidths: Array(cols).fill(tableWidth / cols), rows}),
   ];
 }

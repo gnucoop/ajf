@@ -76,6 +76,7 @@ export * from './read-only-field';
 export * from './read-only-table-field';
 
 export * from './form-to-pdf/form-to-pdf';
+export * from './form-to-pdf/form-to-doc';
 
 export * from './interface/attachments/attachment';
 export * from './interface/attachments/attachments-fixed-origin';
