@@ -1,0 +1,4103 @@
+{
+  "content": {
+      "styles": {},
+      "columns": [
+          1
+      ],
+      "content": [
+          {
+              "styles": {},
+              "content": [
+                  {
+                      "styles": {
+                          "width": "100%",
+                          "dislay": "block",
+                          "padding": "10px",
+                          "marginBottom": "10px",
+                          "backgroundColor": "white"
+                      },
+                      "htmlText": "<h1>Conteggio form</h1>",
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 3
+                  },
+                  {
+                      "styles": {
+                          "borderCollapse": "collapse"
+                      },
+                      "dataset": [
+                          {
+                              "label": "",
+                              "style": {
+                                  "color": "white",
+                                  "textAlign": "center",
+                                  "fontWeight": "bold",
+                                  "borderBottom": "2px solid #ddd",
+                                  "backgroundColor": "#3f51b5"
+                              },
+                              "colspan": 2,
+                              "formula": {
+                                  "formula": "\"Form schema\""
+                              },
+                              "rowspan": 1,
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          },
+                          {
+                              "label": "",
+                              "style": {
+                                  "color": "white",
+                                  "textAlign": "center",
+                                  "fontWeight": "bold",
+                                  "borderBottom": "2px solid #ddd",
+                                  "backgroundColor": "#3f51b5"
+                              },
+                              "colspan": 2,
+                              "formula": {
+                                  "formula": "\"N. form inseriti\""
+                              },
+                              "rowspan": 1,
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          },
+                          {
+                              "label": "",
+                              "style": {
+                                  "color": "white",
+                                  "textAlign": "center",
+                                  "fontWeight": "bold",
+                                  "borderBottom": "2px solid #ddd",
+                                  "backgroundColor": "#3f51b5"
+                              },
+                              "colspan": 2,
+                              "formula": {
+                                  "formula": "\"N. persone singole\""
+                              },
+                              "rowspan": 1,
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "cellStyles": {
+                          "color": "black",
+                          "textAlign": "center",
+                          "backgroundColor": "white"
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 10,
+                      "rowDefinition": {
+                          "formula": "buildAlignedDataset(plainArray([[\"01 Accoglienza enrollment\",n_form_01,n_cases_01,],[\"02 Coaching Gruppo\",n_form_02,n_cases_02,],[\"03 Attività collettive\",n_form_03,n_cases_03,],[\"04 Interventi Individuali\",n_form_04,n_cases_04,],[\"05 Ricerca lavoro\",n_form_05,n_cases_05,],[\"06 Formazione\",n_form_06,n_cases_06,],[\"07 Imprenditorialità\",n_form_07,n_cases_07,],[\"08 Tavoli territoriali\",n_form_08,n_cases_08,],[\"09 Imprese e stakeholder\",n_form_09,n_cases_09,],[\"10 Capacity building\",n_form_10,n_cases_10,],[\"11 Attività networking\",n_form_11,n_cases_11,],]),[2,2,2],[\"left\",\"right\",\"right\"])"
+                      }
+                  },
+                  {
+                      "styles": {
+                          "borderCollapse": "collapse"
+                      },
+                      "dataset": [
+                          {
+                              "label": "",
+                              "style": {
+                                  "color": "white",
+                                  "textAlign": "center",
+                                  "fontWeight": "bold",
+                                  "borderBottom": "2px solid #ddd",
+                                  "backgroundColor": "#3f51b5"
+                              },
+                              "colspan": 1,
+                              "formula": {
+                                  "formula": "\"Persona\""
+                              },
+                              "rowspan": 1,
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          },
+                          {
+                              "label": "",
+                              "style": {
+                                  "color": "white",
+                                  "textAlign": "center",
+                                  "fontWeight": "bold",
+                                  "borderBottom": "2px solid #ddd",
+                                  "backgroundColor": "#3f51b5"
+                              },
+                              "colspan": 1,
+                              "formula": {
+                                  "formula": "\"Data di nascita\""
+                              },
+                              "rowspan": 1,
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          },
+                          {
+                              "label": "",
+                              "style": {
+                                  "color": "white",
+                                  "textAlign": "center",
+                                  "fontWeight": "bold",
+                                  "borderBottom": "2px solid #ddd",
+                                  "backgroundColor": "#3f51b5"
+                              },
+                              "colspan": 1,
+                              "formula": {
+                                  "formula": "\"Eta da form\""
+                              },
+                              "rowspan": 1,
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          },
+                          {
+                              "label": "",
+                              "style": {
+                                  "color": "white",
+                                  "textAlign": "center",
+                                  "fontWeight": "bold",
+                                  "borderBottom": "2px solid #ddd",
+                                  "backgroundColor": "#3f51b5"
+                              },
+                              "colspan": 1,
+                              "formula": {
+                                  "formula": "\"Eta da report\""
+                              },
+                              "rowspan": 1,
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "cellStyles": {
+                          "color": "black",
+                          "textAlign": "center",
+                          "backgroundColor": "white"
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 10,
+                      "rowDefinition": {
+                          "formula": "buildAlignedFormDataset(agesDataset, ['dino_case_name','dob','age','eta_report',], [1,1,1,1], [\"left\",\"center\",\"center\",\"center\"], null, [], [])"
+                      }
+                  },
+                  {
+                      "name": "chart0",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([gender_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Projets",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([gender_counts])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Genere Beneficiari Prima Accoglienza",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart1",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([gender_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Projets",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([gender_counts_FORMAZ])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Genere Beneficiari Formazione",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart2",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([gender_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Projets",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([gender_counts_INDIVIDUALI])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Genere Beneficiari Interventi individuali",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart3",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([gender_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Projets",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([gender_counts_COACH])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Genere Beneficiari Attività di coaching",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart4",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([gender_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Projets",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([gender_counts_LAVORO])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Genere Beneficiari Ricerca Lavoro",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart5",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([gender_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Projets",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([gender_counts_TIROCINIO])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Genere Beneficiari Tirocini",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart6",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([gender_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Projets",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([gender_counts_CONTRATTI])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Genere Beneficiari Contratti",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart7",
+                      "type": 1,
+                      "labels": {
+                          "formula": "plainArray([vulnerabilities_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Vulnerabilità",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([vulnerabilities_counts])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": "#FF6633"
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Vulnerabilità identificate",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart8",
+                      "type": 1,
+                      "labels": {
+                          "formula": "plainArray([permits_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Tipologia di permessi",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([permits_counts])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": "#FF6633"
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Permessi di soggiorno",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart9",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([langs_labels])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Projets",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([langs_counts])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Nazionalità beneficiari",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  },
+                  {
+                      "name": "chart10",
+                      "type": 6,
+                      "labels": {
+                          "formula": "plainArray([age_groups])"
+                      },
+                      "styles": {
+                          "width": "100%",
+                          "border": "1px outset gray",
+                          "height": "100%",
+                          "padding": "20px",
+                          "marginBottom": "10px"
+                      },
+                      "dataset": [
+                          {
+                              "label": "Fasce di età",
+                              "formula": [
+                                  {
+                                      "formula": "plainArray([age_groups_count])"
+                                  }
+                              ],
+                              "options": {
+                                  "backgroundColor": [
+                                      "#FF6633",
+                                      "#FFB399",
+                                      "#FF33FF",
+                                      "#FFFF99",
+                                      "#00B3E6",
+                                      "#E6B333",
+                                      "#3366E6",
+                                      "#999966",
+                                      "#99FF99",
+                                      "#B34D4D",
+                                      "#80B300",
+                                      "#809900",
+                                      "#E6B3B3",
+                                      "#6680B3",
+                                      "#66991A",
+                                      "#FF99E6",
+                                      "#CCFF1A",
+                                      "#FF1A66",
+                                      "#E6331A",
+                                      "#33FFCC",
+                                      "#66994D",
+                                      "#B366CC",
+                                      "#4D8000",
+                                      "#B33300",
+                                      "#CC80CC",
+                                      "#66664D",
+                                      "#991AFF",
+                                      "#E666FF",
+                                      "#4DB3FF",
+                                      "#1AB399",
+                                      "#E666B3",
+                                      "#33991A",
+                                      "#CC9999",
+                                      "#B3B31A",
+                                      "#00E680",
+                                      "#4D8066",
+                                      "#809980",
+                                      "#E6FF80",
+                                      "#1AFF33",
+                                      "#999933",
+                                      "#FF3380",
+                                      "#CCCC00",
+                                      "#66E64D",
+                                      "#4D80CC",
+                                      "#9900B3",
+                                      "#E64D66",
+                                      "#4DB380",
+                                      "#FF4D4D",
+                                      "#99E6E6",
+                                      "#6666FF",
+                                      "#F44336",
+                                      "#FFEBEE",
+                                      "#FFCDD2",
+                                      "#EF9A9A",
+                                      "#E57373",
+                                      "#EF5350",
+                                      "#E53935",
+                                      "#D32F2F",
+                                      "#C62828",
+                                      "#B71C1C",
+                                      "#FF8A80",
+                                      "#FF5252",
+                                      "#FF1744",
+                                      "#D50000",
+                                      "#FCE4EC",
+                                      "#F8BBD0",
+                                      "#F48FB1",
+                                      "#F06292",
+                                      "#EC407A",
+                                      "#E91E63",
+                                      "#D81B60",
+                                      "#C2185B",
+                                      "#AD1457",
+                                      "#880E4F",
+                                      "#FF80AB",
+                                      "#FF4081",
+                                      "#F50057",
+                                      "#C51162",
+                                      "#F3E5F5",
+                                      "#E1BEE7",
+                                      "#CE93D8",
+                                      "#BA68C8",
+                                      "#AB47BC",
+                                      "#9C27B0",
+                                      "#8E24AA",
+                                      "#7B1FA2",
+                                      "#6A1B9A",
+                                      "#4A148C",
+                                      "#EA80FC",
+                                      "#E040FB",
+                                      "#D500F9",
+                                      "#AA00FF",
+                                      "#EDE7F6",
+                                      "#D1C4E9",
+                                      "#B39DDB",
+                                      "#9575CD",
+                                      "#7E57C2",
+                                      "#673AB7",
+                                      "#5E35B1",
+                                      "#512DA8",
+                                      "#4527A0",
+                                      "#311B92",
+                                      "#B388FF",
+                                      "#7C4DFF",
+                                      "#651FFF",
+                                      "#6200EA",
+                                      "#E8EAF6",
+                                      "#C5CAE9",
+                                      "#9FA8DA",
+                                      "#7986CB",
+                                      "#5C6BC0",
+                                      "#3F51B5",
+                                      "#3949AB",
+                                      "#303F9F",
+                                      "#283593",
+                                      "#1A237E",
+                                      "#8C9EFF",
+                                      "#536DFE",
+                                      "#3D5AFE",
+                                      "#304FFE",
+                                      "#E3F2FD",
+                                      "#BBDEFB",
+                                      "#90CAF9",
+                                      "#64B5F6",
+                                      "#42A5F5",
+                                      "#2196F3",
+                                      "#1E88E5",
+                                      "#1976D2",
+                                      "#1565C0",
+                                      "#0D47A1",
+                                      "#82B1FF",
+                                      "#448AFF",
+                                      "#2979FF",
+                                      "#2962FF",
+                                      "#E1F5FE",
+                                      "#B3E5FC",
+                                      "#81D4FA",
+                                      "#4FC3F7",
+                                      "#29B6F6",
+                                      "#03A9F4",
+                                      "#039BE5",
+                                      "#0288D1",
+                                      "#0277BD",
+                                      "#01579B",
+                                      "#80D8FF",
+                                      "#40C4FF",
+                                      "#00B0FF",
+                                      "#0091EA",
+                                      "#E0F7FA",
+                                      "#B2EBF2",
+                                      "#80DEEA",
+                                      "#4DD0E1",
+                                      "#26C6DA",
+                                      "#00BCD4",
+                                      "#00ACC1",
+                                      "#0097A7",
+                                      "#00838F",
+                                      "#6064",
+                                      "#84FFFF",
+                                      "#18FFFF",
+                                      "#00E5FF",
+                                      "#00B8D4",
+                                      "#E0F2F1",
+                                      "#B2DFDB",
+                                      "#80CBC4",
+                                      "#4DB6AC",
+                                      "#26A69A",
+                                      "#9688",
+                                      "#00897B",
+                                      "#00796B",
+                                      "#00695C",
+                                      "#004D40",
+                                      "#A7FFEB",
+                                      "#64FFDA",
+                                      "#1DE9B6",
+                                      "#00BFA5",
+                                      "#E8F5E9",
+                                      "#C8E6C9",
+                                      "#A5D6A7",
+                                      "#81C784",
+                                      "#66BB6A",
+                                      "#4CAF50",
+                                      "#43A047",
+                                      "#388E3C",
+                                      "#2E7D32",
+                                      "#1B5E20",
+                                      "#B9F6CA",
+                                      "#69F0AE",
+                                      "#00E676",
+                                      "#00C853",
+                                      "#F1F8E9",
+                                      "#DCEDC8",
+                                      "#C5E1A5",
+                                      "#AED581",
+                                      "#9CCC65",
+                                      "#8BC34A",
+                                      "#7CB342",
+                                      "#689F38",
+                                      "#558B2F",
+                                      "#33691E",
+                                      "#CCFF90",
+                                      "#B2FF59",
+                                      "#76FF03",
+                                      "#64DD17",
+                                      "#F9FBE7",
+                                      "#F0F4C3",
+                                      "#E6EE9C",
+                                      "#DCE775",
+                                      "#D4E157",
+                                      "#CDDC39",
+                                      "#C0CA33",
+                                      "#AFB42B",
+                                      "#9E9D24",
+                                      "#827717",
+                                      "#F4FF81",
+                                      "#EEFF41",
+                                      "#C6FF00",
+                                      "#AEEA00",
+                                      "#FFFDE7",
+                                      "#FFF9C4",
+                                      "#FFF59D",
+                                      "#FFF176",
+                                      "#FFEE58",
+                                      "#FFEB3B",
+                                      "#FDD835",
+                                      "#FBC02D",
+                                      "#F9A825",
+                                      "#F57F17",
+                                      "#FFFF8D",
+                                      "#FFFF00",
+                                      "#FFEA00",
+                                      "#FFD600",
+                                      "#FFF8E1",
+                                      "#FFECB3",
+                                      "#FFE082",
+                                      "#FFD54F",
+                                      "#FFCA28",
+                                      "#FFC107",
+                                      "#FFB300",
+                                      "#FFA000",
+                                      "#FF8F00",
+                                      "#FF6F00",
+                                      "#FFE57F",
+                                      "#FFD740",
+                                      "#FFC400",
+                                      "#FFAB00",
+                                      "#FFF3E0",
+                                      "#FFE0B2",
+                                      "#FFCC80",
+                                      "#FFB74D",
+                                      "#FFA726",
+                                      "#FF9800",
+                                      "#FB8C00",
+                                      "#F57C00",
+                                      "#EF6C00",
+                                      "#E65100",
+                                      "#FFD180",
+                                      "#FFAB40",
+                                      "#FF9100",
+                                      "#FF6D00",
+                                      "#FBE9E7",
+                                      "#FFCCBC",
+                                      "#FFAB91",
+                                      "#FF8A65",
+                                      "#FF7043",
+                                      "#FF5722",
+                                      "#F4511E",
+                                      "#E64A19",
+                                      "#D84315",
+                                      "#BF360C",
+                                      "#FF9E80",
+                                      "#FF6E40",
+                                      "#FF3D00",
+                                      "#DD2C00",
+                                      "#EFEBE9",
+                                      "#D7CCC8",
+                                      "#BCAAA4",
+                                      "#A1887F",
+                                      "#8D6E63",
+                                      "#795548",
+                                      "#6D4C41",
+                                      "#5D4037",
+                                      "#4E342E",
+                                      "#3E2723",
+                                      "#FAFAFA",
+                                      "#F5F5F5",
+                                      "#EEEEEE",
+                                      "#E0E0E0",
+                                      "#BDBDBD",
+                                      "#9E9E9E",
+                                      "#757575",
+                                      "#616161",
+                                      "#424242",
+                                      "#212121",
+                                      "#ECEFF1",
+                                      "#CFD8DC",
+                                      "#B0BEC5",
+                                      "#90A4AE",
+                                      "#78909C",
+                                      "#607D8B",
+                                      "#546E7A",
+                                      "#455A64",
+                                      "#37474F",
+                                      "#263238"
+                                  ]
+                              },
+                              "aggregation": {
+                                  "aggregation": 0
+                              }
+                          }
+                      ],
+                      "options": {
+                          "title": {
+                              "text": "Beneficiari per fasce di età",
+                              "display": true
+                          },
+                          "legend": {
+                              "display": true,
+                              "position": "bottom"
+                          },
+                          "responsive": true,
+                          "maintainAspectRatio": false
+                      },
+                      "exportable": true,
+                      "visibility": {
+                          "condition": "true"
+                      },
+                      "widgetType": 4
+                  }
+              ],
+              "visibility": {
+                  "condition": "true"
+              },
+              "widgetType": 7
+          }
+      ],
+      "visibility": {
+          "condition": "true"
+      },
+      "widgetType": 0
+  },
+  "variables": [
+      {
+          "name": "accoglienzaForms",
+          "formula": {
+              "formula": "forms['f4575c58-3763-4dc6-a252-af7acfab404d']"
+          }
+      },
+      {
+          "name": "accoglienzaSchema",
+          "formula": {
+              "formula": "schemas['f4575c58-3763-4dc6-a252-af7acfab404d']"
+          }
+      },
+      {
+          "name": "accoglienzaDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(accoglienzaForms, accoglienzaSchema)"
+          }
+      },
+      {
+          "name": "n_form_01",
+          "formula": {
+              "formula": "COUNT_FORMS(accoglienzaDataset)"
+          }
+      },
+      {
+          "name": "n_cases_01",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(accoglienzaDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "coachingForms",
+          "formula": {
+              "formula": "forms['552a2828-c340-42e1-b955-ecf55143653d']"
+          }
+      },
+      {
+          "name": "coachingSchema",
+          "formula": {
+              "formula": "schemas['552a2828-c340-42e1-b955-ecf55143653d']"
+          }
+      },
+      {
+          "name": "coachingDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(coachingForms, coachingSchema)"
+          }
+      },
+      {
+          "name": "n_form_02",
+          "formula": {
+              "formula": "COUNT_FORMS(coachingDataset)"
+          }
+      },
+      {
+          "name": "n_cases_02",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(coachingDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "collettiveForms",
+          "formula": {
+              "formula": "forms['b00c0f88-29a7-4254-92ac-2554fbf55be9']"
+          }
+      },
+      {
+          "name": "collettiveSchema",
+          "formula": {
+              "formula": "schemas['b00c0f88-29a7-4254-92ac-2554fbf55be9']"
+          }
+      },
+      {
+          "name": "collettiveDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(collettiveForms, collettiveSchema)"
+          }
+      },
+      {
+          "name": "n_form_03",
+          "formula": {
+              "formula": "COUNT_FORMS(collettiveDataset)"
+          }
+      },
+      {
+          "name": "n_cases_03",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(collettiveDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "individualiForms",
+          "formula": {
+              "formula": "forms['67e9793d-0eca-48dc-86c2-41b899b2b6e0']"
+          }
+      },
+      {
+          "name": "individualiSchema",
+          "formula": {
+              "formula": "schemas['67e9793d-0eca-48dc-86c2-41b899b2b6e0']"
+          }
+      },
+      {
+          "name": "individualiDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(individualiForms, individualiSchema)"
+          }
+      },
+      {
+          "name": "n_form_04",
+          "formula": {
+              "formula": "COUNT_FORMS(individualiDataset)"
+          }
+      },
+      {
+          "name": "n_cases_04",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(individualiDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "lavoroForms",
+          "formula": {
+              "formula": "forms['0dae1635-e01d-4c93-8114-e6b10fa50583']"
+          }
+      },
+      {
+          "name": "lavoroSchema",
+          "formula": {
+              "formula": "schemas['0dae1635-e01d-4c93-8114-e6b10fa50583']"
+          }
+      },
+      {
+          "name": "lavoroDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(lavoroForms, lavoroSchema)"
+          }
+      },
+      {
+          "name": "n_form_05",
+          "formula": {
+              "formula": "COUNT_FORMS(lavoroDataset)"
+          }
+      },
+      {
+          "name": "n_cases_05",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(lavoroDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "formazioneForms",
+          "formula": {
+              "formula": "forms['1e1e9702-3a1f-4c5c-9489-3cbaf4f93833']"
+          }
+      },
+      {
+          "name": "formazioneSchema",
+          "formula": {
+              "formula": "schemas['1e1e9702-3a1f-4c5c-9489-3cbaf4f93833']"
+          }
+      },
+      {
+          "name": "formazioneDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(formazioneForms, formazioneSchema)"
+          }
+      },
+      {
+          "name": "n_form_06",
+          "formula": {
+              "formula": "COUNT_FORMS(formazioneDataset)"
+          }
+      },
+      {
+          "name": "n_cases_06",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(formazioneDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "imprenditorialitaForms",
+          "formula": {
+              "formula": "forms['14f65eee-691a-4757-941d-a21cad329b0c']"
+          }
+      },
+      {
+          "name": "imprenditorialitaSchema",
+          "formula": {
+              "formula": "schemas['14f65eee-691a-4757-941d-a21cad329b0c']"
+          }
+      },
+      {
+          "name": "imprenditorialitaDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(imprenditorialitaForms, imprenditorialitaSchema)"
+          }
+      },
+      {
+          "name": "n_form_07",
+          "formula": {
+              "formula": "COUNT_FORMS(imprenditorialitaDataset)"
+          }
+      },
+      {
+          "name": "n_cases_07",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(imprenditorialitaDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "tavoliForms",
+          "formula": {
+              "formula": "forms['e46f50e5-b3c3-440e-adcd-153ad869e17f']"
+          }
+      },
+      {
+          "name": "tavoliSchema",
+          "formula": {
+              "formula": "schemas['e46f50e5-b3c3-440e-adcd-153ad869e17f']"
+          }
+      },
+      {
+          "name": "tavoliDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(tavoliForms, tavoliSchema)"
+          }
+      },
+      {
+          "name": "n_form_08",
+          "formula": {
+              "formula": "COUNT_FORMS(tavoliDataset)"
+          }
+      },
+      {
+          "name": "n_cases_08",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(tavoliDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "impreseForms",
+          "formula": {
+              "formula": "forms['bed8823e-d345-432f-88ad-4ef81b4a5cb7']"
+          }
+      },
+      {
+          "name": "impreseSchema",
+          "formula": {
+              "formula": "schemas['bed8823e-d345-432f-88ad-4ef81b4a5cb7']"
+          }
+      },
+      {
+          "name": "impreseDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(impreseForms, impreseSchema)"
+          }
+      },
+      {
+          "name": "n_form_09",
+          "formula": {
+              "formula": "COUNT_FORMS(impreseDataset)"
+          }
+      },
+      {
+          "name": "n_cases_09",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(impreseDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "capacityForms",
+          "formula": {
+              "formula": "forms['b91bb406-f673-49a2-87de-6be9e1f8f71a']"
+          }
+      },
+      {
+          "name": "capacitySchema",
+          "formula": {
+              "formula": "schemas['b91bb406-f673-49a2-87de-6be9e1f8f71a']"
+          }
+      },
+      {
+          "name": "capacityDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(capacityForms, capacitySchema)"
+          }
+      },
+      {
+          "name": "n_form_10",
+          "formula": {
+              "formula": "COUNT_FORMS(capacityDataset)"
+          }
+      },
+      {
+          "name": "n_cases_10",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(capacityDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "networkingForms",
+          "formula": {
+              "formula": "forms['f94f1b2b-29c9-4228-9a05-524bdc30d546']"
+          }
+      },
+      {
+          "name": "networkingSchema",
+          "formula": {
+              "formula": "schemas['f94f1b2b-29c9-4228-9a05-524bdc30d546']"
+          }
+      },
+      {
+          "name": "networkingDataset",
+          "formula": {
+              "formula": "BUILD_DATASET(networkingForms, networkingSchema)"
+          }
+      },
+      {
+          "name": "n_form_11",
+          "formula": {
+              "formula": "COUNT_FORMS(networkingDataset)"
+          }
+      },
+      {
+          "name": "n_cases_11",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(networkingDataset, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_maschi",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset, `sex === 'M'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_femmine",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset, `sex === 'F'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_altro",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset, `sex === 'NA' || sex === null || sex === ''`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "gender_labels",
+          "formula": {
+              "formula": "['Maschi', 'Femmine', 'Non specificato']"
+          }
+      },
+      {
+          "name": "gender_counts",
+          "formula": {
+              "formula": "[n_maschi, n_femmine, n_altro]"
+          }
+      },
+      {
+          "name": "accoglienzaDataset_FORMAZ",
+          "formula": {
+              "formula": "JOIN_FORMS(formazioneDataset, accoglienzaDataset, `dino_case_code`, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_maschi_FORMAZ",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_FORMAZ, `sex === 'M'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_femmine_FORMAZ",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_FORMAZ, `sex === 'F'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_altro_FORMAZ",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_FORMAZ, `sex === 'NA' || sex === null || sex === ''`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "gender_counts_FORMAZ",
+          "formula": {
+              "formula": "[n_maschi_FORMAZ, n_femmine_FORMAZ, n_altro_FORMAZ]"
+          }
+      },
+      {
+          "name": "accoglienzaDataset_INDIVIDUALI",
+          "formula": {
+              "formula": "JOIN_FORMS(individualiDataset, accoglienzaDataset, `dino_case_code`, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_maschi_INDIVIDUALI",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_INDIVIDUALI, `sex === 'M'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_femmine_INDIVIDUALI",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_INDIVIDUALI, `sex === 'F'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_altro_INDIVIDUALI",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_INDIVIDUALI, `sex === 'NA' || sex === null || sex === ''`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "gender_counts_INDIVIDUALI",
+          "formula": {
+              "formula": "[n_maschi_INDIVIDUALI, n_femmine_INDIVIDUALI, n_altro_INDIVIDUALI]"
+          }
+      },
+      {
+          "name": "accoglienzaDataset_COACH",
+          "formula": {
+              "formula": "JOIN_FORMS(collettiveDataset, accoglienzaDataset, `dino_case_code`, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_maschi_COACH",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_COACH, `sex === 'M'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_femmine_COACH",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_COACH, `sex === 'F'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_altro_COACH",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_COACH, `sex === 'NA' || sex === null || sex === ''`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "gender_counts_COACH",
+          "formula": {
+              "formula": "[n_maschi_COACH, n_femmine_COACH, n_altro_COACH]"
+          }
+      },
+      {
+          "name": "accoglienzaDataset_LAVORO",
+          "formula": {
+              "formula": "JOIN_FORMS(lavoroDataset, accoglienzaDataset, `dino_case_code`, `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_maschi_LAVORO",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_LAVORO, `sex === 'M'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_femmine_LAVORO",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_LAVORO, `sex === 'F'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_altro_LAVORO",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_LAVORO, `sex === 'NA' || sex === null || sex === ''`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "gender_counts_LAVORO",
+          "formula": {
+              "formula": "[n_maschi_LAVORO, n_femmine_LAVORO, n_altro_LAVORO]"
+          }
+      },
+      {
+          "name": "accoglienzaDataset_TIROCINIO",
+          "formula": {
+              "formula": "accoglienzaDataset_LAVORO"
+          }
+      },
+      {
+          "name": "n_maschi_TIROCINIO",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_TIROCINIO, `sex === 'M' && evento === 'tirocinio'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_femmine_TIROCINIO",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_TIROCINIO, `sex === 'F' && evento === 'tirocinio'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_altro_TIROCINIO",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_TIROCINIO, `(sex === 'NA' || sex === null || sex === '') && evento === 'tirocinio'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "gender_counts_TIROCINIO",
+          "formula": {
+              "formula": "[n_maschi_TIROCINIO, n_femmine_TIROCINIO, n_altro_TIROCINIO]"
+          }
+      },
+      {
+          "name": "accoglienzaDataset_CONTRATTI",
+          "formula": {
+              "formula": "accoglienzaDataset_LAVORO"
+          }
+      },
+      {
+          "name": "n_maschi_CONTRATTI",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_CONTRATTI, `sex === 'M' && (evento === 'determinato' || evento === 'indeterminato')`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_femmine_CONTRATTI",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_CONTRATTI, `sex === 'F' && (evento === 'determinato' || evento === 'indeterminato')`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_altro_CONTRATTI",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset_CONTRATTI, `(sex === 'NA' || sex === null || sex === '') && (evento === 'determinato' || evento === 'indeterminato')`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "gender_counts_CONTRATTI",
+          "formula": {
+              "formula": "[n_maschi_CONTRATTI, n_femmine_CONTRATTI, n_altro_CONTRATTI]"
+          }
+      },
+      {
+          "name": "vulnerabs",
+          "formula": {
+              "formula": "ALL_VALUES_OF(accoglienzaDataset, `vulnerabilita`)"
+          }
+      },
+      {
+          "name": "vulnerabilities_labels",
+          "formula": {
+              "formula": "GET_LABELS(accoglienzaSchema, vulnerabs)"
+          }
+      },
+      {
+          "name": "vulnerabilities_counts",
+          "formula": {
+              "formula": "REPEAT(accoglienzaDataset, vulnerabs, COUNT_FORMS, `ISIN(vulnerabilita, current)`)"
+          }
+      },
+      {
+          "name": "permessi",
+          "formula": {
+              "formula": "ALL_VALUES_OF(accoglienzaDataset, `permesso_soggiorno`)"
+          }
+      },
+      {
+          "name": "permits_labels",
+          "formula": {
+              "formula": "GET_LABELS(accoglienzaSchema, permessi)"
+          }
+      },
+      {
+          "name": "permits_counts",
+          "formula": {
+              "formula": "REPEAT(accoglienzaDataset, permessi, COUNT_FORMS, `permesso_soggiorno === current`)"
+          }
+      },
+      {
+          "name": "n_italian",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset, `provenienza === 'ITA'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_stranier",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset, `provenienza !== 'ITA'`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "langs_labels",
+          "formula": {
+              "formula": "['Italian*', 'Stranier*']"
+          }
+      },
+      {
+          "name": "langs_counts",
+          "formula": {
+              "formula": "[n_italian, n_stranier]"
+          }
+      },
+      {
+          "name": "n_18_30",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset, `GET_AGE(dob) <= 30`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_31_50",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset, `GET_AGE(dob) >= 31 && GET_AGE(dob) <= 50`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "n_over50",
+          "formula": {
+              "formula": "COUNT_FORMS_UNIQUE(FILTER_BY(accoglienzaDataset, `GET_AGE(dob) >= 51`), `dino_case_code`)"
+          }
+      },
+      {
+          "name": "age_groups",
+          "formula": {
+              "formula": "['Tra 18 e 30', 'Tra 31 e 50', 'Over 50']"
+          }
+      },
+      {
+          "name": "age_groups_count",
+          "formula": {
+              "formula": "[n_18_30, n_31_50, n_over50]"
+          }
+      },
+      {
+          "name": "agesDataset",
+          "formula": {
+              "formula": "APPLY(accoglienzaDataset, `eta_report`, `GET_AGE(dob)`)"
+          }
+      }
+  ]
+}

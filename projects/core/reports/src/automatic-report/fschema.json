@@ -1,0 +1,2017 @@
+{
+  "nodes": [
+      {
+          "id": 1,
+          "name": "bsta",
+          "label": "Set baseline / target",
+          "nodes": [
+              {
+                  "id": 1001,
+                  "hint": "Si applica a tutti i dati di questo form che quindi dovranno essere o tutti di baseline o tutti di target. Per ciascun anno solare ci dovranno essere 1 form con questa opzione selezionata a baseline e 1 form con l'opzione selezionata target.",
+                  "name": "bt",
+                  "size": "normal",
+                  "label": "Baseline / Target",
+                  "parent": 1,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 4,
+                  "parentNode": 0,
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "forceNarrow": false,
+                  "defaultValue": null,
+                  "forceExpanded": false,
+                  "choicesOriginRef": "bts",
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 0,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 2,
+          "name": "accoglienza",
+          "label": "[ATTIVITA] Accoglienza e prima informazione ",
+          "nodes": [
+              {
+                  "id": 2001,
+                  "name": "idx_1",
+                  "size": "normal",
+                  "label": "N. operatori impiegati",
+                  "parent": 2,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_1) || isInt(idx_1)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 2002,
+                  "name": "idx_2",
+                  "size": "normal",
+                  "label": "N. ore lavoro impiegate",
+                  "parent": 2001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_2) || isInt(idx_2)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 1,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 3,
+          "name": "coaching",
+          "label": "[ATTIVITA] Coaching individuale",
+          "nodes": [
+              {
+                  "id": 3001,
+                  "name": "idx_3",
+                  "size": "normal",
+                  "label": "N. interventi (comprende consulenze legali, psicologiche, mediazione e coaching su life skills + percorsi di coaching e socializzazione collettivi: 1 percorso=1intervento)",
+                  "parent": 3,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_3) || isInt(idx_3)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 3002,
+                  "name": "idx_4",
+                  "size": "normal",
+                  "label": "N. operatori impiegati",
+                  "parent": 3001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_4) || isInt(idx_4)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 3003,
+                  "name": "idx_5",
+                  "size": "normal",
+                  "label": "N.ore lavoro impiegate",
+                  "parent": 3002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_5) || isInt(idx_5)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 2,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 4,
+          "name": "formazione",
+          "label": "[ATTIVITA] Corsi di formazione collettivi",
+          "nodes": [
+              {
+                  "id": 4001,
+                  "name": "idx_6",
+                  "size": "normal",
+                  "label": "N. corsi effettuati",
+                  "parent": 4,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_6) || isInt(idx_6)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 4002,
+                  "name": "idx_7",
+                  "size": "normal",
+                  "label": "N. giornate di formazione ",
+                  "parent": 4001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_7) || isInt(idx_7)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 4003,
+                  "name": "idx_8",
+                  "size": "normal",
+                  "label": "N. iscritti ai corsi ",
+                  "parent": 4002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_8) || isInt(idx_8)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 3,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 5,
+          "name": "lavoro",
+          "label": "[ATTIVITA] Orientamento al lavoro",
+          "nodes": [
+              {
+                  "id": 5001,
+                  "name": "idx_9",
+                  "size": "normal",
+                  "label": "N. primi colloqui per la  ricerca di lavoro (intesi come primi colloqui percorsi di job counselling gestito internamente)",
+                  "parent": 5,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_9) || isInt(idx_9)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 5002,
+                  "name": "idx_10",
+                  "size": "normal",
+                  "label": "N. follow-up per la ricerca di lavoro",
+                  "parent": 5001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_10) || isInt(idx_10)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 5003,
+                  "name": "idx_11",
+                  "size": "normal",
+                  "label": "N. consulenze tecniche ",
+                  "parent": 5002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_11) || isInt(idx_11)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 4,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 6,
+          "name": "autoimprenditoria",
+          "label": "[ATTIVITA] Assistenza all’auto-imprenditoria(individuale e collettiva)",
+          "nodes": [
+              {
+                  "id": 6001,
+                  "name": "idx_12",
+                  "size": "normal",
+                  "label": "N. primi colloqui con aspiranti imprenditori ",
+                  "parent": 6,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_12) || isInt(idx_12)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 6002,
+                  "name": "idx_13",
+                  "size": "normal",
+                  "label": "N. business plan formulati (individuali e collettivi)",
+                  "parent": 6001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_13) || isInt(idx_13)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 6003,
+                  "name": "idx_14",
+                  "size": "normal",
+                  "label": "N. consulenze tecniche per imprese già avviate",
+                  "parent": 6002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_14) || isInt(idx_14)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 5,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 7,
+          "name": "governance",
+          "label": "[ATTIVITA] Sviluppo di sistemi di governance locale",
+          "nodes": [
+              {
+                  "id": 7001,
+                  "name": "idx_15",
+                  "size": "normal",
+                  "label": "N. tavoli di coordinamento territoriali aperti",
+                  "parent": 7,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_15) || isInt(idx_15)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 7002,
+                  "name": "idx_16",
+                  "size": "normal",
+                  "label": "N. incontri realizzati dai tavoli",
+                  "parent": 7001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_16) || isInt(idx_16)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 7003,
+                  "name": "idx_17",
+                  "size": "normal",
+                  "label": "N. enti e organismi partecipanti ai tavoli ",
+                  "parent": 7002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_17) || isInt(idx_17)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 6,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 8,
+          "name": "partenariati",
+          "label": "[ATTIVITA] Parternariati (ufficiali e operativi)",
+          "nodes": [
+              {
+                  "id": 8001,
+                  "name": "idx_19",
+                  "size": "normal",
+                  "label": "Partenariati con Enti Pubblici ",
+                  "parent": 8,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_19) || isInt(idx_19)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 8002,
+                  "name": "idx_20",
+                  "size": "normal",
+                  "label": "Partenariati con Aziende, cooperative o enti imprenditoriali ",
+                  "parent": 8001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_20) || isInt(idx_20)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 8003,
+                  "name": "idx_21",
+                  "size": "normal",
+                  "label": "Partenariati con Agenzie del lavoro private",
+                  "parent": 8002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_21) || isInt(idx_21)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 8004,
+                  "name": "idx_22",
+                  "size": "normal",
+                  "label": "Partenariati con Associazioni di volontariato ",
+                  "parent": 8003,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_22) || isInt(idx_22)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 8005,
+                  "name": "idx_23",
+                  "size": "normal",
+                  "label": "Partenariati con Sindacati",
+                  "parent": 8004,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_23) || isInt(idx_23)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 8006,
+                  "name": "idx_24",
+                  "size": "normal",
+                  "label": "Partenariati con Centri di orientamento lavorativo",
+                  "parent": 8005,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_24) || isInt(idx_24)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 8007,
+                  "name": "idx_25",
+                  "size": "normal",
+                  "label": "Partenariati con Scuole e Università  ",
+                  "parent": 8006,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_25) || isInt(idx_25)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 8008,
+                  "name": "idx_26",
+                  "size": "normal",
+                  "label": "N. eventi, riunioni, consulenze, workshops o attività svolte coi partner",
+                  "parent": 8007,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_26) || isInt(idx_26)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 8009,
+                  "name": "idx_27",
+                  "size": "normal",
+                  "label": "N. eventi di comunicazione pubblica organizzati coi partner",
+                  "parent": 8008,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_27) || isInt(idx_27)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 7,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 9,
+          "name": "capacity_building",
+          "label": "[ATTIVITA] Capacity building (con associazioni e organizzazioni comunitarie)",
+          "nodes": [
+              {
+                  "id": 9001,
+                  "name": "idx_28",
+                  "size": "normal",
+                  "label": "N. collaborazioni con associazioni ",
+                  "parent": 9,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_28) || isInt(idx_28)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 9002,
+                  "name": "idx_29",
+                  "size": "normal",
+                  "label": "N. training effettuati con associazioni ",
+                  "parent": 9001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_29) || isInt(idx_29)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 9003,
+                  "name": "idx_30",
+                  "size": "normal",
+                  "label": "N. giorni di training erogati",
+                  "parent": 9002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_30) || isInt(idx_30)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 9004,
+                  "name": "idx_31",
+                  "size": "normal",
+                  "label": "Monte ore di training erogato",
+                  "parent": 9003,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_31) || isInt(idx_31)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 9005,
+                  "name": "idx_32",
+                  "size": "normal",
+                  "label": "N. iscritti ai training ",
+                  "parent": 9004,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_32) || isInt(idx_32)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 8,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 10,
+          "name": "accoglienza_ris",
+          "label": "[RISULTATI] Accoglienza e prima informazione ",
+          "nodes": [
+              {
+                  "id": 10001,
+                  "name": "idx_33",
+                  "size": "normal",
+                  "label": "N. beneficiari di accoglienza e prima informazione ",
+                  "parent": 10,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_33) || isInt(idx_33)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 10002,
+                  "name": "idx_34",
+                  "size": "normal",
+                  "label": "% di soddisfazione dei beneficiari",
+                  "parent": 10001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_34) || isInt(idx_34)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 9,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 11,
+          "name": "coaching_ris",
+          "label": "[RISULTATI] Coaching individuale",
+          "nodes": [
+              {
+                  "id": 11001,
+                  "name": "idx_35",
+                  "size": "normal",
+                  "label": "N. beneficiari di consulenze legali, psicologiche, mediazione e life skills",
+                  "parent": 11,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_35) || isInt(idx_35)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 11002,
+                  "name": "idx_36",
+                  "size": "normal",
+                  "label": "% di soddisfazione dei beneficiari",
+                  "parent": 11001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_36) || isInt(idx_36)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 10,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 12,
+          "name": "formazione_ris",
+          "label": "[RISULTATI] Corsi di formazione collettivi",
+          "nodes": [
+              {
+                  "id": 12001,
+                  "name": "idx_37",
+                  "size": "normal",
+                  "label": "N. iscritti che completano i corsi",
+                  "parent": 12,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_37) || isInt(idx_37)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 12002,
+                  "name": "idx_38",
+                  "size": "normal",
+                  "label": "% di soddisfazione  dei beneficiari",
+                  "parent": 12001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_38) || isInt(idx_38)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 12003,
+                  "name": "idx_39",
+                  "size": "normal",
+                  "label": "% di apprendimento dei contenuti (valutazione dei formatori)",
+                  "parent": 12002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_39) || isInt(idx_39)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 11,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 13,
+          "name": "lavoro_ris",
+          "label": "[RISULTATI] Orientamento al lavoro",
+          "nodes": [
+              {
+                  "id": 13001,
+                  "name": "idx_40",
+                  "size": "normal",
+                  "label": "N. utenti che hanno fatto colloqui di lavoro presso aziende ",
+                  "parent": 13,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_40) || isInt(idx_40)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 13002,
+                  "name": "idx_41",
+                  "size": "normal",
+                  "label": "N. utenti che hanno avuto borse lavoro o tirocini",
+                  "parent": 13001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_41) || isInt(idx_41)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 13003,
+                  "name": "idx_42",
+                  "size": "normal",
+                  "label": "N. utenti che hanno ottenuto contratti di lavoro ",
+                  "parent": 13002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_42) || isInt(idx_42)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 13004,
+                  "name": "idx_43",
+                  "size": "normal",
+                  "label": "N. contratti a tempo determinato",
+                  "parent": 13003,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_43) || isInt(idx_43)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 13005,
+                  "name": "idx_44",
+                  "size": "normal",
+                  "label": "N. contratti a tempo indeterminato",
+                  "parent": 13004,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_44) || isInt(idx_44)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 13006,
+                  "name": "idx_45",
+                  "size": "normal",
+                  "label": "Durata media dei contratti ottenuti- (giorni)",
+                  "parent": 13005,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_45) || isInt(idx_45)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 12,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 14,
+          "name": "autoimprenditoria_ris",
+          "label": "[RISULTATI] Assistenza all’auto-imprenditoria(individuale e collettiva)",
+          "nodes": [
+              {
+                  "id": 14001,
+                  "name": "idx_46",
+                  "size": "normal",
+                  "label": "N. partite IVA o carte di autoimpresa aperte",
+                  "parent": 14,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_46) || isInt(idx_46)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 14002,
+                  "name": "idx_47",
+                  "size": "normal",
+                  "label": "N. imprese avviate e sostenute (individuali e collettive)",
+                  "parent": 14001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_47) || isInt(idx_47)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 14003,
+                  "name": "idx_48",
+                  "size": "normal",
+                  "label": "N. imprese finanziate (individuali e collettive)",
+                  "parent": 14002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_48) || isInt(idx_48)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 14004,
+                  "name": "idx_49",
+                  "size": "normal",
+                  "label": "N. collaboratori delle imprese avviate N. fondadori delle imprese avviate",
+                  "parent": 14003,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_49) || isInt(idx_49)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 14005,
+                  "name": "idx_50",
+                  "size": "normal",
+                  "label": "Valore dei fatturati delle imprese avviate (1 bilancio di esercizio)",
+                  "parent": 14004,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_50) || isInt(idx_50)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 13,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 15,
+          "name": "governance_ris",
+          "label": "[RISULTATI] Sviluppo di sistemi di governance locale",
+          "nodes": [
+              {
+                  "id": 15001,
+                  "name": "idx_51",
+                  "size": "normal",
+                  "label": "N. accordi e protocolli sottoscritti ",
+                  "parent": 15,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_51) || isInt(idx_51)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 15002,
+                  "name": "idx_52",
+                  "size": "normal",
+                  "label": "N. proposte elaborate ",
+                  "parent": 15001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_52) || isInt(idx_52)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 14,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 16,
+          "name": "partenariati_ris",
+          "label": "[RISULTATI] Parternariati (ufficiali e operativi)",
+          "nodes": [
+              {
+                  "id": 16001,
+                  "name": "idx_53",
+                  "size": "normal",
+                  "label": "N. servizi aperti",
+                  "parent": 16,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_53) || isInt(idx_53)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 16002,
+                  "name": "idx_54",
+                  "size": "normal",
+                  "label": "N. utenti dei servizi aperti",
+                  "parent": 16001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_54) || isInt(idx_54)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 16003,
+                  "name": "idx_55",
+                  "size": "normal",
+                  "label": "Monte ore settimanali di apertura dei servizi",
+                  "parent": 16002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_55) || isInt(idx_55)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 16004,
+                  "name": "idx_56",
+                  "size": "normal",
+                  "label": "% soddisfazione dei beneficiari",
+                  "parent": 16003,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_56) || isInt(idx_56)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 16005,
+                  "name": "idx_57",
+                  "size": "normal",
+                  "label": "N. beneficiari eventi di comunicazione pubblica ",
+                  "parent": 16004,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_57) || isInt(idx_57)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 16006,
+                  "name": "idx_58",
+                  "size": "normal",
+                  "label": "N. altri beneficiari/partecipanti",
+                  "parent": 16005,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_58) || isInt(idx_58)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 16007,
+                  "name": "idx_59",
+                  "size": "normal",
+                  "label": "N. iscritti alle reti sociali",
+                  "parent": 16006,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_59) || isInt(idx_59)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 16008,
+                  "name": "idx_60",
+                  "size": "normal",
+                  "label": "N. visite siti web",
+                  "parent": 16007,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_60) || isInt(idx_60)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 15,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      },
+      {
+          "id": 17,
+          "name": "capacity_building_ris",
+          "label": "[RISULTATI] Capacity building (con associazioni e organizzazioni comunitarie)",
+          "nodes": [
+              {
+                  "id": 17001,
+                  "name": "idx_61",
+                  "size": "normal",
+                  "label": "N. responsabili di associazione formati",
+                  "parent": 17,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_61) || isInt(idx_61)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 17002,
+                  "name": "idx_62",
+                  "size": "normal",
+                  "label": "N. di partnership create fra le associazioni e altri attori territoriali",
+                  "parent": 17001,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_62) || isInt(idx_62)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 17003,
+                  "name": "idx_63",
+                  "size": "normal",
+                  "label": "Numero di eventi o attività promossi dalle associazioni ",
+                  "parent": 17002,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_63) || isInt(idx_63)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              },
+              {
+                  "id": 17004,
+                  "name": "idx_64",
+                  "size": "normal",
+                  "label": "% di soddisfazione dei beneficiari dei training",
+                  "parent": 17003,
+                  "editable": true,
+                  "nodeType": 0,
+                  "fieldType": 2,
+                  "parentNode": 0,
+                  "validation": {
+                      "conditions": [
+                          {
+                              "condition": "!notEmpty(idx_64) || isInt(idx_64)",
+                              "errorMessage": "The field value must be an integer.",
+                              "clientValidation": true
+                          }
+                      ]
+                  },
+                  "visibility": {
+                      "condition": "true"
+                  },
+                  "defaultValue": null,
+                  "conditionalBranches": []
+              }
+          ],
+          "parent": 16,
+          "nodeType": 3,
+          "readonly": {
+              "condition": "false"
+          },
+          "parentNode": 0,
+          "visibility": {
+              "condition": "true"
+          },
+          "conditionalBranches": [
+              {
+                  "condition": "true"
+              }
+          ]
+      }
+  ],
+  "initContext": {},
+  "choicesOrigins": [
+      {
+          "name": "bts",
+          "type": "fixed",
+          "label": "",
+          "choices": [
+              {
+                  "label": "Baseline",
+                  "value": "baseline"
+              },
+              {
+                  "label": "Target",
+                  "value": "target"
+              }
+          ],
+          "choicesType": "string"
+      },
+      {
+          "name": "progetti",
+          "type": "fixed",
+          "label": "",
+          "choices": [
+              {
+                  "label": "W4I-EU",
+                  "value": "prog_01"
+              },
+              {
+                  "label": "WIN",
+                  "value": "prog_02"
+              },
+              {
+                  "label": "8PER1000",
+                  "value": "prog_03"
+              },
+              {
+                  "label": "COSTRUIRE FUTURO",
+                  "value": "prog_04"
+              },
+              {
+                  "label": "LAVORO è CURA",
+                  "value": "prog_05"
+              },
+              {
+                  "label": "FAMI",
+                  "value": "prog_06"
+              },
+              {
+                  "label": "UBI",
+                  "value": "prog_07"
+              },
+              {
+                  "label": "SAI ROZZANO",
+                  "value": "prog_08"
+              }
+          ],
+          "choicesType": "string"
+      }
+  ],
+  "stringIdentifier": [],
+  "attachmentsOrigins": []
+}
