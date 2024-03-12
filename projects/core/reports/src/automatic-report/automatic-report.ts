@@ -25,6 +25,7 @@ import {
   AjfFieldType,
   AjfFieldWithChoices,
   AjfForm,
+  AjfFormSerializer,
   AjfNodeType,
   AjfRangeField,
 } from '@ajf/core/forms';
@@ -332,14 +333,15 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
  * This function returns a basic report for any form passed in input.
  *
  * @param form the form schema
- * @param [id] the id of the form inside the plathform.
+ * @param id? the id of the form inside the platform.
  */
-export function automaticReport(form: Partial<AjfForm>, id?: number): AjfReport {
+export function automaticReport(formSchema: {schema: Partial<AjfForm>; id?: string}): AjfReport {
+  const form = AjfFormSerializer.fromJson(formSchema.schema);
   const report: AjfReport = {};
   const reportWidgets: AjfWidget[] = [];
   // we assume that the array of forms passed to the report is called 'forms'.
-  if (id != null) {
-    report.variables = [{name: 'forms', formula: {'formula': `forms[${id}]`}}];
+  if (formSchema.id != null) {
+    report.variables = [{name: 'forms', formula: {'formula': `forms['${formSchema.id}']`}}];
   }
   form.nodes?.forEach(slide => {
     const slideWidgets: AjfWidget[] = [];

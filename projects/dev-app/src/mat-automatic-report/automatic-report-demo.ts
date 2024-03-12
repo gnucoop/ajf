@@ -46,7 +46,7 @@ export class AutomaticReportDemo {
 
   constructor(private _ts: TranslocoService) {
     const form = AjfFormSerializer.fromJson(formSchemaObj);
-    this.reportSchema = automaticReport(form);
+    this.reportSchema = automaticReport({schema: formSchemaObj});
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
     if (this.reportSchema != null) {
       this.reportInstance$.next(
@@ -61,7 +61,7 @@ export class AutomaticReportDemo {
     }
     const schemaObj = JSON.parse(this.formSchema);
     const form = AjfFormSerializer.fromJson(schemaObj);
-    this.reportSchema = automaticReport(form, this.formId);
+    this.reportSchema = automaticReport({schema: schemaObj, id: this.formId?.toString()});
     this.reportSchemaStringified = JSON.stringify(this.reportSchema);
     const forms = generateRandomCtx(form);
     if (this.formId != null) {
