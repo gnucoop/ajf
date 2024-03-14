@@ -11,20 +11,9 @@ describe('ajf-date-input-field', () => {
   });
 
   it('should prevent selecting dates before minDate and after maxDate', () => {
-    const today = new Date(2019, 0, 5);
-    // const tomorrow = addDays(today, 10);
-    // const yesterday = subDays(today, 10);
-    const input = cy.get('input');
-    input.type(format(today, 'yyyy-MM-dd'));
-    input.blur();
-    input.should('have.value', format(today, 'M/d/yyyy'));
-    input.clear();
-    // input.type(format(tomorrow, 'yyyy-MM-dd'));
-    // input.blur();
-    // input.should('have.value', '');
-    // input.clear();
-    // input.type(format(yesterday, 'yyyy-MM-dd'));
-    // input.blur();
-    // input.should('have.value', '');
+    const today = new Date();
+    cy.get('.mat-datepicker-toggle').click();
+    cy.get('.mat-calendar-body-cell.mat-calendar-body-active').click();
+    cy.get('input').should('have.value', format(today, 'M/d/yyyy'));
   });
 });

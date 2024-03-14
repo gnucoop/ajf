@@ -23,7 +23,7 @@ export class MaterialDateInputFieldE2E implements AfterViewInit {
     const componentFactory = this._cfr.resolveComponentFactory(AjfDateInputFieldComponent);
     const componentRef = vcr.createComponent(componentFactory);
     const componentInstance = componentRef.instance;
-    const dateLimit = new Date(2019, 0, 5);
+    const dateLimit = new Date();
     const node: AjfDateField = {
       ...createField({
         id: 1,
