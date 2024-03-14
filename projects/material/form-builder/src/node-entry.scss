@@ -21,11 +21,13 @@ ajf-fb-node-entry {
       .ajf-title-row {
         display: flex;
         flex: 1 1 auto;
-        flex-direction: row;
+        flex-direction: row wrap;
         align-items: center;
 
         > .ajf-title {
           flex: 1 1 auto;
+          max-width: 25vw;
+          margin-right: 10px;
         }
 
         > .ajf-visibility-condition {
@@ -33,14 +35,17 @@ ajf-fb-node-entry {
           font-size: 10px;
           color: #999;
           max-height: 100px;
-          max-width: 500px;
+          max-width: 25vw;
           overflow: hidden;
           text-overflow: ellipsis;
         }
 
         > .ajf-actions {
-          flex: 0 0 auto;
+          flex: 1 1 auto;
+          display: flex;
+          justify-content: flex-end;
           white-space: nowrap;
+          justify-self: flex-end;
         }
       }
 
