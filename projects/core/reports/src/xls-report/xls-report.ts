@@ -186,10 +186,10 @@ function alertAndThrow(err: string) {
   throw new Error(err);
 }
 
-// converts to boolean an option from an excel cell
-function bool(cell: undefined | null | string | boolean): boolean {
+// converts to true|undefined an option from an excel cell
+function boolOption(cell: undefined | null | string | boolean): true | undefined {
   if (!cell || cell === 'false') {
-    return false;
+    return undefined;
   }
   return true;
 }
@@ -199,7 +199,7 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     alertAndThrow('Empty sheet for chart ' + name);
   }
   const data = sheet[0];
-  const optionsNames = ['chartType', 'title', 'stacked', 'beginAtZeroX', 'beginAtZeroY', 'maintainAspectRatio'];
+  const optionsNames = ['chartType', 'title', 'stacked', 'beginAtZeroX', 'beginAtZeroY'];
   const options: {[key: string]: string} = {};
   for (const name of optionsNames) {
     if (data[name] != null) {
@@ -233,7 +233,10 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     labelsFormula = {formula: labelsJs};
   }
 
-  const stacked = bool(options['stacked']);
+  const stacked = boolOption(options['stacked']);
+  const beginAtZeroX = boolOption(options['beginAtZeroX']);
+  const beginAtZeroY = boolOption(options['beginAtZeroY']);
+
   const dataset: AjfChartDataset[] = [];
   Object.keys(data).forEach((key, index) => {
     let xs = '';
@@ -284,7 +287,13 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     } as AjfChartDataset);
   });
 
-  const maintainAspectRatio = bool(options['maintainAspectRatio']);
+  const scales: Chart.ChartScales = {};
+  if (stacked || beginAtZeroX) {
+    scales.xAxes = [{stacked, ticks: beginAtZeroX ? {beginAtZero: true} : undefined}];
+  }
+  if (stacked || beginAtZeroY) {
+    scales.yAxes = [{stacked, ticks: {beginAtZero: true}}];
+  }
   return createWidget({
     name,
     widgetType: AjfWidgetType.Chart,
@@ -293,20 +302,17 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     dataset,
     options: {
       responsive: true,
-      maintainAspectRatio,
+      maintainAspectRatio: true,
       legend: {display: true, position: 'bottom'},
       title: {
         display: true,
         text: options['title'] || '',
       },
-      scales: {
-        xAxes: [{stacked, ticks: {beginAtZero: bool(options['beginAtZeroX'])}}],
-        yAxes: [{stacked, ticks: {beginAtZero: stacked || bool(options['beginAtZeroY'])}}],
-      },
+      scales,
     },
     styles: {
       ...widgetStyle,
-      ...{width: '100%', height: maintainAspectRatio ? undefined : '400px', padding: '10px'},
+      ...{width: '100%', maxWidth: '1000px', margin: '10px auto'},
     },
     exportable: true,
   } as AjfWidgetCreate);
