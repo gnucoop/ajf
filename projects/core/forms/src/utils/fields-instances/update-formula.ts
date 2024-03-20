@@ -26,24 +26,44 @@ import {AjfFieldInstance} from '../../interface/fields-instances/field-instance'
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
 
 /**
- * update the relative instance value and the context
- * if !editable evaluate expression once one time and flag changed is false
+ * Update the relative instance value and the context, only if it's visible.
+ * if it's a formula field evaluate expression.
+ * Flag changed to true if value is changed
+ * @param instance
+ * @param context
+ * @param updateDefault if true, if it has a default value and current value is null,
+ * initialize field with the evaluated default value. It doesn't currently know the visibility
+ * of the container node, so it only re-set the default value when the node becomes
+ * visible again with updateVisibilityMapEntry.
+ * @returns The updated instance value and the changed flag
  */
 export function updateFormula(
   instance: AjfFieldInstance,
   context: AjfContext,
+  updateDefault?: boolean,
 ): {changed: boolean; value: any} {
   const formula = instance.formula;
   const editable = instance.node.editable;
-  if (formula != null && instance.visible && (!editable || (editable && instance.value == null))) {
-    let newValue: any = evaluateExpression(formula.formula, context);
-    const oldValue = instance.value;
-    if (newValue !== instance.value) {
+  let newValue: any = null;
+  let changed = false;
+  if (instance.visible) {
+    if (formula != null && (!editable || (editable && instance.value == null))) {
+      newValue = evaluateExpression(formula.formula, context);
+      changed = true;
+    } else if (updateDefault && instance.node.defaultValue != null && instance.value == null) {
+      changed = true;
+      if (instance.node.defaultValue.formula != null) {
+        newValue = evaluateExpression(instance.node.defaultValue.formula, context);
+      } else {
+        newValue = instance.node.defaultValue;
+      }
+    }
+    if (changed && newValue !== instance.value) {
       instance.value = newValue;
       context[nodeInstanceCompleteName(instance)] = instance.value;
       context['$value'] = instance.value;
+      return {changed: true, value: newValue};
     }
-    return {changed: newValue !== oldValue, value: newValue};
   }
   return {changed: false, value: instance.value};
 }

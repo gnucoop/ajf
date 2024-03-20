@@ -35,7 +35,7 @@ export type AjfFieldInstanceCreate = AjfNodeInstanceCreate & Partial<AjfFieldIns
  *
  * First check if the value is in the context by node name.
  * Second check if the value is in the context by complete name.
- * Third check if the field has a default value.
+ * Third check if the field has a default value (only if field is visible and its container is visible).
  * Else value is null.
  *
  * If instance validationResultsis is not defined assign empty array.
@@ -56,16 +56,19 @@ export function createFieldInstance(
     } else if (context[completeName] != null) {
       value = context[completeName];
     } else if (instance.node.defaultValue != null) {
-      if (instance.node.defaultValue.formula != null) {
-        let visibility: boolean = nodeInstance.visible ? nodeInstance.visible : false;
-        if (visibility && containerNode && containerNode.visibility) {
-          visibility = evaluateExpression(containerNode.visibility.condition, context);
-        }
-        if (visibility) {
+      let visibility = nodeInstance.node.visibility
+        ? evaluateExpression(nodeInstance.node.visibility.condition, context)
+        : nodeInstance.visible;
+
+      if (visibility && containerNode && containerNode.visibility) {
+        visibility = evaluateExpression(containerNode.visibility.condition, context);
+      }
+      if (visibility) {
+        if (instance.node.defaultValue.formula != null) {
           context[completeName] = evaluateExpression(instance.node.defaultValue.formula, context);
+        } else {
+          context[completeName] = instance.node.defaultValue;
         }
-      } else {
-        context[completeName] = instance.node.defaultValue;
       }
       value = context[completeName];
     }
