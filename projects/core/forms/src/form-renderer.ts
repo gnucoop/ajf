@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCondition, AjfContext, getCodeIdentifiers} from '@ajf/core/models';
+import {AjfCondition, AjfContext, evaluateExpression, getCodeIdentifiers} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable} from '@angular/core';
 import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
@@ -96,6 +96,7 @@ import {orderedNodes} from './utils/nodes/ordered-nodes';
 import {updateRepsNum} from './utils/slides-instances/update-reps-num';
 import {validSlide} from './utils/slides-instances/valid-slide';
 import {AjfValidationService} from './validation-service';
+import {isContainerNodeInstance} from './utils/nodes-instances/is-container-node-instance';
 
 export const enum AjfFormInitStatus {
   Initializing,
@@ -384,6 +385,10 @@ export class AjfFormRendererService {
     );
   }
 
+  /**
+   * Init all update stream for the form nodes
+   * (editability, visibility, repetition, formula, validation...)
+   */
   private _initUpdateMapStreams(): void {
     const startValue = (): AjfRendererUpdateMap => ({});
     this._editabilityNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
@@ -566,6 +571,15 @@ export class AjfFormRendererService {
       .subscribe(this._nodesUpdates);
   }
 
+  /**
+   * Initialize node instance (visibility, editability...)
+   * @param allNodes
+   * @param node
+   * @param prefix
+   * @param context
+   * @param branchVisibility
+   * @returns
+   */
   private _initNodeInstance(
     allNodes: AjfNode[] | AjfNodeInstance[],
     node: AjfNode,
@@ -1194,6 +1208,11 @@ export class AjfFormRendererService {
     return nodeInstance;
   }
 
+  /**
+   * Add field instance as control in formGroup
+   * @param fieldInstance
+   * @returns
+   */
   private _addFieldInstance(fieldInstance: AjfFieldInstance): AjfFieldInstance {
     const formGroup = this._formGroup.getValue();
     const fieldInstanceName = nodeInstanceCompleteName(fieldInstance);
@@ -1485,6 +1504,14 @@ export class AjfFormRendererService {
   }
 }
 
+/**
+ * Update visibility for a slide or a field if visibility is changed.
+ * Set value to null for non-visible field
+ * Re-set default value for fields or for child fields for a container node
+ * @param nodeInstance
+ * @param formGroup
+ * @param newFormValue
+ */
 const updateVisibilityMapEntry = (
   nodeInstance: AjfNodeInstance,
   formGroup: BehaviorSubject<UntypedFormGroup | null>,
@@ -1511,24 +1538,50 @@ const updateVisibilityMapEntry = (
   } else if (visibilityChanged && nodeInstance.visible) {
     const fg = formGroup.getValue();
     if (isField) {
-      const res = updateFormula(nodeInstance, newFormValue);
+      const res = updateFormula(nodeInstance, newFormValue, true);
       if (fg != null && res.changed && fg.controls != null && fg.controls[completeName] != null) {
         fg.controls[completeName].setValue(res.value);
       }
-    } else if (isRepeatingContainerNodeInstance(nodeInstance)) {
-      const s2 = timer(200).subscribe(() => {
-        if (s2 && !s2.closed) {
-          s2.unsubscribe();
-        }
-        if (
-          fg != null &&
-          fg.controls != null &&
-          fg.controls[completeName] != null &&
-          isRepeatingContainerNodeInstance(nodeInstance)
-        ) {
-          fg.controls[completeName].setValue(nodeInstance.reps);
+    } else if (isContainerNodeInstance(nodeInstance)) {
+      nodeInstance.nodes?.forEach(n => {
+        if (isFieldInstance(n)) {
+          if (
+            n.node.defaultValue != null &&
+            fg != null &&
+            fg.controls != null &&
+            fg.controls[n.node.name] != null
+          ) {
+            let subFieldVisibility: boolean = n.visible ? n.visible : false;
+            if (subFieldVisibility) {
+              let subFieldDefaultValue = null;
+              if (n.node.defaultValue.formula != null) {
+                subFieldDefaultValue = evaluateExpression(
+                  n.node.defaultValue.formula,
+                  newFormValue,
+                );
+              } else {
+                subFieldDefaultValue = n.node.defaultValue;
+              }
+              fg.controls[n.node.name].setValue(subFieldDefaultValue);
+            }
+          }
         }
       });
+      if (isRepeatingContainerNodeInstance(nodeInstance)) {
+        const s2 = timer(200).subscribe(() => {
+          if (s2 && !s2.closed) {
+            s2.unsubscribe();
+          }
+          if (
+            fg != null &&
+            fg.controls != null &&
+            fg.controls[completeName] != null &&
+            isRepeatingContainerNodeInstance(nodeInstance)
+          ) {
+            fg.controls[completeName].setValue(nodeInstance.reps);
+          }
+        });
+      }
     }
   }
 };
