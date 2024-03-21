@@ -1,3 +1,14 @@
+<a name="15.3.13"></a>
+# 15.3.13 "invisible-swallow" (2024-03-21)
+### Bug Fixes
+* **core/forms:** set default value when field or slide visibility changed ([958dd7c](https://github.com/gnucoop/ajf/commit/958dd7cd5a842b4c273096105d121cb46ab44684))
+* **core/reports:** fix xlsreport charts size and proportions ([a472c49](https://github.com/gnucoop/ajf/commit/a472c49aa6084daff8317dc95481b5feca7baa34))
+* **material/form-builder:** Fixed a css issue causing Properties to disappear when title/visibility condition are too long. ([e0b9316](https://github.com/gnucoop/ajf/commit/e0b9316cd09d76a9aeb6f256eb8cab78c96bb865))
+### Features
+* **core/forms:** download forms as docx ([e1f2db5](https://github.com/gnucoop/ajf/commit/e1f2db59ba9f27209ecac68422c2e6e71269ebac))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.12"></a>
 # 15.3.12 "electric-silverfish" (2024-02-26)
 ### Bug Fixes
