@@ -178,8 +178,10 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
-    this._onSlidesChange();
-    this._pagesSub = this.pages.changes.subscribe(() => this._onSlidesChange());
+    this._pagesSub = this.pages.changes.subscribe(() => {
+      this._onSlidesChange();
+      this._cdr.detectChanges();
+    });
   }
 
   ngOnDestroy(): void {
@@ -387,11 +389,20 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     const {prop, removeProp} = this._getProps();
     this._renderer.setStyle(this.body.nativeElement, prop, `${this.pages.length * 100}%`);
     this._renderer.setStyle(this.body.nativeElement, removeProp, null);
-    let curPage: number;
+    let curPage: number = this._currentPage;
     if (this.pages.length === 0) {
       curPage = -1;
     } else if (this._currentPage === -1) {
-      curPage = 0;
+      if (this.pages.first.isRepeating) {
+        for (let idx = 0; idx < this.pages.length; idx++) {
+          if (this.pages.get(idx)?.isRepeatingLast) {
+            curPage = idx;
+            break;
+          }
+        }
+      } else {
+        curPage = 0;
+      }
     } else if (this._currentPage >= this.pages.length) {
       curPage = this.pages.length - 1;
     } else {
