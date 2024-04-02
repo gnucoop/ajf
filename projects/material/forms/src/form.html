@@ -15,8 +15,16 @@
             >
               {{slideInstance.node.label | transloco}} {{ getRepeatingSlideRepIndex(slideInstance,
               formSlider.currentPage)|async}}
-              <mat-icon *ngIf="!slideInstance.valid && slideInstance.visible !== false" class="ajf-warning">warning</mat-icon>
-              <mat-icon *ngIf="slideInstance.valid && slideInstance.visible !== false" class="ajf-success">check</mat-icon>
+              <mat-icon
+                *ngIf="!slideInstance.valid && slideInstance.visible !== false"
+                class="ajf-warning"
+                >warning</mat-icon
+              >
+              <mat-icon
+                *ngIf="slideInstance.valid && slideInstance.visible !== false"
+                class="ajf-success"
+                >check</mat-icon
+              >
             </mat-button-toggle>
           </ng-container>
         </mat-button-toggle-group>
@@ -170,6 +178,8 @@
                 <ng-container *ngIf="(slideInstance|ajfIsRepeatingSlideInstance)">
                   <ajf-page-slider-item
                     *ngFor="let curRep of ((slideInstance|ajfAsRepeatingSlideInstance).reps|ajfRange); let idx = index; let lastSlide = last"
+                    [isRepeating]="true"
+                    [isRepeatingLast]="lastSlide"
                   >
                     <div class="ajf-form-page">
                       <mat-card appearance="outlined">
