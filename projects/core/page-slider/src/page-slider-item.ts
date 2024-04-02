@@ -27,6 +27,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   OnDestroy,
   Output,
   Renderer2,
@@ -55,6 +56,30 @@ export class AjfPageSliderItem implements OnDestroy {
     x: number;
     y: number;
   }>;
+
+  /**
+   * True if the Slider Item belongs to a repeting slide.
+   */
+  private _isRepeating: boolean = false;
+  get isRepeating(): boolean {
+    return this._isRepeating;
+  }
+  @Input()
+  set isRepeating(rep: boolean) {
+    this._isRepeating = rep;
+  }
+
+  /**
+   * True if the Slider Item is the last item of a repeating slide.
+   */
+  private _isRepeatingLast: boolean = false;
+  get isRepeatingLast(): boolean {
+    return this._isRepeatingLast;
+  }
+  @Input()
+  set isRepeatingLast(rep: boolean) {
+    this._isRepeatingLast = rep;
+  }
 
   private _scrollX = 0;
   private _scrollY = 0;

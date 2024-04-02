@@ -13,38 +13,28 @@ describe('AjfPageSlider', () => {
     }).compileComponents();
   }));
 
-  it('should scroll slides up / down and to specified index', done => {
+  it('should scroll slides up / down and to specified index', async () => {
     const fixture = TestBed.createComponent(TestComponent);
     const slider = <AjfPageSlider>(
       fixture.debugElement.query(By.directive(AjfPageSlider)).componentInstance
     );
 
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(slider.currentPage).toBe(0);
+    await fixture.whenStable();
 
-      let s = slider.pageScrollFinish.subscribe(() => {
-        s.unsubscribe();
-        expect(slider.currentPage).toBe(1);
+    expect(slider.currentPage).toBe(-1);
 
-        s = slider.pageScrollFinish.subscribe(() => {
-          s.unsubscribe();
-          expect(slider.currentPage).toBe(0);
+    slider.slide({dir: 'down'});
+    expect(slider.currentPage).toBe(0);
 
-          s = slider.pageScrollFinish.subscribe(() => {
-            s.unsubscribe();
-            expect(slider.currentPage).toBe(2);
+    slider.slide({dir: 'forward'});
+    expect(slider.currentPage).toBe(1);
 
-            done();
-          });
+    slider.slide({dir: 'up'});
+    expect(slider.currentPage).toBe(0);
 
-          slider.slide({to: 2});
-        });
-
-        slider.slide({dir: 'up'});
-      });
-      slider.slide({dir: 'down'});
-    });
+    slider.slide({to: slider.pages.length - 1});
+    expect(slider.currentPage).toBe(2);
   });
 });
 
