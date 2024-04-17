@@ -26,6 +26,7 @@ import {
   Document,
   HeadingLevel,
   ITableCellBorders,
+  ImageRun,
   Packer,
   Paragraph,
   Table,
@@ -209,8 +210,11 @@ function repeatingSlideToDoc(
   return children;
 }
 
-function tableCell(text: string, borders?: ITableCellBorders): TableCell {
-  return new TableCell({children: [new Paragraph(text)], borders});
+function tableCell(text: string|Paragraph, borders?: ITableCellBorders): TableCell {
+  if (typeof text === 'string') {
+    text = new Paragraph(text);
+  }
+  return new TableCell({children: [text], borders});
 }
 
 const tableWidth = 9000;
@@ -225,7 +229,7 @@ function singleColTable(text: string) {
 const noBorder = {style: BorderStyle.NONE};
 const noBorders = {top: noBorder, bottom: noBorder, left: noBorder, right: noBorder};
 
-function doubleColTable(l: string, r: string) {
+function doubleColTable(l: string|Paragraph, r: string|Paragraph) {
   return new Table({
     columnWidths: [tableWidth/2, tableWidth/2],
     rows: [new TableRow({children: [tableCell(l, noBorders), tableCell(r)]})],
@@ -313,6 +317,19 @@ function fieldToDoc(
       return [new Paragraph(stripHTML(translate(field.HTML))), marginAfterFields];
     case AjfFieldType.Table:
       return [...tableToPdf(field, lookupString, translate), marginAfterFields];
+    case AjfFieldType.Signature:
+      let par = new Paragraph('');
+      const image = context != null && context[field.name];
+      const dataUrl = typeof image === 'object' && image.content;
+      if (typeof dataUrl === 'string' && dataUrl.startsWith('data:image')) {
+        const i = dataUrl.indexOf(',');
+        const base64 = dataUrl.slice(i + 1);
+        par = new Paragraph({children: [new ImageRun({
+          data: Uint8Array.from(atob(base64), c => c.charCodeAt(0)),
+          transformation: {width: 260, height: 130},
+        })]});
+      }
+      return [doubleColTable(translate(field.label), par), marginAfterFields];
     default:
       // yet unsupported field type
       return [];
