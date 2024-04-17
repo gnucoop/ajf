@@ -231,14 +231,12 @@ function fieldToPdf(
       if (field.fieldType === AjfFieldType.Boolean && context != null && val === ' ') {
         val = 'no';
       }
-      return [
-        {
-          table: {
-            widths: ['*', '*'],
-            body: [[{text: translate(field.label), border: [false, false, false, false]}, val]],
-          },
+      return [{
+        table: {
+          widths: ['*', '*'],
+          body: [[{text: translate(field.label), border: [false, false, false, false]}, val]],
         },
-      ];
+      }];
     case AjfFieldType.SingleChoice:
     case AjfFieldType.MultipleChoice:
       const choices = choicesMap[(field as any).choicesOriginRef];
@@ -267,6 +265,19 @@ function fieldToPdf(
       return [borderlessCell(text, true)];
     case AjfFieldType.Table:
       return tableToPdf(field, lookupString, translate);
+    case AjfFieldType.Signature:
+      let content: Content = ' \n ';
+      const image = context != null && context[field.name];
+      const dataUrl = typeof image === 'object' && image.content;
+      if (typeof dataUrl === 'string' && dataUrl.startsWith('data:image')) {
+        content = {image: dataUrl, width: 240};
+      }
+      return [{
+        table: {
+          widths: ['*', '*'],
+          body: [[{text: translate(field.label), border: [false, false, false, false]}, content]],
+        },
+      }];
     default:
       // yet unsupported field type
       return [];
