@@ -27,7 +27,6 @@ import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/fo
 import {format} from 'date-fns';
 import {
   BehaviorSubject,
-  combineLatest,
   from,
   Observable,
   of as obsOf,
@@ -45,6 +44,7 @@ import {
   share,
   startWith,
   switchMap,
+  tap,
   withLatestFrom,
 } from 'rxjs/operators';
 
@@ -103,6 +103,10 @@ export const enum AjfFormInitStatus {
   Complete,
 }
 
+/**
+ * Update Slide Validity according to the validity of its field nodes
+ * @param slide
+ */
 const updateSlideValidity = (slide: AjfRepeatingSlideInstance | AjfSlideInstance) => {
   const subNodesNum = slide.flatNodes.length;
   let valid = true;
@@ -211,6 +215,7 @@ export class AjfFormRendererService {
   }
 
   constructor(_: AjfValidationService) {
+    // Initialize all streams for the form
     this._initUpdateMapStreams();
     this._initNodesStreams();
     this._initErrorsStreams();
@@ -218,6 +223,11 @@ export class AjfFormRendererService {
     this._updateFormValueAndValidity();
   }
 
+  /**
+   * It's called by the app to set a new Ajf Form with its context
+   * @param form the Ajf Form schema
+   * @param context the initial context
+   */
   setForm(form: AjfForm | null, context: AjfContext = {}) {
     this._initUpdateMapStreams();
     if (
@@ -262,6 +272,11 @@ export class AjfFormRendererService {
     return res;
   }
 
+  /**
+   * Set nodesUpdates value (it's a function) for the flatNodes stream
+   * @param group
+   * @returns
+   */
   addGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean> {
     return new Observable<boolean>((subscriber: Subscriber<boolean>) => {
       if (group.formulaReps != null) {
@@ -327,6 +342,9 @@ export class AjfFormRendererService {
     );
   }
 
+  /**
+   * Init the errors stream. Start on valueChanged
+   */
   private _initErrorsStreams(): void {
     this._errorPositions = this._valueChanged.pipe(
       withLatestFrom(this._nodes, this._form),
@@ -386,8 +404,10 @@ export class AjfFormRendererService {
   }
 
   /**
-   * Init all update stream for the form nodes
-   * (editability, visibility, repetition, formula, validation...)
+   * Init all the update map stream for the form nodes
+   * (maps for editability, visibility, repetition, formula, validation, filteredChoices...)
+   * Each map contains all the fields that are to be re-rendered when editing another field,
+   * grouped by the fields on which they depend
    */
   private _initUpdateMapStreams(): void {
     const startValue = (): AjfRendererUpdateMap => ({});
@@ -496,6 +516,11 @@ export class AjfFormRendererService {
     ];
   }
 
+  /**
+   * Init two streams for new Ajf Form. Start on setForm.
+   * On subscribe call next() for the behavior subject
+   * and set the new value for formGroup (start the delta) and for nodesUpdates (start the flatNodes)
+   */
   private _initFormStreams(): void {
     const formObs = this._form;
     formObs
@@ -546,6 +571,7 @@ export class AjfFormRendererService {
             } else {
               nodes = [];
             }
+            // Set the position for each slide
             let currentPosition = 0;
             nodes.forEach(node => {
               if (isRepeatingSlideInstance(node)) {
@@ -573,11 +599,13 @@ export class AjfFormRendererService {
 
   /**
    * Initialize node instance (visibility, editability...)
-   * @param allNodes
-   * @param node
-   * @param prefix
-   * @param context
-   * @param branchVisibility
+   * and add this into the formgroup.
+   * If it's a container node, call recursively _orderedNodesInstancesTree
+   * @param allNodes all the flatten nodes
+   * @param node the node to be initialised
+   * @param prefix the prefix
+   * @param context the form context
+   * @param branchVisibility the branch visibility
    * @returns
    */
   private _initNodeInstance(
@@ -776,6 +804,17 @@ export class AjfFormRendererService {
     }
   }
 
+  /**
+   * Init and return all form nodes instances.
+   * Add the nodes into the formgroup with _initNodeInstance.
+   * Start the valueChanges for the formgroup.
+   * @param allNodes all flatten nodes di base nodes
+   * @param nodes base nodes
+   * @param parent start with undefined
+   * @param prefix
+   * @param context the form data context
+   * @returns
+   */
   private _orderedNodesInstancesTree(
     allNodes: AjfNode[] | AjfNodeInstance[],
     nodes: AjfNode[],
@@ -812,22 +851,21 @@ export class AjfFormRendererService {
     return allKeys.filter(k => oldValue[k] !== newValue[k]);
   }
 
+  /**
+   * Init the formGroup valueChanges stream, that re-render the form on valueChanges
+   * @param formGroup an initial empty Form Group
+   * @returns The new FormGroup
+   */
   private _initFormGroupStreams(formGroup: UntypedFormGroup): UntypedFormGroup {
     this._formGroupSubscription.unsubscribe();
     let init = true;
     let initForm = true;
     this._formInitEvent.emit(AjfFormInitStatus.Initializing);
-    this._formGroupSubscription = combineLatest([
-      formGroup.valueChanges.pipe(
-        startWith({}),
-        distinctUntilChanged((a, b) => {
-          return JSON.stringify(a) === JSON.stringify(b);
-        }),
-        pairwise(),
-      ),
-      this._flatNodes,
-    ])
+    this._formGroupSubscription = formGroup.valueChanges
       .pipe(
+        startWith({}),
+        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
+        pairwise(),
         withLatestFrom(
           this._nodesMaps[0],
           this._nodesMaps[1],
@@ -839,12 +877,13 @@ export class AjfFormRendererService {
           this._nodesMaps[7],
           this._nodesMaps[8],
           this._nodesMaps[9],
+          this._flatNodes,
         ),
       )
       .subscribe(v => {
-        const oldFormValue = (init && {}) || v[0][0][0];
+        const oldFormValue = (init && {}) || v[0][0];
         init = false;
-        const newFormValue = v[0][0][1];
+        const newFormValue = v[0][1];
         const editability = v[1];
         const visibilityMap = v[2];
         const repetitionMap = v[3];
@@ -855,7 +894,7 @@ export class AjfFormRendererService {
         const nextSlideConditionsMap = v[8];
         const filteredChoicesMap = v[9];
         const triggerConditionsMap = v[10];
-        const nodes = v[0][1];
+        const nodes = v[11];
 
         // takes the names of the fields that have changed
         const delta = this._formValueDelta(oldFormValue, newFormValue);
@@ -1051,6 +1090,10 @@ export class AjfFormRendererService {
     });
   }
 
+  /**
+   * Init stream for the form flat nodes.
+   * Stream starts when _initFormStreams set the _nodesUpdates
+   */
   private _initNodesStreams(): void {
     this._nodes = this._nodesUpdates.pipe(
       scan((nodes: AjfNodeInstance[], op: AjfNodesInstancesOperation) => {
@@ -1071,6 +1114,15 @@ export class AjfFormRendererService {
           updateSlideValidity(s);
         });
         return nodes;
+      }),
+      tap(_ => {
+        const formGroup = this._formGroup.getValue();
+        const initializedField = '$nodesInitialised';
+        if (formGroup != null && !formGroup.contains(initializedField)) {
+          const control = new UntypedFormControl();
+          control.setValue(true);
+          formGroup.registerControl(initializedField, control);
+        }
       }),
       share(),
     );
