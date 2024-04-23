@@ -1,3 +1,13 @@
+<a name="15.3.14"></a>
+# 15.3.14 "pale-meerkat" (2024-04-23)
+### Bug Fixes
+* **core/forms:** form-renderer: rollback flatNodes in withLatestFrom and force a valueChange when flatNodes are ready, to start the initialisation flow ([8b7a90b](https://github.com/gnucoop/ajf/commit/8b7a90b81cdf77eff079af8731f8978e1128c52e))
+### Features
+* **forms:** docx printing of signature fields ([2d1ca2d](https://github.com/gnucoop/ajf/commit/2d1ca2daab4263db95fe563fd248c138456f5e39))
+* **forms:** pdf printing of signature fields ([a26ded8](https://github.com/gnucoop/ajf/commit/a26ded8ca7063aed67944e5a9cf03ba68a3b718e))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.13"></a>
 # 15.3.13 "invisible-swallow" (2024-03-21)
 ### Bug Fixes
