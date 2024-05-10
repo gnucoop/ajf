@@ -217,6 +217,9 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
           text = htmlTextToPdfText(cell.value, images);
           break;
         case 'object':
+          if (cell.value == null) {
+            break;
+          }
           let val = cell.value.changingThisBreaksApplicationSecurity;
           if (typeof val === 'number') {
             val = String(val);

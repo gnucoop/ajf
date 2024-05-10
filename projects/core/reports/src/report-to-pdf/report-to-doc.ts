@@ -233,6 +233,9 @@ function tableToDoc(table: AjfTableWidgetInstance): Table {
             text = stripHTML(cell.value);
             break;
           case 'object':
+            if (cell.value == null) {
+              break;
+            }
             let val = cell.value.changingThisBreaksApplicationSecurity;
             if (typeof val === 'number') {
               val = String(val);
