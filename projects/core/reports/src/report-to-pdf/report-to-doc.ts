@@ -143,10 +143,14 @@ function imageToDoc(image: AjfImageWidgetInstance, images: ImageMap): Paragraph 
   }
   const i = dataUrl.indexOf(',');
   const base64 = dataUrl.slice(i + 1);
-  return new Paragraph({children: [new ImageRun({
-    data: Uint8Array.from(atob(base64), c => c.charCodeAt(0)),
-    transformation: imageSize,
-  })]});
+  return new Paragraph({
+    children: [
+      new ImageRun({
+        data: Uint8Array.from(atob(base64), c => c.charCodeAt(0)),
+        transformation: imageSize,
+      }),
+    ],
+  });
 }
 
 function textToDoc(tw: AjfTextWidgetInstance): Paragraph[] {
@@ -155,7 +159,7 @@ function textToDoc(tw: AjfTextWidgetInstance): Paragraph[] {
 }
 
 function paragraphToDoc(par: string): Paragraph {
-  let alignment: AlignmentType|undefined = undefined;
+  let alignment: AlignmentType | undefined = undefined;
   if (/^<\w\w? align="center"/.test(par)) {
     alignment = AlignmentType.CENTER;
   } else if (/^<\w\w? align="right"/.test(par)) {
@@ -164,7 +168,7 @@ function paragraphToDoc(par: string): Paragraph {
     alignment = AlignmentType.JUSTIFIED;
   }
 
-  let heading: HeadingLevel|undefined = undefined;
+  let heading: HeadingLevel | undefined = undefined;
   if (par.startsWith('<h1')) {
     heading = HeadingLevel.HEADING_1;
   } else if (par.startsWith('<h2')) {
@@ -176,7 +180,7 @@ function paragraphToDoc(par: string): Paragraph {
     return new Paragraph({text: stripHTML(par).trim(), heading, alignment});
   }
 
-  let bullet: {level: number}|undefined = undefined;
+  let bullet: {level: number} | undefined = undefined;
   if (par.startsWith('<li')) {
     bullet = {level: 0};
   }
@@ -222,31 +226,38 @@ function tableToDoc(table: AjfTableWidgetInstance): Table {
   }
   return new Table({
     columnWidths: Array(numCols).fill(pageWidth / numCols),
-    rows: table.data.map(row => new TableRow({
-      children: row.map(cell => {
-        let text = '';
-        switch (typeof cell.value) {
-          case 'number':
-            text = String(cell.value);
-            break;
-          case 'string':
-            text = stripHTML(cell.value);
-            break;
-          case 'object':
-            let val = cell.value.changingThisBreaksApplicationSecurity;
-            if (typeof val === 'number') {
-              val = String(val);
+    rows: table.data.map(
+      row =>
+        new TableRow({
+          children: row.map(cell => {
+            let text = '';
+            if (cell.value == null) {
+              text = '';
+            } else {
+              switch (typeof cell.value) {
+                case 'number':
+                  text = String(cell.value);
+                  break;
+                case 'string':
+                  text = stripHTML(cell.value);
+                  break;
+                case 'object':
+                  let val = cell.value.changingThisBreaksApplicationSecurity;
+                  if (typeof val === 'number') {
+                    val = String(val);
+                  }
+                  text = stripHTML(val || '');
+                  break;
+              }
             }
-            text = stripHTML(val || '');
-            break;
-        }
-        return new TableCell({
-          children: [new Paragraph(text)],
-          columnSpan: cell.colspan || undefined,
-          rowSpan: cell.rowspan || undefined,
-        });
-      }),
-    })),
+            return new TableCell({
+              children: [new Paragraph(text)],
+              columnSpan: cell.colspan || undefined,
+              rowSpan: cell.rowspan || undefined,
+            });
+          }),
+        }),
+    ),
   });
 }
 

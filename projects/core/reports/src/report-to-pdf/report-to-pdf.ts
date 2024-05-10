@@ -209,20 +209,24 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
     const bodyRow: TableCell[] = [];
     for (const cell of dataRow) {
       let text = '';
-      switch (typeof cell.value) {
-        case 'number':
-          text = String(cell.value);
-          break;
-        case 'string':
-          text = htmlTextToPdfText(cell.value, images);
-          break;
-        case 'object':
-          let val = cell.value.changingThisBreaksApplicationSecurity;
-          if (typeof val === 'number') {
-            val = String(val);
-          }
-          text = htmlTextToPdfText(val || '', images);
-          break;
+      if (cell.value == null) {
+        text = '';
+      } else {
+        switch (typeof cell.value) {
+          case 'number':
+            text = String(cell.value);
+            break;
+          case 'string':
+            text = htmlTextToPdfText(cell.value, images);
+            break;
+          case 'object':
+            let val = cell.value.changingThisBreaksApplicationSecurity;
+            if (typeof val === 'number') {
+              val = String(val);
+            }
+            text = htmlTextToPdfText(val || '', images);
+            break;
+        }
       }
       bodyRow.push({text, colSpan: cell.colspan, rowSpan: cell.rowspan});
     }
