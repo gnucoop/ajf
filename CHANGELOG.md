@@ -1,3 +1,24 @@
+<a name="16.0.0"></a>
+# 16.0.0 "passing-mosquito" (2024-05-10)
+### Bug Fixes
+* **core/forms:** form-renderer: rollback flatNodes in withLatestFrom and force a valueChange when flatNodes are ready, to start the initialisation flow ([8b7a90b](https://github.com/gnucoop/ajf/commit/8b7a90b81cdf77eff079af8731f8978e1128c52e))
+* **core/forms:** set default value when field or slide visibility changed ([958dd7c](https://github.com/gnucoop/ajf/commit/958dd7cd5a842b4c273096105d121cb46ab44684))
+* **core/forms:** set reps values in formgroup after visibility update ([c81fa53](https://github.com/gnucoop/ajf/commit/c81fa5364e2e67402314fbfd052e7e217743abba))
+* **core/reports:** fix xlsreport charts size and proportions ([a472c49](https://github.com/gnucoop/ajf/commit/a472c49aa6084daff8317dc95481b5feca7baa34))
+* **core/reports:** null check in printing of report tables ([5d7b80b](https://github.com/gnucoop/ajf/commit/5d7b80bdfd1b69e13e091fd5738298305262edfa))
+* **core/utils:** Deep-copy functionDeserializer type issue in array.concat argument. ([eeed45d](https://github.com/gnucoop/ajf/commit/eeed45d6f7c0e8448a615078493bb231311d73e7))
+* **material/form-builder:** Added forwardRef to childEntries queryList. ([c0a3cc1](https://github.com/gnucoop/ajf/commit/c0a3cc1dea923c46a0f5804745fffae0c1cf5882))
+* **material/form-builder:** Fixed a css issue causing Properties to disappear when title/visibility condition are too long. ([e0b9316](https://github.com/gnucoop/ajf/commit/e0b9316cd09d76a9aeb6f256eb8cab78c96bb865))
+* **material/formbuilder:** Small css fixes to visibility condition overflow and formtree properties. ([f8552e2](https://github.com/gnucoop/ajf/commit/f8552e2e2615f232a476e9ecc3d3a56f7678f0c8))
+* **material/forms:** fix choice fields with filter ([ff54e91](https://github.com/gnucoop/ajf/commit/ff54e913e05b54c851ce9b94e3b866591e39eac7))
+* **material/forms:** remove validity icon from slide tab when slide is not visible ([0b38e7b](https://github.com/gnucoop/ajf/commit/0b38e7b8840be99d907bbfafecd6eb4b419e049c))
+### Features
+* **core/forms:** download forms as docx ([e1f2db5](https://github.com/gnucoop/ajf/commit/e1f2db59ba9f27209ecac68422c2e6e71269ebac))
+* **forms:** docx printing of signature fields ([2d1ca2d](https://github.com/gnucoop/ajf/commit/2d1ca2daab4263db95fe563fd248c138456f5e39))
+* **forms:** pdf printing of signature fields ([a26ded8](https://github.com/gnucoop/ajf/commit/a26ded8ca7063aed67944e5a9cf03ba68a3b718e))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="15.3.14"></a>
 # 15.3.14 "pale-meerkat" (2024-04-23)
 ### Bug Fixes
