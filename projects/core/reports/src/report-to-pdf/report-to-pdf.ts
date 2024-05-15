@@ -56,8 +56,9 @@ export function openReportPdf(
   report: AjfReportInstance,
   orientation: PageOrientation = 'portrait',
   icons: ImageMap = {},
+  header?: Content[],
 ) {
-  createReportPdf(report, orientation, icons).then(pdf => {
+  createReportPdf(report, orientation, icons, header).then(pdf => {
     pdf.open();
   });
 }
@@ -66,6 +67,7 @@ export function createReportPdf(
   report: AjfReportInstance,
   orientation: PageOrientation = 'portrait',
   icons: ImageMap = {},
+  header?: Content[],
 ): Promise<TCreatedPdf> {
   return new Promise<TCreatedPdf>(resolve => {
     loadReportImages(report).then(images => {
@@ -73,7 +75,7 @@ export function createReportPdf(
       if (orientation === 'landscape') {
         width = pageHeight - pageMargins[1] * 2;
       }
-      const pdfDef = reportToPdf(report, {...images, ...icons}, width);
+      const pdfDef = reportToPdf(report, {...images, ...icons}, width, header);
       pdfDef.pageSize = {width: pageWidth, height: pageHeight};
       pdfDef.pageMargins = pageMargins;
       pdfDef.pageOrientation = orientation;
@@ -86,8 +88,9 @@ function reportToPdf(
   report: AjfReportInstance,
   images: ImageMap,
   width: number,
+  header?: Content[],
 ): TDocumentDefinitions {
-  const stack: Content[] = [];
+  const stack: Content[] = header ? [...header] : [];
   if (report.header != null) {
     stack.push(containerToPdf(report.header, images, width));
   }
