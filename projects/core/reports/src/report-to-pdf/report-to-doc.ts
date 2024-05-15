@@ -59,16 +59,16 @@ function downloadBlob(b: Blob) {
   URL.revokeObjectURL(url);
 }
 
-export function downloadReportDoc(report: AjfReportInstance) {
-  createReportDoc(report).then(blob => {
+export function downloadReportDoc(report: AjfReportInstance, header?: SectionChild[]) {
+  createReportDoc(report, header).then(blob => {
     downloadBlob(blob);
   });
 }
 
-export function createReportDoc(report: AjfReportInstance): Promise<Blob> {
+export function createReportDoc(report: AjfReportInstance, header?: SectionChild[]): Promise<Blob> {
   return new Promise<Blob>(resolve => {
     loadReportImages(report).then(images => {
-      const doc = reportToDoc(report, images);
+      const doc = reportToDoc(report, images, header);
       Packer.toBlob(doc).then(blob => resolve(blob));
     });
   });
@@ -76,8 +76,8 @@ export function createReportDoc(report: AjfReportInstance): Promise<Blob> {
 
 type SectionChild = Paragraph | Table;
 
-function reportToDoc(report: AjfReportInstance, images: ImageMap): Document {
-  const children: SectionChild[] = [];
+function reportToDoc(report: AjfReportInstance, images: ImageMap, header?: SectionChild[]): Document {
+  const children: SectionChild[] = header ? [...header] : [];
   if (report.header != null) {
     children.push(...containerToDoc(report.header, images));
   }

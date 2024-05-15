@@ -65,7 +65,7 @@ type TranslateFunc = (text: string) => string;
 export function downloadFormDoc(
   form: AjfForm,
   translate?: TranslateFunc, 
-  header?: Paragraph[],
+  header?: SectionChild[],
   context?: AjfContext
 ) {
   createFormDoc(form, translate, header, context).then(blob => {
@@ -76,7 +76,7 @@ export function downloadFormDoc(
 export function createFormDoc(
   form: AjfForm,
   translate?: TranslateFunc, 
-  header?: Paragraph[],
+  header?: SectionChild[],
   context?: AjfContext
 ): Promise<Blob> {
   return new Promise<Blob>(resolve => {
@@ -149,7 +149,7 @@ type SectionChild = Paragraph | Table;
 function formToDoc(
   form: AjfForm,
   translate: (s: string) => string,
-  header?: Paragraph[],
+  header?: SectionChild[],
   context?: AjfContext,
 ): Document {
   const choicesMap: ChoicesMap = {};
