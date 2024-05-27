@@ -25,41 +25,34 @@ import {AjfStyles} from '../interface/styles';
 export const slideTitleStyle: AjfStyles = {
   width: '100%',
   dislay: 'block',
-  border: '1px solid gray',
-  margin: '10px 10px 0px 10px',
-  padding: '10px',
-  backgroundColor: 'white',
-};
-export const slideContentStyle: AjfStyles = {
-  with: '100%',
-  dislay: 'block',
-  border: '1px solid gray',
-  margin: '0px 10px 10px 50px',
-  padding: '10px',
-  backgroundColor: 'white',
+  marginTop: '30px',
 };
 export const widgetTitleStyle: AjfStyles = {
   width: '100%',
   dislay: 'block',
-  border: '1px solid gray',
+  borderTop: '1px dashed gray',
+  marginTop: '15px',
   padding: '10px',
+  paddingTop: '20px',
   maxHeight: '600px',
-  backgroundColor: 'white',
 };
 export const boxStyle: AjfStyles = {
   dislay: 'block',
   padding: '10px',
-  width: '100%',
-  height: '100%',
+};
+export const indicatorStyle: AjfStyles = {
+  fontSize: '30px',
 };
 export const widgetStyle: AjfStyles = {
-  backgroundColor: 'white',
-  dislay: 'block',
-  border: '1px solid gray',
-  padding: '10px',
-  maxHeight: '500px',
+  border: '1px outset gray',
   marginBottom: '10px',
 };
+export const chartStyle: AjfStyles = {
+  ...widgetStyle,
+  width: '100%',
+  maxWidth: '1000px',
+  margin: '10px auto',
+}
 export const backgroundColor: string[] = [
   '#FF6633',
   '#FFB399',

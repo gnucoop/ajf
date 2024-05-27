@@ -388,21 +388,10 @@ function truncate10(num: number) {
 /**
  * It rounds the num with the value of digits
  */
-export function round(num: number | string, digits?: number): number {
-  digits = digits || 0;
-  let f;
-  if (typeof num !== 'number') {
-    try {
-      f = parseFloat(num);
-    } catch (e) {}
-  } else {
-    f = num;
-  }
-  if (f == null || isNaN(f)) {
-    f = 0;
-  }
+export function round(n: number | string, digits: number = 0): number {
+  n = Number(n);
   const m = Math.pow(10, digits);
-  return Math.round(f * m) / m;
+  return Math.round(n * m) / m;
 }
 /**
  * It extracts property from source.
