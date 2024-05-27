@@ -1,3 +1,13 @@
+<a name="16.0.1"></a>
+# 16.0.1 "combined-pelican" (2024-05-27)
+### Bug Fixes
+* **core/reports:** autoreport restyling ([a20022a](https://github.com/gnucoop/ajf/commit/a20022a74bac6173226214dcf1e879ba3f9df8fe))
+* **core/reports:** autoreport small fix ([0cd4c36](https://github.com/gnucoop/ajf/commit/0cd4c3639a0bd5fb46a837ea095e04d5e923e359))
+### Features
+* **core/reports:** add parameter 'header' to report printing functions to enable printing of report metrics ([03a4957](https://github.com/gnucoop/ajf/commit/03a49573733b018ecfebda39065a3e96007e7a01))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.0.0"></a>
 # 16.0.0 "passing-mosquito" (2024-05-10)
 ### Bug Fixes
