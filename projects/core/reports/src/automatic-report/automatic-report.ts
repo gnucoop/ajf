@@ -80,7 +80,7 @@ function createMultipleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget 
       label: `${c.label}`,
       formula: [
         createFormula({
-          formula: `[COUNT_FORMS(dataset, f => f.${field.name}.indexOf("${c.value}") > -1)]`,
+          formula: `[COUNT_FORMS(dataset, f => (f.${field.name} || []).indexOf("${c.value}") > -1)]`,
         }),
       ],
       options: {
