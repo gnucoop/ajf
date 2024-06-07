@@ -1,3 +1,8 @@
+<a name="16.0.2"></a>
+# 16.0.2 "managerial-sloth" (2024-06-07)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.0.1"></a>
 # 16.0.1 "combined-pelican" (2024-05-27)
 ### Bug Fixes
