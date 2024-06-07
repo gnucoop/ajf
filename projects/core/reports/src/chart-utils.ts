@@ -20,10 +20,10 @@
  *
  */
 
-import {ExtendedChartType} from '@ajf/core/chart';
 import {AjfChartType} from './interface/charts/chart-type';
+import {ChartType} from 'chart.js';
 
-export function chartToChartJsType(chartType?: AjfChartType): ExtendedChartType {
+export function chartToChartJsType(chartType?: AjfChartType): ChartType {
   switch (chartType) {
     case AjfChartType.Line:
       return 'line';
