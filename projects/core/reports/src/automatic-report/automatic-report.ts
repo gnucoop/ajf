@@ -60,7 +60,7 @@ function createBooleanWidget(field: AjfField): AjfWidget {
             formula: `[COUNT_FORMS(dataset, f => f.${field.name} === true), COUNT_FORMS(dataset, f => f.${field.name} === false)]`,
           }),
         ],
-        options: {backgroundColor: ['green', 'red']},
+        options: {backgroundColor: [backgroundColor[4], backgroundColor[1]]}, // green, red
       } as Partial<AjfDataset>),
     ],
     options: {

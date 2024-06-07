@@ -20,7 +20,5 @@
  *
  */
 
-export * from './extended-chart-type';
-export * from './register-chart-plugins';
 export * from './chart';
 export * from './chart-module';

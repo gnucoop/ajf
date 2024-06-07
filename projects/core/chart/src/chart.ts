@@ -32,20 +32,13 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
-import * as chartJs from 'chart.js';
-// tslint:disable-next-line:no-duplicate-imports
+
 import {
+  Chart,
   ChartData,
-  ChartLegendLabelItem,
   ChartOptions,
-  ChartSize,
-  ChartTooltipItem,
-  ChartTooltipModel,
+  ChartType,
 } from 'chart.js';
-
-import {ExtendedChartType} from './extended-chart-type';
-
-const {Chart} = ((chartJs as any).default || chartJs) as typeof chartJs;
 
 // We only need to set canvasDataUrl of the AjfChartWidgetInstance here,
 // avoid importing the actual interface because of the circular dependency:
@@ -63,7 +56,7 @@ interface ChartWidgetInstance {
 export class AjfChartComponent implements AfterViewInit, OnChanges {
   @Input() data?: ChartData;
   @Input() options?: ChartOptions;
-  @Input() chartType?: ExtendedChartType;
+  @Input() chartType?: ChartType;
   @Input() instance?: ChartWidgetInstance;
 
   private _chart: Chart | null = null;
@@ -158,192 +151,9 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
         this._chart = new Chart(ctx, {
           type: this.chartType,
           data: this._fixData(this.data),
-          options: this._fixChartOptions(this.options),
+          options: this.options,
         });
       }
     }
-  }
-
-  private _fixChartOptions(chartOptions: ChartOptions | undefined): ChartOptions {
-    const options = deepCopy(chartOptions || {});
-    if (options.legendCallback) {
-      const legendCallback = (
-        typeof options.legendCallback === 'string'
-          ? new Function(options.legendCallback)
-          : options.legendCallback
-      ) as (chart: Chart) => string;
-      options.legendCallback = legendCallback;
-    }
-    if (options.onHover) {
-      const onHover = (
-        typeof options.onHover === 'string' ? new Function(options.onHover) : options.onHover
-      ) as (this: Chart, event: MouseEvent, activeElements: {}[]) => any;
-      options.onHover = onHover;
-    }
-    if (options.onClick) {
-      const onClick = (
-        typeof options.onClick === 'string' ? new Function(options.onClick) : options.onClick
-      ) as (event?: MouseEvent, activeElements?: {}[]) => any;
-      options.onClick = onClick;
-    }
-    if (options.onResize) {
-      const onResize = (
-        typeof options.onResize === 'string' ? new Function(options.onResize) : options.onResize
-      ) as (this: Chart, newSize: ChartSize) => void;
-      options.onResize = onResize;
-    }
-    if (options.legend) {
-      const legend = options.legend;
-      if (legend.onClick) {
-        const onClick = (
-          typeof legend.onClick === 'string' ? new Function(legend.onClick) : legend.onClick
-        ) as (event: MouseEvent, legendItem: ChartLegendLabelItem) => void;
-        legend.onClick = onClick;
-      }
-      if (legend.onHover) {
-        const onHover = (
-          typeof legend.onHover === 'string' ? new Function(legend.onHover) : legend.onHover
-        ) as (event: MouseEvent, legendItem: ChartLegendLabelItem) => void;
-        legend.onHover = onHover;
-      }
-      if (legend.onLeave) {
-        const onLeave = (
-          typeof legend.onLeave === 'string' ? new Function(legend.onLeave) : legend.onLeave
-        ) as (event: MouseEvent, legendItem: ChartLegendLabelItem) => void;
-        legend.onLeave = onLeave;
-      }
-      if (legend.labels) {
-        const labels = legend.labels;
-        if (labels.generateLabels) {
-          const generateLabels = (
-            typeof labels.generateLabels === 'string'
-              ? new Function(labels.generateLabels)
-              : labels.generateLabels
-          ) as (chart: Chart) => ChartLegendLabelItem[];
-          labels.generateLabels = generateLabels;
-        }
-        if (labels.filter) {
-          const filter = (
-            typeof labels.filter === 'string' ? new Function(labels.filter) : labels.filter
-          ) as (legendItem: ChartLegendLabelItem, data: ChartData) => any;
-          labels.filter = filter;
-        }
-      }
-    }
-    if (options.tooltips) {
-      const tooltips = options.tooltips;
-      if (tooltips.custom) {
-        const custom = (
-          typeof tooltips.custom === 'string' ? new Function(tooltips.custom) : tooltips.custom
-        ) as (tooltipModel: ChartTooltipModel) => void;
-        tooltips.custom = custom;
-      }
-      if (tooltips.callbacks) {
-        const callbacks = tooltips.callbacks;
-        for (const key in callbacks) {
-          const callback = (callbacks as any)[key] as (
-            item: ChartTooltipItem[],
-            data: ChartData,
-          ) => string | string[];
-          (callbacks as any)[key] =
-            typeof callback === 'string' ? new Function(callback) : callback;
-        }
-      }
-      if (tooltips.filter) {
-        type FilterFn = (item: ChartTooltipItem, data: ChartData) => boolean;
-        const filter = (
-          typeof tooltips.filter === 'string' ? new Function(tooltips.filter) : tooltips.filter
-        ) as FilterFn;
-        tooltips.filter = filter;
-      }
-      if (tooltips.itemSort) {
-        type SortFn = (
-          itemA: ChartTooltipItem,
-          itemB: ChartTooltipItem,
-          data?: ChartData,
-        ) => number;
-        const itemSort = (
-          typeof tooltips.itemSort === 'string'
-            ? new Function(tooltips.itemSort)
-            : tooltips.itemSort
-        ) as SortFn;
-        tooltips.itemSort = itemSort;
-      }
-    }
-    if (options.hover) {
-      const hover = options.hover;
-      if (hover.onHover) {
-        const onHover = (
-          typeof hover.onHover === 'string' ? new Function(hover.onHover) : hover.onHover
-        ) as (this: Chart, event: MouseEvent, activeElements: {}[]) => any;
-        hover.onHover = onHover;
-      }
-    }
-    if (options.animation) {
-      const animation = options.animation;
-      if (animation.onProgress) {
-        const onProgress = (
-          typeof animation.onProgress === 'string'
-            ? new Function(animation.onProgress)
-            : animation.onProgress
-        ) as (chart: any) => void;
-        animation.onProgress = onProgress;
-      }
-      if (animation.onComplete) {
-        const onComplete = (
-          typeof animation.onComplete === 'string'
-            ? new Function(animation.onComplete)
-            : animation.onComplete
-        ) as (chart: any) => void;
-        animation.onComplete = onComplete;
-      }
-    }
-    if (options.scales == null) {
-      options.scales = {xAxes: [], yAxes: []};
-    }
-    if (options.scales.xAxes == null) {
-      options.scales.xAxes = [];
-    }
-    if (options.scales.yAxes == null) {
-      options.scales.yAxes = [];
-    }
-    options.scales.yAxes.forEach((yAxe: any) => {
-      if (yAxe.ticks && yAxe.ticks.callback) {
-        const callback = (
-          typeof yAxe.ticks.callback === 'string'
-            ? new Function(yAxe.ticks.callback)
-            : yAxe.ticks.callback
-        ) as (value: any, index: any, values: any) => string | number;
-        yAxe.ticks.callback = callback;
-      }
-    });
-    options.scales.xAxes.forEach((xAxe: any) => {
-      if (xAxe.ticks && xAxe.ticks.callback) {
-        const callback = (
-          typeof xAxe.ticks.callback === 'string'
-            ? new Function(xAxe.ticks.callback)
-            : xAxe.ticks.callback
-        ) as (value: any, index: any, values: any) => string | number;
-        xAxe.ticks.callback = callback;
-      }
-    });
-    if (this.chartType == 'pie') {
-      let newOptions = deepCopy(options);
-      newOptions.pieceLabel = {
-        ...{
-          render: function (args: any) {
-            if (args.label) {
-              return args.label + ':' + args.value;
-            } else {
-              return args.value;
-            }
-          },
-          ...newOptions.pieceLabel,
-        },
-        position: 'outside',
-      };
-      return newOptions;
-    }
-    return options;
   }
 }
