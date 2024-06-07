@@ -1,3 +1,10 @@
+<a name="16.0.3"></a>
+# 16.0.3 "dependent-donkey" (2024-06-07)
+### Features
+* **core/reports:** charts cleanup and restyling ([13fed4f](https://github.com/gnucoop/ajf/commit/13fed4ff51cea5eda1ad723dde567cc853325e86))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.0.2"></a>
 # 16.0.2 "managerial-sloth" (2024-06-07)
 
