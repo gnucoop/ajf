@@ -100,7 +100,7 @@ function buildXlsxData(
             isNewRowAfterRowspan = true;
           }
           tableData[i].forEach((elem: AjfTableCell, idxElem: number) => {
-            let val = elem.value.changingThisBreaksApplicationSecurity;
+            let val = elem.value?.changingThisBreaksApplicationSecurity;
             if (val === undefined) {
               val = elem.value;
             }
