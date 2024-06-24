@@ -883,7 +883,7 @@ export class AjfFormRendererService {
       .subscribe(v => {
         const oldFormValue = (init && {}) || v[0][0];
         init = false;
-        const newFormValue = v[0][1];
+        let newFormValue = v[0][1];
         const editability = v[1];
         const visibilityMap = v[2];
         const repetitionMap = v[3];
@@ -920,6 +920,10 @@ export class AjfFormRendererService {
           if (visibilityMap[fieldName] != null) {
             visibilityMap[fieldName].forEach(nodeInstance => {
               updateVisibilityMapEntry(nodeInstance, this._formGroup, newFormValue);
+              newFormValue =
+                this._formGroup && this._formGroup.getValue() != null
+                  ? this._formGroup.getValue()?.value
+                  : newFormValue;
               if (updatedNodes.indexOf(nodeInstance) === -1) {
                 updatedNodes.push(nodeInstance);
               }
@@ -953,6 +957,10 @@ export class AjfFormRendererService {
           if (formulaMap[fieldName] != null) {
             formulaMap[fieldName].forEach(nodeInstance => {
               updateFormulaMapEntry(nodeInstance, newFormValue, this._formGroup);
+              newFormValue =
+                this._formGroup && this._formGroup.getValue() != null
+                  ? this._formGroup.getValue()?.value
+                  : newFormValue;
               if (updatedNodes.indexOf(nodeInstance) === -1) {
                 updatedNodes.push(nodeInstance);
               }

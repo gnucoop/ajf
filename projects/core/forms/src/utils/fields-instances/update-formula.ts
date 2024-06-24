@@ -23,7 +23,6 @@
 import {AjfContext, evaluateExpression} from '@ajf/core/models';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
-import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
 
 /**
  * Update the relative instance value and the context, only if it's visible.
@@ -60,7 +59,6 @@ export function updateFormula(
     }
     if (changed && newValue !== instance.value) {
       instance.value = newValue;
-      context[nodeInstanceCompleteName(instance)] = instance.value;
       context['$value'] = instance.value;
       return {changed: true, value: newValue};
     }
