@@ -26,6 +26,7 @@ import {
   AjfFieldWithChoices,
   AjfForm,
   AjfFormSerializer,
+  AjfNodeType,
   AjfRangeField,
 } from '@ajf/core/forms';
 import {createFormula} from '@ajf/core/models';
@@ -47,7 +48,7 @@ import {
   widgetTitleStyle,
 } from './styles';
 
-function createBooleanWidget(field: AjfField): AjfWidget {
+function createBooleanWidget(field: AjfField, countFunc: string): AjfWidget {
   return createWidget({
     widgetType: AjfWidgetType.Chart,
     type: AjfChartType.Pie,
@@ -57,7 +58,7 @@ function createBooleanWidget(field: AjfField): AjfWidget {
         label: 'true',
         formula: [
           createFormula({
-            formula: `[COUNT_FORMS(dataset, f => f.${field.name} === true), COUNT_FORMS(dataset, f => f.${field.name} === false)]`,
+            formula: `[${countFunc}(dataset, f => f.${field.name} === true), ${countFunc}(dataset, f => f.${field.name} === false)]`,
           }),
         ],
         options: {backgroundColor: [backgroundColor[4], backgroundColor[1]]}, // green, red
@@ -73,14 +74,14 @@ function createBooleanWidget(field: AjfField): AjfWidget {
   });
 }
 
-function createMultipleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
+function createMultipleChoiceWidget(field: AjfFieldWithChoices<any>, countFunc: string): AjfWidget {
   const choices = field.choicesOrigin.choices;
   let dataset: AjfDataset[] = choices.map((c, index) =>
     createDataset({
       label: `${c.label}`,
       formula: [
         createFormula({
-          formula: `[COUNT_FORMS(dataset, f => (f.${field.name} || []).indexOf("${c.value}") > -1)]`,
+          formula: `[${countFunc}(dataset, f => (f.${field.name} || []).indexOf("${c.value}") > -1)]`,
         }),
       ],
       options: {
@@ -138,7 +139,7 @@ function createNumberWidget(field: AjfField): AjfWidget {
   });
 }
 
-function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
+function createSingleChoiceWidget(field: AjfFieldWithChoices<any>, countFunc: string): AjfWidget {
   const choices = field.choicesOrigin.choices;
   let dataset: AjfDataset[] = [];
   let chartType = AjfChartType.Bar;
@@ -153,7 +154,7 @@ function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
         formula: [
           createFormula({
             formula: `[${choices
-              .map(choice => `COUNT_FORMS(dataset, f => f.${field.name} === '${choice.value}')`)
+              .map(choice => `${countFunc}(dataset, f => f.${field.name} === '${choice.value}')`)
               .toString()}]`,
           }),
         ],
@@ -164,7 +165,7 @@ function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
     dataset = choices.map((c, index) =>
       createDataset({
         label: `${c.label}`,
-        formula: [createFormula({formula: `[COUNT_FORMS(dataset, f => f.${field.name} === '${c.value}')]`})],
+        formula: [createFormula({formula: `[${countFunc}(dataset, f => f.${field.name} === '${c.value}')]`})],
         options: {
           backgroundColor: backgroundColor[index],
           stack: `Stack ${index}`,
@@ -188,7 +189,7 @@ function createSingleChoiceWidget(field: AjfFieldWithChoices<any>): AjfWidget {
   });
 }
 
-function createRangeWidget(field: AjfRangeField): AjfWidget {
+function createRangeWidget(field: AjfRangeField, countFunc: string): AjfWidget {
   const end = field.end ?? 11;
   const start = field.start ?? 1;
   let choices = [];
@@ -201,7 +202,7 @@ function createRangeWidget(field: AjfRangeField): AjfWidget {
     createDataset({
       label: `${index + start}`,
       formula: [
-        createFormula({formula: `[COUNT_FORMS(dataset, f => f.${field.name} === ${index + 1 + start})]`}),
+        createFormula({formula: `[${countFunc}(dataset, f => f.${field.name} === ${index + 1 + start})]`}),
       ],
       options: {
         backgroundColor: backgroundColor[index],
@@ -257,13 +258,14 @@ export function automaticReport(formSchema: {schema: Partial<AjfForm>; id?: stri
   }
   report.variables.push({name: 'dataset', formula: {formula: 'BUILD_DATASET(forms)'}});
 
-  form.nodes?.forEach(slide => {
+  for (const slide of form.nodes) {
+    const countFunc = slide.nodeType === AjfNodeType.AjfRepeatingSlide ? 'COUNT_REPS' : 'COUNT_FORMS';
     const slideWidgets: AjfWidget[] = [];
 
-    (slide.nodes as AjfField[]).forEach(field => {
+    for (const field of slide.nodes as AjfField[]) {
       const fieldTitleWidget: AjfWidget = createWidget({
         widgetType: AjfWidgetType.Text,
-        htmlText: `<h4>${field.label} - [[COUNT_FORMS(dataset, f => f.${field.name} != null)]] answers</h4>`,
+        htmlText: `<h4>${field.label} - [[${countFunc}(dataset, f => f.${field.name} != null)]] answers</h4>`,
         styles: widgetTitleStyle,
       });
       slideWidgets.push(fieldTitleWidget);
@@ -273,21 +275,21 @@ export function automaticReport(formSchema: {schema: Partial<AjfForm>; id?: stri
           slideWidgets.push(createNumberWidget(field));
           break;
         case AjfFieldType.Boolean:
-          slideWidgets.push(createBooleanWidget(field));
+          slideWidgets.push(createBooleanWidget(field, countFunc));
           break;
         case AjfFieldType.SingleChoice:
-          slideWidgets.push(createSingleChoiceWidget(field));
+          slideWidgets.push(createSingleChoiceWidget(field, countFunc));
           break;
         case AjfFieldType.MultipleChoice:
-          slideWidgets.push(createMultipleChoiceWidget(field));
+          slideWidgets.push(createMultipleChoiceWidget(field, countFunc));
           break;
         case AjfFieldType.Range:
-          slideWidgets.push(createRangeWidget(field));
+          slideWidgets.push(createRangeWidget(field, countFunc));
           break;
         default:
           slideWidgets.pop(); // remove the title of empty widget
       }
-    });
+    }
     if (slideWidgets.length > 0) {
       const slideTitleWidget: AjfWidget = createWidget({
         widgetType: AjfWidgetType.Text,
@@ -296,7 +298,7 @@ export function automaticReport(formSchema: {schema: Partial<AjfForm>; id?: stri
       });
       reportWidgets.push(slideTitleWidget, ...slideWidgets);
     }
-  });
+  }
 
   report.content = createReportContainer({content: [...reportWidgets], styles: {}});
 
