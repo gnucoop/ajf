@@ -1,3 +1,12 @@
+<a name="16.0.4"></a>
+# 16.0.4 "scornful-hyena" (2024-06-26)
+### Bug Fixes
+* **core/forms:** enable cascade formula fields: remove context modification to enable valuechanges on formula update ([a48687a](https://github.com/gnucoop/ajf/commit/a48687ae1a64904e848cf8fc42055b5d4d6b5dc9))
+* **core/reports:** fix xlsx export of tables with null cells ([43e3de6](https://github.com/gnucoop/ajf/commit/43e3de6ada0bc3400e2866ece6f0f13e3a6af2e4))
+* **core/reports:** improve formulas for repeating slides in autoreports ([d89f8a2](https://github.com/gnucoop/ajf/commit/d89f8a26125023879be72f0f2853f222af9bcc87))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.0.3"></a>
 # 16.0.3 "dependent-donkey" (2024-06-07)
 ### Features
