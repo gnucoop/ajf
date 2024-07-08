@@ -81,4 +81,14 @@ export interface AjfFieldInstance extends AjfBaseNodeInstance {
    * Emitted when there are warningResults
    */
   warningTrigger: EventEmitter<void>;
+
+  /**
+   * The current node editability
+   */
+  editable: boolean;
+
+  /**
+   * AjfCondition for handling editability
+   */
+  readonly?: AjfCondition;
 }

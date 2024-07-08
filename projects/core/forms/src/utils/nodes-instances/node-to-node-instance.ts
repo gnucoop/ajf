@@ -58,6 +58,7 @@ import {getInstanceWarnings} from './get-instance-warnings';
 import {isFieldInstance} from './is-field-instance';
 import {isNodeGroupInstance} from './is-node-group-instance';
 import {isRepeatingSlideInstance} from './is-repeating-slide-instance';
+import {isSlideInstance} from './is-slide-instance';
 
 /**
  * It creates a nodeInstance relative to a node.
@@ -202,6 +203,9 @@ export function nodeToNodeInstance(
       }
     } else {
       instance.visibility = instance.node.visibility;
+      if (isSlideInstance(instance) || isFieldInstance(instance)) {
+        instance.readonly = instance.node.readonly;
+      }
       const conditionalBranches =
         instance.node.conditionalBranches != null && instance.node.conditionalBranches.length > 0
           ? instance.node.conditionalBranches

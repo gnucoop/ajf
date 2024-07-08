@@ -73,8 +73,14 @@ export function createFieldInstance(
       value = context[completeName];
     }
   }
+
+  let isFieldEditable = instance.editable;
+  if (isFieldEditable == null) {
+    isFieldEditable = instance.node.editable != null ? instance.node.editable : true;
+  }
   return {
     ...nodeInstance,
+    editable: isFieldEditable,
     node: instance.node,
     value,
     valid: false,

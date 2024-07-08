@@ -36,6 +36,7 @@ import {AjfBaseFieldComponent} from './base-field';
 import {AjfFieldHost} from './field-host';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldComponentsMap} from './interface/fields/field-components-map';
+import {AjfFieldType} from './interface/fields/field-type';
 
 /**
  * It is a base wrapper of every ajfField.
@@ -79,12 +80,7 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
   @Input()
   set readonly(readonly: boolean) {
     this._readonly = coerceBooleanProperty(readonly);
-    if (
-      !this._readonly &&
-      this._instance != null &&
-      this._instance.node &&
-      !this._instance.node.editable
-    ) {
+    if (!this._readonly && this._instance != null && !this._instance.editable) {
       this._readonly = true;
     }
     if (this._init) {
@@ -149,7 +145,17 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
           }
         });
       }
-      this._instance.updatedEvt.subscribe(() => this._cdr.markForCheck());
+      this._instance.updatedEvt.subscribe(() => {
+        this._cdr.markForCheck();
+        if (
+          this._instance &&
+          this._instance.node.fieldType !== AjfFieldType.Formula &&
+          this._instance.editable != null &&
+          this.readonly !== !this._instance.editable
+        ) {
+          this.readonly = !this._instance.editable;
+        }
+      });
     } catch (e) {
       console.log(e);
     }

@@ -24,6 +24,7 @@ import {AjfContext} from '@ajf/core/models';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
 import {updateConditionalBranches} from '../nodes-instances/update-conditional-branches';
+import {updateEditability} from '../nodes-instances/update-editability';
 import {updateVisibility} from '../nodes-instances/update-visibility';
 import {updateFormula} from './update-formula';
 import {updateNextSlideCondition} from './update-next-slide-condition';
@@ -38,6 +39,7 @@ export function updateFieldInstanceState(
   context: AjfContext,
   branchVisibility = true,
 ): void {
+  updateEditability(instance, context);
   updateVisibility(instance, context, branchVisibility);
   updateConditionalBranches(instance, context);
   updateFormula(instance, context);

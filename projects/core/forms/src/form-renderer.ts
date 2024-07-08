@@ -420,6 +420,15 @@ export class AjfFormRendererService {
       startWith(startValue()),
       share(),
     );
+    this._editabilityNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
+      this._editabilityNodesMapUpdates
+    )).pipe(
+      scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
+        return op(rmap);
+      }, {}),
+      startWith(startValue()),
+      share(),
+    );
     this._visibilityNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
       this._visibilityNodesMapUpdates
     )).pipe(
@@ -629,6 +638,8 @@ export class AjfFormRendererService {
         prefix,
         context,
       );
+    }
+    if (isSlideInstance(instance) || isFieldInstance(instance)) {
       updateEditability(instance, context);
     }
     updateVisibility(instance, context, branchVisibility);
@@ -912,8 +923,11 @@ export class AjfFormRendererService {
           );
           if (editability[fieldName] != null) {
             editability[fieldName].forEach(nodeInstance => {
-              if (isSlideInstance(nodeInstance)) {
-                updateEditability(nodeInstance, newFormValue);
+              if (isSlideInstance(nodeInstance) || isFieldInstance(nodeInstance)) {
+                updateEditabilityMapEntry(nodeInstance, this._formGroup, newFormValue);
+                if (updatedNodes.indexOf(nodeInstance) === -1) {
+                  updatedNodes.push(nodeInstance);
+                }
               }
             });
           }
@@ -1026,6 +1040,7 @@ export class AjfFormRendererService {
         updatedNodes.forEach(n => {
           const nodeIdx = nodes.indexOf(n);
           let idx = nodeIdx - 1;
+          // Find and update the validity for the node's slide
           while (idx >= 0) {
             const curNode = nodes[idx];
             if (isSlidesInstance(curNode)) {
@@ -1034,6 +1049,7 @@ export class AjfFormRendererService {
             }
             idx--;
           }
+          // Mark for check the AjfFormField
           n.updatedEvt.emit();
         });
         if (initForm) {
@@ -1204,6 +1220,11 @@ export class AjfFormRendererService {
       });
     }
 
+    // TODO Serve?
+    //if (fieldInstance.readonly != null) {
+    //  this._removeFromNodesEditabilityMap(fieldInstance, fieldInstance.readonly.condition);
+    //}
+
     if (fieldInstance.visibility != null) {
       this._removeFromNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
     }
@@ -1270,6 +1291,7 @@ export class AjfFormRendererService {
 
   /**
    * Add field instance as control in formGroup
+   * Add field instance in all update maps (NodesEditabilityMap, NodesVisibilityMap, ...)
    * @param fieldInstance
    * @returns
    */
@@ -1293,6 +1315,10 @@ export class AjfFormRendererService {
       });
     } else {
       fieldInstance.valid = true;
+    }
+
+    if (fieldInstance.readonly != null) {
+      this._addToNodesEditabilityMap(fieldInstance, fieldInstance.readonly.condition);
     }
 
     if (fieldInstance.visibility != null) {
@@ -1346,6 +1372,11 @@ export class AjfFormRendererService {
     return fieldInstance;
   }
 
+  /**
+   * Add slide instance in all update maps (NodesEditabilityMap, NodesVisibilityMap, NodesConditionalBranchMap)
+   * @param slideInstance
+   * @returns
+   */
   private _addSlideInstance(slideInstance: AjfSlideInstance): AjfSlideInstance {
     const slide = slideInstance.node;
     if (slide.readonly != null) {
@@ -1360,6 +1391,11 @@ export class AjfFormRendererService {
     return slideInstance;
   }
 
+  /**
+   * Add repeating slide instance in all update maps
+   * @param nodeGroupInstance
+   * @returns
+   */
   private _addNodeGroupInstance(
     nodeGroupInstance: AjfRepeatingContainerNodeInstance,
   ): AjfRepeatingContainerNodeInstance {
@@ -1563,6 +1599,20 @@ export class AjfFormRendererService {
     }
   }
 }
+
+/**
+ * Update editability for a slide or a field if editability is changed.
+ * @param nodeInstance
+ * @param formGroup
+ * @param newFormValue
+ */
+const updateEditabilityMapEntry = (
+  nodeInstance: AjfSlideInstance | AjfFieldInstance,
+  formGroup: BehaviorSubject<UntypedFormGroup | null>,
+  newFormValue: any,
+) => {
+  updateEditability(nodeInstance, newFormValue);
+};
 
 /**
  * Update visibility for a slide or a field if visibility is changed.
