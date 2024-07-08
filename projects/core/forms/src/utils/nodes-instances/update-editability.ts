@@ -21,21 +21,31 @@
  */
 
 import {AjfCondition, AjfContext, evaluateExpression} from '@ajf/core/models';
-
 import {AjfSlideInstance} from '../../interface/slides-instances/slide-instance';
+import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
 
-export function updateEditability(instance: AjfSlideInstance, context: AjfContext): boolean {
-  if (instance.readonly == null) {
+/**
+ *
+ * @param instance AjfNodeInstance: Slide instance or Field instance
+ * @param context
+ * @returns If instance.editable changes return true.
+ */
+export function updateEditability(
+  instance: AjfSlideInstance | AjfFieldInstance,
+  context: AjfContext,
+): boolean {
+  if (instance.editable == null) {
     instance.editable = true;
     return true;
   }
-  const readOnly: AjfCondition = instance.readonly;
-
-  const oldEditability: boolean = instance.editable;
-  let newEditability: boolean = !evaluateExpression(readOnly.condition, context);
-  if (newEditability !== instance.editable) {
-    instance.editable = newEditability;
+  if (instance.readonly != null) {
+    const readOnly: AjfCondition = instance.readonly;
+    const oldEditability: boolean = instance.editable;
+    let newEditability: boolean = !evaluateExpression(readOnly.condition, context);
+    if (newEditability !== instance.editable) {
+      instance.editable = newEditability;
+    }
+    return oldEditability !== newEditability;
   }
-
-  return oldEditability !== newEditability;
+  return false;
 }

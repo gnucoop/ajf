@@ -75,4 +75,9 @@ export interface AjfBaseNode {
    * AjfCondition for handling visibility
    */
   visibility?: AjfCondition;
+
+  /**
+   * AjfCondition for handling editability
+   */
+  readonly?: AjfCondition;
 }
