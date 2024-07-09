@@ -144,6 +144,8 @@ export function nodeToNodeInstance(
             newFormula !== oldFormula ? createFormula({formula: newFormula}) : formulaReps;
         }
       } else if (isFieldInstance(instance)) {
+        instance.readonly = instance.node.readonly;
+
         if (instance.node.formula) {
           instance.formula = getInstanceFormula(instance.node.formula, ancestorsNames, prefix);
         }
