@@ -1211,10 +1211,9 @@ export class AjfFormRendererService {
       });
     }
 
-    // TODO Serve?
-    //if (fieldInstance.readonly != null) {
-    //  this._removeFromNodesEditabilityMap(fieldInstance, fieldInstance.readonly.condition);
-    //}
+    if (fieldInstance.readonly != null) {
+      this._removeFromNodesEditabilityMap(fieldInstance, fieldInstance.readonly.condition);
+    }
 
     if (fieldInstance.visibility != null) {
       this._removeFromNodesVisibilityMap(fieldInstance, fieldInstance.visibility.condition);
@@ -1458,6 +1457,10 @@ export class AjfFormRendererService {
       }
       return vmap;
     });
+  }
+
+  private _removeFromNodesEditabilityMap(nodeInstance: AjfNodeInstance, formula: string): void {
+    this._removeFromNodesMap(this._editabilityNodesMapUpdates, nodeInstance, formula);
   }
 
   private _removeFromNodesVisibilityMap(nodeInstance: AjfNodeInstance, formula: string): void {
