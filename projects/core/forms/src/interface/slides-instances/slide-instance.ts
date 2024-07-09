@@ -27,7 +27,7 @@ import {AjfBaseSlideInstance} from './base-slide-instance';
  * An AjfBaseSlideInstance with only one slide
  */
 export interface AjfSlideInstance extends AjfBaseSlideInstance {
-  editable: boolean;
   node: AjfSlide;
+  editable: boolean;
   readonly: AjfCondition;
 }

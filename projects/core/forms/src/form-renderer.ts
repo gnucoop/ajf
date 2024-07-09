@@ -420,15 +420,6 @@ export class AjfFormRendererService {
       startWith(startValue()),
       share(),
     );
-    this._editabilityNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
-      this._editabilityNodesMapUpdates
-    )).pipe(
-      scan((rmap: AjfRendererUpdateMap, op: AjfRendererUpdateMapOperation) => {
-        return op(rmap);
-      }, {}),
-      startWith(startValue()),
-      share(),
-    );
     this._visibilityNodesMap = (<Observable<AjfRendererUpdateMapOperation>>(
       this._visibilityNodesMapUpdates
     )).pipe(
