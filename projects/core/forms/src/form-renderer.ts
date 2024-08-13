@@ -182,6 +182,7 @@ export class AjfFormRendererService {
   } | null>(null);
   private _nodes!: Observable<AjfNodeInstance[]>;
   private _flatNodes!: Observable<AjfNodeInstance[]>;
+
   private _flatNodesTree!: Observable<AjfSlideInstance[]>;
   private _nodesUpdates: Subject<AjfNodesInstancesOperation> =
     new Subject<AjfNodesInstancesOperation>();
@@ -212,6 +213,14 @@ export class AjfFormRendererService {
   get currentSupplementaryInformations(): any {
     const form = this._form.getValue();
     return form != null && form.form != null ? form.form.supplementaryInformations : null;
+  }
+
+  get nodesVisibility(): Observable<{name: string; type: 'slide' | 'field'; visible: boolean}[]> {
+    return this._nodes.pipe(
+      map(nodes => {
+        return this._mapNodesVisibility(nodes);
+      }),
+    );
   }
 
   constructor(_: AjfValidationService) {
@@ -340,6 +349,31 @@ export class AjfFormRendererService {
         return f != null && f.contains(fieldName) ? f.controls[fieldName] : null;
       }),
     );
+  }
+
+  /**
+   * Recursively extrapolates nodeInstances visibility and returns an array
+   * @param nodes The nodes
+   * @param parentVisible If false, children nodes will also be not visible
+   * @returns An array with all nodes visibility
+   */
+  private _mapNodesVisibility(
+    nodes: AjfNodeInstance[],
+    parentVisible: boolean = true,
+  ): {name: string; type: 'slide' | 'field'; visible: boolean}[] {
+    if (!nodes || !nodes.length) return [];
+    const nodesVisibility: {name: string; type: 'slide' | 'field'; visible: boolean}[] = [];
+    for (let node of nodes) {
+      const name = node.node.name;
+      const visible = parentVisible ? node.visible : false;
+      if ('nodes' in node && node.nodes && node.nodes.length) {
+        nodesVisibility.push({name, type: 'slide', visible});
+        nodesVisibility.push(...this._mapNodesVisibility(node.nodes, visible));
+      } else {
+        nodesVisibility.push({name, type: 'field', visible});
+      }
+    }
+    return nodesVisibility;
   }
 
   /**
