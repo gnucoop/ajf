@@ -69,6 +69,27 @@ export function generateRandomCtx(formSchema: AjfFormCreate): AjfContext[] {
         default:
           ctx[field.name] = 0;
           break;
+        case AjfFieldType.Formula:
+          let formula: string | undefined = field.formula?.formula;
+          if (formula != null) {
+            const fieldNamesInFormula = allFields
+              .map(f => f.name)
+              .filter(fname => formula!.includes(fname));
+            for (let fieldName of fieldNamesInFormula) {
+              if (ctx[fieldName] != null) {
+                formula = formula.replace(fieldName, ctx[fieldName]);
+              }
+            }
+            try {
+              ctx[field.name] = eval(formula);
+            } catch (err) {
+              console.log(err);
+              ctx[field.name] = NaN;
+            }
+          } else {
+            ctx[field.name] = NaN;
+          }
+          break;
         case AjfFieldType.Number:
           ctx[field.name] = Math.floor(Math.random() * 1000) + 1;
           break;
@@ -81,10 +102,7 @@ export function generateRandomCtx(formSchema: AjfFormCreate): AjfContext[] {
           break;
         case AjfFieldType.MultipleChoice:
           const multipleChoices = field.choicesOrigin.choices.map(c => c.value);
-          ctx[field.name] = [
-            multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
-            multipleChoices[Math.floor(Math.random() * multipleChoices.length)],
-          ];
+          ctx[field.name] = [multipleChoices[Math.floor(Math.random() * 35)]];
           break;
         case AjfFieldType.Range:
           const end = field.end ?? 10;
