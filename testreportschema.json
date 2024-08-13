@@ -1,0 +1,1525 @@
+{
+  "variables": [{"name": "dataset", "formula": {"formula": "BUILD_DATASET(forms)"}}],
+  "content": {
+    "content": [
+      {
+        "widgetType": 3,
+        "htmlText": "<h1>General fields</h1>",
+        "styles": {"width": "100%", "dislay": "block", "marginTop": "30px"},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>64-bit floating point number - [[COUNT_FORMS(dataset, f => f.number1 != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 0,
+        "columns": [0.2, 0.2, 0.2, 0.2, 0.2],
+        "content": [
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mean",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEAN(dataset, \"number1\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Median",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEDIAN(dataset, \"number1\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mode",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MODE(dataset, \"number1\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Max",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MAX(dataset, \"number1\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Sum",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(SUM(dataset, \"number1\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          }
+        ],
+        "styles": {},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>A number with the added constraint of being an integer - [[COUNT_FORMS(dataset, f => f.number != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 0,
+        "columns": [0.2, 0.2, 0.2, 0.2, 0.2],
+        "content": [
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mean",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEAN(dataset, \"number\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Median",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEDIAN(dataset, \"number\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mode",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MODE(dataset, \"number\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Max",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MAX(dataset, \"number\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Sum",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(SUM(dataset, \"number\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          }
+        ],
+        "styles": {},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Boolean answer (a checkbox) - [[COUNT_FORMS(dataset, f => f.boolean != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 4,
+        "type": 6,
+        "labels": {"formula": "['True', 'False']"},
+        "dataset": [
+          {
+            "label": "true",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => f.boolean === true), COUNT_FORMS(dataset, f => f.boolean === false)]"
+              }
+            ],
+            "options": {"backgroundColor": ["rgba(75, 192, 192, 0.6)", "rgba(255, 99, 132, 0.6)"]},
+            "aggregation": {"aggregation": 0}
+          }
+        ],
+        "options": {
+          "responsive": true,
+          "maintainAspectRatio": true,
+          "legend": {"display": true, "position": "bottom"}
+        },
+        "styles": {
+          "border": "1px dotted gray",
+          "borderRadius": "6px",
+          "marginBottom": "10px",
+          "width": "100%",
+          "maxWidth": "1000px",
+          "margin": "10px auto"
+        },
+        "exportable": true,
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Range - [[COUNT_FORMS(dataset, f => f.range != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 7,
+        "content": [
+          {
+            "widgetType": 0,
+            "columns": [0.2, 0.2, 0.2, 0.2, 0.2],
+            "content": [
+              {
+                "widgetType": 7,
+                "styles": {"dislay": "block", "padding": "10px"},
+                "content": [
+                  {
+                    "widgetType": 3,
+                    "htmlText": "Mean",
+                    "styles": {},
+                    "visibility": {"condition": "true"}
+                  },
+                  {
+                    "widgetType": 3,
+                    "htmlText": "[[ROUND(MEAN(dataset, \"range\"), 2)]]",
+                    "styles": {"fontSize": "30px"},
+                    "visibility": {"condition": "true"}
+                  }
+                ],
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 7,
+                "styles": {"dislay": "block", "padding": "10px"},
+                "content": [
+                  {
+                    "widgetType": 3,
+                    "htmlText": "Median",
+                    "styles": {},
+                    "visibility": {"condition": "true"}
+                  },
+                  {
+                    "widgetType": 3,
+                    "htmlText": "[[ROUND(MEDIAN(dataset, \"range\"), 2)]]",
+                    "styles": {"fontSize": "30px"},
+                    "visibility": {"condition": "true"}
+                  }
+                ],
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 7,
+                "styles": {"dislay": "block", "padding": "10px"},
+                "content": [
+                  {
+                    "widgetType": 3,
+                    "htmlText": "Mode",
+                    "styles": {},
+                    "visibility": {"condition": "true"}
+                  },
+                  {
+                    "widgetType": 3,
+                    "htmlText": "[[ROUND(MODE(dataset, \"range\"), 2)]]",
+                    "styles": {"fontSize": "30px"},
+                    "visibility": {"condition": "true"}
+                  }
+                ],
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 7,
+                "styles": {"dislay": "block", "padding": "10px"},
+                "content": [
+                  {
+                    "widgetType": 3,
+                    "htmlText": "Max",
+                    "styles": {},
+                    "visibility": {"condition": "true"}
+                  },
+                  {
+                    "widgetType": 3,
+                    "htmlText": "[[ROUND(MAX(dataset, \"range\"), 2)]]",
+                    "styles": {"fontSize": "30px"},
+                    "visibility": {"condition": "true"}
+                  }
+                ],
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 7,
+                "styles": {"dislay": "block", "padding": "10px"},
+                "content": [
+                  {
+                    "widgetType": 3,
+                    "htmlText": "Sum",
+                    "styles": {},
+                    "visibility": {"condition": "true"}
+                  },
+                  {
+                    "widgetType": 3,
+                    "htmlText": "[[ROUND(SUM(dataset, \"range\"), 2)]]",
+                    "styles": {"fontSize": "30px"},
+                    "visibility": {"condition": "true"}
+                  }
+                ],
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "styles": {},
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 4,
+            "type": 1,
+            "labels": {"formula": "[\"Range\"]"},
+            "dataset": [
+              {
+                "label": "1",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 2)]"}],
+                "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 0"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "2",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 3)]"}],
+                "options": {"backgroundColor": "rgba(255, 99, 132, 0.6)", "stack": "Stack 1"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "3",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 4)]"}],
+                "options": {"backgroundColor": "rgba(255, 159, 64, 0.6)", "stack": "Stack 2"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "4",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 5)]"}],
+                "options": {"backgroundColor": "rgba(255, 205, 86, 0.6)", "stack": "Stack 3"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "5",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 6)]"}],
+                "options": {"backgroundColor": "rgba(75, 192, 192, 0.6)", "stack": "Stack 4"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "6",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 7)]"}],
+                "options": {"backgroundColor": "rgba(153, 102, 255, 0.6)", "stack": "Stack 5"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "7",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 8)]"}],
+                "options": {"backgroundColor": "rgba(201, 203, 207, 0.6)", "stack": "Stack 6"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "8",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 9)]"}],
+                "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 7"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "9",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 10)]"}],
+                "options": {"backgroundColor": "rgba(255, 99, 132, 0.6)", "stack": "Stack 8"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "10",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 11)]"}],
+                "options": {"backgroundColor": "rgba(255, 159, 64, 0.6)", "stack": "Stack 9"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "11",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 12)]"}],
+                "options": {"backgroundColor": "rgba(255, 205, 86, 0.6)", "stack": "Stack 10"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "12",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 13)]"}],
+                "options": {"backgroundColor": "rgba(75, 192, 192, 0.6)", "stack": "Stack 11"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "13",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 14)]"}],
+                "options": {"backgroundColor": "rgba(153, 102, 255, 0.6)", "stack": "Stack 12"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "14",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 15)]"}],
+                "options": {"backgroundColor": "rgba(201, 203, 207, 0.6)", "stack": "Stack 13"},
+                "aggregation": {"aggregation": 0}
+              },
+              {
+                "label": "15",
+                "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.range === 16)]"}],
+                "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 14"},
+                "aggregation": {"aggregation": 0}
+              }
+            ],
+            "options": {
+              "responsive": true,
+              "maintainAspectRatio": true,
+              "legend": {"display": true, "position": "bottom"}
+            },
+            "styles": {
+              "border": "1px dotted gray",
+              "borderRadius": "6px",
+              "marginBottom": "10px",
+              "width": "100%",
+              "maxWidth": "1000px",
+              "margin": "10px auto"
+            },
+            "exportable": true,
+            "visibility": {"condition": "true"}
+          }
+        ],
+        "styles": {},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h1>Choice Fileds</h1>",
+        "styles": {"width": "100%", "dislay": "block", "marginTop": "30px"},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Single choice answer - [[COUNT_FORMS(dataset, f => f.singlechoice != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 4,
+        "type": 1,
+        "labels": {"formula": "[]"},
+        "dataset": [
+          {
+            "label": "Option1",
+            "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.singlechoice === 'option1')]"}],
+            "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 0"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option2",
+            "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.singlechoice === 'option2')]"}],
+            "options": {"backgroundColor": "rgba(255, 99, 132, 0.6)", "stack": "Stack 1"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option3",
+            "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.singlechoice === 'option3')]"}],
+            "options": {"backgroundColor": "rgba(255, 159, 64, 0.6)", "stack": "Stack 2"},
+            "aggregation": {"aggregation": 0}
+          }
+        ],
+        "options": {
+          "responsive": true,
+          "maintainAspectRatio": true,
+          "legend": {"display": true, "position": "bottom"}
+        },
+        "styles": {
+          "border": "1px dotted gray",
+          "borderRadius": "6px",
+          "marginBottom": "10px",
+          "width": "100%",
+          "maxWidth": "1000px",
+          "margin": "10px auto"
+        },
+        "exportable": true,
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Multiple choice answer 6 options - [[COUNT_FORMS(dataset, f => f.multiplechoice != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 4,
+        "type": 1,
+        "labels": {"formula": "[]"},
+        "dataset": [
+          {
+            "label": "Option1",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option1\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 0"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option2",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option2\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 99, 132, 0.6)", "stack": "Stack 1"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option3",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option3\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 159, 64, 0.6)", "stack": "Stack 2"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option4",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option4\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 205, 86, 0.6)", "stack": "Stack 3"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option5",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option5\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(75, 192, 192, 0.6)", "stack": "Stack 4"},
+            "aggregation": {"aggregation": 0}
+          }
+        ],
+        "options": {
+          "responsive": true,
+          "maintainAspectRatio": true,
+          "legend": {"display": true, "position": "bottom"}
+        },
+        "styles": {
+          "border": "1px dotted gray",
+          "borderRadius": "6px",
+          "marginBottom": "10px",
+          "width": "100%",
+          "maxWidth": "1000px",
+          "margin": "10px auto"
+        },
+        "exportable": true,
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Multiple choice answer more than 6 options - [[COUNT_FORMS(dataset, f => f.multiplechoice != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 4,
+        "type": 1,
+        "labels": {"formula": "[]"},
+        "dataset": [
+          {
+            "label": "Option1",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option1\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 0"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option2",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option2\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 99, 132, 0.6)", "stack": "Stack 1"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option3",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option3\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 159, 64, 0.6)", "stack": "Stack 2"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option4",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option4\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 205, 86, 0.6)", "stack": "Stack 3"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option5",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option5\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(75, 192, 192, 0.6)", "stack": "Stack 4"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option6",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option6\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(153, 102, 255, 0.6)", "stack": "Stack 5"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option7",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option7\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(201, 203, 207, 0.6)", "stack": "Stack 6"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option8",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option8\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 7"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option9",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option9\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 99, 132, 0.6)", "stack": "Stack 8"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option10",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option10\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 159, 64, 0.6)", "stack": "Stack 9"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option11",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option11\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(255, 205, 86, 0.6)", "stack": "Stack 10"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option12",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option12\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(75, 192, 192, 0.6)", "stack": "Stack 11"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option13",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option13\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(153, 102, 255, 0.6)", "stack": "Stack 12"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option14",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option14\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(201, 203, 207, 0.6)", "stack": "Stack 13"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Option15",
+            "formula": [
+              {
+                "formula": "[COUNT_FORMS(dataset, f => (f.multiplechoice || []).indexOf(\"option15\") > -1)]"
+              }
+            ],
+            "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 14"},
+            "aggregation": {"aggregation": 0}
+          }
+        ],
+        "options": {
+          "responsive": true,
+          "maintainAspectRatio": true,
+          "legend": {"display": true, "position": "bottom"}
+        },
+        "styles": {
+          "border": "1px dotted gray",
+          "borderRadius": "6px",
+          "marginBottom": "10px",
+          "width": "100%",
+          "maxWidth": "1000px",
+          "margin": "10px auto"
+        },
+        "exportable": true,
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h1>Hidden fileds with Relevant</h1>",
+        "styles": {"width": "100%", "dislay": "block", "marginTop": "30px"},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Do you have a cat or a dog? - [[COUNT_FORMS(dataset, f => f.pet_type != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 4,
+        "type": 1,
+        "labels": {"formula": "[]"},
+        "dataset": [
+          {
+            "label": "Dog",
+            "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.pet_type === 'dog')]"}],
+            "options": {"backgroundColor": "rgba(54, 162, 235, 0.6)", "stack": "Stack 0"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Cat",
+            "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.pet_type === 'cat')]"}],
+            "options": {"backgroundColor": "rgba(255, 99, 132, 0.6)", "stack": "Stack 1"},
+            "aggregation": {"aggregation": 0}
+          },
+          {
+            "label": "Black Cat",
+            "formula": [{"formula": "[COUNT_FORMS(dataset, f => f.pet_type === 'blackcat')]"}],
+            "options": {"backgroundColor": "rgba(255, 159, 64, 0.6)", "stack": "Stack 2"},
+            "aggregation": {"aggregation": 0}
+          }
+        ],
+        "options": {
+          "responsive": true,
+          "maintainAspectRatio": true,
+          "legend": {"display": true, "position": "bottom"}
+        },
+        "styles": {
+          "border": "1px dotted gray",
+          "borderRadius": "6px",
+          "marginBottom": "10px",
+          "width": "100%",
+          "maxWidth": "1000px",
+          "margin": "10px auto"
+        },
+        "exportable": true,
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h1>Calculation fields</h1>",
+        "styles": {"width": "100%", "dislay": "block", "marginTop": "30px"},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Price of your meal: - [[COUNT_FORMS(dataset, f => f.amount != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 0,
+        "columns": [0.2, 0.2, 0.2, 0.2, 0.2],
+        "content": [
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mean",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEAN(dataset, \"amount\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Median",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEDIAN(dataset, \"amount\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mode",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MODE(dataset, \"amount\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Max",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MAX(dataset, \"amount\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Sum",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(SUM(dataset, \"amount\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          }
+        ],
+        "styles": {},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>5% tip is: - [[COUNT_FORMS(dataset, f => f.tip != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 0,
+        "columns": [0.2, 0.2, 0.2, 0.2, 0.2],
+        "content": [
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mean",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEAN(dataset, \"tip\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Median",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEDIAN(dataset, \"tip\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mode",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MODE(dataset, \"tip\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Max",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MAX(dataset, \"tip\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Sum",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(SUM(dataset, \"tip\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          }
+        ],
+        "styles": {},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Total is: - [[COUNT_FORMS(dataset, f => f.total != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 0,
+        "columns": [0.2, 0.2, 0.2, 0.2, 0.2],
+        "content": [
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mean",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEAN(dataset, \"total\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Median",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEDIAN(dataset, \"total\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mode",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MODE(dataset, \"total\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Max",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MAX(dataset, \"total\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Sum",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(SUM(dataset, \"total\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          }
+        ],
+        "styles": {},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h1>Multiple Slide</h1>",
+        "styles": {"width": "100%", "dislay": "block", "marginTop": "30px"},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Child's birthweight - [[COUNT_REPS(dataset, f => f.sbirthweight != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 0,
+        "columns": [0.2, 0.2, 0.2, 0.2, 0.2],
+        "content": [
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mean",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEAN(dataset, \"sbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Median",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEDIAN(dataset, \"sbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mode",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MODE(dataset, \"sbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Max",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MAX(dataset, \"sbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Sum",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(SUM(dataset, \"sbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          }
+        ],
+        "styles": {},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h1>Multiple Slide with history disabled</h1>",
+        "styles": {"width": "100%", "dislay": "block", "marginTop": "30px"},
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 3,
+        "htmlText": "<h4>Child's birthweight - [[COUNT_REPS(dataset, f => f.mbirthweight != null)]] answers</h4>",
+        "styles": {
+          "width": "100%",
+          "dislay": "block",
+          "borderTop": "1px dashed gray",
+          "marginTop": "15px",
+          "padding": "10px",
+          "paddingTop": "20px",
+          "maxHeight": "600px"
+        },
+        "visibility": {"condition": "true"}
+      },
+      {
+        "widgetType": 0,
+        "columns": [0.2, 0.2, 0.2, 0.2, 0.2],
+        "content": [
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mean",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEAN(dataset, \"mbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Median",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MEDIAN(dataset, \"mbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Mode",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MODE(dataset, \"mbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Max",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(MAX(dataset, \"mbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          },
+          {
+            "widgetType": 7,
+            "styles": {"dislay": "block", "padding": "10px"},
+            "content": [
+              {
+                "widgetType": 3,
+                "htmlText": "Sum",
+                "styles": {},
+                "visibility": {"condition": "true"}
+              },
+              {
+                "widgetType": 3,
+                "htmlText": "[[ROUND(SUM(dataset, \"mbirthweight\"), 2)]]",
+                "styles": {"fontSize": "30px"},
+                "visibility": {"condition": "true"}
+              }
+            ],
+            "visibility": {"condition": "true"}
+          }
+        ],
+        "styles": {},
+        "visibility": {"condition": "true"}
+      }
+    ],
+    "styles": {}
+  }
+}
