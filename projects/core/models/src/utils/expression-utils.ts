@@ -171,6 +171,7 @@ export class AjfExpressionUtils {
     REMOVE_DUPLICATES: {fn: REMOVE_DUPLICATES},
     REPEAT: {fn: REPEAT},
     ROUND: {fn: ROUND},
+    STD: {fn: STD},
     SUM: {fn: SUM},
     TODAY: {fn: TODAY},
   };
@@ -895,6 +896,28 @@ export function MEAN(
     sum += val;
   }
   return truncate10(sum / values.length);
+}
+
+/**
+ * Computes the Standard Deviation of the values of the specified field.
+ * An optional expression can be added to filter which forms to take for the calculation.
+ */
+export function STD(
+  forms: (Form | MainForm)[],
+  field: string,
+  filter: Func | string = 'true',
+): number {
+  const mean = MEAN(forms, field, filter);
+  const values = getNumericValues(forms, field, filter);
+  if (values.length) {
+    let quadDeviationTot = 0;
+    for (let val of values) {
+      quadDeviationTot += Math.pow(val - mean, 2);
+    }
+    const std = Math.sqrt(quadDeviationTot / values.length);
+    return truncate10(std);
+  }
+  return NaN;
 }
 
 /**
@@ -1718,10 +1741,12 @@ export function APPLY_LABELS(forms: MainForm[], schema: any, fields: string[]): 
     for (const rep of reps) {
       for (const field of fields) {
         const val = rep[field];
-        if (typeof(val) === 'string' && labels[val] != null) { // single choice
+        if (typeof val === 'string' && labels[val] != null) {
+          // single choice
           rep[field] = labels[val];
-        } else if (Array.isArray(val)) { // multiple choice
-          rep[field] = val.map(v => labels[v] != null ? labels[v] : v) as any;
+        } else if (Array.isArray(val)) {
+          // multiple choice
+          rep[field] = val.map(v => (labels[v] != null ? labels[v] : v)) as any;
         }
       }
     }
@@ -2024,9 +2049,7 @@ export function FROM_REPS(forms: MainForm | MainForm[], expression: Func | strin
     forms = [forms];
   }
   const func = expression;
-  return forms.map(
-    form => allReps(form || {}).map(rep => func({...form, ...rep}))
-  ).flat();
+  return forms.map(form => allReps(form || {}).map(rep => func({...form, ...rep}))).flat();
 }
 
 /**
