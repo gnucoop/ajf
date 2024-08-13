@@ -33,12 +33,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import {
-  Chart,
-  ChartData,
-  ChartOptions,
-  ChartType,
-} from 'chart.js';
+import {Chart, ChartData, ChartOptions, ChartType} from 'chart.js';
 
 // We only need to set canvasDataUrl of the AjfChartWidgetInstance here,
 // avoid importing the actual interface because of the circular dependency:
@@ -58,6 +53,11 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
   @Input() options?: ChartOptions;
   @Input() chartType?: ChartType;
   @Input() instance?: ChartWidgetInstance;
+  /**
+   * When specified, this number of different single data entries will be displayed as separate
+   * options/bars/slices in the chart. The rest will be displayed as an aggregate "other" option/bar/slice.
+   */
+  @Input() mainDataNumberThreshold?: number;
 
   private _chart: Chart | null = null;
   private _chartCanvasElement: HTMLCanvasElement | null = null;
@@ -100,7 +100,50 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
       }
       newData.labels = labels;
     }
+    if (
+      newData.datasets &&
+      this.chartType &&
+      ['bar', 'horizontalBar', 'doughnut', 'pie'].includes(this.chartType)
+    ) {
+      newData.datasets = this._rebuildDatasets(newData.datasets);
+    }
     return newData;
+  }
+
+  /**
+   * Rebuilds datasets by aggregating options and omitting the unselected ones.
+   * @param datasets The original datasets
+   * @returns The rebuilt datasets
+   */
+  private _rebuildDatasets(datasets: Chart.ChartDataSets[]): Chart.ChartDataSets[] {
+    if (!datasets || !datasets.length) return [];
+    let rebuiltDatasets = [...datasets];
+    if (this.mainDataNumberThreshold && this.mainDataNumberThreshold > 0) {
+      const sortedDatasets = [...rebuiltDatasets].sort((a, b) => {
+        if (a.data && b.data && a.data[0] != null && b.data[0] != null) {
+          return +b.data[0] - +a.data[0];
+        }
+        return 0;
+      });
+      const datasetsOverThreshold = sortedDatasets.splice(0, this.mainDataNumberThreshold);
+      const otherDataset = {...sortedDatasets[0]};
+      if (sortedDatasets.length && otherDataset.data) {
+        const otherDatasetsTotal = sortedDatasets
+          .map(sd => sd.data && sd.data[0])
+          .reduce((total, num) => {
+            if (total != null && num != null) {
+              return +total + +num;
+            }
+            return 0;
+          });
+        otherDataset.data[0] = otherDatasetsTotal;
+        otherDataset.label = 'Other';
+        rebuiltDatasets = [...datasetsOverThreshold, otherDataset];
+      } else {
+        rebuiltDatasets = [...datasetsOverThreshold];
+      }
+    }
+    return rebuiltDatasets.filter(ds => ds.data && ds.data[0]);
   }
 
   private _updateChart(): void {
