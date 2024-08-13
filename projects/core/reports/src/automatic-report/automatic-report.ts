@@ -129,12 +129,13 @@ function createIndicator(name: string, value: string): AjfWidget {
 function createNumberWidget(field: AjfField): AjfWidget {
   return createWidget({
     widgetType: AjfWidgetType.Layout,
-    columns: Array(4).fill(1/4),
+    columns: Array(5).fill(1 / 5),
     content: [
       createIndicator('Mean', `[[ROUND(MEAN(dataset, "${field.name}"), 2)]]`),
       createIndicator('Median', `[[ROUND(MEDIAN(dataset, "${field.name}"), 2)]]`),
       createIndicator('Mode', `[[ROUND(MODE(dataset, "${field.name}"), 2)]]`),
-      createIndicator('Max', `[[ROUND(MAX(dataset, "${field.name}"), 2)]]`),
+      createIndicator('Standard Deviation', `[[ROUND(STD(dataset, "${field.name}"), 2)]]`),
+      createIndicator('Sum', `[[ROUND(SUM(dataset, "${field.name}"), 2)]]`),
     ],
   });
 }
@@ -165,7 +166,11 @@ function createSingleChoiceWidget(field: AjfFieldWithChoices<any>, countFunc: st
     dataset = choices.map((c, index) =>
       createDataset({
         label: `${c.label}`,
-        formula: [createFormula({formula: `[${countFunc}(dataset, f => f.${field.name} === '${c.value}')]`})],
+        formula: [
+          createFormula({
+            formula: `[${countFunc}(dataset, f => f.${field.name} === '${c.value}')]`,
+          }),
+        ],
         options: {
           backgroundColor: backgroundColor[index],
           stack: `Stack ${index}`,
@@ -202,7 +207,9 @@ function createRangeWidget(field: AjfRangeField, countFunc: string): AjfWidget {
     createDataset({
       label: `${index + start}`,
       formula: [
-        createFormula({formula: `[${countFunc}(dataset, f => f.${field.name} === ${index + 1 + start})]`}),
+        createFormula({
+          formula: `[${countFunc}(dataset, f => f.${field.name} === ${index + 1 + start})]`,
+        }),
       ],
       options: {
         backgroundColor: backgroundColor[index],
@@ -215,12 +222,13 @@ function createRangeWidget(field: AjfRangeField, countFunc: string): AjfWidget {
     content: [
       createWidget({
         widgetType: AjfWidgetType.Layout,
-        columns: Array(4).fill(1/4),
+        columns: Array(5).fill(1 / 5),
         content: [
           createIndicator('Mean', `[[ROUND(MEAN(dataset, "${field.name}"), 2)]]`),
           createIndicator('Median', `[[ROUND(MEDIAN(dataset, "${field.name}"), 2)]]`),
           createIndicator('Mode', `[[ROUND(MODE(dataset, "${field.name}"), 2)]]`),
-          createIndicator('Max', `[[ROUND(MAX(dataset, "${field.name}"), 2)]]`),
+          createIndicator('Standard Deviation', `[[ROUND(STD(dataset, "${field.name}"), 2)]]`),
+          createIndicator('Sum', `[[ROUND(SUM(dataset, "${field.name}"), 2)]]`),
         ],
       }),
       createWidget({
@@ -259,7 +267,8 @@ export function automaticReport(formSchema: {schema: Partial<AjfForm>; id?: stri
   report.variables.push({name: 'dataset', formula: {formula: 'BUILD_DATASET(forms)'}});
 
   for (const slide of form.nodes) {
-    const countFunc = slide.nodeType === AjfNodeType.AjfRepeatingSlide ? 'COUNT_REPS' : 'COUNT_FORMS';
+    const countFunc =
+      slide.nodeType === AjfNodeType.AjfRepeatingSlide ? 'COUNT_REPS' : 'COUNT_FORMS';
     const slideWidgets: AjfWidget[] = [];
 
     for (const field of slide.nodes as AjfField[]) {
@@ -272,6 +281,7 @@ export function automaticReport(formSchema: {schema: Partial<AjfForm>; id?: stri
 
       switch (field.fieldType) {
         case AjfFieldType.Number:
+        case AjfFieldType.Formula:
           slideWidgets.push(createNumberWidget(field));
           break;
         case AjfFieldType.Boolean:
