@@ -1,3 +1,17 @@
+<a name="16.1.1"></a>
+# 16.1.1 "identical-falcon" (2024-08-14)
+### Features
+* **core/chart:** Added _rebuildDatasets method. Filters out options never chosen and groups options beyond a set threshold into an "other" dataset. ([36c768d](https://github.com/gnucoop/ajf/commit/36c768d81fda4ddcc6637409c59f5f9aefa7c523))
+* **core/forms:** add readonly formula for form fields ([cd3d5f9](https://github.com/gnucoop/ajf/commit/cd3d5f99a6690fc3cf4158cfee34bd94efde5052))
+* **core/forms:** add readonly formula for rep slide fields ([eabacd6](https://github.com/gnucoop/ajf/commit/eabacd6c1450cb924e28fb42122848210f23a403))
+* **core/forms:** Added nodesVisibility get property to form renderer. Returns a map of all Form Nodes, slides and fields, with their visibility conditions evaluated. ([0416815](https://github.com/gnucoop/ajf/commit/041681557c9d19bd56082448617a13227fe02389))
+* **core/forms:** clean rep slide fields from editability map ([cd2c618](https://github.com/gnucoop/ajf/commit/cd2c618f80f23cbbc31aca888d53379ccee6562a))
+* **core/models:** Added STD function to expression utils. ([f216cdd](https://github.com/gnucoop/ajf/commit/f216cddd65555936f7828fa69dbe8f18f4e3236b))
+* **core/reports/automatic-report:** Added sum and standard deviation widgets. Formula fieldTypes are now treated as number fieldTypes. ([8cd6f9a](https://github.com/gnucoop/ajf/commit/8cd6f9a35a031185dfd6aac8d70d221879e8a479))
+* **material/report:** Added mainDataNumberThreshold input to chart-widget. Defaults to 10. ([f712e11](https://github.com/gnucoop/ajf/commit/f712e1164540342cfef16ca0e1bc5aa2639f0d54))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.0"></a>
 # 16.1.0 "bad-flea" (2024-08-14)
 ### Bug Fixes
