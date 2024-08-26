@@ -13,6 +13,7 @@ import {
   LAST,
   GET_AGE,
   APPLY_LABELS,
+  MEDIAN,
 } from './expression-utils';
 
 const schema = {
@@ -37,6 +38,7 @@ const forms: MainForm[] = [
     created_at: '0000-00-00',
     dog_name: 'dog1',
     dog_puppies: 3,
+    dog_years: 5,
     dog_point: 0.1,
     to_check: true,
     single_choice: 'choiceValue1',
@@ -50,14 +52,15 @@ const forms: MainForm[] = [
     dog_name: 'dog2',
     to_check: true,
     dog_puppies: 2,
+    dog_years: 8,
     dog_point: 0.2,
     reps: {
       'rep_1': [{dog_type: 'dogtype1', score: 6}],
       'rep_2': [{dog_type: 'dogtype2', score: 4}],
     },
   },
-  {dog_name: 'dog3', to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1', score: 5}]}},
-  {dog_name: 'dog4', dog_puppies: 1, reps: {'rep_1': [{dog_type: 'dogtype1', score: 1}]}},
+  {dog_name: 'dog3', dog_years: 11, to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1', score: 5}]}},
+  {dog_name: 'dog4', dog_puppies: 1, dog_years: 7, reps: {'rep_1': [{dog_type: 'dogtype1', score: 1}]}},
 ];
 
 describe('ALL_VALUES_OF', () => {
@@ -115,6 +118,17 @@ describe('MEAN', () => {
     const result = MEAN(forms, 'dog_puppies');
     const dog_puppies_mean = 2;
     expect(result).toBe(dog_puppies_mean);
+  });
+});
+
+describe('MEDIAN', () => {
+  it('should calculate the median of a value in dataset', () => {
+    const result = MEDIAN(forms, 'dog_puppies');
+    const dog_puppies_median = 2;
+    expect(result).toBe(dog_puppies_median);
+    const resultY = MEDIAN(forms, 'dog_years');
+    const dog_years_median = 7.5;
+    expect(resultY).toBe(dog_years_median);
   });
 });
 
