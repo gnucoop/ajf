@@ -909,12 +909,12 @@ export function STD(
 ): number {
   const mean = MEAN(forms, field, filter);
   const values = getNumericValues(forms, field, filter);
-  if (values.length) {
+  if (values.length > 1) {
     let quadDeviationTot = 0;
     for (let val of values) {
       quadDeviationTot += Math.pow(val - mean, 2);
     }
-    const std = Math.sqrt(quadDeviationTot / values.length);
+    const std = Math.sqrt(quadDeviationTot / (values.length - 1));
     return truncate10(std);
   }
   return NaN;
@@ -1028,11 +1028,18 @@ export function MEDIAN(
   field: string,
   filter: Func | string = 'true',
 ): number {
-  const values = getNumericValues(forms, field, filter).sort();
+  const values = getNumericValues(forms, field, filter).sort((a, b) => a - b);
   if (values.length === 0) {
     return NaN;
   }
-  return values[Math.floor(values.length / 2)];
+  let medianVal = NaN;
+  let middleIdx = Math.floor(values.length / 2);
+  if (values.length % 2) {
+    medianVal = values[middleIdx];
+  } else {
+    medianVal = (values[middleIdx - 1] + values[middleIdx]) / 2;
+  }
+  return medianVal;
 }
 
 /**
