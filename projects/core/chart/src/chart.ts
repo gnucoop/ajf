@@ -105,45 +105,84 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
       this.chartType &&
       ['bar', 'horizontalBar', 'doughnut', 'pie'].includes(this.chartType)
     ) {
-      newData.datasets = this._rebuildDatasets(newData.datasets);
+      return this._rebuildDatasets(newData);
     }
     return newData;
   }
 
   /**
    * Rebuilds datasets by aggregating options and omitting the unselected ones.
-   * @param datasets The original datasets
-   * @returns The rebuilt datasets
+   * @param data The original chartData with datasets
+   * @returns The chartData with rebuilt datasets
    */
-  private _rebuildDatasets(datasets: Chart.ChartDataSets[]): Chart.ChartDataSets[] {
-    if (!datasets || !datasets.length) return [];
-    let rebuiltDatasets = [...datasets];
-    if (this.mainDataNumberThreshold && this.mainDataNumberThreshold > 0) {
-      const sortedDatasets = [...rebuiltDatasets].sort((a, b) => {
-        if (a.data && b.data && a.data[0] != null && b.data[0] != null) {
-          return +b.data[0] - +a.data[0];
-        }
-        return 0;
+  private _rebuildDatasets(data: ChartData): ChartData {
+    const datasets = data.datasets;
+    if (!datasets || !datasets.length) return data;
+    if (datasets.length === 1 && datasets[0].data && datasets[0].data.length > 1) {
+      // pie, doughnut
+      let rebuiltDatasets = datasets[0].data.map((value, idx) => {
+        const label = data.labels && data.labels[idx] ? (data.labels[idx] as string) : '';
+        return {value: value as number, label};
       });
-      const datasetsOverThreshold = sortedDatasets.splice(0, this.mainDataNumberThreshold);
-      const otherDataset = {...sortedDatasets[0]};
-      if (sortedDatasets.length && otherDataset.data) {
-        const otherDatasetsTotal = sortedDatasets
-          .map(sd => sd.data && sd.data[0])
-          .reduce((total, num) => {
-            if (total != null && num != null) {
-              return +total + +num;
-            }
-            return 0;
-          });
-        otherDataset.data[0] = otherDatasetsTotal;
-        otherDataset.label = 'Other';
-        rebuiltDatasets = [...datasetsOverThreshold, otherDataset];
-      } else {
-        rebuiltDatasets = [...datasetsOverThreshold];
+
+      if (this.mainDataNumberThreshold && this.mainDataNumberThreshold > 0) {
+        const sortedDatasets = [...rebuiltDatasets].sort((a, b) => {
+          if (a.value != null && b.value != null) {
+            return +b.value - +a.value;
+          }
+          return 0;
+        });
+        const datasetsOverThreshold = sortedDatasets.splice(0, this.mainDataNumberThreshold);
+        const otherDataset = {...sortedDatasets[0]};
+        if (sortedDatasets.length && otherDataset.value) {
+          const otherDatasetsTotal = sortedDatasets
+            .map(sd => sd.value)
+            .reduce((total, num) => {
+              if (total != null && num != null) {
+                return +total + +num;
+              }
+              return 0;
+            });
+          otherDataset.value = otherDatasetsTotal;
+          otherDataset.label = 'Other';
+          rebuiltDatasets = [...datasetsOverThreshold, otherDataset];
+        } else {
+          rebuiltDatasets = [...datasetsOverThreshold];
+        }
       }
+      rebuiltDatasets = rebuiltDatasets.filter(ds => ds.value);
+      const newDataset = [{...datasets[0], data: rebuiltDatasets.map(d => d.value)}];
+      return {...data, labels: rebuiltDatasets.map(d => d.label), datasets: newDataset};
+    } else {
+      // bar, horizontalBar
+      let rebuiltDatasets = [...datasets];
+      if (this.mainDataNumberThreshold && this.mainDataNumberThreshold > 0) {
+        const sortedDatasets = [...rebuiltDatasets].sort((a, b) => {
+          if (a.data && b.data && a.data[0] != null && b.data[0] != null) {
+            return +b.data[0] - +a.data[0];
+          }
+          return 0;
+        });
+        const datasetsOverThreshold = sortedDatasets.splice(0, this.mainDataNumberThreshold);
+        const otherDataset = {...sortedDatasets[0]};
+        if (sortedDatasets.length && otherDataset.data) {
+          const otherDatasetsTotal = sortedDatasets
+            .map(sd => sd.data && sd.data[0])
+            .reduce((total, num) => {
+              if (total != null && num != null) {
+                return +total + +num;
+              }
+              return 0;
+            });
+          otherDataset.data[0] = otherDatasetsTotal;
+          otherDataset.label = 'Other';
+          rebuiltDatasets = [...datasetsOverThreshold, otherDataset];
+        } else {
+          rebuiltDatasets = [...datasetsOverThreshold];
+        }
+      }
+      return {...data, datasets: rebuiltDatasets.filter(ds => ds.data && ds.data[0])};
     }
-    return rebuiltDatasets.filter(ds => ds.data && ds.data[0]);
   }
 
   private _updateChart(): void {
