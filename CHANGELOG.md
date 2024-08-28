@@ -1,3 +1,12 @@
+<a name="16.1.2"></a>
+# 16.1.2 "known-jellyfish" (2024-08-28)
+### Bug Fixes
+* **core/chart:** fix rebuild dataset for pie chart ([8786bbd](https://github.com/gnucoop/ajf/commit/8786bbdbb5514203615261c2dd0fa7a1226bc682))
+### Features
+* **core/models:** Fix STD and MEDIAN functions in expression utils. ([da12978](https://github.com/gnucoop/ajf/commit/da129781de361bf563127eeed18690e081d7c090))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.1"></a>
 # 16.1.1 "identical-falcon" (2024-08-14)
 ### Features
