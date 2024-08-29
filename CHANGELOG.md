@@ -1,3 +1,10 @@
+<a name="16.1.3"></a>
+# 16.1.3 "positive-harrier" (2024-08-29)
+### Features
+* **core/reports:** add mainDataNumberThreshold and removeZeroValues options in xls report for chart widgets ([b8697c3](https://github.com/gnucoop/ajf/commit/b8697c34c3874aa0839a1b73e819a595efaf8666))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.2"></a>
 # 16.1.2 "known-jellyfish" (2024-08-28)
 ### Bug Fixes
