@@ -26,11 +26,45 @@ import {AjfChartWidget} from '../widgets/chart-widget';
 import {AjfDataWidgetInstance} from './data-widget-instance';
 
 export interface AjfChartWidgetInstance extends AjfDataWidgetInstance {
+  /**
+   * The chart widget
+   */
   widget: AjfChartWidget;
+
+  /**
+   * The chart dataset
+   */
   datasets: ChartDataSets[];
+
+  /**
+   * The chart type
+   */
   chartType: ChartType;
+
+  /**
+   * If true the widget is exportable in csv/xls
+   */
   exportable: boolean;
+
+  /**
+   * When specified, this number of different single data entries will be displayed as separate
+   * options/bars/slices in the chart. The rest will be displayed as an aggregate "other" option/bar/slice.
+   */
+  mainDataNumberThreshold?: number;
+
+  /**
+   * If true remove zero values from the chart dataset
+   */
+  removeZeroValues?: boolean;
+
+  /**
+   * Chart data
+   */
   data: ChartData;
+
+  /**
+   * Chart Labels
+   */
   labels: string[];
   canvasDataUrl?(): string;
 }

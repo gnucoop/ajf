@@ -139,6 +139,9 @@ export function widgetToWidgetInstance(
       widget.exportable && (widget.exportable === true || widget.exportable === 'true')
         ? true
         : false;
+    wi.mainDataNumberThreshold = widget.mainDataNumberThreshold;
+    wi.removeZeroValues = widget.removeZeroValues;
+
     if (widget.options != null && widget.options.plugins != null) {
       const plugins = widget.options.plugins;
       const pluginNames = Object.keys(plugins);
