@@ -30,10 +30,37 @@ import {AjfWidgetType} from './widget-type';
 
 export interface AjfChartWidget extends AjfDataWidget {
   widgetType: AjfWidgetType.Chart;
+
+  /**
+   * The chart type
+   */
   chartType: AjfChartType;
   type?: AjfChartType;
+
+  /**
+   * Chart Labels formula
+   */
   labels: AjfFormula | AjfFormula[];
+
+  /**
+   * The chart dataset
+   */
   dataset: AjfChartDataset[];
   options: ChartOptions;
+
+  /**
+   * If true the widget is exportable in csv/xls
+   */
   exportable?: boolean;
+
+  /**
+   * When specified, this number of different single data entries will be displayed as separate
+   * options/bars/slices in the chart. The rest will be displayed as an aggregate "other" option/bar/slice.
+   */
+  mainDataNumberThreshold?: number;
+
+  /**
+   * If true remove zero values from the chart dataset
+   */
+  removeZeroValues?: boolean;
 }

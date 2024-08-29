@@ -26,7 +26,6 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  Input,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -37,12 +36,6 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfChartWidgetComponent extends AjfBaseWidgetComponent<AjfChartWidgetInstance> {
-  /**
-   * When specified, this number of different single data entries will be displayed as separate
-   * options/bars/slices in the chart. The rest will be displayed as an aggregate "other" option/bar/slice.
-   */
-  @Input() mainDataNumberThreshold?: number = 10;
-
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {
     super(cdr, el);
   }

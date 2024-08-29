@@ -53,11 +53,25 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
   @Input() options?: ChartOptions;
   @Input() chartType?: ChartType;
   @Input() instance?: ChartWidgetInstance;
+
   /**
    * When specified, this number of different single data entries will be displayed as separate
    * options/bars/slices in the chart. The rest will be displayed as an aggregate "other" option/bar/slice.
    */
-  @Input() mainDataNumberThreshold?: number;
+  @Input()
+  set mainDataNumberThreshold(mainDataNumberThreshold: number | undefined) {
+    this._mainDataNumberThreshold = mainDataNumberThreshold || 10;
+  }
+  private _mainDataNumberThreshold: number = 10;
+
+  /**
+   * If true remove zero values from the chart dataset
+   */
+  @Input()
+  set removeZeroValues(removeZeroValues: boolean | undefined) {
+    this._removeZeroValues = removeZeroValues === undefined ? true : removeZeroValues;
+  }
+  private _removeZeroValues: boolean = true;
 
   private _chart: Chart | null = null;
   private _chartCanvasElement: HTMLCanvasElement | null = null;
@@ -125,14 +139,14 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
         return {value: value as number, label};
       });
 
-      if (this.mainDataNumberThreshold && this.mainDataNumberThreshold > 0) {
+      if (this._mainDataNumberThreshold && this._mainDataNumberThreshold > 0) {
         const sortedDatasets = [...rebuiltDatasets].sort((a, b) => {
           if (a.value != null && b.value != null) {
             return +b.value - +a.value;
           }
           return 0;
         });
-        const datasetsOverThreshold = sortedDatasets.splice(0, this.mainDataNumberThreshold);
+        const datasetsOverThreshold = sortedDatasets.splice(0, this._mainDataNumberThreshold);
         const otherDataset = {...sortedDatasets[0]};
         if (sortedDatasets.length && otherDataset.value) {
           const otherDatasetsTotal = sortedDatasets
@@ -150,20 +164,22 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
           rebuiltDatasets = [...datasetsOverThreshold];
         }
       }
-      rebuiltDatasets = rebuiltDatasets.filter(ds => ds.value);
+      if (this._removeZeroValues) {
+        rebuiltDatasets = rebuiltDatasets.filter(ds => ds.value);
+      }
       const newDataset = [{...datasets[0], data: rebuiltDatasets.map(d => d.value)}];
       return {...data, labels: rebuiltDatasets.map(d => d.label), datasets: newDataset};
     } else {
       // bar, horizontalBar
       let rebuiltDatasets = [...datasets];
-      if (this.mainDataNumberThreshold && this.mainDataNumberThreshold > 0) {
+      if (this._mainDataNumberThreshold && this._mainDataNumberThreshold > 0) {
         const sortedDatasets = [...rebuiltDatasets].sort((a, b) => {
           if (a.data && b.data && a.data[0] != null && b.data[0] != null) {
             return +b.data[0] - +a.data[0];
           }
           return 0;
         });
-        const datasetsOverThreshold = sortedDatasets.splice(0, this.mainDataNumberThreshold);
+        const datasetsOverThreshold = sortedDatasets.splice(0, this._mainDataNumberThreshold);
         const otherDataset = {...sortedDatasets[0]};
         if (sortedDatasets.length && otherDataset.data) {
           const otherDatasetsTotal = sortedDatasets
@@ -181,7 +197,10 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
           rebuiltDatasets = [...datasetsOverThreshold];
         }
       }
-      return {...data, datasets: rebuiltDatasets.filter(ds => ds.data && ds.data[0])};
+      if (this._removeZeroValues) {
+        rebuiltDatasets = rebuiltDatasets.filter(ds => ds.data && ds.data[0]);
+      }
+      return {...data, datasets: rebuiltDatasets};
     }
   }
 

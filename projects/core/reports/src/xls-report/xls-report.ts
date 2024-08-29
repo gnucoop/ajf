@@ -199,7 +199,15 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     alertAndThrow('Empty sheet for chart ' + name);
   }
   const data = sheet[0];
-  const optionsNames = ['chartType', 'title', 'stacked', 'beginAtZeroX', 'beginAtZeroY'];
+  const optionsNames = [
+    'chartType',
+    'title',
+    'stacked',
+    'beginAtZeroX',
+    'beginAtZeroY',
+    'removeZeroValues',
+    'mainDataNumberThreshold',
+  ];
   const options: {[key: string]: string} = {};
   for (const name of optionsNames) {
     if (data[name] != null) {
@@ -236,6 +244,8 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
   const stacked = boolOption(options['stacked']);
   const beginAtZeroX = boolOption(options['beginAtZeroX']);
   const beginAtZeroY = boolOption(options['beginAtZeroY']);
+  const removeZeroValues = boolOption(options['removeZeroValues']);
+  const mainDataNumberThreshold = +options['mainDataNumberThreshold'] || 10;
 
   const dataset: AjfChartDataset[] = [];
   Object.keys(data).forEach((key, index) => {
@@ -268,8 +278,10 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
       formula = [createFormula({formula: xs})];
     }
 
-    const multipleColors = type === AjfChartType.Pie ||
-      type === AjfChartType.PolarArea || type === AjfChartType.Doughnut;
+    const multipleColors =
+      type === AjfChartType.Pie ||
+      type === AjfChartType.PolarArea ||
+      type === AjfChartType.Doughnut;
     const color = multipleColors ? backgroundColor : backgroundColor[index];
     const datasetOptions: any = {backgroundColor: color, tension: 0};
     if (type === AjfChartType.Line && !stacked) {
@@ -315,6 +327,8 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
       ...{width: '100%', maxWidth: '1000px', margin: '10px auto'},
     },
     exportable: true,
+    mainDataNumberThreshold,
+    removeZeroValues,
   } as AjfWidgetCreate);
 }
 
