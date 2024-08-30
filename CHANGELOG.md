@@ -1,3 +1,10 @@
+<a name="16.1.4"></a>
+# 16.1.4 "silky-lark" (2024-08-30)
+### Bug Fixes
+* **core/reports:** fix boolean value when false for removeZeroValues option ([1c0d6eb](https://github.com/gnucoop/ajf/commit/1c0d6ebdc797d2ad0506b4dcc63467f83e1c3ebf))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.3"></a>
 # 16.1.3 "positive-harrier" (2024-08-29)
 ### Features
