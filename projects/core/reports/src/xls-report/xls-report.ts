@@ -244,7 +244,8 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
   const stacked = boolOption(options['stacked']);
   const beginAtZeroX = boolOption(options['beginAtZeroX']);
   const beginAtZeroY = boolOption(options['beginAtZeroY']);
-  const removeZeroValues = boolOption(options['removeZeroValues']);
+  const removeZeroValues =
+    options['removeZeroValues'] != null ? Boolean(options['removeZeroValues']) : true;
   const mainDataNumberThreshold = +options['mainDataNumberThreshold'] || 10;
 
   const dataset: AjfChartDataset[] = [];
@@ -327,8 +328,8 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
       ...{width: '100%', maxWidth: '1000px', margin: '10px auto'},
     },
     exportable: true,
-    mainDataNumberThreshold,
-    removeZeroValues,
+    mainDataNumberThreshold: mainDataNumberThreshold,
+    removeZeroValues: removeZeroValues,
   } as AjfWidgetCreate);
 }
 
