@@ -1,3 +1,10 @@
+<a name="16.1.5"></a>
+# 16.1.5 "universal-bonobo" (2024-09-02)
+### Bug Fixes
+* **core/chart:** disable mainDataNumberThreshold using zero value if required by xls-report ([357fa18](https://github.com/gnucoop/ajf/commit/357fa1828f3d92109f63d4e84f3fb9781cd813e6))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.4"></a>
 # 16.1.4 "silky-lark" (2024-08-30)
 ### Bug Fixes
