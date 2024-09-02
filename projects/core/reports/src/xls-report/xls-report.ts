@@ -246,7 +246,10 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
   const beginAtZeroY = boolOption(options['beginAtZeroY']);
   const removeZeroValues =
     options['removeZeroValues'] != null ? Boolean(options['removeZeroValues']) : true;
-  const mainDataNumberThreshold = +options['mainDataNumberThreshold'] || 10;
+  const mainDataNumberThreshold =
+    +options['mainDataNumberThreshold'] || +options['mainDataNumberThreshold'] === 0
+      ? +options['mainDataNumberThreshold']
+      : 10;
 
   const dataset: AjfChartDataset[] = [];
   Object.keys(data).forEach((key, index) => {
