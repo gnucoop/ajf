@@ -60,7 +60,8 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
    */
   @Input()
   set mainDataNumberThreshold(mainDataNumberThreshold: number | undefined) {
-    this._mainDataNumberThreshold = mainDataNumberThreshold || 10;
+    this._mainDataNumberThreshold =
+      mainDataNumberThreshold || mainDataNumberThreshold === 0 ? mainDataNumberThreshold : 10;
   }
   private _mainDataNumberThreshold: number = 10;
 
