@@ -208,7 +208,7 @@ function createRangeWidget(field: AjfRangeField, countFunc: string): AjfWidget {
       label: `${index + start}`,
       formula: [
         createFormula({
-          formula: `[${countFunc}(dataset, f => f.${field.name} === ${index + 1 + start})]`,
+          formula: `[${countFunc}(dataset, f => f.${field.name} === ${index + start})]`,
         }),
       ],
       options: {
