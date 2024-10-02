@@ -14,6 +14,8 @@ import {
   GET_AGE,
   APPLY_LABELS,
   MEDIAN,
+  MODE,
+  ROUND,
 } from './expression-utils';
 
 const schema = {
@@ -59,8 +61,18 @@ const forms: MainForm[] = [
       'rep_2': [{dog_type: 'dogtype2', score: 4}],
     },
   },
-  {dog_name: 'dog3', dog_years: 11, to_check: true, reps: {'rep_1': [{dog_type: 'dogtype1', score: 5}]}},
-  {dog_name: 'dog4', dog_puppies: 1, dog_years: 7, reps: {'rep_1': [{dog_type: 'dogtype1', score: 1}]}},
+  {
+    dog_name: 'dog3',
+    dog_years: 11,
+    to_check: true,
+    reps: {'rep_1': [{dog_type: 'dogtype1', score: 5}]},
+  },
+  {
+    dog_name: 'dog4',
+    dog_puppies: 1,
+    dog_years: 7,
+    reps: {'rep_1': [{dog_type: 'dogtype1', score: 1}]},
+  },
 ];
 
 describe('ALL_VALUES_OF', () => {
@@ -208,5 +220,20 @@ describe('APPLY_LABELS', () => {
     const form = APPLY_LABELS(forms, schema, ['single_choice', 'multiple_choice'])[0] as any;
     expect(form.single_choice).toBe('choiceLabel1');
     expect(form.reps.rep_1[0].multiple_choice[0]).toBe('choiceLabel2');
+  });
+});
+
+describe('MODE', () => {
+  it('should calculate the mode of a value in dataset', () => {
+    const result = MODE(forms, 'dog_puppies');
+    const dog_puppies_mode = 1;
+    expect(result).toBe(dog_puppies_mode);
+  });
+});
+
+describe('ROUND', () => {
+  it('should round the dog_point property of the first form to 2 decimal places', () => {
+    const result = ROUND(forms[0].dog_point, 2);
+    expect(result).toBe(0.1);
   });
 });
