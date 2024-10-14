@@ -23,10 +23,6 @@ ajf-field {
     font-style: italic;
     padding: 5px;
   }
-
-  tr.ajf-row-odd {
-    background-color: grey;
-  }
 }
 
 table {
@@ -63,15 +59,6 @@ table {
         span,
         input {
           border-right-color: #cccccc;
-        }
-      }
-    }
-
-    &:last-of-type {
-      td {
-        span,
-        input {
-          border-bottom-color: #cccccc;
         }
       }
     }
