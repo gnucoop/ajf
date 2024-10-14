@@ -31,6 +31,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 @Pipe({name: 'ajfTableRowClass'})
 export class AjfTableRowClass implements PipeTransform {
   transform(value: number): string {
+    if (value === 0) {
+      return 'ajf-header-row';
+    }
     return value % 2 == 0 ? 'ajf-row-even' : 'ajf-row-odd';
   }
 }

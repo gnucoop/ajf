@@ -15,10 +15,9 @@
             <ng-template #controlCell>
               <ng-container *ngIf="c|ajfGetTableCellControl as contr">
                 <ng-container *ngIf="contr">
-                  <span class="ajf-table-cell"
-                    >{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2'
-                    }}</span
-                  >
+                  <span>{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber:
+                    '.0-2'
+                    }}</span>
                 </ng-container>
               </ng-container>
             </ng-template>

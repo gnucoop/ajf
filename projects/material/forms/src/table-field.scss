@@ -1,43 +1,46 @@
 table.ajf-table-field {
-  border-collapse: collapse;
-  border-spacing: 0;
   width: 100%;
+  border-collapse: collapse;
+  .ajf-header-row {
+    font-weight: bold;
+    background-color: #f9f9f9;
+  }
 
-  tr {
-    td {
-      position: relative;
-      min-width: 2em;
-      border-top: solid 1px #cccccc;
+  th,
+  td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+
+    span,
+    input {
+      cursor: text;
+      position: absolute;
+      width: 100%;
+      box-sizing: border-box;
+      outline: none;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: inline-block;
+      border-top: solid 1px transparent;
+      border-right: solid 1px transparent;
+      border-bottom: solid 1px transparent;
       border-left: solid 1px #cccccc;
-
-      span, input {
-        cursor: text;
-        width: 100%;
-        box-sizing: border-box;
-        outline: none;
-        display: inline-block;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-        text-align: center;
-        position: relative;
-        min-height: 22px;
-        border: none;
-      }
-
-      &:last-child {
-        span, input {
-          border-right-color: #cccccc;
-        }
-      }
-    }
-
-    &:last-of-type {
-      td {
-        span, input {
-          border-bottom-color: #cccccc;
-        }
-      }
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      text-align: center;
+      padding: 12px 15px;
     }
   }
+
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+
+  /*tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }*/
 }
