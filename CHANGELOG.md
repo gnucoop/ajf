@@ -1,3 +1,14 @@
+<a name="16.1.6"></a>
+# 16.1.6 "unfair-cuckoo" (2024-10-16)
+### Bug Fixes
+* **core/forms:** set null value for calculate fields if value is equals to NaN ([e3909c4](https://github.com/gnucoop/ajf/commit/e3909c4d841b68565642bb50280be3ac360e8326))
+* **core/reports:** fix range widget in automatic report ([d77aaf5](https://github.com/gnucoop/ajf/commit/d77aaf515fa060da06a9cbdd9ea5b524dbd645e0))
+* **material/forms:** fix hint icon width in forms for long text ([879ec7d](https://github.com/gnucoop/ajf/commit/879ec7dbcfb679a433cd1945cb70e136835dfb14))
+### Features
+* **material/forms:** redesign table field ([34857c7](https://github.com/gnucoop/ajf/commit/34857c798ca74dcac9d7d662d9f36d330e882b16))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.5"></a>
 # 16.1.5 "universal-bonobo" (2024-09-02)
 ### Bug Fixes
