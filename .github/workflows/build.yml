@@ -46,7 +46,7 @@ jobs:
           mv dist/artifacts/**/*.tgz build-artifacts/
           zip -r build-artifacts.zip build-artifacts
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4.4.3
         with:
           name: build-artifacts
           path: build-artifacts.zip
