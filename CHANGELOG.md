@@ -1,3 +1,8 @@
+<a name="16.1.7"></a>
+# 16.1.7 "parliamentary-grouse" (2024-10-16)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.6"></a>
 # 16.1.6 "unfair-cuckoo" (2024-10-16)
 ### Bug Fixes
