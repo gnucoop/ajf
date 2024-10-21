@@ -50,3 +50,11 @@ export function createReportInstance(
     styles: report.styles || {},
   };
 }
+
+export function evaluateReportVariables(report: AjfReport, context: AjfContext): AjfContext {
+  const variableContext: AjfContext = {};
+  (report.variables || []).forEach(variable => {
+    variableContext[variable.name] = evaluateExpression(variable.formula.formula, context);
+  });
+  return variableContext;
+}
