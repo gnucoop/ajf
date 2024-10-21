@@ -37,7 +37,7 @@
     <ajf-widget-export
       *ngIf="instance"
       [widgetType]="instance.widgetType"
-      [data]="currentContent"
+      [data]="exportableContent()"
       [enable]="instance.exportable"
     >
       <ajf-table [data]="currentContent" (sortSelected)="sortPaginatedData($event)"></ajf-table>

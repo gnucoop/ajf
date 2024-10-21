@@ -388,6 +388,10 @@ export class AjfPaginatedTableWidgetComponent
     }
   }
 
+  exportableContent(): AjfTableCell[][] {
+    return [this._headerContent, ...this._sortedAllDataContent];
+  }
+
   private _compare(a: AjfTableCell, b: AjfTableCell, isAsc: boolean) {
     return (a.value < b.value ? -1 : 1) * (isAsc ? 1 : -1);
   }
