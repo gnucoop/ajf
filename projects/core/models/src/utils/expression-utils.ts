@@ -151,6 +151,7 @@ export class AjfExpressionUtils {
     FROM_REPS: {fn: FROM_REPS},
     GET_AGE: {fn: GET_AGE},
     GET_LABELS: {fn: GET_LABELS},
+    PROMPT_RESULT: {fn: PROMPT_RESULT},
     INCLUDES: {fn: INCLUDES},
     IS_AFTER: {fn: IS_AFTER},
     IS_BEFORE: {fn: IS_BEFORE},
@@ -2102,4 +2103,14 @@ export function OP(
 export function GET_LABELS(schema: any, values: string[]): string[] {
   const choiceLabels = extractLabelsFromChoices(schema);
   return values.map(val => (choiceLabels[val] != null ? choiceLabels[val] : val));
+}
+
+/**
+ * Reads from report_data the result of the AI prompt with the specified name.
+ */
+export function PROMPT_RESULT(report_data: any, promptName: string): string | undefined {
+  if (report_data.data == null) {
+    return undefined;
+  }
+  return report_data.data[promptName];
 }

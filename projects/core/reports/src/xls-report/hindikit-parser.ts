@@ -407,6 +407,7 @@ const functionArgs: {[name: string]: string[]} = {
   FROM_REPS: ["arg", "func(form)"],
   GET_AGE: ["arg", "arg?"],
   GET_LABELS: ["arg", "arg"],
+  PROMPT_RESULT: ["arg", "arg"],
   INCLUDES: ["arg", "arg"],
   IS_AFTER: ["arg", "arg"],
   IS_BEFORE: ["arg", "arg"],

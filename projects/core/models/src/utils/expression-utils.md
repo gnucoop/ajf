@@ -14,6 +14,9 @@ Renamed to IF.
 `IF(condition, then, otherwise)`  
 If the condition is true, evaluates and returns then, otherwise otherwise.
 
+`PROMPT_RESULT(report_data, promptName)`
+Reads from report_data the result of the AI prompt with the specified name.
+
 ## Forms manipulation functions
 
 `BUILD_DATASET(forms, schema?)`  
