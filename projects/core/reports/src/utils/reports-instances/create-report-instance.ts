@@ -52,9 +52,8 @@ export function createReportInstance(
 }
 
 export function evaluateReportVariables(report: AjfReport, context: AjfContext): AjfContext {
-  const variableContext: AjfContext = {};
   (report.variables || []).forEach(variable => {
-    variableContext[variable.name] = evaluateExpression(variable.formula.formula, context);
+    context[variable.name] = evaluateExpression(variable.formula.formula, context);
   });
-  return variableContext;
+  return context;
 }
