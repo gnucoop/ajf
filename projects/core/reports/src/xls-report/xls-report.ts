@@ -75,14 +75,19 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
     map(f => {
       workbook.SheetNames.forEach(sheetName => {
         const sheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
-        const json = XLSX.utils.sheet_to_json(sheet) as {
-          name: string;
-          value: string;
-          __rowNum__: string;
-        }[];
-
+        const json = XLSX.utils.sheet_to_json(sheet) as {[key: string]: string}[];
         if (sheetName === 'variables') {
-          json
+          const jsonVars = json.map(
+            jsonVar =>
+              jsonVar as unknown as {
+                name: string;
+                value: string;
+                isAIPrompt?: boolean;
+                __rowNum__: string;
+              },
+          );
+
+          jsonVars
             .filter(e => e != null && e.name != null && e.name !== '')
             .forEach(elem => {
               let js: string;
@@ -97,6 +102,7 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
               variables.push({
                 name: elem.name,
                 formula: {formula: js},
+                isAIPrompt: elem.isAIPrompt,
               });
             });
         } else {

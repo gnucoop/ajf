@@ -25,4 +25,5 @@ import {AjfFormula} from '@ajf/core/models';
 export interface AjfReportVariable {
   name: string;
   formula: AjfFormula;
+  isAIPrompt?: boolean;
 }
