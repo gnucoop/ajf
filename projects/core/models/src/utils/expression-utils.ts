@@ -856,7 +856,7 @@ function getNumericValues(
       values.push(Number(val));
     }
     for (const rep of allReps(form)) {
-      const val = rep[field];
+      const val = rep ? rep[field] : null;
       if (val != null && !isNaN(Number(val)) && filter({...form, ...rep})) {
         values.push(Number(val));
       }
@@ -1649,6 +1649,11 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
       const instanceKeys = Object.keys(instances);
       instanceKeys.forEach(instanceKey => {
         mainForm[`ajf_${instanceKey}_count`] = instances[instanceKey].length;
+        for (let idxSlide = 0; idxSlide < instances[instanceKey].length; idxSlide++) {
+          if (instances[instanceKey][idxSlide] == null) {
+            instances[instanceKey][idxSlide] = generateMetadata(instanceKey, idxSlide);
+          }
+        }
       });
       mainForm.reps = instances;
       res.push(mainForm);
@@ -2113,4 +2118,16 @@ export function PROMPT_RESULT(report_data: any, promptName: string): string | un
     return undefined;
   }
   return report_data.data[promptName];
+}
+
+export function WIDGET_PIE_TO_JSON(labels: string[], values: any[]): {[key: string]: any} {
+  const jsonObj: {[key: string]: any} = {};
+  labels.forEach((lab: string, i: number) => (jsonObj[lab] = values[i]));
+  return jsonObj;
+}
+
+export function WIDGET_TABLE_TO_JSON(labels: string[], values: any[]): {[key: string]: any} {
+  const jsonObj: {[key: string]: any} = {};
+  labels.forEach((lab: string, i: number) => (jsonObj[lab] = values[i]));
+  return jsonObj;
 }
