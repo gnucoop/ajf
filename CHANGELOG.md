@@ -1,3 +1,18 @@
+<a name="16.1.8"></a>
+# 16.1.8 "acute-gopher" (2024-11-19)
+### Bug Fixes
+* **core/models:** fill empty repeating slide instance in report dataset ([763fc24](https://github.com/gnucoop/ajf/commit/763fc248f5d9da1f2d310edd11df7e5db64061b8))
+* **core/reports:** export function for evaluate report variables ([89ea2d7](https://github.com/gnucoop/ajf/commit/89ea2d7d97cfae915b4efbe22fe7e97e69827f0c))
+* **core/reports:** format.. ([5101da0](https://github.com/gnucoop/ajf/commit/5101da056682d741ab2162a97ea3c185d2cc74f0))
+* **core/reports:** modify context when evaluate report variables ([9035860](https://github.com/gnucoop/ajf/commit/9035860232c4e81b04bddb1808b4752c49e6c04a))
+* **material/reports:** export all rows for paginated table widget ([14f1230](https://github.com/gnucoop/ajf/commit/14f1230be4b5e088084063fc39016c022eb0fdd8))
+### Features
+* **core/models:** add WIDGET_PIE_TO_JSON function for reports ([59c2cac](https://github.com/gnucoop/ajf/commit/59c2cacdec8906cbeccf47c9bfb4ae9810657069))
+* **core/reports:** add isAIPrompt column in variables sheet ([8fb2b4c](https://github.com/gnucoop/ajf/commit/8fb2b4c584f7324d64228265b23fe3b39c4274ed))
+* **core/reports:** PROMPT_RESULT function ([da299e2](https://github.com/gnucoop/ajf/commit/da299e22d08f961877041d3d3c0fc538c5c433c8))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.7"></a>
 # 16.1.7 "parliamentary-grouse" (2024-10-16)
 
