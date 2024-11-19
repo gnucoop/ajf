@@ -175,6 +175,7 @@ export class AjfExpressionUtils {
     STD: {fn: STD},
     SUM: {fn: SUM},
     TODAY: {fn: TODAY},
+    WIDGET_PIE_TO_JSON: {fn: WIDGET_PIE_TO_JSON},
   };
 }
 
@@ -2120,13 +2121,14 @@ export function PROMPT_RESULT(report_data: any, promptName: string): string | un
   return report_data.data[promptName];
 }
 
+/**
+ * Converts pie chart arrays (labels and values) into a JSON object where each label becomes a key
+ * and its corresponding value becomes the value in the object.
+ * @param labels
+ * @param values
+ * @returns
+ */
 export function WIDGET_PIE_TO_JSON(labels: string[], values: any[]): {[key: string]: any} {
-  const jsonObj: {[key: string]: any} = {};
-  labels.forEach((lab: string, i: number) => (jsonObj[lab] = values[i]));
-  return jsonObj;
-}
-
-export function WIDGET_TABLE_TO_JSON(labels: string[], values: any[]): {[key: string]: any} {
   const jsonObj: {[key: string]: any} = {};
   labels.forEach((lab: string, i: number) => (jsonObj[lab] = values[i]));
   return jsonObj;
