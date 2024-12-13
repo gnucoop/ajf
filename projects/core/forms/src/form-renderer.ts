@@ -97,6 +97,7 @@ import {updateRepsNum} from './utils/slides-instances/update-reps-num';
 import {validSlide} from './utils/slides-instances/valid-slide';
 import {AjfValidationService} from './validation-service';
 import {isContainerNodeInstance} from './utils/nodes-instances/is-container-node-instance';
+import {isFileFieldInstance} from './utils/fields-instances/is-file-field-instance';
 
 export const enum AjfFormInitStatus {
   Initializing,
@@ -200,6 +201,12 @@ export class AjfFormRendererService {
 
   private _slidesNum: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   readonly slidesNum: Observable<number> = this._slidesNum as Observable<number>;
+
+  /**
+   * Default size limit for file input fields.
+   * Added in validation conditions only if no size limit condition is found.
+   */
+  readonly fileSizeLimit = 52428800;
 
   get nodesTree(): Observable<AjfSlideInstance[]> {
     return this._flatNodesTree;
@@ -727,6 +734,28 @@ export class AjfFormRendererService {
           }
         } else {
           instance.value = context[nodeInstanceCompleteName(instance)];
+          if (isFileFieldInstance(instance)) {
+            // Set the default size limit condition for file input fields.
+            // Added in validation conditions only if no size limit condition is found.
+            const limitSizeCondition = instance.validation?.conditions.find(
+              cond => cond.condition.indexOf('.size <') || cond.condition.indexOf('.size<'),
+            );
+            if (!instance.validation) {
+              instance.validation = {conditions: []};
+            }
+            if (!instance.validation.conditions) {
+              instance.validation.conditions = [];
+            }
+            if (!limitSizeCondition) {
+              instance.validation.conditions.push({
+                'condition': `${instance.node.name} == null || ${instance.node.name}.size < ${this.fileSizeLimit}`,
+                'clientValidation': true,
+                'errorMessage': `The file exceeds the ${(this.fileSizeLimit / 1024 ** 2).toFixed(
+                  0,
+                )} MB limit`,
+              });
+            }
+          }
         }
       }
       updateFieldInstanceState(instance, context);
