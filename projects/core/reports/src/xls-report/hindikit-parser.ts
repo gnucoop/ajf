@@ -428,5 +428,5 @@ const functionArgs: {[name: string]: string[]} = {
   ROUND: ["arg", "arg?"],
   SUM: ["arg", "field", "func(form)?"],
   TODAY: [],
-  WIDGET_PIE_TO_JSON: ["arg", "arg"],
+  CHART_TO_DATA: ["arg", "arg"],
 };

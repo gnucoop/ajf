@@ -17,8 +17,8 @@ If the condition is true, evaluates and returns then, otherwise otherwise.
 `PROMPT_RESULT(report_data, promptName)`
 Reads from report_data the result of the AI prompt with the specified name.
 
-`WIDGET_PIE_TO_JSON(labels, values)`
-Converts pie chart arrays into a JSON object.
+`CHART_TO_DATA(labels, values)`
+Converts chart arrays into a JSON string.
 
 ## Forms manipulation functions
 
