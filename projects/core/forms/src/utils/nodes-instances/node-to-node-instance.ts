@@ -28,6 +28,7 @@ import {
   normalizeExpression,
 } from '@ajf/core/models';
 
+import {AjfFileSizeLimit} from '@ajf/core/file-input';
 import {AjfField} from '../../interface/fields/field';
 import {AjfFieldType} from '../../interface/fields/field-type';
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
@@ -59,12 +60,6 @@ import {isFieldInstance} from './is-field-instance';
 import {isNodeGroupInstance} from './is-node-group-instance';
 import {isRepeatingSlideInstance} from './is-repeating-slide-instance';
 import {isSlideInstance} from './is-slide-instance';
-
-/**
- * Default size limit for file input fields.
- * Added in validation conditions only if no size limit condition is found.
- */
-export const fileSizeLimit = 52428800;
 
 /**
  * It creates a nodeInstance relative to a node.
@@ -115,9 +110,9 @@ export function nodeToNodeInstance(
             }
             if (!limitSizeCondition) {
               field.validation.conditions.push({
-                'condition': `${field.name} == null || ${field.name}.size < ${fileSizeLimit}`,
+                'condition': `${field.name} == null || ${field.name}.size < ${AjfFileSizeLimit}`,
                 'clientValidation': true,
-                'errorMessage': `The file exceeds the ${(fileSizeLimit / 1024 ** 2).toFixed(
+                'errorMessage': `The file exceeds the ${(AjfFileSizeLimit / 1024 ** 2).toFixed(
                   0,
                 )} MB limit`,
               });
