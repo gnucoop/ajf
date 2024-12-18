@@ -61,6 +61,12 @@ import {isRepeatingSlideInstance} from './is-repeating-slide-instance';
 import {isSlideInstance} from './is-slide-instance';
 
 /**
+ * Default size limit for file input fields.
+ * Added in validation conditions only if no size limit condition is found.
+ */
+export const fileSizeLimit = 52428800;
+
+/**
  * It creates a nodeInstance relative to a node.
  * To create the instance it calls relative create builder by nodeType.
  * If the prefix is ​​defined all formulas and conditions are calculated based on it.
@@ -86,6 +92,7 @@ export function nodeToNodeInstance(
           instance = createFieldInstance({node: field, prefix}, context);
         }
       } else {
+        const containerNode = getContainerNode(allNodes, node);
         switch (field.fieldType) {
           case AjfFieldType.SingleChoice:
           case AjfFieldType.MultipleChoice:
@@ -94,8 +101,30 @@ export function nodeToNodeInstance(
           case AjfFieldType.Table:
             instance = createTableFieldInstance({node: field, prefix}, context);
             break;
+          case AjfFieldType.File:
+            // Set the default size limit condition for file input fields.
+            // Added in validation conditions only if no size limit condition is found.
+            const limitSizeCondition = field.validation?.conditions.find(
+              cond => cond.condition.indexOf('.size <') || cond.condition.indexOf('.size<'),
+            );
+            if (!field.validation) {
+              field.validation = {conditions: []};
+            }
+            if (!field.validation.conditions) {
+              field.validation.conditions = [];
+            }
+            if (!limitSizeCondition) {
+              field.validation.conditions.push({
+                'condition': `${field.name} == null || ${field.name}.size < ${fileSizeLimit}`,
+                'clientValidation': true,
+                'errorMessage': `The file exceeds the ${(fileSizeLimit / 1024 ** 2).toFixed(
+                  0,
+                )} MB limit`,
+              });
+            }
+            instance = createFieldInstance({node: field, prefix}, context, containerNode);
+            break;
           default:
-            const containerNode = getContainerNode(allNodes, node);
             instance = createFieldInstance({node: field, prefix}, context, containerNode);
             break;
         }
