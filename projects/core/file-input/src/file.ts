@@ -28,3 +28,8 @@ export interface AjfFile {
   url?: string;
   deleteUrl: boolean;
 }
+
+/**
+ * Default size limit for file input fields.
+ */
+export const AjfFileSizeLimit = 52428800;

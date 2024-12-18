@@ -97,7 +97,6 @@ import {updateRepsNum} from './utils/slides-instances/update-reps-num';
 import {validSlide} from './utils/slides-instances/valid-slide';
 import {AjfValidationService} from './validation-service';
 import {isContainerNodeInstance} from './utils/nodes-instances/is-container-node-instance';
-import {isFileFieldInstance} from './utils/fields-instances/is-file-field-instance';
 
 export const enum AjfFormInitStatus {
   Initializing,

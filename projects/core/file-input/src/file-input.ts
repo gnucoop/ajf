@@ -42,7 +42,7 @@ import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import {Observable, Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
 
-import {AjfFile} from './file';
+import {AjfFile, AjfFileSizeLimit} from './file';
 
 @Directive({selector: '[ajfDropMessage]'})
 export class AjfDropMessage {}
@@ -245,6 +245,11 @@ export class AjfFileInput implements ControlValueAccessor {
     const reader = new FileReader();
     const {name, size, type} = file;
     if (!isValidMimeType(type, this.accept)) {
+      return;
+    }
+    if (size >= AjfFileSizeLimit) {
+      this.value = {name, size, type, content: 'File too large'};
+      this._emptyFile = false;
       return;
     }
     reader.onload = (_: ProgressEvent<FileReader>) => {
