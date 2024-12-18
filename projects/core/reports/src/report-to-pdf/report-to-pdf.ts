@@ -132,6 +132,7 @@ function widgetToPdf(widget: AjfWidgetInstance, images: ImageMap, width: number)
       return {image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets]};
     case AjfWidgetType.Table:
     case AjfWidgetType.DynamicTable:
+    case AjfWidgetType.PaginatedTable:
       return tableToPdf(widget as AjfTableWidgetInstance, images);
     case AjfWidgetType.Column:
       const cw = widget as AjfColumnWidgetInstance;
