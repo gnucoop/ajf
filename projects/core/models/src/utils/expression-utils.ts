@@ -175,7 +175,7 @@ export class AjfExpressionUtils {
     STD: {fn: STD},
     SUM: {fn: SUM},
     TODAY: {fn: TODAY},
-    WIDGET_PIE_TO_JSON: {fn: WIDGET_PIE_TO_JSON},
+    CHART_TO_DATA: {fn: CHART_TO_DATA},
   };
 }
 
@@ -2128,8 +2128,8 @@ export function PROMPT_RESULT(report_data: any, promptName: string): string | un
  * @param values
  * @returns
  */
-export function WIDGET_PIE_TO_JSON(labels: string[], values: any[]): {[key: string]: any} {
+export function CHART_TO_DATA(labels: string[], values: any[]): string {
   const jsonObj: {[key: string]: any} = {};
   labels.forEach((lab: string, i: number) => (jsonObj[lab] = values[i]));
-  return jsonObj;
+  return JSON.stringify(jsonObj);
 }
