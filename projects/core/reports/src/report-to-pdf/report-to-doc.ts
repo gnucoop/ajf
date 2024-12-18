@@ -125,6 +125,7 @@ function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap): SectionChild[
       ];
     case AjfWidgetType.Table:
     case AjfWidgetType.DynamicTable:
+    case AjfWidgetType.PaginatedTable:
       return [tableToDoc(widget as AjfTableWidgetInstance), marginBetweenWidgets];
     case AjfWidgetType.Formula:
       return [new Paragraph((widget as AjfFormulaWidgetInstance).formula), marginBetweenWidgets];
@@ -223,33 +224,33 @@ function tableToDoc(table: AjfTableWidgetInstance): Table {
   return new Table({
     columnWidths: Array(numCols).fill(pageWidth / numCols),
     rows: table.data.map(row => new TableRow({
-      children: row.map(cell => {
-        let text = '';
-        switch (typeof cell.value) {
-          case 'number':
-            text = String(cell.value);
-            break;
-          case 'string':
-            text = stripHTML(cell.value);
-            break;
-          case 'object':
-            if (cell.value == null) {
-              break;
+          children: row.map(cell => {
+            let text = '';
+            switch (typeof cell.value) {
+              case 'number':
+                text = String(cell.value);
+                break;
+              case 'string':
+                text = stripHTML(cell.value);
+                break;
+              case 'object':
+                if (cell.value == null) {
+                  break;
+                }
+                let val = cell.value.changingThisBreaksApplicationSecurity;
+                if (typeof val === 'number') {
+                  val = String(val);
+                }
+                text = stripHTML(val || '');
+                break;
             }
-            let val = cell.value.changingThisBreaksApplicationSecurity;
-            if (typeof val === 'number') {
-              val = String(val);
-            }
-            text = stripHTML(val || '');
-            break;
-        }
-        return new TableCell({
-          children: [new Paragraph(text)],
-          columnSpan: cell.colspan || undefined,
-          rowSpan: cell.rowspan || undefined,
-        });
-      }),
-    })),
+            return new TableCell({
+              children: [new Paragraph(text)],
+              columnSpan: cell.colspan || undefined,
+              rowSpan: cell.rowspan || undefined,
+            });
+          }),
+        })),
   });
 }
 
