@@ -1,3 +1,15 @@
+<a name="16.1.9"></a>
+# 16.1.9 "xenophobic-primate" (2024-12-18)
+### Bug Fixes
+* **core/reports:** rename WIDGET_PIE_TO_JSON to CHART_TO_DATA and change return type to string ([6ead16d](https://github.com/gnucoop/ajf/commit/6ead16d592e7f7b950da870e47db6c20a6f03b5f))
+### Features
+* **core/forms:** Remove file content if greather than the max size limit ([6328f4d](https://github.com/gnucoop/ajf/commit/6328f4d25c59de6c4f27ad307d3404b921c45731))
+* **core/forms:** Set the default size limit condition for file input fields for slide and repeating slide ([6c768b7](https://github.com/gnucoop/ajf/commit/6c768b757ac52740c0a36e53f24ac0c5e499e644))
+* **core/forms:** Set the default size limit condition for file input fields if no size limit condition is found ([4103fe2](https://github.com/gnucoop/ajf/commit/4103fe2a3c7f366c3190cbbb87e35a7247ef7285))
+* **core/reports:** add PaginatedTable to export doc and pdf ([8f2a659](https://github.com/gnucoop/ajf/commit/8f2a6592b64b15aa21da19ba82ecd518a7451188))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.8"></a>
 # 16.1.8 "acute-gopher" (2024-11-19)
 ### Bug Fixes
