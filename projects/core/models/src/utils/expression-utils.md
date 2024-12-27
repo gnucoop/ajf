@@ -20,6 +20,32 @@ Reads from report_data the result of the AI prompt with the specified name.
 `CHART_TO_DATA(labels, values)`
 Converts chart arrays into a JSON string.
 
+`FORMAT_TABLE_ROWS(rows)`
+Formats the given table rows as an HTML table string.
+Example: `FORMAT_TABLE_ROWS(['name', 'age'], ['Pippo', 10], ['Pluto', 5])`
+Outputs:
+```
+<table>
+  <tr>
+    <td>name</td><td>age</td>
+  </tr>
+  <tr>
+    <td>Pippo</td><td>10</td>
+  </tr>
+  <tr>
+    <td>Pluto</td><td>5</td>
+  </tr>
+</table>
+```
+
+`FORMAT_TABLE_COLS(columns)`
+Formats the given table columns as an HTML table string.
+Example: `FORMAT_TABLE_COLS(['name', 'Pippo', 'Pluto'], ['age', 10, 5])`
+
+`FORMAT_TABLE_FIELDS(forms, fields)`
+Extracts the fields' data from the specified forms and formats them as an HTML table string.
+Example: `FORMAT_TABLE_FIELDS(dataset, ['name', 'age'])`
+
 ## Forms manipulation functions
 
 `BUILD_DATASET(forms, schema?)`  

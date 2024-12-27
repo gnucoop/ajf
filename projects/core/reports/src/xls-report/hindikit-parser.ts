@@ -429,4 +429,7 @@ const functionArgs: {[name: string]: string[]} = {
   SUM: ["arg", "field", "func(form)?"],
   TODAY: [],
   CHART_TO_DATA: ["arg", "arg"],
+  FORMAT_TABLE_ROWS: ["arg"],
+  FORMAT_TABLE_COLS: ["arg"],
+  FORMAT_TABLE_FIELDS: ["arg", "arg"],
 };

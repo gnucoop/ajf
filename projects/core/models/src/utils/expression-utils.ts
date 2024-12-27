@@ -176,6 +176,9 @@ export class AjfExpressionUtils {
     SUM: {fn: SUM},
     TODAY: {fn: TODAY},
     CHART_TO_DATA: {fn: CHART_TO_DATA},
+    FORMAT_TABLE_ROWS: {fn: FORMAT_TABLE_ROWS},
+    FORMAT_TABLE_COLS: {fn: FORMAT_TABLE_COLS},
+    FORMAT_TABLE_FIELDS: {fn: FORMAT_TABLE_FIELDS},
   };
 }
 
@@ -2132,4 +2135,53 @@ export function CHART_TO_DATA(labels: string[], values: any[]): string {
   const jsonObj: {[key: string]: any} = {};
   labels.forEach((lab: string, i: number) => (jsonObj[lab] = values[i]));
   return JSON.stringify(jsonObj);
+}
+
+/**
+ * Formats the given table rows as an HTML table string.
+ * @param rows
+ * @returns
+ */
+export function FORMAT_TABLE_ROWS(rows: any[][]): string {
+  let html = '\n<table>';
+  for (const row of rows) {
+    html += '\n  <tr>\n    ';
+    for (const cell of row) {
+      html += `<td>${cell}</td>`;
+    }
+    html += '\n  </tr>';
+  }
+  html += '\n</table>\n';
+  return html;
+}
+
+/**
+ * Formats the given table columns as an HTML table string.
+ * @param columns
+ * @returns
+ */
+export function FORMAT_TABLE_COLS(columns: any[][]): string {
+  const numRows = columns.length && columns[0].length;
+  const rows = Array(numRows).fill(1).map(_ => []) as any[][];
+  for (const col of columns) {
+    for (let i = 0; i < numRows; i++) {
+      rows[i].push(col[i]);
+    }
+  }
+  return FORMAT_TABLE_ROWS(rows);
+}
+
+/**
+ * Extracts the fields' data from the specified forms and formats them as an HTML table string.
+ * @param forms
+ * @param fields
+ * @returns
+ */
+export function FORMAT_TABLE_FIELDS(forms: MainForm[], fields: string[]): string {
+  forms = forms.filter(f => f != null);
+  const rows = [fields] as any[][];
+  for (const form of forms) {
+    rows.push(fields.map(field => form[field]));
+  }
+  return FORMAT_TABLE_ROWS(rows);
 }
