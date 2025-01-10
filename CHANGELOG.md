@@ -1,3 +1,33 @@
+<a name="16.1.10"></a>
+# 16.1.10 "necessary-grasshopper" (2025-01-10)
+### Bug Fixes
+* **core/chart:** disable mainDataNumberThreshold using zero value if required by xls-report ([357fa18](https://github.com/gnucoop/ajf/commit/357fa1828f3d92109f63d4e84f3fb9781cd813e6))
+* **core/chart:** fix rebuild dataset for pie chart ([8786bbd](https://github.com/gnucoop/ajf/commit/8786bbdbb5514203615261c2dd0fa7a1226bc682))
+* **core/forms:** set null value for calculate fields if value is equals to NaN ([e3909c4](https://github.com/gnucoop/ajf/commit/e3909c4d841b68565642bb50280be3ac360e8326))
+* **core/models:** fill empty repeating slide instance in report dataset ([763fc24](https://github.com/gnucoop/ajf/commit/763fc248f5d9da1f2d310edd11df7e5db64061b8))
+* **core/reports:** export function for evaluate report variables ([89ea2d7](https://github.com/gnucoop/ajf/commit/89ea2d7d97cfae915b4efbe22fe7e97e69827f0c))
+* **core/reports:** fix boolean value when false for removeZeroValues option ([1c0d6eb](https://github.com/gnucoop/ajf/commit/1c0d6ebdc797d2ad0506b4dcc63467f83e1c3ebf))
+* **core/reports:** fix range widget in automatic report ([d77aaf5](https://github.com/gnucoop/ajf/commit/d77aaf515fa060da06a9cbdd9ea5b524dbd645e0))
+* **core/reports:** format.. ([5101da0](https://github.com/gnucoop/ajf/commit/5101da056682d741ab2162a97ea3c185d2cc74f0))
+* **core/reports:** modify context when evaluate report variables ([9035860](https://github.com/gnucoop/ajf/commit/9035860232c4e81b04bddb1808b4752c49e6c04a))
+* **core/reports:** rename WIDGET_PIE_TO_JSON to CHART_TO_DATA and change return type to string ([6ead16d](https://github.com/gnucoop/ajf/commit/6ead16d592e7f7b950da870e47db6c20a6f03b5f))
+* **material/forms:** fix hint icon width in forms for long text ([879ec7d](https://github.com/gnucoop/ajf/commit/879ec7dbcfb679a433cd1945cb70e136835dfb14))
+* **material/reports:** export all rows for paginated table widget ([14f1230](https://github.com/gnucoop/ajf/commit/14f1230be4b5e088084063fc39016c022eb0fdd8))
+### Features
+* **core/forms:** Remove file content if greather than the max size limit ([6328f4d](https://github.com/gnucoop/ajf/commit/6328f4d25c59de6c4f27ad307d3404b921c45731))
+* **core/forms:** Set the default size limit condition for file input fields for slide and repeating slide ([6c768b7](https://github.com/gnucoop/ajf/commit/6c768b757ac52740c0a36e53f24ac0c5e499e644))
+* **core/forms:** Set the default size limit condition for file input fields if no size limit condition is found ([4103fe2](https://github.com/gnucoop/ajf/commit/4103fe2a3c7f366c3190cbbb87e35a7247ef7285))
+* **core/models:** add WIDGET_PIE_TO_JSON function for reports ([59c2cac](https://github.com/gnucoop/ajf/commit/59c2cacdec8906cbeccf47c9bfb4ae9810657069))
+* **core/models:** Fix STD and MEDIAN functions in expression utils. ([da12978](https://github.com/gnucoop/ajf/commit/da129781de361bf563127eeed18690e081d7c090))
+* **core/reports:** add isAIPrompt column in variables sheet ([8fb2b4c](https://github.com/gnucoop/ajf/commit/8fb2b4c584f7324d64228265b23fe3b39c4274ed))
+* **core/reports:** add mainDataNumberThreshold and removeZeroValues options in xls report for chart widgets ([b8697c3](https://github.com/gnucoop/ajf/commit/b8697c34c3874aa0839a1b73e819a595efaf8666))
+* **core/reports:** add PaginatedTable to export doc and pdf ([8f2a659](https://github.com/gnucoop/ajf/commit/8f2a6592b64b15aa21da19ba82ecd518a7451188))
+* **core/reports:** functions for formatting tables' data as html ([f045db6](https://github.com/gnucoop/ajf/commit/f045db653932af93f12395696403028c8ff9089b))
+* **core/reports:** PROMPT_RESULT function ([da299e2](https://github.com/gnucoop/ajf/commit/da299e22d08f961877041d3d3c0fc538c5c433c8))
+* **material/forms:** redesign table field ([34857c7](https://github.com/gnucoop/ajf/commit/34857c798ca74dcac9d7d662d9f36d330e882b16))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.9"></a>
 # 16.1.9 "xenophobic-primate" (2024-12-18)
 ### Bug Fixes
