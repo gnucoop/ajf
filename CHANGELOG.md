@@ -1,3 +1,10 @@
+<a name="16.1.11"></a>
+# 16.1.11 "missing-toucan" (2025-01-17)
+### Features
+* **core/reports:** xlsreport improvements for social balance ([2a65535](https://github.com/gnucoop/ajf/commit/2a655352c01f3a9f73921224297fdae70797d610))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.10"></a>
 # 16.1.10 "necessary-grasshopper" (2025-01-10)
 ### Bug Fixes
