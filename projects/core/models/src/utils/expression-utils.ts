@@ -162,6 +162,7 @@ export class AjfExpressionUtils {
     LAST: {fn: LAST},
     LEN: {fn: LEN},
     MAP: {fn: MAP},
+    MIN: {fn: MIN},
     MAX: {fn: MAX},
     MEAN: {fn: MEAN},
     MEDIAN: {fn: MEDIAN},
@@ -1005,6 +1006,24 @@ export function LAST(
     }
   }
   return expression(form);
+}
+
+/**
+ * Computes the min value of the field.
+ */
+export function MIN(
+  forms: (Form | MainForm)[],
+  field: string,
+  filter: Func | string = 'true',
+): number {
+  const values = getNumericValues(forms, field, filter);
+  let min = +Infinity;
+  for (const val of values) {
+    if (val < min) {
+      min = val;
+    }
+  }
+  return min;
 }
 
 /**

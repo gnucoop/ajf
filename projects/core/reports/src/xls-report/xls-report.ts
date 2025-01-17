@@ -192,14 +192,6 @@ function alertAndThrow(err: string) {
   throw new Error(err);
 }
 
-// converts to true|undefined an option from an excel cell
-function boolOption(cell: undefined | null | string | boolean): true | undefined {
-  if (!cell || cell === 'false') {
-    return undefined;
-  }
-  return true;
-}
-
 function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget {
   if (sheet == null || sheet.length === 0) {
     alertAndThrow('Empty sheet for chart ' + name);
@@ -211,6 +203,12 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     'stacked',
     'beginAtZeroX',
     'beginAtZeroY',
+    'axisLabelX',
+    'axisLabelY',
+    'axisMinX',
+    'axisMinY',
+    'axisMaxX',
+    'axisMaxY',
     'removeZeroValues',
     'mainDataNumberThreshold',
   ];
@@ -247,9 +245,15 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     labelsFormula = {formula: labelsJs};
   }
 
-  const stacked = boolOption(options['stacked']);
-  const beginAtZeroX = boolOption(options['beginAtZeroX']);
-  const beginAtZeroY = boolOption(options['beginAtZeroY']);
+  const stacked = Boolean(options['stacked']);
+  const beginAtZeroX = Boolean(options['beginAtZeroX']);
+  const beginAtZeroY = Boolean(options['beginAtZeroY']);
+  const axisLabelX = options['axisLabelX'];
+  const axisLabelY = options['axisLabelY'];
+  const axisMinX = options['axisMinX'];
+  const axisMinY = options['axisMinY'];
+  const axisMaxX = options['axisMaxX'];
+  const axisMaxY = options['axisMaxY'];
   const removeZeroValues =
     options['removeZeroValues'] != null ? Boolean(options['removeZeroValues']) : true;
   const mainDataNumberThreshold =
@@ -310,11 +314,37 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
   });
 
   const scales: Chart.ChartScales = {};
-  if (stacked || beginAtZeroX) {
-    scales.xAxes = [{stacked, ticks: beginAtZeroX ? {beginAtZero: true} : undefined}];
+  if (stacked || beginAtZeroX || axisMinX != null || axisMaxX != null || axisLabelX) {
+    const axisX: Chart.ChartXAxe = {
+      stacked,
+      ticks: {beginAtZero: beginAtZeroX},
+    };
+    if (axisMinX != null) {
+      axisX.ticks!.suggestedMin = Number(axisMinX);
+    }
+    if (axisMaxX != null) {
+      axisX.ticks!.suggestedMax = Number(axisMaxX);
+    }
+    if (axisLabelX) {
+      axisX.scaleLabel = {display: true, labelString: axisLabelX};
+    }
+    scales.xAxes =[axisX];
   }
-  if (stacked || beginAtZeroY) {
-    scales.yAxes = [{stacked, ticks: {beginAtZero: true}}];
+  if (stacked || beginAtZeroY || axisMinY != null || axisMaxY != null || axisLabelY) {
+    const axisY: Chart.ChartYAxe = {
+      stacked,
+      ticks: {beginAtZero: stacked || beginAtZeroY},
+    };
+    if (axisMinY != null) {
+      axisY.ticks!.suggestedMin = Number(axisMinY);
+    }
+    if (axisMaxY != null) {
+      axisY.ticks!.suggestedMax = Number(axisMaxY);
+    }
+    if (axisLabelY) {
+      axisY.scaleLabel = {display: true, labelString: axisLabelY};
+    }
+    scales.yAxes = [axisY];
   }
   return createWidget({
     name,
