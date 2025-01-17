@@ -417,6 +417,7 @@ const functionArgs: {[name: string]: string[]} = {
   LAST: ["arg", "func(form)", "field?"],
   LEN: ["arg"],
   MAP: ["arg", "func(elem)"],
+  MIN: ["arg", "field", "func(form)?"],
   MAX: ["arg", "field", "func(form)?"],
   MEAN: ["arg", "field", "func(form)?"],
   MEDIAN: ["arg", "field", "func(form)?"],

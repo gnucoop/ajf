@@ -50,6 +50,19 @@ export function exportReportXlsx(
 }
 
 /**
+ * Checks if p is a {x, y, r?} point and eventually formats it as string.
+ */
+function formatPointData(p: any): any {
+  if (typeof p === 'object' && p !== null && p.x !== undefined && p.y !== undefined) {
+    if (p.r === undefined) {
+      return `(${p.x}, ${p.y})`;
+    }
+    return `(${p.x}, ${p.y}, ${p.r})`;
+  }
+  return p;
+}
+
+/**
  * Build xlsx data for export
  * @param widgetType
  * @param data
@@ -74,7 +87,7 @@ function buildXlsxData(
         const data = datasets[i].data || [];
         row.push(datasets[i].label);
         for (let j = 0; j < data.length; j++) {
-          row.push(data[j]);
+          row.push(formatPointData(data[j]));
         }
         xlsxData.push(row);
       }

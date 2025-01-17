@@ -121,6 +121,10 @@ An optional expression can be added to filter which forms to consider in the com
 Computes the mean of the values of the specified field.
 An optional expression can be added to filter which forms to consider in the computation.
 
+`MIN(forms, $field, expression?)`  
+Computes the min value of the field.
+An optional expression can be added to filter which forms to consider in the computation.
+
 `MAX(forms, $field, expression?)`  
 Computes the max value of the field.
 An optional expression can be added to filter which forms to consider in the computation.
