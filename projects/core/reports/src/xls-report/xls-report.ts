@@ -328,7 +328,7 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
     if (axisLabelX) {
       axisX.scaleLabel = {display: true, labelString: axisLabelX};
     }
-    scales.xAxes =[axisX];
+    scales.xAxes = [axisX];
   }
   if (stacked || beginAtZeroY || axisMinY != null || axisMaxY != null || axisLabelY) {
     const axisY: Chart.ChartYAxe = {
