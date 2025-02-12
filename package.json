@@ -9,7 +9,7 @@
   },
   "license": "AGPL-3.0-or-later",
   "engines": {
-    "node": ">=16.13.0",
+    "node": ">=18.17.0 <=20.9.0",
     "yarn": ">= 1.0.0",
     "npm": "Please use Yarn instead of NPM to install dependencies. See: https://yarnpkg.com/lang/en/docs/install/"
   },
@@ -68,7 +68,7 @@
     "svg-pan-zoom": "^3.6.1",
     "tslib": "^2.3.0",
     "xlsx": "^0.18.3",
-    "zone.js": "^0.13.3"
+    "zone.js": "~0.14.0"
   },
   "overrides": {
     "ts-custom-error": "3.3.1"
@@ -118,7 +118,7 @@
     "semver": "^7.3.5",
     "shelljs": "^0.8.5",
     "ts-node": "^10.7.0",
-    "typescript": "~4.9.3",
+    "typescript": "~5.2.0",
     "unique-names-generator": "^4.7.1"
   }
 }
