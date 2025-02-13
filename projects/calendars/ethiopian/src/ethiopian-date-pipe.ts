@@ -20,7 +20,7 @@
  *
  */
 
-import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {Injectable, isDevMode, Pipe, PipeTransform} from '@angular/core';
 import {EthiopianDate} from './ethiopian-date';
 
 @Injectable()
@@ -33,6 +33,9 @@ export class AjfEthiopianDatePipe implements PipeTransform {
       const month = `0${ed.getMonth() + 1}`.slice(-2);
       return `${date}/${month}/${ed.getFullYear()}`;
     } catch (e) {
+      if (isDevMode()) {
+        console.log(e);
+      }
       return null;
     }
   }

@@ -74,6 +74,7 @@ export class AjfBarcodeComponent extends AjfBarcode implements OnDestroy, AfterV
   }
 
   ngOnDestroy(): void {
+    console.log('a');
     this.stopCurrentStream();
     this.sourceSelectSub.unsubscribe();
     this.resetSub.unsubscribe();

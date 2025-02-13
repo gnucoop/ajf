@@ -25,6 +25,7 @@ import {
   Component,
   ElementRef,
   Input,
+  isDevMode,
   OnInit,
   Renderer2,
   ViewChild,
@@ -128,7 +129,11 @@ export class AjfGraphComponent implements OnInit {
         if (node.parentId != null) {
           try {
             node.parentId = JSON.parse(node.parentId as string);
-          } catch (e) {}
+          } catch (e) {
+            if (isDevMode()) {
+              console.log(e);
+            }
+          }
           const parents: string[] = Array.isArray(node.parentId)
             ? node.parentId
             : [node.parentId as string];

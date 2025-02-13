@@ -20,7 +20,7 @@
  *
  */
 
-import {EventEmitter} from '@angular/core';
+import {EventEmitter, isDevMode} from '@angular/core';
 import {Observable} from 'rxjs';
 
 export class AjfTimeModel {
@@ -63,6 +63,10 @@ export class AjfTimeModel {
         this.hours = parseInt(splitted[0]);
         this.minutes = parseInt(splitted[1]);
       }
-    } catch (e) {}
+    } catch (e) {
+      if (isDevMode()) {
+        console.log(e);
+      }
+    }
   }
 }

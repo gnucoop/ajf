@@ -23,6 +23,7 @@
 import {AjfContext} from '@ajf/core/common';
 
 import {getContextString} from './get-context-string';
+import {isDevMode} from '@angular/core';
 
 let cachedContext: any = {};
 let cachedContextString = '{}';
@@ -41,6 +42,9 @@ export function validateExpression(str: string, context?: AjfContext): boolean {
     f = <any>null;
     return true;
   } catch (e) {
+    if (isDevMode()) {
+      console.log(e);
+    }
     return false;
   }
 }

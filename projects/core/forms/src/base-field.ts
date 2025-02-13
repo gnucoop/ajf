@@ -20,7 +20,7 @@
  *
  */
 
-import {ChangeDetectorRef, Directive, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Directive, isDevMode, OnDestroy, OnInit} from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
 import {filter, map, withLatestFrom} from 'rxjs/operators';
@@ -128,7 +128,11 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
         if (this._changeDetectorRef) {
           try {
             this._changeDetectorRef.detectChanges();
-          } catch (e) {}
+          } catch (e) {
+            if (isDevMode()) {
+              console.log(e);
+            }
+          }
         }
       });
     } else {

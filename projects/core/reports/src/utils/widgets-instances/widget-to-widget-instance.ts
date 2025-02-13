@@ -64,6 +64,7 @@ import {isWidgetWithContentInstance} from '../widgets-instances/is-widget-with-c
 import {createWidgetInstance} from './create-widget-instance';
 import {evaluateProperty, trFormula} from './widget-instance-utils';
 import {AjfGraphNode} from '@ajf/core/graph';
+import {isDevMode} from '@angular/core';
 
 export function widgetToWidgetInstance(
   widget: AjfWidget,
@@ -109,7 +110,11 @@ export function widgetToWidgetInstance(
               ? ts.translate(evf)
               : evf;
         }
-      } catch (_e) {}
+      } catch (e) {
+        if (isDevMode()) {
+          console.log(e);
+        }
+      }
       return evf;
     });
     wi.labels = widget.labels instanceof Array ? evLabels : evLabels[0];
@@ -180,7 +185,11 @@ export function widgetToWidgetInstance(
             cell.formula instanceof Array
               ? cell.formula.map(f => trFormula(f, context, ts))
               : trFormula(cell.formula!, context, ts);
-        } catch (_e) {}
+        } catch (e) {
+          if (isDevMode()) {
+            console.log(e);
+          }
+        }
         return {
           value: evf,
           style: {...widget.cellStyles, ...cell.style},
@@ -219,7 +228,11 @@ export function widgetToWidgetInstance(
                 ? ts.translate(trf)
                 : trf;
           }
-        } catch (_e) {}
+        } catch (e) {
+          if (isDevMode()) {
+            console.log(e);
+          }
+        }
         return {...cell, value: trf};
       }),
     );
@@ -231,7 +244,11 @@ export function widgetToWidgetInstance(
           cell.formula instanceof Array
             ? cell.formula.map(f => trFormula(f, context, ts))
             : trFormula(cell.formula, context, ts);
-      } catch (_e) {}
+      } catch (e) {
+        if (isDevMode()) {
+          console.log(e);
+        }
+      }
       return {
         value: evf,
         style: {...widget.cellStyles, ...cell.style},
