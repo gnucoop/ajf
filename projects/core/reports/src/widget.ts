@@ -20,7 +20,7 @@
  *
  */
 
-import {Directive, Input, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Directive, Input, isDevMode, OnInit, Renderer2, ViewChild} from '@angular/core';
 
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 import {AjfWidgetComponentsMap} from './interface/widgets/widget-components-map';
@@ -84,7 +84,11 @@ export abstract class AjfReportWidget implements OnInit {
             style,
             `${this._instance!.widget.styles[style]}`,
           );
-        } catch (e) {}
+        } catch (e) {
+          if (isDevMode()) {
+            console.log(e);
+          }
+        }
       });
 
       componentInstance.instance = this._instance;
@@ -95,6 +99,10 @@ export abstract class AjfReportWidget implements OnInit {
           }
         });
       }
-    } catch (e) {}
+    } catch (e) {
+      if (isDevMode()) {
+        console.log(e);
+      }
+    }
   }
 }

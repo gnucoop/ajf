@@ -20,7 +20,7 @@
  *
  */
 
-import {EventEmitter} from '@angular/core';
+import {EventEmitter, isDevMode} from '@angular/core';
 import {Observable} from 'rxjs';
 
 export class AjfGeolocationModel {
@@ -61,6 +61,10 @@ export class AjfGeolocationModel {
         this.latitude = splitted[0];
         this.longitude = splitted[1];
       }
-    } catch (e) {}
+    } catch (e) {
+      if (isDevMode()) {
+        console.log(e);
+      }
+    }
   }
 }

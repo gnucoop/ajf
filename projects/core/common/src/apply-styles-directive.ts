@@ -20,7 +20,7 @@
  *
  */
 
-import {Directive, ElementRef, Input, Renderer2} from '@angular/core';
+import {Directive, ElementRef, Input, isDevMode, Renderer2} from '@angular/core';
 
 // eslint-disable-next-line
 @Directive({selector: '[applyStyles]'})
@@ -44,7 +44,11 @@ export class ApplyStylesDirective {
     Object.keys(this._cssStyles).forEach((style: string) => {
       try {
         this._renderer.setStyle(this._el.nativeElement, style, `${this._cssStyles[style]}`);
-      } catch (e) {}
+      } catch (e) {
+        if (isDevMode()) {
+          console.log(e);
+        }
+      }
     });
   }
 }
