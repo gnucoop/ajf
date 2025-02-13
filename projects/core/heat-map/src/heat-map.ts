@@ -28,6 +28,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  isDevMode,
   OnChanges,
   OnDestroy,
   Output,
@@ -157,7 +158,11 @@ export class AjfHeatMap implements OnChanges, OnDestroy {
         try {
           const actionFunction = new Function('v', this._action);
           actionFunction({feature});
-        } catch (e) {}
+        } catch (e) {
+          if (isDevMode()) {
+            console.log(e);
+          }
+        }
       }
     });
     this._updateChartOptions();

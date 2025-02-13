@@ -22,6 +22,7 @@
 
 import {AjfContext, AjfFormula, createFormula, evaluateExpression} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
+import {isDevMode} from '@angular/core';
 
 export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslocoService): any {
   let formula = f.formula;
@@ -41,7 +42,10 @@ export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslocoServi
   let res;
   try {
     res = evaluateExpression(formula, context);
-  } catch (_) {
+  } catch (e) {
+    if (isDevMode()) {
+      console.log(e);
+    }
     res = formula;
   }
   return res;
@@ -71,6 +75,9 @@ export function evaluateProperty(
     try {
       calcValue = evaluateExpression(m.formula.formula, context);
     } catch (e) {
+      if (isDevMode()) {
+        console.log(e);
+      }
       calcValue = '';
     }
     htmlText = `${htmlText.substring(0, m.idx)}${calcValue}${htmlText.substring(m.idx + m.len)}`;
