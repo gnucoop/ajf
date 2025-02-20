@@ -30,9 +30,9 @@ const schema = {
           value: 'choiceValue2',
           label: 'choiceLabel2',
         },
-      ]
-    }
-  ]
+      ],
+    },
+  ],
 };
 
 const forms: MainForm[] = [
@@ -146,8 +146,14 @@ describe('MEDIAN', () => {
 
 describe('JOIN_FORMS', () => {
   it('JOIN_FORMS', () => {
-    const age = [{name: 'pippo', age: 10}, {name: 'pluto', age: 20}];
-    const gender = [{name: 'pippo', gender: 'm'}, {name: 'pluto', gender: 'm'}];
+    const age = [
+      {name: 'pippo', age: 10},
+      {name: 'pluto', age: 20},
+    ];
+    const gender = [
+      {name: 'pippo', gender: 'm'},
+      {name: 'pluto', gender: 'm'},
+    ];
     const expected = [
       {name: 'pippo', age: 10, gender: 'm', reps: {}},
       {name: 'pluto', age: 20, gender: 'm', reps: {}},
@@ -159,11 +165,17 @@ describe('JOIN_FORMS', () => {
 
 describe('FILTER_BY', () => {
   it('FILTER_BY', () => {
-    const nums = [{num: 1}, {num: 2}, {num: 3},
-      {ajf_foo_count: 2, reps: {foo: [{num: 4}, {num: 0}]}}] as MainForm[];
-    const expected = [{num: 3, reps: {}},
-      {ajf_foo_count: 1, reps: {foo: [{num: 4}]}}] as MainForm[];
-    const result = FILTER_BY(nums, "num > 2");
+    const nums = [
+      {num: 1},
+      {num: 2},
+      {num: 3},
+      {ajf_foo_count: 2, reps: {foo: [{num: 4}, {num: 0}]}},
+    ] as MainForm[];
+    const expected = [
+      {num: 3, reps: {}},
+      {ajf_foo_count: 1, reps: {foo: [{num: 4}]}},
+    ] as MainForm[];
+    const result = FILTER_BY(nums, 'num > 2');
     expect(result).toEqual(expected);
   });
 });
@@ -173,7 +185,7 @@ describe('MAP', () => {
     const forms = [{menu: ['pizza', 'fries']}, {menu: ['pizza', 'burger']}];
     const items = ['pizza', 'fries', 'cheese'];
     const result = evaluateExpression(
-      "MAP(items, (elem) => COUNT_FORMS(forms, (form) => INCLUDES(form.menu, elem)))",
+      'MAP(items, (elem) => COUNT_FORMS(forms, (form) => INCLUDES(form.menu, elem)))',
       {forms, items},
     );
     expect(result).toEqual([2, 1, 0]);
@@ -233,7 +245,7 @@ describe('MODE', () => {
 
 describe('ROUND', () => {
   it('should round the dog_point property of the first form to 2 decimal places', () => {
-    const result = ROUND(forms[0].dog_point, 2);
+    const result = ROUND(forms[0]['dog_point'] as number, 2);
     expect(result).toBe(0.1);
   });
 });
