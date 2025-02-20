@@ -4,28 +4,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@ajf/calendars": [
-        "./projects/calendars"
-      ],
-      "@ajf/calendars/*": [
-        "./projects/calendars/*"
-      ],
-      "@ajf/core": [
-        "./projects/core"
-      ],
-      "@ajf/core/*": [
-        "./projects/core/*"
-      ],
-      "@ajf/material": [
-        "./projects/material"
-      ],
-      "@ajf/material/*": [
-        "./projects/material/*"
-      ],
-      "ajf-examples": [
-        "dist/ajf-examples/ajf-examples",
-        "dist/ajf-examples"
-      ]
+      "@ajf/calendars": ["./projects/calendars"],
+      "@ajf/calendars/*": ["./projects/calendars/*"],
+      "@ajf/core": ["./projects/core"],
+      "@ajf/core/*": ["./projects/core/*"],
+      "@ajf/material": ["./projects/material"],
+      "@ajf/material/*": ["./projects/material/*"],
+      "ajf-examples": ["dist/ajf-examples/ajf-examples", "dist/ajf-examples"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
@@ -42,12 +27,19 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
+    "lib": ["es2020", "dom"],
     "useDefineForClassFields": false
   },
+  "exclude": [
+    "cypress/**/*.ts",
+    "./cypress.config.ts",
+    "./projects/material/cypress.config.ts",
+    "./projects/core/cypress.config.ts",
+    "node_modules",
+    "cypress",
+    "**/*.cy.tsx",
+    "**/*.spec.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
