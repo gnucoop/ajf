@@ -61,7 +61,7 @@
     "flag-icon-css": "^4.1.7",
     "leaflet": "^1.7.1",
     "meriyah": "^4.2.0",
-    "ngx-mat-select-search": "^7.0.5",
+    "ngx-mat-select-search": "^8.0.0",
     "numbro": "^2.3.6",
     "pdfmake": "^0.2.4",
     "rxjs": "^7.5.0",
