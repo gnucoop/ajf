@@ -9625,10 +9625,10 @@ ng-packagr@^18.2.1:
   optionalDependencies:
     rollup "^4.18.0"
 
-ngx-mat-select-search@^7.0.5:
-  version "7.0.5"
-  resolved "https://registry.yarnpkg.com/ngx-mat-select-search/-/ngx-mat-select-search-7.0.5.tgz#0468cdaeb5ea203061737edc9a3ce0efab79fa91"
-  integrity sha512-FRGkXhCkQ+c2B0bZnS9C1XAOukhq6QbJLsevbV3rFiV21cVgaGQ1calf6dUfEHyQdJ1CCaf+ViccY1i3WJTPdA==
+ngx-mat-select-search@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-mat-select-search/-/ngx-mat-select-search-8.0.0.tgz#076fee296cf52e89383944c8a65387e69f61af72"
+  integrity sha512-iLs0fnH0zmLDrIpxEiVB8IXJPah8aP8sK1BcDtLYcbXmWcZkVQZI3t4sgsvdhXbjp6w8hsGtrlFJQ0NtCy/L+Q==
   dependencies:
     tslib "^2.4.0"
 
