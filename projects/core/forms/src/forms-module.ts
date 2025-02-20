@@ -24,7 +24,7 @@ import {AjfCommonModule} from '@ajf/core/common';
 import {AjfFileInputModule} from '@ajf/core/file-input';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
@@ -96,14 +96,6 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
   ],
-  imports: [
-    AjfCommonModule,
-    AjfFileInputModule,
-    CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    AjfTranslocoModule,
-  ],
   exports: [
     AjfAsFieldInstancePipe,
     AjfAsFieldInstanceErrorsPipe,
@@ -137,6 +129,18 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfTableVisibleColumnsPipe,
     AjfValidSlidePipe,
   ],
-  providers: [AjfDateValueStringPipe, AjfFormRendererService, AjfValidationService],
+  imports: [
+    AjfCommonModule,
+    AjfFileInputModule,
+    CommonModule,
+    ReactiveFormsModule,
+    AjfTranslocoModule,
+  ],
+  providers: [
+    AjfDateValueStringPipe,
+    AjfFormRendererService,
+    AjfValidationService,
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
 })
 export class AjfFormsModule {}
