@@ -1,17 +1,19 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {async, TestBed} from '@angular/core/testing';
+import {waitForAsync, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AjfPageSlider, AjfPageSliderModule} from './public_api';
 
 describe('AjfPageSlider', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, AjfPageSliderModule],
-      declarations: [TestComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [BrowserAnimationsModule, AjfPageSliderModule],
+        declarations: [TestComponent],
+      }).compileComponents();
+    }),
+  );
 
   it('should scroll slides up / down and to specified index', async () => {
     const fixture = TestBed.createComponent(TestComponent);
