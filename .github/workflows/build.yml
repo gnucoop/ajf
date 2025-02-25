@@ -18,7 +18,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Install Dependencies
         run: |
@@ -50,7 +50,7 @@ jobs:
         with:
           name: build-artifacts
           path: build-artifacts.zip
-        
+
             #      - name: Publish snapshots
             #if: github.ref == 'refs/heads/main' # Cambia questo in base al tuo branch predefinito
             #run: ./scripts/jenkins/publish-snapshots.sh
