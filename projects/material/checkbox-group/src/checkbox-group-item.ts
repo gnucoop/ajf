@@ -32,7 +32,6 @@ import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@
   styleUrls: ['checkbox-group-item.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // eslint-disable-next-line
   host: {
     '[attr.id]': 'id',
     '[class.ajf-checkbox-group-checked]': 'checked',
