@@ -25,7 +25,6 @@ import {Observable} from 'rxjs';
 
 @Directive({
   selector: '[ajfDnd]',
-  // eslint-disable-next-line
   host: {
     '[class.ajf-dnd-over]': 'over',
     '(dragover)': 'onDragOver($event)',
