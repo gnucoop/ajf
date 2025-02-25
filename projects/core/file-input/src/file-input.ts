@@ -87,7 +87,6 @@ export class AjfFilePreview implements OnDestroy {
   styleUrls: ['./file-input.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // eslint-disable-next-line
   host: {
     '[class.ajf-file-input]': 'true',
   },

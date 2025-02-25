@@ -61,7 +61,6 @@ const branchColors: string[] = [
   selector: 'ajf-fb-node-entry',
   templateUrl: 'node-entry.html',
   styleUrls: ['node-entry.scss'],
-  // eslint-disable-next-line
   host: {'(window.resize)': 'onResize()'},
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
