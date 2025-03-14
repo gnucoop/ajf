@@ -962,7 +962,7 @@ export function PERCENTAGE_CHANGE(
 export function FIRST(
   forms: (Form | MainForm)[],
   expression: Func | string,
-  date = 'created_at',
+  date = 'dino_created_at',
 ): any {
   if (typeof expression === 'string') {
     expression = createFunction(expression);
@@ -988,7 +988,7 @@ export function FIRST(
 export function LAST(
   forms: (Form | MainForm)[],
   expression: Func | string,
-  date = 'created_at',
+  date = 'dino_created_at',
 ): any {
   if (typeof expression === 'string') {
     expression = createFunction(expression);
