@@ -1,3 +1,12 @@
+<a name="16.1.12"></a>
+# 16.1.12 "fluffy-turkey" (2025-03-25)
+### Bug Fixes
+* **core/models:** FROM_REPS: remove null values ([e8c51e5](https://github.com/gnucoop/ajf/commit/e8c51e55eb327cb7fcb80f778090aa351916a096))
+* **core/reports:** fix default parameters in FIRST e LAST functions ([faf0de6](https://github.com/gnucoop/ajf/commit/faf0de621c1a3736f7c3ca3ba22f086e229915d3))
+* **material/reports:** decrease size of xlsreport filters ([4412688](https://github.com/gnucoop/ajf/commit/441268853da743ea6efe25f014261bd8dadb4b0f))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.11"></a>
 # 16.1.11 "missing-toucan" (2025-01-17)
 ### Features
