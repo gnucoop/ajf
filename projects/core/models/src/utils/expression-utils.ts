@@ -41,6 +41,11 @@ export interface MainForm {
   reps?: Instances;
 }
 
+/**
+ * Return all repeating slides in a form
+ * @param form
+ * @returns
+ */
 function allReps(form: MainForm): Form[] {
   if (form.reps == null) {
     return [];
@@ -2085,7 +2090,8 @@ export function FROM_REPS(forms: MainForm | MainForm[], expression: Func | strin
     forms = [forms];
   }
   const func = expression;
-  return forms.map(form => allReps(form || {}).map(rep => func({...form, ...rep}))).flat();
+  const res = forms.map(form => allReps(form || {}).map(rep => func({...form, ...rep}))).flat();
+  return res.filter(val => val != null);
 }
 
 /**
