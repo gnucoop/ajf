@@ -238,10 +238,20 @@ function tableToDoc(table: AjfTableWidgetInstance): Table {
                   break;
                 }
                 let val = cell.value.changingThisBreaksApplicationSecurity;
+                if (val === undefined) {
+                  val = cell.value.toString();
+                }
                 if (typeof val === 'number') {
                   val = String(val);
                 }
                 text = stripHTML(val || '');
+                break;
+              default:
+                if (cell.value == null) {
+                  break;
+                }
+                let strVal = cell.value.toString();
+                text = stripHTML(strVal || '');
                 break;
             }
             return new TableCell({
@@ -250,7 +260,8 @@ function tableToDoc(table: AjfTableWidgetInstance): Table {
               rowSpan: cell.rowspan || undefined,
             });
           }),
-        })),
+        }),
+    ),
   });
 }
 
