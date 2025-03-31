@@ -250,7 +250,7 @@ function tableToDoc(table: AjfTableWidgetInstance): Table {
                 if (cell.value == null) {
                   break;
                 }
-                let strVal = cell.value.toString();
+                let strVal = String(cell.value);
                 text = stripHTML(strVal || '');
                 break;
             }
