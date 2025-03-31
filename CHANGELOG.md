@@ -1,3 +1,11 @@
+<a name="16.1.13"></a>
+# 16.1.13 "modern-cardinal" (2025-03-31)
+### Bug Fixes
+* **core/reports:** change .toString to String() in table export ([2de0e42](https://github.com/gnucoop/ajf/commit/2de0e421255ad83168b7dae7588157c75c0ade1c))
+* **core/reports:** fix object, array or boolean values in table export pdf and doc ([94d45a2](https://github.com/gnucoop/ajf/commit/94d45a239336f2359e83a2851dc35865c152db21))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.12"></a>
 # 16.1.12 "fluffy-turkey" (2025-03-25)
 ### Bug Fixes
