@@ -225,10 +225,20 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
             break;
           }
           let val = cell.value.changingThisBreaksApplicationSecurity;
+          if (val === undefined) {
+            val = cell.value.toString();
+          }
           if (typeof val === 'number') {
             val = String(val);
           }
           text = htmlTextToPdfText(val || '', images);
+          break;
+        default:
+          if (cell.value == null) {
+            break;
+          }
+          let strVal = cell.value.toString();
+          text = htmlTextToPdfText(strVal || '', images);
           break;
       }
       bodyRow.push({text, colSpan: cell.colspan, rowSpan: cell.rowspan});
