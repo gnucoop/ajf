@@ -130,6 +130,12 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     this._cdr.markForCheck();
   }
 
+  /**
+   * If true, disable scroll movement calculation in the form.
+   * If false, when touching the form fields, scroll to the next field.
+   */
+  private _disableTouchMovement = true;
+
   private _animating = false;
   private _pagesSub: Subscription = Subscription.EMPTY;
 
@@ -216,7 +222,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   onMouseWheel(event: Event): void {
     const evt = event as WheelEvent;
-    if (evt.deltaX == null || evt.deltaY == null) {
+    if (evt.deltaX == null || evt.deltaY == null || this._disableTouchMovement) {
       return;
     }
     const absDeltaX = Math.abs(evt.deltaX);
@@ -232,7 +238,12 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   onTouchStart(evt: TouchEvent): void {
-    if (evt.touches == null || evt.touches.length === 0 || this._animating) {
+    if (
+      evt.touches == null ||
+      evt.touches.length === 0 ||
+      this._animating ||
+      this._disableTouchMovement
+    ) {
       return;
     }
     this._currentOrigin = {
@@ -247,7 +258,8 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
       evt.touches == null ||
       evt.touches.length === 0 ||
       this._currentOrigin == null ||
-      this._animating
+      this._animating ||
+      this._disableTouchMovement
     ) {
       return;
     }
@@ -292,6 +304,9 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   onTouchEnd(): void {
+    if (this._disableTouchMovement) {
+      return;
+    }
     this._resetCurrentOrigin();
   }
 
