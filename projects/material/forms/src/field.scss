@@ -33,7 +33,18 @@ table {
     td {
       position: relative;
 
-      span,
+      span {
+        cursor: text;
+        width: 100%;
+        box-sizing: border-box;
+        outline: none;
+        display: inline-block;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        text-align: center;
+      }
+
       input {
         cursor: text;
         position: absolute;
@@ -45,10 +56,10 @@ table {
         bottom: 0;
         left: 0;
         display: inline-block;
-        border-top: solid 1px #cccccc;
+        border-top: solid 1px transparent;
         border-right: solid 1px transparent;
         border-bottom: solid 1px transparent;
-        border-left: solid 1px #cccccc;
+        border-left: solid 1px transparent;
         font-family: inherit;
         font-size: inherit;
         line-height: inherit;
