@@ -1,6 +1,8 @@
 table.ajf-table-field {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
+
   .ajf-header-row {
     font-weight: bold;
     background-color: #f9f9f9;
@@ -11,8 +13,23 @@ table.ajf-table-field {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    border-top: solid 1px transparent;
+    border-right: solid 1px #cccccc;
+    border-left: solid 1px transparent;
+    position: relative;
 
-    span,
+    span {
+      display: inline-block;
+      width: 100%;
+      box-sizing: border-box;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: 1.5;
+      text-align: center;
+      padding: 12px 15px;
+      word-wrap: break-word;
+    }
+
     input {
       cursor: text;
       position: absolute;
@@ -23,11 +40,11 @@ table.ajf-table-field {
       right: 0;
       bottom: 0;
       left: 0;
-      display: inline-block;
       border-top: solid 1px transparent;
       border-right: solid 1px transparent;
       border-bottom: solid 1px transparent;
-      border-left: solid 1px #cccccc;
+      border-left: solid 1px transparent;
+      display: inline-block;
       font-family: inherit;
       font-size: inherit;
       line-height: inherit;
