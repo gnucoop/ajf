@@ -1,3 +1,12 @@
+<a name="16.1.14"></a>
+# 16.1.14 "due-wolf" (2025-04-15)
+### Bug Fixes
+* **material/forms:** dynamic cell height in table ([1c3705b](https://github.com/gnucoop/ajf/commit/1c3705b502f2e541fb7ec46a4615dc898bdf3b57))
+### Features
+* **core/page-slider:** enable smooth scrolling on form slides, web and mobile ([7bd6737](https://github.com/gnucoop/ajf/commit/7bd6737cbc3f5dc49aa798af60069d6f75d0f6c0))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.13"></a>
 # 16.1.13 "modern-cardinal" (2025-03-31)
 ### Bug Fixes
