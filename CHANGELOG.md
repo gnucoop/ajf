@@ -1,3 +1,10 @@
+<a name="18.0.0"></a>
+# 18.0.0 "misleading-elephant" (2025-04-28)
+### Bug Fixes
+* **core/reports:** Added optional property "exportable" to AjfPaginatedListWidget interface ([145e786](https://github.com/gnucoop/ajf/commit/145e7866360afa3bb1701ca8448854a4bb30095b))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="16.1.14"></a>
 # 16.1.14 "due-wolf" (2025-04-15)
 ### Bug Fixes
