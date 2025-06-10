@@ -26,6 +26,7 @@ import {parseScript} from 'meriyah';
 import * as numbroMod from 'numbro';
 import {AjfTableCell} from '@ajf/core/table';
 import {AjfValidationFn} from '../interface/validation-function';
+import {flattenNodes, isField, isFieldWithChoices} from '@ajf/core/forms';
 
 let execContext: any = {};
 
@@ -1741,7 +1742,7 @@ export function BUILD_DATASET(forms: Form[], schema?: any): MainForm[] {
 
 /**
  * This function takes an ajf schema as input and extracts a
- * dict that matches each choice value with its label
+ * dict that matches each choice value (with and without choice origin name as prefix) with its label
  * @param schema the ajf schema
  * @returns A dict with:
  *  {[choiceValue: string]: [choiceLabel: string]}
@@ -1753,6 +1754,7 @@ function extractLabelsFromChoices(schema: any): {[value: string]: string} {
       if (origin != null && origin.choices != null) {
         for (const c of origin.choices) {
           labels[c.value] = c.label;
+          labels[origin.name + '_' + c.value] = c.label;
         }
       }
     }
@@ -1773,6 +1775,10 @@ export function APPLY_LABELS(forms: MainForm[], schema: any, fields: string[]): 
   forms = cloneMainForms(forms);
   const labels: {[value: string]: string} = extractLabelsFromChoices(schema);
 
+  const choiceFields = flattenNodes(schema.nodes).filter(
+    n => fields.includes(n.name) && isField(n) && isFieldWithChoices(n),
+  ) as any[];
+
   for (const form of forms) {
     if (form == null) {
       continue;
@@ -1782,12 +1788,19 @@ export function APPLY_LABELS(forms: MainForm[], schema: any, fields: string[]): 
     for (const rep of reps) {
       for (const field of fields) {
         const val = rep[field];
-        if (typeof val === 'string' && labels[val] != null) {
+
+        const choiceField = choiceFields.find(f => f.name === field);
+        const choicePrefix =
+          choiceField && choiceField.choicesOriginRef ? choiceField.choicesOriginRef + '_' : '';
+
+        if (val && typeof val === 'string' && labels[choicePrefix + val] != null) {
           // single choice
-          rep[field] = labels[val];
+          rep[field] = labels[choicePrefix + val];
         } else if (Array.isArray(val)) {
           // multiple choice
-          rep[field] = val.map(v => (labels[v] != null ? labels[v] : v)) as any;
+          rep[field] = val.map(v =>
+            labels[choicePrefix + v] != null ? labels[choicePrefix + v] : v,
+          ) as any;
         }
       }
     }
@@ -2134,9 +2147,11 @@ export function OP(
  * @param {string[]} values
  * @return {*}  {string[]}
  */
-export function GET_LABELS(schema: any, values: string[]): string[] {
+export function GET_LABELS(schema: any, values: string[], choiceOriginName?: string): string[] {
   const choiceLabels = extractLabelsFromChoices(schema);
-  return values.map(val => (choiceLabels[val] != null ? choiceLabels[val] : val));
+  return values
+    .map(val => (choiceOriginName ? choiceOriginName + '_' + val : val))
+    .map(val => (choiceLabels[val] != null ? choiceLabels[val] : val));
 }
 
 /**
@@ -2187,7 +2202,9 @@ export function FORMAT_TABLE_ROWS(rows: any[][]): string {
  */
 export function FORMAT_TABLE_COLS(columns: any[][]): string {
   const numRows = columns.length && columns[0].length;
-  const rows = Array(numRows).fill(1).map(_ => []) as any[][];
+  const rows = Array(numRows)
+    .fill(1)
+    .map(_ => []) as any[][];
   for (const col of columns) {
     for (let i = 0; i < numRows; i++) {
       rows[i].push(col[i]);

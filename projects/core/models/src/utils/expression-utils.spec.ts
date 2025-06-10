@@ -16,11 +16,13 @@ import {
   MEDIAN,
   MODE,
   ROUND,
+  GET_LABELS,
 } from './expression-utils';
 
 const schema = {
   choicesOrigins: [
     {
+      name: 'testorigin',
       choices: [
         {
           value: 'choiceValue1',
@@ -32,12 +34,64 @@ const schema = {
         },
       ],
     },
+    {
+      name: 'testorigin2',
+      choices: [
+        {
+          value: 'choiceValue1',
+          label: 'choiceLabel1.2',
+        },
+        {
+          value: 'choiceValue2',
+          label: 'choiceLabel2.2',
+        },
+      ],
+    },
+  ],
+  nodes: [
+    {
+      parent: 0,
+      id: 1,
+      name: 'slidetest',
+      label: 'slide test',
+      nodeType: 3,
+      nodes: [
+        {
+          parent: 1,
+          id: 1001,
+          name: 'single_choice',
+          label: 'Test field',
+          nodeType: 0,
+          fieldType: 4,
+          choicesOriginRef: 'testorigin',
+        },
+      ],
+    },
+    {
+      parent: 1,
+      id: 2,
+      name: 'slidetest_multi',
+      label: 'slide test multi',
+      nodeType: 4,
+      nodes: [
+        {
+          parent: 2,
+          id: 2001,
+          name: 'multiple_choice',
+          label: 'Test field multi',
+          nodeType: 0,
+          fieldType: 5,
+          choicesOriginRef: 'testorigin',
+        },
+      ],
+    },
   ],
 };
 
 const forms: MainForm[] = [
   {
     created_at: '0000-00-00',
+    dino_created_at: '0000-00-00',
     dog_name: 'dog1',
     dog_puppies: 3,
     dog_years: 5,
@@ -51,6 +105,7 @@ const forms: MainForm[] = [
   },
   {
     created_at: '9999-99-99',
+    dino_created_at: '9999-99-99',
     dog_name: 'dog2',
     to_check: true,
     dog_puppies: 2,
@@ -232,6 +287,18 @@ describe('APPLY_LABELS', () => {
     const form = APPLY_LABELS(forms, schema, ['single_choice', 'multiple_choice'])[0] as any;
     expect(form.single_choice).toBe('choiceLabel1');
     expect(form.reps.rep_1[0].multiple_choice[0]).toBe('choiceLabel2');
+  });
+});
+
+describe('GET_LABELS', () => {
+  it('GET_LABELS', () => {
+    const form = GET_LABELS(schema, ['choiceValue1', 'choiceValue2']);
+    expect(form[0]).toBe('choiceLabel1.2');
+    expect(form[1]).toBe('choiceLabel2.2');
+
+    const form2 = GET_LABELS(schema, ['choiceValue1', 'choiceValue2'], 'testorigin');
+    expect(form2[0]).toBe('choiceLabel1');
+    expect(form2[1]).toBe('choiceLabel2');
   });
 });
 
