@@ -336,7 +336,7 @@ export function isInt(x: string | number): boolean {
  * It is true if x is not empty.
  */
 export function notEmpty(x: any): boolean {
-  return !(x == null || x === '');
+  return !(x == null || x.toString() === '');
 }
 /**
  * It is true if array contains x or array is equal to x.
