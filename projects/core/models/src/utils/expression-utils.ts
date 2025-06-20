@@ -26,7 +26,6 @@ import {parseScript} from 'meriyah';
 import * as numbroMod from 'numbro';
 import {AjfTableCell} from '@ajf/core/table';
 import {AjfValidationFn} from '../interface/validation-function';
-import {flattenNodes, isField, isFieldWithChoices} from '@ajf/core/forms';
 
 let execContext: any = {};
 
@@ -732,6 +731,21 @@ export function getCoordinate(source: any, zoom?: number): [number, number, numb
   } else {
     return [source[0], source[1], zoom];
   }
+}
+/**
+ * It creates an one dimensional array of AjfNode.
+ * If the node is a containerNode(has the nodes attribute)
+ * recursively  concat their nodes.
+ */
+function flattenNodes(nodes: any[]): any[] {
+  let flatNodes: any[] = [];
+  nodes.forEach(node => {
+    flatNodes.push(node);
+    if (node != null && (node.nodeType === 3 || node.nodeType === 4)) {
+      flatNodes = flatNodes.concat(flattenNodes(node.nodes));
+    }
+  });
+  return flatNodes;
 }
 
 /**
@@ -1776,7 +1790,11 @@ export function APPLY_LABELS(forms: MainForm[], schema: any, fields: string[]): 
   const labels: {[value: string]: string} = extractLabelsFromChoices(schema);
 
   const choiceFields = flattenNodes(schema.nodes).filter(
-    n => fields.includes(n.name) && isField(n) && isFieldWithChoices(n),
+    (n: any) =>
+      n != null &&
+      fields.includes(n.name) &&
+      n.nodeType === 0 &&
+      (n.fieldType === 4 || n.fieldType === 5),
   ) as any[];
 
   for (const form of forms) {
