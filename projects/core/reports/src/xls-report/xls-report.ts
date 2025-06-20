@@ -90,17 +90,23 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
           jsonVars
             .filter(e => e != null && e.name != null && e.name !== '')
             .forEach(elem => {
+              const r = Number(elem.__rowNum__) + 1;
+              const name = String(elem.name).trim();
+              if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) {
+                const msg = `Variable name "${name}" (row ${r}) is not a valid identifier`;
+                window.alert(msg);
+                throw new Error(msg);
+              }
               let js: string;
               try {
                 js = indicatorToJs(elem.value);
               } catch (err: any) {
-                const r = Number(elem.__rowNum__) + 1;
-                err = new Error(`Error in variable "${elem.name}" (row ${r}): ${err.message}`);
+                err = new Error(`Error in variable "${name}" (row ${r}): ${err.message}`);
                 window.alert(err.message);
                 throw err;
               }
               variables.push({
-                name: elem.name,
+                name,
                 formula: {formula: js},
                 isAIPrompt: elem.isAIPrompt,
               });
