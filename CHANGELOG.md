@@ -1,3 +1,14 @@
+<a name="18.0.1"></a>
+# 18.0.1 "maximum-turkey" (2025-07-03)
+### Bug Fixes
+* **core/models:** add check for empty arrays in notEmpty validator ([78073ad](https://github.com/gnucoop/ajf/commit/78073adf382f25316ae417c347e5890d657ff5a3))
+* **core/models:** resolve circular dependency ([dcd0fdb](https://github.com/gnucoop/ajf/commit/dcd0fdbca45e8cbddb0663fac6fc267866099ffb))
+* **core/models:** use choice origin name as prefix for APPLY_LABELS and GET_LABELS report functions ([2aef50c](https://github.com/gnucoop/ajf/commit/2aef50c3b2f8ddec994c4f3d00a571872ba7b4e5))
+### Features
+* **core/reports:** trim and check xlsreport variable names ([0e2bde5](https://github.com/gnucoop/ajf/commit/0e2bde51b8188d0451e4fced38491b8e592345bf))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.0.0"></a>
 # 18.0.0 "misleading-elephant" (2025-04-28)
 ### Bug Fixes
