@@ -97,6 +97,17 @@ function checkRangeValidity(c: AbstractControl): {[key: string]: any} | null {
   return null;
 }
 
+function checkTableValidity(c: AbstractControl): {[key: string]: any} | null {
+  try {
+    const jsonValue = JSON.parse(c.value);
+    return Object.keys(jsonValue).length
+      ? null
+      : {tableDef: 'You must enter a valid JSON for Table definition'};
+  } catch {
+    return {tableDef: 'Invalid JSON for Table definition'};
+  }
+}
+
 export interface ValidationCondition {
   condition: string;
   errorMessage: string;
@@ -444,6 +455,12 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._service.cancelNodeEntryEdit();
   }
 
+  /**
+   * Return error message for the form control
+   * @param formControl
+   * @param fieldName
+   * @returns
+   */
   fieldErrorMessage(formControl: AbstractControl | null, fieldName: string): string | null {
     if (!formControl || !fieldName) return null;
     if (formControl.hasError('required')) {
@@ -451,6 +468,24 @@ export class AjfFbNodeProperties implements OnDestroy {
     }
     if (formControl.hasError('name_exists')) {
       return `This ${fieldName} has already been used`;
+    }
+    if (formControl.hasError(fieldName)) {
+      return formControl.getError(fieldName);
+    }
+    return null;
+  }
+
+  /**
+   * Return all form error messages
+   * @param formGroup
+   * @returns
+   */
+  allErrorMessages(formGroup: UntypedFormGroup | null): string | null {
+    if (!formGroup || !formGroup.errors) return null;
+    if (Object.keys(formGroup.errors).length) {
+      return Object.keys(formGroup.errors)
+        .map(key => `${key}: ${formGroup.errors?.[key]}`)
+        .join();
     }
     return null;
   }
@@ -502,6 +537,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         const fg = formGroup as UntypedFormGroup;
         const val = {...fg.value, conditionalBranches: this._conditionalBranches};
         this._service.saveNodeEntry(val);
+        fg.markAllAsTouched();
       });
   }
 
@@ -645,7 +681,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (this.isFieldWithChoices(node)) {
           let triggerConditions: string[] = (node.triggerConditions || []).map(c => c.condition);
 
-          controls.choicesOriginRef = (node as any).choicesOriginRef;
+          controls.choicesOriginRef = [(node as any).choicesOriginRef, Validators.required];
           controls.choicesFilter = node.choicesFilter != null ? node.choicesFilter.formula : null;
           controls.forceExpanded = node.forceExpanded;
           controls.forceNarrow = node.forceNarrow;
@@ -657,12 +693,17 @@ export class AjfFbNodeProperties implements OnDestroy {
         if (this.isTableField(node)) {
           const {columnTypes, rows, columnLabels, rowLabels} = node;
           const tableDef = {columnTypes, rows, columnLabels, rowLabels};
-          controls.tableDef = JSON.stringify(tableDef, undefined, 2);
+          controls.tableDef = [
+            JSON.stringify(tableDef, undefined, 2),
+            [Validators.required, checkTableValidity],
+          ];
           controls.hideEmptyRows = node.hideEmptyRows;
         }
 
         const fg = this._fb.group(controls);
         fg.setValidators(validators);
+
+        fg.markAllAsTouched();
 
         this._conditionalBranches = n.node.conditionalBranches.map(c => c.condition);
         this._curVisibility = n.node.visibility != null ? n.node.visibility.condition : null;
