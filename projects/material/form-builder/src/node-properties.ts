@@ -40,23 +40,42 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   OnDestroy,
+  OnInit,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import {
   AbstractControl,
   UntypedFormBuilder,
   UntypedFormGroup,
+  ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Observable, Subscription} from 'rxjs';
-import {distinctUntilChanged, filter, map, shareReplay, take, withLatestFrom} from 'rxjs/operators';
+import {EMPTY, Observable, Subscription} from 'rxjs';
+import {
+  distinctUntilChanged,
+  filter,
+  map,
+  pairwise,
+  shareReplay,
+  startWith,
+  switchMap,
+  take,
+  withLatestFrom,
+} from 'rxjs/operators';
 
 import {AjfFbConditionEditorDialog} from './condition-editor-dialog';
-import {AjfFormBuilderNodeEntry, AjfFormBuilderService} from './form-builder-service';
+import {
+  AjfFormBuilderNodeEntry,
+  AjfFormBuilderService,
+  AjfFormBuilderValidation,
+  FormBuilderFieldValidation,
+} from './form-builder-service';
 import {AjfFbValidationConditionEditorDialog} from './validation-condition-editor-dialog';
 import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dialog';
 import {MatCheckbox} from '@angular/material/checkbox';
@@ -125,7 +144,7 @@ export interface WarningCondition {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AjfFbNodeProperties implements OnDestroy {
+export class AjfFbNodeProperties implements OnDestroy, OnInit {
   private _fieldSizes: {label: string; value: string}[] = [
     {label: 'Normal', value: 'normal'},
     {label: 'Small', value: 'small'},
@@ -289,6 +308,9 @@ export class AjfFbNodeProperties implements OnDestroy {
   private _saveEvt: EventEmitter<void> = new EventEmitter<void>();
   private _saveSub = Subscription.EMPTY;
 
+  private _isNodeValidSub = Subscription.EMPTY;
+  private _nodeNameChangedSub = Subscription.EMPTY;
+
   constructor(
     private _cdr: ChangeDetectorRef,
     private _service: AjfFormBuilderService,
@@ -321,6 +343,57 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._initAddTriggerCondition();
     this._initRemoveTriggerCondition();
     this._initSave();
+  }
+
+  ngOnInit() {
+    this._isNodeValidSub = this._propertiesForm
+      .pipe(
+        withLatestFrom(this._service.editedNodeEntry),
+        switchMap(([formGroup, _fbNode]) => {
+          formGroup.markAllAsTouched();
+          formGroup.updateValueAndValidity();
+
+          const nameControl = formGroup.get('name');
+
+          const nodeValidation: FormBuilderFieldValidation = {
+            isValid: formGroup.valid,
+            errors: formGroup.errors,
+          };
+          const fbNodeValidation: AjfFormBuilderValidation = {};
+          const fieldName = nameControl?.value || 'error';
+          fbNodeValidation[fieldName] = nodeValidation;
+          this._service.editNodeValidation(fbNodeValidation);
+
+          if (nameControl) {
+            this._nodeNameChangedSub = nameControl.valueChanges
+              .pipe(
+                startWith(nameControl.value),
+                pairwise(),
+                distinctUntilChanged((a, b) => a[1] === b[1]),
+              )
+              .subscribe(([oldValue, _newValue]) => {
+                // set validation true for old unused name
+                fbNodeValidation[oldValue] = {isValid: true, errors: null};
+                this._service.editNodeValidation(fbNodeValidation);
+              });
+          }
+
+          return formGroup.statusChanges.pipe(
+            filter(status => status !== 'VALID'),
+            map(() => {
+              nodeValidation.errors = formGroup.errors;
+              nodeValidation.isValid = formGroup.valid;
+              const currFieldName = formGroup.get('name')?.value || 'error';
+              fbNodeValidation[currFieldName] = nodeValidation;
+              return fbNodeValidation;
+            }),
+            distinctUntilChanged(),
+          );
+        }),
+      )
+      .subscribe(fbNodeValidation => {
+        this._service.editNodeValidation(fbNodeValidation);
+      });
   }
 
   editVisibility(): void {
@@ -528,6 +601,8 @@ export class AjfFbNodeProperties implements OnDestroy {
     this._removeWarningConditionSub.unsubscribe();
 
     this._saveSub.unsubscribe();
+    this._isNodeValidSub.unsubscribe();
+    this._nodeNameChangedSub.unsubscribe();
   }
 
   private _initSave(): void {
@@ -537,7 +612,10 @@ export class AjfFbNodeProperties implements OnDestroy {
         const fg = formGroup as UntypedFormGroup;
         const val = {...fg.value, conditionalBranches: this._conditionalBranches};
         this._service.saveNodeEntry(val);
-        fg.markAllAsTouched();
+        const fbNodeValidation: AjfFormBuilderValidation = {};
+        fbNodeValidation[val.name] = {isValid: true, errors: null};
+        fbNodeValidation['error'] = {isValid: true, errors: null};
+        this._service.editNodeValidation(<AjfFormBuilderValidation>fbNodeValidation);
       });
   }
 
@@ -704,6 +782,7 @@ export class AjfFbNodeProperties implements OnDestroy {
         fg.setValidators(validators);
 
         fg.markAllAsTouched();
+        fg.updateValueAndValidity({onlySelf: false, emitEvent: true});
 
         this._conditionalBranches = n.node.conditionalBranches.map(c => c.condition);
         this._curVisibility = n.node.visibility != null ? n.node.visibility.condition : null;

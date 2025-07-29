@@ -61,7 +61,7 @@ import {deepCopy} from '@ajf/core/utils';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {EventEmitter, Injectable} from '@angular/core';
 import {BehaviorSubject, combineLatest, Observable, of as obsOf, Subject, Subscription} from 'rxjs';
-import {filter, map, shareReplay, scan, withLatestFrom} from 'rxjs/operators';
+import {filter, map, shareReplay, scan, withLatestFrom, take} from 'rxjs/operators';
 
 import {
   AjfAttachmentsOriginsOperation,
@@ -80,6 +80,15 @@ export interface AjfFormBuilderNodeEntry {
   container: AjfContainerNode | null;
   children: AjfFormBuilderNodeEntry[];
   content: AjfFormBuilderNodeEntry[];
+}
+
+export interface FormBuilderFieldValidation {
+  isValid: boolean;
+  errors: {[key: string]: any} | null;
+}
+
+export interface AjfFormBuilderValidation {
+  [key: string]: FormBuilderFieldValidation | null;
 }
 
 export interface AjfFormBuilderEmptySlot {
@@ -407,6 +416,13 @@ export class AjfFormBuilderService {
     return this._editedNodeEntryObs;
   }
 
+  /**
+   * New field or node just added in tree
+   */
+  private _newNodeEntry: BehaviorSubject<AjfNode | AjfField | null> = new BehaviorSubject<
+    AjfNode | AjfField | null
+  >(null);
+
   private _editedCondition: BehaviorSubject<AjfCondition | null> =
     new BehaviorSubject<AjfCondition | null>(null);
   private _editedConditionObs: Observable<AjfCondition | null> = this
@@ -421,6 +437,14 @@ export class AjfFormBuilderService {
     ._editedChoicesOrigin as Observable<AjfChoicesOrigin<any> | null>;
   get editedChoicesOrigin(): Observable<AjfChoicesOrigin<any> | null> {
     return this._editedChoicesOriginObs;
+  }
+
+  private _editedNodeValidation: BehaviorSubject<AjfFormBuilderValidation | null> =
+    new BehaviorSubject<AjfFormBuilderValidation | null>(null);
+  private _editedNodeValidationObs: Observable<AjfFormBuilderValidation | null> = this
+    ._editedNodeValidation as Observable<AjfFormBuilderValidation | null>;
+  get editedNodeValidation(): Observable<AjfFormBuilderValidation | null> {
+    return this._editedNodeValidationObs;
   }
 
   private _beforeNodesUpdate: EventEmitter<void> = new EventEmitter<void>();
@@ -490,6 +514,68 @@ export class AjfFormBuilderService {
     this._editedNodeEntry.next(nodeEntry);
   }
 
+  /**
+   * Add a validation entry
+   * @param fbNodeValidation
+   */
+  editNodeValidation(fbNodeValidation: AjfFormBuilderValidation): void {
+    this._editedNodeValidation.next({
+      ...this._editedNodeValidation.value,
+      ...fbNodeValidation,
+    });
+  }
+
+  /**
+   * Return if a node is valid
+   * @param nodeName
+   */
+  isNodeValid(nodeName: string): boolean {
+    const allNodeValidations = this._editedNodeValidation.value;
+    if (!allNodeValidations || allNodeValidations[nodeName] == null) {
+      return true;
+    }
+    return allNodeValidations[nodeName].isValid;
+  }
+
+  /**
+   * Clean node validation entries when a node is deleted
+   * @param fbNodeValidation the deleted node
+   */
+  cleanNodeValidation(fbNodeName: string): void {
+    if (fbNodeName) {
+      // set validation true for old unused name
+      const fbNodeValidation: AjfFormBuilderValidation = {};
+      fbNodeValidation[fbNodeName] = {isValid: true, errors: null};
+      this.editNodeValidation(fbNodeValidation);
+    }
+
+    // Clean all not existing invalid nodes
+    const allNodeValidations = this._editedNodeValidation.value;
+    if (allNodeValidations && this._flatNodes) {
+      const invalidNodes: string[] = [];
+
+      Object.keys(allNodeValidations).forEach(key => {
+        if (allNodeValidations[key]?.isValid === false) {
+          invalidNodes.push(key);
+        }
+      });
+
+      if (invalidNodes.length) {
+        this._flatNodes.pipe(take(1)).subscribe(nodes => {
+          const existingNodeNames = new Set(nodes.map(n => n.name));
+
+          invalidNodes.forEach(invalidNode => {
+            if (!existingNodeNames.has(invalidNode)) {
+              delete allNodeValidations[invalidNode];
+            }
+          });
+
+          this._editedNodeValidation.next(allNodeValidations);
+        });
+      }
+    }
+  }
+
   editCondition(condition: AjfCondition): void {
     this._editedCondition.next(condition);
   }
@@ -551,6 +637,9 @@ export class AjfFormBuilderService {
       });
       this._emptySlideCounter++;
     }
+    this.cancelNodeEntryEdit();
+    this._newNodeEntry.next(node);
+
     this._beforeNodesUpdate.emit();
     this._nodesUpdates.next((nodes: AjfNode[]): AjfNode[] => {
       const cn =
@@ -570,7 +659,6 @@ export class AjfFormBuilderService {
       }
       return nodes;
     });
-    this.cancelNodeEntryEdit();
   }
 
   saveNodeEntry(properties: any): void {
@@ -583,6 +671,7 @@ export class AjfFormBuilderService {
 
   deleteNodeEntry(nodeEntry: AjfFormBuilderNodeEntry): void {
     this._deleteNodeEntryEvent.next(nodeEntry);
+    this.cleanNodeValidation(nodeEntry.node.name);
   }
 
   /**
@@ -779,9 +868,49 @@ export class AjfFormBuilderService {
         children: buildFormBuilderNodesSubtree(nodes, rootNode),
         content: buildFormBuilderNodesContent(nodes, rootNode),
       });
+
+      const lastAddedAjfNode = this._newNodeEntry.value;
+      if (lastAddedAjfNode) {
+        const lastAddedFbNode = this._findNodeInTree(tree, lastAddedAjfNode);
+        if (lastAddedFbNode) {
+          this.editNodeEntry(<AjfFormBuilderNodeEntry>lastAddedFbNode);
+        }
+        this._newNodeEntry.next(null);
+      }
       return tree;
     }
     throw new Error('Invalid form definition');
+  }
+
+  /**
+   * Find an ajfNode in AjfFormBuilderNodeEntry tree, by node name
+   * @param tree
+   * @param node
+   * @returns the AjfFormBuilderNodeEntry node
+   */
+  private _findNodeInTree(
+    tree: AjfFormBuilderNode[],
+    node: AjfNode | AjfField,
+  ): AjfFormBuilderNodeEntry | null {
+    for (const fbn of tree) {
+      const fbe = fbn as AjfFormBuilderNodeEntry;
+      if (fbe.node?.name === node.name) {
+        return fbe;
+      }
+      if (fbe.content && fbe.content.length) {
+        const foundInContent = this._findNodeInTree(fbe.content, node);
+        if (foundInContent) {
+          return foundInContent;
+        }
+      }
+      if (fbe.children && fbe.children.length) {
+        const foundInChildren = this._findNodeInTree(fbe.children, node);
+        if (foundInChildren) {
+          return foundInChildren;
+        }
+      }
+    }
+    return null;
   }
 
   /**

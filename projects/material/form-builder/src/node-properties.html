@@ -5,7 +5,7 @@
       <h3>{{'Properties'|transloco}}</h3>
       <button
         mat-icon-button
-        [disabled]="pf.invalid"
+        [disabled]="pf.status !== 'VALID'"
         (click)="save()"
       >
         <mat-icon>save</mat-icon>

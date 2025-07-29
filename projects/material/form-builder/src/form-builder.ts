@@ -32,6 +32,7 @@ import {
   EventEmitter,
   Input,
   OnDestroy,
+  Output,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -46,6 +47,7 @@ import {
   AjfFormBuilderNodeEntry,
   AjfFormBuilderNodeTypeEntry,
   AjfFormBuilderService,
+  AjfFormBuilderValidation,
 } from './form-builder-service';
 import {disableFieldDropPredicate, onDropProcess} from './form-builder-utils';
 import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
@@ -73,6 +75,15 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       }
     }
   }
+
+  /**
+   * Called to set form builder validation errors
+   */
+  private _formBuilderValidation: EventEmitter<AjfFormBuilderValidation> =
+    new EventEmitter<AjfFormBuilderValidation>();
+  @Output()
+  readonly formBuilderValidation: Observable<AjfFormBuilderValidation> = this
+    ._formBuilderValidation as Observable<AjfFormBuilderValidation>;
 
   private _nodeTypes: AjfFormBuilderNodeTypeEntry[];
   get nodeTypes(): AjfFormBuilderNodeTypeEntry[] {
@@ -104,6 +115,7 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   private _editConditionDialog: MatDialogRef<AjfFbConditionEditorDialog> | null = null;
   private _beforeNodesUpdateSub: Subscription = Subscription.EMPTY;
   private _editChoicesOriginSub: Subscription = Subscription.EMPTY;
+  private _editNodeValidationSub: Subscription = Subscription.EMPTY;
   private _editChoicesOriginDialog: MatDialogRef<AjfFbChoicesOriginEditorDialog> | null = null;
   private _stringIdentifierDialog: MatDialogRef<AjfFbStringIdentifierDialogComponent> | null = null;
   private _stringIdentifierSub: Subscription = Subscription.EMPTY;
@@ -141,6 +153,14 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       },
     );
 
+    this._editNodeValidationSub = this._service.editedNodeValidation.subscribe(
+      (nodeValidation: AjfFormBuilderValidation | null) => {
+        if (nodeValidation != null) {
+          this._formBuilderValidation.next(nodeValidation);
+        }
+      },
+    );
+
     this._beforeNodesUpdateSub = this._service.beforeNodesUpdate.subscribe(() => {
       if (this.designerCont == null) {
         return;
@@ -171,6 +191,7 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     this._editConditionSub.unsubscribe();
     this._beforeNodesUpdateSub.unsubscribe();
     this._editChoicesOriginSub.unsubscribe();
+    this._editNodeValidationSub.unsubscribe();
     this._stringIdentifierSub.unsubscribe();
     this._service.setForm(null);
     this._service.resetNodeEntriesTreeExpandedStatus();

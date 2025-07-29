@@ -8,8 +8,12 @@
       <textarea [(ngModel)]="formSchema"></textarea>
       <button mat-raised-button color="primary" (click)="setForm()">Set form</button>
     </mat-expansion-panel>
+    <div>
+      <button mat-raised-button color="primary" (click)="saveFormSchema()" [disabled]="!isAjfFormSchemaValid">Save
+        form schema</button>
+    </div>
     <div class="demo-form-builder-container">
-      <ajf-form-builder [form]="form"></ajf-form-builder>
+      <ajf-form-builder [form]="form" (formBuilderValidation)="onFormBuilderValidation($event)"></ajf-form-builder>
     </div>
   </section>
 </div>
