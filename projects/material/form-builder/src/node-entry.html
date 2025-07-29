@@ -58,7 +58,7 @@
       </ng-template>
 
       <ng-template #cardTitle>
-        <div class="ajf-title-row">
+        <div class="ajf-title-row" [ngClass]="{ 'ajf-title-row-error': isInvalid(realNodeEntry.node) }">
           <ajf-node-icon [node]="realNodeEntry.node"></ajf-node-icon>
           &nbsp;
           <span

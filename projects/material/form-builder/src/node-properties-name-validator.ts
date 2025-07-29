@@ -22,7 +22,7 @@
 import {ChangeDetectorRef, Injectable} from '@angular/core';
 import {AbstractControl, AsyncValidatorFn, ValidationErrors} from '@angular/forms';
 import {Observable, of} from 'rxjs';
-import {debounceTime, finalize, map, take} from 'rxjs/operators';
+import {finalize, map, take} from 'rxjs/operators';
 import {AjfFormBuilderService} from './form-builder-service';
 
 /**
@@ -42,23 +42,19 @@ export class AjfNodePropertiesNameMatchValidator {
    */
   sameValueCheck(cdr: ChangeDetectorRef, currentId: number): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {
-      if (!this._fbs.flatNodes) return of(null);
-      return this._fbs.flatNodes.pipe(
-        debounceTime(300),
+      const flatNodes$ = this._fbs.flatNodes ?? of([]);
+      return flatNodes$.pipe(
         map(nodes => {
           const sameNameNode = nodes.find(
-            n => n.name.toLowerCase() === control.value.toLowerCase() && n.id != currentId,
+            n => n.name.toLowerCase() === control.value.toLowerCase() && n.id !== currentId,
           );
-          if (sameNameNode) {
-            return {'name_exists': true};
-          }
-          return null;
+          return sameNameNode ? {name_exists: true} : null;
         }),
+        take(1),
         finalize(() => {
           control.markAsTouched();
           cdr.detectChanges();
         }),
-        take(1),
       );
     };
   }

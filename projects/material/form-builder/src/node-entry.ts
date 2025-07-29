@@ -204,6 +204,10 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     this._service.deleteNodeEntry(<AjfFormBuilderNodeEntry>this.nodeEntry);
   }
 
+  isInvalid(node: AjfNode): boolean {
+    return !this._service.isNodeValid(node.name);
+  }
+
   isLastNode(): boolean {
     if (!this.realNodeEntry || !this.realNodeEntry.children) {
       return false;
