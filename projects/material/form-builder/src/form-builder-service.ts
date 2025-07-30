@@ -439,12 +439,12 @@ export class AjfFormBuilderService {
     return this._editedChoicesOriginObs;
   }
 
-  private _editedNodeValidation: BehaviorSubject<AjfFormBuilderValidation | null> =
+  private _editedNodesValidation: BehaviorSubject<AjfFormBuilderValidation | null> =
     new BehaviorSubject<AjfFormBuilderValidation | null>(null);
-  private _editedNodeValidationObs: Observable<AjfFormBuilderValidation | null> = this
-    ._editedNodeValidation as Observable<AjfFormBuilderValidation | null>;
-  get editedNodeValidation(): Observable<AjfFormBuilderValidation | null> {
-    return this._editedNodeValidationObs;
+  private _editedNodesValidationObs: Observable<AjfFormBuilderValidation | null> = this
+    ._editedNodesValidation as Observable<AjfFormBuilderValidation | null>;
+  get editedNodesValidation(): Observable<AjfFormBuilderValidation | null> {
+    return this._editedNodesValidationObs;
   }
 
   private _beforeNodesUpdate: EventEmitter<void> = new EventEmitter<void>();
@@ -515,12 +515,12 @@ export class AjfFormBuilderService {
   }
 
   /**
-   * Add a validation entry
+   * Add a node validation entry
    * @param fbNodeValidation
    */
   editNodeValidation(fbNodeValidation: AjfFormBuilderValidation): void {
-    this._editedNodeValidation.next({
-      ...this._editedNodeValidation.value,
+    this._editedNodesValidation.next({
+      ...this._editedNodesValidation.value,
       ...fbNodeValidation,
     });
   }
@@ -530,7 +530,7 @@ export class AjfFormBuilderService {
    * @param nodeName
    */
   isNodeValid(nodeName: string): boolean {
-    const allNodeValidations = this._editedNodeValidation.value;
+    const allNodeValidations = this._editedNodesValidation.value;
     if (!allNodeValidations || allNodeValidations[nodeName] == null) {
       return true;
     }
@@ -550,7 +550,7 @@ export class AjfFormBuilderService {
     }
 
     // Clean all not existing invalid nodes
-    const allNodeValidations = this._editedNodeValidation.value;
+    const allNodeValidations = this._editedNodesValidation.value;
     if (allNodeValidations && this._flatNodes) {
       const invalidNodes: string[] = [];
 
@@ -570,7 +570,7 @@ export class AjfFormBuilderService {
             }
           });
 
-          this._editedNodeValidation.next(allNodeValidations);
+          this._editedNodesValidation.next(allNodeValidations);
         });
       }
     }
