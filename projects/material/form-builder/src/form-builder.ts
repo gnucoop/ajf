@@ -115,7 +115,7 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   private _editConditionDialog: MatDialogRef<AjfFbConditionEditorDialog> | null = null;
   private _beforeNodesUpdateSub: Subscription = Subscription.EMPTY;
   private _editChoicesOriginSub: Subscription = Subscription.EMPTY;
-  private _editNodeValidationSub: Subscription = Subscription.EMPTY;
+  private _editNodesValidationSub: Subscription = Subscription.EMPTY;
   private _editChoicesOriginDialog: MatDialogRef<AjfFbChoicesOriginEditorDialog> | null = null;
   private _stringIdentifierDialog: MatDialogRef<AjfFbStringIdentifierDialogComponent> | null = null;
   private _stringIdentifierSub: Subscription = Subscription.EMPTY;
@@ -153,7 +153,7 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       },
     );
 
-    this._editNodeValidationSub = this._service.editedNodeValidation.subscribe(
+    this._editNodesValidationSub = this._service.editedNodesValidation.subscribe(
       (nodeValidation: AjfFormBuilderValidation | null) => {
         if (nodeValidation != null) {
           this._formBuilderValidation.next(nodeValidation);
@@ -191,7 +191,7 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     this._editConditionSub.unsubscribe();
     this._beforeNodesUpdateSub.unsubscribe();
     this._editChoicesOriginSub.unsubscribe();
-    this._editNodeValidationSub.unsubscribe();
+    this._editNodesValidationSub.unsubscribe();
     this._stringIdentifierSub.unsubscribe();
     this._service.setForm(null);
     this._service.resetNodeEntriesTreeExpandedStatus();
