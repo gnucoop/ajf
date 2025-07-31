@@ -40,23 +40,20 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  ElementRef,
   EventEmitter,
   OnDestroy,
   OnInit,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import {
   AbstractControl,
   UntypedFormBuilder,
   UntypedFormGroup,
-  ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {EMPTY, Observable, Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
