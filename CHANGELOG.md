@@ -1,3 +1,13 @@
+<a name="18.0.2"></a>
+# 18.0.2 "anxious-heron" (2025-07-31)
+### Bug Fixes
+* **Cmaterial/form-builder:** disable save and show messages if errors in form ([d43669a](https://github.com/gnucoop/ajf/commit/d43669a191a3749473eef5f2e9fe350248d6c3cb))
+* **material/form-builder:** lint ([57cd7c1](https://github.com/gnucoop/ajf/commit/57cd7c1631dbd0132c47dfb99f471ef5f172b311))
+### Features
+* **material/form-builder:** Add and expose form builder validation via @Output ([d5147ae](https://github.com/gnucoop/ajf/commit/d5147ae9eb61ca2ba9c810ce6a1459bc3a7390d3))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.0.1"></a>
 # 18.0.1 "maximum-turkey" (2025-07-03)
 ### Bug Fixes
