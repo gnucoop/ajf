@@ -1,6 +1,9 @@
 <div>
   <mat-form-field>
-    <input matInput [(ngModel)]="name" [placeholder]="'Name' | transloco" />
+    <input matInput [(ngModel)]="name" [placeholder]="'Name' | transloco" required #nameInput="ngModel" />
+    <mat-error *ngIf="nameInput.invalid && nameInput.touched">
+      {{'Name is required' | transloco}}
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput [(ngModel)]="label" [placeholder]="'Label' | transloco" />

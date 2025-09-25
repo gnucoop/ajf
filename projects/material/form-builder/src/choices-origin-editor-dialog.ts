@@ -50,6 +50,10 @@ export class AjfFbChoicesOriginEditorDialog {
     );
   }
 
+  disableSave(): boolean {
+    return this.editor == null || this.editor.name == null || this.editor.name.trim().length === 0;
+  }
+
   saveChoicesOrigin(): void {
     this._service.saveChoicesOrigin({
       label: this.editor.label,
