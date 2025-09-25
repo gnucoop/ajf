@@ -1,3 +1,11 @@
+<a name="18.0.3"></a>
+# 18.0.3 "popular-pinniped" (2025-09-25)
+### Bug Fixes
+* **material/form-builder:** remove required from formulaReps for rep slide ([60f5ba3](https://github.com/gnucoop/ajf/commit/60f5ba37c598a562aa78215dfc271fb9d9fa7ed8))
+* **material/form-builder:** set name to required for choice origin ([94aa9ab](https://github.com/gnucoop/ajf/commit/94aa9ab9ffb7e4856185b8f5327be353882374eb))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.0.2"></a>
 # 18.0.2 "anxious-heron" (2025-07-31)
 ### Bug Fixes
