@@ -5,9 +5,9 @@
     [choicesOrigin]="co!"
   ></ajf-fb-choices-origin-editor>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-button (click)="saveChoicesOrigin()">{{'Save'|transloco}}</button>
-  <button mat-button (click)="cancelChoicesOriginEdit()">
+<mat-dialog-actions align="center">
+  <button mat-raised-button color="primary" (click)="saveChoicesOrigin()" [disabled]="disableSave()">{{'Save'|transloco}}</button>
+  <button mat-raised-button color="accent" (click)="cancelChoicesOriginEdit()">
     {{'Close'|transloco}}
   </button>
 </mat-dialog-actions>
