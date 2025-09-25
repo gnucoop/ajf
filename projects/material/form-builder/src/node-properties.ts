@@ -551,13 +551,19 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
    * @returns
    */
   allErrorMessages(formGroup: UntypedFormGroup | null): string | null {
-    if (!formGroup || !formGroup.errors) return null;
-    if (Object.keys(formGroup.errors).length) {
-      return Object.keys(formGroup.errors)
-        .map(key => `${key}: ${formGroup.errors?.[key]}`)
-        .join();
+    if (!formGroup) return null;
+    let formErrors: string[] = [];
+    if (formGroup.errors && Object.keys(formGroup.errors).length) {
+      formErrors = Object.keys(formGroup.errors).map(key => `${key}: ${formGroup.errors?.[key]}`);
     }
-    return null;
+
+    if (!formErrors.length && formGroup.controls) {
+      formErrors = Object.keys(formGroup.controls)
+        .filter(key => formGroup.controls[key].errors)
+        .map(key => `${key}: ${JSON.stringify(formGroup.controls[key].errors)}`);
+    }
+
+    return formErrors.join();
   }
 
   ngOnDestroy(): void {
@@ -654,7 +660,7 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
 
           const formulaReps = rn.formulaReps != null ? rn.formulaReps.formula : null;
 
-          controls.formulaReps = [formulaReps, Validators.required];
+          controls.formulaReps = [formulaReps];
           controls.minReps = rn.minReps;
           controls.maxReps = rn.maxReps;
 
