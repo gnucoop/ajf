@@ -60,6 +60,7 @@ import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
 import {AjfFbValidationConditionEditorDialog} from './validation-condition-editor-dialog';
 import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dialog';
 import {AjfNodePropertiesNameMatchValidator} from './node-properties-name-validator';
+import {NodeTypeFilterPipe} from './node-type-filter.pipe';
 
 @NgModule({
   imports: [
@@ -102,6 +103,7 @@ import {AjfNodePropertiesNameMatchValidator} from './node-properties-name-valida
     AjfFbValidationConditionEditorDialog,
     AjfFbWarningConditionEditorDialog,
     AjfFormBuilder,
+    NodeTypeFilterPipe,
   ],
   exports: [AjfFormBuilder],
   providers: [AjfFormBuilderService, AjfNodePropertiesNameMatchValidator],

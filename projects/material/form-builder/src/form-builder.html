@@ -1,42 +1,93 @@
 <mat-toolbar class="ajf-formbuilder-toolbar">
-  <button mat-icon-button (click)="leftSidenav.toggle()">
+  <button mat-icon-button (click)="leftSidenav.toggle()" aria-label="Toggle side navigation">
     <mat-icon>add_box</mat-icon>
   </button>
-  <button mat-button [matMenuTriggerFor]="choicesMenu">{{'Choices'|transloco}}</button>
-  <button mat-button (click)="editStringIdentifier()">{{'Identifier'|transloco}}</button>
-  <button mat-icon-button aria-label="Collapsed" matTooltip="Keep slides collapsed">
-    <mat-icon>unfold_less</mat-icon>
+  <button mat-button [matMenuTriggerFor]="choicesMenu">
+    {{ 'Choices' | transloco }}
   </button>
-  <mat-slide-toggle color="primary" (change)="expandToggle($event)"></mat-slide-toggle>
-  <button mat-icon-button aria-label="Expanded" matTooltip="Keep slides expanded">
-    <mat-icon>unfold_more</mat-icon>
+  <button mat-button (click)="editStringIdentifier()">
+    {{ 'Identifier' | transloco }}
   </button>
-  <mat-menu #choicesMenu>
-    <button (click)="createChoicesOrigin()" mat-menu-item>{{'New..'|transloco}}</button>
-    <ng-container *ngIf="choicesOrigins|async as cos">
+
+  <div class="ajf-toolbar-group">
+    <button
+      mat-icon-button
+      aria-label="Collapse all slides"
+      matTooltip="Keep slides collapsed"
+    >
+      <mat-icon>unfold_less</mat-icon>
+    </button>
+
+    <mat-slide-toggle
+      color="primary"
+      (change)="expandToggle($event)"
+      aria-label="Toggle slide expansion"
+    ></mat-slide-toggle>
+
+    <button
+      mat-icon-button
+      aria-label="Expand all slides"
+      matTooltip="Keep slides expanded"
+    >
+      <mat-icon>unfold_more</mat-icon>
+    </button>
+  </div>
+
+  <span class="ajf-spacer"></span>
+
+  <mat-menu #choicesMenu="matMenu">
+    <button mat-menu-item (click)="createChoicesOrigin()">
+      {{ 'New..' | transloco }}
+    </button>
+    <ng-container *ngIf="choicesOrigins | async as cos">
       <button
+        mat-menu-item
         *ngFor="let choicesOrigin of cos"
         (click)="editChoicesOrigin(choicesOrigin)"
-        mat-menu-item
       >
-        {{ (choicesOrigin.label || choicesOrigin.name)| transloco }}
+        {{ (choicesOrigin.label || choicesOrigin.name) | transloco }}
       </button>
     </ng-container>
   </mat-menu>
-  <span class="ajf-spacer"></span>
 </mat-toolbar>
+
 <div class="ajf-formtree-container">
-  <mat-drawer-container cdkDropListGroup class="ajf-formtree-drawer-container">
-    <mat-drawer #leftSidenav position="start" mode="over">
+  <mat-drawer-container
+    cdkDropListGroup
+    class="ajf-formtree-drawer-container"
+  >
+    <mat-drawer #leftSidenav position="start" mode="over" class="ajf-sidenav-modern">
+      <div class="ajf-drawer-header">
+        <mat-form-field class="ajf-search-field" floatLabel="auto">
+          <mat-icon matPrefix>search</mat-icon>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="searchTerm"
+            placeholder="{{ 'Search elements...' | transloco }}"
+          />
+          <button
+            *ngIf="searchTerm"
+            matSuffix
+            mat-icon-button
+            aria-label="Clear"
+            (click)="searchTerm=''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    
       <div
         #sourceDropList
+        class="ajf-drawer-content"
         cdkDropList
-        [cdkDropListConnectedTo]="(connectedDropLists|async)!"
+        [cdkDropListConnectedTo]="(connectedDropLists | async)!"
         [cdkDropListEnterPredicate]="disableDrop"
         [cdkDropListData]="nodeTypes"
       >
         <ajf-fb-node-type-entry
-          *ngFor="let nodeType of nodeTypes"
+          *ngFor="let nodeType of nodeTypes | nodeTypeFilter: searchTerm"
           cdkDrag
           [cdkDragData]="nodeType"
           (cdkDragStarted)="leftSidenav.close()"
@@ -44,18 +95,20 @@
         ></ajf-fb-node-type-entry>
       </div>
     </mat-drawer>
+    
     <div #designer class="ajf-designer">
       <ajf-fb-node-entry
         id="slides-list"
         cdkDropList
         (cdkDropListDropped)="onDrop($event)"
         [cdkDropListEnterPredicate]="disableFieldDrop"
-        *ngFor="let nodeEntry of (nodeEntriesTree|async); let isFirst = first"
+        *ngFor="let nodeEntry of (nodeEntriesTree | async); let isFirst = first"
         [isFirst]="isFirst"
         [nodeEntry]="nodeEntry"
       ></ajf-fb-node-entry>
     </div>
   </mat-drawer-container>
+
   <div class="ajf-formtree-properties" #rightSidenav position="end" mode="side">
     <ajf-fb-node-properties></ajf-fb-node-properties>
   </div>
