@@ -22,6 +22,7 @@
 
 import {
   AjfChoicesOrigin,
+  AjfEmptyField,
   AjfFieldWithChoices,
   AjfNode,
   AjfNumberField,
@@ -31,6 +32,7 @@ import {
   isField,
   isFieldWithChoices,
   isNumberField,
+  isEmptyField,
   isRangeField,
   isRepeatingContainerNode,
   isTableField,
@@ -486,6 +488,10 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
     return isField(node) && isNumberField(node);
   }
 
+  isEmptyField(node: AjfNode): node is AjfEmptyField {
+    return isField(node) && isEmptyField(node);
+  }
+
   isFieldWithChoices(node: AjfNode): node is AjfFieldWithChoices<any> {
     return isField(node) && isFieldWithChoices(node);
   }
@@ -648,7 +654,7 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
             Validators.required,
             this._nodeNameValidator.sameValueCheck(this._cdr, n.node.id),
           ],
-          label: [n.node.label, Validators.required],
+          label: [n.node.label],
           visibilityOpt: [visibilityOpt, Validators.required],
           visibility: [visibility, Validators.required],
           conditionalBranchesNum: n.node.conditionalBranches.length,
@@ -747,6 +753,11 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
 
           validators.push(checkValueLimitsValidity);
           validators.push(checkDigitsValidity);
+        }
+
+        if (this.isEmptyField(node)) {
+          const {HTML} = node;
+          controls.HTML = HTML;
         }
 
         if (this.isRangeField(node)) {

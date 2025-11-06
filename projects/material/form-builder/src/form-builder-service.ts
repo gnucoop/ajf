@@ -43,6 +43,7 @@ import {
   createWarningGroup,
   isChoicesFixedOrigin,
   isContainerNode,
+  isEmptyField,
   isField,
   isFieldWithChoices,
   isRangeField,
@@ -285,6 +286,10 @@ export class AjfFormBuilderService {
     {
       label: 'Formula',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Formula},
+    },
+    {
+      label: 'Note',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Empty},
     },
     {
       label: 'Date',
@@ -924,13 +929,35 @@ export class AjfFormBuilderService {
 
   private _findMaxNodeId(nodes: AjfNode[], _curMaxId = 0): number {
     let maxId = 0;
+    let maxNewFieldCounter = 0;
+    let maxNewSlideCounter = 0;
     nodes.forEach(n => {
       maxId = Math.max(maxId, n.id);
       if (isContainerNode(n)) {
         maxId = Math.max(maxId, this._findMaxNodeId((<AjfContainerNode>n).nodes));
       }
+
+      if (n.name.startsWith('new_field_')) {
+        const newFieldNumber = this._extractNumberFromName(n.name, 'new_field_');
+        if (newFieldNumber !== null) {
+          maxNewFieldCounter = Math.max(maxNewFieldCounter, newFieldNumber);
+        }
+      } else if (n.name.startsWith('new_slide_')) {
+        const newSlideNumber = this._extractNumberFromName(n.name, 'new_slide_');
+        if (newSlideNumber !== null) {
+          maxNewSlideCounter = Math.max(maxNewSlideCounter, newSlideNumber);
+        }
+      }
     });
+    this._emptyFieldCounter = Math.max(this._emptyFieldCounter, maxNewFieldCounter + 1);
+    this._emptySlideCounter = Math.max(this._emptySlideCounter, maxNewSlideCounter + 1);
     return maxId;
+  }
+
+  private _extractNumberFromName(str: string, prefix: string): number | null {
+    const regex = new RegExp(`^${prefix}(\\d+)$`);
+    const match = regex.exec(str);
+    return match ? Number(match[1]) : null;
   }
 
   private _initFormStreams(): void {
@@ -1168,6 +1195,10 @@ export class AjfFormBuilderService {
               node.start = properties.start;
               node.end = properties.end;
               node.step = properties.step;
+            }
+
+            if (isEmptyField(node)) {
+              node.HTML = properties.HTML;
             }
 
             if (isTableField(node)) {
