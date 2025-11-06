@@ -169,6 +169,7 @@ export * from './utils/fields/is-custom-field-with-choices';
 export * from './utils/fields/is-field-with-choices';
 export * from './utils/fields/is-number-field';
 export * from './utils/fields/is-range-field';
+export * from './utils/fields/is-empty-field';
 export * from './utils/fields/is-table-field';
 export * from './utils/fields-instances/create-field-instance';
 export * from './utils/fields-instances/create-field-with-choices-instance';
