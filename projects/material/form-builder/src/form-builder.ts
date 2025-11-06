@@ -108,6 +108,8 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     return this._connectedDropLists;
   }
 
+  searchTerm: string = '';
+
   private _vc: EventEmitter<void> = new EventEmitter<void>();
 
   private _init = false;
