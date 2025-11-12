@@ -654,7 +654,7 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
             Validators.required,
             this._nodeNameValidator.sameValueCheck(this._cdr, n.node.id),
           ],
-          label: [n.node.label],
+          label: [n.node.label, Validators.required],
           visibilityOpt: [visibilityOpt, Validators.required],
           visibility: [visibility, Validators.required],
           conditionalBranchesNum: n.node.conditionalBranches.length,
