@@ -201,8 +201,9 @@
                           </div>
                         </mat-card-header>
                         <mat-card-content>
-                          <div *ngIf="lastSlide && !readonly" class="ajf-group-actions">
+                          <div *ngIf="!readonly" class="ajf-group-actions">
                             <button
+                              *ngIf="lastSlide"
                               (click)="addGroup(slideInstance)"
                               [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canAdd || ((slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval && !slideInstance.valid)"
                               mat-mini-fab
@@ -210,7 +211,7 @@
                               <mat-icon>add</mat-icon>
                             </button>
                             <button
-                              (click)="removeGroup(slideInstance)"
+                              (click)="removeGroup(slideInstance, idx)"
                               [disabled]="!(slideInstance|ajfAsRepeatingSlideInstance).canRemove || (slideInstance|ajfAsRepeatingSlideInstance).node.disableRemoval"
                               mat-mini-fab
                             >

@@ -319,8 +319,8 @@ export const formSchema: any = {
         {
           parent: 500,
           id: 500001,
-          name: 'name',
-          label: "Child's name",
+          name: 'name2',
+          label: "Child's name two",
           nodeType: 0,
           fieldType: 0,
           validation: {notEmpty: true},
@@ -328,8 +328,8 @@ export const formSchema: any = {
         {
           parent: 500001,
           id: 500002,
-          name: 'birthweight',
-          label: "Child's birthweight",
+          name: 'birthweight2',
+          label: "Child's birthweight two",
           nodeType: 0,
           fieldType: 2,
         },
