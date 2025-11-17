@@ -313,7 +313,10 @@ export class AjfFormRendererService {
     });
   }
 
-  removeGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean> {
+  removeGroup(
+    group: AjfNodeGroupInstance | AjfRepeatingSlideInstance,
+    idx: number,
+  ): Observable<boolean> {
     return new Observable<boolean>((subscriber: Subscriber<boolean>) => {
       if (group.formulaReps != null) {
         subscriber.next(false);
@@ -331,7 +334,7 @@ export class AjfFormRendererService {
       group.canAdd = group.node.maxReps === 0 || group.reps < group.node.maxReps;
       group.canRemove = group.node.minReps === 0 || group.reps > group.node.minReps;
       this._nodesUpdates.next((nodes: AjfNodeInstance[]): AjfNodeInstance[] => {
-        this._adjustReps(nodes, group, oldReps, this.getFormValue());
+        this._adjustReps(nodes, group, oldReps, this.getFormValue(), idx);
         subscriber.next(true);
         subscriber.complete();
         return nodes;
@@ -735,11 +738,21 @@ export class AjfFormRendererService {
     return instance;
   }
 
+  /**
+   * Adjust rep slide when add or remove one's
+   * @param allNodes All nodes of the form
+   * @param instance All the existing instance reps
+   * @param oldReps The number of initial reps
+   * @param context The form context
+   * @param idxToRemove The index of the slide to be removed (optional, default to last)
+   * @returns
+   */
   private _adjustReps(
     allNodes: AjfNode[] | AjfNodeInstance[],
     instance: AjfRepeatingContainerNodeInstance,
     oldReps: number,
     context: AjfContext,
+    idxToRemove?: number,
   ): {added: AjfNodeInstance[] | null; removed: AjfNodeInstance[] | null} {
     const newReps = instance.reps;
     const result: {
@@ -792,9 +805,11 @@ export class AjfFormRendererService {
       if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
         nodesNum++;
       }
+
       result.removed = instance.nodes.splice(newReps * nodesNum, nodesNum);
+      const idxSlideToRemove = idxToRemove ?? newReps;
       result.removed.forEach(n => {
-        this._removeNodeInstance(n);
+        this._removeNodeInstance(n, idxSlideToRemove);
       });
     }
     if (oldReps != newReps && instance.formulaReps == null) {
@@ -1177,12 +1192,37 @@ export class AjfFormRendererService {
     );
   }
 
-  private _removeNodeInstance(nodeInstance: AjfNodeInstance): AjfNodeInstance {
+  /**
+   * Removes a repeated node instance from the form.
+   *
+   * This method removes the node instance at the specified repetition index.
+   * If the removed instance is not the last one, it shifts all subsequent
+   * instances up by one position to keep the sequence contiguous, and then
+   * clears the final (now duplicated) instance.
+   *
+   * It also updates all internal tracking maps (visibility, validation, formulas,
+   * warnings, conditions, etc.) to remove references to the deleted node.
+   *
+   * @param nodeInstance The node instance to remove (always corresponds to the last repetition index).
+   * @param idxToRemove The index of the repeated instance to delete.
+   * @returns The removed node instance.
+   */
+  private _removeNodeInstance(nodeInstance: AjfNodeInstance, idxToRemove: number): AjfNodeInstance {
     const nodeName = nodeInstanceCompleteName(nodeInstance);
     const fg = this._formGroup.getValue();
     if (fg != null) {
       const curValue = fg.value;
-      const newFormValue = {...curValue, [nodeName]: undefined};
+
+      const maxIdx = nodeInstance.prefix ? nodeInstance.prefix[0] : 30;
+      let newFormValue = {...curValue};
+      const baseNodeName = nodeInstance.node.name;
+      for (let i = idxToRemove; i < maxIdx; i++) {
+        const currInstanceCompleteName = `${baseNodeName}__${i}`;
+        const nextInstanceCompleteName = `${baseNodeName}__${i + 1}`;
+        newFormValue[currInstanceCompleteName] = newFormValue[nextInstanceCompleteName];
+      }
+
+      newFormValue = {...newFormValue, [nodeName]: undefined};
       fg.patchValue(newFormValue);
     }
     this._removeNodesVisibilityMapIndex(nodeName);

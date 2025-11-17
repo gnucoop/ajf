@@ -277,9 +277,10 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
    */
   removeGroup(
     nodeGroup: AjfNodeGroupInstance | AjfSlideInstance | AjfRepeatingSlideInstance,
+    idx: number
   ): void {
     let s = this._rendererService
-      .removeGroup(nodeGroup as AjfNodeGroupInstance)
+      .removeGroup(nodeGroup as AjfNodeGroupInstance, idx)
       .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
       .subscribe({
         next: r => {
