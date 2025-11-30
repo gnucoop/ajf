@@ -83,7 +83,7 @@ import {AjfNodePropertiesNameMatchValidator} from './node-properties-name-valida
 function checkRepsValidity(c: AbstractControl): {[key: string]: any} | null {
   const minReps = c.value.minReps;
   const maxReps = c.value.maxReps;
-  if (minReps != null && maxReps != null && minReps > maxReps) {
+  if (minReps && maxReps && minReps > maxReps) {
     return {reps: 'Min repetions cannot be greater than max repetitions'};
   }
   return null;

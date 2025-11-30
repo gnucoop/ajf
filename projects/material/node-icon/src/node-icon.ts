@@ -33,8 +33,11 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
 })
 export class AjfNodeIcon extends CoreNodeIcon {
   matIcon(node: AjfNode): string {
-    if (node.nodeType === AjfNodeType.AjfSlide || node.nodeType === AjfNodeType.AjfRepeatingSlide) {
-      return 'topic';
+    if (node.nodeType === AjfNodeType.AjfSlide) {
+      return 'folder';
+    }
+    if (node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+      return 'create_new_folder';
     }
     if (node.nodeType !== AjfNodeType.AjfField) {
       return 'broken_image';
