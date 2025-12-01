@@ -1,3 +1,17 @@
+<a name="18.0.4"></a>
+# 18.0.4 "glad-cougar" (2025-12-01)
+### Bug Fixes
+* **core/models:** ALL_VALUES_OF: stringify json if val is object (images, signature) ([b99cd83](https://github.com/gnucoop/ajf/commit/b99cd83abd33f545de9006473cab61034470cc7b))
+* **material/form-builder:** ordered name and label input ([84dcc8d](https://github.com/gnucoop/ajf/commit/84dcc8d1e5e41f2178af9fbc98c2b4d6d8746ec6))
+* **material/form-builder:** slides icons and min/maxReps error ([e6d5a70](https://github.com/gnucoop/ajf/commit/e6d5a70599dbf99a7d2529106868cf9edc0249f1))
+### Features
+* **core/forms:** Added support for removing rep slides other than the last one ([3dcf50f](https://github.com/gnucoop/ajf/commit/3dcf50fb3e9521886daf73aa906fbf25a33ae0f8))
+* **material/form-builder:** add Note field in form builder ([0cb771e](https://github.com/gnucoop/ajf/commit/0cb771efb7ae86a1c02ac139b55c375c6f5e9e02))
+* **material/form-builder:** undo label not required ([920db41](https://github.com/gnucoop/ajf/commit/920db414fe7b30fe98e9a9c54070287b77b59ce0))
+* **material/from-builder:** restyle fb sidenav menu ([698bc2e](https://github.com/gnucoop/ajf/commit/698bc2e2a157a30a3ad70188978f34a9f617b661))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.0.3"></a>
 # 18.0.3 "popular-pinniped" (2025-09-25)
 ### Bug Fixes
