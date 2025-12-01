@@ -33,7 +33,7 @@ import {ChoicesOriginChoiceEntry, ChoicesOriginDataSource} from './choices-origi
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfFbChoicesOriginEditor {
-  private _displayedColumns: string[] = ['label', 'value', 'delete'];
+  private _displayedColumns: string[] = ['value', 'label', 'delete'];
   get displayedColumns(): string[] {
     return this._displayedColumns;
   }

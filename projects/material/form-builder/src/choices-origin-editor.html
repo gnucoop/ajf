@@ -14,20 +14,20 @@
       <span>{{'Add value'|transloco}}</span>
     </button>
     <mat-table [dataSource]="choices">
+      <ng-container matColumnDef="value">
+        <mat-header-cell *matHeaderCellDef
+          >{{'Name'|transloco}}</mat-header-cell
+        >
+        <mat-cell *matCellDef="let row; let idx = index">
+          <input matInput [(ngModel)]="row.value" type="text" />
+        </mat-cell>
+      </ng-container>
       <ng-container matColumnDef="label">
         <mat-header-cell *matHeaderCellDef
           >{{'Label'|transloco}}</mat-header-cell
         >
         <mat-cell *matCellDef="let row; let idx = index">
           <input matInput [(ngModel)]="row.label" type="text" />
-        </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="value">
-        <mat-header-cell *matHeaderCellDef
-          >{{'Value'|transloco}}</mat-header-cell
-        >
-        <mat-cell *matCellDef="let row; let idx = index">
-          <input matInput [(ngModel)]="row.value" type="text" />
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="delete">
