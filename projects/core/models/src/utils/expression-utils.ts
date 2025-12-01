@@ -764,11 +764,19 @@ export function ALL_VALUES_OF(
   let values: string[] = [];
   for (const form of forms) {
     if (form[field] != null && filter(form)) {
-      values.push(String(form[field]));
+      if (typeof form[field] === 'object' && !Array.isArray(form[field])) {
+        values.push(JSON.stringify(form[field]));
+      } else {
+        values.push(String(form[field]));
+      }
     }
     for (const rep of allReps(form)) {
       if (rep[field] != null && filter({...form, ...rep})) {
-        values.push(String(rep[field]));
+        if (typeof rep[field] === 'object' && !Array.isArray(rep[field])) {
+          values.push(JSON.stringify(rep[field]));
+        } else {
+          values.push(String(rep[field]));
+        }
       }
     }
   }
