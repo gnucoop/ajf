@@ -1,3 +1,8 @@
+<a name="18.0.5"></a>
+# 18.0.5 "eerie-hamster" (2025-12-01)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.0.4"></a>
 # 18.0.4 "glad-cougar" (2025-12-01)
 ### Bug Fixes
