@@ -29,8 +29,7 @@ export const testReport = {
     'content': [
       {
         'widgetType': 3,
-        'htmlText':
-`<h1 align="center">Heading 1</h1>
+        'htmlText': `<h1 align="center">Heading 1</h1>
 <h2>Heading 2</h2>
 <p>
 Lorem ipsum dolor sit amet, <b>consectetur</b> adipiscing elit,
@@ -119,7 +118,7 @@ sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             {
               'label': '',
               'formula': {
-                'formula': '"2a1"',
+                'formula': '["2a1","2aa1","2aaaa1"]',
               },
               'aggregation': {
                 'aggregation': 0,
@@ -176,6 +175,44 @@ sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               'label': '',
               'formula': {
                 'formula': '"3c"',
+              },
+              'aggregation': {
+                'aggregation': 0,
+              },
+            },
+          ],
+          [
+            {
+              'label': '',
+              'formula': {
+                'formula': '12',
+              },
+              'aggregation': {
+                'aggregation': 0,
+              },
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '15',
+              },
+              'aggregation': {
+                'aggregation': 0,
+              },
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '18',
+              },
+              'aggregation': {
+                'aggregation': 0,
+              },
+            },
+            {
+              'label': '',
+              'formula': {
+                'formula': '360',
               },
               'aggregation': {
                 'aggregation': 0,

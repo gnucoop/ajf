@@ -115,7 +115,11 @@ function buildXlsxData(
           tableData[i].forEach((elem: AjfTableCell, idxElem: number) => {
             let val = elem.value?.changingThisBreaksApplicationSecurity;
             if (val === undefined) {
-              val = elem.value;
+              if (Array.isArray(elem.value)) {
+                val = String(elem.value);
+              } else {
+                val = elem.value;
+              }
             }
             if (val != null && iconsMap[val]) {
               val = iconsMap[val];
