@@ -73,6 +73,7 @@ import {
   AjfFormBuilderNodeEntry,
   AjfFormBuilderService,
   AjfFormBuilderValidation,
+  cleanDefaultValue,
   FormBuilderFieldValidation,
 } from './form-builder-service';
 import {AjfFbValidationConditionEditorDialog} from './validation-condition-editor-dialog';
@@ -700,9 +701,13 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
             });
           }
           const formula = node.formula != null ? node.formula.formula : null;
+          const defaultValue =
+            node.defaultValue && node.defaultValue.formula != null
+              ? node.defaultValue.formula
+              : cleanDefaultValue(node.defaultValue, node);
 
           controls.description = node.description;
-          controls.defaultValue = node.defaultValue;
+          controls.defaultValue = defaultValue;
           controls.hint = node.hint;
           controls.size = node.size;
           controls.formula = formula;

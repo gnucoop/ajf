@@ -57,7 +57,13 @@ import {
   notEmptyValidation,
   notEmptyWarning,
 } from '@ajf/core/forms';
-import {AjfCondition, alwaysCondition, createCondition, createFormula} from '@ajf/core/models';
+import {
+  AjfCondition,
+  AjfFormula,
+  alwaysCondition,
+  createCondition,
+  createFormula,
+} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {moveItemInArray} from '@angular/cdk/drag-drop';
 import {EventEmitter, Injectable} from '@angular/core';
@@ -135,23 +141,74 @@ function getNodeContainer(c: {nodes: AjfNode[]}, node: AjfNode): {nodes: AjfNode
   return null;
 }
 
+function toArray(input: string): string[] {
+  if (!input) return [];
+  input = input.replace(/\[|\]/g, '').trim();
+  return input
+    .split(',')
+    .map(s => s.trim())
+    .map(s => s.replace(/^['"]|['"]$/g, ''))
+    .filter(s => s);
+}
+
+/**
+ * Take the defaultValue from the properties box and return the new value to save in the ajf form defaultValue field properties
+ * @param value
+ * @param node
+ * @returns
+ * {"formula": "'colazione note'"}
+ * {"formula": "'[\"colazione\", \"docce\"]'"}
+ * {"formula": "3"}
+ * {"formula": "(1 === 1)"}
+ */
 function getDefaultValue(
   value: any,
   node: AjfField<any>,
-): string | string[] | number | boolean | null {
+): string | string[] | number | boolean | AjfFormula | null {
   let defaultValue = value && (value as string).trim() != '' ? (value as string) : null;
   if (defaultValue) {
     switch (node.fieldType) {
       case AjfFieldType.Boolean:
-        return defaultValue === 'true' || defaultValue === '1';
+        if (defaultValue === 'true' || defaultValue === '1') {
+          return true;
+        }
+        if (defaultValue === 'false' || defaultValue === '0') {
+          return false;
+        }
+        return createFormula({formula: defaultValue});
       case AjfFieldType.MultipleChoice:
-        return [defaultValue];
-      case AjfFieldType.Number:
-        const v = +defaultValue;
-        return isNaN(v) ? 0 : v;
+        // return a string[]
+        return toArray(defaultValue);
     }
+    return createFormula({formula: defaultValue});
   }
   return defaultValue;
+}
+
+/**
+ * Take the defaultValue from the ajf form defaultValue prop (non formula)
+ * and return the value to be shown in the properties box
+ * @param value
+ * @param node
+ * @returns
+ */
+export function cleanDefaultValue(value: any, node: AjfField<any>): string | null {
+  if (!value || String(value).trim() === '') {
+    return null;
+  }
+
+  switch (node.fieldType) {
+    case AjfFieldType.String:
+    case AjfFieldType.Text:
+    case AjfFieldType.SingleChoice:
+      if (/^"[^"]*"$/.test(String(value)) || /^'[^']*'$/.test(String(value))) {
+        return String(value);
+      }
+      return `'${String(value)}'`;
+    case AjfFieldType.MultipleChoice:
+      return JSON.stringify(value);
+  }
+  return String(value);
 }
 
 function buildFormBuilderNodesSubtree(

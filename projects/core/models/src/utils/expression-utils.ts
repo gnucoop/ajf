@@ -258,8 +258,27 @@ export function createFunction(expression: string): Func {
     return c => (c == null || c[expression] === undefined ? null : c[expression]);
   }
   if (/^"[^"]*"$/.test(expression) || /^'[^']*'$/.test(expression)) {
+    // expression is a string
     let str = expression.slice(1, -1);
+    if (/^\[.*\]$/.test(str)) {
+      // The string is an array
+      try {
+        const arr = JSON.parse(str.replace(/'/g, '"'));
+        if (Array.isArray(arr)) {
+          return _ => arr;
+        }
+      } catch {}
+    }
     return _ => str;
+  }
+  if (/^\[.*\]$/.test(expression)) {
+    // expression is an array
+    const arr = JSON.parse(expression.replace(/'/g, '"'));
+    if (Array.isArray(arr)) {
+      return _ => arr;
+    } else {
+      return _ => [];
+    }
   }
 
   const identifiers = new Set(getCodeIdentifiers(expression, true)).add('execContext');
