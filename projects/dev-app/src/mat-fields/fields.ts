@@ -185,4 +185,19 @@ export const fields: {name: string; instance: AjfFieldInstance}[] = [
       {},
     ),
   },
+  {
+    name: 'Audio',
+    instance: createFieldInstance(
+      {
+        node: createField({
+          id: 1,
+          name: 'audio_field',
+          parent: 0,
+          parentNode: 0,
+          fieldType: AjfFieldType.Audio,
+        }),
+      },
+      {},
+    ),
+  },
 ];

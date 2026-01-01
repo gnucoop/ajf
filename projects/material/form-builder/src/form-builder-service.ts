@@ -331,6 +331,10 @@ export class AjfFormBuilderService {
       label: 'Range',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Range},
     },
+    {
+      label: 'Audio',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Audio},
+    },
   ];
   /**
    * Available node types

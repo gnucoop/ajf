@@ -40,7 +40,10 @@ import {AjfTableField} from './table-field';
 import {AjfTextField} from './text-field';
 import {AjfTimeField} from './time-field';
 
+import {AjfAudioField} from './audio-field';
+
 export type AjfField<T = any> =
+  | AjfAudioField
   | AjfBarcodeField
   | AjfBooleanField
   | AjfDateField
