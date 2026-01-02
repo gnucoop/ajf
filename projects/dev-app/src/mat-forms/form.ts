@@ -29,6 +29,7 @@ export const formContext: any = {
   'value5': 5,
   'value6': 6,
   'range': 2,
+  'range_rating': 3,
 };
 
 export const formSchema: any = {
@@ -165,6 +166,18 @@ export const formSchema: any = {
         {parent: 1008, id: 1009, name: 'range', label: 'Range', nodeType: 0, fieldType: 17},
         {
           parent: 1009,
+          id: 10091,
+          name: 'range_rating',
+          label: 'Range with Rating Appearance',
+          nodeType: 0,
+          fieldType: 17,
+          appearance: 'rating',
+          start: 1,
+          end: 5,
+          step: 1,
+        },
+        {
+          parent: 10091,
           id: 1010,
           name: 'signature',
           label: 'Signature',

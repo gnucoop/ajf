@@ -35,6 +35,7 @@ export abstract class AjfRange
   extends AjfBaseFieldComponent<AjfRangeFieldInstance>
   implements ControlValueAccessor, OnInit
 {
+  private _appearance: string = '';
   private _end: number = 10;
   private _name: string = '';
   private _onChangeCallback: (value: any) => void = _ => {};
@@ -51,6 +52,17 @@ export abstract class AjfRange
     @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
   ) {
     super(cdr, service, was);
+  }
+
+  get appearance(): string {
+    return this._appearance;
+  }
+  @Input()
+  set appearance(newAppearance: string) {
+    if (newAppearance != null && this._appearance != newAppearance) {
+      this._appearance = newAppearance;
+      this.cdr.detectChanges();
+    }
   }
 
   get end(): number | undefined {
@@ -113,6 +125,9 @@ export abstract class AjfRange
     super.ngOnInit();
     if (this.instance != null && this.instance.node != null) {
       const node = this.instance.node;
+      if (node.appearance != null) {
+        this.appearance = node.appearance;
+      }
       if (node.end != null) {
         this.end = node.end;
       }

@@ -15,6 +15,19 @@ The repository is organized into distinct project types under `projects/`:
 - **`projects/dev-app`**: A monolithic development application to test all features.
   - It loads various demo modules (e.g., `mat-forms`, `mat-barcode`, `mat-audio`) via lazy loading in `routes.ts`.
 
+## 1.1 JSON Data Model Snippet
+Example of how a field is represented in the JSON schema (`testformschema.json`):
+```json
+{
+  "type": "my_new_field", // Maps to AjfFieldType
+  "name": "my_field_id",
+  "label": "My Label",
+  "attributes": {
+    "custom_prop": "value" // Mapped in the Interface
+  }
+}
+```
+
 ## 2. Field Architecture Patterns
 
 When adding a new field type (e.g., "Audio", "Signature"), choose one of two patterns:
