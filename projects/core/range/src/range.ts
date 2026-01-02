@@ -162,4 +162,15 @@ export abstract class AjfRange
   writeValue(value: number): void {
     this.value = value;
   }
+
+  /**
+   * Handles rating star clicks by updating the form control value
+   * @param starValue The rating value (1-5) to set
+   */
+  onRatingClick(starValue: number): void {
+    this._value = starValue;
+    this._onChangeCallback(starValue);
+    this._onTouchedCallback();
+    this.cdr.detectChanges();
+  }
 }
