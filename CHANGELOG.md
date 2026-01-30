@@ -1,3 +1,11 @@
+<a name="18.0.6"></a>
+# 18.0.6 "xerothermic-lynx" (2026-01-30)
+### Bug Fixes
+* **core/reports:** export all values for array for table in reports ([3077d08](https://github.com/gnucoop/ajf/commit/3077d082f16c013e93c11626047e39e6d3cf20dc))
+* **material/form-builder:** fix default value in form builder ([4c721e9](https://github.com/gnucoop/ajf/commit/4c721e9f2d6662efa555187b66906bea2c8ce4e9))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.0.5"></a>
 # 18.0.5 "eerie-hamster" (2025-12-01)
 
