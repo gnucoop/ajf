@@ -20,30 +20,4 @@
  *
  */
 
-/**
- * The available ajf field types.
- */
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfFieldType {
-  String,
-  Text,
-  Number,
-  Boolean,
-  SingleChoice,
-  MultipleChoice,
-  Formula,
-  Empty,
-  Date,
-  DateInput,
-  Time,
-  Table,
-  Geolocation,
-  Barcode,
-  File,
-  Image,
-  VideoUrl,
-  Range,
-  Signature,
-  Audio,
-  LENGTH,
-}
+export * from './audio';

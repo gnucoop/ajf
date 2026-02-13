@@ -1,0 +1,47 @@
+<div class="ajf-field-wrapper">
+  <div class="ajf-audio-controls">
+    <!-- Start Recording Button -->
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="startRecording()"
+      *ngIf="!isRecording && !audioUrl"
+      [disabled]="readonly"
+      matTooltip="Start Recording"
+    >
+      <mat-icon>mic</mat-icon>
+    </button>
+
+    <!-- Stop Recording Button -->
+    <button
+      mat-mini-fab
+      color="warn"
+      (click)="stopRecording()"
+      *ngIf="isRecording"
+      matTooltip="Stop Recording"
+    >
+      <mat-icon>stop</mat-icon>
+    </button>
+
+    <!-- Recording Indicator -->
+    <div *ngIf="isRecording" class="recording-indicator">
+      <mat-icon>fiber_manual_record</mat-icon>
+      Recording...
+    </div>
+
+    <!-- Playback -->
+    <audio *ngIf="audioUrl" [src]="audioUrl" controls></audio>
+
+    <!-- Delete/Reset Button -->
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="clearRecording()"
+      *ngIf="audioUrl"
+      [disabled]="readonly"
+      matTooltip="Delete Audio"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

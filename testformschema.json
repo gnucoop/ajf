@@ -408,6 +408,23 @@
           "fieldType": 16
         }
       ]
+    },
+    {
+      "parent": 9,
+      "id": 10,
+      "name": "audio_slide",
+      "label": "Audio Recording",
+      "nodeType": 3,
+      "nodes": [
+        {
+          "id": 1001,
+          "parent": 10,
+          "name": "audio_recording",
+          "label": "Record Audio",
+          "nodeType": 0,
+          "fieldType": 19
+        }
+      ]
     }
   ]
 }

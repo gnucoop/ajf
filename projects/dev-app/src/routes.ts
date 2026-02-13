@@ -46,6 +46,10 @@ export const DEV_APP_ROUTES: Routes = [
     loadChildren: () => import('./mat-barcode/barcode-demo-module').then(m => m.BarcodeDemoModule),
   },
   {
+    path: 'mat-audio',
+    loadChildren: () => import('./mat-audio/audio-demo-module').then(m => m.AudioDemoModule),
+  },
+  {
     path: 'mat-geolocation',
     loadChildren: () =>
       import('./mat-geolocation/geolocation-demo-module').then(m => m.GeolocationDemoModule),
