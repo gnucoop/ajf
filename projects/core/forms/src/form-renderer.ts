@@ -315,7 +315,7 @@ export class AjfFormRendererService {
 
   removeGroup(
     group: AjfNodeGroupInstance | AjfRepeatingSlideInstance,
-    idx: number,
+    idx?: number,
   ): Observable<boolean> {
     return new Observable<boolean>((subscriber: Subscriber<boolean>) => {
       if (group.formulaReps != null) {
