@@ -243,42 +243,19 @@ const globals = [
 type Func = (c?: AjfContext) => any;
 
 export function createFunction(expression: string): Func {
-  if (expression == null) {
+  expression = String(expression);
+  if (expression === 'undefined') {
     return _ => null;
   }
-  expression = String(expression);
-  if (expression === 'true') {
-    return _ => true;
-  }
-  if (expression === 'false') {
-    return _ => false;
-  }
+  // Fast path for expressions that are pure json.
+  // Also works for null, booleans, numbers, strings and arrays
+  try {
+    const val = JSON.parse(expression);
+    return _ => val;
+  } catch {}
+  // Fast path for expressions that consist of a single identifier
   if (/^[a-zA-Z_$][\w$]*$/.test(expression)) {
-    // expression is an identifier
     return c => (c == null || c[expression] === undefined ? null : c[expression]);
-  }
-  if (/^"[^"]*"$/.test(expression) || /^'[^']*'$/.test(expression)) {
-    // expression is a string
-    let str = expression.slice(1, -1);
-    if (/^\[.*\]$/.test(str)) {
-      // The string is an array
-      try {
-        const arr = JSON.parse(str.replace(/'/g, '"'));
-        if (Array.isArray(arr)) {
-          return _ => arr;
-        }
-      } catch {}
-    }
-    return _ => str;
-  }
-  if (/^\[.*\]$/.test(expression)) {
-    // expression is an array
-    const arr = JSON.parse(expression.replace(/'/g, '"'));
-    if (Array.isArray(arr)) {
-      return _ => arr;
-    } else {
-      return _ => [];
-    }
   }
 
   const identifiers = new Set(getCodeIdentifiers(expression, true)).add('execContext');

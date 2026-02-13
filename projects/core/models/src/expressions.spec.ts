@@ -1,6 +1,18 @@
 import {AjfExpressionUtils, evaluateExpression, FILTER_BY, validateExpression} from './public_api';
 
 describe('evaluateExpression', () => {
+  it('should evaluate simple expressions', () => {
+    expect(evaluateExpression('undefined')).toEqual(null);
+    expect(evaluateExpression('null')).toEqual(null);
+    expect(evaluateExpression('false')).toEqual(false);
+    expect(evaluateExpression('5')).toEqual(5);
+    expect(evaluateExpression('"pippo"')).toEqual('pippo');
+    expect(evaluateExpression('"[]"')).toEqual('[]');
+    expect(evaluateExpression('[1, 2, 3]')).toEqual([1, 2, 3]);
+    expect(evaluateExpression('{"foo":"bar"}')).toEqual({foo: 'bar'});
+    expect(evaluateExpression('pluto', {pluto: 6})).toEqual(6);
+  });
+
   it('should evalute expressions given a context', () => {
     expect(evaluateExpression('foo > 2', {foo: 4})).toBe(true);
     expect(evaluateExpression('foo == false', {foo: false})).toBe(true);
