@@ -35,7 +35,7 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
-  "version": "18.0.6",
+  "version": "18.0.7",
   "private": true,
   "dependencies": {
     "@ajf/icons": "^1.0.0",

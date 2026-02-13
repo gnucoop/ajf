@@ -1,3 +1,34 @@
+<a name="18.0.7"></a>
+# 18.0.7 "institutional-mule" (2026-02-13)
+### Bug Fixes
+* **Cmaterial/form-builder:** disable save and show messages if errors in form ([d43669a](https://github.com/gnucoop/ajf/commit/d43669a191a3749473eef5f2e9fe350248d6c3cb))
+* **core/models:** add check for empty arrays in notEmpty validator ([78073ad](https://github.com/gnucoop/ajf/commit/78073adf382f25316ae417c347e5890d657ff5a3))
+* **core/models:** ALL_VALUES_OF: stringify json if val is object (images, signature) ([b99cd83](https://github.com/gnucoop/ajf/commit/b99cd83abd33f545de9006473cab61034470cc7b))
+* **core/models:** resolve circular dependency ([dcd0fdb](https://github.com/gnucoop/ajf/commit/dcd0fdbca45e8cbddb0663fac6fc267866099ffb))
+* **core/models:** use choice origin name as prefix for APPLY_LABELS and GET_LABELS report functions ([2aef50c](https://github.com/gnucoop/ajf/commit/2aef50c3b2f8ddec994c4f3d00a571872ba7b4e5))
+* **core/reports:** Added optional property "exportable" to AjfPaginatedListWidget interface ([145e786](https://github.com/gnucoop/ajf/commit/145e7866360afa3bb1701ca8448854a4bb30095b))
+* **core/reports:** change .toString to String() in table export ([2de0e42](https://github.com/gnucoop/ajf/commit/2de0e421255ad83168b7dae7588157c75c0ade1c))
+* **core/reports:** export all values for array for table in reports ([3077d08](https://github.com/gnucoop/ajf/commit/3077d082f16c013e93c11626047e39e6d3cf20dc))
+* **core/reports:** fix object, array or boolean values in table export pdf and doc ([94d45a2](https://github.com/gnucoop/ajf/commit/94d45a239336f2359e83a2851dc35865c152db21))
+* **core:** fix createFunction/evaluateExpression for expressions that start with [ but are not json ([8e1b016](https://github.com/gnucoop/ajf/commit/8e1b016b234e143db2fbcd7955f0d33b0ea92a8b))
+* **material/form-builder:** fix default value in form builder ([4c721e9](https://github.com/gnucoop/ajf/commit/4c721e9f2d6662efa555187b66906bea2c8ce4e9))
+* **material/form-builder:** lint ([57cd7c1](https://github.com/gnucoop/ajf/commit/57cd7c1631dbd0132c47dfb99f471ef5f172b311))
+* **material/form-builder:** ordered name and label input ([84dcc8d](https://github.com/gnucoop/ajf/commit/84dcc8d1e5e41f2178af9fbc98c2b4d6d8746ec6))
+* **material/form-builder:** remove required from formulaReps for rep slide ([60f5ba3](https://github.com/gnucoop/ajf/commit/60f5ba37c598a562aa78215dfc271fb9d9fa7ed8))
+* **material/form-builder:** set name to required for choice origin ([94aa9ab](https://github.com/gnucoop/ajf/commit/94aa9ab9ffb7e4856185b8f5327be353882374eb))
+* **material/form-builder:** slides icons and min/maxReps error ([e6d5a70](https://github.com/gnucoop/ajf/commit/e6d5a70599dbf99a7d2529106868cf9edc0249f1))
+* **material/forms:** dynamic cell height in table ([1c3705b](https://github.com/gnucoop/ajf/commit/1c3705b502f2e541fb7ec46a4615dc898bdf3b57))
+### Features
+* **core/forms:** Added support for removing rep slides other than the last one ([3dcf50f](https://github.com/gnucoop/ajf/commit/3dcf50fb3e9521886daf73aa906fbf25a33ae0f8))
+* **core/page-slider:** enable smooth scrolling on form slides, web and mobile ([7bd6737](https://github.com/gnucoop/ajf/commit/7bd6737cbc3f5dc49aa798af60069d6f75d0f6c0))
+* **core/reports:** trim and check xlsreport variable names ([0e2bde5](https://github.com/gnucoop/ajf/commit/0e2bde51b8188d0451e4fced38491b8e592345bf))
+* **material/form-builder:** Add and expose form builder validation via @Output ([d5147ae](https://github.com/gnucoop/ajf/commit/d5147ae9eb61ca2ba9c810ce6a1459bc3a7390d3))
+* **material/form-builder:** add Note field in form builder ([0cb771e](https://github.com/gnucoop/ajf/commit/0cb771efb7ae86a1c02ac139b55c375c6f5e9e02))
+* **material/form-builder:** undo label not required ([920db41](https://github.com/gnucoop/ajf/commit/920db414fe7b30fe98e9a9c54070287b77b59ce0))
+* **material/from-builder:** restyle fb sidenav menu ([698bc2e](https://github.com/gnucoop/ajf/commit/698bc2e2a157a30a3ad70188978f34a9f617b661))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.0.6"></a>
 # 18.0.6 "xerothermic-lynx" (2026-01-30)
 ### Bug Fixes
