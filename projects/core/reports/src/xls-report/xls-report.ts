@@ -521,6 +521,15 @@ function _buildSingleIndicator(json: {[key: string]: string}[]): AjfWidget[] {
   return indicatorWidgets;
 }
 
+function headerFormula(s: string): AjfFormula {
+  s = String(s);
+  if (s.startsWith('js:')) {
+    return {formula: s.slice(3).trim()};
+  }
+  // quote s
+  return {formula: JSON.stringify(s)};
+}
+
 function _buildTable(
   sheetName: string,
   json: {[key: string]: string | number | boolean}[],
@@ -550,7 +559,7 @@ function _buildTable(
     );
     tableHeader = titles.map((title, index) => ({
       label: '',
-      formula: {formula: `"${title}"`},
+      formula: headerFormula(title),
       aggregation: {aggregation: 0},
       colspan: colspans[index],
       rowspan,
