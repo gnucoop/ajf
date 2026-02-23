@@ -62,7 +62,7 @@ import {isTextWidgetInstance} from '../widgets-instances/is-text-widget-instance
 import {isWidgetWithContentInstance} from '../widgets-instances/is-widget-with-content-instance';
 
 import {createWidgetInstance} from './create-widget-instance';
-import {evaluateProperty, trFormula} from './widget-instance-utils';
+import {evaluateProperty, evalAndTranslate} from './widget-instance-utils';
 import {AjfGraphNode} from '@ajf/core/graph';
 import {isDevMode} from '@angular/core';
 
@@ -169,8 +169,8 @@ export function widgetToWidgetInstance(
     wi.dataset = widget.dataset.map(row =>
       row.map(cell => {
         return cell.formula instanceof Array
-          ? cell.formula.map(f => trFormula(f, context, ts))
-          : trFormula(cell.formula!, context, ts);
+          ? cell.formula.map(f => evalAndTranslate(f, context, ts))
+          : evalAndTranslate(cell.formula!, context, ts);
       }),
     );
     wi.exportable =
@@ -179,19 +179,11 @@ export function widgetToWidgetInstance(
         : false;
     wi.data = (widget.dataset || []).map(row =>
       row.map(cell => {
-        let evf = '';
-        try {
-          evf =
-            cell.formula instanceof Array
-              ? cell.formula.map(f => trFormula(f, context, ts))
-              : trFormula(cell.formula!, context, ts);
-        } catch (e) {
-          if (isDevMode()) {
-            console.log(e);
-          }
-        }
+        const val = cell.formula instanceof Array
+          ? cell.formula.map(f => evalAndTranslate(f, context, ts))
+          : evalAndTranslate(cell.formula!, context, ts);
         return {
-          value: evf,
+          value: val,
           style: {...widget.cellStyles, ...cell.style},
           rowspan: cell.rowspan,
           colspan: cell.colspan,
@@ -205,8 +197,8 @@ export function widgetToWidgetInstance(
   ) {
     wi.dataset = widget.dataset.map((cell: AjfTableDataset) => {
       return cell.formula instanceof Array
-        ? cell.formula.map(f => trFormula(f, context, ts))
-        : trFormula(cell.formula!, context, ts);
+        ? cell.formula.map(f => evalAndTranslate(f, context, ts))
+        : evalAndTranslate(cell.formula!, context, ts);
     });
     wi.exportable =
       widget.exportable && (widget.exportable === true || widget.exportable === 'true')
@@ -238,19 +230,11 @@ export function widgetToWidgetInstance(
     );
 
     const header = (widget.dataset || []).map(cell => {
-      let evf = '';
-      try {
-        evf =
-          cell.formula instanceof Array
-            ? cell.formula.map(f => trFormula(f, context, ts))
-            : trFormula(cell.formula, context, ts);
-      } catch (e) {
-        if (isDevMode()) {
-          console.log(e);
-        }
-      }
+      const val = cell.formula instanceof Array
+        ? cell.formula.map(f => evalAndTranslate(f, context, ts))
+        : evalAndTranslate(cell.formula, context, ts);
       return {
-        value: evf,
+        value: val,
         style: {...widget.cellStyles, ...cell.style},
         rowspan: cell.rowspan,
         colspan: cell.colspan,

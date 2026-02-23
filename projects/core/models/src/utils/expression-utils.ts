@@ -243,9 +243,17 @@ const globals = [
 type Func = (c?: AjfContext) => any;
 
 export function createFunction(expression: string): Func {
-  expression = String(expression);
+  expression = String(expression).trim();
+  if (expression === '') {
+    return _ => false;
+  }
   if (expression === 'undefined') {
     return _ => null;
+  }
+  // Fast path for singly-quoted strings
+  if (expression.startsWith("'") && /^'[^']*'$/.test(expression)) {
+    const val = expression.slice(1, -1);
+    return _ => val;
   }
   // Fast path for expressions that are pure json.
   // Also works for null, booleans, numbers, strings and arrays
@@ -258,6 +266,7 @@ export function createFunction(expression: string): Func {
     return c => (c == null || c[expression] === undefined ? null : c[expression]);
   }
 
+  expression = '(' + expression + ')';
   const identifiers = new Set(getCodeIdentifiers(expression, true)).add('execContext');
   for (const ide of globals) {
     identifiers.delete(ide);

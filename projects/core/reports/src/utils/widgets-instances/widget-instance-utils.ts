@@ -22,33 +22,13 @@
 
 import {AjfContext, AjfFormula, createFormula, evaluateExpression} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
-import {isDevMode} from '@angular/core';
 
-export function trFormula(f: AjfFormula, context: AjfContext, ts: TranslocoService): any {
-  let formula = f.formula;
-  if (formula.substring(0, 1) === '"' || formula.substring(0, 1) === "'") {
-    const ft = formula.slice(1, -1);
-    const transFt =
-      ft != null && typeof ft === 'string' && ft.trim().length > 0 ? ts.translate(ft) : ft;
-    if (ft.length > 0) {
-      formula = `"${transFt}"`;
-    }
-  } else {
-    formula =
-      formula != null && typeof formula === 'string' && formula.trim().length > 0
-        ? ts.translate(formula)
-        : formula;
+export function evalAndTranslate(f: AjfFormula, context: AjfContext, ts: TranslocoService): any {
+  const val = evaluateExpression(f.formula, context);
+  if (typeof val === 'string') {
+    return ts.translate(val);
   }
-  let res;
-  try {
-    res = evaluateExpression(formula, context);
-  } catch (e) {
-    if (isDevMode()) {
-      console.log(e);
-    }
-    res = formula;
-  }
-  return res;
+  return val;
 }
 
 /**
@@ -60,28 +40,18 @@ export function evaluateProperty(
   context: AjfContext,
   ts: TranslocoService,
 ): string {
+  let htmlText = ts.translate(String(expression));
   const formulaRegEx: RegExp = /\[{2}(.+?)\]{2}/g;
-  const matches: {idx: number; len: number; formula: AjfFormula}[] = [];
+  const matches: {idx: number; len: number; formula: string}[] = [];
   let match: RegExpExecArray | null;
-  let htmlText = expression;
-  while ((match = formulaRegEx.exec(htmlText))) {
+  while (match = formulaRegEx.exec(htmlText)) {
     const idx = match.index;
     const len = match[0].length;
-    const formula = createFormula({formula: match[1]});
-    matches.push({idx, len, formula});
+    matches.push({idx, len, formula: match[1]});
   }
   matches.reverse().forEach(m => {
-    let calcValue;
-    try {
-      calcValue = evaluateExpression(m.formula.formula, context);
-    } catch (e) {
-      if (isDevMode()) {
-        console.log(e);
-      }
-      calcValue = '';
-    }
-    htmlText = `${htmlText.substring(0, m.idx)}${calcValue}${htmlText.substring(m.idx + m.len)}`;
+    const val = evaluateExpression(m.formula, context);
+    htmlText = `${htmlText.substring(0, m.idx)}${val}${htmlText.substring(m.idx + m.len)}`;
   });
-  htmlText = htmlText === '[[]]' ? 'false' : htmlText;
-  return htmlText != null && htmlText.length > 0 ? ts.translate(htmlText) : htmlText;
+  return htmlText;
 }
