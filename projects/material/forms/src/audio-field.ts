@@ -20,30 +20,33 @@
  *
  */
 
-/**
- * The available ajf field types.
- */
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfFieldType {
-  String,
-  Text,
-  Number,
-  Boolean,
-  SingleChoice,
-  MultipleChoice,
-  Formula,
-  Empty,
-  Date,
-  DateInput,
-  Time,
-  Table,
-  Geolocation,
-  Barcode,
-  File,
-  Image,
-  VideoUrl,
-  Range,
-  Signature,
-  Audio,
-  LENGTH,
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFormRendererService,
+  AjfAudioFieldComponent as CoreComponent,
+} from '@ajf/core/forms';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  ViewEncapsulation,
+} from '@angular/core';
+
+import {AjfWarningAlertService} from './warning-alert-service';
+
+@Component({
+  templateUrl: 'audio-field.html',
+  styleUrls: ['audio-field.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+})
+export class AjfAudioFieldComponent extends CoreComponent {
+  constructor(
+    cdr: ChangeDetectorRef,
+    service: AjfFormRendererService,
+    @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
+  ) {
+    super(cdr, service, was);
+  }
 }

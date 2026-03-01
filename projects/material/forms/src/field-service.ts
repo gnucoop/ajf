@@ -51,6 +51,7 @@ import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfSignatureFieldComponent} from './signature-field';
+import {AjfAudioFieldComponent} from './audio-field';
 
 @Injectable({providedIn: 'root'})
 export class AjfFieldService extends CoreService {
@@ -130,6 +131,10 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.Range] = {
       component: AjfRangeFieldComponent,
       readOnlyComponent: AjfReadOnlyFieldComponent,
+    };
+    this.componentsMap[AjfFieldType.Audio] = {
+      component: AjfAudioFieldComponent,
+      readOnlyComponent: AjfReadOnlyFileFieldComponent,
     };
   }
 }

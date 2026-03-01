@@ -24,6 +24,7 @@ import {AjfCommonModule} from '@ajf/core/common';
 import {AJF_WARNING_ALERT_SERVICE, AjfFormsModule as CoreFormsModule} from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {AjfBarcodeModule} from '@ajf/material/barcode';
+import {AjfAudioModule} from '@ajf/material/audio';
 import {AjfCalendarModule} from '@ajf/material/calendar';
 import {AjfCheckboxGroupModule} from '@ajf/material/checkbox-group';
 import {AjfGeolocationModule} from '@ajf/material/geolocation';
@@ -49,6 +50,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+import {AjfAudioFieldComponent} from './audio-field';
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
 import {AjfDateFieldComponent} from './date-field';
@@ -74,6 +76,7 @@ import {AjfSignatureModule} from '@ajf/material/signature';
 
 @NgModule({
   imports: [
+    AjfAudioModule,
     AjfBarcodeModule,
     AjfCalendarModule,
     AjfCommonModule,
@@ -105,6 +108,7 @@ import {AjfSignatureModule} from '@ajf/material/signature';
     NgxMatSelectSearchModule,
   ],
   declarations: [
+    AjfAudioFieldComponent,
     AjfBarcodeFieldComponent,
     AjfBooleanFieldComponent,
     AjfDateFieldComponent,
