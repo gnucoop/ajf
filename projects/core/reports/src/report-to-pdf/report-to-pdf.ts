@@ -174,11 +174,19 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
   if (dataUrl == null) {
     return {text: ''};
   }
+  width /= 2;
   const w = image.styles['width'];
   if (typeof w === 'string' && w.endsWith('px')) {
     width = Number(w.slice(0, -2));
   }
-  return {image: dataUrl, width, margin: [0, 0, 0, marginBetweenWidgets]};
+  const styles: any = image.styles;
+  let alignment: any = 'left';
+  if (styles.marginLeft === 'auto' && styles.marginRight === 'auto') {
+    alignment = 'center';
+  } else if (styles.marginLeft === 'auto') {
+    alignment = 'right';
+  }
+  return {image: dataUrl, width, alignment, margin: [0, 0, 0, marginBetweenWidgets]};
 }
 
 function htmlTextToPdfText(htmlText: string, images: ImageMap): string {

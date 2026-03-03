@@ -98,7 +98,18 @@ function containerToDoc(container: Container, images: ImageMap): SectionChild[] 
   return container.content.map(w => widgetToDoc(w, images)).flat();
 }
 
-const imageSize = {width: 600, height: 300};
+const chartSize = {width: 600, height: 300};
+
+function imageSize(styles: any) {
+  const size = {width: 300, height: 300};
+  if (typeof styles.width === 'string' && styles.width.endsWith('px')) {
+    size.width = Number(styles.width.slice(0, -2));
+  }
+  if (typeof styles.height === 'string' && styles.height.endsWith('px')) {
+    size.height = Number(styles.height.slice(0, -2));
+  }
+  return size;
+}
 
 function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap): SectionChild[] {
   const marginBetweenWidgets = new Paragraph('');
@@ -120,7 +131,7 @@ function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap): SectionChild[
         return [new Paragraph('[chart with no attached canvas]'), marginBetweenWidgets];
       }
       return [
-        new Paragraph({children: [new ImageRun({data: dataUrl, transformation: imageSize})]}),
+        new Paragraph({children: [new ImageRun({data: dataUrl, transformation: chartSize})]}),
         marginBetweenWidgets,
       ];
     case AjfWidgetType.Table:
@@ -142,11 +153,18 @@ function imageToDoc(image: AjfImageWidgetInstance, images: ImageMap): Paragraph 
   if (dataUrl == null) {
     return new Paragraph("[couldn't load image]");
   }
+  const styles: any = image.styles;
+  let alignment = AlignmentType.LEFT;
+  if (styles.marginLeft === 'auto' && styles.marginRight === 'auto') {
+    alignment = AlignmentType.CENTER;
+  } else if (styles.marginLeft === 'auto') {
+    alignment = AlignmentType.RIGHT;
+  }
   const i = dataUrl.indexOf(',');
   const base64 = dataUrl.slice(i + 1);
-  return new Paragraph({children: [new ImageRun({
+  return new Paragraph({alignment, children: [new ImageRun({
     data: Uint8Array.from(atob(base64), c => c.charCodeAt(0)),
-    transformation: imageSize,
+    transformation: imageSize(styles),
   })]});
 }
 
@@ -224,44 +242,43 @@ function tableToDoc(table: AjfTableWidgetInstance): Table {
   return new Table({
     columnWidths: Array(numCols).fill(pageWidth / numCols),
     rows: table.data.map(row => new TableRow({
-          children: row.map(cell => {
-            let text = '';
-            switch (typeof cell.value) {
-              case 'number':
-                text = String(cell.value);
-                break;
-              case 'string':
-                text = stripHTML(cell.value);
-                break;
-              case 'object':
-                if (cell.value == null) {
-                  break;
-                }
-                let val = cell.value.changingThisBreaksApplicationSecurity;
-                if (val === undefined) {
-                  val = cell.value.toString();
-                }
-                if (typeof val === 'number') {
-                  val = String(val);
-                }
-                text = stripHTML(val || '');
-                break;
-              default:
-                if (cell.value == null) {
-                  break;
-                }
-                let strVal = String(cell.value);
-                text = stripHTML(strVal || '');
-                break;
+      children: row.map(cell => {
+        let text = '';
+        switch (typeof cell.value) {
+          case 'number':
+            text = String(cell.value);
+            break;
+          case 'string':
+            text = stripHTML(cell.value);
+            break;
+          case 'object':
+            if (cell.value == null) {
+              break;
             }
-            return new TableCell({
-              children: [new Paragraph(text)],
-              columnSpan: cell.colspan || undefined,
-              rowSpan: cell.rowspan || undefined,
-            });
-          }),
-        }),
-    ),
+            let val = cell.value.changingThisBreaksApplicationSecurity;
+            if (val === undefined) {
+              val = cell.value.toString();
+            }
+            if (typeof val === 'number') {
+              val = String(val);
+            }
+            text = stripHTML(val || '');
+            break;
+          default:
+            if (cell.value == null) {
+              break;
+            }
+            let strVal = String(cell.value);
+            text = stripHTML(strVal || '');
+            break;
+        }
+        return new TableCell({
+          children: [new Paragraph(text)],
+          columnSpan: cell.colspan || undefined,
+          rowSpan: cell.rowspan || undefined,
+        });
+      }),
+    })),
   });
 }
 
