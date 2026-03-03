@@ -120,6 +120,9 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
           } else if (sheetName.includes('chart')) {
             const chartWidget = _buildChart(sheetName, json);
             reportWidgets.push(chartWidget);
+          } else if (sheetName.includes('image')) {
+            const imageWidget = _buildImage(sheetName, json);
+            reportWidgets.push(imageWidget);
           } else if (sheetName.includes('html')) {
             const chartWidget = _buildHtml(json);
             reportWidgets.push(chartWidget);
@@ -412,6 +415,35 @@ function _buildGraph(name: string, json: {[key: string]: string}[]): AjfWidget {
     nodes,
     styles: {},
   } as AjfWidgetCreate);
+}
+
+function _buildImage(sheetName: string, rows: {[key: string]: string}[]): AjfWidget {
+  if (rows.length === 0 || !rows[0]['url']) {
+    const msg = `Image "${sheetName}" has no url`;
+    window.alert(msg);
+    throw new Error(msg);
+  }
+  const row = rows[0];
+  const align = (row['align'] || '').trim().toLowerCase();
+  const styles: any = {};
+  if (align === 'left' || align === 'center') {
+    styles.marginRight = 'auto';
+  }
+  if (align === 'right' || align === 'center') {
+    styles.marginLeft = 'auto';
+  }
+  if (row['width']) {
+    styles.width = row['width'];
+  }
+  if (row['height']) {
+    styles.height = row['height'];
+  }
+  return createWidget({
+    widgetType: AjfWidgetType.Image,
+    imageType: 0,
+    url: {formula: `"${row['url']}"`},
+    styles,
+  });
 }
 
 function _buildHtml(json: {[key: string]: string}[]): AjfWidget {
