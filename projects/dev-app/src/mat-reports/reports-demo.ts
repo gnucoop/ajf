@@ -75,11 +75,11 @@ export class ReportsDemo {
     openReportPdf(this.report, orientation);
   }
 
-  downloadReportDoc() {
+  downloadReportDoc(orientation: 'portrait' | 'landscape') {
     if (this.report == null) {
       return;
     }
-    downloadReportDoc(this.report);
+    downloadReportDoc(this.report, undefined, orientation as any);
   }
 
   private _populateReport(): void {

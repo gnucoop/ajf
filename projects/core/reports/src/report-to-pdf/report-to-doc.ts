@@ -26,6 +26,7 @@ import {
   Document,
   HeadingLevel,
   ImageRun,
+  PageOrientation,
   Packer,
   PageBreak,
   Paragraph,
@@ -59,16 +60,20 @@ function downloadBlob(b: Blob) {
   URL.revokeObjectURL(url);
 }
 
-export function downloadReportDoc(report: AjfReportInstance, header?: SectionChild[]) {
-  createReportDoc(report, header).then(blob => {
+export function downloadReportDoc(
+  report: AjfReportInstance, header: SectionChild[] = [], orient: PageOrientation = PageOrientation.PORTRAIT
+) {
+  createReportDoc(report, header, orient).then(blob => {
     downloadBlob(blob);
   });
 }
 
-export function createReportDoc(report: AjfReportInstance, header?: SectionChild[]): Promise<Blob> {
+export function createReportDoc(
+  report: AjfReportInstance, header: SectionChild[] = [], orient: PageOrientation = PageOrientation.PORTRAIT
+): Promise<Blob> {
   return new Promise<Blob>(resolve => {
     loadReportImages(report).then(images => {
-      const doc = reportToDoc(report, images, header);
+      const doc = reportToDoc(report, images, header, orient);
       Packer.toBlob(doc).then(blob => resolve(blob));
     });
   });
@@ -76,26 +81,32 @@ export function createReportDoc(report: AjfReportInstance, header?: SectionChild
 
 type SectionChild = Paragraph | Table;
 
-function reportToDoc(report: AjfReportInstance, images: ImageMap, header?: SectionChild[]): Document {
-  const children: SectionChild[] = header ? [...header] : [];
+function reportToDoc(
+  report: AjfReportInstance, images: ImageMap, header: SectionChild[], orientation: PageOrientation
+): Document {
+  const width = orientation === PageOrientation.LANDSCAPE ? 13950 : 9000;
+  const children: SectionChild[] = [...header];
   if (report.header != null) {
-    children.push(...containerToDoc(report.header, images));
+    children.push(...containerToDoc(report.header, images, width));
   }
   if (report.content != null) {
-    children.push(...containerToDoc(report.content, images));
+    children.push(...containerToDoc(report.content, images, width));
   }
   if (report.footer != null) {
-    children.push(...containerToDoc(report.footer, images));
+    children.push(...containerToDoc(report.footer, images, width));
   }
-  return new Document({sections: [{children}]});
+  return new Document({sections: [{
+    properties: {page: {size: {orientation}}},
+    children
+  }]});
 }
 
 interface Container {
   content: AjfWidgetInstance[];
 }
 
-function containerToDoc(container: Container, images: ImageMap): SectionChild[] {
-  return container.content.map(w => widgetToDoc(w, images)).flat();
+function containerToDoc(container: Container, images: ImageMap, width: number): SectionChild[] {
+  return container.content.map(w => widgetToDoc(w, images, width)).flat();
 }
 
 const chartSize = {width: 600, height: 300};
@@ -111,13 +122,13 @@ function imageSize(styles: any) {
   return size;
 }
 
-function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap): SectionChild[] {
+function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap, width: number): SectionChild[] {
   const marginBetweenWidgets = new Paragraph('');
 
   switch (widget.widget.widgetType) {
     case AjfWidgetType.Layout:
     case AjfWidgetType.Column:
-      return containerToDoc(widget as Container, images);
+      return containerToDoc(widget as Container, images, width);
     case AjfWidgetType.PageBreak:
       return [new Paragraph({children: [new PageBreak()]})];
     case AjfWidgetType.Image:
@@ -131,13 +142,16 @@ function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap): SectionChild[
         return [new Paragraph('[chart with no attached canvas]'), marginBetweenWidgets];
       }
       return [
-        new Paragraph({children: [new ImageRun({data: dataUrl, transformation: chartSize})]}),
+        new Paragraph({
+          alignment: AlignmentType.CENTER,
+          children: [new ImageRun({data: dataUrl, transformation: chartSize})],
+        }),
         marginBetweenWidgets,
       ];
     case AjfWidgetType.Table:
     case AjfWidgetType.DynamicTable:
     case AjfWidgetType.PaginatedTable:
-      return [tableToDoc(widget as AjfTableWidgetInstance), marginBetweenWidgets];
+      return [tableToDoc(widget as AjfTableWidgetInstance, width), marginBetweenWidgets];
     case AjfWidgetType.Formula:
       return [new Paragraph((widget as AjfFormulaWidgetInstance).formula), marginBetweenWidgets];
     default:
@@ -230,17 +244,16 @@ function textRuns(par: string): TextRun[] {
   return runs;
 }
 
-function tableToDoc(table: AjfTableWidgetInstance): Table {
+function tableToDoc(table: AjfTableWidgetInstance, width: number): Table {
   if (table.data == null || table.data.length === 0) {
     return new Paragraph('[empty table]');
   }
-  const pageWidth = 9000;
   let numCols = 0;
   for (const cell of table.data[0]) {
     numCols += cell.colspan || 1;
   }
   return new Table({
-    columnWidths: Array(numCols).fill(pageWidth / numCols),
+    columnWidths: Array(numCols).fill(width / numCols),
     rows: table.data.map(row => new TableRow({
       children: row.map(cell => {
         let text = '';
