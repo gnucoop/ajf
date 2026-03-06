@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, AjfFormula, createFormula, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, AjfFormula, evaluateExpression} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 
 export function evalAndTranslate(f: AjfFormula, context: AjfContext, ts: TranslocoService): any {
