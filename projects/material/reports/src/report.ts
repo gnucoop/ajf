@@ -20,11 +20,14 @@
  *
  */
 
+import {AjfContext} from '@ajf/core/common';
 import {AjfReportRenderer as CoreReportRenderer} from '@ajf/core/reports';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -36,6 +39,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportRenderer extends CoreReportRenderer {
+  @Output() filterContextChange = new EventEmitter<AjfContext>();
+
   constructor(cdr: ChangeDetectorRef) {
     super(cdr);
   }

@@ -41,6 +41,8 @@ import {UntypedFormGroup} from '@angular/forms';
 import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
+import {AjfReportRenderer} from './report';
+
 @Component({
   selector: 'ajf-filter-widget',
   templateUrl: 'filter-widget.html',
@@ -57,6 +59,7 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
     el: ElementRef,
     private _ts: TranslocoService,
     private _formRenderer: AjfFormRendererService,
+    private _reportRenderer: AjfReportRenderer,
   ) {
     super(cdr, el);
 
@@ -64,18 +67,18 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
       filter(fg => this.instance != null && this.instance.filter != null && fg != null),
       switchMap(formGroup => (formGroup as UntypedFormGroup).valueChanges),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      map(a => {
+      map(filterContext => {
+        this._reportRenderer.filterContextChange.emit(filterContext);
+
         const instance = this.instance as AjfWidgetInstance;
         const filter = instance.filter as AjfFilterInstance;
-        const newConst: any = {...(filter.context || {}), ...a};
-        if (filter.variables != null) {
-          (filter.variables || []).forEach(variable => {
-            newConst[variable.name] = evaluateExpression(variable.formula.formula, newConst);
-          });
+        const newContext: any = {...(filter.context || {}), ...filterContext};
+        for (const variable of filter.variables || []) {
+          newContext[variable.name] = evaluateExpression(variable.formula.formula, newContext);
         }
         this.instance = widgetToWidgetInstance(
           instance.widget,
-          newConst,
+          newContext,
           this._ts,
           filter.variables,
         );
