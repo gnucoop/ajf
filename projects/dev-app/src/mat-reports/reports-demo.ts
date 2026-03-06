@@ -28,6 +28,7 @@ import {
   downloadReportDoc,
   openReportPdf,
 } from '@ajf/core/reports';
+import {AjfContext} from '@ajf/core/common';
 import {TranslocoService} from '@ajf/core/transloco';
 import {AjfWidgetService} from '@ajf/material/reports';
 import {Component} from '@angular/core';
@@ -59,35 +60,38 @@ export class ReportsDemo {
     };
     _ts.setTranslation(engDict, 'ENG');
     _ts.setDefaultLang('ENG');
-    this._populateReport();
+    this.report = this.recreateReportInstance();
 
     AjfWidgetExport.addIcons({'3a': '3a export icon!'});
   }
 
+  private recreateReportInstance(): AjfReportInstance {
+    const schema = JSON.parse(this.reportStr);
+    const report = AjfReportSerializer.fromJson(schema);
+    const ctx = JSON.parse(this.context);
+    return createReportInstance(report, ctx, this._ts);
+  }
+
   setReport(): void {
-    this._populateReport();
+    this.report = this.recreateReportInstance();
+  }
+
+  filterContextChange(filterContext: AjfContext) {
+    let ctx = {};
+    try {
+      ctx = JSON.parse(this.context);
+    } catch (_) {}
+    ctx = {...ctx, ...filterContext};
+    this.context = JSON.stringify(ctx);
   }
 
   printReport(orientation: 'portrait' | 'landscape') {
-    if (this.report == null) {
-      return;
-    }
-    openReportPdf(this.report, orientation);
+    const instance = this.recreateReportInstance();
+    openReportPdf(instance, orientation);
   }
 
   downloadReportDoc(orientation: 'portrait' | 'landscape') {
-    if (this.report == null) {
-      return;
-    }
-    downloadReportDoc(this.report, undefined, orientation as any);
-  }
-
-  private _populateReport(): void {
-    try {
-      const schema = JSON.parse(this.reportStr);
-      const report = AjfReportSerializer.fromJson(schema);
-      const ctx = JSON.parse(this.context);
-      this.report = createReportInstance(report, ctx, this._ts);
-    } catch (e) {}
+    const instance = this.recreateReportInstance();
+    downloadReportDoc(instance, undefined, orientation as any);
   }
 }

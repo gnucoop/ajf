@@ -30,7 +30,9 @@
     <button (click)="downloadReportDoc('landscape')" mat-raised-button
       color="primary">Download doc (landscape)</button>
     <div class="demo-form-builder-container">
-      <ajf-report [instance]="report" [enableExportAll]="true"></ajf-report>
+      <ajf-report [instance]="report" [enableExportAll]="true"
+        (filterContextChange)="filterContextChange($event)">
+      </ajf-report>
     </div>
   </section>
 </div>
