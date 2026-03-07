@@ -1,3 +1,8 @@
+<a name="18.1.1"></a>
+# 18.1.1 "ruling-constrictor" (2026-03-07)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.1.0"></a>
 # 18.1.0 "administrative-bedbug" (2026-03-06)
 ### Bug Fixes
