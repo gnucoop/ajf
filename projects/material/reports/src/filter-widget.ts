@@ -21,6 +21,7 @@
  */
 
 import {AjfFormRendererService} from '@ajf/core/forms';
+import {AjfContext} from '@ajf/core/common';
 import {evaluateExpression} from '@ajf/core/models';
 import {
   AjfBaseWidgetComponent,
@@ -34,14 +35,13 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   Output,
   ViewEncapsulation,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
 import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-
-import {AjfReportRenderer} from './report';
 
 @Component({
   selector: 'ajf-filter-widget',
@@ -53,13 +53,13 @@ import {AjfReportRenderer} from './report';
 })
 export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetInstance> {
   @Output() readonly filteredInstance: Observable<AjfWidgetInstance>;
+  @Output() readonly filterContextChange = new EventEmitter<AjfContext>();
 
   constructor(
     cdr: ChangeDetectorRef,
     el: ElementRef,
     private _ts: TranslocoService,
     private _formRenderer: AjfFormRendererService,
-    private _reportRenderer: AjfReportRenderer,
   ) {
     super(cdr, el);
 
@@ -68,7 +68,7 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
       switchMap(formGroup => (formGroup as UntypedFormGroup).valueChanges),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
       map(filterContext => {
-        this._reportRenderer.filterContextChange.emit(filterContext);
+        this.filterContextChange.emit(filterContext);
 
         const instance = this.instance as AjfWidgetInstance;
         const filter = instance.filter as AjfFilterInstance;

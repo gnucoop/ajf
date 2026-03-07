@@ -10,7 +10,9 @@
       [widgets]="instance.content.content"
       [enable]="true"></ajf-widget-export>
     <ng-template ngFor let-instance [ngForOf]="instance.content.content">
-      <ajf-widget *ngIf="instance.visible" [instance]="instance"></ajf-widget>
+      <ajf-widget *ngIf="instance.visible" [instance]="instance"
+        (filterContextChange)="filterContextChanged($event)">
+      </ajf-widget>
     </ng-template>
   </div>
   <div *ngIf="instance.footer" @.disabled [applyStyles]="instance.footer.styles" class="ajf-report-footer">

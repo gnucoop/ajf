@@ -33,6 +33,7 @@ import {
   AjfWidgetService as CoreService,
   AjfWidgetType as wt,
 } from '@ajf/core/reports';
+import {AjfContext} from '@ajf/core/common';
 import {AjfTableCell} from '@ajf/core/table';
 import {
   AfterContentChecked,
@@ -40,9 +41,11 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
   Injectable,
   OnChanges,
   OnInit,
+  Output,
   Renderer2,
   SimpleChanges,
   TemplateRef,
@@ -101,11 +104,16 @@ export class AjfWidgetService extends CoreService {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportWidget extends CoreComponent {
+  @Output() readonly filterContextChange = new EventEmitter<AjfContext>();
   readonly widgetsMap: AjfWidgetComponentsMap;
 
   constructor(renderer: Renderer2, widgetService: AjfWidgetService) {
     super(renderer);
     this.widgetsMap = widgetService.componentsMap;
+  }
+
+  filterContextChanged(ctx: AjfContext) {
+    this.filterContextChange.emit(ctx);
   }
 }
 

@@ -39,9 +39,13 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportRenderer extends CoreReportRenderer {
-  @Output() filterContextChange = new EventEmitter<AjfContext>();
+  @Output() readonly filterContextChange = new EventEmitter<AjfContext>();
 
   constructor(cdr: ChangeDetectorRef) {
     super(cdr);
+  }
+
+  filterContextChanged(ctx: AjfContext) {
+    this.filterContextChange.emit(ctx);
   }
 }
