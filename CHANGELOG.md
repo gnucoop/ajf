@@ -1,27 +1,3 @@
-<a name="18.1.2"></a>
-# 18.1.2 "polite-anaconda" (2026-03-08)
-### Features
-* **core/reports:** filterWidgetChange returns updated report instance ([e361f3e](https://github.com/gnucoop/ajf/commit/e361f3e0aec82f5f676ab22d7dedd0a713273965))
-
-<!-- CHANGELOG SPLIT MARKER -->
-
-<a name="18.1.1"></a>
-# 18.1.1 "ruling-constrictor" (2026-03-07)
-
-<!-- CHANGELOG SPLIT MARKER -->
-
-<a name="18.1.0"></a>
-# 18.1.0 "administrative-bedbug" (2026-03-06)
-### Bug Fixes
-* **core/reports:** various fixes in expressions evaluation ([6f4a7d6](https://github.com/gnucoop/ajf/commit/6f4a7d60fe143cd93554d9ff9eac93bf3460c883))
-### Features
-* **core/reports:** enable formulas in table headers ([d3ca192](https://github.com/gnucoop/ajf/commit/d3ca19250aa6980e5f5adb97e27110079ed3d090))
-* **core/reports:** image widget in xlsreport ([4c3a416](https://github.com/gnucoop/ajf/commit/4c3a4168b0164a0da8ac67b55e8807633a4c59fb))
-* **core/reports:** landscape printing of reports in docx ([3a43465](https://github.com/gnucoop/ajf/commit/3a43465b6e5b6a7096c14d9b1db3ff44257588ed))
-* **material/reports:** emit event when filter context changes ([2f77cad](https://github.com/gnucoop/ajf/commit/2f77cad78ffaf85941a8e2114952edc4285f8283))
-
-<!-- CHANGELOG SPLIT MARKER -->
-
 <a name="18.0.7"></a>
 # 18.0.7 "institutional-mule" (2026-02-13)
 ### Bug Fixes
