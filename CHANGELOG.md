@@ -1,3 +1,10 @@
+<a name="18.1.2"></a>
+# 18.1.2 "polite-anaconda" (2026-03-08)
+### Features
+* **core/reports:** filterWidgetChange returns updated report instance ([e361f3e](https://github.com/gnucoop/ajf/commit/e361f3e0aec82f5f676ab22d7dedd0a713273965))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.1.1"></a>
 # 18.1.1 "ruling-constrictor" (2026-03-07)
 
