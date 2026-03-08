@@ -53,7 +53,7 @@ import {Observable} from 'rxjs';
 })
 export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetInstance> {
   @Output() readonly filteredInstance: Observable<AjfWidgetInstance>;
-  @Output() readonly filterContextChange = new EventEmitter<AjfContext>();
+  @Output() filterWidgetChange = new EventEmitter<{context: AjfContext, widget: AjfWidgetInstance}>();
 
   constructor(
     cdr: ChangeDetectorRef,
@@ -68,8 +68,6 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
       switchMap(formGroup => (formGroup as UntypedFormGroup).valueChanges),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
       map(filterContext => {
-        this.filterContextChange.emit(filterContext);
-
         const instance = this.instance as AjfWidgetInstance;
         const filter = instance.filter as AjfFilterInstance;
         const newContext: any = {...(filter.context || {}), ...filterContext};
@@ -82,6 +80,7 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
           this._ts,
           filter.variables,
         );
+        this.filterWidgetChange.emit({context: filterContext, widget: this.instance});
         return this.instance;
       }),
     );

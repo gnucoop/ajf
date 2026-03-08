@@ -104,7 +104,7 @@ export class AjfWidgetService extends CoreService {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportWidget extends CoreComponent {
-  @Output() readonly filterContextChange = new EventEmitter<AjfContext>();
+  @Output() filterWidgetChange = new EventEmitter<{context: AjfContext, widget: AjfWidgetInstance}>();
   readonly widgetsMap: AjfWidgetComponentsMap;
 
   constructor(renderer: Renderer2, widgetService: AjfWidgetService) {
@@ -112,8 +112,8 @@ export class AjfReportWidget extends CoreComponent {
     this.widgetsMap = widgetService.componentsMap;
   }
 
-  filterContextChanged(ctx: AjfContext) {
-    this.filterContextChange.emit(ctx);
+  filterWidgetChanged(changes: {context: AjfContext, widget: AjfWidgetInstance}) {
+    this.filterWidgetChange.emit(changes);
   }
 }
 

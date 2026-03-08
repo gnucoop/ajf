@@ -2,7 +2,7 @@
   *ngIf="instance && instance.filter"
   [instance]="instance"
   (filteredInstance)="instance = $event"
-  (filterContextChange)="filterContextChanged($event)"
+  (filterWidgetChange)="filterWidgetChanged($event)"
 >
 </ajf-filter-widget>
 <ng-template ajf-widget-host></ng-template>

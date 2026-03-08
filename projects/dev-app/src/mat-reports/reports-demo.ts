@@ -76,12 +76,12 @@ export class ReportsDemo {
     this.report = this.recreateReportInstance();
   }
 
-  filterContextChange(filterContext: AjfContext) {
+  filterWidgetChanged(changes: {context: AjfContext, report?: AjfReportInstance}) {
     let ctx = {};
     try {
       ctx = JSON.parse(this.context);
     } catch (_) {}
-    ctx = {...ctx, ...filterContext};
+    ctx = {...ctx, ...changes.context};
     this.context = JSON.stringify(ctx);
   }
 

@@ -21,7 +21,11 @@
  */
 
 import {AjfContext} from '@ajf/core/common';
-import {AjfReportRenderer as CoreReportRenderer} from '@ajf/core/reports';
+import {
+  AjfReportInstance,
+  AjfReportRenderer as CoreReportRenderer,
+  AjfWidgetInstance,
+} from '@ajf/core/reports';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -39,13 +43,24 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfReportRenderer extends CoreReportRenderer {
-  @Output() readonly filterContextChange = new EventEmitter<AjfContext>();
+  @Output() filterWidgetChange = new EventEmitter<{context: AjfContext, report?: AjfReportInstance}>();
 
   constructor(cdr: ChangeDetectorRef) {
     super(cdr);
   }
 
-  filterContextChanged(ctx: AjfContext) {
-    this.filterContextChange.emit(ctx);
+  filterWidgetChanged(changes: {context: AjfContext, widget: AjfWidgetInstance}) {
+    const report = this.instance!;
+    if (report.content!.content.length === 1) {
+      // Report likely has 1 global layout widget with a filter,
+      // create a copy of the report with the updated layout widget
+      const layout = changes.widget;
+      const contentContent = [layout];
+      const content = {...report.content!, content: contentContent};
+      const newReport = {...report, content};
+      this.filterWidgetChange.emit({context: changes.context, report: newReport});
+    } else {
+      this.filterWidgetChange.emit({context: changes.context});
+    }
   }
 }
