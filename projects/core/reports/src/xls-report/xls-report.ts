@@ -424,6 +424,12 @@ function _buildImage(sheetName: string, rows: {[key: string]: string}[]): AjfWid
     throw new Error(msg);
   }
   const row = rows[0];
+  let urlFormula = String(row['url']);
+  if (urlFormula.startsWith('js:')) {
+    urlFormula = urlFormula.slice(3).trim();
+  } else {
+    urlFormula = `"${urlFormula}"`;
+  }
   const align = (row['align'] || '').trim().toLowerCase();
   const styles: any = {};
   if (align === 'left' || align === 'center') {
@@ -441,7 +447,7 @@ function _buildImage(sheetName: string, rows: {[key: string]: string}[]): AjfWid
   return createWidget({
     widgetType: AjfWidgetType.Image,
     imageType: 0,
-    url: {formula: `"${row['url']}"`},
+    url: {formula: urlFormula},
     styles,
   });
 }
