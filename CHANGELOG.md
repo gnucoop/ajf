@@ -1,3 +1,10 @@
+<a name="18.1.1"></a>
+# 18.1.1 "xenophobic-felidae" (2026-03-16)
+### Features
+* **core/reports:** allow formulas in xlsreport image urls ([f101d25](https://github.com/gnucoop/ajf/commit/f101d254ce5c85cffad5383422501e26376cbb61))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.1.0"></a>
 # 18.1.0 "splendid-shrimp" (2026-03-09)
 ### Bug Fixes
