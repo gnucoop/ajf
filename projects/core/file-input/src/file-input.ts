@@ -243,11 +243,15 @@ export class AjfFileInput implements ControlValueAccessor {
   private _processFileUpload(file: File): void {
     const reader = new FileReader();
     const {name, size, type} = file;
+
+    // URL is kept in the field value, and used to delete the old file when it's replaced.
+    const url = this.value && this.value.url ? this.value.url : undefined;
+
     if (!isValidMimeType(type, this.accept)) {
       return;
     }
     if (size >= AjfFileSizeLimit) {
-      this.value = {name, size, type, content: 'File too large'};
+      this.value = {name, size, type, url, content: 'File too large'};
       this._emptyFile = false;
       return;
     }
@@ -256,7 +260,7 @@ export class AjfFileInput implements ControlValueAccessor {
       if (typeof content !== 'string') {
         return;
       }
-      this.value = {name, size, type, content};
+      this.value = {name, size, type, url, content};
       this._emptyFile = false;
     };
     reader.readAsDataURL(file);
