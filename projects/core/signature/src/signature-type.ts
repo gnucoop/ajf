@@ -26,4 +26,5 @@ export type SignatureType = {
   type: string;
   signature: true;
   content: string;
+  url: string;
 } | null;

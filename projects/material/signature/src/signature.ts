@@ -32,6 +32,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 export const SIGNATURE_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -51,7 +52,7 @@ export const SIGNATURE_CONTROL_VALUE_ACCESSOR: any = {
   providers: [SIGNATURE_CONTROL_VALUE_ACCESSOR],
 })
 export class AjfSignatureComponent extends AjfSignature implements OnDestroy, AfterViewInit {
-  constructor(cdr: ChangeDetectorRef, renderer: Renderer2) {
+  constructor(cdr: ChangeDetectorRef, renderer: Renderer2, private _sanitizer: DomSanitizer) {
     super(cdr, renderer);
   }
 
@@ -71,17 +72,31 @@ export class AjfSignatureComponent extends AjfSignature implements OnDestroy, Af
 
   accept() {
     if (this.sigPadElement != null) {
-      const signaturDataUrl = this.sigPadElement.toDataURL('image/png');
-      const head = 'data:image/png;base64,';
+      const signaturDataUrl = this.sigPadElement.toDataURL('image/webp', 0.5);
+
+      const head = 'data:image/webp;base64,';
       const imgFileSize = Math.round(((signaturDataUrl.length - head.length) * 3) / 4).toString();
+
       this.value = {
-        name: 'signature.png',
-        type: 'image/png',
+        name: 'signature.webp',
+        type: 'image/webp',
         signature: true,
         size: imgFileSize,
         content: signaturDataUrl,
+        url: '',
       };
     }
+  }
+
+  get safeImageSrc(): SafeUrl | string | null {
+    if (!this.value) return null;
+
+    const rawUrl =
+      this.value.content && this.value.content.length ? this.value.content : this.value.url;
+    if (!rawUrl) return null;
+
+    const sanitizedUrl = this._sanitizer.bypassSecurityTrustUrl(rawUrl);
+    return sanitizedUrl;
   }
 
   ngOnDestroy(): void {
