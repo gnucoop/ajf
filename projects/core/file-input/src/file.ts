@@ -27,6 +27,7 @@ export interface AjfFile {
   content?: string;
   url?: string;
   deleteUrl: boolean;
+  signature?: boolean;
 }
 
 /**
