@@ -61,35 +61,54 @@ export class AjfSignatureComponent extends AjfSignature implements OnDestroy, Af
     this.context = this.sigPadElement?.getContext('2d') ?? null;
   }
 
+  /**
+   * Clears the signature value and preview (keeps the old url to delete old signature from storage)
+   */
   clear() {
     if (this.context != null && this.sigPadElement != null) {
       this.context.clearRect(0, 0, this.sigPadElement.width, this.sigPadElement.height);
       this.context.beginPath();
     }
     this.isDrawn = false;
-    this.value = null;
+    this.value = {
+      name: 'signature.webp',
+      type: 'image/webp',
+      signature: true,
+      size: undefined,
+      content: undefined,
+      url: this.value?.url ?? undefined,
+      deleteUrl: true,
+    };
   }
 
+  /**
+   * Accepts the new signature from the canvas and sets it as field value (keeps the old url to delete old signature from storage)
+   */
   accept() {
     if (this.sigPadElement != null) {
-      const signaturDataUrl = this.sigPadElement.toDataURL('image/webp', 0.5);
+      const signatureDataUrl = this.sigPadElement.toDataURL('image/webp', 0.5);
 
       const head = 'data:image/webp;base64,';
-      const imgFileSize = Math.round(((signaturDataUrl.length - head.length) * 3) / 4).toString();
+      const imgFileSize = Math.round(((signatureDataUrl.length - head.length) * 3) / 4);
 
       this.value = {
         name: 'signature.webp',
         type: 'image/webp',
         signature: true,
         size: imgFileSize,
-        content: signaturDataUrl,
-        url: '',
+        content: signatureDataUrl,
+        url: this.value?.url ?? undefined,
+        deleteUrl: false,
       };
     }
   }
 
+  /**
+   * Sanitizes signature image url
+   */
   get safeImageSrc(): SafeUrl | string | null {
     if (!this.value) return null;
+    if (!this.value.content && this.value.deleteUrl) return null;
 
     const rawUrl =
       this.value.content && this.value.content.length ? this.value.content : this.value.url;

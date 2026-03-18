@@ -22,7 +22,7 @@
 
 import {ChangeDetectorRef, Directive, HostListener, Renderer2, ViewChild} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
-import {SignatureType} from './signature-type';
+import {AjfFile} from '@ajf/core/file-input';
 
 @Directive()
 export abstract class AjfSignature implements ControlValueAccessor {
@@ -37,11 +37,11 @@ export abstract class AjfSignature implements ControlValueAccessor {
    *
    * @memberof AjfSignature
    */
-  private _signatureValue: SignatureType = null;
-  get value(): SignatureType {
+  private _signatureValue: AjfFile | null = null;
+  get value(): AjfFile | null {
     return this._signatureValue;
   }
-  set value(value: SignatureType) {
+  set value(value: AjfFile | null) {
     if (this._signatureValue !== value) {
       this._signatureValue = value;
       this._cdr.detectChanges();
@@ -82,7 +82,7 @@ export abstract class AjfSignature implements ControlValueAccessor {
   }
 
   /** ControlValueAccessor implements */
-  writeValue(value: SignatureType) {
+  writeValue(value: AjfFile | null) {
     this._signatureValue = value;
   }
 
