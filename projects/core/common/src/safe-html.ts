@@ -20,31 +20,14 @@
  *
  */
 
-import {NgModule} from '@angular/core';
+import {Pipe, PipeTransform, SecurityContext} from '@angular/core';
+import {DomSanitizer} from '@angular/platform-browser';
 
-import {ApplyStylesDirective} from './apply-styles-directive';
-import {AutofocusDirective} from './auto-focus.directive';
-import {AjfDndDirective} from './dnd-directive';
-import {FormatIfNumber} from './format-if-number';
-import {TranslateIfString} from './translate-if-string';
-import {SafeHtmlPipe} from './safe-html';
+@Pipe({name: 'safeHtml'})
+export class SafeHtmlPipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
 
-@NgModule({
-  declarations: [
-    AjfDndDirective,
-    ApplyStylesDirective,
-    AutofocusDirective,
-    FormatIfNumber,
-    SafeHtmlPipe,
-    TranslateIfString,
-  ],
-  exports: [
-    AjfDndDirective,
-    ApplyStylesDirective,
-    AutofocusDirective,
-    FormatIfNumber,
-    SafeHtmlPipe,
-    TranslateIfString,
-  ],
-})
-export class AjfCommonModule {}
+  transform(value: string): string {
+    return this.sanitizer.sanitize(SecurityContext.HTML, value) ?? '';
+  }
+}

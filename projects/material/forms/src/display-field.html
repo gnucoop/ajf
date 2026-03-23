@@ -1,0 +1,22 @@
+<ng-container *ngIf="control | async as ctrl">
+    <ng-container [ngSwitch]="instance?.node?.fieldType">
+
+        <!-- String  -->
+        <span *ngSwitchCase="0">{{ ctrl.value }}</span>
+
+        <!-- Textarea with HTML  -->
+        <div *ngSwitchCase="1" [innerHTML]="ctrl.value | safeHtml"></div>
+
+        <!-- Number  -->
+        <span *ngSwitchCase="2">{{ ctrl.value | number }}</span>
+
+        <!-- Boolean  -->
+        <mat-slide-toggle *ngSwitchCase="3" [checked]="ctrl.value" (click)="$event.preventDefault()"
+            (change)="$event.source.checked = ctrl.value" [disableRipple]="true">
+        </mat-slide-toggle>
+
+        <!-- Default -->
+        <span *ngSwitchDefault>{{ ctrl.value }}</span>
+
+    </ng-container>
+</ng-container>

@@ -1,0 +1,17 @@
+.resizable-quill {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+
+  .ql-toolbar {
+    background-color: var(--mdc-filled-text-field-container-color, var(--mat-app-surface-variant));
+  }
+
+  .ql-editor {
+    min-height: calc(1.42em * 8);
+    max-height: calc(1.42em * 25);
+    overflow-y: auto;
+    resize: vertical;
+    font-size: var(--mat-form-field-container-text-size, var(--mat-app-body-large-size));
+  }
+}

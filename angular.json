@@ -355,6 +355,7 @@
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/flag-icon-css/css/flag-icons.min.css",
               "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/quill/dist/quill.snow.css",
               "projects/dev-app/src/styles.scss"
             ],
             "scripts": [],
