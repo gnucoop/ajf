@@ -51,6 +51,7 @@ import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfSignatureFieldComponent} from './signature-field';
+import {AjfDisplayFieldComponent} from './display-field';
 
 @Injectable({providedIn: 'root'})
 export class AjfFieldService extends CoreService {
@@ -62,7 +63,7 @@ export class AjfFieldService extends CoreService {
     }),
       (this.componentsMap[AjfFieldType.Text] = {
         component: AjfTextFieldComponent,
-        readOnlyComponent: AjfReadOnlyFieldComponent,
+        readOnlyComponent: AjfDisplayFieldComponent,
       }),
       (this.componentsMap[AjfFieldType.Number] = {
         component: AjfInputFieldComponent,
@@ -71,7 +72,7 @@ export class AjfFieldService extends CoreService {
       }),
       (this.componentsMap[AjfFieldType.Boolean] = {
         component: AjfBooleanFieldComponent,
-        readOnlyComponent: AjfReadOnlyFieldComponent,
+        readOnlyComponent: AjfDisplayFieldComponent,
       }),
       (this.componentsMap[AjfFieldType.Formula] = {
         component: AjfInputFieldComponent,

@@ -143,6 +143,14 @@ export const formSchema: any = {
         },
         {
           parent: 1003,
+          id: 10031,
+          name: 'textarea',
+          label: 'Textarea',
+          nodeType: 0,
+          fieldType: 1,
+        },
+        {
+          parent: 10031,
           id: 1004,
           name: 'boolean',
           label: 'Boolean answer (a checkbox)',

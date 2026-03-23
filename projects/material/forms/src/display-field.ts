@@ -21,11 +21,6 @@
  */
 
 import {
-  AJF_WARNING_ALERT_SERVICE,
-  AjfFormRendererService,
-  AjfInputFieldComponent as CoreComponent,
-} from '@ajf/core/forms';
-import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -33,23 +28,28 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import {AjfWarningAlertService} from './warning-alert-service';
+import {
+  AJF_WARNING_ALERT_SERVICE,
+  AjfFormRendererService,
+  AjfWarningAlertService,
+} from '@ajf/core/forms';
 
+import {AjfInputFieldComponent} from '@ajf/core/forms/src/input-field';
+
+/**
+ * this component show the control value inherited from AjfBaseFieldComponent.
+ *
+ * @export
+ * @class AjfDisplayFieldComponent
+ */
 @Component({
-  templateUrl: 'text-field.html',
-  styleUrls: ['text-field.scss'],
+  selector: 'ajf-display-field',
+  templateUrl: 'display-field.html',
+  styleUrls: ['display-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfTextFieldComponent extends CoreComponent {
-  quillModules = {
-    toolbar: [
-      ['bold', 'italic', 'underline'],
-      [{'list': 'ordered'}, {'list': 'bullet'}],
-      ['clean'],
-    ],
-  };
-
+export class AjfDisplayFieldComponent extends AjfInputFieldComponent {
   constructor(
     cdr: ChangeDetectorRef,
     service: AjfFormRendererService,

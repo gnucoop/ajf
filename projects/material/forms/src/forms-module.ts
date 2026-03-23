@@ -71,6 +71,8 @@ import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfWarningAlertService} from './warning-alert-service';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {AjfSignatureModule} from '@ajf/material/signature';
+import {QuillModule} from 'ngx-quill';
+import {AjfDisplayFieldComponent} from './display-field';
 
 @NgModule({
   imports: [
@@ -103,6 +105,7 @@ import {AjfSignatureModule} from '@ajf/material/signature';
     TextFieldModule,
     MatSliderModule,
     NgxMatSelectSearchModule,
+    QuillModule.forRoot(),
   ],
   declarations: [
     AjfBarcodeFieldComponent,
@@ -123,6 +126,7 @@ import {AjfSignatureModule} from '@ajf/material/signature';
     AjfTextFieldComponent,
     AjfTimeFieldComponent,
     AjfVideoUrlFieldComponent,
+    AjfDisplayFieldComponent,
   ],
   exports: [AjfFormField, AjfFormRenderer],
   providers: [

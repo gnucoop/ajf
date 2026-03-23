@@ -1,3 +1,3 @@
-<mat-form-field *ngIf="control|async as ctrl">
-  <textarea matInput cdkTextareaAutosize [formControl]="ctrl!"></textarea>
-</mat-form-field>
+<quill-editor *ngIf="control | async as ctrl" [formControl]="ctrl!" [modules]="quillModules" class="resizable-quill"
+    placeholder="">
+</quill-editor>
