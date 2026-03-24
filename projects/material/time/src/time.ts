@@ -45,6 +45,9 @@ export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AjfTime extends Base implements ControlValueAccessor, OnDestroy {
+  hoursList: number[] = Array.from({length: 24}, (_, i) => i);
+  minutesList: number[] = Array.from({length: 60}, (_, i) => i);
+
   constructor() {
     super();
   }

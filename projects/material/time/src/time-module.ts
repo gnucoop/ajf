@@ -26,9 +26,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
 import {AjfTime} from './time';
+import {MatSelectModule} from '@angular/material/select';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
-  imports: [FormsModule, MatFormFieldModule, MatInputModule],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
   declarations: [AjfTime],
   exports: [AjfTime],
 })

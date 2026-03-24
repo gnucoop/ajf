@@ -1,21 +1,17 @@
 <div>
   <mat-form-field>
-    <input
-        matInput
-        min="0"
-        max="23"
-        (focus)="focusHandler()"
-        [(ngModel)]="hours"
-        type="number">
+    <mat-select [(ngModel)]="hours" (opened)="focusHandler()" placeholder="HH">
+      <mat-option *ngFor="let h of hoursList" [value]="h">
+        {{ h | number:'2.0' }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
   :
   <mat-form-field>
-    <input
-        matInput
-        min="0"
-        max="59"
-        (focus)="focusHandler()"
-        [(ngModel)]="minutes"
-        type="number">
+    <mat-select [(ngModel)]="minutes" (opened)="focusHandler()" placeholder="MM">
+      <mat-option *ngFor="let m of minutesList" [value]="m">
+        {{ m | number:'2.0' }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 </div>
