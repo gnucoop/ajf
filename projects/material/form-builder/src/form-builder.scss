@@ -4,8 +4,6 @@ ajf-form-builder {
   align-items: stretch;
   position: relative;
   min-height: 300px;
-  background-color: #fdfdfd;
-  color: #1c1b1f;
 
   mat-toolbar.ajf-formbuilder-toolbar {
     position: sticky;
@@ -14,7 +12,6 @@ ajf-form-builder {
     display: flex;
     align-items: center;
     padding: 0.5rem 1rem;
-    background-color: #ffffff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     gap: 0.75rem;
@@ -53,16 +50,14 @@ ajf-form-builder {
     mat-drawer-container.ajf-formtree-drawer-container {
       flex: 1 1 auto;
       min-height: 47vh;
-      background-color: #ffffff;
       border-radius: 1rem;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid #ccc;
       overflow: hidden;
       transition: box-shadow 0.25s ease-in-out;
 
       mat-drawer {
         max-width: 20%;
         min-width: 240px;
-        background-color: #ffffff;
         border-right: 1px solid rgba(0, 0, 0, 0.08);
       }
 
@@ -85,9 +80,8 @@ ajf-form-builder {
       overflow-y: auto;
       position: sticky;
       top: 64px;
-      background-color: #f8f9fa;
       border-radius: 1rem;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+      border: 1px solid #ccc;
       padding: 1rem;
       transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
@@ -102,7 +96,6 @@ ajf-form-builder {
     flex-direction: column;
     max-width: 22%;
     min-width: 220px;
-    background-color: #fafafa;
     border-right: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.05);
 
@@ -110,7 +103,6 @@ ajf-form-builder {
       position: sticky;
       top: 0;
       z-index: 2;
-      background: #ffffff;
       padding: 0.5rem;
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     }
