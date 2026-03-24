@@ -50,16 +50,20 @@ export abstract class AjfTime implements ControlValueAccessor, OnDestroy {
     return this._value.hours;
   }
   set hours(hours: number) {
-    this._value.hours = hours;
-    this._onChangeCallback(this._value.toString());
+    if (this._value.hours !== hours) {
+      this._value.hours = hours;
+      this._onChangeCallback(this._value.toString());
+    }
   }
 
   get minutes(): number {
     return this._value.minutes;
   }
   set minutes(minutes: number) {
-    this._value.minutes = minutes;
-    this._onChangeCallback(this._value.toString());
+    if (this._value.minutes !== minutes) {
+      this._value.minutes = minutes;
+      this._onChangeCallback(this._value.toString());
+    }
   }
 
   private _onChangeCallback: (_: any) => void = (_: any) => {};

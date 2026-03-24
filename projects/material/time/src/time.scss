@@ -1,6 +1,10 @@
 ajf-time {
   .mat-mdc-form-field {
-    width: 3.5em;
+    width: 4.5em;
     text-align: center;
+  }
+
+  .mat-mdc-select {
+    margin: 0 !important;
   }
 }
