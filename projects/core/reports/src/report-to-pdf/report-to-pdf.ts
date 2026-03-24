@@ -189,27 +189,85 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
   return {image: dataUrl, width, alignment, margin: [0, 0, 0, marginBetweenWidgets]};
 }
 
-function htmlTextToPdfText(htmlText: string, images: ImageMap): string {
+function textToPdf(tw: AjfTextWidgetInstance, images: ImageMap): Content {
+  const iconText = images[tw.htmlText];
+  if (typeof iconText === 'string') {
+    return {text: iconText, margin: [0, 0, 0, marginBetweenWidgets]};
+  }
+  const paragraphs = tw.htmlText.split(/(?=<p|<h1|<h2|<h3|<li)/);
+  return {
+    stack: paragraphs.map(paragraphToPdf),
+    margin: [0, 0, 0, marginBetweenWidgets],
+  };
+}
+
+function paragraphToPdf(par: string): Content {
+  let alignment: 'left'|'center'|'right'|'justify'|undefined;
+  if (/^<\w\w? align="center"/.test(par)) {
+    alignment = "center";
+  } else if (/^<\w\w? align="right"/.test(par)) {
+    alignment = "right";
+  } else if (/^<\w\w? align="justify"/.test(par)) {
+    alignment = "justify";
+  }
+
+  let fontSize: number|undefined;
+  if (par.startsWith('<h1')) {
+    fontSize = 20;
+  } else if (par.startsWith('<h2')) {
+    fontSize = 16;
+  } else if (par.startsWith('<h3')) {
+    fontSize = 14;
+  }
+  if (fontSize !== undefined) {
+    return {text: stripHTML(par).trim(), fontSize, alignment, margin: [0, 5, 0, 0]};
+  }
+
+  if (par.startsWith('<li')) {
+    return {ul: [{text: textRuns(par), alignment}]};
+  }
+  return {text: textRuns(par), alignment};
+}
+
+function textRuns(par: string): Content[] {
+  const strings = par.split(/(?=<b>|<\/b>|<i>|<\/i>|<u>|<\/u>)/);
+  let bold = false;
+  let italics = false;
+  let decoration: 'underline'|undefined;
+  const runs: Content[] = [];
+  for (let i = 0; i < strings.length; i++) {
+    let s = strings[i];
+    if (s.startsWith('<b>')) {
+      bold = true;
+    } else if (s.startsWith('</b>')) {
+      bold = false;
+    } else if (s.startsWith('<i>')) {
+      italics = true;
+    } else if (s.startsWith('</i>')) {
+      italics = false;
+    } else if (s.startsWith('<u>')) {
+      decoration = 'underline';
+    } else if (s.startsWith('</u>')) {
+      decoration = undefined;
+    }
+    s = stripHTML(s);
+    if (i === 0) {
+      s = s.trimStart();
+    }
+    if (i === strings.length - 1) {
+      s = s.trimEnd();
+    }
+    runs.push({text: s, bold, italics, decoration});
+  }
+  return runs;
+}
+
+function replaceIcon(htmlText: string, images: ImageMap): string {
   const iconText = images[htmlText];
   if (typeof iconText === 'string') {
     return iconText;
   }
   return stripHTML(htmlText);
-}
-
-function textToPdf(tw: AjfTextWidgetInstance, images: ImageMap): Content {
-  const text: Content = {
-    text: htmlTextToPdfText(tw.htmlText, images),
-    margin: [0, 0, 0, marginBetweenWidgets],
-  };
-  if (tw.htmlText.startsWith('<h1>')) {
-    text.fontSize = 20;
-    text.margin = [0, 10, 0, marginBetweenWidgets];
-  } else if (tw.htmlText.startsWith('<h2>')) {
-    text.fontSize = 15;
-    text.margin = [0, 5, 0, marginBetweenWidgets];
-  }
-  return text;
 }
 
 function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
@@ -226,7 +284,7 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
           text = String(cell.value);
           break;
         case 'string':
-          text = htmlTextToPdfText(cell.value, images);
+          text = replaceIcon(cell.value, images);
           break;
         case 'object':
           if (cell.value == null) {
@@ -239,14 +297,14 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
           if (typeof val === 'number') {
             val = String(val);
           }
-          text = htmlTextToPdfText(val || '', images);
+          text = replaceIcon(val || '', images);
           break;
         default:
           if (cell.value == null) {
             break;
           }
           let strVal = String(cell.value);
-          text = htmlTextToPdfText(strVal || '', images);
+          text = replaceIcon(strVal || '', images);
           break;
       }
       bodyRow.push({text, colSpan: cell.colspan, rowSpan: cell.rowspan});

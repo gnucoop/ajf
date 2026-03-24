@@ -34,6 +34,7 @@ import {
   TableCell,
   TableRow,
   TextRun,
+  UnderlineType,
 } from 'docx';
 
 import {AjfReportInstance} from '../interface/reports-instances/report-instance';
@@ -217,9 +218,10 @@ function paragraphToDoc(par: string): Paragraph {
 }
 
 function textRuns(par: string): TextRun[] {
-  const strings = par.split(/(?=<b>|<\/b>|<i>|<\/i>)/);
+  const strings = par.split(/(?=<b>|<\/b>|<i>|<\/i>|<u>|<\/u>)/);
   let bold = false;
   let italics = false;
+  let underline: {type: UnderlineType}|undefined = undefined;
   const runs: TextRun[] = [];
   for (let i = 0; i < strings.length; i++) {
     let s = strings[i];
@@ -231,6 +233,10 @@ function textRuns(par: string): TextRun[] {
       italics = true;
     } else if (s.startsWith('</i>')) {
       italics = false;
+    } else if (s.startsWith('<u>')) {
+      underline = {type: UnderlineType.SINGLE};
+    } else if (s.startsWith('</u>')) {
+      underline = undefined;
     }
     s = stripHTML(s);
     if (i === 0) {
@@ -239,7 +245,7 @@ function textRuns(par: string): TextRun[] {
     if (i === strings.length - 1) {
       s = s.trimEnd();
     }
-    runs.push(new TextRun({text: s, bold, italics}));
+    runs.push(new TextRun({text: s, bold, italics, underline}));
   }
   return runs;
 }
