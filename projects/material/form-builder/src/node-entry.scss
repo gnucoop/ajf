@@ -50,10 +50,8 @@ ajf-fb-node-entry {
       }
 
       .ajf-title-row-error {
-        color: rgb(244, 67, 54);
+        color: var(--palette-warn-500, #c62828);
       }
-
-      background-color: #ffffff;
 
       &.ajf-empty {
         line-height: 36px;
@@ -68,19 +66,19 @@ ajf-fb-node-entry {
         padding: 5px 5px;
         border-bottom: solid 1px #ccc;
         border-right: solid 1px #ccc;
-        color: rgba(0, 0, 0, 0.87);
         box-sizing: border-box;
         cursor: move;
-        background: white;
         font-size: 14px;
       }
     }
     &.ajf-highlighted-formbuilder-node > mat-card {
-      background-color: #fff9c4 !important;
+      background-color: var(--palette-primary-100, #fff9c4) !important;
+      color: var(--palette-primary-500);
     }
   }
   .ajf-highlighted-formbuilder-node .mat-mdc-card .mat-expansion-panel .mat-expansion-panel-header {
-    background-color: #fff9c4 !important;
+    background-color: var(--palette-primary-100, #fff9c4) !important;
+    color: var(--palette-primary-500);
   }
 
   &.ajf-fields-list {

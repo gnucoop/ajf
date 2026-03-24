@@ -50,7 +50,7 @@ import {
 } from './form-builder-utils';
 
 const branchColors: string[] = [
-  '#F44336', // RED
+  '#C62828', // RED
   '#4CAF50', // GREEN
   '#3F51B5', // INDIGO
   '#FFC107', // AMBER
