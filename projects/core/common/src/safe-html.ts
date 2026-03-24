@@ -28,6 +28,9 @@ export class SafeHtmlPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(value: string): string {
-    return this.sanitizer.sanitize(SecurityContext.HTML, value) ?? '';
+    if (!value) return '';
+    const stringValue = typeof value === 'string' ? value : JSON.stringify(value);
+    const htmlText = stringValue.replace(/\r\n|\r|\n/g, '<br>');
+    return this.sanitizer.sanitize(SecurityContext.HTML, htmlText) ?? '';
   }
 }

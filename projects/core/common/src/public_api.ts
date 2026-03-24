@@ -29,3 +29,4 @@ export * from './dnd-directive';
 export * from './format-if-number';
 export * from './string-identifier';
 export * from './translate-if-string';
+export * from './safe-html';

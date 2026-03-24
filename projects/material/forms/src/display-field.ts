@@ -31,10 +31,9 @@ import {
 import {
   AJF_WARNING_ALERT_SERVICE,
   AjfFormRendererService,
+  AjfInputFieldComponent,
   AjfWarningAlertService,
 } from '@ajf/core/forms';
-
-import {AjfInputFieldComponent} from '@ajf/core/forms/src/input-field';
 
 /**
  * this component show the control value inherited from AjfBaseFieldComponent.

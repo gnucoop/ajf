@@ -57,4 +57,18 @@ export class AjfTextFieldComponent extends CoreComponent {
   ) {
     super(cdr, service, was);
   }
+
+  override ngOnInit(): void {
+    super.ngOnInit();
+    if (this.control) {
+      this.control.subscribe(ctrl => {
+        if (ctrl && typeof ctrl.value === 'string') {
+          const converted = ctrl.value.replace(/\r\n|\r|\n/g, '<br>');
+          if (converted !== ctrl.value) {
+            ctrl.setValue(converted, {emitEvent: false});
+          }
+        }
+      });
+    }
+  }
 }
