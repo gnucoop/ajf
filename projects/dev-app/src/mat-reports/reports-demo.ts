@@ -42,7 +42,8 @@ import {testReport} from './report';
   styleUrls: ['reports-demo.scss'],
 })
 export class ReportsDemo {
-  report: AjfReportInstance | undefined;
+  report: AjfReportInstance|undefined;
+  printableReport: AjfReportInstance|undefined;
   reportStr: string = JSON.stringify(testReport);
   context: string = '{}';
 
@@ -61,6 +62,7 @@ export class ReportsDemo {
     _ts.setTranslation(engDict, 'ENG');
     _ts.setDefaultLang('ENG');
     this.report = this.recreateReportInstance();
+    this.printableReport = this.report;
 
     AjfWidgetExport.addIcons({'3a': '3a export icon!'});
   }
@@ -74,6 +76,7 @@ export class ReportsDemo {
 
   setReport(): void {
     this.report = this.recreateReportInstance();
+    this.printableReport = this.report;
   }
 
   filterWidgetChanged(changes: {context: AjfContext, report?: AjfReportInstance}) {
@@ -83,15 +86,21 @@ export class ReportsDemo {
     } catch (_) {}
     ctx = {...ctx, ...changes.context};
     this.context = JSON.stringify(ctx);
+
+    if (changes.report) {
+      this.printableReport = changes.report;
+    }
   }
 
   printReport(orientation: 'portrait' | 'landscape') {
-    const instance = this.recreateReportInstance();
-    openReportPdf(instance, orientation);
+    if (this.printableReport) {
+      openReportPdf(this.printableReport, orientation);
+    }
   }
 
   downloadReportDoc(orientation: 'portrait' | 'landscape') {
-    const instance = this.recreateReportInstance();
-    downloadReportDoc(instance, undefined, orientation as any);
+    if (this.printableReport) {
+      downloadReportDoc(this.printableReport, undefined, orientation as any);
+    }
   }
 }
