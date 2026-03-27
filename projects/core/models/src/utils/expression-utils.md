@@ -66,6 +66,10 @@ Evaluates the expression in the last form by date.
 `FILTER_BY(forms, expression)`  
 Returns a copy of forms and its repetitions, keeping only the ones for which expression evaluates to true.
 
+`FLATTEN_REPS(forms, slideName)`  
+Returns a copy of forms, modified as follows: if a form has n repeating slides, it is duplicated as n forms,
+in which the fields of the repeating slides appear as regular fields.
+
 `JOIN_FORMS(formsA, formsB, $fieldA, $fieldB?)`  
 Performs a left join of formsA and formsB.  
 For example, `JOIN_FORMS(anagraphic, medical, $personId)` returns a copy the anagraphic data forms,

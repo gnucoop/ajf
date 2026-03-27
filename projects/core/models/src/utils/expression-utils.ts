@@ -152,6 +152,7 @@ export class AjfExpressionUtils {
     EVALUATE: {fn: EVALUATE},
     FILTER_BY_VARS: {fn: FILTER_BY_VARS},
     FILTER_BY: {fn: FILTER_BY},
+    FLATTEN_REPS: {fn: FLATTEN_REPS},
     FIRST: {fn: FIRST},
     FROM_REPS: {fn: FROM_REPS},
     GET_AGE: {fn: GET_AGE},
@@ -1872,6 +1873,30 @@ export function FILTER_BY(forms: MainForm[], expression: Func | string): MainFor
     if (someReps || expression(form)) {
       form.reps = filteredReps;
       res.push(form);
+    }
+  }
+  return res;
+}
+
+/**
+ * Returns a copy of forms, modified as follows: if a form has n repeating slides,
+ * it is duplicated as n forms, in which the fields of the repeating slides appear as regular fields.
+ */
+export function FLATTEN_REPS(forms: MainForm[], slideName: string): MainForm[] {
+  const res: MainForm[] = [];
+  for (const form of forms) {
+    if (form == null) {
+      continue;
+    }
+    const reps = {...form.reps};
+    const slides = reps[slideName];
+    delete reps[slideName];
+    if (slides == null || slides.length === 0) {
+      res.push({...form, reps});
+      continue;
+    }
+    for (const slide of slides) {
+      res.push({...form, ...slide, reps});
     }
   }
   return res;
