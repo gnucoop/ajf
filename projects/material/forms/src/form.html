@@ -114,6 +114,7 @@
                               (centeredFieldsContent ? ' ajf-centered-field' : '')"
                               class="ajf-field-entry"
                               *ngIf="fieldInstance.visible"
+                              [ngStyle]="fieldStyle(fieldInstance|ajfAsFieldInstance)"
                             >
                               <i
                                 [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon"
@@ -231,6 +232,7 @@
                               (centeredFieldsContent ? ' ajf-centered-field' : '')"
                               class="ajf-field-entry"
                               *ngIf="fieldInstance.visible"
+                              [ngStyle]="fieldStyle(fieldInstance|ajfAsFieldInstance)"
                             >
                               <i
                                 [class]="(fieldInstance|ajfAsFieldInstance).node.fieldType | ajfFieldIcon"

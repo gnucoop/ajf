@@ -20,7 +20,12 @@
  *
  */
 
-import {AjfFormRenderer as CoreFormRenderer, AjfFormRendererService} from '@ajf/core/forms';
+import {
+  AjfFormRenderer as CoreFormRenderer,
+  AjfFormRendererService,
+  AjfFieldInstance,
+  AjfFieldType,
+} from '@ajf/core/forms';
 import {BooleanInput} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
@@ -44,6 +49,13 @@ export class AjfFormRenderer extends CoreFormRenderer {
 
   constructor(rendererService: AjfFormRendererService, changeDetectorRef: ChangeDetectorRef) {
     super(rendererService, changeDetectorRef);
+  }
+
+  fieldStyle(field: AjfFieldInstance): any {
+    if (field.node.fieldType === AjfFieldType.Formula && field.node.label === '') {
+      return {display: 'none'};
+    }
+    return {};
   }
 
   static ngAcceptInputType_fixedOrientation: BooleanInput;
