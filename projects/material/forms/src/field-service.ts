@@ -36,10 +36,12 @@ import {
 } from '@ajf/core/forms';
 import {Injectable} from '@angular/core';
 
+import {AjfAudioFieldComponent} from './audio-field';
 import {AjfBarcodeFieldComponent} from './barcode-field';
 import {AjfBooleanFieldComponent} from './boolean-field';
 import {AjfDateFieldComponent} from './date-field';
 import {AjfDateInputFieldComponent} from './date-input-field';
+import {AjfDisplayFieldComponent} from './display-field';
 import {AjfEmptyFieldComponent} from './empty-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfGeolocationFieldComponent} from './geolocation-field';
@@ -51,7 +53,6 @@ import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
 import {AjfVideoUrlFieldComponent} from './video-url-field';
 import {AjfSignatureFieldComponent} from './signature-field';
-import {AjfDisplayFieldComponent} from './display-field';
 
 @Injectable({providedIn: 'root'})
 export class AjfFieldService extends CoreService {
@@ -131,6 +132,10 @@ export class AjfFieldService extends CoreService {
     this.componentsMap[AjfFieldType.Range] = {
       component: AjfRangeFieldComponent,
       readOnlyComponent: AjfReadOnlyFieldComponent,
+    };
+    this.componentsMap[AjfFieldType.Audio] = {
+      component: AjfAudioFieldComponent,
+      readOnlyComponent: AjfReadOnlyFileFieldComponent,
     };
   }
 }

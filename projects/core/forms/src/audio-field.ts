@@ -20,30 +20,11 @@
  *
  */
 
+import {AjfBaseFieldComponent} from './base-field';
+
 /**
- * The available ajf field types.
+ * @export
+ * @abstract
+ * @class AjfAudioFieldComponent
  */
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfFieldType {
-  String,
-  Text,
-  Number,
-  Boolean,
-  SingleChoice,
-  MultipleChoice,
-  Formula,
-  Empty,
-  Date,
-  DateInput,
-  Time,
-  Table,
-  Geolocation,
-  Barcode,
-  File,
-  Image,
-  VideoUrl,
-  Range,
-  Signature,
-  Audio,
-  LENGTH,
-}
+export abstract class AjfAudioFieldComponent extends AjfBaseFieldComponent {}
