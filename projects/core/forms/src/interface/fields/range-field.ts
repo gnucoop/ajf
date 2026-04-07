@@ -28,4 +28,5 @@ export interface AjfRangeField extends AjfBaseField {
   end?: number;
   start?: number;
   step?: number;
+  appearance?: 'rating' | string;
 }

@@ -46,6 +46,7 @@ export class DevAppLayout {
     {
       name: 'Material',
       children: [
+        {name: 'Audio', route: '/mat-audio'},
         {name: 'Barcode', route: '/mat-barcode'},
         {name: 'Calendar', route: '/mat-calendar'},
         {name: 'Calendar - Ethiopian', route: '/mat-calendar-ethiopian'},

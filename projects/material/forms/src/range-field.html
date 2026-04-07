@@ -1,14 +1,33 @@
 <ng-container *ngIf="control|async as ctrl">
-  <mat-slider
-    discrete
-    showTickMarks
-    [step]="step"
-    [min]="start"
-    [max]="end"
-    [attr.aria-label]="name"
-    [attr.name]="name"
-  ><input matSliderThumb [value]="value" [formControl]="ctrl" /></mat-slider>
-  <div class="ajf-range-label">
-    <label>{{ctrl.value}}</label>
+  <div *ngIf="appearance !== 'rating'; else ratingTemplate">
+    <mat-slider
+      discrete
+      showTickMarks
+      [step]="step"
+      [min]="start"
+      [max]="end"
+      [attr.aria-label]="name"
+      [attr.name]="name"
+    ><input matSliderThumb [value]="value" [formControl]="ctrl" /></mat-slider>
+    <div class="ajf-range-label">
+      <label>{{ctrl.value}}</label>
+    </div>
   </div>
+  
+  <ng-template #ratingTemplate>
+    <div class="ajf-rating-container">
+      <button type="button"
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              class="ajf-rating-star"
+              [class.selected]="star <= ctrl.value"
+              (click)="ctrl.setValue(star)"
+              [attr.aria-label]="'Rate ' + star + ' out of 5'"
+              [attr.name]="name">
+        <mat-icon>star</mat-icon>
+      </button>
+      <div class="ajf-range-label">
+        <label>{{ctrl.value}}</label>
+      </div>
+    </div>
+  </ng-template>
 </ng-container>

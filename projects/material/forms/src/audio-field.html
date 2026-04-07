@@ -1,0 +1,6 @@
+<div class="ajf-field-wrapper" *ngIf="control | async as ctrl">
+  <ajf-audio
+    [readonly]="!instance?.editable"
+    [formControl]="ctrl"
+  ></ajf-audio>
+</div>

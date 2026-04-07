@@ -23,6 +23,7 @@
 export * from './as-validation-errors-string';
 export * from './as-field-instance';
 export * from './as-repeating-slide-instance';
+export * from './audio-field';
 export * from './base-field';
 export * from './bool-to-int';
 export * from './date-value';

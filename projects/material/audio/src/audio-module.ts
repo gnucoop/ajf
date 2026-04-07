@@ -20,30 +20,18 @@
  *
  */
 
-/**
- * The available ajf field types.
- */
-// tslint:disable-next-line:prefer-const-enum
-export enum AjfFieldType {
-  String,
-  Text,
-  Number,
-  Boolean,
-  SingleChoice,
-  MultipleChoice,
-  Formula,
-  Empty,
-  Date,
-  DateInput,
-  Time,
-  Table,
-  Geolocation,
-  Barcode,
-  File,
-  Image,
-  VideoUrl,
-  Range,
-  Signature,
-  Audio,
-  LENGTH,
-}
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
+import {AjfAudioComponent} from './audio';
+import {FormsModule} from '@angular/forms';
+
+@NgModule({
+  imports: [CommonModule, FormsModule, MatButtonModule, MatIconModule, MatTooltipModule],
+  declarations: [AjfAudioComponent],
+  exports: [AjfAudioComponent],
+})
+export class AjfAudioModule {}
