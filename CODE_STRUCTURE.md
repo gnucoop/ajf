@@ -13,7 +13,7 @@ The repository is organized into distinct project types under `projects/`:
   - `forms`: Components that render specific fields (e.g., `AjfInputFieldComponent`).
   - `form-builder`: The visual editor for creating forms.
 - **`projects/dev-app`**: A monolithic development application to test all features.
-  - It loads various demo modules (e.g., `mat-forms`, `mat-barcode`, `mat-audio`) via lazy loading in `routes.ts`.
+  - It loads various demo modules (e.g., `mat-forms`, `mat-barcode`) via lazy loading in `routes.ts`.
 
 ## 1.1 JSON Data Model Snippet
 Example of how a field is represented in the JSON schema (`testformschema.json`):

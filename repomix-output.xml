@@ -793,9 +793,6 @@ projects/
       i18n/
         i18n-demo-module.ts
         i18n-demo.ts
-      mat-audio/
-        audio-demo-module.ts
-        audio-demo.ts
       mat-automatic-report/
         automatic-report-demo-module.ts
         automatic-report-demo.ts
@@ -11990,24 +11987,6 @@ constructor(
 toggleFullscreen()
 </file>
 
-<file path="projects/dev-app/src/mat-audio/audio-demo-module.ts">
-import {AjfAudioModule} from '@ajf/material/audio';
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {RouterModule} from '@angular/router';
-⋮----
-import {AudioDemo} from './audio-demo';
-⋮----
-export class AudioDemoModule
-</file>
-
-<file path="projects/dev-app/src/mat-audio/audio-demo.ts">
-import {Component} from '@angular/core';
-⋮----
-export class AudioDemo
-</file>
-
 <file path="projects/dev-app/src/mat-automatic-report/mockup.ts">
 
 </file>
@@ -12558,7 +12537,7 @@ The repository is organized into distinct project types under `projects/`:
   - `forms`: Components that render specific fields (e.g., `AjfInputFieldComponent`).
   - `form-builder`: The visual editor for creating forms.
 - **`projects/dev-app`**: A monolithic development application to test all features.
-  - It loads various demo modules (e.g., `mat-forms`, `mat-barcode`, `mat-audio`) via lazy loading in `routes.ts`.
+  - It loads various demo modules (e.g., `mat-forms`, `mat-barcode`) via lazy loading in `routes.ts`.
 
 ## 1.1 JSON Data Model Snippet
 Example of how a field is represented in the JSON schema (`testformschema.json`):
