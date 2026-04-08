@@ -30,6 +30,7 @@ import {
   ChangeDetectorRef,
   Component,
   Inject,
+  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -41,7 +42,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class AjfTextFieldComponent extends CoreComponent {
+export class AjfTextFieldComponent extends CoreComponent implements OnInit {
   quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline'],
