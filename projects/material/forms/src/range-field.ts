@@ -47,4 +47,12 @@ export class AjfRangeFieldComponent extends AjfRange {
   ) {
     super(cdr, service, was);
   }
+
+  enumerateStars(): number[] {
+    const nums: number[] = [];
+    for (let i = 1; i <= (this.end || 5); i++) {
+      nums.push(i);
+    }
+    return nums;
+  }
 }

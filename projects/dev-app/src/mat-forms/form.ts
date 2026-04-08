@@ -28,8 +28,6 @@ export const formContext: any = {
   'value4': 4,
   'value5': 5,
   'value6': 6,
-  'range': 2,
-  'range_rating': 3,
 };
 
 export const formSchema: any = {
