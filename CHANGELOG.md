@@ -1,3 +1,21 @@
+<a name="18.1.2"></a>
+# 18.1.2 "profitable-mosquito" (2026-04-16)
+### Bug Fixes
+* **dev-app:** fix printing of report charts ([5cff551](https://github.com/gnucoop/ajf/commit/5cff551cf1a3418163c48863c08ba16e1add5636))
+* **dev-app:** remove audio field demo page ([1c450d5](https://github.com/gnucoop/ajf/commit/1c450d5564c1e42bdee24e3db47c13e5f5f16f2b))
+* **material/form-builder:** remove hardcoded colors in form builder to support light/dark mode ([fb24b27](https://github.com/gnucoop/ajf/commit/fb24b2758e56717782dda606eb9be933045a2470))
+* **material/forms:** rating range field takes into account end parameter ([a49a8e1](https://github.com/gnucoop/ajf/commit/a49a8e13fcde0bfd681cfd8def51fbbc1b143911))
+### Features
+* **core/forms:** Add css for readonly table fields, same as editable field ([67be0fc](https://github.com/gnucoop/ajf/commit/67be0fc036f6e9b4b6c1fbec9caa6920f7a63ec4))
+* **core/forms:** new audio field type and rating appearance for range field ([3113285](https://github.com/gnucoop/ajf/commit/3113285aef0964ddf19f617d118601c1475b31b9))
+* **core/reports:** basic html tag parsing in report printing ([ace6d17](https://github.com/gnucoop/ajf/commit/ace6d175fb936e7394fbccc4d54a733874f259ba))
+* **core/reports:** FLATTEN_REPS function ([dc97fb5](https://github.com/gnucoop/ajf/commit/dc97fb5876a6d8208a86ed4ea2958f2a6b581412))
+* **material/forms:** hide formula fields with empty label ([6ae2a84](https://github.com/gnucoop/ajf/commit/6ae2a840a83b45bb4f493bda5e2b25898d439fbd))
+* **material/forms:** Safe convert old text value in html ([31ea125](https://github.com/gnucoop/ajf/commit/31ea125fa7fd248f35c138069d321d8d3d50cd87))
+* **material/time:** Change time input into a select ([d8e1e0f](https://github.com/gnucoop/ajf/commit/d8e1e0f9a39fd36b1d4c9ea82b284a3f0b67acf9))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.1.1"></a>
 # 18.1.1 "xenophobic-felidae" (2026-03-16)
 ### Features
