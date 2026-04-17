@@ -26,6 +26,7 @@ import {
   AjfFormRendererService,
 } from '@ajf/core/forms';
 import {AjfMultipleChoiceFieldComponent, AjfWarningAlertService} from '@ajf/material/forms';
+import {TranslocoService} from '@ajf/core/transloco';
 import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
 
 @Component({
@@ -38,7 +39,8 @@ export class CustomSelectMultiple extends AjfMultipleChoiceFieldComponent<any> {
     service: AjfFormRendererService,
     @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
     @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number,
+    ts: TranslocoService,
   ) {
-    super(changeDetectorRef, service, was, searchThreshold);
+    super(changeDetectorRef, service, was, searchThreshold, ts);
   }
 }
