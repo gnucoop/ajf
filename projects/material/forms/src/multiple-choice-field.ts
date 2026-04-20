@@ -37,8 +37,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Subscription} from 'rxjs';
+import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map, startWith} from 'rxjs/operators';
 
+import {TranslocoService} from '@ajf/core/transloco';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
@@ -48,36 +50,57 @@ import {AjfWarningAlertService} from './warning-alert-service';
   encapsulation: ViewEncapsulation.None,
 })
 export class AjfMultipleChoiceFieldComponent<T>
-  extends AjfFieldWithChoicesComponent<T> implements OnDestroy {
+  extends AjfFieldWithChoicesComponent<T>
+  implements OnDestroy
+{
+  readonly searchFilterCtrl = new FormControl<string>('', {nonNullable: true});
 
-  readonly searchFilterCtrl = new FormControl<string>('');
-  private searchFilterSub: Subscription;
+  filteredChoices$: Observable<AjfChoice<any>[]>;
+
+  private translatedChoices: {choice: AjfChoice<any>; label: string}[] = [];
 
   constructor(
     cdr: ChangeDetectorRef,
     service: AjfFormRendererService,
     @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
     @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number,
+    private _ts: TranslocoService,
   ) {
     super(cdr, service, was, searchThreshold);
 
-    this.searchFilterSub = this.searchFilterCtrl.valueChanges.subscribe(() => {
-      cdr.markForCheck();
-    });
+    this.filteredChoices$ = this.searchFilterCtrl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(150),
+      distinctUntilChanged(),
+      map(search => {
+        const choices = this.instance?.filteredChoices || [];
+        if (choices.length && this.translatedChoices.length !== choices.length) {
+          this.rebuildCache();
+        }
+        if (!search) {
+          return choices;
+        }
+        const lowerSearch = search.toLowerCase();
+        return this.translatedChoices.filter(c => c.label.includes(lowerSearch)).map(c => c.choice);
+      }),
+    );
   }
 
-  filteredChoices(): AjfChoice<any>[] {
+  override ngOnInit(): void {
+    super.ngOnInit();
+    this.rebuildCache();
+  }
+
+  private rebuildCache(): void {
     const choices = this.instance?.filteredChoices || [];
-    let search = this.searchFilterCtrl.value;
-    if (!search) {
-      return choices;
-    }
-    search = search.toLowerCase();
-    return choices.filter(c => c.label.toLowerCase().includes(search!));
+
+    this.translatedChoices = choices.map(c => ({
+      choice: c,
+      label: this._ts.translate(c.label).toLowerCase(),
+    }));
   }
 
   override ngOnDestroy(): void {
     super.ngOnDestroy();
-    this.searchFilterSub.unsubscribe();
   }
 }
