@@ -33,6 +33,7 @@ import {
   Component,
   Inject,
   OnDestroy,
+  OnInit,
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
@@ -51,7 +52,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfMultipleChoiceFieldComponent<T>
   extends AjfFieldWithChoicesComponent<T>
-  implements OnDestroy
+  implements OnInit, OnDestroy
 {
   readonly searchFilterCtrl = new FormControl<string>('', {nonNullable: true});
 
