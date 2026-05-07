@@ -3,6 +3,7 @@
   <ajf-fb-choices-origin-editor
     *ngIf="choicesOrigin|async as co"
     [choicesOrigin]="co!"
+    [nameDuplicate]="isDuplicateName()"
   ></ajf-fb-choices-origin-editor>
 </mat-dialog-content>
 <mat-dialog-actions align="center">

@@ -43,15 +43,38 @@ export class AjfFbChoicesOriginEditorDialog {
     return this._choicesOrigin;
   }
 
+  private _allChoicesOrigins: AjfChoicesOrigin<any>[] = [];
+  private _editedOriginOriginalName = '';
+
   constructor(private _service: AjfFormBuilderService) {
     this._choicesOrigin = this._service.editedChoicesOrigin.pipe(
       filter(c => c != null),
       map(c => c!),
     );
+    this._service.editedChoicesOrigin
+      .pipe(filter(c => c != null), map(c => c!))
+      .subscribe(c => { this._editedOriginOriginalName = c.name; });
+    this._service.choicesOrigins.subscribe(origins => {
+      this._allChoicesOrigins = origins;
+    });
+  }
+
+  isDuplicateName(): boolean {
+    if (this.editor == null) return false;
+    const name = (this.editor.name ?? '').trim();
+    if (name === '') return false;
+    return this._allChoicesOrigins.some(
+      o => o.name !== this._editedOriginOriginalName && o.name === name,
+    );
   }
 
   disableSave(): boolean {
-    return this.editor == null || this.editor.name == null || this.editor.name.trim().length === 0;
+    if (this.editor == null) return true;
+    const name = (this.editor.name ?? '').trim();
+    if (name === '') return true;
+    if (this.isDuplicateName()) return true;
+    if (this.editor.hasInvalidChoices) return true;
+    return false;
   }
 
   saveChoicesOrigin(): void {

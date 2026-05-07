@@ -5,6 +5,9 @@
       {{'Name is required' | transloco}}
     </mat-error>
   </mat-form-field>
+  <span class="ajf-fb-field-error" *ngIf="nameDuplicate && name.trim()">
+    {{'Name already exists' | transloco}}
+  </span>
   <mat-form-field>
     <input matInput [(ngModel)]="label" [placeholder]="'Label' | transloco" />
   </mat-form-field>
@@ -19,7 +22,8 @@
           >{{'Name'|transloco}}</mat-header-cell
         >
         <mat-cell *matCellDef="let row; let idx = index">
-          <input matInput [(ngModel)]="row.value" type="text" />
+          <input matInput [(ngModel)]="row.value" type="text"
+            [class.ajf-fb-choice-invalid]="isChoiceValueInvalid(row.value, idx)"/>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="label">
