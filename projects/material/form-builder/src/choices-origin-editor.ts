@@ -59,6 +59,8 @@ export class AjfFbChoicesOriginEditor {
     this._choices.updateChoices(this._choicesArr);
   }
 
+  @Input() nameDuplicate: boolean = false;
+
   editing: {[key: string]: boolean} = {};
   name: string = '';
   label: string = '';
@@ -72,6 +74,17 @@ export class AjfFbChoicesOriginEditor {
   private _choicesArr: ChoicesOriginChoiceEntry[] = [];
   get choicesArr(): ChoicesOriginChoiceEntry[] {
     return this._choicesArr;
+  }
+
+  get hasInvalidChoices(): boolean {
+    const values = this._choicesArr.map(c => (c.value ?? '').trim());
+    return values.some(v => v === '') || new Set(values).size !== values.length;
+  }
+
+  isChoiceValueInvalid(value: string, rowIdx: number): boolean {
+    const trimmed = (value ?? '').trim();
+    if (trimmed === '') return true;
+    return this._choicesArr.some((c, i) => i !== rowIdx && (c.value ?? '').trim() === trimmed);
   }
 
   updateValue(evt: any, cell: string, _value: any, rowIdx: number): void {
