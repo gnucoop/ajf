@@ -217,6 +217,14 @@
               />
             </mat-form-field>
           </div>
+          <div class="ajf-prop">
+            <mat-form-field>
+              <mat-select formControlName="appearance" [placeholder]="'Appearance' | transloco">
+                <mat-option [value]="null">{{'Default'|transloco}}</mat-option>
+                <mat-option value="rating">{{'Rating'|transloco}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </ng-template>
         <div class="ajf-prop">
           <div class="ajf-header">
