@@ -766,11 +766,12 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
         }
 
         if (this.isRangeField(node)) {
-          const {start, end, step} = node;
+          const {start, end, step, appearance} = node;
 
           controls.start = start;
           controls.end = end;
           controls.step = step;
+          controls.appearance = appearance ?? null;
 
           validators.push(checkRangeValidity);
         }

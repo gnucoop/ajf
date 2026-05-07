@@ -1256,6 +1256,7 @@ export class AjfFormBuilderService {
               node.start = properties.start;
               node.end = properties.end;
               node.step = properties.step;
+              node.appearance = properties.appearance ?? undefined;
             }
 
             if (isEmptyField(node)) {
