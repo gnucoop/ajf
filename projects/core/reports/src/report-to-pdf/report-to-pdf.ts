@@ -122,7 +122,7 @@ function widgetToPdf(widget: AjfWidgetInstance, images: ImageMap, width: number)
     case AjfWidgetType.Image:
       return imageToPdf(widget as AjfImageWidgetInstance, images, width);
     case AjfWidgetType.Text:
-      return textToPdf(widget as AjfTextWidgetInstance);
+      return textToPdf((widget as AjfTextWidgetInstance).htmlText);
     case AjfWidgetType.Chart:
       const chart = widget as AjfChartWidgetInstance;
       const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
@@ -189,8 +189,8 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
   return {image: dataUrl, width, alignment, margin: [0, 0, 0, marginBetweenWidgets]};
 }
 
-function textToPdf(tw: AjfTextWidgetInstance): Content {
-  const paragraphs = tw.htmlText.split(/(?=<p|<h1|<h2|<h3|<li)/);
+function textToPdf(htmlText: string): ContentStack {
+  const paragraphs = htmlText.split(/(?=<p|<h1|<h2|<h3|<li)/);
   return {
     stack: paragraphs.map(paragraphToPdf),
     margin: [0, 0, 0, marginBetweenWidgets],
@@ -266,8 +266,9 @@ function tableToPdf(table: AjfTableWidgetInstance): Content {
   for (const dataRow of expandColAndRowSpan(table.data)) {
     const bodyRow: TableCell[] = [];
     for (const cell of dataRow) {
-      let text = tableCellText(cell);
-      bodyRow.push({text, colSpan: cell.colspan, rowSpan: cell.rowspan});
+      const text = tableCellText(cell);
+      const stack = textToPdf(text);
+      bodyRow.push({...stack, colSpan: cell.colspan, rowSpan: cell.rowspan});
     }
     body.push(bodyRow);
   }
