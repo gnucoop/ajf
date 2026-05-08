@@ -122,7 +122,7 @@ function widgetToPdf(widget: AjfWidgetInstance, images: ImageMap, width: number)
     case AjfWidgetType.Image:
       return imageToPdf(widget as AjfImageWidgetInstance, images, width);
     case AjfWidgetType.Text:
-      return textToPdf(widget as AjfTextWidgetInstance, images);
+      return textToPdf(widget as AjfTextWidgetInstance);
     case AjfWidgetType.Chart:
       const chart = widget as AjfChartWidgetInstance;
       const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
@@ -133,7 +133,7 @@ function widgetToPdf(widget: AjfWidgetInstance, images: ImageMap, width: number)
     case AjfWidgetType.Table:
     case AjfWidgetType.DynamicTable:
     case AjfWidgetType.PaginatedTable:
-      return tableToPdf(widget as AjfTableWidgetInstance, images);
+      return tableToPdf(widget as AjfTableWidgetInstance);
     case AjfWidgetType.Column:
       const cw = widget as AjfColumnWidgetInstance;
       return {stack: cw.content.map(w => widgetToPdf(w, images, width))};
@@ -189,11 +189,7 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
   return {image: dataUrl, width, alignment, margin: [0, 0, 0, marginBetweenWidgets]};
 }
 
-function textToPdf(tw: AjfTextWidgetInstance, images: ImageMap): Content {
-  const iconText = images[tw.htmlText];
-  if (typeof iconText === 'string') {
-    return {text: iconText, margin: [0, 0, 0, marginBetweenWidgets]};
-  }
+function textToPdf(tw: AjfTextWidgetInstance): Content {
   const paragraphs = tw.htmlText.split(/(?=<p|<h1|<h2|<h3|<li)/);
   return {
     stack: paragraphs.map(paragraphToPdf),
@@ -262,15 +258,7 @@ function textRuns(par: string): Content[] {
   return runs;
 }
 
-function replaceIcon(htmlText: string, images: ImageMap): string {
-  const iconText = images[htmlText];
-  if (typeof iconText === 'string') {
-    return iconText;
-  }
-  return stripHTML(htmlText);
-}
-
-function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
+function tableToPdf(table: AjfTableWidgetInstance): Content {
   if (table.data == null || table.data.length === 0) {
     return {text: ''};
   }
@@ -284,7 +272,7 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
           text = String(cell.value);
           break;
         case 'string':
-          text = replaceIcon(cell.value, images);
+          text = stripHTML(cell.value);
           break;
         case 'object':
           if (cell.value == null) {
@@ -297,14 +285,14 @@ function tableToPdf(table: AjfTableWidgetInstance, images: ImageMap): Content {
           if (typeof val === 'number') {
             val = String(val);
           }
-          text = replaceIcon(val || '', images);
+          text = stripHTML(val || '');
           break;
         default:
           if (cell.value == null) {
             break;
           }
           let strVal = String(cell.value);
-          text = replaceIcon(strVal || '', images);
+          text = stripHTML(strVal);
           break;
       }
       bodyRow.push({text, colSpan: cell.colspan, rowSpan: cell.rowspan});
