@@ -118,7 +118,7 @@ sed do eiusmod tempor <u>incididunt</u> ut labore et dolore magna aliqua.
             {
               'label': '',
               'formula': {
-                'formula': '["2a1","2aa1","2aaaa1"]',
+                'formula': '["2a1","2aa1","<b>2aaaa1</b>"]',
               },
               'aggregation': {
                 'aggregation': 0,

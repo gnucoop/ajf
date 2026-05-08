@@ -117,7 +117,7 @@ export function tableCellText(cell: AjfTableCell): string {
   case 'number':
     return String(cell.value);
   case 'string':
-    return stripHTML(cell.value);
+    return cell.value;
   case 'object':
     if (cell.value == null) {
       return '';
@@ -129,15 +129,15 @@ export function tableCellText(cell: AjfTableCell): string {
     if (typeof val === 'number') {
       val = String(val);
     }
-    return stripHTML(val || '');
+    return val || '';
   default:
     if (cell.value == null) {
       return '';
     }
-    return stripHTML(String(cell.value));
+    return String(cell.value);
   }
 }
 
 export function stripHTML(s: string): string {
-  return s.replace(/<\/?[^>]+(>|$)/g, '');
+  return s.replace('&nbsp;', ' ').replace(/<\/?[^>]+(>|$)/g, '');
 }
