@@ -1,3 +1,17 @@
+<a name="18.1.3"></a>
+# 18.1.3 "vivid-thrush" (2026-05-08)
+### Bug Fixes
+* **core/reports:** function renaming in report printing ([ad7a145](https://github.com/gnucoop/ajf/commit/ad7a145ae688e453122842f4d9fbe9e6c86cab93))
+* **core/reports:** remove IconsMap feature from pdf printing ([dac2b3e](https://github.com/gnucoop/ajf/commit/dac2b3e3894ca348121a9bbba6ad2c0abd780527))
+* **metarial/forms:** in choice fields filter by current language ([2c91331](https://github.com/gnucoop/ajf/commit/2c913311b0d6e232b3f2c5ad01795b174bc5f570))
+### Features
+* **core/reports:** html parsing in table cells for report printing ([90f5c6b](https://github.com/gnucoop/ajf/commit/90f5c6b7d7304ccc53200a1846b038233cc0e97c))
+* **material/form-builder:** download form as xlsx ([d79931d](https://github.com/gnucoop/ajf/commit/d79931da1fcfc241598d995b83aaf643d9845d5e))
+* **material/form-builder:** forbid empty and duplicated names in choice origins ([3c03499](https://github.com/gnucoop/ajf/commit/3c03499e29eb0d52c9e5701f6dab164344bb91ad))
+* **material/form-builder:** rating appearance for renge fields ([88fb776](https://github.com/gnucoop/ajf/commit/88fb77648ea7c299357af9d185c828ccb1c1e46c))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.1.2"></a>
 # 18.1.2 "profitable-mosquito" (2026-04-16)
 ### Bug Fixes
