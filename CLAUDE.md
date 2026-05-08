@@ -64,12 +64,46 @@ Defined in `projects/core/forms/src/interface/fields/field-type.ts`. Add new val
 
 ### Adding a new field type
 
-See `CODE_STRUCTURE.md` for the full step-by-step checklist (5 phases: core definition → implementation → registration → form-builder palette → dev-app demo).
+Follow this checklist when adding a new field (e.g., `MyNewField`).
 
-Critical gotchas documented there:
-- Extend `AjfBaseField`, not `AjfField`, in new interface definitions.
-- The wrapper component uses `control` (an `Observable<UntypedFormControl>`), not `formControl` directly.
-- Register the component in `projects/material/forms/src/field-service.ts` and import its module in `AjfFormsModule`.
+**Phase 1 — Core definition**
+
+1. Add `MyNewField` to the `AjfFieldType` enum in `projects/core/forms/src/interface/fields/field-type.ts` (before `LENGTH`).
+2. Create `projects/core/forms/src/interface/fields/my-new-field.ts`. **Must extend `AjfBaseField`**, not `AjfField` — `AjfBaseField` carries `id`, `name`, `parent`, etc.
+3. Export the interface from `projects/core/forms/src/interface/fields/index.ts`.
+4. Add `AjfMyNewField` to the `AjfField` union in `projects/core/forms/src/interface/fields/field.ts`.
+
+**Phase 2 — Implementation (Pattern B / feature module)**
+
+1. Create `projects/core/my-new-field/` with `ng-package.json`, `index.ts`, `public_api.ts`, and core logic (abstract directive, `ControlValueAccessor`).
+2. Create `projects/material/my-new-field/` with `ng-package.json`, the `<ajf-my-new-field>` component, and its `NgModule`.
+3. Create the forms wrapper `projects/material/forms/src/my-new-field.ts` (+ `.html`). Template pattern:
+   ```html
+   <ng-container *ngIf="control | async as ctrl">
+     <ajf-my-new-field [formControl]="ctrl" [readonly]="!instance?.editable"></ajf-my-new-field>
+   </ng-container>
+   ```
+
+**Phase 3 — Registration**
+
+1. In `projects/material/forms/src/field-service.ts` add: `this.componentsMap[AjfFieldType.MyNewField] = { component: AjfMyNewFieldComponent }`.
+2. In `projects/material/forms/src/forms-module.ts`: import `AjfMyNewFieldModule` and declare `AjfMyNewFieldComponent`.
+
+**Phase 4 — Form Builder palette**
+
+1. In `projects/material/form-builder/src/form-builder-service.ts`, add to `_availableNodeTypes`: `{ label: 'My Field', nodeType: { node: AjfNodeType.AjfField, field: AjfFieldType.MyNewField } }`.
+
+**Phase 5 — Dev app**
+
+1. Add a sample field to `projects/dev-app/src/mat-forms/form.ts` (or `testformschema.json`).
+2. Add an instance to `projects/dev-app/src/mat-fields/fields.ts`.
+3. Optionally create `projects/dev-app/src/mat-my-new-field/`, register the route in `routes.ts`, and add a menu item in `dev-app-layout.ts`.
+
+### Common pitfalls
+
+- **"Property 'id' does not exist on type..."** — you extended `AjfField` instead of `AjfBaseField`. Fix the interface.
+- **"formControl does not exist on type AjfFieldInstance"** — use `control` (an `Observable<UntypedFormControl>`), unwrapped with `*ngIf="control | async as ctrl"`, then bind `[formControl]="ctrl"`.
+- **"ajf-xyz is not a known element"** — check that the feature module is imported in `AjfFormsModule`, the component is exported from the feature module's `public_api.ts` and `index.ts`, and `ng-package.json` points to `index.ts`.
 
 ### Key services
 
