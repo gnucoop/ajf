@@ -135,7 +135,7 @@ function widgetToDoc(widget: AjfWidgetInstance, images: ImageMap, width: number)
     case AjfWidgetType.Image:
       return [imageToDoc(widget as AjfImageWidgetInstance, images), marginBetweenWidgets];
     case AjfWidgetType.Text:
-      return [...textToDoc((widget as AjfTextWidgetInstance).htmlText), marginBetweenWidgets];
+      return [...htmlTextToDoc((widget as AjfTextWidgetInstance).htmlText), marginBetweenWidgets];
     case AjfWidgetType.Chart:
       const chart = widget as AjfChartWidgetInstance;
       const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
@@ -183,7 +183,7 @@ function imageToDoc(image: AjfImageWidgetInstance, images: ImageMap): Paragraph 
   })]});
 }
 
-function textToDoc(htmlText: string): Paragraph[] {
+function htmlTextToDoc(htmlText: string): Paragraph[] {
   const paragraphs = htmlText.split(/(?=<p|<h1|<h2|<h3|<li)/);
   return paragraphs.map(paragraphToDoc);
 }
@@ -263,7 +263,7 @@ function tableToDoc(table: AjfTableWidgetInstance, width: number): Table {
     rows: table.data.map(row => new TableRow({
       children: row.map(cell => {
         const text = tableCellText(cell);
-        const paragraphs = textToDoc(text);
+        const paragraphs = htmlTextToDoc(text);
         return new TableCell({
           children: paragraphs,
           columnSpan: cell.colspan || undefined,
