@@ -27,6 +27,7 @@ import {
   AfterContentInit,
   AfterViewChecked,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -38,7 +39,7 @@ import {
 } from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {MatSlideToggleChange} from '@angular/material/slide-toggle';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, Subscription, firstValueFrom} from 'rxjs';
 import {sample} from 'rxjs/operators';
 
 import {AjfFbChoicesOriginEditorDialog} from './choices-origin-editor-dialog';
@@ -124,7 +125,13 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
 
   private _lastScrollTop: number = 0;
 
-  constructor(private _service: AjfFormBuilderService, private _dialog: MatDialog) {
+  xlsformDownloading = false;
+
+  constructor(
+    private _service: AjfFormBuilderService,
+    private _dialog: MatDialog,
+    private _cdr: ChangeDetectorRef,
+  ) {
     this._nodeTypes = _service.availableNodeTypes;
     this._nodeEntriesTree = _service.nodeEntriesTree;
     this._choicesOrigins = _service.choicesOrigins;
@@ -253,6 +260,37 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       this.expandAll();
     } else {
       this.collapseAll();
+    }
+  }
+
+  async downloadAsXlsform(): Promise<void> {
+    this.xlsformDownloading = true;
+    this._cdr.markForCheck();
+    try {
+      const form = await firstValueFrom(this._service.getCurrentForm());
+      const json = JSON.stringify(form);
+      const fileBlob = new Blob([json], {type: 'application/json'});
+      const formData = new FormData();
+      formData.append('jsonFile', fileBlob, 'form.json');
+      const response = await fetch('https://formconv.herokuapp.com/result.xlsx', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        window.alert(errorText);
+        return;
+      }
+      const resultBlob = await response.blob();
+      const url = URL.createObjectURL(resultBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'result.xlsx';
+      a.click();
+      URL.revokeObjectURL(url);
+    } finally {
+      this.xlsformDownloading = false;
+      this._cdr.markForCheck();
     }
   }
 

@@ -35,6 +35,10 @@
 
   <span class="ajf-spacer"></span>
 
+  <button mat-button (click)="downloadAsXlsform()" [disabled]="xlsformDownloading">
+    {{ 'Download as XLSForm' | transloco }}
+  </button>
+
   <mat-menu #choicesMenu="matMenu">
     <button mat-menu-item (click)="createChoicesOrigin()">
       {{ 'New..' | transloco }}
