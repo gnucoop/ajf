@@ -122,7 +122,7 @@ function widgetToPdf(widget: AjfWidgetInstance, images: ImageMap, width: number)
     case AjfWidgetType.Image:
       return imageToPdf(widget as AjfImageWidgetInstance, images, width);
     case AjfWidgetType.Text:
-      return textToPdf((widget as AjfTextWidgetInstance).htmlText);
+      return htmlTextToPdf((widget as AjfTextWidgetInstance).htmlText);
     case AjfWidgetType.Chart:
       const chart = widget as AjfChartWidgetInstance;
       const dataUrl = chart.canvasDataUrl == null ? '' : chart.canvasDataUrl();
@@ -189,7 +189,7 @@ function imageToPdf(image: AjfImageWidgetInstance, images: ImageMap, width: numb
   return {image: dataUrl, width, alignment, margin: [0, 0, 0, marginBetweenWidgets]};
 }
 
-function textToPdf(htmlText: string): ContentStack {
+function htmlTextToPdf(htmlText: string): ContentStack {
   const paragraphs = htmlText.split(/(?=<p|<h1|<h2|<h3|<li)/);
   return {
     stack: paragraphs.map(paragraphToPdf),
@@ -267,7 +267,7 @@ function tableToPdf(table: AjfTableWidgetInstance): Content {
     const bodyRow: TableCell[] = [];
     for (const cell of dataRow) {
       const text = tableCellText(cell);
-      const stack = textToPdf(text);
+      const stack = htmlTextToPdf(text);
       bodyRow.push({...stack, colSpan: cell.colspan, rowSpan: cell.rowspan});
     }
     body.push(bodyRow);
