@@ -28,6 +28,7 @@ import {AjfWidgetType} from '../interface/widgets/widget-type';
 import {AjfWidgetWithContentInstance} from '../interface/widgets-instances/widget-with-content-instance';
 
 import {AjfImageType} from '@ajf/core/image';
+import {AjfTableCell} from '@ajf/core/table';
 
 // ImageMap maps image urls to dataurls, like:
 // 'http://whatever.com/image.png': 'data:image/png;base64,...'
@@ -109,4 +110,34 @@ function loadWidgetImages(widget: AjfWidgetInstance): Promise<ImageMap> {
       });
   }
   return new Promise<ImageMap>(resolve => resolve({}));
+}
+
+export function tableCellText(cell: AjfTableCell): string {
+  switch (typeof cell.value) {
+  case 'number':
+    return String(cell.value);
+  case 'string':
+    return stripHTML(cell.value);
+  case 'object':
+    if (cell.value == null) {
+      return '';
+    }
+    let val = cell.value.changingThisBreaksApplicationSecurity;
+    if (val === undefined) {
+      val = cell.value.toString();
+    }
+    if (typeof val === 'number') {
+      val = String(val);
+    }
+    return stripHTML(val || '');
+  default:
+    if (cell.value == null) {
+      return '';
+    }
+    return stripHTML(String(cell.value));
+  }
+}
+
+export function stripHTML(s: string): string {
+  return s.replace(/<\/?[^>]+(>|$)/g, '');
 }

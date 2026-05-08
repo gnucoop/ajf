@@ -46,7 +46,7 @@ import {AjfTextWidgetInstance} from '../interface/widgets-instances/text-widget-
 import {AjfWidgetInstance} from '../interface/widgets-instances/widget-instance';
 import {AjfWidgetType} from '../interface/widgets/widget-type';
 
-import {ImageMap, loadReportImages} from './load-report-images';
+import {ImageMap, loadReportImages, stripHTML, tableCellText} from './utils';
 
 function downloadBlob(b: Blob) {
   const url = URL.createObjectURL(b);
@@ -262,35 +262,7 @@ function tableToDoc(table: AjfTableWidgetInstance, width: number): Table {
     columnWidths: Array(numCols).fill(width / numCols),
     rows: table.data.map(row => new TableRow({
       children: row.map(cell => {
-        let text = '';
-        switch (typeof cell.value) {
-          case 'number':
-            text = String(cell.value);
-            break;
-          case 'string':
-            text = stripHTML(cell.value);
-            break;
-          case 'object':
-            if (cell.value == null) {
-              break;
-            }
-            let val = cell.value.changingThisBreaksApplicationSecurity;
-            if (val === undefined) {
-              val = cell.value.toString();
-            }
-            if (typeof val === 'number') {
-              val = String(val);
-            }
-            text = stripHTML(val || '');
-            break;
-          default:
-            if (cell.value == null) {
-              break;
-            }
-            let strVal = String(cell.value);
-            text = stripHTML(strVal || '');
-            break;
-        }
+        let text = tableCellText(cell);
         return new TableCell({
           children: [new Paragraph(text)],
           columnSpan: cell.colspan || undefined,
@@ -299,8 +271,4 @@ function tableToDoc(table: AjfTableWidgetInstance, width: number): Table {
       }),
     })),
   });
-}
-
-function stripHTML(s: string): string {
-  return s.replace(/<\/?[^>]+(>|$)/g, '');
 }

@@ -46,7 +46,7 @@ import {AjfTextWidgetInstance} from '../interface/widgets-instances/text-widget-
 import {AjfWidgetInstance} from '../interface/widgets-instances/widget-instance';
 import {AjfWidgetType} from '../interface/widgets/widget-type';
 
-import {ImageMap, loadReportImages} from './load-report-images';
+import {ImageMap, loadReportImages, stripHTML, tableCellText} from './utils';
 
 const pageWidth = 800;
 const pageHeight = pageWidth * 1.4142; // A4 proportions
@@ -266,35 +266,7 @@ function tableToPdf(table: AjfTableWidgetInstance): Content {
   for (const dataRow of expandColAndRowSpan(table.data)) {
     const bodyRow: TableCell[] = [];
     for (const cell of dataRow) {
-      let text = '';
-      switch (typeof cell.value) {
-        case 'number':
-          text = String(cell.value);
-          break;
-        case 'string':
-          text = stripHTML(cell.value);
-          break;
-        case 'object':
-          if (cell.value == null) {
-            break;
-          }
-          let val = cell.value.changingThisBreaksApplicationSecurity;
-          if (val === undefined) {
-            val = cell.value.toString();
-          }
-          if (typeof val === 'number') {
-            val = String(val);
-          }
-          text = stripHTML(val || '');
-          break;
-        default:
-          if (cell.value == null) {
-            break;
-          }
-          let strVal = String(cell.value);
-          text = stripHTML(strVal);
-          break;
-      }
+      let text = tableCellText(cell);
       bodyRow.push({text, colSpan: cell.colspan, rowSpan: cell.rowspan});
     }
     body.push(bodyRow);
@@ -328,8 +300,4 @@ function expandColAndRowSpan(data: AjfTableCell[][]): AjfTableCell[][] {
     }
   }
   return data;
-}
-
-function stripHTML(s: string): string {
-  return s.replace(/<\/?[^>]+(>|$)/g, '');
 }
