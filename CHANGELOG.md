@@ -1,3 +1,10 @@
+<a name="18.1.4"></a>
+# 18.1.4 "xenogeneic-salmon" (2026-05-11)
+### Bug Fixes
+* **core/reports:** remove all &nbsp; from html printing ([634b4bb](https://github.com/gnucoop/ajf/commit/634b4bbe62050f17482c692568cab9d80aff308c))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.1.3"></a>
 # 18.1.3 "vivid-thrush" (2026-05-08)
 ### Bug Fixes
