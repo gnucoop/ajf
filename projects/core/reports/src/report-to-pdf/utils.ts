@@ -139,5 +139,5 @@ export function tableCellText(cell: AjfTableCell): string {
 }
 
 export function stripHTML(s: string): string {
-  return s.replace('&nbsp;', ' ').replace(/<\/?[^>]+(>|$)/g, '');
+  return s.replace(/&nbsp;/g, ' ').replace(/<\/?[^>]+(>|$)/g, '');
 }
