@@ -38,7 +38,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {merge, Observable, Subject, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, startWith} from 'rxjs/operators';
 
 import {TranslocoService} from '@ajf/core/transloco';
@@ -54,11 +54,14 @@ export class AjfMultipleChoiceFieldComponent<T>
   extends AjfFieldWithChoicesComponent<T>
   implements OnInit, OnDestroy
 {
+  readonly expandThreshold = super.searchThreshold;
   readonly searchFilterCtrl = new FormControl<string>('', {nonNullable: true});
 
   filteredChoices$: Observable<AjfChoice<any>[]>;
 
   private translatedChoices: {choice: AjfChoice<any>; label: string}[] = [];
+  private readonly _choicesUpdate$ = new Subject<void>();
+  private _instanceUpdateForChoicesSub = Subscription.EMPTY;
 
   constructor(
     cdr: ChangeDetectorRef,
@@ -69,11 +72,13 @@ export class AjfMultipleChoiceFieldComponent<T>
   ) {
     super(cdr, service, was, searchThreshold);
 
-    this.filteredChoices$ = this.searchFilterCtrl.valueChanges.pipe(
-      startWith(''),
-      debounceTime(150),
-      distinctUntilChanged(),
-      map(search => {
+    this.filteredChoices$ = merge(
+      this.searchFilterCtrl.valueChanges.pipe(debounceTime(150), distinctUntilChanged()),
+      this._choicesUpdate$,
+    ).pipe(
+      startWith(null),
+      map(_ => {
+        const search = this.searchFilterCtrl.value;
         const choices = this.instance?.filteredChoices || [];
         if (choices.length && this.translatedChoices.length !== choices.length) {
           this.rebuildCache();
@@ -85,6 +90,16 @@ export class AjfMultipleChoiceFieldComponent<T>
         return this.translatedChoices.filter(c => c.label.includes(lowerSearch)).map(c => c.choice);
       }),
     );
+  }
+
+  protected override _onInstanceChange(): void {
+    this._instanceUpdateForChoicesSub.unsubscribe();
+    this._choicesUpdate$.next();
+    if (this.instance) {
+      this._instanceUpdateForChoicesSub = this.instance.updatedEvt.subscribe(() => {
+        this._choicesUpdate$.next();
+      });
+    }
   }
 
   override ngOnInit(): void {
@@ -103,5 +118,7 @@ export class AjfMultipleChoiceFieldComponent<T>
 
   override ngOnDestroy(): void {
     super.ngOnDestroy();
+    this._instanceUpdateForChoicesSub.unsubscribe();
+    this._choicesUpdate$.complete();
   }
 }
