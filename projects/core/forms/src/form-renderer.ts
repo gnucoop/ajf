@@ -21,8 +21,9 @@
  */
 
 import {AjfCondition, AjfContext, evaluateExpression, getCodeIdentifiers} from '@ajf/core/models';
+import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
-import {EventEmitter, Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Optional} from '@angular/core';
 import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import {format} from 'date-fns';
 import {
@@ -48,6 +49,7 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 
+import {AjfChoice} from './interface/choices/choice';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfFieldType} from './interface/fields/field-type';
 import {AjfForm} from './interface/forms/form';
@@ -223,13 +225,24 @@ export class AjfFormRendererService {
     );
   }
 
-  constructor(_: AjfValidationService) {
+  constructor(_: AjfValidationService, @Optional() private _ts: TranslocoService | null = null) {
     // Initialize all streams for the form
     this._initUpdateMapStreams();
     this._initNodesStreams();
     this._initErrorsStreams();
     this._initFormStreams();
     this._updateFormValueAndValidity();
+  }
+
+  private _translateChoices(choices: AjfChoice<any>[]): void {
+    if (this._ts == null) {
+      return;
+    }
+    for (const choice of choices) {
+      if (choice.translatedLabel == null) {
+        choice.translatedLabel = this._ts.translate(choice.label);
+      }
+    }
   }
 
   /**
@@ -251,6 +264,11 @@ export class AjfFormRendererService {
       (currentForm == null && form != null) ||
       (currentForm != null && form !== currentForm.form)
     ) {
+      if (form != null) {
+        for (const origin of form.choicesOrigins) {
+          this._translateChoices(origin.choices);
+        }
+      }
       this._form.next({form: form, context: context});
     }
   }

@@ -33,15 +33,13 @@ import {
   Component,
   Inject,
   OnDestroy,
-  OnInit,
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {merge, Observable, Subject, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, startWith} from 'rxjs/operators';
 
-import {TranslocoService} from '@ajf/core/transloco';
-import {FormControl} from '@angular/forms';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
@@ -52,14 +50,13 @@ import {AjfWarningAlertService} from './warning-alert-service';
 })
 export class AjfSingleChoiceFieldComponent<T>
   extends AjfFieldWithChoicesComponent<T>
-  implements OnInit, OnDestroy
+  implements OnDestroy
 {
   readonly expandThreshold = super.searchThreshold;
   readonly searchFilterCtrl = new FormControl<string>('', {nonNullable: true});
 
   filteredChoices$: Observable<AjfChoice<any>[]>;
 
-  private translatedChoices: {choice: AjfChoice<any>; label: string}[] = [];
   private readonly _choicesUpdate$ = new Subject<void>();
   private _instanceUpdateForChoicesSub = Subscription.EMPTY;
 
@@ -68,7 +65,6 @@ export class AjfSingleChoiceFieldComponent<T>
     service: AjfFormRendererService,
     @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
     @Optional() @Inject(AJF_SEARCH_ALERT_THRESHOLD) searchThreshold: number,
-    private _ts: TranslocoService,
   ) {
     super(cdr, service, was, searchThreshold);
 
@@ -80,14 +76,13 @@ export class AjfSingleChoiceFieldComponent<T>
       map(_ => {
         const search = this.searchFilterCtrl.value;
         const choices = this.instance?.filteredChoices || [];
-        if (choices.length && this.translatedChoices.length !== choices.length) {
-          this.rebuildCache();
-        }
         if (!search) {
           return choices;
         }
         const lowerSearch = search.toLowerCase();
-        return this.translatedChoices.filter(c => c.label.includes(lowerSearch)).map(c => c.choice);
+        return choices.filter(c =>
+          (c.translatedLabel ?? c.label).toLowerCase().includes(lowerSearch),
+        );
       }),
     );
   }
@@ -100,20 +95,6 @@ export class AjfSingleChoiceFieldComponent<T>
         this._choicesUpdate$.next();
       });
     }
-  }
-
-  override ngOnInit(): void {
-    super.ngOnInit();
-    this.rebuildCache();
-  }
-
-  private rebuildCache(): void {
-    const choices = this.instance?.filteredChoices || [];
-
-    this.translatedChoices = choices.map(c => ({
-      choice: c,
-      label: this._ts.translate(c.label).toLowerCase(),
-    }));
   }
 
   override ngOnDestroy(): void {
