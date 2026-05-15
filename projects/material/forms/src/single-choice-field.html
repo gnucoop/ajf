@@ -10,7 +10,7 @@
         </ngx-mat-select-search>
       </mat-option>
       <mat-option [value]="choice.value" *ngFor="let choice of filteredChoices$ | async">
-        {{ choice.label | transloco }}
+        {{ choice.translatedLabel ?? (choice.label|transloco) }}
       </mat-option>
     </mat-select>
   } @else {
@@ -18,7 +18,7 @@
         [attr.aria-labelledby]="instance.node.name"
         [formControl]="ctrl!">
       <mat-radio-button [value]="choice.value" *ngFor="let choice of instance.filteredChoices">
-        {{ choice.label | transloco }}
+        {{ choice.translatedLabel ?? (choice.label|transloco) }}
       </mat-radio-button>
     </mat-radio-group>
   }

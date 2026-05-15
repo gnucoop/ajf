@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, createFunction, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, createFunction} from '@ajf/core/models';
 
 import {AjfFieldWithChoicesInstance} from '../../interface/fields-instances/field-with-choices-instance';
 

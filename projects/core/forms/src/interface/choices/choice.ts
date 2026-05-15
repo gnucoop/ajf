@@ -23,4 +23,5 @@
 export interface AjfChoice<T> {
   label: string;
   value: T;
+  translatedLabel?: string;
 }
