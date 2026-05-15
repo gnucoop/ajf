@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, createFunction, evaluateExpression} from '@ajf/core/models';
 
 import {AjfFieldWithChoicesInstance} from '../../interface/fields-instances/field-with-choices-instance';
 
@@ -29,10 +29,11 @@ export function updateFilteredChoices(
   context: AjfContext,
 ): void {
   if (instance.choicesFilter != null) {
+    const func = createFunction(instance.choicesFilter!.formula);
     instance.filteredChoices = instance.node.choicesOrigin.choices.filter(c => {
       context['$choice'] = c;
       context['$choiceValue'] = c.value;
-      return evaluateExpression(instance.choicesFilter!.formula, context);
+      return func(context);
     });
   } else {
     instance.filteredChoices = instance.node.choicesOrigin.choices;
