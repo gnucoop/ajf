@@ -37,10 +37,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {merge, Observable, Subject, Subscription} from 'rxjs';
-import {debounceTime, distinctUntilChanged, map, startWith} from 'rxjs/operators';
+import {combineLatest, merge, Observable, of, Subject, Subscription} from 'rxjs';
+import {debounceTime, distinctUntilChanged, map, startWith, switchMap} from 'rxjs/operators';
 
 import {AjfWarningAlertService} from './warning-alert-service';
+
+const maxChoicesInDom = 40;
 
 @Component({
   templateUrl: 'single-choice-field.html',
@@ -68,21 +70,40 @@ export class AjfSingleChoiceFieldComponent<T>
   ) {
     super(cdr, service, was, searchThreshold);
 
-    this.filteredChoices$ = merge(
-      this.searchFilterCtrl.valueChanges.pipe(debounceTime(150), distinctUntilChanged()),
-      this._choicesUpdate$,
-    ).pipe(
+    const controlValue$ = this.control.pipe(
+      switchMap(ctrl => (ctrl ? ctrl.valueChanges.pipe(startWith(ctrl.value)) : of(null))),
       startWith(null),
-      map(_ => {
+      distinctUntilChanged(),
+    );
+
+    this.filteredChoices$ = combineLatest([
+      merge(
+        this.searchFilterCtrl.valueChanges.pipe(debounceTime(150), distinctUntilChanged()),
+        this._choicesUpdate$,
+      ).pipe(startWith(null)),
+      controlValue$,
+    ]).pipe(
+      map(([_, selectedValue]) => {
         const search = this.searchFilterCtrl.value;
         const choices = this.instance?.filteredChoices || [];
-        if (!search) {
+        if (search) {
+          const lowerSearch = search.toLowerCase();
+          return choices.filter(c =>
+            (c.translatedLabel ?? c.label).toLowerCase().includes(lowerSearch),
+          );
+        }
+        if (choices.length <= maxChoicesInDom) {
           return choices;
         }
-        const lowerSearch = search.toLowerCase();
-        return choices.filter(c =>
-          (c.translatedLabel ?? c.label).toLowerCase().includes(lowerSearch),
-        );
+        const truncated = choices.slice(0, maxChoicesInDom);
+        // make sure the selected choice is included in truncated
+        if (selectedValue != null && !truncated.some(c => c.value === selectedValue)) {
+          const selected = choices.find(c => c.value === selectedValue);
+          if (selected) {
+            return [selected, ...truncated];
+          }
+        }
+        return truncated;
       }),
     );
   }
