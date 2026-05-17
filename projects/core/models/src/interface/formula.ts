@@ -20,6 +20,9 @@
  *
  */
 
+import {AjfFunction} from "./function";
+
 export interface AjfFormula {
   formula: string;
+  func?: AjfFunction;
 }

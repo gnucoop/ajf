@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateCondition} from '@ajf/core/models';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
 import {AjfValidationResult} from '../../interface/validation/validation-results';
@@ -52,7 +52,7 @@ export function updateValidation(
   const completeName = nodeInstanceCompleteName(instance);
 
   if (context[completeName] != null && validation && validation.forceValue) {
-    instance.value = evaluateExpression(validation.forceValue.condition, context);
+    instance.value = evaluateCondition(validation.forceValue, context);
     context[completeName] = instance.value;
     context['$value'] = instance.value;
   }

@@ -32,7 +32,7 @@ export function evalAndTranslate(f: AjfFormula, context: AjfContext, ts: Translo
 }
 
 /**
- * Evaluate a string with expression inside, identified by double square brackets
+ * Evaluate a string with expressions inside, delimited by double square brackets
  * Example: "Number of positive identified: [[n_positive_campaign]]"
  */
 export function evaluateProperty(

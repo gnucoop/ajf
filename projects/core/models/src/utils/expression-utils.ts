@@ -25,6 +25,10 @@ import * as dateFns from 'date-fns';
 import {parseScript} from 'meriyah';
 import * as numbroMod from 'numbro';
 import {AjfTableCell} from '@ajf/core/table';
+
+import {AjfCondition} from '../interface/condition';
+import {AjfFormula} from '../interface/formula';
+import {AjfFunction} from '../interface/function';
 import {AjfValidationFn} from '../interface/validation-function';
 
 let execContext: any = {};
@@ -219,6 +223,20 @@ export function evaluateExpression(expression: string, context?: AjfContext): an
   return createFunction(expression)(context);
 }
 
+export function evaluateFormula(formula: AjfFormula, context?: AjfContext): any {
+  if (formula.func == null) {
+    formula.func = createFunction(formula.formula);
+  }
+  return formula.func(context);
+}
+
+export function evaluateCondition(condition: AjfCondition, context?: AjfContext): any {
+  if (condition.func == null) {
+    condition.func = createFunction(condition.condition);
+  }
+  return condition.func(context);
+}
+
 const globals = [
   'this',
   'true',
@@ -241,9 +259,7 @@ const globals = [
   'parseFloat',
 ];
 
-type Func = (c?: AjfContext) => any;
-
-export function createFunction(expression: string): Func {
+export function createFunction(expression: string): AjfFunction {
   expression = String(expression).trim();
   if (expression === '') {
     return _ => false;
@@ -761,7 +777,7 @@ function flattenNodes(nodes: any[]): any[] {
 export function ALL_VALUES_OF(
   forms: MainForm[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): string[] {
   forms = (forms || []).filter(f => f != null);
   if (typeof filter === 'string') {
@@ -822,7 +838,7 @@ export function buildPointData(xs: number[], ys: number[], rs?: number[]): Point
  * Returns the number of forms for which filter evaluates to true,
  * for the form itself or for any of its repetitions.
  */
-export function COUNT_FORMS(forms: MainForm[], filter: Func | string = 'true'): number {
+export function COUNT_FORMS(forms: MainForm[], filter: AjfFunction | string = 'true'): number {
   forms = (forms || []).filter(f => f != null);
   if (filter === 'true') {
     return forms.length;
@@ -849,7 +865,7 @@ export function COUNT_FORMS(forms: MainForm[], filter: Func | string = 'true'): 
 /**
  * Counts the forms and all of their repetitions for which filter evaluates to true.
  */
-export function COUNT_REPS(forms: MainForm[], filter: Func | string = 'true'): number {
+export function COUNT_REPS(forms: MainForm[], filter: AjfFunction | string = 'true'): number {
   forms = (forms || []).filter(f => f != null);
   if (typeof filter === 'string') {
     filter = createFunction(filter);
@@ -874,7 +890,7 @@ export function COUNT_REPS(forms: MainForm[], filter: Func | string = 'true'): n
 export function COUNT_FORMS_UNIQUE(
   forms: MainForm[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number {
   return ALL_VALUES_OF(forms, field, filter).length;
 }
@@ -882,7 +898,7 @@ export function COUNT_FORMS_UNIQUE(
 function getNumericValues(
   forms: (MainForm | Form)[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number[] {
   forms = (forms || []).filter(f => f != null);
   if (typeof filter === 'string') {
@@ -911,7 +927,7 @@ function getNumericValues(
 export function SUM(
   forms: (MainForm | Form)[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number {
   const values = getNumericValues(forms, field, filter);
   let sum = 0;
@@ -928,7 +944,7 @@ export function SUM(
 export function MEAN(
   forms: (Form | MainForm)[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number {
   const values = getNumericValues(forms, field, filter);
   let sum = 0;
@@ -945,7 +961,7 @@ export function MEAN(
 export function STD(
   forms: (Form | MainForm)[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number {
   const mean = MEAN(forms, field, filter);
   const values = getNumericValues(forms, field, filter);
@@ -995,7 +1011,7 @@ export function PERCENTAGE_CHANGE(
  */
 export function FIRST(
   forms: (Form | MainForm)[],
-  expression: Func | string,
+  expression: AjfFunction | string,
   date = 'dino_created_at',
 ): any {
   if (typeof expression === 'string') {
@@ -1021,7 +1037,7 @@ export function FIRST(
  */
 export function LAST(
   forms: (Form | MainForm)[],
-  expression: Func | string,
+  expression: AjfFunction | string,
   date = 'dino_created_at',
 ): any {
   if (typeof expression === 'string') {
@@ -1048,7 +1064,7 @@ export function LAST(
 export function MIN(
   forms: (Form | MainForm)[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number {
   const values = getNumericValues(forms, field, filter);
   let min = +Infinity;
@@ -1066,7 +1082,7 @@ export function MIN(
 export function MAX(
   forms: (Form | MainForm)[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number {
   const values = getNumericValues(forms, field, filter);
   let max = -Infinity;
@@ -1084,7 +1100,7 @@ export function MAX(
 export function MEDIAN(
   forms: (Form | MainForm)[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number {
   const values = getNumericValues(forms, field, filter).sort((a, b) => a - b);
   if (values.length === 0) {
@@ -1106,7 +1122,7 @@ export function MEDIAN(
 export function MODE(
   forms: (Form | MainForm)[],
   field: string,
-  filter: Func | string = 'true',
+  filter: AjfFunction | string = 'true',
 ): number {
   const values = getNumericValues(forms, field, filter);
   const counters: {[val: number]: number} = {};
@@ -1558,7 +1574,7 @@ export function MAP(array: any[], func: (a: any) => any): any[] {
  * For each form in forms, the specified field is set with the value given by expression.
  * The form's fields can be used inside expression.
  */
-export function APPLY(forms: MainForm[], field: string, expression: Func | string): MainForm[] {
+export function APPLY(forms: MainForm[], field: string, expression: AjfFunction | string): MainForm[] {
   forms = cloneMainForms(forms);
   if (typeof expression === 'string') {
     expression = createFunction(expression);
@@ -1850,7 +1866,7 @@ export function FILTER_BY_VARS(formList: MainForm[], expression: string): MainFo
 /**
  * Returns a copy of forms and its repetitions, keeping only the ones for which expression evaluates to true.
  */
-export function FILTER_BY(forms: MainForm[], expression: Func | string): MainForm[] {
+export function FILTER_BY(forms: MainForm[], expression: AjfFunction | string): MainForm[] {
   forms = forms || [];
   if (expression === 'true') {
     return cloneMainForms(forms);
@@ -1865,7 +1881,7 @@ export function FILTER_BY(forms: MainForm[], expression: Func | string): MainFor
     let someReps = false;
     if (form.reps != null) {
       for (const key in form.reps) {
-        filteredReps[key] = form.reps[key].filter(rep => (expression as Func)({...form, ...rep}));
+        filteredReps[key] = form.reps[key].filter(rep => (expression as AjfFunction)({...form, ...rep}));
         form[`ajf_${key}_count`] = filteredReps[key].length;
         someReps ||= filteredReps[key].length > 0;
       }
@@ -2148,7 +2164,7 @@ export function JOIN_REPEATING_SLIDES(
  * @param {string} expression
  * @return {*}  {any[]}
  */
-export function FROM_REPS(forms: MainForm | MainForm[], expression: Func | string): any[] {
+export function FROM_REPS(forms: MainForm | MainForm[], expression: AjfFunction | string): any[] {
   if (typeof expression === 'string') {
     expression = createFunction(expression);
   }

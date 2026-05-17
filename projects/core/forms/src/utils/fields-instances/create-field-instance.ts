@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateCondition, evaluateFormula} from '@ajf/core/models';
 import {EventEmitter} from '@angular/core';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
@@ -57,15 +57,15 @@ export function createFieldInstance(
       value = context[completeName];
     } else if (instance.node.defaultValue != null) {
       let visibility = nodeInstance.node.visibility
-        ? evaluateExpression(nodeInstance.node.visibility.condition, context)
+        ? evaluateCondition(nodeInstance.node.visibility, context)
         : nodeInstance.visible;
 
       if (visibility && containerNode && containerNode.visibility) {
-        visibility = evaluateExpression(containerNode.visibility.condition, context);
+        visibility = evaluateCondition(containerNode.visibility, context);
       }
       if (visibility) {
         if (instance.node.defaultValue.formula != null) {
-          context[completeName] = evaluateExpression(instance.node.defaultValue.formula, context);
+          context[completeName] = evaluateFormula(instance.node.defaultValue, context);
         } else {
           context[completeName] = instance.node.defaultValue;
         }

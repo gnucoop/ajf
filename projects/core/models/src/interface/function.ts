@@ -20,17 +20,6 @@
  *
  */
 
-import {AjfContext, evaluateCondition} from '@ajf/core/models';
+import {AjfContext} from "../context";
 
-import {AjfWarning} from '../../interface/warning/warning';
-import {AjfWarningResult} from '../../interface/warning/warning-result';
-
-export function evaluateWarning(
-  warning: AjfWarning,
-  context?: AjfContext,
-): AjfWarningResult {
-  return {
-    result: evaluateCondition(warning, context),
-    warning: warning.warningMessage,
-  };
-}
+export type AjfFunction = (c?: AjfContext) => any;

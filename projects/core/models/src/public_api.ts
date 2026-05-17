@@ -24,6 +24,7 @@ export * from './context';
 export * from './error';
 export * from './interface/condition';
 export * from './interface/formula';
+export * from './interface/function';
 export * from './interface/validation-function';
 export * from './serializers/condition-serializer';
 export * from './serializers/formula-serializer';
