@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateFormula} from '@ajf/core/models';
 
 import {AjfRepeatingNodeInstance} from '../../interface/nodes-instances/repeating-node-instance';
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
@@ -39,7 +39,7 @@ export function updateRepsNum(instance: AjfRepeatingNodeInstance, context?: AjfC
       instance.reps = 1;
     }
   } else {
-    let newReps = evaluateExpression(instance.node.formulaReps.formula, context);
+    let newReps = evaluateFormula(instance.node.formulaReps, context);
     if (newReps !== oldReps) {
       instance.reps = newReps;
     }

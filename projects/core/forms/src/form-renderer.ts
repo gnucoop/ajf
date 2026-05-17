@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCondition, AjfContext, evaluateExpression, getCodeIdentifiers} from '@ajf/core/models';
+import {AjfCondition, AjfContext, evaluateFormula, getCodeIdentifiers} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable, Optional} from '@angular/core';
@@ -1751,10 +1751,7 @@ const updateVisibilityMapEntry = (
             if (subFieldVisibility) {
               let subFieldDefaultValue = null;
               if (n.node.defaultValue.formula != null) {
-                subFieldDefaultValue = evaluateExpression(
-                  n.node.defaultValue.formula,
-                  newFormValue,
-                );
+                subFieldDefaultValue = evaluateFormula(n.node.defaultValue, newFormValue);
               } else {
                 subFieldDefaultValue = n.node.defaultValue;
               }

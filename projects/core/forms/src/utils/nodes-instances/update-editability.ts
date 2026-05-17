@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCondition, AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfCondition, AjfContext, evaluateCondition} from '@ajf/core/models';
 import {AjfSlideInstance} from '../../interface/slides-instances/slide-instance';
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
 
@@ -41,7 +41,7 @@ export function updateEditability(
   if (instance.readonly != null) {
     const readOnly: AjfCondition = instance.readonly;
     const oldEditability: boolean = instance.editable;
-    let newEditability: boolean = !evaluateExpression(readOnly.condition, context);
+    let newEditability: boolean = !evaluateCondition(readOnly, context);
     if (newEditability !== instance.editable) {
       instance.editable = newEditability;
     }

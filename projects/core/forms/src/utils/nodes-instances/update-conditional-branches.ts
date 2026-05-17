@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateCondition} from '@ajf/core/models';
 
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 
@@ -36,7 +36,7 @@ export function updateConditionalBranches(instance: AjfNodeInstance, context: Aj
     let idx = 0;
     let found = false;
     while (idx < conditionalBranches.length && !found) {
-      let verified: boolean = evaluateExpression(conditionalBranches[idx].condition, context);
+      let verified: boolean = evaluateCondition(conditionalBranches[idx], context);
       if (verified) {
         found = true;
         if (idx !== instance.verifiedBranch) {

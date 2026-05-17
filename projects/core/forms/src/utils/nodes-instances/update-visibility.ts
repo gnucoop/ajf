@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCondition, AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfCondition, AjfContext, evaluateCondition} from '@ajf/core/models';
 
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 
@@ -42,7 +42,7 @@ export function updateVisibility(
 
   const oldVisibility: boolean = instance.visible;
   let newVisibility: boolean =
-    branchVisibility && evaluateExpression(visibility.condition, context);
+    branchVisibility && evaluateCondition(visibility, context);
   if (newVisibility !== instance.visible) {
     instance.visible = newVisibility;
   }

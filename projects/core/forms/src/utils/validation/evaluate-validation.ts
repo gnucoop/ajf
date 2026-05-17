@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateCondition} from '@ajf/core/models';
 
 import {AjfValidation} from '../../interface/validation/validation';
 import {AjfValidationResult} from '../../interface/validation/validation-results';
@@ -33,7 +33,7 @@ export function evaluateValidation(
   context?: AjfContext,
 ): AjfValidationResult {
   return {
-    result: evaluateExpression(validation.condition, context),
+    result: evaluateCondition(validation, context),
     error: validation.errorMessage,
     clientValidation: validation.clientValidation,
   };
