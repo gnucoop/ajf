@@ -646,15 +646,6 @@ export class AjfFormBuilderService {
     this._editedCondition.next(condition);
   }
 
-  saveCurrentCondition(condition: string): void {
-    let c = this._editedCondition.getValue();
-    if (c == null) {
-      return;
-    }
-    c.condition = condition;
-    this._editedCondition.next(null);
-  }
-
   cancelConditionEdit(): void {
     this._editedChoicesOrigin.next(null);
   }

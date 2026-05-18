@@ -27,6 +27,6 @@ import {AjfFunction} from "./function";
  * (eg. for a visibility or validation check)
  */
 export interface AjfCondition {
-  condition: string;
+  readonly condition: string;
   func?: AjfFunction;
 }
