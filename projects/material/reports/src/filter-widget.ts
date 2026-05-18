@@ -22,7 +22,7 @@
 
 import {AjfFormRendererService} from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/common';
-import {evaluateExpression} from '@ajf/core/models';
+import {evaluateFormula} from '@ajf/core/models';
 import {
   AjfBaseWidgetComponent,
   AjfFilterInstance,
@@ -72,7 +72,7 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
         const filter = instance.filter as AjfFilterInstance;
         const newContext: any = {...(filter.context || {}), ...filterContext};
         for (const variable of filter.variables || []) {
-          newContext[variable.name] = evaluateExpression(variable.formula.formula, newContext);
+          newContext[variable.name] = evaluateFormula(variable.formula, newContext);
         }
         this.instance = widgetToWidgetInstance(
           instance.widget,

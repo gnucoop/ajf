@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateFormula} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 
 import {AjfReportInstance} from '../../interface/reports-instances/report-instance';
@@ -34,7 +34,7 @@ export function createReportInstance(
   ts: TranslocoService,
 ): AjfReportInstance {
   (report.variables || []).forEach(variable => {
-    context[variable.name] = evaluateExpression(variable.formula.formula, context);
+    context[variable.name] = evaluateFormula(variable.formula, context);
   });
   return {
     report,
@@ -53,7 +53,7 @@ export function createReportInstance(
 
 export function evaluateReportVariables(report: AjfReport, context: AjfContext): AjfContext {
   (report.variables || []).forEach(variable => {
-    context[variable.name] = evaluateExpression(variable.formula.formula, context);
+    context[variable.name] = evaluateFormula(variable.formula, context);
   });
   return context;
 }

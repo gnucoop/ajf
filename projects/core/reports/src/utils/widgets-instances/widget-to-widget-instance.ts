@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateFormula} from '@ajf/core/models';
 import {AjfTableCell} from '@ajf/core/table';
 import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
@@ -62,8 +62,7 @@ import {isTextWidgetInstance} from '../widgets-instances/is-text-widget-instance
 import {isWidgetWithContentInstance} from '../widgets-instances/is-widget-with-content-instance';
 
 import {createWidgetInstance} from './create-widget-instance';
-import {evaluateProperty, evalAndTranslate} from './widget-instance-utils';
-import {AjfGraphNode} from '@ajf/core/graph';
+import {evaluateHtmlText, evalAndTranslate} from './widget-instance-utils';
 import {isDevMode} from '@angular/core';
 
 export function widgetToWidgetInstance(
@@ -78,7 +77,7 @@ export function widgetToWidgetInstance(
     let content: AjfWidgetInstance[] = [];
     widget.content.forEach(c => {
       if (widget.repetitions != null) {
-        wi.repetitions = evaluateExpression(widget.repetitions.formula, context);
+        wi.repetitions = evaluateFormula(widget.repetitions, context);
         if (typeof wi.repetitions === 'number' && wi.repetitions > 0) {
           for (let i = 0; i < wi.repetitions; i++) {
             content.push(widgetToWidgetInstance(c, {...context, '$repetition': i}, ts, variables));
@@ -98,7 +97,7 @@ export function widgetToWidgetInstance(
     }
     const labels = widget.labels instanceof Array ? widget.labels : [widget.labels];
     const evLabels = labels.map(l => {
-      let evf = evaluateExpression(l.formula, context);
+      let evf = evaluateFormula(l, context);
       try {
         if (evf instanceof Array) {
           evf = evf.map(v =>
@@ -160,7 +159,7 @@ export function widgetToWidgetInstance(
             pluginOption != null &&
             pluginOption.formula != null
           ) {
-            plugin[pluginOptionName] = evaluateExpression(pluginOption.formula, context);
+            plugin[pluginOptionName] = evaluateFormula(pluginOption, context);
           }
         });
       });
@@ -205,7 +204,7 @@ export function widgetToWidgetInstance(
         ? true
         : false;
 
-    let dataset: AjfTableCell[][] = evaluateExpression(widget.rowDefinition.formula, context) || [];
+    let dataset: AjfTableCell[][] = evaluateFormula(widget.rowDefinition, context) || [];
     dataset = (dataset || []).map((row: AjfTableCell[]) =>
       row.map(cell => {
         let trf = cell.value;
@@ -247,7 +246,7 @@ export function widgetToWidgetInstance(
     let content: AjfWidgetInstance[] = [];
     if (widget.contentDefinition) {
       let contentDefinition: AjfWidget[] =
-        evaluateExpression(widget.contentDefinition.formula, context) || [];
+        evaluateFormula(widget.contentDefinition, context) || [];
       contentDefinition.forEach(c => {
         content.push(widgetToWidgetInstance(c, context, ts, variables));
       });
@@ -259,59 +258,57 @@ export function widgetToWidgetInstance(
     wi.content = content;
   } else if (isImageWidget(widget) && isImageWidgetInstance(wi)) {
     if (widget.flag) {
-      wi.flag = evaluateExpression(widget.flag.formula, context);
+      wi.flag = evaluateFormula(widget.flag, context);
     }
     if (widget.icon) {
-      wi.icon = evaluateExpression(widget.icon.formula, context);
+      wi.icon = evaluateFormula(widget.icon, context);
     }
     if (widget.url) {
-      wi.url = evaluateExpression(widget.url.formula, context);
+      wi.url = evaluateFormula(widget.url, context);
     }
   } else if (isImageContainerWidget(widget) && isImageContainerWidgetInstance(wi)) {
     if (widget.flags) {
       wi.flags =
         widget.flags instanceof Array
-          ? widget.flags.map(f => evaluateExpression(f.formula, context))
-          : evaluateExpression(widget.flags.formula, context);
+          ? widget.flags.map(f => evaluateFormula(f, context))
+          : evaluateFormula(widget.flags, context);
     }
     if (widget.icons) {
       wi.icons =
         widget.icons instanceof Array
-          ? widget.icons.map(f => evaluateExpression(f.formula, context))
-          : evaluateExpression(widget.icons.formula, context);
+          ? widget.icons.map(f => evaluateFormula(f, context))
+          : evaluateFormula(widget.icons, context);
     }
     if (widget.urls) {
       wi.urls =
         widget.urls instanceof Array
-          ? widget.urls.map(f => evaluateExpression(f.formula, context))
-          : evaluateExpression(widget.urls.formula, context);
+          ? widget.urls.map(f => evaluateFormula(f, context))
+          : evaluateFormula(widget.urls, context);
     }
   } else if (isTextWidget(widget) && isTextWidgetInstance(wi)) {
-    wi.htmlText = evaluateProperty(widget.htmlText, context, ts);
+    wi.htmlText = ts.translate(evaluateHtmlText(widget, context));
   } else if (isFormulaWidget(widget) && isFormulaWidgetInstance(wi)) {
-    wi.formula = evaluateExpression(widget.formula.formula, context);
+    wi.formula = evaluateFormula(widget.formula, context);
   } else if (isMapWidget(widget) && isMapWidgetInstance(wi)) {
-    wi.coordinate = evaluateExpression(widget.coordinate.formula, context);
+    wi.coordinate = evaluateFormula(widget.coordinate, context);
   } else if (isGraphWidget(widget) && isGraphWidgetInstance(wi)) {
     if (widget.nodes != null) {
-      wi.nodes = widget.nodes.map(ds => {
-        let node: any = {
-          ...ds,
-        };
-        node.label = ds.label != null ? evaluateProperty(ds.label, context, ts) : ds.id;
-        node.red = evaluateExpression(ds.red, context);
-        node.yellow = evaluateExpression(ds.yellow, context);
-        node.green = evaluateExpression(ds.green, context);
-        node.color = ds.color ? evaluateExpression(ds.color, context) : undefined;
-        return node as AjfGraphNode;
-      });
+      wi.nodes = widget.nodes.map(ds => ({
+        id: ds.id,
+        label: ds.label,
+        parentId: ds.parentId,
+        green: ds.green === 'true',
+        red: ds.red === 'true',
+        yellow: ds.yellow === 'true',
+        color: ds.color,
+      }));
     }
   } else if (isHeatMapWidget(widget) && isHeatMapWidgetInstance(wi)) {
     wi.idProp = widget.idProp || 'id';
     wi.features = (typeof widget.features === 'string'
       ? JSON.parse(widget.features)
       : widget.features) || {type: 'FeatureCollection', features: []};
-    wi.values = evaluateExpression(widget.values.formula, context);
+    wi.values = evaluateFormula(widget.values, context);
     wi.startColor = widget.startColor || '#ffeb3b';
     wi.endColor = widget.endColor || '#f44336';
     wi.highlightColor = widget.highlightColor || '#009688';

@@ -20,11 +20,13 @@
  *
  */
 
-import {AjfContext, AjfFormula, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, AjfFormula, AjfFunction, createFunction, evaluateFormula} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 
+import {AjfTextWidget} from '../../interface/widgets/text-widget';
+
 export function evalAndTranslate(f: AjfFormula, context: AjfContext, ts: TranslocoService): any {
-  const val = evaluateExpression(f.formula, context);
+  const val = evaluateFormula(f, context);
   if (typeof val === 'string') {
     return ts.translate(val);
   }
@@ -32,26 +34,25 @@ export function evalAndTranslate(f: AjfFormula, context: AjfContext, ts: Translo
 }
 
 /**
- * Evaluate a string with expressions inside, delimited by double square brackets
+ * Evaluate a string with expressions inside, delimited by double square brackets.
  * Example: "Number of positive identified: [[n_positive_campaign]]"
  */
-export function evaluateProperty(
-  expression: string,
-  context: AjfContext,
-  ts: TranslocoService,
-): string {
-  let htmlText = ts.translate(String(expression));
-  const formulaRegEx: RegExp = /\[{2}(.+?)\]{2}/g;
-  const matches: {idx: number; len: number; formula: string}[] = [];
-  let match: RegExpExecArray | null;
-  while (match = formulaRegEx.exec(htmlText)) {
-    const idx = match.index;
-    const len = match[0].length;
-    matches.push({idx, len, formula: match[1]});
+export function evaluateHtmlText(widget: AjfTextWidget, context: AjfContext): string {
+  if (widget.htmlFunc == null) {
+    widget.htmlFunc = createHtmlFunc(widget.htmlText);
   }
-  matches.reverse().forEach(m => {
-    const val = evaluateExpression(m.formula, context);
-    htmlText = `${htmlText.substring(0, m.idx)}${val}${htmlText.substring(m.idx + m.len)}`;
-  });
-  return htmlText;
+  return widget.htmlFunc(context);
+}
+
+function createHtmlFunc(text: string): AjfFunction {
+  if (!text.includes('[[')) {
+    return _ => text;
+  }
+  if (text.includes('`')) {
+    return _ => "Error: htmlText can't contain backticks `";
+  }
+  text = text.replaceAll('[[', '${');
+  text = text.replaceAll(']]', '}');
+  text = '`' + text + '`';
+  return createFunction(text);
 }
