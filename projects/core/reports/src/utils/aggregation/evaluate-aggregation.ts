@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, AjfFormula, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, AjfFormula, evaluateFormula} from '@ajf/core/models';
 import {AjfAggregation} from '../../interface/aggregation/aggregation';
 import {AjfAggregationType} from '../../interface/aggregation/aggregation-type';
 
@@ -29,7 +29,7 @@ export function evaluateAggregation(
   formulas: AjfFormula[],
   context: AjfContext,
 ): number[] {
-  const data: any[] = formulas.map(f => evaluateExpression(f.formula, context));
+  const data: any[] = formulas.map(f => evaluateFormula(f, context));
   switch (aggregation.aggregation) {
     case AjfAggregationType.None:
       if (data.length !== 1) {

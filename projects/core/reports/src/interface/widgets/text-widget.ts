@@ -20,10 +20,13 @@
  *
  */
 
+import {AjfFunction} from '@ajf/core/models';
+
 import {AjfBaseWidget} from './base-widget';
 import {AjfWidgetType} from './widget-type';
 
 export interface AjfTextWidget extends AjfBaseWidget {
   widgetType: AjfWidgetType.Text;
   htmlText: string;
+  htmlFunc?: AjfFunction;
 }
