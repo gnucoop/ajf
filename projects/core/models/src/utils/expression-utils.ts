@@ -22,7 +22,7 @@
 
 import {AjfContext} from '@ajf/core/common';
 import * as dateFns from 'date-fns';
-import {parseScript} from 'meriyah';
+import {tokTypes, tokenizer} from 'acorn';
 import * as numbroMod from 'numbro';
 import {AjfTableCell} from '@ajf/core/table';
 import {AjfValidationFn} from '../interface/validation-function';
@@ -60,28 +60,44 @@ function allReps(form: MainForm): Form[] {
 
 const MAX_REPS = 30;
 
-export const getCodeIdentifiers = (
-  source: string,
-  includeDollarValue: boolean = false,
-): string[] => {
-  const identifiers = [] as string[];
+const globals = [
+  'undefined',
+  'Infinity',
+  'NaN',
+  'isNaN',
+  'isFinite',
+  'Error',
+  'Object',
+  'String',
+  'Array',
+  'Set',
+  'Map',
+  'RegExp',
+  'Number',
+  'Date',
+  'Math',
+  'JSON',
+  'parseInt',
+  'parseFloat',
+];
+
+export function getExpressionArguments(source: string): Set<string> {
+  const identifiers = new Set<string>();
   try {
-    parseScript(source.toString(), {
-      onToken: (token, start, end) => {
-        if (token == 'Identifier') {
-          const identifier = source.toString().substring(start, end);
-          if (includeDollarValue || identifier !== '$value') {
-            identifiers.push(identifier);
-          }
-        }
-      },
-    });
+    const tokens = tokenizer(source, {ecmaVersion: 2022});
+    for (const token of tokens) {
+      if (token.type === tokTypes.name) {
+        identifiers.add((token as any).value);
+      }
+    }
   } catch (e) {
-    console.log(source);
-    console.log(e);
+    console.error(e, '- getting expression variables for:', source);
   }
-  return identifiers.sort((i1, i2) => i2.localeCompare(i1));
-};
+  for (const ide of globals) {
+    identifiers.delete(ide);
+  }
+  return identifiers;
+}
 
 export const dateUtils = {
   addDays: dateFns.addDays,
@@ -219,28 +235,6 @@ export function evaluateExpression(expression: string, context?: AjfContext): an
   return createFunction(expression)(context);
 }
 
-const globals = [
-  'this',
-  'true',
-  'false',
-  'null',
-  'undefined',
-  'Infinity',
-  'NaN',
-  'isNaN',
-  'isFinite',
-  'Object',
-  'String',
-  'Array',
-  'Set',
-  'Map',
-  'Number',
-  'Date',
-  'Math',
-  'parseInt',
-  'parseFloat',
-];
-
 type Func = (c?: AjfContext) => any;
 
 export function createFunction(expression: string): Func {
@@ -268,11 +262,7 @@ export function createFunction(expression: string): Func {
   }
 
   expression = '(' + expression + ')';
-  const identifiers = new Set(getCodeIdentifiers(expression, true)).add('execContext');
-  for (const ide of globals) {
-    identifiers.delete(ide);
-  }
-  const argNames = [...identifiers];
+  const argNames = [...getExpressionArguments(expression).add('execContext')];
   let func: Function;
   try {
     func = new Function(...argNames, 'return ' + expression);
