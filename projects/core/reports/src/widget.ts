@@ -20,8 +20,9 @@
  *
  */
 
-import {Directive, Input, isDevMode, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {ComponentRef, Directive, Input, isDevMode, OnInit, Renderer2, Type, ViewChild} from '@angular/core';
 
+import {AjfBaseWidgetComponent} from './base-widget';
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 import {AjfWidgetComponentsMap} from './interface/widgets/widget-components-map';
 import {AjfWidgetHost} from './widget-host';
@@ -47,6 +48,8 @@ export abstract class AjfReportWidget implements OnInit {
   protected abstract widgetsMap: AjfWidgetComponentsMap;
 
   private _init = false;
+  private _currentComponentRef: ComponentRef<AjfBaseWidgetComponent> | undefined;
+  private _currentComponentType: Type<AjfBaseWidgetComponent> | undefined;
 
   constructor(private _renderer: Renderer2) {}
 
@@ -60,21 +63,29 @@ export abstract class AjfReportWidget implements OnInit {
       !this._init ||
       this._instance == null ||
       this.widgetHost == null ||
-      this._instance == null ||
       !this._instance.visible
     ) {
       return;
     }
 
-    const vcr = this.widgetHost.viewContainerRef;
-    vcr.clear();
     const componentDef = this.widgetsMap[this._instance.widget.widgetType];
     if (componentDef == null) {
       return;
     }
     const component = componentDef.component;
+
+    if (component === this._currentComponentType && this._currentComponentRef != null) {
+      this._currentComponentRef.instance.instance = this._instance;
+      return;
+    }
+
+    const vcr = this.widgetHost.viewContainerRef;
+    vcr.clear();
+    this._currentComponentType = component;
+
     try {
       const componentRef = vcr.createComponent(component);
+      this._currentComponentRef = componentRef;
       const componentInstance = componentRef.instance;
 
       Object.keys(this._instance.widget.styles).forEach((style: string) => {
@@ -103,6 +114,8 @@ export abstract class AjfReportWidget implements OnInit {
       if (isDevMode()) {
         console.log(e);
       }
+      this._currentComponentRef = undefined;
+      this._currentComponentType = undefined;
     }
   }
 }
