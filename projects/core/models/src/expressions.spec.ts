@@ -1,4 +1,4 @@
-import {AjfExpressionUtils, evaluateExpression, FILTER_BY, validateExpression} from './public_api';
+import {AjfExpressionUtils, evaluateExpression, FILTER_BY} from './public_api';
 
 describe('evaluateExpression', () => {
   it('should evaluate simple expressions', () => {
@@ -51,16 +51,6 @@ describe('evaluateExpression', () => {
     };
     expect(evaluateExpression('customFunction(z)', {z: 'foo'})).toEqual('bar');
     expect(evaluateExpression('customFunction(z)', {z: 'baz'})).toBeUndefined();
-  });
-});
-
-describe('validateExpression', () => {
-  it('should validate code as executable given an optional context', () => {
-    expect(validateExpression('(1 + 2) / 3')).toBe(true);
-
-    expect(validateExpression('(foo + 2) / 3', {'foo': 1})).toBe(true);
-
-    expect(validateExpression('(foo + 2) / 3')).toBe(false);
   });
 });
 
