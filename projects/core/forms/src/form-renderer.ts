@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCondition, AjfContext, evaluateFormula, getCodeIdentifiers} from '@ajf/core/models';
+import {AjfCondition, AjfContext, evaluateFormula, getExpressionVariables} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable, Optional} from '@angular/core';
@@ -1605,10 +1605,11 @@ export class AjfFormRendererService {
     nodeInstance: AjfNodeInstance,
     formula: string,
   ): void {
-    const tokens = getCodeIdentifiers(formula);
-    if (tokens.length > 0) {
+    const tokens = getExpressionVariables(formula);
+    tokens.delete('$value');
+    if (tokens.size > 0) {
       nodesMap.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
-        tokens.forEach(token => {
+        for (const token of tokens) {
           if (vmap[token] != null) {
             const idx = vmap[token].indexOf(nodeInstance);
             if (idx > -1) {
@@ -1618,7 +1619,7 @@ export class AjfFormRendererService {
               }
             }
           }
-        });
+        }
         return vmap;
       });
     }
@@ -1669,17 +1670,18 @@ export class AjfFormRendererService {
     nodeInstance: AjfNodeInstance,
     formula: string,
   ): void {
-    const tokens = getCodeIdentifiers(formula);
-    if (tokens.length > 0) {
+    const tokens = getExpressionVariables(formula);
+    tokens.delete('$value');
+    if (tokens.size > 0) {
       nodesMap.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
-        tokens.forEach(token => {
+        for (const token of tokens) {
           if (vmap[token] == null) {
             vmap[token] = [];
           }
           if (vmap[token].indexOf(nodeInstance) === -1) {
             vmap[token].push(nodeInstance);
           }
-        });
+        }
         return vmap;
       });
     }
