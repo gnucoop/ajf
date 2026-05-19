@@ -31,7 +31,5 @@ export * from './utils/always-condition';
 export * from './utils/create-condition';
 export * from './utils/create-formula';
 export * from './utils/expression-utils';
-export * from './utils/get-context-string';
 export * from './utils/never-condition';
 export * from './utils/normalize-expression';
-export * from './utils/validate-expression';
