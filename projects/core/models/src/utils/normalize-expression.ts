@@ -20,7 +20,7 @@
  *
  */
 
-import {getCodeIdentifiers} from './expression-utils';
+import {getExpressionVariables} from './expression-utils';
 
 export function normalizeExpression(
   formula: string,
@@ -28,14 +28,15 @@ export function normalizeExpression(
   prefix: number[],
 ): string {
   const ancestorsNameStrings = Object.keys(ancestorsNames);
-  const tokens = getCodeIdentifiers(formula);
-  tokens.forEach((t: any) => {
+  const tokens = getExpressionVariables(formula);
+  tokens.delete('$value');
+  for (const t of tokens) {
     if (ancestorsNameStrings.indexOf(t) > -1) {
       formula = formula.replace(
         new RegExp(`\\b${t}\\b`, 'g'),
         `${t}__${prefix.slice(ancestorsNames[t]).join('__')}`,
       );
     }
-  });
+  }
   return formula;
 }
