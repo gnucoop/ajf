@@ -37,7 +37,6 @@ import {
   timer,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   filter,
   map,
   pairwise,
@@ -933,7 +932,6 @@ export class AjfFormRendererService {
     this._formGroupSubscription = formGroup.valueChanges
       .pipe(
         startWith({}),
-        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
         pairwise(),
         withLatestFrom(
           this._nodesMaps[0],
@@ -971,10 +969,10 @@ export class AjfFormRendererService {
         let updatedNodes: AjfNodeInstance[] = [];
 
         /*
-                        for each field update all properties map
-                        with the following rule  "if fieldname is in map update it" and
-                        push on updateNodes the node instance that wrap field
-                      */
+          for each field update all properties map
+          with the rule "if fieldname is in map update it" and
+          push on updateNodes the node instance that wrap field
+        */
         delta.forEach(fieldName => {
           updatedNodes = updatedNodes.concat(
             nodes.filter(n => nodeInstanceCompleteName(n) === fieldName),
