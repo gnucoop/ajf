@@ -20,13 +20,37 @@
  *
  */
 
-import {AjfFunction} from '@ajf/core/models';
+import {AjfContext, AjfFunction, createFunction} from '@ajf/core/models';
 
 import {AjfBaseWidget} from './base-widget';
 import {AjfWidgetType} from './widget-type';
 
 export interface AjfTextWidget extends AjfBaseWidget {
   widgetType: AjfWidgetType.Text;
-  htmlText: string;
+  readonly htmlText: string;
   htmlFunc?: AjfFunction;
+}
+
+/**
+ * Evaluate a string with expressions inside, delimited by double square brackets.
+ * Example: "Number of positive identified: [[n_positive_campaign]]"
+ */
+export function evaluateHtmlText(widget: AjfTextWidget, context: AjfContext): string {
+  if (widget.htmlFunc == null) {
+    widget.htmlFunc = createHtmlFunc(widget.htmlText);
+  }
+  return widget.htmlFunc(context);
+}
+
+function createHtmlFunc(text: string): AjfFunction {
+  if (!text.includes('[[')) {
+    return _ => text;
+  }
+  if (text.includes('`')) {
+    return _ => "Error: htmlText can't contain backticks `";
+  }
+  text = text.replaceAll('[[', '${');
+  text = text.replaceAll(']]', '}');
+  text = '`' + text + '`';
+  return createFunction(text);
 }
