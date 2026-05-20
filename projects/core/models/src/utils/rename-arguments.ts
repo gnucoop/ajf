@@ -20,21 +20,21 @@
  *
  */
 
-import {getExpressionArguments} from './expression-utils';
+import {getArgumentNames} from './expression-utils';
 
-export function normalizeExpression(
+export function renameArguments(
   formula: string,
   ancestorsNames: {[prop: string]: number},
   prefix: number[],
 ): string {
   const ancestorsNameStrings = Object.keys(ancestorsNames);
-  const tokens = getExpressionArguments(formula);
-  tokens.delete('$value');
-  for (const t of tokens) {
-    if (ancestorsNameStrings.indexOf(t) > -1) {
+  const names = getArgumentNames(formula);
+  names.delete('$value');
+  for (const name of names) {
+    if (ancestorsNameStrings.indexOf(name) > -1) {
       formula = formula.replace(
-        new RegExp(`\\b${t}\\b`, 'g'),
-        `${t}__${prefix.slice(ancestorsNames[t]).join('__')}`,
+        new RegExp(`\\b${name}\\b`, 'g'),
+        `${name}__${prefix.slice(ancestorsNames[name]).join('__')}`,
       );
     }
   }

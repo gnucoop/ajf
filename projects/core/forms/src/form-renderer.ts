@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCondition, AjfContext, evaluateExpression, getExpressionArguments} from '@ajf/core/models';
+import {AjfCondition, AjfContext, evaluateExpression, getArgumentNames} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable, Optional} from '@angular/core';
@@ -1603,17 +1603,17 @@ export class AjfFormRendererService {
     nodeInstance: AjfNodeInstance,
     formula: string,
   ): void {
-    const tokens = getExpressionArguments(formula);
-    tokens.delete('$value');
-    if (tokens.size > 0) {
+    const names = getArgumentNames(formula);
+    names.delete('$value');
+    if (names.size > 0) {
       nodesMap.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
-        for (const token of tokens) {
-          if (vmap[token] != null) {
-            const idx = vmap[token].indexOf(nodeInstance);
+        for (const name of names) {
+          if (vmap[name] != null) {
+            const idx = vmap[name].indexOf(nodeInstance);
             if (idx > -1) {
-              vmap[token].splice(idx, 1);
-              if (vmap[token].length == 0) {
-                delete vmap[token];
+              vmap[name].splice(idx, 1);
+              if (vmap[name].length == 0) {
+                delete vmap[name];
               }
             }
           }
@@ -1668,16 +1668,16 @@ export class AjfFormRendererService {
     nodeInstance: AjfNodeInstance,
     formula: string,
   ): void {
-    const tokens = getExpressionArguments(formula);
-    tokens.delete('$value');
-    if (tokens.size > 0) {
+    const names = getArgumentNames(formula);
+    names.delete('$value');
+    if (names.size > 0) {
       nodesMap.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
-        for (const token of tokens) {
-          if (vmap[token] == null) {
-            vmap[token] = [];
+        for (const name of names) {
+          if (vmap[name] == null) {
+            vmap[name] = [];
           }
-          if (vmap[token].indexOf(nodeInstance) === -1) {
-            vmap[token].push(nodeInstance);
+          if (vmap[name].indexOf(nodeInstance) === -1) {
+            vmap[name].push(nodeInstance);
           }
         }
         return vmap;
