@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateFormula} from '@ajf/core/models';
+import {AjfContext, AjfFormula, evaluateFormula} from '@ajf/core/models';
 import {AjfTableCell} from '@ajf/core/table';
 import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
@@ -31,6 +31,7 @@ import {AjfReportVariable} from '../../interface/reports/report-variable';
 import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instance';
 import {AjfWidget} from '../../interface/widgets/widget';
 import {evaluateAggregation} from '../aggregation/evaluate-aggregation';
+import {evaluateHtmlText} from '../../interface/widgets/text-widget';
 import {isChartWidget} from '../widgets/is-chart-widget';
 import {isDialogWidget} from '../widgets/is-dialog-widget';
 import {isDynamicTableWidget} from '../widgets/is-dynamic-table-widget';
@@ -62,8 +63,15 @@ import {isTextWidgetInstance} from '../widgets-instances/is-text-widget-instance
 import {isWidgetWithContentInstance} from '../widgets-instances/is-widget-with-content-instance';
 
 import {createWidgetInstance} from './create-widget-instance';
-import {evaluateHtmlText, evalAndTranslate} from './widget-instance-utils';
 import {isDevMode} from '@angular/core';
+
+function evalAndTranslate(f: AjfFormula, context: AjfContext, ts: TranslocoService): any {
+  const val = evaluateFormula(f, context);
+  if (typeof val === 'string') {
+    return ts.translate(val);
+  }
+  return val;
+}
 
 export function widgetToWidgetInstance(
   widget: AjfWidget,
