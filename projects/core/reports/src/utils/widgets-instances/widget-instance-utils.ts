@@ -32,26 +32,18 @@ export function evalAndTranslate(f: AjfFormula, context: AjfContext, ts: Translo
 }
 
 /**
- * Evaluate a string with expression inside, identified by double square brackets
+ * Evaluate a string with expressions inside, delimited by double square brackets.
  * Example: "Number of positive identified: [[n_positive_campaign]]"
  */
-export function evaluateProperty(
-  expression: string,
-  context: AjfContext,
-  ts: TranslocoService,
-): string {
-  let htmlText = ts.translate(String(expression));
-  const formulaRegEx: RegExp = /\[{2}(.+?)\]{2}/g;
-  const matches: {idx: number; len: number; formula: string}[] = [];
-  let match: RegExpExecArray | null;
-  while (match = formulaRegEx.exec(htmlText)) {
-    const idx = match.index;
-    const len = match[0].length;
-    matches.push({idx, len, formula: match[1]});
+export function evaluateHtmlText(text: string, context: AjfContext): string {
+  if (!text.includes('[[')) {
+    return text;
   }
-  matches.reverse().forEach(m => {
-    const val = evaluateExpression(m.formula, context);
-    htmlText = `${htmlText.substring(0, m.idx)}${val}${htmlText.substring(m.idx + m.len)}`;
-  });
-  return htmlText;
+  if (text.includes('`')) {
+    return "Error: htmlText can't contain backticks `";
+  }
+  text = text.replaceAll('[[', '${');
+  text = text.replaceAll(']]', '}');
+  text = '`' + text + '`';
+  return evaluateExpression(text, context);
 }

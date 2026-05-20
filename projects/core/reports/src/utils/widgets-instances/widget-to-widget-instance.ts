@@ -62,8 +62,7 @@ import {isTextWidgetInstance} from '../widgets-instances/is-text-widget-instance
 import {isWidgetWithContentInstance} from '../widgets-instances/is-widget-with-content-instance';
 
 import {createWidgetInstance} from './create-widget-instance';
-import {evaluateProperty, evalAndTranslate} from './widget-instance-utils';
-import {AjfGraphNode} from '@ajf/core/graph';
+import {evalAndTranslate, evaluateHtmlText} from './widget-instance-utils';
 import {isDevMode} from '@angular/core';
 
 export function widgetToWidgetInstance(
@@ -287,24 +286,22 @@ export function widgetToWidgetInstance(
           : evaluateExpression(widget.urls.formula, context);
     }
   } else if (isTextWidget(widget) && isTextWidgetInstance(wi)) {
-    wi.htmlText = evaluateProperty(widget.htmlText, context, ts);
+    wi.htmlText = ts.translate(evaluateHtmlText(widget.htmlText, context));
   } else if (isFormulaWidget(widget) && isFormulaWidgetInstance(wi)) {
     wi.formula = evaluateExpression(widget.formula.formula, context);
   } else if (isMapWidget(widget) && isMapWidgetInstance(wi)) {
     wi.coordinate = evaluateExpression(widget.coordinate.formula, context);
   } else if (isGraphWidget(widget) && isGraphWidgetInstance(wi)) {
     if (widget.nodes != null) {
-      wi.nodes = widget.nodes.map(ds => {
-        let node: any = {
-          ...ds,
-        };
-        node.label = ds.label != null ? evaluateProperty(ds.label, context, ts) : ds.id;
-        node.red = evaluateExpression(ds.red, context);
-        node.yellow = evaluateExpression(ds.yellow, context);
-        node.green = evaluateExpression(ds.green, context);
-        node.color = ds.color ? evaluateExpression(ds.color, context) : undefined;
-        return node as AjfGraphNode;
-      });
+      wi.nodes = widget.nodes.map(ds => ({
+        id: ds.id,
+        label: ds.label,
+        parentId: ds.parentId,
+        green: ds.green === 'true',
+        red: ds.red === 'true',
+        yellow: ds.yellow === 'true',
+        color: ds.color,
+      }));
     }
   } else if (isHeatMapWidget(widget) && isHeatMapWidgetInstance(wi)) {
     wi.idProp = widget.idProp || 'id';
