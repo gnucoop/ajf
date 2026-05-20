@@ -25,7 +25,7 @@ import {
   alwaysCondition,
   createCondition,
   createFormula,
-  normalizeExpression,
+  renameArguments,
 } from '@ajf/core/models';
 
 import {AjfFileSizeLimit} from '@ajf/core/file-input';
@@ -142,7 +142,7 @@ export function nodeToNodeInstance(
 
       if (node.visibility != null) {
         const oldVisibility = node.visibility.condition;
-        const newVisibility = normalizeExpression(oldVisibility, ancestorsNames, prefix);
+        const newVisibility = renameArguments(oldVisibility, ancestorsNames, prefix);
         instance.visibility =
           newVisibility !== oldVisibility
             ? createCondition({condition: newVisibility})
@@ -163,7 +163,7 @@ export function nodeToNodeInstance(
         const formulaReps = instance.node.formulaReps;
         if (formulaReps != null) {
           const oldFormula = formulaReps.formula;
-          let newFormula = normalizeExpression(oldFormula, ancestorsNames, prefix);
+          let newFormula = renameArguments(oldFormula, ancestorsNames, prefix);
           instance.formulaReps =
             newFormula !== oldFormula ? createFormula({formula: newFormula}) : formulaReps;
         }

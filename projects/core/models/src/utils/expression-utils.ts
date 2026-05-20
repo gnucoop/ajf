@@ -81,7 +81,7 @@ const globals = [
   'parseFloat',
 ];
 
-export function getExpressionArguments(source: string): Set<string> {
+export function getArgumentNames(source: string): Set<string> {
   const identifiers = new Set<string>();
   try {
     const tokens = tokenizer(source, {ecmaVersion: 2022});
@@ -91,7 +91,7 @@ export function getExpressionArguments(source: string): Set<string> {
       }
     }
   } catch (e) {
-    console.error(e, '- getting expression variables for:', source);
+    console.error(e, '- getting argument names for:', source);
   }
   for (const ide of globals) {
     identifiers.delete(ide);
@@ -262,7 +262,7 @@ export function createFunction(expression: string): Func {
   }
 
   expression = '(' + expression + ')';
-  const argNames = [...getExpressionArguments(expression).add('execContext')];
+  const argNames = [...getArgumentNames(expression).add('execContext')];
   let func: Function;
   try {
     func = new Function(...argNames, 'return ' + expression);
