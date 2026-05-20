@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfFormula, normalizeExpression} from '@ajf/core/models';
+import {AjfFormula, renameArguments} from '@ajf/core/models';
 
 export function getInstanceFormula(
   formula: AjfFormula,
@@ -28,7 +28,7 @@ export function getInstanceFormula(
   prefix: number[],
 ): AjfFormula {
   const oldFormula = formula.formula;
-  let newFormula = normalizeExpression(oldFormula, ancestorsNames, prefix);
+  let newFormula = renameArguments(oldFormula, ancestorsNames, prefix);
   if (newFormula === oldFormula) {
     return formula;
   }
