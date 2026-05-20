@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCondition, AjfContext, evaluateExpression, getCodeIdentifiers} from '@ajf/core/models';
+import {AjfCondition, AjfContext, evaluateFormula, getArgumentNames} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 import {deepCopy} from '@ajf/core/utils';
 import {EventEmitter, Injectable, Optional} from '@angular/core';
@@ -37,7 +37,6 @@ import {
   timer,
 } from 'rxjs';
 import {
-  distinctUntilChanged,
   filter,
   map,
   pairwise,
@@ -933,7 +932,6 @@ export class AjfFormRendererService {
     this._formGroupSubscription = formGroup.valueChanges
       .pipe(
         startWith({}),
-        distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
         pairwise(),
         withLatestFrom(
           this._nodesMaps[0],
@@ -971,10 +969,10 @@ export class AjfFormRendererService {
         let updatedNodes: AjfNodeInstance[] = [];
 
         /*
-                        for each field update all properties map
-                        with the following rule  "if fieldname is in map update it" and
-                        push on updateNodes the node instance that wrap field
-                      */
+          for each field update all properties map
+          with the rule "if fieldname is in map update it" and
+          push on updateNodes the node instance that wrap field
+        */
         delta.forEach(fieldName => {
           updatedNodes = updatedNodes.concat(
             nodes.filter(n => nodeInstanceCompleteName(n) === fieldName),
@@ -1605,20 +1603,21 @@ export class AjfFormRendererService {
     nodeInstance: AjfNodeInstance,
     formula: string,
   ): void {
-    const tokens = getCodeIdentifiers(formula);
-    if (tokens.length > 0) {
+    const names = getArgumentNames(formula);
+    names.delete('$value');
+    if (names.size > 0) {
       nodesMap.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
-        tokens.forEach(token => {
-          if (vmap[token] != null) {
-            const idx = vmap[token].indexOf(nodeInstance);
+        for (const name of names) {
+          if (vmap[name] != null) {
+            const idx = vmap[name].indexOf(nodeInstance);
             if (idx > -1) {
-              vmap[token].splice(idx, 1);
-              if (vmap[token].length == 0) {
-                delete vmap[token];
+              vmap[name].splice(idx, 1);
+              if (vmap[name].length == 0) {
+                delete vmap[name];
               }
             }
           }
-        });
+        }
         return vmap;
       });
     }
@@ -1669,17 +1668,18 @@ export class AjfFormRendererService {
     nodeInstance: AjfNodeInstance,
     formula: string,
   ): void {
-    const tokens = getCodeIdentifiers(formula);
-    if (tokens.length > 0) {
+    const names = getArgumentNames(formula);
+    names.delete('$value');
+    if (names.size > 0) {
       nodesMap.next((vmap: AjfRendererUpdateMap): AjfRendererUpdateMap => {
-        tokens.forEach(token => {
-          if (vmap[token] == null) {
-            vmap[token] = [];
+        for (const name of names) {
+          if (vmap[name] == null) {
+            vmap[name] = [];
           }
-          if (vmap[token].indexOf(nodeInstance) === -1) {
-            vmap[token].push(nodeInstance);
+          if (vmap[name].indexOf(nodeInstance) === -1) {
+            vmap[name].push(nodeInstance);
           }
-        });
+        }
         return vmap;
       });
     }
@@ -1751,10 +1751,7 @@ const updateVisibilityMapEntry = (
             if (subFieldVisibility) {
               let subFieldDefaultValue = null;
               if (n.node.defaultValue.formula != null) {
-                subFieldDefaultValue = evaluateExpression(
-                  n.node.defaultValue.formula,
-                  newFormValue,
-                );
+                subFieldDefaultValue = evaluateFormula(n.node.defaultValue, newFormValue);
               } else {
                 subFieldDefaultValue = n.node.defaultValue;
               }

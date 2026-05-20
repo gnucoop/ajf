@@ -1,27 +1,31 @@
-import {AjfExpressionUtils, evaluateExpression, FILTER_BY, validateExpression} from './public_api';
+import {AjfExpressionUtils, createFunction, FILTER_BY} from './public_api';
 
-describe('evaluateExpression', () => {
+function evaluate(expression: string, context?: any): any {
+  return createFunction(expression)(context);
+}
+
+describe('createFunction', () => {
   it('should evaluate simple expressions', () => {
-    expect(evaluateExpression('undefined')).toEqual(null);
-    expect(evaluateExpression('null')).toEqual(null);
-    expect(evaluateExpression('false')).toEqual(false);
-    expect(evaluateExpression('5')).toEqual(5);
-    expect(evaluateExpression('"pippo"')).toEqual('pippo');
-    expect(evaluateExpression('"[]"')).toEqual('[]');
-    expect(evaluateExpression('[1, 2, 3]')).toEqual([1, 2, 3]);
-    expect(evaluateExpression('{"foo":"bar"}')).toEqual({foo: 'bar'});
-    expect(evaluateExpression('pluto', {pluto: 6})).toEqual(6);
+    expect(evaluate('undefined')).toEqual(null);
+    expect(evaluate('null')).toEqual(null);
+    expect(evaluate('false')).toEqual(false);
+    expect(evaluate('5')).toEqual(5);
+    expect(evaluate('"pippo"')).toEqual('pippo');
+    expect(evaluate('"[]"')).toEqual('[]');
+    expect(evaluate('[1, 2, 3]')).toEqual([1, 2, 3]);
+    expect(evaluate('{"foo":"bar"}')).toEqual({foo: 'bar'});
+    expect(evaluate('pluto', {pluto: 6})).toEqual(6);
   });
 
-  it('should evalute expressions given a context', () => {
-    expect(evaluateExpression('foo > 2', {foo: 4})).toBe(true);
-    expect(evaluateExpression('foo == false', {foo: false})).toBe(true);
-    expect(evaluateExpression('foo == "foo"', {foo: 'foo'})).toBe(true);
+  it('should evaluate expressions given a context', () => {
+    expect(evaluate('foo > 2', {foo: 4})).toBe(true);
+    expect(evaluate('foo == false', {foo: false})).toBe(true);
+    expect(evaluate('foo == "foo"', {foo: 'foo'})).toBe(true);
   });
 
   it('should evaluate builtin functions', () => {
-    expect(evaluateExpression('valueInChoice(foo, b)', {foo: 'b', b: 'b'})).toBe(true);
-    expect(evaluateExpression('decimalCount(2.23)', {})).toEqual(2);
+    expect(evaluate('valueInChoice(foo, b)', {foo: 'b', b: 'b'})).toBe(true);
+    expect(evaluate('decimalCount(2.23)', {})).toEqual(2);
 
     let context: any = {
       opd_duration: ['Day(s)', 'Day(s)', 'Week(s)', 'Once'],
@@ -35,11 +39,11 @@ describe('evaluateExpression', () => {
                     (opd_duration[i] == 'Once') && 1);
                 return result;
             }))`;
-    expect(evaluateExpression(formula, context)).toEqual(115);
+    expect(evaluate(formula, context)).toEqual(115);
 
     formula = 'notEmpty(a) == false && notEmpty(b) == false && notEmpty(c) == true';
     context = {a: '', b: null, c: 0};
-    expect(evaluateExpression(formula, context)).toBe(true);
+    expect(evaluate(formula, context)).toBe(true);
   });
 
   it('should evaluate custom functions', () => {
@@ -49,18 +53,8 @@ describe('evaluateExpression', () => {
         return y[x];
       },
     };
-    expect(evaluateExpression('customFunction(z)', {z: 'foo'})).toEqual('bar');
-    expect(evaluateExpression('customFunction(z)', {z: 'baz'})).toBeUndefined();
-  });
-});
-
-describe('validateExpression', () => {
-  it('should validate code as executable given an optional context', () => {
-    expect(validateExpression('(1 + 2) / 3')).toBe(true);
-
-    expect(validateExpression('(foo + 2) / 3', {'foo': 1})).toBe(true);
-
-    expect(validateExpression('(foo + 2) / 3')).toBe(false);
+    expect(evaluate('customFunction(z)', {z: 'foo'})).toEqual('bar');
+    expect(evaluate('customFunction(z)', {z: 'baz'})).toBeUndefined();
   });
 });
 

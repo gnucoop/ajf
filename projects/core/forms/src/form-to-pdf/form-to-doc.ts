@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateCondition, evaluateFormula} from '@ajf/core/models';
 import {
   BorderStyle,
   Document,
@@ -252,7 +252,7 @@ function fieldToDoc(
   const visible =
     context == null /* form not compiled, show all fields */ ||
     field.visibility == null ||
-    evaluateExpression(field.visibility.condition, context);
+    evaluateCondition(field.visibility, context);
   if (!visible) {
     return [];
   }
@@ -269,10 +269,9 @@ function fieldToDoc(
       ];
     case AjfFieldType.Formula:
       let value = lookupString(field.name);
-      if (value === '') {
+      if (value === '' && field.formula != null) {
         // If the value of the field is not in the context, recompute the formula.
-        const formula = field.formula || {formula: ''};
-        value = String(evaluateExpression(formula.formula, context));
+        value = String(evaluateFormula(field.formula, context));
       }
       return [
         new Paragraph(translate(field.label)),

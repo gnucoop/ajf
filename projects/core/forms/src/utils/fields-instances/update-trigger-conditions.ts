@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateCondition} from '@ajf/core/models';
 
 import {AjfFieldWithChoicesInstance} from '../../interface/fields-instances/field-with-choices-instance';
 import {nodeInstanceCompleteName} from '../nodes-instances/node-instance-complete-name';
@@ -42,7 +42,7 @@ export function updateTriggerConditions(
   let found = false;
   const conditionsNum = instance.triggerConditions.length;
   for (let i = 0; i < conditionsNum; i++) {
-    if (evaluateExpression(instance.triggerConditions[i].condition, context)) {
+    if (evaluateCondition(instance.triggerConditions[i], context)) {
       found = true;
       break;
     }

@@ -20,31 +20,6 @@
  *
  */
 
-import {AjfContext} from '@ajf/core/common';
+import {AjfContext} from "../context";
 
-import {getContextString} from './get-context-string';
-import {isDevMode} from '@angular/core';
-
-let cachedContext: any = {};
-let cachedContextString = '{}';
-
-export function validateExpression(str: string, context?: AjfContext): boolean {
-  if (context === cachedContext) {
-    console.log('cache hit');
-  } else {
-    cachedContext = context;
-    cachedContextString = getContextString(context);
-  }
-  let ctx = cachedContextString;
-  try {
-    let f = new Function(`${ctx}${str}`);
-    f();
-    f = <any>null;
-    return true;
-  } catch (e) {
-    if (isDevMode()) {
-      console.log(e);
-    }
-    return false;
-  }
-}
+export type AjfFunction = (c?: AjfContext) => any;

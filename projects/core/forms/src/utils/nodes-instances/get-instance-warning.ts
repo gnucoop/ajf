@@ -20,7 +20,7 @@
  *
  */
 
-import {normalizeExpression} from '@ajf/core/models';
+import {renameArguments} from '@ajf/core/models';
 
 import {AjfWarning} from '../../interface/warning/warning';
 import {createWarning} from '../warning/create-warning';
@@ -31,7 +31,7 @@ export function getInstanceWarning(
   prefix: number[],
 ): AjfWarning {
   const oldWarning = warning.condition;
-  let newWarning = normalizeExpression(oldWarning, ancestorsNames, prefix);
+  let newWarning = renameArguments(oldWarning, ancestorsNames, prefix);
   if (newWarning === oldWarning) {
     return warning;
   }

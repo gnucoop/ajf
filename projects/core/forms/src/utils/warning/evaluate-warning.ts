@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateCondition} from '@ajf/core/models';
 
 import {AjfWarning} from '../../interface/warning/warning';
 import {AjfWarningResult} from '../../interface/warning/warning-result';
@@ -30,7 +30,7 @@ export function evaluateWarning(
   context?: AjfContext,
 ): AjfWarningResult {
   return {
-    result: evaluateExpression(warning.condition, context),
+    result: evaluateCondition(warning, context),
     warning: warning.warningMessage,
   };
 }

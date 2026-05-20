@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateCondition} from '@ajf/core/models';
 import {TranslocoService} from '@ajf/core/transloco';
 import {AjfFormSerializer} from '@ajf/core/forms';
 import {AjfWidgetInstance} from '../../interface/widgets-instances/widget-instance';
@@ -44,7 +44,7 @@ export function createWidgetInstance(
   return {
     widget,
     widgetType: widget.widgetType,
-    visible: evaluateExpression(widget.visibility.condition, context),
+    visible: evaluateCondition(widget.visibility, context),
     styles: widget.styles || {},
     filter,
   } as AjfWidgetInstance;

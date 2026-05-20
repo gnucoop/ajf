@@ -20,7 +20,7 @@
  *
  */
 
-import {normalizeExpression} from '@ajf/core/models';
+import {renameArguments} from '@ajf/core/models';
 
 import {AjfValidation} from '../../interface/validation/validation';
 import {createValidation} from '../validation/create-validation';
@@ -31,7 +31,7 @@ export function getInstanceValidation(
   prefix: number[],
 ): AjfValidation {
   const oldValidation = validation.condition;
-  let newValidation = normalizeExpression(oldValidation, ancestorsNames, prefix);
+  let newValidation = renameArguments(oldValidation, ancestorsNames, prefix);
   if (newValidation === oldValidation) {
     return validation;
   }

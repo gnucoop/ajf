@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfContext, evaluateExpression} from '@ajf/core/models';
+import {AjfContext, evaluateFormula} from '@ajf/core/models';
 
 import {AjfFieldInstance} from '../../interface/fields-instances/field-instance';
 
@@ -47,7 +47,7 @@ export function updateFormula(
   let changed = false;
   if (instance.visible) {
     if (formula != null && (!editable || (editable && instance.value == null))) {
-      newValue = evaluateExpression(formula.formula, context);
+      newValue = evaluateFormula(formula, context);
       if (Number.isNaN(newValue)) {
         newValue = null;
       }
@@ -55,7 +55,7 @@ export function updateFormula(
     } else if (updateDefault && instance.node.defaultValue != null && instance.value == null) {
       changed = true;
       if (instance.node.defaultValue.formula != null) {
-        newValue = evaluateExpression(instance.node.defaultValue.formula, context);
+        newValue = evaluateFormula(instance.node.defaultValue, context);
         if (Number.isNaN(newValue)) {
           newValue = null;
         }

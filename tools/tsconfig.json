@@ -6,11 +6,11 @@
   "include": ["./**/*.ts"],
   "compilerOptions": {
     "outDir": "../dist/tools",
-    "target": "es2020",
+    "target": "es2022",
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "lib": ["es2020"],
+    "lib": ["es2022"],
     "skipLibCheck": true,
     // Don't emit to the file system, because we only want to check for compilation errors.
     "noEmit": true,

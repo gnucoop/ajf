@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfCondition, normalizeExpression} from '@ajf/core/models';
+import {AjfCondition, renameArguments} from '@ajf/core/models';
 
 export function getInstanceCondition(
   condition: AjfCondition,
@@ -28,7 +28,7 @@ export function getInstanceCondition(
   prefix: number[],
 ): AjfCondition {
   const oldCondition = condition.condition;
-  let newCondition = normalizeExpression(oldCondition, ancestorsNames, prefix);
+  let newCondition = renameArguments(oldCondition, ancestorsNames, prefix);
   if (newCondition === oldCondition) {
     return condition;
   }
