@@ -1,6 +1,6 @@
 import {
   MainForm,
-  evaluateExpression,
+  createFunction,
   ALL_VALUES_OF,
   SUM,
   MEAN,
@@ -239,10 +239,9 @@ describe('MAP', () => {
   it('MAP', () => {
     const forms = [{menu: ['pizza', 'fries']}, {menu: ['pizza', 'burger']}];
     const items = ['pizza', 'fries', 'cheese'];
-    const result = evaluateExpression(
+    const result = createFunction(
       'MAP(items, (elem) => COUNT_FORMS(forms, (form) => INCLUDES(form.menu, elem)))',
-      {forms, items},
-    );
+    )({forms, items});
     expect(result).toEqual([2, 1, 0]);
   });
 });
