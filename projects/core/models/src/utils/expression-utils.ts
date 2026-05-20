@@ -235,10 +235,6 @@ function cloneMainForms(forms: MainForm[]): MainForm[] {
   return res;
 }
 
-export function evaluateExpression(expression: string, context?: AjfContext): any {
-  return createFunction(expression)(context);
-}
-
 export function evaluateFormula(formula: AjfFormula, context?: AjfContext): any {
   if (formula.func == null) {
     formula.func = createFunction(formula.formula);
@@ -1588,7 +1584,7 @@ export function ROUND(num: number | string, digits?: number): number {
  * Deprecated. Use IF
  */
 export function EVALUATE(condition: string, branch1: any, branch2: any): any {
-  if (evaluateExpression(condition)) {
+  if (createFunction(condition)()) {
     return branch1;
   } else {
     return branch2;

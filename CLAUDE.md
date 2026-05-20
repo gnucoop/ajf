@@ -113,7 +113,9 @@ Follow this checklist when adding a new field (e.g., `MyNewField`).
 
 ### Expressions and conditions
 
-Conditions (`AjfCondition`) and formulas (`AjfFormula`) are plain JS strings evaluated at runtime via `evaluateExpression` from `@ajf/core/models`. Field names in the current form context are available as variables. The `AjfExpressionUtils` class holds the registered function table.
+Conditions (`AjfCondition`) and formulas (`AjfFormula`) are plain JS strings evaluated at runtime via `evaluateCondition` / `evaluateFormula` from `@ajf/core/models`. Both interfaces carry an optional `func?` field that caches the compiled `AjfFunction` so `createFunction` (which calls `new Function(...)`) is only paid once per object. Field names in the current form context are available as variables. The `AjfExpressionUtils` class holds the registered function table.
+
+To evaluate a raw expression string directly (outside of an `AjfCondition`/`AjfFormula` object), use `createFunction(expression)(context)` from `@ajf/core/models`. The old `evaluateExpression` helper no longer exists.
 
 ### i18n
 
