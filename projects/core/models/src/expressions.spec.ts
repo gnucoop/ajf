@@ -2,7 +2,7 @@ import {AjfExpressionUtils, evaluateExpression, FILTER_BY} from './public_api';
 
 describe('evaluateExpression', () => {
   it('should evaluate simple expressions', () => {
-    expect(evaluateExpression('undefined')).toEqual(null);
+    expect(evaluateExpression('undefined')).toEqual(false);
     expect(evaluateExpression('null')).toEqual(null);
     expect(evaluateExpression('false')).toEqual(false);
     expect(evaluateExpression('5')).toEqual(5);

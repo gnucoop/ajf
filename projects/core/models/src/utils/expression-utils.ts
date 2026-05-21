@@ -237,29 +237,42 @@ export function evaluateExpression(expression: string, context?: AjfContext): an
 
 type Func = (c?: AjfContext) => any;
 
+const falseFunc: Func = _ => false;
+
+const cache = new Map<string, Func>();
+for (const str of ['', 'undefined', 'false', '[object Object]']) {
+  cache.set(str, falseFunc);
+}
+cache.set('null', _ => null);
+cache.set('true', _ => true);
+
 export function createFunction(expression: string): Func {
   expression = String(expression).trim();
-  if (expression === '') {
-    return _ => false;
+  const hit = cache.get(expression);
+  if (hit) {
+    return hit;
   }
-  if (expression === 'undefined') {
-    return _ => null;
-  }
+  const func = createNewFunction(expression);
+  cache.set(expression, func);
+  return func;
+}
+
+function createNewFunction(expression: string): Func {
   // Fast path for singly-quoted strings
   if (expression.startsWith("'") && /^'[^']*'$/.test(expression)) {
     const val = expression.slice(1, -1);
     return _ => val;
   }
-  // Fast path for expressions that are pure json.
-  // Also works for null, booleans, numbers, strings and arrays
-  try {
-    const val = JSON.parse(expression);
-    return _ => val;
-  } catch {}
   // Fast path for expressions that consist of a single identifier
   if (/^[a-zA-Z_$][\w$]*$/.test(expression)) {
     return c => (c == null || c[expression] === undefined ? null : c[expression]);
   }
+  // Fast path for expressions that are pure json.
+  // Also works for numbers, "strings" and arrays
+  try {
+    const val = JSON.parse(expression);
+    return _ => val;
+  } catch {}
 
   expression = '(' + expression + ')';
   const argNames = [...getArgumentNames(expression).add('execContext')];
@@ -267,7 +280,7 @@ export function createFunction(expression: string): Func {
   try {
     func = new Function(...argNames, 'return ' + expression);
   } catch {
-    return _ => false;
+    return falseFunc;
   }
   return context => {
     const argValues = argNames.map(name => {
