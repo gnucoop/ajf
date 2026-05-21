@@ -20,29 +20,6 @@
  *
  */
 
-function functionSerializer(_: any, v: any): any {
-  if (typeof v === 'function') {
-    return v.toString().replace(/[\r\n]+/g, ' ');
-  }
-  return v;
-}
-
-function functionDeserializer(_: any, v: any): any {
-  if (typeof v === 'string' && /^function.*?\([^\0]*?\)\s*\{.*\}$/.test(v)) {
-    const argsMatch = v.replace(/\/\/.*$|\/\*[\s\S]*?\*\//gm, '').match(/\(.*?\)/m);
-    if (argsMatch != null && argsMatch.length > 0) {
-      const args = argsMatch[0].replace(/^\(|\)$/, '').match(/[^\s(),]+/g) || [];
-      const bodyMatch = v.match(/\{(.*)\}/);
-      if (bodyMatch != null && bodyMatch.length > 1) {
-        const body = bodyMatch[1];
-        const fx = args.concat(body as any);
-        return Function.apply(null, fx);
-      }
-    }
-  }
-  return v;
-}
-
-export function deepCopy(oldObj: any): any {
-  return JSON.parse(JSON.stringify(oldObj, functionSerializer), functionDeserializer);
+export function deepCopy(obj: any): any {
+  return JSON.parse(JSON.stringify(obj));
 }
