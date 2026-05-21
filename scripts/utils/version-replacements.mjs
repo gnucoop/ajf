@@ -19,7 +19,7 @@ export const versionReplacements = packages => {
     ['echarts', 'ECHARTS'],
     ['flag-icon-css', 'FLAG-ICON-CSS'],
     ['leaflet', 'LEAFLET'],
-    ['meriyah', 'MERIYAH'],
+    ['acorn', 'ACORN'],
     ['ngx-mat-select-search', 'NGX-MAT-SELECT-SEARCH'],
     ['numbro', 'NUMBRO'],
     ['pdfmake', 'PDFMAKE'],
