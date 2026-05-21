@@ -20,7 +20,6 @@
  *
  */
 
-import {evaluateExpression} from '@ajf/core/models';
 import {AjfValidationGroup} from '../../interface/validation/validation-group';
 import {AjfValidationResult} from '../../interface/validation/validation-results';
 import {evaluateValidation} from './evaluate-validation';
@@ -36,13 +35,12 @@ export function evaluateValidationMinDigits(
   if (validation.minDigits == null) {
     return null;
   }
-  const ctx = {'$value': value};
   if (typeof validation.minDigits === 'number') {
     return {
-      result: evaluateExpression(`$value.toString().length >= ${validation.minDigits}`, ctx),
+      result: String(value).length >= validation.minDigits,
       error: `Digits count must be >= ${validation.minDigits}`,
       clientValidation: false,
     };
   }
-  return evaluateValidation(validation.minDigits, ctx);
+  return evaluateValidation(validation.minDigits, {'$value': value});
 }
