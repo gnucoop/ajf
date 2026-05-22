@@ -113,8 +113,6 @@ export const dateUtils = {
 };
 
 export class AjfExpressionUtils {
-  // TODO what is it for
-  static UTIL_FUNCTIONS = '';
   /**
    * It is a key-value dictionary, that mapping all Ajf validation functions.
    */
