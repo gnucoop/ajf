@@ -20,7 +20,9 @@
     "@angular/core": "0.0.0-NGF",
     "@angular/forms": "0.0.0-NGF",
     "@angular/material": "0.0.0-NGF",
-    "@angular/platform-browser": "0.0.0-NGF"
+    "@angular/platform-browser": "0.0.0-NGF",
+    "ngx-quill": "0.0.0-NGX-QUILL",
+    "quill": "0.0.0-QUILL"
   },
   "dependencies": {
     "tslib": "^2.3.0"
