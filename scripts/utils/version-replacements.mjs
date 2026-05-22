@@ -20,6 +20,8 @@ export const versionReplacements = packages => {
     ['flag-icon-css', 'FLAG-ICON-CSS'],
     ['leaflet', 'LEAFLET'],
     ['acorn', 'ACORN'],
+    ['ngx-quill', 'NGX-QUILL'],
+    ['quill', 'QUILL'],
     ['ngx-mat-select-search', 'NGX-MAT-SELECT-SEARCH'],
     ['numbro', 'NUMBRO'],
     ['pdfmake', 'PDFMAKE'],
