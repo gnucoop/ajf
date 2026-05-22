@@ -206,12 +206,9 @@ export class AjfExpressionUtils {
 }
 
 /**
- * UTILITY FUNCION
- * This function provide a deep copy builder of array of main forms.
- * That's a custom function related to mainforms that can be able to increase copy performance.
- *
- * @param {MainForm[]} forms
- * @return {*}  {MainForm[]}
+ * Returns a copy of an array of forms.
+ * The forms and their repeating slides are copied with spread,
+ * with only one level of depth.
  */
 function cloneMainForms(forms: MainForm[]): MainForm[] {
   let res: MainForm[] = [];
@@ -223,7 +220,7 @@ function cloneMainForms(forms: MainForm[]): MainForm[] {
     let reps: Instances = {};
     if (form.reps != null) {
       for (const key in form.reps) {
-        reps[key] = [...form.reps[key]];
+        reps[key] = form.reps[key].map(rep => ({...rep}));
       }
     }
     res.push({...form, reps});
