@@ -42,7 +42,7 @@ export function evaluateValidationGroup(
   context?: AjfContext,
 ): AjfValidationResult[] {
   let res: AjfValidationResult[] = [];
-  let ctx = deepCopy(context);
+  let ctx = deepCopy(context ?? {});
   ctx['$value'] = value;
   res = evaluateValidationConditions(validation, ctx);
   if (validation.maxValue) {

@@ -1097,14 +1097,8 @@ export class AjfFormBuilderService {
         slides.map(slide => {
           slide.nodes = (slide.nodes as AjfField[]).map((node: AjfField) => {
             if (isFieldWithChoices(node)) {
-              const fwc = deepCopy(node);
-              if (fwc && fwc.choices) {
-                delete fwc.choices;
-              }
-              if (fwc && fwc.choicesOrigin) {
-                delete fwc.choicesOrigin;
-              }
-              return fwc;
+              const {choices, choicesOrigin, ...fwc} = deepCopy(node);
+              return fwc as AjfField;
             }
             return node;
           });
@@ -1145,7 +1139,7 @@ export class AjfFormBuilderService {
           node.visibility =
             properties.visibility != null
               ? createCondition({condition: properties.visibility})
-              : null;
+              : undefined;
 
           const oldConditionalBranches = node.conditionalBranches.length;
           node.conditionalBranches =
