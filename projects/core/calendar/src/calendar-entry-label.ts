@@ -22,7 +22,7 @@
 
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
 
-import {AjfCalendarEntry} from './calendar-entry';
+import {AjfCalendarEntry} from './calendar-interfaces';
 import {AjfCalendarService} from './calendar-service';
 
 @Injectable()

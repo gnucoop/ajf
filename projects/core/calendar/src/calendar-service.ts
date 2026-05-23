@@ -47,12 +47,14 @@ import {
   subYears,
 } from 'date-fns';
 
-import {AjfCalendarEntry} from './calendar-entry';
-import {AjfCalendarEntrySelectedState} from './calendar-entry-selected-state';
-import {AjfCalendarPeriod} from './calendar-period';
-import {AjfCalendarPeriodType} from './calendar-period-type';
-import {AjfCalendarView} from './calendar-view';
-import {AjfCalendarViewMode} from './calendar-view-mode';
+import {
+  AjfCalendarEntry,
+  AjfCalendarEntrySelectedState,
+  AjfCalendarPeriod,
+  AjfCalendarPeriodType,
+  AjfCalendarView,
+  AjfCalendarViewMode,
+} from './calendar-interfaces';
 
 export interface AjfCalendarParams {
   viewMode: AjfCalendarViewMode;
