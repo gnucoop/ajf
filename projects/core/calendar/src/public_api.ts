@@ -21,14 +21,7 @@
  */
 
 export * from './calendar-entry-label';
-export * from './calendar-entry-selected-state';
-export * from './calendar-entry-type';
-export * from './calendar-entry';
+export * from './calendar-interfaces';
 export * from './calendar-module';
-export * from './calendar-period-type';
-export * from './calendar-period';
 export * from './calendar-service';
-export * from './calendar-view';
-export * from './calendar-view-mode';
-export * from './calendar-week-day';
 export * from './calendar';

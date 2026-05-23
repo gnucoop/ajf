@@ -20,4 +20,30 @@
  *
  */
 
+export type AjfCalendarEntrySelectedState = 'none' | 'partial' | 'full';
+
+export type AjfCalendarEntryType = 'day' | 'month' | 'year';
+
+export interface AjfCalendarEntry {
+  type: AjfCalendarEntryType;
+  date: Date;
+  selected: AjfCalendarEntrySelectedState;
+  disabled?: boolean;
+  highlight?: boolean;
+}
+
 export type AjfCalendarPeriodType = 'day' | 'week' | 'month' | 'year';
+
+export interface AjfCalendarPeriod {
+  type: AjfCalendarPeriodType;
+  startDate: Date;
+  endDate: Date;
+}
+
+export type AjfCalendarViewMode = 'month' | 'year' | 'decade';
+
+export interface AjfCalendarView {
+  header: string;
+  headerRow: string[];
+  rows: AjfCalendarEntry[][];
+}

@@ -1,8 +1,7 @@
 import {isSameDay} from 'date-fns';
 
 import {AjfCalendar as Base} from './calendar';
-import {AjfCalendarEntry} from './calendar-entry';
-import {AjfCalendarPeriod} from './calendar-period';
+import {AjfCalendarEntry, AjfCalendarPeriod} from './calendar-interfaces';
 import {AjfCalendarService} from './calendar-service';
 
 class MockCdr {

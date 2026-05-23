@@ -41,12 +41,22 @@ import {
 } from 'date-fns';
 import {Observable} from 'rxjs';
 
-import {AjfCalendarEntry} from './calendar-entry';
-import {AjfCalendarPeriod} from './calendar-period';
-import {AjfCalendarPeriodType} from './calendar-period-type';
+import {
+  AjfCalendarEntry,
+  AjfCalendarPeriod,
+  AjfCalendarPeriodType,
+  AjfCalendarViewMode,
+} from './calendar-interfaces';
 import {AjfCalendarService} from './calendar-service';
-import {AjfCalendarViewMode} from './calendar-view-mode';
-import {AjfCalendarWeekDay} from './calendar-week-day';
+
+export type AjfCalendarWeekDay =
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday'
+  | 'sunday';
 
 const weekDays: string[] = [
   '',
