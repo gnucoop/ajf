@@ -63,7 +63,6 @@
     "leaflet": "^1.7.1",
     "ngx-mat-select-search": "^8.0.0",
     "ngx-quill": "26.0.0",
-    "numbro": "^2.3.6",
     "pdfmake": "^0.2.4",
     "quill": "2.0.2",
     "rxjs": "^7.5.0",
