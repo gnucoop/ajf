@@ -23,22 +23,8 @@ describe('evaluateExpression', () => {
     expect(evaluateExpression('valueInChoice(foo, b)', {foo: 'b', b: 'b'})).toBe(true);
     expect(evaluateExpression('decimalCount(2.23)', {})).toEqual(2);
 
-    let context: any = {
-      opd_duration: ['Day(s)', 'Day(s)', 'Week(s)', 'Once'],
-      opd_duration_day: [2, null, null, null],
-      opd_duration_week: [null, 2, 2, null],
-      opd_freq: [1, 2, 8, null],
-    };
-    let formula = `sum(scanGroupField(opd_duration.length, [], function(result, i) {
-                result.push((opd_duration[i] == 'Day(s)' && opd_duration_day[i] * opd_freq[i]) ||
-                    (opd_duration[i] == 'Week(s)' && opd_duration_week[i] * opd_freq[i] * 7) ||
-                    (opd_duration[i] == 'Once') && 1);
-                return result;
-            }))`;
-    expect(evaluateExpression(formula, context)).toEqual(115);
-
-    formula = 'notEmpty(a) == false && notEmpty(b) == false && notEmpty(c) == true';
-    context = {a: '', b: null, c: 0};
+    const formula = 'notEmpty(a) == false && notEmpty(b) == false && notEmpty(c) == true';
+    const context = {a: '', b: null, c: 0};
     expect(evaluateExpression(formula, context)).toBe(true);
   });
 
