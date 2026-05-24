@@ -23,13 +23,11 @@
 import {AjfContext} from '@ajf/core/common';
 import * as dateFns from 'date-fns';
 import {tokTypes, tokenizer} from 'acorn';
-import * as numbroMod from 'numbro';
 import {AjfTableCell} from '@ajf/core/table';
 import {AjfValidationFn} from '../interface/validation-function';
 
 let execContext: any = {};
 
-const numbro = numbroMod.default || numbroMod;
 export interface Form {
   [key: string]: string | number | null;
 }
@@ -137,7 +135,6 @@ export class AjfExpressionUtils {
     extractDates: {fn: extractDates},
     extractSum: {fn: extractSum},
     formatDate: {fn: formatDate},
-    formatNumber: {fn: formatNumber},
     getCoordinate: {fn: getCoordinate},
     isInt: {fn: isInt},
     isoMonth: {fn: isoMonth},
@@ -710,11 +707,6 @@ export function alert(source: any[], property: string, threshold: number): strin
   } else {
     return '<p></p>';
   }
-}
-
-export function formatNumber(num: number, fmt?: string): string {
-  fmt = fmt || '0,0[.]0';
-  return numbro(num).format(fmt);
 }
 
 export function formatDate(date: Date | string, fmt?: string): string {
