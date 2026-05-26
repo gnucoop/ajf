@@ -1,3 +1,24 @@
+<a name="18.2.0"></a>
+# 18.2.0 "great-tapir" (2026-05-26)
+### Bug Fixes
+* **core/forms:** fix numeric validations ([bae07ac](https://github.com/gnucoop/ajf/commit/bae07acbce3ad0a850cd8b5f3be3924d350802c0))
+* **core/forms:** remove eval call from generateRandomCtx ([cefb69e](https://github.com/gnucoop/ajf/commit/cefb69ed1fc2389c387fc9ebc763735bf254ad32))
+* **core/forms:** remove useless distinctUntilChanged ([3a02f3d](https://github.com/gnucoop/ajf/commit/3a02f3dc4b75e957f7d67a783a4e5311d85ec478))
+* **core/models:** createFunction caching ([a28ea66](https://github.com/gnucoop/ajf/commit/a28ea66dd2e59c9e124f8ea50882734ea8605f5f))
+* **core/models:** delete validateExpression function (dead code) ([ba4a642](https://github.com/gnucoop/ajf/commit/ba4a6421ebbb99fc654716e1b1946635d8be4ca3))
+* **core/models:** fix cloneMainForm to spread repeating slides ([4861268](https://github.com/gnucoop/ajf/commit/4861268c3ad6476a5eecd4fbc5625977e7ffc3b0))
+* **core/models:** functions renaming ([6458f59](https://github.com/gnucoop/ajf/commit/6458f592ff0565b53cbe67162898d4e87765f21b))
+* **core/models:** improve and rename getCodeIdentifiers function ([07150fb](https://github.com/gnucoop/ajf/commit/07150fbd4bc2f43095c4e075f9748cb115d3684c))
+* **core/models:** remove package numbro ([9ccee27](https://github.com/gnucoop/ajf/commit/9ccee2725011c6492f1d9bc66d45ed858c764caa))
+* **core/reports:** avoid useless destroying and rebuilding of widget compenent, when possible ([48c78c7](https://github.com/gnucoop/ajf/commit/48c78c776b71e11cb7afa4b93745a2a2d151cd97))
+* **core/reports:** text widget small refactor ([3e84d6d](https://github.com/gnucoop/ajf/commit/3e84d6dd4bbe8917b5fb55f5bb1a2d4a91686a46))
+* **core/utils:** more precise typing for deepCopy ([1afe364](https://github.com/gnucoop/ajf/commit/1afe3643a0b663c780d1d67de820a12523287f3c))
+* **core/utils:** remove broken function serialization in deepCopy ([71ce6a7](https://github.com/gnucoop/ajf/commit/71ce6a7bd61a125810067efba34f726919879474))
+* **core:** remove dead code in validation service ([73fb3c5](https://github.com/gnucoop/ajf/commit/73fb3c57d01934aa2268699c6c4eafeb9cbee403))
+* **material/forms:** fix filteredChoices$ observable in single and multiple choice fields ([0700f67](https://github.com/gnucoop/ajf/commit/0700f67733df2665755cef0db52cb286483926a7))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.1.4"></a>
 # 18.1.4 "xenogeneic-salmon" (2026-05-11)
 ### Bug Fixes
