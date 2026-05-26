@@ -1,3 +1,8 @@
+<a name="18.2.2"></a>
+# 18.2.2 "visiting-sawfish" (2026-05-26)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.2.1"></a>
 # 18.2.1 "shy-catshark" (2026-05-26)
 
