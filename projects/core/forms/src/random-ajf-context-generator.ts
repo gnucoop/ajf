@@ -21,6 +21,7 @@
  */
 
 import {AjfContext} from '@ajf/core/common';
+import {evaluateExpression} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {AjfField} from './interface/fields/field';
 import {AjfFieldType} from './interface/fields/field-type';
@@ -59,36 +60,20 @@ function flattenFields(slides: AjfNode[]): AjfField[] {
 }
 
 export function generateRandomCtx(formSchema: AjfFormCreate): AjfContext[] {
-  const ctxMap: AjfContext[] = [];
+  const contexts: AjfContext[] = [];
   const allFields: AjfField[] = flattenFields(formSchema.nodes!);
-  const generateRandomNumberOfContext = Math.floor(Math.random() * 100) + 1;
-  for (let i = 0; i < generateRandomNumberOfContext; i++) {
+  const n = Math.floor(Math.random() * 100) + 1;
+  for (let i = 0; i < n; i++) {
     const ctx: AjfContext = {};
     allFields.forEach(field => {
       switch (field.fieldType) {
-        default:
-          ctx[field.name] = 0;
-          break;
         case AjfFieldType.Formula:
-          let formula: string | undefined = field.formula?.formula;
-          if (formula != null) {
-            const fieldNamesInFormula = allFields
-              .map(f => f.name)
-              .filter(fname => formula!.includes(fname));
-            for (let fieldName of fieldNamesInFormula) {
-              if (ctx[fieldName] != null) {
-                formula = formula.replace(fieldName, ctx[fieldName]);
-              }
-            }
-            try {
-              ctx[field.name] = eval(formula);
-            } catch (err) {
-              console.log(err);
-              ctx[field.name] = NaN;
-            }
-          } else {
+          const formula = field.formula?.formula;
+          if (formula == null) {
             ctx[field.name] = NaN;
+            break;
           }
+          ctx[field.name] = evaluateExpression(formula, ctx);
           break;
         case AjfFieldType.Number:
           ctx[field.name] = Math.floor(Math.random() * 1000) + 1;
@@ -109,11 +94,14 @@ export function generateRandomCtx(formSchema: AjfFormCreate): AjfContext[] {
           const start = field.start ?? 1;
           const value = Math.floor(start + Math.random() * (end + 1 - start));
           ctx[field.name] = value;
+          break;
+        default:
+          ctx[field.name] = 0;
       }
     });
-    ctxMap.push(ctx);
+    contexts.push(ctx);
   }
-  return ctxMap;
+  return contexts;
 }
 
 export function buildformDatas(formSchemas: {[name: string]: AjfFormCreate}): {
