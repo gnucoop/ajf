@@ -8,9 +8,8 @@
           [attr.colspan]="headerCell.colspan"
           [attr.rowspan]="headerCell.rowspan"
           [mat-sort-header]="'column' + idx"
-        >
-          {{headerCell.value}}
-        </th>
+          [innerHTML]="headerCell.value"
+        ></th>
       </ng-container>
       <ng-template #noSortedHeader>
         <th
@@ -18,9 +17,8 @@
           [ngStyle]="{'padding': cellpadding}"
           [attr.colspan]="headerCell.colspan"
           [attr.rowspan]="headerCell.rowspan"
-        >
-          {{headerCell.value}}
-        </th>
+          [innerHTML]="headerCell.value"
+        ></th>
       </ng-template>
     </ng-container>
   </tr>
