@@ -1,3 +1,11 @@
+<a name="18.2.3"></a>
+# 18.2.3 "doubtful-worm" (2026-06-10)
+### Bug Fixes
+* **core/table:** enable HTML in table headers ([f0bf0fe](https://github.com/gnucoop/ajf/commit/f0bf0fe4689ec9e06817b79bbb2f3dcea6c8de99))
+* **material/form-builder:** allow empty labels ([1d33898](https://github.com/gnucoop/ajf/commit/1d3389859d406dc524b85ebb60036998684f396f))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.2.2"></a>
 # 18.2.2 "visiting-sawfish" (2026-05-26)
 
