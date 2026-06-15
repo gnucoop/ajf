@@ -70,9 +70,9 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
    */
   @Input()
   set removeZeroValues(removeZeroValues: boolean | undefined) {
-    this._removeZeroValues = removeZeroValues === undefined ? true : removeZeroValues;
+    this._removeZeroValues = Boolean(removeZeroValues);
   }
-  private _removeZeroValues: boolean = true;
+  private _removeZeroValues: boolean = false;
 
   private _chart: Chart | null = null;
   private _chartCanvasElement: HTMLCanvasElement | null = null;
@@ -199,7 +199,7 @@ export class AjfChartComponent implements AfterViewInit, OnChanges {
         }
       }
       if (this._removeZeroValues) {
-        rebuiltDatasets = rebuiltDatasets.filter(ds => ds.data && ds.data[0]);
+        rebuiltDatasets = rebuiltDatasets.filter(ds => ds.data);
       }
       return {...data, datasets: rebuiltDatasets};
     }
