@@ -263,8 +263,7 @@ function _buildChart(name: string, sheet: {[key: string]: string}[]): AjfWidget 
   const axisMinY = options['axisMinY'];
   const axisMaxX = options['axisMaxX'];
   const axisMaxY = options['axisMaxY'];
-  const removeZeroValues =
-    options['removeZeroValues'] != null ? Boolean(options['removeZeroValues']) : true;
+  const removeZeroValues = Boolean(options['removeZeroValues']);
   const mainDataNumberThreshold =
     +options['mainDataNumberThreshold'] || +options['mainDataNumberThreshold'] === 0
       ? +options['mainDataNumberThreshold']
