@@ -329,8 +329,7 @@ function truncate10(num: number) {
 /**
  * It rounds the num with the value of digits
  */
-export function round(n: number | string, digits: number = 0): number {
-  n = Number(n);
+export function round(n: number, digits: number = 0): number {
   const m = Math.pow(10, digits);
   return Math.round(n * m) / m;
 }
@@ -555,20 +554,17 @@ export function PERCENT(value1: number, value2: number): string {
 export function PERCENTAGE_CHANGE(
   value: number | string,
   reference_value: number | string,
-): number | string {
-  let curr = Number(value);
-  let ref = Number(reference_value);
-  if (typeof value === 'string' && isNaN(curr)) {
-    curr = Number(value.slice(0, -1));
+): number {
+  if (typeof value === 'string' && value.endsWith('%')) {
+    value = value.slice(0, -1);
   }
-  if (typeof reference_value === 'string' && isNaN(ref)) {
-    ref = Number(reference_value.slice(0, -1));
+  if (typeof reference_value === 'string' && reference_value.endsWith('%')) {
+    reference_value = reference_value.slice(0, -1);
   }
-  if (!isNaN(curr) && !isNaN(ref) && ref > 0) {
-    const res = ((curr - ref) / ref) * 100;
-    return Number.isFinite(res) ? Math.round(res) : 0;
-  }
-  return '-';
+  const curr = Number(value);
+  const ref = Number(reference_value);
+  const res = ((curr - ref) / ref) * 100;
+  return round(res, 1);
 }
 
 /**
@@ -1156,7 +1152,7 @@ export function APPLY(forms: MainForm[], field: string, expression: Func | strin
  * Rounds num to the specified number of digits after the point (or zero).
  */
 export function ROUND(num: number | string, digits?: number): number {
-  return round(num, digits);
+  return round(Number(num), digits);
 }
 
 /**
