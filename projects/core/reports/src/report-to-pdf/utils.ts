@@ -139,5 +139,15 @@ export function tableCellText(cell: AjfTableCell): string {
 }
 
 export function stripHTML(s: string): string {
-  return s.replace(/&nbsp;/g, ' ').replace(/<\/?[^>]+(>|$)/g, '');
+  s = s.replace(/<\/?[^>]+(>|$)/g, '');
+  if (!s.includes('&')) {
+    return s;
+  }
+  return s.replaceAll('&nbsp;', ' ')
+    .replaceAll('&lt;', '<')
+    .replaceAll('&gt;', '>')
+    .replaceAll('&#61;', '=')
+    .replaceAll('&#39;', "'")
+    .replaceAll('&quot;', '"')
+    .replaceAll('&amp;', '&');
 }
