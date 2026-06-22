@@ -541,11 +541,10 @@ export function STD(
 }
 
 /**
- * Calculates the % between two members.
+ * Returns a/b * 100 + '%'
  */
-export function PERCENT(value1: number, value2: number): string {
-  const res = (+value1 * 100) / +value2;
-  return Number.isFinite(res) ? Math.round(res) + '%' : 'infinite';
+export function PERCENT(a: number, b: number): string {
+  return a/b * 100 + '%';
 }
 
 /**
