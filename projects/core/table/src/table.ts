@@ -122,8 +122,8 @@ export class AjfTable implements OnDestroy {
     if (!sort.active || sort.direction === '') {
       this._sortedData = [...this._data];
     } else {
-      const columnIdx = parseInt(sort.active.slice(-1)) || 0;
-      const sortedData = this._data.slice(1).sort((a, b) => {
+      const columnIdx = parseInt(sort.active.replace(/^\D+/, '')) || 0;
+      const sortedData = this._sortedData.slice(1).sort((a, b) => {
         const isAsc = sort.direction === 'asc';
         return this._compare(a[columnIdx], b[columnIdx], isAsc);
       });

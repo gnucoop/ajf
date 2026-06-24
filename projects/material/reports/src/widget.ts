@@ -386,8 +386,8 @@ export class AjfPaginatedTableWidgetComponent
         this._canGoForward = this._currentPage < this._pages;
         this._canGoBackward = false;
 
-        const columnIdx = parseInt(sort.active.slice(-1)) || 0;
-        this._sortedAllDataContent = this._allDataContent.slice().sort((a, b) => {
+        const columnIdx = parseInt(sort.active.replace(/^\D+/, '')) || 0;
+        this._sortedAllDataContent = this._sortedAllDataContent.slice().sort((a, b) => {
           const isAsc = sort.direction === 'asc';
           return this._compare(a[columnIdx], b[columnIdx], isAsc);
         });
