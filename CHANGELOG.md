@@ -1,3 +1,14 @@
+<a name="18.2.4"></a>
+# 18.2.4 "positive-squid" (2026-06-25)
+### Bug Fixes
+* **core/models:** rewrite PERCENT function ([08e5686](https://github.com/gnucoop/ajf/commit/08e56861afdebac002a3c759b6b52cd3961bfb8a))
+* **core/models:** rewrite PERCENTAGE_CHANGE ([cb1563c](https://github.com/gnucoop/ajf/commit/cb1563c8498ff2e350f51b0535d812d95811643a))
+* **core/reports:** charts removeZeroValues defaults to false ([97eccee](https://github.com/gnucoop/ajf/commit/97ecceeba7c772871b0ba029549e0818a3f62e29))
+* **core/reports:** html escape characters handling in report print ([d845336](https://github.com/gnucoop/ajf/commit/d845336c3b81926d5cf47fac2e4a90b57de56cde))
+* **material/reports:** column sorting of tables made stable ([ef09dea](https://github.com/gnucoop/ajf/commit/ef09deae5da14778131a909d1a609024e05b9869))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.2.3"></a>
 # 18.2.3 "doubtful-worm" (2026-06-10)
 ### Bug Fixes
