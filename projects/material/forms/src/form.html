@@ -136,7 +136,7 @@
                                 <mat-icon
                                   class="ajf-tooltip-icon"
                                   *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint"
-                                  [matTooltip]="hint"
+                                  [matTooltip]="hint | transloco"
                                   matTooltipPosition="right"
                                 >
                                   {{(fieldInstance|ajfAsFieldInstance).node.hintIcon ||
@@ -254,7 +254,7 @@
                                 <mat-icon
                                   class="ajf-tooltip-icon"
                                   *ngIf="(fieldInstance|ajfAsFieldInstance).node?.hint as hint"
-                                  [matTooltip]="hint"
+                                  [matTooltip]="hint | transloco"
                                   matTooltipPosition="right"
                                 >
                                   {{(fieldInstance|ajfAsFieldInstance).node.hintIcon ||
