@@ -23,6 +23,7 @@ export const versionReplacements = packages => {
     ['ngx-quill', 'NGX-QUILL'],
     ['quill', 'QUILL'],
     ['ngx-mat-select-search', 'NGX-MAT-SELECT-SEARCH'],
+    ['pako', 'PAKO'],
     ['pdfmake', 'PDFMAKE'],
     ['svg-pan-zoom', 'SVG-PAN-ZOOM'],
     ['tslib', 'TSLIB'],

@@ -3375,6 +3375,11 @@
   resolved "https://registry.yarnpkg.com/@types/normalize-package-data/-/normalize-package-data-2.4.1.tgz#d3357479a0fdfdd5907fe67e17e0a85c906e1301"
   integrity sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==
 
+"@types/pako@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@types/pako/-/pako-2.0.4.tgz#c3575ef8125e176c345fa0e7b301c1db41170c15"
+  integrity sha512-VWDCbrLeVXJM9fihYodcLiIv0ku+AlOa/TQ1SvYOaBuyrSKgEcro95LJyIsJ4vSo6BXIxOKxiJAat04CmST9Fw==
+
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -9464,6 +9469,11 @@ pako@^0.2.5:
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/pako/-/pako-0.2.9.tgz#f3f7522f4ef782348da8161bad9ecfd51bf83a75"
   integrity sha1-8/dSL073gjSNqBYbrZ7P1Rv4OnU=
+
+pako@^2.1.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.2.0.tgz#246b9d4c841a8d308e484c0d03786651b143e63a"
+  integrity sha512-zJq6RP/5q+TO2OpFV3FHzlPnFjmkb7Nc99a5SNjJE+uu/PkpChs+NIZSSzbBoD+6kjiISXjfYdwj1ZRQ81dz/w==
 
 pako@~1.0.2:
   version "1.0.11"
