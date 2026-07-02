@@ -20,18 +20,19 @@
  *
  */
 
+import {AjfFile} from '@ajf/core/file-input';
 import {ChangeDetectorRef, Directive, EventEmitter, Output} from '@angular/core';
 import {ControlValueAccessor} from '@angular/forms';
 
 @Directive()
 export abstract class AjfAudio implements ControlValueAccessor {
-  @Output() valueChange = new EventEmitter<string | null>();
+  @Output() valueChange = new EventEmitter<AjfFile | null>();
 
-  private _value: string | null = null;
-  get value(): string | null {
+  private _value: AjfFile | null = null;
+  get value(): AjfFile | null {
     return this._value;
   }
-  set value(val: string | null) {
+  set value(val: AjfFile | null) {
     if (this._value !== val) {
       this._value = val;
       this._cdr.markForCheck();
@@ -45,7 +46,7 @@ export abstract class AjfAudio implements ControlValueAccessor {
 
   constructor(protected _cdr: ChangeDetectorRef) {}
 
-  writeValue(value: string | null): void {
+  writeValue(value: AjfFile | null): void {
     this._value = value;
     this._cdr.markForCheck();
   }
