@@ -33,8 +33,8 @@ export function renameArguments(
   for (const name of names) {
     if (ancestorsNameStrings.indexOf(name) > -1) {
       formula = formula.replace(
-        new RegExp(`\\b${name}\\b`, 'g'),
-        `${name}__${prefix.slice(ancestorsNames[name]).join('__')}`,
+        new RegExp(String.raw`(?<!\.)\b${name}\b`, 'g'),
+        name + '__' + prefix.slice(ancestorsNames[name]).join('__'),
       );
     }
   }
