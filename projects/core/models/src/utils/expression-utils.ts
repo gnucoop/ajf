@@ -21,7 +21,7 @@
  */
 
 import {AjfContext} from '@ajf/core/common';
-import {tokTypes, tokenizer} from 'acorn';
+import {TokenType, tokTypes, tokenizer} from 'acorn';
 import {AjfTableCell} from '@ajf/core/table';
 import {AjfValidationFn} from '../interface/validation-function';
 
@@ -82,10 +82,12 @@ export function getArgumentNames(source: string): Set<string> {
   const identifiers = new Set<string>();
   try {
     const tokens = tokenizer(source, {ecmaVersion: 2022});
+    let prevTokenType: TokenType | null = null;
     for (const token of tokens) {
-      if (token.type === tokTypes.name) {
+      if (token.type === tokTypes.name && prevTokenType !== tokTypes.dot) {
         identifiers.add((token as any).value);
       }
+      prevTokenType = token.type;
     }
   } catch (e) {
     console.error(e, '- getting argument names for:', source);

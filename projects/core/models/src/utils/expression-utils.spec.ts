@@ -1,6 +1,7 @@
 import {
   MainForm,
   evaluateExpression,
+  getArgumentNames,
   ALL_VALUES_OF,
   SUM,
   MEAN,
@@ -314,5 +315,28 @@ describe('ROUND', () => {
   it('should round the dog_point property of the first form to 2 decimal places', () => {
     const result = ROUND(forms[0]['dog_point'] as number, 2);
     expect(result).toBe(0.1);
+  });
+});
+
+describe('getArgumentNames', () => {
+  it('should not treat a property name after a dot as an identifier', () => {
+    const names = getArgumentNames("$choice.foo === 'yes'");
+    expect(names.has('$choice')).toBe(true);
+    expect(names.has('foo')).toBe(false);
+  });
+
+  it('should still detect a bare identifier with the same name as a property', () => {
+    const names = getArgumentNames("$choice.foo === foo");
+    expect(names.has('$choice')).toBe(true);
+    expect(names.has('foo')).toBe(true);
+  });
+});
+
+describe('evaluateExpression', () => {
+  it('should not be affected by an unrelated context key sharing the name of an accessed property', () => {
+    expect(evaluateExpression("$choice.foo === 'yes'", {$choice: {foo: 'yes'}})).toBe(true);
+    expect(
+      evaluateExpression("$choice.foo === 'yes'", {$choice: {foo: 'yes'}, foo: 'no'}),
+    ).toBe(true);
   });
 });
