@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfSignature} from '@ajf/core/signature';
+import {AjfSignature, canvasToIndexedPngDataUrl} from '@ajf/core/signature';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -71,8 +71,8 @@ export class AjfSignatureComponent extends AjfSignature implements OnDestroy, Af
     }
     this.isDrawn = false;
     this.value = {
-      name: 'signature.webp',
-      type: 'image/webp',
+      name: 'signature.png',
+      type: 'image/png',
       signature: true,
       size: undefined,
       content: undefined,
@@ -86,14 +86,15 @@ export class AjfSignatureComponent extends AjfSignature implements OnDestroy, Af
    */
   accept() {
     if (this.sigPadElement != null) {
-      const signatureDataUrl = this.sigPadElement.toDataURL('image/webp', 0.5);
+      // const signatureDataUrl = this.sigPadElement.toDataURL('image/png');
+      const signatureDataUrl = canvasToIndexedPngDataUrl(this.sigPadElement);
 
-      const head = 'data:image/webp;base64,';
+      const head = 'data:image/png;base64,';
       const imgFileSize = Math.round(((signatureDataUrl.length - head.length) * 3) / 4);
 
       this.value = {
-        name: 'signature.webp',
-        type: 'image/webp',
+        name: 'signature.png',
+        type: 'image/png',
         signature: true,
         size: imgFileSize,
         content: signatureDataUrl,

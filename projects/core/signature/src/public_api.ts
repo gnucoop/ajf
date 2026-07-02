@@ -20,4 +20,5 @@
  *
  */
 
+export * from './canvas-to-png';
 export * from './signature';
