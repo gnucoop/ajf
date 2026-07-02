@@ -30,6 +30,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'ajf-audio',
@@ -49,29 +50,30 @@ export class AjfAudioComponent extends AjfAudio implements OnDestroy {
   @Input() readonly = false;
 
   isRecording = false;
-  audioUrl: string | null = null;
   private mediaRecorder: MediaRecorder | null = null;
   private audioChunks: any[] = [];
-  // Keep track of object URLs to revoke them
-  private createdUrls: string[] = [];
 
-  constructor(cdr: ChangeDetectorRef) {
+  constructor(cdr: ChangeDetectorRef, private _sanitizer: DomSanitizer) {
     super(cdr);
   }
 
   ngOnDestroy(): void {
     this.stopRecording();
-    this.revokeUrls();
   }
 
-  // Override writeValue to handle audioUrl creation
-  override writeValue(value: string | null): void {
-    super.writeValue(value);
-    // If we have a value (base64) but no URL, create one for playback if needed
-    // However, for <audio src="data:..."> base64 works directly.
-    // If the value is a blob URL, we might need handling, but here we assume base64 storage.
-    this.audioUrl = value;
-    this._cdr.markForCheck();
+  /**
+   * Sanitizes the audio source for playback, either from the base64 content
+   * or, as a fallback, from the stored url.
+   */
+  get safeAudioSrc(): SafeUrl | string | null {
+    if (!this.value) return null;
+    if (!this.value.content && this.value.deleteUrl) return null;
+
+    const rawUrl =
+      this.value.content && this.value.content.length ? this.value.content : this.value.url;
+    if (!rawUrl) return null;
+
+    return this._sanitizer.bypassSecurityTrustUrl(rawUrl);
   }
 
   async startRecording() {
@@ -86,15 +88,22 @@ export class AjfAudioComponent extends AjfAudio implements OnDestroy {
 
       this.mediaRecorder.onstop = () => {
         const audioBlob = new Blob(this.audioChunks, {type: 'audio/webm'});
-        // Create a temporary URL for immediate playback if needed,
-        // but primarily we converts to base64 for value.
 
         const reader = new FileReader();
         reader.readAsDataURL(audioBlob);
         reader.onloadend = () => {
           const base64data = reader.result as string;
-          this.value = base64data;
-          this.audioUrl = base64data;
+          const head = 'data:audio/webm;base64,';
+          const audioFileSize = Math.round(((base64data.length - head.length) * 3) / 4);
+          // Keeps the old url to delete old audio from storage
+          this.value = {
+            name: 'audio.webm',
+            type: 'audio/webm',
+            size: audioFileSize,
+            content: base64data,
+            url: this.value?.url ?? undefined,
+            deleteUrl: false,
+          };
           this._cdr.markForCheck();
         };
       };
@@ -116,15 +125,19 @@ export class AjfAudioComponent extends AjfAudio implements OnDestroy {
     }
   }
 
-  clearRecording() {
-    this.audioUrl = null;
+  /**
+   * Clears the recording value and preview (keeps the old url to delete old audio from storage)
+   */
+  clearRecording(): void {
     this.audioChunks = [];
-    this.value = null;
+    this.value = {
+      name: 'audio.webm',
+      type: 'audio/webm',
+      size: undefined,
+      content: undefined,
+      url: this.value?.url ?? undefined,
+      deleteUrl: true,
+    };
     this._cdr.markForCheck();
-  }
-
-  private revokeUrls() {
-    this.createdUrls.forEach(url => URL.revokeObjectURL(url));
-    this.createdUrls = [];
   }
 }

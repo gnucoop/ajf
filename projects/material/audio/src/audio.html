@@ -5,7 +5,7 @@
       mat-mini-fab
       color="primary"
       (click)="startRecording()"
-      *ngIf="!isRecording && !audioUrl"
+      *ngIf="!isRecording && !safeAudioSrc"
       [disabled]="readonly"
       matTooltip="Start Recording"
     >
@@ -30,14 +30,14 @@
     </div>
 
     <!-- Playback -->
-    <audio *ngIf="audioUrl" [src]="audioUrl" controls></audio>
+    <audio *ngIf="safeAudioSrc" [src]="safeAudioSrc" controls></audio>
 
     <!-- Delete/Reset Button -->
     <button
       mat-icon-button
       color="warn"
       (click)="clearRecording()"
-      *ngIf="audioUrl"
+      *ngIf="safeAudioSrc"
       [disabled]="readonly"
       matTooltip="Delete Audio"
     >
