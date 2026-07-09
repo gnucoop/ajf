@@ -9,5 +9,10 @@
     readonly
   />
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker></mat-datepicker>
+  <mat-datepicker #picker>
+    <mat-datepicker-actions>
+      <button mat-button (click)="clear(ctrl); picker.close()">{{'Clear'|transloco}}</button>
+      <button mat-raised-button color="primary" matDatepickerApply>{{'OK'|transloco}}</button>
+    </mat-datepicker-actions>
+  </mat-datepicker>
 </mat-form-field>
