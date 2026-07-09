@@ -96,7 +96,7 @@ export * from './interface/choices/choices-promise-origin';
 export * from './interface/choices/choices-type';
 export * from './interface/fields/base-field';
 export * from './interface/fields/boolean-field';
-export * from './interface/fields/date-field';
+export * from './interface/fields/date-range-field';
 export * from './interface/fields/date-input-field';
 export * from './interface/fields/empty-field';
 export * from './interface/fields/field';

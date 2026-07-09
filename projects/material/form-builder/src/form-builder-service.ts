@@ -350,7 +350,7 @@ export class AjfFormBuilderService {
     },
     {
       label: 'Date',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Date},
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateRange},
     },
     {
       label: 'Date input',

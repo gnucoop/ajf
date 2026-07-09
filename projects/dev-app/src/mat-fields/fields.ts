@@ -105,7 +105,7 @@ export const fields: {name: string; instance: AjfFieldInstance}[] = [
     ),
   },
   {
-    name: 'Date',
+    name: 'Date Range',
     instance: createFieldInstance(
       {
         node: createField({
@@ -113,7 +113,7 @@ export const fields: {name: string; instance: AjfFieldInstance}[] = [
           name: 'date_field',
           parent: 0,
           parentNode: 0,
-          fieldType: AjfFieldType.Date,
+          fieldType: AjfFieldType.DateRange,
         }),
       },
       {},

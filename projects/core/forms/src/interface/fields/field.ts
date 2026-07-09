@@ -22,7 +22,7 @@
 
 import {AjfBarcodeField} from './barcode-field';
 import {AjfBooleanField} from './boolean-field';
-import {AjfDateField} from './date-field';
+import {AjfDateRangeField} from './date-range-field';
 import {AjfDateInputField} from './date-input-field';
 import {AjfEmptyField} from './empty-field';
 import {AjfFileField} from './file-field';
@@ -46,7 +46,7 @@ export type AjfField<T = any> =
   | AjfAudioField
   | AjfBarcodeField
   | AjfBooleanField
-  | AjfDateField
+  | AjfDateRangeField
   | AjfDateInputField
   | AjfEmptyField
   | AjfFieldWithChoices<T>

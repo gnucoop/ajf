@@ -33,7 +33,7 @@ export enum AjfFieldType {
   MultipleChoice,
   Formula,
   Empty,
-  Date,
+  DateRange,
   DateInput,
   Time,
   Table,

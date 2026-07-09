@@ -1,5 +1,5 @@
 import {
-  AjfDateField,
+  AjfDateRangeField,
   AjfFieldHost,
   AjfFieldType,
   createField,
@@ -23,7 +23,7 @@ export class MaterialDateInputFieldE2E implements AfterViewInit {
     const componentRef = vcr.createComponent(AjfDateInputFieldComponent);
     const componentInstance = componentRef.instance;
     const dateLimit = new Date();
-    const node: AjfDateField = {
+    const node: AjfDateRangeField = {
       ...createField({
         id: 1,
         parent: 0,

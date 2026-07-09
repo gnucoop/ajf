@@ -59,7 +59,7 @@ export class AjfNodeIcon extends CoreNodeIcon {
         return 'code';
       case AjfFieldType.Empty:
         return 'html';
-      case AjfFieldType.Date:
+      case AjfFieldType.DateRange:
       case AjfFieldType.DateInput:
         return 'calendar_month';
       case AjfFieldType.Time:
