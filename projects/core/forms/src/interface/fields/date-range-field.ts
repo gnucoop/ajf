@@ -24,7 +24,7 @@ import {AjfBaseField} from './base-field';
 import {AjfFieldType} from './field-type';
 
 /**
- * An AjfField of type Date.
+ * An AjfField of type DateRange.
  */
 export interface AjfDateRangeField extends AjfBaseField {
   fieldType: AjfFieldType.DateRange;

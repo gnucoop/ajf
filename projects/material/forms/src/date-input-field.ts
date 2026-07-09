@@ -35,6 +35,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {MatInput} from '@angular/material/input';
+import {UntypedFormControl} from '@angular/forms';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
@@ -52,5 +53,9 @@ export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFie
     @Inject(AJF_WARNING_ALERT_SERVICE) was: AjfWarningAlertService,
   ) {
     super(cdr, service, was);
+  }
+
+  clear(ctrl: UntypedFormControl): void {
+    ctrl.setValue(null);
   }
 }
