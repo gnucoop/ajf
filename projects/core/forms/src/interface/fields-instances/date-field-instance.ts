@@ -20,12 +20,12 @@
  *
  */
 
-import {AjfDateField} from '../fields/date-field';
+import {AjfDateRangeField} from '../fields/date-range-field';
 import {AjfFieldInstance} from './field-instance';
 
 /**
  * An AjfFieldInstance with a node of type AjfDateField.
  */
 export interface AjfDateFieldInstance extends AjfFieldInstance {
-  node: AjfDateField;
+  node: AjfDateRangeField;
 }

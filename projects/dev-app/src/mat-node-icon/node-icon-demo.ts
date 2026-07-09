@@ -37,7 +37,7 @@ const baseField = {
 export class NodeIconDemo {
   nodes: {name: string; node: AjfField}[] = [
     {name: 'Boolean field', node: createField({...baseField, fieldType: AjfFieldType.Boolean})},
-    {name: 'Date field', node: createField({...baseField, fieldType: AjfFieldType.Date})},
+    {name: 'Date field', node: createField({...baseField, fieldType: AjfFieldType.DateRange})},
     {
       name: 'Date input field',
       node: createField({...baseField, fieldType: AjfFieldType.DateInput}),

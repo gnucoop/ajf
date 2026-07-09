@@ -80,7 +80,7 @@ export class AjfFieldService extends CoreService {
         readOnlyComponent: AjfReadOnlyFieldComponent,
         inputs: {readonly: true},
       }),
-      (this.componentsMap[AjfFieldType.Date] = {
+      (this.componentsMap[AjfFieldType.DateRange] = {
         component: AjfDateFieldComponent,
         readOnlyComponent: AjfReadOnlyFieldComponent,
       }),

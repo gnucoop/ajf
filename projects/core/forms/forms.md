@@ -124,7 +124,7 @@ The following field types are available:
 |    5 | MultipleChoice | a [multiple-choice question] (#choice-questions) |
 |    6 | Formula        | a [formula] (#formulas) |
 |    7 | Empty          | inserts an [HTML note] (#html-notes) in the form |
-|    8 | Date           | a clickable calendar to select a date |
+|    8 | DateRange      | a clickable calendar to select a date range |
 |    9 | DateInput      | an input to insert a date with an additional dropdown calendar | 
 |   10 | Time           | a time in 23:59 format |
 |   11 | Table          | a [table] (#tables) |

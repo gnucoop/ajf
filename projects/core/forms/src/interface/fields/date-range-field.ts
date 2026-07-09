@@ -26,8 +26,8 @@ import {AjfFieldType} from './field-type';
 /**
  * An AjfField of type Date.
  */
-export interface AjfDateField extends AjfBaseField {
-  fieldType: AjfFieldType.Date;
+export interface AjfDateRangeField extends AjfBaseField {
+  fieldType: AjfFieldType.DateRange;
 
   /**
    * The min selectable date of the calendar.

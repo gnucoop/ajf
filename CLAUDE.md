@@ -58,7 +58,7 @@ This is an Angular monorepo for **AJF (Advanced JSON Forms)** — a framework fo
 
 ### Existing field types (`AjfFieldType` enum)
 
-`String`, `Text`, `Number`, `Boolean`, `SingleChoice`, `MultipleChoice`, `Formula`, `Empty`, `Date`, `DateInput`, `Time`, `Table`, `Geolocation`, `Barcode`, `File`, `Image`, `VideoUrl`, `Range`, `Signature`, `Audio`
+`String`, `Text`, `Number`, `Boolean`, `SingleChoice`, `MultipleChoice`, `Formula`, `Empty`, `DateRange`, `DateInput`, `Time`, `Table`, `Geolocation`, `Barcode`, `File`, `Image`, `VideoUrl`, `Range`, `Signature`, `Audio`
 
 Defined in `projects/core/forms/src/interface/fields/field-type.ts`. Add new values before `LENGTH`.
 
