@@ -1,3 +1,17 @@
+<a name="18.3.0"></a>
+# 18.3.0 "favourable-platypus" (2026-07-10)
+### Bug Fixes
+* **core/forms:** Date field renamed to DateRange ([dca7a60](https://github.com/gnucoop/ajf/commit/dca7a60858c936a871b78476514c246e99bae93e))
+* **core/models:** getArgumentNames and renameArgument were treating object properties as argument identifiers ([4fe3fd6](https://github.com/gnucoop/ajf/commit/4fe3fd64d3c0295f3966aed1d39c625cf2710ceb))
+* **core+material:** audio field uses AjfFile like other file fields ([7035c11](https://github.com/gnucoop/ajf/commit/7035c11b15a31f9c7fb5cef74cdf9fe7c93365d6))
+* **core+material:** signature field webp replaced with indexed png ([7619e72](https://github.com/gnucoop/ajf/commit/7619e72eafeb813bc272db0e15e0010540002f58))
+* **material/cypress:** fix e2e tests for date input ([867f6b3](https://github.com/gnucoop/ajf/commit/867f6b3f03e19d5a8e6a5a7d804d4aaf28a3b223))
+* **material/forms:** add translation for hint ([4af351b](https://github.com/gnucoop/ajf/commit/4af351b0d73d8386709614cfb07b294d7904f8c1))
+### Features
+* **material/forms:** clear button in date input ([284ce64](https://github.com/gnucoop/ajf/commit/284ce64ee5e949b3932a4a2ff1d27ee9844897ef))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.2.4"></a>
 # 18.2.4 "positive-squid" (2026-06-25)
 ### Bug Fixes
