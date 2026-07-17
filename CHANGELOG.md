@@ -1,3 +1,8 @@
+<a name="18.3.1"></a>
+# 18.3.1 "limited-finch" (2026-07-17)
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.3.0"></a>
 # 18.3.0 "favourable-platypus" (2026-07-10)
 ### Bug Fixes
