@@ -1,3 +1,10 @@
+<a name="18.3.1"></a>
+# 18.3.1 "temporary-orca" (2026-07-17)
+### Bug Fixes
+* **core:** fix table headers graphics ([e0d879b](https://github.com/gnucoop/ajf/commit/e0d879b73cd2f4f677e4c9cae862ea094d5a3e10))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.3.0"></a>
 # 18.3.0 "favourable-platypus" (2026-07-10)
 ### Bug Fixes
