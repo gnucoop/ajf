@@ -22,7 +22,7 @@ Converts chart arrays into a JSON string.
 
 `FORMAT_TABLE_ROWS(rows)`
 Formats the given table rows as an HTML table string.
-Example: `FORMAT_TABLE_ROWS(['name', 'age'], ['Pippo', 10], ['Pluto', 5])`
+Example: `FORMAT_TABLE_ROWS([['name', 'age'], ['Pippo', 10], ['Pluto', 5]])`
 Outputs:
 ```
 <table>
@@ -40,7 +40,7 @@ Outputs:
 
 `FORMAT_TABLE_COLS(columns)`
 Formats the given table columns as an HTML table string.
-Example: `FORMAT_TABLE_COLS(['name', 'Pippo', 'Pluto'], ['age', 10, 5])`
+Example: `FORMAT_TABLE_COLS([['name', 'Pippo', 'Pluto'], ['age', 10, 5]])`
 
 `FORMAT_TABLE_FIELDS(forms, fields)`
 Extracts the fields' data from the specified forms and formats them as an HTML table string.
