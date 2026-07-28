@@ -349,7 +349,7 @@ export class AjfFormBuilderService {
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Empty},
     },
     {
-      label: 'Date',
+      label: 'Date range',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateRange},
     },
     {
