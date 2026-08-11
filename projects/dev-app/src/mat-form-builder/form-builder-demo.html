@@ -12,8 +12,17 @@
       <button mat-raised-button color="primary" (click)="saveFormSchema()" [disabled]="!isAjfFormSchemaValid">Save
         form schema</button>
     </div>
+    <div class="demo-form-builder-options">
+      <mat-checkbox [(ngModel)]="fillHeight">Fill height</mat-checkbox>
+      <mat-checkbox [(ngModel)]="expandSlides">Expand slides</mat-checkbox>
+    </div>
     <div class="demo-form-builder-container">
-      <ajf-form-builder [form]="form" (formBuilderValidation)="onFormBuilderValidation($event)"></ajf-form-builder>
+      <ajf-form-builder
+        [form]="form"
+        [fillHeight]="fillHeight"
+        [(expandSlides)]="expandSlides"
+        (formBuilderValidation)="onFormBuilderValidation($event)"
+      ></ajf-form-builder>
     </div>
   </section>
 </div>

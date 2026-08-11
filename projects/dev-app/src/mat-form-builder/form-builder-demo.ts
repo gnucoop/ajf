@@ -38,6 +38,17 @@ export class FormBuilderDemo implements AfterViewInit, OnDestroy {
   formSchema: string = '';
   error: string | null = null;
 
+  /**
+   * True to let the form builder fill the height of its container
+   */
+  fillHeight: boolean = false;
+
+  /**
+   * True to keep the slides of the form builder expanded. Two-way bound, so it
+   * follows the "expand slides" toggle of the form builder toolbar as well.
+   */
+  expandSlides: boolean = false;
+
   private _currentFormSub: Subscription = Subscription.EMPTY;
 
   /**

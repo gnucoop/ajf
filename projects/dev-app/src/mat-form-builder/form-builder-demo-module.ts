@@ -25,6 +25,7 @@ import {AjfFormBuilderModule} from '@ajf/material/form-builder';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {RouterModule} from '@angular/router';
 
@@ -36,6 +37,7 @@ import {FormBuilderDemo} from './form-builder-demo';
     FormsModule,
     MatExpansionModule,
     MatButtonModule,
+    MatCheckboxModule,
     RouterModule.forChild([{path: '', component: FormBuilderDemo}]),
   ],
   declarations: [FormBuilderDemo],

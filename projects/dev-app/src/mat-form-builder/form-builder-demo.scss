@@ -4,12 +4,20 @@
     height: 120px;
   }
 
+  .demo-form-builder-options {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+
   .demo-form-builder-container {
     position: relative;
+    height: calc(80vh - 120px);
   }
 
   ajf-form-builder {
-    height: calc(80vh - 120px);
+    height: 100%;
   }
 
   button {

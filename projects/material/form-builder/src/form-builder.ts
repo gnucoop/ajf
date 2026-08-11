@@ -22,6 +22,7 @@
 
 import {AjfChoicesOrigin, AjfForm} from '@ajf/core/forms';
 import {AjfCondition} from '@ajf/core/models';
+import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 import {
   AfterContentInit,
@@ -59,6 +60,7 @@ import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
   styleUrls: ['form-builder.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  host: {'[class.ajf-form-builder-fill-height]': 'fillHeight'},
 })
 export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDestroy {
   @ViewChild('designer', {static: true}) designerCont!: ElementRef;
@@ -76,6 +78,48 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
       }
     }
   }
+
+  /**
+   * True when the slides of the designer are kept expanded. Slides added later
+   * follow this state as well.
+   * It drives the "expand slides" toggle of the toolbar and can be set by the
+   * host, both one-way (`[expandSlides]="true"`) and two-way
+   * (`[(expandSlides)]="expanded"`).
+   */
+  private _expandSlides = false;
+  get expandSlides(): boolean {
+    return this._expandSlides;
+  }
+  @Input()
+  set expandSlides(expandSlides: boolean) {
+    this._setSlidesExpanded(coerceBooleanProperty(expandSlides));
+  }
+
+  /**
+   * Emits whenever the slides expansion state is changed from inside the form
+   * builder, i.e. by the toolbar controls.
+   */
+  @Output()
+  readonly expandSlidesChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  /**
+   * When true the form builder fills the whole height of its container: the
+   * field types palette, the designer and the properties panel stretch to the
+   * available height and scroll internally, instead of growing with their
+   * content. Requires the container to have a definite height.
+   */
+  private _fillHeight = false;
+  get fillHeight(): boolean {
+    return this._fillHeight;
+  }
+  @Input()
+  set fillHeight(fillHeight: boolean) {
+    this._fillHeight = coerceBooleanProperty(fillHeight);
+    this._cdr.markForCheck();
+  }
+
+  static ngAcceptInputType_expandSlides: BooleanInput;
+  static ngAcceptInputType_fillHeight: BooleanInput;
 
   /**
    * Called to set form builder validation errors
@@ -192,6 +236,10 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
   }
 
   ngAfterContentInit(): void {
+    // The expanded status of the slides lives in the service, which outlives a
+    // single form builder instance: re-apply the current state, so that a newly
+    // created form builder always matches its own expandSlides value.
+    this._setSlidesExpanded(this._expandSlides);
     this._setCurrentForm();
     this._init = true;
   }
@@ -246,20 +294,41 @@ export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDes
     });
   }
 
-  expandAll() {
-    this._service.expandAll();
+  /**
+   * Expands all the slides of the designer and keeps the slides added later expanded.
+   */
+  expandAll(): void {
+    this._setSlidesExpanded(true, true);
   }
 
-  collapseAll() {
-    this._service.collapseAll();
+  /**
+   * Collapses all the slides of the designer and keeps the slides added later collapsed.
+   */
+  collapseAll(): void {
+    this._setSlidesExpanded(false, true);
   }
 
-  expandToggle(evt: MatSlideToggleChange) {
-    if (evt.checked) {
-      this.expandAll();
+  expandToggle(evt: MatSlideToggleChange): void {
+    this._setSlidesExpanded(evt.checked, true);
+  }
+
+  /**
+   * Applies the slides expansion state to the service.
+   * @param expanded True to keep the slides expanded
+   * @param notify True to emit expandSlidesChange when the state changes
+   */
+  private _setSlidesExpanded(expanded: boolean, notify: boolean = false): void {
+    const changed = this._expandSlides !== expanded;
+    this._expandSlides = expanded;
+    if (expanded) {
+      this._service.expandAll();
     } else {
-      this.collapseAll();
+      this._service.collapseAll();
     }
+    if (notify && changed) {
+      this.expandSlidesChange.emit(expanded);
+    }
+    this._cdr.markForCheck();
   }
 
   async downloadAsXlsform(): Promise<void> {

@@ -14,12 +14,14 @@
       mat-icon-button
       aria-label="Collapse all slides"
       matTooltip="Keep slides collapsed"
+      (click)="collapseAll()"
     >
       <mat-icon>unfold_less</mat-icon>
     </button>
 
     <mat-slide-toggle
       color="primary"
+      [checked]="expandSlides"
       (change)="expandToggle($event)"
       aria-label="Toggle slide expansion"
     ></mat-slide-toggle>
@@ -28,6 +30,7 @@
       mat-icon-button
       aria-label="Expand all slides"
       matTooltip="Keep slides expanded"
+      (click)="expandAll()"
     >
       <mat-icon>unfold_more</mat-icon>
     </button>

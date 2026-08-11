@@ -1,8 +1,37 @@
+// Neutral badge tone, derived from the ambient text color, so that the palette
+// entries follow the Material theme of the host app in both light and dark themes.
+$ajf-fb-badge: color-mix(in srgb, currentColor 12%, transparent);
+
 ajf-fb-node-type-entry {
-  display: block;
-  padding: 1em 1.5em;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 7px 8px;
+  margin-bottom: 2px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  cursor: pointer;
+
+  ajf-node-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+    background: $ajf-fb-badge;
+  }
+
+  .ajf-node-type-label {
+    min-width: 0;
+    line-height: 1.25;
+  }
 
   mat-icon {
     vertical-align: middle;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
   }
 }

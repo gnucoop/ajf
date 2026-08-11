@@ -1,3 +1,15 @@
+// Neutral chrome tones (lines, hovers, tints) derived from the ambient text
+// color, so that the form builder follows the Material theme of the host app in
+// both light and dark themes. Surfaces are left to the Material components
+// (toolbar, drawer, cards), which are themed already.
+$ajf-fb-line: color-mix(in srgb, currentColor 12%, transparent);
+$ajf-fb-line-soft: color-mix(in srgb, currentColor 8%, transparent);
+$ajf-fb-hover: color-mix(in srgb, currentColor 6%, transparent);
+$ajf-fb-tint: color-mix(in srgb, currentColor 4%, transparent);
+$ajf-fb-icon: color-mix(in srgb, currentColor 60%, transparent);
+$ajf-fb-scrollbar: color-mix(in srgb, currentColor 25%, transparent);
+$ajf-fb-scrollbar-hover: color-mix(in srgb, currentColor 40%, transparent);
+
 ajf-form-builder {
   display: flex;
   flex-direction: column;
@@ -11,9 +23,11 @@ ajf-form-builder {
     z-index: 3;
     display: flex;
     align-items: center;
-    padding: 0.5rem 1rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    height: 48px;
+    min-height: 48px;
+    padding: 0 1rem;
+    box-shadow: none;
+    border-bottom: 1px solid $ajf-fb-line;
     gap: 0.75rem;
 
     button[mat-icon-button] mat-icon {
@@ -30,7 +44,7 @@ ajf-form-builder {
       gap: 0.5rem;
       border-radius: 100vmax;
       padding: 0.25rem 0.5rem;
-      background-color: rgba(0, 0, 0, 0.03);
+      background-color: $ajf-fb-tint;
     }
 
     .ajf-spacer {
@@ -43,28 +57,51 @@ ajf-form-builder {
     flex-flow: row;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 1.25rem;
-    padding: 1rem;
+    gap: 18px;
+    padding: 18px 22px;
     box-sizing: border-box;
 
     mat-drawer-container.ajf-formtree-drawer-container {
       flex: 1 1 auto;
       min-height: 47vh;
-      border-radius: 1rem;
-      border: 1px solid #ccc;
+      border: none;
+      border-radius: 0;
+      background: transparent;
       overflow: hidden;
       transition: box-shadow 0.25s ease-in-out;
 
-      mat-drawer {
-        max-width: 20%;
-        min-width: 240px;
-        border-right: 1px solid rgba(0, 0, 0, 0.08);
-      }
-
       .ajf-designer {
         flex: 1;
-        padding: 1rem;
+        padding: 4px 2px;
         overflow-y: auto;
+
+        // Node cards: flat and outlined, so that the nesting of slides and
+        // fields stays readable on any background.
+        .mat-card-container .mat-mdc-card {
+          border: 1px solid $ajf-fb-line;
+          border-radius: 10px;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        // The selected node is emphasized by its outline: it stays visible with
+        // any theme, unlike a background tint.
+        .ajf-highlighted-formbuilder-node > .mat-mdc-card,
+        .ajf-highlighted-formbuilder-node .mat-mdc-card {
+          border-color: currentColor;
+        }
+
+        .mat-expansion-panel-header {
+          background: $ajf-fb-tint;
+
+          &:hover {
+            background: $ajf-fb-hover;
+          }
+        }
+
+        .mat-expansion-panel-header-title {
+          font-size: 14.5px;
+          font-weight: 600;
+        }
       }
 
       .mat-expansion-panel-body {
@@ -74,14 +111,14 @@ ajf-form-builder {
 
     .ajf-formtree-properties {
       flex: 0 1 auto;
-      max-width: 24%;
-      min-width: 260px;
+      min-width: 312px;
+      max-width: 312px;
       max-height: 70vh;
       overflow-y: auto;
       position: sticky;
       top: 64px;
-      border-radius: 1rem;
-      border: 1px solid #ccc;
+      border-radius: 10px;
+      border: 1px solid $ajf-fb-line;
       padding: 1rem;
       transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
@@ -94,17 +131,17 @@ ajf-form-builder {
   .ajf-sidenav-modern {
     display: flex;
     flex-direction: column;
-    max-width: 22%;
-    min-width: 220px;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.05);
+    min-width: 250px;
+    max-width: 250px;
+    border-right: 1px solid $ajf-fb-line;
+    border-radius: 10px 0 0 10px;
 
     .ajf-drawer-header {
       position: sticky;
       top: 0;
       z-index: 2;
       padding: 0.5rem;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      border-bottom: 1px solid $ajf-fb-line-soft;
     }
 
     .ajf-search-field {
@@ -116,7 +153,7 @@ ajf-form-builder {
       }
 
       mat-icon {
-        color: rgba(0, 0, 0, 0.54);
+        color: $ajf-fb-icon;
       }
     }
 
@@ -129,27 +166,25 @@ ajf-form-builder {
       gap: 0.25rem;
 
       scrollbar-width: thin;
-      scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+      scrollbar-color: $ajf-fb-scrollbar transparent;
 
       &::-webkit-scrollbar {
         width: 6px;
       }
       &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.25);
+        background: $ajf-fb-scrollbar;
         border-radius: 4px;
       }
       &::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.4);
+        background: $ajf-fb-scrollbar-hover;
       }
     }
 
     ajf-fb-node-type-entry {
-      border-radius: 8px;
       transition: background-color 0.15s ease, transform 0.15s ease;
-      cursor: pointer;
 
       &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: $ajf-fb-hover;
         transform: scale(1.02);
       }
     }
@@ -177,20 +212,51 @@ ajf-form-builder {
 
       mat-drawer-container.ajf-formtree-drawer-container {
         min-height: 40vh;
-        border-radius: 0.75rem;
       }
 
       .ajf-formtree-properties {
+        min-width: 0;
         max-width: 100%;
         position: relative;
         top: 0;
-        border-radius: 0.75rem;
       }
     }
 
     mat-toolbar.ajf-formbuilder-toolbar {
       flex-wrap: wrap;
       justify-content: center;
+    }
+  }
+
+  // Full-height layout, opted in with [fillHeight]="true": the palette, the
+  // designer and the properties panel stretch to the height of the container
+  // and scroll internally, instead of growing with their content.
+  // Must come last: it overrides the rules above at equal specificity.
+  &.ajf-form-builder-fill-height {
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+
+    .ajf-formtree-container {
+      flex: 1 1 auto;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    mat-drawer-container.ajf-formtree-drawer-container {
+      min-height: 0;
+      height: 100%;
+
+      .ajf-designer {
+        height: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    .ajf-formtree-properties {
+      position: static;
+      top: auto;
+      max-height: none;
     }
   }
 
