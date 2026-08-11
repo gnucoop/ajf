@@ -161,4 +161,10 @@ export const ENG: Translation = {
   'Name already exists': 'Name already exists',
   'Download as XLSForm': 'Download as XLSForm',
   'Drop your image here or click to select': 'Drop your image here or click to select',
+  'Structure': 'Structure',
+  'Text': 'Text',
+  'Numeric': 'Numeric',
+  'Choice fields': 'Choices',
+  'Date & time': 'Date & time',
+  'Advanced': 'Advanced',
 };

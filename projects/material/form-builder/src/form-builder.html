@@ -93,13 +93,18 @@
         [cdkDropListEnterPredicate]="disableDrop"
         [cdkDropListData]="nodeTypes"
       >
-        <ajf-fb-node-type-entry
-          *ngFor="let nodeType of nodeTypes | nodeTypeFilter: searchTerm"
-          cdkDrag
-          [cdkDragData]="nodeType"
-          (cdkDragStarted)="leftSidenav.close()"
-          [nodeType]="nodeType"
-        ></ajf-fb-node-type-entry>
+        <ng-container *ngFor="let group of nodeTypes | nodeTypeFilter: searchTerm | nodeTypeGroups">
+          <div class="ajf-fb-category-header" *ngIf="group.category">
+            {{ group.category | transloco }}
+          </div>
+          <ajf-fb-node-type-entry
+            *ngFor="let nodeType of group.nodeTypes"
+            cdkDrag
+            [cdkDragData]="nodeType"
+            (cdkDragStarted)="leftSidenav.close()"
+            [nodeType]="nodeType"
+          ></ajf-fb-node-type-entry>
+        </ng-container>
       </div>
     </mat-drawer>
     

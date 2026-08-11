@@ -164,4 +164,10 @@ export const ITA: Translation = {
   'Download as XLSForm': 'Scarica come XLSForm',
   'Drop your image here or click to select':
     'Trascina qui la tua immagine o fai clic per selezionare',
+  'Structure': 'Struttura',
+  'Text': 'Testo',
+  'Numeric': 'Numerici',
+  'Choice fields': 'Scelte',
+  'Date & time': 'Data e ora',
+  'Advanced': 'Avanzati',
 };

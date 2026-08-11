@@ -163,4 +163,10 @@ export const UKR: Translation = {
   'Download as XLSForm': 'Завантажити як XLSForm',
   'Drop your image here or click to select':
     'Перетягніть зображення сюди або натисніть, щоб вибрати',
+  'Structure': 'Структура',
+  'Text': 'Текст',
+  'Numeric': 'Числові',
+  'Choice fields': 'Вибір',
+  'Date & time': 'Дата й час',
+  'Advanced': 'Розширені',
 };

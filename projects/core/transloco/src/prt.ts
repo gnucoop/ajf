@@ -162,4 +162,10 @@ export const PRT: Translation = {
   'Name already exists': 'O nome já existe',
   'Download as XLSForm': 'Baixar como XLSForm',
   'Drop your image here or click to select': 'Solte sua imagem aqui ou clique para selecionar',
+  'Structure': 'Estrutura',
+  'Text': 'Texto',
+  'Numeric': 'Numéricos',
+  'Choice fields': 'Escolhas',
+  'Date & time': 'Data e hora',
+  'Advanced': 'Avançados',
 };

@@ -161,4 +161,10 @@ export const ARA: Translation = {
   'Name already exists': 'الاسم موجود بالفعل',
   'Download as XLSForm': 'تنزيل كملف XLSForm',
   'Drop your image here or click to select': 'أفلت صورتك هنا أو انقر للتحديد',
+  'Structure': 'البنية',
+  'Text': 'نص',
+  'Numeric': 'رقمي',
+  'Choice fields': 'الخيارات',
+  'Date & time': 'التاريخ والوقت',
+  'Advanced': 'متقدم',
 };

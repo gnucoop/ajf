@@ -163,4 +163,10 @@ export const FRA: Translation = {
   'Name already exists': 'Ce nom existe déjà',
   'Download as XLSForm': 'Télécharger en XLSForm',
   'Drop your image here or click to select': 'Déposez votre image ici ou cliquez pour sélectionner',
+  'Structure': 'Structure',
+  'Text': 'Texte',
+  'Numeric': 'Numérique',
+  'Choice fields': 'Choix',
+  'Date & time': 'Date et heure',
+  'Advanced': 'Avancé',
 };

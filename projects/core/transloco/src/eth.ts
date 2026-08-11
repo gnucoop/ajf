@@ -161,4 +161,10 @@ export const ETH: Translation = {
   'Name already exists': 'ስሙ አስቀድሞ አለ',
   'Download as XLSForm': 'እንደ XLSForm አውርድ',
   'Drop your image here or click to select': 'ምስልዎን እዚህ ይጣሉ ወይም ለመምረጥ ጠቅ ያድርጉ',
+  'Structure': 'አወቃቀር',
+  'Text': 'ጽሑፍ',
+  'Numeric': 'ቁጥር',
+  'Choice fields': 'ምርጫዎች',
+  'Date & time': 'ቀን እና ሰዓት',
+  'Advanced': 'የላቀ',
 };

@@ -163,4 +163,10 @@ export const ESP: Translation = {
   'Name already exists': 'El nombre ya existe',
   'Download as XLSForm': 'Descargar como XLSForm',
   'Drop your image here or click to select': 'Suelta tu imagen aquí o haz clic para seleccionar',
+  'Structure': 'Estructura',
+  'Text': 'Texto',
+  'Numeric': 'Numéricos',
+  'Choice fields': 'Opciones',
+  'Date & time': 'Fecha y hora',
+  'Advanced': 'Avanzados',
 };

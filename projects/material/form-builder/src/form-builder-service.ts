@@ -76,10 +76,33 @@ import {
   AjfFormStringIdentifierOperation,
 } from './operations';
 
+/**
+ * The categories the entries of the form builder field types palette are
+ * grouped into, in display order. The values are translation keys, rendered as
+ * the header of each group.
+ */
+export const AjfFormBuilderNodeTypeCategories = {
+  structure: 'Structure',
+  text: 'Text',
+  numeric: 'Numeric',
+  // Deliberately not 'Choices', which is already used by the choices origins
+  // menu of the toolbar and has a different meaning.
+  choices: 'Choice fields',
+  dateTime: 'Date & time',
+  advanced: 'Advanced',
+} as const;
+
 export interface AjfFormBuilderNodeTypeEntry {
   label: string;
   nodeType: {node: AjfNodeType; field?: AjfFieldType};
   isSlide?: boolean;
+  /**
+   * The category the entry belongs to, one of
+   * {@link AjfFormBuilderNodeTypeCategories}. Entries sharing a category are
+   * rendered under a common header; entries without a category are rendered
+   * last, with no header.
+   */
+  category?: string;
 }
 
 export interface AjfFormBuilderNodeEntry {
@@ -305,92 +328,118 @@ let nodeUniqueId = 0;
 
 @Injectable()
 export class AjfFormBuilderService {
+  /**
+   * The node types available in the palette, listed by category in display
+   * order. Entries of the same category are rendered under a common header, see
+   * {@link AjfFormBuilderNodeTypeCategories}.
+   */
   private _availableNodeTypes: AjfFormBuilderNodeTypeEntry[] = [
     {
       label: 'Slide',
       nodeType: {node: AjfNodeType.AjfSlide},
       isSlide: true,
+      category: AjfFormBuilderNodeTypeCategories.structure,
     },
     {
       label: 'Repeating slide',
       nodeType: {node: AjfNodeType.AjfRepeatingSlide},
       isSlide: true,
+      category: AjfFormBuilderNodeTypeCategories.structure,
     },
     {
       label: 'String',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.String},
+      category: AjfFormBuilderNodeTypeCategories.text,
     },
     {
       label: 'Text',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Text},
-    },
-    {
-      label: 'Number',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Number},
-    },
-    {
-      label: 'Boolean',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Boolean},
-    },
-    {
-      label: 'Single choice',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.SingleChoice},
-    },
-    {
-      label: 'Multiple choice',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.MultipleChoice},
-    },
-    {
-      label: 'Formula',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Formula},
+      category: AjfFormBuilderNodeTypeCategories.text,
     },
     {
       label: 'Note',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Empty},
+      category: AjfFormBuilderNodeTypeCategories.text,
     },
     {
-      label: 'Date range',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateRange},
+      label: 'Number',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Number},
+      category: AjfFormBuilderNodeTypeCategories.numeric,
     },
     {
-      label: 'Date input',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateInput},
+      label: 'Boolean',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Boolean},
+      category: AjfFormBuilderNodeTypeCategories.choices,
     },
     {
-      label: 'Time',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Time},
+      label: 'Single choice',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.SingleChoice},
+      category: AjfFormBuilderNodeTypeCategories.choices,
     },
     {
-      label: 'Table',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Table},
-    },
-    {
-      label: 'Geolocation',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Geolocation},
-    },
-    {
-      label: 'Barcode',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Barcode},
-    },
-    {
-      label: 'Signature',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Signature},
-    },
-    {
-      label: 'File',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.File},
-    },
-    {
-      label: 'Image',
-      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Image},
+      label: 'Multiple choice',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.MultipleChoice},
+      category: AjfFormBuilderNodeTypeCategories.choices,
     },
     {
       label: 'Range',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Range},
+      category: AjfFormBuilderNodeTypeCategories.choices,
+    },
+    {
+      label: 'Date range',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateRange},
+      category: AjfFormBuilderNodeTypeCategories.dateTime,
+    },
+    {
+      label: 'Date input',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.DateInput},
+      category: AjfFormBuilderNodeTypeCategories.dateTime,
+    },
+    {
+      label: 'Time',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Time},
+      category: AjfFormBuilderNodeTypeCategories.dateTime,
+    },
+    {
+      label: 'Geolocation',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Geolocation},
+      category: AjfFormBuilderNodeTypeCategories.advanced,
+    },
+    {
+      label: 'Image',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Image},
+      category: AjfFormBuilderNodeTypeCategories.advanced,
+    },
+    {
+      label: 'Barcode',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Barcode},
+      category: AjfFormBuilderNodeTypeCategories.advanced,
+    },
+    {
+      label: 'Formula',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Formula},
+      category: AjfFormBuilderNodeTypeCategories.advanced,
+    },
+    {
+      label: 'Table',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Table},
+      category: AjfFormBuilderNodeTypeCategories.advanced,
+    },
+    {
+      label: 'File',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.File},
+      category: AjfFormBuilderNodeTypeCategories.advanced,
+    },
+    {
+      label: 'Signature',
+      nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Signature},
+      category: AjfFormBuilderNodeTypeCategories.advanced,
     },
     {
       label: 'Audio',
       nodeType: {node: AjfNodeType.AjfField, field: AjfFieldType.Audio},
+      category: AjfFormBuilderNodeTypeCategories.advanced,
     },
   ];
   /**
