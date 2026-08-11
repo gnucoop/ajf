@@ -3,7 +3,15 @@
   <p>{{'Select the fields that will be shown as columns in the form list page'|transloco}}</p>
   <mat-form-field class="ajf-string-identifier-select">
     <mat-select multiple [(ngModel)]="selectedFieldNames">
-      <mat-option *ngFor="let field of fields$ | async" [value]="field.name">
+      <mat-option>
+        <ngx-mat-select-search
+          [formControl]="searchFilterCtrl"
+          [placeholderLabel]="'Search'|transloco"
+          [noEntriesFoundLabel]="'Nothing found'|transloco"
+          [enableClearOnEscapePressed]="true">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let field of filteredFields$ | async" [value]="field.name">
         {{field.label || field.name}}
       </mat-option>
     </mat-select>

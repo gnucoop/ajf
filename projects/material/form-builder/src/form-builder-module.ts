@@ -45,6 +45,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatTableModule} from '@angular/material/table';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 
 import {AjfFbBranchLine} from './branch-line';
 import {AjfFbChoicesOriginEditor} from './choices-origin-editor';
@@ -80,6 +81,7 @@ import {NodeTypeFilterPipe} from './node-type-filter.pipe';
     MatListModule,
     MatMenuModule,
     MatSelectModule,
+    NgxMatSelectSearchModule,
     MatSidenavModule,
     MatSliderModule,
     MatTableModule,

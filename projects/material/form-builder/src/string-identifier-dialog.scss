@@ -1,6 +1,13 @@
 ajf-fb-string-identifier-dialog {
-  h3 {
+  h3, p {
     text-align: center;
+  }
+
+  .ajf-string-identifier-select {
+    display: block;
+    min-width: 200px;
+    width: 70%;
+    margin: 20px auto;
   }
 
   mat-dialog-actions.mat-mdc-dialog-actions {

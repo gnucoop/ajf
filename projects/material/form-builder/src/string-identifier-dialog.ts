@@ -22,8 +22,9 @@
 
 import {AjfField, AjfFormStringIdentifier} from '@ajf/core/forms';
 import {ChangeDetectionStrategy, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {FormControl} from '@angular/forms';
 import {Observable, Subscription} from 'rxjs';
-import {map, shareReplay} from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, map, shareReplay, startWith} from 'rxjs/operators';
 
 import {AjfFormBuilderService} from './form-builder-service';
 
@@ -36,6 +37,8 @@ import {AjfFormBuilderService} from './form-builder-service';
 })
 export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
   readonly fields$: Observable<AjfField[]>;
+  readonly filteredFields$: Observable<AjfField[]>;
+  readonly searchFilterCtrl = new FormControl<string>('', {nonNullable: true});
   selectedFieldNames: string[] = [];
 
   private _fields: AjfField[] = [];
@@ -59,6 +62,19 @@ export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
         .map(entry => entry.value[0])
         .filter((name): name is string => name != null);
     });
+    this.filteredFields$ = this.searchFilterCtrl.valueChanges.pipe(
+      debounceTime(150),
+      distinctUntilChanged(),
+      startWith(''),
+      map(search => {
+        const fields = this._fields;
+        if (!search) {
+          return fields;
+        }
+        const lowerSearch = search.toLowerCase();
+        return fields.filter(f => (f.label || f.name).toLowerCase().includes(lowerSearch));
+      }),
+    );
   }
 
   ngOnDestroy(): void {
