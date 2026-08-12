@@ -1,3 +1,15 @@
+<a name="18.4.1"></a>
+# 18.4.1 "uptight-mongoose" (2026-08-12)
+### Features
+* **material/form-builder:** changes made in dino 19fd123 ([71f904b](https://github.com/gnucoop/ajf/commit/71f904b935228d5033d573eff926d741d1eb6980))
+* **material/form-builder:** changes made in dino a9f487d ([994ed1c](https://github.com/gnucoop/ajf/commit/994ed1ca9a114dd7535c0afc47ee07328a520612))
+* **material/form-builder:** changes made in dino d3f218e ([196517d](https://github.com/gnucoop/ajf/commit/196517d5a86557ac50c6d4a733897ac465fac49d))
+* **material/form-builder:** default columns select made filterable ([c7e1315](https://github.com/gnucoop/ajf/commit/c7e1315183b1ea832a466bce5830401ecdf5f1dc))
+* **material/form-builder:** graphical improvements to default columns dialog ([f21e1a1](https://github.com/gnucoop/ajf/commit/f21e1a1f4c02db742487b5393bf147c843ea0ed2))
+* **material/form-builder:** string identifier dialog reworked to default columns ([c9c9ff2](https://github.com/gnucoop/ajf/commit/c9c9ff2de19a4a9b78ea35a65c4c51e39fcf0007))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.4.0"></a>
 # 18.4.0 "yielding-porcupine" (2026-08-06)
 ### Bug Fixes
