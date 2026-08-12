@@ -33,7 +33,9 @@ ajf-fb-node-properties {
     bottom: 0;
     left: 0;
     opacity: 0.4;
-    background-color: #ffffff;
+    // Veil of the ambient text color: it dims the panel on a light theme as
+    // well as on a dark one, where an opaque white veil used to brighten it.
+    background-color: currentColor;
   }
 
   .ajf-emph {

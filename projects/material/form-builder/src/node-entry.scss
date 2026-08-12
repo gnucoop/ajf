@@ -1,3 +1,5 @@
+@use 'form-builder-colors' as colors;
+
 ajf-fb-node-entry {
   display: block;
   position: relative;
@@ -33,7 +35,7 @@ ajf-fb-node-entry {
         > .ajf-visibility-condition {
           flex: 1 1 auto;
           font-size: 10px;
-          color: #999;
+          color: colors.$muted;
           max-height: 100px;
           max-width: 25vw;
           overflow: hidden;
@@ -50,7 +52,10 @@ ajf-fb-node-entry {
       }
 
       .ajf-title-row-error {
-        color: var(--palette-warn-500, #c62828);
+        // The custom property holds an "r, g, b" triple, as set by the theming
+        // of the host app: it has to be wrapped in rgb(), or the declaration is
+        // invalid and the error is not highlighted at all.
+        color: rgb(var(--palette-warn-500, 198 40 40));
       }
 
       &.ajf-empty {
@@ -59,33 +64,32 @@ ajf-fb-node-entry {
         box-shadow: none;
         box-sizing: border-box;
         text-align: center;
-        color: #ccc;
+        color: colors.$faded;
       }
 
       &.ajf-draggable-box {
         padding: 5px 5px;
-        border-bottom: solid 1px #ccc;
-        border-right: solid 1px #ccc;
+        border-bottom: solid 1px colors.$line;
+        border-right: solid 1px colors.$line;
         box-sizing: border-box;
         cursor: move;
         font-size: 14px;
       }
     }
-    &.ajf-highlighted-formbuilder-node > mat-card {
-      background-color: var(--palette-primary-100, #fff9c4) !important;
-      color: var(--palette-primary-500);
+    // The node being edited is emphasized by an outline rather than by a
+    // background tint: it stays visible whatever the theme of the host app is,
+    // and it does not fight the themed surface of the card.
+    &.ajf-highlighted-formbuilder-node > .mat-mdc-card {
+      outline: 2px solid currentColor;
+      outline-offset: -1px;
     }
-  }
-  .ajf-highlighted-formbuilder-node .mat-mdc-card .mat-expansion-panel .mat-expansion-panel-header {
-    background-color: var(--palette-primary-100, #fff9c4) !important;
-    color: var(--palette-primary-500);
   }
 
   &.ajf-fields-list {
     max-width: 80%;
     min-height: 60px;
     display: block;
-    background: white;
+    background: colors.$tint;
     border-radius: 4px;
     overflow: hidden;
   }
@@ -94,9 +98,9 @@ ajf-fb-node-entry {
     opacity: 0.4;
     min-height: 60px;
     margin-left: 50px;
-    border: 1px solid #ccc;
+    border: 1px solid colors.$line;
     border-radius: 4px;
-    background-color: #fff9c4;
+    background-color: colors.$fill;
   }
 
   .ajf-fields-list.cdk-drop-list-dragging .ajf-draggable-box:not(.cdk-drag-placeholder),

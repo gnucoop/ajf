@@ -1,6 +1,4 @@
-// Neutral badge tone, derived from the ambient text color, so that the palette
-// entries follow the Material theme of the host app in both light and dark themes.
-$ajf-fb-badge: color-mix(in srgb, currentColor 12%, transparent);
+@use 'form-builder-colors' as colors;
 
 ajf-fb-node-type-entry {
   display: flex;
@@ -20,7 +18,7 @@ ajf-fb-node-type-entry {
     width: 30px;
     height: 30px;
     border-radius: 7px;
-    background: $ajf-fb-badge;
+    background: colors.$fill;
   }
 
   .ajf-node-type-label {

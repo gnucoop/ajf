@@ -1,0 +1,13 @@
+// Neutral tones for the form builder chrome, derived from the ambient text
+// color so that they follow the Material theme of the host app in both light
+// and dark themes. Surfaces are left to the Material components (toolbar,
+// drawer, cards), which are themed already.
+$line: color-mix(in srgb, currentColor 12%, transparent);
+$line-soft: color-mix(in srgb, currentColor 8%, transparent);
+$hover: color-mix(in srgb, currentColor 6%, transparent);
+$tint: color-mix(in srgb, currentColor 4%, transparent);
+$fill: color-mix(in srgb, currentColor 12%, transparent);
+$muted: color-mix(in srgb, currentColor 60%, transparent);
+$faded: color-mix(in srgb, currentColor 40%, transparent);
+$scrollbar: color-mix(in srgb, currentColor 25%, transparent);
+$scrollbar-hover: color-mix(in srgb, currentColor 40%, transparent);

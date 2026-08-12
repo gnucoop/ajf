@@ -1,14 +1,4 @@
-// Neutral chrome tones (lines, hovers, tints) derived from the ambient text
-// color, so that the form builder follows the Material theme of the host app in
-// both light and dark themes. Surfaces are left to the Material components
-// (toolbar, drawer, cards), which are themed already.
-$ajf-fb-line: color-mix(in srgb, currentColor 12%, transparent);
-$ajf-fb-line-soft: color-mix(in srgb, currentColor 8%, transparent);
-$ajf-fb-hover: color-mix(in srgb, currentColor 6%, transparent);
-$ajf-fb-tint: color-mix(in srgb, currentColor 4%, transparent);
-$ajf-fb-icon: color-mix(in srgb, currentColor 60%, transparent);
-$ajf-fb-scrollbar: color-mix(in srgb, currentColor 25%, transparent);
-$ajf-fb-scrollbar-hover: color-mix(in srgb, currentColor 40%, transparent);
+@use 'form-builder-colors' as colors;
 
 ajf-form-builder {
   display: flex;
@@ -27,7 +17,7 @@ ajf-form-builder {
     min-height: 48px;
     padding: 0 1rem;
     box-shadow: none;
-    border-bottom: 1px solid $ajf-fb-line;
+    border-bottom: 1px solid colors.$line;
     gap: 0.75rem;
 
     button[mat-icon-button] mat-icon {
@@ -44,7 +34,7 @@ ajf-form-builder {
       gap: 0.5rem;
       border-radius: 100vmax;
       padding: 0.25rem 0.5rem;
-      background-color: $ajf-fb-tint;
+      background-color: colors.$tint;
     }
 
     .ajf-spacer {
@@ -78,23 +68,16 @@ ajf-form-builder {
         // Node cards: flat and outlined, so that the nesting of slides and
         // fields stays readable on any background.
         .mat-card-container .mat-mdc-card {
-          border: 1px solid $ajf-fb-line;
+          border: 1px solid colors.$line;
           border-radius: 10px;
           box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
 
-        // The selected node is emphasized by its outline: it stays visible with
-        // any theme, unlike a background tint.
-        .ajf-highlighted-formbuilder-node > .mat-mdc-card,
-        .ajf-highlighted-formbuilder-node .mat-mdc-card {
-          border-color: currentColor;
-        }
-
         .mat-expansion-panel-header {
-          background: $ajf-fb-tint;
+          background: colors.$tint;
 
           &:hover {
-            background: $ajf-fb-hover;
+            background: colors.$hover;
           }
         }
 
@@ -118,7 +101,7 @@ ajf-form-builder {
       position: sticky;
       top: 64px;
       border-radius: 10px;
-      border: 1px solid $ajf-fb-line;
+      border: 1px solid colors.$line;
       padding: 1rem;
       transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
@@ -133,7 +116,7 @@ ajf-form-builder {
     flex-direction: column;
     min-width: 250px;
     max-width: 250px;
-    border-right: 1px solid $ajf-fb-line;
+    border-right: 1px solid colors.$line;
     border-radius: 10px 0 0 10px;
 
     .ajf-drawer-header {
@@ -141,7 +124,7 @@ ajf-form-builder {
       top: 0;
       z-index: 2;
       padding: 0.5rem;
-      border-bottom: 1px solid $ajf-fb-line-soft;
+      border-bottom: 1px solid colors.$line-soft;
     }
 
     .ajf-search-field {
@@ -153,7 +136,7 @@ ajf-form-builder {
       }
 
       mat-icon {
-        color: $ajf-fb-icon;
+        color: colors.$muted;
       }
     }
 
@@ -166,17 +149,17 @@ ajf-form-builder {
       gap: 0.25rem;
 
       scrollbar-width: thin;
-      scrollbar-color: $ajf-fb-scrollbar transparent;
+      scrollbar-color: colors.$scrollbar transparent;
 
       &::-webkit-scrollbar {
         width: 6px;
       }
       &::-webkit-scrollbar-thumb {
-        background: $ajf-fb-scrollbar;
+        background: colors.$scrollbar;
         border-radius: 4px;
       }
       &::-webkit-scrollbar-thumb:hover {
-        background: $ajf-fb-scrollbar-hover;
+        background: colors.$scrollbar-hover;
       }
     }
 
@@ -187,7 +170,7 @@ ajf-form-builder {
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: $ajf-fb-icon;
+      color: colors.$muted;
       user-select: none;
       pointer-events: none;
 
@@ -200,7 +183,7 @@ ajf-form-builder {
       transition: background-color 0.15s ease, transform 0.15s ease;
 
       &:hover {
-        background-color: $ajf-fb-hover;
+        background-color: colors.$hover;
         transform: scale(1.02);
       }
     }
