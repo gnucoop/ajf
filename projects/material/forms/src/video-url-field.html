@@ -1,11 +1,9 @@
-<ng-container *ngIf="control|async as ctrl">
-  <mat-form-field class="ajf-video-input">
-    <input matInput type="url" [formControl]="ctrl!">
-  </mat-form-field>
+<ng-container *ngIf="control | async as ctrl">
+  <input class="ajf-control ajf-video-input" type="url" [formControl]="ctrl!" />
   <div class="ajf-video-thumbnail">
-    <ng-container *ngIf="validUrl|async">
+    <ng-container *ngIf="validUrl | async">
       <a target="_blank" [href]="ctrl.value">
-        <img *ngIf="videoThumbnail|async as thumb" [src]="thumb" class="" alt="">
+        <img *ngIf="videoThumbnail | async as thumb" [src]="thumb" alt="" />
       </a>
     </ng-container>
   </div>

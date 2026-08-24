@@ -15,6 +15,20 @@ describe('AjfPageSlider', () => {
     }),
   );
 
+  it('should size the body for the pages it already has', async () => {
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    // Three pages laid out side by side, so the body is three pages wide. This
+    // used to be driven only by `pages.changes`, which never fires when the
+    // pages are created in the same pass as the slider, leaving every page
+    // sharing the width of one.
+    const body = fixture.debugElement.query(By.css('.ajf-page-slider-body'))
+      .nativeElement as HTMLElement;
+    expect(body.style.width).toBe('300%');
+  });
+
   it('should scroll slides up / down and to specified index', async () => {
     const fixture = TestBed.createComponent(TestComponent);
     const slider = <AjfPageSlider>(
@@ -24,16 +38,17 @@ describe('AjfPageSlider', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(slider.currentPage).toBe(-1);
+    // The slider settles on its first page once it knows how many it has.
+    expect(slider.currentPage).toBe(0);
 
     slider.slide({dir: 'down'});
-    expect(slider.currentPage).toBe(0);
-
-    slider.slide({dir: 'forward'});
     expect(slider.currentPage).toBe(1);
 
+    slider.slide({dir: 'forward'});
+    expect(slider.currentPage).toBe(2);
+
     slider.slide({dir: 'up'});
-    expect(slider.currentPage).toBe(0);
+    expect(slider.currentPage).toBe(1);
 
     slider.slide({to: slider.pages.length - 1});
     expect(slider.currentPage).toBe(2);

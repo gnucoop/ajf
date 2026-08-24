@@ -1,6 +1,28 @@
+// View mode renders values as text. Colours come from the form token layer, with
+// fallbacks for a field rendered outside a form.
 ajf-read-only-field {
+  display: block;
+
   span {
-    min-height: 1em;
     display: block;
+    min-height: 1em;
+    color: var(--ajf-text, #1c1a17);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+// This one component backs String, Number, Formula, DateRange, Time, Barcode and
+// Range. The machine-like values among those keep the mono face they are edited
+// in, which the field row's type class makes reachable from here.
+.ajf-field-type-2,
+.ajf-field-type-6,
+.ajf-field-type-8,
+.ajf-field-type-10,
+.ajf-field-type-13,
+.ajf-field-type-17 {
+  ajf-read-only-field span {
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 13px;
   }
 }

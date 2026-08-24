@@ -1,17 +1,48 @@
-.resizable-quill {
+@use './forms' as ajf;
+
+ajf-field .resizable-quill {
   display: block;
   width: 100%;
-  max-width: 800px;
+  max-width: 720px;
 
-  .ql-toolbar {
-    background-color: var(--mdc-filled-text-field-container-color, var(--mat-app-surface-variant));
+  .ql-toolbar.ql-snow,
+  .ql-container.ql-snow {
+    border-color: var(--ajf-border-strong);
+  }
+
+  .ql-toolbar.ql-snow {
+    border-radius: var(--ajf-radius) var(--ajf-radius) 0 0;
+    background: var(--ajf-band);
+
+    .ql-stroke {
+      stroke: var(--ajf-text-muted);
+    }
+
+    .ql-fill {
+      fill: var(--ajf-text-muted);
+    }
+
+    .ql-active {
+      .ql-stroke {
+        stroke: var(--ajf-accent);
+      }
+
+      .ql-fill {
+        fill: var(--ajf-accent);
+      }
+    }
+  }
+
+  .ql-container.ql-snow {
+    border-radius: 0 0 var(--ajf-radius) var(--ajf-radius);
+    background: var(--ajf-surface);
+    font-family: var(--ajf-font-sans);
+    font-size: 14px;
   }
 
   .ql-editor {
-    min-height: calc(1.42em * 8);
-    max-height: calc(1.42em * 25);
-    overflow-y: auto;
+    min-height: calc(1.5em * 5);
+    max-height: calc(1.5em * 20);
     resize: vertical;
-    font-size: var(--mat-form-field-container-text-size, var(--mat-app-body-large-size));
   }
 }

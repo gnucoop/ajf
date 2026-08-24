@@ -23,6 +23,7 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 
 import {AjfTime} from './time';
@@ -30,7 +31,14 @@ import {MatSelectModule} from '@angular/material/select';
 import {CommonModule} from '@angular/common';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatSelectModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatSelectModule,
+  ],
   declarations: [AjfTime],
   exports: [AjfTime],
 })

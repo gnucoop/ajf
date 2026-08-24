@@ -1,0 +1,92 @@
+<div class="ajf-slide-header">
+  <button
+    type="button"
+    class="ajf-slide-title"
+    [class.ajf-slide-title-static]="!slide || !canJump"
+    [disabled]="!slide || !canJump"
+    [matMenuTriggerFor]="slideMenu"
+    [attr.aria-label]="'Go to slide' | transloco"
+  >
+    <span class="ajf-slide-number">{{ displayNumber }}</span>
+
+    <!-- Every slide title is laid out in the same grid cell, so the trigger is as
+         wide as the longest of them and keeps that width while paging. Only the
+         current title is visible; the rest just hold the space open. -->
+    <span class="ajf-slide-label-stack">
+      <span
+        class="ajf-slide-label"
+        *ngFor="let s of slides"
+        [class.ajf-current]="s === slide"
+        [innerHTML]="s.node.label | transloco"
+      ></span>
+    </span>
+
+    <span
+      class="ajf-pill ajf-reps-pill"
+      *ngIf="hasRepeatingSlides"
+      [class.ajf-pill-placeholder]="reps < 1"
+      >{{ reps }} {{ 'repetitions' | transloco }}</span
+    >
+    <span class="ajf-pill" *ngIf="slide as s"
+      >{{ (s | ajfSlideCompletion : repIndex : group).done }}/{{
+        (s | ajfSlideCompletion : repIndex : group).total
+      }}</span
+    >
+    <mat-icon class="ajf-slide-caret" *ngIf="slide && canJump">arrow_drop_down</mat-icon>
+  </button>
+
+  <mat-menu #slideMenu="matMenu">
+    <button
+      mat-menu-item
+      *ngFor="let s of slides"
+      [disabled]="s.visible === false"
+      (click)="jumpTo.emit(s)"
+    >
+      <mat-icon [class.ajf-invalid]="!s.valid">{{ s.valid ? 'check' : 'warning' }}</mat-icon>
+      <span [innerHTML]="s.node.label | transloco"></span>
+    </button>
+  </mat-menu>
+
+  <!-- Nothing to page through in a single page form. -->
+  <div class="ajf-slide-nav" *ngIf="canNavigate">
+    <button
+      type="button"
+      class="ajf-btn"
+      (click)="prev.emit()"
+      [attr.aria-label]="'Back' | transloco"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button
+      type="button"
+      class="ajf-btn"
+      (click)="next.emit()"
+      [attr.aria-label]="'Forward' | transloco"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <!-- Form-wide, not per-slide: the slide on screen is the one place the reader
+       can already see what is wrong. -->
+  <button
+    type="button"
+    class="ajf-pill ajf-pill--danger ajf-issue-pill"
+    *ngIf="issues && issues.fields > 0"
+    (click)="gotoIssue.emit()"
+  >
+    <mat-icon>error</mat-icon>
+    {{
+      '{{fields}} fields in {{slides}} slides need attention'
+        | transloco : {fields: issues.fields, slides: issues.slides}
+    }}
+  </button>
+
+  <span class="ajf-slide-header-spacer"></span>
+
+  <span class="ajf-slide-count" *ngIf="canNavigate && total > 0"
+    >{{ 'slide' | transloco }} {{ displayNumber }} {{ 'of' | transloco }} {{ total }}</span
+  >
+
+  <ng-content></ng-content>
+</div>

@@ -1,6 +1,13 @@
-ajf-read-only-field {
+// The selector used to name ajf-read-only-field, so none of this ever applied.
+ajf-read-only-date-field {
+  display: block;
+
   span {
-    min-height: 1em;
     display: block;
+    min-height: 1em;
+    color: var(--ajf-text, #1c1a17);
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 13px;
+    line-height: 1.5;
   }
 }

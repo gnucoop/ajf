@@ -1,0 +1,25 @@
+@use './forms' as ajf;
+
+ajf-field .ajf-note {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 16px;
+  border-left: 3px solid var(--ajf-accent);
+  background: var(--ajf-band);
+  color: var(--ajf-text);
+  font-size: 14px;
+  line-height: 1.5;
+
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  strong,
+  b {
+    font-weight: 600;
+  }
+}

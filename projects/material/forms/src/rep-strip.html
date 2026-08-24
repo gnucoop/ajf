@@ -1,0 +1,61 @@
+<div class="ajf-rep-strip">
+  <span class="ajf-micro-label ajf-rep-strip-label"
+    >{{ 'Number of' | transloco }} {{ slide.node.label | transloco }}</span
+  >
+
+  <div class="ajf-rep-pager">
+    <button
+      type="button"
+      class="ajf-btn"
+      [disabled]="current === 0"
+      (click)="goTo.emit(current - 1)"
+      [attr.aria-label]="'Back' | transloco"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <button
+      type="button"
+      class="ajf-btn ajf-rep-page"
+      *ngFor="let rep of (slide.reps | ajfRange); let idx = index"
+      [class.ajf-selected]="idx === current"
+      (click)="goTo.emit(idx)"
+    >
+      {{ idx + 1 }}
+    </button>
+    <button
+      type="button"
+      class="ajf-btn"
+      [disabled]="current >= slide.reps - 1"
+      (click)="goTo.emit(current + 1)"
+      [attr.aria-label]="'Forward' | transloco"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+
+    <ng-container *ngIf="!readonly">
+      <button
+        type="button"
+        class="ajf-btn"
+        [disabled]="!canAdd"
+        (click)="add.emit()"
+        [attr.aria-label]="'Add' | transloco"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+      <button
+        type="button"
+        class="ajf-btn"
+        [disabled]="!canRemove"
+        (click)="remove.emit()"
+        [attr.aria-label]="'Remove' | transloco"
+      >
+        <mat-icon>remove</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+
+  <span class="ajf-rep-strip-context">
+    <span [innerHTML]="slide.node.label | transloco"></span>
+    {{ current + 1 }} {{ 'of' | transloco }} {{ slide.reps }}
+  </span>
+</div>

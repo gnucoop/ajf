@@ -1,0 +1,6 @@
+@use './forms' as ajf;
+
+ajf-field .ajf-bool-label {
+  color: var(--ajf-text);
+  font-size: 14px;
+}

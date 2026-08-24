@@ -1,24 +1,51 @@
 @if (instance) {
-  @if (instance.node.forceNarrow || instance.filteredChoices.length > expandThreshold) {
-    <mat-select *ngIf="control|async as ctrl" [formControl]="ctrl!" [multiple]="true">
-      <mat-option [style.backgroundColor]="'white'">
+<ng-container *ngIf="control | async as ctrl">
+  <div class="ajf-choice-control">
+    @if (isNarrow) {
+    <mat-select [formControl]="ctrl!" panelClass="ajf-select-panel" [multiple]="true">
+      <mat-select-trigger>
+        <span class="ajf-chip ajf-chip--removable" *ngFor="let value of ctrl.value">
+          {{ labelFor(value) | transloco }}
+          <button
+            type="button"
+            *ngIf="!ctrl.disabled"
+            [attr.aria-label]="'Remove' | transloco"
+            (click)="removeValue(ctrl!, value, $event)"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </span>
+      </mat-select-trigger>
+      <mat-option class="ajf-select-search-option">
         <ngx-mat-select-search
           [formControl]="searchFilterCtrl"
-          [placeholderLabel]="'Search'|transloco"
-          [noEntriesFoundLabel]="'Nothing found'|transloco"
-          [enableClearOnEscapePressed]="true">
+          [placeholderLabel]="'Search' | transloco"
+          [noEntriesFoundLabel]="'Nothing found' | transloco"
+          [enableClearOnEscapePressed]="true"
+        >
         </ngx-mat-select-search>
       </mat-option>
       <mat-option [value]="choice.value" *ngFor="let choice of filteredChoices$ | async">
-        {{ choice.translatedLabel ?? (choice.label|transloco) }}
+        {{ choice.translatedLabel ?? (choice.label | transloco) }}
       </mat-option>
     </mat-select>
-  } @else {
-    <ajf-checkbox-group *ngIf="control|async as ctrl" class="ajf-choices-container"
-        [formControl]="ctrl!">
+    } @else {
+    <ajf-checkbox-group class="ajf-choices-container" [formControl]="ctrl!">
       <ajf-checkbox-group-item [value]="choice.value" *ngFor="let choice of instance.filteredChoices">
-        {{ choice.translatedLabel ?? (choice.label|transloco) }}
+        {{ choice.translatedLabel ?? (choice.label | transloco) }}
       </ajf-checkbox-group-item>
     </ajf-checkbox-group>
-  }
+    }
+
+    <!-- Dropping the whole selection, next to the per-chip buttons that drop one. -->
+    <button
+      type="button"
+      class="ajf-btn--ghost ajf-clear-value"
+      *ngIf="hasValue(ctrl) && !ctrl.disabled"
+      (click)="clearValue(ctrl, $event)"
+    >
+      {{ 'Clear' | transloco }}
+    </button>
+  </div>
+</ng-container>
 }

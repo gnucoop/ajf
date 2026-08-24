@@ -1,0 +1,44 @@
+// A checkbox rendered as a bordered button, so that a short multiple choice
+// reads as a row of togglable chips rather than as a stacked list.
+ajf-checkbox-group-item {
+  display: inline-flex;
+
+  .mat-mdc-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: var(--ajf-control-h, 44px);
+    padding: 0 14px;
+    border: 1px solid var(--ajf-border-strong, #d5cfc6);
+    border-radius: var(--ajf-radius, 4px);
+    background: var(--ajf-surface, #fff);
+    color: var(--ajf-text, #1c1a17);
+    font-size: 14px;
+    letter-spacing: normal;
+
+    &:hover {
+      border-color: var(--ajf-accent, #0f4c5c);
+    }
+
+    .mat-icon {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      color: var(--ajf-text-faint, #a49c92);
+      font-size: 18px;
+    }
+  }
+
+  .mat-mdc-button.ajf-checked {
+    border-color: var(--ajf-accent, #0f4c5c);
+    background: var(--ajf-accent-soft, #e8f1f5);
+    color: var(--ajf-accent, #0f4c5c);
+
+    .mat-icon {
+      color: var(--ajf-accent, #0f4c5c);
+    }
+  }
+}

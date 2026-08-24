@@ -37,6 +37,7 @@ import {AjfExpandFieldWithChoicesPipe} from './expand-input-with-choices';
 import {AjfFieldHost} from './field-host';
 import {AjfFieldIconPipe} from './field-icon';
 import {AjfFieldIsValidPipe} from './field-is-valid';
+import {AjfFieldTypeLabelPipe} from './field-type-label';
 import {AjfFileFieldComponent} from './file-field';
 import {AjfFormRendererService} from './form-renderer';
 import {AjfFormStringIdentifierPipe} from './form-string-identifier';
@@ -74,6 +75,7 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfFieldHost,
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
+    AjfFieldTypeLabelPipe,
     AjfFileFieldComponent,
     AjfFormStringIdentifierPipe,
     AjfGetTableCellControlPipe,
@@ -107,6 +109,7 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfFieldHost,
     AjfFieldIconPipe,
     AjfFieldIsValidPipe,
+    AjfFieldTypeLabelPipe,
     AjfFileFieldComponent,
     AjfFormStringIdentifierPipe,
     AjfGetTableCellControlPipe,

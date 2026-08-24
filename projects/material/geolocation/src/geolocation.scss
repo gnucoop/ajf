@@ -1,24 +1,76 @@
 ajf-geolocation {
   display: block;
 
-  button {
-    background: none;
-  }
-
-  .flex-container {
+  .ajf-geo {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
   }
 
-  .flex-child {
-    white-space: nowrap;
-    p {
-      display: inline-block;
-      min-width: 80px;
+  // Coordinates are machine values, so they are set in the mono face and each
+  // one is labelled inside its own box rather than above it.
+  .ajf-geo-coord {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    min-height: var(--ajf-control-h, 44px);
+    border: 1px solid var(--ajf-border-strong, #d5cfc6);
+    border-radius: var(--ajf-radius, 4px);
+    background: var(--ajf-surface, #fff);
+
+    &:focus-within {
+      border-color: var(--ajf-accent, #0f4c5c);
     }
   }
 
-  .flex-child:first-child {
-      margin-right: 5px;
+  .ajf-geo-coord-label {
+    align-self: stretch;
+    padding: 0 8px;
+    border-right: 1px solid var(--ajf-border, #e6e2dc);
+    background: var(--ajf-band, #faf8f5);
+    color: var(--ajf-text-muted, #7a736a);
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 11px;
+    line-height: calc(var(--ajf-control-h, 44px) - 2px);
+    text-transform: uppercase;
+  }
+
+  .ajf-geo-coord input {
+    width: 110px;
+    height: calc(var(--ajf-control-h, 44px) - 2px);
+    padding: 0 10px;
+    border: 0;
+    background: none;
+    color: var(--ajf-text, #1c1a17);
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 13px;
+    outline: none;
+  }
+
+  .ajf-geo-locate {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--ajf-control-h, 44px);
+    padding: 0 14px;
+    border: 1px solid var(--ajf-border-strong, #d5cfc6);
+    border-radius: var(--ajf-radius, 4px);
+    background: var(--ajf-surface, #fff);
+    color: var(--ajf-text, #1c1a17);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--ajf-accent, #0f4c5c);
+    }
+
+    .mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
+    }
   }
 }

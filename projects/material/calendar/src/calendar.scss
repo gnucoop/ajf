@@ -7,9 +7,18 @@ ajf-calendar {
   box-sizing: border-box;
 
   width: 100%;
+  max-width: 420px;
   height: $ajf-calendar-height;
 
   flex-direction: column;
+
+  // Repainted onto the AJF form token palette, with fallbacks so the calendar
+  // still reads correctly when used outside a form.
+  padding: 8px;
+  border: 1px solid var(--ajf-border-strong, #d5cfc6);
+  border-radius: var(--ajf-radius, 4px);
+  background: var(--ajf-surface, #fff);
+  font-family: var(--ajf-font-sans, sans-serif);
 
   .ajf-calendar-header, .ajf-calendar-row {
     display: flex;
@@ -22,10 +31,21 @@ ajf-calendar {
 
   .ajf-calendar-header {
     height: $ajf-calendar-row-height;
+    align-items: center;
 
     .ajf-calendar-header-title {
       flex: 1;
       margin: 0 10px;
+      color: var(--ajf-text, #1c1a17);
+      font-weight: 600;
+    }
+
+    .mat-mdc-mini-fab {
+      width: 32px;
+      height: 32px;
+      box-shadow: none;
+      background: var(--ajf-band, #faf8f5);
+      color: var(--ajf-text-muted, #7a736a);
     }
   }
 
@@ -42,6 +62,41 @@ ajf-calendar {
       text-align: center;
     }
 
+    // The weekday strip is a label, not data.
+    &:first-of-type div {
+      color: var(--ajf-text-muted, #7a736a);
+      font-family: var(--ajf-font-mono, monospace);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .mat-mdc-raised-button {
+      min-width: 0;
+      padding: 0;
+      border: 1px solid transparent;
+      border-radius: var(--ajf-radius, 4px);
+      box-shadow: none;
+      background: var(--ajf-surface, #fff);
+      color: var(--ajf-text, #1c1a17);
+      font-family: var(--ajf-font-mono, monospace);
+      font-size: 13px;
+
+      &:hover:not([disabled]) {
+        background: var(--ajf-band, #faf8f5);
+      }
+
+      &[disabled] {
+        color: var(--ajf-text-faint, #a49c92);
+      }
+    }
+
+    // Selection is flagged with color="warn" by the template.
+    .mat-mdc-raised-button.mat-warn {
+      background: var(--ajf-accent, #0f4c5c);
+      color: var(--ajf-accent-fg, #fff);
+    }
+
     .ajf-calendar-partial-selection {
       ::before {
         content: '';
@@ -50,7 +105,7 @@ ajf-calendar {
         right: 0;
         bottom: 0;
         left: 0;
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: color-mix(in srgb, var(--ajf-surface, #fff) 50%, transparent);
       }
     }
   }

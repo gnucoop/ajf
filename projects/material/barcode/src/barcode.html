@@ -1,8 +1,9 @@
 <ng-container *ngIf="value; else barcode">
   <div class="ajf-code-container">
-    <span>{{ value }}</span>
-    <button mat-raised-button (click)="reset()">
-      <mat-icon style="transform: rotate(90deg)">format_align_justify</mat-icon>
+    <span class="ajf-code-value">{{ value }}</span>
+    <button type="button" class="ajf-code-scan" (click)="reset()">
+      <mat-icon>qr_code_scanner</mat-icon>
+      <span>{{ 'Scan' | transloco }}</span>
     </button>
   </div>
 </ng-container>

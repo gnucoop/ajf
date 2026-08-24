@@ -1,10 +1,6 @@
 <ng-container *ngIf="control|async as ctrl">
-  <div class="flex-container">
-    <div class="flex-child">
-      {{'Latitude'|transloco}}: {{latitude|async}}
-    </div>
-    <div class="flex-child">
-      {{'Longitude'|transloco}}: {{longitude|async}}
-    </div>
+  <div class="ajf-geo-readout">
+    <span>{{'Latitude'|transloco}}: {{latitude|async}}</span>
+    <span>{{'Longitude'|transloco}}: {{longitude|async}}</span>
   </div>
 </ng-container>

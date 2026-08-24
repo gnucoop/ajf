@@ -1,0 +1,502 @@
+// Shared token and primitive layer for the AJF form renderer.
+//
+// The palette is exposed as CSS custom properties rather than Sass variables so
+// that a host application can retheme the renderer without importing any Sass:
+// the defaults land on :root and any override on a more specific selector wins.
+// The read-only field styles in @ajf/core read the very same properties through
+// var() fallbacks, which keeps the core package free of a cross-package Sass
+// dependency (there is no stylePreprocessorOptions.includePaths in this repo,
+// so @use only ever resolves within a single directory).
+//
+// Emit `tokens` and `primitives` exactly once, from field.scss: every rendered
+// field goes through <ajf-field>, so that stylesheet is always present, whereas
+// form.scss is missing whenever a field is rendered standalone (see the
+// /mat-fields demo).
+//
+// Each colour token falls through three sources before landing on a literal:
+// Material 19+ system variables, Material 18 system variables (opted into with
+// `use-system-variables: true`), then the AJF default. So an application themed
+// with M3 drives the renderer with no configuration at all, while one on an M2 or
+// prebuilt theme keeps this palette until it says otherwise -- either by setting
+// the tokens directly, or through the `theme()` mixin in _theming.scss, which
+// reads an Angular Material theme of either generation.
+
+@use 'sass:map';
+
+// The Material colour role each token follows when the host publishes one.
+$_roles: (
+  bg: surface-container-low,
+  surface: surface,
+  band: surface-container,
+  border: outline-variant,
+  border-strong: outline,
+  accent: primary,
+  accent-fg: on-primary,
+  accent-soft: primary-container,
+  accent-ink: on-primary-container,
+  text: on-surface,
+  text-muted: on-surface-variant,
+  danger: error,
+  danger-bg: error-container,
+);
+
+$_light: (
+  bg: #f7f5f2,
+  surface: #ffffff,
+  band: #faf8f5,
+  border: #e6e2dc,
+  border-strong: #d5cfc6,
+  accent: #0f4c5c,
+  accent-fg: #ffffff,
+  accent-soft: #e8f1f5,
+  accent-ink: #2d6b7f,
+  text: #1c1a17,
+  text-muted: #7a736a,
+  danger: #b8362b,
+  danger-bg: #fdf1ef,
+  // No Material role covers these: a third text tone, the hover state of a
+  // filled button, and the chip a keyboard shortcut sits in.
+  text-faint: #a49c92,
+  accent-hover: #0c3d4a,
+  kbd-bg: rgb(255 255 255 / 22%),
+);
+
+// The same paper character, inverted rather than flattened to neutral grey.
+$_dark: (
+  bg: #16150f,
+  surface: #1e1c17,
+  band: #262319,
+  border: #35322a,
+  border-strong: #4a463c,
+  accent: #6fbcd0,
+  accent-fg: #06232b,
+  accent-soft: #123641,
+  accent-ink: #9ad4e4,
+  text: #f2efe9,
+  text-muted: #a9a29a,
+  danger: #ff9b8f,
+  danger-bg: #3a201c,
+  text-faint: #7a736a,
+  accent-hover: #8fcedf,
+  kbd-bg: rgb(0 0 0 / 22%),
+);
+
+@mixin palette($literals) {
+  @each $name, $role in $_roles {
+    --ajf-#{$name}: var(
+      --mat-sys-#{$role},
+      var(--sys-#{$role}, #{map.get($literals, $name)})
+    );
+  }
+
+  --ajf-text-faint: #{map.get($literals, text-faint)};
+  --ajf-accent-hover: #{map.get($literals, accent-hover)};
+  --ajf-kbd-bg: #{map.get($literals, kbd-bg)};
+}
+
+@mixin metrics {
+  --ajf-control-h: 44px;
+  // The page slider positions its pages absolutely, so it has no intrinsic
+  // height: without a floor it collapses whenever the host does not hand the
+  // form a height of its own.
+  --ajf-slider-min-h: 420px;
+  --ajf-label-col: 280px;
+  --ajf-side-col: 260px;
+  --ajf-gap: 12px;
+  --ajf-radius: 4px;
+
+  --ajf-font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --ajf-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+@mixin tokens {
+  :root {
+    @include metrics;
+    @include palette($_light);
+  }
+
+  // Dark by default when the operating system asks for it, unless the host has
+  // pinned the light palette.
+  @media (prefers-color-scheme: dark) {
+    :root:not(.ajf-light) {
+      @include palette($_dark);
+    }
+  }
+
+  // An explicit choice always wins, so an application with its own theme switch
+  // can drive the renderer from a class.
+  .ajf-dark {
+    @include palette($_dark);
+  }
+
+  .ajf-light {
+    @include palette($_light);
+  }
+
+  // `color-scheme` has to reach the elements holding native controls, or their
+  // scrollbars, spinners and calendar glyphs stay light on a dark form. Declared
+  // on the renderer's own subtrees and never on :root -- there it would flip the
+  // canvas of the whole host application, which is not this library's call.
+  .ajf-form-container,
+  ajf-field {
+    color-scheme: light dark;
+  }
+
+  .ajf-dark .ajf-form-container,
+  .ajf-dark ajf-field {
+    color-scheme: dark;
+  }
+
+  .ajf-light .ajf-form-container,
+  .ajf-light ajf-field {
+    color-scheme: light;
+  }
+}
+
+// A 1px bordered box, the shape every text-like control shares in the mockups.
+@mixin control-box {
+  box-sizing: border-box;
+  min-height: var(--ajf-control-h);
+  padding: 0 12px;
+  border: 1px solid var(--ajf-border-strong);
+  border-radius: var(--ajf-radius);
+  background: var(--ajf-surface);
+  color: var(--ajf-text);
+  font-family: var(--ajf-font-sans);
+  font-size: 14px;
+  line-height: calc(var(--ajf-control-h) - 2px);
+  outline: none;
+
+  &:focus,
+  &:focus-within {
+    border-color: var(--ajf-accent);
+    box-shadow: 0 0 0 2px var(--ajf-accent-soft);
+  }
+
+  &:disabled,
+  &[readonly] {
+    color: var(--ajf-text-muted);
+    background: var(--ajf-band);
+  }
+}
+
+@mixin mono {
+  font-family: var(--ajf-font-mono);
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  min-height: var(--ajf-control-h);
+  padding: 0 16px;
+  border: 1px solid var(--ajf-border-strong);
+  border-radius: var(--ajf-radius);
+  background: var(--ajf-surface);
+  color: var(--ajf-text);
+  font-family: var(--ajf-font-sans);
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    border-color: var(--ajf-accent);
+  }
+
+  &:disabled {
+    color: var(--ajf-text-faint);
+    cursor: default;
+  }
+}
+
+// The uppercase, letter-spaced micro label used for section bands and for the
+// audio field's state column.
+@mixin micro-label {
+  font-family: var(--ajf-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ajf-text-muted);
+}
+
+// The warm diagonal hatch standing in for a not-yet-loaded map, image or
+// signature capture.
+@mixin hatch {
+  background-color: var(--ajf-band);
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--ajf-border) 0,
+    var(--ajf-border) 1px,
+    transparent 1px,
+    transparent 7px
+  );
+}
+
+@mixin primitives {
+  .ajf-control {
+    @include control-box;
+
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .ajf-control--mono {
+    @include mono;
+  }
+
+  .ajf-control--narrow {
+    max-width: 160px;
+  }
+
+  .ajf-btn {
+    @include btn-base;
+  }
+
+  .ajf-btn--primary {
+    @include btn-base;
+
+    border-color: var(--ajf-accent);
+    background: var(--ajf-accent);
+    color: var(--ajf-accent-fg);
+
+    // A hover token rather than a brightness filter: brightening is the wrong
+    // direction once the accent is the light colour on a dark palette.
+    &:hover:not(:disabled) {
+      border-color: var(--ajf-accent-hover);
+      background: var(--ajf-accent-hover);
+    }
+  }
+
+  // A borderless text action: "Sostituisci", "Rimuovi", "Ricattura", "Cancella".
+  .ajf-btn--ghost {
+    @include btn-base;
+
+    min-height: auto;
+    padding: 0 4px;
+    border-color: transparent;
+    background: none;
+    color: var(--ajf-accent-ink);
+    text-decoration: none;
+
+    &:hover:not(:disabled) {
+      border-color: transparent;
+      text-decoration: underline;
+    }
+
+    &.ajf-danger {
+      color: var(--ajf-danger);
+    }
+  }
+
+  // Single-choice presentation below the search threshold: one joined strip of
+  // buttons, exactly one of them filled.
+  .ajf-segmented {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .ajf-segment {
+      @include btn-base;
+
+      &.ajf-selected {
+        border-color: var(--ajf-accent);
+        background: var(--ajf-accent);
+        color: var(--ajf-accent-fg);
+      }
+    }
+  }
+
+  .ajf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    border-radius: var(--ajf-radius);
+    background: var(--ajf-accent-soft);
+    color: var(--ajf-accent-ink);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .ajf-chip--removable button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    opacity: 0.7;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    .mat-icon {
+      width: 14px;
+      height: 14px;
+      font-size: 14px;
+    }
+  }
+
+  // The slide-header counter and the "1 issue" alert.
+  .ajf-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--ajf-band);
+    color: var(--ajf-text-muted);
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .ajf-pill--danger {
+    background: var(--ajf-danger-bg);
+    color: var(--ajf-danger);
+    font-weight: 500;
+  }
+
+  .ajf-kbd {
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--ajf-kbd-bg);
+    font-family: var(--ajf-font-mono);
+    font-size: 10px;
+  }
+
+  // A bordered box holding a borderless input plus a trailing icon button --
+  // the date, time and barcode shapes in the mockups.
+  .ajf-input-group {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+
+    @include control-box;
+
+    padding: 0;
+
+    > input {
+      flex: 1 1 auto;
+      min-width: 0;
+      height: calc(var(--ajf-control-h) - 2px);
+      padding: 0 12px;
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
+      outline: none;
+    }
+
+    > .ajf-input-group-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      align-self: stretch;
+      padding: 0 8px;
+      border: 0;
+      border-left: 1px solid var(--ajf-border);
+      background: var(--ajf-band);
+      color: var(--ajf-text-muted);
+      cursor: pointer;
+    }
+  }
+
+  .ajf-hatch {
+    @include hatch;
+  }
+
+  .ajf-micro-label {
+    @include micro-label;
+  }
+}
+
+// Angular Material controls that stay -- select, toggle, slider, datepicker --
+// repainted onto the token palette. Emitted once, next to the primitives, since
+// several field types share them and each is loaded on demand.
+@mixin material-controls {
+  ajf-field {
+    // Selects are used without a mat-form-field, since the label already lives
+    // in the field row, so the trigger has to draw its own box.
+    .mat-mdc-select {
+      @include control-box;
+
+      display: inline-flex;
+      align-items: center;
+      width: auto;
+      min-width: 240px;
+      max-width: 100%;
+
+      .mat-mdc-select-trigger {
+        height: auto;
+      }
+
+      .mat-mdc-select-value {
+        color: var(--ajf-text);
+        font-size: 14px;
+      }
+
+      .mat-mdc-select-arrow-wrapper {
+        color: var(--ajf-text-muted);
+      }
+    }
+
+    // A multi-select shows its selection as chips, which need room to wrap.
+    // Keyed off the class Material puts on the trigger: `aria-multiselectable`
+    // lands on the panel in the overlay, not here.
+    .mat-mdc-select-multiple {
+      min-height: var(--ajf-control-h);
+
+      .mat-mdc-select-value {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 5px 0;
+      }
+
+      // The chips are projected into <mat-select-trigger>, which is the single
+      // child of the value wrapper -- so the gap has to be declared here, or the
+      // chips end up as one unbroken band.
+      mat-select-trigger {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        min-width: 0;
+      }
+    }
+
+    .mat-mdc-slide-toggle {
+      --mdc-switch-selected-track-color: var(--ajf-accent);
+      --mdc-switch-selected-handle-color: var(--ajf-surface);
+      --mdc-switch-selected-hover-track-color: var(--ajf-accent);
+      --mdc-switch-selected-focus-track-color: var(--ajf-accent);
+      --mdc-switch-selected-pressed-track-color: var(--ajf-accent);
+      --mdc-switch-selected-hover-handle-color: var(--ajf-surface);
+      --mdc-switch-selected-focus-handle-color: var(--ajf-surface);
+      --mdc-switch-selected-pressed-handle-color: var(--ajf-surface);
+    }
+
+    .mat-mdc-slider {
+      --mdc-slider-handle-color: var(--ajf-surface);
+      --mdc-slider-focus-handle-color: var(--ajf-surface);
+      --mdc-slider-hover-handle-color: var(--ajf-surface);
+      --mdc-slider-active-track-color: var(--ajf-accent);
+      --mdc-slider-inactive-track-color: var(--ajf-border);
+      --mdc-slider-with-tick-marks-active-container-color: var(--ajf-accent-fg);
+      --mdc-slider-with-tick-marks-inactive-container-color: var(--ajf-border-strong);
+      --mdc-slider-handle-elevation: none;
+      --mat-slider-ripple-color: var(--ajf-accent);
+    }
+
+    .mat-datepicker-toggle .mat-mdc-icon-button {
+      width: 34px;
+      height: 34px;
+      padding: 5px;
+      color: var(--ajf-text-muted);
+    }
+  }
+}

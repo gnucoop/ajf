@@ -134,10 +134,13 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
         : componentDef.component;
     try {
       const componentRef = vcr.createComponent(component);
-      this._componentInstance = componentRef.instance;
-      this._componentInstance.instance = this._instance;
-      const componentInstance = this._componentInstance as any;
+      const componentInstance = componentRef.instance as any;
 
+      // The registered inputs go in before the instance, which is what starts the
+      // component rendering. Setting them afterwards let the component paint once
+      // with its declared defaults and then swap: a Number field rendered as
+      // `type="text"`, and the first keystroke replaced the input element with the
+      // `type="number"` one, taking the caret and the focus with it.
       if (componentDef.inputs) {
         Object.keys(componentDef.inputs).forEach(key => {
           if (key in componentInstance) {
@@ -145,7 +148,13 @@ export abstract class AjfFormField implements AfterViewInit, OnDestroy, OnInit {
           }
         });
       }
-      this._instance.updatedEvt.subscribe(() => {
+
+      this._componentInstance = componentRef.instance;
+      this._componentInstance.instance = this._instance;
+
+      // Kept, so the subscription of a previous load is dropped: this method runs
+      // again on every instance and readonly change.
+      this._updatedSub = this._instance.updatedEvt.subscribe(() => {
         this._cdr.markForCheck();
         if (
           this._instance &&

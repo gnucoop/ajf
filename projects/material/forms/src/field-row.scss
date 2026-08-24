@@ -1,0 +1,174 @@
+@use './forms' as ajf;
+
+ajf-field-row {
+  display: block;
+
+  &.ajf-hidden-row {
+    display: none;
+  }
+
+  .ajf-field-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: var(--ajf-gap);
+    box-sizing: border-box;
+    padding: 10px 20px;
+    border-bottom: 1px solid var(--ajf-border);
+    background: var(--ajf-surface);
+    font-family: var(--ajf-font-sans);
+  }
+
+  .ajf-field-label {
+    display: flex;
+    flex: 0 0 var(--ajf-label-col);
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-height: var(--ajf-control-h);
+    max-width: var(--ajf-label-col);
+
+    .ajf-field-label-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    label {
+      color: var(--ajf-text);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    // The kind of field, spelled out: it tells the reader what is expected of
+    // the control without them having to recognise it first.
+    .ajf-field-type-name {
+      color: var(--ajf-text-muted);
+      font-size: 12px;
+      line-height: 1.3;
+    }
+
+    .ajf-required {
+      color: var(--ajf-danger);
+      font-weight: 600;
+    }
+
+    .ajf-hint-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--ajf-border);
+      color: var(--ajf-text-muted);
+      font-size: 12px;
+      line-height: 16px;
+      cursor: help;
+    }
+  }
+
+  .ajf-field-control {
+    display: flex;
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+
+    // <ajf-field> has to claim the column rather than shrink to fit: controls
+    // that size themselves as a percentage of it (audio, tables, rich text)
+    // would otherwise resolve against an indefinite width and collapse to
+    // min-content. Controls that should stay narrow cap their own max-width.
+    > ajf-field {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+  }
+
+  .ajf-field-side {
+    display: flex;
+    flex: 0 0 var(--ajf-side-col);
+    align-items: center;
+    min-height: var(--ajf-control-h);
+    max-width: var(--ajf-side-col);
+
+    .ajf-field-hint-text {
+      color: var(--ajf-text-muted);
+      font-size: 13px;
+    }
+
+    .ajf-field-error-message {
+      color: var(--ajf-danger);
+      font-size: 13px;
+    }
+  }
+
+  // Node sizes cap the control column rather than the whole row, so every row
+  // keeps the same label and hint gutters.
+  .ajf-normal .ajf-field-control {
+    max-width: none;
+  }
+
+  .ajf-small .ajf-field-control {
+    max-width: 420px;
+  }
+
+  .ajf-smaller .ajf-field-control {
+    max-width: 320px;
+  }
+
+  .ajf-tiny .ajf-field-control {
+    max-width: 220px;
+  }
+
+  .ajf-mini .ajf-field-control {
+    max-width: 140px;
+  }
+
+  // A failing field tints its whole row, so it is findable while scrolling. Mixed
+  // down towards the surface rather than used at full strength: a Material
+  // theme's error container is a pale pink on a light palette but a saturated
+  // dark red on a dark one, which as a whole-row fill reads as an alarm.
+  .ajf-field-row.ajf-invalid {
+    background: color-mix(in srgb, var(--ajf-danger-bg) 45%, var(--ajf-surface));
+
+    .ajf-control,
+    input.ajf-control,
+    .mat-mdc-select-trigger {
+      border-color: var(--ajf-danger);
+    }
+  }
+
+  // Read-only rows drop the control chrome: the value reads as text, and the
+  // hint gutter is no longer telling the reader how to fill anything in.
+  .ajf-field-row.ajf-readonly {
+    .ajf-field-side {
+      flex-basis: auto;
+    }
+  }
+
+  // Notes, rich text and tables need the width, and their block supplies its own
+  // framing.
+  .ajf-note-row .ajf-field-control,
+  .ajf-field-type-1 .ajf-field-control,
+  .ajf-field-type-11 .ajf-field-control {
+    max-width: none;
+  }
+
+  @media (width <= 900px) {
+    .ajf-field-row {
+      flex-wrap: wrap;
+      padding: 12px 16px;
+    }
+
+    .ajf-field-label,
+    .ajf-field-side {
+      flex-basis: 100%;
+      max-width: none;
+      min-height: 0;
+    }
+
+    .ajf-field-control {
+      flex-basis: 100%;
+    }
+  }
+}

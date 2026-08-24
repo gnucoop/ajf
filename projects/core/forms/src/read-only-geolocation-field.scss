@@ -1,10 +1,12 @@
 ajf-read-only-geolocation-field {
-  .flex-container {
+  display: block;
+
+  .ajf-geo-readout {
     display: flex;
     flex-wrap: wrap;
-  }
-
-  .flex-child:first-child {
-      margin-right: 15px;
+    gap: 16px;
+    color: var(--ajf-text, #1c1a17);
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 13px;
   }
 }

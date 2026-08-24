@@ -1,36 +1,43 @@
-<ng-container *ngIf="control|async as ctrl">
+<ng-container *ngIf="control | async as ctrl">
   <div
     *ngIf="appearance !== 'rating'; else ratingTemplate"
+    class="ajf-range"
     [class.ajf-range-no-value]="isEmpty(ctrl.value)"
   >
-    <mat-slider
-      discrete
-      showTickMarks
-      [step]="step"
-      [min]="start"
-      [max]="end"
-      [attr.aria-label]="name"
-      [attr.name]="name"
-    ><input matSliderThumb [value]="value" [formControl]="ctrl" /></mat-slider>
-    <div class="ajf-range-label">
-      <label>{{isEmpty(ctrl.value) ? ('No value selected'|transloco) : ctrl.value}}</label>
+    <div class="ajf-range-track">
+      <mat-slider
+        discrete
+        showTickMarks
+        [step]="step"
+        [min]="start"
+        [max]="end"
+        [attr.aria-label]="name"
+        [attr.name]="name"
+      >
+        <input matSliderThumb [value]="value" [formControl]="ctrl" />
+      </mat-slider>
+      <div class="ajf-range-bounds">
+        <span>{{ start }}</span>
+        <span>{{ end }}</span>
+      </div>
     </div>
+    <span class="ajf-range-value">{{ isEmpty(ctrl.value) ? '&mdash;' : ctrl.value }}</span>
   </div>
-  
+
   <ng-template #ratingTemplate>
     <div class="ajf-rating-container">
-      <button type="button"
-      *ngFor="let i of enumerateStars()"
-      class="ajf-rating-star"
-      [class.selected]="i <= ctrl.value"
-      (click)="ctrl.setValue(i)"
-      [attr.aria-label]="'Rate ' + i + ' out of ' + end"
-      [attr.name]="name">
+      <button
+        type="button"
+        *ngFor="let i of enumerateStars()"
+        class="ajf-rating-star"
+        [class.ajf-selected]="i <= ctrl.value"
+        (click)="ctrl.setValue(i)"
+        [attr.aria-label]="'Rate ' + i + ' out of ' + end"
+        [attr.name]="name"
+      >
         <mat-icon>star</mat-icon>
       </button>
-      <div class="ajf-range-label">
-        <label>{{ctrl.value}}</label>
-      </div>
+      <span class="ajf-rating-readout">{{ ctrl.value || 0 }} / {{ end }}</span>
     </div>
   </ng-template>
 </ng-container>

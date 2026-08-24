@@ -1,1 +1,4 @@
-<mat-slide-toggle *ngIf="control|async as ctrl" [formControl]="ctrl!"></mat-slide-toggle>
+<ng-container *ngIf="control | async as ctrl">
+  <mat-slide-toggle [formControl]="ctrl!"></mat-slide-toggle>
+  <span class="ajf-bool-label">{{ (ctrl.value ? 'Yes' : 'No') | transloco }}</span>
+</ng-container>

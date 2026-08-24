@@ -21,17 +21,22 @@
  */
 
 export * from './boolean-field';
+export * from './current-slide';
 export * from './date-field';
 export * from './date-input-field';
 export * from './empty-field';
 export * from './field';
+export * from './field-row';
 export * from './field-service';
 export * from './field-warning-dialog';
 export * from './input-field';
 export * from './form';
 export * from './forms-module';
 export * from './multiple-choice-field';
+export * from './rep-strip';
 export * from './single-choice-field';
+export * from './slide-header';
+export * from './slide-stats';
 export * from './table-field';
 export * from './time-field';
 export * from './warning-alert-service';

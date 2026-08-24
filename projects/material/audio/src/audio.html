@@ -1,47 +1,55 @@
 <div class="ajf-field-wrapper">
-  <div class="ajf-audio-controls">
-    <!-- Start Recording Button -->
-    <button
-      mat-mini-fab
-      color="primary"
-      (click)="startRecording()"
-      *ngIf="!isRecording && !safeAudioSrc"
-      [disabled]="readonly"
-      matTooltip="Start Recording"
-    >
-      <mat-icon>mic</mat-icon>
-    </button>
-
-    <!-- Stop Recording Button -->
-    <button
-      mat-mini-fab
-      color="warn"
-      (click)="stopRecording()"
-      *ngIf="isRecording"
-      matTooltip="Stop Recording"
-    >
-      <mat-icon>stop</mat-icon>
-    </button>
-
-    <!-- Recording Indicator -->
-    <div *ngIf="isRecording" class="recording-indicator">
-      <mat-icon>fiber_manual_record</mat-icon>
-      Recording...
+  <div class="ajf-audio">
+    <!-- Nothing recorded yet -->
+    <div class="ajf-audio-row" *ngIf="!isRecording && !safeAudioSrc">
+      <span class="ajf-audio-state">{{ 'empty' | transloco }}</span>
+      <div class="ajf-audio-box">
+        <button
+          type="button"
+          class="ajf-audio-action ajf-audio-rec"
+          (click)="startRecording()"
+          [disabled]="readonly"
+          [matTooltip]="'Start Recording' | transloco"
+        >
+          <mat-icon>fiber_manual_record</mat-icon>
+          <span>{{ 'Record' | transloco }}</span>
+        </button>
+      </div>
     </div>
 
-    <!-- Playback -->
-    <audio *ngIf="safeAudioSrc" [src]="safeAudioSrc" controls></audio>
+    <!-- Recording in progress -->
+    <div class="ajf-audio-row ajf-audio-recording" *ngIf="isRecording">
+      <span class="ajf-audio-state">{{ 'recording' | transloco }}</span>
+      <div class="ajf-audio-box">
+        <button
+          type="button"
+          class="ajf-audio-action ajf-audio-stop"
+          (click)="stopRecording()"
+          [matTooltip]="'Stop Recording' | transloco"
+        >
+          <mat-icon>stop</mat-icon>
+        </button>
+        <span class="ajf-audio-wave" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </span>
+      </div>
+    </div>
 
-    <!-- Delete/Reset Button -->
-    <button
-      mat-icon-button
-      color="warn"
-      (click)="clearRecording()"
-      *ngIf="safeAudioSrc"
-      [disabled]="readonly"
-      matTooltip="Delete Audio"
-    >
-      <mat-icon>delete</mat-icon>
-    </button>
+    <!-- A recording is held -->
+    <div class="ajf-audio-row" *ngIf="!isRecording && safeAudioSrc">
+      <span class="ajf-audio-state">{{ 'recorded' | transloco }}</span>
+      <div class="ajf-audio-box">
+        <audio [src]="safeAudioSrc" controls></audio>
+      </div>
+      <button
+        type="button"
+        class="ajf-audio-delete"
+        (click)="clearRecording()"
+        [disabled]="readonly"
+        [matTooltip]="'Delete Audio' | transloco"
+      >
+        {{ 'Delete' | transloco }}
+      </button>
+    </div>
   </div>
 </div>

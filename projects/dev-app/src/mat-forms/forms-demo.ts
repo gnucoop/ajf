@@ -57,6 +57,21 @@ export class FormsDemo {
   }
   private _readonly = false;
 
+  /**
+   * Forces the renderer's dark palette from the class it looks for. Set on the
+   * document element, since the Material system variables the theme publishes
+   * live there too. Unchecked leaves the class off, so the form follows the
+   * operating system -- the other half of the switch.
+   */
+  get dark(): boolean {
+    return this._dark;
+  }
+  set dark(value: boolean) {
+    this._dark = value;
+    document.documentElement.classList.toggle('ajf-dark', value);
+  }
+  private _dark = false;
+
   constructor(fieldService: AjfFieldService, private _formRendererService: AjfFormRendererService) {
     fieldService.registerCustomField({
       fieldType: 101,

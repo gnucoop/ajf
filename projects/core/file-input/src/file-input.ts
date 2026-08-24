@@ -149,6 +149,25 @@ export class AjfFileInput implements ControlValueAccessor {
     }
   }
 
+  /**
+   * The held file's size, ready to show next to its name. Sizes only reach the
+   * value when the file was picked in this session, so it can legitimately be
+   * missing for a file loaded from a saved form.
+   */
+  get sizeLabel(): string | null {
+    const size = this._value?.size;
+    if (size == null) {
+      return null;
+    }
+    if (size < 1024) {
+      return `${size} B`;
+    }
+    if (size < 1024 * 1024) {
+      return `${Math.round(size / 1024)} KB`;
+    }
+    return `${(size / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
   private _valueChange = new EventEmitter<AjfFile | undefined>();
   @Output()
   readonly valueChange: Observable<AjfFile | undefined> = this._valueChange as Observable<

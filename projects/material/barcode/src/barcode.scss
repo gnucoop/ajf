@@ -1,15 +1,67 @@
 ajf-barcode {
   display: block;
+  // The capture UI is one control in a row of controls, so it is kept to the
+  // width and height of one rather than filling the slide.
+  max-width: 380px;
 
+  .mat-mdc-tab-header {
+    --mat-tab-header-active-label-text-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-header-active-focus-label-text-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-header-active-hover-label-text-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-header-active-focus-indicator-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-header-active-hover-indicator-color: var(--ajf-accent, #0f4c5c);
+    --mdc-tab-indicator-active-indicator-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-header-inactive-label-text-color: var(--ajf-text-muted, #7a736a);
+    --mat-tab-header-label-text-size: 13px;
+
+    border-bottom: 1px solid var(--ajf-border, #e6e2dc);
+  }
+
+  // Once a code is held it reads as a value plus a "scan again" action, rather
+  // than as the capture UI it was read with.
   .ajf-code-container {
     display: inline-flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
-    align-content: stretch;
     align-items: center;
-    button {
-      margin-left: 10px;
+    gap: 10px;
+  }
+
+  .ajf-code-value {
+    box-sizing: border-box;
+    min-width: 180px;
+    min-height: var(--ajf-control-h, 44px);
+    padding: 0 12px;
+    border: 1px solid var(--ajf-border-strong, #d5cfc6);
+    border-radius: var(--ajf-radius, 4px);
+    background: var(--ajf-surface, #fff);
+    color: var(--ajf-text, #1c1a17);
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 13px;
+    line-height: calc(var(--ajf-control-h, 44px) - 2px);
+  }
+
+  .ajf-code-scan {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--ajf-control-h, 44px);
+    padding: 0 14px;
+    border: 1px solid var(--ajf-border-strong, #d5cfc6);
+    border-radius: var(--ajf-radius, 4px);
+    background: var(--ajf-surface, #fff);
+    color: var(--ajf-text, #1c1a17);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: var(--ajf-accent, #0f4c5c);
+    }
+
+    .mat-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 18px;
     }
   }
 
@@ -39,19 +91,20 @@ ajf-barcode {
       order: 0;
       flex: 1 1 auto;
       align-self: auto;
-      height: 50vh;
+      height: 120px;
       display: table;
-      background-color: rgba(238, 238, 238, 0.5);
-      border: dotted 1px #aaa;
+      background-color: var(--ajf-band, #faf8f5);
+      border: dashed 1px var(--ajf-border-strong, #d5cfc6);
+      border-radius: var(--ajf-radius, 4px);
       overflow: hidden;
       .ajf-text-wrapper {
         display: table-cell;
         vertical-align: middle;
       }
       .ajf-centered {
-        font-family: sans-serif;
-        font-size: 1.3em;
-        font-weight: bold;
+        color: var(--ajf-text-muted, #7a736a);
+        font-family: inherit;
+        font-size: 14px;
         text-align: center;
       }
     }
@@ -62,7 +115,7 @@ ajf-barcode {
   }
 
   .ajf-barcode-video {
-    height: 50vh;
+    height: 180px;
     position: relative;
 
     > video {

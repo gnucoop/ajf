@@ -3,5 +3,12 @@
   "dest": "../../dist/material",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": [
+    {
+      "glob": "_theming.scss",
+      "input": "forms/src",
+      "output": "forms"
+    }
+  ]
 }

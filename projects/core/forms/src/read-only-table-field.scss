@@ -1,63 +1,47 @@
+// Kept in step with the editable table field's styles, minus the inline editing
+// affordances, which view mode has no use for.
 table.ajf-table-field {
   width: 100%;
+  border: 1px solid var(--ajf-border, #e6e2dc);
   border-collapse: collapse;
   table-layout: fixed;
+  font-size: 13px;
 
   .ajf-header-row {
-    font-weight: bold;
-    background-color: #f9f9f9;
+    background: var(--ajf-band, #faf8f5);
+
+    td,
+    th {
+      color: var(--ajf-text-muted, #7a736a);
+      font-family: var(--ajf-font-mono, monospace);
+      font-size: 11px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
   }
 
   th,
   td {
-    padding: 12px 15px;
+    padding: 9px 12px;
+    border-right: 1px solid var(--ajf-border, #e6e2dc);
+    border-bottom: 1px solid var(--ajf-border, #e6e2dc);
     text-align: left;
-    border-bottom: 1px solid #ddd;
-    border-top: solid 1px transparent;
-    border-right: solid 1px #cccccc;
-    border-left: solid 1px transparent;
-    position: relative;
+
+    &:last-child {
+      border-right: 0;
+    }
 
     span {
-      display: inline-block;
+      display: block;
       width: 100%;
+      min-height: 1.4em;
       box-sizing: border-box;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: 1.5;
-      text-align: center;
-      padding: 12px 15px;
+      font: inherit;
       word-wrap: break-word;
     }
-
-    input {
-      cursor: text;
-      position: absolute;
-      width: 100%;
-      box-sizing: border-box;
-      outline: none;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      border-top: solid 1px transparent;
-      border-right: solid 1px transparent;
-      border-bottom: solid 1px transparent;
-      border-left: solid 1px transparent;
-      display: inline-block;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      text-align: center;
-      padding: 12px 15px;
-    }
   }
 
-  tr:hover {
-    background-color: #f1f1f1;
+  tr:last-child td {
+    border-bottom: 0;
   }
-
-  /*tr:nth-child(even) {
-        background-color: #f9f9f9;
-      }*/
 }

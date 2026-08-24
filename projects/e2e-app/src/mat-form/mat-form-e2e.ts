@@ -68,7 +68,34 @@ const formSchema: any = {
         },
       ],
     },
+    {
+      parent: 1,
+      id: 2,
+      name: 'second',
+      label: 'Second Slide',
+      nodeType: 3,
+      nodes: [
+        {
+          parent: 2,
+          id: 20,
+          name: 'note',
+          label: 'Note',
+          nodeType: 0,
+          fieldType: 0,
+        },
+      ],
+    },
   ],
+};
+
+/**
+ * The same form with its second slide removed. A form with a single page has
+ * nowhere to navigate to, and the renderer is expected to leave the paging
+ * controls out entirely.
+ */
+const singleSlideSchema: any = {
+  ...formSchema,
+  nodes: [formSchema.nodes[0]],
 };
 
 @Component({
@@ -105,7 +132,8 @@ export class MaterialFormE2E implements OnInit {
 
   constructor(private _route: ActivatedRoute) {}
   ngOnInit(): void {
-    this.form = AjfFormSerializer.fromJson(formSchema);
+    const single = this._route.snapshot.queryParams['singleslide'] === 'true';
+    this.form = AjfFormSerializer.fromJson(single ? singleSlideSchema : formSchema);
     this._route.queryParams.subscribe(params => {
       console.log(params);
     });

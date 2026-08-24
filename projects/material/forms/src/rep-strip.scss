@@ -1,0 +1,51 @@
+@use './forms' as ajf;
+
+ajf-rep-strip {
+  display: block;
+
+  .ajf-rep-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 20px;
+    border-bottom: 1px solid var(--ajf-border);
+    background: var(--ajf-band);
+    font-family: var(--ajf-font-sans);
+  }
+
+  .ajf-rep-strip-label {
+    flex: 0 0 auto;
+  }
+
+  .ajf-rep-pager {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    .ajf-btn {
+      min-width: 32px;
+      min-height: 32px;
+      padding: 0 6px;
+      font-size: 13px;
+
+      .mat-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+      }
+    }
+
+    .ajf-rep-page.ajf-selected {
+      border-color: var(--ajf-accent);
+      background: var(--ajf-accent);
+      color: var(--ajf-accent-fg);
+    }
+  }
+
+  .ajf-rep-strip-context {
+    margin-left: auto;
+    color: var(--ajf-text-muted);
+    font-size: 13px;
+  }
+}

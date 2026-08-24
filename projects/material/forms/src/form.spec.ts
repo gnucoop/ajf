@@ -226,6 +226,66 @@ describe('AjfFormRenderer', () => {
 
     expect(nodesTree[0].valid).toBeTruthy();
   });
+
+  // A Number field is an AjfInputFieldComponent carrying `type: 'number'` as a
+  // registered input. Applying that input after the component started rendering
+  // painted the field as `type="text"` first and swapped the element on the next
+  // check -- which, for a required field, is the first keystroke, taking the
+  // caret and the focus with it.
+  it('should render a number field as type=number from the first check', async () => {
+    const numberForm = AjfFormSerializer.fromJson({
+      nodes: [
+        {
+          id: 1,
+          parent: 0,
+          parentNode: 0,
+          name: 'slide',
+          label: 'slide',
+          nodeType: AjfNodeType.AjfSlide,
+          conditionalBranches: [{condition: 'true'}],
+          nodes: [
+            {
+              id: 2,
+              parent: 1,
+              parentNode: 0,
+              name: 'amount',
+              label: 'amount',
+              nodeType: AjfNodeType.AjfField,
+              fieldType: AjfFieldType.Number,
+              validation: {notEmpty: true},
+            } as any,
+          ],
+        },
+      ],
+    } as any);
+
+    const fixture = TestBed.createComponent(AjfFormRenderer);
+    fixture.componentInstance.form = numberForm;
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await firstValueFrom(timer(200).pipe(take(1)));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const inputs = fixture.debugElement.queryAll(By.css('ajf-field input'));
+    expect(inputs.length).toBe(1);
+    expect(inputs[0].nativeElement.type).toBe('number');
+
+    // The element has to survive a value change, or the user loses the caret
+    // mid-typing.
+    const input = inputs[0].nativeElement as HTMLInputElement;
+    const formGroup = (await firstValueFrom(fixture.componentInstance.formGroup.pipe(take(1))))!;
+    formGroup.patchValue({amount: 1});
+
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await firstValueFrom(timer(200).pipe(take(1)));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(fixture.debugElement.query(By.css('ajf-field input')).nativeElement).toBe(input);
+  });
 });
 
 const testForm = {

@@ -1,83 +1,50 @@
+@use './forms' as ajf;
+
+// Emitted here rather than from form.scss because every rendered field goes
+// through <ajf-field>, whereas the form chrome is absent when a field is
+// rendered on its own.
+@include ajf.tokens;
+@include ajf.primitives;
+@include ajf.material-controls;
+
 ajf-field {
+  display: block;
+  min-width: 0;
+  font-family: var(--ajf-font-sans);
+
+  // Choice presentations below the search threshold: buttons that wrap.
   .ajf-choices-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: stretch;
-    ajf-checkbox-group-item {
-      width: 100%;
-      .mat-mdc-button {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: flex-start;
-        align-items: center;
-      }
-    }
+    gap: 8px;
   }
 
   .ajf-item-container {
     position: relative;
   }
 
+  // The field row renders the validation message in its own gutter; this list is
+  // the fallback for an <ajf-field> used outside a row.
   .ajf-errors {
-    font-style: italic;
-    padding: 5px;
+    color: var(--ajf-danger);
+    font-size: 13px;
+  }
+
+  // Attachment links sit under the control.
+  > a {
+    color: var(--ajf-accent-ink);
+    font-size: 13px;
   }
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-
-  tr {
-    td {
-      position: relative;
-
-      span {
-        cursor: text;
-        width: 100%;
-        box-sizing: border-box;
-        outline: none;
-        display: inline-block;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-        text-align: center;
-      }
-
-      input {
-        cursor: text;
-        position: absolute;
-        width: 100%;
-        box-sizing: border-box;
-        outline: none;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        display: inline-block;
-        border-top: solid 1px transparent;
-        border-right: solid 1px transparent;
-        border-bottom: solid 1px transparent;
-        border-left: solid 1px transparent;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;
-        text-align: center;
-      }
-
-      &:last-child {
-        span,
-        input {
-          border-right-color: #cccccc;
-        }
-      }
-    }
-  }
+ajf-field-row ajf-field .ajf-errors {
+  display: none;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
