@@ -1,5 +1,11 @@
 <mat-sidenav-container class="demo-container">
   <mat-sidenav #start role="navigation">
+    <mat-nav-list class="demo-theme-toggle">
+      <a mat-list-item (click)="toggleTheme()">
+        <mat-icon matListItemIcon>{{dark ? 'light_mode' : 'dark_mode'}}</mat-icon>
+        Toggle Light/Dark Theme
+      </a>
+    </mat-nav-list>
     <mat-expansion-panel *ngFor="let navGroup of navGroups" expanded>
       <mat-expansion-panel-header>
         <mat-panel-title>{{ navGroup.name }}</mat-panel-title>

@@ -32,7 +32,13 @@ import {DevAppDirectionality} from './dev-app-directionality';
   encapsulation: ViewEncapsulation.None,
 })
 export class DevAppLayout {
-  dark = false;
+  /**
+   * Whether the explicit dark palette is on. It starts from what the browser
+   * asks for: at boot neither class is on the document element, so both the
+   * renderer and the dev app's own theme follow `prefers-color-scheme`, and the
+   * menu entry has to name the state the user is actually looking at.
+   */
+  dark = typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches;
   navGroups = [
     {
       name: 'Common',
@@ -73,6 +79,18 @@ export class DevAppLayout {
     cdr: ChangeDetectorRef,
   ) {
     dir.change.subscribe(() => cdr.markForCheck());
+  }
+
+  /**
+   * Flips the theme, writing both classes explicitly. Setting only `.ajf-dark`
+   * is not enough: removing it hands the choice back to `prefers-color-scheme`,
+   * so a browser set to dark could never be switched to light.
+   */
+  toggleTheme() {
+    this.dark = !this.dark;
+    const classes = document.documentElement.classList;
+    classes.toggle('ajf-dark', this.dark);
+    classes.toggle('ajf-light', !this.dark);
   }
 
   toggleFullscreen() {
