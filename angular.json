@@ -295,8 +295,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kb",
-                  "maximumError": "20kb"
+                  "maximumWarning": "20kb",
+                  "maximumError": "40kb"
                 }
               ],
               "outputHashing": "all"
@@ -352,7 +352,6 @@
             "assets": ["projects/dev-app/src/favicon.ico", "projects/dev-app/src/assets"],
             "styles": [
               "node_modules/@ajf/icons/css/ajf-icons.css",
-              "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/flag-icon-css/css/flag-icons.min.css",
               "node_modules/leaflet/dist/leaflet.css",
               "node_modules/quill/dist/quill.snow.css",
@@ -376,8 +375,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kb",
-                  "maximumError": "20kb"
+                  "maximumWarning": "20kb",
+                  "maximumError": "40kb"
                 }
               ],
               "outputHashing": "all"

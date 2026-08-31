@@ -57,6 +57,23 @@ export class AjfSingleChoiceFieldComponent<T>
   readonly expandThreshold = super.searchThreshold;
   readonly searchFilterCtrl = new FormControl<string>('', {nonNullable: true});
 
+  /**
+   * Whether the choices collapse into a searchable dropdown. Below the search
+   * threshold they are laid out as buttons instead, which reads faster for a
+   * short list. `forceExpanded` wins over `forceNarrow`, so a schema can pin
+   * either presentation regardless of how many choices there are.
+   */
+  get isNarrow(): boolean {
+    const instance = this.instance;
+    if (instance == null) {
+      return false;
+    }
+    if (instance.node.forceExpanded) {
+      return false;
+    }
+    return instance.node.forceNarrow || instance.filteredChoices.length > this.expandThreshold;
+  }
+
   filteredChoices$: Observable<AjfChoice<any>[]>;
 
   private readonly _choicesUpdate$ = new Subject<void>();

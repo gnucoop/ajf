@@ -1,56 +1,88 @@
+@use './forms' as ajf;
+
 ajf-range {
+  display: block;
+  width: 100%;
 
-  display: inline-block;
-  padding-top: 20px;
-
-  .ajf-range-label {
-    display: inline-block;
-    padding: 0 10px;
+  .ajf-range {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  // No value has been selected yet: the slider must not look like the minimum
-  // value was picked, so it is rendered in grey.
-  .ajf-range-no-value {
-    --mdc-slider-handle-color: #9e9e9e;
-    --mdc-slider-focus-handle-color: #9e9e9e;
-    --mdc-slider-hover-handle-color: #9e9e9e;
-    --mdc-slider-active-track-color: #9e9e9e;
-    --mdc-slider-inactive-track-color: #9e9e9e;
-    --mdc-slider-with-tick-marks-active-container-color: #fff;
-    --mdc-slider-with-tick-marks-inactive-container-color: #9e9e9e;
-    --mdc-slider-label-container-color: #9e9e9e;
-    --mat-slider-ripple-color: #9e9e9e;
-    --mat-slider-hover-state-layer-color: rgba(158, 158, 158, 0.05);
-    --mat-slider-focus-state-layer-color: rgba(158, 158, 158, 0.2);
+  .ajf-range-track {
+    flex: 1 1 auto;
+    min-width: 180px;
+    max-width: 360px;
 
-    .ajf-range-label {
-      color: #9e9e9e;
+    .mat-mdc-slider {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  // The bounds sit under the track ends, so the scale is readable without
+  // hovering the thumb.
+  .ajf-range-bounds {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -6px;
+    padding: 0 8px;
+    color: var(--ajf-text-muted);
+    font-family: var(--ajf-font-mono);
+    font-size: 11px;
+  }
+
+  .ajf-range-value {
+    @include ajf.control-box;
+
+    min-width: 44px;
+    padding: 0 8px;
+    background: var(--ajf-band);
+    font-family: var(--ajf-font-mono);
+    text-align: center;
+  }
+
+  // An untouched range must not read as "the minimum was chosen".
+  .ajf-range-no-value {
+    .mat-mdc-slider {
+      --mdc-slider-active-track-color: var(--ajf-border-strong);
+      --mdc-slider-handle-color: var(--ajf-band);
+    }
+
+    .ajf-range-value {
+      color: var(--ajf-text-faint);
     }
   }
 
   .ajf-rating-container {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 0;
+    gap: 4px;
+  }
 
-    .ajf-rating-star {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      color: #ccc;
-      transition: color 0.2s;
+  .ajf-rating-star {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ajf-border-strong);
+    cursor: pointer;
 
-      &.selected {
-        color: #FFD700;
-      }
-
-      mat-icon {
-        font-size: 32px;
-        height: 32px;
-        width: 32px;
-      }
+    &.ajf-selected {
+      color: var(--ajf-accent);
     }
+
+    .mat-icon {
+      width: 26px;
+      height: 26px;
+      font-size: 26px;
+    }
+  }
+
+  .ajf-rating-readout {
+    margin-left: 8px;
+    color: var(--ajf-text-muted);
+    font-family: var(--ajf-font-mono);
+    font-size: 13px;
   }
 }

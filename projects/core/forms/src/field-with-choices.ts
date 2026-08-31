@@ -21,6 +21,7 @@
  */
 
 import {ChangeDetectorRef} from '@angular/core';
+import {AbstractControl} from '@angular/forms';
 
 import {AjfBaseFieldComponent} from './base-field';
 import {AjfFormRendererService} from './form-renderer';
@@ -60,5 +61,33 @@ export abstract class AjfFieldWithChoicesComponent<T> extends AjfBaseFieldCompon
     if (searchThreshold != null) {
       this._searchThreshold = searchThreshold;
     }
+  }
+
+  /**
+   * Whether the field holds a selection, which is what the clear action is
+   * offered for. A multiple choice value is an array and a single choice value a
+   * scalar, and an empty array is as empty as a null.
+   */
+  hasValue(ctrl: AbstractControl): boolean {
+    const value = ctrl != null ? ctrl.value : null;
+    if (value == null || value === '') {
+      return false;
+    }
+    return Array.isArray(value) ? value.length > 0 : true;
+  }
+
+  /**
+   * Reset the field to no selection. Neither presentation can do this on its own:
+   * a radio cannot be unpicked, and clearing a multi-select one chip at a time is
+   * tedious.
+   */
+  clearValue(ctrl: AbstractControl, event?: Event): void {
+    if (event != null) {
+      // Stop the click reaching a select trigger, which would open the panel.
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    ctrl.setValue(null);
+    ctrl.markAsDirty();
   }
 }

@@ -36,7 +36,7 @@ import {
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {FormControl, UntypedFormControl} from '@angular/forms';
 import {combineLatest, merge, Observable, of, Subject, Subscription} from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, startWith, switchMap} from 'rxjs/operators';
 
@@ -56,6 +56,23 @@ export class AjfMultipleChoiceFieldComponent<T>
 {
   readonly expandThreshold = super.searchThreshold;
   readonly searchFilterCtrl = new FormControl<string>('', {nonNullable: true});
+
+  /**
+   * Whether the choices collapse into a searchable dropdown. Below the search
+   * threshold they are laid out as buttons instead, which reads faster for a
+   * short list. `forceExpanded` wins over `forceNarrow`, so a schema can pin
+   * either presentation regardless of how many choices there are.
+   */
+  get isNarrow(): boolean {
+    const instance = this.instance;
+    if (instance == null) {
+      return false;
+    }
+    if (instance.node.forceExpanded) {
+      return false;
+    }
+    return instance.node.forceNarrow || instance.filteredChoices.length > this.expandThreshold;
+  }
 
   filteredChoices$: Observable<AjfChoice<any>[]>;
 
@@ -108,6 +125,26 @@ export class AjfMultipleChoiceFieldComponent<T>
         return truncated;
       }),
     );
+  }
+
+  /** The label shown on a selection chip. */
+  labelFor(value: any): string {
+    const choice = (this.instance?.filteredChoices || []).find(c => c.value === value);
+    if (choice == null) {
+      return `${value}`;
+    }
+    return choice.translatedLabel ?? choice.label;
+  }
+
+  /**
+   * Drop one value from the selection, from the chip's own button. The click has
+   * to be stopped from reaching the trigger, which would reopen the panel.
+   */
+  removeValue(ctrl: UntypedFormControl, value: any, event: Event): void {
+    event.stopPropagation();
+    event.preventDefault();
+    const current: any[] = Array.isArray(ctrl.value) ? ctrl.value : [];
+    ctrl.setValue(current.filter(v => v !== value));
   }
 
   protected override _onInstanceChange(): void {

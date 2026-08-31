@@ -1,0 +1,11 @@
+@use './forms' as ajf;
+
+ajf-field .ajf-input-group {
+  width: 200px;
+
+  // The toggle is a button host, so it needs no padding of its own inside the
+  // group's action slot.
+  .mat-datepicker-toggle {
+    display: inline-flex;
+  }
+}

@@ -12,13 +12,16 @@
     <button aria-label="Switch orientation" mat-button *ngIf="!fixedOrientation" (click)="switchOrientation()">
       <mat-icon>{{ orientation === 'vertical' ? 'swap_horiz' : 'swap_vert' }}</mat-icon>
     </button>
-    <button aria-label="Back" mat-button (click)="slide({dir: 'up'})" secondary>
-      <mat-icon *ngIf="orientation === 'horizontal'">arrow_backward</mat-icon>
-      <mat-icon *ngIf="orientation === 'vertical'">arrow_upward</mat-icon>
-    </button>
-    <button aria-label="Forward" mat-button (click)="slide({dir: 'down'})" secondary>
-      <mat-icon *ngIf="orientation === 'horizontal'">arrow_forward</mat-icon>
-      <mat-icon *ngIf="orientation === 'vertical'">arrow_downward</mat-icon>
-    </button>
+    <!-- A single page has nowhere to page to, so it gets no paging buttons. -->
+    <ng-container *ngIf="pages && pages.length > 1">
+      <button aria-label="Back" mat-button (click)="slide({dir: 'up'})" secondary>
+        <mat-icon *ngIf="orientation === 'horizontal'">arrow_backward</mat-icon>
+        <mat-icon *ngIf="orientation === 'vertical'">arrow_upward</mat-icon>
+      </button>
+      <button aria-label="Forward" mat-button (click)="slide({dir: 'down'})" secondary>
+        <mat-icon *ngIf="orientation === 'horizontal'">arrow_forward</mat-icon>
+        <mat-icon *ngIf="orientation === 'vertical'">arrow_downward</mat-icon>
+      </button>
+    </ng-container>
   </div>
 </mat-toolbar>

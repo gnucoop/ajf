@@ -1,6 +1,24 @@
+@use './forms' as ajf;
+
+// The read-only counterpart of the rich text and boolean fields: values read as
+// text, with no control chrome around them.
 ajf-display-field {
-  span {
-    min-height: 1em;
-    display: block;
+  display: block;
+  color: var(--ajf-text);
+  font-size: 14px;
+  line-height: 1.5;
+
+  > div {
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .mat-mdc-slide-toggle {
+    pointer-events: none;
   }
 }

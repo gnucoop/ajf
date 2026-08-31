@@ -1,265 +1,134 @@
+@use './forms' as ajf;
+
 ajf-form {
   display: block;
+  height: 100%;
 
-  .ajf-form-readonly {
-    .ajf-field-entry {
-      > label {
-        font-weight: bold;
-      }
-    }
-  }
-
+  // The renderer used to be pinned with position:absolute, which forced hosts to
+  // provide a positioned, sized ancestor. A flex column works there too and also
+  // lets the form sit in ordinary document flow.
   .ajf-form-container {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    box-sizing: border-box;
+    height: 100%;
+    background: var(--ajf-bg);
+    color: var(--ajf-text);
+    font-family: var(--ajf-font-sans);
+  }
 
-    mat-toolbar.ajf-hidden {
-      opacity: 0;
+  .ajf-form-bar {
+    flex: 0 0 auto;
+    border-bottom: 1px solid var(--ajf-border);
+    background: var(--ajf-surface);
+  }
+
+  .ajf-form-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  > form {
+    height: 100%;
+  }
+
+  // The page slider sizes its pages with a chain of `height: 100%`, which needs
+  // a definite box to resolve against -- a flex item's `min-height` does not
+  // make its height definite, and the chain would collapse to the height of the
+  // slider's own toolbar. Pinning the slider inside a positioned container gives
+  // it that definite box while the form itself keeps flowing as a flex column.
+  .ajf-slider-container {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: var(--ajf-slider-min-h);
+
+    > ajf-page-slider {
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  // The page slider's wrapper centres its content, so a short slide would
+  // otherwise render its rows as a narrow centred column.
+  .ajf-form-page {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    box-sizing: border-box;
+    width: 100%;
+    background: var(--ajf-surface);
+  }
+
+  // maxColumns keeps working, now as a row grid rather than as floated cards.
+  .ajf-form-page.ajf-max-columns-2,
+  .ajf-form-page.ajf-max-columns-3 {
+    display: grid;
+    align-content: start;
+  }
+
+  .ajf-form-page.ajf-max-columns-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ajf-form-page.ajf-max-columns-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @media (width <= 900px) {
+    .ajf-form-page.ajf-max-columns-2,
+    .ajf-form-page.ajf-max-columns-3 {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .ajf-form-message {
+    gap: 12px;
+    padding: 24px 20px;
+
+    .ajf-message-title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
     }
 
-    .ajf-btn-strip {
-      .mat-button-toggle-group {
-        overflow-x: auto;
-      }
+    .ajf-message-body {
+      color: var(--ajf-text-muted);
     }
+  }
 
-    .ajf-topbar-button {
-      font-size: 0.8em;
+  // The status lives inside the page slider's own bottom bar, so the form has a
+  // single footer rather than one band per concern.
+  ajf-page-slider > mat-toolbar.ajf-toolbar {
+    min-height: 48px;
+    padding: 0 12px;
+    border-top: 1px solid var(--ajf-border);
+    background: var(--ajf-band);
+    color: var(--ajf-text-muted);
+    font-family: var(--ajf-font-sans);
+    font-size: 13px;
+
+    .mat-mdc-button {
+      color: var(--ajf-text-muted);
     }
+  }
 
-    mat-icon.ajf-warning {
-      color: #f53d3d;
+  .ajf-form-footer-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--ajf-danger);
+
+    .mat-icon {
+      width: 16px;
+      height: 16px;
+      font-size: 16px;
     }
-    mat-icon.ajf-success {
-      color: #32db64;
-    }
+  }
 
-    > .ajf-slider-container {
-      flex: 1;
-      position: relative;
-
-      > ajf-page-slider {
-        height: 100%;
-
-        ajf-page-slider-item {
-          .ajf-page-slider-item-content {
-            padding: 16px;
-
-            .ajf-form-page {
-              flex: 1;
-              max-height: 100%;
-
-              > mat-card {
-                margin: 1em 0 3em;
-
-                > mat-card-content {
-                  display: flex;
-                  flex-wrap: wrap;
-                  flex-direction: row;
-                  align-content: flex-start;
-                  position: relative;
-
-                  .ajf-group-actions {
-                    position: absolute;
-                    right: 0;
-                    top: -30px;
-                    padding: 15px;
-                    z-index: 10;
-                  }
-
-                  > .ajf-field-entry {
-                    padding-right: 10px;
-                    min-width: 350px;
-                    .mat-icon {
-                      vertical-align: bottom;
-                      margin-left: 5px;
-                    }
-
-                    &.ajf-max-columns-1 {
-                      flex: 1 0 100%;
-                    }
-
-                    &.ajf-max-columns-2 {
-                      flex: 1 0 45%;
-                    }
-
-                    &.ajf-max-columns-3 {
-                      flex: 1 0 30%;
-                    }
-
-                    &.ajf-normal {
-                      width: 100%;
-                    }
-                    &.ajf-small {
-                      width: 50%;
-                    }
-                    &.ajf-smaller {
-                      width: 33%;
-                    }
-                    &.ajf-tiny {
-                      width: 25%;
-                    }
-                    &.ajf-mini {
-                      width: 20%;
-                    }
-
-                    display: flex;
-                    flex-direction: column;
-                    margin: 5px;
-                    border-left: 3px solid;
-                    border-radius: 5px;
-                    min-height: 30vh;
-                    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%),
-                      0px 1px 10px 0px rgb(0 0 0 / 12%);
-                    .mat-mdc-card-actions {
-                      position: absolute;
-                      bottom: 0px;
-                      width: 100%;
-                      display: flex;
-                      justify-content: flex-start;
-                      align-items: center;
-                      align-content: center;
-                      border-bottom-left-radius: 5px;
-                      border-bottom-right-radius: 5px;
-                      &.ajf-valid-field {
-                        background-color: rgba($color: #32db64, $alpha: 0.2);
-                      }
-                      &.ajf-invalid-field {
-                        background-color: rgba($color: #f53d3d, $alpha: 0.2);
-                        .ajf-field-error-message {
-                          margin-left: 8px;
-                        }
-                      }
-                      .mat-icon {
-                        margin-left: auto;
-                      }
-                    }
-                    .mat-mdc-radio-button,
-                    ajf-checkbox-group-item .mat-mdc-button {
-                      background-color: inherit !important;
-                    }
-
-                    .mat-mdc-card-header {
-                      margin-bottom: 15px;
-                      .ajf-tooltip-icon {
-                        align-self: center;
-                        min-width: 24px;
-                      }
-                    }
-
-                    .mat-mdc-card-content {
-                      position: relative;
-                      flex: 1;
-                      flex-flow: row wrap;
-                      justify-content: flex-start;
-                      align-items: flex-start;
-                      padding-top: 2%;
-                      padding-bottom: 10%;
-                      overflow-y: auto;
-                      max-width: 95%;
-                      .mat-mdc-select {
-                        margin: 20px 0px;
-                      }
-                      .mat-mdc-radio-group {
-                        display: flex;
-                        flex-flow: column wrap;
-                        justify-content: space-between;
-                        .mat-mdc-radio-button {
-                          flex: 1 1 30%;
-                          padding: 5px;
-                        }
-                      }
-                      .ajf-errors .error {
-                        display: none;
-                      }
-                    }
-
-                    &.ajf-centered-field {
-                      .mat-mdc-card-content,
-                      .mat-mdc-card-header {
-                        justify-content: center;
-                        text-align: center;
-                      }
-                      .ajf-choices-container .mat-mdc-radio-button {
-                        text-align: start;
-                      }
-                    }
-                    .ajf-field-range{
-                      margin-top: 30px;
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-
-        .ajf-page-slider-item-header {
-          display: flex;
-          align-items: center;
-          width: 100%;
-
-          > h2 {
-            flex: 1;
-            > .ajf-form-header-number {
-              margin-right: 0.5em;
-            }
-          }
-
-          h2 > .ajf-title {
-            display: inline-block;
-            margin-right: 40px;
-            white-space: normal;
-            vertical-align: top;
-          }
-        }
-
-        [ajfPageSliderBar] {
-          .ajf-left-bar {
-            display: flex;
-            align-items: flex-start;
-            flex-direction: row;
-            position: absolute;
-            bottom: 0;
-
-            .ajf-right-button {
-              float: right;
-            }
-
-            .ajf-button-icon-only ion-icon {
-              padding: 0 0.1em;
-            }
-
-            .ajf-info-box {
-              height: 40px;
-              padding: 4px;
-
-              > div {
-                height: 16px;
-                line-height: 16px;
-
-                &.ajf-content {
-                  font-weight: bold;
-                }
-              }
-
-              &.ajf-error {
-                order: 2;
-                color: red;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    .ajf-spacer {
-      flex: 1 0 auto;
-    }
+  // In view mode the labels carry the weight, since there are no controls to
+  // draw the eye.
+  .ajf-form-readonly .ajf-field-label label {
+    font-weight: 600;
   }
 }

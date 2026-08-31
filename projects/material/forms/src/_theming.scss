@@ -1,0 +1,125 @@
+// Public theming API of the AJF form renderer.
+//
+// The renderer paints itself from a set of `--ajf-*` custom properties. Their
+// defaults already follow Angular Material's M3 system variables where a host
+// publishes them, so an application themed with `use-system-variables: true`
+// needs nothing from this file.
+//
+// Everything else -- an M2 theme, a prebuilt theme, or an M3 theme without
+// system variables -- has a theme object but no system variables, and that is
+// what this mixin is for:
+//
+//     @use '@angular/material' as mat;
+//     @use '@ajf/material/forms/theming' as ajf-forms;
+//
+//     $theme: mat.define-light-theme(...);   // or mat.define-theme(...)
+//
+//     :root {
+//       @include mat.all-component-themes($theme);
+//       @include ajf-forms.theme($theme);
+//     }
+//
+// For a light and a dark theme, include it once per selector -- the renderer's
+// own `.ajf-dark` / `.ajf-light` classes and its `prefers-color-scheme` block
+// only carry the built-in palette, so once you hand it your own colours you also
+// own the switch:
+//
+//     .my-dark-theme {
+//       @include mat.all-component-colors($dark-theme);
+//       @include ajf-forms.theme($dark-theme);
+//     }
+//
+// This file emits custom properties only -- no selectors, no component styles --
+// so including it more than once costs nothing but the declarations.
+
+@use 'sass:list';
+@use '@angular/material' as mat;
+
+/// The M3 colour role behind each token.
+$_m3-roles: (
+  bg: surface-container-low,
+  surface: surface,
+  band: surface-container,
+  border: outline-variant,
+  border-strong: outline,
+  accent: primary,
+  accent-fg: on-primary,
+  accent-soft: primary-container,
+  accent-ink: on-primary-container,
+  text: on-surface,
+  text-muted: on-surface-variant,
+  danger: error,
+  danger-bg: error-container,
+);
+
+/// The M2 palette/hue pair behind each token. M2 has no container roles, so the
+/// soft surfaces are taken from the theme's background palette and the tinted
+/// ones are mixed from the accent at include time.
+$_m2-colors: (
+  bg: (background, background),
+  surface: (background, card),
+  band: (background, app-bar),
+  border: (foreground, divider),
+  accent: (primary, default),
+  accent-fg: (primary, default-contrast),
+  text: (foreground, text),
+  text-muted: (foreground, secondary-text),
+  danger: (warn, default),
+);
+
+/// M2's dividers are far too faint to draw a control box with, so the border a
+/// control carries is mixed from the theme's own text colour instead.
+$_m2-control-border-mix: 32%;
+
+@mixin _m3($theme) {
+  @each $name, $role in $_m3-roles {
+    --ajf-#{$name}: #{mat.get-theme-color($theme, $role)};
+  }
+
+  $primary: mat.get-theme-color($theme, primary);
+  $on-primary: mat.get-theme-color($theme, on-primary);
+
+  --ajf-text-faint: color-mix(
+    in srgb,
+    #{mat.get-theme-color($theme, on-surface-variant)} 70%,
+    transparent
+  );
+  --ajf-accent-hover: color-mix(in srgb, #{$primary} 85%, #{$on-primary});
+  // Sits on the filled accent, so it is tinted with the accent's own contrast.
+  --ajf-kbd-bg: color-mix(in srgb, #{$on-primary} 22%, transparent);
+}
+
+@mixin _m2($theme) {
+  @each $name, $color in $_m2-colors {
+    --ajf-#{$name}: #{mat.get-theme-color($theme, list.nth($color, 1), list.nth($color, 2))};
+  }
+
+  $primary: mat.get-theme-color($theme, primary, default);
+  $on-primary: mat.get-theme-color($theme, primary, default-contrast);
+  $warn: mat.get-theme-color($theme, warn, default);
+  $card: mat.get-theme-color($theme, background, card);
+  $text: mat.get-theme-color($theme, foreground, text);
+  $secondary: mat.get-theme-color($theme, foreground, secondary-text);
+
+  --ajf-border-strong: color-mix(in srgb, #{$text} #{$_m2-control-border-mix}, #{$card});
+  --ajf-accent-soft: color-mix(in srgb, #{$primary} 12%, #{$card});
+  --ajf-accent-ink: color-mix(in srgb, #{$primary} 80%, #{$secondary});
+  --ajf-accent-hover: color-mix(in srgb, #{$primary} 85%, #{$secondary});
+  --ajf-danger-bg: color-mix(in srgb, #{$warn} 10%, #{$card});
+  --ajf-text-faint: color-mix(in srgb, #{$secondary} 70%, transparent);
+  --ajf-kbd-bg: color-mix(in srgb, #{$on-primary} 22%, transparent);
+}
+
+/// Map an Angular Material theme onto the AJF form tokens.
+/// Accepts both an M2 theme (`define-light-theme`, `define-dark-theme`, the
+/// prebuilt themes) and an M3 one (`define-theme`).
+@mixin theme($theme) {
+  $version: mat.get-theme-version($theme);
+  @if $version == 0 {
+    @include _m2($theme);
+  } @else if $version == 1 {
+    @include _m3($theme);
+  } @else {
+    @error 'Unsupported Angular Material theme version: #{$version}.';
+  }
+}

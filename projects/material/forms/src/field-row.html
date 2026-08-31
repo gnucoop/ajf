@@ -1,0 +1,49 @@
+<div
+  *ngIf="!hidden"
+  class="ajf-field-row"
+  [class.ajf-invalid]="!instance.valid"
+  [class.ajf-readonly]="readonly"
+  [class.ajf-note-row]="isNote"
+  [ngClass]="'ajf-' + instance.node.size + ' ajf-field-type-' + instance.node.fieldType"
+>
+  <div class="ajf-field-label">
+    <span class="ajf-field-label-line">
+      <label [attr.id]="instance.node.name" [innerHTML]="instance.node.label | transloco"></label>
+      <span class="ajf-required" *ngIf="required" aria-hidden="true">*</span>
+      <mat-icon
+        class="ajf-hint-icon"
+        *ngIf="instance.node.hint as hint"
+        [matTooltip]="hint | transloco"
+        matTooltipPosition="right"
+        >{{ instance.node.hintIcon || 'help' }}</mat-icon
+      >
+    </span>
+    <!-- A note carries prose, not a value, so naming its type says nothing. -->
+    <ng-container *ngIf="!isNote">
+      <span class="ajf-field-type-name" *ngIf="instance | ajfFieldTypeLabel as type"
+        >{{ type.name | transloco }}<ng-container *ngIf="type.detailValue"> &middot;
+          {{ type.detailValue }}<ng-container *ngIf="type.detailUnit">
+            {{ type.detailUnit | transloco }}</ng-container
+          ></ng-container
+        ></span
+      >
+    </ng-container>
+  </div>
+
+  <div class="ajf-field-control">
+    <ajf-field
+      [instance]="instance"
+      [readonly]="readonly"
+      [id]="'field_entry_' + instance.node.id"
+    ></ajf-field>
+  </div>
+
+  <div class="ajf-field-side">
+    <span class="ajf-field-error-message" *ngIf="!instance.valid">{{
+      instance | ajfAsFieldInstanceErrors | transloco
+    }}</span>
+    <span class="ajf-field-hint-text" *ngIf="instance.valid && instance.node.description">{{
+      instance.node.description | transloco
+    }}</span>
+  </div>
+</div>

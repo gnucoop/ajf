@@ -1,32 +1,159 @@
-.ajf-audio-controls {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-top: 8px;
+ajf-audio {
+  display: block;
+  width: 100%;
 
-  .recording-indicator {
-    color: #f44336;
-    animation: pulse 1.5s infinite;
+  .ajf-audio {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  // Each state names itself in the left gutter, so it is clear at a glance
+  // whether anything has been captured.
+  .ajf-audio-row {
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-weight: 500;
+    gap: 12px;
+  }
+
+  .ajf-audio-state {
+    flex: 0 0 84px;
+    color: var(--ajf-text-muted, #7a736a);
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .ajf-audio-box {
+    display: flex;
+    // Grows into the column up to a comfortable width; a zero-grow basis leaves
+    // the box at min-content whenever the row is content-sized.
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    max-width: 400px;
+    box-sizing: border-box;
+    min-height: var(--ajf-control-h, 44px);
+    padding: 0 12px;
+    border: 1px solid var(--ajf-border-strong, #d5cfc6);
+    border-radius: var(--ajf-radius, 4px);
+    background: var(--ajf-surface, #fff);
+  }
+
+  .ajf-audio-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--ajf-text, #1c1a17);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:disabled {
+      color: var(--ajf-text-faint, #a49c92);
+      cursor: default;
+    }
+
+    .mat-icon {
+      color: var(--ajf-danger, #b8362b);
+    }
+  }
+
+  .ajf-audio-recording {
+    .ajf-audio-box {
+      border-color: var(--ajf-danger, #b8362b);
+      background: var(--ajf-danger-bg, #fdf1ef);
+    }
+
+    .ajf-audio-state {
+      color: var(--ajf-danger, #b8362b);
+    }
+  }
+
+  // A cheap level meter: it signals "live" without pretending to plot the input.
+  .ajf-audio-wave {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 18px;
+
+    i {
+      width: 3px;
+      background: var(--ajf-danger, #b8362b);
+      animation: ajf-audio-pulse 1s ease-in-out infinite;
+    }
+
+    i:nth-child(1) {
+      height: 40%;
+      animation-delay: 0s;
+    }
+
+    i:nth-child(2) {
+      height: 80%;
+      animation-delay: 0.1s;
+    }
+
+    i:nth-child(3) {
+      height: 55%;
+      animation-delay: 0.2s;
+    }
+
+    i:nth-child(4) {
+      height: 100%;
+      animation-delay: 0.3s;
+    }
+
+    i:nth-child(5) {
+      height: 65%;
+      animation-delay: 0.4s;
+    }
+
+    i:nth-child(6) {
+      height: 35%;
+      animation-delay: 0.5s;
+    }
+  }
+
+  .ajf-audio-delete {
+    padding: 0 4px;
+    border: 0;
+    background: none;
+    color: var(--ajf-danger, #b8362b);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      text-decoration: underline;
+    }
+
+    &:disabled {
+      color: var(--ajf-text-faint, #a49c92);
+      cursor: default;
+    }
   }
 
   audio {
+    width: 100%;
+    min-width: 0;
     height: 36px;
     outline: none;
   }
 }
 
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+@keyframes ajf-audio-pulse {
+  0%,
   100% {
-    opacity: 1;
+    transform: scaleY(0.6);
+  }
+
+  50% {
+    transform: scaleY(1);
   }
 }

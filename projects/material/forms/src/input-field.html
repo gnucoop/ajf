@@ -1,6 +1,20 @@
-<mat-form-field *ngIf="control|async as ctrl">
-  <input matInput *ngIf="type === 'text'" type="text" [formControl]="ctrl!"
-    [readonly]="instance!|ajfIsReadonlyInputField" [attr.aria-labelledby]="instance!.node.name">
-  <input matInput *ngIf="type === 'number'" type="number" [formControl]="ctrl!"
-    [readonly]="instance!|ajfIsReadonlyInputField" [attr.aria-labelledby]="instance!.node.name">
-</mat-form-field>
+<ng-container *ngIf="control | async as ctrl">
+  <input
+    *ngIf="type === 'text'"
+    class="ajf-control"
+    [class.ajf-control--formula]="instance!.node.fieldType === 6"
+    [class.ajf-control--mono]="instance!.node.fieldType === 6"
+    type="text"
+    [formControl]="ctrl!"
+    [readonly]="instance! | ajfIsReadonlyInputField"
+    [attr.aria-labelledby]="instance!.node.name"
+  />
+  <input
+    *ngIf="type === 'number'"
+    class="ajf-control ajf-control--mono ajf-control--narrow"
+    type="number"
+    [formControl]="ctrl!"
+    [readonly]="instance! | ajfIsReadonlyInputField"
+    [attr.aria-labelledby]="instance!.node.name"
+  />
+</ng-container>

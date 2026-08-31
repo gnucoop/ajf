@@ -1,0 +1,43 @@
+@use './forms' as ajf;
+
+// Shared with the multiple choice field: both render through the same two
+// presentations and, with ViewEncapsulation.None, through the same selectors.
+
+// The control and its clear action share a line, and the choices wrap within it.
+.ajf-choice-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+// The panel lives in the CDK overlay, outside <ajf-field>, so the token layer's
+// nested rules cannot reach it. Scoped through the select's own panelClass rather
+// than a bare .mat-mdc-select-panel, which would repaint every select in the
+// host application.
+// Both classes, so the rule outweighs Material's own single-class one for the
+// panel background rather than depending on stylesheet order.
+.mat-mdc-select-panel.ajf-select-panel {
+  border: 1px solid var(--ajf-border, #e6e2dc);
+  background: var(--ajf-surface, #ffffff);
+
+  .mat-mdc-option {
+    font-family: var(--ajf-font-sans, sans-serif);
+
+    .mdc-list-item__primary-text {
+      color: var(--ajf-text, #1c1a17);
+      font-size: 14px;
+    }
+  }
+
+  // The search box is a mat-option only so that it can live inside the panel; it
+  // must not look or behave like a choice.
+  .mat-mdc-option.ajf-select-search-option {
+    min-height: 0;
+    padding: 0;
+    border-bottom: 1px solid var(--ajf-border, #e6e2dc);
+    background: var(--ajf-surface, #ffffff);
+    pointer-events: auto;
+  }
+}

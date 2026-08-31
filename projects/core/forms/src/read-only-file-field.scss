@@ -1,14 +1,37 @@
 ajf-read-only-file-field {
-  img {
-    width: 32px;
-    height: 32px;
-    margin-right: 8px;
-    vertical-align: middle;
+  display: block;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ajf-accent-ink, #2d6b7f);
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 13px;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  // Nothing was captured: a hatched slot says so without looking like a control.
   .ajf-no-file-placeholder {
-    width: 100%;
-    height: 32px;
-    background-color: #eeeeee;
+    width: 120px;
+    height: 24px;
+    border-radius: var(--ajf-radius, 4px);
+    background-color: var(--ajf-band, #faf8f5);
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--ajf-border, #e6e2dc) 0,
+      var(--ajf-border, #e6e2dc) 1px,
+      transparent 1px,
+      transparent 7px
+    );
   }
 }

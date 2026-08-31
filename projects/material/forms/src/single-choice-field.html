@@ -1,25 +1,52 @@
 @if (instance) {
-  @if (instance.node.forceNarrow || instance.filteredChoices.length > expandThreshold) {
-    <mat-select *ngIf="control|async as ctrl" [formControl]="ctrl!">
-      <mat-option [style.backgroundColor]="'white'">
+<ng-container *ngIf="control | async as ctrl">
+  <div class="ajf-choice-control">
+    @if (isNarrow) {
+    <mat-select [formControl]="ctrl!" panelClass="ajf-select-panel">
+      <mat-option class="ajf-select-search-option">
         <ngx-mat-select-search
           [formControl]="searchFilterCtrl"
-          [placeholderLabel]="'Search'|transloco"
-          [noEntriesFoundLabel]="'Nothing found'|transloco"
-          [enableClearOnEscapePressed]="true">
+          [placeholderLabel]="'Search' | transloco"
+          [noEntriesFoundLabel]="'Nothing found' | transloco"
+          [enableClearOnEscapePressed]="true"
+        >
         </ngx-mat-select-search>
       </mat-option>
       <mat-option [value]="choice.value" *ngFor="let choice of filteredChoices$ | async">
-        {{ choice.translatedLabel ?? (choice.label|transloco) }}
+        {{ choice.translatedLabel ?? (choice.label | transloco) }}
       </mat-option>
     </mat-select>
-  } @else {
-    <mat-radio-group *ngIf="control|async as ctrl" class="ajf-choices-container"
-        [attr.aria-labelledby]="instance.node.name"
-        [formControl]="ctrl!">
-      <mat-radio-button [value]="choice.value" *ngFor="let choice of instance.filteredChoices">
-        {{ choice.translatedLabel ?? (choice.label|transloco) }}
-      </mat-radio-button>
-    </mat-radio-group>
-  }
+    } @else {
+    <div
+      class="ajf-segmented ajf-choices-container"
+      role="radiogroup"
+      [attr.aria-labelledby]="instance.node.name"
+    >
+      <button
+        type="button"
+        class="ajf-segment"
+        role="radio"
+        *ngFor="let choice of instance.filteredChoices"
+        [attr.aria-checked]="ctrl.value === choice.value"
+        [class.ajf-selected]="ctrl.value === choice.value"
+        [disabled]="ctrl.disabled"
+        (click)="ctrl.setValue(choice.value)"
+      >
+        {{ choice.translatedLabel ?? (choice.label | transloco) }}
+      </button>
+    </div>
+    }
+
+    <!-- A picked radio cannot be unpicked, so emptying the field needs its own
+         action. -->
+    <button
+      type="button"
+      class="ajf-btn--ghost ajf-clear-value"
+      *ngIf="hasValue(ctrl) && !ctrl.disabled"
+      (click)="clearValue(ctrl, $event)"
+    >
+      {{ 'Clear' | transloco }}
+    </button>
+  </div>
+</ng-container>
 }

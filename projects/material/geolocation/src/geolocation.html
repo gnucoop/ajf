@@ -1,23 +1,22 @@
-<div class="flex-container">
-  <div class="flex-child">
-    <p>{{'Latitude'|transloco}}:</p>
-    <mat-form-field>
-      <input
-        matInput
-        (focus)="focusHandler()"
-        [(ngModel)]="latitude">
-    </mat-form-field>
-  </div>
-  <div class="flex-child">
-    <p>{{'Longitude'|transloco}}:</p>
-    <mat-form-field>
-      <input
-        matInput
-        (focus)="focusHandler()"
-        [(ngModel)]="longitude">
-    </mat-form-field>
-    <button mat-raised-button (click)="getLocation()">
-      <mat-icon>location_on</mat-icon>
-    </button>
-  </div>
+<div class="ajf-geo">
+  <span class="ajf-geo-coord">
+    <label class="ajf-geo-coord-label">{{ 'Lat' | transloco }}</label>
+    <input
+      [(ngModel)]="latitude"
+      (focus)="focusHandler()"
+      [attr.aria-label]="'Latitude' | transloco"
+    />
+  </span>
+  <span class="ajf-geo-coord">
+    <label class="ajf-geo-coord-label">{{ 'Lng' | transloco }}</label>
+    <input
+      [(ngModel)]="longitude"
+      (focus)="focusHandler()"
+      [attr.aria-label]="'Longitude' | transloco"
+    />
+  </span>
+  <button type="button" class="ajf-geo-locate" (click)="getLocation()">
+    <mat-icon>my_location</mat-icon>
+    <span>{{ 'Locate' | transloco }}</span>
+  </button>
 </div>

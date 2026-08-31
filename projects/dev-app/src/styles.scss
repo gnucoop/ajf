@@ -1,1 +1,67 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles for the AJF development app. */
+
+// The dev app is themed with a Material 3 theme built with system variables, so
+// it doubles as the demonstration that the form renderer follows a host theme:
+// every --ajf-* colour token falls back to the matching --sys-* variable, so the
+// palette below drives the whole form, light and dark, with no other wiring.
+//
+// The e2e app is deliberately left on the prebuilt indigo-pink M2 theme, which
+// publishes no system variables, so the Cypress suites keep exercising the
+// renderer's own default palette.
+@use '@angular/material' as mat;
+
+$light: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+      use-system-variables: true,
+    ),
+    typography: (
+      use-system-variables: true,
+    ),
+  )
+);
+
+$dark: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+      use-system-variables: true,
+    ),
+    typography: (
+      use-system-variables: true,
+    ),
+  )
+);
+
+// The structural styles: ripples, elevation classes, and -- the reason this line
+// cannot be dropped -- the CDK overlay and a11y CSS that positions every panel,
+// menu and dialog. The prebuilt theme stylesheets bundle these together with the
+// palette; building the theme in Sass means emitting them explicitly.
+@include mat.core();
+
+html {
+  @include mat.all-component-themes($light);
+  @include mat.system-level-colors($light);
+  @include mat.system-level-typography($light);
+}
+
+// The renderer switches on `prefers-color-scheme` and on an explicit `.ajf-dark`
+// class; the Material system variables have to follow both the same way.
+@media (prefers-color-scheme: dark) {
+  html:not(.ajf-light) {
+    @include mat.system-level-colors($dark);
+  }
+}
+
+html.ajf-dark {
+  @include mat.system-level-colors($dark);
+}
+
+html.ajf-light {
+  @include mat.system-level-colors($light);
+}

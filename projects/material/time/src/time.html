@@ -1,17 +1,20 @@
-<div>
-  <mat-form-field>
-    <mat-select [(ngModel)]="hours" (opened)="focusHandler()" placeholder="HH">
-      <mat-option *ngFor="let h of hoursList" [value]="h">
-        {{ h | number:'2.0' }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  :
-  <mat-form-field>
-    <mat-select [(ngModel)]="minutes" (opened)="focusHandler()" placeholder="MM">
-      <mat-option *ngFor="let m of minutesList" [value]="m">
-        {{ m | number:'2.0' }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="ajf-time">
+  <mat-select
+    class="ajf-time-select"
+    [(ngModel)]="hours"
+    (opened)="focusHandler()"
+    placeholder="HH"
+  >
+    <mat-option *ngFor="let h of hoursList" [value]="h"> {{ h | number : '2.0' }} </mat-option>
+  </mat-select>
+  <span class="ajf-time-sep">:</span>
+  <mat-select
+    class="ajf-time-select"
+    [(ngModel)]="minutes"
+    (opened)="focusHandler()"
+    placeholder="MM"
+  >
+    <mat-option *ngFor="let m of minutesList" [value]="m"> {{ m | number : '2.0' }} </mat-option>
+  </mat-select>
+  <mat-icon class="ajf-time-icon">schedule</mat-icon>
 </div>

@@ -1,21 +1,32 @@
 <div class="ajf-signature-container">
-  <p class="ajf-signature-text">{{'Please sign here'|transloco}}</p>
-  <canvas
-    class="ajf-signature-canvas"
-    #sigPad
-    (mousedown)="onMouseDown($event)"
-    (mousemove)="onMouseMove($event)"
-    (touchstart)="onMouseDown($event)"
-    (touchmove)="onMouseMove($event)"
-  ></canvas>
+  <div class="ajf-signature-pad">
+    <canvas
+      class="ajf-signature-canvas"
+      #sigPad
+      (mousedown)="onMouseDown($event)"
+      (mousemove)="onMouseMove($event)"
+      (touchstart)="onMouseDown($event)"
+      (touchmove)="onMouseMove($event)"
+    ></canvas>
+    <span class="ajf-signature-text" *ngIf="!isDrawn && !safeImageSrc">{{
+      'Sign here to continue' | transloco
+    }}</span>
+  </div>
+
   <div class="ajf-signature-actions">
-    <button mat-fab (click)="clear()" class="ajf-signature-action-clear">
-      <mat-icon>close</mat-icon>
+    <button
+      type="button"
+      class="ajf-signature-accept"
+      (click)="accept()"
+      [disabled]="!isDrawn"
+    >
+      {{ 'Approve signature' | transloco }}
+      <span class="ajf-signature-kbd" aria-hidden="true">&#8984;&crarr;</span>
     </button>
-    <button mat-fab (click)="accept()" color="primary" [disabled]="!isDrawn" class="ajf-signature-action-accept">
-      <mat-icon>check</mat-icon>
+    <button type="button" class="ajf-signature-clear" (click)="clear()">
+      {{ 'Clear' | transloco }}
     </button>
   </div>
 
-  <img class="ajf-signature-preview" [src]="safeImageSrc" />
+  <img class="ajf-signature-preview" *ngIf="safeImageSrc" [src]="safeImageSrc" alt="" />
 </div>

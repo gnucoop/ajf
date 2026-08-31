@@ -184,6 +184,12 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
+    // Size the body for the pages that are already there. Relying on
+    // `pages.changes` alone only worked while the pages appeared in a later
+    // change detection pass than the slider itself; when a caller creates both
+    // together the event never fires, and every page would end up sharing one
+    // page's worth of space.
+    this._onSlidesChange();
     this._pagesSub = this.pages.changes.subscribe(() => {
       this._onSlidesChange();
       this._cdr.detectChanges();

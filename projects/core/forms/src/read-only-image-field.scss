@@ -1,7 +1,24 @@
 ajf-read-only-image-field {
+  display: block;
+
+  img {
+    max-width: 200px;
+    max-height: 120px;
+    border: 1px solid var(--ajf-border, #e6e2dc);
+    border-radius: var(--ajf-radius, 4px);
+  }
+
   .ajf-no-image-placeholder {
-    width: 100%;
-    height: 32px;
-    background-color: #eeeeee;
+    width: 120px;
+    height: 60px;
+    border-radius: var(--ajf-radius, 4px);
+    background-color: var(--ajf-band, #faf8f5);
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--ajf-border, #e6e2dc) 0,
+      var(--ajf-border, #e6e2dc) 1px,
+      transparent 1px,
+      transparent 7px
+    );
   }
 }

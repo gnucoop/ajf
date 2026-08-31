@@ -20,6 +20,7 @@
  *
  */
 
+import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
@@ -30,7 +31,14 @@ import {AjfAudioComponent} from './audio';
 import {FormsModule} from '@angular/forms';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, MatButtonModule, MatIconModule, MatTooltipModule],
+  imports: [
+    AjfTranslocoModule,
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+  ],
   declarations: [AjfAudioComponent],
   exports: [AjfAudioComponent],
 })

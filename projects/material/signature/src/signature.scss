@@ -1,47 +1,92 @@
+// Colours come from the AJF form token layer, with fallbacks so that the
+// component still looks right when used outside a form.
 ajf-signature {
   display: block;
 
   .ajf-signature-container {
-    width: 100%;
     display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
 
-    .ajf-signature-preview {
-      max-width: 200px;
-      max-height: 100px;
-      margin: auto;
-      padding: 5px;
-    }
+  // A dashed frame reads as "capture area", not as a filled-in control.
+  .ajf-signature-pad {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed var(--ajf-border-strong, #d5cfc6);
+    border-radius: var(--ajf-radius, 4px);
+    background: var(--ajf-surface, #fff);
+  }
 
-    .ajf-signature-canvas {
-      margin: auto;
-      border-radius: 10px;
-      border: 2px solid rgba(0, 0, 0, 0.4);
-    }
+  .ajf-signature-canvas {
+    display: block;
+    touch-action: none;
+  }
 
-    .ajf-signature-actions {
-      flex: 1 0 auto;
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-around;
-      .mdc-fab {
-        margin: 10px;
-        .mat-icon {
-          margin-left: 0px !important;
-        }
-      }
-      .ajf-signature-action-clear {
-        background-color: rgba(245, 61, 61, 0.6);
-      }
-      .ajf-signature-action-accept {
-        &[disabled='true'] {
-          background-color: rgba(0, 0, 0, 0.12);
-          color: rgba(0, 0, 0, 0.38);
-        }
-        background-color: rgba(50, 219, 100, 0.6);
-      }
+  .ajf-signature-text {
+    position: absolute;
+    color: var(--ajf-text-faint, #a49c92);
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 13px;
+    pointer-events: none;
+  }
+
+  .ajf-signature-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ajf-signature-accept {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--ajf-control-h, 44px);
+    padding: 0 16px;
+    border: 1px solid var(--ajf-accent, #0f4c5c);
+    border-radius: var(--ajf-radius, 4px);
+    background: var(--ajf-accent, #0f4c5c);
+    color: var(--ajf-accent-fg, #fff);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:disabled {
+      border-color: var(--ajf-border-strong, #d5cfc6);
+      background: var(--ajf-band, #faf8f5);
+      color: var(--ajf-text-faint, #a49c92);
+      cursor: default;
     }
+  }
+
+  .ajf-signature-kbd {
+    padding: 1px 5px;
+    border-radius: 3px;
+    background: var(--ajf-kbd-bg, rgb(255 255 255 / 22%));
+    font-family: var(--ajf-font-mono, monospace);
+    font-size: 10px;
+  }
+
+  .ajf-signature-clear {
+    padding: 0 4px;
+    border: 0;
+    background: none;
+    color: var(--ajf-text-muted, #7a736a);
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .ajf-signature-preview {
+    max-width: 200px;
+    max-height: 100px;
   }
 }

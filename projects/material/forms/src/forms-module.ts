@@ -42,6 +42,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
@@ -56,7 +57,9 @@ import {AjfBooleanFieldComponent} from './boolean-field';
 import {AjfDateFieldComponent} from './date-field';
 import {AjfDateInputFieldComponent} from './date-input-field';
 import {AjfEmptyFieldComponent} from './empty-field';
+import {AjfCurrentSlidePipe} from './current-slide';
 import {AjfFormField} from './field';
+import {AjfFieldRow} from './field-row';
 import {AjfFieldService} from './field-service';
 import {AjfFieldWarningDialog} from './field-warning-dialog';
 import {AjfFormRenderer} from './form';
@@ -64,8 +67,11 @@ import {AjfGeolocationFieldComponent} from './geolocation-field';
 import {AjfInputFieldComponent} from './input-field';
 import {AjfMultipleChoiceFieldComponent} from './multiple-choice-field';
 import {AjfRangeFieldComponent} from './range-field';
+import {AjfRepStrip} from './rep-strip';
 import {AjfSignatureFieldComponent} from './signature-field';
 import {AjfSingleChoiceFieldComponent} from './single-choice-field';
+import {AjfSlideHeader} from './slide-header';
+import {AjfFormIssuesPipe, AjfSlideCompletionPipe, AjfSlideIssuesPipe} from './slide-stats';
 import {AjfTableFieldComponent} from './table-field';
 import {AjfTextFieldComponent} from './text-field';
 import {AjfTimeFieldComponent} from './time-field';
@@ -98,6 +104,7 @@ import {AjfDisplayFieldComponent} from './display-field';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatMenuModule,
     MatNativeDateModule,
     MatRadioModule,
     MatSelectModule,
@@ -112,27 +119,34 @@ import {AjfDisplayFieldComponent} from './display-field';
   ],
   declarations: [
     AjfAudioFieldComponent,
+    AjfCurrentSlidePipe,
     AjfBarcodeFieldComponent,
     AjfBooleanFieldComponent,
     AjfDateFieldComponent,
     AjfDateInputFieldComponent,
     AjfEmptyFieldComponent,
+    AjfFieldRow,
     AjfFieldWarningDialog,
     AjfFormField,
+    AjfFormIssuesPipe,
     AjfFormRenderer,
     AjfGeolocationFieldComponent,
     AjfInputFieldComponent,
     AjfMultipleChoiceFieldComponent,
     AjfRangeFieldComponent,
+    AjfRepStrip,
     AjfSignatureFieldComponent,
     AjfSingleChoiceFieldComponent,
+    AjfSlideCompletionPipe,
+    AjfSlideHeader,
+    AjfSlideIssuesPipe,
     AjfTableFieldComponent,
     AjfTextFieldComponent,
     AjfTimeFieldComponent,
     AjfVideoUrlFieldComponent,
     AjfDisplayFieldComponent,
   ],
-  exports: [AjfFormField, AjfFormRenderer],
+  exports: [AjfFieldRow, AjfFormField, AjfFormRenderer, AjfRepStrip, AjfSlideHeader],
   providers: [
     AjfFieldService,
     {provide: AJF_WARNING_ALERT_SERVICE, useClass: AjfWarningAlertService},
