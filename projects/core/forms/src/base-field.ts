@@ -23,9 +23,8 @@
 import {ChangeDetectorRef, Directive, isDevMode, OnDestroy, OnInit} from '@angular/core';
 import {UntypedFormControl} from '@angular/forms';
 import {defer, Observable, Subscription} from 'rxjs';
-import {filter, map, withLatestFrom} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
-import {AjfFieldWarningAlertResult} from './field-warning-alert-result';
 import {AjfFormRendererService} from './form-renderer';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
 import {AjfWarningAlertService} from './warning-alert-service';
@@ -34,8 +33,6 @@ import {AjfWarningAlertService} from './warning-alert-service';
  * It rappresents the base field component, the first overlay of ajfFieldInstance.
  * It keeps a reference to the relative control of the form.
  * It manages the component update in conjunction with the instance update.
- * It manages the warningTrigger of the instance by displaying a confirmation
- * popup when an alert event is triggered.
  * @export
  * @abstract
  * @class AjfBaseFieldComponent
@@ -77,42 +74,15 @@ export abstract class AjfBaseFieldComponent<T extends AjfFieldInstance = AjfFiel
     ) as Observable<UntypedFormControl | null>;
   }
 
-  ngOnInit(): void {
-    if (this.instance != null) {
-      this._warningTriggerSub = this.instance.warningTrigger
-        .pipe(
-          withLatestFrom(this.control),
-          filter(([_, ctrl]) => ctrl != null),
-        )
-        .subscribe(([_, ctrl]) => {
-          if (this.instance == null || this.instance.warningResults == null) {
-            return;
-          }
-          const control = ctrl as UntypedFormControl;
-          const s = this._warningAlertService
-            .showWarningAlertPrompt(
-              this.instance.warningResults.filter(w => w.result).map(w => w.warning),
-            )
-            .subscribe({
-              next: (r: AjfFieldWarningAlertResult) => {
-                if (r.result) {
-                  control!.setValue(null);
-                }
-              },
-              error: (_e: any) => {
-                if (s) {
-                  s.unsubscribe();
-                }
-              },
-              complete: () => {
-                if (s) {
-                  s.unsubscribe();
-                }
-              },
-            });
-        });
-    }
-  }
+  // Nothing left to set up: the warning machinery is untouched -- the renderer
+  // still evaluates every warning group and `instance.warningTrigger` still
+  // fires with `instance.warningResults` filled in -- but the confirmation
+  // dialog it used to open is gone, so nothing subscribes to the trigger any
+  // more. The hook itself stays, empty, because subclasses call
+  // `super.ngOnInit()` -- field components in host applications included, so
+  // dropping it would break them at compile time.
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this._warningTriggerSub.unsubscribe();

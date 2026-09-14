@@ -255,40 +255,10 @@
             >
           </div>
         </div>
-        <div class="ajf-prop">
-          <mat-checkbox formControlName="notEmptyWarning"
-            >{{'Not empty warning'|transloco}}</mat-checkbox
-          >
-        </div>
-        <div class="ajf-prop">
-          <div class="ajf-header">
-            <label>{{'Warnings'|transloco}}</label>
-            <mat-icon class="ajf-pointer" (click)="addWarningCondition()"
-              >add_circle_outline</mat-icon
-            >
-          </div>
-          <div *ngIf="warningConditions.length === 0" class="ajf-validation-row ajf-emph">
-            {{'No warnings'|transloco}}
-          </div>
-          <div
-            class="ajf-validation-row"
-            *ngFor="let warningCondition of warningConditions; let idx = index"
-          >
-            <button
-              (click)="editWarningCondition(idx)"
-              mat-raised-button
-              [matTooltip]="warningCondition.condition"
-            >
-              <div class="ajf-icon-cont">
-                <mat-icon>edit</mat-icon>
-                <span><code>{{ warningCondition.condition }}</code></span>
-              </div>
-            </button>
-            <mat-icon class="ajf-pointer" (click)="removeWarningCondition(idx)"
-              >remove_circle_outline</mat-icon
-            >
-          </div>
-        </div>
+        <!-- The warning editor used to sit here: a `notEmptyWarning` checkbox and
+             the list of warning conditions. Both are gone from the UI, while the
+             component keeps the properties, the form controls and the dialog that
+             drove them, so putting the block back is a template-only change. -->
         <div class="ajf-prop">
           <div><label>{{'Go to next slide condition'|transloco}}</label></div>
           <div>
