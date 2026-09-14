@@ -33,12 +33,11 @@ import {DevAppDirectionality} from './dev-app-directionality';
 })
 export class DevAppLayout {
   /**
-   * Whether the explicit dark palette is on. It starts from what the browser
-   * asks for: at boot neither class is on the document element, so both the
-   * renderer and the dev app's own theme follow `prefers-color-scheme`, and the
-   * menu entry has to name the state the user is actually looking at.
+   * Whether the explicit dark palette is on. `index.html` ships `.ajf-light` on
+   * the document element, so the dev app always opens light regardless of
+   * `prefers-color-scheme`, and this starts out matching it.
    */
-  dark = typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches;
+  dark = false;
   navGroups = [
     {
       name: 'Common',
