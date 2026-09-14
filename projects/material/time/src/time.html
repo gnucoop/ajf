@@ -1,6 +1,7 @@
 <div class="ajf-time">
   <mat-select
     class="ajf-time-select"
+    panelClass="ajf-time-panel"
     [(ngModel)]="hours"
     (opened)="focusHandler()"
     placeholder="HH"
@@ -10,6 +11,7 @@
   <span class="ajf-time-sep">:</span>
   <mat-select
     class="ajf-time-select"
+    panelClass="ajf-time-panel"
     [(ngModel)]="minutes"
     (opened)="focusHandler()"
     placeholder="MM"

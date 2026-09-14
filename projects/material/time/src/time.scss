@@ -51,3 +51,28 @@ ajf-time {
     }
   }
 }
+
+// The panel lives in the CDK overlay, outside <ajf-time>, so the rules above
+// cannot reach it -- and Material sizes it from the trigger, which is 2.6em
+// wide. At that width the option's own 16px side padding leaves no room for the
+// two digits, and since `.mat-mdc-option` clips its overflow the whole list
+// reads as a column of blank rows. Scoped through the select's panelClass
+// rather than a bare `.mat-mdc-select-panel`, which would resize every select
+// in the host application.
+.mat-mdc-select-panel.ajf-time-panel {
+  min-width: 5em;
+  border: 1px solid var(--ajf-border, #e6e2dc);
+  background: var(--ajf-surface, #ffffff);
+
+  .mat-mdc-option {
+    justify-content: center;
+    min-height: 36px;
+    padding: 0 12px;
+
+    .mdc-list-item__primary-text {
+      color: var(--ajf-text, #1c1a17);
+      font-family: var(--ajf-font-mono, monospace);
+      font-size: 14px;
+    }
+  }
+}
