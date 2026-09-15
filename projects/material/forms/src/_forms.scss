@@ -481,9 +481,11 @@ $_dark: (
     }
 
     .mat-mdc-slider {
-      --mdc-slider-handle-color: var(--ajf-surface);
-      --mdc-slider-focus-handle-color: var(--ajf-surface);
-      --mdc-slider-hover-handle-color: var(--ajf-surface);
+      // The thumb takes the active track's colour rather than sitting on it as a
+      // separate paper dot, so the filled part of the slider reads as one shape.
+      --mdc-slider-handle-color: var(--ajf-accent);
+      --mdc-slider-focus-handle-color: var(--ajf-accent);
+      --mdc-slider-hover-handle-color: var(--ajf-accent);
       --mdc-slider-active-track-color: var(--ajf-accent);
       --mdc-slider-inactive-track-color: var(--ajf-border);
       --mdc-slider-with-tick-marks-active-container-color: var(--ajf-accent-fg);

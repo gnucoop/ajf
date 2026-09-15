@@ -47,7 +47,12 @@ ajf-range {
   .ajf-range-no-value {
     .mat-mdc-slider {
       --mdc-slider-active-track-color: var(--ajf-border-strong);
-      --mdc-slider-handle-color: var(--ajf-band);
+      // Same rule as the chosen state -- thumb the colour of its own track --
+      // applied to the muted one, hover and focus included, so that merely
+      // pointing at an untouched slider does not paint it as chosen.
+      --mdc-slider-handle-color: var(--ajf-border-strong);
+      --mdc-slider-focus-handle-color: var(--ajf-border-strong);
+      --mdc-slider-hover-handle-color: var(--ajf-border-strong);
     }
 
     .ajf-range-value {
