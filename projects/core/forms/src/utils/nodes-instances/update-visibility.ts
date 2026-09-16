@@ -41,8 +41,12 @@ export function updateVisibility(
   const visibility: AjfCondition = instance.visibility;
 
   const oldVisibility: boolean = instance.visible;
+  // Coerced: the condition is an arbitrary expression, so it hands back whatever
+  // the field holds -- a date string, null, 0 -- and `&&` passes that value
+  // straight through. `visible` is declared a boolean and read as one by callers
+  // that compare it against `false`, so it has to be one.
   let newVisibility: boolean =
-    branchVisibility && evaluateExpression(visibility.condition, context);
+    branchVisibility && !!evaluateExpression(visibility.condition, context);
   if (newVisibility !== instance.visible) {
     instance.visible = newVisibility;
   }

@@ -20,7 +20,12 @@
  *
  */
 
-import {AjfFieldType, AjfFormSerializer, AjfNodeType} from '@ajf/core/forms';
+import {
+  AjfFieldType,
+  AjfFormRendererService,
+  AjfFormSerializer,
+  AjfNodeType,
+} from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -52,9 +57,9 @@ describe('AjfFormRenderer node groups', () => {
     fieldType: AjfFieldType.String,
   });
 
-  const group = (visibility?: {condition: string}) => ({
+  const group = (visibility?: {condition: string}, parent = 2) => ({
     id: 3,
-    parent: 2,
+    parent,
     parentNode: 0,
     name: 'group',
     label: 'group',
@@ -115,5 +120,32 @@ describe('AjfFormRenderer node groups', () => {
     );
 
     expect(visibleRows(fixture)).toEqual(['en.outside', 'en.inside1', 'en.inside2']);
+  });
+
+  it('shows the fields of a group only while its visibility condition holds', async () => {
+    // The condition names a field declared after the group, which is how the
+    // form builder lays this out: a block of fields switched on by an answer
+    // further down the slide.
+    const fixture = await render(
+      slide(AjfNodeType.AjfSlide, [group({condition: 'trigger'}, 1), field(2, 3, 'trigger')]),
+    );
+    const svc = TestBed.inject(AjfFormRendererService);
+    const fg = (await firstValueFrom(svc.formGroup.pipe(take(1))))!;
+
+    const settle = async () => {
+      await fixture.whenStable();
+      await firstValueFrom(timer(400).pipe(take(1)));
+      fixture.detectChanges();
+    };
+
+    expect(visibleRows(fixture)).toEqual(['en.trigger']);
+
+    fg.controls['trigger'].setValue('yes');
+    await settle();
+    expect(visibleRows(fixture)).toEqual(['en.inside1', 'en.inside2', 'en.trigger']);
+
+    fg.controls['trigger'].setValue(null);
+    await settle();
+    expect(visibleRows(fixture)).toEqual(['en.trigger']);
   });
 });

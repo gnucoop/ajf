@@ -95,7 +95,10 @@ export class AjfFieldRow implements OnDestroy {
   @HostBinding('class.ajf-hidden-row')
   get hidden(): boolean {
     const node = this.instance?.node;
-    if (node == null || this.instance.visible === false) {
+    // Truthy, not `=== false`: a visibility condition is an arbitrary expression
+    // and the renderer stores whatever it returns, so an unanswered field can
+    // leave `visible` at null rather than at false.
+    if (node == null || !this.instance.visible) {
       return true;
     }
     if (node.nodeType !== AjfNodeType.AjfField) {

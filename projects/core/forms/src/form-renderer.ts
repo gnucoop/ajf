@@ -688,6 +688,12 @@ export class AjfFormRendererService {
       updateEditability(instance, context);
     }
     updateVisibility(instance, context, branchVisibility);
+    if (isNodeGroupInstance(instance)) {
+      // The group's children were built above, before the group itself had a
+      // visibility: without this a group that starts out hidden still shows
+      // every field it holds until its condition happens to change.
+      propagateVisibility(instance, context, instance.visible);
+    }
     updateConditionalBranches(instance, context);
     if (isFieldInstance(instance)) {
       if (isFieldWithChoicesInstance(instance)) {
@@ -1722,6 +1728,9 @@ const updateVisibilityMapEntry = (
   const completeName = nodeInstanceCompleteName(nodeInstance);
   const visibilityChanged = updateVisibility(nodeInstance, newFormValue);
   const isField = isFieldInstance(nodeInstance);
+  if (visibilityChanged && isNodeGroupInstance(nodeInstance)) {
+    propagateVisibility(nodeInstance, newFormValue, nodeInstance.visible);
+  }
   if (visibilityChanged && !nodeInstance.visible) {
     const fg = formGroup.getValue();
     if (fg != null) {
@@ -1786,6 +1795,32 @@ const updateVisibilityMapEntry = (
       }
     }
   }
+};
+
+/**
+ * Push a container's visibility down to the fields it holds.
+ *
+ * A node group is a bracket: the renderer lays out the fields inside it, never
+ * the group itself, so a group whose condition turns false changes nothing on
+ * screen unless its children are told. Each descendant re-evaluates its own
+ * condition against the branch flag -- the same call `_initNodeInstance` makes
+ * when the tree is built -- so a field that hides itself for its own reasons
+ * stays hidden when the group comes back into view.
+ */
+const propagateVisibility = (
+  container: AjfNodeGroupInstance,
+  context: AjfContext,
+  branchVisibility: boolean,
+): void => {
+  (container.nodes || []).forEach(node => {
+    updateVisibility(node, context, branchVisibility);
+    // The nodes reached this way are not in the caller's `updatedNodes` list, so
+    // the components bound to them have to be woken up here.
+    node.updatedEvt.emit();
+    if (isNodeGroupInstance(node)) {
+      propagateVisibility(node, context, node.visible);
+    }
+  });
 };
 
 const updateRepetitionMapEntry = (
