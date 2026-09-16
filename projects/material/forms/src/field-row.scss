@@ -54,14 +54,19 @@ ajf-field-row {
       font-weight: 600;
     }
 
+    // The glyph is the badge: `help` is already a filled disc with the question
+    // mark knocked out of it, so a round background behind it drew a second,
+    // larger circle around the first. The box is sized to the glyph and centres
+    // it, since `hintIcon` lets the schema name any icon it likes.
     .ajf-hint-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       width: 16px;
       height: 16px;
-      border-radius: 50%;
-      background: var(--ajf-border);
       color: var(--ajf-text-muted);
-      font-size: 12px;
-      line-height: 16px;
+      font-size: 16px;
+      line-height: 1;
       cursor: help;
     }
   }
