@@ -842,7 +842,13 @@ export class AjfFormRendererService {
       const nodesPerSlide = instance.nodes != null ? instance.nodes.length / instance.reps : 0;
       for (let i = 0; i < instance.reps; i++) {
         const startNode = i * nodesPerSlide;
-        slideNodes.push(instance.nodes.slice(startNode, startNode + nodesPerSlide));
+        // Flattened, like `flatNodes` above: a node group inside the slide is a
+        // container, and its fields live one level down. Slicing alone would hand
+        // the repetition the group instance itself -- a node with no fieldType,
+        // which renders as an unknown field -- and none of the fields it holds.
+        slideNodes.push(
+          flattenNodesInstances(instance.nodes.slice(startNode, startNode + nodesPerSlide)),
+        );
       }
       instance.slideNodes = slideNodes;
     }

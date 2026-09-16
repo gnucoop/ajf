@@ -20,7 +20,7 @@
  *
  */
 
-import {AjfFieldInstance, AjfFieldType} from '@ajf/core/forms';
+import {AjfEmptyField, AjfFieldInstance, AjfFieldType, AjfNodeType} from '@ajf/core/forms';
 import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
@@ -85,14 +85,24 @@ export class AjfFieldRow implements OnDestroy {
    * Rows drop out on the host element rather than inside it, so that a hidden
    * field leaves no empty cell behind when rows are laid out in columns.
    *
-   * A formula field with no label carries no information of its own -- it only
-   * feeds other fields -- so it is kept out of the layout too.
+   * Three kinds of node carry no information of their own and are kept out of
+   * the layout: a container node, which is only a bracket around the fields it
+   * holds and has no fieldType to render; a formula field with no label, which
+   * only feeds other fields; and a note with no body -- the renderer synthesises
+   * one of those to carry a node group's label, and a group is meant to show
+   * nothing of itself.
    */
   @HostBinding('class.ajf-hidden-row')
   get hidden(): boolean {
     const node = this.instance?.node;
     if (node == null || this.instance.visible === false) {
       return true;
+    }
+    if (node.nodeType !== AjfNodeType.AjfField) {
+      return true;
+    }
+    if (node.fieldType === AjfFieldType.Empty) {
+      return !(node as AjfEmptyField).HTML;
     }
     return node.fieldType === AjfFieldType.Formula && node.label === '';
   }
