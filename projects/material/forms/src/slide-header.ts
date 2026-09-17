@@ -21,33 +21,28 @@
  */
 
 import {AjfSlideInstance, isRepeatingSlideInstance} from '@ajf/core/forms';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
-
-import {AjfFormIssues} from './slide-stats';
 
 /**
  * The bar at the top of every slide: its number and title, a completion
- * counter, a menu to jump to any other slide, previous/next paging, an alert
- * when the slide has failing fields, and a slot for the form's own action
- * buttons.
+ * counter, a menu to jump to any other slide, previous/next paging, and a slot
+ * for the form's own action buttons.
  *
- * Paging and error navigation belong to the renderer, which owns the page
- * slider, so they are raised as events rather than handled here.
+ * What the form still has failing is reported by the footer alone. Naming it
+ * here too cost a phone's whole header width to repeat something already on
+ * screen.
+ *
+ * Paging belongs to the renderer, which owns the page slider, so it is raised
+ * as an event rather than handled here.
  */
 @Component({
   selector: 'ajf-slide-header',
   templateUrl: 'slide-header.html',
   styleUrls: ['slide-header.scss'],
   encapsulation: ViewEncapsulation.None,
-  // Deliberately not OnPush: the completion counter, the issue count and the
-  // add/remove guards are read off mutable instance state through impure pipes,
+  // Deliberately not OnPush: the completion counter and the add/remove guards
+  // are read off mutable instance state through impure pipes,
   // which under OnPush would only be recomputed when an input identity changed.
 })
 export class AjfSlideHeader {
@@ -79,9 +74,6 @@ export class AjfSlideHeader {
    */
   @Input() group: UntypedFormGroup | null = null;
 
-  /** What the whole form still has failing, computed by the renderer. */
-  @Input() issues: AjfFormIssues | null = null;
-
   /**
    * Whether any slide of the form repeats. The repetition count sits inside the
    * jump trigger, so its slot is held open on every slide of such a form -- one
@@ -112,5 +104,4 @@ export class AjfSlideHeader {
   @Output() readonly jumpTo = new EventEmitter<AjfSlideInstance>();
   @Output() readonly prev = new EventEmitter<void>();
   @Output() readonly next = new EventEmitter<void>();
-  @Output() readonly gotoIssue = new EventEmitter<void>();
 }

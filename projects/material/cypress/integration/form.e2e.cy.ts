@@ -51,11 +51,15 @@ describe('ajf-form slide header', () => {
     cy.get('.ajf-slide-title .ajf-pill').should('exist');
   });
 
-  // The issue pill reports the whole form, not the slide on screen, so a form
-  // with nothing to validate never shows it.
-  it('leaves out the issue pill when no field is failing', () => {
+  // What the form still has failing is reported by the footer alone -- the
+  // header used to repeat it and gave up a phone's whole header width for it.
+  it('leaves the failing field count out of the header', () => {
     cy.visit('/mat-form/');
-    cy.get('.ajf-issue-pill').should('not.exist');
+    cy.get('.ajf-form-bar').should('not.contain.text', 'need attention');
+  });
+
+  it('leaves out the footer status when no field is failing', () => {
+    cy.visit('/mat-form/');
     cy.get('.ajf-form-footer-status').should('not.exist');
   });
 });

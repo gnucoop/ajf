@@ -2,7 +2,9 @@
   <form [class.ajf-form-readonly]="readonly" novalidate [formGroup]="fg!">
     <div class="ajf-form-container">
       <ng-container *ngIf="slides | async as curSlides">
-        <ng-container *ngIf="curSlides | ajfCurrentSlide : currentPage : hasStartMessage : hasEndMessage as cur">
+        <ng-container
+          *ngIf="curSlides | ajfCurrentSlide : currentPage : hasStartMessage : hasEndMessage as cur"
+        >
           <div class="ajf-form-bar" *ngIf="!hideTopToolbar">
             <ajf-slide-header
               [slide]="cur.slide"
@@ -13,11 +15,9 @@
               [total]="cur.total"
               [pages]="cur.pages"
               [group]="fg"
-              [issues]="curSlides | ajfFormIssues"
               (jumpTo)="goToSlide($event)"
               (prev)="goToPrevSlide()"
               (next)="goToNextSlide()"
-              (gotoIssue)="goToNextError()"
             >
               <!-- this content projection allows to add buttons on the slide header -->
               <ng-content select="[ajfFormTopToolbarButtons]"></ng-content>
@@ -121,10 +121,8 @@
               <ng-container *ngIf="curSlides | ajfFormIssues as issues">
                 <span class="ajf-form-footer-status" *ngIf="issues.fields > 0">
                   <mat-icon>error</mat-icon>
-                  {{
-                    '{{fields}} fields in {{slides}} slides need attention'
-                      | transloco : {fields: issues.fields, slides: issues.slides}
-                  }}
+                  {{ '{{fields}} fields in {{slides}} slides need attention' | transloco : {fields:
+                  issues.fields, slides: issues.slides} }}
                   <button type="button" class="ajf-btn--ghost" (click)="goToPrevError()">
                     <mat-icon>arrow_upward</mat-icon>
                   </button>
@@ -136,7 +134,6 @@
             </div>
           </ajf-page-slider>
         </div>
-
       </ng-container>
     </div>
   </form>

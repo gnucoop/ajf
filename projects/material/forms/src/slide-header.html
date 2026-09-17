@@ -28,9 +28,8 @@
       >{{ reps }} {{ 'repetitions' | transloco }}</span
     >
     <span class="ajf-pill" *ngIf="slide as s"
-      >{{ (s | ajfSlideCompletion : repIndex : group).done }}/{{
-        (s | ajfSlideCompletion : repIndex : group).total
-      }}</span
+      >{{ (s | ajfSlideCompletion : repIndex : group).done }}/{{ (s | ajfSlideCompletion : repIndex
+      : group).total }}</span
     >
     <mat-icon class="ajf-slide-caret" *ngIf="slide && canJump">arrow_drop_down</mat-icon>
   </button>
@@ -66,21 +65,6 @@
       <mat-icon>chevron_right</mat-icon>
     </button>
   </div>
-
-  <!-- Form-wide, not per-slide: the slide on screen is the one place the reader
-       can already see what is wrong. -->
-  <button
-    type="button"
-    class="ajf-pill ajf-pill--danger ajf-issue-pill"
-    *ngIf="issues && issues.fields > 0"
-    (click)="gotoIssue.emit()"
-  >
-    <mat-icon>error</mat-icon>
-    {{
-      '{{fields}} fields in {{slides}} slides need attention'
-        | transloco : {fields: issues.fields, slides: issues.slides}
-    }}
-  </button>
 
   <span class="ajf-slide-header-spacer"></span>
 
