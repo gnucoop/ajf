@@ -27,6 +27,14 @@ ajf-form {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+
+    // The renderer ships no button of its own, so this is a bare projection slot.
+    // Left in the layout while empty it would still count as a flex item of the
+    // header and take its 10px gap, leaving dead space after whatever the host
+    // did project.
+    &:empty {
+      display: none;
+    }
   }
 
   > form {
@@ -100,23 +108,114 @@ ajf-form {
   // The status lives inside the page slider's own bottom bar, so the form has a
   // single footer rather than one band per concern.
   ajf-page-slider > mat-toolbar.ajf-toolbar {
+    // Material pins a single row to a fixed height and forbids wrapping. Once
+    // the failing-field status and the slide readout cannot share a line, the
+    // bar is let grow into a second one instead of squeezing them: the break
+    // falls between the two, which are the two things it carries.
+    flex-wrap: wrap;
+    row-gap: 4px;
+    height: auto;
     min-height: 48px;
-    padding: 0 12px;
+    padding: 6px 12px;
+    white-space: normal;
     border-top: 1px solid var(--ajf-border);
     background: var(--ajf-band);
     color: var(--ajf-text-muted);
     font-family: var(--ajf-font-sans);
     font-size: 13px;
 
-    .mat-mdc-button {
+    // Every action in this bar is a bare glyph -- the slider's own paging buttons
+    // and the footer's jump-to-error arrows -- so they are given one shape here
+    // rather than each keeping the one its origin implies. Sized to the icon and
+    // rounded: a text button's 64px minimum width and its label padding are pure
+    // horizontal cost, the one thing a phone's bottom bar has none of.
+    .mat-mdc-button,
+    .ajf-form-footer-status .ajf-btn--ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      width: 36px;
+      min-width: 0;
+      height: 36px;
+      min-height: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: none;
       color: var(--ajf-text-muted);
+      text-decoration: none;
+
+      // Material sets this spacing to hold an icon off a label there is none of
+      // here, and it would push the glyph off centre.
+      .mat-icon {
+        width: 18px;
+        height: 18px;
+        margin: 0;
+        font-size: 18px;
+      }
+
+      &:hover:not(:disabled) {
+        border-color: transparent;
+        text-decoration: none;
+      }
     }
+
+    // The paging buttons get their round hover from Material's state layer, which
+    // is tinted with the host theme's primary; the error arrows are plain
+    // buttons and had no hover at all. Both are pointed at the same ink here, so
+    // the two behave alike and follow the token palette rather than the host's.
+    .mat-mdc-button {
+      --mat-text-button-state-layer-color: var(--ajf-text);
+    }
+
+    .ajf-footer-jump {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .ajf-form-footer-status .ajf-btn--ghost:hover:not(:disabled) {
+      // 8%: the opacity Material gives its own hover state layer.
+      background: color-mix(in srgb, var(--ajf-text) 8%, transparent);
+    }
+  }
+
+  // The footer is projected into the page slider's toolbar, which lays its
+  // children out with flex: a wrapper box here would take its own share of the
+  // free space and strand the slide count mid-bar. `display: contents` drops the
+  // box so the status and the count are laid out by the toolbar itself, and the
+  // count's auto margin can then absorb the whole gap -- auto margins are served
+  // before flex-grow, so it wins over the slider's own spacer and comes to rest
+  // against the paging buttons.
+  .ajf-form-footer {
+    display: contents;
+  }
+
+  // The slider's own spacer grows to push its paging buttons to the right, and
+  // flex-grow is served before auto margins, so it would swallow the gap the
+  // count needs to cross. Stood down only while the count is there to take over
+  // the job -- with no bottom bar, or on a single page form, the spacer is still
+  // what keeps those buttons on the right.
+  ajf-page-slider > mat-toolbar.ajf-toolbar:has(.ajf-slide-count) .ajf-spacer {
+    flex-grow: 0;
+  }
+
+  .ajf-slide-count {
+    // Right margin, not just the left auto one: the paging buttons next to it
+    // are now sized to their glyphs, so the readout would otherwise run into
+    // them.
+    font-family: var(--ajf-font-mono);
+    margin-right: 8px;
+    margin-left: auto;
+    color: var(--ajf-text-faint);
   }
 
   .ajf-form-footer-status {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 6px;
+    min-width: 0;
     color: var(--ajf-danger);
 
     .mat-icon {

@@ -20,14 +20,13 @@
  *
  */
 
-import {AjfSlideInstance, isRepeatingSlideInstance} from '@ajf/core/forms';
+import {AjfSlideInstance} from '@ajf/core/forms';
 import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
-import {UntypedFormGroup} from '@angular/forms';
 
 /**
- * The bar at the top of every slide: its number and title, a completion
- * counter, a menu to jump to any other slide, previous/next paging, and a slot
- * for the form's own action buttons.
+ * The bar at the top of every slide: its number and title, a menu to jump to any
+ * other slide, previous/next paging, and a slot for the form's own action
+ * buttons.
  *
  * What the form still has failing is reported by the footer alone. Naming it
  * here too cost a phone's whole header width to repeat something already on
@@ -41,9 +40,9 @@ import {UntypedFormGroup} from '@angular/forms';
   templateUrl: 'slide-header.html',
   styleUrls: ['slide-header.scss'],
   encapsulation: ViewEncapsulation.None,
-  // Deliberately not OnPush: the completion counter and the add/remove guards
-  // are read off mutable instance state through impure pipes,
-  // which under OnPush would only be recomputed when an input identity changed.
+  // Deliberately not OnPush: slide visibility and repetition counts are mutated
+  // in place, so the jump menu and the repetition pill would go stale under a
+  // strategy that only re-checks when an input identity changes.
 })
 export class AjfSlideHeader {
   /** Absent while a start or end message page is on screen. */
@@ -52,38 +51,11 @@ export class AjfSlideHeader {
   /** The number shown in the badge, already offset by any start message. */
   @Input() displayNumber = 1;
 
-  /** Which repetition of a repeating slide this header belongs to. */
-  @Input() repIndex = 0;
-
   /** Every slide of the form, for the jump menu. */
   @Input() slides: AjfSlideInstance[] = [];
 
-  /** How many repetitions a repeating slide currently has; 0 when not repeating. */
-  @Input() reps = 0;
-
-  /** How many visible slides the form has, for the "slide N of M" readout. */
-  @Input() total = 0;
-
   /** How many pages the slider holds, repetitions and message pages included. */
   @Input() pages = 0;
-
-  /**
-   * The form's control group, which the completion counter reads values from.
-   * Not named `formGroup`: that is ReactiveFormsModule's own selector, and would
-   * bind FormGroupDirective to this element too.
-   */
-  @Input() group: UntypedFormGroup | null = null;
-
-  /**
-   * Whether any slide of the form repeats. The repetition count sits inside the
-   * jump trigger, so its slot is held open on every slide of such a form -- one
-   * width for the whole form beats a trigger that jumps by the width of a pill
-   * whenever a repeating slide comes up. Forms with no repeating slide never
-   * reserve the space.
-   */
-  get hasRepeatingSlides(): boolean {
-    return this.slides.some(s => isRepeatingSlideInstance(s));
-  }
 
   /**
    * Whether the form has anywhere to page to. A single page form gets no arrows

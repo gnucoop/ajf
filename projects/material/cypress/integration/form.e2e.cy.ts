@@ -2,12 +2,19 @@ describe('ajf-form slide header', () => {
   // The slide strip and the title toolbar were replaced by a single slide header
   // bar, so the only mat-toolbar left in the renderer is the page slider's own
   // navigation bar.
-  it('shows the slide header with the slide label and the save button', () => {
+  it('shows the slide header with the slide label', () => {
     cy.visit('/mat-form/');
     cy.get('.ajf-form-bar').should('have.length', 1);
     cy.get('.ajf-form-bar').should('contain.text', 'Number Field Example');
-    cy.get('.ajf-form-bar').should('contain.text', 'Save');
     cy.get('mat-toolbar').should('have.length', 1);
+  });
+
+  // The renderer ships no save button of its own: the header holds a projection
+  // slot open, and the e2e app projects nothing into it.
+  it('shows no save button unless the host projects one', () => {
+    cy.visit('/mat-form/');
+    cy.get('.ajf-form-bar').should('not.contain.text', 'Save');
+    cy.get('.ajf-form-save').should('be.empty');
   });
 
   it('hides the slide header when hideTopToolbar is set', () => {
@@ -19,7 +26,7 @@ describe('ajf-form slide header', () => {
   it('shows the slide header when hideTopToolbar is explicitly false', () => {
     cy.visit('/mat-form/?hidetoolbar=false');
     cy.get('.ajf-form-bar').should('have.length', 1);
-    cy.get('.ajf-form-bar').should('contain.text', 'Save');
+    cy.get('.ajf-form-bar').should('contain.text', 'Number Field Example');
   });
 
   // topBar is deprecated: the slide jump menu is always available from the
@@ -46,9 +53,12 @@ describe('ajf-form slide header', () => {
     cy.get('.mat-mdc-menu-panel').should('contain.text', 'Number Field Example');
   });
 
-  it('counts the filled fields of the slide', () => {
+  // The jump trigger carries the slide's number and name and nothing else: the
+  // pills that used to sit there -- filled fields, repetition count -- read as
+  // anything but what they counted, and took the width the name needs.
+  it('keeps the pills out of the jump trigger', () => {
     cy.visit('/mat-form/');
-    cy.get('.ajf-slide-title .ajf-pill').should('exist');
+    cy.get('.ajf-slide-title .ajf-pill').should('not.exist');
   });
 
   // What the form still has failing is reported by the footer alone -- the
@@ -78,11 +88,9 @@ describe('ajf-form single slide', () => {
     cy.get('mat-toolbar button[aria-label="Forward"]').should('not.exist');
   });
 
-  it('still shows the slide title and the save button', () => {
+  it('still shows the slide title', () => {
     cy.visit('/mat-form/?singleslide=true');
     cy.get('.ajf-form-bar').should('contain.text', 'Number Field Example');
-    cy.get('.ajf-form-bar').should('contain.text', 'Save');
-    cy.get('.ajf-slide-title .ajf-pill').should('exist');
   });
 
   it('renders the paging controls once there is a second slide', () => {

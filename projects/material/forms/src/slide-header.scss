@@ -83,28 +83,6 @@ ajf-slide-header {
     }
   }
 
-  .ajf-slide-title .ajf-pill {
-    justify-content: center;
-    min-width: 3.4em;
-  }
-
-  // Wide enough for a two digit count, so the trigger holds still as
-  // repetitions are added and removed.
-  .ajf-slide-title .ajf-reps-pill {
-    min-width: 8em;
-  }
-
-  // Holds its space without being read out on a slide that does not repeat.
-  .ajf-pill-placeholder {
-    visibility: hidden;
-  }
-
-  .ajf-slide-count {
-    @include ajf.mono;
-
-    color: var(--ajf-text-faint);
-  }
-
   .ajf-slide-nav {
     display: flex;
     gap: 8px;

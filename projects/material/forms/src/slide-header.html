@@ -20,17 +20,6 @@
         [innerHTML]="s.node.label | transloco"
       ></span>
     </span>
-
-    <span
-      class="ajf-pill ajf-reps-pill"
-      *ngIf="hasRepeatingSlides"
-      [class.ajf-pill-placeholder]="reps < 1"
-      >{{ reps }} {{ 'repetitions' | transloco }}</span
-    >
-    <span class="ajf-pill" *ngIf="slide as s"
-      >{{ (s | ajfSlideCompletion : repIndex : group).done }}/{{ (s | ajfSlideCompletion : repIndex
-      : group).total }}</span
-    >
     <mat-icon class="ajf-slide-caret" *ngIf="slide && canJump">arrow_drop_down</mat-icon>
   </button>
 
@@ -67,10 +56,6 @@
   </div>
 
   <span class="ajf-slide-header-spacer"></span>
-
-  <span class="ajf-slide-count" *ngIf="canNavigate && total > 0"
-    >{{ 'slide' | transloco }} {{ displayNumber }} {{ 'of' | transloco }} {{ total }}</span
-  >
 
   <ng-content></ng-content>
 </div>
