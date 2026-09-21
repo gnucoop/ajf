@@ -3,7 +3,29 @@
 ajf-checkbox-group-item {
   display: inline-flex;
 
+  // A flex item of the choices container: without this a long label would hold
+  // the row open wider than the field instead of wrapping inside the button.
+  min-width: 0;
+
   .mat-mdc-button {
+    // Set as tokens, not as properties: Material reads its own metrics through
+    // these, and its rules carry more specificity than anything reachable from
+    // here -- the padding in particular is set by
+    // `.mat-mdc-button:has(mat-icon)`, which no single-class rule of ours can
+    // outweigh. Declaring the token puts the value where Material looks for it.
+    //
+    // The weight is one of them: on a themed host the button label is a medium
+    // weight, right for a call to action and wrong for a choice, which is body
+    // text the reader scans.
+    --mdc-text-button-label-text-weight: 400;
+    --mat-text-button-horizontal-padding: 14px;
+    --mat-text-button-with-icon-horizontal-padding: 14px;
+
+    font-weight: 400;
+
+    // The theme gives the button a fixed height, which a label that wraps to a
+    // third line would spill out of.
+    height: auto;
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
@@ -11,7 +33,6 @@ ajf-checkbox-group-item {
     box-sizing: border-box;
     min-width: 0;
     min-height: var(--ajf-control-h, 44px);
-    padding: 0 14px;
     border: 1px solid var(--ajf-border-strong, #d5cfc6);
     border-radius: var(--ajf-radius, 4px);
     background: var(--ajf-surface, #fff);
@@ -24,11 +45,22 @@ ajf-checkbox-group-item {
     }
 
     .mat-icon {
+      // Never gives up its room: the box is square and the glyph is drawn at the
+      // box's size, so a shrunk icon shows a checkbox cut in half. The label is
+      // what yields as the field narrows.
+      flex: 0 0 auto;
       width: 18px;
       height: 18px;
       margin: 0;
       color: var(--ajf-text-faint, #a49c92);
       font-size: 18px;
+    }
+
+    // Wraps rather than pushing the row wider or squeezing the box beside it.
+    .mdc-button__label {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      text-align: left;
     }
   }
 
