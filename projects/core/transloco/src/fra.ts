@@ -55,7 +55,6 @@ export const FRA: Translation = {
   'Condition...': 'État...',
   'Branches': 'Branches',
   'Repetitions': 'Répétitions',
-  'Min repetitions': 'Nombre minimum de répétitions',
   'Max repetitions': 'Nombre maximal de répétitions',
   'Field size': 'Taille du champ',
   'Size': 'Taille',

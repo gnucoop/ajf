@@ -54,7 +54,6 @@ export const ITA: Translation = {
   'Condition...': 'Condizione...',
   'Branches': 'rami',
   'Repetitions': 'ripetizioni',
-  'Min repetitions': 'Ripetizioni minime',
   'Max repetitions': 'Ripetizioni massime',
   'Field size': 'Dimensione del campo',
   'Size': 'Dimensione',

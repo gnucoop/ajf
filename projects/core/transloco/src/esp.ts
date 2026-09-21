@@ -55,7 +55,6 @@ export const ESP: Translation = {
   'Condition...': 'Condición...',
   'Branches': 'Sucursales',
   'Repetitions': 'Repeticiones',
-  'Min repetitions': 'Repeticiones mínimas',
   'Max repetitions': 'Repeticiones máximas',
   'Field size': 'Tamaño del campo',
   'Size': 'Tamaño',

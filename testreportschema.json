@@ -1398,7 +1398,7 @@
       },
       {
         "widgetType": 3,
-        "htmlText": "<h1>Multiple Slide with history disabled</h1>",
+        "htmlText": "<h1>Multiple Slide</h1>",
         "styles": {"width": "100%", "dislay": "block", "marginTop": "30px"},
         "visibility": {"condition": "true"}
       },

@@ -335,9 +335,8 @@ export const formSchema: any = {
       parent: 4,
       id: 500,
       name: 'repeat',
-      label: 'Multiple Slide with history disabled',
+      label: 'Multiple Slide',
       nodeType: 4,
-      disableRemoval: true,
       nodes: [
         {
           parent: 500,

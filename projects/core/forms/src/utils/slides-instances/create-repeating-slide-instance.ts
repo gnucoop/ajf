@@ -47,7 +47,6 @@ export function createRepeatingSlideInstance(
     node: instance.node,
     slideNodes: [],
     formulaReps: instance.formulaReps,
-    disableRemoval: instance.disableRemoval,
     reps: 0,
     nodes: [],
     flatNodes: [],

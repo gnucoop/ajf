@@ -44,11 +44,6 @@ export interface AjfRepeatingNodeInstance extends AjfBaseNodeInstance {
   reps: number;
 
   /**
-   * True disable all slides eccept the last
-   */
-  disableRemoval?: boolean;
-
-  /**
    * True if can add a new slide.
    */
   canAdd?: boolean;

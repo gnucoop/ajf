@@ -54,7 +54,6 @@ export const PRT: Translation = {
   'Condition...': 'Doença...',
   'Branches': 'Departamentos',
   'Repetitions': 'Repetições',
-  'Min repetitions': 'Repetições mínimas',
   'Max repetitions': 'Repetições máximas',
   'Field size': 'Tamanho do Campos',
   'Size': 'Tamanho',

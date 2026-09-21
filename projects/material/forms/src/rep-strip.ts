@@ -22,13 +22,7 @@
 
 import {AjfRepeatingSlideInstance} from '@ajf/core/forms';
 import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 
 /**
  * The pager for a repeating slide: one button per repetition plus add and remove
@@ -40,9 +34,9 @@ import {
   templateUrl: 'rep-strip.html',
   styleUrls: ['rep-strip.scss'],
   encapsulation: ViewEncapsulation.None,
-  // Deliberately not OnPush: the completion counter, the issue count and the
-  // add/remove guards are read off mutable instance state through impure pipes,
-  // which under OnPush would only be recomputed when an input identity changed.
+  // Deliberately not OnPush: `reps`, `canAdd` and `canRemove` are mutated in
+  // place on the slide instance, so the guards below would go stale under a
+  // strategy that only re-checks when an input identity changes.
 })
 export class AjfRepStrip {
   @Input() slide!: AjfRepeatingSlideInstance;
@@ -63,14 +57,21 @@ export class AjfRepStrip {
   @Output() readonly add = new EventEmitter<void>();
   @Output() readonly remove = new EventEmitter<void>();
 
+  /**
+   * A repetition count driven by a formula is not the reader's to change:
+   * `AjfFormRendererService.addGroup` and `removeGroup` both refuse the call
+   * outright, so without this the buttons would sit enabled and do nothing.
+   */
+  private get manualReps(): boolean {
+    return this.slide.formulaReps == null;
+  }
+
   get canAdd(): boolean {
-    return (
-      !!this.slide.canAdd && !(this.slide.node.disableRemoval && !this.slide.valid)
-    );
+    return this.manualReps && !!this.slide.canAdd;
   }
 
   get canRemove(): boolean {
-    return !!this.slide.canRemove && !this.slide.node.disableRemoval;
+    return this.manualReps && !!this.slide.canRemove;
   }
 
   static ngAcceptInputType_readonly: BooleanInput;

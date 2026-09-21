@@ -54,7 +54,6 @@ export const ETH: Translation = {
   'Condition...': 'ስቀልን ምስል4',
   'Branches': 'ስቀልን ምስል5',
   'Repetitions': 'ስቀልን ምስል6',
-  'Min repetitions': 'ስቀልን ምስል7',
   'Max repetitions': 'ስቀልን ምስል8',
   'Field size': 'ስቀልን ምስል9',
   'Size': 'ካሜራ0',

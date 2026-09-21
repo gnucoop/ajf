@@ -54,7 +54,6 @@ export const ARA: Translation = {
   'Condition...': 'Condition...',
   'Branches': 'Branches',
   'Repetitions': 'Repetitions',
-  'Min repetitions': 'Min repetitions',
   'Max repetitions': 'Max repetitions',
   'Field size': 'Field size',
   'Size': 'Size',

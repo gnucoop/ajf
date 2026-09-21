@@ -81,15 +81,6 @@ import {AjfFbWarningConditionEditorDialog} from './warning-condition-editor-dial
 import {MatCheckbox} from '@angular/material/checkbox';
 import {AjfNodePropertiesNameMatchValidator} from './node-properties-name-validator';
 
-function checkRepsValidity(c: AbstractControl): {[key: string]: any} | null {
-  const minReps = c.value.minReps;
-  const maxReps = c.value.maxReps;
-  if (minReps && maxReps && minReps > maxReps) {
-    return {reps: 'Min repetions cannot be greater than max repetitions'};
-  }
-  return null;
-}
-
 function checkValueLimitsValidity(c: AbstractControl): {[key: string]: any} | null {
   const minValue = c.value.minValue;
   const maxValue = c.value.maxValue;
@@ -668,12 +659,9 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
           const formulaReps = rn.formulaReps != null ? rn.formulaReps.formula : null;
 
           controls.formulaReps = [formulaReps];
-          controls.minReps = rn.minReps;
           controls.maxReps = rn.maxReps;
 
           this._curFormulaReps = formulaReps;
-
-          validators.push(checkRepsValidity);
         }
 
         const {node} = n;

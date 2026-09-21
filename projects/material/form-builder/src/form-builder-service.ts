@@ -1204,7 +1204,9 @@ export class AjfFormBuilderService {
               properties.formulaReps != null
                 ? createFormula({formula: properties.formulaReps})
                 : undefined;
-            node.minReps = properties.minReps;
+            // minReps is deliberately left alone: the builder no longer offers it,
+            // and assigning the missing property would wipe the value a schema
+            // authored elsewhere came in with. Absent, it deserialises as 1.
             node.maxReps = properties.maxReps;
           }
 
