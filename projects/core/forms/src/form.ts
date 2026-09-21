@@ -362,9 +362,11 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
             nextIdx = 0;
           }
 
-          this.formSlider.slide({
-            to: move ? errors[nextIdx] - 1 : errors[prevIdx] - 1,
-          });
+          // Positions count visible slides, pages count what the slider shows, and
+          // a start message takes the first of those: the same offset
+          // `currentPosition` takes out above has to go back in here.
+          const target = (move ? errors[nextIdx] : errors[prevIdx]) - 1 + +this.hasStartMessage;
+          this.formSlider.slide({to: target});
           this._changeDetectorRef.detectChanges();
         });
     }

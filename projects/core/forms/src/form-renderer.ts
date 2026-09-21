@@ -28,6 +28,7 @@ import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/fo
 import {format} from 'date-fns';
 import {
   BehaviorSubject,
+  combineLatest,
   from,
   Observable,
   of as obsOf,
@@ -42,6 +43,7 @@ import {
   pairwise,
   scan,
   share,
+  shareReplay,
   startWith,
   switchMap,
   tap,
@@ -400,25 +402,24 @@ export class AjfFormRendererService {
    * Init the errors stream. Start on valueChanged
    */
   private _initErrorsStreams(): void {
-    this._errorPositions = this._valueChanged.pipe(
-      withLatestFrom(this._nodes, this._form),
-      filter(
-        ([_, __, form]) =>
-          form != null &&
-          (
-            form as {
-              form: AjfForm | null;
-              context?: AjfContext;
-            }
-          ).form != null,
-      ),
-      map(([_, nodes, formDef]) => {
-        const form = (
-          formDef as {
-            form: AjfForm | null;
-            context?: AjfContext;
-          }
-        ).form as AjfForm;
+    // Recomputed when a value moves *or* when the tree does, and seeded by the
+    // tree. Driven off `_valueChanged` alone the stream stayed silent on a form
+    // that was only opened -- a saved draft, say, which never sees a value
+    // change -- and the renderer's error navigation, which reads the latest
+    // positions, had nothing to move to while the footer was already reporting
+    // the failing fields, counted off the instances themselves.
+    //
+    // The form is read from the subject rather than combined in: `_form.next()`
+    // notifies the node builder before this stream, and that builder feeds
+    // `_nodes` synchronously, so a `withLatestFrom(this._form)` here is still
+    // holding the previous value -- null, on the first form -- while the tree it
+    // is being handed was built from the new one. The positions belong to the
+    // tree anyway; the form only takes the verdict.
+    this._errorPositions = combineLatest([
+      this._valueChanged.pipe(startWith(undefined)),
+      this._nodes,
+    ]).pipe(
+      map(([_, nodes]) => {
         let currentPosition = 0;
         const errors: number[] = [];
         nodes.forEach(node => {
@@ -444,16 +445,27 @@ export class AjfFormRendererService {
             }
           }
         });
-        form.valid = errors.length == 0;
+        const formDef = this._form.getValue();
+        if (formDef != null && formDef.form != null) {
+          formDef.form.valid = errors.length == 0;
+        }
         this._slidesNum.next(currentPosition);
         return errors;
       }),
-      share(),
+      // Replayed, not just multicast: the renderer wires its error-navigation
+      // handler only once the page slider exists, which is later than the first
+      // recount, and a plain `share()` left that handler with no positions until
+      // the next one.
+      shareReplay({bufferSize: 1, refCount: true}),
     );
+    // Replayed as well: `startWith` sits upstream of the multicast, so it only
+    // ever served the subscriber that connected the stream. Anyone subscribing
+    // later -- and the renderer's own validity subscription can be one of them --
+    // got nothing at all until the next recount.
     this._errors = this._errorPositions.pipe(
       map(e => (e != null ? e.length : 0)),
       startWith(0),
-      share(),
+      shareReplay({bufferSize: 1, refCount: true}),
     );
   }
 
