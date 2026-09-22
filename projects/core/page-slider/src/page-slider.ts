@@ -81,6 +81,20 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   @Input() duration = 300;
 
+  /**
+   * True while the page on screen has more below the fold. The slider hides its
+   * scrollbars behind a thin, quiet one, and a page that starts with a screenful
+   * of content gives the reader no reason to suspect there is more of it: this
+   * drives the hint that says so.
+   */
+  showScrollHint = false;
+
+  /**
+   * How much has to be left below the fold before the hint is worth showing --
+   * a couple of lines, rather than the last pixel of a rounding error.
+   */
+  private static readonly _scrollHintThreshold = 24;
+
   private _orientation: AjfPageSliderOrientation = 'horizontal';
   get orientation(): AjfPageSliderOrientation {
     return this._orientation;
@@ -138,6 +152,7 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
 
   private _animating = false;
   private _pagesSub: Subscription = Subscription.EMPTY;
+  private _scrollHintTeardown: () => void = () => {};
 
   private _currentOrigin: Point | null = null;
   private _mouseWheelEvt: EventEmitter<MousheWheelMove> = new EventEmitter<MousheWheelMove>();
@@ -193,7 +208,9 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     this._pagesSub = this.pages.changes.subscribe(() => {
       this._onSlidesChange();
       this._cdr.detectChanges();
+      this._updateScrollHint();
     });
+    this._watchScrollHint();
   }
 
   ngOnDestroy(): void {
@@ -201,6 +218,68 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     this._mouseWheelEvt.complete();
     this._mouseWheelSub.unsubscribe();
     this._orientationChange.complete();
+    this._scrollHintTeardown();
+  }
+
+  /**
+   * Pages down by most of a screenful, from the hint. Most, not all: an overlap
+   * keeps the reader's place.
+   */
+  scrollHintDown(): void {
+    const el = this._scroller();
+    if (el != null) {
+      el.scrollBy({top: Math.round(el.clientHeight * 0.8), behavior: 'smooth'});
+    }
+  }
+
+  /**
+   * The element the page on screen scrolls with, or null when it does not
+   * scroll at all.
+   */
+  private _scroller(): HTMLElement | null {
+    const page = this._getCurrentPage();
+    return page != null ? page.scroller : null;
+  }
+
+  /**
+   * Listens for everything that can change how much is left below the fold: the
+   * page being scrolled -- in the capture phase, since the event does not bubble
+   * -- and the slider being resized, which covers the content growing as a form
+   * is filled in.
+   */
+  private _watchScrollHint(): void {
+    const body = this.body != null ? (this.body.nativeElement as HTMLElement) : null;
+    if (body == null) {
+      return;
+    }
+    const onScroll = () => this._updateScrollHint();
+    body.addEventListener('scroll', onScroll, true);
+
+    let ro: ResizeObserver | undefined;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(() => this._updateScrollHint());
+      ro.observe(body);
+    }
+
+    this._scrollHintTeardown = () => {
+      body.removeEventListener('scroll', onScroll, true);
+      ro?.disconnect();
+      this._scrollHintTeardown = () => {};
+    };
+
+    // The pages have not been laid out yet on the check that gets us here.
+    setTimeout(() => this._updateScrollHint());
+  }
+
+  private _updateScrollHint(): void {
+    const el = this._scroller();
+    const more =
+      el != null &&
+      el.scrollHeight - el.scrollTop - el.clientHeight > AjfPageSlider._scrollHintThreshold;
+    if (more !== this.showScrollHint) {
+      this.showScrollHint = more;
+      this._cdr.markForCheck();
+    }
   }
 
   switchOrientation(): void {
@@ -381,6 +460,8 @@ export class AjfPageSlider implements AfterContentInit, OnDestroy {
     player.onDone(() => {
       this._animating = false;
       this._pageScrollFinish.emit();
+      // A different page, with its own content and its own scroll extent.
+      this._updateScrollHint();
     });
     player.play();
   }

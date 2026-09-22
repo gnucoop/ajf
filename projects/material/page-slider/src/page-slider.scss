@@ -8,6 +8,9 @@ ajf-page-slider {
     display: block;
     overflow: hidden;
     height: 100%;
+    // The anchor for the scroll hint, which has to stay put while the page
+    // behind it scrolls.
+    position: relative;
 
     > .ajf-page-slider-body {
       display: flex;
@@ -23,13 +26,93 @@ ajf-page-slider {
         height: 100%;
       }
 
+      // Basis zero, not auto: a page is sized by its share of the slider, and
+      // with `auto` the browser adds its scrollbar to that share instead of
+      // taking it out of it. The page then overhangs the slider's clip by the
+      // width of the bar, and the bar is exactly what gets cut off -- all of it
+      // but the one pixel on the edge. The pages carry no in-flow content of
+      // their own (the content box inside them is positioned), so there is no
+      // intrinsic size to lose here.
       > ajf-page-slider-item {
-        flex: 1 0 auto;
+        flex: 1 0 0;
       }
     }
   }
 
   .ajf-spacer {
     flex: 1 0 auto;
+  }
+
+  // ---- "More below" hint ----
+  // A fade into the page's own background with a chevron riding on it. The fade
+  // lets clicks through to the fields underneath; only the chevron takes them.
+  .ajf-scroll-hint {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 1;
+    height: 56px;
+    padding-bottom: 4px;
+    background: linear-gradient(
+      to top,
+      var(--ajf-surface, #ffffff) 15%,
+      color-mix(in srgb, var(--ajf-surface, #ffffff) 0%, transparent)
+    );
+    pointer-events: none;
+    // Hidden rather than merely transparent: an invisible button is still in
+    // the tab order, and this one has nothing to offer a reader who cannot see
+    // that the page runs on. Visibility flips at once on the way in and only
+    // after the fade on the way out, rather than being interpolated -- which
+    // would leave it reading as hidden for the first frame of its own entrance.
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+
+    &.ajf-visible {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity 0.25s ease, visibility 0s;
+    }
+
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--ajf-accent, #0f4c5c);
+      cursor: pointer;
+      pointer-events: auto;
+
+      .mat-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 32px;
+        line-height: 32px;
+        animation: ajf-scroll-hint-bounce 1.6s ease-in-out infinite;
+      }
+    }
+  }
+}
+
+@keyframes ajf-scroll-hint-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+// Nobody asked for a chevron that never stops moving.
+@media (prefers-reduced-motion: reduce) {
+  ajf-page-slider .ajf-scroll-hint button .mat-icon {
+    animation: none;
   }
 }

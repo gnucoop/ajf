@@ -87,6 +87,15 @@ export class AjfPageSliderItem implements OnDestroy {
   private _resizeEvent: EventEmitter<void> = new EventEmitter<void>();
   private _resizeSub: Subscription = Subscription.EMPTY;
 
+  /**
+   * The element that scrolls when the page holds more than fits: the host
+   * itself, which carries `overflow: auto`. Exposed for the slider, which
+   * reports how much of it is left below the fold.
+   */
+  get scroller(): HTMLElement {
+    return this._el.nativeElement as HTMLElement;
+  }
+
   constructor(private _el: ElementRef, private _renderer: Renderer2) {
     if (typeof ResizeObserver !== 'undefined') {
       this._resizeObserver = new ResizeObserver(() => this._onResize());

@@ -4,6 +4,16 @@
     class="ajf-page-slider-body">
     <ng-content></ng-content>
   </div>
+  <!-- Says that the page on screen carries more than fits, and pages down when
+       clicked. Sits outside the page, since the page is the element that
+       scrolls and a hint inside it would scroll away with the content it is
+       reporting on -- and after it, because the body carries the transform that
+       pages the slider, which makes it paint over anything declared earlier. -->
+  <div class="ajf-scroll-hint" [class.ajf-visible]="showScrollHint">
+    <button type="button" aria-label="Scroll down" (click)="scrollHintDown()">
+      <mat-icon>keyboard_arrow_down</mat-icon>
+    </button>
+  </div>
 </div>
 <mat-toolbar *ngIf="!hideNavigationButtons" class="ajf-toolbar">
   <ng-content select=[ajfPageSliderBar]></ng-content>

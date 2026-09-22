@@ -2,11 +2,6 @@ ajf-page-slider-item {
   display: block;
   position: relative;
   overflow: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
   .ajf-page-slider-item-content {
     position: absolute;
@@ -29,5 +24,59 @@ ajf-page-slider-item {
       min-width: 100%;
       min-height: 100%;
     }
+  }
+}
+
+// The bar a slide taller than the page scrolls with. It used to be hidden
+// outright, which left a long list of fields looking like it ended at the fold,
+// and each host had to put a bar back on its own.
+//
+// Its colour is a host's to set, through `--ajf-scrollbar` and, for the pointer
+// state, `--ajf-scrollbar-hover`: an application with a palette of its own
+// usually wants the bar in it. Unset, it falls back to a tone mixed from the
+// ambient text colour, which follows either palette on its own -- the idiom the
+// form builder's drawer already uses.
+//
+// Qualified by the slider so that the two element selectors outweigh the
+// app-wide scrollbar rules a host application is likely to carry
+// (`body ::-webkit-scrollbar` and friends), which would otherwise repaint this
+// one in the host's accent. An item is never rendered outside a slider anyway.
+ajf-page-slider ajf-page-slider-item {
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: var(--ajf-scrollbar, color-mix(in srgb, currentColor 25%, transparent));
+  }
+
+  // A host that names only the one colour gets it in both states, which is the
+  // quieter reading of what it asked for.
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(
+      --ajf-scrollbar-hover,
+      var(--ajf-scrollbar, color-mix(in srgb, currentColor 40%, transparent))
+    );
+  }
+}
+
+// The standard properties, for the engines that have nothing else -- Firefox.
+// Gated rather than declared alongside the rules above, because where both are
+// understood the standard ones win, and `scrollbar-width` hands the bar back to
+// the platform: on a system with overlay scrollbars that means no bar at all
+// until something scrolls the page natively, which the slider's own wheel
+// handling makes rare. Styling the pseudo-elements instead gets a bar that is
+// always there and always ours.
+@supports not selector(::-webkit-scrollbar) {
+  ajf-page-slider ajf-page-slider-item {
+    scrollbar-width: thin;
+    scrollbar-color: var(--ajf-scrollbar, color-mix(in srgb, currentColor 25%, transparent))
+      transparent;
   }
 }
