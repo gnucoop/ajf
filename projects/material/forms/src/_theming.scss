@@ -87,6 +87,19 @@ $_m2-control-border-mix: 32%;
   --ajf-accent-hover: color-mix(in srgb, #{$primary} 85%, #{$on-primary});
   // Sits on the filled accent, so it is tinted with the accent's own contrast.
   --ajf-kbd-bg: color-mix(in srgb, #{$on-primary} 22%, transparent);
+  // What a filled button falls back to once disabled: the accent gone, a flat
+  // neutral in its place, and the ordinary text colour on top -- readable on
+  // either palette, where the accent's contrast colour is not.
+  --ajf-disabled-bg: color-mix(
+    in srgb,
+    #{mat.get-theme-color($theme, on-surface)} 12%,
+    #{mat.get-theme-color($theme, surface)}
+  );
+  --ajf-disabled-fg: color-mix(
+    in srgb,
+    #{mat.get-theme-color($theme, on-surface)} 65%,
+    #{mat.get-theme-color($theme, surface)}
+  );
 }
 
 @mixin _m2($theme) {
@@ -108,6 +121,10 @@ $_m2-control-border-mix: 32%;
   --ajf-danger-bg: color-mix(in srgb, #{$warn} 10%, #{$card});
   --ajf-text-faint: color-mix(in srgb, #{$secondary} 70%, transparent);
   --ajf-kbd-bg: color-mix(in srgb, #{$on-primary} 22%, transparent);
+  // See the M3 branch: disabled, a filled button goes flat neutral and keeps
+  // the ordinary text colour.
+  --ajf-disabled-bg: color-mix(in srgb, #{$text} 12%, #{$card});
+  --ajf-disabled-fg: color-mix(in srgb, #{$text} 65%, #{$card});
 }
 
 /// Map an Angular Material theme onto the AJF form tokens.

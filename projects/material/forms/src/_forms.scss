@@ -55,10 +55,16 @@ $_light: (
   danger: #b8362b,
   danger-bg: #fdf1ef,
   // No Material role covers these: a third text tone, the hover state of a
-  // filled button, and the chip a keyboard shortcut sits in.
+  // filled button, the chip a keyboard shortcut sits in, and the flat pair a
+  // filled button falls back to once it is disabled.
   text-faint: #a49c92,
   accent-hover: #0c3d4a,
   kbd-bg: rgb(255 255 255 / 22%),
+  disabled-bg: #e6e2dc,
+  // Muted rather than the full text tone: on a flat grey fill the label is the
+  // only thing left saying the button is out of reach, so it reads a step back
+  // from body text while staying legible (~6:1 on the fill above).
+  disabled-fg: #5a544c,
 );
 
 // The same paper character, inverted rather than flattened to neutral grey.
@@ -79,6 +85,9 @@ $_dark: (
   text-faint: #7a736a,
   accent-hover: #8fcedf,
   kbd-bg: rgb(0 0 0 / 22%),
+  disabled-bg: #424242,
+  // The same step back, taken the other way on a dark fill.
+  disabled-fg: #c9c3bb,
 );
 
 @mixin palette($literals) {
@@ -92,6 +101,8 @@ $_dark: (
   --ajf-text-faint: #{map.get($literals, text-faint)};
   --ajf-accent-hover: #{map.get($literals, accent-hover)};
   --ajf-kbd-bg: #{map.get($literals, kbd-bg)};
+  --ajf-disabled-bg: #{map.get($literals, disabled-bg)};
+  --ajf-disabled-fg: #{map.get($literals, disabled-fg)};
 }
 
 @mixin metrics {
@@ -267,6 +278,17 @@ $_dark: (
     &:hover:not(:disabled) {
       border-color: var(--ajf-accent-hover);
       background: var(--ajf-accent-hover);
+    }
+
+    // The base only greys the label, which on a filled button leaves a muted
+    // text on the full accent -- the button still reads as pressable, and the
+    // pair has no contrast to speak of. Disabled, it drops the fill altogether
+    // and goes flat grey. Declared after the mixin's own `&:disabled`, which it
+    // shares specificity with.
+    &:disabled {
+      border-color: var(--ajf-disabled-bg);
+      background: var(--ajf-disabled-bg);
+      color: var(--ajf-disabled-fg);
     }
   }
 
