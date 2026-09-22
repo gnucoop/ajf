@@ -43,8 +43,8 @@ ajf-page-slider-item {
 // one in the host's accent. An item is never rendered outside a slider anyway.
 ajf-page-slider ajf-page-slider-item {
   &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
   }
 
   &::-webkit-scrollbar-track {
@@ -52,7 +52,7 @@ ajf-page-slider ajf-page-slider-item {
   }
 
   &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
+    border-radius: 6px;
     background: var(--ajf-scrollbar, color-mix(in srgb, currentColor 25%, transparent));
   }
 
