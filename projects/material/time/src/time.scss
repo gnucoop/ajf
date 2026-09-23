@@ -60,19 +60,41 @@ ajf-time {
 // rather than a bare `.mat-mdc-select-panel`, which would resize every select
 // in the host application.
 .mat-mdc-select-panel.ajf-time-panel {
-  min-width: 5em;
+  // Room for the two digits, the tick on the selected option and the gap
+  // between them -- the trigger it is sized from is only 2.6em wide.
+  min-width: 5.5em;
   border: 1px solid var(--ajf-border, #e6e2dc);
   background: var(--ajf-surface, #ffffff);
 
+  // Left aligned, not centred: only the selected option carries the tick, so
+  // centring the row's contents would leave the chosen number sitting a dozen
+  // pixels to the left of all the others. Against the same edge they line up as
+  // a column, whichever one is selected.
   .mat-mdc-option {
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 36px;
     padding: 0 12px;
 
+    // The digits never give up room. Material's tick on the selected option is a
+    // flex item that does not shrink, so the pair is settled at the digits'
+    // expense: MDC ellipsizes them, and two digits ellipsized are unreadable.
+    // The panel above is wide enough to hold both side by side.
     .mdc-list-item__primary-text {
+      flex: 0 0 auto;
+      // MDC gives the label `margin-right: auto` to push whatever trails it to
+      // the far end of the row. In a list of labels that is right; here it
+      // strands the tick against the panel's edge, two digits away from the
+      // number it refers to.
+      margin-right: 0;
       color: var(--ajf-text, #1c1a17);
       font-family: var(--ajf-font-mono, monospace);
       font-size: 14px;
+    }
+
+    // Material spaces the tick for a list of labels; next to two digits it only
+    // has to clear them.
+    .mat-pseudo-checkbox-minimal {
+      margin-left: 8px;
     }
   }
 }
