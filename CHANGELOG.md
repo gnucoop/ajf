@@ -1,3 +1,30 @@
+<a name="18.5.0"></a>
+# 18.5.0 "skinny-sparrow" (2026-09-24)
+### Bug Fixes
+* **dev-app:** start in light mode by default ([aa8c00a](https://github.com/gnucoop/ajf/commit/aa8c00a5609fd6d4196122769ba1eac7d0c1b044))
+* **forms:** fix appearance of time field ([78dc18b](https://github.com/gnucoop/ajf/commit/78dc18b889d5cd4753f629a0f6e6e0f8c8f043c5))
+* **forms:** fix bug in forms' error navigation ([eca5a01](https://github.com/gnucoop/ajf/commit/eca5a01422cfc99c594e3d878615df26563a53e0))
+* **forms:** fix buttons appearance ([6ad4a09](https://github.com/gnucoop/ajf/commit/6ad4a09bac389d3b0221d7d89e54bdf99f46e1de))
+* **forms:** fix multiple choice appearance (for small number of choices) ([b6e05af](https://github.com/gnucoop/ajf/commit/b6e05afc19993d994a6ec5cac0fbc621fc2100e7))
+* **forms:** fix repeating slides' minReps and maxReps behavior ([cd4019f](https://github.com/gnucoop/ajf/commit/cd4019f675cf53136033fb0720b0d42245529c9b))
+* **forms:** fix scrollbar width ([984128c](https://github.com/gnucoop/ajf/commit/984128c5e897023ba50a3256cc967a452d7ca148))
+* **forms:** fix warning behavior ([b929d6f](https://github.com/gnucoop/ajf/commit/b929d6fb52c277199e17d8319c683c40321643e0))
+* **forms:** honour the visibility condition of a node group ([c62ad13](https://github.com/gnucoop/ajf/commit/c62ad13a3d5a6b57991f03393b9bb4147d83bf02))
+* **forms:** remove arrows for error navigation ([7464d78](https://github.com/gnucoop/ajf/commit/7464d7893438e3c4fbb017147fe09ff7a0d74922))
+* **forms:** render the fields held by a node group ([7116b91](https://github.com/gnucoop/ajf/commit/7116b91f9687cc20d122c3ce98a503d12206760d))
+* **forms:** tweak dark theme ([531f8ef](https://github.com/gnucoop/ajf/commit/531f8ef72dd78647d36b5e9691e92de55e008907))
+* **material/forms:** fix field hint icon ([9dc5a9f](https://github.com/gnucoop/ajf/commit/9dc5a9f9a372094b7956241ea8349fbdb0d67780))
+* **material/forms:** fix range slider appearance ([6fcbe54](https://github.com/gnucoop/ajf/commit/6fcbe542d00aa3109ebf981cb2a13012d98f8bfe))
+* **material/forms:** layout improvements in form's header and footer bars ([12ea503](https://github.com/gnucoop/ajf/commit/12ea503479e5738fe517d9d9224a292dec419997))
+* **material/forms:** make more room in the form's top bar ([8e384f4](https://github.com/gnucoop/ajf/commit/8e384f4bee48d56eb6b719e137b43e7faec76306))
+* **material/time:** make content of mat-options visible ([fcba49a](https://github.com/gnucoop/ajf/commit/fcba49a365015b2e51309a151f21ea62df047b26))
+### Features
+* **dev-app:** move light/dark toggle to main menu ([f43a37c](https://github.com/gnucoop/ajf/commit/f43a37c51b2bd84a996aa66bf85aaeb8a57354fb))
+* **forms:** added scrollbar and scroll-arrow ([c4e4430](https://github.com/gnucoop/ajf/commit/c4e4430e943cb7522d2b3cc12564ad782e75eb96))
+* **material/forms:** restyle the form renderer ([2e26aa8](https://github.com/gnucoop/ajf/commit/2e26aa8241b995aab8fc9ca32df8ef8d18c73875))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.4.1"></a>
 # 18.4.1 "uptight-mongoose" (2026-08-12)
 ### Features
