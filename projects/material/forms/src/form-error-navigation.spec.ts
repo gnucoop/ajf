@@ -30,10 +30,11 @@ import {take} from 'rxjs/operators';
 import {AjfFormRenderer, AjfFormsModule} from './public_api';
 
 /**
- * The footer reports what is left to fix and offers to page to it. These cover
- * the second half of that: that the arrows move the slider on a form the user
- * has only opened, which is how a saved draft reaches the renderer -- no value
- * has moved, and the error positions have to be there all the same.
+ * The footer reports what is left to fix and offers to page to it: the report is
+ * the control, one target rather than a label with arrows beside it. These cover
+ * the second half of that -- that clicking it moves the slider on a form the user
+ * has only opened, which is how a saved draft reaches the renderer: no value has
+ * moved, and the error positions have to be there all the same.
  */
 describe('AjfFormRenderer error navigation', () => {
   beforeEach(async () => {
@@ -83,39 +84,39 @@ describe('AjfFormRenderer error navigation', () => {
     return fixture;
   }
 
-  /** The footer's two jump arrows: back to an error, on to the next one. */
-  const jumpButtons = (fixture: ComponentFixture<AjfFormRenderer>): HTMLButtonElement[] =>
-    Array.from(fixture.nativeElement.querySelectorAll('.ajf-footer-jump button'));
+  /** The report itself, which is what the reader clicks to be taken there. */
+  const status = (fixture: ComponentFixture<AjfFormRenderer>): HTMLButtonElement =>
+    fixture.nativeElement.querySelector('.ajf-form-footer-status');
 
-  async function click(
-    fixture: ComponentFixture<AjfFormRenderer>,
-    which: 'prev' | 'next',
-  ): Promise<void> {
-    jumpButtons(fixture)[which === 'prev' ? 0 : 1].click();
+  async function click(fixture: ComponentFixture<AjfFormRenderer>): Promise<void> {
+    status(fixture).click();
     fixture.detectChanges();
     await fixture.whenStable();
   }
 
-  it('reports the outstanding field in the footer', async () => {
+  it('reports the outstanding field in the footer, as one target', async () => {
     const fixture = await render();
 
-    expect(fixture.nativeElement.querySelector('.ajf-form-footer-status')).not.toBeNull();
-    expect(jumpButtons(fixture).length).toBe(2);
+    expect(status(fixture)).not.toBeNull();
+    expect(status(fixture).tagName).toBe('BUTTON');
+    // No arrows of its own: the report is the whole control.
+    expect(status(fixture).querySelectorAll('button').length).toBe(0);
   });
 
   it('pages to the failing slide, on a form that was only opened', async () => {
     const fixture = await render();
     expect(fixture.componentInstance.formSlider.currentPage).toBe(0);
 
-    await click(fixture, 'next');
+    await click(fixture);
 
     expect(fixture.componentInstance.formSlider.currentPage).toBe(1);
   });
 
-  it('pages to it with the back arrow too, there being only one error', async () => {
+  it('stays on the error when clicked again, there being only one', async () => {
     const fixture = await render();
 
-    await click(fixture, 'prev');
+    await click(fixture);
+    await click(fixture);
 
     expect(fixture.componentInstance.formSlider.currentPage).toBe(1);
   });
@@ -124,7 +125,7 @@ describe('AjfFormRenderer error navigation', () => {
     const fixture = await render(true);
     expect(fixture.componentInstance.formSlider.currentPage).toBe(0);
 
-    await click(fixture, 'next');
+    await click(fixture);
 
     // Page 0 is the message, so the second slide is page 2.
     expect(fixture.componentInstance.formSlider.currentPage).toBe(2);

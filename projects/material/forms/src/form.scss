@@ -129,8 +129,7 @@ ajf-form {
     // rather than each keeping the one its origin implies. Sized to the icon and
     // rounded: a text button's 64px minimum width and its label padding are pure
     // horizontal cost, the one thing a phone's bottom bar has none of.
-    .mat-mdc-button,
-    .ajf-form-footer-status .ajf-btn--ghost {
+    .mat-mdc-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -167,16 +166,6 @@ ajf-form {
     // the two behave alike and follow the token palette rather than the host's.
     .mat-mdc-button {
       --mat-text-button-state-layer-color: var(--ajf-text);
-    }
-
-    .ajf-footer-jump {
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .ajf-form-footer-status .ajf-btn--ghost:hover:not(:disabled) {
-      // 8%: the opacity Material gives its own hover state layer.
-      background: color-mix(in srgb, var(--ajf-text) 8%, transparent);
     }
   }
 
@@ -216,12 +205,25 @@ ajf-form {
     align-items: center;
     gap: 6px;
     min-width: 0;
+    padding: 0;
+    border: 0;
+    background: none;
     color: var(--ajf-danger);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
 
     .mat-icon {
       width: 16px;
       height: 16px;
       font-size: 16px;
+    }
+
+    // Only the words are underlined: the icon is a glyph from a ligature font and
+    // would take the rule across itself.
+    &:hover .ajf-form-footer-message,
+    &:focus-visible .ajf-form-footer-message {
+      text-decoration: underline;
     }
   }
 

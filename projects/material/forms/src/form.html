@@ -111,21 +111,21 @@
 
             <div ajfPageSliderBar *ngIf="!hideBottomToolbar" class="ajf-form-footer">
               <ng-container *ngIf="curSlides | ajfFormIssues as issues">
-                <span class="ajf-form-footer-status" *ngIf="issues.fields > 0">
+                <!-- The count is the control: reading that something needs
+                     attention and asking to be taken there is one intention, so
+                     it is one target rather than a label with arrows beside it. -->
+                <button
+                  type="button"
+                  class="ajf-form-footer-status"
+                  *ngIf="issues.fields > 0"
+                  (click)="goToNextError()"
+                >
                   <mat-icon>error</mat-icon>
-                  {{ '{{fields}} fields in {{slides}} slides need attention' | transloco : {fields:
-                  issues.fields, slides: issues.slides} }}
-                  <!-- One pair, so they sit against each other rather than taking
-                       the gap the status keeps between its own parts. -->
-                  <span class="ajf-footer-jump">
-                    <button type="button" class="ajf-btn--ghost" (click)="goToPrevError()">
-                      <mat-icon>arrow_upward</mat-icon>
-                    </button>
-                    <button type="button" class="ajf-btn--ghost" (click)="goToNextError()">
-                      <mat-icon>arrow_downward</mat-icon>
-                    </button>
-                  </span>
-                </span>
+                  <span class="ajf-form-footer-message"
+                    >{{ '{{fields}} fields in {{slides}} slides need attention' | transloco :
+                    {fields: issues.fields, slides: issues.slides} }}</span
+                  >
+                </button>
               </ng-container>
 
               <!-- Pushed to the far end of the bar by its auto margin, so it sits
