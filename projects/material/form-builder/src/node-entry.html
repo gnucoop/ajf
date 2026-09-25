@@ -108,7 +108,7 @@
             [id]="assignId(true)"
             [cdkDropListEnterPredicate]="disableSlideDrop"
             (cdkDropListDropped)="onDrop($event, true)"
-            ><mat-card-title>Drop your fields here</mat-card-title></mat-card
+            ><mat-card-title>{{'Drop your fields here'|transloco}}</mat-card-title></mat-card
           >
         </div>
       </ng-template>
@@ -136,7 +136,7 @@
       cdkDropList
       [cdkDropListEnterPredicate]="emptyAreaDropPredicate()"
       (cdkDropListDropped)="onDrop($event)"
-      ><mat-card-title>Drop your slides here</mat-card-title>
+      ><mat-card-title>{{'Drop your slides here'|transloco}}</mat-card-title>
     </mat-card>
   </div>
 </ng-template>
