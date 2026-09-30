@@ -97,7 +97,8 @@
             [isFirst]="isFirstChild"
             [firstBranchColor]="branchColors[idx]"
             [nodeEntry]="contentEntry"
-            [cdkDropListEnterPredicate]="disableSlideDrop"
+            [cdkDropListConnectedTo]="(connectedDropLists | async)!"
+            [cdkDropListEnterPredicate]="contentDropPredicate"
             (cdkDropListDropped)="onDrop($event, true)"
           ></ajf-fb-node-entry>
           <mat-card
@@ -106,7 +107,8 @@
             *ngIf="realNodeEntry.content.length === 0"
             cdkDropList
             [id]="assignId(true)"
-            [cdkDropListEnterPredicate]="disableSlideDrop"
+            [cdkDropListConnectedTo]="(connectedDropLists | async)!"
+            [cdkDropListEnterPredicate]="contentDropPredicate"
             (cdkDropListDropped)="onDrop($event, true)"
             ><mat-card-title>{{'Drop your fields here'|transloco}}</mat-card-title></mat-card
           >
