@@ -46,8 +46,9 @@ import {
   isEmptyField,
   isField,
   isFieldWithChoices,
+  isNodeGroup,
   isRangeField,
-  isRepeatingContainerNode,
+  isRepeatingSlide,
   isSlidesNode,
   isTableField,
   maxDigitsValidation,
@@ -162,6 +163,42 @@ function getNodeContainer(c: {nodes: AjfNode[]}, node: AjfNode): {nodes: AjfNode
     }
   }
   return null;
+}
+
+/**
+ * True when the palette entry creates a node group. Groups can be dropped
+ * into a slide or a repeating slide, never into another group.
+ */
+export function isGroupNodeType(nodeType: AjfFormBuilderNodeTypeEntry): boolean {
+  return nodeType.nodeType?.node === AjfNodeType.AjfNodeGroup;
+}
+
+/**
+ * True when the node can be placed among the content of the container: a slide
+ * holds fields and groups, a group holds fields only.
+ */
+export function canContainNode(container: AjfNode, node: AjfNode): boolean {
+  if (isSlidesNode(node)) {
+    return false;
+  }
+  return !(isNodeGroup(container) && isNodeGroup(node));
+}
+
+/**
+ * Returns a copy of the nodes where the fields with choices, at any depth, are
+ * stripped of their resolved choices, which are not part of the schema.
+ */
+function removeChoiceOrigins(nodes: AjfNode[]): AjfNode[] {
+  return nodes.map(node => {
+    if (isContainerNode(node)) {
+      return {...node, nodes: removeChoiceOrigins((<AjfContainerNode>node).nodes)} as AjfNode;
+    }
+    if (isFieldWithChoices(node as AjfField)) {
+      const {choices, choicesOrigin, ...fwc} = deepCopy(node as any);
+      return fwc as AjfField;
+    }
+    return node;
+  });
 }
 
 function toArray(input: string): string[] {
@@ -344,6 +381,11 @@ export class AjfFormBuilderService {
       label: 'Repeating slide',
       nodeType: {node: AjfNodeType.AjfRepeatingSlide},
       isSlide: true,
+      category: AjfFormBuilderNodeTypeCategories.structure,
+    },
+    {
+      label: 'Group',
+      nodeType: {node: AjfNodeType.AjfNodeGroup},
       category: AjfFormBuilderNodeTypeCategories.structure,
     },
     {
@@ -600,6 +642,7 @@ export class AjfFormBuilderService {
    */
   private _emptyFieldCounter: number = 1;
   private _emptySlideCounter: number = 1;
+  private _emptyGroupCounter: number = 1;
 
   constructor() {
     this._initChoicesOriginsStreams();
@@ -709,10 +752,10 @@ export class AjfFormBuilderService {
   }
 
   assignListId(node: AjfNode, empty: boolean = false): string {
-    if (node.nodeType === AjfNodeType.AjfSlide || node.nodeType === AjfNodeType.AjfRepeatingSlide) {
+    if (isContainerNode(node)) {
       const listId = empty ? `empty_fields_list_${node.id}` : `fields_list_${node.id}`;
       if (this._connectedDropLists.value.indexOf(listId) == -1) {
-        this._connectDropList(listId);
+        this._connectDropList(listId, isNodeGroup(node));
       }
       return listId;
     }
@@ -729,7 +772,19 @@ export class AjfFormBuilderService {
     let node: AjfNode | AjfField;
     const id = ++nodeUniqueId;
     const isFieldNode = nodeType.nodeType?.field != null;
-    if (isFieldNode) {
+    const isGroupNode = isGroupNodeType(nodeType);
+    if (isGroupNode) {
+      node = createContainerNode({
+        id,
+        nodeType: AjfNodeType.AjfNodeGroup,
+        parent: parent.id,
+        parentNode,
+        name: `new_group_${this._emptyGroupCounter}`,
+        label: `New Group ${this._emptyGroupCounter}`,
+        nodes: [],
+      });
+      this._emptyGroupCounter++;
+    } else if (isFieldNode) {
       node = createField({
         id,
         nodeType: AjfNodeType.AjfField,
@@ -761,12 +816,15 @@ export class AjfFormBuilderService {
         isContainerNode(parent) && inContent
           ? <AjfContainerNode>parent
           : (getNodeContainer({nodes}, parent) as AjfContainerNode);
-      if (!isFieldNode) {
+      if (!isFieldNode && !isGroupNode) {
         let newNodes = nodes.slice(0);
         newNodes.splice(insertInIndex, 0, node);
         newNodes = this._updateNodesList(0, newNodes);
         return newNodes;
       } else {
+        if (cn == null || !canContainNode(cn as AjfNode, node)) {
+          return nodes;
+        }
         let newNodes = cn.nodes.slice(0);
         newNodes.splice(insertInIndex, 0, node);
         newNodes = this._updateNodesList(cn.id, newNodes);
@@ -797,6 +855,46 @@ export class AjfFormBuilderService {
     const moveEvent: AjfFormBuilderMoveEvent = {nodeEntry: nodeEntry, fromIndex: from, toIndex: to};
     this._moveNodeEntryEvent.next(moveEvent);
     this.cancelNodeEntryEdit();
+  }
+
+  /**
+   * Moves a node into another container, e.g. a field from a slide into a
+   * group, or out of it.
+   * @param nodeEntry The node to be moved.
+   * @param container The container the node is moved into.
+   * @param toIndex The position of the node among the content of the container.
+   */
+  moveNodeEntryToContainer(
+    nodeEntry: AjfFormBuilderNodeEntry,
+    container: AjfContainerNode,
+    toIndex: number,
+  ): void {
+    const node = nodeEntry.node;
+    if (!canContainNode(container, node)) {
+      return;
+    }
+    this.cancelNodeEntryEdit();
+    this._beforeNodesUpdate.emit();
+    this._nodesUpdates.next((nodes: AjfNode[]): AjfNode[] => {
+      // Ids are positional: both containers are looked up before anything moves.
+      const source = getNodeContainer({nodes}, node) as AjfContainerNode | null;
+      const target = flattenNodes(nodes).find(n => n.id === container.id) as
+        | AjfContainerNode
+        | undefined;
+      if (source == null || target == null || !isContainerNode(target)) {
+        return nodes;
+      }
+      const idx = source.nodes.map(n => n.id).indexOf(node.id);
+      if (idx < 0) {
+        return nodes;
+      }
+      const [moved] = source.nodes.splice(idx, 1);
+      source.nodes = source.nodes.slice(0);
+      const newNodes = target.nodes.slice(0);
+      newNodes.splice(toIndex, 0, moved);
+      target.nodes = newNodes;
+      return this._updateNodesList(0, nodes.slice(0));
+    });
   }
 
   getCurrentForm(): Observable<AjfForm> {
@@ -937,6 +1035,7 @@ export class AjfFormBuilderService {
   resetEmptyCounters() {
     this._emptyFieldCounter = 1;
     this._emptySlideCounter = 1;
+    this._emptyGroupCounter = 1;
   }
 
   /**
@@ -949,16 +1048,10 @@ export class AjfFormBuilderService {
     if (!previous_name || !new_name) return;
     const currentForm: AjfForm | null = this._form.value;
     if (!currentForm) return;
-    const updatedNodes: AjfNode[] = [];
-    const currentSlides: (AjfSlide | AjfRepeatingSlide)[] = currentForm.nodes;
-    for (let slide of currentSlides) {
-      if (!slide.nodes || !slide.nodes.length) continue;
-      for (let node of slide.nodes) {
-        const nodeObj = node as {[key: string]: any};
-        if (nodeObj['choicesOriginRef'] && nodeObj['choicesOriginRef'] === previous_name) {
-          nodeObj['choicesOriginRef'] = new_name;
-          updatedNodes.push(nodeObj as AjfNode);
-        }
+    for (let node of flattenNodes(currentForm.nodes)) {
+      const nodeObj = node as {[key: string]: any};
+      if (nodeObj['choicesOriginRef'] && nodeObj['choicesOriginRef'] === previous_name) {
+        nodeObj['choicesOriginRef'] = new_name;
       }
     }
     this._nodesUpdates.next((_nodes: AjfNode[]): AjfNode[] => {
@@ -1031,16 +1124,23 @@ export class AjfFormBuilderService {
   /**
    * Adds the id of a dropList to be connected with the FormBuilder source list.
    * @param listId The id of the list to connect.
+   * @param first True to put the list before the others. The list of a group
+   * lies inside the list of its slide, and the CDK moves a dragged item into
+   * the first connected list under the pointer: the inner list has to come
+   * first, or it could never receive anything.
    */
-  private _connectDropList(listId: string) {
+  private _connectDropList(listId: string, first = false) {
     let connectedLists = this._connectedDropLists.value.slice(0);
-    this._connectedDropLists.next([...connectedLists, listId]);
+    this._connectedDropLists.next(
+      first ? [listId, ...connectedLists] : [...connectedLists, listId],
+    );
   }
 
   private _findMaxNodeId(nodes: AjfNode[], _curMaxId = 0): number {
     let maxId = 0;
     let maxNewFieldCounter = 0;
     let maxNewSlideCounter = 0;
+    let maxNewGroupCounter = 0;
     nodes.forEach(n => {
       maxId = Math.max(maxId, n.id);
       if (isContainerNode(n)) {
@@ -1057,10 +1157,16 @@ export class AjfFormBuilderService {
         if (newSlideNumber !== null) {
           maxNewSlideCounter = Math.max(maxNewSlideCounter, newSlideNumber);
         }
+      } else if (n.name.startsWith('new_group_')) {
+        const newGroupNumber = this._extractNumberFromName(n.name, 'new_group_');
+        if (newGroupNumber !== null) {
+          maxNewGroupCounter = Math.max(maxNewGroupCounter, newGroupNumber);
+        }
       }
     });
     this._emptyFieldCounter = Math.max(this._emptyFieldCounter, maxNewFieldCounter + 1);
     this._emptySlideCounter = Math.max(this._emptySlideCounter, maxNewSlideCounter + 1);
+    this._emptyGroupCounter = Math.max(this._emptyGroupCounter, maxNewGroupCounter + 1);
     return maxId;
   }
 
@@ -1141,19 +1247,8 @@ export class AjfFormBuilderService {
       shareReplay(1),
     );
 
-    this._nodesWithoutChoiceOrigins = (this._nodes as Observable<AjfSlide[]>).pipe(
-      map(slides =>
-        slides.map(slide => {
-          slide.nodes = (slide.nodes as AjfField[]).map((node: AjfField) => {
-            if (isFieldWithChoices(node)) {
-              const {choices, choicesOrigin, ...fwc} = deepCopy(node);
-              return fwc as AjfField;
-            }
-            return node;
-          });
-          return slide;
-        }),
-      ),
+    this._nodesWithoutChoiceOrigins = this._nodes.pipe(
+      map(nodes => removeChoiceOrigins(nodes) as AjfSlide[]),
     );
 
     this._flatNodes = this._nodes.pipe(
@@ -1199,7 +1294,9 @@ export class AjfFormBuilderService {
               : [alwaysCondition()];
           const newConditionalBranches = node.conditionalBranches.length;
 
-          if (isRepeatingContainerNode(node)) {
+          // A group is only a bracket around its fields: the renderer does not
+          // repeat it, so it has no repetitions to edit.
+          if (isRepeatingSlide(node)) {
             node.formulaReps =
               properties.formulaReps != null
                 ? createFormula({formula: properties.formulaReps})
@@ -1428,8 +1525,8 @@ export class AjfFormBuilderService {
       let currentNode = nodesList[idx];
       currentNode.id = contId * 1000 + idx + 1;
       currentNode.parent = idx == 0 ? contId : contId * 1000 + idx;
-      if (isSlidesNode(currentNode)) {
-        this._updateNodesList(currentNode.id, currentNode.nodes);
+      if (isContainerNode(currentNode)) {
+        this._updateNodesList(currentNode.id, (<AjfContainerNode>currentNode).nodes);
       }
     }
     return nodesList;

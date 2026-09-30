@@ -44,6 +44,7 @@ import {
   AjfFormBuilderService,
 } from './form-builder-service';
 import {
+  canDropInContainer,
   disableFieldDropPredicate,
   disableSlideDropPredicate,
   onDropProcess,
@@ -178,6 +179,14 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
     return this._currentEditedNode;
   }
 
+  /**
+   * The ids of the drop lists an item dragged from the content of this node can
+   * be moved into, the lists of the groups first.
+   */
+  get connectedDropLists(): Observable<string[]> {
+    return this._service.connectedDropLists;
+  }
+
   private _branchLinesSubscription: Subscription = Subscription.EMPTY;
   private _childEntriesSubscription: Subscription = Subscription.EMPTY;
 
@@ -260,6 +269,14 @@ export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   assignId(empty: boolean = false): string {
     return this._service.assignListId(this.realNodeEntry.node, empty);
   }
+
+  /**
+   * The enter predicate of the drop lists holding the content of this node.
+   * An arrow function, since the CDK calls it with no `this`.
+   */
+  contentDropPredicate = (item: CdkDrag): boolean => {
+    return this.isNodeEntry && canDropInContainer(item, this.realNodeEntry.node);
+  };
 
   disableSlideDrop(item: CdkDrag<AjfFormBuilderNodeTypeEntry>): boolean {
     return disableSlideDropPredicate(item);

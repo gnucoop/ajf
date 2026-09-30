@@ -34,7 +34,7 @@ import {
   isNumberField,
   isEmptyField,
   isRangeField,
-  isRepeatingContainerNode,
+  isRepeatingSlide,
   isTableField,
 } from '@ajf/core/forms';
 import {AjfCondition, alwaysCondition, neverCondition} from '@ajf/core/models';
@@ -222,8 +222,12 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
     return this._triggerConditions;
   }
 
-  isRepeatingContainerNode: (nodeEntry: AjfFormBuilderNodeEntry | null) => boolean = nodeEntry => {
-    return nodeEntry != null && isRepeatingContainerNode(nodeEntry.node);
+  /**
+   * True for a repeating slide. A group is a repeating container node too, but
+   * the renderer never repeats it, so it gets no repetitions to edit.
+   */
+  isRepeatingSlide: (nodeEntry: AjfFormBuilderNodeEntry | null) => boolean = nodeEntry => {
+    return nodeEntry != null && isRepeatingSlide(nodeEntry.node);
   };
 
   private _visibilityOptSub: Subscription = Subscription.EMPTY;
@@ -653,7 +657,7 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
         };
         const validators: ValidatorFn[] = [];
 
-        if (isRepeatingContainerNode(n.node)) {
+        if (isRepeatingSlide(n.node)) {
           const rn = <AjfRepeatingContainerNode>n.node;
 
           const formulaReps = rn.formulaReps != null ? rn.formulaReps.formula : null;

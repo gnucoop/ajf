@@ -20,13 +20,17 @@
  *
  */
 
+import {AjfNode, isNodeGroup} from '@ajf/core/forms';
 import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 import {
+  AjfContainerNode,
   AjfFormBuilderEmptySlot,
   AjfFormBuilderNode,
   AjfFormBuilderNodeEntry,
   AjfFormBuilderNodeTypeEntry,
   AjfFormBuilderService,
+  canContainNode,
+  isGroupNodeType,
 } from './form-builder-service';
 
 /**
@@ -63,7 +67,37 @@ export function onDropProcess(
   }
   const previousIndex = event.previousIndex;
   const currentIndex = event.currentIndex;
+  if (event.previousContainer !== event.container) {
+    if (content && nodeEntry != null) {
+      fbService.moveNodeEntryToContainer(
+        <AjfFormBuilderNodeEntry>itemData,
+        <AjfContainerNode>(<AjfFormBuilderNodeEntry>nodeEntry).node,
+        currentIndex,
+      );
+    }
+    return;
+  }
   fbService.moveNodeEntry(<AjfFormBuilderNodeEntry>event.item.data, previousIndex, currentIndex);
+}
+
+/**
+ * Tells whether the dragged item can be dropped among the content of the
+ * container: a slide takes fields and groups, a group takes fields only.
+ * @param item The dragged item, either a palette entry or a node of the form.
+ * @param container The container node owning the drop list.
+ */
+export function canDropInContainer(
+  item: CdkDrag<AjfFormBuilderNodeTypeEntry | AjfFormBuilderNodeEntry>,
+  container: AjfNode,
+): boolean {
+  const data = item.data;
+  if ('node' in data) {
+    return canContainNode(container, data.node);
+  }
+  if (data.isSlide) {
+    return false;
+  }
+  return !isGroupNodeType(data) || !isNodeGroup(container);
 }
 
 /**

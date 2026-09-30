@@ -39,6 +39,9 @@ export class AjfNodeIcon extends CoreNodeIcon {
     if (node.nodeType === AjfNodeType.AjfRepeatingSlide) {
       return 'create_new_folder';
     }
+    if (node.nodeType === AjfNodeType.AjfNodeGroup) {
+      return 'view_agenda';
+    }
     if (node.nodeType !== AjfNodeType.AjfField) {
       return 'broken_image';
     }
