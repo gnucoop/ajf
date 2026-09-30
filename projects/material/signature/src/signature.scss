@@ -12,6 +12,8 @@ ajf-signature {
   }
 
   // A dashed frame reads as "capture area", not as a filled-in control.
+  // The pad is white on both palettes, deliberately not a token: the
+  // canvas draws black ink, which a dark surface would swallow.
   .ajf-signature-pad {
     position: relative;
     display: flex;
@@ -19,7 +21,7 @@ ajf-signature {
     justify-content: center;
     border: 1px dashed var(--ajf-border-strong, #d5cfc6);
     border-radius: var(--ajf-radius, 4px);
-    background: var(--ajf-surface, #fff);
+    background: white;
   }
 
   .ajf-signature-canvas {
@@ -85,7 +87,9 @@ ajf-signature {
     }
   }
 
+  // The accepted signature is a transparent PNG of black ink: same white background.
   .ajf-signature-preview {
+    background: white;
     max-width: 200px;
     max-height: 100px;
   }
