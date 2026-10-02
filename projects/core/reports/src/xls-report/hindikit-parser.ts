@@ -346,6 +346,13 @@ function parseFunctionCall(name: string, revToks: Token[]): string {
     consume(revToks, TokenType.RParen);
     return js;
   }
+  if (name === 'CONCAT') {
+    // Variadic: any number of arguments.
+    consume(revToks, TokenType.LParen);
+    const argsJs = parseList(revToks, TokenType.Comma);
+    consume(revToks, TokenType.RParen);
+    return `CONCAT(${argsJs})`;
+  }
   throw new Error('unsupported function: ' + name);
 }
 
@@ -398,7 +405,6 @@ const functionArgs: {[name: string]: string[]} = {
   BUILD_DATASET: ["arg", "arg?"],
   CHART_TO_DATA: ["arg", "arg"],
   COMPARE_DATE: ["arg", "arg", "arg", "arg?"],
-  CONCAT: ["arg", "arg"],
   CONSOLE_LOG: ["arg"],
   COUNT_FORMS: ["arg", "func(form)?"],
   COUNT_REPS: ["arg", "func(form)?"],
