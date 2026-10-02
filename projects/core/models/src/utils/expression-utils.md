@@ -154,7 +154,7 @@ Deprecated. Use INCLUDES
 `INCLUDES(arr, elem)`  
 Tells if arr includes elem.
 
-`CONCAT(a, b)`  
+`CONCAT(a, b, ...)`  
 Array concatenation.
 
 `REMOVE_DUPLICATES(arr)`  

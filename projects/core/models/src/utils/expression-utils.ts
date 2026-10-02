@@ -1562,14 +1562,20 @@ export function LEN(dataset: MainForm | any[]): number {
 
 /**
  * Array concatenation.
+ * With no arguments returns an empty array, with one argument returns it unchanged.
  *
  * @export
- * @param {any[]} a
- * @param {any[]} b
+ * @param {...any[][]} arrays
  * @return {*}  {any[]}
  */
-export function CONCAT(a: any[], b: any[]): any[] {
-  return a.concat(b);
+export function CONCAT(...arrays: any[][]): any[] {
+  if (arrays.length === 0) {
+    return [];
+  }
+  if (arrays.length === 1) {
+    return arrays[0];
+  }
+  return ([] as any[]).concat(...arrays);
 }
 
 /**
