@@ -1,3 +1,15 @@
+<a name="18.5.1"></a>
+# 18.5.1 "divine-bug" (2026-10-02)
+### Bug Fixes
+* **form-builder:** added form builder translations ([a5fa188](https://github.com/gnucoop/ajf/commit/a5fa188f495f26605eee22d5e7a32ef8365337db))
+* **forms:** fix appearance of signature field in dark mode ([5b4e351](https://github.com/gnucoop/ajf/commit/5b4e351f4d6990e80c99bc05da637d606d30b2c5))
+### Features
+* **core/models:** make CONCAT function variadic ([1f27a00](https://github.com/gnucoop/ajf/commit/1f27a00ea8ecb461990ed04e1547e4bc7d9dd085))
+* **form-builder:** groups creation ([8f6f189](https://github.com/gnucoop/ajf/commit/8f6f1899fc5ae14b37b444bf7b32050861c83089))
+* **transloco:** update translations ([bd4d4c6](https://github.com/gnucoop/ajf/commit/bd4d4c67c0ca2024907f628a1ce721cef4c1a638))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.5.0"></a>
 # 18.5.0 "skinny-sparrow" (2026-09-24)
 ### Bug Fixes
