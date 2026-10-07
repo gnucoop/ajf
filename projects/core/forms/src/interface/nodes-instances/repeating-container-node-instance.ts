@@ -21,6 +21,5 @@
  */
 
 import {AjfRepeatingSlideInstance} from '../slides-instances/repeating-slide-instance';
-import {AjfNodeGroupInstance} from './node-group-instance';
 
-export type AjfRepeatingContainerNodeInstance = AjfNodeGroupInstance | AjfRepeatingSlideInstance;
+export type AjfRepeatingContainerNodeInstance = AjfRepeatingSlideInstance;

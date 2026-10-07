@@ -251,7 +251,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
    */
   addGroup(nodeGroup: AjfNodeGroupInstance | AjfSlideInstance | AjfRepeatingSlideInstance): void {
     let s = this._rendererService
-      .addGroup(nodeGroup as AjfNodeGroupInstance)
+      .addGroup(nodeGroup as AjfRepeatingSlideInstance)
       .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
       .subscribe({
         next: r => {
@@ -280,7 +280,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
     idx?: number
   ): void {
     let s = this._rendererService
-      .removeGroup(nodeGroup as AjfNodeGroupInstance, idx)
+      .removeGroup(nodeGroup as AjfRepeatingSlideInstance, idx)
       .pipe(delayWhen(() => this.formSlider.pageScrollFinish))
       .subscribe({
         next: r => {

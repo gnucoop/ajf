@@ -22,7 +22,8 @@
 
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
 import {AjfNode} from '../../interface/nodes/node';
-import {AjfNodeGroup} from '../../interface/nodes/node-group';
+import {AjfRepeatingSlide} from '../../interface/slides/repeating-slide';
+import {flattenNodes} from '../nodes/flatten-nodes';
 import {isField} from '../nodes/is-field';
 
 import {getAncestorRepeatingNodes} from './get-ancestor-repeating-nodes';
@@ -37,9 +38,10 @@ export function getAncestorRepeatingNodesNames(
   node: AjfNode,
 ): {[prop: string]: number} {
   let names: {[prop: string]: number} = {};
-  const nodeGroups = getAncestorRepeatingNodes(allNodes, node) as AjfNodeGroup[];
-  nodeGroups.forEach((n, idx) =>
-    (n.nodes || []).forEach(sn => {
+  const repeatingNodes = getAncestorRepeatingNodes(allNodes, node) as AjfRepeatingSlide[];
+  // Flattened: the fields of a node group inside a repeating slide repeat with the slide.
+  repeatingNodes.forEach((n, idx) =>
+    flattenNodes(n.nodes || []).forEach(sn => {
       if (isField(sn)) {
         names[sn.name] = idx;
       }

@@ -22,7 +22,6 @@
 
 import {AjfNodeType} from '../../interface/nodes/node-type';
 import {AjfNodeInstance} from '../../interface/nodes-instances/node-instance';
-import {AjfNodeGroupInstance} from '../../interface/nodes-instances/node-group-instance';
 import {AjfRepeatingSlideInstance} from '../../interface/slides-instances/repeating-slide-instance';
 
 /**
@@ -30,11 +29,10 @@ import {AjfRepeatingSlideInstance} from '../../interface/slides-instances/repeat
  */
 export function isRepeatingGroupInstance(
   nodeInstance: AjfNodeInstance,
-): nodeInstance is AjfNodeGroupInstance | AjfRepeatingSlideInstance {
+): nodeInstance is AjfRepeatingSlideInstance {
   return (
     nodeInstance != null &&
     nodeInstance.node != null &&
-    (nodeInstance.node.nodeType === AjfNodeType.AjfNodeGroup ||
-      nodeInstance.node.nodeType === AjfNodeType.AjfRepeatingSlide)
+    nodeInstance.node.nodeType === AjfNodeType.AjfRepeatingSlide
   );
 }

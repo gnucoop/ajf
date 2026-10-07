@@ -21,11 +21,11 @@
  */
 
 import {AjfNodeGroup} from '../nodes/node-group';
-import {AjfBaseRepeatingContainerNodeInstance} from './base-repeating-container-node-instance';
+import {AjfContainerNodeInstance} from './container-node-instance';
 
 /**
- * A repeating container instance containing an AjfNodeGroup node.
+ * A container instance containing an AjfNodeGroup node.
  */
-export interface AjfNodeGroupInstance extends AjfBaseRepeatingContainerNodeInstance {
+export interface AjfNodeGroupInstance extends Omit<AjfContainerNodeInstance, 'node'> {
   node: AjfNodeGroup;
 }
