@@ -122,6 +122,27 @@ describe('AjfFormRenderer node groups', () => {
     expect(visibleRows(fixture)).toEqual(['en.outside', 'en.inside1', 'en.inside2']);
   });
 
+  /** The names under which the form context stores its fields. */
+  const contextNames = async (): Promise<string[]> => {
+    const svc = TestBed.inject(AjfFormRendererService);
+    const fg = (await firstValueFrom(svc.formGroup.pipe(take(1))))!;
+    return Object.keys(fg.controls)
+      .filter(k => !k.startsWith('$'))
+      .sort();
+  };
+
+  it('stores the fields of a group under their own name, with no repetition suffix', async () => {
+    await render(slide(AjfNodeType.AjfSlide, [field(2, 1, 'outside'), group()]));
+
+    expect(await contextNames()).toEqual(['inside1', 'inside2', 'outside']);
+  });
+
+  it('gives the fields of a group in a repeating slide the slide suffix only', async () => {
+    await render(slide(AjfNodeType.AjfRepeatingSlide, [field(2, 1, 'outside'), group()]));
+
+    expect(await contextNames()).toEqual(['inside1__0', 'inside2__0', 'outside__0', 'slide']);
+  });
+
   it('shows the fields of a group only while its visibility condition holds', async () => {
     // The condition names a field declared after the group, which is how the
     // form builder lays this out: a block of fields switched on by an answer

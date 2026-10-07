@@ -214,10 +214,9 @@ export class AjfNodeSerializer {
     choicesOrigins?: AjfChoicesOrigin<any>[],
     attachmentsOrigins?: AjfAttachmentsOrigin<any>[],
   ): AjfNodeGroup {
-    return createNodeGroup({
-      ...AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins),
-      ...AjfNodeSerializer._repeatingNodeFromJson(json),
-    });
+    return createNodeGroup(
+      AjfNodeSerializer._containerNodeFromJson(json, choicesOrigins, attachmentsOrigins),
+    );
   }
 
   private static _repeatingNodeFromJson(

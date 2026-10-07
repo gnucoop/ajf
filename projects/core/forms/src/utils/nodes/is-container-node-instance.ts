@@ -24,11 +24,8 @@ import {AjfNode} from '../../interface/nodes/node';
 import {AjfNodeType} from '../../interface/nodes/node-type';
 
 /**
- * It is true if node is AjfNodeGroup or AjfRepeatingSlide.
+ * It is true if node is an AjfRepeatingSlide (node groups are not repeatable).
  */
 export function isRepeatingContainerNode(node: AjfNode): boolean {
-  return (
-    node != null &&
-    (node.nodeType === AjfNodeType.AjfNodeGroup || node.nodeType === AjfNodeType.AjfRepeatingSlide)
-  );
+  return node != null && node.nodeType === AjfNodeType.AjfRepeatingSlide;
 }

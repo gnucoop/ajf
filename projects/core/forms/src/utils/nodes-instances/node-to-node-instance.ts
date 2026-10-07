@@ -57,7 +57,6 @@ import {getInstanceFormula} from './get-instance-formula';
 import {getInstanceValidations} from './get-instance-validations';
 import {getInstanceWarnings} from './get-instance-warnings';
 import {isFieldInstance} from './is-field-instance';
-import {isNodeGroupInstance} from './is-node-group-instance';
 import {isRepeatingSlideInstance} from './is-repeating-slide-instance';
 import {isSlideInstance} from './is-slide-instance';
 
@@ -159,7 +158,7 @@ export function nodeToNodeInstance(
         prefix,
       );
 
-      if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
+      if (isRepeatingSlideInstance(instance)) {
         const formulaReps = instance.node.formulaReps;
         if (formulaReps != null) {
           const oldFormula = formulaReps.formula;
@@ -237,7 +236,7 @@ export function nodeToNodeInstance(
           ? instance.node.conditionalBranches
           : [alwaysCondition()];
       instance.conditionalBranches = conditionalBranches;
-      if (isNodeGroupInstance(instance) || isRepeatingSlideInstance(instance)) {
+      if (isRepeatingSlideInstance(instance)) {
         const rgInstance = instance as AjfRepeatingContainerNodeInstance;
         rgInstance.formulaReps = rgInstance.node.formulaReps;
       } else if (isFieldInstance(instance)) {

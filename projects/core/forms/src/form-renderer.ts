@@ -52,7 +52,6 @@ import {
 
 import {AjfChoice} from './interface/choices/choice';
 import {AjfFieldInstance} from './interface/fields-instances/field-instance';
-import {AjfFieldType} from './interface/fields/field-type';
 import {AjfForm} from './interface/forms/form';
 import {AjfTableFormControl} from './interface/forms/table-form-control';
 import {AjfNodeGroupInstance} from './interface/nodes-instances/node-group-instance';
@@ -60,7 +59,6 @@ import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 import {AjfRepeatingContainerNodeInstance} from './interface/nodes-instances/repeating-container-node-instance';
 import {AjfNode} from './interface/nodes/node';
 import {AjfNodeGroup} from './interface/nodes/node-group';
-import {AjfNodeType} from './interface/nodes/node-type';
 import {AjfNodesInstancesOperation} from './interface/operations/nodes-instances-operation';
 import {AjfRendererUpdateMapOperation} from './interface/operations/renderer-update-map-operation';
 import {AjfRendererUpdateMap} from './interface/renderer-maps/update-map';
@@ -77,7 +75,6 @@ import {updateNextSlideCondition} from './utils/fields-instances/update-next-sli
 import {updateTriggerConditions} from './utils/fields-instances/update-trigger-conditions';
 import {updateValidation} from './utils/fields-instances/update-validation';
 import {updateWarning} from './utils/fields-instances/update-warning';
-import {createField} from './utils/fields/create-field';
 import {flattenNodesInstances} from './utils/nodes-instances/flatten-nodes-instances';
 import {flattenNodesInstancesTree} from './utils/nodes-instances/flatten-nodes-instances-tree';
 import {isFieldInstance} from './utils/nodes-instances/is-field-instance';
@@ -305,7 +302,7 @@ export class AjfFormRendererService {
    * @param group
    * @returns
    */
-  addGroup(group: AjfNodeGroupInstance | AjfRepeatingSlideInstance): Observable<boolean> {
+  addGroup(group: AjfRepeatingSlideInstance): Observable<boolean> {
     return new Observable<boolean>((subscriber: Subscriber<boolean>) => {
       if (group.formulaReps != null) {
         subscriber.next(false);
@@ -332,10 +329,7 @@ export class AjfFormRendererService {
     });
   }
 
-  removeGroup(
-    group: AjfNodeGroupInstance | AjfRepeatingSlideInstance,
-    idx?: number,
-  ): Observable<boolean> {
+  removeGroup(group: AjfRepeatingSlideInstance, idx?: number): Observable<boolean> {
     return new Observable<boolean>((subscriber: Subscriber<boolean>) => {
       if (group.formulaReps != null) {
         subscriber.next(false);
@@ -687,6 +681,17 @@ export class AjfFormRendererService {
     }
     if (isRepeatingGroupInstance(instance)) {
       this._explodeRepeatingNode(allNodes, instance, context);
+    } else if (isNodeGroupInstance(instance)) {
+      // A group is not repeatable: its fields take the group's own prefix, so
+      // they keep the plain name (or the repeating slide's suffix) in the context.
+      instance.nodes = this._orderedNodesInstancesTree(
+        allNodes,
+        instance.node.nodes,
+        instance.node.id,
+        prefix,
+        context,
+      );
+      instance.flatNodes = flattenNodesInstances(instance.nodes);
     } else if (isSlideInstance(instance)) {
       instance.nodes = this._orderedNodesInstancesTree(
         allNodes,
@@ -802,24 +807,6 @@ export class AjfFormRendererService {
       if (instance.nodes == null) {
         instance.nodes = [];
       }
-      if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
-        const node = createField({
-          id: 999,
-          name: '',
-          parent: -1,
-          fieldType: AjfFieldType.Empty,
-          label: instance.node.label,
-        });
-        const newInstance = this._initNodeInstance(
-          allNodes,
-          node,
-          instance.prefix.slice(0),
-          context,
-        );
-        if (newInstance != null) {
-          instance.nodes.push(newInstance);
-        }
-      }
       for (let i = oldReps; i < newReps; i++) {
         const prefix = instance.prefix.slice(0);
         const group = instance.node;
@@ -836,10 +823,7 @@ export class AjfFormRendererService {
       }
       result.added = newNodes;
     } else if (oldReps > newReps) {
-      let nodesNum = instance.nodes.length / oldReps;
-      if (instance.node.nodeType === AjfNodeType.AjfNodeGroup) {
-        nodesNum++;
-      }
+      const nodesNum = instance.nodes.length / oldReps;
 
       result.removed = instance.nodes.splice(newReps * nodesNum, nodesNum);
       const idxSlideToRemove = idxToRemove ?? newReps;
@@ -887,7 +871,7 @@ export class AjfFormRendererService {
 
   private _explodeRepeatingNode(
     allNodes: AjfNode[] | AjfNodeInstance[],
-    instance: AjfNodeGroupInstance | AjfRepeatingSlideInstance,
+    instance: AjfRepeatingSlideInstance,
     context: AjfContext,
   ) {
     const oldReps = updateRepsNum(instance, context);
@@ -1278,7 +1262,9 @@ export class AjfFormRendererService {
       this._removeNodesEditabilityMapIndex(nodeName);
       return this._removeSlideInstance(nodeInstance);
     } else if (isRepeatingContainerNodeInstance(nodeInstance)) {
-      this._removeNodeGroupInstance(nodeInstance);
+      this._removeRepeatingContainerNodeInstance(nodeInstance);
+    } else if (isNodeGroupInstance(nodeInstance)) {
+      this._removeNodeGroupInstance(nodeInstance, idxToRemove);
     } else if (isFieldInstance(nodeInstance)) {
       this._removeFieldInstance(nodeInstance);
     }
@@ -1298,6 +1284,21 @@ export class AjfFormRendererService {
   }
 
   private _removeNodeGroupInstance(
+    nodeGroupInstance: AjfNodeGroupInstance,
+    idxToRemove: number,
+  ): AjfNodeGroupInstance {
+    const nodeGroup = nodeGroupInstance.node;
+    if (nodeGroup.visibility != null) {
+      this._removeFromNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
+    }
+    nodeGroupInstance.conditionalBranches.forEach((conditionalBranch: AjfCondition) => {
+      this._removeFromNodesConditionalBranchMap(nodeGroupInstance, conditionalBranch.condition);
+    });
+    (nodeGroupInstance.nodes || []).forEach(n => this._removeNodeInstance(n, idxToRemove));
+    return nodeGroupInstance;
+  }
+
+  private _removeRepeatingContainerNodeInstance(
     nodeGroupInstance: AjfRepeatingContainerNodeInstance,
   ): AjfRepeatingContainerNodeInstance {
     const nodeGroup = nodeGroupInstance.node;
@@ -1341,13 +1342,6 @@ export class AjfFormRendererService {
       this._removeFromNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
     }
 
-    // TODO: check this, probably is never verified
-    if (isRepeatingContainerNodeInstance(fieldInstance)) {
-      if (fieldInstance.formulaReps != null) {
-        this._removeFromNodesRepetitionMap(fieldInstance, fieldInstance.formulaReps.formula);
-      }
-    }
-
     if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
       fieldInstance.validation.conditions.forEach(condition => {
         this._removeFromNodesValidationMap(fieldInstance, condition.condition);
@@ -1383,6 +1377,8 @@ export class AjfFormRendererService {
 
   private _addNodeInstance(nodeInstance: AjfNodeInstance): AjfNodeInstance {
     if (isRepeatingContainerNodeInstance(nodeInstance)) {
+      return this._addRepeatingContainerNodeInstance(nodeInstance);
+    } else if (isNodeGroupInstance(nodeInstance)) {
       return this._addNodeGroupInstance(nodeInstance);
     } else if (isSlideInstance(nodeInstance)) {
       return this._addSlideInstance(nodeInstance);
@@ -1435,12 +1431,6 @@ export class AjfFormRendererService {
 
     if (fieldInstance.formula) {
       this._addToNodesFormulaMap(fieldInstance, fieldInstance.formula.formula);
-    }
-
-    if (isNodeGroupInstance(fieldInstance)) {
-      if (fieldInstance.formulaReps != null) {
-        this._addToNodesRepetitionMap(fieldInstance, fieldInstance.formulaReps.formula);
-      }
     }
 
     if (fieldInstance.validation != null && fieldInstance.validation.conditions != null) {
@@ -1496,11 +1486,27 @@ export class AjfFormRendererService {
   }
 
   /**
+   * Add node group instance in all update maps (NodesVisibilityMap, NodesConditionalBranchMap)
+   * @param nodeGroupInstance
+   * @returns
+   */
+  private _addNodeGroupInstance(nodeGroupInstance: AjfNodeGroupInstance): AjfNodeGroupInstance {
+    const nodeGroup = nodeGroupInstance.node;
+    if (nodeGroup.visibility != null) {
+      this._addToNodesVisibilityMap(nodeGroupInstance, nodeGroup.visibility.condition);
+    }
+    nodeGroupInstance.conditionalBranches.forEach((conditionalBranch: AjfCondition) => {
+      this._addToNodesConditionalBranchMap(nodeGroupInstance, conditionalBranch.condition);
+    });
+    return nodeGroupInstance;
+  }
+
+  /**
    * Add repeating slide instance in all update maps
    * @param nodeGroupInstance
    * @returns
    */
-  private _addNodeGroupInstance(
+  private _addRepeatingContainerNodeInstance(
     nodeGroupInstance: AjfRepeatingContainerNodeInstance,
   ): AjfRepeatingContainerNodeInstance {
     const nodeGroup = nodeGroupInstance.node;

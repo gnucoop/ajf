@@ -22,21 +22,26 @@
 
 import {AjfNodeGroup} from '../../interface/nodes/node-group';
 import {AjfNodeType} from '../../interface/nodes/node-type';
+import {AjfRepeatingNode} from '../../interface/nodes/repeating-node';
 import {AjfContainerNodeCreate, createContainerNode} from './create-container-node';
-import {AjfRepeatingNodeCreate, createRepeatingNode} from './create-repeating-node';
 
-export type AjfNodeGroupCreate = AjfContainerNodeCreate & AjfRepeatingNodeCreate;
+export type AjfNodeGroupCreate = AjfContainerNodeCreate;
 
 /**
  * It creates a AjfNodeGroup
  * set nodeType to AjfNodeType.AjfNodeGroup = 2.
- * Extends an AjfNode with the merging of containerNode  attributes(nodes)
- * with repeatingNode attributes(formulaReps, minReps, maxReps)
+ * Extends an AjfNode with the containerNode attributes(nodes).
+ * Repetition attributes (formulaReps, minReps, maxReps) are dropped:
+ * a node group is not repeatable.
  */
 export function createNodeGroup(nodeGroup: AjfNodeGroupCreate): AjfNodeGroup {
-  return {
+  const group = {
     ...createContainerNode(nodeGroup),
-    ...createRepeatingNode(nodeGroup),
     nodeType: AjfNodeType.AjfNodeGroup,
-  };
+  } as AjfNodeGroup & Partial<AjfRepeatingNode>;
+  // Schemas written when groups were repeating nodes still carry these.
+  delete group.formulaReps;
+  delete group.minReps;
+  delete group.maxReps;
+  return group;
 }

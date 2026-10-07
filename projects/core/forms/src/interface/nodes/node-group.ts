@@ -20,12 +20,13 @@
  *
  */
 
+import {AjfContainerNode} from './container-node';
 import {AjfNodeType} from './node-type';
-import {AjfRepeatingContainerNode} from './repeating-container-node';
 
 /**
- * Is a AjfRepeatingContainerNode of AjfNodeGroup
+ * A container that brackets a block of fields inside a slide.
+ * It is not repeatable: its fields keep their own names in the form context.
  */
-export interface AjfNodeGroup extends AjfRepeatingContainerNode {
+export interface AjfNodeGroup extends AjfContainerNode {
   nodeType: AjfNodeType.AjfNodeGroup;
 }
