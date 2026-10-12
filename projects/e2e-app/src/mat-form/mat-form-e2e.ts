@@ -101,6 +101,7 @@ const singleSlideSchema: any = {
 @Component({
   selector: 'mat-form-e2e',
   templateUrl: 'mat-form-e2e.html',
+  standalone: false,
 })
 export class MaterialFormE2E implements OnInit {
   formSchema: string = JSON.stringify(formSchema);

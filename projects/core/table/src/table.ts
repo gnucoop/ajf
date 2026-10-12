@@ -44,6 +44,7 @@ import {AjfTableCell} from './table-cell';
   styleUrls: ['table.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfTable implements OnDestroy {
   /**

@@ -48,6 +48,7 @@ import {switchMap} from 'rxjs/operators';
   styleUrls: ['form.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfFormRenderer
   extends CoreFormRenderer

@@ -34,6 +34,7 @@ import {AjfFormBuilderService} from './form-builder-service';
   styleUrls: ['choices-origin-editor-dialog.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfFbChoicesOriginEditorDialog {
   @ViewChild(AjfFbChoicesOriginEditor, {static: false}) editor!: AjfFbChoicesOriginEditor;

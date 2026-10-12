@@ -23,7 +23,7 @@
 import {Directive, ViewContainerRef} from '@angular/core';
 
 // eslint-disable-next-line
-@Directive({selector: '[ajf-widget-host]'})
+@Directive({selector: '[ajf-widget-host]', standalone: false})
 export class AjfWidgetHost {
   constructor(readonly viewContainerRef: ViewContainerRef) {}
 }

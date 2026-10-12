@@ -30,6 +30,7 @@ import {DevAppDirectionality} from './dev-app-directionality';
   templateUrl: 'dev-app-layout.html',
   styleUrls: ['dev-app-layout.scss'],
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class DevAppLayout {
   /**

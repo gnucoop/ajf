@@ -24,7 +24,10 @@ import {Injectable, isDevMode, Pipe, PipeTransform} from '@angular/core';
 import {EthiopianDate} from './ethiopian-date';
 
 @Injectable()
-@Pipe({name: 'ajfEthiopianDate'})
+@Pipe({
+  name: 'ajfEthiopianDate',
+  standalone: false,
+})
 export class AjfEthiopianDatePipe implements PipeTransform {
   transform(value: any): string | null {
     try {

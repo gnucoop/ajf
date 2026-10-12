@@ -34,6 +34,7 @@ import {
   styleUrls: ['page-break-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfPageBreakWidgetComponent extends AjfBaseWidgetComponent {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

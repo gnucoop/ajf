@@ -28,7 +28,10 @@ import {AjfNodeInstance} from './interface/nodes-instances/node-instance';
 /**
  * It casts an AjfNodeInstance as AjfFieldInstance.
  */
-@Pipe({name: 'ajfAsFieldInstance'})
+@Pipe({
+  name: 'ajfAsFieldInstance',
+  standalone: false,
+})
 export class AjfAsFieldInstancePipe implements PipeTransform {
   transform(instance: AjfNodeInstance): AjfFieldInstance {
     return instance as AjfFieldInstance;

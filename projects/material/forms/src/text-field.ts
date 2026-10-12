@@ -41,6 +41,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['text-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfTextFieldComponent extends CoreComponent implements OnInit {
   quillModules = {

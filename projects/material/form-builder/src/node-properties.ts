@@ -134,6 +134,7 @@ export interface WarningCondition {
   styleUrls: ['node-properties.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfFbNodeProperties implements OnDestroy, OnInit {
   private _fieldSizes: {label: string; value: string}[] = [

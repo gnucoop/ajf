@@ -35,6 +35,7 @@ import {
   styleUrls: ['graph-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfGraphWidgetComponent extends AjfBaseWidgetComponent<AjfGraphWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

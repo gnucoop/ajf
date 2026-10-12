@@ -32,6 +32,7 @@ import {defaultReport, filterReport, globalFilterReport} from './reports';
 @Component({
   selector: 'mat-report-e2e',
   templateUrl: 'mat-report-e2e.html',
+  standalone: false,
 })
 export class MaterialReportE2E {
   readonly report$: Observable<AjfReportInstance>;

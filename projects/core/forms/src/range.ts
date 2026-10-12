@@ -29,7 +29,10 @@ import {Pipe, PipeTransform} from '@angular/core';
  * @export
  * @class AjfRangePipe
  */
-@Pipe({name: 'ajfRange'})
+@Pipe({
+  name: 'ajfRange',
+  standalone: false,
+})
 export class AjfRangePipe implements PipeTransform {
   transform(size: number = 0, start: number = 1, step: number = 1): number[] {
     const range: number[] = [];

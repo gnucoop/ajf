@@ -31,7 +31,10 @@ import {AjfTableFormControl} from './interface/forms/table-form-control';
  * @export
  * @class AjfGetTableCellControlPipe
  */
-@Pipe({name: 'ajfGetTableCellControl'})
+@Pipe({
+  name: 'ajfGetTableCellControl',
+  standalone: false,
+})
 export class AjfGetTableCellControlPipe implements PipeTransform {
   transform(ctrl: null | string | AjfTableFormControl): AjfTableFormControl | null {
     if (ctrl == null || typeof ctrl === 'string') {

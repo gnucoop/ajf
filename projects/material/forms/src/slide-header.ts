@@ -40,9 +40,7 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angula
   templateUrl: 'slide-header.html',
   styleUrls: ['slide-header.scss'],
   encapsulation: ViewEncapsulation.None,
-  // Deliberately not OnPush: slide visibility and repetition counts are mutated
-  // in place, so the jump menu and the repetition pill would go stale under a
-  // strategy that only re-checks when an input identity changes.
+  standalone: false,
 })
 export class AjfSlideHeader {
   /** Absent while a start or end message page is on screen. */

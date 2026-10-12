@@ -37,6 +37,7 @@ import {
   styleUrls: ['page-slider.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfPageSlider extends CorePageSlider {
   constructor(animationBuilder: AnimationBuilder, cdr: ChangeDetectorRef, renderer: Renderer2) {

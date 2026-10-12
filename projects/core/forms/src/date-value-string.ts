@@ -29,7 +29,10 @@ import {format} from 'date-fns';
  * @return the format date
  */
 @Injectable()
-@Pipe({name: 'ajfDateValueString'})
+@Pipe({
+  name: 'ajfDateValueString',
+  standalone: false,
+})
 export class AjfDateValueStringPipe implements PipeTransform {
   transform(date: Date | 'today' | undefined): string | undefined {
     if (date == null) {

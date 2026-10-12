@@ -35,6 +35,7 @@ import {
   styleUrls: ['image-container-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfImageContainerWidgetComponent extends AjfBaseWidgetComponent<AjfImageContainerWidgetInstance> {
   readonly imageTypes = AjfImageType;

@@ -4,6 +4,7 @@ import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
 @Pipe({
   name: 'nodeTypeFilter',
   pure: false,
+  standalone: false,
 })
 export class NodeTypeFilterPipe implements PipeTransform {
   transform(nodeTypes: AjfFormBuilderNodeTypeEntry[], searchTerm: string): any[] {

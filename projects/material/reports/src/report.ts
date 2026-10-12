@@ -41,6 +41,7 @@ import {
   styleUrls: ['report.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfReportRenderer extends CoreReportRenderer {
   @Output() filterWidgetChange = new EventEmitter<{context: AjfContext, report?: AjfReportInstance}>();

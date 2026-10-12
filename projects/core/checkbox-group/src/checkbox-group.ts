@@ -56,6 +56,7 @@ let _uniqueIdCounter = 0;
   // eslint-disable-next-line
   selector: 'ajf-checkbox-group,[ajf-checkbox-group]',
   providers: [AJF_CHECKBOX_GROUP_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class AjfCheckboxGroup<T> implements AfterContentInit, ControlValueAccessor {
   checkboxes: AjfCheckboxGroupItem<T>[] = [];

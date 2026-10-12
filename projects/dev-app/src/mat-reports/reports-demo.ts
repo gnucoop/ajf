@@ -40,6 +40,7 @@ import {testReport} from './report';
   selector: 'reports-demo',
   templateUrl: 'reports-demo.html',
   styleUrls: ['reports-demo.scss'],
+  standalone: false,
 })
 export class ReportsDemo {
   report: AjfReportInstance|undefined;

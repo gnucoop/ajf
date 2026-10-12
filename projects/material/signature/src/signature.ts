@@ -50,6 +50,7 @@ export const SIGNATURE_CONTROL_VALUE_ACCESSOR: any = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [SIGNATURE_CONTROL_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class AjfSignatureComponent extends AjfSignature implements OnDestroy, AfterViewInit {
   constructor(cdr: ChangeDetectorRef, renderer: Renderer2, private _sanitizer: DomSanitizer) {

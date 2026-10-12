@@ -51,6 +51,7 @@ describe('AjfImage', () => {
 
 @Component({
   template: '<ajf-image [type]="type" [imageUrl]="imageUrl"></ajf-image>',
+  standalone: false,
 })
 class TestComponent {
   type = AjfImageType.Image;

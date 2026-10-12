@@ -62,7 +62,11 @@ const pageCount = (slide: AjfSlideInstance): number =>
  * while nothing has moved: returning a fresh one on every check would trip
  * Angular's "expression has changed after it was checked" guard.
  */
-@Pipe({name: 'ajfCurrentSlide', pure: false})
+@Pipe({
+  name: 'ajfCurrentSlide',
+  pure: false,
+  standalone: false,
+})
 export class AjfCurrentSlidePipe implements PipeTransform {
   private _last: AjfCurrentSlide | null = null;
 

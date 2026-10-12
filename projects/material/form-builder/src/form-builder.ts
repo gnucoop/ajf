@@ -61,6 +61,7 @@ import {AjfFbStringIdentifierDialogComponent} from './string-identifier-dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   host: {'[class.ajf-form-builder-fill-height]': 'fillHeight'},
+  standalone: false,
 })
 export class AjfFormBuilder implements AfterViewChecked, AfterContentInit, OnDestroy {
   @ViewChild('designer', {static: true}) designerCont!: ElementRef;

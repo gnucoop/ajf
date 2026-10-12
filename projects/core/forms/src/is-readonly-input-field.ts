@@ -32,7 +32,10 @@ import {isFieldInstance} from './utils/nodes-instances/is-field-instance';
  * @export
  * @class AjfIsReadonlyInputFieldPipe
  */
-@Pipe({name: 'ajfIsReadonlyInputField'})
+@Pipe({
+  name: 'ajfIsReadonlyInputField',
+  standalone: false,
+})
 export class AjfIsReadonlyInputFieldPipe implements PipeTransform {
   transform(instance: AjfNodeInstance): boolean {
     return isFieldInstance(instance) && instance.node.fieldType === AjfFieldType.Formula;

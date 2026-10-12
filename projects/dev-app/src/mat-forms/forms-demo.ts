@@ -42,6 +42,7 @@ import {formContext, formSchema} from './form';
   selector: 'forms-demo',
   templateUrl: 'forms-demo.html',
   styleUrls: ['forms-demo.scss'],
+  standalone: false,
 })
 export class FormsDemo {
   formSchema: string = JSON.stringify(formSchema);
