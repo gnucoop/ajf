@@ -165,7 +165,7 @@ ajf-form {
     // buttons and had no hover at all. Both are pointed at the same ink here, so
     // the two behave alike and follow the token palette rather than the host's.
     .mat-mdc-button {
-      --mat-text-button-state-layer-color: var(--ajf-text);
+      --mat-button-text-state-layer-color: var(--ajf-text);
     }
   }
 

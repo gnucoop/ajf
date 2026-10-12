@@ -44,8 +44,8 @@ import {AjfCheckboxGroupModule} from './public_api';
     `
       /* A themed host, stating the metrics a Material theme would state. */
       .themed {
-        --mdc-text-button-label-text-weight: 500;
-        --mdc-text-button-container-height: 40px;
+        --mat-button-text-label-text-weight: 500;
+        --mat-button-text-container-height: 40px;
       }
       /* The layout the form's field.scss gives the choices container. */
       .ajf-choices-container {

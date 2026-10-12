@@ -34,7 +34,7 @@ describe('AjfReportWidget', () => {
       imports: [AjfReportsModule, AjfTranslocoModule],
     });
 
-    ts = TestBed.get(TranslocoService);
+    ts = TestBed.inject(TranslocoService);
     await TestBed.compileComponents();
   });
 
