@@ -492,27 +492,27 @@ $_dark: (
     }
 
     .mat-mdc-slide-toggle {
-      --mdc-switch-selected-track-color: var(--ajf-accent);
-      --mdc-switch-selected-handle-color: var(--ajf-surface);
-      --mdc-switch-selected-hover-track-color: var(--ajf-accent);
-      --mdc-switch-selected-focus-track-color: var(--ajf-accent);
-      --mdc-switch-selected-pressed-track-color: var(--ajf-accent);
-      --mdc-switch-selected-hover-handle-color: var(--ajf-surface);
-      --mdc-switch-selected-focus-handle-color: var(--ajf-surface);
-      --mdc-switch-selected-pressed-handle-color: var(--ajf-surface);
+      --mat-slide-toggle-selected-track-color: var(--ajf-accent);
+      --mat-slide-toggle-selected-handle-color: var(--ajf-surface);
+      --mat-slide-toggle-selected-hover-track-color: var(--ajf-accent);
+      --mat-slide-toggle-selected-focus-track-color: var(--ajf-accent);
+      --mat-slide-toggle-selected-pressed-track-color: var(--ajf-accent);
+      --mat-slide-toggle-selected-hover-handle-color: var(--ajf-surface);
+      --mat-slide-toggle-selected-focus-handle-color: var(--ajf-surface);
+      --mat-slide-toggle-selected-pressed-handle-color: var(--ajf-surface);
     }
 
     .mat-mdc-slider {
       // The thumb takes the active track's colour rather than sitting on it as a
       // separate paper dot, so the filled part of the slider reads as one shape.
-      --mdc-slider-handle-color: var(--ajf-accent);
-      --mdc-slider-focus-handle-color: var(--ajf-accent);
-      --mdc-slider-hover-handle-color: var(--ajf-accent);
-      --mdc-slider-active-track-color: var(--ajf-accent);
-      --mdc-slider-inactive-track-color: var(--ajf-border);
-      --mdc-slider-with-tick-marks-active-container-color: var(--ajf-accent-fg);
-      --mdc-slider-with-tick-marks-inactive-container-color: var(--ajf-border-strong);
-      --mdc-slider-handle-elevation: none;
+      --mat-slider-handle-color: var(--ajf-accent);
+      --mat-slider-focus-handle-color: var(--ajf-accent);
+      --mat-slider-hover-handle-color: var(--ajf-accent);
+      --mat-slider-active-track-color: var(--ajf-accent);
+      --mat-slider-inactive-track-color: var(--ajf-border);
+      --mat-slider-with-tick-marks-active-container-color: var(--ajf-accent-fg);
+      --mat-slider-with-tick-marks-inactive-container-color: var(--ajf-border-strong);
+      --mat-slider-handle-elevation: none;
       --mat-slider-ripple-color: var(--ajf-accent);
     }
 

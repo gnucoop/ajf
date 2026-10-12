@@ -17,9 +17,9 @@ ajf-checkbox-group-item {
     // The weight is one of them: on a themed host the button label is a medium
     // weight, right for a call to action and wrong for a choice, which is body
     // text the reader scans.
-    --mdc-text-button-label-text-weight: 400;
-    --mat-text-button-horizontal-padding: 14px;
-    --mat-text-button-with-icon-horizontal-padding: 14px;
+    --mat-button-text-label-text-weight: 400;
+    --mat-button-text-horizontal-padding: 14px;
+    --mat-button-text-with-icon-horizontal-padding: 14px;
 
     font-weight: 400;
 

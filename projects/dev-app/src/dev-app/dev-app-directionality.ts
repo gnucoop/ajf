@@ -21,20 +21,20 @@
  */
 
 import {Direction, Directionality} from '@angular/cdk/bidi';
-import {EventEmitter, Injectable, OnDestroy} from '@angular/core';
+import {EventEmitter, Injectable, OnDestroy, signal} from '@angular/core';
 
 @Injectable()
 export class DevAppDirectionality implements Directionality, OnDestroy {
   readonly change = new EventEmitter<Direction>();
+  readonly valueSignal = signal<Direction>('ltr');
 
   get value(): Direction {
-    return this._value;
+    return this.valueSignal();
   }
   set value(value: Direction) {
-    this._value = value;
+    this.valueSignal.set(value);
     this.change.next(value);
   }
-  private _value: Direction = 'ltr';
 
   ngOnDestroy() {
     this.change.complete();
