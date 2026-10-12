@@ -41,6 +41,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['empty-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfEmptyFieldComponent extends AjfBaseFieldComponent<AjfEmptyFieldInstance> {
   constructor(

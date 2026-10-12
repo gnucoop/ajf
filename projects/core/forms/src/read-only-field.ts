@@ -44,6 +44,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
   styleUrls: ['read-only-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfReadOnlyFieldComponent extends CoreComponent {
   constructor(

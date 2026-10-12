@@ -41,6 +41,7 @@ import {AjfFieldService} from './field-service';
   styleUrls: ['field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfFormField extends CoreFormField {
   readonly componentsMap: AjfFieldComponentsMap;

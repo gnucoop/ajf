@@ -36,6 +36,7 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['image.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfImage extends CoreImage {
   constructor(el: ElementRef, renderer: Renderer2, ds: DomSanitizer) {

@@ -37,6 +37,7 @@ import {ChangeDetectionStrategy, Component, Optional, ViewEncapsulation} from '@
     '[class.ajf-checkbox-group-checked]': 'checked',
     '[class.ajf-checkbox-group-disable]': 'disabled',
   },
+  standalone: false,
 })
 export class CheckboxGroupItem<T> extends CoreCheckboxGroupItem<T> {
   constructor(

@@ -27,6 +27,7 @@ import {Component} from '@angular/core';
   selector: 'file-input-demo',
   templateUrl: 'file-input-demo.html',
   styleUrls: ['file-input-demo.scss'],
+  standalone: false,
 })
 export class FileInputDemo {
   file: AjfFile | undefined;

@@ -28,6 +28,7 @@ import {features, values} from './features';
   selector: 'heat-map-demo',
   templateUrl: 'heat-map-demo.html',
   styleUrls: ['heat-map-demo.scss'],
+  standalone: false,
 })
 export class HeatMapDemo {
   readonly features = features;

@@ -41,7 +41,10 @@ export interface AjfFormBuilderNodeTypeGroup {
  * the order of their first entry. Applied after the search filter, so that the
  * categories left without entries produce no header.
  */
-@Pipe({name: 'nodeTypeGroups'})
+@Pipe({
+  name: 'nodeTypeGroups',
+  standalone: false,
+})
 export class NodeTypeGroupsPipe implements PipeTransform {
   transform(nodeTypes: AjfFormBuilderNodeTypeEntry[]): AjfFormBuilderNodeTypeGroup[] {
     if (!nodeTypes) {

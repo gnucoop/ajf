@@ -49,6 +49,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
   styleUrls: ['image-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfImageFieldComponent extends AjfBaseFieldComponent {
   readonly imageUrl: Observable<SafeResourceUrl | null>;

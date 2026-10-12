@@ -6,6 +6,7 @@ import {TranslocoService} from '@ngneat/transloco';
 @Component({
   selector: 'transloco-e2e',
   templateUrl: 'transloco-e2e.html',
+  standalone: false,
 })
 export class TranslocoE2E {
   readonly langs = Object.keys(langs);

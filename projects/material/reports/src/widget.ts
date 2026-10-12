@@ -102,6 +102,7 @@ export class AjfWidgetService extends CoreService {
   styleUrls: ['widget.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfReportWidget extends CoreComponent {
   @Output() filterWidgetChange = new EventEmitter<{context: AjfContext, widget: AjfWidgetInstance}>();
@@ -122,6 +123,7 @@ export class AjfReportWidget extends CoreComponent {
   styleUrls: ['column-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfColumnWidgetComponent extends AjfBaseWidgetComponent<AjfColumnWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {
@@ -134,6 +136,7 @@ export class AjfColumnWidgetComponent extends AjfBaseWidgetComponent<AjfColumnWi
   styleUrls: ['layout-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfLayoutWidgetComponent
   extends AjfBaseWidgetComponent<AjfLayoutWidgetInstance>
@@ -156,6 +159,7 @@ export class AjfLayoutWidgetComponent
   styleUrls: ['dialog-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfDialogWidgetComponent extends AjfBaseWidgetComponent<AjfDialogWidgetInstance> {
   @ViewChild('dialogContent', {read: TemplateRef}) dialogContent!: TemplateRef<HTMLElement>;
@@ -174,6 +178,7 @@ export class AjfDialogWidgetComponent extends AjfBaseWidgetComponent<AjfDialogWi
   styleUrls: ['paginated-list-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfPaginatedListWidgetComponent
   extends AjfBaseWidgetComponent<AjfPaginatedListWidgetInstance>
@@ -263,6 +268,7 @@ export class AjfPaginatedListWidgetComponent
   styleUrls: ['paginated-table-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfPaginatedTableWidgetComponent
   extends AjfBaseWidgetComponent<AjfPaginatedTableWidgetInstance>

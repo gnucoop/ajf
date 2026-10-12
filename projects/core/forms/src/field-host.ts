@@ -26,7 +26,7 @@ import {Directive, ViewContainerRef} from '@angular/core';
  * It Applies a viewContainerRef to a component selector.
  */
 // eslint-disable-next-line
-@Directive({selector: '[ajf-field-host]'})
+@Directive({selector: '[ajf-field-host]', standalone: false})
 export class AjfFieldHost {
   constructor(readonly viewContainerRef: ViewContainerRef) {}
 }

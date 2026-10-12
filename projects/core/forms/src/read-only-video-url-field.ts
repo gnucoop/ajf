@@ -47,6 +47,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
   styleUrls: ['read-only-video-url-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfReadOnlyVideoUrlFieldComponent extends AjfVideoUrlFieldComponent {
   constructor(

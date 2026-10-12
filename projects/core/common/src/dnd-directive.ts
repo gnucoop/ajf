@@ -31,6 +31,7 @@ import {Observable} from 'rxjs';
     '(dragleave)': 'onDragLeave($event)',
     '(drop)': 'onDrop($event)',
   },
+  standalone: false,
 })
 export class AjfDndDirective {
   private _file: EventEmitter<FileList> = new EventEmitter<FileList>();

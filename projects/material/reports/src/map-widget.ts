@@ -34,6 +34,7 @@ import {
   styleUrls: ['map-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfMapWidgetComponent extends AjfBaseWidgetComponent<AjfMapWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

@@ -65,5 +65,6 @@ describe('AjfPageSlider', () => {
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 class TestComponent {}

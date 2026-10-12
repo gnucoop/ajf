@@ -33,7 +33,10 @@ import {AjfFieldType} from './interface/fields/field-type';
  *
  * @return An icon class name relative to the AjfType.
  */
-@Pipe({name: 'ajfFieldIcon'})
+@Pipe({
+  name: 'ajfFieldIcon',
+  standalone: false,
+})
 export class AjfFieldIconPipe implements PipeTransform {
   transform(field: AjfField | AjfFieldType): string {
     return fieldIconName(typeof field === 'number' ? field : field.fieldType);

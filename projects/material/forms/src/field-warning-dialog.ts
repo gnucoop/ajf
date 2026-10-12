@@ -26,6 +26,7 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
   templateUrl: 'field-warning-dialog.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfFieldWarningDialog {
   message: string = '';

@@ -28,5 +28,6 @@ import {Component, ViewEncapsulation} from '@angular/core';
   selector: 'dev-app',
   template: '<dev-app-layout><router-outlet></router-outlet></dev-app-layout>',
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class DevAppComponent {}

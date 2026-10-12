@@ -26,6 +26,7 @@ import {Component} from '@angular/core';
   selector: 'checkbox-group-demo',
   templateUrl: 'checkbox-group-demo.html',
   styleUrls: ['checkbox-group-demo.scss'],
+  standalone: false,
 })
 export class CheckboxGroupDemo {
   value: any[] = [];

@@ -38,6 +38,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['range-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfRangeFieldComponent extends AjfRange {
   constructor(

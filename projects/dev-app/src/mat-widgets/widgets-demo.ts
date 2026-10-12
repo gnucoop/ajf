@@ -30,6 +30,7 @@ import {demoWidgets} from '../widgets';
   selector: 'widgets-demo',
   templateUrl: 'widgets-demo.html',
   styleUrls: ['widgets-demo.scss'],
+  standalone: false,
 })
 export class WidgetsDemo {
   widgets: {name: string; instance: AjfWidgetInstance}[];

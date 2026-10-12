@@ -34,6 +34,7 @@ import {
   styleUrls: ['chart-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfChartWidgetComponent extends AjfBaseWidgetComponent<AjfChartWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

@@ -50,6 +50,7 @@ import {Observable} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   providers: [AjfFormRendererService],
+  standalone: false,
 })
 export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetInstance> {
   @Output() readonly filteredInstance: Observable<AjfWidgetInstance>;

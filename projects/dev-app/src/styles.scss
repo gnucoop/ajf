@@ -2,7 +2,7 @@
 
 // The dev app is themed with a Material 3 theme built with system variables, so
 // it doubles as the demonstration that the form renderer follows a host theme:
-// every --ajf-* colour token falls back to the matching --sys-* variable, so the
+// every --ajf-* colour token falls back to the matching --mat-sys-* variable, so the
 // palette below drives the whole form, light and dark, with no other wiring.
 //
 // The e2e app is deliberately left on the prebuilt indigo-pink M2 theme, which
@@ -38,11 +38,10 @@ $dark: mat.define-theme(
   )
 );
 
-// The structural styles: ripples, elevation classes, and -- the reason this line
-// cannot be dropped -- the CDK overlay and a11y CSS that positions every panel,
-// menu and dialog. The prebuilt theme stylesheets bundle these together with the
-// palette; building the theme in Sass means emitting them explicitly.
-@include mat.core();
+// Since Material 19 each component loads its own structural styles (ripples, the
+// CDK overlay and a11y CSS), so what `mat.core()` used to emit reduces to these two.
+@include mat.elevation-classes();
+@include mat.app-background();
 
 html {
   @include mat.all-component-themes($light);

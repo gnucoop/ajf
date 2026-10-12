@@ -44,6 +44,7 @@ const {map, tileLayer} = ((leaflet as any).default || leaflet) as typeof leaflet
   styleUrls: ['map.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfMapComponent implements AfterViewInit, OnDestroy {
   @ViewChild(AjfMapContainerDirective, {static: true})

@@ -32,6 +32,7 @@ import {formSchema} from './form';
   selector: 'form-builder-demo',
   templateUrl: 'form-builder-demo.html',
   styleUrls: ['form-builder-demo.scss'],
+  standalone: false,
 })
 export class FormBuilderDemo implements AfterViewInit, OnDestroy {
   form: AjfForm | undefined;

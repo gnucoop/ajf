@@ -47,6 +47,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
   styleUrls: ['read-only-geolocation-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfReadOnlyGeolocationFieldComponent extends AjfBaseFieldComponent {
   readonly latitude: Observable<string>;

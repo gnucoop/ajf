@@ -26,7 +26,10 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {AjfReport} from './interface/reports/report';
 import {buildReportStringIdentifier} from './utils/reports/build-report-string-identifier';
 
-@Pipe({name: 'ajfReportStringIdentifier'})
+@Pipe({
+  name: 'ajfReportStringIdentifier',
+  standalone: false,
+})
 export class AjfReportStringIdentifierPipe implements PipeTransform {
   transform(report: AjfReport, context: AjfContext, opts?: BuildStringIdentifierOpts): string {
     return buildReportStringIdentifier(report, context, opts);

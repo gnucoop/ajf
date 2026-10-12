@@ -30,7 +30,10 @@ import {isRepeatingSlideInstance} from './utils/nodes-instances/is-repeating-sli
  * @export
  * @class AjfIsRepeatingSlideInstancePipe
  */
-@Pipe({name: 'ajfIsRepeatingSlideInstance'})
+@Pipe({
+  name: 'ajfIsRepeatingSlideInstance',
+  standalone: false,
+})
 export class AjfIsRepeatingSlideInstancePipe implements PipeTransform {
   transform(instance: AjfNodeInstance): boolean {
     return isRepeatingSlideInstance(instance);

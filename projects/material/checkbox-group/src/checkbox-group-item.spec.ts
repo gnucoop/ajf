@@ -57,6 +57,7 @@ import {AjfCheckboxGroupModule} from './public_api';
       }
     `,
   ],
+  standalone: false,
 })
 class TestComponent {
   ctrl = new FormControl<string[]>([]);

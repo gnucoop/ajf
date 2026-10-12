@@ -40,6 +40,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['input-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfInputFieldComponent extends CoreComponent {
   constructor(

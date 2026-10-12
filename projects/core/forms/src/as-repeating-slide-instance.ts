@@ -28,7 +28,10 @@ import {AjfSlideInstance} from './interface/slides-instances/slide-instance';
 /**
  * It casts an AjfSlideInstance as AjfRepeatingSlideInstance.
  */
-@Pipe({name: 'ajfAsRepeatingSlideInstance'})
+@Pipe({
+  name: 'ajfAsRepeatingSlideInstance',
+  standalone: false,
+})
 export class AjfAsRepeatingSlideInstancePipe implements PipeTransform {
   transform(instance: AjfSlideInstance): AjfRepeatingSlideInstance {
     return instance as unknown as AjfRepeatingSlideInstance;

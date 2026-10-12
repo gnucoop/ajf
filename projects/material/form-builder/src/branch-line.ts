@@ -35,6 +35,7 @@ import {
   styleUrls: ['branch-line.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfFbBranchLine {
   private _offset = 0;

@@ -329,6 +329,7 @@ const testForm = {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
+  standalone: false,
 })
 class TestComponent {
   form = AjfFormSerializer.fromJson(testForm);

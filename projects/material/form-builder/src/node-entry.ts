@@ -65,6 +65,7 @@ const branchColors: string[] = [
   host: {'(window.resize)': 'onResize()'},
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfFbNodeEntry implements AfterViewInit, OnDestroy {
   @ViewChildren(AjfFbBranchLine) branchLines!: QueryList<AjfFbBranchLine>;

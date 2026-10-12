@@ -25,5 +25,6 @@ import {Component} from '@angular/core';
 @Component({
   selector: 'file-input-e2e',
   templateUrl: 'file-input-e2e.html',
+  standalone: false,
 })
 export class FileInputE2E {}

@@ -23,7 +23,10 @@
 import {DecimalPipe} from '@angular/common';
 import {Pipe, PipeTransform} from '@angular/core';
 
-@Pipe({name: 'ajfFormatIfNumber'})
+@Pipe({
+  name: 'ajfFormatIfNumber',
+  standalone: false,
+})
 export class FormatIfNumber extends DecimalPipe implements PipeTransform {
   override transform(value: any, digitsInfo?: string, locale?: string) {
     if (typeof value === 'number') {

@@ -46,6 +46,7 @@ const reportNodes: AjfGraphNode[] = [
 @Component({
   selector: 'graph-e2e',
   templateUrl: 'graph-e2e.html',
+  standalone: false,
 })
 export class GraphE2E {
   nodes = reportNodes;

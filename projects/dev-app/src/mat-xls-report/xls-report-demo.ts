@@ -38,6 +38,7 @@ import {BehaviorSubject} from 'rxjs';
   selector: 'xls-report-demo',
   templateUrl: 'xls-report-demo.html',
   styleUrls: ['xls-report-demo.scss'],
+  standalone: false,
 })
 export class ReportFromXlsDemo {
   formSchemaObj: {[id: string]: any} = {};

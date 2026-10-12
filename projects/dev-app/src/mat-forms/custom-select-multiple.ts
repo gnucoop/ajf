@@ -31,6 +31,7 @@ import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
 @Component({
   templateUrl: 'custom-select-multiple.html',
   styleUrls: ['custom-select-multiple.scss'],
+  standalone: false,
 })
 export class CustomSelectMultiple extends AjfMultipleChoiceFieldComponent<any> {
   constructor(

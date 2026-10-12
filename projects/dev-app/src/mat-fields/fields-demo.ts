@@ -28,6 +28,7 @@ import {fields} from './fields';
   selector: 'fields-demo',
   templateUrl: 'fields-demo.html',
   styleUrls: ['fields-demo.scss'],
+  standalone: false,
 })
 export class FieldsDemo {
   fields = fields;

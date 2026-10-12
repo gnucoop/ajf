@@ -28,7 +28,10 @@ import {Pipe, PipeTransform} from '@angular/core';
  * @export
  * @class AjfTableRowClass
  */
-@Pipe({name: 'ajfTableRowClass'})
+@Pipe({
+  name: 'ajfTableRowClass',
+  standalone: false,
+})
 export class AjfTableRowClass implements PipeTransform {
   transform(value: number): string {
     if (value === 0) {

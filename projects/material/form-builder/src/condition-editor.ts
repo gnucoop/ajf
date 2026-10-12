@@ -36,6 +36,7 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['fb-condition-editor.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfFbConditionEditor implements AfterViewInit {
   private _fields: AjfField[] = [];

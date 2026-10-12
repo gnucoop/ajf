@@ -11,6 +11,7 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 @Component({
   selector: 'date-input-field-e2e',
   templateUrl: 'date-input-field-e2e.html',
+  standalone: false,
 })
 export class MaterialDateInputFieldE2E implements AfterViewInit {
   @ViewChild(AjfFieldHost, {static: true}) fieldHost!: AjfFieldHost;

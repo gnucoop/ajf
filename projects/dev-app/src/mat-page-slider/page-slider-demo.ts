@@ -26,6 +26,7 @@ import {Component} from '@angular/core';
   selector: 'page-slider-demo',
   templateUrl: 'page-slider-demo.html',
   styleUrls: ['page-slider-demo.scss'],
+  standalone: false,
 })
 export class PageSliderDemo {
   fixedOrientation = false;

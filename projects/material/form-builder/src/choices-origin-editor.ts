@@ -31,6 +31,7 @@ import {ChoicesOriginChoiceEntry, ChoicesOriginDataSource} from './choices-origi
   styleUrls: ['choices-origin-editor.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfFbChoicesOriginEditor {
   private _displayedColumns: string[] = ['value', 'label', 'delete'];

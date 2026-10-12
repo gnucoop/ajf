@@ -34,6 +34,7 @@ import {
   styleUrls: ['heat-map-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfHeatMapWidgetComponent extends AjfBaseWidgetComponent<AjfHeatMapWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

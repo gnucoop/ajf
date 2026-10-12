@@ -28,6 +28,7 @@ import {Component} from '@angular/core';
   selector: 'echarts-demo',
   templateUrl: 'echarts-demo.html',
   styleUrls: ['echarts-demo.scss'],
+  standalone: false,
 })
 export class EchartsDemo {
   dark: boolean = false;

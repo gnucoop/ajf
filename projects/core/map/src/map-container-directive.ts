@@ -23,7 +23,7 @@
 import {Directive, ElementRef} from '@angular/core';
 
 // eslint-disable-next-line
-@Directive({selector: '[mapContainer]'})
+@Directive({selector: '[mapContainer]', standalone: false})
 export class AjfMapContainerDirective {
   get htmlElement(): HTMLElement {
     return this._el.nativeElement;

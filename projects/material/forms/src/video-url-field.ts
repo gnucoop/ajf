@@ -42,6 +42,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['video-url-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfVideoUrlFieldComponent extends CoreComponent {
   constructor(

@@ -26,7 +26,10 @@ import {AjfCalendarEntry} from './calendar-interfaces';
 import {AjfCalendarService} from './calendar-service';
 
 @Injectable()
-@Pipe({name: 'ajfCalendarEntryLabel'})
+@Pipe({
+  name: 'ajfCalendarEntryLabel',
+  standalone: false,
+})
 export class AjfCalendarEntryLabelPipe implements PipeTransform {
   constructor(private _service: AjfCalendarService) {}
 

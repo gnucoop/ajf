@@ -26,6 +26,7 @@ import {Component} from '@angular/core';
   selector: 'calendar-demo',
   templateUrl: 'calendar-demo.html',
   styleUrls: ['calendar-demo.scss'],
+  standalone: false,
 })
 export class CalendarDemo {
   isoMode: boolean = false;

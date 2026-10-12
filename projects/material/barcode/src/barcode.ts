@@ -51,6 +51,7 @@ export const BARCODE_CONTROL_VALUE_ACCESSOR: any = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [BARCODE_CONTROL_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class AjfBarcodeComponent extends AjfBarcode implements OnDestroy, AfterViewInit {
   sourceSelectSub: Subscription = Subscription.EMPTY;

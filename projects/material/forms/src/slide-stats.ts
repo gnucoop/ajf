@@ -83,7 +83,11 @@ const isFilled = (field: AjfFieldInstance, formGroup: UntypedFormGroup | null): 
  * `ajfValidSlide` and `ajfAsFieldInstanceErrors`. Returns a memoized object; see
  * the note inside.
  */
-@Pipe({name: 'ajfSlideCompletion', pure: false})
+@Pipe({
+  name: 'ajfSlideCompletion',
+  pure: false,
+  standalone: false,
+})
 export class AjfSlideCompletionPipe implements PipeTransform {
   private _last: AjfSlideCompletion | null = null;
 
@@ -108,7 +112,11 @@ export class AjfSlideCompletionPipe implements PipeTransform {
 /**
  * How many of a slide's visible fields are failing validation.
  */
-@Pipe({name: 'ajfSlideIssues', pure: false})
+@Pipe({
+  name: 'ajfSlideIssues',
+  pure: false,
+  standalone: false,
+})
 export class AjfSlideIssuesPipe implements PipeTransform {
   transform(slide: AjfBaseSlideInstance, idx: number = 0): number {
     return countableFields(slide, idx).filter(f => !f.valid).length;
@@ -134,7 +142,11 @@ export interface AjfFormIssues {
  *
  * Impure and memoized, like its neighbours above.
  */
-@Pipe({name: 'ajfFormIssues', pure: false})
+@Pipe({
+  name: 'ajfFormIssues',
+  pure: false,
+  standalone: false,
+})
 export class AjfFormIssuesPipe implements PipeTransform {
   private _last: AjfFormIssues = {fields: 0, slides: 0};
 

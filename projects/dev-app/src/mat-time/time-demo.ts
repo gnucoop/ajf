@@ -26,5 +26,6 @@ import {Component} from '@angular/core';
   selector: 'time-demo',
   templateUrl: 'time-demo.html',
   styleUrls: ['time-demo.scss'],
+  standalone: false,
 })
 export class TimeDemo {}

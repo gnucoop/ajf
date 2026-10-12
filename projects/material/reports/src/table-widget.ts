@@ -34,6 +34,7 @@ import {
   styleUrls: ['table-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfTableWidgetComponent extends AjfBaseWidgetComponent<AjfTableWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

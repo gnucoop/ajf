@@ -43,6 +43,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['date-input-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfDateInputFieldComponent extends AjfBaseFieldComponent<AjfDateFieldInstance> {
   @ViewChild(MatInput, {static: false}) input!: MatInput;

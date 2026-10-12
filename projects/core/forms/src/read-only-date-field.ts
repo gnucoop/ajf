@@ -49,6 +49,7 @@ import {DatePipe} from '@angular/common';
   styleUrls: ['read-only-date-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfReadOnlyDateFieldComponent extends CoreComponent {
   readonly date: Observable<string>;

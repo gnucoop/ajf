@@ -47,6 +47,7 @@ export const GEOLOCATION_CONTROL_VALUE_ACCESSOR: any = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [GEOLOCATION_CONTROL_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class AjfGeolocationComponent extends AjfGeolocation implements OnDestroy {
   constructor(cdr: ChangeDetectorRef) {

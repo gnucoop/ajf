@@ -47,7 +47,11 @@ export interface AjfEchartsInitEvent {
   chart: echarts.ECharts;
 }
 
-@Directive({selector: '[ajfEcharts]', exportAs: 'ajfEcharts'})
+@Directive({
+  selector: '[ajfEcharts]',
+  exportAs: 'ajfEcharts',
+  standalone: false,
+})
 export class AjfEchartsDirective implements OnChanges, OnDestroy, OnInit {
   @Input()
   set theme(theme: string | object | undefined) {

@@ -31,7 +31,11 @@ import {validSlide} from './utils/slides-instances/valid-slide';
  * @export
  * @class AjfValidSlidePipe
  */
-@Pipe({name: 'ajfValidSlide', pure: false})
+@Pipe({
+  name: 'ajfValidSlide',
+  pure: false,
+  standalone: false,
+})
 export class AjfValidSlidePipe implements PipeTransform {
   transform(slide: AjfBaseSlideInstance, idx: number): boolean {
     if (idx == null || typeof idx !== 'number') {

@@ -34,6 +34,7 @@ import {AjfFormBuilderService} from './form-builder-service';
   styleUrls: ['./string-identifier-dialog.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfFbStringIdentifierDialogComponent implements OnDestroy {
   readonly fields$: Observable<AjfField[]>;

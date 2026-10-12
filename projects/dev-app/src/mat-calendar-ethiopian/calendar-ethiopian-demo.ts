@@ -26,6 +26,7 @@ import {Component} from '@angular/core';
   selector: 'calendar-ethiopian-demo',
   templateUrl: 'calendar-ethiopian-demo.html',
   styleUrls: ['calendar-ethiopian-demo.scss'],
+  standalone: false,
 })
 export class CalendarEthiopianDemo {
   isoMode: boolean = false;

@@ -24,7 +24,10 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {AjfLayoutWidgetInstance} from './interface/widgets-instances/layout-widget-instance';
 import {AjfWidgetInstance} from './interface/widgets-instances/widget-instance';
 
-@Pipe({name: 'ajfGetColumnContent'})
+@Pipe({
+  name: 'ajfGetColumnContent',
+  standalone: false,
+})
 export class AjfGetColumnContentPipe implements PipeTransform {
   transform(instance: AjfLayoutWidgetInstance, column: number): AjfWidgetInstance | null {
     return column >= 0 && column < instance.content.length ? instance.content[column] : null;

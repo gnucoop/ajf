@@ -27,6 +27,7 @@ import {ChangeDetectorRef, Component, ElementRef} from '@angular/core';
   selector: 'demo-custom-widget',
   templateUrl: 'custom-widget.html',
   styleUrls: ['custom-widget.scss'],
+  standalone: false,
 })
 export class CustomWidget extends AjfBaseWidgetComponent {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

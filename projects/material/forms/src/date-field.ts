@@ -41,6 +41,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['date-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfDateFieldComponent extends AjfBaseFieldComponent<AjfDateFieldInstance> {
   constructor(

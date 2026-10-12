@@ -81,6 +81,7 @@ export class Edge {
   styleUrls: ['graph.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfGraphComponent implements OnInit {
   @Input() nodes?: AjfGraphNode[];

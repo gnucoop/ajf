@@ -32,7 +32,10 @@ import {buildFormStringIdentifier} from './utils/forms/build-form-string-identif
  * @export
  * @class AjfFormStringIdentifierPipe
  */
-@Pipe({name: 'ajfFormStringIdentifier'})
+@Pipe({
+  name: 'ajfFormStringIdentifier',
+  standalone: false,
+})
 export class AjfFormStringIdentifierPipe implements PipeTransform {
   transform(form: AjfForm, context: AjfContext, opts?: BuildStringIdentifierOpts): string {
     return buildFormStringIdentifier(form, context, opts);

@@ -47,6 +47,7 @@ import {
   styleUrls: ['display-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfDisplayFieldComponent extends AjfInputFieldComponent {
   constructor(

@@ -23,7 +23,7 @@
 import {Directive, ElementRef, Input, isDevMode, Renderer2} from '@angular/core';
 
 // eslint-disable-next-line
-@Directive({selector: '[applyStyles]'})
+@Directive({selector: '[applyStyles]', standalone: false})
 export class ApplyStylesDirective {
   private _cssStyles: {[style: string]: any} = {};
   @Input()

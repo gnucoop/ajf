@@ -28,5 +28,6 @@ import {Component} from '@angular/core';
     <p>Welcome to the development demos for Ajf!</p>
     <p>Open the sidenav to select a demo.</p>
   `,
+  standalone: false,
 })
 export class DevAppHome {}

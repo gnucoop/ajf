@@ -34,6 +34,7 @@ import {
   styleUrls: ['formula-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfFormulaWidgetComponent extends AjfBaseWidgetComponent<AjfFormulaWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

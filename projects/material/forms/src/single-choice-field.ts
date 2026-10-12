@@ -49,6 +49,7 @@ const maxChoicesInDom = 40;
   styleUrls: ['single-choice-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfSingleChoiceFieldComponent<T>
   extends AjfFieldWithChoicesComponent<T>

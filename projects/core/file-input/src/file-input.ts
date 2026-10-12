@@ -44,12 +44,16 @@ import {filter} from 'rxjs/operators';
 
 import {AjfFile, AjfFileSizeLimit} from './file';
 
-@Directive({selector: '[ajfDropMessage]'})
+@Directive({
+  selector: '[ajfDropMessage]',
+  standalone: false,
+})
 export class AjfDropMessage {}
 
 @Directive({
   selector: '[ajfFilePreview]',
   exportAs: 'ajfFilePreview',
+  standalone: false,
 })
 export class AjfFilePreview implements OnDestroy {
   private _value: AjfFile | undefined;
@@ -97,6 +101,7 @@ export class AjfFilePreview implements OnDestroy {
       multi: true,
     },
   ],
+  standalone: false,
 })
 export class AjfFileInput implements ControlValueAccessor {
   @ContentChildren(AjfDropMessage, {descendants: false})

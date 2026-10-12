@@ -192,12 +192,14 @@ describe('AjfFileInput in reactive forms', () => {
 
 @Component({
   template: '<ajf-file-input><div ajfDropMessage>Test drop message</div></ajf-file-input>',
+  standalone: false,
 })
 class DropMessageTestComponent {}
 
 @Component({
   template:
     '<ajf-file-input [value]="value"><div ajfFilePreview>Test file preview</div></ajf-file-input>',
+  standalone: false,
 })
 class FilePreviewTestComponent {
   @ViewChild(AjfFileInput) fileInput!: AjfFileInput;
@@ -210,6 +212,7 @@ class FilePreviewTestComponent {
       <ajf-file-input formControlName="file_upload"></ajf-file-input>
     </div>
   `,
+  standalone: false,
 })
 class ReactiveFormsTestComponent {
   @ViewChild(AjfFileInput) fileInput!: AjfFileInput;

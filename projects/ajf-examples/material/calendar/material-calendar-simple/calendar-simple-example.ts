@@ -7,5 +7,6 @@ import {Component} from '@angular/core';
   selector: 'material-calendar-simple-example',
   templateUrl: 'calendar-simple-example.html',
   styleUrls: ['calendar-simple-example.css'],
+  standalone: false,
 })
 export class MaterialCalendarSimpleExample {}

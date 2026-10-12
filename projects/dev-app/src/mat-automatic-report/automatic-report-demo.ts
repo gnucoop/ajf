@@ -34,6 +34,7 @@ import {formSchema as formSchemaObj} from './mockup';
   templateUrl: 'automatic-report-demo.html',
   styleUrls: ['automatic-report-demo.scss'],
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AutomaticReportDemo {
   form$: BehaviorSubject<AjfForm | null> = new BehaviorSubject<AjfForm | null>(null);

@@ -43,6 +43,7 @@ export const AJF_TIME_CONTROL_VALUE_ACCESSOR: any = {
   providers: [AJF_TIME_CONTROL_VALUE_ACCESSOR],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfTime extends Base implements ControlValueAccessor, OnDestroy {
   hoursList: number[] = Array.from({length: 24}, (_, i) => i);

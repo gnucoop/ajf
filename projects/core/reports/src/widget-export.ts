@@ -234,6 +234,7 @@ function exportAllWidgets(
   styleUrls: ['widget-export.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfWidgetExport {
   @Input() widgetType: AjfWidgetType | undefined;
