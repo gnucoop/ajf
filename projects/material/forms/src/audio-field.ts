@@ -40,6 +40,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['audio-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfAudioFieldComponent extends CoreComponent {
   constructor(

@@ -28,6 +28,7 @@ import {Component, HostBinding} from '@angular/core';
     <p>This page does not exist</p>
     <a mat-raised-button routerLink="/">Go back to the home page</a>
   `,
+  standalone: false,
 })
 export class DevApp404 {
   @HostBinding('class.mat-typography') matTypographyClass = true;

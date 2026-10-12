@@ -47,6 +47,7 @@ import {Subscription} from 'rxjs';
   styleUrls: ['field-row.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfFieldRow implements OnDestroy {
   @Input()

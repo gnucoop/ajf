@@ -59,6 +59,7 @@ interface SelectChanged {
   styleUrls: ['heat-map.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfHeatMap implements OnChanges, OnDestroy {
   @Input()

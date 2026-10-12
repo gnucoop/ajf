@@ -41,6 +41,7 @@ import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
   styleUrls: ['text.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfTextComponent {
   /**

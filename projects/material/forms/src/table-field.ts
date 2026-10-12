@@ -40,6 +40,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['table-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfTableFieldComponent extends CoreTableFieldComponent {
   constructor(

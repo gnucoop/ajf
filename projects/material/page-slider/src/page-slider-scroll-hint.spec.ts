@@ -119,6 +119,7 @@ describe('AjfPageSlider scroll hint', () => {
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 class TestComponent {}
 
@@ -132,5 +133,6 @@ class TestComponent {}
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 class ShortTestComponent {}

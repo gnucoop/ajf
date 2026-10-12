@@ -109,7 +109,7 @@ const digits = (min: number | null, max: number | null): string | undefined => {
  * search` once its choices outgrow the search threshold, and a range field with
  * the `rating` appearance is a different thing from a slider.
  */
-@Pipe({name: 'ajfFieldTypeLabel'})
+@Pipe({name: 'ajfFieldTypeLabel', standalone: false})
 export class AjfFieldTypeLabelPipe implements PipeTransform {
   private readonly _searchThreshold: number;
 

@@ -45,6 +45,7 @@ import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
       multi: true,
     },
   ],
+  standalone: false,
 })
 export class AjfAudioComponent extends AjfAudio implements OnDestroy {
   @Input() readonly = false;

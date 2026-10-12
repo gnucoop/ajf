@@ -28,7 +28,10 @@ import {AjfValidationResult} from './interface/validation/validation-results';
  * It returns true if all validationResults are true.
  *
  */
-@Pipe({name: 'ajfFieldIsValid'})
+@Pipe({
+  name: 'ajfFieldIsValid',
+  standalone: false,
+})
 export class AjfFieldIsValidPipe implements PipeTransform {
   transform(validationResults?: AjfValidationResult[]): boolean {
     return validationResults != null && validationResults.filter(f => !f.result).length === 0;

@@ -26,5 +26,6 @@ import {Component} from '@angular/core';
   selector: 'barcode-demo',
   templateUrl: 'barcode-demo.html',
   styleUrls: ['barcode-demo.scss'],
+  standalone: false,
 })
 export class BarcodeDemo {}

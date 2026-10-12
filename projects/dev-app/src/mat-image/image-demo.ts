@@ -27,6 +27,7 @@ import {Component} from '@angular/core';
   selector: 'image-demo',
   templateUrl: 'image-demo.html',
   styleUrls: ['image-demo.scss'],
+  standalone: false,
 })
 export class ImageDemo {
   imageTypes = AjfImageType;

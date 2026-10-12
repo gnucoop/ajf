@@ -26,5 +26,6 @@ import {Component} from '@angular/core';
   selector: 'geolocation-demo',
   templateUrl: 'geolocation-demo.html',
   styleUrls: ['geolocation-demo.scss'],
+  standalone: false,
 })
 export class GeolocationDemo {}

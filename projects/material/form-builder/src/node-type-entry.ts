@@ -36,6 +36,7 @@ import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
   styleUrls: ['node-type-entry.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfFbNodeTypeEntry {
   private _nodeType: AjfFormBuilderNodeTypeEntry | undefined;

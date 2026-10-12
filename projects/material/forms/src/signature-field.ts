@@ -46,6 +46,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
   styleUrls: ['signature-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfSignatureFieldComponent extends AjfBaseFieldComponent {
   constructor(

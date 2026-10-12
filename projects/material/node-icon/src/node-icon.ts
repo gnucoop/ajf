@@ -30,6 +30,7 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/co
   styleUrls: ['node-icon.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfNodeIcon extends CoreNodeIcon {
   matIcon(node: AjfNode): string {

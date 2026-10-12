@@ -49,6 +49,7 @@ describe('AjfDndDirective', () => {
 
 @Component({
   template: `<div ajfDnd></div>`,
+  standalone: false,
 })
 class TestComponent {
   @ViewChild(AjfDndDirective) dnd!: AjfDndDirective;

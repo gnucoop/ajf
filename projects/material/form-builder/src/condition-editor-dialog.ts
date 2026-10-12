@@ -35,6 +35,7 @@ import {AjfFormBuilderService} from './form-builder-service';
   styleUrls: ['condition-editor-dialog.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AjfFbConditionEditorDialog {
   @ViewChild(AjfFbConditionEditor, {static: false}) editor!: AjfFbConditionEditor;

@@ -34,9 +34,7 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angula
   templateUrl: 'rep-strip.html',
   styleUrls: ['rep-strip.scss'],
   encapsulation: ViewEncapsulation.None,
-  // Deliberately not OnPush: `reps`, `canAdd` and `canRemove` are mutated in
-  // place on the slide instance, so the guards below would go stale under a
-  // strategy that only re-checks when an input identity changes.
+  standalone: false,
 })
 export class AjfRepStrip {
   @Input() slide!: AjfRepeatingSlideInstance;

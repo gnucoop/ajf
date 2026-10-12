@@ -47,6 +47,7 @@ interface ChartWidgetInstance {
   styleUrls: ['chart.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfChartComponent implements AfterViewInit, OnChanges {
   @Input() data?: ChartData;

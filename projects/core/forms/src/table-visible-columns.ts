@@ -31,7 +31,10 @@ import {AjfTableFormControl} from './interface/forms/table-form-control';
  * @class AjfTableVisibleColumnsPipe
  */
 // TODO helpful? currently not used
-@Pipe({name: 'ajfTableVisibleColumns'})
+@Pipe({
+  name: 'ajfTableVisibleColumns',
+  standalone: false,
+})
 export class AjfTableVisibleColumnsPipe implements PipeTransform {
   transform(instance: AjfTableFieldInstance): (string | number | AjfTableFormControl)[][] {
     if (!instance.node.editable) {

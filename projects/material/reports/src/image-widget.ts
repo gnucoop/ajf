@@ -34,6 +34,7 @@ import {
   styleUrls: ['image-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class AjfImageWidgetComponent extends AjfBaseWidgetComponent<AjfImageWidgetInstance> {
   constructor(cdr: ChangeDetectorRef, el: ElementRef) {

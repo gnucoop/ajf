@@ -33,6 +33,7 @@ const baseField = {
   selector: 'node-icon-demo',
   templateUrl: 'node-icon-demo.html',
   styleUrls: ['node-icon-demo.scss'],
+  standalone: false,
 })
 export class NodeIconDemo {
   nodes: {name: string; node: AjfField}[] = [

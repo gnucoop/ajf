@@ -46,6 +46,7 @@ export const CALENDAR_CONTROL_VALUE_ACCESSOR: any = {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [CALENDAR_CONTROL_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class AjfCalendarComponent extends AjfCalendar {
   constructor(cdr: ChangeDetectorRef, service: AjfCalendarService) {

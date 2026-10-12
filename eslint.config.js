@@ -54,6 +54,9 @@ module.exports = tseslint.config(
         },
       ],
       '@angular-eslint/no-output-native': 0,
+      // Every component, directive and pipe is declared in an NgModule and marked
+      // `standalone: false`; moving to standalone is a separate refactor.
+      '@angular-eslint/prefer-standalone': 0,
       'object-curly-spacing': ['error', 'never'],
       'no-case-declarations': 'off',
       'no-useless-escape': 'off',

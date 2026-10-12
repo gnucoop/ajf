@@ -27,6 +27,7 @@ import {Component} from '@angular/core';
   selector: 'i18n-demo',
   templateUrl: 'i18n-demo.html',
   styleUrls: ['i18n-demo.scss'],
+  standalone: false,
 })
 export class I18nDemo {
   readonly langs: string[];

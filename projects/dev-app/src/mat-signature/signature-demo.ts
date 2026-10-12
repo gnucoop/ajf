@@ -26,5 +26,6 @@ import {Component} from '@angular/core';
   selector: 'signature-demo',
   templateUrl: 'signature-demo.html',
   styleUrls: ['signature-demo.scss'],
+  standalone: false,
 })
 export class SignatureDemo {}

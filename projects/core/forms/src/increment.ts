@@ -28,7 +28,10 @@ import {Pipe, PipeTransform} from '@angular/core';
  * @export
  * @class AjfIncrementPipe
  */
-@Pipe({name: 'ajfIncrement'})
+@Pipe({
+  name: 'ajfIncrement',
+  standalone: false,
+})
 export class AjfIncrementPipe implements PipeTransform {
   transform(value: number, increment: number = 1): number {
     return value + increment;
