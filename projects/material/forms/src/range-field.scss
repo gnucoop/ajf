@@ -46,13 +46,13 @@ ajf-range {
   // An untouched range must not read as "the minimum was chosen".
   .ajf-range-no-value {
     .mat-mdc-slider {
-      --mdc-slider-active-track-color: var(--ajf-border-strong);
+      --mat-slider-active-track-color: var(--ajf-border-strong);
       // Same rule as the chosen state -- thumb the colour of its own track --
       // applied to the muted one, hover and focus included, so that merely
       // pointing at an untouched slider does not paint it as chosen.
-      --mdc-slider-handle-color: var(--ajf-border-strong);
-      --mdc-slider-focus-handle-color: var(--ajf-border-strong);
-      --mdc-slider-hover-handle-color: var(--ajf-border-strong);
+      --mat-slider-handle-color: var(--ajf-border-strong);
+      --mat-slider-focus-handle-color: var(--ajf-border-strong);
+      --mat-slider-hover-handle-color: var(--ajf-border-strong);
     }
 
     .ajf-range-value {

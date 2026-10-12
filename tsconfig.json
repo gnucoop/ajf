@@ -23,7 +23,7 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "es2022",
     "module": "es2022",
@@ -40,6 +40,14 @@
     "**/*.cy.tsx",
     "**/*.spec.ts"
   ],
+  // Cypress loads `projects/*/cypress.config.ts` through its own ts-node, which forces
+  // CommonJS, and CommonJS rejects `moduleResolution: bundler`.
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node"
+    }
+  },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

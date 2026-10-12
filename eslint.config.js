@@ -57,6 +57,9 @@ module.exports = tseslint.config(
       // Every component, directive and pipe is declared in an NgModule and marked
       // `standalone: false`; moving to standalone is a separate refactor.
       '@angular-eslint/prefer-standalone': 0,
+      // Dependencies are injected through constructor parameters throughout;
+      // moving to `inject()` is a separate refactor too.
+      '@angular-eslint/prefer-inject': 0,
       'object-curly-spacing': ['error', 'never'],
       'no-case-declarations': 'off',
       'no-useless-escape': 'off',

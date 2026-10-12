@@ -15,14 +15,14 @@ ajf-fb-choices-origin-editor {
   }
 
   .ajf-fb-field-error {
-    color: var(--mdc-theme-error, #f44336);
+    color: var(--ajf-danger, #b8362b);
     font-size: 12px;
     margin-left: 1em;
     vertical-align: middle;
   }
 
   .ajf-fb-choice-invalid {
-    border-bottom-color: var(--mdc-theme-error, #f44336) !important;
-    caret-color: var(--mdc-theme-error, #f44336);
+    border-bottom-color: var(--ajf-danger, #b8362b) !important;
+    caret-color: var(--ajf-danger, #b8362b);
   }
 }

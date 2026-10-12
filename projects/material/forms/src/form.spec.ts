@@ -47,7 +47,7 @@ describe('AjfFormRenderer', () => {
       declarations: [TestComponent],
     });
 
-    service = TestBed.get(AjfFormRendererService);
+    service = TestBed.inject(AjfFormRendererService);
     await TestBed.compileComponents();
   });
 

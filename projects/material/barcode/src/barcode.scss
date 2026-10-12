@@ -5,14 +5,14 @@ ajf-barcode {
   max-width: 380px;
 
   .mat-mdc-tab-header {
-    --mat-tab-header-active-label-text-color: var(--ajf-accent, #0f4c5c);
-    --mat-tab-header-active-focus-label-text-color: var(--ajf-accent, #0f4c5c);
-    --mat-tab-header-active-hover-label-text-color: var(--ajf-accent, #0f4c5c);
-    --mat-tab-header-active-focus-indicator-color: var(--ajf-accent, #0f4c5c);
-    --mat-tab-header-active-hover-indicator-color: var(--ajf-accent, #0f4c5c);
-    --mdc-tab-indicator-active-indicator-color: var(--ajf-accent, #0f4c5c);
-    --mat-tab-header-inactive-label-text-color: var(--ajf-text-muted, #7a736a);
-    --mat-tab-header-label-text-size: 13px;
+    --mat-tab-active-label-text-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-active-focus-label-text-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-active-hover-label-text-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-active-focus-indicator-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-active-hover-indicator-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-active-indicator-color: var(--ajf-accent, #0f4c5c);
+    --mat-tab-inactive-label-text-color: var(--ajf-text-muted, #7a736a);
+    --mat-tab-label-text-size: 13px;
 
     border-bottom: 1px solid var(--ajf-border, #e6e2dc);
   }
