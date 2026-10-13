@@ -1,9 +1,11 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {AjfFormBuilderNodeTypeEntry} from './form-builder-service';
 
+// Must stay pure: run on every change detection, it would hand `nodeTypeGroups` a
+// new array each time, and the palette would rebuild its `cdkDrag` entries under
+// the pointer, cancelling any drag while a search term is set.
 @Pipe({
   name: 'nodeTypeFilter',
-  pure: false,
   standalone: false,
 })
 export class NodeTypeFilterPipe implements PipeTransform {
