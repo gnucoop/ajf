@@ -23,14 +23,12 @@
 import {AjfAudio} from '@ajf/core/audio';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
-import {DomSanitizer, SafeUrl} from '@angular/platform-browser';
 
 @Component({
   selector: 'ajf-audio',
@@ -54,19 +52,17 @@ export class AjfAudioComponent extends AjfAudio implements OnDestroy {
   private mediaRecorder: MediaRecorder | null = null;
   private audioChunks: any[] = [];
 
-  constructor(cdr: ChangeDetectorRef, private _sanitizer: DomSanitizer) {
-    super(cdr);
-  }
-
   ngOnDestroy(): void {
     this.stopRecording();
   }
 
   /**
-   * Sanitizes the audio source for playback, either from the base64 content
-   * or, as a fallback, from the stored url.
+   * The audio source for playback, either the base64 content or, as a fallback,
+   * the stored url. A plain string on purpose: `audio[src]` is no longer a URL
+   * security context, so a `SafeUrl` bound there renders as the text
+   * "SafeValue must use [property]=binding" and the player stays empty.
    */
-  get safeAudioSrc(): SafeUrl | string | null {
+  get safeAudioSrc(): string | null {
     if (!this.value) return null;
     if (!this.value.content && this.value.deleteUrl) return null;
 
@@ -74,7 +70,7 @@ export class AjfAudioComponent extends AjfAudio implements OnDestroy {
       this.value.content && this.value.content.length ? this.value.content : this.value.url;
     if (!rawUrl) return null;
 
-    return this._sanitizer.bypassSecurityTrustUrl(rawUrl);
+    return rawUrl;
   }
 
   async startRecording() {
