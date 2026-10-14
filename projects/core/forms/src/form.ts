@@ -199,6 +199,12 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
 
   private _init = false;
 
+  /**
+   * True when a form came in after ngAfterViewInit but before the slider existed,
+   * and has yet to reach the renderer service.
+   */
+  private _pendingForm = false;
+
   private _nextSlideSubscription: Subscription = Subscription.EMPTY;
   private _errorMoveSubscription: Subscription = Subscription.EMPTY;
 
@@ -213,6 +219,8 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
 
     if (this._init) {
       this._rendererService.setForm(this._form);
+    } else {
+      this._pendingForm = true;
     }
   }
 
@@ -322,6 +330,7 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
    */
   ngAfterViewInit(): void {
     if (this._form != null) {
+      this._pendingForm = false;
       this._rendererService.setForm(this._form);
       this._changeDetectorRef.detectChanges();
     }
@@ -330,6 +339,13 @@ export abstract class AjfFormRenderer implements AfterViewChecked, AfterViewInit
   ngAfterViewChecked(): void {
     if (!this._init && this.formSlider != null) {
       this._init = true;
+
+      // A form set while the first one was still rendering would otherwise be dropped.
+      if (this._pendingForm && this._form != null) {
+        this._pendingForm = false;
+        this._rendererService.setForm(this._form);
+        this._changeDetectorRef.detectChanges();
+      }
 
       this._errorMoveSubscription = (<Observable<boolean>>this._errorMoveEvent)
         .pipe(withLatestFrom(this._errorPositions))
