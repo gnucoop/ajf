@@ -8,18 +8,13 @@
       (touchstart)="onMouseDown($event)"
       (touchmove)="onMouseMove($event)"
     ></canvas>
-    <span class="ajf-signature-text" *ngIf="!isDrawn && !safeImageSrc">{{
-      'Sign here to continue' | transloco
-    }}</span>
+    @if (!isDrawn && !safeImageSrc) {
+      <span class="ajf-signature-text">{{ 'Sign here to continue' | transloco }}</span>
+    }
   </div>
 
   <div class="ajf-signature-actions">
-    <button
-      type="button"
-      class="ajf-signature-accept"
-      (click)="accept()"
-      [disabled]="!isDrawn"
-    >
+    <button type="button" class="ajf-signature-accept" (click)="accept()" [disabled]="!isDrawn">
       {{ 'Approve signature' | transloco }}
       <span class="ajf-signature-kbd" aria-hidden="true">&#8984;&crarr;</span>
     </button>
@@ -28,5 +23,7 @@
     </button>
   </div>
 
-  <img class="ajf-signature-preview" *ngIf="safeImageSrc" [src]="safeImageSrc" alt="" />
+  @if (safeImageSrc) {
+    <img class="ajf-signature-preview" [src]="safeImageSrc" alt="" />
+  }
 </div>

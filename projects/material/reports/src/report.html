@@ -1,23 +1,37 @@
-<ng-template [ngIf]="instance">
-  <div *ngIf="instance.header" @.disabled [applyStyles]="instance.header.styles" class="ajf-report-header">
-    <ng-template ngFor let-instance [ngForOf]="instance.header.content">
-      <ajf-widget *ngIf="instance.visible" [instance]="instance"></ajf-widget>
-    </ng-template>
-  </div>
-  <div *ngIf="instance.content" @.disabled [applyStyles]="instance.content.styles" class="ajf-report-content">
-    <ajf-widget-export *ngIf="enableExportAll"
-      [overlay]="false"
-      [widgets]="instance.content.content"
-      [enable]="true"></ajf-widget-export>
-    <ng-template ngFor let-instance [ngForOf]="instance.content.content">
-      <ajf-widget *ngIf="instance.visible" [instance]="instance"
-        (filterWidgetChange)="filterWidgetChanged($event)">
-      </ajf-widget>
-    </ng-template>
-  </div>
-  <div *ngIf="instance.footer" @.disabled [applyStyles]="instance.footer.styles" class="ajf-report-footer">
-    <ng-template ngFor let-instance [ngForOf]="instance.footer.content">
-      <ajf-widget *ngIf="instance.visible" [instance]="instance"></ajf-widget>
-    </ng-template>
-  </div>
-</ng-template>
+@if (instance) {
+  @if (instance.header) {
+    <div @.disabled [applyStyles]="instance.header.styles" class="ajf-report-header">
+      @for (instance of instance.header.content; track instance) {
+        @if (instance.visible) {
+          <ajf-widget [instance]="instance"></ajf-widget>
+        }
+      }
+    </div>
+  }
+  @if (instance.content) {
+    <div @.disabled [applyStyles]="instance.content.styles" class="ajf-report-content">
+      @if (enableExportAll) {
+        <ajf-widget-export
+          [overlay]="false"
+          [widgets]="instance.content.content"
+          [enable]="true"
+        ></ajf-widget-export>
+      }
+      @for (instance of instance.content.content; track instance) {
+        @if (instance.visible) {
+          <ajf-widget [instance]="instance" (filterWidgetChange)="filterWidgetChanged($event)">
+          </ajf-widget>
+        }
+      }
+    </div>
+  }
+  @if (instance.footer) {
+    <div @.disabled [applyStyles]="instance.footer.styles" class="ajf-report-footer">
+      @for (instance of instance.footer.content; track instance) {
+        @if (instance.visible) {
+          <ajf-widget [instance]="instance"></ajf-widget>
+        }
+      }
+    </div>
+  }
+}

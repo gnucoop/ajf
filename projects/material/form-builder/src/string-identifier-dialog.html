@@ -8,19 +8,18 @@
           [formControl]="searchFilterCtrl"
           [placeholderLabel]="'Search'|transloco"
           [noEntriesFoundLabel]="'Nothing found'|transloco"
-          [enableClearOnEscapePressed]="true">
+          [enableClearOnEscapePressed]="true"
+        >
         </ngx-mat-select-search>
       </mat-option>
-      <mat-option *ngFor="let field of filteredFields$ | async" [value]="field.name">
-        {{field.label || field.name}}
-      </mat-option>
+      @for (field of filteredFields$ | async; track field) {
+        <mat-option [value]="field.name"> {{field.label || field.name}} </mat-option>
+      }
     </mat-select>
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button color="warn" matDialogClose>
-    {{'Close'|transloco}}
-  </button>
+  <button mat-raised-button color="warn" matDialogClose>{{'Close'|transloco}}</button>
   <button mat-raised-button color="primary" matDialogClose (click)="saveStringIdentifier()">
     {{'Save'|transloco}}
   </button>

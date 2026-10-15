@@ -1,43 +1,40 @@
-<ng-container *ngIf="control | async as ctrl">
-  <div
-    *ngIf="appearance !== 'rating'; else ratingTemplate"
-    class="ajf-range"
-    [class.ajf-range-no-value]="isEmpty(ctrl.value)"
-  >
-    <div class="ajf-range-track">
-      <mat-slider
-        discrete
-        showTickMarks
-        [step]="step"
-        [min]="start"
-        [max]="end"
-        [attr.aria-label]="name"
-        [attr.name]="name"
-      >
-        <input matSliderThumb [value]="value" [formControl]="ctrl" />
-      </mat-slider>
-      <div class="ajf-range-bounds">
-        <span>{{ start }}</span>
-        <span>{{ end }}</span>
+@if (control | async; as ctrl) {
+  @if (appearance !== 'rating') {
+    <div class="ajf-range" [class.ajf-range-no-value]="isEmpty(ctrl.value)">
+      <div class="ajf-range-track">
+        <mat-slider
+          discrete
+          showTickMarks
+          [step]="step"
+          [min]="start"
+          [max]="end"
+          [attr.aria-label]="name"
+          [attr.name]="name"
+        >
+          <input matSliderThumb [value]="value" [formControl]="ctrl" />
+        </mat-slider>
+        <div class="ajf-range-bounds">
+          <span>{{ start }}</span>
+          <span>{{ end }}</span>
+        </div>
       </div>
+      <span class="ajf-range-value">{{ isEmpty(ctrl.value) ? '&mdash;' : ctrl.value }}</span>
     </div>
-    <span class="ajf-range-value">{{ isEmpty(ctrl.value) ? '&mdash;' : ctrl.value }}</span>
-  </div>
-
-  <ng-template #ratingTemplate>
+  } @else {
     <div class="ajf-rating-container">
-      <button
-        type="button"
-        *ngFor="let i of enumerateStars()"
-        class="ajf-rating-star"
-        [class.ajf-selected]="i <= ctrl.value"
-        (click)="ctrl.setValue(i)"
-        [attr.aria-label]="'Rate ' + i + ' out of ' + end"
-        [attr.name]="name"
-      >
-        <mat-icon>star</mat-icon>
-      </button>
+      @for (i of enumerateStars(); track i) {
+        <button
+          type="button"
+          class="ajf-rating-star"
+          [class.ajf-selected]="i <= ctrl.value"
+          (click)="ctrl.setValue(i)"
+          [attr.aria-label]="'Rate ' + i + ' out of ' + end"
+          [attr.name]="name"
+        >
+          <mat-icon>star</mat-icon>
+        </button>
+      }
       <span class="ajf-rating-readout">{{ ctrl.value || 0 }} / {{ end }}</span>
     </div>
-  </ng-template>
-</ng-container>
+  }
+}

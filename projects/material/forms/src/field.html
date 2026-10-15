@@ -1,19 +1,24 @@
-<div
-    *ngIf="instance"
+@if (instance) {
+  <div
     [ngClass]="'ajf-field-' + (instance|ajfNodeCompleteName)"
     [class.ajf-validated]="instance.validationResults|ajfFieldIsValid"
     (keydown)="tabEvent($event, instance)"
->
-  <ng-template ajf-field-host></ng-template>
-</div>
-<ng-container *ngIf="instance && instance.node && instance.node.attachments">
-  <a *ngFor="let attachment of instance.node.attachments"
-    [href]="attachment.value" target="_blank">{{attachment.label | transloco}}</a>
-</ng-container>
-<div *ngIf="!readonly && instance && instance.validationResults" class="ajf-errors">
-  <ng-container *ngFor="let res of instance.validationResults">
-    <div class="error" *ngIf="!res.result">
-      {{ res.error|transloco }}
-    </div>
-  </ng-container>
-</div>
+  >
+    <ng-template ajf-field-host></ng-template>
+  </div>
+}
+@if (instance && instance.node && instance.node.attachments) {
+  @for (attachment of
+instance.node.attachments; track attachment) {
+    <a [href]="attachment.value" target="_blank">{{attachment.label | transloco}}</a>
+  }
+}
+@if (!readonly && instance && instance.validationResults) {
+  <div class="ajf-errors">
+    @for (res of instance.validationResults; track res) {
+      @if (!res.result) {
+        <div class="error">{{ res.error|transloco }}</div>
+      }
+    }
+  </div>
+}

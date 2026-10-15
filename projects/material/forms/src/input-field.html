@@ -1,20 +1,22 @@
-<ng-container *ngIf="control | async as ctrl">
-  <input
-    *ngIf="type === 'text'"
-    class="ajf-control"
-    [class.ajf-control--formula]="instance!.node.fieldType === 6"
-    [class.ajf-control--mono]="instance!.node.fieldType === 6"
-    type="text"
-    [formControl]="ctrl!"
-    [readonly]="instance! | ajfIsReadonlyInputField"
-    [attr.aria-labelledby]="instance!.node.name"
-  />
-  <input
-    *ngIf="type === 'number'"
-    class="ajf-control ajf-control--mono ajf-control--narrow"
-    type="number"
-    [formControl]="ctrl!"
-    [readonly]="instance! | ajfIsReadonlyInputField"
-    [attr.aria-labelledby]="instance!.node.name"
-  />
-</ng-container>
+@if (control | async; as ctrl) {
+  @if (type === 'text') {
+    <input
+      class="ajf-control"
+      [class.ajf-control--formula]="instance!.node.fieldType === 6"
+      [class.ajf-control--mono]="instance!.node.fieldType === 6"
+      type="text"
+      [formControl]="ctrl!"
+      [readonly]="instance! | ajfIsReadonlyInputField"
+      [attr.aria-labelledby]="instance!.node.name"
+    />
+  }
+  @if (type === 'number') {
+    <input
+      class="ajf-control ajf-control--mono ajf-control--narrow"
+      type="number"
+      [formControl]="ctrl!"
+      [readonly]="instance! | ajfIsReadonlyInputField"
+      [attr.aria-labelledby]="instance!.node.name"
+    />
+  }
+}

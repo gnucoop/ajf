@@ -1,6 +1,8 @@
-<ajf-image *ngIf="instance"
+@if (instance) {
+  <ajf-image
     [type]="instance.widget.imageType"
     [imageUrl]="instance.url"
     [icon]="instance.icon"
     [flag]="instance.flag"
-></ajf-image>
+  ></ajf-image>
+}

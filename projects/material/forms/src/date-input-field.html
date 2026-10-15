@@ -1,4 +1,4 @@
-<ng-container *ngIf="control | async as ctrl">
+@if (control | async; as ctrl) {
   <span class="ajf-input-group ajf-control--mono">
     <input
       [matDatepicker]="picker"
@@ -18,4 +18,4 @@
       <button mat-raised-button color="primary" matDatepickerApply>{{ 'OK' | transloco }}</button>
     </mat-datepicker-actions>
   </mat-datepicker>
-</ng-container>
+}

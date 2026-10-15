@@ -1,6 +1,8 @@
-<ajf-map *ngIf="instance"
+@if (instance) {
+  <ajf-map
     [coordinate]="instance.coordinate"
     [tileLayer]="instance.widget.tileLayer"
     [attribution]="instance.widget.attribution"
     [disabled]="instance.widget.disabled"
-></ajf-map>
+  ></ajf-map>
+}

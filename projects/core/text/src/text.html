@@ -1,1 +1,3 @@
-<div class="ajf-text-container" *ngIf="innerHTML" [innerHTML]="innerHTML"></div>
+@if (innerHTML) {
+  <div class="ajf-text-container" [innerHTML]="innerHTML"></div>
+}

@@ -10,50 +10,52 @@
     <span class="ajf-slide-number">{{ displayNumber }}</span>
 
     <!-- Every slide title is laid out in the same grid cell, so the trigger is as
-         wide as the longest of them and keeps that width while paging. Only the
-         current title is visible; the rest just hold the space open. -->
+    wide as the longest of them and keeps that width while paging. Only the
+    current title is visible; the rest just hold the space open. -->
     <span class="ajf-slide-label-stack">
-      <span
-        class="ajf-slide-label"
-        *ngFor="let s of slides"
-        [class.ajf-current]="s === slide"
-        [innerHTML]="s.node.label | transloco"
-      ></span>
+      @for (s of slides; track s) {
+        <span
+          class="ajf-slide-label"
+          [class.ajf-current]="s === slide"
+          [innerHTML]="s.node.label | transloco"
+        ></span>
+      }
     </span>
-    <mat-icon class="ajf-slide-caret" *ngIf="slide && canJump">arrow_drop_down</mat-icon>
+    @if (slide && canJump) {
+      <mat-icon class="ajf-slide-caret">arrow_drop_down</mat-icon>
+    }
   </button>
 
   <mat-menu #slideMenu="matMenu">
-    <button
-      mat-menu-item
-      *ngFor="let s of slides"
-      [disabled]="s.visible === false"
-      (click)="jumpTo.emit(s)"
-    >
-      <mat-icon [class.ajf-invalid]="!s.valid">{{ s.valid ? 'check' : 'warning' }}</mat-icon>
-      <span [innerHTML]="s.node.label | transloco"></span>
-    </button>
+    @for (s of slides; track s) {
+      <button mat-menu-item [disabled]="s.visible === false" (click)="jumpTo.emit(s)">
+        <mat-icon [class.ajf-invalid]="!s.valid">{{ s.valid ? 'check' : 'warning' }}</mat-icon>
+        <span [innerHTML]="s.node.label | transloco"></span>
+      </button>
+    }
   </mat-menu>
 
   <!-- Nothing to page through in a single page form. -->
-  <div class="ajf-slide-nav" *ngIf="canNavigate">
-    <button
-      type="button"
-      class="ajf-btn"
-      (click)="prev.emit()"
-      [attr.aria-label]="'Back' | transloco"
-    >
-      <mat-icon>chevron_left</mat-icon>
-    </button>
-    <button
-      type="button"
-      class="ajf-btn"
-      (click)="next.emit()"
-      [attr.aria-label]="'Forward' | transloco"
-    >
-      <mat-icon>chevron_right</mat-icon>
-    </button>
-  </div>
+  @if (canNavigate) {
+    <div class="ajf-slide-nav">
+      <button
+        type="button"
+        class="ajf-btn"
+        (click)="prev.emit()"
+        [attr.aria-label]="'Back' | transloco"
+      >
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <button
+        type="button"
+        class="ajf-btn"
+        (click)="next.emit()"
+        [attr.aria-label]="'Forward' | transloco"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+  }
 
   <span class="ajf-slide-header-spacer"></span>
 

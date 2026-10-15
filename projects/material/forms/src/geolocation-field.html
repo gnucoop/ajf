@@ -1,1 +1,3 @@
-<ajf-geolocation *ngIf="control|async as ctrl" [formControl]="ctrl!"></ajf-geolocation>
+@if (control|async; as ctrl) {
+  <ajf-geolocation [formControl]="ctrl!"></ajf-geolocation>
+}

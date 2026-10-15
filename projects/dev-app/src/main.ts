@@ -20,7 +20,10 @@
  *
  */
 
+import {provideZoneChangeDetection} from '@angular/core';
 import {platformBrowser} from '@angular/platform-browser';
 import {MainModule} from './main-module';
 
-platformBrowser().bootstrapModule(MainModule);
+platformBrowser().bootstrapModule(MainModule, {
+  applicationProviders: [provideZoneChangeDetection()],
+});
