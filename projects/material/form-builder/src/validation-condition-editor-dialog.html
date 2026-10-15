@@ -1,17 +1,11 @@
 <h3 matDialogTitle>{{'Edit condition'|transloco}}</h3>
 <mat-dialog-content>
   <mat-form-field>
-    <input
-      matInput
-      [(ngModel)]="errorMessage"
-      [placeholder]="'Error message'|transloco"
-    />
+    <input matInput [(ngModel)]="errorMessage" [placeholder]="'Error message'|transloco" />
   </mat-form-field>
-  <ajf-condition-editor
-    *ngIf="fields|async as curFields"
-    [fields]="curFields!"
-    [condition]="condition"
-  ></ajf-condition-editor>
+  @if (fields|async; as curFields) {
+    <ajf-condition-editor [fields]="curFields!" [condition]="condition"></ajf-condition-editor>
+  }
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="saveCondition()">{{'Save'|transloco}}</button>

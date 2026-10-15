@@ -13,15 +13,16 @@
     >
       <mat-icon>chevron_left</mat-icon>
     </button>
-    <button
-      type="button"
-      class="ajf-btn ajf-rep-page"
-      *ngFor="let rep of (slide.reps | ajfRange); let idx = index"
-      [class.ajf-selected]="idx === current"
-      (click)="goTo.emit(idx)"
-    >
-      {{ idx + 1 }}
-    </button>
+    @for (rep of (slide.reps | ajfRange); track rep; let idx = $index) {
+      <button
+        type="button"
+        class="ajf-btn ajf-rep-page"
+        [class.ajf-selected]="idx === current"
+        (click)="goTo.emit(idx)"
+      >
+        {{ idx + 1 }}
+      </button>
+    }
     <button
       type="button"
       class="ajf-btn"
@@ -32,7 +33,7 @@
       <mat-icon>chevron_right</mat-icon>
     </button>
 
-    <ng-container *ngIf="!readonly">
+    @if (!readonly) {
       <button
         type="button"
         class="ajf-btn"
@@ -51,7 +52,7 @@
       >
         <mat-icon>remove</mat-icon>
       </button>
-    </ng-container>
+    }
   </div>
 
   <span class="ajf-rep-strip-context">

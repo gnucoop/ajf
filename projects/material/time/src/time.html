@@ -6,7 +6,9 @@
     (opened)="focusHandler()"
     placeholder="HH"
   >
-    <mat-option *ngFor="let h of hoursList" [value]="h"> {{ h | number : '2.0' }} </mat-option>
+    @for (h of hoursList; track h) {
+      <mat-option [value]="h"> {{ h | number : '2.0' }} </mat-option>
+    }
   </mat-select>
   <span class="ajf-time-sep">:</span>
   <mat-select
@@ -16,7 +18,9 @@
     (opened)="focusHandler()"
     placeholder="MM"
   >
-    <mat-option *ngFor="let m of minutesList" [value]="m"> {{ m | number : '2.0' }} </mat-option>
+    @for (m of minutesList; track m) {
+      <mat-option [value]="m"> {{ m | number : '2.0' }} </mat-option>
+    }
   </mat-select>
   <mat-icon class="ajf-time-icon">schedule</mat-icon>
 </div>

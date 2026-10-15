@@ -1,16 +1,41 @@
-<div class="ajf-widget-wrapper" (mouseenter)="showOverlay = true" (mouseleave)="showOverlay = false"
-  [class.ajf-show-overlay]="showOverlay">
+<div
+  class="ajf-widget-wrapper"
+  (mouseenter)="showOverlay = true"
+  (mouseleave)="showOverlay = false"
+  [class.ajf-show-overlay]="showOverlay"
+>
   <ng-content></ng-content>
-  <ng-container *ngIf="enable">
-    <div *ngIf="widgets; else single" class="ajf-export-all">
-      <button (click)="exportAll()">EXPORT XLSX</button>
-    </div>
-    <ng-template #single>
-      <div *ngIf="!widgets; else single" class="ajf-export-menu"
-        [class.ajf-export-menu-overlay]="overlay">
-        <button (click)="export('csv')">CSV</button>
-        <button (click)="export('xlsx')">XLSX</button>
+  @if (enable) {
+    @if (widgets) {
+      <div class="ajf-export-all">
+        <button (click)="exportAll()">EXPORT XLSX</button>
       </div>
+    } @else {
+      @if (!widgets) {
+        <div class="ajf-export-menu" [class.ajf-export-menu-overlay]="overlay">
+          <button (click)="export('csv')">CSV</button>
+          <button (click)="export('xlsx')">XLSX</button>
+        </div>
+      } @else {
+        <ng-template [ngTemplateOutlet]="single"></ng-template>
+      }
+    }
+    <ng-template #single>
+      @if (!widgets) {
+        <div class="ajf-export-menu" [class.ajf-export-menu-overlay]="overlay">
+          <button (click)="export('csv')">CSV</button>
+          <button (click)="export('xlsx')">XLSX</button>
+        </div>
+      } @else {
+        @if (!widgets) {
+          <div class="ajf-export-menu" [class.ajf-export-menu-overlay]="overlay">
+            <button (click)="export('csv')">CSV</button>
+            <button (click)="export('xlsx')">XLSX</button>
+          </div>
+        } @else {
+          <ng-template [ngTemplateOutlet]="single"></ng-template>
+        }
+      }
     </ng-template>
-  </ng-container>
+  }
 </div>

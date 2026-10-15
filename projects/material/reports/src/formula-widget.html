@@ -1,1 +1,3 @@
-<ajf-text *ngIf="instance" [htmlText]="instance.formula"></ajf-text>
+@if (instance) {
+  <ajf-text [htmlText]="instance.formula"></ajf-text>
+}

@@ -1,24 +1,25 @@
 <div ajfDnd (file)="onFileDrop($event)" class="ajf-drop-zone">
-  <div *ngIf="emptyFile; else fileInfo" class="ajf-drop-message" (click)="triggerNativeInput()">
-    <ng-container *ngIf="_dropMessageChildren?.length; else defaultDropMessage">
-      <ng-content select="[ajfDropMessage]"></ng-content>
-    </ng-container>
-    <ng-template #defaultDropMessage>{{
-      'Drop your file here or click to select' | transloco
-    }}</ng-template>
-  </div>
-  <ng-template #fileInfo>
+  @if (emptyFile) {
+    <div class="ajf-drop-message" (click)="triggerNativeInput()">
+      @if (_dropMessageChildren?.length) {
+        <ng-content select="[ajfDropMessage]"></ng-content>
+      } @else {
+        {{ 'Drop your file here or click to select' | transloco }}
+      }
+    </div>
+  } @else {
     <div class="ajf-file-info">
-      <ng-container *ngIf="_filePreviewChildren?.length; else defaultFilePreview">
+      @if (_filePreviewChildren?.length) {
         <ng-content select="[ajfFilePreview]"></ng-content>
-      </ng-container>
-      <ng-template #defaultFilePreview>
+      } @else {
         <div class="ajf-file-info-content">
           <img [src]="fileIcon" alt="" />
           <div class="ajf-file-name">{{ value?.name }}</div>
-          <div class="ajf-file-size" *ngIf="sizeLabel">{{ sizeLabel }}</div>
+          @if (sizeLabel) {
+            <div class="ajf-file-size">{{ sizeLabel }}</div>
+          }
         </div>
-      </ng-template>
+      }
     </div>
     <div class="ajf-file-actions">
       <button type="button" class="ajf-replace-file" (click)="triggerNativeInput()">
@@ -29,7 +30,7 @@
         <div class="ajf-screen-reader-only">{{ 'Delete' | transloco }}</div>
       </button>
     </div>
-  </ng-template>
+  }
 </div>
 <input
   #nativeInput

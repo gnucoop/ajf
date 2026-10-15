@@ -1,1 +1,3 @@
-<ajf-signature *ngIf="control|async as ctrl" [formControl]="ctrl!"></ajf-signature>
+@if (control|async; as ctrl) {
+  <ajf-signature [formControl]="ctrl!"></ajf-signature>
+}

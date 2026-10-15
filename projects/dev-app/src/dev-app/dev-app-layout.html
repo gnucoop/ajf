@@ -6,22 +6,27 @@
         Toggle Light/Dark Theme
       </a>
     </mat-nav-list>
-    <mat-expansion-panel *ngFor="let navGroup of navGroups" expanded>
-      <mat-expansion-panel-header>
-        <mat-panel-title>{{ navGroup.name }}</mat-panel-title>
-      </mat-expansion-panel-header>
-      <mat-nav-list>
-        <a *ngFor="let navItem of navGroup.children"
-          mat-list-item
-          (click)="start.close()"
-          routerLinkActive
-          #routerLinkActiveInstance="routerLinkActive"
-          [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
-          [routerLink]="[navItem.route]">
-          {{navItem.name}}
-        </a>
-      </mat-nav-list>
-    </mat-expansion-panel>
+    @for (navGroup of navGroups; track navGroup) {
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ navGroup.name }}</mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+          @for (navItem of navGroup.children; track navItem) {
+            <a
+              mat-list-item
+              (click)="start.close()"
+              routerLinkActive
+              #routerLinkActiveInstance="routerLinkActive"
+              [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
+              [routerLink]="[navItem.route]"
+            >
+              {{navItem.name}}
+            </a>
+          }
+        </mat-nav-list>
+      </mat-expansion-panel>
+    }
     <button mat-button tabindex="-1" (click)="start.close()">CLOSE</button>
   </mat-sidenav>
   <main>
@@ -35,8 +40,11 @@
           <button mat-icon-button (click)="toggleFullscreen()" title="Toggle fullscreen">
             <mat-icon>fullscreen</mat-icon>
           </button>
-          <button mat-button (click)="dir.value = (dir.value === 'rtl' ? 'ltr' : 'rtl')"
-                  title="Toggle between RTL and LTR">
+          <button
+            mat-button
+            (click)="dir.value = (dir.value === 'rtl' ? 'ltr' : 'rtl')"
+            title="Toggle between RTL and LTR"
+          >
             {{dir.value.toUpperCase()}}
           </button>
         </div>

@@ -1,3 +1,5 @@
-<div *ngIf="instance" class="ajf-graph-container">
-  <ajf-graph [nodes]="instance.nodes"></ajf-graph>
-</div>
+@if (instance) {
+  <div class="ajf-graph-container">
+    <ajf-graph [nodes]="instance.nodes"></ajf-graph>
+  </div>
+}

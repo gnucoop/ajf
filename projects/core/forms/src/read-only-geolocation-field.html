@@ -1,6 +1,6 @@
-<ng-container *ngIf="control|async as ctrl">
+@if (control|async; as ctrl) {
   <div class="ajf-geo-readout">
     <span>{{'Latitude'|transloco}}: {{latitude|async}}</span>
     <span>{{'Longitude'|transloco}}: {{longitude|async}}</span>
   </div>
-</ng-container>
+}

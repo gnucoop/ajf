@@ -1,4 +1,4 @@
-<ng-container *ngIf="value; else barcode">
+@if (value) {
   <div class="ajf-code-container">
     <span class="ajf-code-value">{{ value }}</span>
     <button type="button" class="ajf-code-scan" (click)="reset()">
@@ -6,15 +6,16 @@
       <span>{{ 'Scan' | transloco }}</span>
     </button>
   </div>
-</ng-container>
-<ng-template #barcode>
+} @else {
   <mat-tab-group (selectedIndexChange)="onTabChange($event)">
     <mat-tab [label]="'Image'| transloco">
       <div class="ajf-drop-container">
         <div class="ajf-dropzone" ajfDnd (file)="onSelectDrop($event)">
           <div class="ajf-text-wrapper">
             <div class="ajf-centered">
-              <a mat-button (click)="fileInput.click()"
+              <a
+                mat-button
+                (click)="fileInput.click()"
                 >{{'Drop your image here or click to select'|transloco}}</a
               >
             </div>
@@ -31,28 +32,26 @@
       />
     </mat-tab>
     <mat-tab [label]="'Camera'|transloco">
-      <mat-form-field
-        appearance="fill"
-        class="ajf-video-device-select"
-      >
+      <mat-form-field appearance="fill" class="ajf-video-device-select">
         <mat-label>Choose Video source</mat-label>
-        <mat-select #videoSourceSelect
-          ><mat-option *ngFor="let device of videoDevices|async" [value]="device.deviceId">
-            {{device.label}}
-          </mat-option></mat-select
-        ></mat-form-field
+        <mat-select #videoSourceSelect>
+          @for (device of videoDevices|async; track device) {
+            <mat-option [value]="device.deviceId"> {{device.label}} </mat-option>
+          }
+        </mat-select></mat-form-field
       >
       <div class="ajf-barcode-video">
-        <ng-container *ngIf="supportsVideoStream; else noVideo">
+        @if (supportsVideoStream) {
           <div #barcodeVideoPreview class="ajf-video-preview ajf-video-preview-hidden">
-            <div *ngIf="value && value.length > 0">{{ value }}</div>
+            @if (value && value.length > 0) {
+              <div>{{ value }}</div>
+            }
           </div>
           <video #barcodeVideo autoplay playsinline muted></video>
-        </ng-container>
-        <ng-template #noVideo>
+        } @else {
           <div>NO VIDEO</div>
-        </ng-template>
+        }
       </div>
     </mat-tab>
   </mat-tab-group>
-</ng-template>
+}

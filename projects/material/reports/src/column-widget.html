@@ -1,6 +1,7 @@
-<div *ngIf="instance" class="ajf-column-container">
-  <ng-container *ngFor="let w of instance.content">
-    <ajf-widget [instance]="w">
-    </ajf-widget>
-  </ng-container>
-</div>
+@if (instance) {
+  <div class="ajf-column-container">
+    @for (w of instance.content; track w) {
+      <ajf-widget [instance]="w"> </ajf-widget>
+    }
+  </div>
+}

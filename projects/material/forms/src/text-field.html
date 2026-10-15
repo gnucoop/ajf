@@ -1,3 +1,9 @@
-<quill-editor *ngIf="control | async as ctrl" [formControl]="ctrl!" [modules]="quillModules" class="resizable-quill"
-    placeholder="">
-</quill-editor>
+@if (control | async; as ctrl) {
+  <quill-editor
+    [formControl]="ctrl!"
+    [modules]="quillModules"
+    class="resizable-quill"
+    placeholder=""
+  >
+  </quill-editor>
+}

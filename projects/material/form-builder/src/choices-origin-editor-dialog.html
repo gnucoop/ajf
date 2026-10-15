@@ -1,13 +1,21 @@
 <h3 matDialogTitle>{{'Edit choices origin'|transloco}}</h3>
 <mat-dialog-content>
-  <ajf-fb-choices-origin-editor
-    *ngIf="choicesOrigin|async as co"
-    [choicesOrigin]="co!"
-    [nameDuplicate]="isDuplicateName()"
-  ></ajf-fb-choices-origin-editor>
+  @if (choicesOrigin|async; as co) {
+    <ajf-fb-choices-origin-editor
+      [choicesOrigin]="co!"
+      [nameDuplicate]="isDuplicateName()"
+    ></ajf-fb-choices-origin-editor>
+  }
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button mat-raised-button color="primary" (click)="saveChoicesOrigin()" [disabled]="disableSave()">{{'Save'|transloco}}</button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveChoicesOrigin()"
+    [disabled]="disableSave()"
+  >
+    {{'Save'|transloco}}
+  </button>
   <button mat-raised-button color="accent" (click)="cancelChoicesOriginEdit()">
     {{'Close'|transloco}}
   </button>

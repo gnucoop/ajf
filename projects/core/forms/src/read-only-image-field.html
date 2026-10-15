@@ -1,4 +1,5 @@
-<img *ngIf="imageUrl|async as iu ; else noImage" [src]="imageUrl|async">
-<ng-template #noImage>
+@if (imageUrl|async; as iu) {
+  <img [src]="imageUrl|async" />
+} @else {
   <div class="ajf-no-image-placeholder"></div>
-</ng-template>
+}

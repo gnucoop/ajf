@@ -1,1 +1,3 @@
-<ajf-text *ngIf="instance" [htmlText]="instance.htmlText | transloco"></ajf-text>
+@if (instance) {
+  <ajf-text [htmlText]="instance.htmlText | transloco"></ajf-text>
+}

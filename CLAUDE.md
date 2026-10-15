@@ -131,7 +131,7 @@ the editable control is mono.
 **Pattern B — Complex fields** (audio, barcode, geolocation, signature): three-layer split:
 1. `projects/core/<feature>/` — abstract directive, `ControlValueAccessor`, shared logic
 2. `projects/material/<feature>/` — `<ajf-feature>` UI component and its `NgModule`
-3. `projects/material/forms/src/<feature-field>.ts` — thin wrapper that connects the feature component to the form renderer via `[formControl]="ctrl"` inside `*ngIf="control | async as ctrl"`
+3. `projects/material/forms/src/<feature-field>.ts` — thin wrapper that connects the feature component to the form renderer via `[formControl]="ctrl"` inside `@if (control | async; as ctrl)`
 
 ### Existing field types (`AjfFieldType` enum)
 
@@ -157,9 +157,9 @@ Follow this checklist when adding a new field (e.g., `MyNewField`).
 3. Create the forms wrapper `projects/material/forms/src/my-new-field.ts` (+ `.html`). Template pattern
    — the control only, since `AjfFieldRow` renders the label, hint and error:
    ```html
-   <ng-container *ngIf="control | async as ctrl">
+   @if (control | async; as ctrl) {
      <ajf-my-new-field [formControl]="ctrl" [readonly]="!instance?.editable"></ajf-my-new-field>
-   </ng-container>
+   }
    ```
 4. Add its name to `NAMES` in `projects/core/forms/src/field-type-label.ts` — a lowercase English
    noun phrase, used as the translation key — and translate it in all eight dictionaries under
@@ -183,7 +183,7 @@ Follow this checklist when adding a new field (e.g., `MyNewField`).
 ### Common pitfalls
 
 - **"Property 'id' does not exist on type..."** — you extended `AjfField` instead of `AjfBaseField`. Fix the interface.
-- **"formControl does not exist on type AjfFieldInstance"** — use `control` (an `Observable<UntypedFormControl>`), unwrapped with `*ngIf="control | async as ctrl"`, then bind `[formControl]="ctrl"`.
+- **"formControl does not exist on type AjfFieldInstance"** — use `control` (an `Observable<UntypedFormControl>`), unwrapped with `@if (control | async; as ctrl)`, then bind `[formControl]="ctrl"`.
 - **"ajf-xyz is not a known element"** — check that the feature module is imported in `AjfFormsModule`, the component is exported from the feature module's `public_api.ts` and `index.ts`, and `ng-package.json` points to `index.ts`.
 - **The field renders its label twice** — the row already renders `node.label`; drop the label from the field template.
 - **A control looks unstyled outside a form** — the `--ajf-*` tokens are emitted from `field.scss`, so a component used with no `<ajf-field>` around it only gets the `var()` fallbacks. Keep those fallbacks meaningful.

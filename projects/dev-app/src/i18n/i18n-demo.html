@@ -3,13 +3,9 @@
   <mat-form-field appearance="fill">
     <mat-label>choose language</mat-label>
     <mat-select>
-      <mat-option
-        *ngFor="let lang of langs"
-        [value]="lang"
-        (click)="changeLang(lang)"
-      >
-        {{lang}}
-      </mat-option>
+      @for (lang of langs; track lang) {
+        <mat-option [value]="lang" (click)="changeLang(lang)"> {{lang}} </mat-option>
+      }
     </mat-select>
   </mat-form-field>
 

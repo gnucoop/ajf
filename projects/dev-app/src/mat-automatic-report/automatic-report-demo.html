@@ -21,9 +21,9 @@
       {{'Set schema'|transloco}}
     </button>
     <div class="demo-f2r-container">
-      <ng-container *ngIf="reportInstance$|async as reportInstance">
+      @if (reportInstance$|async; as reportInstance) {
         <ajf-report [instance]="reportInstance"></ajf-report>
-      </ng-container>
+      }
     </div>
   </section>
 </div>

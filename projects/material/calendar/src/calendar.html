@@ -5,18 +5,25 @@
   </button>
   <button (click)="nextPage()" mat-mini-fab>&#8594;</button>
 </div>
-<div class="ajf-calendar-row" *ngIf="calendarHeaders.length > 0">
-  <div *ngFor="let calendarHeader of calendarHeaders">
-    {{ calendarHeader | transloco }}
+@if (calendarHeaders.length > 0) {
+  <div class="ajf-calendar-row">
+    @for (calendarHeader of calendarHeaders; track calendarHeader) {
+      <div>{{ calendarHeader | transloco }}</div>
+    }
   </div>
-</div>
-<div class="ajf-calendar-row" *ngFor="let row of calendarRows">
-  <button
-      *ngFor="let entry of row"
-      mat-raised-button
-      [class.ajf-calendar-partial-selection]="entry.selected === 'partial'"
-      [disabled]="disabled || (entry.disabled || false)"
-      [color]="entry.selected !== 'none' ? 'warn' : undefined"
-      (click)="selectEntry(entry)"
-  >{{ entry|ajfCalendarEntryLabel }}</button>
-</div>
+}
+@for (row of calendarRows; track row) {
+  <div class="ajf-calendar-row">
+    @for (entry of row; track entry) {
+      <button
+        mat-raised-button
+        [class.ajf-calendar-partial-selection]="entry.selected === 'partial'"
+        [disabled]="disabled || (entry.disabled || false)"
+        [color]="entry.selected !== 'none' ? 'warn' : undefined"
+        (click)="selectEntry(entry)"
+      >
+        {{ entry|ajfCalendarEntryLabel }}
+      </button>
+    }
+  </div>
+}
