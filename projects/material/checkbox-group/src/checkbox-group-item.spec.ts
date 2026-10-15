@@ -57,7 +57,7 @@ import {AjfCheckboxGroupModule} from './public_api';
       }
     `,
   ],
-  standalone: false,
+  imports: [AjfCheckboxGroupModule, ReactiveFormsModule],
 })
 class TestComponent {
   ctrl = new FormControl<string[]>([]);
@@ -80,8 +80,7 @@ describe('CheckboxGroupItem appearance', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [AjfCheckboxGroupModule, ReactiveFormsModule],
-      declarations: [TestComponent],
+      imports: [TestComponent],
     });
     await TestBed.compileComponents();
   });

@@ -41,7 +41,7 @@ describe('widget-export', () => {
   it('widget chart to xlsx data', () => {
     widgetExport.data = dataChart;
     widgetExport.widgetType = AjfWidgetType.Chart;
-    const testSpy = spyOn(XLSX.utils, 'aoa_to_sheet').and.callThrough();
+    const testSpy = vi.spyOn(XLSX.utils, 'aoa_to_sheet');
     widgetExport.export('csv');
     const toEqual: unknown[][] = [
       ['name', 'January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -53,7 +53,7 @@ describe('widget-export', () => {
   it('widget table to xlsx data', () => {
     widgetExport.data = dataTableXlsx;
     widgetExport.widgetType = AjfWidgetType.Table;
-    const testSpy = spyOn(XLSX.utils, 'aoa_to_sheet').and.callThrough();
+    const testSpy = vi.spyOn(XLSX.utils, 'aoa_to_sheet');
     widgetExport.export('csv');
     const toEqual: unknown[][] = [
       ['a', ' ', 'c'],
