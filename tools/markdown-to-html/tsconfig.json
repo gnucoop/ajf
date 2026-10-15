@@ -5,10 +5,7 @@
     "target": "es2022",
     "esModuleInterop": true,
     "sourceMap": true,
-    "types": [
-      "jasmine",
-      "node"
-    ]
+    "types": ["node"]
   },
   "bazelOptions": {
     "suppressTsconfigOverrideWarnings": true

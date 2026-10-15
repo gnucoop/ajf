@@ -38,6 +38,9 @@ yarn-error.log
 testem.log
 /typings
 **/cypress/downloads
+# Screenshots and attachments Vitest browser mode keeps of failing tests
+__screenshots__/
+/.vitest-attachments
 **/cypress/screenshots
 **/cypress/videos
 

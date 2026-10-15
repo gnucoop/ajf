@@ -32,6 +32,9 @@ jobs:
       - name: Build
         run: ./scripts/build.mjs
 
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
       - name: Unit tests
         run: yarn test:ci
 

@@ -110,7 +110,7 @@ describe('AjfFileInput', () => {
     expect(type).toEqual(emptyPngFile.type);
     fileInput.resetValue();
     await firstValueFrom(lastValue.pipe(take(1)));
-    expect(fileInput.value.deleteUrl).toBeTrue();
+    expect(fileInput.value.deleteUrl).toBe(true);
     expect(fileInput.value.url).toEqual(emptyPngValueWithUrl.url);
     expect(fileInput.value.content).toBeNull();
   });
@@ -121,8 +121,7 @@ describe('AjfFileInput with custom drop message', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DropMessageTestComponent],
-      imports: [AjfFileInputModule, AjfTranslocoModule],
+      imports: [AjfTranslocoModule, DropMessageTestComponent],
     }).compileComponents();
     fixture = TestBed.createComponent(DropMessageTestComponent);
     fixture.detectChanges();
@@ -143,8 +142,7 @@ describe('AjfFileInput with custom file preview', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FilePreviewTestComponent],
-      imports: [AjfFileInputModule, AjfTranslocoModule],
+      imports: [AjfTranslocoModule, FilePreviewTestComponent],
     }).compileComponents();
     fixture = TestBed.createComponent(FilePreviewTestComponent);
     fixture.detectChanges();
@@ -168,8 +166,7 @@ describe('AjfFileInput in reactive forms', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ReactiveFormsTestComponent],
-      imports: [AjfFileInputModule, AjfTranslocoModule, ReactiveFormsModule],
+      imports: [AjfTranslocoModule, ReactiveFormsTestComponent],
     }).compileComponents();
     fixture = TestBed.createComponent(ReactiveFormsTestComponent);
     fixture.detectChanges();
@@ -192,14 +189,14 @@ describe('AjfFileInput in reactive forms', () => {
 
 @Component({
   template: '<ajf-file-input><div ajfDropMessage>Test drop message</div></ajf-file-input>',
-  standalone: false,
+  imports: [AjfFileInputModule],
 })
 class DropMessageTestComponent {}
 
 @Component({
   template:
     '<ajf-file-input [value]="value"><div ajfFilePreview>Test file preview</div></ajf-file-input>',
-  standalone: false,
+  imports: [AjfFileInputModule],
 })
 class FilePreviewTestComponent {
   @ViewChild(AjfFileInput) fileInput!: AjfFileInput;
@@ -212,7 +209,7 @@ class FilePreviewTestComponent {
       <ajf-file-input formControlName="file_upload"></ajf-file-input>
     </div>
   `,
-  standalone: false,
+  imports: [AjfFileInputModule, ReactiveFormsModule],
 })
 class ReactiveFormsTestComponent {
   @ViewChild(AjfFileInput) fileInput!: AjfFileInput;
