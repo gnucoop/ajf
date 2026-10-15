@@ -5,7 +5,7 @@ import {default as shell} from 'shelljs';
 
 const testCi = () => {
   shell.env['CI_TEST'] = '1';
-  shell.exec(`yarn -s ng test --no-watch`);
+  process.exitCode = shell.exec(`yarn -s ng test --no-watch`).code;
 };
 
 if (esMain(import.meta)) {

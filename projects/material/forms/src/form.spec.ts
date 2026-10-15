@@ -43,8 +43,7 @@ describe('AjfFormRenderer', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [AjfFormsModule, NoopAnimationsModule, AjfTranslocoModule],
-      declarations: [TestComponent],
+      imports: [NoopAnimationsModule, AjfTranslocoModule, TestComponent],
     });
 
     service = TestBed.inject(AjfFormRendererService);
@@ -116,7 +115,7 @@ describe('AjfFormRenderer', () => {
     await fixture.whenStable();
 
     let field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
-    expect(field).not.toHaveClass('ajf-validated');
+    expect(field.classList.contains('ajf-validated')).toBe(false);
     let error = fixture.debugElement.query(By.css('.error'));
     expect(error).not.toBeNull();
     expect(error.nativeElement).toBeDefined();
@@ -130,7 +129,7 @@ describe('AjfFormRenderer', () => {
     await fixture.whenStable();
 
     field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
-    expect(field).toHaveClass('ajf-validated');
+    expect(field.classList.contains('ajf-validated')).toBe(true);
     error = fixture.debugElement.query(By.css('.error'));
     expect(error).toBeNull();
   });
@@ -329,7 +328,7 @@ const testForm = {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
-  standalone: false,
+  imports: [AjfFormsModule],
 })
 class TestComponent {
   form = AjfFormSerializer.fromJson(testForm);

@@ -29,8 +29,7 @@ import {AjfImageModule} from './public_api';
 describe('AjfImage', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [AjfImageModule],
-      declarations: [TestComponent],
+      imports: [TestComponent],
     });
     await TestBed.compileComponents();
   });
@@ -51,7 +50,7 @@ describe('AjfImage', () => {
 
 @Component({
   template: '<ajf-image [type]="type" [imageUrl]="imageUrl"></ajf-image>',
-  standalone: false,
+  imports: [AjfImageModule],
 })
 class TestComponent {
   type = AjfImageType.Image;

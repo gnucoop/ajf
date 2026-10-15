@@ -41,8 +41,9 @@ import {AjfFormsModule} from './public_api';
 describe('AjfFormRenderer', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [AjfFormsModule, NoopAnimationsModule, AjfTranslocoModule.forRoot()],
-      declarations: [
+      imports: [
+        NoopAnimationsModule,
+        AjfTranslocoModule.forRoot(),
         TestComponent,
         TestReadOnlySingleChoiceComponent,
         TestReadOnlyMultipleChoiceComponent,
@@ -252,7 +253,7 @@ readOnlyMultipleChoiceTestForm.nodes[0].nodes = [
 ];
 @Component({
   template: '<ajf-form readonly [form]="form"></ajf-form>',
-  standalone: false,
+  imports: [AjfFormsModule],
 })
 class TestComponent {
   form = AjfFormSerializer.fromJson(testForm, {field: 'blackcat'});
@@ -260,7 +261,7 @@ class TestComponent {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
-  standalone: false,
+  imports: [AjfFormsModule],
 })
 class TestReadOnlyInputComponent {
   form = AjfFormSerializer.fromJson(readOnlyInputTestForm, {field: 15});
@@ -268,7 +269,7 @@ class TestReadOnlyInputComponent {
 
 @Component({
   template: '<ajf-form readonly [form]="form"></ajf-form>',
-  standalone: false,
+  imports: [AjfFormsModule],
 })
 class TestReadOnlyInputAndFormComponent {
   form = AjfFormSerializer.fromJson(inputTestForm, {field: 15});
@@ -276,7 +277,7 @@ class TestReadOnlyInputAndFormComponent {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
-  standalone: false,
+  imports: [AjfFormsModule],
 })
 class TestReadOnlySingleChoiceComponent {
   form = AjfFormSerializer.fromJson(readOnlySingleChoiceTestForm, {field: 'blackcat'});
@@ -284,7 +285,7 @@ class TestReadOnlySingleChoiceComponent {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
-  standalone: false,
+  imports: [AjfFormsModule],
 })
 class TestReadOnlyMultipleChoiceComponent {
   form = AjfFormSerializer.fromJson(readOnlyMultipleChoiceTestForm, {field: ['blackcat']});

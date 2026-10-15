@@ -6,7 +6,7 @@
     "outDir": "../../out-tsc/material-spec",
     "types": [
       "echarts",
-      "jasmine"
+      "vitest/globals"
     ],
     "paths": {
       "@ajf/core": ["../core"],
@@ -16,7 +16,7 @@
     }
   },
   "files": [
-    "src/test.ts"
+    "src/test-providers.ts"
   ],
   "include": [
     "**/*.spec.ts",

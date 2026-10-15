@@ -11,6 +11,9 @@ yarn test                 # Run unit tests in watch mode
 yarn test:ci              # Run unit tests once (CI mode)
 yarn lint                 # Run ESLint across all projects
 
+# Unit tests run on Vitest, in Playwright's Chromium (vitest.config.ts);
+# install it once with: npx playwright install chromium
+
 # Run tests for a specific project
 ng test core              # Unit tests for @ajf/core
 ng test material          # Unit tests for @ajf/material

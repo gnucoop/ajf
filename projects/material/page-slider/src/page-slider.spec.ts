@@ -1,19 +1,17 @@
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {waitForAsync, TestBed} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
+import {NgStyle} from '@angular/common';
 import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AjfPageSlider, AjfPageSliderModule} from './public_api';
 
 describe('AjfPageSlider', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [BrowserAnimationsModule, AjfPageSliderModule],
-        declarations: [TestComponent],
-      }).compileComponents();
-    }),
-  );
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [BrowserAnimationsModule, TestComponent],
+    }).compileComponents();
+  });
 
   it('should size the body for the pages it already has', async () => {
     const fixture = TestBed.createComponent(TestComponent);
@@ -65,6 +63,6 @@ describe('AjfPageSlider', () => {
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AjfPageSliderModule, NgStyle],
 })
 class TestComponent {}

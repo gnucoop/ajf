@@ -103,16 +103,16 @@ describe('Form builder node groups', () => {
 
   it('allows fields and groups in a slide, fields only in a group', async () => {
     const [field, group] = (await slide()).nodes;
-    expect(canContainNode(await slide(), group)).toBeTrue();
-    expect(canContainNode(group, field)).toBeTrue();
-    expect(canContainNode(group, group)).toBeFalse();
-    expect(canContainNode(group, await slide())).toBeFalse();
+    expect(canContainNode(await slide(), group)).toBe(true);
+    expect(canContainNode(group, field)).toBe(true);
+    expect(canContainNode(group, group)).toBe(false);
+    expect(canContainNode(group, await slide())).toBe(false);
   });
 
   it('strips the resolved choices of the fields inside a group', async () => {
     const form = await firstValueFrom(service.getCurrentForm().pipe(take(1)));
     const group = form.nodes[0].nodes[1] as AjfNodeGroup;
-    expect('choices' in group.nodes[0]).toBeFalse();
+    expect('choices' in group.nodes[0]).toBe(false);
     expect((group.nodes[0] as any).choicesOriginRef).toBe('colors');
   });
 });

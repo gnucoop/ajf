@@ -27,7 +27,7 @@ describe('formula field', () => {
   });
 
   it('the sum of two formulae should produce a number \
-  and not a string concatenation', done => {
+  and not a string concatenation', async () => {
     const json = {
       nodes: [
         {
@@ -67,19 +67,15 @@ describe('formula field', () => {
     };
     const form: AjfForm = AjfFormSerializer.fromJson(json);
 
-    formRenderer.nodesTree.subscribe(nodes => {
-      const slide = nodes[0];
-      const field = slide.nodes[1] as AjfFieldInstance;
-      // @TODO: used to be toEqual(2) but fails. Check please.
-      expect(field.value).toEqual(1);
-      done();
-    });
-
+    const nodesTree = firstValueFrom(formRenderer.nodesTree);
     formRenderer.setForm(form);
+    const slide = (await nodesTree)[0];
+    const field = slide.nodes[1] as AjfFieldInstance;
+    expect(field.value).toEqual(2);
   });
 
   it('the sum of two number input should produce a number \
-     and not a string concatenation when some number input are null', done => {
+     and not a string concatenation when some number input are null', async () => {
     const json = {
       nodes: [
         {
@@ -128,17 +124,14 @@ describe('formula field', () => {
     };
     const form: AjfForm = AjfFormSerializer.fromJson(json, {number1: 1});
 
-    formRenderer.nodesTree.subscribe(nodes => {
-      const slide = nodes[0];
-      const field = slide.nodes[2] as AjfFieldInstance;
-      expect(field.value).toEqual(1);
-      done();
-    });
-
+    const nodesTree = firstValueFrom(formRenderer.nodesTree);
     formRenderer.setForm(form);
+    const slide = (await nodesTree)[0];
+    const field = slide.nodes[2] as AjfFieldInstance;
+    expect(field.value).toEqual(1);
   });
 
-  it('check field default value', done => {
+  it('check field default value', async () => {
     const json = {
       nodes: [
         {
@@ -167,14 +160,11 @@ describe('formula field', () => {
     };
     const form: AjfForm = AjfFormSerializer.fromJson(json);
 
-    formRenderer.nodesTree.subscribe(nodes => {
-      const slide = nodes[0];
-      const field = slide.nodes[0] as AjfFieldInstance;
-      expect(field.value).toEqual(14);
-      done();
-    });
-
+    const nodesTree = firstValueFrom(formRenderer.nodesTree);
     formRenderer.setForm(form);
+    const slide = (await nodesTree)[0];
+    const field = slide.nodes[0] as AjfFieldInstance;
+    expect(field.value).toEqual(14);
   });
 });
 

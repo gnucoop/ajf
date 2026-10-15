@@ -21,7 +21,8 @@
  */
 
 import {ChangeDetectionStrategy, Component, ViewEncapsulation} from '@angular/core';
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {NgStyle} from '@angular/common';
 import {By} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -35,12 +36,11 @@ import {AjfPageSlider, AjfPageSliderModule} from './public_api';
 describe('AjfPageSlider scroll hint', () => {
   let fixture: ComponentFixture<TestComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, AjfPageSliderModule],
-      declarations: [TestComponent, ShortTestComponent],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [BrowserAnimationsModule, TestComponent, ShortTestComponent],
     }).compileComponents();
-  }));
+  });
 
   const slider = (): AjfPageSlider =>
     fixture.debugElement.query(By.directive(AjfPageSlider)).componentInstance;
@@ -89,12 +89,10 @@ describe('AjfPageSlider scroll hint', () => {
     await settle();
 
     const el = page();
-    // Typed loosely: `scrollBy` is overloaded, and the options form is the one
-    // under test here.
-    const scrollBy = spyOn(el, 'scrollBy') as jasmine.Spy;
+    const scrollBy = vi.spyOn(el, 'scrollBy');
     (hint().querySelector('button') as HTMLButtonElement).click();
 
-    expect(scrollBy.calls.mostRecent().args[0]).toEqual({
+    expect(scrollBy.mock.lastCall?.[0]).toEqual({
       top: Math.round(el.clientHeight * 0.8),
       behavior: 'smooth',
     });
@@ -119,7 +117,7 @@ describe('AjfPageSlider scroll hint', () => {
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AjfPageSliderModule, NgStyle],
 })
 class TestComponent {}
 
@@ -133,6 +131,6 @@ class TestComponent {}
   `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+  imports: [AjfPageSliderModule, NgStyle],
 })
 class ShortTestComponent {}

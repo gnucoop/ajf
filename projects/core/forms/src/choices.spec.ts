@@ -73,7 +73,7 @@ describe('createChoicesFunctionOrigin', () => {
 });
 
 describe('createChoicesObservableArrayOrigin', () => {
-  it('should have choices from a given observable', done => {
+  it('should have choices from a given observable', async () => {
     let subject = new Subject<AjfChoice<number>[]>();
     let choicesOrigin = createChoicesObservableArrayOrigin({
       name: 'foo',
@@ -84,46 +84,40 @@ describe('createChoicesObservableArrayOrigin', () => {
 
     expect(choices).toEqual([]);
 
-    initChoicesOrigin(choicesOrigin).then(() => {
-      choices = choicesOrigin.choices;
-
-      expect(choices.filter(c => c.value === 3).length).toBe(1);
-      expect(choices.filter(c => c.value === 6).length).toBe(1);
-      expect(choices.filter(c => c.value === 9).length).toBe(1);
-
-      done();
-    });
-
+    const init = initChoicesOrigin(choicesOrigin);
     subject.next([
       {label: '3', value: 3},
       {label: '6', value: 6},
       {label: '9', value: 9},
     ]);
+    await init;
+
+    choices = choicesOrigin.choices;
+    expect(choices.filter(c => c.value === 3).length).toBe(1);
+    expect(choices.filter(c => c.value === 6).length).toBe(1);
+    expect(choices.filter(c => c.value === 9).length).toBe(1);
   });
 });
 
 describe('createChoicesObservableOrigin', () => {
-  it('should have choices from a given observable', done => {
+  it('should have choices from a given observable', async () => {
     let subject = new Subject<AjfChoice<number>>();
     let choicesOrigin = createChoicesObservableOrigin({
       name: 'foo',
       generator: subject as Observable<AjfChoice<number>>,
     });
 
-    initChoicesOrigin(choicesOrigin).then(() => {
-      let choices = choicesOrigin.choices;
-
-      expect(choices.filter(c => c.value === 3).length).toBe(1);
-      expect(choices.filter(c => c.value === 6).length).toBe(1);
-      expect(choices.filter(c => c.value === 9).length).toBe(1);
-
-      done();
-    });
-
+    const init = initChoicesOrigin(choicesOrigin);
     subject.next({label: '3', value: 3});
     subject.next({label: '6', value: 6});
     subject.next({label: '9', value: 9});
     subject.complete();
+    await init;
+
+    const choices = choicesOrigin.choices;
+    expect(choices.filter(c => c.value === 3).length).toBe(1);
+    expect(choices.filter(c => c.value === 6).length).toBe(1);
+    expect(choices.filter(c => c.value === 9).length).toBe(1);
   });
 });
 

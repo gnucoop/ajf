@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {firstValueFrom} from 'rxjs';
 
 import {AjfDndDirective} from './public_api';
 
@@ -29,21 +30,20 @@ describe('AjfDndDirective', () => {
     expect(el.className).toBe('');
   });
 
-  it('should emit a file on drop', done => {
+  it('should emit a file on drop', async () => {
     const dnd = fixture.componentInstance.dnd;
     const evt = {
       preventDefault: () => {},
       stopPropagation: () => {},
       dataTransfer: {files: [new File([new Uint8Array([1, 2, 3])], 'foo')]},
     } as any;
-    dnd.file.subscribe(value => {
-      expect(value.length).toBe(1);
-      const file = value[0];
-      expect(file.name).toBe('foo');
-      expect(file.size).toBe(3);
-      done();
-    });
+    const dropped = firstValueFrom(dnd.file);
     dnd.onDrop(evt);
+    const value = await dropped;
+    expect(value.length).toBe(1);
+    const file = value[0];
+    expect(file.name).toBe('foo');
+    expect(file.size).toBe(3);
   });
 });
 
