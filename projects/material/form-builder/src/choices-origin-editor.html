@@ -1,50 +1,53 @@
 <div>
   <mat-form-field>
-    <input matInput [(ngModel)]="name" [placeholder]="'Name' | transloco" required #nameInput="ngModel" />
-    <mat-error *ngIf="nameInput.invalid && nameInput.touched">
-      {{'Name is required' | transloco}}
-    </mat-error>
+    <input
+      matInput
+      [(ngModel)]="name"
+      [placeholder]="'Name' | transloco"
+      required
+      #nameInput="ngModel"
+    />
+    @if (nameInput.invalid && nameInput.touched) {
+      <mat-error> {{'Name is required' | transloco}} </mat-error>
+    }
   </mat-form-field>
-  <span class="ajf-fb-field-error" *ngIf="nameDuplicate && name.trim()">
-    {{'Name already exists' | transloco}}
-  </span>
+  @if (nameDuplicate && name.trim()) {
+    <span class="ajf-fb-field-error"> {{'Name already exists' | transloco}} </span>
+  }
   <mat-form-field>
     <input matInput [(ngModel)]="label" [placeholder]="'Label' | transloco" />
   </mat-form-field>
-  <ng-template [ngIf]="canEditChoices">
+  @if (canEditChoices) {
     <button (click)="addRow()" mat-button>
       <mat-icon>add</mat-icon>
       <span>{{'Add value'|transloco}}</span>
     </button>
     <mat-table [dataSource]="choices">
       <ng-container matColumnDef="value">
-        <mat-header-cell *matHeaderCellDef
-          >{{'Name'|transloco}}</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef>{{'Name'|transloco}}</mat-header-cell>
         <mat-cell *matCellDef="let row; let idx = index">
-          <input matInput [(ngModel)]="row.value" type="text"
-            [class.ajf-fb-choice-invalid]="isChoiceValueInvalid(row.value, idx)"/>
+          <input
+            matInput
+            [(ngModel)]="row.value"
+            type="text"
+            [class.ajf-fb-choice-invalid]="isChoiceValueInvalid(row.value, idx)"
+          />
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="label">
-        <mat-header-cell *matHeaderCellDef
-          >{{'Label'|transloco}}</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef>{{'Label'|transloco}}</mat-header-cell>
         <mat-cell *matCellDef="let row; let idx = index">
           <input matInput [(ngModel)]="row.label" type="text" />
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="delete">
-        <mat-header-cell *matHeaderCellDef
-          >{{'Delete'|transloco}}</mat-header-cell
-        >
+        <mat-header-cell *matHeaderCellDef>{{'Delete'|transloco}}</mat-header-cell>
         <mat-cell *matCellDef="let row; let idx = index">
           <mat-icon (click)="deleteRow(idx)">delete</mat-icon>
         </mat-cell>
       </ng-container>
-
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-  </ng-template>
+  }
 </div>

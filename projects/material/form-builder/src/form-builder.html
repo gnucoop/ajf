@@ -2,12 +2,8 @@
   <button mat-icon-button (click)="leftSidenav.toggle()" aria-label="Toggle side navigation">
     <mat-icon>add_box</mat-icon>
   </button>
-  <button mat-button [matMenuTriggerFor]="choicesMenu">
-    {{ 'Choices' | transloco }}
-  </button>
-  <button mat-button (click)="editStringIdentifier()">
-    {{ 'Default columns' | transloco }}
-  </button>
+  <button mat-button [matMenuTriggerFor]="choicesMenu">{{ 'Choices' | transloco }}</button>
+  <button mat-button (click)="editStringIdentifier()">{{ 'Default columns' | transloco }}</button>
 
   <div class="ajf-toolbar-group">
     <button
@@ -43,26 +39,19 @@
   </button>
 
   <mat-menu #choicesMenu="matMenu">
-    <button mat-menu-item (click)="createChoicesOrigin()">
-      {{ 'New..' | transloco }}
-    </button>
-    <ng-container *ngIf="choicesOrigins | async as cos">
-      <button
-        mat-menu-item
-        *ngFor="let choicesOrigin of cos"
-        (click)="editChoicesOrigin(choicesOrigin)"
-      >
-        {{ (choicesOrigin.label || choicesOrigin.name) | transloco }}
-      </button>
-    </ng-container>
+    <button mat-menu-item (click)="createChoicesOrigin()">{{ 'New..' | transloco }}</button>
+    @if (choicesOrigins | async; as cos) {
+      @for (choicesOrigin of cos; track choicesOrigin) {
+        <button mat-menu-item (click)="editChoicesOrigin(choicesOrigin)">
+          {{ (choicesOrigin.label || choicesOrigin.name) | transloco }}
+        </button>
+      }
+    }
   </mat-menu>
 </mat-toolbar>
 
 <div class="ajf-formtree-container">
-  <mat-drawer-container
-    cdkDropListGroup
-    class="ajf-formtree-drawer-container"
-  >
+  <mat-drawer-container cdkDropListGroup class="ajf-formtree-drawer-container">
     <mat-drawer #leftSidenav position="start" mode="over" class="ajf-sidenav-modern">
       <div class="ajf-drawer-header">
         <mat-form-field class="ajf-search-field" floatLabel="auto">
@@ -73,18 +62,14 @@
             [(ngModel)]="searchTerm"
             placeholder="{{ 'Search elements...' | transloco }}"
           />
-          <button
-            *ngIf="searchTerm"
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="searchTerm=''"
-          >
-            <mat-icon>close</mat-icon>
-          </button>
+          @if (searchTerm) {
+            <button matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
         </mat-form-field>
       </div>
-    
+
       <div
         #sourceDropList
         class="ajf-drawer-content"
@@ -93,31 +78,33 @@
         [cdkDropListEnterPredicate]="disableDrop"
         [cdkDropListData]="nodeTypes"
       >
-        <ng-container *ngFor="let group of nodeTypes | nodeTypeFilter: searchTerm | nodeTypeGroups">
-          <div class="ajf-fb-category-header" *ngIf="group.category">
-            {{ group.category | transloco }}
-          </div>
-          <ajf-fb-node-type-entry
-            *ngFor="let nodeType of group.nodeTypes"
-            cdkDrag
-            [cdkDragData]="nodeType"
-            (cdkDragStarted)="leftSidenav.close()"
-            [nodeType]="nodeType"
-          ></ajf-fb-node-type-entry>
-        </ng-container>
+        @for (group of nodeTypes | nodeTypeFilter: searchTerm | nodeTypeGroups; track group) {
+          @if (group.category) {
+            <div class="ajf-fb-category-header">{{ group.category | transloco }}</div>
+          }
+          @for (nodeType of group.nodeTypes; track nodeType) {
+            <ajf-fb-node-type-entry
+              cdkDrag
+              [cdkDragData]="nodeType"
+              (cdkDragStarted)="leftSidenav.close()"
+              [nodeType]="nodeType"
+            ></ajf-fb-node-type-entry>
+          }
+        }
       </div>
     </mat-drawer>
-    
+
     <div #designer class="ajf-designer">
-      <ajf-fb-node-entry
-        id="slides-list"
-        cdkDropList
-        (cdkDropListDropped)="onDrop($event)"
-        [cdkDropListEnterPredicate]="disableFieldDrop"
-        *ngFor="let nodeEntry of (nodeEntriesTree | async); let isFirst = first"
-        [isFirst]="isFirst"
-        [nodeEntry]="nodeEntry"
-      ></ajf-fb-node-entry>
+      @for (nodeEntry of (nodeEntriesTree | async); track nodeEntry; let isFirst = $first) {
+        <ajf-fb-node-entry
+          id="slides-list"
+          cdkDropList
+          (cdkDropListDropped)="onDrop($event)"
+          [cdkDropListEnterPredicate]="disableFieldDrop"
+          [isFirst]="isFirst"
+          [nodeEntry]="nodeEntry"
+        ></ajf-fb-node-entry>
+      }
     </div>
   </mat-drawer-container>
 

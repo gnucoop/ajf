@@ -1,29 +1,35 @@
-<table *ngIf="instance" class="ajf-table-field">
-  <ng-container *ngIf="instance.node as node">
-    <ng-container *ngFor="let columns of instance.controls; let row = index">
-      <tr [ngClass]="row | ajfTableRowClass">
-        <td>
-          <ng-container *ngIf="columns && columns.length > 0 && columns[0]">
-            {{ columns[0] | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
-          </ng-container>
-        </td>
-        <ng-container *ngIf="columns && columns.length > 1 && columns[1]">
-          <td *ngFor="let c of columns[1]; let column = index">
-            <ng-container *ngIf="row === 0; else controlCell">
-              {{ c | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
-            </ng-container>
-            <ng-template #controlCell>
-              <ng-container *ngIf="c|ajfGetTableCellControl as contr">
-                <ng-container *ngIf="contr">
-                  <span>{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber:
-                    '.0-2'
-                    }}</span>
-                </ng-container>
-              </ng-container>
-            </ng-template>
+@if (instance) {
+  <table class="ajf-table-field">
+    @if (instance.node; as node) {
+      @for (columns of instance.controls; track columns; let row =
+  $index) {
+        <tr [ngClass]="row | ajfTableRowClass">
+          <td>
+            @if (columns && columns.length > 0 && columns[0]) {
+              {{ columns[0] | ajfTranslateIfString |
+      ajfFormatIfNumber: '.0-2' }}
+            }
           </td>
-        </ng-container>
-      </tr>
-    </ng-container>
-  </ng-container>
-</table>
+          @if (columns && columns.length > 1 && columns[1]) {
+            @for (c of columns[1]; track c; let column =
+    $index) {
+              <td>
+                @if (row === 0) {
+                  {{ c | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}
+                } @else {
+                  @if (c|ajfGetTableCellControl; as contr) {
+                    @if (contr) {
+                      <span
+                        >{{ contr.control!.value | ajfTranslateIfString | ajfFormatIfNumber: '.0-2' }}</span
+                      >
+                    }
+                  }
+                }
+              </td>
+            }
+          }
+        </tr>
+      }
+    }
+  </table>
+}

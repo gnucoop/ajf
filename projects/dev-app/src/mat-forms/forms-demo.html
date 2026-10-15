@@ -1,35 +1,43 @@
 <div class="demo-forms">
   <h4 class="demo-section-header">Form</h4>
   <mat-checkbox [(ngModel)]="readonly">readonly</mat-checkbox>
-  <br><br>
-  <button (click)="printPdf()" mat-raised-button
-      color="primary">Print form as pdf</button>
+  <br /><br />
+  <button (click)="printPdf()" mat-raised-button color="primary">Print form as pdf</button>
   &nbsp;
-  <button (click)="downloadDoc()" mat-raised-button
-      color="primary">Download form as doc</button>
+  <button (click)="downloadDoc()" mat-raised-button color="primary">Download form as doc</button>
   <section>
     <mat-grid-list [cols]="2" rowHeight="230px">
       <mat-grid-tile>
         <div class="demo-forms-header-box">
           <h5>Schema</h5>
           <textarea [(ngModel)]="formSchema"></textarea>
-          <button (click)="setSchema()" mat-raised-button
-              color="primary">Set schema</button>
+          <button (click)="setSchema()" mat-raised-button color="primary">Set schema</button>
         </div>
       </mat-grid-tile>
       <mat-grid-tile>
         <div class="demo-forms-header-box">
           <h5>Context</h5>
           <textarea [(ngModel)]="context"></textarea>
-          <button (click)="getCurrentContext()" mat-raised-button
-              color="primary">Get current context</button>
+          <button (click)="getCurrentContext()" mat-raised-button color="primary">
+            Get current context
+          </button>
         </div>
       </mat-grid-tile>
     </mat-grid-list>
-    <div class="demo-form-container" *ngIf="form$|async as form">
-      <ajf-form [maxColumns]="1" [centeredFieldsContent]="false" [form]="form" [topBar]="true" [hasStartMessage]="false" [hasEndMessage]="false" [readonly]="readonly">
-        <button ajfFormTopToolbarButtons mat-button default>button added by form demo</button>
-      </ajf-form>
-    </div>
+    @if (form$|async; as form) {
+      <div class="demo-form-container">
+        <ajf-form
+          [maxColumns]="1"
+          [centeredFieldsContent]="false"
+          [form]="form"
+          [topBar]="true"
+          [hasStartMessage]="false"
+          [hasEndMessage]="false"
+          [readonly]="readonly"
+        >
+          <button ajfFormTopToolbarButtons mat-button default>button added by form demo</button>
+        </ajf-form>
+      </div>
+    }
   </section>
 </div>

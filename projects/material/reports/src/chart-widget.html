@@ -1,13 +1,17 @@
-<ajf-widget-export *ngIf="instance"
+@if (instance) {
+  <ajf-widget-export
     [widgetType]="instance.widgetType"
     [data]="instance.data"
-    [enable]="instance.exportable">
-  <ajf-chart
+    [enable]="instance.exportable"
+  >
+    <ajf-chart
       [chartType]="instance.chartType"
       [options]="instance.widget.options"
       [data]="instance.data"
       [mainDataNumberThreshold]="instance.mainDataNumberThreshold"
       [removeZeroValues]="instance.removeZeroValues"
-      [instance]="instance">
-  </ajf-chart>
-</ajf-widget-export>
+      [instance]="instance"
+    >
+    </ajf-chart>
+  </ajf-widget-export>
+}

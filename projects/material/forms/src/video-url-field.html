@@ -1,10 +1,12 @@
-<ng-container *ngIf="control | async as ctrl">
+@if (control | async; as ctrl) {
   <input class="ajf-control ajf-video-input" type="url" [formControl]="ctrl!" />
   <div class="ajf-video-thumbnail">
-    <ng-container *ngIf="validUrl | async">
+    @if (validUrl | async) {
       <a target="_blank" [href]="ctrl.value">
-        <img *ngIf="videoThumbnail | async as thumb" [src]="thumb" alt="" />
+        @if (videoThumbnail | async; as thumb) {
+          <img [src]="thumb" alt="" />
+        }
       </a>
-    </ng-container>
+    }
   </div>
-</ng-container>
+}

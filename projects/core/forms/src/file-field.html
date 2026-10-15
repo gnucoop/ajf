@@ -1,1 +1,3 @@
-<ajf-file-input *ngIf="control|async as ctrl" [formControl]="ctrl!"></ajf-file-input>
+@if (control|async; as ctrl) {
+  <ajf-file-input [formControl]="ctrl!"></ajf-file-input>
+}

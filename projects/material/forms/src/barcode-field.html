@@ -1,1 +1,3 @@
-<ajf-barcode *ngIf="control|async as ctrl" [formControl]="ctrl!"></ajf-barcode>
+@if (control|async; as ctrl) {
+  <ajf-barcode [formControl]="ctrl!"></ajf-barcode>
+}

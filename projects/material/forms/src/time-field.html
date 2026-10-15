@@ -1,1 +1,3 @@
-<ajf-time *ngIf="control|async as ctrl" [formControl]="ctrl!"></ajf-time>
+@if (control|async; as ctrl) {
+  <ajf-time [formControl]="ctrl!"></ajf-time>
+}

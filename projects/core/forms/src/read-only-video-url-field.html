@@ -1,7 +1,11 @@
-<div *ngIf="control|async as ctrl" class="ajf-video-thumbnail">
-  <ng-container *ngIf="validUrl|async">
-    <a target="_blank" [href]="ctrl.value">
-      <img *ngIf="videoThumbnail|async as thumb" [src]="thumb" class="" alt="">
-    </a>
-  </ng-container>
-</div>
+@if (control|async; as ctrl) {
+  <div class="ajf-video-thumbnail">
+    @if (validUrl|async) {
+      <a target="_blank" [href]="ctrl.value">
+        @if (videoThumbnail|async; as thumb) {
+          <img [src]="thumb" class="" alt="" />
+        }
+      </a>
+    }
+  </div>
+}

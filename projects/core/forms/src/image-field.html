@@ -1,5 +1,7 @@
-<ajf-file-input *ngIf="control|async as ctrl" accept="image/*" [formControl]="ctrl!">
-  <div ajfFilePreview class="ajf-image-preview">
-    <img [src]="imageUrl|async">
-  </div>
-</ajf-file-input>
+@if (control|async; as ctrl) {
+  <ajf-file-input accept="image/*" [formControl]="ctrl!">
+    <div ajfFilePreview class="ajf-image-preview">
+      <img [src]="imageUrl|async" />
+    </div>
+  </ajf-file-input>
+}

@@ -1,3 +1,4 @@
-<ng-container *ngIf="nodeType">
-  <ajf-node-icon [node]="node"></ajf-node-icon><span class="ajf-node-type-label">{{nodeType.label}}</span>
-</ng-container>
+@if (nodeType) {
+  <ajf-node-icon [node]="node"></ajf-node-icon
+  ><span class="ajf-node-type-label">{{nodeType.label}}</span>
+}
