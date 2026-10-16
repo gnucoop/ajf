@@ -1,3 +1,10 @@
+<a name="18.5.3"></a>
+# 18.5.3 "mute-hummingbird" (2026-10-16)
+### Bug Fixes
+* **forms:** render a form set before the slider is initialized ([5d151a5](https://github.com/gnucoop/ajf/commit/5d151a52291eb965d7d61cf0565f5b125a2c00be))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.5.2"></a>
 # 18.5.2 "bottom-pelican" (2026-10-08)
 ### Bug Fixes
