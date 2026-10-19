@@ -40,8 +40,7 @@ import {AjfFormsModule} from './public_api';
 describe('AjfFormRenderer form input', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [AjfFormsModule, NoopAnimationsModule, AjfTranslocoModule.forRoot()],
-      declarations: [TestComponent],
+      imports: [NoopAnimationsModule, AjfTranslocoModule.forRoot(), TestComponent],
     });
     await TestBed.compileComponents();
   });
@@ -53,6 +52,7 @@ describe('AjfFormRenderer form input', () => {
     // The choices origins of the first form are still resolving, so the slider
     // does not exist yet: this is the form that used to be dropped.
     fixture.componentInstance.form = buildForm([{value: 'blackcat', label: 'Black Cat'}]);
+    fixture.changeDetectorRef.markForCheck();
     fixture.detectChanges();
 
     // Once the slider shows up, the second form goes to the renderer and its
@@ -104,6 +104,7 @@ function buildForm(choices: {value: string; label: string}[]): AjfForm {
 
 @Component({
   template: '<ajf-form readonly [form]="form"></ajf-form>',
+  imports: [AjfFormsModule],
 })
 class TestComponent {
   form = buildForm([{value: 'none', label: 'None'}]);
