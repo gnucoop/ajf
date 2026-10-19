@@ -9413,10 +9413,10 @@ ngx-mat-select-search@^8.0.6:
   dependencies:
     tslib "^2.4.0"
 
-ngx-quill@^29.2.0:
-  version "29.2.0"
-  resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-29.2.0.tgz#3c3443dccac2c32fb1e53574a42a79259ff90bc8"
-  integrity sha512-nutQCD6MtvuNwc/1jdyLp266eu7CXqA0LHho9fEntSxZfEGUTfhMd7F/YR9FMS++5ugBfW+eiWA5zK75ZaL8jg==
+ngx-quill@^30.1.3:
+  version "30.1.3"
+  resolved "https://registry.yarnpkg.com/ngx-quill/-/ngx-quill-30.1.3.tgz#996ff5ff59ef764e6487bb648b6eb5ad00990c62"
+  integrity sha512-BgO0v8cNsO+8NO4M5+RrOiWOcsAn4uXtTrzZQa7/6u1UsUia0BXIB9413XKdhGcALItU/VUSKuhu+1ToLjMCWQ==
   dependencies:
     tslib "^2.3.0"
 
@@ -12897,11 +12897,6 @@ zod@4.3.6:
   version "4.6.6"
   resolved "https://registry.yarnpkg.com/zod/-/zod-4.6.6.tgz#0bb0cf57b87011a71ec28ed2e1b51f6455563f9a"
   integrity sha512-4UmzQUF5fxvfcYHlbjBmejU+w+hbDnWFx4aS8kBx7nPBHcO2SqPbpAG8snbdg+Xse4pRefR98hgjFgIMCI/UhA==
-
-zone.js@~0.15.1:
-  version "0.15.1"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.15.1.tgz#1e109adb75f80e9e004ee8e0d4a0a52e0a336481"
-  integrity sha512-XE96n56IQpJM7NAoXswY3XRLcWFW83xe0BiAOeMD7K5k5xecOeul3Qcpx6GqEeeHNkW5DWL5zOyTbEfB4eti8w==
 
 zrender@5.4.1:
   version "5.4.1"

@@ -13,9 +13,6 @@
       "@ajf/core/*": ["./*"]
     }
   },
-  "files": [
-    "src/test-providers.ts"
-  ],
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"

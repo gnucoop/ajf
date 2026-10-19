@@ -15,9 +15,6 @@
       "@ajf/material/*": ["./*"]
     }
   },
-  "files": [
-    "src/test-providers.ts"
-  ],
   "include": [
     "**/*.spec.ts",
     "**/*.d.ts"

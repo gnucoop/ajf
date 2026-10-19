@@ -28,8 +28,7 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/core/tsconfig.spec.json",
-            "runnerConfig": "vitest.config.ts",
-            "providersFile": "projects/core/src/test-providers.ts"
+            "runnerConfig": "vitest.config.ts"
           }
         },
         "lint": {
@@ -109,8 +108,7 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/material/tsconfig.spec.json",
-            "runnerConfig": "vitest.config.ts",
-            "providersFile": "projects/material/src/test-providers.ts"
+            "runnerConfig": "vitest.config.ts"
           }
         },
         "lint": {
@@ -190,8 +188,7 @@
           "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/calendars/tsconfig.spec.json",
-            "runnerConfig": "vitest.config.ts",
-            "providersFile": "projects/calendars/src/test-providers.ts"
+            "runnerConfig": "vitest.config.ts"
           }
         },
         "lint": {
@@ -266,7 +263,6 @@
             "outputPath": "dist/e2e-app",
             "index": "projects/e2e-app/src/index.html",
             "main": "projects/e2e-app/src/main.ts",
-            "polyfills": "projects/e2e-app/src/polyfills.ts",
             "tsConfig": "projects/e2e-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["projects/e2e-app/src/favicon.ico", "projects/e2e-app/src/assets"],
@@ -346,7 +342,6 @@
             "outputPath": "dist/dev-app",
             "index": "projects/dev-app/src/index.html",
             "main": "projects/dev-app/src/main.ts",
-            "polyfills": "projects/dev-app/src/polyfills.ts",
             "tsConfig": "projects/dev-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["projects/dev-app/src/favicon.ico", "projects/dev-app/src/assets"],
