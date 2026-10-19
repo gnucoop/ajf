@@ -127,6 +127,16 @@ would repaint the whole host application.
 type needs a read-only component and a stylesheet that renders its value as flat text — mono if
 the editable control is mono.
 
+### Change detection
+
+The dev app, the e2e app and the unit tests run **zoneless** (`provideZonelessChangeDetection()`,
+no zone.js); the libraries work in hosts of either kind. Components are `OnPush` and Angular only
+re-renders when told: a template event, the `async` pipe, a signal, or `markForCheck()` — which is
+how `CoreFormField` follows `instance.updatedEvt`. State written from a timer, a subscription or a
+third-party callback must call `markForCheck()`. In specs, `fixture.whenStable()` no longer waits
+for pending timers, and a property written straight onto the fixture's component needs
+`fixture.changeDetectorRef.markForCheck()`.
+
 ### Two patterns for field components
 
 **Pattern A — Simple fields** (text, number, date): a single component extending `CoreComponent`, lives directly in `projects/material/forms/src/`.

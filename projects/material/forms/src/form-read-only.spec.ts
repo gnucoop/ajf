@@ -30,13 +30,22 @@ import {
 } from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {Component} from '@angular/core';
-import {TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {firstValueFrom, timer} from 'rxjs';
 import {take} from 'rxjs/operators';
 
 import {AjfFormsModule} from './public_api';
+
+// The renderer builds the form behind a timer; without zone.js, `whenStable()` does not wait
+// for it, so the field is polled for.
+const renderedField = (fixture: ComponentFixture<unknown>): Promise<HTMLElement> =>
+  vi.waitFor(() => {
+    const field = fixture.debugElement.query(By.css('.ajf-field-field'));
+    expect(field).not.toBeNull();
+    return field.nativeElement;
+  });
 
 describe('AjfFormRenderer', () => {
   beforeEach(async () => {
@@ -75,7 +84,7 @@ describe('AjfFormRenderer', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
+    const field = await renderedField(fixture);
     const spanChild: HTMLCollection = field.getElementsByTagName('span');
     // read only component structure <span> value </span>
     // this condition check if the field has a reader-only template
@@ -95,7 +104,7 @@ describe('AjfFormRenderer', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
+    const field = await renderedField(fixture);
     const spanChild: HTMLCollection = field.getElementsByTagName('span');
     // read only component structure <span> value </span>
     // this condition check if the field has a reader-only template
@@ -115,7 +124,7 @@ describe('AjfFormRenderer', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
+    const field = await renderedField(fixture);
     const spanChild: HTMLCollection = field.getElementsByTagName('span');
     // read only component structure <span> value </span>
     // this condition check if the field has a reader-only template
@@ -135,7 +144,7 @@ describe('AjfFormRenderer', () => {
     fixture.detectChanges();
     await fixture.whenStable();
 
-    const field = fixture.debugElement.query(By.css('.ajf-field-field')).nativeElement;
+    const field = await renderedField(fixture);
     const spanChild: HTMLCollection = field.getElementsByTagName('span');
     // read only component structure <span> value </span>
     // this condition check if the field has a reader-only template

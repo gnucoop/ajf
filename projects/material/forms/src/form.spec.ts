@@ -121,6 +121,7 @@ describe('AjfFormRenderer', () => {
     expect(error.nativeElement).toBeDefined();
 
     fixture.componentInstance.form = AjfFormSerializer.fromJson(testForm, {field: 'choice 1'});
+    fixture.changeDetectorRef.markForCheck();
 
     fixture.detectChanges();
     await fixture.whenStable();

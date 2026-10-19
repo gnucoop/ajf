@@ -17,15 +17,12 @@ describe('AjfDndDirective', () => {
   });
 
   it('should add ajf-dnd-over class to container on drag over and remove it on drag leave', async () => {
-    const dnd = fixture.componentInstance.dnd;
     const el = fixture.nativeElement.firstChild as HTMLDivElement;
     expect(el.className).toBe('');
-    dnd.onDragOver(new DragEvent('dragover'));
-    fixture.detectChanges();
+    el.dispatchEvent(new DragEvent('dragover'));
     await fixture.whenStable();
     expect(el.className).toBe('ajf-dnd-over');
-    dnd.onDragLeave(new DragEvent('dragleave'));
-    fixture.detectChanges();
+    el.dispatchEvent(new DragEvent('dragleave'));
     await fixture.whenStable();
     expect(el.className).toBe('');
   });
