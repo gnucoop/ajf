@@ -1,7 +1,7 @@
 <div ajfDnd (file)="onFileDrop($event)" class="ajf-drop-zone">
   @if (emptyFile) {
     <div class="ajf-drop-message" (click)="triggerNativeInput()">
-      @if (_dropMessageChildren.length) {
+      @if (_dropMessageChildren?.length) {
         <ng-content select="[ajfDropMessage]"></ng-content>
       } @else {
         {{ 'Drop your file here or click to select' | transloco }}
@@ -9,7 +9,7 @@
     </div>
   } @else {
     <div class="ajf-file-info">
-      @if (_filePreviewChildren.length) {
+      @if (_filePreviewChildren?.length) {
         <ng-content select="[ajfFilePreview]"></ng-content>
       } @else {
         <div class="ajf-file-info-content">

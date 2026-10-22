@@ -104,11 +104,13 @@ export class AjfFilePreview implements OnDestroy {
   standalone: false,
 })
 export class AjfFileInput implements ControlValueAccessor {
+  // Unset until the content is initialized, which the template can be checked before: the
+  // `value` setter runs `detectChanges()`, and `writeValue` calls it while the form control binds.
   @ContentChildren(AjfDropMessage, {descendants: false})
-  _dropMessageChildren!: QueryList<AjfDropMessage>;
+  _dropMessageChildren?: QueryList<AjfDropMessage>;
 
   @ContentChildren(AjfFilePreview, {descendants: false})
-  _filePreviewChildren!: QueryList<AjfFilePreview>;
+  _filePreviewChildren?: QueryList<AjfFilePreview>;
 
   @ViewChild('nativeInput') _nativeInput!: ElementRef<HTMLInputElement>;
 
