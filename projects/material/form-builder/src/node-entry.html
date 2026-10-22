@@ -62,7 +62,7 @@ realNodeEntry.children; track childNodeEntry; let idx = $index) {
             [innerHTML]="(realNodeEntry.node.label || realNodeEntry.node.name)  | transloco"
           ></span>
           @if (
-            realNodeEntry.node.visibility && realNodeEntry.node.visibility?.condition !== 'true'
+            realNodeEntry.node.visibility && realNodeEntry.node.visibility.condition !== 'true'
           ) {
             <span
               class="ajf-visibility-condition"
