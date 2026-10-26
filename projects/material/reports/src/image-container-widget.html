@@ -2,8 +2,7 @@
   <div class="ajf-image-container ajf-columns">
     @switch (instance.widget.imageType) {
       @case (imageTypes.Image) {
-        @for (icw of instance.urls; track
-  icw; let idx = $index) {
+        @for (icw of instance.urls; track $index; let idx = $index) {
           <div class="ajf-column">
             <ajf-image
               [type]="instance.widget.imageType"
@@ -16,7 +15,7 @@
         }
       }
       @case (imageTypes.Flag) {
-        @for (icw of instance.flags; track icw; let idx = $index) {
+        @for (icw of instance.flags; track $index; let idx = $index) {
           <div class="ajf-column">
             <ajf-image
               [type]="instance.widget.imageType"

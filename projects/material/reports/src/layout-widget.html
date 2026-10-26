@@ -1,6 +1,6 @@
 @if (instance) {
   <div class="ajf-columns">
-    @for (column of instance.widget.columns; track column; let idx = $index) {
+    @for (column of instance.widget.columns; track $index; let idx = $index) {
       <div
         [ngStyle]="{'flex-grow': column > -1 ? 1 : null, 'flex-basis' : column > -1 ? (column * 100) + '%' : null}"
         class="ajf-column"
