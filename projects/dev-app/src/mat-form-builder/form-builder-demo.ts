@@ -22,7 +22,7 @@
 
 import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
 import {AjfFormBuilderService, AjfFormBuilderValidation} from '@ajf/material/form-builder';
-import {AfterViewInit, Component, OnDestroy} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {delay} from 'rxjs/operators';
 
@@ -57,7 +57,7 @@ export class FormBuilderDemo implements AfterViewInit, OnDestroy {
    */
   isAjfFormSchemaValid: boolean = true;
 
-  constructor(private _service: AjfFormBuilderService) {
+  constructor(private _service: AjfFormBuilderService, private _cdr: ChangeDetectorRef) {
     this._updateForm(formSchema);
   }
 
@@ -71,6 +71,7 @@ export class FormBuilderDemo implements AfterViewInit, OnDestroy {
       .pipe(delay(0))
       .subscribe(form => {
         this.formSchema = JSON.stringify(form);
+        this._cdr.markForCheck();
       });
   }
 
