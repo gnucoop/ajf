@@ -20,7 +20,7 @@
           [attr.stroke]="box.red === true ? 'red' : box.yellow === true ? 'yellow' : box.green === true ? 'green' : 'black'"
           style="stroke-width:6"
         />
-        @for (line of lines(box.label); track line; let idx = $index) {
+        @for (line of lines(box.label); track $index; let idx = $index) {
           <ng-container>
             <text
               class="text"

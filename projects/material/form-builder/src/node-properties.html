@@ -69,7 +69,7 @@
             ><input matSliderThumb formControlName="conditionalBranchesNum"
           /></mat-slider>
         </div>
-        @for (branch of conditionalBranches; track branch; let idx = $index) {
+        @for (branch of conditionalBranches; track $index; let idx = $index) {
           <div>
             <button (click)="editConditionalBranch(idx)" mat-raised-button [matTooltip]="branch">
               <div class="ajf-icon-cont">
@@ -351,7 +351,7 @@
             @if (!triggerConditions || triggerConditions.length === 0) {
               <div class="ajf-validation-row ajf-emph">{{'No trigger condition'|transloco}}</div>
             }
-            @for (triggerCondition of triggerConditions; track triggerCondition; let idx = $index) {
+            @for (triggerCondition of triggerConditions; track $index; let idx = $index) {
               <div class="ajf-validation-row">
                 <button
                   (click)="editTriggerCondition(idx)"
