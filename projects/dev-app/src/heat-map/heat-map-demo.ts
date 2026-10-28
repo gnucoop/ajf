@@ -20,7 +20,7 @@
  *
  */
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {features, values} from './features';
 
@@ -28,6 +28,7 @@ import {features, values} from './features';
   selector: 'heat-map-demo',
   templateUrl: 'heat-map-demo.html',
   styleUrls: ['heat-map-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class HeatMapDemo {

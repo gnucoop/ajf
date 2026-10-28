@@ -20,12 +20,13 @@
  *
  */
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'checkbox-group-demo',
   templateUrl: 'checkbox-group-demo.html',
   styleUrls: ['checkbox-group-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CheckboxGroupDemo {

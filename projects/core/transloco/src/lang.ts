@@ -20,7 +20,7 @@
  *
  */
 
-import {Translation} from '@ngneat/transloco';
+import {Translation} from '@jsverse/transloco';
 
 import {ENG} from './eng';
 import {ESP} from './esp';

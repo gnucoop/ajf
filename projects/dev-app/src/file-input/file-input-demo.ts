@@ -21,12 +21,13 @@
  */
 
 import {AjfFile} from '@ajf/core/file-input';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'file-input-demo',
   templateUrl: 'file-input-demo.html',
   styleUrls: ['file-input-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FileInputDemo {

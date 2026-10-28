@@ -22,6 +22,10 @@
 
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {
+  DefaultFallbackStrategy,
+  DefaultInterceptor,
+  provideTranslocoFallbackStrategy,
+  provideTranslocoInterceptor,
   TRANSLOCO_CONFIG,
   TRANSLOCO_MISSING_HANDLER,
   translocoConfig,
@@ -30,7 +34,7 @@ import {
   TranslocoService,
   TRANSLOCO_TRANSPILER,
   FunctionalTranspiler,
-} from '@ngneat/transloco';
+} from '@jsverse/transloco';
 
 import {langs} from './lang';
 import {MissingHandler} from './transloco-missing-handler';
@@ -41,6 +45,10 @@ const availableLangs = ['ENG', 'ESP', 'FRA', 'ITA', 'PRT', 'ETH', 'UKR', 'ARA'];
   imports: [TranslocoModule],
   exports: [TranslocoModule],
   providers: [
+    // Transloco 4+ leaves these to `provideTransloco()`, which takes the config as well: provided
+    // here, it would override the one `forRoot()` sets.
+    provideTranslocoInterceptor(DefaultInterceptor),
+    provideTranslocoFallbackStrategy(DefaultFallbackStrategy),
     {provide: TRANSLOCO_MISSING_HANDLER, useClass: MissingHandler},
     {
       provide: TRANSLOCO_TRANSPILER,

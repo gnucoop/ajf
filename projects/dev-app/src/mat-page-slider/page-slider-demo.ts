@@ -20,12 +20,13 @@
  *
  */
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'page-slider-demo',
   templateUrl: 'page-slider-demo.html',
   styleUrls: ['page-slider-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class PageSliderDemo {

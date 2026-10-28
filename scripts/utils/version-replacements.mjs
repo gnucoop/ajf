@@ -9,7 +9,7 @@ export const versionReplacements = packages => {
     ['@angular/core', 'NGF'],
     ['@angular/cdk', 'NGC'],
     ['@gic/angular', 'GIC'],
-    ['@ngneat/transloco', 'TRANSLOCO'],
+    ['@jsverse/transloco', 'TRANSLOCO'],
     ['@zxing/browser', 'ZXING-BROWSER'],
     ['@zxing/library', 'ZXING-LIBRARY'],
     ['chart.js', 'CHARTJS'],

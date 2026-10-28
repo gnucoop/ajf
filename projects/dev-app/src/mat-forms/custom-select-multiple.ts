@@ -26,11 +26,18 @@ import {
   AjfFormRendererService,
 } from '@ajf/core/forms';
 import {AjfMultipleChoiceFieldComponent, AjfWarningAlertService} from '@ajf/material/forms';
-import {ChangeDetectorRef, Component, Inject, Optional} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Optional,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   templateUrl: 'custom-select-multiple.html',
   styleUrls: ['custom-select-multiple.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CustomSelectMultiple extends AjfMultipleChoiceFieldComponent<any> {

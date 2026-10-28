@@ -3,6 +3,11 @@
   "include": ["**/*.ts"],
   "compilerOptions": {
     "sourceMap": false,
+    // Cypress 12 compiles the specs with a ts-loader that drops `rootDir`, which TypeScript 6
+    // requires next to an inherited `outDir`, and that sets `downlevelIteration`, which
+    // TypeScript 6 deprecates. The specs are never emitted to disk anyway.
+    "outDir": null,
+    "ignoreDeprecations": "6.0",
     "types": ["cypress"]
   }
 }

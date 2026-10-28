@@ -127,7 +127,7 @@ overrides it.
 
 ## Internationalisation
 
-`@ajf/core/transloco` wraps [`@ngneat/transloco`](https://ngneat.github.io/transloco/) and ships
+`@ajf/core/transloco` wraps [`@jsverse/transloco`](https://jsverse.gitbook.io/transloco/) and ships
 translations for Arabic, English, Ethiopian, French, Italian, Portuguese, Spanish and Ukrainian.
 Import `AjfTranslocoModule.forRoot()` once in your app root.
 

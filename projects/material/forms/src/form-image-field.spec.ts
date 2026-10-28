@@ -23,7 +23,7 @@
 import {AjfFieldType, AjfFormSerializer, AjfNodeType} from '@ajf/core/forms';
 import {AjfFileInput} from '@ajf/core/file-input';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -66,6 +66,7 @@ describe('AjfFormRenderer image field', () => {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
 })
 class TestComponent {

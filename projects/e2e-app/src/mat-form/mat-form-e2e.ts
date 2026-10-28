@@ -21,7 +21,7 @@
  */
 
 import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {filter, startWith, switchMap} from 'rxjs/operators';
@@ -101,6 +101,7 @@ const singleSlideSchema: any = {
 @Component({
   selector: 'mat-form-e2e',
   templateUrl: 'mat-form-e2e.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MaterialFormE2E implements OnInit {

@@ -21,12 +21,13 @@
  */
 
 import {TranslocoService} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'i18n-demo',
   templateUrl: 'i18n-demo.html',
   styleUrls: ['i18n-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class I18nDemo {

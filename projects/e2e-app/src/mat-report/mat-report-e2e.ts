@@ -22,7 +22,7 @@
 
 import {AjfReportInstance, AjfReportSerializer, createReportInstance} from '@ajf/core/reports';
 import {TranslocoService} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -32,6 +32,7 @@ import {defaultReport, filterReport, globalFilterReport} from './reports';
 @Component({
   selector: 'mat-report-e2e',
   templateUrl: 'mat-report-e2e.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MaterialReportE2E {

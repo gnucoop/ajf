@@ -22,12 +22,13 @@
 
 import 'echarts';
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'echarts-demo',
   templateUrl: 'echarts-demo.html',
   styleUrls: ['echarts-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class EchartsDemo {

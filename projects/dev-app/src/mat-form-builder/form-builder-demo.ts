@@ -22,7 +22,13 @@
 
 import {AjfForm, AjfFormSerializer} from '@ajf/core/forms';
 import {AjfFormBuilderService, AjfFormBuilderValidation} from '@ajf/material/form-builder';
-import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {delay} from 'rxjs/operators';
 
@@ -32,6 +38,7 @@ import {formSchema} from './form';
   selector: 'form-builder-demo',
   templateUrl: 'form-builder-demo.html',
   styleUrls: ['form-builder-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FormBuilderDemo implements AfterViewInit, OnDestroy {

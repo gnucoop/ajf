@@ -20,7 +20,7 @@
  *
  */
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 
@@ -57,6 +57,7 @@ import {AjfCheckboxGroupModule} from './public_api';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfCheckboxGroupModule, ReactiveFormsModule],
 })
 class TestComponent {

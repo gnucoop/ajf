@@ -21,12 +21,13 @@
  */
 
 import {AjfBaseWidgetComponent} from '@ajf/core/reports';
-import {ChangeDetectorRef, Component, ElementRef} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'demo-custom-widget',
   templateUrl: 'custom-widget.html',
   styleUrls: ['custom-widget.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class CustomWidget extends AjfBaseWidgetComponent {

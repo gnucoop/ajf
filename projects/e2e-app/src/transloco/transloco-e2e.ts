@@ -1,11 +1,12 @@
 import {langs} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {MatSelectChange} from '@angular/material/select';
-import {TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@jsverse/transloco';
 
 @Component({
   selector: 'transloco-e2e',
   templateUrl: 'transloco-e2e.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class TranslocoE2E {
