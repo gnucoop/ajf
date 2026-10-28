@@ -7,14 +7,18 @@ import {packages} from './build-config.mjs';
 
 const runE2eApp = async () => {
   const res = shell.exec(`yarn -s e2e-app`, {async: true, silent: true});
-  res.stdout.setEncoding('utf8');
-  return new Promise((resolve, reject) => {
-    res.stdout.on('data', data => {
-      if (data.includes('Server is listening')) {
-        resolve(res);
+  // Wait for the dev server to answer rather than for one of its messages, which change with
+  // the builder.
+  for (let i = 0; i < 300; i++) {
+    try {
+      if ((await fetch('http://localhost:4200/')).ok) {
+        return res;
       }
-    });
-  });
+    } catch {}
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
+  res.kill();
+  throw new Error('The e2e app did not start within 5 minutes');
 };
 
 const runPackageE2e = async pkg => {
