@@ -258,11 +258,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/e2e-app",
+            "outputPath": {
+              "base": "dist/e2e-app"
+            },
             "index": "projects/e2e-app/src/index.html",
-            "main": "projects/e2e-app/src/main.ts",
             "tsConfig": "projects/e2e-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["projects/e2e-app/src/favicon.ico", "projects/e2e-app/src/assets"],
@@ -279,7 +280,8 @@
               "dagre",
               "svg-pan-zoom",
               "pdfmake/build/pdfmake"
-            ]
+            ],
+            "browser": "projects/e2e-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -298,9 +300,8 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
+              "outputHashing": "media",
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -309,7 +310,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "e2e-app:build:production"
@@ -337,11 +338,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/dev-app",
+            "outputPath": {
+              "base": "dist/dev-app"
+            },
             "index": "projects/dev-app/src/index.html",
-            "main": "projects/dev-app/src/main.ts",
             "tsConfig": "projects/dev-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["projects/dev-app/src/favicon.ico", "projects/dev-app/src/assets"],
@@ -358,7 +360,8 @@
               "dagre",
               "svg-pan-zoom",
               "pdfmake/build/pdfmake"
-            ]
+            ],
+            "browser": "projects/dev-app/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -377,9 +380,8 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
+              "outputHashing": "media",
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -388,7 +390,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "dev-app:build:production"
