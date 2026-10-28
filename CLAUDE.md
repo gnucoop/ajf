@@ -213,7 +213,7 @@ Conditions (`AjfCondition`) and formulas (`AjfFormula`) are plain JS strings eva
 
 ### i18n
 
-`@ajf/core/transloco` wraps `@ngneat/transloco` and ships built-in translations for: Arabic, English, Spanish, Ethiopian, French, Italian, Portuguese, Ukrainian. Import `AjfTranslocoModule.forRoot()` in the app root.
+`@ajf/core/transloco` wraps `@jsverse/transloco` and ships built-in translations for: Arabic, English, Spanish, Ethiopian, French, Italian, Portuguese, Ukrainian. Import `AjfTranslocoModule.forRoot()` in the app root.
 
 ### TypeScript path aliases
 

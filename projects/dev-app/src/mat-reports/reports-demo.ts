@@ -31,7 +31,7 @@ import {
 import {AjfContext} from '@ajf/core/common';
 import {TranslocoService} from '@ajf/core/transloco';
 import {AjfWidgetService} from '@ajf/material/reports';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {CustomWidget} from './custom-widget';
 import {testReport} from './report';
@@ -40,11 +40,12 @@ import {testReport} from './report';
   selector: 'reports-demo',
   templateUrl: 'reports-demo.html',
   styleUrls: ['reports-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ReportsDemo {
-  report: AjfReportInstance|undefined;
-  printableReport: AjfReportInstance|undefined;
+  report: AjfReportInstance | undefined;
+  printableReport: AjfReportInstance | undefined;
   reportStr: string = JSON.stringify(testReport);
   context: string = '{}';
 
@@ -80,7 +81,7 @@ export class ReportsDemo {
     this.printableReport = this.report;
   }
 
-  filterWidgetChanged(changes: {context: AjfContext, report?: AjfReportInstance}) {
+  filterWidgetChanged(changes: {context: AjfContext; report?: AjfReportInstance}) {
     let ctx = {};
     try {
       ctx = JSON.parse(this.context);

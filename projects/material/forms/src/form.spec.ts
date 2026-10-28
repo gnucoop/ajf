@@ -29,7 +29,7 @@ import {
   AjfSlideInstance,
 } from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -329,6 +329,7 @@ const testForm = {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
 })
 class TestComponent {

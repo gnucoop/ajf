@@ -20,7 +20,7 @@
  *
  */
 
-import {Translation} from '@ngneat/transloco';
+import {Translation} from '@jsverse/transloco';
 
 export const ESP: Translation = {
   'Drop your slides here': 'Suelta tus diapositivas aquí',

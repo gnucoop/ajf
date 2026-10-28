@@ -21,12 +21,13 @@
  */
 
 import {AjfImageType} from '@ajf/core/image';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'image-demo',
   templateUrl: 'image-demo.html',
   styleUrls: ['image-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ImageDemo {

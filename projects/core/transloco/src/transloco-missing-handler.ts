@@ -20,7 +20,7 @@
  *
  */
 
-import {TranslocoMissingHandler} from '@ngneat/transloco';
+import {TranslocoMissingHandler} from '@jsverse/transloco';
 
 export class MissingHandler implements TranslocoMissingHandler {
   handle(key: string) {

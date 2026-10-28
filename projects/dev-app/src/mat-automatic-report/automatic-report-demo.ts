@@ -23,8 +23,8 @@
 import {AjfForm, AjfFormSerializer, generateRandomCtx} from '@ajf/core/forms';
 import {AjfReport, AjfReportInstance, createReportInstance} from '@ajf/core/reports';
 import {automaticReport} from '@ajf/core/reports';
-import {Component, ViewEncapsulation} from '@angular/core';
-import {TranslocoService} from '@ngneat/transloco';
+import {Component, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
+import {TranslocoService} from '@jsverse/transloco';
 import {BehaviorSubject} from 'rxjs';
 
 import {formSchema as formSchemaObj} from './mockup';
@@ -34,6 +34,7 @@ import {formSchema as formSchemaObj} from './mockup';
   templateUrl: 'automatic-report-demo.html',
   styleUrls: ['automatic-report-demo.scss'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AutomaticReportDemo {

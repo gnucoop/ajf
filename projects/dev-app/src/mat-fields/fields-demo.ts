@@ -20,7 +20,7 @@
  *
  */
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {fields} from './fields';
 
@@ -28,6 +28,7 @@ import {fields} from './fields';
   selector: 'fields-demo',
   templateUrl: 'fields-demo.html',
   styleUrls: ['fields-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FieldsDemo {

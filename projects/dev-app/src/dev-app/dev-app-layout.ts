@@ -21,7 +21,14 @@
  */
 
 import {Directionality} from '@angular/cdk/bidi';
-import {ChangeDetectorRef, Component, ElementRef, Inject, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {DevAppDirectionality} from './dev-app-directionality';
 
 /** Root component for the dev-app demos. */
@@ -30,6 +37,7 @@ import {DevAppDirectionality} from './dev-app-directionality';
   templateUrl: 'dev-app-layout.html',
   styleUrls: ['dev-app-layout.scss'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DevAppLayout {

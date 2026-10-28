@@ -24,7 +24,7 @@ import {AjfCommonModule} from '@ajf/core/common';
 import {AjfFileInputModule} from '@ajf/core/file-input';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {CommonModule} from '@angular/common';
-import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi, withXhr} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 
@@ -143,7 +143,7 @@ import {AjfAsFieldInstanceErrorsPipe} from './as-validation-errors-string';
     AjfDateValueStringPipe,
     AjfFormRendererService,
     AjfValidationService,
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ],
 })
 export class AjfFormsModule {}

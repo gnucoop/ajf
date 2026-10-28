@@ -20,7 +20,7 @@
  *
  */
 
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
 
 /** Root component for the dev-app demos. */
 @Component({
@@ -28,6 +28,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
   selector: 'dev-app',
   template: '<dev-app-layout><router-outlet></router-outlet></dev-app-layout>',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DevAppComponent {}

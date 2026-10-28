@@ -20,13 +20,14 @@
  *
  */
 
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
 
 /** Root component for the e2e-app demos. */
 @Component({
   selector: 'e2e-app',
   template: '<e2e-app-layout><router-outlet></router-outlet></e2e-app-layout>',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class E2eApp {}

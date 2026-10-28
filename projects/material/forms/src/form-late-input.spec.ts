@@ -28,7 +28,7 @@ import {
   AjfNodeType,
 } from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -104,6 +104,7 @@ function buildForm(choices: {value: string; label: string}[]): AjfForm {
 
 @Component({
   template: '<ajf-form readonly [form]="form"></ajf-form>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
 })
 class TestComponent {

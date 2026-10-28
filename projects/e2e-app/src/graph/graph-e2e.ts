@@ -21,7 +21,7 @@
  */
 
 import {AjfGraphNode} from '@ajf/core/graph';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 const reportNodes: AjfGraphNode[] = [
   {
@@ -46,6 +46,7 @@ const reportNodes: AjfGraphNode[] = [
 @Component({
   selector: 'graph-e2e',
   templateUrl: 'graph-e2e.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class GraphE2E {

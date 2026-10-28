@@ -20,12 +20,13 @@
  *
  */
 
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'barcode-demo',
   templateUrl: 'barcode-demo.html',
   styleUrls: ['barcode-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class BarcodeDemo {}

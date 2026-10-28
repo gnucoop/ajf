@@ -18,7 +18,7 @@
     "@angular/core": "0.0.0-NGF",
     "@angular/forms": "0.0.0-NGF",
     "@angular/platform-browser": "0.0.0-NGF",
-    "@ngneat/transloco": "0.0.0-TRANSLOCO",
+    "@jsverse/transloco": "0.0.0-TRANSLOCO",
     "@zxing/browser": "0.0.0-ZXING-BROWSER",
     "@zxing/library": "0.0.0-ZXING-LIBRARY",
     "chart.js": "0.0.0-CHARTJS",

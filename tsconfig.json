@@ -2,7 +2,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
       "@ajf/calendars": ["./projects/calendars"],
       "@ajf/calendars/*": ["./projects/calendars/*"],
@@ -10,9 +9,10 @@
       "@ajf/core/*": ["./projects/core/*"],
       "@ajf/material": ["./projects/material"],
       "@ajf/material/*": ["./projects/material/*"],
-      "ajf-examples": ["dist/ajf-examples/ajf-examples", "dist/ajf-examples"]
+      "ajf-examples": ["./dist/ajf-examples/ajf-examples", "./dist/ajf-examples"]
     },
     "outDir": "./dist/out-tsc",
+    "rootDir": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -40,11 +40,13 @@
     "**/*.spec.ts"
   ],
   // Cypress loads `projects/*/cypress.config.ts` through its own ts-node, which forces
-  // CommonJS, and CommonJS rejects `moduleResolution: bundler`.
+  // CommonJS, and CommonJS rejects `moduleResolution: bundler`. TypeScript 6 deprecates the
+  // `node` resolution that leaves; Cypress 12 has no other.
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs",
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "ignoreDeprecations": "6.0"
     }
   },
   "angularCompilerOptions": {

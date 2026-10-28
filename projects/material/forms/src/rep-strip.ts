@@ -22,7 +22,14 @@
 
 import {AjfRepeatingSlideInstance} from '@ajf/core/forms';
 import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
-import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 /**
  * The pager for a repeating slide: one button per repetition plus add and remove
@@ -34,6 +41,10 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angula
   templateUrl: 'rep-strip.html',
   styleUrls: ['rep-strip.scss'],
   encapsulation: ViewEncapsulation.None,
+  // Checked with its parent rather than OnPush: the repetition count and the add/remove buttons
+  // read the mutable slide instance, which keeps the same object as repetitions come and go.
+  // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AjfRepStrip {

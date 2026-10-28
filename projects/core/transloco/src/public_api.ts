@@ -34,6 +34,7 @@ export {
   TRANSLOCO_SCOPE,
   TRANSLOCO_TRANSPILER,
   translocoConfig,
-  HashMap,
-} from '@ngneat/transloco';
+} from '@jsverse/transloco';
+/** Kept for the hosts that import it from here; Transloco 8 no longer exports it. */
+export type HashMap<T = any> = Record<string, T>;
 export * from './lang';

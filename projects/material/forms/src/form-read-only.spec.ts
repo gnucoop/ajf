@@ -29,7 +29,7 @@ import {
   AjfNodeType,
 } from '@ajf/core/forms';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
@@ -262,6 +262,7 @@ readOnlyMultipleChoiceTestForm.nodes[0].nodes = [
 ];
 @Component({
   template: '<ajf-form readonly [form]="form"></ajf-form>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
 })
 class TestComponent {
@@ -270,6 +271,7 @@ class TestComponent {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
 })
 class TestReadOnlyInputComponent {
@@ -278,6 +280,7 @@ class TestReadOnlyInputComponent {
 
 @Component({
   template: '<ajf-form readonly [form]="form"></ajf-form>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
 })
 class TestReadOnlyInputAndFormComponent {
@@ -286,6 +289,7 @@ class TestReadOnlyInputAndFormComponent {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
 })
 class TestReadOnlySingleChoiceComponent {
@@ -294,6 +298,7 @@ class TestReadOnlySingleChoiceComponent {
 
 @Component({
   template: '<ajf-form [form]="form"></ajf-form>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
 })
 class TestReadOnlyMultipleChoiceComponent {

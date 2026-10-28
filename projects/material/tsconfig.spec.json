@@ -2,12 +2,8 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "../../out-tsc/material-spec",
-    "types": [
-      "echarts",
-      "vitest/globals"
-    ],
+    "types": ["echarts", "vitest/globals"],
     "paths": {
       "@ajf/core": ["../core"],
       "@ajf/core/*": ["../core/*"],
@@ -15,11 +11,14 @@
       "@ajf/material/*": ["./*"]
     }
   },
-  "include": [
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ],
-  "exclude": [
-    "cypress/**/*.ts"
-  ]
+  "include": ["**/*.spec.ts", "**/*.d.ts"],
+  "exclude": ["cypress/**/*.ts"],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }

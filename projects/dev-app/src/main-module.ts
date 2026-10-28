@@ -24,7 +24,7 @@ import {AjfEchartsModule} from '@ajf/core/echarts';
 import {AjfTranslocoModule} from '@ajf/core/transloco';
 import {Directionality} from '@angular/cdk/bidi';
 import {FullscreenOverlayContainer, OverlayContainer} from '@angular/cdk/overlay';
-import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {provideHttpClient, withInterceptorsFromDi, withXhr} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -49,7 +49,7 @@ import {DEV_APP_ROUTES} from './routes';
   providers: [
     {provide: Directionality, useClass: DevAppDirectionality},
     {provide: OverlayContainer, useClass: FullscreenOverlayContainer},
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ],
 })
 export class MainModule {}

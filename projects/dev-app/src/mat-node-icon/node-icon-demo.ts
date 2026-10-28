@@ -21,7 +21,7 @@
  */
 
 import {AjfField, AjfFieldType, createField} from '@ajf/core/forms';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 const baseField = {
   id: 1,
@@ -33,6 +33,7 @@ const baseField = {
   selector: 'node-icon-demo',
   templateUrl: 'node-icon-demo.html',
   styleUrls: ['node-icon-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class NodeIconDemo {

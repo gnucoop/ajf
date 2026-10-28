@@ -21,7 +21,14 @@
  */
 
 import {AjfSlideInstance} from '@ajf/core/forms';
-import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 /**
  * The bar at the top of every slide: its number and title, a menu to jump to any
@@ -40,6 +47,11 @@ import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angula
   templateUrl: 'slide-header.html',
   styleUrls: ['slide-header.scss'],
   encapsulation: ViewEncapsulation.None,
+  // Checked with its parent rather than OnPush: the counters and the issue pill read mutable
+  // instance state through impure pipes, and the inputs keep the same objects while the user
+  // fills the form in.
+  // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class AjfSlideHeader {

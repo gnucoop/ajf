@@ -22,7 +22,7 @@
 
 import {AjfWidgetInstance} from '@ajf/core/reports';
 import {TranslocoService} from '@ajf/core/transloco';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 import {demoWidgets} from '../widgets';
 
@@ -30,6 +30,7 @@ import {demoWidgets} from '../widgets';
   selector: 'widgets-demo',
   templateUrl: 'widgets-demo.html',
   styleUrls: ['widgets-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class WidgetsDemo {

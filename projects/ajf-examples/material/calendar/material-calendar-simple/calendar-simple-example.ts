@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 /**
  * @title Simple calendar - Material
@@ -7,6 +7,7 @@ import {Component} from '@angular/core';
   selector: 'material-calendar-simple-example',
   templateUrl: 'calendar-simple-example.html',
   styleUrls: ['calendar-simple-example.css'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MaterialCalendarSimpleExample {}

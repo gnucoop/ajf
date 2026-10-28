@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {UntypedFormControl, UntypedFormGroup, ReactiveFormsModule} from '@angular/forms';
 import {firstValueFrom} from 'rxjs';
@@ -189,6 +189,7 @@ describe('AjfFileInput in reactive forms', () => {
 
 @Component({
   template: '<ajf-file-input><div ajfDropMessage>Test drop message</div></ajf-file-input>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFileInputModule],
 })
 class DropMessageTestComponent {}
@@ -196,6 +197,7 @@ class DropMessageTestComponent {}
 @Component({
   template:
     '<ajf-file-input [value]="value"><div ajfFilePreview>Test file preview</div></ajf-file-input>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFileInputModule],
 })
 class FilePreviewTestComponent {
@@ -209,6 +211,7 @@ class FilePreviewTestComponent {
       <ajf-file-input formControlName="file_upload"></ajf-file-input>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFileInputModule, ReactiveFormsModule],
 })
 class ReactiveFormsTestComponent {

@@ -20,7 +20,7 @@
  *
  */
 
-import {Translation} from '@ngneat/transloco';
+import {Translation} from '@jsverse/transloco';
 
 export const ITA: Translation = {
   'Drop your slides here': 'Lascia qui le tue slide',

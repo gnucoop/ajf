@@ -31,7 +31,7 @@ import {
 } from '@ajf/core/forms';
 import {AjfContext} from '@ajf/core/models';
 import {AjfFieldService} from '@ajf/material/forms';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 import {AlignmentType, HeadingLevel, Paragraph} from 'docx';
 
@@ -42,6 +42,7 @@ import {formContext, formSchema} from './form';
   selector: 'forms-demo',
   templateUrl: 'forms-demo.html',
   styleUrls: ['forms-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class FormsDemo {
@@ -114,11 +115,13 @@ export class FormsDemo {
   downloadDoc() {
     const form = this.form$.getValue() as AjfForm;
     const ctx = this._formRendererService.getFormValue();
-    const header = [new Paragraph({
-      text: 'Test Form',
-      heading: HeadingLevel.HEADING_1,
-      alignment: AlignmentType.CENTER,
-    })];
+    const header = [
+      new Paragraph({
+        text: 'Test Form',
+        heading: HeadingLevel.HEADING_1,
+        alignment: AlignmentType.CENTER,
+      }),
+    ];
     downloadFormDoc(form, undefined, header, ctx);
   }
 }

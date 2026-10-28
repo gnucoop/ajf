@@ -21,7 +21,7 @@
  */
 
 import {AjfImageType} from '@ajf/core/image';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
 
 import {AjfImageModule} from './public_api';
@@ -50,6 +50,7 @@ describe('AjfImage', () => {
 
 @Component({
   template: '<ajf-image [type]="type" [imageUrl]="imageUrl"></ajf-image>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfImageModule],
 })
 class TestComponent {

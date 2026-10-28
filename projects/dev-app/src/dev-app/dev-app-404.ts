@@ -20,7 +20,7 @@
  *
  */
 
-import {Component, HostBinding} from '@angular/core';
+import {Component, HostBinding, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   template: `
@@ -28,6 +28,7 @@ import {Component, HostBinding} from '@angular/core';
     <p>This page does not exist</p>
     <a mat-raised-button routerLink="/">Go back to the home page</a>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DevApp404 {

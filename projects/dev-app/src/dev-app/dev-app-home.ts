@@ -21,13 +21,14 @@
  */
 
 /** Home component which includes a welcome message for the dev-app. */
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   template: `
     <p>Welcome to the development demos for Ajf!</p>
     <p>Open the sidenav to select a demo.</p>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class DevAppHome {}

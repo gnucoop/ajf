@@ -1,8 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'home',
   template: `<p>e2e website!</p>`,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class Home {}
@@ -11,6 +12,7 @@ export class Home {}
   selector: 'e2e-app-layout',
   templateUrl: 'e2e-app-layout.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class E2eAppLayout {

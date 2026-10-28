@@ -6,11 +6,12 @@ import {
   createFieldInstance,
 } from '@ajf/core/forms';
 import {AjfDateInputFieldComponent} from '@ajf/material/forms';
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'date-input-field-e2e',
   templateUrl: 'date-input-field-e2e.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class MaterialDateInputFieldE2E implements AfterViewInit {

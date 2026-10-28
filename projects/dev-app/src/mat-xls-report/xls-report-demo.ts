@@ -29,15 +29,16 @@ import {
   xlsReport,
 } from '@ajf/core/reports';
 import {HttpClient} from '@angular/common/http';
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
-import {TranslocoService} from '@ngneat/transloco';
+import {TranslocoService} from '@jsverse/transloco';
 import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'xls-report-demo',
   templateUrl: 'xls-report-demo.html',
   styleUrls: ['xls-report-demo.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class ReportFromXlsDemo {
