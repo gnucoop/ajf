@@ -1,9 +1,9 @@
 <div>
   <mat-form-field>
+    <mat-label>{{ 'Name' | transloco }}</mat-label>
     <input
       matInput
       [(ngModel)]="name"
-      [placeholder]="'Name' | transloco"
       required
       #nameInput="ngModel"
     />
@@ -15,7 +15,8 @@
     <span class="ajf-fb-field-error"> {{'Name already exists' | transloco}} </span>
   }
   <mat-form-field>
-    <input matInput [(ngModel)]="label" [placeholder]="'Label' | transloco" />
+    <mat-label>{{ 'Label' | transloco }}</mat-label>
+    <input matInput [(ngModel)]="label" />
   </mat-form-field>
   @if (canEditChoices) {
     <button (click)="addRow()" mat-button>
