@@ -1,7 +1,8 @@
 <h3 matDialogTitle>{{'Edit condition'|transloco}}</h3>
 <mat-dialog-content>
   <mat-form-field>
-    <input matInput [(ngModel)]="errorMessage" [placeholder]="'Error message'|transloco" />
+    <mat-label>{{ 'Error message' | transloco }}</mat-label>
+    <input matInput [(ngModel)]="errorMessage" />
   </mat-form-field>
   @if (fields|async; as curFields) {
     <ajf-condition-editor [fields]="curFields!" [condition]="condition"></ajf-condition-editor>

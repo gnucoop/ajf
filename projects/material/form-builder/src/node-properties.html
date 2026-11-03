@@ -16,7 +16,8 @@
     <form [formGroup]="pf!" novalidate>
       <div class="ajf-prop">
         <mat-form-field>
-          <input matInput formControlName="name" [placeholder]="'Name' | transloco" />
+          <mat-label>{{ 'Name' | transloco }}</mat-label>
+          <input matInput formControlName="name" />
           @if (pf.get('name')?.invalid) {
             <mat-error> {{fieldErrorMessage(pf.get('name'), 'Name')}} </mat-error>
           }
@@ -24,7 +25,8 @@
       </div>
       <div class="ajf-prop">
         <mat-form-field>
-          <input matInput formControlName="label" [placeholder]="'Label' | transloco" />
+          <mat-label>{{ 'Label' | transloco }}</mat-label>
+          <input matInput formControlName="label" />
           @if (pf.get('label')?.invalid) {
             <mat-error> {{fieldErrorMessage(pf.get('label'), 'Label')}} </mat-error>
           }
@@ -33,7 +35,8 @@
       @if (isEmptyField(ne!.node)) {
         <div class="ajf-prop">
           <mat-form-field>
-            <input matInput formControlName="HTML" [placeholder]="'HTML' | transloco" />
+            <mat-label>{{ 'HTML' | transloco }}</mat-label>
+            <input matInput formControlName="HTML" />
           </mat-form-field>
         </div>
       }
@@ -110,24 +113,25 @@
         </div>
         <div class="ajf-prop">
           <mat-form-field>
-            <input matInput formControlName="hint" [placeholder]="'Hint' | transloco" />
+            <mat-label>{{ 'Hint' | transloco }}</mat-label>
+            <input matInput formControlName="hint" />
           </mat-form-field>
         </div>
         <div class="ajf-prop">
           <mat-form-field>
+            <mat-label>{{ 'Description' | transloco }}</mat-label>
             <textarea
               matInput
               formControlName="description"
-              [placeholder]="'Description' | transloco"
             ></textarea>
           </mat-form-field>
         </div>
         <div class="ajf-prop">
           <mat-form-field>
+            <mat-label>{{ 'Default value' | transloco }}</mat-label>
             <input
               matInput
               formControlName="defaultValue"
-              [placeholder]="'Default value' | transloco"
             />
           </mat-form-field>
         </div>
@@ -163,29 +167,31 @@
         @if (isNumericField(ne!.node)) {
           <div class="ajf-prop">
             <mat-form-field>
-              <input matInput formControlName="minValue" [placeholder]="'Min value' | transloco" />
+              <mat-label>{{ 'Min value' | transloco }}</mat-label>
+              <input matInput formControlName="minValue" />
             </mat-form-field>
           </div>
           <div class="ajf-prop">
             <mat-form-field>
-              <input matInput formControlName="maxValue" [placeholder]="'Max value' | transloco" />
+              <mat-label>{{ 'Max value' | transloco }}</mat-label>
+              <input matInput formControlName="maxValue" />
             </mat-form-field>
           </div>
           <div class="ajf-prop">
             <mat-form-field>
+              <mat-label>{{ 'Min digits' | transloco }}</mat-label>
               <input
                 matInput
                 formControlName="minDigits"
-                [placeholder]="'Min digits' | transloco"
               />
             </mat-form-field>
           </div>
           <div class="ajf-prop">
             <mat-form-field>
+              <mat-label>{{ 'Max digits' | transloco }}</mat-label>
               <input
                 matInput
                 formControlName="maxDigits"
-                [placeholder]="'Max digits' | transloco"
               />
             </mat-form-field>
           </div>
@@ -193,37 +199,38 @@
         @if (isRangeField(ne!.node)) {
           <div class="ajf-prop">
             <mat-form-field>
+              <mat-label>{{ 'Start' | transloco }}</mat-label>
               <input
                 matInput
                 type="number"
                 formControlName="start"
-                [placeholder]="'Start' | transloco"
               />
             </mat-form-field>
           </div>
           <div class="ajf-prop">
             <mat-form-field>
+              <mat-label>{{ 'End' | transloco }}</mat-label>
               <input
                 matInput
                 type="number"
                 formControlName="end"
-                [placeholder]="'End' | transloco"
               />
             </mat-form-field>
           </div>
           <div class="ajf-prop">
             <mat-form-field>
+              <mat-label>{{ 'Step' | transloco }}</mat-label>
               <input
                 matInput
                 type="number"
                 formControlName="step"
-                [placeholder]="'Step' | transloco"
               />
             </mat-form-field>
           </div>
           <div class="ajf-prop">
             <mat-form-field>
-              <mat-select formControlName="appearance" [placeholder]="'Appearance' | transloco">
+              <mat-label>{{ 'Appearance' | transloco }}</mat-label>
+              <mat-select formControlName="appearance">
                 <mat-option [value]="null">{{'Default'|transloco}}</mat-option>
                 <mat-option value="rating">{{'Rating'|transloco}}</mat-option>
               </mat-select>
@@ -379,10 +386,10 @@
               >{{'Hide empty rows'|transloco}}</mat-checkbox
             >
             <mat-form-field>
+              <mat-label>{{ 'Table definition' | transloco }}</mat-label>
               <textarea
                 matInput
                 formControlName="tableDef"
-                [placeholder]="'Table definition' | transloco"
               ></textarea>
               @if (pf.get('tableDef')?.invalid) {
                 <mat-error> {{fieldErrorMessage(pf.get('tableDef'), 'tableDef')}} </mat-error>
