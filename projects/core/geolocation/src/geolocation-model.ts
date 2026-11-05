@@ -34,27 +34,33 @@ export class AjfGeolocationModel {
     return this._longitude;
   }
   set longitude(value: string) {
-    if (value) {
-      this._longitude = value.toString().replace(',', '.');
-      this._changed.emit(this.toString());
-    }
+    this._longitude = normalizeCoordinate(value);
+    this._changed.emit(this.toString());
   }
 
   get latitude() {
     return this._latitude;
   }
   set latitude(value: string) {
-    if (value) {
-      this._latitude = value.toString().replace(',', '.');
-      this._changed.emit(this.toString());
-    }
+    this._latitude = normalizeCoordinate(value);
+    this._changed.emit(this.toString());
+  }
+
+  /** True when neither coordinate is set, as for a field never filled in or cleared by hand. */
+  get empty(): boolean {
+    return this._latitude === '' && this._longitude === '';
   }
 
   toString() {
     return `${this.latitude},${this.longitude}`;
   }
 
-  fromString(value: string) {
+  fromString(value: string | null) {
+    if (value == null || value === '') {
+      this.latitude = '';
+      this.longitude = '';
+      return;
+    }
     try {
       let splitted = value.toString().split(',');
       if (splitted.length == 2) {
@@ -67,4 +73,9 @@ export class AjfGeolocationModel {
       }
     }
   }
+}
+
+/** A coordinate as typed, with a decimal comma read as a point; empty when cleared. */
+function normalizeCoordinate(value: string | number | null | undefined): string {
+  return value == null ? '' : value.toString().replace(',', '.');
 }
