@@ -52,7 +52,7 @@ export abstract class AjfGeolocation implements ControlValueAccessor, OnDestroy 
   set latitude(latitude: string) {
     this._value.latitude = latitude;
     this._cdr.detectChanges();
-    this._onChangeCallback(this._value.toString());
+    this._onChangeCallback(this._controlValue());
   }
 
   get longitude(): string {
@@ -61,7 +61,7 @@ export abstract class AjfGeolocation implements ControlValueAccessor, OnDestroy 
   set longitude(longitude: string) {
     this._value.longitude = longitude;
     this._cdr.detectChanges();
-    this._onChangeCallback(this._value.toString());
+    this._onChangeCallback(this._controlValue());
   }
 
   private _onChangeCallback: (_: any) => void = (_: any) => {};
@@ -69,9 +69,17 @@ export abstract class AjfGeolocation implements ControlValueAccessor, OnDestroy 
   private _valueChangeSub: Subscription = Subscription.EMPTY;
 
   constructor(protected _cdr: ChangeDetectorRef) {
-    this._valueChangeSub = this._value.changed.subscribe((x: string) => {
-      this._onChangeCallback(x);
+    this._valueChangeSub = this._value.changed.subscribe(() => {
+      this._onChangeCallback(this._controlValue());
     });
+  }
+
+  /**
+   * The value handed to the form: `lat,lng`, or null once both coordinates are cleared, as
+   * for a field never filled in -- never a bare ','.
+   */
+  private _controlValue(): string | null {
+    return this._value.empty ? null : this._value.toString();
   }
 
   getLocation(): void {
@@ -94,8 +102,9 @@ export abstract class AjfGeolocation implements ControlValueAccessor, OnDestroy 
     this._valueChangeSub.unsubscribe();
   }
 
-  writeValue(value: string) {
+  writeValue(value: string | null) {
     this._value.fromString(value);
+    this._cdr.markForCheck();
   }
 
   registerOnChange(fn: (value: any) => void) {
