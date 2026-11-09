@@ -678,7 +678,7 @@ export class AjfFbNodeProperties implements OnDestroy, OnInit {
             if (node.validation.forceValue != null) {
               forceValue = node.validation.forceValue.condition;
             }
-            notEmpty = node.validation.notEmpty != null;
+            notEmpty = !!node.validation.notEmpty;
             validationConditions = (node.validation.conditions || []).map(c => {
               return {condition: c.condition, errorMessage: c.errorMessage};
             });

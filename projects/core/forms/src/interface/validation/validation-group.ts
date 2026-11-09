@@ -31,7 +31,11 @@ export interface AjfValidationGroup {
   forceValue?: AjfCondition;
   maxValue?: AjfValidation;
   minValue?: AjfValidation;
-  notEmpty?: AjfValidation;
+  /**
+   * `true` with an optional `notEmptyMessage` is the form the form builder writes, and the one
+   * the XLSForm conversion reads; a full `AjfValidation` is still accepted.
+   */
+  notEmpty?: AjfValidation | boolean;
   notEmptyMessage?: string;
   maxDigits?: AjfValidation;
   minDigits?: AjfValidation;

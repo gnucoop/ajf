@@ -116,7 +116,8 @@ export class AjfFieldRow implements OnDestroy {
   }
 
   get required(): boolean {
-    return this.instance?.node.validation?.notEmpty != null;
+    // `notEmpty` is `true` or a validation object when set; `false` is a valid way to unset it.
+    return !!this.instance?.node.validation?.notEmpty;
   }
 
   static ngAcceptInputType_readonly: BooleanInput;

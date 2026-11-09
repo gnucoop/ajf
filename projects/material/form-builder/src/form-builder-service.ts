@@ -1344,7 +1344,23 @@ export class AjfFormBuilderService {
             ) {
               const validation = node.validation || createValidationGroup({});
               validation.forceValue = forceValue;
-              validation.notEmpty = notEmpty ? notEmptyValidation() : undefined;
+              if (notEmpty) {
+                // A custom message of the old `notEmpty` validation object moves to
+                // `notEmptyMessage`, the field the boolean form reads.
+                const previous = validation.notEmpty;
+                if (
+                  validation.notEmptyMessage == null &&
+                  typeof previous === 'object' &&
+                  previous.errorMessage &&
+                  previous.errorMessage !== notEmptyValidation().errorMessage
+                ) {
+                  validation.notEmptyMessage = previous.errorMessage;
+                }
+                validation.notEmpty = true;
+              } else {
+                validation.notEmpty = undefined;
+                validation.notEmptyMessage = undefined;
+              }
               validation.minValue = minValue != null ? minValidation(minValue) : undefined;
               validation.maxValue = maxValue != null ? maxValidation(maxValue) : undefined;
               validation.minDigits = minDigits != null ? minDigitsValidation(minDigits) : undefined;
