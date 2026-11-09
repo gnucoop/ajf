@@ -1,3 +1,10 @@
+<a name="18.5.4"></a>
+# 18.5.4 "intermediate-firefly" (2026-11-09)
+### Bug Fixes
+* **form-builder:** write the not empty validation as a flag ([7727461](https://github.com/gnucoop/ajf/commit/77274611e7af7b8cfa072fb104e48459bca75c7d))
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.5.3"></a>
 # 18.5.3 "mute-hummingbird" (2026-10-16)
 ### Bug Fixes
