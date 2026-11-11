@@ -20,8 +20,8 @@
  *
  */
 
-import {HttpClient} from '@angular/common/http';
-import {firstValueFrom, of} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {firstValueFrom, of, throwError} from 'rxjs';
 import * as XLSX from 'xlsx';
 
 import {AjfColumnWidget} from '../interface/widgets/column-widget';
@@ -75,5 +75,19 @@ describe('xlsReport filters', () => {
     expect(post).not.toHaveBeenCalled();
     expect(column.filter).toBeUndefined();
     expect(column.content.every(w => w.filter == null)).toBe(true);
+  });
+
+  it('reports the error formconv gives for the "global filter" sheet', async () => {
+    const alert = vi.spyOn(window, 'alert').mockImplementation(() => {});
+    const post = vi.fn(() =>
+      throwError(() => new HttpErrorResponse({status: 400, error: 'Row 2: unknown type "txt"\n'})),
+    );
+    const file = workbook({'global filter': filterSheet, ...sheets});
+
+    await expect(firstValueFrom(xlsReport(file, {post} as unknown as HttpClient))).rejects.toThrow(
+      'Error in sheet "global filter": Row 2: unknown type "txt"',
+    );
+    expect(alert).toHaveBeenCalledWith('Error in sheet "global filter": Row 2: unknown type "txt"');
+    alert.mockRestore();
   });
 });

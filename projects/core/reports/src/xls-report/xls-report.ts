@@ -22,9 +22,9 @@
 
 import {AjfFormula, createFormula} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import * as XLSX from 'xlsx';
 
 import {backgroundColor} from '../automatic-report/styles';
@@ -177,10 +177,18 @@ function _buildFilter(
   const file = new File([filterXlsx], 'filter.xlsx');
   data.append('excelFile', file);
 
-  return http.post('https://formconv.herokuapp.com/result.json', data);
+  return http.post('https://formconv.herokuapp.com/result.json', data).pipe(
+    catchError((err: HttpErrorResponse) => {
+      // formconv explains a sheet it rejects in a plain text body; a request that never got
+      // an answer has no body, only the client's message.
+      const reason =
+        typeof err.error === 'string' && err.error.trim() !== '' ? err.error.trim() : err.message;
+      return alertAndThrow(`Error in sheet "${GLOBAL_FILTER_SHEET}": ${reason}`);
+    }),
+  );
 }
 
-function alertAndThrow(err: string) {
+function alertAndThrow(err: string): never {
   window.alert(err);
   throw new Error(err);
 }
