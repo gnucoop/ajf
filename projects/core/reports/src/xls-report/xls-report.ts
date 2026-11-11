@@ -23,7 +23,7 @@
 import {AjfFormula, createFormula} from '@ajf/core/models';
 import {deepCopy} from '@ajf/core/utils';
 import {HttpClient} from '@angular/common/http';
-import {forkJoin, Observable, of} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import * as XLSX from 'xlsx';
 
@@ -46,6 +46,12 @@ import {AjfColumnWidget} from '../interface/widgets/column-widget';
 import {AjfGraphNodeDataset} from '../interface/dataset/graph-dataset';
 
 /**
+ * The sheet a report takes its filter from, by its exact name: a form, converted by formconv,
+ * that filters the whole report. A report has at most this one filter.
+ */
+const GLOBAL_FILTER_SHEET = 'global filter';
+
+/**
  * This function builds a report from an excel file.
  */
 export function xlsReport(file: string, http: HttpClient): Observable<AjfReport> {
@@ -54,25 +60,12 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
   const reportWidgets: AjfWidget[] = [];
 
   const variables: AjfReportVariable[] = [];
-  const filters: {[sheetName: string]: Observable<any>} = {};
-  // create filters
-  workbook.SheetNames.forEach((sheetName, index) => {
-    const sheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
-    if (sheetName.includes('filter') && index + 1 < workbook.SheetNames.length) {
-      const nextSheet = sheetName.includes('global')
-        ? 'global_filter'
-        : workbook.SheetNames[index + 1];
-      filters[nextSheet] = _buildFilter(workbook, sheet, http);
-    }
-  });
+  const globalFilterSheet = workbook.Sheets[GLOBAL_FILTER_SHEET];
+  const globalFilter: Observable<any> =
+    globalFilterSheet != null ? _buildFilter(workbook, globalFilterSheet, http) : of(undefined);
 
-  const obsFilterValues: Observable<any>[] = Object.values(filters).length
-    ? Object.values(filters)
-    : [of({})];
-  const filterNames: string[] = Object.keys(filters);
-
-  return forkJoin(obsFilterValues).pipe(
-    map(f => {
+  return globalFilter.pipe(
+    map(globalFilterSchema => {
       workbook.SheetNames.forEach(sheetName => {
         const sheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
         const json = XLSX.utils.sheet_to_json(sheet) as {[key: string]: string}[];
@@ -111,9 +104,7 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
                 isAIPrompt: elem.isAIPrompt,
               });
             });
-        } else {
-          const idx = filterNames.indexOf(sheetName);
-
+        } else if (sheetName !== GLOBAL_FILTER_SHEET) {
           if (sheetName.includes('table')) {
             const tableWidget = _buildTable(sheetName, json);
             reportWidgets.push(tableWidget);
@@ -142,22 +133,15 @@ export function xlsReport(file: string, http: HttpClient): Observable<AjfReport>
             const singleWidget = _buildSingleIndicator(json);
             reportWidgets.push(...singleWidget);
           }
-
-          if (idx >= 0) {
-            reportWidgets[reportWidgets.length - 1].filter = {
-              schema: f[idx] as any,
-            };
-          }
         }
       });
-      const globalFilterIdx = filterNames.indexOf('global_filter');
       const layoutWidget: AjfLayoutWidget = {
         widgetType: AjfWidgetType.Layout,
         content: [
           createWidget({
             widgetType: AjfWidgetType.Column,
             content: [...reportWidgets],
-            filter: globalFilterIdx >= 0 ? {schema: f[globalFilterIdx]} : undefined,
+            filter: globalFilterSchema != null ? {schema: globalFilterSchema} : undefined,
           } as AjfColumnWidget),
         ],
         columns: [1],
