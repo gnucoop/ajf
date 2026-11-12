@@ -23,6 +23,11 @@ ajf-filter-widget {
       }
     }
   }
+  .ajf-filter-actions {
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--ajf-border, #e6e2dc);
+    background: var(--ajf-surface, #ffffff);
+  }
   .ajf-field-entry {
     width: unset !important;
     min-width: 200px;

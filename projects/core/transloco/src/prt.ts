@@ -142,6 +142,7 @@ export const PRT: Translation = {
   'Please sign here': 'Por favor, assine aqui',
   'No value selected': 'Nenhum valor selecionado',
   'Clear': 'Limpar',
+  'Apply filter': 'Aplicar filtro',
   'OK': 'OK',
   'Appearance': 'Aparência',
   'Default': 'Padrão',

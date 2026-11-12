@@ -141,6 +141,7 @@ export const ENG: Translation = {
   'Please sign here': 'Please sign here',
   'No value selected': 'No value selected',
   'Clear': 'Clear',
+  'Apply filter': 'Apply filter',
   'OK': 'OK',
   'Appearance': 'Appearance',
   'Default': 'Default',

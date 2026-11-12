@@ -141,6 +141,7 @@ export const ETH: Translation = {
   'Table definition': 'የሠንጠረዥ ትርጉም',
   'No value selected': 'ምንም እሴት አልተመረጠም',
   'Clear': 'አጽዳ',
+  'Apply filter': 'ማጣሪያውን ተግብር',
   'OK': 'እሺ',
   'Appearance': 'መልክ',
   'Default': 'ነባሪ',

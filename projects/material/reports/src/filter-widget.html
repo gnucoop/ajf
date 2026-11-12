@@ -9,6 +9,11 @@
         [hideBottomToolbar]="true"
         [hideNavigationButtons]="true"
       ></ajf-form>
+      <div class="ajf-filter-actions">
+        <button type="button" class="ajf-btn ajf-btn--primary" (click)="applyFilter()">
+          {{ 'Apply filter' | transloco }}
+        </button>
+      </div>
     </div>
   }
 }

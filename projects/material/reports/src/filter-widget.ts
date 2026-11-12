@@ -40,8 +40,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {UntypedFormGroup} from '@angular/forms';
-import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {distinctUntilChanged, filter, map, withLatestFrom} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
 
 @Component({
   selector: 'ajf-filter-widget',
@@ -56,6 +56,8 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
   @Output() readonly filteredInstance: Observable<AjfWidgetInstance>;
   @Output() filterWidgetChange = new EventEmitter<{context: AjfContext, widget: AjfWidgetInstance}>();
 
+  private readonly _apply = new Subject<void>();
+
   constructor(
     cdr: ChangeDetectorRef,
     el: ElementRef,
@@ -64,9 +66,12 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
   ) {
     super(cdr, el);
 
-    this.filteredInstance = this._formRenderer.formGroup.pipe(
-      filter(fg => this.instance != null && this.instance.filter != null && fg != null),
-      switchMap(formGroup => (formGroup as UntypedFormGroup).valueChanges),
+    // The report is rebuilt only when the filter is applied, not on every edit
+    // of its form, with the form's values at that moment.
+    this.filteredInstance = this._apply.pipe(
+      withLatestFrom(this._formRenderer.formGroup),
+      filter(([, fg]) => this.instance != null && this.instance.filter != null && fg != null),
+      map(([, formGroup]) => (formGroup as UntypedFormGroup).value),
       distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
       map(filterContext => {
         const instance = this.instance as AjfWidgetInstance;
@@ -85,5 +90,9 @@ export class AjfFilterWidgetComponent extends AjfBaseWidgetComponent<AjfWidgetIn
         return this.instance;
       }),
     );
+  }
+
+  applyFilter(): void {
+    this._apply.next();
   }
 }

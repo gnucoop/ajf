@@ -143,6 +143,7 @@ export const ITA: Translation = {
   'Please sign here': 'Firma qui',
   'No value selected': 'Nessun valore selezionato',
   'Clear': 'Cancella',
+  'Apply filter': 'Applica filtro',
   'OK': 'OK',
   'Appearance': 'Aspetto',
   'Default': 'Predefinito',

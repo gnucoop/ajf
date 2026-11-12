@@ -143,6 +143,7 @@ export const FRA: Translation = {
   'Please sign here': 'Veuillez signer ici',
   'No value selected': 'Aucune valeur sélectionnée',
   'Clear': 'Effacer',
+  'Apply filter': 'Appliquer le filtre',
   'OK': 'OK',
   'Appearance': 'Apparence',
   'Default': 'Par défaut',

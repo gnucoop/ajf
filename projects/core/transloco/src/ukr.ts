@@ -142,6 +142,7 @@ export const UKR: Translation = {
   'Table definition': 'Table definition',
   'No value selected': 'Значення не вибрано',
   'Clear': 'Очистити',
+  'Apply filter': 'Застосувати фільтр',
   'OK': 'OK',
   'Appearance': 'Вигляд',
   'Default': 'За замовчуванням',

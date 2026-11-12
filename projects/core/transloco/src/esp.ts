@@ -143,6 +143,7 @@ export const ESP: Translation = {
   'Please sign here': 'Firme aquí',
   'No value selected': 'Ningún valor seleccionado',
   'Clear': 'Borrar',
+  'Apply filter': 'Aplicar filtro',
   'OK': 'OK',
   'Appearance': 'Apariencia',
   'Default': 'Predeterminado',

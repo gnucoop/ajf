@@ -141,6 +141,7 @@ export const ARA: Translation = {
   'Table definition': 'Table definition',
   'No value selected': 'لم يتم تحديد أي قيمة',
   'Clear': 'مسح',
+  'Apply filter': 'تطبيق الفلتر',
   'OK': 'موافق',
   'Appearance': 'المظهر',
   'Default': 'افتراضي',
