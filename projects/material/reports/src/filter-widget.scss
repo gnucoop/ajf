@@ -6,6 +6,16 @@ ajf-filter-widget {
     ajf-page-slider-item .ajf-page-slider-item-content {
       position: relative;
     }
+    // A filter holds a field or two. The form gives its slider a minimum height
+    // sized for a whole form and pins the slider inside it, so the slider could
+    // neither shrink to the fields nor size its box from them: let it flow.
+    .ajf-slider-container {
+      min-height: 0;
+
+      > ajf-page-slider {
+        position: static;
+      }
+    }
     .ajf-form-container {
       position: relative;
       .mat-mdc-card-header {
