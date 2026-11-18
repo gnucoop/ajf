@@ -30,6 +30,8 @@ import {
 } from '@angular/core';
 
 @Component({
+  selector: 'ajf-text-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'text-widget.html',
   styleUrls: ['text-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

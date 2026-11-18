@@ -36,6 +36,7 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-table-field',
   templateUrl: 'table-field.html',
   styleUrls: ['table-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

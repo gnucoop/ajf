@@ -20,7 +20,7 @@ automatic-report-demo {
   }
   .ajf-column-container {
     ajf-widget {
-      ng-component {
+      .ajf-widget-content {
         max-height: unset !important;
       }
       canvas {

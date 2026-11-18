@@ -36,6 +36,7 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-barcode-field',
   templateUrl: 'barcode-field.html',
   styleUrls: ['barcode-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -36,6 +36,7 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-geolocation-field',
   templateUrl: 'geolocation-field.html',
   styleUrls: ['geolocation-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

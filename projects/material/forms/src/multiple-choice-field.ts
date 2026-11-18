@@ -45,6 +45,7 @@ import {AjfWarningAlertService} from './warning-alert-service';
 const maxChoicesInDom = 40;
 
 @Component({
+  selector: 'ajf-multiple-choice-field',
   templateUrl: 'multiple-choice-field.html',
   styleUrls: ['multiple-choice-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

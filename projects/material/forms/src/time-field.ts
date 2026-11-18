@@ -36,6 +36,7 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-time-field',
   templateUrl: 'time-field.html',
   styleUrls: ['time-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -38,6 +38,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-video-url-field',
   templateUrl: 'video-url-field.html',
   styleUrls: ['video-url-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

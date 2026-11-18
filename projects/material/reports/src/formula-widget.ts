@@ -30,6 +30,8 @@ import {
 } from '@angular/core';
 
 @Component({
+  selector: 'ajf-formula-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'formula-widget.html',
   styleUrls: ['formula-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

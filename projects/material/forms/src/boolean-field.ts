@@ -35,6 +35,7 @@ import {
 
 import {AjfWarningAlertService} from './warning-alert-service';
 @Component({
+  selector: 'ajf-boolean-field',
   templateUrl: 'boolean-field.html',
   styleUrls: ['boolean-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

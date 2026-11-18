@@ -54,7 +54,7 @@ describe('AjfReportWidget', () => {
     await fixture.whenRenderingDone();
 
     const el = fixture.nativeElement as HTMLElement;
-    const cmps = el.getElementsByTagName('ng-component');
+    const cmps = el.getElementsByClassName('ajf-widget-content');
     expect(cmps.length).toBe(0);
   });
 });

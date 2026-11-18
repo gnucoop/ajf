@@ -43,6 +43,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
  * @class AjfReadOnlySelectFieldComponent
  */
 @Component({
+  selector: 'ajf-read-only-select-field',
   templateUrl: 'read-only-select-field.html',
   styleUrls: ['read-only-select-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

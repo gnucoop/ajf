@@ -30,6 +30,8 @@ import {
 } from '@angular/core';
 
 @Component({
+  selector: 'ajf-heat-map-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'heat-map-widget.html',
   styleUrls: ['heat-map-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

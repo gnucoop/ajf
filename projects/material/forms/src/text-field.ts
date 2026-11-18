@@ -37,6 +37,7 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-text-field',
   templateUrl: 'text-field.html',
   styleUrls: ['text-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -261,6 +261,7 @@ readOnlyMultipleChoiceTestForm.nodes[0].nodes = [
   } as unknown as AjfFieldWithChoices<string>,
 ];
 @Component({
+  selector: 'test-component',
   template: '<ajf-form readonly [form]="form"></ajf-form>',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
@@ -270,6 +271,7 @@ class TestComponent {
 }
 
 @Component({
+  selector: 'test-read-only-input-component',
   template: '<ajf-form [form]="form"></ajf-form>',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
@@ -279,6 +281,7 @@ class TestReadOnlyInputComponent {
 }
 
 @Component({
+  selector: 'test-read-only-input-and-form-component',
   template: '<ajf-form readonly [form]="form"></ajf-form>',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
@@ -288,6 +291,7 @@ class TestReadOnlyInputAndFormComponent {
 }
 
 @Component({
+  selector: 'test-read-only-single-choice-component',
   template: '<ajf-form [form]="form"></ajf-form>',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],
@@ -297,6 +301,7 @@ class TestReadOnlySingleChoiceComponent {
 }
 
 @Component({
+  selector: 'test-read-only-multiple-choice-component',
   template: '<ajf-form [form]="form"></ajf-form>',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [AjfFormsModule],

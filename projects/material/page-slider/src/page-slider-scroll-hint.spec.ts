@@ -108,6 +108,7 @@ describe('AjfPageSlider scroll hint', () => {
 });
 
 @Component({
+  selector: 'test-component',
   template: `
     <ajf-page-slider [ngStyle]="{'height': '200px'}">
       <ajf-page-slider-item>
@@ -122,6 +123,7 @@ describe('AjfPageSlider scroll hint', () => {
 class TestComponent {}
 
 @Component({
+  selector: 'short-test-component',
   template: `
     <ajf-page-slider [ngStyle]="{'height': '400px'}">
       <ajf-page-slider-item>

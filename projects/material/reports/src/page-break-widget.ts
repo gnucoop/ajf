@@ -30,6 +30,8 @@ import {
 } from '@angular/core';
 
 @Component({
+  selector: 'ajf-page-break-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'page-break-widget.html',
   styleUrls: ['page-break-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

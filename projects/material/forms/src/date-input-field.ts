@@ -39,6 +39,7 @@ import {UntypedFormControl} from '@angular/forms';
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-date-input-field',
   templateUrl: 'date-input-field.html',
   styleUrls: ['date-input-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

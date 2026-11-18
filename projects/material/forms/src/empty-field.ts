@@ -37,6 +37,7 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-empty-field',
   templateUrl: 'empty-field.html',
   styleUrls: ['empty-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -41,6 +41,7 @@ import {AJF_WARNING_ALERT_SERVICE, AjfWarningAlertService} from './warning-alert
  * @class AjfReadOnlyTableFieldComponent
  */
 @Component({
+  selector: 'ajf-read-only-table-field',
   templateUrl: 'read-only-table-field.html',
   styleUrls: ['read-only-table-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

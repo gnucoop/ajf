@@ -37,6 +37,7 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-date-field',
   templateUrl: 'date-field.html',
   styleUrls: ['date-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -30,6 +30,8 @@ import {
 } from '@angular/core';
 
 @Component({
+  selector: 'ajf-table-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'table-widget.html',
   styleUrls: ['table-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

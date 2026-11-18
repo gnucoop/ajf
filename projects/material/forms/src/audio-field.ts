@@ -36,6 +36,7 @@ import {
 import {AjfWarningAlertService} from './warning-alert-service';
 
 @Component({
+  selector: 'ajf-audio-field',
   templateUrl: 'audio-field.html',
   styleUrls: ['audio-field.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -31,6 +31,8 @@ import {
 } from '@angular/core';
 
 @Component({
+  selector: 'ajf-image-container-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'image-container-widget.html',
   styleUrls: ['image-container-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

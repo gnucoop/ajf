@@ -30,6 +30,8 @@ import {
 } from '@angular/core';
 
 @Component({
+  selector: 'ajf-map-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'map-widget.html',
   styleUrls: ['map-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

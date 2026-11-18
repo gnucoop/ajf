@@ -119,6 +119,8 @@ export class AjfReportWidget extends CoreComponent {
 }
 
 @Component({
+  selector: 'ajf-column-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'column-widget.html',
   styleUrls: ['column-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -132,6 +134,8 @@ export class AjfColumnWidgetComponent extends AjfBaseWidgetComponent<AjfColumnWi
 }
 
 @Component({
+  selector: 'ajf-layout-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'layout-widget.html',
   styleUrls: ['layout-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -155,6 +159,8 @@ export class AjfLayoutWidgetComponent
 }
 
 @Component({
+  selector: 'ajf-dialog-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'dialog-widget.html',
   styleUrls: ['dialog-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -174,6 +180,8 @@ export class AjfDialogWidgetComponent extends AjfBaseWidgetComponent<AjfDialogWi
 }
 
 @Component({
+  selector: 'ajf-paginated-list-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'paginated-list-widget.html',
   styleUrls: ['paginated-list-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -264,6 +272,8 @@ export class AjfPaginatedListWidgetComponent
 }
 
 @Component({
+  selector: 'ajf-paginated-table-widget',
+  host: {'class': 'ajf-widget-content'},
   templateUrl: 'paginated-table-widget.html',
   styleUrls: ['paginated-table-widget.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
