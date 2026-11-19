@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master # Cambia questo in base al tuo branch predefinito
+      - angular
 
 jobs:
   build:
