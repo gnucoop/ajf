@@ -1,3 +1,36 @@
+<a name="22.0.0"></a>
+# 22.0.0 "vague-ptarmigan" (2026-11-19)
+### Bug Fixes
+* **build:** fix minor compilation warnings ([0efc42b](https://github.com/gnucoop/ajf/commit/0efc42b3c3e6b93b772469e742be3dc8e62f8f08))
+* **core/reports:** report the error formconv gives for the global filter sheet ([2531a26](https://github.com/gnucoop/ajf/commit/2531a26df40ef79418e820d295c156075856319d))
+* **dev-app:** refresh the form builder demo's schema without zone.js ([455cff3](https://github.com/gnucoop/ajf/commit/455cff3e7af2e180d7ced033165b75d3f14e57c4))
+* fix image field preview ([bee80d7](https://github.com/gnucoop/ajf/commit/bee80d7f5d542319407748ba3a0b5da48002b33e))
+* **form-builder:** fix drag&drop for adding elements while filtering ([629db77](https://github.com/gnucoop/ajf/commit/629db7772907702302aeae65ce38568a2858e792))
+* **form-builder:** keep the property labels visible over their values ([804e8f1](https://github.com/gnucoop/ajf/commit/804e8f1ff7990f5468b5068a070d3c6518405245))
+* **forms:** fix audio recorder after angular update ([7085e4e](https://github.com/gnucoop/ajf/commit/7085e4e5186f1d11a494db127cde92c5835375ca))
+* **geolocation:** clear the field's value when its coordinates are cleared ([2382eac](https://github.com/gnucoop/ajf/commit/2382eac3d3211cbbcb23dbdb1b8ea3e10ec17635))
+* **material/reports:** size a report filter to its fields ([9ee21ea](https://github.com/gnucoop/ajf/commit/9ee21ea1dac5b7df4ba5f7f1ff38ffca8d50d1af))
+* **material:** give every dynamically created component its own selector ([17fa373](https://github.com/gnucoop/ajf/commit/17fa37390b3e44054579a3176ebb8866333f3445))
+* track lists of repeatable values by index in [@for](https://github.com/for) blocks ([0ee553f](https://github.com/gnucoop/ajf/commit/0ee553f9c4249508e161960ce6ae911b36f43553))
+### Build System
+* update to angular 22 ([0c2b26a](https://github.com/gnucoop/ajf/commit/0c2b26a5d0eef97acf23cd47f32cf222991f298f))
+### Code Refactoring
+* **core/reports:** take the xls report's only filter from the "global filter" sheet ([5cf81ae](https://github.com/gnucoop/ajf/commit/5cf81aedfb87a28de6a7b8a8151ad00e451b4607))
+### Features
+* **material/reports:** apply a report filter with a button ([20353f4](https://github.com/gnucoop/ajf/commit/20353f4e1980c6b9ac91f9e98be5ac0c09d1dfc8))
+### BREAKING CHANGES
+* **core/reports:** per-widget filter sheets are ignored, and the global filter
+sheet must be named exactly "global filter".
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+* `@ajf/core` now has `@jsverse/transloco` as a peer
+dependency instead of `@ngneat/transloco`. Hosts install
+`@jsverse/transloco` and import from it whatever they imported from
+`@ngneat/transloco`, so that they and ajf share the same
+`TranslocoService`.
+Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>
+
+<!-- CHANGELOG SPLIT MARKER -->
+
 <a name="18.5.4"></a>
 # 18.5.4 "intermediate-firefly" (2026-11-09)
 ### Bug Fixes
